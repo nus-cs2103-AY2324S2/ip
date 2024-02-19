@@ -34,6 +34,11 @@ public class BarebonesTaskList {
         taskCount += 1;
     }
 
+    public void clear() {
+        taskList.clear();
+        taskCount = 0;
+    }
+
     public void mark(int i){
         taskList.get(i - 1).markAsDone();
     }

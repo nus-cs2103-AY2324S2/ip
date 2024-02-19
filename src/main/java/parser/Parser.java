@@ -23,7 +23,8 @@ public class Parser {
         EVENT,
         ADD,
         DELETE,
-        FIND
+        FIND,
+        ARCHIVE
     }
 
     /**
@@ -89,6 +90,8 @@ public class Parser {
                 return new DeleteCmd(Integer.parseInt(cmdInput.substring(7)));
             case FIND:
                 return new FindCmd(cmdInput.substring(5));
+            case ARCHIVE:
+                return new ArchiveCmd();
             default:
                 throw new InvalidCmd(cmdInput);
         }

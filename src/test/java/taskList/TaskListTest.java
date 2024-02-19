@@ -30,6 +30,8 @@ public class TaskListTest {
     public void testFind() throws InvalidDateTimeFormat, InvalidCmd, EventEmptyException, DeadlineEmptyException {
         // storage already has 2 tasks that should already be loaded in with
         // the word 'book' in it
+        // i think a better way to implement this is to add them to storage using the addCmd
+        // and then delete the 2 most recent ones
         // D | 1 | return book | Dec 2 2019 18:00
         // D | 1 | book | Dec 12 1212 12:12
         String expected = "1. [D][X] return book (by: Dec 2 2019 18:00) \n" +

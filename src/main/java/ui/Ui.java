@@ -42,7 +42,9 @@ public class Ui {
         StdMsgs.WELCOME.print();
         return StdMsgs.LOGO + "\n" + StdMsgs.WELCOME;
     }
-
+    public String ArchivedResponse() {
+        return "All your contacts have been archived. You can view them in archive/archived.txt";
+    }
     public String bye() {
         StdMsgs.BYE.print();
         return StdMsgs.BYE.toString();

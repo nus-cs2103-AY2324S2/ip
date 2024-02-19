@@ -82,8 +82,6 @@ public class TaskList extends BarebonesTaskList {
         storage.save();
     }
 
-
-
     /**
      * Deletes task at index i of taskList
      *
