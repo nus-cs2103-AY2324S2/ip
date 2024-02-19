@@ -1,6 +1,0 @@
-T | 0 | xyz
-T | 0 | xyz
-T | 0 | xyz
-T | 0 | xyz
-D | 0 | hhh | 7
-D | 0 | hh | -1
