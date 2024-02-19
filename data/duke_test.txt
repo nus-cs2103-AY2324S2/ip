@@ -1,3 +1,0 @@
-T | 1 | 10 | return book 
-D | 0 | 2 | return book | Sunday
-D | 0 | 3 | do homework | no idea :-p

@@ -11,8 +11,8 @@ import java.util.Scanner;
  * The class does the initial setup for components for the main application
  */
 public class Duke {
-    //    public static final String DB_PATH = "../data/duke_test.txt"; // uncommment for runtest.sh
-    public static final String DB_PATH = "data/duke.txt";
+//    public static final String DB_PATH = "../data/duke_test.txt"; // uncommment for runtest.sh
+    public static final String DB_PATH = "./duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
