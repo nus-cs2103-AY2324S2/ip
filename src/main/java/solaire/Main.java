@@ -25,6 +25,7 @@ public class Main extends Application {
             MainWindow mainWindowController = fxmlLoader.<MainWindow>getController();
             mainWindowController.setSolaire(solaire);
             mainWindowController.displayWelcomeMessage();
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

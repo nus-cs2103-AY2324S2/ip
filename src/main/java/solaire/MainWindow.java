@@ -57,6 +57,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays the welcome message from Solaire.
+     */
     public void displayWelcomeMessage() {
         String welcomeMessage = solaire.processInput("greet");
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
