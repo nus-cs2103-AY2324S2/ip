@@ -12,7 +12,7 @@ public class EventTest {
     public void setDate_success() {
         Event event = new Event("name");
         event.setFromDate("2024-05-15 2100");
-        assertEquals("May 15 2024 09:00 pm", event.getFromDate());
+        assertEquals("May 15 2024 09:00 PM", event.getFromDate());
     }
 
     @Test
