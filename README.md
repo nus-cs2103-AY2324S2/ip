@@ -12,7 +12,7 @@ If you have used Slaybot before, you can jump straight to Slaybot's [Features an
 
 <img src="./docs/Ui.png" width="60%" display='block' margin-left="auto" margin-right="auto"/>
 
-**Figure 1**: How Slaybot's GUI appears on the Windows operating system.
+**Figure 1**: How Slaybot's GUI appears.
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ If you have used Slaybot before, you can jump straight to Slaybot's [Features an
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 
-2. Download the latest  from [here]().
+2. Download the latest  from [here](https://github.com/sethteo/ip/releases/tag/v0.2).
 
 3. Copy the file to the folder you want to use as the home folder for your Slaybot.
 
@@ -28,7 +28,7 @@ If you have used Slaybot before, you can jump straight to Slaybot's [Features an
 
 5. Change the working directory to the folder you put the .jar in, by typing and running `cd {directory}`
 
-6. Then, type and run the `java -jar slaybot-v0.2.jar` command to run the application.
+6. Then, type and run the `java -jar slaybot.jar` command to run the application.
 
 ## Features and Commands
 
