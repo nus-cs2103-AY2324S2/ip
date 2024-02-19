@@ -48,3 +48,6 @@ To list out tasks, enter the command ```list```.
 
 ## Feeding
 One has the option to make bearducky marginally less depressed by entering ```Feed bread to bearducky```.
+
+## Exit
+Enter ```bye```
