@@ -24,6 +24,7 @@ public class Parser {
         if (!foundSplit) {
             result[0] = userMessage;
         }
+
         return result;
     }
 

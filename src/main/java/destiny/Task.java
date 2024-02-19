@@ -49,6 +49,9 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+
+        // the task should reflect that it has been marked
+        assert this.toString().substring(3, 6).equals("[X]");
     }
 
     /**
@@ -56,5 +59,8 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
+
+        // the task should reflect that it has been unmarked
+        assert this.toString().substring(3, 6).equals("[ ]");
     }
 }
