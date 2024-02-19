@@ -1,6 +1,7 @@
 package lamball.ui;
 
 import javafx.scene.Node;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -60,4 +61,5 @@ public class ScrollableList extends VBox {
     public ScrollPane getPane() {
         return this.scrollPane;
     }
+
 }

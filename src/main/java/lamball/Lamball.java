@@ -5,6 +5,7 @@ import lamball.command.Command;
 import lamball.exception.LamballParseException;
 import lamball.memo.Memo;
 import lamball.memo.MemoList;
+import lamball.ui.Ui;
 
 
 /**
@@ -33,9 +34,8 @@ public class Lamball {
     }
 
     String initialize() {
-        ui.greetingMessage();
-        String guiText = Storage.obtainSavedFile(this);
-        return guiText;
+        String guiText = ui.displayAction(Storage.obtainSavedFile(this));
+        return ui.greetingMessage() + "\n" + guiText;
     }
 
     public void addToMemList(Memo mem, boolean isInit) {

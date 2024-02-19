@@ -12,29 +12,36 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Class for Dialog box - usable for both user input and chatbot response.
  */
 public class DialogBox extends HBox {
 
-    private Label text;
+    private Text text;
     private ImageView displayPicture;
+
+    private Number windowWidth;
 
 
     /**
      * Private constructor for dialogbox.
      *
-     * @param l
+     * @param t
      * @param iv
      */
-    private DialogBox(Label l, ImageView iv) {
-        text = l;
+    private DialogBox(Text t, ImageView iv, Number windowWidth) {
+        this.windowWidth = windowWidth;
+        text = t;
         displayPicture = iv;
 
-        text.setTextFill(Color.rgb(255, 255, 255));
-        text.setWrapText(true);
-
+        text.setFill(Color.rgb(255, 255, 255));
+        text.setWrappingWidth(windowWidth.doubleValue() - 150);
+        text.setFont(Font.font("Arial", FontWeight.BOLD, 12));
 
         // Create a Circle as a clip
         Circle clip = new Circle(50);
@@ -47,13 +54,10 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
-
-        BackgroundFill backgroundFill = new BackgroundFill(Color.rgb(50, 50, 50), null, null);
-        Background background = new Background(backgroundFill);
-        this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
         this.setPadding(new Insets(10));
+        this.setSpacing(5);
     }
 
     /**
@@ -69,24 +73,35 @@ public class DialogBox extends HBox {
     /**
      * Returns a dialog box simulating a user talking.
      *
-     * @param l Text label
+     * @param t Text label
      * @param iv Imageview of desired image.
      * @return Instance of user dialog.
      */
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(Text t, ImageView iv, Number windowWidth) {
+        var db = new DialogBox(t, iv, windowWidth);
+        Background bgUser = new Background(new BackgroundFill(Color.rgb(50, 50, 50), null, null));
+        db.setBackground(bgUser);
+        db.setAlignment(Pos.TOP_RIGHT);
+        return db;
     }
 
     /**
      * Returns a dialog box simulating the chatbot's response.
      *
-     * @param l Text label
+     * @param t Text label
      * @param iv Imageview of desired image.
      * @return Instance of chatbot dialog.
      */
-    public static DialogBox getLamballDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+    public static DialogBox getLamballDialog(Text t, ImageView iv, Number windowWidth) {
+        var db = new DialogBox(t, iv, windowWidth);
+        Background bgLamball = new Background(new BackgroundFill(Color.rgb(80, 80, 80), null, null));
+        db.setBackground(bgLamball);
         db.flip();
         return db;
+    }
+
+
+    public void setWidth(Number width) {
+        windowWidth = width;
     }
 }
