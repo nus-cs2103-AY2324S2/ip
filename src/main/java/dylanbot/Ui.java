@@ -58,6 +58,7 @@ public class Ui { // deals with interactions with the user
             String currStr = "\t" + (i + 1) + ". " + curr.toString() + "\n";
             response.append(currStr);
         }
+        assert response.length() > 0 : "List of tasks should not be empty";
         return response.toString();
     }
 

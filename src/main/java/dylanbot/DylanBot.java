@@ -90,6 +90,7 @@ public class DylanBot {
             } else {
                 response = ps.parseCommand(input);
             }
+            assert !response.isBlank() : "Response cannot be blank";
             return response;
         } catch (DylanBotException e) {
             return e.getMessage();
