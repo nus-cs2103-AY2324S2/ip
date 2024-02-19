@@ -93,7 +93,6 @@ public class Ui {
         case EVENT:
         case TODO:
         case DEADLINE:
-        System.out.println("HANDLING TODO");
             return handleTaskAddition(output, parsedCommand);
         default:
             return "";
