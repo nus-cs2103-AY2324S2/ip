@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    ArrayList<Task> load() {
+    ArrayList<Task> load() throws StorageFileLoadingException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         //Solution below inspired by https://www.w3schools.com/java/java_files_read.asp
         try {
@@ -25,8 +26,8 @@ public class Storage {
                 Task existingTask = creatTask(existingLine); //modified later
                 taskList.add(existingTask);
             }
-        } catch (IOException e) {
-            System.out.println("IOException happens.");
+        } catch (FileNotFoundException e) {
+            throw new StorageFileLoadingException();
         }
         return taskList;
     }

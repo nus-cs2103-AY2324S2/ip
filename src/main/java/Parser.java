@@ -1,5 +1,6 @@
 public class Parser {
-    static Command parse(String inputString) {
+    static Command parse(String inputString) throws NoDescriptionException
+            ,WrongInputException {
         if (inputString.equals("bye")) {
             return new ExitCommand(inputString);
         }
@@ -12,11 +13,17 @@ public class Parser {
         if (inputString.startsWith("unmark")) {
             return new UnMarkCommand(inputString);
         }
-        if (inputString.startsWith("todo") || inputString.startsWith("deadline")
-                || inputString.startsWith("event")) {
+        if (inputString.startsWith("delete")) {
+            return new DeleteCommand(inputString);
+        }
+        if (inputString.startsWith("todo ") || inputString.startsWith("deadline ")
+                || inputString.startsWith("event ")) {
             return new AddCommand(inputString);
         }
-        return new DeleteCommand(inputString);
-
+        if (inputString.equals("todo") || inputString.equals("deadline")
+                || inputString.equals("event")) {
+            throw new NoDescriptionException();
+        }
+        throw new WrongInputException();
     }
 }

@@ -18,9 +18,9 @@ public class Damon {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (Exception e) {
+        } catch (DamonExceptions e) {
             ui.showLoadingError();
-            tasks = new TaskList(null);
+            tasks = new TaskList();
         }
     }
 
@@ -34,8 +34,8 @@ public class Damon {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (Exception e) {
-                System.out.println("Something wrong happens.");
+            } catch (DamonExceptions e) {
+                ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }

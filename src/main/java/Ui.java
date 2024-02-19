@@ -26,59 +26,49 @@ public class Ui {
     }
 
     public void showAddTask(Task newTask, TaskList tasks) {
-        System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
+        System.out.println("Got it. I've added this task:\n"
                 + newTask + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.\n"
-                + "____________________________________________________________\n");
+                + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void showDeleteTask(int index, TaskList tasks) {
-        System.out.println("____________________________________________________________\n"
-                + "Noted. I've removed this task:\n"
-                + tasks.get(index).toString()
-                + "Now you have " + (tasks.size() - 1) + " tasks in the list.\n"
-                + "____________________________________________________________\n");
+        System.out.println("Noted. I've removed this task:\n"
+                + tasks.get(index).toString() + "\n"
+                + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
     }
 
     public void showExit() {
-        System.out.println("____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     public void showMarkTask(TaskList tasks, int index) {
-        System.out.println("____________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + tasks.get(index).toString() + "\n"
-                + "____________________________________________________________\n");
+        System.out.println("Nice! I've marked this task as done:\n"
+                + tasks.get(index).toString());
     }
 
     public void showUnMarkTask(TaskList tasks, int index) {
-        System.out.println("____________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + tasks.get(index).toString() + "\n"
-                + "____________________________________________________________\n");
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + tasks.get(index).toString());
     }
 
     public void showTaskList(TaskList tasks) {
         int n = tasks.size();
-        System.out.println("____________________________________________________________\n"
-                + "Here are the tasks in your list:\n");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < n; i++) {
             Task currentTask = tasks.get(i);
-            System.out.println((i + 1) + "." + currentTask.toString() + "\n");
+            System.out.println((i + 1) + "." + currentTask.toString());
         }
-        System.out.println("____________________________________________________________\n");
+    }
+
+    public void showError(String inputString) {
+        System.out.println(inputString);
     }
 
     public void showEcho(String inputString) {
-        System.out.println("____________________________________________________________\n"
-                + inputString + "\n"
-                + "____________________________________________________________\n");
+        System.out.println(inputString);
     }
 
     public void showLoadingError() {
-        System.out.println("Something wrong happens.");
+        System.out.println(new StorageFileLoadingException().getMessage());
     }
 }

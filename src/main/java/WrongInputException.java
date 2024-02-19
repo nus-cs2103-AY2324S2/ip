@@ -1,6 +1,6 @@
-public class WrongInputException extends Exception{
+public class WrongInputException extends DamonExceptions{
 
     public WrongInputException() {
-        super("Sorry, I cannot understand what you mean..");
+        this.message = "Sorry, I cannot understand what you mean.";
     }
 }
