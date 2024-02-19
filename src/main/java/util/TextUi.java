@@ -1,3 +1,8 @@
+package util;
+
+import tasks.Task;
+import util.TaskList;
+
 public class TextUi {
     private static final String DIVIDER_DOUBLE = "============================================================\r\n";
     private static final String DIVIDER_SINGLE = "____________________________________________________________\r\n";

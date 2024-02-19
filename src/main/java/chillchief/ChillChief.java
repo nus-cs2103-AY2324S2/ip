@@ -1,13 +1,21 @@
+package chillchief;
+
+import exceptions.DukeException;
+import util.Parser;
+import util.Storage;
+import util.TaskList;
+import util.TextUi;
+
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Duke {
+public class ChillChief {
 
     private Storage storage;
     private TaskList taskList;
     private TextUi ui;
 
-    public Duke(String filePath) throws DukeException, IOException {
+    public ChillChief(String filePath) throws DukeException, IOException {
         ui = new TextUi();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
@@ -33,6 +41,6 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
-        new Duke("./data/duke.txt").run();
+        new ChillChief("./data/chillchief.txt").run();
     }
 }
