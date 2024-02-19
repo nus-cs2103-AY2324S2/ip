@@ -25,21 +25,28 @@ Free up space in your mind, and allow Scribbles to be the fish friend you need i
 ## Table of Contents
 * [Quick start](#quick-start)
 * [Features](#features)
-  * [Viewing help: `help`](#viewing-help--help)
-  * [Adding tasks and events: `todo`, `deadline`, `event`](#adding-tasks-and-events--todo--deadline--event)
-  * [Listing all tasks and events: `list`](#listing-all-tasks-and-events--list)
-  * [Deleting tasks and events: `delete`](#deleting-tasks-and-events--delete)
-  * [Marking tasks: `mark`](#marking-tasks--mark)
-  * [Unmarking tasks: `unmark`](#unmarking-tasks--unmark)
-  * [Finding tasks: `find`](#finding-task--find)
-  * [Sorting tasks: `sortBy`](#sorting-tasks--sortby)
-  * [Exiting Scribbles: `bye`](#exiting-scribbles--bye)
+  * [Viewing help: ](#viewing-help--help)`help`
+  * [Adding tasks and events: ](#adding-tasks-and-events--todo--deadline--event)`todo`, `deadline`, `event`
+  * [Listing all tasks and events: ](#listing-all-tasks-and-events--list)`list`
+  * [Deleting tasks and events: ](#deleting-tasks-and-events--delete)`delete`
+  * [Marking tasks: ](#marking-tasks--mark)`mark`
+  * [Unmarking tasks: ](#unmarking-tasks--unmark)`unmark`
+  * [Finding tasks: ](#finding-tasks--find)`find`
+  * [Sorting tasks: ](#sorting-tasks--sortby)`sortBy`
+  * [Exiting Scribbles: ](#exiting-scribbles--bye)`bye`
 * [Additional notes](#additional-notes)
 * [Command summary](#command-summary)
 
 ## Quick start
 1. Ensure you have Java 11 or above installed in your computer
-2. 
+2. Download `scribbles.jar` from [here](https://google.com)
+3. Open to your terminal and go to the folder containing `scribbles.jar`
+4. Enter `java -jar scribbles.jar` to launch Scribbles!
+
+> [!IMPORTANT]
+> Running Scribbles will create a folder in your current directory named `scribblesData` 
+> which will contain a `taskData.txt` file. This file save's your data in a program-readable
+> format. To ensure your data is saved properly and not corrupted, please try not to tamper with the file.
 
 ## Features
 
@@ -65,7 +72,7 @@ expected output
 
 ### Unmarking tasks: `unmark`
 
-### Finding task: `find`
+### Finding tasks: `find`
 
 ### Sorting tasks: `sortBy`
 
