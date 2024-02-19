@@ -42,6 +42,9 @@ public class Parser {
         if (parseFindCommand(userInput) != null) {
             return parseFindCommand(userInput);
         }
+        if (parseTagCommand(userInput) != null) {
+            return parseTagCommand(userInput);
+        }
         if (parseSingleWordCommands(userInput) != null) {
             return parseSingleWordCommands(userInput);
         } else {
@@ -88,7 +91,16 @@ public class Parser {
         return null;
     }
 
-    private static Command parseFindCommand(String userInput) {
+    private static Command parseTagCommand(String userInput) {
+        if (userInput.length() > 3 && userInput.substring(0, 3).equals("tag")) {
+            int number = Integer.parseInt(userInput.substring(4,5));
+            String tagInfo = userInput.substring(5);
+            return new TagCommand(number, tagInfo);
+        }
+        return null;
+    }
+
+        private static Command parseFindCommand(String userInput) {
         if (userInput.length() > 4 && userInput.substring(0, 4).equals("find")) {
             String stringToFind = userInput.substring(5);
             return new FindCommand(stringToFind);

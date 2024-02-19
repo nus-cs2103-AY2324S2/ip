@@ -29,9 +29,9 @@ public class Event extends Task {
         }
         if (startDate != null && endDate != null) {
             return msg + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")" + tag;
         } else {
-            return msg + " (from: " + startDateString + " to: " + endDateString + ")";
+            return msg + " (from: " + startDateString + " to: " + endDateString + ")" + tag;
         }
     }
 }

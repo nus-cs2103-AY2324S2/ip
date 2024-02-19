@@ -8,9 +8,9 @@ public class Todos extends Task {
     @Override
     public String toString() {
         if (isCompleted()) {
-            return "[T][X] " + getMessage();
+            return "[T][X] " + getMessage() + tag;
         } else {
-            return "[T][ ] " + getMessage();
+            return "[T][ ] " + getMessage() + tag;
         }
     }
 }

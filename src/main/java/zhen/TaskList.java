@@ -89,6 +89,18 @@ public class TaskList {
     }
 
     /**
+     * Tag the task with specified index with tag.
+     *
+     * @param index Index of task to be resumed as not done.
+     * @return String representation of the unmarked task.
+     */
+    public String tag(int index, String tagMessage) {
+        assert index > 0 && index < taskCount : "Tag index out of bound.";
+        tasks.get(index - 1).addTag(tagMessage);
+        return tasks.get(index - 1).toString();
+    }
+
+    /**
      * Returns the string representation of the task list.
      *
      * @return String listing all the tasks with each prefixed with its index number.

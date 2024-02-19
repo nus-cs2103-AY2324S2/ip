@@ -25,9 +25,9 @@ public class Deadline extends Task {
         if (dueDate != null) {
             return taskInfo + " (by: "
                     + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH))
-                    + ")";
+                    + ")" + tag;
         } else {
-            return taskInfo + " (by: " + dueDateString + ")";
+            return taskInfo + " (by: " + dueDateString + ")" + tag;
         }
     }
 }
