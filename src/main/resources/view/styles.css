@@ -1,0 +1,39 @@
+#dialog {
+    -fx-padding: 10 10 10 10;
+    -fx-background-color: rgb(255, 200, 10);
+    -fx-background-radius: 0 15 15 15;
+}
+
+#user {
+    -fx-padding: 5 10 10 10;
+    -fx-background-color: rgb(200, 200, 10);
+    -fx-background-radius: 15 0 15 15;
+}
+
+#chat{
+    -fx-padding: 8 8 20 8;
+}
+
+#dialogContainer{
+    -fx-padding: 10, 0, 0, 0;
+}
+
+.button{
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width: 5;
+    -fx-font-family: "Lucida Handwriting";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+#userInput{
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
+
+#nameLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
