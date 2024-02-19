@@ -11,18 +11,18 @@ import fredricksen.tasks.TaskList;
  */
 public class Command {
 
-    private String[] fullCommand;
+    private String[] fullCommandWords;
     private TaskList tasks;
 
     /**
      * Constructs a Command object with an array of words from the user input command
      * and the TaskList to store the current tasks in.
      *
-     * @param fullCommand an Array consisting of all the individual words from the user input command.
+     * @param fullCommandWords an Array consisting of all the individual words from the user input command.
      * @param tasks The TaskList to store the current tasks.
      */
-    public Command(String[] fullCommand, TaskList tasks) {
-        this.fullCommand = fullCommand;
+    public Command(String[] fullCommandWords, TaskList tasks) {
+        this.fullCommandWords = fullCommandWords;
         this.tasks = tasks;
     }
 
@@ -56,7 +56,7 @@ public class Command {
      * @return an Array of Strings based on the user input command.
      */
     public String[] getFullCommand() {
-        return this.fullCommand;
+        return this.fullCommandWords;
     }
 
     /**

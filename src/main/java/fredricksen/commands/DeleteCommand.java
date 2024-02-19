@@ -14,11 +14,11 @@ public class DeleteCommand extends Command {
      * Constructs a DeleteCommand instance with the specified user input command
      * and the TaskList to store the Task type task in.
      *
-     * @param fullCommand The user input command to be executed.
+     * @param fullCommandWords The user input command to be executed.
      * @param tasks the TaskList to store the various tasks.
      */
-    public DeleteCommand(String[] fullCommand, TaskList tasks) {
-        super(fullCommand, tasks);
+    public DeleteCommand(String[] fullCommandWords, TaskList tasks) {
+        super(fullCommandWords, tasks);
     }
 
     /**

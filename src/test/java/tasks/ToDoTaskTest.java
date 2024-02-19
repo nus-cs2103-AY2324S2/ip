@@ -9,7 +9,6 @@ import fredricksen.commands.UnknownCommand;
 import fredricksen.tasks.ToDo;
 
 public class ToDoTaskTest {
-
     private Fredricksen fredricksen = new Fredricksen();
     @Test
     public void toDoToString_correctFormat_success() {

@@ -68,7 +68,7 @@ public class Task {
         return this.task;
     }
 
-    public DateTimeFormatter[] getFormatsDateTime() {
+    public DateTimeFormatter[] getDateTimeFormats() {
         return new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("d/M/yyyy"),
                 DateTimeFormatter.ofPattern("d-M-yyyy"),
@@ -89,7 +89,7 @@ public class Task {
      */
     public String formatDates(String date) throws FredricksenException {
         String result = "";
-        DateTimeFormatter[] formats = this.getFormatsDateTime();
+        DateTimeFormatter[] formats = this.getDateTimeFormats();
 
         for (DateTimeFormatter format : formats) {
             try {

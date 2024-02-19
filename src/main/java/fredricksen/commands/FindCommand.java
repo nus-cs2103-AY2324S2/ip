@@ -12,7 +12,7 @@ import fredricksen.tasks.TaskList;
 public class FindCommand extends Command {
 
     private String fullCommand;
-    private String[] command;
+    private String[] commandWords;
     private TaskList tasks;
 
     /**
@@ -20,11 +20,11 @@ public class FindCommand extends Command {
      * and the TaskList to store the Task type task in.
      *
      * @param fullCommand The user input command to be executed.
-     * @param command The Array of each word from the user input command.
+     * @param commandWords The Array of each word from the user input command.
      * @param tasks The TaskList to store the various tasks.
      */
-    public FindCommand(String fullCommand, String[] command, TaskList tasks) {
-        this.command = command;
+    public FindCommand(String fullCommand, String[] commandWords, TaskList tasks) {
+        this.commandWords = commandWords;
         this.fullCommand = fullCommand;
         this.tasks = tasks;
     }
@@ -37,7 +37,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute() {
-        int keywordIndex = this.fullCommand.indexOf(this.command[1]);
+        int keywordIndex = this.fullCommand.indexOf(this.commandWords[1]);
         String keyWord = this.fullCommand.substring(keywordIndex);
         TaskList matchList = getKeywordMatchList(this.tasks, keyWord);
         StringBuilder sb = new StringBuilder();

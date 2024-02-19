@@ -11,8 +11,8 @@ import fredricksen.tasks.TaskList;
  */
 public class MarkCommand extends Command {
 
-    public MarkCommand(String[] fullCommand, TaskList tasks) {
-        super(fullCommand, tasks);
+    public MarkCommand(String[] fullCommandWords, TaskList tasks) {
+        super(fullCommandWords, tasks);
     }
 
     /**

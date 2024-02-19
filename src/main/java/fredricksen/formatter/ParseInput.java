@@ -29,7 +29,7 @@ public class ParseInput {
      * @param commands An Array of each word from the user input command.
      * @return A boolean if the first element of commands is equals to "list", "help" or "bye".
      */
-    public boolean checkInput(String[] commands) {
+    public boolean isInputEquals(String[] commands) {
         return commands[0].equals("list") || commands[0].equals("help") || commands[0].equals("bye");
     }
 
@@ -42,13 +42,13 @@ public class ParseInput {
      * @return A Command executable that based on the first string in the user input command.
      */
     public Command getCommand(String userInput, TaskList tasks) {
-        String[] inputCommand = userInput.split(" ");
+        String[] inputCommands = userInput.split(" ");
 
-        if (inputCommand.length <= 1 && !checkInput(inputCommand)) {
+        if (inputCommands.length <= 1 && !isInputEquals(inputCommands)) {
             return new UnknownCommand();
         }
 
-        switch (inputCommand[0]) {
+        switch (inputCommands[0]) {
         case "list":
             return new ListCommand(tasks);
         case "todo":
@@ -58,13 +58,13 @@ public class ParseInput {
         case "deadline":
             return new DeadlineCommand(userInput, tasks);
         case "mark":
-            return new MarkCommand(inputCommand, tasks);
+            return new MarkCommand(inputCommands, tasks);
         case "unmark":
-            return new UnmarkCommand(inputCommand, tasks);
+            return new UnmarkCommand(inputCommands, tasks);
         case "delete":
-            return new DeleteCommand(inputCommand, tasks);
+            return new DeleteCommand(inputCommands, tasks);
         case "find":
-            return new FindCommand(userInput, inputCommand, tasks);
+            return new FindCommand(userInput, inputCommands, tasks);
         case "help":
             return new HelpCommand();
         case "bye":

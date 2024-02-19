@@ -35,7 +35,7 @@ public class EventCommand extends Command {
      * @return A boolean based on whether the user input date portion of the command
      *          is valid or invalid.
      */
-    public boolean checkIfDateInvalid(Event task) {
+    public boolean isDateInvalid(Event task) {
         return task.toString().contains("Invalid Date");
     }
 
@@ -54,7 +54,7 @@ public class EventCommand extends Command {
     @Override
     public String execute() {
         Event newEventTask = new Event(this.fullCommand, "E", false);
-        if (checkIfDateInvalid(newEventTask)) {
+        if (isDateInvalid(newEventTask)) {
             return formatInvalidDateString();
         }
         this.tasks.addTask(newEventTask);
