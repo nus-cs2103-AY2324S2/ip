@@ -23,6 +23,7 @@ public class Main extends Application {
             stage.setResizable(true);
             fxmlLoader.<MainWindow>getController().setLery(lery);
             fxmlLoader.<MainWindow>getController().greet();
+            stage.setTitle("Lery chatbot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
