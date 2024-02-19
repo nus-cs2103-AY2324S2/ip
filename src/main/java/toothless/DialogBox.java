@@ -36,7 +36,7 @@ public class DialogBox extends HBox {
     private Font warningFont = Font.font("Comic Sans MS", FontWeight.BOLD, 12);
     private Insets textInsets  = new Insets(10);
     private static Insets insets = new Insets(3);
-    private static CornerRadii cornerRadii = new CornerRadii(5);
+    private static CornerRadii cornerRadii = new CornerRadii(15);
 
     private DialogBox(String text, Image img) {
         try {
@@ -61,6 +61,15 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+    }
+
+    public static DialogBox getExceptionDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.dialog.setFont(db.warningFont);
+        BackgroundFill dialogBackgroundFill = new BackgroundFill(Color.YELLOW, cornerRadii, insets);
+        db.dialog.setBackground(new Background(dialogBackgroundFill));
+        db.flip();
+        return db;
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

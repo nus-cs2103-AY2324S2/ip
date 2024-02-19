@@ -48,11 +48,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = toothless.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getToothlessDialog(response, toothlessImage)
-        );
-        userInput.clear();
+        try {
+            String response = toothless.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getToothlessDialog(response, toothlessImage)
+            );
+        } catch (ToothlessException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getExceptionDialog(e.getMessage(), toothlessImage)
+            );
+        } finally {
+            userInput.clear();
+        }
     }
 }

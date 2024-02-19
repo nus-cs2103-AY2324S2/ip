@@ -44,12 +44,8 @@ public class Toothless {
     /**
      * Start the application and query the user to input commands.
      */
-    public String getResponse(String input) {
-        try {
-            command = Parser.parseCommand(input);
-            return command.handle(ui, tasks, storage);
-        } catch (ToothlessException e) {
-            return e.getMessage();
-        }
+    public String getResponse(String input) throws ToothlessException{
+        command = Parser.parseCommand(input);
+        return command.handle(ui, tasks, storage);
     }
 }
