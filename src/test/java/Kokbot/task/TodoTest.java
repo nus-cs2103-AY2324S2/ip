@@ -1,5 +1,7 @@
-package Kokbot.task;
 
+
+import Kokbot.task.Todo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +10,7 @@ public class TodoTest {
 
     @Test
     public void toString_normalInput_success() {
-        assertEquals("[T][ ] read book", new Todo("read book").toString());
+        Assertions.assertEquals("[T][ ] read book", new Todo("read book").toString());
     }
 
     @Test
