@@ -3,10 +3,12 @@ package hirwan;
 public class Todo extends Task {
     String input;
     Tasklist tasks;
+//    Tasklist previousTasks;
 
-    public Todo(String input, Tasklist tasks) {
+    public Todo(String input, Tasklist tasks, Tasklist previousTasks) {
         this.input = input;
         this.tasks = tasks;
+//        this.previousTasks = previousTasks;
     }
 
     @Override
@@ -24,6 +26,8 @@ public class Todo extends Task {
 
     @Override
     public void updateData() {
+//        this.previousTasks.deleteList();
+//        this.previousTasks = this.tasks.copyList();
         this.tasks.add(". " + "[T][ ] " + this.input.substring(5));
         Storage.writeTask(this.tasks.getList());
     }
