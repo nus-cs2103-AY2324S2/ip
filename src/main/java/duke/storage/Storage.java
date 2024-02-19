@@ -117,40 +117,71 @@ public class Storage {
 
     }
 
+    /**
+     * get task based on taskNo provided
+     * @param taskNo
+     * @return Task
+     */
     public Task getTaskFromTaskNo(int taskNo) {
         return taskList.getTask(taskNo);
     }
+
+    /**
+     * add new Task (Todo, Deadline, Event)
+     * @param t
+     */
     public void addTask(Task t) {
         taskList.addTask(t);
         updateFile();
     }
 
+    /**
+     * mark task based on taskNo provided
+     * @param taskNo
+     */
     public void markTask(int taskNo) {
         taskList.markTask(taskNo);
         updateFile();
     }
 
+    /**
+     * unmark task based on taskNo provided
+     * @param taskNo
+     */
     public void unmarkTask(int taskNo) {
         taskList.unmarkTask(taskNo);
         updateFile();
     }
 
+    /**
+     * delete task based on taskNo provided
+     * @param taskNo
+     */
     public void deleteTask(int taskNo) {
         taskList.deleteTask(taskNo);
     }
 
+    /**
+     * get num of tasks in the taskList
+     * @return noOfTasks
+     */
     public int getNumOfTasks() {
         return taskList.getNoOfTasks();
     }
 
-    public String getTaskStringFromTaskNo(int taskNo) {
-        return taskList.get(taskNo).toString();
-    }
-
+    /**
+     * get tasks in string format
+     * @return taskList in String format
+     */
     public String getTasksInString() {
         return taskList.toString();
     }
 
+    /**
+     * filtered taskList based on keyword
+     * @param keyword
+     * @return taskList
+     */
     public TaskList filterListByKeyword(String keyword) {
         return taskList.filterTasksByKeyword(keyword);
     }

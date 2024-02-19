@@ -35,44 +35,12 @@ public class Duke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public Duke() {
-        ui = new Ui();
-        storage = new Storage();
-//        try {
-            tasks = new TaskList(Storage.retrieveList());
-//        } catch (IOException e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
-    }
 
-//    public void run() {
-//        ui.showWelcome();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            String fullCommand = ui.readCommand();
-//            isExit = Parser.parse(fullCommand);
-//        }
-//        Ui.showExit();
-//    }
-
-    public void run_new() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = ui.readCommand();
-            Command fullCommand = new Parser().parseCommand(userInput);
-            CommandResult output = executeCommand(fullCommand);
-        }
-        Ui.showExit();
     }
 
     public CommandResult executeCommand(Command command) {
         command.configureStorageFile(storage);
         return command.execute();
-    }
-
-    public static void main(String[] args) {
-        new Duke().run_new();
     }
 
     @Override
@@ -139,14 +107,17 @@ public class Duke extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-//        //Part 3. Add functionality to handle user input.
-//        sendButton.setOnMouseClicked((event) -> {
-//            handleUserInput();
-//        });
-//
-//        userInput.setOnAction((event) -> {
-//            handleUserInput();
-//        });
+        //Part 3. Add functionality to handle user input.
+        /*
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+         */
     }
 
     /**
@@ -163,27 +134,30 @@ public class Duke extends Application {
         return textToAdd;
     }
 
-//    /**
-//     * Iteration 2:
-//     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-//     * the dialog container. Clears the user input after processing.
-//     */
-//    private void handleUserInput() {
-//        Label userText = new Label(userInput.getText());
-//        Label dukeText = new Label(getResponse(userInput.getText()));
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(userText, new ImageView(user)),
-//                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-//        );
-//        userInput.clear();
-//    }
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    /*
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
+    }
+
+     */
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        Command command = new Parser().parseCommand(input);
+        Command command = new Parser().parse(input);
         CommandResult commandResult = executeCommand(command);
         return commandResult.toString();
     }

@@ -33,96 +33,9 @@ public class Parser {
     /**
      * Processes a string input to decide which command to execute
      * @param input
-     * @return isExit (i.e. to terminate program or not)
+     * @return Command
      */
-//    public static boolean parse(String input) {
-//        int cmdSplit = input.indexOf(" ");
-//        String command = input;
-//        String task = null;
-//        if (cmdSplit == -1) {
-//            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
-//                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-//                Ui.showErrorIncorrectNumFormat(command);
-//            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
-//                System.out.println("-------------------------------- \n" +
-//                        "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +
-//                        "-------------------------------- \n");
-//            } else if (command.equals(CommandEnum.LIST.COMMAND_NAME)) {
-//                System.out.println(TaskList.getTaskListInString());
-//            } else if (command.equals(CommandEnum.BYE.COMMAND_NAME)) {
-//                return true;
-//            } else {
-//                Ui.showErrorAndPrintCommands();
-//            }
-//        } else {
-//            command = input.substring(0, cmdSplit);
-//            task = input.substring(input.indexOf(" ") + 1);
-//
-//            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
-//                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-//                try {
-//                    int taskNo = Integer.parseInt(task) - 1;
-//                    if (command.equals(CommandEnum.MARK.COMMAND_NAME)) {
-//                        TaskList.markTask(taskNo);
-//                    } else if (command.equals(CommandEnum.UNMARK.COMMAND_NAME)) {
-//                        TaskList.unmarkTask(taskNo);
-//                    } else if (command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-//                        TaskList.removeTask(taskNo);
-//                    }
-//                } catch (NumberFormatException e) {
-//                    Ui.showErrorNumbersOnly();
-//                }
-//            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME) | command.equals(CommandEnum.DEADLINE.COMMAND_NAME) |
-//                    command.equals(CommandEnum.EVENT.COMMAND_NAME)) {
-//                try {
-//                    Task t = null;
-//                    boolean success = false;
-//                    if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
-//                        t = new ToDo(task, false);
-//                        success = true;
-//                    } else if (command.equals(CommandEnum.DEADLINE.COMMAND_NAME)) {
-//                        if (task == null || !task.contains(" /by ")) {
-//                            Ui.showErrorDeadlineFormat();
-//                        } else {
-//                            String[] deadline = task.split(" /by ");
-//                            t = new Deadline(deadline[0], false,
-//                                    LocalDateTime.parse(deadline[1], dateTimeFormatter));
-//                            success = true;
-//                        }
-//                    } else {
-//                        if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
-//                            Ui.showErrorEventFormat();
-//                        } else {
-//                            String event = task.substring(0, task.indexOf(" /from "));
-//                            try {
-//                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6,
-//                                        task.indexOf(" /to ")), dateTimeFormatter);
-//                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)),
-//                                        dateTimeFormatter);
-//                                t = new Event(event, false, from, to);
-//                                success = true;
-//                            } catch (IndexOutOfBoundsException e) {
-//                                Ui.showErrorEventTimingFormat();
-//                            }
-//                        }
-//                    }
-//                    if (success) {
-//                        TaskList.addTask(t);
-//                    }
-//                } catch (DateTimeException e) {
-//                    Ui.showErrorDatetimeFormat();
-//                }
-//            } else if (command.equals(CommandEnum.FIND.COMMAND_NAME)) {
-//                Ui.printMatchingTasks(TaskList.findTaskByKeyword(task));
-//            }
-//            else {
-//                Ui.showErrorAndPrintCommands();
-//            }
-//        }
-//        return false;
-//    }
-
-    public Command parseCommand(String input) {
+    public Command parse(String input) {
         final Matcher matcher = COMMAND_FORMAT.matcher(input.trim());
 
         if (!matcher.matches()) {
@@ -166,6 +79,11 @@ public class Parser {
 
     }
 
+    /**
+     * parse ToDo Command
+     * @param args
+     * @return Command (ToDo/ Invalid)
+     */
     public Command parseToDoCommand(String args) {
         String task = args.trim();
         if (task.isEmpty()) {
@@ -175,6 +93,11 @@ public class Parser {
         return new ToDoCommand(task);
     }
 
+    /**
+     * parse Deadline Command
+     * @param args
+     * @return Command (Deadline/ Invalid)
+     */
     public Command parseDeadlineCommand(String args) {
         final Matcher matcher = DeadlineCommand.ARG_FORMAT.matcher(args.trim());
 
@@ -195,6 +118,11 @@ public class Parser {
         }
     }
 
+    /**
+     * parse Event Command
+     * @param args
+     * @return Command (Event/ Invalid)
+     */
     private Command parseEventCommand(String args) {
         final Matcher matcher = EventCommand.ARG_FORMAT.matcher(args.trim());
 
@@ -216,6 +144,11 @@ public class Parser {
         }
     }
 
+    /**
+     * parse Mark Command
+     * @param args
+     * @return Command (Mark/ Invalid)
+     */
     private Command parseMarkCommand(String args) {
         try {
             int taskNo = Integer.parseInt(args.trim());
@@ -229,6 +162,11 @@ public class Parser {
         }
     }
 
+    /**
+     * parse Unmark Command
+     * @param args
+     * @return Command (Unmark/ Invalid)
+     */
     private Command parseUnmarkCommand(String args) {
         try {
             int taskNo = Integer.parseInt(args.trim());
@@ -242,6 +180,11 @@ public class Parser {
         }
     }
 
+    /**
+     * parse Delete Command
+     * @param args
+     * @return Command (Delete/ Invalid)
+     */
     private Command parseDeleteCommand(String args) {
         try {
             int taskNo = Integer.parseInt(args.trim());
@@ -255,6 +198,11 @@ public class Parser {
         }
     }
 
+    /**
+     * parse Find Command
+     * @param args
+     * @return Command (Find/ Invalid)
+     */
     private Command parseFindCommand(String args) {
         String keyword = args.trim();
         return new FindCommand(keyword);
