@@ -1,10 +1,11 @@
+import java.util.Scanner;
+
 import javafx.scene.image.Image;
 import lery.LeryException;
 import lery.Parser;
 import lery.Storage;
 import lery.Ui;
 
-import java.util.Scanner;
 
 /**
  * Lery is a chatbot program that is used to save tasks
