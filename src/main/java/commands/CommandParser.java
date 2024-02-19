@@ -40,7 +40,7 @@ public class CommandParser {
         case "find":
             return new FindCommand(input);
         case "sort":
-            return new SortCommand(input);
+            return new SortCommand();
         default:
             throw new TaskException();
         }

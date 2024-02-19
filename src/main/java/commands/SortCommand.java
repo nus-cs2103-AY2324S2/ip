@@ -18,9 +18,8 @@ public class SortCommand extends Command {
     /**
      * Constructor for a SortCommand object.
      *
-     * @param input The string input by the user to parse into a command.
      */
-    SortCommand(String input) {
+    SortCommand() {
         super(false);
     }
 
