@@ -31,13 +31,13 @@ public class Validator {
             validateEventInput(input);
             break;
         case MARK:
-            validateMarkInput(input);
+            validateMarkInput(input, taskList);
             break;
         case UNMARK:
-            validateUnmarkInput(input);
+            validateUnmarkInput(input, taskList);
             break;
         case DELETE:
-            validateDeleteInput(input);
+            validateDeleteInput(input, taskList);
             break;
         case FIND:
             validateFindInput(input);
@@ -115,12 +115,16 @@ public class Validator {
         }
     }
 
-    private static void validateMarkInput(String input) throws InvalidInputException {
+    private static void validateMarkInput(String input, TaskList taskList) throws InvalidInputException {
         if (input.length() > 4) {
             String suffix = input.substring(5);
             if (isNumeric(suffix)) {
                 int index = Integer.parseInt(suffix) - 1;
                 if (index < 0) {
+                    throw new InvalidInputException("Please enter a valid number!"
+                                                    + "Tip: mark <number> \nNumber out of range");
+                }
+                if (index >= taskList.getNumTasks()) {
                     throw new InvalidInputException("Please enter a valid number!"
                                                     + "Tip: mark <number> \nNumber out of range");
                 }
@@ -134,12 +138,16 @@ public class Validator {
         }
     }
 
-    private static void validateUnmarkInput(String input) throws InvalidInputException {
+    private static void validateUnmarkInput(String input, TaskList taskList) throws InvalidInputException {
         if (input.length() > 6) {
             String suffix = input.substring(7);
             if (isNumeric(suffix)) {
                 int index = Integer.parseInt(suffix) - 1;
                 if (index < 0) {
+                    throw new InvalidInputException("Please enter a valid number!"
+                                                    + "Tip: unmark <number> \nNumber out of range");
+                }
+                if (index >= taskList.getNumTasks()) {
                     throw new InvalidInputException("Please enter a valid number!"
                                                     + "Tip: unmark <number> \nNumber out of range");
                 }
@@ -153,12 +161,16 @@ public class Validator {
         }
     }
 
-    private static void validateDeleteInput(String input) throws InvalidInputException {
+    private static void validateDeleteInput(String input, TaskList taskList) throws InvalidInputException {
         if (input.length() > 6) {
             String suffix = input.substring(7);
             if (isNumeric(suffix)) {
                 int index = Integer.parseInt(suffix) - 1;
                 if (index < 0) {
+                    throw new InvalidInputException("Please enter a valid number!"
+                                                    + "Tip: delete <number> \nNumber out of range");
+                }
+                if (index >= taskList.getNumTasks()) {
                     throw new InvalidInputException("Please enter a valid number!"
                                                     + "Tip: delete <number> \nNumber out of range");
                 }
