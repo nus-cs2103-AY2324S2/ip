@@ -38,7 +38,7 @@ public class Lery {
      * @param input The user input to be processed.
      * @return A response generated based on user's input.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws LeryException {
         try {
             if (input.equalsIgnoreCase("bye")) {
                 return ui.exit();
@@ -46,7 +46,7 @@ public class Lery {
             Parser p = new Parser(this.storage);
             return p.parseCommand(input);
         } catch (LeryException e) {
-            return e.getMessage();
+            throw new LeryException(e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class Lery {
         try {
             this.storage.loadTasks();
         } catch (LeryException e) {
-            ui.printMessageWithLine(e.getMessage());
+            ui.printMessage(e.getMessage());
         }
         while (scanner.hasNext()) {
             Parser p = new Parser(this.storage);
@@ -82,9 +82,9 @@ public class Lery {
                 break;
             }
             try {
-                ui.printMessageWithLine(p.parseCommand(command));
+                ui.printMessage(p.parseCommand(command));
             } catch (LeryException e) {
-                ui.printMessageWithLine(e.getMessage());
+                ui.printMessage(e.getMessage());
             }
         }
     }

@@ -40,13 +40,20 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = lery.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLeryDialog(response, leryImage)
-        );
-        userInput.clear();
+        try {
+            String input = userInput.getText();
+            String response = lery.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLeryDialog(response, leryImage, false)
+            );
+            userInput.clear();
+        } catch (LeryException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getLeryDialog(e.getMessage(), leryImage, true)
+            );
+        }
     }
 
     /**
@@ -60,11 +67,11 @@ public class MainWindow extends AnchorPane {
     public void greet() {
         try {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getLeryDialog(lery.initialiseChat(), leryImage)
+                    DialogBox.getLeryDialog(lery.initialiseChat(), leryImage, false)
             );
         } catch (LeryException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getLeryDialog(e.getMessage(), leryImage)
+                    DialogBox.getLeryDialog(e.getMessage(), leryImage, true)
             );
         }
     }
