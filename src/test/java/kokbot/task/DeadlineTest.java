@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-import Kokbot.task.Deadline;
+import kokbot.task.Deadline;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

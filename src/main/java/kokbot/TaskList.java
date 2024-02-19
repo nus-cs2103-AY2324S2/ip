@@ -1,6 +1,6 @@
-package Kokbot;
+package kokbot;
 
-import Kokbot.task.Task;
+import kokbot.task.Task;
 
 import java.util.ArrayList;
 import java.util.Comparator;

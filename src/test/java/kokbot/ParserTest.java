@@ -1,7 +1,7 @@
-import Kokbot.Kokbot;
-import Kokbot.Parser;
-import Kokbot.Command;
-import Kokbot.DukeException;
+import kokbot.Kokbot;
+import kokbot.Parser;
+import kokbot.Command;
+import kokbot.DukeException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,9 +1,9 @@
-package Kokbot;
+package kokbot;
 
-import Kokbot.task.Deadline;
-import Kokbot.task.Event;
-import Kokbot.task.Task;
-import Kokbot.task.Todo;
+import kokbot.task.Deadline;
+import kokbot.task.Event;
+import kokbot.task.Task;
+import kokbot.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

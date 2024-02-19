@@ -1,4 +1,4 @@
-package Kokbot;
+package kokbot;
 
 import java.io.IOException;
 

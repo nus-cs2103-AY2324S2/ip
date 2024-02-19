@@ -1,6 +1,6 @@
 
 
-import Kokbot.task.Todo;
+import kokbot.task.Todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
