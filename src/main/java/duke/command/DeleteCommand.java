@@ -21,10 +21,6 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
     /**
      * Runs the command to delete tasks from tasklist.
      *
@@ -32,28 +28,36 @@ public class DeleteCommand extends Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Delete print statement.
      */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
             assert (Integer.valueOf(index) > 0) : "index cannot be negative";
-            String printStatement;
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
             assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
-            Task deletetask = t.getTask(Integer.valueOf(index) - 1);
-            t.removeTask(Integer.parseInt(index) - 1);
-            printStatement = "--------------------------" + "\n"
-                    + "Noted. I've removed this task:" + "\n"
-                    + deletetask.toString() + "\n" + "Now you have "
-                    + t.getSize() + " tasks in the list." + "\n"
-                    + "--------------------------";
 
-            //high-level step that saves new list to harddisk
+            Task deleteTask = t.getTask(Integer.valueOf(index) - 1);
+            t.removeTask(Integer.parseInt(index) - 1);
             s.save(t.getList());
-            return printStatement;
+            return generateDeleteStatement(deleteTask, t);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
 
+    /**
+     * Generates delete print statement.
+     *
+     * @param deleteTask Task to be deleted.
+     * @param t Tasklist of program.
+     * @return Print statement for deleted task.
+     */
+    public String generateDeleteStatement(Task deleteTask, TaskList t) {
+        return "--------------------------" + "\n"
+                + "Noted. I've removed this task:" + "\n"
+                + deleteTask.toString() + "\n" + "Now you have "
+                + t.getSize() + " tasks in the list." + "\n"
+                + "--------------------------";
+    }
 }

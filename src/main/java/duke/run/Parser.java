@@ -18,8 +18,8 @@ public class Parser {
      * input.
      *
      * @param input Users input.
-     * @return Correct belle.belle.command.
-     * @throws BelleException  If an invalid belle.belle.command is entered.
+     * @return Correct belle command.
+     * @throws BelleException  If an invalid belle command is entered.
      */
     public Command parse(String input) throws BelleException {
         String[] inputlist = input.split(" ");
@@ -34,23 +34,17 @@ public class Parser {
             return new MarkCommand(inputlist[1]);
         } else if (inputlist[0].equals("unmark")) {
             return new UnmarkCommand(inputlist[1]);
-        } else if (inputlist[0].equals("todo") || inputlist[0].equals("deadline") || inputlist[0].equals("event")) {
-            if (inputlist[0].equals("todo")) {
-                return new AddTaskCommand("todo", input);
-            } else if (inputlist[0].equals("deadline")) {
-                return new AddTaskCommand("deadline", input);
-            } else {
-                return new AddTaskCommand("event", input);
-            }
+        } else if (inputlist[0].equals("todo")) {
+            return new AddTaskCommand("T", input);
+        } else if (inputlist[0].equals("deadline")) {
+            return new AddTaskCommand("D", input);
+        } else if (inputlist[0].equals("event")) {
+            return new AddTaskCommand("E", input);
         } else if (inputlist[0].equals("find")) {
             assert (!input.equals("find")) : "Please enter a keyword to find";
             return new FindCommand(inputlist[1]);
         } else if (inputlist[0].equals("snooze")) {
-            String[] deadlinelist = input.split("to");
-            if (deadlinelist.length != 2) {
-                throw new BelleException("Please enter command in the format ( snooze [index] to [new deadline] )");
-            }
-            return new SnoozeCommand(inputlist[1], deadlinelist[1]);
+            return new SnoozeCommand(input);
         } else {
             throw new BelleException("Not a valid belle command");
         }

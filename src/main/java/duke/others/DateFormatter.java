@@ -32,6 +32,7 @@ public class DateFormatter {
             return true;
         } catch (DateTimeException e) {
             // don't change the date in this case
+            // as it is not a valid date, return false.
         }
         return false;
     }

@@ -35,18 +35,26 @@ public class MarkCommand extends Command {
         try {
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
             assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
-            Task doingtask = t.getTask(Integer.valueOf(index) - 1);
-            doingtask.setTaskDone();
-            String printStatement = "--------------------------" + "\n"
-                    + "Nice! I have marked this task as done:" + "\n"
-                    + doingtask.toString() + "\n" + "--------------------------";
 
-            //high-level step that saves new list to harddisk
+            Task doingTask = t.getTask(Integer.valueOf(index) - 1);
+            doingTask.setTaskDone();
             s.save(t.getList());
-            return printStatement;
+            return generateMarkStatement(doingTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
         }
+    }
+
+    /**
+     * Generates mark print statement.
+     *
+     * @param doingTask Task to be marked.
+     * @return Print statement for marked task.
+     */
+    public String generateMarkStatement(Task doingTask) {
+        return "--------------------------" + "\n"
+                + "Nice! I have marked this task as done:" + "\n"
+                + doingTask.toString() + "\n" + "--------------------------";
     }
 
 }

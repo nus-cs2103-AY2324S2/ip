@@ -30,7 +30,7 @@ public class ListCommand extends Command {
         String printStatement = "--------------------------" + "\n"
                 + "Here are the tasks in your list:" + "\n";
         for (int i = 0; i < t.getSize(); i++) {
-            printStatement += String.valueOf(index) + "." + t.getTask(i).toString() + "\n";
+            printStatement += index + "." + t.getTask(i).toString() + "\n";
             index += 1;
         }
         printStatement += "--------------------------";

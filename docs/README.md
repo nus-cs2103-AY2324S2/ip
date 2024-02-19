@@ -134,6 +134,7 @@ Expected output is
 ```
 --------------------------
 Till next time!! Goodbye.
+--------------------------
 ```
 
 

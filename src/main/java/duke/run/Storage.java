@@ -1,9 +1,6 @@
 package duke.run;
 
-//import java.io.File;
 import java.io.File;
-//import java.nio.file.Files;
-//import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,21 +43,6 @@ public class Storage {
     public ArrayList<Task> loadList() throws BelleException {
         ArrayList<Task> currList = new ArrayList<>();
         try {
-
-            String home = System.getProperty("user.home");
-
-// inserts correct file path separator on *nix and Windows
-// works on *nix
-// works on Windows
-//            java.nio.file.Path path = java.nio.file.Paths.get(home, "my", "app", "dir")
-//            boolean directoryExists = java.nio.file.Files.exists(path);
-//
-//            if (!directoryExists) {
-//                Files.createFile(path);
-//            }
-//
-//            File f = new File(path);
-//            correct one below
             File f = new File(filepath);
 
             if (!f.exists()) {
@@ -141,7 +123,7 @@ public class Storage {
      *     when trying to write to the file.
      */
     public void writeToList(ArrayList<Task> currList, FileWriter fw) throws IOException, BelleException {
-        String currItem = "";
+        String currItem;
         String div = " , ";
         for (Task i : currList) {
             if (i.getType().equals(Type.T.name())) {

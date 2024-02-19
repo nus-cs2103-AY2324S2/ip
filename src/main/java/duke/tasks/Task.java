@@ -6,7 +6,7 @@ package duke.tasks;
 public class Task {
 
     private boolean isDone = false;
-    private String name = "";
+    private String name;
 
     /**
      * Constructs Task.
@@ -20,9 +20,10 @@ public class Task {
         return this.name;
     }
 
-    public String setIsDone() {
+    public String getIsDone() {
+        String doneMark = "X";
         if (this.isDone) {
-            return "X";
+            return doneMark;
         } else {
             return " ";
         }
@@ -43,7 +44,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return " [" + setIsDone() + "] " + this.name;
+        return " [" + getIsDone() + "] " + this.name;
     }
 
     public String getType() {

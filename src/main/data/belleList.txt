@@ -1,2 +1,3 @@
-T , false , abc
-D , false , pet cat , 4pm
+E , true , rabbit , mon 7 , thurs 9pm
+T , true , fish
+D , false , happy birthday , 8 march

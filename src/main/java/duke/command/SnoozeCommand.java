@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Belle;
 import duke.others.BelleException;
 import duke.run.Storage;
 import duke.run.TaskList;
@@ -13,17 +14,19 @@ import duke.tasks.Task;
  * Command is in format "snooze [index] to [new deadline]"
  */
 public class SnoozeCommand extends Command {
-    private String index;
-    private String date;
+    private String msg;
+    enum Type {
+        E,
+        D
+    }
 
     /**
      * Constructs SnoozeCommand.
      *
-     * @param index The index of item to delete.
+     * @param input Users input.
      */
-    public SnoozeCommand(String index, String date) {
-        this.index = index;
-        this.date = date;
+    public SnoozeCommand(String input) {
+        this.msg = input;
     }
 
     /**
@@ -38,15 +41,23 @@ public class SnoozeCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
+            int snoozeLength = 7; // as snooze + 1 space is 7 characters.
+            String[] indexAndDeadline = this.msg.substring(snoozeLength).split(" to ");
+            if (indexAndDeadline.length != 2) {
+                throw new BelleException("Please enter command in the format ( snooze "
+                        + "[index] to [new deadline] )");
+            }
+            String index = indexAndDeadline[0].trim();
+            String deadline = indexAndDeadline[1];
             Task snoozeTask = t.getTask(Integer.valueOf(index) - 1);
-            if (snoozeTask.getType().equals("T")) {
-                return "Todo tasks cannot be snoozed as they do not have a deadline";
-            } else if (snoozeTask.getType().equals("D")) {
+            if (snoozeTask.getType().equals(Type.D.name())) {
                 DeadlineTask currTask = (DeadlineTask) snoozeTask;
-                currTask.setDeadline(this.date);
-            } else {
+                currTask.setDeadline(deadline);
+            } else if (snoozeTask.getType().equals(Type.E.name())) {
                 EventTask currTask = (EventTask) snoozeTask;
-                currTask.setDeadline(this.date);
+                currTask.setDeadline(deadline);
+            } else {
+                throw new BelleException("Trying to snooze an invalid Task type");
             }
             String printStatement = "--------------------------" + "\n"
                     + "Nice! I have shifted the deadline of:" + "\n"

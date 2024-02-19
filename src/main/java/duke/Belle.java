@@ -19,8 +19,6 @@ public class Belle {
     private Ui ui;
     private Parser parser;
 
-    private boolean isExit = false;
-
     /**
      * Constructs Belle.
      *

@@ -16,6 +16,12 @@ public class AddTaskCommand extends Command {
     private String type;
     private String msg;
 
+    enum Type {
+        T,
+        D,
+        E
+    }
+
     /**
      * Constructs AddTaskCommand.
      *
@@ -40,17 +46,18 @@ public class AddTaskCommand extends Command {
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         Task curr;
         String printStatement;
-
-        if (type.equals("todo")) {
+        if (type.equals(Type.T.name())) {
             curr = generateTodo();
-        } else if (type.equals("deadline")) {
+        } else if (type.equals(Type.D.name())) {
             curr = generateDeadline();
-        } else {
+        } else if (type.equals(Type.E.name())) {
             curr = generateEvent();
+        } else {
+            throw new BelleException("You are trying to add an invalid type to the list.");
         }
         t.addTask(curr);
         s.save(t.getList());
-        return generatePrintStatement(t, curr);
+        return generateAddStatement(t, curr);
     }
 
 
@@ -62,7 +69,7 @@ public class AddTaskCommand extends Command {
      */
     public Task generateTodo() throws BelleException {
         try {
-            int todoLength = 5;
+            int todoLength = 5; // as todo + 1 space is 5 characters.
             Task curr = new TodoTask(this.msg.substring(todoLength), false);
             return curr;
         } catch (StringIndexOutOfBoundsException e) {
@@ -79,7 +86,7 @@ public class AddTaskCommand extends Command {
      */
     public Task generateDeadline() throws BelleException {
         try {
-            int deadlineLength = 9;
+            int deadlineLength = 9; // as deadline + 1 space is 9 characters.
             String[] deadlinelist = msg.substring(deadlineLength).split(" /by ");
             Task curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
             return curr;
@@ -102,7 +109,7 @@ public class AddTaskCommand extends Command {
     public Task generateEvent() throws BelleException {
         assert (type.equals("event")) : "task is of an invalid type";
         try {
-            int eventLength = 6;
+            int eventLength = 6; // as event + 1 space is 6 characters.
             String[] eventlist = msg.substring(eventLength).split(" /from ");
             String[] startend = eventlist[1].split(" /to ");
             Task curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
@@ -123,7 +130,7 @@ public class AddTaskCommand extends Command {
      * @param t Tasklist.
      * @param curr Current task to add to list.
      */
-    public String generatePrintStatement(TaskList t, Task curr) {
+    public String generateAddStatement(TaskList t, Task curr) {
         return "--------------------------" + "\n"
                 + "Got it. I've added this task:" + "\n" + curr.toString()
                 + "\n" + "Now you have " + t.getSize() + " tasks in the list."

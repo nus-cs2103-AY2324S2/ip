@@ -34,17 +34,25 @@ public class UnmarkCommand extends Command {
         try {
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
             assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
-            Task doingtask = t.getTask(Integer.valueOf(index) - 1);
-            doingtask.setTaskUndone();
-            String printStatement = "--------------------------" + "\n"
-                    + "OK, I've marked this task as not done yet:" + "\n"
-                    + doingtask.toString() + "\n" + "--------------------------";
 
-            //high-level step that saves new list to harddisk
+            Task undoTask = t.getTask(Integer.valueOf(index) - 1);
+            undoTask.setTaskUndone();
             s.save(t.getList());
-            return printStatement;
+            return generateUnmarkStatement(undoTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
         }
+    }
+
+    /**
+     * Generates unmark print statement.
+     *
+     * @param undoTask Task to be unmarked.
+     * @return Print statement for unmarked task.
+     */
+    public String generateUnmarkStatement(Task undoTask) {
+        return "--------------------------" + "\n"
+                + "OK, I've marked this task as not done yet:" + "\n"
+                + undoTask.toString() + "\n" + "--------------------------";
     }
 }

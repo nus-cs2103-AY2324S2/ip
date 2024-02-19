@@ -40,7 +40,8 @@ public class Ui {
     public String bye() {
         this.sc.close();
         return "--------------------------"
-                + "\n" + "Till next time!! Goodbye.";
+                + "\n" + "Till next time!! Goodbye."
+                + "--------------------------";
     }
 
     /**
