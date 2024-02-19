@@ -20,12 +20,12 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
   1. Ensure that you have Java `11` or above installed in your computer.
   2. Download the latest `geepeetee.jar` from here.
   3. Copy the file to the folder you want to use as the home folder for the GeePeeTee task manager.
-  4. Open a command terminal, `cd` into the folder you just put the jar file in, and use the `java -jar geepeetee.jar` command to run the application. A GUI similar       to the below should appear in a few seconds.
-  ![Alt GeePeeTee](/docs/Ui.png)
-  5. Type the command in the input box at the bottom of the GUI and press Send to execute it. Here are some example commands that you can try: <br>
+  4. Open a command terminal, `cd` into the folder you just put the jar file in, and use the `java -jar geepeetee.jar` command to run the application. A GUI similar to the below should appear in a few seconds.
+  <img src="./Ui.png" alt="GeePeeTee">
+  6. Type the command in the input box at the bottom of the GUI and press Send to execute it. Here are some example commands that you can try: <br>
     - `help`: Displays the list of all possible commands <br>
     - `list`: Lists all existing tasks <br>
-    - `event Upcoming meeting /from 2024-03-01 /to 2024-03-02`: Adds an event to the task list with the description `Upcoming meeting`, a start date `2024-03-01` and        end date `2024-03-02` <br>
+    - `event Upcoming meeting /from 2024-03-01 /to 2024-03-02`: Adds an event to the task list with the description `Upcoming meeting`, a start date `2024-03-01` and end date `2024-03-02` <br>
     - `delete 1`: Deletes the 1st item on the task list
 
 
