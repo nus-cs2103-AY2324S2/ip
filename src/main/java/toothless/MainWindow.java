@@ -6,7 +6,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -24,9 +30,16 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image toothlessImage = new Image(this.getClass().getResourceAsStream("/images/DaToothless.png"));
+    private Image warningImage = new Image(this.getClass().getResourceAsStream("/images/DaWarning.gif"));
+    private Image toothlessDanceImage = new Image(this.getClass().getResourceAsStream(
+            "/images/DaToothlessDance.gif"));
+    private Image skyImage = new Image(this.getClass().getResourceAsStream("/images/DaSky.jpg"));
 
     @FXML
     public void initialize() {
+        dialogContainer.backgroundProperty().set(new Background(
+                new BackgroundImage(skyImage, BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -52,12 +65,12 @@ public class MainWindow extends AnchorPane {
             String response = toothless.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getToothlessDialog(response, toothlessImage)
+                    DialogBox.getToothlessDialog(response, toothlessDanceImage)
             );
         } catch (ToothlessException e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getExceptionDialog(e.getMessage(), toothlessImage)
+                    DialogBox.getExceptionDialog(e.getMessage(), warningImage)
             );
         } finally {
             userInput.clear();
