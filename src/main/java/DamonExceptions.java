@@ -1,4 +1,4 @@
-public class DamonExceptions {
+public class DamonExceptions extends Throwable {
     static void test(String inputString) throws WrongInputException, NoDescriptionException,
             FormatException, NoDeadLineException, NoDescriptionDeadlineException,
             TooManyDeadlineException {
