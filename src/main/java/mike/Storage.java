@@ -1,6 +1,7 @@
 package mike;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -34,32 +35,9 @@ class Storage {
      */
     public TaskList load() {
         try {
-            if (new File(fileDirectory).mkdirs()) {
-                Ui.display("File location created at " + filePath);
-            } else {
-                Ui.display("File location already exists");
-            }
-
-            File file = new File(filePath);
-            this.file = file;
-
-            if (file.createNewFile()) {
-                Ui.display("File created: " + file.getName());
-            } else {
-                Ui.display("File already exists");
-            }
-
-            Scanner fileScanner = new Scanner(file);
-            String line;
-            Task newTask;
-            TaskList taskList = new TaskList();
-
-            while (fileScanner.hasNext()) {
-                line = fileScanner.nextLine();
-                newTask = extractTask(line);
-                taskList.add(newTask);
-            }
-
+            initializeFileDirectory();
+            File file = initializeFile();
+            TaskList taskList = extractFile(file);
             return taskList;
         } catch (IOException e) {
             Ui.displayError("404 File not found");
@@ -68,6 +46,43 @@ class Storage {
             Ui.displayError(e.getMessage());
             return new TaskList();
         }
+    }
+
+    private TaskList extractFile(File file) throws FileNotFoundException, MikeException {
+        Scanner fileScanner = new Scanner(file);
+
+        String line;
+        Task newTask;
+        TaskList taskList = new TaskList();
+
+        while (fileScanner.hasNext()) {
+            line = fileScanner.nextLine();
+            newTask = extractTask(line);
+            taskList.add(newTask);
+        }
+
+        fileScanner.close();
+        return taskList;
+    }
+
+    private void initializeFileDirectory() {
+        if (new File(fileDirectory).mkdirs()) {
+            Ui.display("File location created at " + filePath);
+        } else {
+            Ui.display("File location already exists");
+        }
+    }
+
+    private File initializeFile() throws IOException {
+        File file = new File(filePath);
+        this.file = file;
+
+        if (file.createNewFile()) {
+            Ui.display("File created: " + file.getName());
+        } else {
+            Ui.display("File already exists");
+        }
+        return file;
     }
 
     /**
