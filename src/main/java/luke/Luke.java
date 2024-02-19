@@ -16,21 +16,18 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class Luke  extends Application {
-    private Storage storage;
-    private TaskList taskList;
     private Ui ui;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
     private final Image USER_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
     private final Image LUKE_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaLuke.png")));
 
     public Luke() {
-        storage = new Storage("data/tasks.txt");
+        Storage storage = new Storage("data/tasks.txt");
+        TaskList taskList;
         try {
             taskList = new TaskList(storage.loadFile());
             ui = new Ui(taskList);
@@ -51,12 +48,12 @@ public class Luke  extends Application {
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
-        sendButton = new Button("Send");
+        Button sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        scene = new Scene(mainLayout);
+        Scene scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
