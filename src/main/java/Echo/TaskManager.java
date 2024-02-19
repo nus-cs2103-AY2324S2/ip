@@ -41,6 +41,8 @@ public class TaskManager {
      * @param echo    The Echo instance for communication.
      */
     public TaskManager(Storage storage, Echo echo) {
+        assert storage != null : "Storage cannot be null";
+        assert echo != null : "Echo instance cannot be null";
         this.tasks = new ArrayList<>();
         this.storage = storage;
         this.echo = echo;
@@ -67,6 +69,7 @@ public class TaskManager {
      * @param command The user input command.
      */
     public void executeCommand(String command) {
+        assert command != null : "Command cannot be null";
         String[] tokens = command.split(" ", 2);
 
         switch (tokens[0].toLowerCase()) {
@@ -124,6 +127,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void markTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -145,6 +149,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void unmarkTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -166,6 +171,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void addTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         try {
             if (tokens.length != 2) {
                 throw new IllegalArgumentException("NO! I don't know what is this! " +
@@ -327,10 +333,11 @@ public class TaskManager {
      * @param keyword The keyword to search for in task descriptions.
      */
     public void findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
-
+        
         StringBuilder response = new StringBuilder();
 
         if (matchingTasks.isEmpty()) {
