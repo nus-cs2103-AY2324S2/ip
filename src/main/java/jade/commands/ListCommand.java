@@ -12,9 +12,9 @@ import jade.storage.Storage;
  * It is also optional for the user to specify a date for listing all tasks on that date.
  */
 public class ListCommand extends Command {
-    private static final String EMPTY_RESULT_MSG = "You have no tasks now :-|";
-    private static final String EMPTY_RESULT_MSG_FORMATTED = "You have no tasks on %s.";
-    private static final String RESULT_MSG_FORMATTED = "Here are the task(s) in your list%s:";
+    private static final String EMPTY_RESULT_MSG = "Exciting news - you have no tasks to do for now.";
+    private static final String EMPTY_RESULT_MSG_FORMATTED = "Good news - You have no tasks on %s.";
+    private static final String RESULT_MSG_FORMATTED = "Here are all the task(s)%s:";
     private static final String LIST_INDEX_FORMATTED = "\n\t%d. %s";
     private final LocalDate selectedDate; // the user specified date for listing all tasks
 

@@ -11,8 +11,8 @@ import jade.storage.Storage;
  * search for tasks that contain the keyword.
  */
 public class FindCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "Here are the matching tasks in your list:%s";
-    private static final String EMPTY_RESULT_MSG = "There are no matching results!";
+    private static final String RESULT_MSG_FORMATTED = "Here are the matching tasks I've found:%s";
+    private static final String EMPTY_RESULT_MSG = "Sorry, I did not find any matching results.";
     private final String keyword; // the keyword of the description to be searched
 
     /**

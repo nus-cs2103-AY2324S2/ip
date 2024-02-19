@@ -6,7 +6,7 @@ import jade.storage.Storage;
  * The <code>InvalidCommand</code> object represents an invalid command.
  */
 public class InvalidCommand extends Command {
-    private String invalidMessage = "Input is invalid, please retry.";
+    private String invalidMessage = "Sorry, I cannot understand this. Please retry a valid input";
     /**
      * The empty class constructor.
      */
