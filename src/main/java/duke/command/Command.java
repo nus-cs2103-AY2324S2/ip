@@ -2,8 +2,8 @@ package duke.command;
 
 import java.util.List;
 
-import duke.ui.Ui;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * An abstract class representing a command in the Duke application.

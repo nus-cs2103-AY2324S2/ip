@@ -2,9 +2,9 @@ package duke.command;
 
 import java.util.List;
 
-import duke.ui.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * An instruction class that encapsulates the action of adding a task
