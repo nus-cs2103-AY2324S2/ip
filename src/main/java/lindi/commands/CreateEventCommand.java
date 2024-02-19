@@ -9,6 +9,7 @@ import lindi.task.TaskList;
  * Represents a command that creates an Event upon execution
  */
 public class CreateEventCommand extends Command {
+    public static final String COMMAND_EVENT = "event";
     private final String commandString;
 
     /**

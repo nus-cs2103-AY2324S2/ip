@@ -7,6 +7,7 @@ import lindi.task.TaskList;
  * Represents a command that lists out tasks in the task list upon execution
  */
 public class ListCommand extends Command {
+    public static final String COMMAND_LIST = "list";
     /**
      * {@inheritDoc}
      * <p>

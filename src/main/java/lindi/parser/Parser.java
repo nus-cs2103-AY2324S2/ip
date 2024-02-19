@@ -1,7 +1,9 @@
 package lindi.parser;
 
 import lindi.commands.Command;
-import lindi.commands.CreateTaskCommand;
+import lindi.commands.CreateDeadlineCommand;
+import lindi.commands.CreateEventCommand;
+import lindi.commands.CreateToDoCommand;
 import lindi.commands.DeleteCommand;
 import lindi.commands.ExitCommand;
 import lindi.commands.FindCommand;
@@ -27,29 +29,31 @@ public class Parser {
         String args = userInputTokens.length == 2 ? userInputTokens[1] : null;
 
         switch (commandWord) {
-        case "list":
+        case ListCommand.COMMAND_LIST:
             return new ListCommand();
 
-        case "find":
+        case FindCommand.COMMAND_FIND:
             return prepareFind(args);
 
-        case "unmark":
+        case UnmarkCommand.COMMAND_UNMARK:
             return prepareUnmark(args);
 
-        case "mark":
+        case MarkCommand.COMMAND_MARK:
             return prepareMark(args);
 
-        case "delete":
+        case DeleteCommand.COMMAND_DELETE:
             return prepareDelete(args);
 
-        case "todo":
-            // Fallthrough
-        case "event":
-            // Fallthrough
-        case "deadline":
-            return new CreateTaskCommand(userInput);
+        case CreateToDoCommand.COMMAND_TODO:
+            return new CreateToDoCommand(args);
 
-        case "bye":
+        case CreateDeadlineCommand.COMMAND_DEADLINE:
+            return new CreateDeadlineCommand(args);
+
+        case CreateEventCommand.COMMAND_EVENT:
+            return new CreateEventCommand(args);
+
+        case ExitCommand.COMMAND_EXIT:
             return new ExitCommand();
 
         default:

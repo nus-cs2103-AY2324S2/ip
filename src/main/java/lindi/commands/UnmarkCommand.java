@@ -8,6 +8,7 @@ import lindi.task.TaskList;
  * Represents a command that marks a task as not done upon execution
  */
 public class UnmarkCommand extends Command {
+    public static final String COMMAND_UNMARK = "unmark";
     private final int listIndex;
 
     /**

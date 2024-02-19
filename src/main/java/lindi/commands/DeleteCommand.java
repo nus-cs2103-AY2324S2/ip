@@ -8,6 +8,7 @@ import lindi.task.TaskList;
  * Represents a command that deletes a task upon execution
  */
 public class DeleteCommand extends Command {
+    public static final String COMMAND_DELETE = "delete";
     private final int listIndex;
 
     /**

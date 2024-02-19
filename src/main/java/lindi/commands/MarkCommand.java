@@ -8,6 +8,7 @@ import lindi.task.TaskList;
  * Represents a command that marks a task as done upon execution
  */
 public class MarkCommand extends Command {
+    public static final String COMMAND_MARK = "mark";
     private final int listIndex;
 
     /**

@@ -9,6 +9,7 @@ import lindi.task.TaskList;
  * Represents a command that creates a ToDo upon execution
  */
 public class CreateToDoCommand extends Command {
+    public static final String COMMAND_TODO = "todo";
     private final String commandString;
 
     /**

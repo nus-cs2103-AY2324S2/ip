@@ -9,6 +9,7 @@ import lindi.task.TaskList;
  * Represents a command that creates a Deadline upon execution
  */
 public class CreateDeadlineCommand extends Command {
+    public static final String COMMAND_DEADLINE = "deadline";
     private final String commandString;
 
     /**

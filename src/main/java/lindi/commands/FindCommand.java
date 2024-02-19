@@ -7,6 +7,7 @@ import lindi.task.TaskList;
  * Represents a command that filters out tasks in the task list upon execution
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_FIND = "find";
     private final String keyword;
 
     /**
