@@ -99,10 +99,9 @@ public class Storage {
             }
             bufferedReader.close();
 
-        }   catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
                 throw new DukeException("Error loading tasks from file");
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DukeException("Error saving file");
             }
         return tasks;

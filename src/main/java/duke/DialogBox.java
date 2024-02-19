@@ -1,3 +1,6 @@
+// @@author Ragnapop-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
+
 package duke;
 
 import java.io.IOException;
@@ -13,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -22,6 +27,10 @@ import javafx.scene.layout.HBox;
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private Label sender;
     @FXML
     private ImageView displayPicture;
 
@@ -37,6 +46,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2,
+                displayPicture.getFitWidth() / 2);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -47,6 +60,10 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        sender.setText("Bingus");
+        dialogContainer.setStyle("-fx-background-color: #FFD1DC;"
+                + " -fx-background-radius: 10; -fx-padding: 7;");
+        sender.setStyle("-fx-text-fill: #E75480; -fx-font-weight: bold;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

@@ -43,10 +43,8 @@ public class Parser {
         } else if (identifier.equals("event")) {
             return list.eventCase(str);
         } else if (identifier.equals("deadline")) {
-
             return list.deadlineCase(str);
         } else if (identifier.equals("todo")) {
-
             return list.todoCase(str);
         } else if (identifier.equals("delete")) {
             return list.removeCase(tokens);
@@ -54,11 +52,10 @@ public class Parser {
             return list.findCase(str);
         } else if(identifier.equals("priority")){
             return list.priorityCase(tokens);
-        }
-        else{
+        } else {
             return "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
-            //throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+
         }
-        //return "Sorry! Bingus doesnt understand that yet! :(";
+
     }
 }

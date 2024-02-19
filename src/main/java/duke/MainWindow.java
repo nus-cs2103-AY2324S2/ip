@@ -1,3 +1,6 @@
+// @@author Ragnapop-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
+
 package duke;
 
 import javafx.animation.PauseTransition;

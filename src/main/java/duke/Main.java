@@ -1,3 +1,9 @@
+// @@author Ragnapop-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
+/**
+ * A GUI for Bingus using FXML.
+ */
+
 package duke;
 
 
