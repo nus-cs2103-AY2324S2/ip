@@ -92,13 +92,13 @@ public class Parser {
             String start = findPeriod[1].split(" /to ")[0];
             String end = findPeriod[1].split(" /to ")[1];
             if (!canBeHandled(start) || !canBeHandled(end)) {
-                return "Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!";
+                return "Please enter a event with the format event eventName /from mm/dd/yyyy /to mm/dd/yyyy!";
             }
             Task ne = new Event(eventName, dateConvert(start), dateConvert(end));
             t.add(ne);
-            return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
+            return "Task added! You now have " + t.length() + " tasks to attend to.";
         } catch (ArrayIndexOutOfBoundsException b) {
-            return "Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!";
+            return "Please enter a event with the format event eventName /from mm/dd/yyyy /to mm/dd/yyyy!";
         }
     }
 
@@ -185,15 +185,15 @@ public class Parser {
             String[] findDeadline = s.split(" /by ");
             String deadline = findDeadline[1];
             if (!canBeHandled(deadline)) {
-                return "Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!";
+                return "Please enter a deadline with the format deadline deadlineName /by mm/dd/yyyy!";
 
             }
             Task nd = new Deadline(deadlineName, dateConvert(deadline));
             t.add(nd);
-            return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
+            return "Task added! You now have " + t.length() + " tasks to attend to.";
 
         } catch (ArrayIndexOutOfBoundsException b) {
-            return "Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!";
+            return "Please enter a deadline with the format deadline deadlineName /by mm/dd/yyyy!";
         }
     }
 
@@ -216,7 +216,7 @@ public class Parser {
         }
         Task nt = new ToDo(todoName);
         t.add(nt);
-        return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
+        return "Task added! You now have " + t.length() + " tasks to attend to.";
     }
 
     /**
@@ -328,7 +328,7 @@ public class Parser {
             }
             }
         } catch (NumberFormatException e) {
-            return "[angry quacking] I can only mark numbers!";
+            return "[angry quacking] I can only mark/delete numbers!";
         } catch (IndexOutOfBoundsException a) {
             return "[exasperated quacking] You're not that busy - numbers from 1 to "
                 + tasklist.length()
