@@ -25,4 +25,4 @@ bin/
 .vscode
 
 # local storage file
-src/main/java/temp/output.txt
+src/main/java/duke/memory/output.txt

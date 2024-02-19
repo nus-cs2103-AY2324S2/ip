@@ -53,11 +53,12 @@ public class AddTask extends Command {
         assert instruction != null && instruction.length() > 0 : "Command is not initialised or is empty.";
 
         // handle tag inputs
-        String[] tagSplit = parameter.split("/tags");
+        String[] tagSplit = parameter.split("/tags", 2);
         String parametersWithoutTags = tagSplit[0];
-        String tagsParameter = tagSplit[1];
+        String tagsParameter;
         ArrayList<String> tagsList = new ArrayList<>();
         if (tagSplit.length > 1) {
+            tagsParameter = tagSplit[1];
             ParseTags parsedTags = new ParseTags(tagsParameter);
             tagsList = parsedTags.tagsStringToArray();
         }
@@ -69,7 +70,7 @@ public class AddTask extends Command {
                 break;
             case "deadline": {
                 try {
-                    makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
+                    t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 } catch (InvalidInputException e) {
@@ -79,7 +80,7 @@ public class AddTask extends Command {
             }
             case "event": {
                 try {
-                    makeEventCommand(instruction, parametersWithoutTags, tagsList);
+                   t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 } catch (InvalidInputException e) {
