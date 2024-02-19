@@ -34,15 +34,17 @@ public class Parser {
      * @throws DukeException if invalid command or format has been parsed.
      */
     public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException {
-        Command category = Command.getCategory(input);
+        String[] parts = input.split(" ", 2);
+        Command category = Command.getCategory(parts[0]);
         int listSize = taskList.getSize();
         switch (category) {
-            case BYE:
-                return ui.printGoodByeMessage();
-            case LIST:
+            case BYE -> {
+            }
+            case LIST -> {
                 return ui.listTaskMessage(taskList);
-            case UNMARK:
-                int unmarkId = ui.readInt() - 1;
+            }
+            case UNMARK -> {
+                int unmarkId = Integer.parseInt(parts[1]) - 1;
                 if (unmarkId < 0 || unmarkId >= listSize) {
                     try {
                         throw new DukeException("Sorry, " +
@@ -52,8 +54,9 @@ public class Parser {
                     }
                 }
                 return taskList.unmarkTask(unmarkId, ui);
-            case MARK:
-                int markId = ui.readInt() - 1;
+            }
+            case MARK -> {
+                int markId = Integer.parseInt(parts[1]) - 1;
                 if (markId < 0 || markId >= listSize) {
                     try {
                         throw new DukeException("Sorry, " +
@@ -63,8 +66,9 @@ public class Parser {
                     }
                 }
                 return taskList.markTask(markId, ui);
-            case DELETE:
-                int deleteId = ui.readInt() - 1;
+            }
+            case DELETE -> {
+                int deleteId = Integer.parseInt(parts[1]) - 1;
                 if (deleteId < 0 || deleteId >= listSize) {
                     try {
                         throw new DukeException("Sorry, " +
@@ -73,38 +77,43 @@ public class Parser {
                         return "  " + e.getMessage();
                     }
                 }
-                StringBuilder output = new StringBuilder();
-                output.append(taskList.deleteTask(deleteId, ui)).append("\n");
-                output.append(ui.listSizeMessage(taskList));
-                return output.toString();
-            case TODO:
-                return parseToDo(taskList, ui);
-            case DEADLINE:
-                return parseDeadline(taskList, ui);
-            case EVENT:
-                return parseEvent(taskList, ui);
-            case FIND:
+                return taskList.deleteTask(deleteId, ui) + "\n" +
+                        ui.listSizeMessage(taskList);
+            }
+            case TODO -> {
+                return parseToDo(parts[1], taskList, ui);
+            }
+            case DEADLINE -> {
+                return parseDeadline(parts[1], taskList, ui);
+            }
+            case EVENT -> {
+                return parseEvent(parts[1], taskList, ui);
+            }
+            case FIND -> {
                 String findDescription = ui.readCommandLine();
                 ArrayList<Task> matchedTasks = taskList.find(findDescription);
                 return taskList.listMatchedTasks(matchedTasks);
-            default:
+            }
+            default -> {
                 try {
                     throw new DukeException("Sorry, I cannot understand what this is!");
                 } catch (DukeException e) {
                     return "  " + e.getMessage();
                 }
+            }
         }
+        return ui.printGoodByeMessage();
     }
 
     /**
      * Parses toDo task.
+     * @param description Task description.
      * @param taskList The list.
      * @param ui The Ui.
      */
-    public static String parseToDo(TaskList taskList, Ui ui) {
+    public static String parseToDo(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();
-        String toDoDescription = ui.readCommandLine();
-        if (toDoDescription.isEmpty()) {
+        if (description.isEmpty()) {
             try {
                 throw new DukeException("Sorry, " +
                         "please give me a description of the todo as well! >.<\n" +
@@ -113,7 +122,7 @@ public class Parser {
                 return "  " + e.getMessage();
             }
         }
-        ToDo toDo = new ToDo(toDoDescription);
+        ToDo toDo = new ToDo(description);
         taskList.addTask(toDo);
 
         output.append("  ").append(toDo).append("\n");
@@ -126,10 +135,9 @@ public class Parser {
      * @param taskList The list.
      * @param ui The ui.
      */
-    public static String parseDeadline(TaskList taskList, Ui ui) {
+    public static String parseDeadline(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();
-        String deadlineDescription = ui.readCommandLine();
-        if (!deadlineDescription.contains(" /by ")) {
+        if (!description.contains(" /by ")) {
             try {
                 throw new DukeException("Sorry, " +
                         "please give me a description of the deadline as well! >.<\n" +
@@ -139,7 +147,7 @@ public class Parser {
                 return "  " + e.getMessage();
             }
         }
-        String[] deadlineArguments = deadlineDescription.split(" /by ");
+        String[] deadlineArguments = description.split(" /by ");
         String DLDescription = deadlineArguments[0];
         String dateTime = deadlineArguments[1];
 
@@ -161,10 +169,9 @@ public class Parser {
      * @param taskList The list.
      * @param ui The ui.
      */
-    public static String parseEvent(TaskList taskList, Ui ui) {
+    public static String parseEvent(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();
-        String eventDescription = ui.readCommandLine();
-        if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
+        if (!description.contains(" /from ") || !description.contains(" /to ")) {
             try {
                 throw new DukeException("Sorry, " +
                         "please give me a description of the event as well! >.<\n" +
@@ -175,7 +182,7 @@ public class Parser {
                 return "  " + e.getMessage();
             }
         }
-        String[] eventArguments = eventDescription.split(" /from ");
+        String[] eventArguments = description.split(" /from ");
         String[] eventDuration = eventArguments[1].split(" /to ");
         String EvDescription = eventArguments[0];
         String startTime = eventDuration[0];
@@ -211,21 +218,22 @@ public class Parser {
         Task task;
 
         switch (category) {
-            case "T":
+            case "T" -> {
                 task = new ToDo(status, description);
-                break;
-            case "D":
+            }
+            case "D" -> {
                 String by = argument[3];
                 task = new Deadline(status, description, by);
-                break;
-            case "E":
+            }
+            case "E" -> {
                 String[] duration = argument[3].split(" - ");
                 String start = duration[0];
                 String end = duration[1];
                 task = new Event(status, description, start, end);
-                break;
-            default:
+            }
+            default -> {
                 throw new IOException("Error, unable to load task from file.");
+            }
         }
         return task;
     }

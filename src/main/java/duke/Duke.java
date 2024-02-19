@@ -48,13 +48,9 @@ public class Duke extends Application {
      * Runs the chatbot.
      */
     public void run() {
-        ui.printWelcomeMessage();
         while (true) {
             try {
                 String input = ui.readCommand();
-                if (input.equalsIgnoreCase("bye")) {
-                    break;
-                }
                 getResponse(input);
                 storage.saveTasksToFile(taskList.getTasks());
             } catch (IOException e) {
@@ -71,6 +67,8 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
+
+        Duke lunaris = new Duke();
 
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
@@ -118,6 +116,10 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(new Label(ui.printWelcomeMessage()),
+                new ImageView(duke))
+);
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -129,20 +131,6 @@ public class Duke extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     /**

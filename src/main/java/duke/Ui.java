@@ -24,8 +24,10 @@ public class Ui {
      *
      */
     public String printWelcomeMessage() {
-        return "  " + "Hey! I'm " + name + "\n" +
+        String welcomeMessage = "  " + "Hey! I'm " + name + "\n" +
                 "  " + "Is there anything I can do for you?";
+        System.out.println(welcomeMessage);
+        return welcomeMessage;
     }
 
     /**
@@ -42,12 +44,8 @@ public class Ui {
      *
      */
     public String loadErrorMessage() {
-        StringBuilder output = new StringBuilder();
-        output.append(indentedLine).append("\n");
-        output.append("  " +
-                "Error loading file... Creating new empty file");
-        output.append(indentedLine);
-        return output.toString();
+        return "  " +
+                "Error loading file... Creating new empty file";
     }
 
     /**
@@ -56,12 +54,8 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public String unmarkMessage(Task task) {
-        StringBuilder output = new StringBuilder();
-        output.append(indentedLine).append("\n");
-        output.append("  " + "Ok, I've marked this task " + "as not done yet:" + "\n" + "  ")
-                .append(task.toString()).append("\n");
-        output.append(indentedLine);
-        return output.toString();
+        return "  " + "Ok, I've marked this task " + "as not done yet:" + "\n" + "  " +
+                task.toString() + "\n";
     }
 
     /**
@@ -70,12 +64,8 @@ public class Ui {
      * @param task Task that was marked.
      */
     public String markMessage(Task task) {
-        StringBuilder output = new StringBuilder();
-        output.append(indentedLine).append("\n");
-        output.append("  " + "Ok, I've marked this task " + "as done:" + "\n" + "  ")
-                .append(task.toString()).append("\n");
-        output.append(indentedLine);
-        return output.toString();
+        return "  " + "Ok, I've marked this task " + "as done:" + "\n" + "  " +
+                task.toString() + "\n";
     }
 
     /**
@@ -84,12 +74,8 @@ public class Ui {
      * @param task Task that was deleted.
      */
     public String deleteMessage(Task task) {
-        StringBuilder output = new StringBuilder();
-        output.append(indentedLine).append("\n");
-        output.append("  " + "Noted. I've removed this task:" + "\n" + "  ")
-                .append(task.toString()).append("\n");
-        output.append(indentedLine);
-        return output.toString();
+        return "  " + "Noted. I've removed this task:" + "\n" + "  " +
+                task.toString() + "\n";
     }
 
     /**
