@@ -13,6 +13,9 @@ import duke.task.Task;
 
 /**
  * General functionality handling persistence of task lists.
+ * Partial credits to
+ * <a href="https://stackoverflow.com/questions/10654236/java-save-object-data-to-a-file">StackOverflow</a>
+ * for some of the code here.
  */
 public class Storage {
     private static final String fileName = "duke.ser";

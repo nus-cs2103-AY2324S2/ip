@@ -14,9 +14,13 @@ repositories {
 }
 
 dependencies {
+    // The following ist aken from https://se-education.org/guides/tutorials/junit.html
+    // Full credits and thanks to the CS2103T teaching team.
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
+    // The following is taken from https://se-education.org/guides/tutorials/javaFxPart1.html
+    // Full credits and thanks to CS2103T teaching team.
     String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'

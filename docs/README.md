@@ -118,3 +118,16 @@ Expected output:
 Here are the matching tasks in your list:
 <list of matching tasks>
 ```
+
+## Credits
+
+Portions of the source code is referenced from the
+[CS2103T website](https://nus-cs2103-ay2324s2.github.io/website/index.html),
+and the [SE-EDU website](https://se-education.org/guides/index.html).
+And the following StackOverflow link:
+https://stackoverflow.com/questions/10654236/java-save-object-data-to-a-file.
+Best-effort attempts have been made to add comments directly referencing
+which part of the code was used, inside this repository.
+
+Some of the code also came originally from the template project for Duke, and I thus
+acknowledge CS2103T teaching team as the authors for those sections.
