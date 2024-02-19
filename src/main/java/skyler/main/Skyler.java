@@ -17,21 +17,22 @@ public class Skyler {
 
             if (userInput.equals("bye")) {
                 Ui.getByeMessage();
-                scanner.close();
-                Storage.saveTasksToFile(); // Save tasks before exiting
+                Storage.saveTasksToFile();
                 break;
             }
 
             try {
-                Parser.processUserInput(userInput);
+                String response = Parser.processUserInput(userInput);
+                Ui.getErrorMessage("Skyler: " + response);
             } catch (SkylerException e) {
-                Ui.getErrorMessage(e.getMessage());
+                Ui.getErrorMessage("Skyler: Woof, " + e.getMessage());
             }
         }
+
         scanner.close();
     }
-    
-    public String getResponse(String userInput) throws SkylerException {
+
+    public static String getResponse(String userInput) throws SkylerException {
         if (userInput.equals("bye")) {
             Ui.getByeMessage();
             Storage.saveTasksToFile(); // Save tasks before exiting
@@ -39,6 +40,4 @@ public class Skyler {
         }
         return Parser.processUserInput(userInput);
     }
-
 }
-

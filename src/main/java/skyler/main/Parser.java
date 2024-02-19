@@ -18,7 +18,7 @@ public class Parser {
      * @throws SkylerException If there is an error processing the user input.
      */
     public static String processUserInput(String userInput) throws SkylerException {
-        String result = ""; 
+        String result = "";
 
         if (userInput.equals("list")) {
             result = TaskList.listTasks();
@@ -65,7 +65,7 @@ public class Parser {
             throw new SkylerException("I'm sorry, I don't understand that command.");
         }
 
-        return result; 
+        return result;
     }
 
     /**
