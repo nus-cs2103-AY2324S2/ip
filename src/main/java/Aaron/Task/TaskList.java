@@ -193,4 +193,12 @@ public class TaskList {
         return tempTaskList.showList();
     }
 
+    public String postpone(int index, int postponeAmount, UI ui) {
+        try {
+            tasks.get(index - 1).postpone(postponeAmount);
+            return ui.showTaskSnoozedMessage(index);
+        } catch (AaronBotException e) {
+            return ui.errorMessage(e);
+        }
+    }
 }

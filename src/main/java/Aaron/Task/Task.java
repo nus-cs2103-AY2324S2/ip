@@ -1,5 +1,6 @@
 package aaron.task;
 
+import aaron.exception.AaronBotException;
 import aaron.exception.DoubleMarkException;
 import aaron.exception.TaskNoNameException;
 
@@ -18,6 +19,8 @@ public abstract class Task {
             this.taskString = taskString;
         }
     }
+
+    public abstract void postpone(int postponeAmount) throws AaronBotException;
 
     public Task(String taskString, boolean isDone) {
         this.isDone = isDone;

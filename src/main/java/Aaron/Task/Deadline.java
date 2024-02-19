@@ -37,15 +37,10 @@ public class Deadline extends Task {
     /**
      * Setter method for altering deadline date for a deadline task
      * 
-     * @param userString new desired date
-     * @throws InvalidDateException if userString is in the wrong format
+     * @param postponeAmount amount to postpone task
      */
-    public void changeDeadline(String userString) throws AaronBotException {
-        try {
-            this.deadline = LocalDate.parse(userString, DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateException("Illegal date format: " + deadline);
-        }
+    public void postpone(int postponeAmount) {
+        this.deadline = this.deadline.plusDays(postponeAmount);
     }
 
     @Override

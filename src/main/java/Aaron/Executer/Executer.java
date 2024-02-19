@@ -9,6 +9,7 @@ import aaron.command.DeleteTask;
 import aaron.command.MarkTask;
 import aaron.command.SearchCommand;
 import aaron.command.ShowList;
+import aaron.command.Snooze;
 import aaron.command.UnmarkTask;
 import aaron.exception.AaronBotException;
 import aaron.task.TaskList;
@@ -39,6 +40,7 @@ public class Executer {
                     CommandType.UNMARK, new UnmarkTask(userCommand, commandType),
                     CommandType.DELETE, new DeleteTask(userCommand, commandType),
                     CommandType.SEARCH, new SearchCommand(userCommand, commandType),
+                    CommandType.SNOOZE, new Snooze(userCommand, commandType),
                     CommandType.SHOW_LIST, new ShowList(userCommand, commandType));
 
             Command command = commandMap.get(commandType);

@@ -16,6 +16,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public void postpone(int postponeAmount) throws AaronBotException {
+        throw new AaronBotException("Can't postpone a todo student!!!!");
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
