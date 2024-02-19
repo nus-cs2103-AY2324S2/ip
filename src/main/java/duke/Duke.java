@@ -1,7 +1,6 @@
 
 package duke;
 
-import java.util.Scanner;
 
 /**
  * The Duke class represents the main entry point for the Duke program.

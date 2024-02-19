@@ -33,7 +33,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return ("[" + this.getStatusIcon() + "] " + this.description); // [X] Description if task is done, [ ] Description otherwise
+        return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
     /**

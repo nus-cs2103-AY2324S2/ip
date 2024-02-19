@@ -9,22 +9,28 @@ import java.util.Scanner;
  * The Parser class is responsible for parsing user input commands and executing corresponding actions.
  * It interacts with the TaskList, Ui, and Storage classes to manage tasks and data.
  */
-
 public class Parser {
     private Scanner scanner;
     private TaskList tasklist;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a Parser object with the given TaskList and Storage.
+     *
+     * @param t The TaskList object to interact with.
+     * @param st The Storage object to interact with.
+     */
     public Parser(TaskList t, Storage st) {
         tasklist = t;
         storage = st;
     }
 
     /**
-     * GUI version of read
-     * Reads user input commands, processes them, and executes corresponding actions.
-     * Continuously loops until the user exits the program.
+     * Reads and processes user input commands.
+     *
+     * @param userInput The user input command to be processed.
+     * @return A response message based on the processed command.
      */
     public String read(String userInput) {
         Ui ui = new Ui();
@@ -59,15 +65,14 @@ public class Parser {
         } else {
             return ui.instructionMessage();
         }
-
     }
 
     /**
      * Handles the user input command for adding an event task.
-     * Parses the input string, creates an event task, and adds it to the task list.
      *
      * @param s The user input command string for adding an event task.
      * @param t The task list to which the event task will be added.
+     * @return A message indicating the status of the operation.
      */
     public String handleEvent(String s, TaskList t) {
         String eventName = "";
@@ -89,7 +94,7 @@ public class Parser {
             if (!canBeHandled(start) || !canBeHandled(end)) {
                 return "Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!";
             }
-            Task ne = new Event(eventName, DateConvert(start), DateConvert(end));
+            Task ne = new Event(eventName, dateConvert(start), dateConvert(end));
             t.add(ne);
             return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
         } catch (ArrayIndexOutOfBoundsException b) {
@@ -97,6 +102,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the user input command for finding tasks.
+     *
+     * @param commandsplit An array containing the command split into parts.
+     * @return A message containing the found tasks or an error message.
+     */
     public String handleFind(String[] commandsplit) {
         try {
             String findTarget = commandsplit[1].toLowerCase();
@@ -116,15 +127,27 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if a string can be converted to a LocalDate object.
+     *
+     * @param s The string to be checked.
+     * @return True if the string can be converted to a LocalDate, otherwise false.
+     */
     public boolean canBeHandled(String s) {
-        return (DateConvert(s) != null);
+        return (dateConvert(s) != null);
     }
 
 
-    public LocalDate DateConvert(String s) {
-        assert s.length() > 5: "Invalid length";
+    /**
+     * Converts a string to a LocalDate object.
+     *
+     * @param s The string to be converted.
+     * @return The corresponding LocalDate object, or null if conversion fails.
+     */
+    public LocalDate dateConvert(String s) {
+        assert s.length() > 5 : "Invalid length";
         String[] patterns = {"MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy",
-                "M/d/yyyy", "MM-dd-yyyy", "M-dd-yyyy", "MM-d-yyyy", "M-d-yyyy"};
+            "M/d/yyyy", "MM-dd-yyyy", "M-dd-yyyy", "MM-d-yyyy", "M-d-yyyy"};
         for (String pattern : patterns) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
@@ -165,7 +188,7 @@ public class Parser {
                 return "Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!";
 
             }
-            Task nd = new Deadline(deadlineName, DateConvert(deadline));
+            Task nd = new Deadline(deadlineName, dateConvert(deadline));
             t.add(nd);
             return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
 
@@ -293,19 +316,23 @@ public class Parser {
 
     public String handleBaseCommand(String[] commandSplit) {
         String firstWord = commandSplit[0].toLowerCase();
-        assert firstWord.length() < 7: "Invalid word/I can only mark numbers!";
+        assert firstWord.length() < 7 : "Invalid word/I can only mark numbers!";
         try {
             int num = Integer.parseInt(commandSplit[1]);
             switch (firstWord) {
-                case "mark" -> tasklist.mark(num - 1);
-                case "unmark" -> tasklist.unmark(num - 1);
-                case "delete" -> tasklist.delete(num - 1);
+            case "mark" -> tasklist.mark(num - 1);
+            case "unmark" -> tasklist.unmark(num - 1);
+            case "delete" -> tasklist.delete(num - 1);
+            default -> {
+                return "Done!";
+            }
             }
         } catch (NumberFormatException e) {
             return "[angry quacking] I can only mark numbers!";
         } catch (IndexOutOfBoundsException a) {
-            return "[exasperated quacking] You're not that busy - numbers from 1 to " + tasklist.length() +
-                    " only, please.";
+            return "[exasperated quacking] You're not that busy - numbers from 1 to "
+                + tasklist.length()
+                    + " only, please.";
         }
         return "Done!";
     }
