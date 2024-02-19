@@ -176,10 +176,9 @@ public class DateTime {
                 return LocalDateTime.from(dt);
             }
         } catch (DateTimeParseException e) {
-            throw new ChaterpillarException("""
-                    Error in parsing string for date/time.
-                    I accept quite a number of common date format,\s
-                    but here is one you can use: DD/MM/YYY HH:MM""");
+            throw new ChaterpillarException("Error in parsing string for date/time.\n"
+                                            + "I accept quite a number of common date format, \n"
+                                            + "but here is one you can use: DD/MM/YYY HH:MM");
         }
     }
 

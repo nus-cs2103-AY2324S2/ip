@@ -12,9 +12,8 @@ import javafx.util.Pair;
  * Main class for Chaterpillar chatbot.
  */
 public class Chaterpillar {
-    private static final String GREETING_MESSAGE = """
-            Hello! I'm Chaterpillar!
-            What can I do for you?""";
+    private static final String GREETING_MESSAGE = "Hello! I'm Chaterpillar!\n"
+                                                   + "What can I do for you?";
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;

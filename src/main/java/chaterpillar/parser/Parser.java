@@ -129,9 +129,8 @@ public class Parser {
             String taskName = input.substring(5);
             return new TodoTask(taskName);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new ChaterpillarException("""
-                    Sorry, the taskName of the task todo cannot be empty.
-                    The way to use the command is as such: todo taskname""");
+            throw new ChaterpillarException("Sorry, the taskName of the task todo cannot be empty.\n"
+                                            + "The way to use the command is as such: todo taskname");
         }
     }
 
@@ -149,13 +148,11 @@ public class Parser {
             String date = tempInputArgs[1].substring(3);
             return new DeadlineTask(taskName, date);
         } catch (IndexOutOfBoundsException e) {
-            throw new ChaterpillarException("""
-                    Sorry, this command is in the wrong format.
-                    The way to use the command is: deadline taskname /by date_and_time""");
+            throw new ChaterpillarException("Sorry, this command is in the wrong format.\n"
+                                            + "The way to use the command is: deadline taskname /by date_and_time");
         } catch (DateTimeParseException e) {
-            throw new ChaterpillarException("""
-                    Unable to add task, wrong date/time format!
-                    Suggested format: DD/MM/YYY HH:MM""");
+            throw new ChaterpillarException("Unable to add task, wrong date/time format!\n"
+                                            + "Suggested format: DD/MM/YYY HH:MM");
         }
     }
 
@@ -166,14 +163,12 @@ public class Parser {
             String date2 = tempInputArgs[2].substring(3);
             return new EventTask(taskName, date1, date2);
         } catch (IndexOutOfBoundsException e) {
-            throw new ChaterpillarException("""
-                    Sorry, this command is in the wrong format.
-                    The way to use the command is: event taskname
-                    /from date_and_time /to date_and_time""");
+            throw new ChaterpillarException("Sorry, this command is in the wrong format.\n"
+                                            + "The way to use the command is: event taskname\n"
+                                            + "/from date_and_time /to date_and_time");
         } catch (DateTimeParseException e) {
-            throw new ChaterpillarException("""
-                    Unable to add task, wrong date/time format!
-                    Suggested format: DD/MM/YYY HH:MM""");
+            throw new ChaterpillarException("Unable to add task, wrong date/time format!\n"
+                                            + "Suggested format: DD/MM/YYY HH:MM");
         }
     }
 
@@ -182,27 +177,23 @@ public class Parser {
             int index = Integer.parseInt(tempInputArgs[1]) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
-            throw new ChaterpillarException("""
-                    Sorry, there is no number detected.
-                    The correct way to use the command is: delete number""");
+            throw new ChaterpillarException("Sorry, there is no number detected.\n"
+                                            + "The correct way to use the command is: delete number");
         } catch (IndexOutOfBoundsException e) {
-            throw new ChaterpillarException("""
-                    Sorry, the format for this command is wrong.
-                    The correct way to use the command is: delete number""");
+            throw new ChaterpillarException("Sorry, the format for this command is wrong.\n"
+                                            + "The correct way to use the command is: delete number");
         }
     }
 
     private static UpdateCommand handleUpdateFromInput(String input) throws ChaterpillarException {
         if (input.substring(6).isBlank()) {
-            throw new ChaterpillarException("""
-                                            Nothing to update?
-                                            You can use the following tags:
-                                            /name - to update the name of the task
-                                            /date - to update the date of the task
-                                            /start - to update the start date of the task
-                                            /end - to update the end date of the task
-                                            \\n
-                                            e.g. update 3 /name new name of task /date new date""\"""");
+            throw new ChaterpillarException("Nothing to update?\n"
+                                            + "You can use the following tags:\n"
+                                            + "/name - to update the name of the task\n"
+                                            + "/date - to update the date of the task\n"
+                                            + "/start - to update the start date of the task\n"
+                                            + "/end - to update the end date of the task\n\n"
+                                            + "e.g. update 3 /name new name of task /date new date");
         }
 
         String[] tempInputArgs;
@@ -219,10 +210,9 @@ public class Parser {
                 throw new ChaterpillarException("Index should not be less than 1.");
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new ChaterpillarException("""
-                    Invalid update command! Missing index of item to update.
-                    The command should be as such:
-                    update 3 ...""");
+            throw new ChaterpillarException("Invalid update command! Missing index of item to update.\n"
+                                            + "The command should be as such:\n"
+                                            + "update 3 ...");
         }
 
         tempInputArgs = input.split("/name");
@@ -252,14 +242,12 @@ public class Parser {
         String output = tempInputArgs[1].split(" /")[0].trim();
 
         if (output.isBlank()) {
-            throw new ChaterpillarException("""
-                    Invalid update command! You can use the following tags:
-                    /name - to update the name of the task
-                    /date - to update the date of the task
-                    /start - to update the start date of the task
-                    /end - to update the end date of the task
-                    \n
-                    e.g. update 3 /name new name of task /date new date""");
+            throw new ChaterpillarException("Invalid update command! You can use the following tags:\n"
+                                            + "/name - to update the name of the task\n"
+                                            + "/date - to update the date of the task\n"
+                                            + "/start - to update the start date of the task\n"
+                                            + "/end - to update the end date of the task\n\n"
+                                            + "e.g. update 3 /name new name of task /date new date");
         }
         return output;
     }

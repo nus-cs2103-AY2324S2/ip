@@ -9,20 +9,18 @@ import chaterpillar.ui.Ui;
  */
 public class HelpCommand extends Command {
 
-    private static final String HELP_MESSAGE = """
-            Hi! Here are the list of commands I recognise:\s
-
-            'list' - lists the tasks registered in the list
-            'today' - lists the tasks for today
-            'find' - finds the tasks containing the keyword specified
-            'todo' - adds an item that has no due date
-            'deadline' - adds an item with a due date
-            'event' - adds an item that has a duration
-            'mark' - marks the task as completed
-            'unmark' - marks the task as not completed
-            'update' - updates the task details
-            'help' - opens the list of commands available
-            'bye' - exits the chatbot""";
+    private static final String HELP_MESSAGE = "Hi! Here are the list of commands I recognise: \n\n"
+                                               + "'list' - lists the tasks registered in the list\n"
+                                               + "'today' - lists the tasks for today\n"
+                                               + "'find' - finds the tasks containing the keyword specified\n"
+                                               + "'todo' - adds an item that has no due date\n"
+                                               + "'deadline' - adds an item with a due date\n"
+                                               + "'event' - adds an item that has a duration\n"
+                                               + "'mark' - marks the task as completed\n"
+                                               + "'unmark' - marks the task as not completed\n"
+                                               + "'update' - updates the task details\n"
+                                               + "'help' - opens the list of commands available\n"
+                                               + "'bye' - exits the chatbot";
 
     /**
      * Prints out the commands that the application accepts.

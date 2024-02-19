@@ -8,9 +8,8 @@ import chaterpillar.ui.Ui;
  * <code>Command</code> to display message when the input is unrecognised.
  */
 public class UnrecognisedCommand extends Command {
-    private static final String UNRECOGNISED_MESSAGE = """
-            Oops, I have no idea what that means.
-            Use 'help' for a list of commands I recognise.""";
+    private static final String UNRECOGNISED_MESSAGE = "Oops, I have no idea what that means.\n"
+                                                       + "Use 'help' for a list of commands I recognise.";
 
     /**
      * Prints out a reply and a help message when the input is unrecognised.
