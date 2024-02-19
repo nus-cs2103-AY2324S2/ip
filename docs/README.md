@@ -32,7 +32,7 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
 
 ## Features
 
-### <span style="color: #33FF00;">Adding a Todo Task: `todo`</span>
+### <span style="color: #0B6E4F;">Adding a Todo Task: `todo`</span>
 Adds a todo task to the task list.
 
 🔹 **Format**: `todo DESCRIPTION`<br><br>
@@ -40,7 +40,7 @@ Adds a todo task to the task list.
 ✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### <span style="color: #33FF00;">Adding a Deadline Task: `deadline`</span>
+### <span style="color: #0B6E4F;">Adding a Deadline Task: `deadline`</span>
 Adds a task with a deadline to the task list, with a specified by date.
 
 🔹 **Format**: `deadline DESCRIPTION /by DATE`<br> 
@@ -50,7 +50,7 @@ Adds a task with a deadline to the task list, with a specified by date.
 ✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### <span style="color: #33FF00;">Adding an Event Task: `event`</span>
+### <span style="color: #0B6E4F;">Adding an Event Task: `event`</span>
 
 Adds an event task to the task list, with a specified from and to date.
 
@@ -61,7 +61,7 @@ Adds an event task to the task list, with a specified from and to date.
 ✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### <span style="color: #33FF00;">Listing All Tasks: `list`</span>
+### <span style="color: #0B6E4F;">Listing All Tasks: `list`</span>
 
 Displays all tasks in the task list.
 
@@ -69,7 +69,7 @@ Displays all tasks in the task list.
 ✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br>
 
 
-### <span style="color: #33FF00;">Marking a Task as Done: `mark`</span>
+### <span style="color: #0B6E4F;">Marking a Task as Done: `mark`</span>
 
 Marks an index-specified task as completed.
 
@@ -80,7 +80,7 @@ Marks an index-specified task as completed.
 ✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.<br>
 
 
-### <span style="color: #33FF00;">Unmarking a Task as Not Done: `unmark`</span>
+### <span style="color: #0B6E4F;">Unmarking a Task as Not Done: `unmark`</span>
 
 Marks an index-specified task as not completed.
 
@@ -91,7 +91,7 @@ Marks an index-specified task as not completed.
 ✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.<br>
 
 
-### <span style="color: #33FF00;">Deleting a Task: `delete`</span>
+### <span style="color: #0B6E4F;">Deleting a Task: `delete`</span>
 
 Removes a specified task from the task list.
 
@@ -102,7 +102,7 @@ Removes a specified task from the task list.
 ✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### <span style="color: #33FF00;">Finding Tasks by Keyword: `find`</span>
+### <span style="color: #0B6E4F;">Finding Tasks by Keyword: `find`</span>
 
 Finds tasks by a keyword.
 
@@ -114,7 +114,7 @@ Finds tasks by a keyword.
 ✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.<br>
 
 
-### <span style="color: #33FF00;">Tagging a Task With Priority: `tag`</span>
+### <span style="color: #0B6E4F;">Tagging a Task With Priority: `tag`</span>
 
 Tags an index-specified task with a specified priority level
 
@@ -126,7 +126,7 @@ Tags an index-specified task with a specified priority level
 ✅ **Expected Outcome**: The application will tag the specified task with a priority level.<br>
 
 
-### <span style="color: #33FF00;">Exiting the Application: `bye`</span>
+### <span style="color: #0B6E4F;">Exiting the Application: `bye`</span>
 
 Exits the application.
 
