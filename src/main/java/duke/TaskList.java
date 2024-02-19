@@ -21,15 +21,15 @@ public class TaskList {
      * Prints the task list to console.
      */
     public String returnList() {
-        String list = "";
+        StringBuilder list = new StringBuilder();
         if (taskList.size() == 0) {
             return "You have no items in your list.";
         }
         for (int i = 0; i < taskList.size(); i++) {
             int j = i + 1;
-            list += j + ". " + taskList.get(i).toString() + "\n";
+            list.append(j).append(". ").append(taskList.get(i).toString()).append("\n");
         }
-        return list;
+        return list.toString();
     }
     /**
      * Adds task to the task list.
@@ -56,7 +56,7 @@ public class TaskList {
     public String mark(int i) {
         assert(i > 0);
         this.taskList.get(i - 1).markDone();
-        return "Marked i-th task as done";
+        return "Marked task number " + i + " as done";
     }
     /**
      * Marking task at index i as undone. Displays list at the end of marking.
@@ -65,7 +65,7 @@ public class TaskList {
         assert(i > 0);
         this.taskList.get(i - 1).markUndone();
         storage.writeToFile(this.toString());
-        return "Marked i-th task as un done";
+        return "Marked task number " + i + " as not done";
     }
     /**
      * This function removes a task from the task list.
@@ -107,20 +107,23 @@ public class TaskList {
      * @return A list of tasks that match the search criteria. If no matches are found, an empty list is returned.
      */
     public String searchTasks(String keyword) {
+        StringBuilder matchingTasks = new StringBuilder();
         for (Task task : this.taskList) {
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                return task.toString();
+                matchingTasks.append(task.toString()).append("\n");
             }
         }
-        return "There are no matching tasks found.";
+        if (matchingTasks.length() == 0) {
+            return "No matching tasks found";
+        }
+        return matchingTasks.toString();
     }
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 1; i < taskList.size() + 1; i++) {
-            s += taskList.get(i - 1).toString() + "\n";
+            s.append(taskList.get(i - 1).toString()).append("\n");
         }
-        System.out.println("Tostring function" + s);
-        return s;
+        return s.toString();
     }
 }
