@@ -1,0 +1,16 @@
+todo wash dishes
+deadline homework /by 01/01/1970 0000
+event sea trials /from 01/01/1970 0000 /to 01/01/1970 0001
+list
+mark 1
+mark 2
+unmark 2
+unmark 2
+todo a
+todo b
+todo c
+find trials
+delete 1-3 5 6
+list
+delete 1
+bye

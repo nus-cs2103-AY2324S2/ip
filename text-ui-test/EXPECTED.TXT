@@ -1,7 +1,80 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    ____________________________________________________________
+    Greetings, I, Earl, extend my esteemed salutations.
+    Pray, how may I be of service to you on this auspicious day?
+    ____________________________________________________________
+    ____________________________________________________________
+    A new TODO [T][ ] wash dishes
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 1 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    A new DEADLINE [D][ ] homework (by: 01/01/1970 0000)
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 2 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    A new EVENT [E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 3 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    The ledger of tasks:
+    1.[T][ ] wash dishes
+    2.[D][ ] homework (by: 01/01/1970 0000)
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) duly accomplished.
+    1.[T][X] wash dishes
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) duly accomplished.
+    2.[D][X] homework (by: 01/01/1970 0000)
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) persist as undone.
+    2.[D][ ] homework (by: 01/01/1970 0000)
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) persist as undone.
+    2.[D][ ] homework (by: 01/01/1970 0000) status unchanged.
+    ____________________________________________________________
+    ____________________________________________________________
+    A new TODO [T][ ] a
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 4 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    A new TODO [T][ ] b
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 5 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    A new TODO [T][ ] c
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 6 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    1 task(s) of congruence have been uncovered.
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) heretofore have been expunged.
+    1.[T][X] wash dishes
+    2.[D][ ] homework (by: 01/01/1970 0000)
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    5.[T][ ] b
+    6.[T][ ] c
+    ____________________________________________________________
+    ____________________________________________________________
+    The ledger of tasks:
+    1.[T][ ] a
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) heretofore have been expunged.
+    1.[T][ ] a
+    ____________________________________________________________
+    ____________________________________________________________
+    Farewell, dear interlocutor!
+    Until our paths intertwine again, I bid you adieu.
+    ____________________________________________________________
