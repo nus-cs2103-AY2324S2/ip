@@ -16,6 +16,7 @@ import model.Deadline;
 import model.Event;
 import model.Storage;
 import model.Task;
+import model.ToDo;
 import view.MainWindow;
 import view.Ui;
 
@@ -143,6 +144,7 @@ public class Zero extends Application {
                 String s = inputDict.get("name");
                 Parser.checkNullOrEmpty(s);
                 Task t = storage.getTaskList().addTask(s);
+                assert t instanceof ToDo : " ToDo command did not create a ToDo Task";
                 storage.saveTaskList();
                 return Ui.showAddTaskDone(t, storage.getTaskList().size());
             } catch (IllegalArgumentException e) {
@@ -154,6 +156,7 @@ public class Zero extends Application {
                 Parser.checkNullOrEmpty(s);
                 LocalDateTime by = Parser.parseDateTime(inputDict.get("/by"));
                 Task t = storage.getTaskList().addTask(s, by);
+                assert t instanceof Deadline : " Deadline command did not create a Deadline Task";
                 storage.saveTaskList();
                 return Ui.showAddTaskDone(t, storage.getTaskList().size());
             } catch (IllegalArgumentException e) {
@@ -170,11 +173,13 @@ public class Zero extends Application {
                 error = "/to"; // [from] date successfully parsed, change possible error to [to]
                 LocalDateTime to = Parser.parseDateTime(inputDict.get("/to"));
                 Task t = storage.getTaskList().addTask(s, from, to);
+                assert t instanceof Event : " Event command did not create an Event Task";
                 storage.saveTaskList();
                 return Ui.showAddTaskDone(t, storage.getTaskList().size());
             } catch (IllegalArgumentException e) {
                 return Ui.showMissingTaskNameError();
             } catch (NullPointerException | DateTimeParseException e) {
+                assert error == "/from" || error == "/to" : " Invalid error type";
                 return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
             }
         case FIND:
