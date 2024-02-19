@@ -3,6 +3,7 @@ package tool;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import exception.ChronosException;
 import task.Task;
@@ -42,7 +43,7 @@ public class Parser {
      * @throws IOException If there is an exception when processing input/output.
      * @throws ChronosException If there are invalid commands provided.
      */
-    public static int processCommand(
+    public static String processCommand(
             String command, Ui ui, Storage storage, TaskList tasks) throws IOException, ChronosException {
 
         String[] token = command.split(" ", 2);
@@ -52,15 +53,11 @@ public class Parser {
                 if (token.length != 1) {
                     throw ChronosException.createInvalidByeException();
                 } else {
-                    Ui.bidGoodbye();
-                    return 0;
+                    return Ui.bidGoodbye();
                 }
             } catch (exception.InvalidByeException e) {
-                ui.showDivider();
-                System.out.println("\t\t" + e.getMessage());
-                ui.showDivider();
+                return e.getMessage();
             }
-            return 1;
             // Fallthrough
         } else {
             switch(token[0]) {
@@ -69,30 +66,24 @@ public class Parser {
                     if (token.length != 1) {
                         throw ChronosException.createInvalidHelpException();
                     } else {
-                        ui.printHelp();
+                        return ui.printHelp();
                     }
                 } catch (exception.InvalidHelpException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "list":
                 try {
                     if (token.length != 1) {
                         throw ChronosException.createInvalidListException();
                     } else if (tasks.isEmpty()) {
-                        ui.printNoOutstandingTasks();
+                        return ui.printNoOutstandingTasks();
                     } else {
-                        ui.printTasks(tasks);
+                        return ui.printTasks(tasks);
                     }
                 } catch (exception.InvalidListException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "mark":
                 try {
@@ -101,20 +92,18 @@ public class Parser {
                     } else {
                         try {
                             int i = Integer.parseInt(token[1]);
-                            tasks.markTask(i, ui);
+                            Task selectedTaskToBeMarked = tasks.markTask(i, ui);
                             storage.saveTasksToFile(tasks);
+                            return ui.printMarkTaskSuccessful(selectedTaskToBeMarked);
                         } catch (NumberFormatException e) {
-                            ui.printNumberFormatException();
+                            return ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
-                            ui.printIndexOutOfBoundsException();
+                            return ui.printIndexOutOfBoundsException();
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "unmark":
                 try {
@@ -123,20 +112,18 @@ public class Parser {
                     } else {
                         try {
                             int i = Integer.parseInt(token[1]);
-                            tasks.unMarkTask(i, ui);
+                            Task selectedTaskToBeUnmarked = tasks.unMarkTask(i, ui);
                             storage.saveTasksToFile(tasks);
+                            return ui.printUnmarkTaskSuccessful(selectedTaskToBeUnmarked);
                         } catch (NumberFormatException e) {
-                            ui.printNumberFormatException();
+                            return ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
-                            ui.printIndexOutOfBoundsException();
+                            return ui.printIndexOutOfBoundsException();
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "todo":
                 try {
@@ -144,15 +131,13 @@ public class Parser {
                         throw ChronosException.createMissingDescriptionException();
                     } else {
                         String description = token[1];
-                        tasks.addToDo(description, ui);
+                        Task todo = tasks.addToDo(description, ui);
                         storage.saveTasksToFile(tasks);
+                        return ui.printAddTodoSuccessful(todo, tasks.size());
                     }
                 } catch (exception.MissingDescriptionException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "deadline":
                 try {
@@ -162,20 +147,18 @@ public class Parser {
                     String[] descriptionAndBy = token[1].split("/by");
                     String description = descriptionAndBy[0].trim();
                     String dueDate = Parser.formatDateTime(descriptionAndBy[1].trim());
-                    tasks.addDeadline(description, dueDate, ui);
+                    Task deadline = tasks.addDeadline(description, dueDate, ui);
                     storage.saveTasksToFile(tasks);
+                    return ui.printAddDeadlineSuccessful(deadline, tasks.size());
                 } catch (exception.InvalidDeadlineException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 } catch (Exception e) {
-                    ui.showDivider();
-                    System.out.println("\t\tInvalid command. Please include a task description and due date "
-                            + "following the example below:");
-                    System.out.println("\t\te.g. deadline return library book /by 2024-09-22 15:00");
-                    ui.showDivider();
+                    ArrayList<String> message = new ArrayList<>();
+                    message.add("Invalid command.");
+                    message.add("Please include a task description and due date following the example below:");
+                    message.add("e.g. deadline return library book /by 2024-09-22 15:00");
+                    return String.join(" ", message);
                 }
-                return 1;
                 // Fallthrough
             case "event":
                 try {
@@ -187,20 +170,18 @@ public class Parser {
                     String[] fromAndTo = descriptionAndDate[1].split("/to");
                     String fromDateAndTime = Parser.formatDateTime(fromAndTo[0].trim());
                     String toDateAndTime = Parser.formatDateTime(fromAndTo[1].trim());
-                    tasks.addEvent(description, fromDateAndTime, toDateAndTime, ui);
+                    Task event = tasks.addEvent(description, fromDateAndTime, toDateAndTime, ui);
                     storage.saveTasksToFile(tasks);
+                    return ui.printAddEventSuccessful(event, tasks.size());
                 } catch (exception.InvalidEventException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 } catch (Exception e) {
-                    ui.showDivider();
-                    System.out.println("\t\tInvalid command. Please include a task name and a valid due date "
-                            + "following the syntax of the example below:");
-                    System.out.println("\t\te.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
-                    ui.showDivider();
+                    ArrayList<String> message = new ArrayList<>();
+                    message.add("Invalid command.");
+                    message.add("Please include a task description and due date following the example below:");
+                    message.add("e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
+                    return String.join(" ", message);
                 }
-                return 1;
                 // Fallthrough
             case "delete":
                 try {
@@ -209,20 +190,18 @@ public class Parser {
                     } else {
                         try {
                             int i = Integer.parseInt(token[1]);
-                            tasks.deleteTask(i, ui);
+                            Task deletedTask = tasks.deleteTask(i, ui);
                             storage.saveTasksToFile(tasks);
+                            return ui.printDeleteTaskSuccessful(deletedTask, tasks.size());
                         } catch (NumberFormatException e) {
-                            ui.printNumberFormatException();
+                            return ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
-                            ui.printIndexOutOfBoundsException();
+                            return ui.printIndexOutOfBoundsException();
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             case "find":
                 TaskList filteredTasks = new TaskList();
@@ -247,25 +226,19 @@ public class Parser {
                         if (filteredTasks.isEmpty()) {
                             throw ChronosException.createKeywordNotFoundException();
                         } else {
-                            ui.printFilteredTasks(filteredTasks);
+                            return ui.printFilteredTasks(filteredTasks);
                         }
                     }
                 } catch (exception.MissingKeywordException | exception.KeywordNotFoundException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             default:
                 try {
                     throw ChronosException.createInvalidCommandException();
                 } catch (exception.InvalidCommandException e) {
-                    ui.showDivider();
-                    System.out.println("\t\t" + e.getMessage());
-                    ui.showDivider();
+                    return e.getMessage();
                 }
-                return 1;
                 // Fallthrough
             }
         }
