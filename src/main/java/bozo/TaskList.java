@@ -8,7 +8,7 @@ import java.util.Iterator;
  */
 public class TaskList implements Iterable<Task> {
 
-    public ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Constructs a new TaskList.

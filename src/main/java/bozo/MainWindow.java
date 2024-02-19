@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
         bozo = b;
     }
 
+    /**
+     * Shows the welcome message from Bozo.
+     */
     public void showGreeting() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getBozoDialog("Hello! I'm Bozo. What can I do for you?", bozoImage)

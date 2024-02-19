@@ -9,7 +9,7 @@ import javafx.application.Platform;
  * It contains the main method and the run method.
  */
 public class Bozo {
-    private static TaskList list;
+    private static TaskList taskList;
     private static Storage storage;
     private static Ui ui;
     private static Parser parser;
@@ -20,7 +20,7 @@ public class Bozo {
      */
     public Bozo(String filePath) {
         storage = new Storage(filePath);
-        list = new TaskList(storage.loadFile());
+        taskList = new TaskList(storage.loadFile());
         ui = new Ui();
         parser = new Parser();
     }
@@ -30,7 +30,7 @@ public class Bozo {
      */
     public Bozo() {
         storage = new Storage("./data/bozo.txt");
-        list = new TaskList(storage.loadFile());
+        taskList = new TaskList(storage.loadFile());
         ui = new Ui();
         parser = new Parser();
     }
@@ -46,14 +46,14 @@ public class Bozo {
         do {
             input = sc.nextLine();
             try {
-                parser.parseCommand(input, list);
+                parser.parseCommand(input, taskList);
             } catch (BozoException e) {
                 ui.showError(e.getMessage());
             }
         } while (!input.equals("bye"));
 
         ui.showGoodbye();
-        storage.saveList(list);
+        storage.saveList(taskList);
     }
 
     public static void main(String[] args) {
@@ -65,9 +65,9 @@ public class Bozo {
      */
     public String getResponse(String input) {
         try {
-            String output = parser.parseCommand(input, list);
+            String output = parser.parseCommand(input, taskList);
             if (output.equals("Bye. Hope to see you again soon!")) {
-                storage.saveList(list);
+                storage.saveList(taskList);
                 Platform.exit();
             }
             return output;

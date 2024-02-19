@@ -10,8 +10,8 @@ public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
-    protected static DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    protected DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Constructs a new event task with the specified description and event time.
