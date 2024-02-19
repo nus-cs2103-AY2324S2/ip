@@ -3,7 +3,7 @@ package destiny;
 /**
  * Base Task class which contains the base information and functions all tasks share.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

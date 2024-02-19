@@ -1,4 +1,4 @@
-T | 1 | abc
+T | 0 | abc
 D | 1 | efg | 01/02/2025 1234
 E | 0 | magic | 01/02/2025 1234 | 03/02/2025 1234
 T | 1 | commit the next changes

@@ -19,16 +19,6 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    /**
-     * Helper function that prints a horizontal line above and below the given message.
-     *
-     * @param message The message to be printed.
-     */
-    private void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
 
     /**
      * Returns task based on index.
