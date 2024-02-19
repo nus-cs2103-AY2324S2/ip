@@ -95,7 +95,10 @@ public class Parser {
                     throw new DylanBotException("HEY index requested is out of bounds");
                 }
                 response = tl.deleteTask(idx);
+            } else {
+                throw new DylanBotException("HEY invalid input! Try again!");
             }
+            assert !response.isBlank() : "Response cannot be blank";
             return response;
         } catch (DylanBotException e) {
             return e.getMessage();
