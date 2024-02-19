@@ -5,6 +5,7 @@ import java.util.List;
 import duke.ChatSession;
 import duke.Pair;
 import duke.SubcommandParser;
+import duke.exceptions.InvalidParametersException;
 import duke.tasks.Event;
 
 /**
@@ -21,7 +22,7 @@ public class EventCommand implements NamedCommand {
      * @param session     Chat session
      * @param commandArgs Command arguments
      */
-    public void execute(ChatSession session, String commandArgs) {
+    public void execute(ChatSession session, String commandArgs) throws InvalidParametersException {
         Pair<String, List<Pair<String, String>>> data = SubcommandParser.parseSubcommands(commandArgs, "/");
         String name = data.getFirst();
         List<Pair<String, String>> subcommPairs = data.getSecond();
@@ -37,9 +38,10 @@ public class EventCommand implements NamedCommand {
             case "/to":
                 String toDate = subcommPair.getSecond();
                 t.setToDate(toDate);
-            default:
-                // add exception handling later
                 break;
+            default:
+                // add exception handling
+                throw new InvalidParametersException("Invalid subcommand");
             }
         }
 

@@ -15,6 +15,8 @@ public class EventTest {
         assertEquals("May 15 2024 09:00 PM", event.getFromDate());
     }
 
+    //CHECKSTYLE.OFF: EmptyCatchBlock
+
     @Test
     public void setDate_failure() {
         try {
@@ -27,4 +29,5 @@ public class EventTest {
 
     }
 
+    //CHECKSTYLE.ON: EmptyCatchBlock
 }
