@@ -36,7 +36,7 @@ public abstract class Task {
      * @return True if event should be in list view, otherwise false.
      */
     public boolean inListView(ListView listView) {
-        return tags.contains(listView.getType()) && listView.descriptionFilter(description);
+        return tags.contains(listView.getType()) && listView.keywordFilter(description);
     }
 
     /**

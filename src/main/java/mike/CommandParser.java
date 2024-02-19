@@ -183,10 +183,31 @@ class CommandParser {
     }
 
     private Command parseFind() throws MikeException {
-        String usage = "Usage: find [keyword]";
-        String keyword = getLiteral(usage);
-        consume(TokenType.EOC, usage);
-        return new FindCommand(keyword);
+        String basicFindUsage = "Usage: find [keyword]";
+        String fullFindUsage = "Usage: find [keyword] /fuzzy [on/off]";
+
+        String keyword = getLiteral(basicFindUsage);
+
+        if (!getParameterSeen()) {
+            consume(TokenType.EOC, basicFindUsage);
+            return new FindCommand(keyword, false);
+        }
+
+        if (!getHasParameterName("fuzzy")) {
+            throw createError(fullFindUsage);
+        }
+
+        String argument = getLiteral(fullFindUsage);
+        consume(TokenType.EOC, fullFindUsage);
+
+        switch (argument) {
+        case "on":
+            return new FindCommand(keyword, true);
+        case "off":
+            return new FindCommand(keyword, false);
+        default:
+            throw createError(fullFindUsage);
+        }
     }
 
     private boolean match(TokenType...types) {
@@ -263,6 +284,6 @@ class CommandParser {
     }
 
     private boolean getParameterSeen() {
-        return match(TokenType.FORWARD_DASH, TokenType.PARAM);
+        return match(TokenType.FORWARD_DASH) && match(TokenType.PARAM);
     }
 }

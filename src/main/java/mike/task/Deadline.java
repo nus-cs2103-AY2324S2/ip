@@ -34,7 +34,7 @@ public class Deadline extends Task {
 
     @Override
     public boolean inListView(ListView listView) {
-        return super.inListView(listView) && listView.dateFilter(deadline) && listView.descriptionFilter(description);
+        return super.inListView(listView) && listView.dateFilter(deadline) && listView.keywordFilter(description);
     }
 
     private String getDeadline() {
