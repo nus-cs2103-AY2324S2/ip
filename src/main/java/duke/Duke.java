@@ -39,8 +39,4 @@ public class Duke {
     public String welcome() {
         return Ui.showWelcome();
     }
-    public boolean isExit() {
-        return isExit;
-    }
-
 }
