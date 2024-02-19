@@ -21,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private HelpPage helpPage;
 
     private ChrisPBacon chrisPBacon;
 
@@ -51,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
 
         if (input.equals("help")) {
-            helpPage.display();
+            HelpPage.display();
         } else {
             String response = chrisPBacon.getResponse(input);
             dialogContainer.getChildren().addAll(

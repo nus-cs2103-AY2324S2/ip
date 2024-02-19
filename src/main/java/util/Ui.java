@@ -48,31 +48,6 @@ public class Ui {
     }
 
     /**
-     * Prints the error message.
-     *
-     * @param msg error message
-     * @return Error message to be printed.
-     */
-    public String printError(String msg) {
-        return line + "\n" + msg + line;
-    }
-
-    /**
-     * Prints the list of commands available.
-     *
-     * @return The whole help list as a String.
-     */
-    public String printHelp() {
-        String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
-                + "'todo ...' - to add new task\n'deadline ... /by dd/MM/yyyy' - to add task with deadline\n"
-                + "'event ... /from ... /to ...' - to add an event\n"
-                + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
-                + "'find ...' - to find tasks with matching descriptions\n"
-                + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot\n";
-        return line + "\n" + help + line;
-    }
-
-    /**
      * Iterates through the list and prints the tasks.
      *
      * @param tasks task list
