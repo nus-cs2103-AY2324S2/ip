@@ -2,18 +2,12 @@ package dylanbot;
 
 import java.io.IOException;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * Represents a DylanBot
@@ -66,10 +60,6 @@ public class DylanBot {
         this.ps = new Parser(ui, tl);
     }
 
-//    public static void main(String[] args) {
-//        new DylanBot("./data/DylanBotData.txt").run();
-//    }
-
     /**
      * Runs DylanBot based on the provided user input
      */
@@ -79,7 +69,7 @@ public class DylanBot {
         String command;
         try {
             while (!(command = ui.takeInput()).equals("bye")) {
-                ps.process(command);
+                ps.parseCommand(command);
             }
         } catch (DylanBotException e) {
             ui.displayError(e);
@@ -98,7 +88,7 @@ public class DylanBot {
             if (input.equals("bye")) {
                 response = "Bye! Hope to see you again soon";
             } else {
-                response = ps.process(input);
+                response = ps.parseCommand(input);
             }
             return response;
         } catch (DylanBotException e) {
