@@ -5,3 +5,5 @@ Chatgpt was used for the following increments
   - Used simply to generate the texts.
 - A-BetterGui
   - Chatgpt wasnt very helpful in this case because I guess its difficult to describe how youw want your UI to look like to a chatbot and expect a good result, I think also the fact that the files were separated makes it a little harder for the bot to give good results. 
+- A-MoreTesting
+  - Used Chatgpt for creation and deletion of files in specified filepaths.

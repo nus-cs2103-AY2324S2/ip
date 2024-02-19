@@ -72,7 +72,7 @@ public class Ui {
      */
     public String markDone(Task task) {
         String message = LINE_BREAK
-                + "Splendid news! Your accomplishment is a testament to your diligence and skill."
+                + "Splendid news! Your accomplishment is a testament to your diligence and skill. "
                 + "Should you require further assistance or have additional tasks to "
                 + "undertake, do not hesitate to summon me.\n"
                 + String.format("%s\n", task)
@@ -87,8 +87,8 @@ public class Ui {
      */
     public String markUndone(Task task) {
         String message = LINE_BREAK
-                + "Splendid news! Your accomplishment is a testament to your diligence and skill."
-                + "Should you require further assistance or have additional tasks to undertake,"
+                + "Splendid news! Your accomplishment is a testament to your diligence and skill. "
+                + "Should you require further assistance or have additional tasks to undertake, "
                 + "do not hesitate to summon me.\n"
                 + String.format("%s\n", task)
                 + LINE_BREAK;
@@ -126,9 +126,9 @@ public class Ui {
         int numOfTasks = taskList.getListSize();
 
         String message = LINE_BREAK
-                + "Your directive has been duly noted. The tas has been successfully expunged from"
-                + "our records. Should there be any further matters requiring attention or if new tasks"
-                + "arise, do not hesitate to relay them, and they shall be handled with utmost care"
+                + "Your directive has been duly noted. The task has been successfully expunged from "
+                + "our records. Should there be any further matters requiring attention or if new tasks "
+                + "arise, do not hesitate to relay them, and they shall be handled with utmost care "
                 + "and efficiency.\n"
                 + String.format("added: %s\n", task.toString())
                 + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
