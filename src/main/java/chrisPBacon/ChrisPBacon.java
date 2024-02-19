@@ -25,7 +25,7 @@ public class ChrisPBacon {
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (FileNotFoundException e) {
-            ui.printError("Oink! File not found :(\n");
+            System.out.println("Oink! File not found :(\n");
             tasks = new TaskList();
         }
     }
