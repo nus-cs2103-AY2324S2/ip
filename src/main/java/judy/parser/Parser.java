@@ -102,11 +102,9 @@ public class Parser {
     }
 
     private static Todo handleTodo(String[] todo) throws DukeException {
-        if(todo.length != 2) {
-            throw new DukeException(" Invalid format :c \n" +
+        if(todo.length != 2 || todo[1].isEmpty()) {
+            throw new DukeException(" The description of a todo cannot be empty :c \n" +
                     " (Eg format: todo <Description> )");
-        } else if (todo[1].isEmpty()) {
-            throw new DukeException(" The description of a todo cannot be empty.");
         }
         return new Todo(todo[1]);
     }
