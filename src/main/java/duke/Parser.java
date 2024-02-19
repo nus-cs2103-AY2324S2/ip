@@ -20,6 +20,10 @@ public class Parser {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
     public static Command parse(String str) throws DukeException {
         String[] arr = str.split(" ");
+        assert str != null : "Input cannot be null";
+        assert !str.isEmpty() : "Input cannot be empty";=
+        assert arr != null && arr.length > 0: "Error in parsing input";
+        assert arr != null && arr.length > 0 : "Split array cannot be null or empty";
         if (isSingleWordCommand(arr[0])) {
             return handleSingleWordCommand(arr);
         } else {
