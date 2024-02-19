@@ -144,9 +144,10 @@ A: Install the app on the other computer and overwrite the empty data file it cr
 | **Deadline**  | `deadline DESCRIPTION /by DD/MM/YYYY HHMM` <br> e.g. `deadline homework /by 12/12/2024 2359` |
 | **Event**  | `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM` <br> e.g. `event F1 /from 01/09/2024 2100 /to 02/09/2024 0100` |
 | **List**  | `list` |
-| **Find**  | `find KEYWORD` |
+| **Find**  | `find KEYWORD [MORE_KEYWORDS]` |
 | **Delete**  | `delete INDEX` <br> e.g. `delete 3` |
 | **Mark**  | `mark INDEX` <br> e.g. `mark 3` |
-| **Unmark**  | `unmark INDEX` <br> e.g. `mark 3` |
+| **Unmark**  | `unmark INDEX` <br> e.g. `unmark 3` |
 | **Priority**  | `priority /id INDEX /priority PRIORITY_LEVEL` <br> e.g. `priority /id 1 /priority high` |
 | **Sort**  | `sort` |
+| **Bye**  | `bye` |
