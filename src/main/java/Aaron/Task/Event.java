@@ -47,6 +47,13 @@ public class Event extends Task {
     }
 
     @Override
+    public void postpone(int postponeAmount) throws AaronBotException {
+        startTime = startTime.plusDays(postponeAmount);
+        endTime = endTime.plusDays(postponeAmount);
+    }
+
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " | " + startTime.format(DATE_TIME_FORMATTER)
                 + " | " + endTime.format(DATE_TIME_FORMATTER);

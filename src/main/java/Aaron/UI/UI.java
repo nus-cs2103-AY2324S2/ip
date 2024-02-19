@@ -113,10 +113,19 @@ public class UI {
     /**
      * Method to display a message when task is successfully deleted
      * @param index
-     * @return
+     * @return message
      */
     public String showTaskDeletedMsg(int index) {
         return ("Successfully deleted task " + index);
+    }
+
+    /**
+     * Method to display a message when task is successfully snoozed
+     * @param index index of task snoozed
+     * @return message
+     */
+    public String showTaskSnoozedMessage(int index) {
+        return ("Successfully snoozed task " + index);
     }
  
 }
