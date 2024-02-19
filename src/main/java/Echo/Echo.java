@@ -24,6 +24,10 @@ import javafx.util.Duration;
 
 import static Echo.Ui.Ui.startConversation;
 
+/**
+ * The Echo class represents the main application for a chatbot with task management features.
+ * It extends the JavaFX Application class and provides a graphical user interface for user interaction.
+ */
 public class Echo extends Application {
     private TaskManager taskManager;
     private Storage storage;
@@ -41,15 +45,29 @@ public class Echo extends Application {
     private Image echo = new Image(this.getClass().getResourceAsStream("/images/DaEcho.png"));
     private String formattedBotResponse;
 
+    /**
+     * Constructor for the Echo class. Initializes the storage and task manager.
+     */
     public Echo() {
         storage = new Storage(FILE_PATH);
         this.taskManager = new TaskManager(storage, this);
     }
 
+    /**
+     * The main method that launches the JavaFX application.
+     *
+     * @param args Command-line arguments passed to the application.
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method is called when the application is launched.
+     * It initializes UI components, event handlers, user interaction, and the main stage.
+     *
+     * @param stage The primary stage for the application.
+     */
     public void start(Stage stage) {
         initializeUIComponents();
 
@@ -63,6 +81,10 @@ public class Echo extends Application {
 
     }
 
+    /**
+     * Initializes the UI components such as scroll pane, dialog container, user input field, and buttons.
+     * Sets up the layout and styling of the main user interface.
+     */
     private void initializeUIComponents() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -100,22 +122,35 @@ public class Echo extends Application {
 
 
 
+    /**
+     * Sets up event handlers for user interactions, such as button clicks and user input.
+     */
     private void setupEventHandlers() {
         sendButton.setOnAction(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
     }
 
+    /**
+     * Sets up the interaction with the UI, including the task manager and initial greetings.
+     */
     private void setupUiInteraction() {
         Ui.setEcho(this);
         greetUser();
     }
 
+    /**
+     * Greets the user with an initial message and displays it in the chat interface.
+     */
     public void greetUser() {
         Label greetingLabel = new Label("Hello! I'm Echo.Echo\nWhat can I do for you?");
         DialogBox botDialog = DialogBox.getDukeDialog(greetingLabel, new ImageView(echo));
         dialogContainer.getChildren().add(botDialog);
     }
 
+    /**
+     * Ends the conversation by displaying a farewell message and closing the application after a delay.
+     * The application will exit after a pause of 2 seconds.
+     */
     public void endConversation() {
         Label farewellLabel = new Label("Bye. Hope to see you again soon!");
         DialogBox botDialog = DialogBox.getDukeDialog(farewellLabel, new ImageView(echo));
@@ -127,10 +162,18 @@ public class Echo extends Application {
     }
 
 
+    /**
+     * Configures auto-scrolling behavior for the scroll pane when new messages are added.
+     */
     private void setupScrollPaneAutoScroll() {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
+    /**
+     * Displays the main stage of the application.
+     *
+     * @param stage The primary stage for the application.
+     */
     private void showStage(Stage stage) {
         scene = new Scene(mainLayout);
         stage.setScene(scene);
@@ -144,16 +187,6 @@ public class Echo extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    /*private void handleUserInput() {
-        Label userText = new Label(getResponse(userInput.getText()));
-        taskManager.executeCommand(userInput.getText());
-        Label echoText = new Label(formattedBotResponse);
-        dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(echoText, new ImageView(echo))
-        );
-        userInput.clear();
-    }*/
     private void handleUserInput() {
         String userInputText = userInput.getText();
         assert userInputText != null : "User input should not be null";
@@ -182,7 +215,7 @@ public class Echo extends Application {
     public void displayBotResponse(String response) {
         formattedBotResponse = "Bot: " + response + "\n";
     }
-
+  
     public void echoCommand(String command) {
         Platform.runLater(() -> {
             chatArea.appendText(command + "\n");
