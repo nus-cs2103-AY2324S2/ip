@@ -3,9 +3,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -55,8 +54,13 @@ public class MainWindow extends AnchorPane {
         assert userText != null;
 
         String dukeText = duke.getResponseMessage(userText);
+
         DialogBox userDialog = DialogBox.getUserDialog(userText, userImage);
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, dukeImage);
+
+        if (dukeText.contains("Error:")) {
+            dukeDialog.setBackground(new Background(new BackgroundFill(Color.web("#ffbfbf"), null, null)));
+        }
         dialogContainer.getChildren().addAll(
                 userDialog,
                 dukeDialog

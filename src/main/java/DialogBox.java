@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
@@ -49,7 +50,17 @@ public class DialogBox extends HBox {
         message.setWrappingWidth(200);
         dialog.setWrapText(true);
         dialog.setText(message.getText());
+        clipImageViewToCircle(displayPicture);
         displayPicture.setImage(img);
+    }
+
+    /**
+     * Changes display photo to circle style.
+     * @param imageView
+     */
+    private void clipImageViewToCircle(ImageView imageView) {
+        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, imageView.getFitWidth() / 2);
+        imageView.setClip(clip);
     }
 
     /**
