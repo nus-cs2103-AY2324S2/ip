@@ -1,14 +1,16 @@
 package bartenderbob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents the Event task that has a description, from date and a due date.
  */
 public class Event extends Task {
-    //TODO: What happens if by is before from?
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final DateTimeFormatter YYYY_MM_DD_FORMAT = DateTimeFormatter.ofPattern(YYYY_MM_DD);
     public static final String MMM_DD_YYYY = "MMM dd yyyy";
+    public static final DateTimeFormatter MMM_DD_YYYY_FORMAT = DateTimeFormatter.ofPattern(MMM_DD_YYYY);
     /** Event start date */
     private LocalDate from;
     /** Event due date */
@@ -24,13 +26,11 @@ public class Event extends Task {
      */
     public Event(String description, String from, String by) {
         super(description);
-        if (!isValidDateFormat(from, by)) {
-            throw new IllegalArgumentException();
-        }
-        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
+        verifyValidDateFormat(from, by);
+        verifyFromBeforeBy(from, by);
+        this.from = LocalDate.parse(from, YYYY_MM_DD_FORMAT);
+        this.by = LocalDate.parse(by, YYYY_MM_DD_FORMAT);
     }
-
     /**
      * Creates an instance of an Event class that has a description, from date,
      * by date and whether it has been completed.
@@ -42,28 +42,38 @@ public class Event extends Task {
      */
     public Event(String description, String from, String by, boolean isDone) {
         super(description, isDone);
-        if (!isValidDateFormat(from, by)) {
-            throw new IllegalArgumentException();
-        }
-        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
+        verifyValidDateFormat(from, by);
+        verifyFromBeforeBy(from, by);
+        this.from = LocalDate.parse(from, YYYY_MM_DD_FORMAT);
+        this.by = LocalDate.parse(by, YYYY_MM_DD_FORMAT);
     }
-
     /**
      * Verifies whether a string is of the format yyyy-MM-dd.
      *
      * @param by Input String.
      * @return Whether the string follows the format yyyy-MM-dd.
      */
-    private boolean isValidDateFormat(String from, String by) {
+    private void verifyValidDateFormat(String from, String by) {
         assert from != null : "String parameter 'from' cannot be null";
         assert by != null : "String parameter 'by' cannot be null";
         try {
-            LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
-            LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
-            return true;
-        } catch (Exception e) {
-            return false;
+            LocalDate.parse(from, YYYY_MM_DD_FORMAT);
+            LocalDate.parse(by, YYYY_MM_DD_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+    /**
+     * Verifies whether the from date is before the by date.
+     *
+     * @param from Start date of the event.
+     * @param by Due date of the event.
+     */
+    private void verifyFromBeforeBy(String from, String by) {
+        LocalDate fromDate = LocalDate.parse(from, YYYY_MM_DD_FORMAT);
+        LocalDate byDate = LocalDate.parse(by, YYYY_MM_DD_FORMAT);
+        if (!fromDate.isBefore(byDate)) {
+            throw new IllegalArgumentException();
         }
     }
     /**
@@ -82,8 +92,8 @@ public class Event extends Task {
     @Override
     public String show() {
         super.status = isDone ? "X" : " ";
-        String fromFormat = this.from.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY));
-        String byFormat = this.by.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY));
+        String fromFormat = this.from.format(MMM_DD_YYYY_FORMAT);
+        String byFormat = this.by.format(MMM_DD_YYYY_FORMAT);
         String fromByFormat = "(from: " + fromFormat + " to: " + byFormat + ")";
         return "[E]" + "[" + status + "]" + " " + this.description + " " + fromByFormat;
     }

@@ -82,7 +82,7 @@ public class Ui {
      * @return Error message to the user.
      */
     public String showInvalidDateFormat() {
-        return "Date format should be of the form yyyy-MM-dd!";
+        return "Check whether the date format is yyyy-MM-dd or if the dates make sense!";
     }
     /**
      * Returns the message to the user when an error occurred in the event command.
