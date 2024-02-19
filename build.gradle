@@ -35,7 +35,6 @@ application {
 shadowJar {
     archiveBaseName = "convobot"
     archiveClassifier = null
-    dependsOn("distZip", "distTar");
 }
 
 // Configure run task settings
