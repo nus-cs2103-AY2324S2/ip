@@ -8,7 +8,7 @@ import jade.storage.Storage;
  * The <code>UnmarkCommand</code> object represents the command to mark a task as not done yet.
  */
 public class UnmarkCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "Nice, I've marked this task "
+    private static final String RESULT_MSG_FORMATTED = "Noted, I've marked this task "
             + "as not done yet:\n\t  %s";
     private static final String ERR_MSG = "Please input a valid number to unmark done.";
     private final int index; // the index of the task to be unmarked

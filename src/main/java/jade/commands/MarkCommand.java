@@ -8,7 +8,7 @@ import jade.storage.Storage;
  * The <code>MarkCommand</code> object represents the command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "Nice, I've marked this task as done:\n\t  %s";
+    private static final String RESULT_MSG_FORMATTED = "Noted, I've marked this task as done:\n\t  %s";
     private static final String ERR_MSG = "Please input a valid number to mark done.";
     private final int index; // the index of the task to be marked
 

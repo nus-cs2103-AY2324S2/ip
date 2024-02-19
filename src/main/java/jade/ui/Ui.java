@@ -11,8 +11,8 @@ public class Ui {
             + "  |  | | |_| | | |  | | | |____|\n"
             + "|\\|  | | ___ | | |__| | | |____\n"
             + " \\___| |_| |_| |_____/  \\_|____\\\n"; // logo for the program
-    public static final String LAUNCH_MESSAGE = String.format("%s\nHello, I'm Jade, your task manager.\n\n"
-            + "Start by adding reminders for your tasks.\n\n"
+    public static final String LAUNCH_MESSAGE = String.format("%s\nGreetings from Jade! I'm Jade,"
+            + "your esteemed task management companion.\n\n"
             + "To check how I could assist you, access the help page by entering 'help'.", LOGO);
     public static final String LOADING_ERROR_MESSAGE = "\t[There's no file under current "
              + "storage path, a new task file has been created.]\n";

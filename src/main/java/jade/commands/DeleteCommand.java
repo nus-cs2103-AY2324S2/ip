@@ -9,8 +9,8 @@ import jade.storage.Storage;
  * The <code>DeleteCommand</code> object represents the command to delete a task.
  */
 public class DeleteCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "OK, I've deleted this task:\n\t  %s\n"
-            + "Now you have %d task(s) in the list.";
+    private static final String RESULT_MSG_FORMATTED = "Noted, The following task is deleted:\n\t  %s\n"
+            + "Now there are %d task(s) in the list.";
     private static final String ERR_MSG = "Please input a valid number to delete the task.";
     private final int index; // the index of the task to be deleted
 
