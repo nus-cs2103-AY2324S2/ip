@@ -4,7 +4,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static duke.constants.Constant.*;
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+import static duke.constants.Constant.RELATIVE_PATH;
+
 
 /**
  * Handles the loading and conversion of task data from a file.
@@ -62,7 +64,7 @@ public class Storage {
                                 } catch (DateTimeParseException e) {
                                     System.err.println("OPPS! The format for the inputted deadline is not " +
                                             "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' " +
-                                            "when you are creating the task.");
+                                             "when you are creating the task.");
                                 }
                                 break;
                             case "E":
@@ -106,7 +108,7 @@ public class Storage {
      * @return The Deadline object converted from the string representation.
      * @throws DateTimeParseException If the input date and time cannot be parsed.
      */
-    public Deadline convertToDeadline(String string) throws DateTimeParseException{
+    public Deadline convertToDeadline(String string) throws DateTimeParseException {
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
         String description = parts[2].trim();
@@ -122,7 +124,7 @@ public class Storage {
      * @return The Event object converted from the string representation.
      * @throws DateTimeParseException If the input start and end time cannot be parsed.
      */
-    public Event convertToEvent(String string) throws DateTimeParseException{
+    public Event convertToEvent(String string) throws DateTimeParseException {
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
         String description = parts[2].trim();

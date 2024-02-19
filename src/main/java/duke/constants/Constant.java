@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Utility class that defines constants used in the application.
  */
 public class Constant {
-    public final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public final static DateTimeFormatter DATE_TIME_FORMATTER_FOR_PRINT = DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm");
-    public final static String RELATIVE_PATH = "data/duke.txt";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_PRINT = DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm");
+    public static final String RELATIVE_PATH = "data/duke.txt";
 }
