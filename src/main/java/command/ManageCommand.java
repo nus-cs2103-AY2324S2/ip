@@ -77,9 +77,9 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
-                result += String.format("Naughty boy... %d is not a valid index.\n", index);
-                continue;
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index + 1));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index + 1);
+                return result;
             }
             Task task = tasks.getTask(index);
             try {
@@ -117,9 +117,9 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
-                result += String.format("Naughty boy... %d is not a valid index.\n", index);
-                continue;
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index + 1));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index + 1);
+                return result;
             }
             Task task = tasks.getTask(index);
             try {
@@ -156,9 +156,9 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
-                result += String.format("Naughty boy... %d is not a valid index.\n", index);
-                continue;
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index + 1));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index + 1);
+                return result;
             }
             Task removed = tasks.deleteTask(index);
             storage.deleteLine(index);

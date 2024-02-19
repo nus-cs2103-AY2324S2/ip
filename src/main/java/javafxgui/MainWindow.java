@@ -69,7 +69,7 @@ public class MainWindow extends AnchorPane {
      * The message includes a welcome greeting and an inquiry about how Lulu can assist the user.
      */
     public void displayStartMessage() {
-        String greetingMessage = "Wassup boss! I'm Lulu \n\tHow can I assist you?";
+        String greetingMessage = "Wassup boss! I'm Lulu \nHow can I assist you?";
         dialogContainer.getChildren().add(DialogBox.getLuluDialog(greetingMessage, luluImage));
     }
 
