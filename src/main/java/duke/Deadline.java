@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private String name;
     private LocalDateTime by;
-    private boolean done;
+    private boolean isDone;
     private static String IDENTIFIER = "[D]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
@@ -18,22 +18,22 @@ public class Deadline extends Task {
         super(name);
         this.name = name;
         this.by = by;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Deadline(String name, LocalDateTime by, boolean done) {
+    public Deadline(String name, LocalDateTime by, boolean isDone) {
         super(name);
         this.name = name;
         this.by = by;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
     public String getName() {
         return this.name;
@@ -41,7 +41,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
         } else {
             return "[ ]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
@@ -51,7 +51,7 @@ public class Deadline extends Task {
 
     public String getInput() {
         String mark;
-        if (this.done) {
+        if (this.isDone) {
             mark = "1";
         } else {
             mark = "0";

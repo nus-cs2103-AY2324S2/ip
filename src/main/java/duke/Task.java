@@ -6,30 +6,30 @@ package duke;
 public class Task {
     private String name;
 
-    private boolean done;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public Task() {
         this.name = "";
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
-     * Sets this.done to be true.
+     * Sets this.isDone to be true.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     };
 
     /**
-     * Sets this.done to be false.
+     * Sets this.isDone to be false.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     };
 
     public String getName() {
@@ -39,7 +39,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + this.name;
         } else {
             return "[ ] " + this.name;
@@ -47,12 +47,12 @@ public class Task {
     }
 
     /**
-     * Used to represent a Task as a string to be saved in data. If the task is marked as done,
+     * Used to represent a Task as a string to be saved in data. If the task is marked as isDone,
      * a "1" is appended to the front. Otherwise, "0".
      * @return String that represents a task.
      */
     public String getInput() {
-        if (this.done) {
+        if (this.isDone) {
             return "1 ";
         } else {
             return "0 ";

@@ -10,7 +10,7 @@ public class Event extends Task {
     private String name;
     private LocalDateTime from;
     private LocalDateTime to;
-    private boolean done;
+    private boolean isDone;
     private static String IDENTIFIER = "[E]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
@@ -20,23 +20,23 @@ public class Event extends Task {
         this.name = name;
         this.from = from;
         this.to = to;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Event(String name, LocalDateTime from, LocalDateTime to, boolean done) {
+    public Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(name);
         this.name = name;
         this.from = from;
         this.to = to;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getName() {
@@ -45,7 +45,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         } else {
             return "[ ]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
@@ -54,7 +54,7 @@ public class Event extends Task {
 
     public String getInput() {
         String mark;
-        if (this.done) {
+        if (this.isDone) {
             mark = "1";
         } else {
             mark = "0";

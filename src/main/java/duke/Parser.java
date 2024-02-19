@@ -119,12 +119,12 @@ public class Parser {
      */
     public static Task parseFromData(String input) throws DukeException {
         Task task = null;
-        boolean done;
+        boolean isDone;
         String[] arr = input.split("/", 5);
         if (arr[0].equals("1")) {
-            done = true;
+            isDone = true;
         } else {
-            done = false;
+            isDone = false;
         }
         String command = "";
         try {
@@ -135,14 +135,14 @@ public class Parser {
         }
 
         if (command.equals("todo")) {
-            task = new Todo(arr[2], done);
+            task = new Todo(arr[2], isDone);
         } else if (command.equals("deadline")) {
 
             try {
                 String name = arr[2];
                 String byStr = arr[3];
                 LocalDateTime by = LocalDateTime.parse(byStr);
-                task = new Deadline(name, by, done);
+                task = new Deadline(name, by, isDone);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new DukeException("Invalid format in data.");
             }
@@ -154,7 +154,7 @@ public class Parser {
                 String toStr = arr[4];
                 LocalDateTime from = LocalDateTime.parse(fromStr);
                 LocalDateTime to = LocalDateTime.parse(toStr);
-                task = new Event(name, from, to, done);
+                task = new Event(name, from, to, isDone);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new DukeException("Invalid format in data.");
             }

@@ -5,26 +5,26 @@ package duke;
  */
 public class Todo extends Task {
     private String name;
-    private boolean done;
+    private boolean isDone;
     private final static String IDENTIFIER = "[T]";
     public Todo(String name) {
         super(name);
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
-    public Todo(String name, boolean done) {
+    public Todo(String name, boolean isDone) {
         super(name);
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
 
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getName() {
@@ -33,7 +33,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X]" + IDENTIFIER + " " + this.name;
         } else {
             return "[ ]" + IDENTIFIER + " " + this.name;
@@ -42,7 +42,7 @@ public class Todo extends Task {
 
     public String getInput() {
         String mark;
-        if (this.done) {
+        if (this.isDone) {
             mark = "1";
         } else {
             mark = "0";
