@@ -13,6 +13,9 @@ public class Parser {
      * @throws BozoException If the user input is invalid.
      */
     public String parseCommand(String input, TaskList list) throws BozoException {
+        assert list != null : "List should not be null";
+        assert input != null : "Input should not be null";
+
         if (input.equals("bye")) {
             return handleByeCommand();
         } else if (input.equals("list")) {
