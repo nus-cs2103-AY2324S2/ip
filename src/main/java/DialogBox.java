@@ -13,6 +13,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 
 /**
@@ -29,7 +31,7 @@ public class DialogBox extends HBox {
      * @param text
      * @param img
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -38,6 +40,11 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (!isUser) {
+            Font currentFont = dialog.getFont();
+            dialog.setFont(Font.font(currentFont.getFamily(), FontPosture.ITALIC, currentFont.getSize()));
+        }
+
         Text message = new Text(text);
         message.setWrappingWidth(200);
         dialog.setWrapText(true);
@@ -56,13 +63,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String l, Image iv) {
-        DialogBox output = new DialogBox(l, iv);
+        DialogBox output = new DialogBox(l, iv, true);
         output.setBackground(new Background(new BackgroundFill(Color.web("#81c483"), null, null)));
         return output;
     }
 
     public static DialogBox getDukeDialog(String l, Image iv) {
-        var db = new DialogBox(l, iv);
+        var db = new DialogBox(l, iv, false);
         db.flip();
         db.setBackground(new Background(new BackgroundFill(Color.web("#ffff83"), null, null)));
         return db;

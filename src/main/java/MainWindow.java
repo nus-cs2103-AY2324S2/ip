@@ -23,13 +23,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/corgi.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/golden_retriever.jpg"));
 
+    /**
+     * Initializes Dialog Container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        greet();
     }
 
     public void setDuke(Duke d) {
         duke = d;
+    }
+
+    /**
+     * Displays greeting message.
+     */
+    private void greet() {
+        String text = "Welcome! How can I help you?\n";
+        DialogBox greetDialog = DialogBox.getDukeDialog(text, dukeImage);
+        dialogContainer.getChildren().add(greetDialog);
     }
 
     /**
