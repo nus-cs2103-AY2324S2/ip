@@ -54,6 +54,11 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             // remove a task
             listDelete(inputParts);
+        } else if (userInput.startsWith("find")) {
+            // find a keyword
+            ui.commandFind(inputParts);
+        } else if (ui.isPermutationMatch(inputParts[0], "find")) {
+
         } else if (userInput.equals("help")) {
             // show help message
             ui.commandHelp();
@@ -106,6 +111,14 @@ public class Parser {
 //            } else if(addCommandCheck.equals("y")) {
 //                taskCommands(userInput);
 //            }
+        }
+    }
+
+    public void findTypo(String[] inputParts) {
+        if (ui.checkCommandTypo(inputParts[0], "find")) {
+            ui.commandFind(inputParts);
+        } else {
+            ui.signalSays("What else can I help you with?");
         }
     }
 

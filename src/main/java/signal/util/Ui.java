@@ -145,7 +145,7 @@ public class Ui {
 
 
     /**
-     * Finds a string from a list of strings.
+     * Finds the first string from a list of strings.
      *
      * @param checker The string to find.
      * @param list The list of strings to search in.
@@ -416,6 +416,20 @@ public class Ui {
 ////            throw new DukeException("Negative numbers might exist in maths but not in this list!");
 //        }
 //    }
+
+    public void commandFind(String[] inputParts) {
+        String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
+        ArrayList<Integer> foundIndex = null;
+        for (Task i : taskList) {
+            String[] taskParts = i.getDescription().split(" ");
+            foundIndex.add(finder(toFind, taskParts));
+        }
+        ArrayList<String> response = null;
+        for (Integer i : foundIndex) {
+            response.add(taskList.get(i).toString());
+        }
+        signalSays(listToString(response));
+    }
 
     /**
      * Response to user input 'blah'
