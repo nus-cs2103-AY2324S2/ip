@@ -1,39 +1,39 @@
 package lindi.commands;
 
 import lindi.storage.Storage;
-import lindi.task.CreateTaskException;
+import lindi.task.CreateDeadlineException;
 import lindi.task.Task;
 import lindi.task.TaskList;
 
 /**
- * Represents a command that creates a task upon execution
+ * Represents a command that creates a Deadline upon execution
  */
-public class CreateTaskCommand extends Command {
+public class CreateDeadlineCommand extends Command {
     private final String commandString;
 
     /**
-     * Creates command to create a task with the arguments supplied by the user
+     * Creates command to create a Deadline with the arguments supplied by the user
      *
      * @param commandString user input string
      */
-    public CreateTaskCommand(String commandString) {
+    public CreateDeadlineCommand(String commandString) {
         this.commandString = commandString;
     }
 
     /**
      * {@inheritDoc}
      * <p>
-     * Creates task relying on Task class factory method, adds it to task list.
+     * Creates a Deadline and adds it to task list.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         try {
-            Task createdtask = Task.create(this.commandString);
+            Task createdtask = Task.createDeadline(this.commandString);
             tasks.add(createdtask);
-            this.statusMsg = String.format("Okay. I've deleted this task:\n\t%s\nNow you have %d tasks in the list.",
+            this.statusMsg = String.format("Okay. I've added this task:\n\t%s\nNow you have %d tasks in the list.",
                     createdtask, tasks.size());
             storage.saveToFile(tasks);
-        } catch (CreateTaskException e) {
+        } catch (CreateDeadlineException e) {
             this.statusMsg = e.getMessage();
         }
     }
