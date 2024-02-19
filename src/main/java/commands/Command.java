@@ -132,6 +132,9 @@ public enum Command {
             return ui.triggerDeleteMessage(task);
         }
     },
+    /**
+     * Command to find and list out tasks containing a specified keyword or phrase.
+     */
     FIND {
         @Override
         public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
@@ -145,6 +148,9 @@ public enum Command {
             }
         }
     },
+    /**
+     * Command to find events scheduled on a specified date and deadlines due on that specified date.
+     */
     SCHEDULE {
         @Override
         public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
