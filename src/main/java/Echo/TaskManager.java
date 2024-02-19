@@ -125,6 +125,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void markTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -146,6 +147,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void unmarkTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -167,6 +169,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void addTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         try {
             if (tokens.length != 2) {
                 throw new IllegalArgumentException("NO! I don't know what is this! " +
@@ -328,6 +331,7 @@ public class TaskManager {
      * @param keyword The keyword to search for in task descriptions.
      */
     public void findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
         List<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasks) {
