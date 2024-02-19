@@ -14,6 +14,7 @@ package model;
 public class ToDo implements Task {
     private final String name;
     private final boolean isDone;
+    private final String tag;
 
     /**
      * Creates a new {@code ToDo} object, with {@code done} set to {@code false} by default.
@@ -23,11 +24,13 @@ public class ToDo implements Task {
     public ToDo(String name) {
         this.name = name;
         isDone = false;
+        tag = "";
     }
 
-    private ToDo(String name, boolean done) {
+    private ToDo(String name, boolean done, String tag) {
         this.name = name;
         this.isDone = done;
+        this.tag = tag;
     }
 
     /**
@@ -36,7 +39,7 @@ public class ToDo implements Task {
      * @return {@code ToDo} object with {@code done} set as {@code true}.
      */
     public ToDo mark() {
-        return new ToDo(name, true);
+        return new ToDo(name, true, tag);
     }
 
     /**
@@ -45,11 +48,15 @@ public class ToDo implements Task {
      * @return {@code ToDo} object with {@code done} set as {@code false}.
      */
     public ToDo unmark() {
-        return new ToDo(name, false);
+        return new ToDo(name, false, tag);
     }
 
     public boolean nameContains(String s) {
         return name.contains(s);
+    }
+
+    public ToDo tag(String tag) {
+        return new ToDo(name, isDone, tag);
     }
 
     /**
@@ -58,6 +65,7 @@ public class ToDo implements Task {
     @Override
     public String toString() {
         String d = this.isDone ? "X" : " ";
-        return String.format("[T][%s] %s", d, name);
+        String t = tag.isBlank() ? "" : " #" + tag;
+        return String.format("[T][%s] %s%s", d, name, t);
     }
 }

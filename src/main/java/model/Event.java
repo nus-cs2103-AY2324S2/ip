@@ -23,6 +23,7 @@ public class Event implements Task {
     private final boolean isDone;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
+    private final String tag;
 
     /**
      * Creates a new {@code Event} object, with {@code done} set to {@code false} by default.
@@ -36,13 +37,15 @@ public class Event implements Task {
         isDone = false;
         this.startDate = startDate;
         this.endDate = endDate;
+        tag = "";
     }
 
-    private Event(String name, boolean done, LocalDateTime startDate, LocalDateTime endDate) {
+    private Event(String name, boolean done, LocalDateTime startDate, LocalDateTime endDate, String tag) {
         this.name = name;
         this.isDone = done;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.tag = tag;
     }
 
     public static void setDateTimeFormat(DateTimeFormatter dtf) {
@@ -55,7 +58,7 @@ public class Event implements Task {
      * @return {@code Event} object with {@code done} set as {@code true}.
      */
     public Event mark() {
-        return new Event(name, true, startDate, endDate);
+        return new Event(name, true, startDate, endDate, tag);
     }
 
     /**
@@ -64,11 +67,15 @@ public class Event implements Task {
      * @return {@code Event} object with {@code done} set as {@code false}.
      */
     public Event unmark() {
-        return new Event(name, false, startDate, endDate);
+        return new Event(name, false, startDate, endDate, tag);
     }
 
     public boolean nameContains(String s) {
         return name.contains(s);
+    }
+
+    public Event tag(String tag) {
+        return new Event(name, isDone, startDate, endDate, tag);
     }
 
     /**
@@ -77,7 +84,8 @@ public class Event implements Task {
     @Override
     public String toString() {
         String d = isDone ? "X" : " ";
-        return String.format("[E][%s] %s (from: %s) (to: %s)", d, name,
+        String t = tag.isBlank() ? "" : " #" + tag;
+        return String.format("[E][%s] %s%s (from: %s) (to: %s)", d, name, t,
                 startDate.format(dtfOutput), endDate.format(dtfOutput));
     }
 }
