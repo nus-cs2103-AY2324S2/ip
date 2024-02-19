@@ -44,8 +44,9 @@ public class Deadline extends Task {
 
     @Override
     public String toFile() {
-        return "D | " + (isDone ? "1" : "0")
-                + " | " + description + " | " + this.formatDateTime();
+        return tagName + " | D | " + (isDone ? "1" : "0")
+                + " | " + description + " | " + this.formatDateTime() +
+                " | " + tagName;
     }
 
     @Override

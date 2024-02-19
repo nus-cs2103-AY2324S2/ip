@@ -17,7 +17,7 @@ public class Parser {
     }
 
     public enum Command {
-        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
+        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND, TAG;
         public static Command getCategory(String input) {
             try {
                 return Command.valueOf(input.toUpperCase());
@@ -38,7 +38,6 @@ public class Parser {
     public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException{
         String[] parts = input.split(" ", 2);
         Command category = Command.getCategory(parts[0]);
-        int listSize = taskList.getSize();
         switch (category) {
             case BYE -> {
                 isActive = false;
@@ -50,45 +49,17 @@ public class Parser {
                 return ui.listTaskMessage(taskList);
             }
             case UNMARK -> {
-                int unmarkId = Integer.parseInt(parts[1]) - 1;
-                if (unmarkId < 0 || unmarkId >= listSize) {
-                    try {
-                        throw new DukeException("Sorry, " +
-                                "please select a valid task for me to unmark!");
-                    } catch (DukeException e) {
-                        return "  " + e.getMessage();
-                    }
-                }
-                String output = taskList.unmarkTask(unmarkId, ui);
+                String output = parseUnmark(parts[1], taskList, ui);
                 Storage.saveTaskToFile(taskList.getTasks());
                 return output;
             }
             case MARK -> {
-                int markId = Integer.parseInt(parts[1]) - 1;
-                if (markId < 0 || markId >= listSize) {
-                    try {
-                        throw new DukeException("Sorry, " +
-                                "please select a valid task for me to mark!");
-                    } catch (DukeException e) {
-                        return "  " + e.getMessage();
-                    }
-                }
-                String output = taskList.markTask(markId, ui);
+                String output = parseMark(parts[1], taskList, ui);
                 Storage.saveTaskToFile(taskList.getTasks());
                 return output;
             }
             case DELETE -> {
-                int deleteId = Integer.parseInt(parts[1]) - 1;
-                if (deleteId < 0 || deleteId >= listSize) {
-                    try {
-                        throw new DukeException("Sorry, " +
-                                "please select a valid task for me to delete!");
-                    } catch (DukeException e) {
-                        return "  " + e.getMessage();
-                    }
-                }
-                String output = taskList.deleteTask(deleteId, ui) + "\n" +
-                        ui.listSizeMessage(taskList);
+                String output = parseDelete(parts[1], taskList, ui);
                 Storage.saveTaskToFile(taskList.getTasks());
                 return output;
             }
@@ -114,6 +85,11 @@ public class Parser {
                 Storage.saveTaskToFile(taskList.getTasks());
                 return output;
             }
+            case TAG -> {
+                String output = parseTag(parts[1], taskList, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
+            }
             default -> {
                 try {
                     throw new DukeException("Sorry, I cannot understand what this is!");
@@ -125,10 +101,98 @@ public class Parser {
     }
 
     /**
+     * Parses unmark command.
+     *
+     * @param description Task description.
+     * @param taskList The list.
+     * @param ui The ui.
+     * @return String representation of unmark command.
+     */
+    public static String parseUnmark(String description, TaskList taskList, Ui ui) {
+        int unmarkId = Integer.parseInt(description) - 1;
+        if (unmarkId < 0 || unmarkId >= taskList.getSize()) {
+            try {
+                throw new DukeException("Sorry, " +
+                        "please select a valid task for me to unmark!");
+            } catch (DukeException e) {
+                return "  " + e.getMessage();
+            }
+        }
+        return taskList.unmarkTask(unmarkId, ui);
+    }
+
+    /**
+     * Parses mark command.
+     *
+     * @param description Task description.
+     * @param taskList The list.
+     * @param ui The ui.
+     * @return String representation of mark command.
+     */
+    public static String parseMark(String description, TaskList taskList, Ui ui) {
+        int markId = Integer.parseInt(description) - 1;
+        if (markId < 0 || markId >= taskList.getSize()) {
+            try {
+                throw new DukeException("Sorry, " +
+                        "please select a valid task for me to mark!");
+            } catch (DukeException e) {
+                return "  " + e.getMessage();
+            }
+        }
+        return taskList.markTask(markId, ui);
+    }
+
+    /**
+     * Parses delete command.
+     *
+     * @param description Task description.
+     * @param taskList The list.
+     * @param ui The ui.
+     * @return String representation of delete command.
+     */
+    public static String parseDelete(String description, TaskList taskList, Ui ui) {
+        int deleteId = Integer.parseInt(description) - 1;
+        if (deleteId < 0 || deleteId >= taskList.getSize()) {
+            try {
+                throw new DukeException("Sorry, " +
+                        "please select a valid task for me to delete!");
+            } catch (DukeException e) {
+                return "  " + e.getMessage();
+            }
+        }
+        return taskList.deleteTask(deleteId, ui) + "\n" +
+                ui.listSizeMessage(taskList);
+    }
+
+    /**
+     * Parses tag command.
+     *
+     * @param description Task description.
+     * @param taskList The list.
+     * @param ui The ui.
+     * @return String representation of tag command.
+     */
+    public static String parseTag(String description, TaskList taskList, Ui ui) {
+        String[] tagArguments = description.split(" ", 2);
+        int tagId = Integer.parseInt(tagArguments[0]) - 1;
+        if (tagId < 0 || tagId >= taskList.getSize()) {
+            try {
+                throw new DukeException("Sorry, " +
+                        "please select a valid task for me to tag!");
+            } catch (DukeException e) {
+                return "  " + e.getMessage();
+            }
+        }
+        String tagName = tagArguments[1];
+        return taskList.tagTask(tagName, tagId, ui);
+    }
+
+    /**
      * Parses toDo task.
      * @param description Task description.
      * @param taskList The list.
      * @param ui The Ui.
+     * @return String representation of toDo task.
      */
     public static String parseToDo(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();
@@ -153,6 +217,7 @@ public class Parser {
      * Parses deadline task.
      * @param taskList The list.
      * @param ui The ui.
+     * @return String representation of deadline task.
      */
     public static String parseDeadline(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();
@@ -187,6 +252,7 @@ public class Parser {
      * Parses event task.
      * @param taskList The list.
      * @param ui The ui.
+     * @return String representation of event task.
      */
     public static String parseEvent(String description, TaskList taskList, Ui ui) {
         StringBuilder output = new StringBuilder();

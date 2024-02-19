@@ -39,7 +39,7 @@ public class Duke extends Application {
         try {
             taskList = new TaskList((storage.loadTasksFromFile()));
         } catch (DukeException e) {
-            ui.loadErrorMessage();
+            System.out.println("Error loading file... Creating new empty file");
             taskList = new TaskList();
         }
     }

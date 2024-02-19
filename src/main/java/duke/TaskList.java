@@ -67,6 +67,11 @@ public class TaskList {
         return ui.markMessage(taskList.get(markId));
     }
 
+    public String tagTask(String tag, int tagId, Ui ui) {
+        taskList.get(tagId).replaceTag(tag);
+        return ui.tagMessage(taskList.get(tagId));
+    }
+
     /**
      * Gets tasks from taskList.
      *

@@ -24,7 +24,7 @@ public class ToDo extends Task {
 
     @Override
     public String toFile() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + (isDone ? "1" : "0") + " | " + description + " | " + tagName;
     }
 
     @Override

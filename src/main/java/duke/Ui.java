@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner scanner;
     static String name = "Lunaris";
-    static String indentedLine =
-            "  _________________________________________________________";
 
     /**
      * Constructor for Ui.
@@ -37,15 +35,6 @@ public class Ui {
     public String printGoodByeMessage() {
         return "  " +
                 "Leaving so soon? Alright, have a great day ahead!";
-    }
-
-    /**
-     * Prints loading error message.
-     *
-     */
-    public String loadErrorMessage() {
-        return "  " +
-                "Error loading file... Creating new empty file";
     }
 
     /**
@@ -78,6 +67,11 @@ public class Ui {
                 task.toString() + "\n";
     }
 
+    public String tagMessage(Task task) {
+        return "  " + "Noted. I've tagged this task with " + "'" +
+                task.getTagName() + "'" + ":" + "\n" + "  " + task + "\n";
+    }
+
     /**
      * Prints how many tasks are in the list.
      *
@@ -98,9 +92,5 @@ public class Ui {
 
     public String readCommand() {
         return scanner.next();
-    }
-
-    public int readInt() {
-        return scanner.nextInt();
     }
 }

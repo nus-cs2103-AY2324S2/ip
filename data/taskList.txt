@@ -1,3 +1,1 @@
-T | 1 |  return book
-D | 0 | finish homework | Feb 23 2023 2359
-E | 0 | midterms | Mar 05 2023 1000 - Mar 05 2023 1200
+T | 0 | return book | test

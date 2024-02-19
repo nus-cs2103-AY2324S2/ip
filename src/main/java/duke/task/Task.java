@@ -3,6 +3,7 @@ package duke.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String tagName;
 
     /**
      * Constructor for Task.
@@ -12,6 +13,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tagName = "untagged";
     }
 
     /**
@@ -23,6 +25,7 @@ public class Task {
     public Task(boolean isDone, String description) {
         this.isDone = isDone;
         this.description = description;
+        this.tagName = "untagged";
     }
 
     /**
@@ -57,6 +60,14 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    public String getTagName() {
+        return this.tagName;
+    }
+
+    public void replaceTag(String tag) {
+        this.tagName = tag;
     }
 
     /**

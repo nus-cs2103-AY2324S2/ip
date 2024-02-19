@@ -59,7 +59,7 @@ public class Event extends Task {
     public String toFile() {
         return "E | " + (isDone ? "1" : "0") + " | " + description
                 + " | " + this.formatStartDateTime() +
-                " - " + this.formatEndDateTime();
+                " - " + this.formatEndDateTime() + " | " + tagName;
     }
     @Override
     public String toString() {
