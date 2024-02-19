@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Access and store user tasklist
  */
 public class Storage {
-    private final String FILE_PATH = "./src/data/tasklist.txt";
+    private final String FILE_PATH = "./tasklist.txt";
     private ArrayList<String> texts = new ArrayList<>();
     private ArrayList<Boolean> statuses = new ArrayList<>();
 
@@ -24,6 +24,10 @@ public class Storage {
             File file = new File(FILE_PATH);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
 
             while (line != null) {
                 texts.add(Parser.FileInputToTask(line));

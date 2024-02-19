@@ -10,7 +10,9 @@ public class Ui {
             /*   */              " /    |    \\  | \\_ ( <_> )   |   \\/ __ \\_ \n" +
             /* */                " \\____|__  /__|    \\____/|___|_  (____  / \n" +
             /* */                "         \\/                    \\/     \\/ ";
-    private String greetings = "Hello sensei, what can I do for you? \n";
+
+    private String greetings = "Hello sensei, what can Arona do for you?";
+
     private String goodbye = "Goodbye sensei! Hope to see you soon!";
     private String response;
     public void greetings() {
