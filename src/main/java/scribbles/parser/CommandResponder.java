@@ -27,6 +27,15 @@ public class CommandResponder {
     }
 
     /**
+     * Carries out actions for the user input "bye" by printing out the exit message.
+     *
+     * @return exit message
+     */
+    public String respondToBye() {
+        return ui.printExitMessage();
+    }
+
+    /**
      * Carries out the actions for the user input "list" by listing all the user's task in the task list.
      *
      * @param taskList list containing the user's tasks.
@@ -223,6 +232,15 @@ public class CommandResponder {
         } catch (FileNotFoundException e) {
             return ui.printFileNotFoundMessage();
         }
+    }
+
+    /**
+     * responds the other unknown inputs or "help" by displaying available commands to guide the user.
+     *
+     * @return message to guide user
+     */
+    public String respondToOtherInput() {
+        return ui.printOtherInputMessage();
     }
 
 }

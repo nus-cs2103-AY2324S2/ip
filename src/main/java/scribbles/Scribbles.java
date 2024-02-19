@@ -64,7 +64,7 @@ public class Scribbles {
     public String respondToCommand(Parser parsedInput, String command) {
         switch (command) {
         case "bye":
-            return ui.printExitMessage();
+            return commandResponder.respondToBye();
         case "list":
             return commandResponder.respondToList(taskList);
         case "mark":
@@ -85,7 +85,7 @@ public class Scribbles {
             return commandResponder.respondToSortBy(parsedInput, taskList, storage);
         case "help":
         default:
-            return ui.printOtherInputMessage();
+            return commandResponder.respondToOtherInput();
         }
     }
 
