@@ -45,8 +45,11 @@ public class Storage {
                 throw new IllegalArgumentException("Invalid task format in file!");
             }
 
-            // Extract task type and description
+            // Extract task type, status, and description
             String taskType = tokens[0];
+            System.out.println(tokens[1]);
+            boolean isDone = tokens[1].equals(" 1");
+            System.out.println(isDone);
             if (tokens[2].isEmpty()) {
                 throw new IllegalArgumentException("The description of a task cannot be empty.");
             }
@@ -55,21 +58,33 @@ public class Storage {
             // Create the corresponding task object based on the task type
             switch (taskType) {
                 case "T":
-                    tasks.add(new Todo(taskDescription));
+                    Todo todoTask = new Todo(taskDescription);
+                    if (isDone) {
+                        todoTask.markAsDone();
+                    }
+                    tasks.add(todoTask);
                     break;
                 case "D":
                     String[] deadlineTokens = tokens[3].split(" ", 2);
                     if (deadlineTokens.length != 2) {
                         throw new IllegalArgumentException("Invalid deadline format in file.");
                     }
-                    tasks.add(new Deadline(taskDescription, deadlineTokens[1]));
+                    Deadline deadlineTask = new Deadline(taskDescription, deadlineTokens[1]);
+                    if (isDone) {
+                        deadlineTask.markAsDone();
+                    }
+                    tasks.add(deadlineTask);
                     break;
                 case "E":
                     String[] eventTokens = tokens[3].split(" ", 3);
                     if (eventTokens.length != 3) {
                         throw new IllegalArgumentException("Invalid event format in file.");
                     }
-                    tasks.add(new Event(taskDescription, eventTokens[1], eventTokens[2]));
+                    Event eventTask = new Event(taskDescription, eventTokens[1], eventTokens[2]);
+                    if (isDone) {
+                        eventTask.markAsDone();
+                    }
+                    tasks.add(eventTask);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid task type in file!");
@@ -78,6 +93,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Saves the list of tasks to the file.
