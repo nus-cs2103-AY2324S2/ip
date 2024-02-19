@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final String CHATERPILLAR_IMAGE = "/images/chaterpillar.png";
-    private static final String USER_IMAGE = "/images/chaterpillar.png";
     private final Image chaterpillarImage = new Image(this.getClass().getResourceAsStream(CHATERPILLAR_IMAGE));
     private final Chaterpillar chaterpillar = new Chaterpillar();
 
