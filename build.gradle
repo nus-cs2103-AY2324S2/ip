@@ -48,13 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("Chronos")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "chronos"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'chronos.jar'
 }
 
 run {
