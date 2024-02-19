@@ -24,8 +24,8 @@ public class ChatController extends AnchorPane {
 
     private DialogHandler dialogHandler;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Traveller.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Paimon.png"));
 
     @FXML
     public void initialize() {

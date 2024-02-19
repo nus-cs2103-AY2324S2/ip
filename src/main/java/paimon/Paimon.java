@@ -3,9 +3,9 @@ package paimon;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * Launcher Class that serves as the starting point of the application
  */
-public class Launcher {
+public class Paimon {
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }

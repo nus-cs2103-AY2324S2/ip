@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paimon.controller.ChatController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paimon.controller.ChatController">
   <children>
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" minHeight="352.0" minWidth="600.0" vvalue="1.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
-        <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+        <VBox fx:id="dialogContainer" alignment="CENTER" prefHeight="342.0" prefWidth="591.0" />
       </content>
     </ScrollPane>
-      <HBox layoutY="554.0" prefHeight="48.0" prefWidth="400.0">
+      <HBox layoutY="346.0" minHeight="48.0" minWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-          <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0">
+          <TextField fx:id="userInput" minHeight="41.0" minWidth="512.0" onAction="#handleUserInput" promptText="Enter your command here.." HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </TextField>
-          <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send">
+          <Button fx:id="sendButton" minHeight="41.0" minWidth="76.0" mnemonicParsing="false" onAction="#handleUserInput" text="Send">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

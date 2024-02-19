@@ -47,18 +47,14 @@ public class Main extends Application {
             //First, load root layout from RootLayout.fxml
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/RootLayout.fxml"));
-            rootLayout = loader.load();
+            this.rootLayout = loader.load();
 
             //Second, show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
-            primaryStage.setScene(scene); //Set the scene in primary stage.
-
-            /*//Give the controller access to the main.
-            RootLayoutController controller = loader.getController();
-            controller.setMain(this);*/
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
 
             //Third, show the primary stage
-            primaryStage.show(); //Display the primary stage
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,8 +70,8 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("/view/ChatView.fxml"));
             AnchorPane chatView = loader.load();
 
-            // Set Employee Operations view into the center of root layout.
-            rootLayout.setCenter(chatView);
+            // Set Chat view into the center of root layout.
+            this.rootLayout.setCenter(chatView);
 
             ChatController controller = loader.getController();
             controller.setDialogHandler(this.dialogHandler);
