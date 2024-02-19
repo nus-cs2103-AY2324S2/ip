@@ -23,6 +23,16 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, String notes, String from, String to) {
+        super(description, notes);
+        assert description != null : "description cannot be null";
+        assert notes != null : "notes cannot be null";
+        assert from != null : "from cannot be null";
+        assert to != null : "to cannot be null";
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Returns a string representation of the event task.
      *

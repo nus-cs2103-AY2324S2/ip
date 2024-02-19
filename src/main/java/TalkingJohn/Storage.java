@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Handles the saving and loading of tasks to and from a file.
@@ -63,38 +64,59 @@ public class Storage {
         String letter = line.substring(1, 2);
         String markCheck = line.substring(4, 5);
         String description = line.substring(7);
+        String notes = "";
 
+        if (description.contains("[") && description.contains("]")) {
+          String[] descriptionAndNotes = description.split("\\[", 2);
+          description = descriptionAndNotes[0];
+          notes = descriptionAndNotes[1];
+        }
         Task task = null;
 
         if (letter.equals("T")) {
-            task = createTodoTask(description, markCheck);
+            task = createTodoTask(description, notes, markCheck);
         } else if (letter.equals("D")) {
-            task = createDeadlineTask(description, markCheck);
+            task = createDeadlineTask(description, notes, markCheck);
         } else if (letter.equals("E")) {
-            task = createEventTask(description, markCheck);
+            task = createEventTask(description, notes, markCheck);
         } else {
             System.out.println("INVALID STORAGE DATA");
         }
-
         return task;
     }
 
-    private Task createTodoTask(String description, String markCheck) {
-        Todo todo = new Todo(description);
+    private Task createTodoTask(String description, String notes, String markCheck) {
+        Todo todo;
+        if (Objects.equals(notes, "")) {
+            todo = new Todo(description);
+        } else {
+            String noteWithoutLastCharacter = notes.substring(0, notes.length() - 1);
+            todo = new Todo(description, noteWithoutLastCharacter);
+        }
         if (markCheck.equals("X")) {
             todo.mark();
         }
         return todo;
     }
 
-    private Task createDeadlineTask(String description, String markCheck) {
-        int openingParenthesisIndex = description.indexOf('(');
-        int endingParenthesisIndex = description.indexOf(')');
+    private Task createDeadlineTask(String description, String noteAndTiming, String markCheck) {
+        Deadline deadline;
 
-        String content = description.substring(0, openingParenthesisIndex);
-        String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+        if (Objects.equals(noteAndTiming, "")) {
+            int openingParenthesisIndex = description.indexOf('(');
+            int endingParenthesisIndex = description.indexOf(')');
+            String content = description.substring(0, openingParenthesisIndex);
+            String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
 
-        Deadline deadline = new Deadline(content, timing);
+            deadline = new Deadline(content, timing);
+        } else {
+            int openingParenthesisIndex = noteAndTiming.indexOf('(');
+            int endingParenthesisIndex = noteAndTiming.indexOf(')');
+            String notes = noteAndTiming.substring(0, openingParenthesisIndex - 1);
+            String timing = noteAndTiming.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+
+            deadline = new Deadline(description, notes, timing);
+        }
 
         if (markCheck.equals("X")) {
             deadline.mark();
@@ -103,16 +125,31 @@ public class Storage {
         return deadline;
     }
 
-    private Task createEventTask(String description, String markCheck) {
-        int openingParenthesisIndex = description.indexOf('(');
-        int endingParenthesisIndex = description.indexOf(')');
+    private Task createEventTask(String description, String noteAndTiming, String markCheck) {
+        Event event;
 
-        String content = description.substring(0, openingParenthesisIndex);
-        String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+        if (Objects.equals(noteAndTiming, "")) {
+            int openingParenthesisIndex = description.indexOf('(');
+            int endingParenthesisIndex = description.indexOf(')');
 
-        String[] timings = timing.split("to:", 2);
+            String content = description.substring(0, openingParenthesisIndex);
+            String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
 
-        Event event = new Event(content, timings[0], "  " + timings[1]);
+            String[] timings = timing.split("to:", 2);
+
+            event = new Event(content, timings[0], "  " + timings[1]);
+        } else {
+            int openingParenthesisIndex = noteAndTiming.indexOf('(');
+            int endingParenthesisIndex = noteAndTiming.indexOf(')');
+
+            String notes = noteAndTiming.substring(0, openingParenthesisIndex - 1);
+            String timing = noteAndTiming.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+
+            String[] timings = timing.split("to:", 2);
+
+            event = new Event(description, notes, timings[0], "  " + timings[1]);
+        }
+
 
         if (markCheck.equals("X")) {
             event.mark();

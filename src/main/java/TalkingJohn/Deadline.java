@@ -26,6 +26,15 @@ public class Deadline extends Task {
         this.by = parseDateTime(time);
     }
 
+    public Deadline(String description, String notes, String by) {
+        super(description, notes);
+        assert description != null : "description cannot be null";
+        assert notes != null : "notes cannot be null";
+        assert by != null : "by cannot be null";
+        String time = by.substring(3);
+        this.by = parseDateTime(time);
+    }
+
     /**
      * Parses the due date/time string into a LocalDateTime object.
      *

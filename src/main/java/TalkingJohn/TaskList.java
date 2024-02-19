@@ -112,21 +112,43 @@ public class TaskList {
 
     private String handleTodoCommand(String input) {
         assert input != null : "user input cannot be null";
-        String whatToDo = input.split(" ", 2)[1];
-        Todo toDo = new Todo(whatToDo);
-        taskArr.add(toDo);
-        return ui.addTask(toDo, taskArr.size());
+        if (input.contains(":")) {
+            String check = input.split(" ", 2)[1];
+            String[] buffer = check.split(":", 2);
+            String whatToDo = buffer[0];
+            String note = buffer[1];
+            Todo toDo = new Todo(whatToDo, note);
+            taskArr.add(toDo);
+            return ui.addTask(toDo, taskArr.size());
+        } else {
+            String whatToDo = input.split(" ", 2)[1];
+            Todo toDo = new Todo(whatToDo);
+            taskArr.add(toDo);
+            return ui.addTask(toDo, taskArr.size());
+        }
+
     }
 
     private String handleDeadlineCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
             String[] parts = input.split(" ", 2);
-            String buffer = parts[1];
-            String[] secPart = buffer.split("/", 2);
-            Deadline deadline = new Deadline(secPart[0], secPart[1]);
-            taskArr.add(deadline);
-            return ui.addTask(deadline, taskArr.size());
+            if (input.contains(":")) {
+                String buffer = parts[1];
+                String[] secPart = buffer.split("/", 2);
+                String descriptionAndNotes = secPart[0];
+                String[] dAndN = descriptionAndNotes.split(":", 2);
+                Deadline deadline = new Deadline(dAndN[0], dAndN[1], secPart[1]);
+                taskArr.add(deadline);
+                return ui.addTask(deadline, taskArr.size());
+            } else {
+                String buffer = parts[1];
+                String[] secPart = buffer.split("/", 2);
+                Deadline deadline = new Deadline(secPart[0], secPart[1]);
+                taskArr.add(deadline);
+                return ui.addTask(deadline, taskArr.size());
+            }
+
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.invalidFormat();
         }
@@ -136,11 +158,21 @@ public class TaskList {
         assert input != null : "user input cannot be null";
         try {
             String[] parts = input.split(" ", 2);
-            String buffer = parts[1];
-            String[] secPart = buffer.split("/", 3);
-            Event event = new Event(secPart[0], secPart[1], secPart[2]);
-            taskArr.add(event);
-            return ui.addTask(event, taskArr.size());
+            if (input.contains(":")) {
+                String buffer = parts[1];
+                String[] secPart = buffer.split("/", 3);
+                String descriptionAndNotes = secPart[0];
+                String[] dAndN = descriptionAndNotes.split(":", 2);
+                Event event = new Event(dAndN[0], dAndN[1], secPart[1], secPart[2]);
+                taskArr.add(event);
+                return ui.addTask(event, taskArr.size());
+            } else {
+                String buffer = parts[1];
+                String[] secPart = buffer.split("/", 3);
+                Event event = new Event(secPart[0], secPart[1], secPart[2]);
+                taskArr.add(event);
+                return ui.addTask(event, taskArr.size());
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.invalidFormat();
         }

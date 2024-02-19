@@ -5,7 +5,10 @@ package talkingjohn;
  */
 public class Task {
     protected String description;
+    protected String notes = "";
     protected boolean isDone;
+
+    protected boolean haveNotes;
 
     /**
      * Constructs a task with the given description.
@@ -15,6 +18,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.haveNotes = false;
+    }
+
+    public Task(String description, String notes) {
+        this.description = description;
+        this.notes = notes;
+        this.isDone = false;
+        this.haveNotes = true;
     }
 
     /**
@@ -37,6 +48,10 @@ public class Task {
      * @return A string representing the task, including its completion status and description.
      */
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description; // mark done task with X
+        if (haveNotes) {
+            return "[" + (isDone ? "X" : " ") + "] " + description + "[" + notes + "]";
+        } else {
+            return "[" + (isDone ? "X" : " ") + "] " + description;
+        }
     }
 }

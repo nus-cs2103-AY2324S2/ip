@@ -4,7 +4,6 @@ package talkingjohn;
  * Represents a todo task, which is a type of task with no specific deadline.
  */
 public class Todo extends Task {
-
     /**
      * Constructs a todo task with the given description.
      *
@@ -13,6 +12,12 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
         assert description != null : "description cannot be null";
+    }
+
+    public Todo(String description, String notes) {
+        super(description, notes);
+        assert description != null : "description cannot be null";
+        assert notes != null : "notes cannot be null";
     }
 
     /**
