@@ -1,9 +1,11 @@
 package pingmebot;
 
-import pingmebot.task.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import pingmebot.task.Task;
+
+
 
 /**
  * Stores the list of tasks assigned to the bot.

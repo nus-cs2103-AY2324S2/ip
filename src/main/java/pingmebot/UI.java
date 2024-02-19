@@ -1,15 +1,16 @@
 package pingmebot;
 
-import pingmebot.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import pingmebot.task.Task;
+
 
 /**
  * Deals with the user interactivity of the application.
  */
 public class UI {
-    private final Scanner SC;
+    private final Scanner scanner;
 
     private ArrayList<String> response = new ArrayList<>();
 
@@ -17,7 +18,7 @@ public class UI {
      * Creates a UI object with the Scanner object intialised to read user's inputs.
      */
     public UI() {
-        this.SC = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -74,7 +75,7 @@ public class UI {
      * @return User's input.
      */
     public String readCommand() {
-        return this.SC.nextLine();
+        return scanner.nextLine();
     }
 
     /**
