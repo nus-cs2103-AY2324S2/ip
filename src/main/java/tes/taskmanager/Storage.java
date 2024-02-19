@@ -63,6 +63,7 @@ public class Storage {
                 try {
                     if (line.contains("from:")) {
                         String[] partsOfEventTask = line.split(" \\| ");
+                        assert partsOfEventTask.length == 4;
                         String statusOfEvent = partsOfEventTask[1];
                         String eventDescription = partsOfEventTask[2];
                         String period = partsOfEventTask[3].substring(6);
@@ -78,6 +79,7 @@ public class Storage {
                         storageList.add(store);
                     } else if (line.contains("by:")) {
                         String[] partsOfDeadlineTask = line.split(" \\| ");
+                        assert partsOfDeadlineTask.length == 4;
                         String statusOfDeadline = partsOfDeadlineTask[1];
                         String deadlineDescription = partsOfDeadlineTask[2];
                         String by = partsOfDeadlineTask[3].substring(4);
@@ -89,6 +91,7 @@ public class Storage {
                         storageList.add(store);
                     } else {
                         String[] partsOfToDoTask = line.split(" \\| ");
+                        assert partsOfToDoTask.length == 3;
                         String statusOfToDo = partsOfToDoTask[1];
                         String toDoDescription = partsOfToDoTask[2];
                         ToDo store = new ToDo(toDoDescription);

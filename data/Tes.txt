@@ -1,14 +1,15 @@
 D | X | return book | by: Dec 12 2022 07:00 PM
 T | X | asdasd
 D |   | asdasd | by: Jan 12 2022 07:00 PM
-<<<<<<< HEAD
 E | X | sdasda | from: Dec 13 2002 07:00 PM to: Dec 12 2003 07:00 PM
 T |   | mop the floor
 E |   | dance | from: Dec 12 2022 05:00 PM to: Dec 12 2022 07:00 PM
 D |   | mop second floor | by: Dec 11 2023 11:59 PM
-=======
 E |   | sdasda | from: Dec 13 2002 07:00 PM to: Dec 12 2003 07:00 PM
 T |   | ssadad
 T |   | sdasd
 D | X | asdasdagg | by: Dec 12 2022 07:00 PM
->>>>>>> master
+E |   | sdasda | from: Dec 13 2002 07:00 PM to: Dec 12 2003 07:00 PM
+T |   | ssadad
+T |   | sdasd
+D | X | asdasdagg | by: Dec 12 2022 07:00 PM
