@@ -52,7 +52,7 @@ public enum Command {
 
     @Override
     public String toString() {
-        return this.rep + this.args;
+        return this.rep;
     }
 
     /**

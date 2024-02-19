@@ -32,11 +32,11 @@ public class Parser {
     public static Command toCommand(String rep) throws InvalidCommandException, InvalidArgumentException {
         String[] split = rep.split("\\s+", 2);
         Command cmd = cmdStrMap.get(split[0]);
-        if (split.length > 1 && cmd.hasArgs()) {
-            cmd.withArgs(split[1]);
-        }
         if (cmd == null) {
             throw new InvalidCommandException();
+        }
+        if (split.length > 1 && cmd.hasArgs()) {
+            cmd.withArgs(split[1]);
         }
         if (split.length > 1 && !cmd.hasArgs()) {
             throw new InvalidArgumentException();

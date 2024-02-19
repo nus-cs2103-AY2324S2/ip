@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -67,6 +68,6 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         message.getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        messageBg.setBackground(Background.fill(Color.web("#F8EDFF")));
+        messageBg.setBackground(new Background(new BackgroundFill(Color.web("#F8EDFF"), null, null)));
     }
 }
