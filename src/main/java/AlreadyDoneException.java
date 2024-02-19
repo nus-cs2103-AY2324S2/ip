@@ -3,7 +3,7 @@
  *
  * @author Tee Chu Jie
  */
-public class AlreadyDoneException extends DukeException {
+public class AlreadyDoneException extends MitsukiException {
     /**
      * The constructor for an AlreadyDoneException object.
      *

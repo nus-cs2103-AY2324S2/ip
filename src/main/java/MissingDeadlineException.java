@@ -3,7 +3,7 @@
  *
  * @author Tee Chu Jie
  */
-public class MissingDeadlineException extends DukeException {
+public class MissingDeadlineException extends MitsukiException {
     /**
      * The constructor for a MissingDeadlineException object.
      *
