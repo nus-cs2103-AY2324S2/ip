@@ -138,4 +138,12 @@ public class Ui {
     public static String showMissingFindArgError() {
         return String.format("Please enter a TEXT to find the Task!");
     }
+
+    public static String showTagDone(Task t) {
+        return String.format("I've tagged this task for you:\n  %s", t);
+    }
+
+    public static String showMissingTagNameError() {
+        return String.format("Please enter a NAME for your tag!");
+    }
 }
