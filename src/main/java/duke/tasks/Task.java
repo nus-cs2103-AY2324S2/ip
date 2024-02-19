@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Task {
-    public static int EXPECTED_FIELDS = 3;
     protected static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
     protected static final String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy hh:mm a";
     public String name;

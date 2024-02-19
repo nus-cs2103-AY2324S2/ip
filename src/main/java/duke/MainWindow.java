@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -35,15 +36,6 @@ public class MainWindow extends AnchorPane {
     public void setGoldBot(GoldBot g) {
         goldBot = g;
     }
-
-    // private Label getDialogLabel(String text) {
-    //     // You will need to import `javafx.scene.control.Label`.
-    //         Label textToAdd = new Label(text);
-    //         textToAdd.setWrapText(true);
-
-    //         return textToAdd;
-    //     }
-
     public void printDukeMessage(String message) {
         dialogContainer.getChildren().add(
             DialogBox.getDukeDialog(message, dukeImage)

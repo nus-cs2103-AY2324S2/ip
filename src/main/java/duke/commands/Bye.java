@@ -6,7 +6,7 @@ import duke.ChatSession;
  * Bye command to allow user to exit the chat
  */
 public class Bye implements NamedCommand {
-    private static String NAME = "bye";
+    private static final String NAME = "bye";
 
     public String getName() {
         return Bye.NAME;
