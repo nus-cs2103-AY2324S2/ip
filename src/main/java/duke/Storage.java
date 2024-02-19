@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String FILE_PATH;
+    private static String FILE_PATH;
 
     /**
      * Constructor for Storage.
@@ -59,15 +59,18 @@ public class Storage {
      * Saves task to the stored file.
      *
      * @param taskList The tasklist that contains the tasks.
-     * @throws IOException if unable to save tasks to the stored file.
      */
-    public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        StringBuilder msg = new StringBuilder();
-        for (Task task : taskList) {
-            msg.append(task.toFile()).append("\n");
+    public static void saveTaskToFile(ArrayList<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH);
+            StringBuilder msg = new StringBuilder();
+            for (Task task : taskList) {
+                msg.append(task.toFile()).append("\n");
+            }
+            fw.write(msg.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Sorry, error saving tasks to file!");
         }
-        fw.write(msg.toString());
-        fw.close();
     }
 }

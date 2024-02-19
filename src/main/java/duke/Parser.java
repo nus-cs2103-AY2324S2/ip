@@ -10,6 +10,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
+
+    static boolean isActive;
     public Parser() {
 
     }
@@ -33,12 +35,16 @@ public class Parser {
      * @param ui The ui.
      * @throws DukeException if invalid command or format has been parsed.
      */
-    public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException {
+    public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException{
         String[] parts = input.split(" ", 2);
         Command category = Command.getCategory(parts[0]);
         int listSize = taskList.getSize();
         switch (category) {
             case BYE -> {
+                isActive = false;
+                String output = ui.printGoodByeMessage();
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case LIST -> {
                 return ui.listTaskMessage(taskList);
@@ -53,7 +59,9 @@ public class Parser {
                         return "  " + e.getMessage();
                     }
                 }
-                return taskList.unmarkTask(unmarkId, ui);
+                String output = taskList.unmarkTask(unmarkId, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case MARK -> {
                 int markId = Integer.parseInt(parts[1]) - 1;
@@ -65,7 +73,9 @@ public class Parser {
                         return "  " + e.getMessage();
                     }
                 }
-                return taskList.markTask(markId, ui);
+                String output = taskList.markTask(markId, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case DELETE -> {
                 int deleteId = Integer.parseInt(parts[1]) - 1;
@@ -77,22 +87,32 @@ public class Parser {
                         return "  " + e.getMessage();
                     }
                 }
-                return taskList.deleteTask(deleteId, ui) + "\n" +
+                String output = taskList.deleteTask(deleteId, ui) + "\n" +
                         ui.listSizeMessage(taskList);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case TODO -> {
-                return parseToDo(parts[1], taskList, ui);
+                String output = parseToDo(parts[1], taskList, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case DEADLINE -> {
-                return parseDeadline(parts[1], taskList, ui);
+                String output = parseDeadline(parts[1], taskList, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case EVENT -> {
-                return parseEvent(parts[1], taskList, ui);
+                String output = parseEvent(parts[1], taskList, ui);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             case FIND -> {
                 String findDescription = ui.readCommandLine();
                 ArrayList<Task> matchedTasks = taskList.find(findDescription);
-                return taskList.listMatchedTasks(matchedTasks);
+                String output = taskList.listMatchedTasks(matchedTasks);
+                Storage.saveTaskToFile(taskList.getTasks());
+                return output;
             }
             default -> {
                 try {
@@ -102,7 +122,6 @@ public class Parser {
                 }
             }
         }
-        return ui.printGoodByeMessage();
     }
 
     /**

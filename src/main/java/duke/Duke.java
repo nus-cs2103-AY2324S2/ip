@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.IOException;
+import static duke.Parser.isActive;
 
 public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -48,14 +48,12 @@ public class Duke extends Application {
      * Runs the chatbot.
      */
     public void run() {
-        while (true) {
+        while (isActive) {
             try {
                 String input = ui.readCommand();
                 getResponse(input);
-                storage.saveTasksToFile(taskList.getTasks());
-            } catch (IOException e) {
-                System.out.println("Sorry, Error occurred! Shutting down...");
-                break;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -67,8 +65,6 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
-
-        Duke lunaris = new Duke();
 
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
@@ -155,7 +151,7 @@ public class Duke extends Application {
      */
     public String getResponse(String input) {
         try {
-            return Parser.parseCommand(input, taskList, ui);
+             return Parser.parseCommand(input, taskList, ui);
         } catch (DukeException e) {
             return "  " + e.getMessage();
         }
