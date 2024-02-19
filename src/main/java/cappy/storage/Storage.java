@@ -32,6 +32,7 @@ public class Storage implements AutoCloseable {
      */
     public Storage(String path) throws IOException {
         this.path = path;
+        // Reused from https://stackoverflow.com/a/38284744
         this.file = new File(path);
         file.getParentFile().mkdirs();
         file.createNewFile();
