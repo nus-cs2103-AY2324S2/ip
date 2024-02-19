@@ -24,8 +24,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     private Chaterpillar chaterpillar;
-    private final Image chaterpillarImage = new Image(this.getClass().getResourceAsStream("/images/chaterpillar.png"));
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private static final String CHATERPILLAR_IMAGE = "/images/chaterpillar.png";
+    private static final String USER_IMAGE = "/images/user.png";
+    private final Image chaterpillarImage = new Image(this.getClass().getResourceAsStream(CHATERPILLAR_IMAGE));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE));
 
     /**
      * Initialises the main window, binds the scroll pane to be dynamic
