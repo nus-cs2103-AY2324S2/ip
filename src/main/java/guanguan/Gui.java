@@ -2,6 +2,7 @@ package guanguan;
 
 /**
  * Extension of Ui class that is responsible for the outputs on GUI.
+ * Solution below adapted from https://github.com/lordidiot/ip/blob/master/src/main/java/duke/ui/TextUi.java
  */
 public class Gui extends Ui {
     private final StringBuilder buffer;
