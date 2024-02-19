@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" ellipsisString="" lineSpacing="4.0" text="Label" wrapText="true">
+            <font>
+                <Font name="Times New Roman" size="10.0" />
+            </font>
+            <padding>
+                <Insets left="10" right="10" />
+            </padding>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+            <clip>
+                <Circle centerX="49.5" centerY="49.5" radius="49.5" />
+            </clip>
+            <effect>
+                <javafx.scene.effect.DropShadow color="#78c4c2" spread="0.5" />
+                <javafx.scene.effect.Glow level="0.25" />
+            </effect>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>

@@ -1,0 +1,13 @@
+.root {
+    -fx-background-color: #1c1c1c; /* Dark background color */
+    -fx-text-fill: #ffffff; /* White text color */
+}
+
+.text-field, .button {
+    -fx-background-color: #2d2d2d; /* Darker text field and button background */
+    -fx-text-fill: #ffffff; /* White text color */
+}
+
+.scroll-pane {
+    -fx-background-color: #2d2d2d; /* Darker scroll pane background */
+}

@@ -1,0 +1,5 @@
+[D][X] meeting (by: Nov 11 2013)
+[D][ ] submit GUI (by: Monday)
+[D][ ] Test date (by: May 23 2023)
+[D][X] submit GUI (by: Monday)
+[E][ ] Show GUI (from: 23/05/2023 to: 24/05/2023)
