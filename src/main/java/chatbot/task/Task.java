@@ -7,7 +7,7 @@ public class Task {
 
     public static final String DATETIME_FORMAT_OUTPUT = "MMM dd yyyy HH:mm";
     private String description;
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Constructor for Task.
@@ -15,7 +15,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -25,21 +25,21 @@ public class Task {
      */
     public Task(String description, boolean isCompleted) {
         this.description = description;
-        this.completed = isCompleted;
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Marks the task as done.
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Unmarks the task as done.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Task {
      * @return The status of the task.
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
