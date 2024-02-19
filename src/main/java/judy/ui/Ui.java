@@ -101,6 +101,25 @@ public class Ui {
     }
 
     /**
+     * Displays the list of tasks that contained matching keywords
+     * or an appropriate message if the task list is empty.
+     *
+     * @param taskList The TaskList containing the tasks with matching keyword.
+     */
+    public void showFindTasks(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            System.out.println(Messages.EMPTY_MATCHING_TASKS_MESSAGE);
+        } else {
+            System.out.println(Messages.LIST_MATCHING_TASKS_MESSAGE);
+            for(int i = 0; i < taskList.getSize(); i++) {
+                int seq = i+1;
+                Task t = taskList.get(i);
+                System.out.println ("  " + seq + ". " + t.toString());
+            }
+        }
+    }
+
+    /**
      * Displays a help message with instructions on using the application.
      */
     public void showHelp() {
