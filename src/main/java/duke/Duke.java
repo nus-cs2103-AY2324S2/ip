@@ -46,6 +46,7 @@ public class Duke {
             String response = e.getMessage();
             assert response != null : "Error message string cannot be null";
             return response;
+
         }
     }
 

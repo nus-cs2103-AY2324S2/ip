@@ -45,10 +45,18 @@ public class FindCommand extends Command {
                 sb.append(task.toString()).append(System.lineSeparator());
             }
         }
-        String matchingTasksString = "    Here are the matching tasks in your list:\n"
-                + sb.toString() + "\n";
 
-        return matchingTasksString;
+        if (sb.length() >= 1) {
+            String matchingTasksString = "Here are the matching tasks in your list:\n"
+                    + sb.toString() + "\n";
+            return matchingTasksString;
+        } else {
+            String matchingTasksString = "There is no task matching the word: " + keyword;
+            return matchingTasksString;
+
+        }
+
+
     }
 
 

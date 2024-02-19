@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
      */
     private void showWelcomeMessage() {
         String welcomeMsg = "Hello! I'm BotYue.\n" + " What can I do for you?";
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMsg, dukeImage));
+        dialogContainer.getChildren().add(YueDialogBox.getDialog(welcomeMsg, dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -52,8 +52,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                UserDialogBox.getDialog(input, userImage),
+                YueDialogBox.getDialog(response, dukeImage)
         );
         userInput.clear();
     }
