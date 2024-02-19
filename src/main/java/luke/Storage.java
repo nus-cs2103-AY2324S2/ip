@@ -49,7 +49,7 @@ public class Storage {
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                if (data != "") {
+                if (!data.isEmpty()) {
                     taskList.add(data);
                 }
             }
@@ -64,8 +64,9 @@ public class Storage {
      * Saves tasks to the file.
      *
      * @param taskListObject the TaskList object containing the tasks to be saved
+     * @return message
      */
-    public void saveFile(TaskList taskListObject) {
+    public String saveFile(TaskList taskListObject) {
         try {
             ArrayList<Task> taskList = taskListObject.getTaskList();
             FileWriter writer = new FileWriter(filepath);
@@ -74,10 +75,9 @@ public class Storage {
                 writer.write("\n");
             }
             writer.close();
-            System.out.println("Successfully saved file to local.");
+            return "File saved. Hope to see you again soon!";
         } catch (IOException e) {
-            System.out.println("An error occurred while saving.");
-            e.printStackTrace();
+            return "An error occurred while saving." + e.getMessage();
         }
     }
 }

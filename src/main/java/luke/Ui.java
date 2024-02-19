@@ -4,48 +4,43 @@ import java.util.Scanner;
 
 public class Ui {
 
-    protected String command;
-
     protected TaskList taskList;
 
     protected Storage storage;
-    private final String[] VALID_COMMANDS = {"bye", "list", "unmark", "mark", "todo", "event", "deadline",
-            "delete", "find", "edit"};
 
     protected Parser parser;
     Ui() {
         this.taskList = new TaskList();
-        this.parser = new Parser(VALID_COMMANDS, taskList);
+        this.parser = new Parser(taskList);
         this.storage = new Storage("data/tasks.txt");
     }
 
     Ui(TaskList taskList) {
         this.taskList = taskList;
-        this.parser = new Parser(VALID_COMMANDS, taskList);
+        this.parser = new Parser(taskList);
         this.storage = new Storage("data/tasks.txt");
     }
 
     protected String handleInput(String input) {
             try {
                 parser.isInputValid(input);
-                this.command = parser.getCommand(input);
+                String command = parser.getCommand(input);
+                return switch (command) {
+                    case "list" -> this.list(input);
+                    case "mark" -> this.mark(input);
+                    case "unmark" -> this.unmark(input);
+                    case "delete" -> this.delete(input);
+                    case "todo" -> this.todo(input);
+                    case "deadline" -> this.deadline(input);
+                    case "event" -> this.event(input);
+                    case "find" -> this.find(input);
+                    case "edit" -> this.edit(input);
+                    case "bye" -> this.end();
+                    default -> "Invalid command";
+                };
             } catch (LukeException e) {
-                this.command = "";
                 return e.getMessage();
             }
-        return switch (this.command) {
-            case "list" -> this.list(input);
-            case "mark" -> this.mark(input);
-            case "unmark" -> this.unmark(input);
-            case "delete" -> this.delete(input);
-            case "todo" -> this.todo(input);
-            case "deadline" -> this.deadline(input);
-            case "event" -> this.event(input);
-            case "find" -> this.find(input);
-            case "edit" -> this.edit(input);
-            case "bye" -> this.end();
-            default -> "Invalid command";
-        };
     }
 
     public void showLoadingError() {
@@ -150,7 +145,6 @@ public class Ui {
     }
 
     public String end() {
-        storage.saveFile(taskList);
-        return "File saved. Hope to see you again soon!";
+        return storage.saveFile(taskList);
     }
 }

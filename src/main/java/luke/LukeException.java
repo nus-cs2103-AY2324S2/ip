@@ -72,7 +72,6 @@ public class LukeException extends Exception {
                     "by a space: task number, field to edit, and the new string.";
             case editFieldInvalid -> "Invalid command. The task you select does not have the field that you " +
                     "indicated.\n The possible fields are: 'description', 'by', 'from' and 'to'.";
-            default -> this.toString();
         };
     }
 }

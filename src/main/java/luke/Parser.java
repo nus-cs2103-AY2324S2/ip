@@ -4,21 +4,17 @@ package luke;
  * Parses user input and executes corresponding commands.
  */
 public class Parser {
-    private String[] validCommands;
+    private final String[] VALID_COMMANDS = {"bye", "list", "unmark", "mark", "todo", "event", "deadline",
+            "delete", "find", "edit"};
 
-    private TaskList taskList;
-
-    private String[] VALID_FIELDS = {"description", "deadline", "from", "to"};
+    private final TaskList taskList;
 
     /**
      * Constructs a Parser object with the specified valid commands and task list.
      *
-     * @param validCommands an array of valid commands
      * @param taskList the task list to be operated on
      */
-    Parser(String[] validCommands, TaskList taskList) {
-
-        this.validCommands = validCommands;
+    Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -31,7 +27,7 @@ public class Parser {
     protected void isInputValid(String input) throws LukeException {
         String[] inputArr = input.split(" ");
         String command = inputArr[0];
-        for (String validCommand: validCommands) {
+        for (String validCommand: VALID_COMMANDS) {
             if (command.equals(validCommand)) {
                 return;
             }
@@ -122,8 +118,7 @@ public class Parser {
         if (taskNo >= noTasks || taskNo < 0) {
             throw new LukeException(LukeException.ExceptionType.taskNumberInvalid);
         } else {
-            Task deletedTask = taskList.deleteEvent(taskNo);
-            return deletedTask;
+            return taskList.deleteEvent(taskNo);
         }
     }
 
@@ -254,14 +249,11 @@ public class Parser {
                     throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
                 }
             case "Event":
-                if (field.equals("description")) {
-                    taskEdited.changeDescription(newString);
-                } else if (field.equals("from")) {
-                    taskEdited.changeFrom(newString);
-                } else if (field.equals("to")) {
-                    taskEdited.changeTo(newString);
-                } else {
-                    throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
+                switch (field) {
+                    case "description" -> taskEdited.changeDescription(newString);
+                    case "from" -> taskEdited.changeFrom(newString);
+                    case "to" -> taskEdited.changeTo(newString);
+                    default -> throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
                 }
         }
         return taskEdited;

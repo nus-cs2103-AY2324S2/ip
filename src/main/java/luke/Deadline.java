@@ -29,7 +29,7 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             this.by = by;
             this.hasByDate = false;
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
