@@ -1,5 +1,6 @@
 package commands;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,13 +12,7 @@ import duke.Event;
 import duke.Storage;
 import duke.Task;
 import duke.ToDo;
-import exceptions.DukeExceptions;
-import exceptions.EmptyStringException;
-import exceptions.EmptyTaskException;
-import exceptions.OutOfIndexException;
-import exceptions.ParseDateException;
-import exceptions.WrongDeadlineFormatException;
-import exceptions.WrongEventFormatException;
+import exceptions.*;
 
 /**
  * Contains methods to handle different commands for the Duke application.
@@ -170,7 +165,7 @@ public class Commands {
      * @throws WrongEventFormatException If the input format is incorrect.
      */
     public static Event eventsCommand(String input, Storage storage)
-            throws ParseDateException, WrongEventFormatException {
+            throws ParseDateException, WrongEventFormatException, EmptyTaskException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index1 = inputParts.indexOf("/from");
         int index2 = inputParts.indexOf("/to");
@@ -190,6 +185,9 @@ public class Commands {
             descriptor += inputParts.get(i) + " ";
         }
         descriptor = descriptor.trim();
+        if (descriptor.isEmpty()) {
+            throw new EmptyTaskException();
+        }
         assert !descriptor.isEmpty() : "Description cannot be empty!";
         from = from.trim();
         to = to.trim();
@@ -205,5 +203,21 @@ public class Commands {
         }
     }
 
+    public static String viewCommand(String input, Storage storage) throws ParseDayException, EmptyDateException {
+        String[] inputs = input.split(" ");
+        if (inputs.length != 2) {
+            throw new EmptyDateException();
+        }
+        String date = inputs[1];
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+            LocalDate datetime = LocalDate.parse(date, formatter);
+            String output = storage.viewSchedule(datetime);
+            return output;
+        } catch (DateTimeParseException e) {
+            throw new ParseDayException();
+        }
+
+    }
 
 }

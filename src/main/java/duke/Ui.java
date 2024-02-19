@@ -84,4 +84,10 @@ public class Ui {
                 + "take care and stay awesome!\n";
     }
 
+    public String onView(String s) {
+        if (s.isEmpty()) {
+            return "Your schedule is free!";
+        }
+        return "Here is your schedule today!\n" + s + "\n";
+    }
 }

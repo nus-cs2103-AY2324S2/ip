@@ -85,6 +85,9 @@ public class NewDuke {
             case "event":
                 t = Commands.eventsCommand(input, storage);
                 return ui.onTaskAddition(storage.addToListOutput(t));
+            case "view":
+                output = Commands.viewCommand(input, storage);
+                return ui.onView(output);
             default:
                 return "WHAT DO YOU MEANNN????";
             }

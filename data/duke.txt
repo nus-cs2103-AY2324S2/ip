@@ -1,3 +1,6 @@
-T | 1 | borrow book
-T | 0 | hello world
 D | 0 | sdasd | 1/1/2000 1800
+D | 0 | clean room | 3/3/2000 1800
+E | 0 | helloworld2 | 12/31/2000 1900 | 1/2/2000 0000
+D | 0 | cehckmyfunction | 1/1/2000 1800
+E | 0 | lmao | 1/1/2000 0000 | 2/1/2000 0000
+E | 0 | newtester | 12/31/1999 2000 | 1/2/2000 1000

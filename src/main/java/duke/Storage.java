@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import exceptions.DukeExceptions;
@@ -91,11 +93,11 @@ public class Storage {
             if (output.length() == 0) {
                 throw new DukeExceptions();
             }
+            return output.toString();
 
         } catch (DukeExceptions d) {
-            System.out.println("Nothing was found");
+            return "Nothing was found";
         }
-        return output.toString();
     }
 
     /**
@@ -125,6 +127,32 @@ public class Storage {
                 + String.format("  %s\nNow you have %d tasks in the list.", t.toString(), this.size());
     }
 
+
+    public String viewSchedule(LocalDate target) {
+        StringBuilder output = new StringBuilder();
+        try {
+            for (int i = 0; i < this.storage.size(); i++) {
+                if (this.storage.get(i) instanceof Deadline) {
+                    LocalDate deadlineDate = ((Deadline) this.storage.get(i)).getDeadline().toLocalDate();
+                    if (deadlineDate.equals(target)) {
+                        output.append(this.storage.get(i).description + "\n");
+                    }
+                } else if (this.storage.get(i) instanceof Event) {
+                    LocalDate toDate = ((Event) this.storage.get(i)).getTo().toLocalDate();
+                    LocalDate fromDate = ((Event) this.storage.get(i)).getFrom().toLocalDate();
+                    // from > target > to
+                    if (target.isAfter(fromDate) && target.isBefore(toDate)
+                            || target.equals(toDate) || target.equals(fromDate)) {
+                        output.append(this.storage.get(i).description + "\n");
+                    }
+                }
+
+            }
+            return output.toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
 
 }

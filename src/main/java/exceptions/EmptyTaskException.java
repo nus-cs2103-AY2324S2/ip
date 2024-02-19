@@ -5,7 +5,7 @@ package exceptions;
  * Extends the DukeExceptions class.
  */
 public class EmptyTaskException extends DukeExceptions {
-    private String msg = "You can't do nothing!";
+    private String msg = "Name of task cannot be empty!";
     public EmptyTaskException() {
         super();
     }
