@@ -147,6 +147,16 @@ public class PingMe {
                 response += ui.givesBackResponse();
             }
 
+        } else if (splitInput[0].equals("postpone")) {
+            try {
+                Command c = parser.parsePostponeCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
         } else {
             ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");
             response += ui.givesBackResponse();
