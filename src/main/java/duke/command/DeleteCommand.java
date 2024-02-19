@@ -4,6 +4,8 @@ import java.util.List;
 
 import duke.exception.DukeException;
 import duke.task.TaskList;
+import duke.ui.Messages;
+import duke.ui.Ui;
 
 /**
  * A command class representing the action of deleting a task from the task list.
@@ -18,26 +20,27 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks) throws DukeException {
+    public TaskList execute(TaskList tasks, Ui ui) throws DukeException {
         try {
             if (arguments.isEmpty()) {
-                throw new DukeException("Hey, you need to tell me which one to delete! Try 'delete <INDEX>'. ~(>_<)\n");
+                throw new DukeException(Messages.DELETE_ERROR_MESSAGE);
             }
 
             int index = Integer.parseInt(arguments.get(0)) - 1;
 
             if (index >= 0 && index < tasks.getNoOfTasks()) {
                 tasks.deleteTask(index);
-                System.out.printf("\nDeleted task %d ~(^-^)\n ", index + 1);
+                ui.appendResponse(String.format(Messages.SUCCESS_DELETE_MESSAGE, index + 1));
             } else {
-                throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n",
+                throw new DukeException(String.format(Messages.INDEX_ERROR_MESSAGE,
                     arguments.get(0)));
             }
         } catch (DukeException e) {
-            System.out.printf("%s", e.getMessage());
+            String message = String.format("%s", e.getMessage());
+            ui.appendResponse(message);
             return tasks;
         } catch (NumberFormatException e) {
-            System.out.printf("Sigh.. That's not a valid number! Try 'delete <NUMBER>'.\n");
+            ui.appendResponse(Messages.DELETE_INVALID_INDEX_ERROR_MESSAGE);
             return tasks;
         }
 

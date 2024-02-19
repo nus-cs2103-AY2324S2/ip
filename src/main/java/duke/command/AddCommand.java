@@ -2,6 +2,7 @@ package duke.command;
 
 import java.util.List;
 
+import duke.ui.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -35,14 +36,16 @@ public class AddCommand extends Command {
      * @param tasks The task list to which the task is added.
      * @return The updated task list after adding the task.
      */
-    public TaskList execute(TaskList tasks) {
+    public TaskList execute(TaskList tasks, Ui ui) {
         tasks.addTask(task);
         Integer count = tasks.getNoOfTasks();
 
-        System.out.printf(
+        String message = String.format(
             "\n        ~~~ >^o_o^< ~~~\nGot it! I've added this task:\n"
             + "- %s\n\nYou have %d task(s) in the list.\n",
             task, count);
+
+        ui.appendResponse(message);
         return tasks;
     }
 }

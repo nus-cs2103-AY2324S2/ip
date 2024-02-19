@@ -2,6 +2,7 @@ package duke.command;
 
 import java.util.List;
 
+import duke.ui.Ui;
 import duke.task.TaskList;
 
 /**
@@ -26,7 +27,7 @@ public abstract class Command {
         this.arguments = arguments;
     }
 
-    public abstract TaskList execute(TaskList tasks);
+    public abstract TaskList execute(TaskList tasks, Ui ui);
 
     public String getCommand() {
         return this.command;

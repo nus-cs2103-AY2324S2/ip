@@ -138,6 +138,8 @@ public class Parser {
                     + " If you want to leave, just say 'bye'! :(\n");
             }
         } catch (DukeException e) {
+            // to-do: link this to ui
+
             System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
         }

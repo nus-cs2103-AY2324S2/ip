@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing the action of listing all tasks.
@@ -12,15 +13,17 @@ import duke.task.TaskList;
  * class and implements the behavior specific to listing tasks.</p>
  */
 public class ListCommand extends Command {
+    private static final String TASKS_MESSAGE = "\nHere's your list! ~~(^-^)\n";
+
     public ListCommand() {
         super("list", List.of());
     }
 
     @Override
-    public TaskList execute(TaskList tasks) {
-        System.out.printf("\nHere's your list! ~~(^-^)\n");
+    public TaskList execute(TaskList tasks, Ui ui) {
+        ui.appendResponse(TASKS_MESSAGE);
         for (int i = 0; i < tasks.getNoOfTasks(); i++) {
-            System.out.printf("%d. %s\n", i + 1, tasks.getTask(i));
+            ui.appendResponse(String.format("%d. %s\n", i + 1, tasks.getTask(i)));
         }
         return tasks;
     }

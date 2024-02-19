@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing an unknown / undefined command.
@@ -16,7 +17,7 @@ public class UnknownCommand extends Command {
         super("", List.of());
     }
 
-    public TaskList execute(TaskList tasks) {
+    public TaskList execute(TaskList tasks, Ui ui) {
         return null;
     }
 }
