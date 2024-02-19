@@ -1,4 +1,4 @@
-# [Steve User Guide](https://github.com/jieqiboh/ip)
+# Steve User Guide
 
 <img src="./Ui.png" width="300">
 
@@ -6,7 +6,7 @@ Steve frees your mind of having to remember things you need to do. It's text-bas
 Given below are instructions on how to use it.
 
 ## Setting up Steve
-1. Download ip.jar file into your desired directory.
+1. Download the ip.jar file into your desired directory.
 2. Run ip.jar. <br>
 
 On your first use, a data file will be created that stores all your tasks. Do not modify it.
@@ -27,19 +27,15 @@ Examples:<br>
 Add a deadline task to the list.<br>
 Format: `deadline [DESCRIPTION] /p [PRIORITY VALUE] /by [TIME]`, where `/p` denotes the priority value.<br>
 Examples:<br>
-`deadline do homework /p 4 /by 01/05/2000 0001`
-<div markdown="block" class="alert alert-info">
+`deadline do homework /p 4 /by 01/05/2000 0001`<br>
 `[TIME]` can be provided in the `dd/mm/yy hhmm` format.
-</div>
 
 ### Adding Events: `event`
 Add a event task to the list.<br>
-Format: `event [DESCRIPTION] /p [PRIORITY VALUE] /from [TIME] /by [TIME]`, where `/p` denotes the priority value.<br>
+Format: `event [DESCRIPTION] /p [PRIORITY VALUE] /from [TIME] /to [TIME]`, where `/p` denotes the priority value.<br>
 Examples:<br>
-`event group meeting /p 5 /from 01/05/2000 0001 /to 01/06/2000 0001`
-<div markdown="block" class="alert alert-info">
+`event group meeting /p 5 /from 01/05/2000 0001 /to 01/06/2000 0001`<br>
 `[TIME]` can be provided in the `dd/mm/yy hhmm` format.
-</div>
 
 ### Marking Tasks as Done: `mark`
 Mark a task as complete.<br>
