@@ -1,4 +1,4 @@
-package Duke.task;
+package zhen.task;
 
 public class Todos extends Task {
     public Todos(String message) {

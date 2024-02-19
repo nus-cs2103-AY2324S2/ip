@@ -1,9 +1,9 @@
-package Duke;
+package zhen;
 
 import java.util.Scanner;
 
 /**
- * Representing the user interface of the application.
+ * Represents the user interface of the application.
  * It is responsible for getting inputs from users and displaying message to users.
  */
 public class Ui {
@@ -15,7 +15,7 @@ public class Ui {
             + "ZZZZZ   H   H  EEEEE  N   N\n";
 
     /**
-     * Show welcome to the users
+     * Shows welcome to the users
      */
     public static String showWelcome() {
         String welcomeMessage = "";
@@ -27,13 +27,16 @@ public class Ui {
         return welcomeMessage;
     }
 
+    /**
+     * Shows exception to the users.
+     */
     public static String showException(Exception e) {
         String exceptionMessage = print_message(e.getMessage());
         return e.getMessage();
     }
 
     /**
-     * Organize content to be displayed to users in a formatted way.
+     * Organizes content to be displayed to users in a formatted way.
      *
      * @param messageToShow The message the program wants to show to the user.
      */
@@ -47,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Reading inputs from users.
+     * Reads inputs from users.
      *
      * @return The line of string that the user input.
      */
