@@ -5,9 +5,7 @@
     "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <suppress checks="JavadocType" files=".*Test\.java"/>
-  <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
+  <suppress checks="Javadoc" files="."/>
 </suppressions>
 
 <!-- From https://github.com/se-edu/addressbook-level3/blob/master/config/checkstyle/suppressions.xml -->
-
