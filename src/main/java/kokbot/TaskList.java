@@ -105,7 +105,7 @@ public class TaskList {
         } else if (sortBy.equals("bydesc")) {
             sortedTasks.sort(Comparator.comparing(Task::getDescription));
         } else if (!sortBy.equals("")){
-            throw new DukeException("list usage: list [bytype/bydate/bydescription]");
+            throw new DukeException("list usage: list [bytype/bydate/bydesc]");
         }
         String[] taskStrings = new String[sortedTasks.size()];
         if (sortBy.equals("")) {
