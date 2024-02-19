@@ -63,6 +63,13 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+shadowJar {
+    archiveFileName = 'duke2.jar'
+    archiveBaseName = 'duke2'
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
 run{
     standardInput = System.in
 }
