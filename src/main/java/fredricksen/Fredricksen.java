@@ -18,7 +18,7 @@ import fredricksen.ui.Ui;
 public class Fredricksen {
     private Ui ui;
     private Storage store;
-    private TaskList list;
+    private TaskList lists;
 
     /**
      * Creates a fredricksen.Fredricksen instance that represents the chatbot without any parameters.
@@ -26,12 +26,12 @@ public class Fredricksen {
     public Fredricksen() {
         this.ui = new Ui();
         this.store = new Storage("data/Fredricksen.txt");
+        this.store.createFileInData();
         try {
-            this.store.createFileInData();
-            this.list = new TaskList(store.loadFile());
+            this.lists = new TaskList(this.store.loadFile());
         } catch (IOException error) {
             this.ui.showError(error);
-            this.list = new TaskList();
+            this.lists = new TaskList();
         }
     }
 
@@ -52,14 +52,14 @@ public class Fredricksen {
                 break;
             }
             ParseInput parseInput = new ParseInput();
-            Command executableCommand = parseInput.getCommand(task, this.list);
+            Command executableCommand = parseInput.getCommand(task, this.lists);
             String response = executableCommand.execute();
             System.out.println(response);
             if (executableCommand instanceof ByeCommand) {
                 break;
             }
         }
-        store.updateFile(list);
+        store.updateFile(lists);
         ui.closeScanner();
     }
 
@@ -69,8 +69,8 @@ public class Fredricksen {
      */
     public String getResponse(String input) {
         ParseInput parseInput = new ParseInput();
-        Command executableCommand = parseInput.getCommand(input, this.list);
-        store.updateFile(list);
+        Command executableCommand = parseInput.getCommand(input, this.lists);
+        store.updateFile(lists);
         return executableCommand.execute();
     }
 

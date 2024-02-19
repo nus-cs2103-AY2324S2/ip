@@ -32,12 +32,23 @@ public class DeadlineCommand extends Command {
      * @return A boolean based on whether the user input date portion of the command
      *          is valid or invalid.
      */
-    public boolean checkIfDateInvalid(Deadline task) {
+    public boolean isDateInvalid(Deadline task) {
         return task.toString().contains("Invalid Date");
     }
 
+    /**
+     * Format a String that displays when the date time is not formatted correctly.
+     *
+     * @return A String that is formatted to display the Invalid date message.
+     */
     public String formatInvalidDateString() {
         return "Please enter date in the correct format!";
+    }
+    public boolean isDescInvalid(Deadline task) {
+        return task.toString().contains("Invalid description");
+    }
+    public String formatInvalidDescString() {
+        return "Please enter description in the correct format!";
     }
 
     /**
@@ -51,8 +62,10 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute() {
         Deadline newDlTask = new Deadline(this.fullCommand, "D", false);
-        if (checkIfDateInvalid(newDlTask)) {
+        if (isDateInvalid(newDlTask)) {
             return formatInvalidDateString();
+        } else if (isDescInvalid(newDlTask)) {
+            return formatInvalidDescString();
         }
         this.tasks.addTask(newDlTask);
         return displayTask(newDlTask, this.tasks);

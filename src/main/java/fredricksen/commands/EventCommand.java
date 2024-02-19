@@ -38,9 +38,26 @@ public class EventCommand extends Command {
     public boolean isDateInvalid(Event task) {
         return task.toString().contains("Invalid Date");
     }
+    public boolean isDescInvalid(Event task) {
+        return task.toString().contains("Invalid description");
+    }
 
+    /**
+     * Format a String that displays when the date time is not formatted correctly.
+     *
+     * @return A String that is formatted to display the Invalid date message.
+     */
     public String formatInvalidDateString() {
         return "Please enter date in the correct format!";
+    }
+
+    /**
+     * Format a String that displays when the description is not formatted correctly.
+     *
+     * @return A String that is formatted to display the Invalid date message.
+     */
+    public String formatInvalidDescString() {
+        return "Please enter description in the correct format!";
     }
 
     /**
@@ -56,6 +73,8 @@ public class EventCommand extends Command {
         Event newEventTask = new Event(this.fullCommand, "E", false);
         if (isDateInvalid(newEventTask)) {
             return formatInvalidDateString();
+        } else if (isDescInvalid(newEventTask)) {
+            return formatInvalidDescString();
         }
         this.tasks.addTask(newEventTask);
         return displayTask(newEventTask, this.tasks);

@@ -28,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("FredricksenBot");
+            stage.setTitle("Fredricksen");
             stage.getIcons().add(icon);
             stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setFredricksen(fredricksen, stage);
