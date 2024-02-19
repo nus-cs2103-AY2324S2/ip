@@ -24,7 +24,9 @@ public class Main extends Application {
             window.setTitle(STAGE_TITLE);
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "fxmlLoader is null";
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "ap is null";
             Scene scene = new Scene(ap);
             window.setScene(scene);
             fxmlLoader.<MainWindow>getController().setMike(MIKE);
