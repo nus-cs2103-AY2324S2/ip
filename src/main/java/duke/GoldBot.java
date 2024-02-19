@@ -31,4 +31,8 @@ public class GoldBot {
         session.handleMessage(input);
         return session.getResponses();
     }
+
+    public boolean shouldExit() {
+        return !session.shouldContinueSession();
+    }
 }
