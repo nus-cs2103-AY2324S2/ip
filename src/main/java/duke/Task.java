@@ -1,6 +1,8 @@
 package duke;
 
-/** Represents a task in the task list */
+/**
+ * Represents a task in the task list
+ */
 public class Task {
   protected String description;
   protected boolean isDone;
@@ -22,6 +24,10 @@ public class Task {
    */
   public String getStatusIcon() {
     return (isDone ? "X" : " ");
+  }
+
+  public boolean getIsDone() {
+    return this.isDone;
   }
 
   /** Marks the task as done ("X") */

@@ -3,7 +3,9 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** Represents a task that is an event occurring within a specific time and day frame */
+/**
+ * Represents a task that is an event occurring within a specific time and day frame
+ */
 public class Events extends Task {
 
   protected LocalDateTime from;

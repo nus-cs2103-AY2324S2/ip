@@ -1,6 +1,8 @@
 package duke;
 
-/** Represents a todo task in the task list */
+/**
+ * Represents a todo task in the task list
+ */
 public class Todos extends Task {
 
   /**

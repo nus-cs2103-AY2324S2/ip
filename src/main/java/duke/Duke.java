@@ -1,58 +1,75 @@
 package duke;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-/** Duke is a task management system that allows users to manage their tasks through a command-line interface */
-public class Duke {
+/**
+ * Duke is a task management system that allows users to manage their tasks through a command-line interface
+ */
+public class Duke extends Application {
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList taskList = new TaskList();
+
     /**
-     * Entry point of the Duke application.
-     *
-     * @param args Command-line arguments.
-     * @throws Exception If an error occurs during execution.
+     * Launches the JavaFX application
      */
-    public static void main(String[] args) throws Exception {
-        Ui.printWelcomeMessage();
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+    /**
+     * Overrides the start method from Application class.
+     * Loads tasks from file when the JavaFX application starts.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
+    @Override
+    public void start(Stage stage) {
         Storage.loadTasksFromFile(tasks);
+    }
 
-        while (true) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            String input = bufferedReader.readLine();
-            String[] token = input.split(" ");
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
-            TaskList taskList = new TaskList();
+    /**
+     * Processes user input and generates a response accordingly.
+     *
+     * @param input The user input string.
+     * @return The response generated based on the input.
+     */
+    String getResponse(String input) {
+        // Process user input and generate response
+        String[] tokens = input.split(" ");
+        StringBuilder response = new StringBuilder();
 
-            if (input.equals("bye")) {
-                break;
-            } else if (token.length == 1 && !input.equals("list")) {
-                Ui.printErrorMessage("SOMETHING WENT WRONG!! Invalid input.");
-            } else if (input.equals("list")) {
-                Ui.printTaskList(tasks);
-            } else if (token[0].equals("mark") || token[0].equals("unmark")) {
-                taskList.markTaskAsDoneOrUndone(token, tasks);
-            } else if (token[0].equals("deadline")) {
-                taskList.addDeadlineTask(input, tasks);
-            } else if (token[0].equals("event")) {
-                taskList.addEventTask(input, tasks);
-            } else if (token[0].equals("todo")) {
-                taskList.addTodoTask(input, tasks);
-            } else if (token[0].equals("delete")) {
-                taskList.removeTask(token, tasks);
-            } else if (token[0].equals("find")) {
-                taskList.findTask(input, tasks);
-            } else {
-                Task n = new Task(input);
-                tasks.add(n);
-                Ui.printAddedMessage(input);
-            }
-
-            Storage.saveTasksToFile(tasks);
+        if (input.equals("bye")) {
+            response.append("    Bye. Hope to see you again soon!");
+            Platform.exit(); // Exit the application
+        } else if (input.equals("list")) {
+            response.append(TaskList.getTaskList(tasks));
+        } else if (tokens[0].equals("mark") || tokens[0].equals("unmark")) {
+            response.append(taskList.markTaskAsDoneOrUndone(tokens, tasks));
+        } else if (tokens[0].equals("deadline")) {
+            response.append(taskList.addDeadlineTask(input, tasks));
+        } else if (tokens[0].equals("event")) {
+            response.append(taskList.addEventTask(input, tasks));
+        } else if (tokens[0].equals("todo")) {
+            response.append(taskList.addTodoTask(input, tasks));
+        } else if (tokens[0].equals("delete")) {
+            response.append(taskList.removeTask(tokens, tasks));
+        } else if (tokens[0].equals("find")) {
+            response.append(taskList.findTask(input, tasks));
+        } else {
+            response.append("     SOMETHING WENT WRONG!! Invalid input.");
         }
 
-        Ui.printGoodbyeMessage();
+        // Save tasks to duke.txt file
+        Storage.saveTasksToFile(tasks);
+
+        return response.toString();
     }
 }
