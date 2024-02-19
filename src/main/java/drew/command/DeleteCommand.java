@@ -1,16 +1,25 @@
 package drew.command;
 
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * This class represents the Delete command.
+ */
 public class DeleteCommand extends Command {
     public DeleteCommand(String input) {
         super(input);
     }
-
+    /**
+     * Executes the command
+     * @param tasks Tasklist object that contains the tasks.
+     * @param storage Storage object that handles storage related tasks.
+     * @return The response from the task.
+     * @throws IllegalArgumentException Thrown when the command is called with wrong arguments.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
         String reply = "";
@@ -23,8 +32,8 @@ public class DeleteCommand extends Command {
             throw new IllegalArgumentException("This task does not exist!");
         }
 
-        reply = "Ok. I have deleted this task :\n" +
-                ls.get(taskIndex - 1).toStatusString() + "\n";
+        reply = "Ok. I have deleted this task :\n"
+                + ls.get(taskIndex - 1).toStatusString() + "\n";
         ls.remove(taskIndex - 1);
         listLength--;
 

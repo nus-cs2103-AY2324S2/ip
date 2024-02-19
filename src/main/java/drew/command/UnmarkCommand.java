@@ -1,11 +1,14 @@
 package drew.command;
 
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * This class represents the Unmark command.
+ */
 public class UnmarkCommand extends Command {
 
     public UnmarkCommand(String input) {
@@ -26,8 +29,8 @@ public class UnmarkCommand extends Command {
         }
 
         ls.get(taskIndex - 1).setNotDone();
-        reply = "Ok. I have marked this task as not done yet:\n" +
-                ls.get(taskIndex - 1).toStatusString();
+        reply = "Ok. I have marked this task as not done yet:\n"
+                + ls.get(taskIndex - 1).toStatusString();
 
         return reply;
     }

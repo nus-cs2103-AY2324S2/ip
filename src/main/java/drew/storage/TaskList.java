@@ -1,14 +1,14 @@
 package drew.storage;
 
-import drew.task.Task;
-
 import java.util.ArrayList;
+
+import drew.task.Task;
 
 /**
  * This class represents the task list structure.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for creating an empty task list;
@@ -25,7 +25,7 @@ public class TaskList {
         this.tasks = ls;
     }
 
-    public ArrayList<Task> getList(){
+    public ArrayList<Task> getList() {
         return tasks;
     }
 }

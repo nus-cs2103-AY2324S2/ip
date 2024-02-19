@@ -1,19 +1,28 @@
 package drew.command;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Deadline;
 import drew.task.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
+/**
+ * This class represents the Deadline command. It contains the logic for executing the command.
+ */
 public class DeadlineCommand extends Command {
 
     public DeadlineCommand(String input) {
         super(input);
     }
-
+    /**
+     * Executes the command
+     * @param tasks Tasklist object that contains the tasks.
+     * @param storage Storage object that handles storage related tasks.
+     * @return The response from the task.
+     * @throws IllegalArgumentException Thrown when the command is called with wrong arguments.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
         String reply = "";

@@ -42,6 +42,11 @@ public class Drew {
         }
     }
 
+    /**
+     * Calls the chatbot to execute the input given.
+     * @param input String containing user input.
+     * @return Response from executing the command.
+     */
     public String getResponse(String input) {
         Command command = parser.checkCommandId(input);
         String reply;

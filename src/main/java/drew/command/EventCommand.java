@@ -1,14 +1,16 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Event;
 import drew.task.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
+/**
+ * This class represents the Event command.
+ */
 public class EventCommand extends Command {
 
     public EventCommand(String input) {

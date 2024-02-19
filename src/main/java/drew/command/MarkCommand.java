@@ -1,13 +1,15 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
-import java.util.ArrayList;
-
-public class MarkCommand extends Command{
+/**
+ * This class represents the Mark command.
+ */
+public class MarkCommand extends Command {
 
     public MarkCommand(String input) {
         super(input);
@@ -26,8 +28,8 @@ public class MarkCommand extends Command{
         }
 
         ls.get(taskIndex - 1).setDone();
-        reply = "Well done! I have marked this task as done:\n" +
-                ls.get(taskIndex - 1).toStatusString();
+        reply = "Well done! I have marked this task as done:\n"
+                + ls.get(taskIndex - 1).toStatusString();
 
         return reply;
     }

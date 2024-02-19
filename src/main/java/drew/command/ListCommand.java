@@ -1,11 +1,14 @@
 package drew.command;
 
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * This class represents hte List command.
+ */
 public class ListCommand extends Command {
     public ListCommand(String input) {
         super(input);
@@ -18,8 +21,8 @@ public class ListCommand extends Command {
 
         reply = reply + "Tasks in your list, you have." + "\n";
         for (int i = 0; i < listLength; i++) {
-            reply = reply + Integer.toString(i + 1) + ". " +
-                    ls.get(i).toStatusString() + "\n";
+            reply = reply + Integer.toString(i + 1) + ". "
+                    + ls.get(i).toStatusString() + "\n";
         }
         reply = reply + String.format("%d task(s) in the list, there are.", listLength);
 

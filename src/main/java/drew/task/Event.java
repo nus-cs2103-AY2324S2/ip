@@ -13,6 +13,12 @@ public class Event extends Task {
      * Stores the event end date in "YYYY-MM-DD" format.
      */
     private LocalDate endDate;
+    /**
+     * Constructor for the Event task.
+     * @param description Descriptions of the event.
+     * @param startDate Start date of event in "YYYY-MM-DD" format.
+     * @param endDate End date of event in "YYYY-MM-DD" format.
+     */
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
@@ -25,7 +31,6 @@ public class Event extends Task {
     public String toStatusString() {
         return String.format("[E]%s (from: %s to: %s)", super.toStatusString(), this.startDate, this.endDate);
     }
-
     /**
      * Converts the task into string format for the save file.
      * @return String in save file format.

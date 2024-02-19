@@ -1,10 +1,7 @@
 package drew.ui;
 
-import drew.command.Command;
-import drew.exceptions.InsufficientArgumentsException;
-import drew.exceptions.UnknownCommandException;
-
 import drew.command.ByeCommand;
+import drew.command.Command;
 import drew.command.DeadlineCommand;
 import drew.command.DeleteCommand;
 import drew.command.EventCommand;
@@ -12,9 +9,10 @@ import drew.command.FindCommand;
 import drew.command.ListCommand;
 import drew.command.MarkCommand;
 import drew.command.TodoCommand;
-import drew.command.UnmarkCommand;
 import drew.command.UnknownCommand;
-
+import drew.command.UnmarkCommand;
+import drew.exceptions.InsufficientArgumentsException;
+import drew.exceptions.UnknownCommandException;
 
 /**
  * This class handles the interpretation and execution of user input.
@@ -56,52 +54,6 @@ public class Parser {
         } else {
             userCommand = UnknownCommand.getUnkownCommand();
         }
-
-        String inputNoWhitespace = input.replaceAll("\\s", "");
-        int inputNoWhitespaceLength = inputNoWhitespace.length();
-
-//        switch (userCommand) {
-//        case UNKNOWN:
-//            throw new UnknownCommandException("drew.command.Command not recognized");
-//        case LIST:
-//            if (inputNoWhitespaceLength != 4) {
-//                throw new IllegalArgumentException("No arguments are needed");
-//            }
-//            break;
-//        case TODO:
-//            if (inputNoWhitespaceLength == 4) {
-//                throw new InsufficientArgumentsException("'Todo task' cannot be empty");
-//            }
-//            break;
-//        case MARK:
-//            if (inputNoWhitespaceLength == 4) {
-//                throw new InsufficientArgumentsException("'Mark index' cannot be empty");
-//            }
-//            break;
-//        case UNMARK:
-//            if (inputNoWhitespaceLength == 6) {
-//                throw new InsufficientArgumentsException("'Unmark index' cannot be empty");
-//            }
-//            break;
-//        case DELETE:
-//            if (inputNoWhitespaceLength == 6) {
-//                throw new InsufficientArgumentsException("'Delete index' cannot be empty");
-//            }
-//        case DEADLINE:
-//            if (inputNoWhitespaceLength == 8) {
-//                throw new InsufficientArgumentsException("'Deadline task' cannot be empty");
-//            }
-//            break;
-//        case EVENT:
-//            if (inputNoWhitespaceLength == 5) {
-//                throw new InsufficientArgumentsException("'Event task' cannot be empty");
-//            }
-//            break;
-//        case FIND:
-//            if (inputNoWhitespaceLength == 4) {
-//                throw new InsufficientArgumentsException("'Find' String cannot be empty");
-//            }
-//        }
         return userCommand;
     }
 }

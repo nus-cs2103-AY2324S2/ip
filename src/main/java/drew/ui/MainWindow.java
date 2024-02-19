@@ -1,5 +1,7 @@
 package drew.ui;
 
+import java.io.IOException;
+
 import drew.Drew;
 import drew.ui.controls.DialogBox;
 import javafx.fxml.FXML;
@@ -10,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -31,6 +31,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/monke.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/SunTzu.jpg"));
 
+    /**
+     * Constructor for the main window instance.
+     * @param drew Chatbot object.
+     */
     public MainWindow(Drew drew) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
@@ -43,6 +47,9 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Sets the properties of the window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

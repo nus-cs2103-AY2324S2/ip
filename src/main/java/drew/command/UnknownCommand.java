@@ -2,13 +2,14 @@ package drew.command;
 
 import drew.storage.Storage;
 import drew.storage.TaskList;
-import drew.task.Deadline;
-import drew.task.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
+/**
+ * This class represents unkown commands.
+ */
 public class UnknownCommand extends Command {
+    /**
+     * Contains the static instance of the Unknown command.
+     */
     public static final Command UNKNOWN = new UnknownCommand("");
 
     private UnknownCommand(String input) {

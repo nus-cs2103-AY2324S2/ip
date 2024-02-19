@@ -1,12 +1,14 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * This class represents the Find command.
+ */
 public class FindCommand extends Command {
     public FindCommand(String input) {
         super(input);
@@ -28,8 +30,8 @@ public class FindCommand extends Command {
             }
         }
         for (int i = 0; i < matchedTasks.size(); i++) {
-            reply = reply + Integer.toString(i + 1) + ". " +
-                    matchedTasks.get(i).toStatusString() + "\n";
+            reply = reply + Integer.toString(i + 1) + ". "
+                    + matchedTasks.get(i).toStatusString() + "\n";
         }
         reply = reply.trim();
 

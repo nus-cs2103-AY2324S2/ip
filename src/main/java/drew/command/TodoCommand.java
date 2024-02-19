@@ -1,12 +1,15 @@
 package drew.command;
 
+import java.util.ArrayList;
+
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 import drew.task.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * This class represents the Todo command.
+ */
 public class TodoCommand extends Command {
 
     public TodoCommand(String input) {

@@ -1,9 +1,9 @@
 package drew.ui.controls;
 
-import drew.ui.MainWindow;
 import java.io.IOException;
 import java.util.Collections;
 
+import drew.ui.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
