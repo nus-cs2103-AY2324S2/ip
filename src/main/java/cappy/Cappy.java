@@ -43,6 +43,7 @@ public class Cappy extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Cappy");
             FXMLLoader fxmlLoader = new FXMLLoader(Cappy.class.getResource(MAIN_WINDOW_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

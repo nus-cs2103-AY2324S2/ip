@@ -17,7 +17,10 @@ public class Message {
 
     public static final String NO_MATCHES_FOUND = "No matches found :(";
 
-    public static final String GREETING = "Hello! I'm Cappy\nWhat can I do for you?";
+    public static final String GREETING =
+            "Hello! I'm Cappy\n"
+                    + "What can I do for you?\n"
+                    + "(Type `help` for list of commands and how to use them)";
     public static final String GOODBYE = "Bye! Hope to see you again soon!";
     public static final String HELP =
             "Cappy to the rescue! Here are the available commands:\n\n"
