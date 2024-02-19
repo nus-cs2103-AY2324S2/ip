@@ -62,7 +62,11 @@ public class Storage {
                     String text = sc.nextLine();
                     String[] segmentedText = text.split("\\|");
 
-                    if (segmentedText[0].trim().equals("todo")) {
+                    String typeOfTask = segmentedText[0].trim();
+                    assert (typeOfTask.equals("todo") || typeOfTask.equals("deadline")
+                            || typeOfTask.equals("event")) : "Invalid task type when reading in from file";
+
+                    if (typeOfTask.equals("todo")) {
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
                         ToDos todo = new ToDos(description);
@@ -71,7 +75,7 @@ public class Storage {
                         }
                         tasks.add(todo);
 
-                    } else if (segmentedText[0].trim().equals("deadline")) {
+                    } else if (typeOfTask.equals("deadline")) {
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
                         String deadlineTime = segmentedText[3].trim();
@@ -118,6 +122,10 @@ public class Storage {
             FileWriter fw = new FileWriter(this.filePath);
             for (Task t : tasks) {
                 int isCompleted = t.hasCompleted();
+
+                assert (t instanceof ToDos || t instanceof Deadline ||
+                        t instanceof Events) : "Invalid task type when writing to file";
+
                 if (t instanceof ToDos) {
                     String toWrite = ((ToDos) t).updateToDoText(isCompleted);
                     fw.write(toWrite + System.lineSeparator());
