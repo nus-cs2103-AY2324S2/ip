@@ -66,6 +66,7 @@ public class Storage {
 
     private static Task parseTaskData(String data) throws Exception {
         String[] fields = data.split("\\|");
+        assert fields.length > 0 : "fields should not be empty";
         Task t;
 
         switch (fields[0]) {

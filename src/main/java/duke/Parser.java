@@ -46,6 +46,7 @@ public class Parser {
      */
     public void handleMessage(String message) {
         String[] result = message.split(" ", 2);
+        assert result.length > 0 : "result should not be empty";
         String command = result[0];
         String commandArgs;
 
