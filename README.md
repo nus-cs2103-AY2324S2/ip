@@ -40,7 +40,7 @@ You can delete tasks to make your task list always clean and organized.
 You can use the following commands to delete tasks.
 
 Example 1: `delete <id>` to delete a task  
-Example 2: `delete <id><id><id>` to delete multiple tasks
+Example 2: `delete <id> <id> <id>` to delete multiple tasks
 
 ## Searching Tasks -- By Keywords or By Dates
 You can easily search for tasks which
@@ -58,9 +58,9 @@ You can mark a task as done or reversely unmark it to leave it undone, so that y
 You can use the following commands to mark/unmark tasks.
 
 Example 1: `mark <id>` to mark a task  
-Example 2: `mark <id><id><id>` to mark multiple tasks  
+Example 2: `mark <id> <id> <id>` to mark multiple tasks  
 Example 3: `unmark <id>` to unmark a task  
-Example 4: `unmark <id><id><id>` to unmark multiple tasks  
+Example 4: `unmark <id> <id> <id>` to unmark multiple tasks  
 
 ## Rescheduling Tasks
 You can reschedule the date of a deadline or event task, so that you can flexibly manage your tasks without the trouble of deleting the original task and adding it again with the new date.
