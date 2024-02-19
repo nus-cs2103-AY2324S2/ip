@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 /** Class represents storage to load and save tasks*/
@@ -30,6 +31,8 @@ public class Storage {
         this.tasks = tasks;
         this.ui = ui;
         this.filePath = filePath;
+        assert !Objects.equals(this.filePath, "") : "filePath should not be empty!";
+        assert this.filePath != null: "filePath should not be null!";
         file = new File(filePath);
         createNewFileIfNeeded();
         load();

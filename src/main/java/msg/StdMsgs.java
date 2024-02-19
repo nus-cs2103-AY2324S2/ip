@@ -1,5 +1,6 @@
 package msg;
-/** This enum class represents a collection of standard messages or responses Sir Duke will say.
+/**
+ * This enum class represents a collection of standard messages or responses Sir Duke will say.
  * His logo is also stored here
  */
 public enum StdMsgs {

@@ -43,6 +43,9 @@ public class SirDuke{
         ui.welcome();
         Boolean isBye = false;
         String response = "";
+        assert storage != null : "Storage should be initialised!";
+        assert tasks != null: "Tasklist should be initialised!";
+        assert ui != null: "UI should be initialised!";
         try {
             Command c = parser.parseCommand(userInput);
             // i set tasks and ui here so that I dont have to pass it to parse command
