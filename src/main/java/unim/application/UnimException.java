@@ -1,13 +1,13 @@
-package duke.application;
+package unim.application;
 
-public class DukeException extends IllegalArgumentException {
+public class UnimException extends IllegalArgumentException {
 
     /**
      * Constructs a DukeException with the specified error message.
      *
      * @param message The error message associated with the exception.
      */
-    public DukeException(String message) {
+    public UnimException(String message) {
         super(message);
     }
 
@@ -17,7 +17,7 @@ public class DukeException extends IllegalArgumentException {
      * @param message The error message associated with the exception.
      * @param e       The nested exception that caused this DukeException.
      */
-    public DukeException(String message, Exception e) {
+    public UnimException(String message, Exception e) {
         super(message, e);
     }
 
@@ -26,8 +26,8 @@ public class DukeException extends IllegalArgumentException {
      *
      * @return A DukeException indicating an error during the loading process.
      */
-    public static DukeException createLoadingError() {
-        return new DukeException("Error loading files");
+    public static UnimException createLoadingError() {
+        return new UnimException("Error loading files");
     }
 
     /**
@@ -36,7 +36,7 @@ public class DukeException extends IllegalArgumentException {
      * @param e The nested exception that caused the loading error.
      * @return A DukeException indicating an error during the loading process with details from the nested exception.
      */
-    public static DukeException showLoad(Exception e) {
-        return new DukeException("Error loading files", e);
+    public static UnimException showLoad(Exception e) {
+        return new UnimException("Error loading files", e);
     }
 }

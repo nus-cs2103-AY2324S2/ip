@@ -1,4 +1,4 @@
-package duke.task;
+package unim.task;
 
 /**
  * Task - Represents a basic task with a description and completion status.

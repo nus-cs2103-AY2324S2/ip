@@ -1,15 +1,15 @@
-package duke.application;
+package unim.application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.io.Storage;
-import duke.io.Ui;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import unim.io.Storage;
+import unim.io.Ui;
+import unim.task.Deadline;
+import unim.task.Event;
+import unim.task.Task;
+import unim.task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands.
@@ -42,10 +42,9 @@ public class Parser {
         if ("list".equalsIgnoreCase(input)) {
             return Ui.showTaskList(taskList.getTaskList());
         } else if ("bye".equalsIgnoreCase(input)) {
-            Storage.saveTasks(taskList.getTaskList());
-            System.exit(0);
             return Ui.showByeMessage();
-        } else if (parsedInput[0].equalsIgnoreCase("mark") || parsedInput[0].equalsIgnoreCase("unmark")) {
+        } else if (parsedInput[0].equalsIgnoreCase("mark") ||
+                parsedInput[0].equalsIgnoreCase("unmark")) {
             return markingHandler(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("deadline")) {
             if (isDeadlineInput(input)) {
@@ -70,7 +69,7 @@ public class Parser {
         } else if (parsedInput[0].equalsIgnoreCase("find")) {
             return findItems(input, taskList);
         } else {
-            return Ui.showErrorMessage("I'm sorry, I don't understand! Please type your request again.");
+            return Ui.showErrorForInput();
         }
     }
 
@@ -84,7 +83,7 @@ public class Parser {
         String[] split = input.split(" ");
 
         if (split.length < 2) {
-            return Ui.showErrorMessage("Please specify the task number!");
+            return Ui.showErrorMessage("Please specify the task number! (e.g. mark 2)");
         }
 
         try {
@@ -102,9 +101,9 @@ public class Parser {
             }
 
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
+            return Ui.showErrorMessage("Invalid task number. Please check your to-do list again (use 'list').");
         }
-        return Ui.showErrorMessage("Invalid input for mark.");
+        return Ui.showErrorMessage("Invalid input for mark. Try putting e.g. mark 2");
     }
 
     /**
@@ -117,7 +116,7 @@ public class Parser {
         String description = input.substring(5).trim();
 
         if (isDuplicateTask(description, taskList)) {
-            return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+            return Ui.showErrorMessage("Duplicate task found. Task was not added, it's already there!");
         }
 
         Todo todo = new Todo(description);
@@ -140,7 +139,7 @@ public class Parser {
             String date = splitParts[1].trim();
 
             if (isDuplicateTask(description, taskList)) {
-                return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+                return Ui.showErrorMessage("Duplicate task found. Task was not added, it's already there!");
             }
 
             if (isValidDate(date)) {
@@ -156,7 +155,7 @@ public class Parser {
                 return Ui.showDeadlineAdded(deadline, taskList.getTotalTasks());
             }
         } else {
-            return Ui.showErrorMessage("Invalid input format for deadline. Please provide a valid date/time.");
+            return Ui.showErrorMessage("Invalid input format for deadline. Please follow this format: .");
         }
     }
 
@@ -168,30 +167,34 @@ public class Parser {
      */
     private static String handleEvents(String input, TaskList taskList) {
         String[] splitParts = input.substring(6).split("/from", 2);
-        String[] splitTo = splitParts[1].split("/to", 2);
 
-        if (splitTo.length > 1) {
+        if (splitParts.length > 1) {
             String description = splitParts[0].trim();
-            String fromDate = splitTo[0].trim();
-            String toDate = splitTo[1].trim();
+            String dateRange = splitParts[1].trim();
 
-            if (isDuplicateTask(description, taskList)) {
-                return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
-            }
+            String[] dateParts = dateRange.split("/to", 2);
 
-            if (isValidDate(fromDate) && isValidDate(toDate)) {
-                LocalDate d1 = LocalDate.parse(fromDate);
-                LocalDate d2 = LocalDate.parse(toDate);
-                Event event = new Event(description, d1, d2);
-                taskList.addTask(event);
-                Storage.saveTasks(taskList.getTaskList());
-                Ui.showTaskAdded(event, taskList.getTotalTasks());
-            } else {
-                Ui.showErrorMessage("Invalid input format for event. Please provide valid dates.");
+            if (dateParts.length > 1) {
+                String fromDate = dateParts[0].trim();
+                String toDate = dateParts[1].trim();
+
+                if (isDuplicateTask(description, taskList)) {
+                    return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+                }
+
+                if (isValidDate(fromDate) && isValidDate(toDate)) {
+                    LocalDate d1 = LocalDate.parse(fromDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                    LocalDate d2 = LocalDate.parse(toDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                    Event event = new Event(description, d1, d2);
+                    taskList.addTask(event);
+                    Storage.saveTasks(taskList.getTaskList());
+                    return Ui.showTaskAdded(event, taskList.getTotalTasks());
+                } else {
+                    return Ui.showErrorMessage("Invalid input format for event. Please provide valid dates.");
+                }
             }
-        } else {
-            Ui.showErrorMessage("Invalid input format for event. Please provide valid date/time.");
         }
+
         return Ui.showErrorMessage("Invalid input format for event.");
     }
 
@@ -210,11 +213,12 @@ public class Parser {
             int index = Integer.parseInt(splitParts[1]) - 1;
             Task removedTask = taskList.removeTask(index);
             Storage.saveTasks(taskList.getTaskList());
-            Ui.showTaskRemoved(removedTask, taskList.getTotalTasks());
+            return Ui.showTaskRemoved(removedTask, taskList.getTotalTasks());
         } catch (IndexOutOfBoundsException e) {
-            Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
+            return Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
+        } catch (NumberFormatException e) {
+            return Ui.showErrorMessage("Invalid input format for delete. Try something like 'delete 1'");
         }
-        return Ui.showErrorMessage("Invalid input format for delete.");
     }
 
     /**
@@ -247,22 +251,23 @@ public class Parser {
 
         if (splitParts.length > 1) {
             String keyword = splitParts[1].trim();
+            StringBuilder foundTasks = new StringBuilder(Ui.showFindItemList(keyword));
 
             for (int i = 0; i < tasks.getTotalTasks(); i++) {
                 Task item = tasks.getTask(i);
                 if (item.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    System.out.println(item);
+                    foundTasks.append(Ui.showFoundTask(item));
                     isFound = true;
                 }
             }
+            if (isFound) {
+                return foundTasks.toString();
+            } else {
+                return Ui.showErrorMessage("No tasks found containing: " + keyword);
+            }
         } else {
-            Ui.showErrorMessage("Please specify a search keyword.");
+            return Ui.showErrorMessage("Invalid input format for find. Please specify a search keyword.");
         }
-
-        if (!isFound) {
-            Ui.showErrorMessage("No tasks found containing: " + input);
-        }
-        return Ui.showErrorMessage("Invalid input format for find.");
     }
 
     /**

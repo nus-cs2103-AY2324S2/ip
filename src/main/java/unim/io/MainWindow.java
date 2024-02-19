@@ -1,6 +1,6 @@
-package duke.io;
+package unim.io;
 
-import duke.application.*;
+import unim.application.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
 
-    private Duke duke;
+    private Unim unim;
     private TaskList taskList;
     private Parser parser;
 
@@ -30,31 +30,32 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.setStyle("-fx-background-color: #fff5fd;");
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d, TaskList taskList, Parser parser) {
-        this.duke = d;
+    public void setUnim(Unim d) {
+        this.unim = d;
         this.taskList = taskList;
         this.parser = parser;
     }
 
     public void showWelcomeMessage() {
         String welcomeText = Ui.showWelcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeText, happyUnicorn));
+        dialogContainer.getChildren().add(DialogBox.getUnimDialog(welcomeText, happyUnicorn));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Unim's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = Main.getResponse(input, taskList, parser);
+        String response = unim.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, nervousUnicorn),
-                DialogBox.getDukeDialog(response, happyUnicorn)
+                DialogBox.getUnimDialog(response, happyUnicorn)
         );
         userInput.clear();
     }

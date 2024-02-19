@@ -1,7 +1,7 @@
-package duke.io;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.Todo;
+package unim.io;
+import unim.task.Deadline;
+import unim.task.Task;
+import unim.task.Todo;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Ui {
      * @return The welcome message as a String.
      */
     public static String showWelcomeMessage() {
-        return "Hey there, welcome back to Ratzchat!\n" +
+        return "Hey there, welcome back to Unim!\n" +
                 "What's on your mind today?\n";
     }
 
@@ -26,7 +26,7 @@ public class Ui {
      * @return The goodbye message as a String.
      */
     public static String showByeMessage() {
-        return "Leaving ALREADY? BYEBYE :(. Remember, I'm just a message away. \n";
+        return "Leaving ALREADY? BYEBYE :( \n Remember, I'm just a message away. \n";
     }
 
     /**
@@ -36,7 +36,18 @@ public class Ui {
      */
     public static String showErrorMessage(String message) {
         assert message != null : "Error message should not be null";
-        return "Whoops! \uD83E\uDD16 " + message + "\n";
+        return "Whoops! " + message + "\n";
+    }
+
+
+    /**
+     * Displays an error message for invalid inputs.
+     */
+    public static String showErrorForInput() {
+        String message = "I'm sorry, I don't understand! Please type your request again. \n " +
+                "You can choose to: \n 1. add tasks (todo, deadline, event) \n 2. find tasks \n " +
+                "3. mark or unamrk tasks \n 4. delete tasks";
+        return message;
     }
 
     /**
@@ -47,11 +58,15 @@ public class Ui {
      */
     public static String showTaskList(ArrayList<Task> tasks) {
         StringBuilder taskListString = new StringBuilder();
-        taskListString.append("Here are your to-dos: ");
-        for (int i = 0; i < tasks.size(); i++) {
-            taskListString.append("\n").append((i + 1)).append(".").append(tasks.get(i));
+        if (tasks.isEmpty()) {
+            taskListString.append("No tasks in your list!\n");
+        } else {
+            taskListString.append("Here are your to-dos: ");
+            for (int i = 0; i < tasks.size(); i++) {
+                taskListString.append("\n").append((i + 1)).append(".").append(tasks.get(i).toString());
+            }
+            taskListString.append("\n");
         }
-        taskListString.append("\n");
         return taskListString.toString();
     }
 
@@ -63,7 +78,7 @@ public class Ui {
      * @return A formatted message as a String.
      */
     public static String showTodoAdded(Todo todo, int totalTasks) {
-        String response = "Your to-do: " + todo + "is on the list! You're gonna nail it :)\n"
+        String response = "Your to-do: " + todo + " is on the list! You're gonna nail it :)\n"
                 + "Just " + totalTasks + " tasks in your list now."
                 + "\n";
         return response;
@@ -77,8 +92,18 @@ public class Ui {
      * @return A formatted message as a String.
      */
     public static String showDeadlineAdded(Deadline deadline, int totalTasks) {
-        return "New deadline alert: " + deadline + "!\n" +
+        return "New deadline alert!\n " + deadline + "!\n" +
                 "Now you have " + totalTasks + " tasks in your list.\n";
+    }
+
+
+    /**
+     * Displays a message indicating the tasks that are found.
+     *
+     * @param task The tasks to be displayed in the list.
+     */
+    public static String showFoundTask(Task task) {
+        return task.toString() + "\n";
     }
 
     /**
@@ -88,7 +113,7 @@ public class Ui {
      * @return String representation of the marked task.
      */
     public static String showMarkedAsDone(Task task) {
-        return "Boom! " + task + "is marked done.\n" +
+        return "Boom! " + task + " is marked done.\n" +
                 "You're crushing it!! What's next?";
     }
 
@@ -100,7 +125,7 @@ public class Ui {
      */
     public static String showUnmarkedTask(Task task) {
         return "Not done yet? Time is ticking!! " +
-                "Try to finish this task soon: \n  " + task + " :(\n";
+                "Try to finish this task soon: \n" + task + "\n";
     }
 
     /**
@@ -135,7 +160,7 @@ public class Ui {
      */
     public static String showFindItemList(String keyword) {
         assert keyword != null : "Keyword should not be null";
-        return "Here are the tasks with " + keyword + " in them:\n" +
-                "You're going to nail this!";
+        return "Here are the tasks with " + keyword + " in them: \n" +
+                "You're going to nail this! ";
     }
 }

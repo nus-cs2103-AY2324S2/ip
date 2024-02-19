@@ -1,4 +1,9 @@
 todo eat lunch
 deadline finish assignment /by Sunday 10am
-event project meeting /from Mon 10pm /to 12pm
+event team lunch /from 02/18/2024 1200 /to 02/18/2024 1330
+list
+mark 1
+unmark 1
+find assignment
+delete 1
 bye

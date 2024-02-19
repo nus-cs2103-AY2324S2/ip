@@ -1,5 +1,5 @@
-package duke.io;
-import duke.task.Task;
+package unim.io;
+import unim.task.Task;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Storage - Handles saving and loading tasks to and from a file.
  */
 public class Storage {
-    private static final String FILEPATH = "./data/duke.txt";
+    private static final String FILEPATH = "./data/unim.txt";
 
     /**
      * Creates the data folder if it does not exist.
@@ -62,6 +62,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                line = line.replace("[X]", "").replace("[ ]", "").trim();
                 tasks.add(new Task(line));
             }
         } catch (IOException e) {

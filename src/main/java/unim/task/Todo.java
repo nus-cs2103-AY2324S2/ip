@@ -1,4 +1,4 @@
-package duke.task;
+package unim.task;
 
 /**
  * Todo - Represents a todo task, a subclass of Task.
