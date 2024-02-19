@@ -8,6 +8,7 @@ import toothless.commands.EventCommand;
 import toothless.commands.FindCommand;
 import toothless.commands.ListCommand;
 import toothless.commands.MarkCommand;
+import toothless.commands.ScheduleCommand;
 import toothless.commands.TodoCommand;
 import toothless.commands.UnmarkCommand;
 
@@ -48,6 +49,8 @@ public class Parser {
         case "EVENT":
         case "DEADLINE":
             return parseTaskCommand(split);
+        case "SCHEDULE":
+            return new ScheduleCommand();
         default:
             assert false : commandType;
             throw new ToothlessException("Me dragon, no understand this action :P");
