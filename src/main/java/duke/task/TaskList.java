@@ -88,7 +88,7 @@ public class TaskList {
 
         String temp = storage.size() > 1 ? " tasks" : " task";
 
-        return "Got it. I've added this task:\n" + newTask + "\n"
+        return "Hi Hi! I've added this task:\n" + newTask + "\n"
                 + "Now you have " + storage.size() + temp + " in the list.";
     }
 
@@ -111,28 +111,12 @@ public class TaskList {
             Task curr = storage.get(index - 1);
             storage.remove(index - 1);
             String temp = storage.size() > 1 ? " tasks" : " task";
-            return "Noted. I've removed this task:\n" + curr + "\nNow you have "
+            return "Hi Hi! I've removed this task:\n" + curr + "\nNow you have "
                     + storage.size() + temp + " in the list.";
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.DELETE.getCommand());
         }
-    }
-
-    /**
-     * Lists out all the task from the storage.
-     */
-    public void listTask() {
-        ui.drawLine();
-        if (storage.size() == 0) {
-            System.out.println("Your task list is empty. Create your first task now!");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-        }
-        for (int i = 0; i < storage.size(); i++) {
-            System.out.println((i + 1) + ". " + storage.get(i));
-        }
-        ui.drawLine();
     }
 
     /**
@@ -142,9 +126,9 @@ public class TaskList {
     public String getListTasksMessage() {
         StringBuilder output = new StringBuilder();
         if (storage.size() == 0) {
-            return "Your task list is empty. Create your first task now!";
+            return "Hey, your task list is empty!! Faster create your first task now!!!!";
         } else {
-            output.append("Here are the tasks in your list:\n");
+            output.append("Hi Hi ! Here are the tasks in your list:\n");
         }
         for (int i = 0; i < storage.size(); i++) {
             output.append((i + 1) + ". " + storage.get(i) + "\n");
@@ -161,9 +145,9 @@ public class TaskList {
     public String getListTasksMessage(String word) {
         StringBuilder output = new StringBuilder();
         if (storage.size() == 0) {
-            return "There is no matching task in your list.";
+            return "Hi Hi !There is no matching task in your list.";
         } else {
-            output.append("Here are the matching tasks in your list related to " + word + " :\n");
+            output.append("Hi Hi ! Here are the matching tasks in your list related to " + word + " :\n");
         }
         for (int i = 0; i < storage.size(); i++) {
             output.append((i + 1) + ". " + storage.get(i) + "\n");
@@ -191,7 +175,7 @@ public class TaskList {
             }
 
             Task curr = storage.get(index - 1);
-            return curr.markDone();
+            return "Hi Hi !" + curr.markDone();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.MARK.getCommand());
@@ -216,7 +200,7 @@ public class TaskList {
             }
 
             Task curr = storage.get(index - 1);
-            return curr.markUndone();
+            return "Hi Hi !" + curr.markUndone();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.UNMARK.getCommand());
