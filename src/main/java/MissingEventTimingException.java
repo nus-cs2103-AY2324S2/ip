@@ -3,7 +3,7 @@
  *
  * @author Tee Chu Jie
  */
-public class MissingEventTimingException extends DukeException {
+public class MissingEventTimingException extends MitsukiException {
     /**
      * The constructor for a MissingEventTimingException object.
      *

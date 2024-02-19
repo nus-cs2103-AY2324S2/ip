@@ -3,7 +3,7 @@
  *
  * @author Tee Chu Jie
  */
-public class EmptyTaskException extends DukeException {
+public class EmptyTaskException extends MitsukiException {
     /**
      * The constructor for an EmptyTaskException object.
      *

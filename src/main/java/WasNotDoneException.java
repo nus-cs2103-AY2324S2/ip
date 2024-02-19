@@ -3,7 +3,7 @@
  *
  * @author Tee Chu Jie
  */
-public class WasNotDoneException extends DukeException {
+public class WasNotDoneException extends MitsukiException {
     /**
      * The constructor for a WasNotDoneException object.
      *
