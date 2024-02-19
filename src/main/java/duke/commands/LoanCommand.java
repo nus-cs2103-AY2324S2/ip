@@ -37,7 +37,8 @@ public class LoanCommand implements NamedCommand {
             return;
         }
 
-        session.getTaskList().add(new Loan(name, Integer.valueOf(args[1])));
-        session.printMessage("Got it. I've added the following loan:" + System.lineSeparator() + name);
+        Loan l = new Loan(name, Integer.valueOf(args[1]));
+        session.getTaskList().add(l);
+        session.printMessage("Got it. I've added the following loan:" + System.lineSeparator() + l.getName());
     }
 }

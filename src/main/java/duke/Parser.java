@@ -8,8 +8,10 @@ import duke.commands.Delete;
 import duke.commands.EventCommand;
 import duke.commands.Find;
 import duke.commands.ListTasks;
+import duke.commands.LoanCommand;
 import duke.commands.Mark;
 import duke.commands.NamedCommand;
+import duke.commands.Pay;
 import duke.commands.ToDoCommand;
 import duke.commands.Unmark;
 import duke.exceptions.InvalidParametersException;
@@ -36,7 +38,9 @@ public class Parser {
             new EventCommand(),
             new DeadlineCommand(),
             new Delete(),
-            new Find()
+            new Find(),
+            new LoanCommand(),
+            new Pay()
         );
     }
 
