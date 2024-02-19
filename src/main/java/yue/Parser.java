@@ -17,6 +17,12 @@ import yue.Command.GreetCommand;
 import java.util.Arrays;
 
 public class Parser {
+    String input = null;
+
+    public Parser(String input) {
+        this.input = input;
+
+    }
 
     /**
      * Parses the user input and returns the corresponding command.

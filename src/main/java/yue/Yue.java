@@ -15,7 +15,7 @@ public class Yue {
     public Yue() {
         String filePath = "./data/botYue.txt";
         storage = new Storage(filePath);
-        parser = new Parser();
+
         try {
             tasks = new TaskList(storage.load());
         } catch (YueException e) {
