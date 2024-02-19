@@ -1,6 +1,5 @@
 package oak.javafx;
 
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import oak.controller.OakController;
 import oak.feedback.enums.CommandEnum;
 import oak.task.ReminderService;
