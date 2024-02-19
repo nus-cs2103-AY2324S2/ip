@@ -61,7 +61,8 @@ public class Ui {
                 + "4. mark [task number] : Mark a task as completed.\n"
                 + "5. unmark [task number] : Unmark a completed task.\n"
                 + "6. delete [task number] : Deletes a task from the list.\n"
-                + "7. list : Displays all tasks in your to-do list.\n";
+                + "7. find [keyword] : Displays all tasks in your to-do list that contain the keyword.\n"
+                + "8. list : Displays all tasks in your to-do list.\n";
     }
 
 

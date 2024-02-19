@@ -72,8 +72,21 @@ Noted. I've removed this task:
 Now you have <number> tasks in the list.
 ```
 
+## Finding Tasks
+You can list out all the task based on the keyword
+
+### Find Tasks
+Example: `find <keyword>`
+
+Expected output:
+```
+Here are the matching tasks in your list:
+1. [T][X] <description>
+[....]
+```
+
 ## Listing Tasks
-You can delete tasks from your task list.
+You can list out all the tasks in your tasklist
 
 ### Listing all Tasks
 Example: `list`
