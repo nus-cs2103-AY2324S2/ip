@@ -26,12 +26,11 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
+        addResponse(convo.getWelcome());
     }
 
     /**
@@ -44,6 +43,8 @@ public class MainWindow extends AnchorPane {
         userInput.requestFocus(); // re-focus TextField
         String input = userInput.getText();
         userInput.clear();
+        addInput(input);
+
         String response = "";
         try {
             response = convo.getResponse(input);
@@ -52,9 +53,14 @@ public class MainWindow extends AnchorPane {
             return;
         }
         assert !response.isEmpty();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getConvoBotDialog(response, convoImage)
-        );
+        addResponse(response);
+    }
+
+    private void addInput(String input) {
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+    }
+
+    private void addResponse(String response) {
+        dialogContainer.getChildren().addAll(DialogBox.getConvoBotDialog(response, convoImage));
     }
 }

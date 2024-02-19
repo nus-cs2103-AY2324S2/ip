@@ -28,6 +28,16 @@ public class ConvoBot {
     }
 
     /**
+     * Returns the welcome message.
+     *
+     * @return The welcome message.
+     */
+    public String getWelcome() {
+        rc.showWelcomeMsg();
+        return rc.getResponse();
+    }
+
+    /**
      * Retrieves a response from ConvoBot based on the provided input.
      *
      * @param userInput The input string representing the user's message.
