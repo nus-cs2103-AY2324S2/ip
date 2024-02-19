@@ -107,92 +107,120 @@ public class Zero extends Application {
         case LIST:
             return Ui.showTasks(storage.getTaskList());
         case MARK:
-            try {
-                int idx = Parser.parseIndex(inputDict.get("name"));
-                Task t = storage.getTaskList().mark(idx);
-                storage.saveTaskList();
-                return Ui.showMarkDone(t);
-            } catch (NumberFormatException e) {
-                return Ui.showIndexParseError();
-            } catch (IndexOutOfBoundsException e) {
-                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-            }
+            return executeMarkCommand(inputDict);
         case UNMARK:
-            try {
-                int idx = Parser.parseIndex(inputDict.get("name"));
-                Task t = storage.getTaskList().unmark(idx);
-                storage.saveTaskList();
-                return Ui.showUnmarkDone(t);
-            } catch (NumberFormatException e) {
-                return Ui.showIndexParseError();
-            } catch (IndexOutOfBoundsException e) {
-                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-            }
+            return executeUnmarkCommand(inputDict);
         case DELETE:
-            try {
-                int idx = Parser.parseIndex(inputDict.get("name"));
-                Task t = storage.getTaskList().deleteTask(idx);
-                storage.saveTaskList();
-                return Ui.showDeleteDone(t, storage.getTaskList().size());
-            } catch (NumberFormatException e) {
-                return Ui.showIndexParseError();
-            } catch (IndexOutOfBoundsException e) {
-                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-            }
+            return executeDeleteCommand(inputDict);
         case TODO:
-            try {
-                String s = inputDict.get("name");
-                Parser.checkNullOrEmpty(s);
-                Task t = storage.getTaskList().addTask(s);
-                assert t instanceof ToDo : " ToDo command did not create a ToDo Task";
-                storage.saveTaskList();
-                return Ui.showAddTaskDone(t, storage.getTaskList().size());
-            } catch (IllegalArgumentException e) {
-                return Ui.showMissingTaskNameError();
-            }
+            return executeToDoCommand(inputDict);
         case DEADLINE:
-            try {
-                String s = inputDict.get("name");
-                Parser.checkNullOrEmpty(s);
-                LocalDateTime by = Parser.parseDateTime(inputDict.get("/by"));
-                Task t = storage.getTaskList().addTask(s, by);
-                assert t instanceof Deadline : " Deadline command did not create a Deadline Task";
-                storage.saveTaskList();
-                return Ui.showAddTaskDone(t, storage.getTaskList().size());
-            } catch (IllegalArgumentException e) {
-                return Ui.showMissingTaskNameError();
-            } catch (NullPointerException | DateTimeParseException e) {
-                return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", "BY DATE");
-            }
+            return executeDeadlineCommand(inputDict);
         case EVENT:
-            String error = "/from";
-            try {
-                String s = inputDict.get("name");
-                Parser.checkNullOrEmpty(s);
-                LocalDateTime from = Parser.parseDateTime(inputDict.get("/from"));
-                error = "/to"; // [from] date successfully parsed, change possible error to [to]
-                LocalDateTime to = Parser.parseDateTime(inputDict.get("/to"));
-                Task t = storage.getTaskList().addTask(s, from, to);
-                assert t instanceof Event : " Event command did not create an Event Task";
-                storage.saveTaskList();
-                return Ui.showAddTaskDone(t, storage.getTaskList().size());
-            } catch (IllegalArgumentException e) {
-                return Ui.showMissingTaskNameError();
-            } catch (NullPointerException | DateTimeParseException e) {
-                assert error == "/from" || error == "/to" : " Invalid error type";
-                return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
-            }
+            return executeEventCommand(inputDict);
         case FIND:
-            try {
-                String s = inputDict.get("name");
-                Parser.checkNullOrEmpty(s);
-                return Ui.showAllMatchingTasks(storage.getTaskList().match(s));
-            } catch (IllegalArgumentException e) {
-                return Ui.showMissingFindArgError();
-            }
+            return executeFindCommand(inputDict);
         default:
             // For debugging purposes
             return "Command(Enum) not yet implemented in switch case.";
+        }
+    }
+
+    private String executeFindCommand(Hashtable<String, String> inputDict) {
+        try {
+            String s = inputDict.get("name");
+            Parser.checkNullOrEmpty(s);
+            return Ui.showAllMatchingTasks(storage.getTaskList().match(s));
+        } catch (IllegalArgumentException e) {
+            return Ui.showMissingFindArgError();
+        }
+    }
+
+    private String executeEventCommand(Hashtable<String, String> inputDict) throws IOException {
+        String error = "/from";
+        try {
+            String s = inputDict.get("name");
+            Parser.checkNullOrEmpty(s);
+            LocalDateTime from = Parser.parseDateTime(inputDict.get("/from"));
+            error = "/to"; // [from] date successfully parsed, change possible error to [to]
+            LocalDateTime to = Parser.parseDateTime(inputDict.get("/to"));
+            Task t = storage.getTaskList().addTask(s, from, to);
+            assert t instanceof Event : " Event command did not create an Event Task";
+            storage.saveTaskList();
+            return Ui.showAddTaskDone(t, storage.getTaskList().size());
+        } catch (IllegalArgumentException e) {
+            return Ui.showMissingTaskNameError();
+        } catch (NullPointerException | DateTimeParseException e) {
+            assert error == "/from" || error == "/to" : " Invalid error type";
+            return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
+        }
+    }
+
+    private String executeDeadlineCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            String s = inputDict.get("name");
+            Parser.checkNullOrEmpty(s);
+            LocalDateTime by = Parser.parseDateTime(inputDict.get("/by"));
+            Task t = storage.getTaskList().addTask(s, by);
+            assert t instanceof Deadline : " Deadline command did not create a Deadline Task";
+            storage.saveTaskList();
+            return Ui.showAddTaskDone(t, storage.getTaskList().size());
+        } catch (IllegalArgumentException e) {
+            return Ui.showMissingTaskNameError();
+        } catch (NullPointerException | DateTimeParseException e) {
+            return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", "BY DATE");
+        }
+    }
+
+    private String executeToDoCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            String s = inputDict.get("name");
+            Parser.checkNullOrEmpty(s);
+            Task t = storage.getTaskList().addTask(s);
+            assert t instanceof ToDo : " ToDo command did not create a ToDo Task";
+            storage.saveTaskList();
+            return Ui.showAddTaskDone(t, storage.getTaskList().size());
+        } catch (IllegalArgumentException e) {
+            return Ui.showMissingTaskNameError();
+        }
+    }
+
+    private String executeDeleteCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            int idx = Parser.parseIndex(inputDict.get("name"));
+            Task t = storage.getTaskList().deleteTask(idx);
+            storage.saveTaskList();
+            return Ui.showDeleteDone(t, storage.getTaskList().size());
+        } catch (NumberFormatException e) {
+            return Ui.showIndexParseError();
+        } catch (IndexOutOfBoundsException e) {
+            return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
+        }
+    }
+
+    private String executeUnmarkCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            int idx = Parser.parseIndex(inputDict.get("name"));
+            Task t = storage.getTaskList().unmark(idx);
+            storage.saveTaskList();
+            return Ui.showUnmarkDone(t);
+        } catch (NumberFormatException e) {
+            return Ui.showIndexParseError();
+        } catch (IndexOutOfBoundsException e) {
+            return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
+        }
+    }
+
+    private String executeMarkCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            int idx = Parser.parseIndex(inputDict.get("name"));
+            Task t = storage.getTaskList().mark(idx);
+            storage.saveTaskList();
+            return Ui.showMarkDone(t);
+        } catch (NumberFormatException e) {
+            return Ui.showIndexParseError();
+        } catch (IndexOutOfBoundsException e) {
+            return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
         }
     }
 }
