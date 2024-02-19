@@ -7,6 +7,8 @@ public class Task {
     protected String name;
     protected boolean isDone;
 
+    protected String tag;
+
     /**
      * Creates a Task
      * @param name Name of the task
@@ -39,14 +41,22 @@ public class Task {
     }
 
     /**
+     * Adds a tag to the task.
+     */
+    public void tag(String tag){
+        this.tag = tag;
+    }
+
+    /**
      * Formats the task as a string to be saved in Storage.
      * @return The formatted string
      */
-    public String fileString() { return (isDone ? "1 | " : "0 | ") + this.name; }
+    public String fileString() { return (isDone ? "1 | " : "0 | ") + this.name + " | " + this.tag; }
 
     @Override
     public String toString() {
-        return this.getStatusIcon() + " " + this.name;
+        return this.getStatusIcon() + " " + this.name +
+                (this.tag == null ? "" : " #" + this.tag);
     }
 }
 

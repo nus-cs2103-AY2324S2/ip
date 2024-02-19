@@ -50,6 +50,7 @@ public class TaskList {
             String taskType = parts[0];
             String done = parts[1];
             String name = parts[2];
+            String tag = parts[3];
             Task newTask;
             if (taskType.equals("T")) {
                 newTask = new Todo(name);
@@ -60,6 +61,9 @@ public class TaskList {
             }
             if (done.equals("1")) {
                 newTask.mark();
+            }
+            if (!tag.equals("")) {
+                newTask.tag(tag);
             }
             add(newTask);
         }
@@ -97,6 +101,15 @@ public class TaskList {
             list.get(index - 1).unmark();
         }
         save();
+    }
+
+    /**
+     * Tags the specified task
+     * @param index Index of task to be tagged
+     * @param tag Tag to be displayed
+     */
+    public void tag(int index, String tag) {
+        list.get(index - 1).tag(tag);
     }
 
     /**

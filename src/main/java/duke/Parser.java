@@ -34,6 +34,7 @@ public class Parser {
         String unmarkRegex = "unmark (\\d+)";
         String deleteRegex = "delete (\\d+)";
         String findRegex = "find (\\S.*)";
+        String tagRegex = "tag (\\d+) (\\S.*)";
 
         // Regex for simple error of empty description
         String todoErrorRegex = "todo\\s*";
@@ -51,6 +52,7 @@ public class Parser {
         Matcher unmarkMatcher = Pattern.compile(unmarkRegex).matcher(input);
         Matcher deleteMatcher = Pattern.compile(deleteRegex).matcher(input);
         Matcher findMatcher = Pattern.compile(findRegex).matcher(input);
+        Matcher tagMatcher = Pattern.compile(tagRegex).matcher(input);
 
         Matcher todoErrorMatcher = Pattern.compile(todoErrorRegex).matcher(input);
         Matcher deadlineErrorMatcher = Pattern.compile(deadlineErrorRegex).matcher(input);
@@ -74,6 +76,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(deleteMatcher.group(1)));
         } else if (findMatcher.matches()) {
             return new FindCommand(findMatcher.group(1));
+        } else if (tagMatcher.matches()) {
+            return new TagCommand(Integer.parseInt(tagMatcher.group(1)), tagMatcher.group(2));
         } else if (todoErrorMatcher.matches() || deadlineErrorMatcher.matches() || eventErrorMatcher.matches()
             || markErrorMatcher.matches() || unmarkErrorMatcher.matches() || deleteErrorMatcher.matches() || findErrorMatcher.matches()) {
             throw new DukeException("Empty command description");
