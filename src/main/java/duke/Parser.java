@@ -26,21 +26,23 @@ public class Parser {
 
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0];
+        String description = (parts.length > 1) ? parts[1] : "";
+
         switch (commandWord) {
             case "todo":
-                return addTodo(parts[1], tasks, ui, storage);
+                return addTodo(description.trim(), tasks, ui, storage);
             case "deadline":
-                return addDeadline(parts[1], tasks, ui, storage);
+                return addDeadline(description.trim(), tasks, ui, storage);
             case "event":
-                return addEvent(parts[1], tasks, ui, storage);
+                return addEvent(description.trim(), tasks, ui, storage);
             case "mark":
-                return markOrUnmarkTask(parts[1], tasks, ui, storage, true);
+                return markOrUnmarkTask(description.trim(), tasks, ui, storage, true);
             case "unmark":
-                return markOrUnmarkTask(parts[1], tasks, ui, storage, false);
+                return markOrUnmarkTask(description.trim(), tasks, ui, storage, false);
             case "delete":
-                return deleteTask(parts[1], tasks, ui, storage);
+                return deleteTask(description.trim(), tasks, ui, storage);
             case "find":
-                return findTask(parts[1], tasks, ui);
+                return findTask(description.trim(), tasks, ui);
             default:
                 throw new DukeException("Invalid Command. I'm sorry, but I don't know what that means :-(");
         }
