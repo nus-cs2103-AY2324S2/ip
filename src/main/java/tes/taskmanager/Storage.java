@@ -32,6 +32,7 @@ public class Storage {
      * If there is no existing directory mentioned in the path, create one.
      */
     public static void saveToFile(ArrayList<Task> tasks) {
+        assert tasks != null;
         try {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
@@ -63,6 +64,7 @@ public class Storage {
                 try {
                     if (line.contains("from:")) {
                         String[] split = line.split(" \\| ");
+                        assert split.length == 4;
                         String temp = split[3].substring(6);
                         String[] time = temp.split(" to: ");
                         String from = time[0];
@@ -76,6 +78,7 @@ public class Storage {
                         storeList.add(store);
                     } else if (line.contains("by:")) {
                         String[] split = line.split(" \\| ");
+                        assert split.length == 4;
                         String by = split[3].substring(4);
                         LocalDateTime by1 = LocalDateTime.parse(by, FORMATTER_STORE);
                         Deadline store = new Deadline(split[2], by1);
@@ -85,6 +88,7 @@ public class Storage {
                         storeList.add(store);
                     } else {
                         String[] split = line.split(" \\| ");
+                        assert split.length == 3;
                         ToDo store = new ToDo(split[2]);
                         if (split[1].equals("X")) {
                             store.mark();
