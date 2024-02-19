@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * Represents the main class for the Duke program, a task management application.
  */
-public class Duke extends Application {
+public class Kai extends Application {
     private Storage storage;
     private ArrayList<Task> tasks;
     private Ui ui;
@@ -32,8 +32,8 @@ public class Duke extends Application {
     /**
      * Initializes Duke with storage and other components.
      */
-    public Duke() {
-        storage = new Storage("./data/duke.txt");
+    public Kai() {
+        storage = new Storage("./data/kai.txt");
         tasks = Storage.loadTasks();
         if (tasks == null) {
             tasks = new ArrayList<>();

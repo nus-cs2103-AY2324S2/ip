@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import javafx.application.Application;
 

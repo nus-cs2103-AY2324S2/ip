@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,10 +20,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Kai duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image kaiImage = new Image(this.getClass().getResourceAsStream("/images/Kai.png"));
 
     /**
      * Handles user input by sending it to Duke for processing and displaying the response.
@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
+    public void setDuke(Kai d) {
         duke = d;
     }
 
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
      */
     public void showWelcomeMessage() {
         String welcomeText = duke.displayWelcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeText, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeText, kaiImage));
     }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
         // Display user and Duke dialogue boxes
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, kaiImage)
         );
 
         // Clear user input after processing

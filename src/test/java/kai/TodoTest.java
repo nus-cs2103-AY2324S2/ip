@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 
 /**
@@ -14,7 +14,7 @@ public class Ui {
      */
     public String message() {
         // Displaying Duke logo and initial message
-        String logo = " KASSIM ";
+        String logo = "KAI";
         return "WELCOME MY FRIEND! I AM " + logo + "\n\n"
                 + "Type 'help-me' to see a list of available commands\n";
     }
@@ -24,7 +24,7 @@ public class Ui {
      *
      * @param e The DukeException containing the error message.
      */
-    public void errorEncounter(DukeException e) {
+    public void errorEncounter(KaiException e) {
         System.out.println("------------------------------------------------------------");
         System.out.println(e.getMessage());
         System.out.println("------------------------------------------------------------");
@@ -181,7 +181,7 @@ public class Ui {
      * @return A message indicating user enter a blank command.
      */
     public String blank() {
-        return "Input cannot be empty";
+        return "check your input";
     }
 
     /**

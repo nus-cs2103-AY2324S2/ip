@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 /**
  * Custom exception class for Duke program.
@@ -10,14 +10,14 @@ package duke;
  * The exception contains a message describing the specific error or issue encountered.
  * </p>
  */
-public class DukeException extends Exception {
+public class KaiException extends Exception {
 
     /**
      * Constructs a DukeException with the specified error message.
      *
      * @param message The error message describing the exception.
      */
-    public DukeException(String message) {
+    public KaiException(String message) {
         super(message);
     }
 }

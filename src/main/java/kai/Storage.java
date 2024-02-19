@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +18,7 @@ public class Storage {
     /**
      * The default file path for storing tasks.
      */
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/kai.txt";
 
     /**
      * Constructs a storage instance with the specified file path.
@@ -34,7 +34,7 @@ public class Storage {
      */
     private static void ensureFolderAndFileExists() {
         File folder = new File("./data");
-        File file = new File(folder, "/duke.txt");
+        File file = new File(folder, "/kai.txt");
 
         if (!folder.exists()) {
             // Creates the directory named by this abstract pathname,

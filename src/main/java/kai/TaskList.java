@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import java.util.ArrayList;
 
@@ -144,9 +144,9 @@ public class TaskList {
             } else if (command.equals("event")) {
                 return handleEventCommand(restOfInputs);
             } else {
-                throw new DukeException(ui.displayErrorMessage());
+                throw new KaiException(ui.displayErrorMessage());
             }
-        } catch (DukeException e) {
+        } catch (KaiException e) {
             ui.errorEncounter(e);
         }
         return ui.blank();
@@ -157,11 +157,11 @@ public class TaskList {
      *
      * @param restOfInputs      The description of the Todo task.
      * @return                  A message indicating what todo task is added into the task and the number of tasks.
-     * @throws DukeException    If the description is empty or null.
+     * @throws KaiException    If the description is empty or null.
      */
-    private String handleTodoCommand(String restOfInputs) throws DukeException {
+    private String handleTodoCommand(String restOfInputs) throws KaiException {
         if (restOfInputs == null) {
-            throw new DukeException(ui.displayEmptyErrorMessage());
+            throw new KaiException(ui.displayEmptyErrorMessage());
         }
 
         Todo newTodo = new Todo(restOfInputs);
@@ -175,11 +175,11 @@ public class TaskList {
      *
      * @param restOfInputs      The description and deadline of the Deadline task.
      * @return                  A message indicating what deadline task is added into the task and the number of task.
-     * @throws DukeException    If the description or deadline is empty or null.
+     * @throws KaiException    If the description or deadline is empty or null.
      */
-    private String handleDeadlineCommand(String restOfInputs) throws DukeException {
+    private String handleDeadlineCommand(String restOfInputs) throws KaiException {
         if (restOfInputs == null) {
-            throw new DukeException(ui.displayEmptyErrorMessage());
+            throw new KaiException(ui.displayEmptyErrorMessage());
         }
 
         String[] item = restOfInputs.split("/by");
@@ -197,11 +197,11 @@ public class TaskList {
      *
      * @param restOfInputs      The description, start, and end time of the Event task.
      * @return                  A message indicating what event task is added into the task and the number of task left.
-     * @throws DukeException    If the description, start time, or end time is empty or null.
+     * @throws KaiException    If the description, start time, or end time is empty or null.
      */
-    private String handleEventCommand(String restOfInputs) throws DukeException {
+    private String handleEventCommand(String restOfInputs) throws KaiException {
         if (restOfInputs == null) {
-            throw new DukeException(ui.displayEmptyErrorMessage());
+            throw new KaiException(ui.displayEmptyErrorMessage());
         }
 
         String[] item = restOfInputs.split("/from");

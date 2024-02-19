@@ -1,4 +1,4 @@
-package duke;
+package kai;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
