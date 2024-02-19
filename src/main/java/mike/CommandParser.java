@@ -37,7 +37,9 @@ class CommandParser {
      */
     public Command parse() throws MikeException {
         Token commandToken = advance();
-        switch (commandToken.getType()) {
+        TokenType commandTokenType = commandToken.getType();
+
+        switch (commandTokenType) {
         case EXIT:
             return parseExit();
         case LIST:
@@ -57,11 +59,10 @@ class CommandParser {
         case FIND:
             return parseFind();
         case EOC:
-            throw error("Say something.");
+            throw createError("Say something.");
         default:
-            String errorMessage = "'" + commandToken.getText() + "' is not recognized as a command.\n"
-                    + "That is the weirdest thing you've ever said.";
-            throw error(errorMessage);
+            String errorMessage = createInvalidCommandErrorMessage(commandToken);
+            throw createError(errorMessage);
         }
     }
 
@@ -71,180 +72,120 @@ class CommandParser {
     }
 
     private Command parseList() throws MikeException {
-        String usage = "Usage: list";
-        if (match(TokenType.FORWARD_DASH) && match(TokenType.PARAM)) {
-            usage = usage + " /view [type] /attribute [attribute]";
-            Token paramToken = previousToken();
+        String basicListUsage = "Usage: list";
+        String fullListUsage = "Usage: list /view [type] /attribute [attribute]";
 
-            if (!paramToken.getText().equals("view")) {
-                throw error(usage);
-            }
-
-            consume(TokenType.LITERAL, usage);
-            String type = previousToken().getText().strip();
-
-            ListViewType listViewType;
-
-            switch (type) {
-            case "date":
-                listViewType = ListViewType.DATE;
-                break;
-            case "description":
-                listViewType = ListViewType.DESCRIPTION;
-                break;
-            default:
-                throw error("Invalid type");
-            }
-
-            consume(TokenType.FORWARD_DASH, usage);
-            consume(TokenType.PARAM, usage);
-            paramToken = previousToken();
-            if (!paramToken.getText().equals("attribute")) {
-                throw error(usage);
-            }
-
-            consume(TokenType.LITERAL, usage);
-            String attribute = previousToken().getText();
-
-            consume(TokenType.EOC, usage);
-
-            ListView listView = new ListView(listViewType, attribute);
-            return new ListCommand(listView);
-        } else {
-            consume(TokenType.EOC, "Usage: list");
+        if (!getParameterSeen()) {
+            consume(TokenType.EOC, basicListUsage);
             return new ListCommand(new ListView(ListViewType.NONE));
         }
 
+        if (!getHasParameterName("view")) {
+            throw createError(fullListUsage);
+        }
+
+        ListViewType listViewType = getListViewType(fullListUsage);
+        consumeParameter("attribute", fullListUsage);
+        String attribute = getLiteral(fullListUsage);
+        consume(TokenType.EOC, fullListUsage);
+
+        ListView listView = new ListView(listViewType, attribute);
+        return new ListCommand(listView);
+    }
+
+    private ListViewType getListViewType(String commandUsage) throws MikeException {
+        String type = getLiteral(commandUsage);
+
+        switch (type) {
+        case "date":
+            return ListViewType.DATE;
+        case "description":
+            return ListViewType.DESCRIPTION;
+        default:
+            throw createError("Invalid type");
+        }
     }
 
     private Command parseMark() throws MikeException {
         String usage = "Usage: mark [number]";
 
-        consume(TokenType.LITERAL, usage);
-        String argument = previousToken().getText();
-
+        String argument = getLiteral(usage);
         consume(TokenType.EOC, usage);
-
         try {
             int taskNumber = Integer.parseInt(argument);
             return new MarkCommand(taskNumber);
         } catch (NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
-                    + argument + "' is not an integer Sulley...";
-            throw error(errorMessage);
+            String errorMessage = createInvalidNumberErrorMessage(argument);
+            throw createError(errorMessage);
         }
     }
 
     private Command parseUnmark() throws MikeException {
         String usage = "Usage: unmark [number]";
 
-        consume(TokenType.LITERAL, usage);
-        String argument = previousToken().getText();
-
+        String argument = getLiteral(usage);
         consume(TokenType.EOC, usage);
-
         try {
             int taskNumber = Integer.parseInt(argument);
             return new UnmarkCommand(taskNumber);
         } catch (NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
-                    + argument + "' is not an integer Sulley...";
-            throw error(errorMessage);
+            String errorMessage = createInvalidNumberErrorMessage(argument);
+            throw createError(errorMessage);
         }
     }
 
     private Command parseTodo() throws MikeException {
         String usage = "Usage: todo [description]";
 
-        consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previousToken().getText().strip();
-
+        String description = getLiteral("Description missing.\n" + usage);
         consume(TokenType.EOC, usage);
-
         return new AddTodoCommand(description);
     }
 
     private Command parseDeadline() throws MikeException {
         String usage = "Usage: deadline [description] /by [date]";
 
-        consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previousToken().getText().strip();
-
-        consume(TokenType.FORWARD_DASH, usage);
-        consume(TokenType.PARAM, usage);
-        Token paramToken = previousToken();
-
-        if (!paramToken.getText().equals("by")) {
-            throw error(usage);
-        }
-
-        consume(TokenType.LITERAL, usage);
-        String deadline = previousToken().getText().strip();
-
+        String description = getLiteral("Description missing.\n" + usage);
+        consumeParameter("by", usage);
+        String deadline = getLiteral(usage);
         consume(TokenType.EOC, usage);
-
         return new AddDeadlineCommand(description, deadline);
     }
 
     private Command parseEvent() throws MikeException {
         String usage = "Usage: event [description] /from [date] /to [date]";
 
-        consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previousToken().getText().strip();
+        String description = getLiteral("Description missing.\n" + usage);
 
-        consume(TokenType.FORWARD_DASH, usage);
-        consume(TokenType.PARAM, usage);
-        Token paramToken = previousToken();
+        consumeParameter("from", usage);
 
-        if (!paramToken.getText().equals("from")) {
-            throw error(usage);
-        }
+        String startDate = getLiteral("Start date missing.\n" + usage);
 
-        consume(TokenType.LITERAL, "Start date missing.\n" + usage);
-        String startDate = previousToken().getText().strip();
+        consumeParameter("to", usage);
 
-        consume(TokenType.FORWARD_DASH, usage);
-        consume(TokenType.PARAM, usage);
-        paramToken = previousToken();
-
-        if (!paramToken.getText().equals("to")) {
-            throw error(usage);
-        }
-
-        consume(TokenType.LITERAL, "End date missing.\n" + usage);
-        String endDate = previousToken().getText().strip();
-
+        String endDate = getLiteral("End date missing.\n" + usage);
         consume(TokenType.EOC, usage);
-
         return new AddEventCommand(description, startDate, endDate);
     }
 
     private Command parseDelete() throws MikeException {
         String usage = "Usage: delete [number]";
-
-        consume(TokenType.LITERAL, usage);
-        String argument = previousToken().getText();
-
+        String argument = getLiteral(usage);
         consume(TokenType.EOC, usage);
 
         try {
             int taskNumber = Integer.parseInt(argument);
             return new DeleteCommand(taskNumber);
         } catch (NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
-                    + argument + "' is not an integer Sulley...";
-            throw error(errorMessage);
+            String errorMessage = createInvalidNumberErrorMessage(argument);
+            throw createError(errorMessage);
         }
     }
 
     private Command parseFind() throws MikeException {
         String usage = "Usage: find [keyword]";
-
-        consume(TokenType.LITERAL, usage);
-        String keyword = previousToken().getText().strip();
-
+        String keyword = getLiteral(usage);
         consume(TokenType.EOC, usage);
-
         return new FindCommand(keyword);
     }
 
@@ -259,15 +200,25 @@ class CommandParser {
         return false;
     }
 
-    private MikeException error(String message) {
+    private MikeException createError(String message) {
         return new MikeException(message);
+    }
+
+    private String createInvalidCommandErrorMessage(Token invalidCommandToken) {
+        return "'" + invalidCommandToken.getText() + "' is not recognized as a command.\n"
+                + "That is the weirdest thing you've ever said.";
+    }
+
+    private String createInvalidNumberErrorMessage(String argument) {
+        return "One, two, three, four, get the kid back through the door!\n'"
+                + argument + "' is not an integer Sulley...";
     }
 
     private Token consume(TokenType type, String message) throws MikeException {
         if (check(type)) {
             return advance();
         }
-        throw error(message);
+        throw createError(message);
     }
 
     private boolean check(TokenType type) {
@@ -291,5 +242,27 @@ class CommandParser {
 
     private Token peekToken() {
         return tokens.get(current);
+    }
+
+    private void consumeParameter(String parameterName, String commandUsage) throws MikeException {
+        consume(TokenType.FORWARD_DASH, commandUsage);
+        consume(TokenType.PARAM, commandUsage);
+        if (!getHasParameterName("from")) {
+            throw createError(commandUsage);
+        }
+    }
+
+    private String getLiteral(String commandUsage) throws MikeException {
+        consume(TokenType.LITERAL, commandUsage);
+        return previousToken().getText().strip();
+    }
+
+    private boolean getHasParameterName(String parameterName) {
+        Token paramToken = previousToken();
+        return paramToken.getText().equals(parameterName);
+    }
+
+    private boolean getParameterSeen() {
+        return match(TokenType.FORWARD_DASH, TokenType.PARAM);
     }
 }
