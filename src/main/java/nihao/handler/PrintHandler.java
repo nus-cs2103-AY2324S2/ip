@@ -28,7 +28,7 @@ public final class PrintHandler {
      * @param msg Message to be printed.
      */
     public static String printWithDivider(String msg) {
-        return print(msg) + print(DIVIDER);
+        return print(msg);
     }
 
     /**
@@ -42,7 +42,6 @@ public final class PrintHandler {
             int index = i + 1;
             msg.append(print(index + ". " + tasks.get(i)));
         }
-        msg.append(print(DIVIDER));
         return msg.toString();
     }
 
