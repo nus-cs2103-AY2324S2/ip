@@ -84,7 +84,7 @@ public class TaskList {
             throw new JimmyException("Please enter a valid task type.");
         } catch (DateTimeParseException e) {
             throw new JimmyException("Error: Cannot parse the date written by the user. "
-                    + "Please use the following format: dd-MMM-yyyy (e.g. 19-01-2025)");
+                    + "Please use the following format: dd-MM-yyyy (e.g. 19-01-2025)");
         }
 
         taskList.add(newTask);
