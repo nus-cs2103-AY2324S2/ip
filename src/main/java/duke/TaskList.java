@@ -37,7 +37,9 @@ public class TaskList {
         //System.out.println(list.get(list.size()-1).ToString());
 
        //System.out.println("Now you have " + list.size() + " tasks in the list.");
-        store.save();
+        if(store != null) {
+            store.save();
+        }
         assert this.list.size() > 0 : "taskList should not be empty";
         return "Got it. I've added this task:\n" + list.get(list.size()-1).ToString() + "\n" + "Now you have " + list.size() + " tasks in the list.\n";
     }

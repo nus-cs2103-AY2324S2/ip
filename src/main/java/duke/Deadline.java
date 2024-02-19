@@ -30,7 +30,7 @@ public class Deadline extends Task {
     }
     @Override
     public String ToString() {
-        return super.ToString() + " (by: "
+        return "[" + getTaskIcon() + "] " + "[" + getStatusIcon() + "] "+ description + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")" + " (" + getPriorityDataString() + ")";
     }
 

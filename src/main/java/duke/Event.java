@@ -38,7 +38,7 @@ public class Event extends Task{
      */
     @Override
     public String ToString() {
-        return super.ToString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        return "[" + getTaskIcon() + "] " + "[" + getStatusIcon() + "] "+ description  + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")" + " (" + getPriorityDataString() + ")";
     }
     /**
