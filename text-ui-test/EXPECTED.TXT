@@ -9,12 +9,12 @@ Hello! I'm
 Bingus
 What can I do for you?
 
-Exception occured: duke.DukeException: OOPS!!! The description of a todo cannot be empty.  Please give this instruction in the following format: todo [description]
+Exception occured: bingus.DukeException: OOPS!!! The description of a todo cannot be empty.  Please give this instruction in the following format: todo [description]
 Got it. I've added this task:
 
 [T] [ ]  homework
 Now you have 1 tasks in the list.
-Exception occured: duke.DukeException: OOPS!!! You must provide a deadline for this task.Please give this instruction in the following format: deadline [description] / [deadline date]
+Exception occured: bingus.DukeException: OOPS!!! You must provide a deadline for this task.Please give this instruction in the following format: deadline [description] / [deadline date]
 Got it. I've added this task:
 
 [D] [ ]  homework  (by:  tuesday)
@@ -23,7 +23,7 @@ Here are the tasks in your list:
 
 1. [T] [ ]  homework
 2. [D] [ ]  homework  (by:  tuesday)
-Exception occured: duke.DukeException: please give this instruction in the following format: delete [task number]
+Exception occured: bingus.DukeException: please give this instruction in the following format: delete [task number]
 Noted. I've removed this task:
 
 [T] [ ]  homework

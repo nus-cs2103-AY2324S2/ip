@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class TaskList {
     private static ArrayList<Task> list;
     private static Storage store;
-
     private final String BYE_MESSAGE = "Bye. Bingus hopes to see you again soon!\n";
+    private final String MEOW_MESSAGE = "Mrow. :3";
+
+
 
     /**
      * Creates a task list based on the stored array.
@@ -184,8 +186,6 @@ public class TaskList {
         int no = Integer.parseInt(tokens[1])-1;
         String result = "Noted. I've removed this task:\n";
         result += list.get(no).ToString() + "\n";
-        //System.out.println("Noted. I've removed this task:\n");
-        //.out.println(list.get(no).ToString());
         list.remove(no);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         result += "Now you have " + list.size() + " tasks in the list.";
@@ -259,6 +259,16 @@ public class TaskList {
         return BYE_MESSAGE;
 
         // if keyword is bye, exit the program
+    }
+
+/**
+ * Prints outro.
+ */
+    public String meow() throws DukeException{
+
+        return MEOW_MESSAGE;
+
+        // if keyword is meow, meow
     }
 
 

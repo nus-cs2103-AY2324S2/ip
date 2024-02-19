@@ -34,6 +34,8 @@ public class Parser {
             return list.printList();
         } else if (str.equals("bye")) {
             return list.bye();
+        } else if (str.equals("meow")) {
+            return list.meow();
         } else if (identifier.equals("mark")) {
            return list.markCase(tokens);
         } else if (identifier.equals("unmark")) {

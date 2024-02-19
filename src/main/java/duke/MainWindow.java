@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane {
@@ -22,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Duke bingus;
     private final Image BINGUS_IMAGE = new Image(this.getClass().getResourceAsStream("/images/bingus.jpg"));
     private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
 
@@ -36,7 +35,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException{
         String input = this.userInput.getText();
-        String response = duke.getResponse(input);
+        String response = bingus.getResponse(input);
         //String response = "this is a test.";
         if(response.equals("Bye. Bingus hopes to see you again soon!\n")){
             /*this.dialogContainer.getChildren().addAll(
@@ -65,8 +64,8 @@ public class MainWindow extends AnchorPane {
         this.dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(result, this.BINGUS_IMAGE));
     }
 
-    public void setDuke(Duke duke) {
-        this.duke = duke;
+    public void setDuke(Duke bingus) {
+        this.bingus = bingus;
     }
 
 
