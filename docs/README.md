@@ -1,8 +1,8 @@
 # ConvoBot User Guide
 
-Welcome to the ConvoBot User Guide!
+ConvoBot is revolutionary desktop chat application designed to streamline your task management process!
 
-This guide will walk you through the features and functionalities of our conversational bot, designed to assist you in managing your daily tasks efficiently.
+Say goodbye to clunky, slow-moving interfaces and hello to a new era of productivity.
 
 ![ConvoBot Screenshot](./Ui.png)
 
