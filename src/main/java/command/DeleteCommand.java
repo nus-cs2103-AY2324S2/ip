@@ -1,15 +1,14 @@
 package command;
 
-import roland.Storage;
-import roland.TaskList;
-import roland.Ui;
-import task.Task;
-
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import roland.Storage;
+import roland.TaskList;
+import roland.Ui;
+import task.Task;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the TaskList based on its index.

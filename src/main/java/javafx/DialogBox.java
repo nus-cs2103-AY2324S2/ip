@@ -14,6 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A custom JavaFX component representing a dialog box that contains both text and an image.
+ * This class extends HBox, allowing for easy layout management within a horizontal box.
+ * The dialog box can be flipped to display the image on the left and the text on the right.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

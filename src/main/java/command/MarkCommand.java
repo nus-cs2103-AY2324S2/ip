@@ -18,7 +18,7 @@ import task.Task;
 public class MarkCommand extends Command {
 
     private final int index;
-    private final boolean markDone;
+    private final boolean isMarkDone;
 
     /**
      * Constructs a MarkCommand with the specified index and markDone flag.
@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(int index, boolean markDone) {
         this.index = index;
-        this.markDone = markDone;
+        this.isMarkDone = markDone;
     }
 
     /**
@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.index - 1);
-        if (markDone) {
+        if (isMarkDone) {
             task.markDone();
             return (task.toString());
         } else {

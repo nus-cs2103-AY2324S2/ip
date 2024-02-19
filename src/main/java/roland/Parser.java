@@ -1,5 +1,8 @@
 package roland;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import command.AddCommand;
 import command.Command;
 import command.DeleteCommand;
@@ -11,8 +14,7 @@ import task.Deadlines;
 import task.Events;
 import task.ToDos;
 
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+
 /**
  * The Parser class is responsible for parsing user input and converting it into executable commands
  * in the task management application. It contains a static method, `parse`, which takes a full command string
@@ -65,7 +67,8 @@ public class Parser {
                     throw new RolandException("Please include when is the deadline by with /by <YYYY-mm-dd>");
                 }
                 assert fullCommand.length() > 9 : "Please provide description for deadline";
-                assert fullCommand.split("/").length >= 2 : "Please include when is the deadline by with /by <YYYY-mm-dd>";
+                assert fullCommand.split("/").length >= 2
+                        : "Please include when is the deadline by with /by <YYYY-mm-dd>";
                 String[] split = fullCommand.split(" /");
                 String description = split[0].substring(9, split[0].length());
                 String by = split[1].substring(3, split[1].length());
@@ -83,7 +86,8 @@ public class Parser {
                     "Please include when is the start and end of the event with /from <start> /to <end>");
             }
             assert fullCommand.length() > 6 : "Please provide description for event";
-            assert fullCommand.split("/").length == 3 : "Please include when is the start and end of the event with /from <start> /to <end>";
+            assert fullCommand.split("/").length == 3
+                    : "Please include when is the start and end of the event with /from <start> /to <end>";
             String[] split = fullCommand.split(" /");
             String description = split[0].substring(6, split[0].length());
             String from = split[1].substring(5, split[1].length());
