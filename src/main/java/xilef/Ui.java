@@ -1,15 +1,15 @@
-package duke;
+package xilef;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import xilef.task.Task;
+import xilef.task.TaskList;
 
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner scanner;
+//    private final Scanner scanner;
 
     public Ui() {
-        this.scanner = new Scanner(System.in);
+//        this.scanner = new Scanner(System.in);
     }
 
     public void showLoadingError() {
@@ -19,7 +19,7 @@ public class Ui {
         return "\t\tHello, my name is Xilef.\n\t\tHow may I help you today??\n";
     }
 
-    public String showError(DukeException e) {
+    public String showError(XilefException e) {
         return "\t\t" + e.getMessage();
     }
 
@@ -63,6 +63,6 @@ public class Ui {
     }
 
     public String showUndo() {
-        return "Your previous action has been undone";
+        return "\t\tYour previous action has been undone";
     }
 }

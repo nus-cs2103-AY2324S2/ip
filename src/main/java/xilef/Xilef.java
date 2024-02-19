@@ -1,29 +1,29 @@
-package duke;
+package xilef;
 
-import duke.command.Command;
-import duke.task.TaskCommandPair;
-import duke.task.TaskList;
+import xilef.command.Command;
+import xilef.task.TaskCommandPair;
+import xilef.task.TaskList;
 
 import java.nio.file.Paths;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class Duke {
+public class Xilef {
     private static boolean isExit;
     private final Storage storage;
     private static Stack<TaskCommandPair> temp;
     private TaskList tasks;
     private final Ui ui;
-    private static final String FILE_NAME = "duke.txt";
+    private static final String FILE_NAME = "xilef.txt";
     private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
 
-    public Duke() {
+    public Xilef() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         temp = new Stack<TaskCommandPair>();
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (XilefException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -35,7 +35,7 @@ public class Duke {
             Command c = Parser.parse(input);
             isExit = c.isExit();
             s = c.execute(tasks, ui, storage);
-        } catch (DukeException e) {
+        } catch (XilefException e) {
             return ui.showError(e);
         }
         return s;
@@ -53,11 +53,11 @@ public class Duke {
         temp.push(task);
     }
 
-    public static TaskCommandPair pop() throws DukeException{
+    public static TaskCommandPair pop() throws XilefException {
         try {
             return temp.pop();
         } catch (EmptyStackException e) {
-            throw new DukeException("There is no previous actions to be undone");
+            throw new XilefException("There is no previous actions to be undone");
         }
     }
 }

@@ -1,8 +1,8 @@
-package duke.command;
+package xilef.command;
 
-import duke.Storage;
-import duke.Ui;
-import duke.task.TaskList;
+import xilef.Storage;
+import xilef.Ui;
+import xilef.task.TaskList;
 
 /**
  * Exits the program.

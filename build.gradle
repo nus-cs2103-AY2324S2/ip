@@ -43,15 +43,15 @@ test {
 }
 
 application {
-    mainClass.set("duke.gui.Launcher")
+    mainClass.set("xilef.gui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = 'duke.Duke'
-    archiveFileName = 'duke.jar'
+    mainClassName = 'xilef.Xilef'
+    archiveFileName = 'xilef.jar'
 }
 
 run{

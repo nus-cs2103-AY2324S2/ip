@@ -1,10 +1,10 @@
-package duke.command;
+package xilef.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.Ui;
-import duke.task.Task;
-import duke.task.TaskList;
+import xilef.XilefException;
+import xilef.Storage;
+import xilef.Ui;
+import xilef.task.Task;
+import xilef.task.TaskList;
 
 public class FindCommand extends Command{
 
@@ -14,7 +14,7 @@ public class FindCommand extends Command{
         this.keyword = keyword;
     }
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws XilefException {
         TaskList list = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);

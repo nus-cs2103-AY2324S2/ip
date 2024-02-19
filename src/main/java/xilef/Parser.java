@@ -1,13 +1,13 @@
-package duke;
+package xilef;
 
-import duke.command.*;
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import xilef.command.AddCommand;
+import xilef.command.Command;
+import xilef.command.DeleteCommand;
+import xilef.command.ExitCommand;
+import xilef.command.ListCommand;
+import xilef.command.MarkCommand;
+import xilef.command.UnmarkCommand;
+import xilef.command.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
-    public static Command parse(String str) throws DukeException {
+    public static Command parse(String str) throws XilefException {
         String[] arr = str.split(" ");
         assert !str.isEmpty() : "Input cannot be empty";
         assert arr.length > 0 : "Error in parsing input";
@@ -32,7 +32,7 @@ public class Parser {
         return command.equals("bye") || command.equals("list") || command.equals("undo");
     }
 
-    private static Command handleSingleWordCommand(String[] arr) throws DukeException {
+    private static Command handleSingleWordCommand(String[] arr) throws XilefException {
         switch (arr[0]) {
         case "bye":
             return new ExitCommand();
@@ -41,11 +41,11 @@ public class Parser {
         case "undo":
             return new UndoCommand();
         default:
-            throw new DukeException("Invalid command");
+            throw new XilefException("Invalid command");
         }
     }
 
-    private static Command handleMultiWordCommand(String[] arr) throws DukeException {
+    private static Command handleMultiWordCommand(String[] arr) throws XilefException {
         String commandType = arr[0];
         switch (commandType) {
         case "delete":
@@ -62,7 +62,7 @@ public class Parser {
         }
     }
 
-    private static Command handleAddCommand(String[] arr) throws DukeException {
+    private static Command handleAddCommand(String[] arr) throws XilefException {
         String desc = getDescription(arr);
         String[] newArr = desc.split("/");
         switch (arr[0]) {
@@ -73,26 +73,26 @@ public class Parser {
         case "event":
             return handleEventCommand(newArr);
         default:
-            throw new DukeException("Invalid task type");
+            throw new XilefException("Invalid task type");
         }
     }
 
-    private static Command handleDeadlineCommand(String[] newArr) throws DukeException {
+    private static Command handleDeadlineCommand(String[] newArr) throws XilefException {
         if (newArr.length < 2) {
-            throw new DukeException("Incomplete deadline information");
+            throw new XilefException("Incomplete deadline information");
         }
         LocalDateTime deadline = null;
         try {
             deadline = parseDateTime(newArr[1].split("by")[1].trim());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date/time");
+            throw new XilefException("Invalid date/time");
         }
         return new AddCommand(newArr[0], deadline);
     }
 
-    private static Command handleEventCommand(String[] newArr) throws DukeException {
+    private static Command handleEventCommand(String[] newArr) throws XilefException {
         if (newArr.length < 3) {
-            throw new DukeException("Incomplete event information");
+            throw new XilefException("Incomplete event information");
         }
         LocalDateTime from = null;
         LocalDateTime to = null;
@@ -100,7 +100,7 @@ public class Parser {
             from = parseDateTime(newArr[1].split("from")[1].trim());
             to = parseDateTime(newArr[2].split("to")[1].trim());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date/time");
+            throw new XilefException("Invalid date/time");
         }
         return new AddCommand(newArr[0], from, to);
     }

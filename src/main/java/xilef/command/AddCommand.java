@@ -1,14 +1,14 @@
-package duke.command;
+package xilef.command;
 
-import duke.Duke;
-import duke.Storage;
-import duke.task.TaskCommandPair;
-import duke.Ui;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import xilef.Xilef;
+import xilef.Storage;
+import xilef.task.TaskCommandPair;
+import xilef.Ui;
+import xilef.task.Deadline;
+import xilef.task.Event;
+import xilef.task.Task;
+import xilef.task.TaskList;
+import xilef.task.Todo;
 
 import java.time.LocalDateTime;
 
@@ -67,7 +67,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
-        Duke.push(new TaskCommandPair(task, this));
+        Xilef.push(new TaskCommandPair(task, this));
         return ui.showAdded(task) + "\n" + ui.showTasksStatus(tasks);
     }
 

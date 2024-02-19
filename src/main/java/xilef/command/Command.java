@@ -1,9 +1,9 @@
-package duke.command;
+package xilef.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.Ui;
-import duke.task.TaskList;
+import xilef.XilefException;
+import xilef.Storage;
+import xilef.Ui;
+import xilef.task.TaskList;
 
 /**
  * An {@code Command} represents an operation that modifies the state of the application.
@@ -16,9 +16,9 @@ public abstract class Command {
      * @param tasks   The {@code TaskList} to modify.
      * @param ui      The {@code Ui} to display the results of the command.
      * @param storage The {@code Storage} to save the modified state.
-     * @throws DukeException If the command cannot be executed due to an error.
+     * @throws XilefException If the command cannot be executed due to an error.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws XilefException;
 
     /**
      * Returns whether the command should exit the application.
