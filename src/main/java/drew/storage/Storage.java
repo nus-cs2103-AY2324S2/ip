@@ -1,10 +1,5 @@
 package drew.storage;
 
-import drew.task.Deadline;
-import drew.task.Event;
-import drew.task.Task;
-import drew.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +9,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import drew.task.Deadline;
+import drew.task.Event;
+import drew.task.Task;
+import drew.task.Todo;
+
+
 /**
  * Represents the storage of the drew.Drew. It contains the methods to save and load files.
  */
@@ -22,7 +23,7 @@ public class Storage {
      * Contains the file path that the storage will read and write from.
      */
     protected String filePath;
-    public Storage(String filePath){
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -94,7 +95,7 @@ public class Storage {
         int numberOfArguments = args.length;
 
         //Removes whitespace from save string. Whitespace was used to increase readability of save txt file.
-        for (int i = 0; i < numberOfArguments; i ++) {
+        for (int i = 0; i < numberOfArguments; i++) {
             args[i] = args[i].trim();
         }
 

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 /**
  * This class represents the Event task.
  */
-public class Event extends Task{
+public class Event extends Task {
     /**
      * Stores the event start date in "YYYY-MM-DD" format.
      */

@@ -1,7 +1,7 @@
 package drew.command;
 
-import drew.storage.TaskList;
 import drew.storage.Storage;
+import drew.storage.TaskList;
 
 public class ByeCommand extends Command {
     public static final Command BYE = new ByeCommand("");

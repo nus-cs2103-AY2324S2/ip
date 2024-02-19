@@ -17,14 +17,14 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String toString(){
+    public String toString() {
         return description;
     }
 
     /**
      * @return Task description and completion status.
      */
-    public String toStatusString(){
+    public String toStatusString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 

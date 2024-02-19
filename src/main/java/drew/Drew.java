@@ -1,13 +1,13 @@
 package drew;
 
-import drew.command.Command;
-import drew.storage.TaskList;
-import drew.storage.Storage;
-import drew.ui.Parser;
-import drew.ui.Ui;
-
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
+
+import drew.command.Command;
+import drew.storage.Storage;
+import drew.storage.TaskList;
+import drew.ui.Parser;
+import drew.ui.Ui;
 
 /**
  * Main chatbot class. Contains the logic of the chatbot.
@@ -15,18 +15,22 @@ import java.time.format.DateTimeParseException;
  * @author cocoanautz
  */
 public class Drew {
-    Storage storage;
-    TaskList tasks;
-    Ui ui;
-    Parser parser;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
 
+    /**
+     * Starting point of the chatbot.
+     * @param filePath String that contains the save file's path, relative to the project root directory.
+     */
     public Drew(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Load status: File not found");
             tasks = new TaskList();
         } catch (IllegalArgumentException e) {

@@ -1,9 +1,9 @@
 package drew.ui;
 
+import drew.command.Command;
 import drew.exceptions.InsufficientArgumentsException;
 import drew.exceptions.UnknownCommandException;
 
-import drew.command.Command;
 import drew.command.ByeCommand;
 import drew.command.DeadlineCommand;
 import drew.command.DeleteCommand;
@@ -14,6 +14,7 @@ import drew.command.MarkCommand;
 import drew.command.TodoCommand;
 import drew.command.UnmarkCommand;
 import drew.command.UnknownCommand;
+
 
 /**
  * This class handles the interpretation and execution of user input.
@@ -33,6 +34,7 @@ public class Parser {
 
         int inputLength = input.length();
         Command userCommand;
+
         if (ByeCommand.isByeCommand(inputLength, input)) {
             userCommand = ByeCommand.getByeCommand();
         } else if (ListCommand.isListCommand(inputLength, input)) {
