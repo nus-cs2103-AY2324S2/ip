@@ -5,14 +5,12 @@
 
 Slaybot is a simple chatbot with an intuitive Graphical User Interface (GUI) that helps you track your tasks.
 
-Slaybot is also capable of remembering your added tasks, even when the GUI is closed.
-
 
 If you're new here, you can start with [Getting Started](#getting-started).
 
 If you have used Slaybot before, you can jump straight to Slaybot's [Features and Commands](#features-and-commands).
 
-<img src="Ui.png" width="60%" display='block' margin-left="auto" margin-right="auto"/>
+<img src="./docs/Ui.png" width="60%" display='block' margin-left="auto" margin-right="auto"/>
 
 **Figure 1**: How Slaybot's GUI appears on the Windows operating system.
 
