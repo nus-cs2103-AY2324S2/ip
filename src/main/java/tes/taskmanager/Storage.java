@@ -31,6 +31,7 @@ public class Storage {
      * If there is no existing directory mentioned in the path, a new one is created.
      */
     public static void saveToFile(ArrayList<Task> tasks) {
+        assert tasks != null;
         try {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
