@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import exception.InvalidDateException;
 import exception.InvalidTaskFormatException;
@@ -33,14 +34,16 @@ public class EventParser {
         if (description.isEmpty()) {
             throw new InvalidTaskFormatException("The description of an event cannot be empty.");
         }
-        String from = parts[1].trim();
-        String to = parts[2].trim();
 
         LocalDate parsedFrom;
         LocalDate parsedTo;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        parsedFrom = LocalDate.parse(from, formatter);
-        parsedTo = LocalDate.parse(to, formatter);
+        try {
+            parsedFrom = LocalDate.parse(parts[1].trim(), formatter);
+            parsedTo = LocalDate.parse(parts[2].trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException("Unable to parse date. Ensure the date is in 'yyyy-MM-dd' format.");
+        }
         if (parsedFrom.isBefore(LocalDate.now())) {
             throw new InvalidDateException("The start date of an event cannot be in the past.");
         }

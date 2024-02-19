@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import exception.InvalidTaskIndexException;
@@ -109,8 +110,11 @@ public class TaskList {
      * @param keyword The keyword to be matched
      */
     public ArrayList<Task> findTasks(String keyword) {
+        final String lowerCaseKeyword = keyword.toLowerCase();
+
         return this.tasksList.stream()
-                .filter(task -> task.getDescription().contains(keyword))
+                .filter(task -> Arrays.asList(task.getDescription().toLowerCase().split("\\s+"))
+                        .contains(lowerCaseKeyword))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

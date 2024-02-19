@@ -55,7 +55,7 @@ public class Parser {
      */
     public CommandResponse parseInput(String input) {
         String command = input.split(" ")[0];
-        switch (command) {
+        switch (command.toLowerCase()) {
         case "help":
             return CommandResponse.success(ui.getListOfCommandsMessage());
         case "list":
