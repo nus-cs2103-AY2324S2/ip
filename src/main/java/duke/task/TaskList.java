@@ -56,6 +56,9 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
+    public void remove(Task task) {
+        this.tasks.remove(task);
+    }
     /**
      * Adds a task to the list.
      *

@@ -13,8 +13,8 @@ public abstract class Command {
     /**
      * Executes the command, modifying the state of the application.
      *
-     * @param tasks The {@code TaskList} to modify.
-     * @param ui The {@code Ui} to display the results of the command.
+     * @param tasks   The {@code TaskList} to modify.
+     * @param ui      The {@code Ui} to display the results of the command.
      * @param storage The {@code Storage} to save the modified state.
      * @throws DukeException If the command cannot be executed due to an error.
      */
