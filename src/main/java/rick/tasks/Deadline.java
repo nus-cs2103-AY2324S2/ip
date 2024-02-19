@@ -23,10 +23,10 @@ public class Deadline implements Task {
      */
     public Deadline(String name, String status, String ddl) throws RickException {
         try {
-            if (name.isBlank()) {
+            if (name == null || name.isBlank()) {
                 throw new RickException("Nothing is due!");
             }
-            if (ddl.isBlank()) {
+            if (ddl == null || ddl.isBlank()) {
                 throw new RickException("due when?");
             }
             this.name = name;

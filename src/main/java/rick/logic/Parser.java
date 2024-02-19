@@ -25,9 +25,13 @@ public class Parser {
      * @param userInput a string from user input
      */
     public Parser(String userInput) {
-        String[] splited = userInput.split("\\s+", 2);
-        this.type = splited[0];
-        this.input = splited[1];
+        if (userInput.contains(" ")) {
+            String[] splited = userInput.split("\\s+", 2);
+            this.type = splited[0];
+            this.input = splited[1];
+        } else {
+            this.type = userInput;
+        }
     }
 
     /**

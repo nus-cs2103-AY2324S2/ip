@@ -13,10 +13,10 @@ public class TodoCommand implements Command {
      * @param input the second half of user input
      */
     public TodoCommand(String input) throws RickException {
-        if (!input.isBlank()) {
+        if (input != null && !input.isBlank()) {
             this.name = input;
         } else {
-            throw new RickException("To-Do's name cannot be blank!");
+            throw new RickException("Task name cannot be blank!");
         }
     }
 

@@ -26,6 +26,9 @@ public class EventCommand implements Command {
     }
 
     private void parse(String input) throws RickException {
+        if (input == null || input.isBlank()) {
+            throw new RickException("Task name cannot be empty!");
+        }
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
             throw new RickException("Tell me the event date/time in this format: "
                     + "event [title] /from yyyy-mm-ddTHH-MM-SS /to yyyy-mm-ddTHH-MM-SS");

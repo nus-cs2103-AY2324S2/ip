@@ -1,5 +1,6 @@
 package rick;
 
+import javafx.beans.binding.When;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import rick.ui.Ui;
 import rick.util.Storage;
 import rick.util.TaskList;
 
+import java.util.Scanner;
+
 
 /**
  * A Rick chatbot.
@@ -24,13 +27,6 @@ public class Rick {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Creates a new instance of the Rick chatbot with specified filePath to store data on hard drive.
@@ -54,7 +50,7 @@ public class Rick {
      * @return a string representing the response of the chatbot
      */
     @FXML
-    public String getResponse(String input) {
+    public String getResponse(String input) throws RickException {
         Parser parser = new Parser(input);
         try {
             Executer executer = new Executer(this.tasks, this.storage);
@@ -68,11 +64,17 @@ public class Rick {
         }
     }
 
-    /**
-     * Creates a new Rick instance and run it. Executes the programme.
-     */
-    public static void main(String[] args) {
-        Rick rick = new Rick();
-        Ui.hello();
+    public static void main(String[] arg) {
+        try {
+            Rick rick = new Rick();
+            Ui.hello();
+            Scanner scan = new Scanner(System.in);
+            while (scan.hasNextLine()) {
+                String input = scan.nextLine();
+                System.out.println(rick.getResponse(input));
+            }
+        } catch (Exception e) {
+            System.out.println("cause: " + e.getMessage());
+        }
     }
 }

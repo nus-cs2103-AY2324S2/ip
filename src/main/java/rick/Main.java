@@ -1,32 +1,26 @@
 package rick;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import rick.logic.Parser;
 
 /**
  * A GUI for Rick using FXML.
  */
 public class Main extends Application {
-    private Rick rick = new Rick();
-
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Main.class.getResource("view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+            AnchorPane root = loader.load();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Rick");
-            fxmlLoader.<MainWindow>getController().setRick(rick);
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

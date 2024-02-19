@@ -4,16 +4,29 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rick.MainWindow">
-    <children>
-        <TextField fx:id="userInput" layoutY="558.0" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
-            </content>
-        </ScrollPane>
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rick.MainController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="47.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+         <children>
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="381.0" prefWidth="596.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="579.0">
+                     <children>
+                        <VBox fx:id="vBox" alignment="TOP_CENTER" layoutX="164.0" layoutY="29.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: MEDIUMPURPLE;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+            <HBox alignment="TOP_CENTER" prefHeight="46.0" prefWidth="596.0">
+               <children>
+                  <TextField fx:id="textField" prefHeight="26.0" prefWidth="456.0" />
+                  <Button fx:id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="53.5" text="Button" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

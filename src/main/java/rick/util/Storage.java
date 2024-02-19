@@ -19,8 +19,8 @@ import rick.ui.Ui;
  */
 public class Storage {
     private static final String DATA_PATH = "data/tasks.txt";
+    private Path filePath = Paths.get("data/tasks.txt");
     private Path directoryPath = this.filePath.getParent();
-    private Path filePath = Paths.get(DATA_PATH);
     private ArrayList<Task> items = new ArrayList<>();
 
     /**

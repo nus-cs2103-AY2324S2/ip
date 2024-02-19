@@ -26,6 +26,9 @@ public class DeadlineCommand implements Command {
     }
 
     private void parse(String input) throws RickException {
+        if (input == null || input.isBlank()) {
+            throw new RickException("Task name cannot be empty!");
+        }
         if (!input.contains(" /by ")) {
             throw new RickException("Tell me the due date/time in this format: "
                     + "deadline [title] /by yyyy-mm-ddTHH-MM-SS");
