@@ -32,8 +32,6 @@ public class UserInput {
                     : userInput.substring(0, userInput.indexOf(' '));
 
             switch (command) {
-            case "help":
-                return ui.printHelp();
             case "list":
                 return ui.printList(tasks);
             case "mark":
