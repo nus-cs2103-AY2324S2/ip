@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.File;
@@ -24,7 +25,7 @@ public class TaskList {
         this.storage = storage;
     }
 
-    public TaskList(File f, Storage storage) throws FileNotFoundException {
+    public TaskList(File f, Storage storage) throws FileNotFoundException, DukeException {
         this.tasks = new ArrayList<>();
         this.storage = storage;
         Scanner sc = new Scanner(f);
@@ -45,6 +46,7 @@ public class TaskList {
                 String deadline = deadlineParts[1].trim();
                 tasks.add(new Deadline(description, isDone, deadline));
             } else {
+                assert command.equals("event") : "Command should be event";
                 String[] parts = input.split("/from| /to");
                 String description = parts[0].trim().substring("0 event".length()).trim();
                 String start = parts[1].trim();
@@ -57,6 +59,7 @@ public class TaskList {
     /**
      * Finds tasks that contain the keyword.
      * @param keyword
+     * @return A string that contains the tasks that contain the keyword.
      */
     public String find(String keyword) {
         int num = 1;
@@ -89,18 +92,15 @@ public class TaskList {
     /**
      * Adds a todo task to the list.
      * @param description The description of the todo task.
+     * @return A string that indicates the todo task has been added successfully.
      */
     public String addTodo(String description) {
-        if (description == null) {
-            reply = "Please add a description for todo";
-        } else {
-            tasks.add(new ToDo(description, 0));
-            String task = tasks.get(tasks.size() - 1).toString();
-            String numberOfTasks = "Now you have "
+        tasks.add(new ToDo(description, 0));
+        String task = tasks.get(tasks.size() - 1).toString();
+        String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
                     + " task(s) left";
-            reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
-        }
+        reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
     }
 
@@ -108,18 +108,15 @@ public class TaskList {
      * Adds a deadline task to the list.
      * @param description The description of the deadline task.
      * @param deadline The deadline of the deadline task.
+     * @return A string that indicates the deadline task has been added successfully.
      */
     public String addDeadline(String description, String deadline) {
-        if (description == null || deadline == null) {
-            reply = "Ensure that the format is: deadline [task] /by [deadline]";
-        } else {
-            tasks.add(new Deadline(description, 0, deadline));
-            String task = tasks.get(tasks.size() - 1).toString();
-            String numberOfTasks = "Now you have "
+        tasks.add(new Deadline(description, 0, deadline));
+        String task = tasks.get(tasks.size() - 1).toString();
+        String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
                     + " task(s) left";
-            reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
-        }
+        reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
     }
 
@@ -128,66 +125,72 @@ public class TaskList {
      * @param description The description of the event task.
      * @param start The start time of the event task.
      * @param end The end time of the event task.
+     * @return A string that indicates the event task has been added.
      */
     public String addEvent(String description, String start, String end) {
-        if (description == null || start == null || end == null) {
-            reply = "Ensure that the format is : event [task] /from [start] /to end";
-        } else {
-            tasks.add(new Event(description, 0, start, end));
-            String task = tasks.get(tasks.size() - 1).toString();
-            String numberOfTasks = "Now you have "
+        tasks.add(new Event(description, 0, start, end));
+        String task = tasks.get(tasks.size() - 1).toString();
+        String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
                     + " task(s) left";
-            reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
-        }
+        reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
     }
 
     /**
      * Deletes a task from the list.
      * @param index The index of the task to be deleted.
+     * @return A string that indicates if the task has been deleted successfully.
+     * @throws DukeException If the index is out of range.
      */
-    public String deleteTask(int index) {
-        if (index <= 0 || index > tasks.size()) {
-            reply = "Please enter index ranging from 1 to " + String.valueOf(tasks.size());
-        } else {
+    public String deleteTask(int index) throws DukeException {
+        try {
             reply = "Ok. I'll be removing this task:\n "
                     + tasks.get(index - 1).toString()
                     + "\n"
-                    + "Now you have " + String.valueOf(tasks.size() - 1) + " task(s) left";
-            tasks.remove(index-1);
+                    + "Now you have " + (tasks.size() - 1) + " task(s) left";
+            tasks.remove(index - 1);
+            storage.removeFromFile(index);
+            return reply;
+        } catch (IndexOutOfBoundsException | IOException e) {
+            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
         }
-        return reply;
     }
 
     /**
      * Marks a task as done.
      * @param index The index of the task to be marked as done.
+     * @return A string that indicates if the task has been marked as done successfully.
+     * @throws DukeException If the index is out of range.
      */
-    public String markTask(int index) {
-        if (index < 0 || index > tasks.size()) {
-            reply = "Please enter index ranging from 1 to " + String.valueOf(tasks.size());
-        } else {
+    public String markTask(int index) throws DukeException {
+        try {
             tasks.get(index - 1).markAsDone();
+            storage.editLineInFile(index, 1);
             reply = "This task is marked as done:\n"
                     + tasks.get(index - 1).toString();
+            return reply;
+        } catch (IndexOutOfBoundsException | IOException e) {
+            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
         }
-        return reply;
     }
 
     /**
      * Marks a task as undone.
      * @param index The index of the task to be marked as undone.
+     * @return A string that indicates if the task has been marked as undone successfully.
+     * @throws DukeException If the index is out of range.
      */
-    public String unmarkTask(int index) {
-        if (index < 0 || index > tasks.size()) {
-            reply = "Please enter index ranging from 1 to " + String.valueOf(tasks.size());
-        } else {
+    public String unmarkTask(int index) throws DukeException {
+        try {
             tasks.get(index - 1).markAsUndone();
+            storage.editLineInFile(index, 0);
             reply = "This task is marked as not done:\n"
                     + tasks.get(index - 1).toString();
+            return reply;
+        } catch (IndexOutOfBoundsException | IOException e) {
+            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
         }
-        return reply;
     }
 
 

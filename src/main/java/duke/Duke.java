@@ -33,8 +33,6 @@ public class Duke {
             return command.execute(tasks, storage);
         } catch (DukeException e) {
             return e.getMessage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

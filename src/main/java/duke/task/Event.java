@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 /**
  * Represents an event task.
  * An <code>Event</code> object corresponds to an event task represented by a description, a status, a start time and an end time
@@ -20,7 +18,7 @@ public class Event extends Task {
      * @return the string output of the Event task
      */
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "] " + this.description + " (from: " + stringToDate(this.start) + " to: " +
-                stringToDate(this.end) + ")";
+        return "[E]" + "[" + getStatusIcon() + "] " + this.description + " (from: " + this.start + " to: " +
+                this.end + ")";
     }
 }

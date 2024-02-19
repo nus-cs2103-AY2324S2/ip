@@ -33,6 +33,7 @@ public class Storage {
                 throw new DukeException("Something went wrong: " + e);
             }
         } else {
+            assert file.exists() : "File should exist";
             return file;
         }
     }

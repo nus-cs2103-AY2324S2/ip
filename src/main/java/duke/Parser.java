@@ -1,8 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.IncorrectCommand;
+import duke.command.*;
 
 /**
  * Parses user input.
@@ -20,16 +18,22 @@ public class Parser {
         String command = words[0];
         switch (command) {
         case "find":
+            return new FindCommand(input);
         case "todo":
+            return new TodoCommand(input);
         case "deadline":
+            return new DeadlineCommand(input);
         case "event":
+            return new EventCommand(input);
         case "list":
+            return new ListCommand();
         case "mark":
+            return new MarkCommand(input);
         case "unmark":
+            return new UnmarkCommand(input);
         case "delete":
-            return new Command(command, input);
+            return new DeleteCommand(input);
         case "bye":
-            System.out.println(command);
             return new ExitCommand();
         default:
             return new IncorrectCommand();

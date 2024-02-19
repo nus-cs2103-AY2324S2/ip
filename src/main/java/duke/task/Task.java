@@ -18,21 +18,6 @@ public class Task {
     }
 
     /**
-     * Converts a string to a date.
-     * @param input The string to be converted to a date.
-     * @return The date in the format MMM d yyyy.
-     */
-    public String stringToDate(String input) {
-        try {
-            LocalDate ld = LocalDate.parse(input);
-            String date = ld.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            return date;
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
-    /**
      * Returns the status icon of the task.
      * @return The status icon of the task.
      */
@@ -49,8 +34,6 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = 1;
-        System.out.println("This task is marked as done:\n"
-                + this);
     }
 
     /**
@@ -58,8 +41,6 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = 0;
-        System.out.println("This task is marked as not done yet:\n"
-                + this);
     }
 
     /**
