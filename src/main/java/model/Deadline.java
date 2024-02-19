@@ -21,6 +21,7 @@ public class Deadline implements Task {
     private final String name;
     private final boolean isDone;
     private final LocalDateTime deadline;
+    private final String tag;
 
     /**
      * Creates a new {@code Deadline} object, with {@code done} set to {@code false} by default.
@@ -32,12 +33,14 @@ public class Deadline implements Task {
         this.name = name;
         isDone = false;
         this.deadline = deadline;
+        tag = "";
     }
 
-    private Deadline(String name, boolean done, LocalDateTime deadline) {
+    private Deadline(String name, boolean done, LocalDateTime deadline, String tag) {
         this.name = name;
         this.isDone = done;
         this.deadline = deadline;
+        this.tag = tag;
     }
 
     public static void setDateTimeFormat(DateTimeFormatter dtf) {
@@ -50,7 +53,7 @@ public class Deadline implements Task {
      * @return {@code Deadline} object with {@code done} set as {@code true}.
      */
     public Deadline mark() {
-        return new Deadline(name, true, deadline);
+        return new Deadline(name, true, deadline, tag);
     }
 
     /**
@@ -59,11 +62,15 @@ public class Deadline implements Task {
      * @return {@code Deadline} object with {@code done} set as {@code false}.
      */
     public Deadline unmark() {
-        return new Deadline(name, false, deadline);
+        return new Deadline(name, false, deadline, tag);
     }
 
     public boolean nameContains(String s) {
         return name.contains(s);
+    }
+
+    public Deadline tag(String tag) {
+        return new Deadline(name, isDone, deadline, tag);
     }
 
     /**
@@ -72,6 +79,7 @@ public class Deadline implements Task {
     @Override
     public String toString() {
         String d = this.isDone ? "X" : " ";
-        return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtfOutput));
+        String t = tag.isBlank() ? "" : " #" + tag;
+        return String.format("[D][%s] %s%s (by: %s)", d, name, t, deadline.format(dtfOutput));
     }
 }

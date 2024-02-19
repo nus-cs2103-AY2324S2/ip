@@ -78,6 +78,12 @@ public class TaskList implements Serializable {
         return t;
     }
 
+    public Task tag(int index, String tag) throws IndexOutOfBoundsException {
+        Task t = tasks.get(index).tag(tag);
+        tasks.set(index, t);
+        return t;
+    }
+
     public TaskList match(String s) {
         return tasks.stream()
                 .filter(t -> t.nameContains(s))

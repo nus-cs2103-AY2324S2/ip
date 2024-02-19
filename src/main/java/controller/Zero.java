@@ -120,9 +120,28 @@ public class Zero extends Application {
             return executeEventCommand(inputDict);
         case FIND:
             return executeFindCommand(inputDict);
+        case TAG:
+            return executeTagCommand(inputDict);
         default:
             // For debugging purposes
             return "Command(Enum) not yet implemented in switch case.";
+        }
+    }
+
+    private String executeTagCommand(Hashtable<String, String> inputDict) throws IOException {
+        try {
+            String[] split = inputDict.get("name").split(" ", 2);
+            int idx = Parser.parseIndex(split[0]);
+            Parser.checkNullOrEmpty(split[1]);
+            Task t = storage.getTaskList().tag(idx, split[1]);
+            storage.saveTaskList();
+            return Ui.showTagDone(t);
+        } catch (NumberFormatException e) {
+            return Ui.showIndexParseError();
+        } catch (IllegalArgumentException e) {
+            return Ui.showMissingTagNameError();
+        } catch (IndexOutOfBoundsException e) {
+            return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
         }
     }
 

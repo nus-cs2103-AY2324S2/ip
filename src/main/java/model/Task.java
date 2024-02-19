@@ -23,4 +23,6 @@ public interface Task extends Serializable {
     public Task unmark();
 
     public boolean nameContains(String s);
+
+    public Task tag(String s);
 }
