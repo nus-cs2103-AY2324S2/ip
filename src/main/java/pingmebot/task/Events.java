@@ -1,5 +1,7 @@
 package pingmebot.task;
 
+import java.time.LocalDateTime;
+
 /**
  * A category of task that has a task description, and a start and end date or time to complete the task by.
  */
@@ -29,7 +31,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + start + " to:" + end + ")";
+        return "[E]" + super.toString() + " (from: " + start + "," + " to: " + end + ")";
     }
 
     /**
@@ -63,6 +65,24 @@ public class Events extends Task {
         Events otherEvent = (Events) obj;
         return this.description.equals(otherEvent.description)
                 && this.start.equals(otherEvent.start) && this.end.equals(otherEvent.end);
+    }
+
+    /**
+     * Sets the events task's from timing with a new timing.
+     *
+     * @param from The new start timing of the event task.
+     */
+    public void setEventsFromTiming(String from) {
+        start = from;
+    }
+
+    /**
+     * Sets the events task's to timing with a new timing.
+     *
+     * @param to The new end timing of the event task.
+     */
+    public void setEventsToTiming(String to) {
+        end = to;
     }
 }
 

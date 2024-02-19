@@ -167,8 +167,21 @@ public class UI {
      */
     public String givesBackResponse() {
         String messageWithNewLine = String.join("\n", response);
-        System.out.println("Response to UI:" + messageWithNewLine);
         response.clear();
         return messageWithNewLine;
+    }
+
+    /**
+     * Send a message to the user to inform the user of the task which he/she has postponed.
+     *
+     * @param taskNum The task number in the task list of the task he/she wants to postpone.
+     * @param allTasks The list of all tasks to postpone from.
+     */
+    public void postponeTaskText(int taskNum, TaskList allTasks) {
+        String toUserUponPostponing = "";
+        toUserUponPostponing += ("\n" + "Got it. I've postponed this task to:");
+        toUserUponPostponing += "\n" + "  " + allTasks.taskToString(taskNum);
+        System.out.println(toUserUponPostponing);
+        response.add(toUserUponPostponing);
     }
 }

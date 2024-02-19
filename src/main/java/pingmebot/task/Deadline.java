@@ -66,4 +66,14 @@ public class Deadline extends Task {
         return this.description.equals(otherDeadline.description)
                 && this.by.equals(otherDeadline.by);
     }
+
+
+    /**
+     * Sets the deadline task's finish by timing with a new timing.
+     *
+     * @param newTiming The new timing to complete the deadline task.
+     */
+    public void setDeadlineByTiming(LocalDateTime newTiming) {
+        by = newTiming;
+    }
 }

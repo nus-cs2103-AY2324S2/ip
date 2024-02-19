@@ -6,11 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import pingmebot.command.AddCommand;
-import pingmebot.command.DeleteCommand;
-import pingmebot.command.FindCommand;
-import pingmebot.command.MarkCommand;
-import pingmebot.command.UnmarkCommand;
+import pingmebot.command.*;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
 import pingmebot.task.ToDos;
@@ -46,10 +42,10 @@ public class Parser {
      */
     public AddCommand parseToDoCommand() throws PingMeException {
         try {
-            if (!this.words.get(1).isEmpty()) {
-                StringBuilder description = new StringBuilder(this.words.get(1));
+            if (!words.get(1).isEmpty()) {
+                StringBuilder description = new StringBuilder(words.get(1));
                 for (int i = 2; i < words.size(); i++) {
-                    description.append(" ").append(this.words.get(i));
+                    description.append(" ").append(words.get(i));
                 }
                 return new AddCommand(new ToDos(description.toString()));
 
@@ -73,10 +69,10 @@ public class Parser {
     public AddCommand parseDeadlineCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
         StringBuilder by = new StringBuilder();
-        int index = this.words.indexOf("/by");
+        int index = words.indexOf("/by");
         if (index != -1) {
             if (index != 1) {
-                description = new StringBuilder(this.words.get(1)); // if the user forgets to include description field
+                description = new StringBuilder(words.get(1)); // if the user forgets to include description field
             }
 
         } else {
@@ -121,8 +117,8 @@ public class Parser {
         StringBuilder description = new StringBuilder();
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
-        int indexOfFrom = this.words.indexOf("/from");
-        int indexOfTo = this.words.indexOf("/to");
+        int indexOfFrom = words.indexOf("/from");
+        int indexOfTo = words.indexOf("/to");
 
         if (indexOfFrom == -1 || indexOfTo == -1) {
             throw new PingMeException("I don't understand your command. "
@@ -130,7 +126,7 @@ public class Parser {
 
         } else {
             if (indexOfFrom == 1 || indexOfTo == 1) { } else {
-                description = new StringBuilder(this.words.get(1));
+                description = new StringBuilder(words.get(1));
             }
         }
 
@@ -166,14 +162,14 @@ public class Parser {
      */
     public MarkCommand parseMarkCommand(int currentNumOfTask) throws PingMeException {
         try {
-            if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
-                        || Integer.parseInt(this.words.get(1)) <= 0) {
+            if (!words.get(1).isEmpty()) {
+                if (Integer.parseInt(words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
                             + "You cannot mark task larger or smaller than this!");
 
                 } else {
-                    return new MarkCommand(Integer.parseInt(this.words.get(1)) - 1);
+                    return new MarkCommand(Integer.parseInt(words.get(1)) - 1);
                 }
 
             } else {
@@ -196,14 +192,14 @@ public class Parser {
      */
     public UnmarkCommand parseUnmarkCommand(int currentNumOfTask) throws PingMeException {
         try {
-            if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
-                        || Integer.parseInt(this.words.get(1)) <= 0) {
+            if (!words.get(1).isEmpty()) {
+                if (Integer.parseInt(words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
                             + "You cannot un-mark task larger or smaller than this!");
 
                 } else {
-                    return new UnmarkCommand(Integer.parseInt(this.words.get(1)) - 1);
+                    return new UnmarkCommand(Integer.parseInt(words.get(1)) - 1);
                 }
 
             } else {
@@ -226,14 +222,14 @@ public class Parser {
      */
     public DeleteCommand parseDeleteCommand(int currentNumOfTask) throws PingMeException {
         try {
-            if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
-                        || Integer.parseInt(this.words.get(1)) <= 0) {
+            if (!words.get(1).isEmpty()) {
+                if (Integer.parseInt(words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
                             + "You cannot delete task larger or smaller than this!");
 
                 } else {
-                    return new DeleteCommand(Integer.parseInt(this.words.get(1)) - 1);
+                    return new DeleteCommand(Integer.parseInt(words.get(1)) - 1);
                 }
 
             } else {
@@ -254,8 +250,8 @@ public class Parser {
      */
     public FindCommand parseFindCommand() throws PingMeException {
         try {
-            if (!this.words.get(1).isEmpty()) {
-                return new FindCommand(this.words.get(1));
+            if (!words.get(1).isEmpty()) {
+                return new FindCommand(words.get(1));
             } else {
                 throw new IndexOutOfBoundsException();
             }
@@ -263,5 +259,70 @@ public class Parser {
             throw new PingMeException("I'm not sure what you are trying to find. "
                     + "Please specify a keyword and try again!");
         }
+    }
+
+    /**
+     * Returns the PostponeCommand object with the task which the user is trying to postpone.
+     *
+     * @return PostponeCommand object with the task number in the task list which the
+     *         user is trying to postpone, the new start and end timing for an events task,
+     *         and a finsih by timing for the deadline task.
+     * @throws PingMeException If the user never includes the task to postpone, or a new start or end time.
+     */
+
+    public PostponeCommand parsePostponeCommand() throws PingMeException {
+        try {
+            if (words.get(1).isEmpty()) {
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new PingMeException("You have to select a task" +
+                    " to postpone! You cannot select a todo task though :)");
+        }
+        int taskToPostpone = Integer.parseInt(words.get(1));
+        int indexOfBy = words.indexOf("/by");
+        int indexOfFrom = words.indexOf("/from");
+        int indexOfTo = words.indexOf("/to");
+
+        if (indexOfFrom != -1) {
+            if (indexOfTo == -1) {
+                throw new PingMeException("Make sure to include " +
+                        "/from ___ /to ___ for events object");
+            }
+        } else if (indexOfBy == -1) {
+            throw new PingMeException("Make sure to include /by ___ for deadline object" +
+                    "and /from ___ /to ___ for events object");
+        }
+
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+        StringBuilder by = new StringBuilder();
+
+        if (words.size() < 6) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            for (int i = 2; i < words.size(); i++) {
+                if (i > indexOfBy) {
+                    by.append(" ").append(words.get(i));
+                }
+            }
+
+            return new PostponeCommand(taskToPostpone - 1, " ", " ",
+                    LocalDateTime.parse(by.toString().trim(), formatter));
+        }
+
+        if (words.size() > 5) {
+            System.out.println("im here");
+            for (int i = 2; i < words.size(); i++) {
+                if (i > indexOfFrom && i < indexOfTo) {
+                    from.append(words.get(i));
+                } else if (i > indexOfTo) {
+                    to.append(words.get(i));
+                }
+            }
+
+            return new PostponeCommand(taskToPostpone - 1, from.toString(), to.toString(), null);
+        }
+
+        throw new PingMeException("Try again with your command!");
     }
 }
