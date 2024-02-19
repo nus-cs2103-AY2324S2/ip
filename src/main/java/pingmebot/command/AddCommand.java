@@ -4,9 +4,12 @@ import pingmebot.PingMeException;
 import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
-import pingmebot.task.Deadline;
 import pingmebot.task.Task;
 
+
+/**
+ * Represents a command for the user to add a task from the task list in the application.
+ */
 public class AddCommand extends Command {
 
     private Task task;

@@ -1,16 +1,18 @@
 package pingmebot;
 
-import org.junit.jupiter.api.Test;
-import pingmebot.task.Task;
-import pingmebot.task.ToDos;
-
-import java.io.*;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import pingmebot.task.Task;
+import pingmebot.task.ToDos;
 public class TaskListTest {
     @Test
     public void getTaskSizeTest() {
@@ -43,7 +45,7 @@ public class TaskListTest {
                 fail("Test Failed.");
             }
 
-            assertEquals("todo | 0 | project 1" + "\n" + "todo | 0 | project 2" + "\n",totalLine);
+            assertEquals("todo | 0 | project 1" + "\n" + "todo | 0 | project 2" + "\n", totalLine);
         } catch (PingMeException e) {
             fail("Test Failed.");
         }
@@ -55,7 +57,7 @@ public class TaskListTest {
         ArrayList<Task> tasks = new ArrayList<>();
         TaskList tl = new TaskList(tasks);
         tl.addTask(new ToDos("project"));
-        assertEquals(1,tl.tasks.size());
+        assertEquals(1, tl.tasks.size());
     }
 
     @Test

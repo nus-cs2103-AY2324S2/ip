@@ -1,16 +1,23 @@
 package pingmebot;
 
-import pingmebot.command.*;
-import pingmebot.task.ToDos;
-import pingmebot.task.Deadline;
-import pingmebot.task.Events;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import pingmebot.command.AddCommand;
+import pingmebot.command.DeleteCommand;
+import pingmebot.command.FindCommand;
+import pingmebot.command.MarkCommand;
+import pingmebot.command.UnmarkCommand;
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.ToDos;
+
+
+
+
 
 /**
  * Helps to parse and make sense of user's inputs.
@@ -25,7 +32,7 @@ public class Parser {
      *
      * @param userInput User's inputs.
      */
-    public Parser (String userInput){
+    public Parser(String userInput) {
         this.userInput = userInput;
         this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));
     }
@@ -65,7 +72,7 @@ public class Parser {
      */
     public AddCommand parseDeadlineCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
-        StringBuilder by  = new StringBuilder();
+        StringBuilder by = new StringBuilder();
         int index = this.words.indexOf("/by");
         if (index != -1) {
             if (index != 1) {
@@ -122,7 +129,7 @@ public class Parser {
                     + "Try writing: event (task description) /from (date/time) /to (date/time)");
 
         } else {
-            if (indexOfFrom == 1 || indexOfTo == 1) {} else {
+            if (indexOfFrom == 1 || indexOfTo == 1) { } else {
                 description = new StringBuilder(this.words.get(1));
             }
         }
@@ -134,7 +141,7 @@ public class Parser {
             } else if (i > indexOfFrom && i < indexOfTo) {
                 start.append(" ").append(words.get(i));
 
-            } else if (i > indexOfTo){
+            } else if (i > indexOfTo) {
                 end.append(" ").append(words.get(i));
             }
         }

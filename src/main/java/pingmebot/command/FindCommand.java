@@ -1,13 +1,18 @@
 package pingmebot.command;
 
+import java.util.ArrayList;
+
 import pingmebot.PingMeException;
 import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
 import pingmebot.task.Task;
 
-import java.util.ArrayList;
 
+
+/**
+ * Represents a command for the user to find a task from the task list in the application.
+ */
 public class FindCommand extends Command {
 
     private String keyword;

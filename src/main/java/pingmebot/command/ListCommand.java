@@ -5,6 +5,9 @@ import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
 
+/**
+ * Represents a command for the user to list all tasks from the task list in the application.
+ */
 public class ListCommand extends Command {
 
     /**
