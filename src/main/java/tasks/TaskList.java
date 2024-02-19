@@ -124,10 +124,9 @@ public class TaskList {
         case "event":
             task = initEvent(message);
             break;
-        default: {
+        default:
             //should not reach here because of filter in main logic
             task = new Task(message);
-        }
         }
         return task;
     }

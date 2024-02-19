@@ -56,4 +56,8 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public void setDialogStyle(String style) {
+        dialog.setStyle(style);
+    }
 }

@@ -83,19 +83,23 @@ public class MainWindow extends AnchorPane {
         assert input != null;
         String response = duke.getResponse(input);
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+
         if (input.equals("bye")) {
             response = response + this.exit();
-        }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
-
-        userInput.clear();
-
-        if (input.equals("bye")) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
             timeline.play();
         }
+
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        if (response.startsWith("Error")) {
+            dukeDialog.setDialogStyle("-fx-text-fill: red;");
+        }
+
+        dialogContainer.getChildren().addAll(userDialog, dukeDialog);
+        userInput.clear();
+
     }
 }
