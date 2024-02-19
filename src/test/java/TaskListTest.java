@@ -1,17 +1,15 @@
 package oop;
 
+import lemona.oop.TaskList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import exceptions.DuplicateInstructionException;
-import exceptions.OutOfIndexException;
-import task.Todo;
+import lemona.task.Deadline;
+import lemona.task.Event;
+import lemona.task.Todo;
 
 public class TaskListTest {
 

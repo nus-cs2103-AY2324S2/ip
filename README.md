@@ -1,24 +1,24 @@
-# Duke project template
+# LEMONA - Your Plan Assistance and Vitamin Source
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Feeling exhausted and overwhelmed with your tasks? Look no further! LEMONA is here to assist you in planning your future while providing you with the essential vitamins you need to stay energized and focused.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- **Task Management**: Keep track of your tasks efficiently.
+- **Deadline Tracking**: Never miss a deadline again with LEMONA's deadline tracking feature.
+- **Event Scheduling**: Organize your events seamlessly with LEMONA.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Getting Started
+
+To get started with LEMONA, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Ensure you have Java installed on your system.
+3. Compile the Java files using a Java compiler.
+4. Run the main class `Duke` to start LEMONA.
+
+## Contributing
+Contributions are welcome! If you have any ideas or improvements for LEMONA, feel free to open an issue or submit a pull request.
+
+## Support
+If you encounter any issues or have any questions about LEMONA, please feel free to contact us. You can also visit our website for more information and resources.
