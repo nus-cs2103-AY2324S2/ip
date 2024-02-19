@@ -1,6 +1,6 @@
 # HAL 9000 User Guide
 
-![HAL 9000 UI Screenshot](docs/Ui.png)
+![HAL 9000 UI Screenshot](Ui.png)
 
 Welcome to the HAL 9000 User Guide!
 
