@@ -7,8 +7,6 @@
 </p>
         <h2 align="center">Scribbles</h2>
 
----
-
 # Scribbles User Guide
 Scribbles may be a goldfish, but rest assured, her memory extends far beyond 3 seconds!
 Scribbles excels at helping you organise your life by keeping track of your tasks and schedules. 
