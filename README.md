@@ -50,7 +50,7 @@ You can easily search for tasks which
 You can use the following commands to search tasks.
 
 Example 1: `search_by_date <date>` to search tasks by date  
-Example 2: `search_by_date <keyword>` to search tasks by keyword  
+Example 2: `search_by_keyword <keyword>` to search tasks by keyword  
 
 ## Marking/Unmarking Tasks
 You can mark a task as done or reversely unmark it to leave it undone, so that you can clearly see your current progress in your task list.
