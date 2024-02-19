@@ -4,7 +4,14 @@ import judy.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The Encoder class is to encode a list of Task objects into encoded string format for storage.
+ */
 public class Encoder {
+
+    /**
+     * Encodes the list of Task objects into a decodable and readable string representation.
+     */
     public static String encodeTasks(ArrayList<Task> tasks) {
         StringBuilder encodedTasks = new StringBuilder();
         for (Task t : tasks) {

@@ -5,9 +5,17 @@ import judy.task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Decoder class is to decodes the storage into TaskList objects.
+ */
 public class Decoder {
 
-
+    /**
+     * Decodes an encoded list of tasks and returns a TaskList object.
+     *
+     * @param encodedTasks The encoded string containing task information.
+     * @return The TaskList object containing decoded tasks.
+     */
     public static TaskList decodeTasks(String encodedTasks) {
         String[] taskLines = encodedTasks.split("\n");
         TaskList decodedTaskList = new TaskList();
@@ -18,6 +26,13 @@ public class Decoder {
         }
         return decodedTaskList;
     }
+
+    /**
+     * Decodes an encoded task and returns the corresponding Task object.
+     *
+     * @param taskLine The encoded string containing information about a task.
+     * @return The Task object representing the decoded task.
+     */
     public static Task decode(String taskLine) {
         String[] parts = taskLine.split("\\|");
         String taskType = parts[0].trim();

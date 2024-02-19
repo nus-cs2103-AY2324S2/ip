@@ -5,15 +5,24 @@ import judy.ui.Ui;
 
 /**
  * This is an abstract class which have a generic subclasses
- * to execute specific command
+ * to execute specific command and provide information about whether
+ * the command signals an exit from the application.
  */
 public abstract class Command {
+
     /**
-     * Execute command and perform necessary actions
+     * Executes the specific action associated with the command.
      *
-     * @param storage The storage object that manages the data persistence
+     * @param storage The storage component responsible for managing data storage.
+     * @param ui      The user interface component for interacting with the user.
      */
     public abstract void execute(Storage storage, Ui ui);
+
+    /**
+     * Indicates whether the execution of this command signals an exit from the application.
+     *
+     * @return True if the command represents an exit, false otherwise.
+     */
     public abstract boolean isExit();
 
 }
