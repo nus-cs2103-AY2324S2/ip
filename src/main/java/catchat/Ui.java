@@ -51,7 +51,6 @@ public class Ui {
      * @return String user input
      */
     public String getUserInput() {
-        // System.out.println("Enter a task below: ");
         return scanner.nextLine();
     }
 
