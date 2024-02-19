@@ -6,7 +6,7 @@ list app for you.
 
 ## Quick start
 
-Download the latest `Luke.jar` from (here)[]
+Download the latest `Luke.jar` from (here)[https://github.com/LWS49/ip/blob/master/build/libs/luke.jar]
 
 ## Features 
 
