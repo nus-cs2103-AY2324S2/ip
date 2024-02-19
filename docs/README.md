@@ -67,7 +67,7 @@ Adds an event task to the task list, with a specified from and to date.
 Displays all tasks in the task list.
 
 🔹 **Format**: `list`<br><br>
-✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br><br><br>
+✅ **Expected Outcome**: The application will display all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Marking a Task as Done: `mark`</span>
@@ -109,7 +109,7 @@ Finds tasks by a keyword.
 
 🔹 **Format**: `find KEYWORD`<br>
     - The search is case-insensitive, e.g `meeting` will match `Meeting`<br>
-    - Partial words will be matched as well, e.g `meet` will match `meeting`<br>
+    - Only full words will be matched, e.g `meet` will not match `meeting`<br>
 <br>
 🌟 **Example**: `find book`<br><br>
 ✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.<br><br><br>
