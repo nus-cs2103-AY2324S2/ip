@@ -106,7 +106,7 @@ To mark a task as done, you can type `mark [TASK_INDEX]`
 
 **Example of usage:**
 
-`list`, followed by `mark 1`
+`mark 1`
 
 **Expected outcome:**
 
@@ -121,7 +121,7 @@ To mark a task as not done, you can type `unmark [TASK_INDEX]`
 
 **Example of usage:**
 
-`list`, followed by `unmark 2`
+`unmark 1`
 
 **Expected outcome:**
 
@@ -136,7 +136,7 @@ To delete a task, you can type `delete [TASK_INDEX]`
 
 **Example of usage:**
 
-`list`, followed by `delete 1`
+`delete 1`
 
 ```
 Successful deletion
