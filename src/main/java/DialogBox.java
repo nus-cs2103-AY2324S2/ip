@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 /**
  * DialogBox class.
@@ -37,8 +38,10 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        dialog.setText(text);
+        Text message = new Text(text);
+        message.setWrappingWidth(200);
+        dialog.setWrapText(true);
+        dialog.setText(message.getText());
         displayPicture.setImage(img);
     }
 

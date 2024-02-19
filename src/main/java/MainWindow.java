@@ -4,7 +4,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -40,11 +42,15 @@ public class MainWindow extends AnchorPane {
         assert userText != null;
 
         String dukeText = duke.getResponseMessage(userText);
+        DialogBox userDialog = DialogBox.getUserDialog(userText, userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, dukeImage);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, dukeImage)
+                userDialog,
+                dukeDialog
         );
         dialogContainer.setPadding(new Insets(10));
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
         userInput.clear();
     }
 }
