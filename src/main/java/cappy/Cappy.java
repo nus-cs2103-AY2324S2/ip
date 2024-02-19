@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ import java.io.IOException;
 public class Cappy extends Application {
     private static TaskList taskList;
     private static Storage storage;
-    private MainWindow mainWindow;
+    private static MainWindow mainWindow;
 
     public Cappy() {
         try {
@@ -44,6 +45,7 @@ public class Cappy extends Application {
     public void start(Stage stage) {
         try {
             stage.setTitle("Cappy");
+            stage.setOnCloseRequest(this::handleExit);
             FXMLLoader fxmlLoader = new FXMLLoader(Cappy.class.getResource(MAIN_WINDOW_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
@@ -72,7 +74,11 @@ public class Cappy extends Application {
         }
     }
 
-    public void exit() {
+    public void handleExit(WindowEvent event) {
+        exit();
+    }
+
+    public static void exit() {
         try {
             storage.close();
         } catch (IOException e) {
