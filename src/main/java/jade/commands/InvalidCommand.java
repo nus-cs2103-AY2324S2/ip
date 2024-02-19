@@ -18,7 +18,8 @@ public class InvalidCommand extends Command {
         this.invalidMessage = exceptionMessage;
     }
     /**
-     * @inheritDoc This implementation prints an error message to user
+     * {@inheritDoc}
+     * Prints an error message to user
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
@@ -26,7 +27,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * @inheritDoc The InvalidCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

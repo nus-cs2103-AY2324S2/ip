@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getJadeDialog(Ui.LAUNCH_MESSAGE, jadeImage));
+        dialogContainer.getChildren().addAll(JadeDialogBox.getJadeDialog(Ui.LAUNCH_MESSAGE, jadeImage));
     }
 
     public void setJade(Jade j) {
@@ -55,8 +55,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = jade.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJadeDialog(response, jadeImage)
+                JadeDialogBox.getUserDialog(input, userImage),
+                JadeDialogBox.getJadeDialog(response, jadeImage)
         );
         actOnExit();
         userInput.clear();

@@ -49,7 +49,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @inheritDoc This implementation prints all tasks with an option to specify a date.
+     * {@inheritDoc}
+     * Prints all tasks with an option to specify a date.
      */
     private String handleListWithDate(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
@@ -77,7 +78,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @inheritDoc The ListCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

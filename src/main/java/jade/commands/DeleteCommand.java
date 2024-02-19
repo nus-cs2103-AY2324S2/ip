@@ -22,7 +22,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * @inheritDoc This implementation prints a delete message after the task is deleted.
+     * {@inheritDoc}
+     * Prints a delete message after the task is deleted.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -37,7 +38,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * @inheritDoc The DeleteCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

@@ -45,7 +45,8 @@ public class HelpCommand extends Command {
             + "{endDateTime}, and {index} with appropriate values when using these commands.";
 
     /**
-     * @inheritDoc This implementation prints an add message after the task is added.
+     * {@inheritDoc}
+     * Prints an add message after the task is added.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -53,7 +54,8 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * @inheritDoc The HelpCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

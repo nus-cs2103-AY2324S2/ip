@@ -135,8 +135,9 @@ public class RecurringTask extends Task {
         return time.format(DateTimeFormatter.ofPattern("hh:mm a"));
     }
     /**
-     * @inheritDoc This implementation checks whether one of all periodical dates of the
-     *      task is equal the given date.
+     * {@inheritDoc}
+     * Checks whether one of all periodical dates of the task
+     * is equal the given date.
      */
     @Override
     public boolean isSameDate(LocalDate date) {
@@ -157,7 +158,8 @@ public class RecurringTask extends Task {
     }
 
     /**
-     * @inheritDoc Adds the start dateTime and end dateTime at the end.
+     * {@inheritDoc}
+     * Adds the start dateTime and end dateTime at the end.
      */
     @Override
     public String taskFormatter() {

@@ -10,7 +10,8 @@ import jade.storage.Storage;
 public class ExitCommand extends Command {
     private static final String RESULT_MSG_FORMATTED = "Thank you for using Jade, have a great day. :D";
     /**
-     * @inheritDoc This implementation prints a farewell message after saving changes to the local file.
+     * {@inheritDoc}
+     * Prints a farewell message after saving changes to the local file.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -19,7 +20,8 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * @inheritDoc The ExitCommand indicates the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is exiting.
      */
     @Override
     public boolean isExit() {

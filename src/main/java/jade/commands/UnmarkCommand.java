@@ -21,7 +21,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc This implementation prints an unmark message after the task is unmarked.
+     * {@inheritDoc}
+     * Prints an unmark message after the task is unmarked.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -35,7 +36,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc The UnmarkCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {
