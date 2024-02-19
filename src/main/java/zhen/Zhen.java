@@ -11,18 +11,18 @@ public class Zhen {
     private final Ui ui;
 
     /**
-     * Construct Duke instance, initialize application's components.
+     * Constructs Zhen instance, initializes application's components.
      *
-     * @param filePath the path the program restore previously stored tasks.
+     * @param filePath The path the program restore previously stored tasks.
      */
     public Zhen(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        tasks = new TaskList(storage.loadTasks());
     }
 
     /**
-     * Start the application, use the loop to get user's input and process
+     * Starts the application, uses the loop to get user's input and process.
      */
     public void run() {
         ui.showWelcome();
@@ -51,9 +51,9 @@ public class Zhen {
     }
 
     /**
-     * The entry point of the entire program, create a Duke instance and run it.
+     * Enters the entire program, create a Zhen instance and run it.
      *
-     * @param args parameter not in use.
+     * @param args Parameter not in use.
      */
     public static void main(String[] args) {
         new Zhen("database.ser").run();

@@ -1,5 +1,6 @@
 package zhen;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,15 +8,14 @@ import zhen.command.*;
 import zhen.task.*;
 
 /**
- * The class used to parse the input from user to commands that
- * the program can execute
+ * Parser class parses the input from user to commands.
  */
 public class Parser {
     /**
-     * Parse the data in string formate to a specified LocalDate format
-     * .
-     * @param date the string representation of a date
-     * @return the localDate representation of the data inputted by the user
+     * Parses the data in string format to the specified LocalDate format.
+     *
+     * @param date String representation of a date.
+     * @return LocalDate representation of the data inputted by the user.
      */
     public static LocalDate parseDate(String date) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -24,47 +24,94 @@ public class Parser {
     }
 
     /**
-     * Parse the String command by the user to command that could be executed by the program
+     * Parses the string format command from the user to command that could be executed by the program.
      *
-     * @param userInput The input from users
-     * @return A command object that represent the action to be performed
+     * @param userInput The input from users.
+     * @return Command object that represent the action to be performed.
      */
     public static Command parse(String userInput) {
-        if (userInput.equals("bye")) {
-            return new ExitCommand();
-        } else if (userInput.equals("list")) {
-            return new ListCommand();
-        } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("todo")) {
+        if (parseAddCommand(userInput) != null) {
+            return parseAddCommand(userInput);
+        }
+        if (parseMarkingCommands(userInput) != null) {
+            return parseMarkingCommands(userInput);
+        }
+        if (parseDeleteCommand(userInput) != null) {
+            return parseDeleteCommand(userInput);
+        }
+        if (parseFindCommand(userInput) != null) {
+            return parseFindCommand(userInput);
+        }
+        if (parseSingleWordCommands(userInput) != null) {
+            return parseSingleWordCommands(userInput);
+        } else {
+            return new DontknowCommand();
+        }
+    }
+    private static Command parseAddCommand(String userInput) {
+        if (userInput.length() >= 4 && userInput.substring(0, 4).equals("todo")) {
             return new AddCommand(new Todos(userInput.substring(4)));
         } else if (userInput.length() >= 8 && userInput.substring(0, 8).equals("deadline")) {
             String[] strarr = processDeadlineMsg(userInput.substring(8));
-            return new AddCommand(new Deadline(strarr[0], parseDate(strarr[1])));
+            try {
+                return new AddCommand(new Deadline(strarr[0], parseDate(strarr[1])));
+            } catch (Exception e) {
+                return new AddCommand(new Deadline(strarr[0], strarr[1]));
+            }
         } else if (userInput.length() >= 5 && userInput.substring(0, 5).equals("event")) {
             String[] strarr = processEventMsg(userInput.substring(5));
-            return new AddCommand(new Event(strarr[0], parseDate(strarr[1]), parseDate(strarr[2])));
-        } else if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
+            try {
+                return new AddCommand(new Event(strarr[0], parseDate(strarr[1]), parseDate(strarr[2])));
+            } catch (Exception e) {
+                return new AddCommand(new Event(strarr[0], strarr[1], strarr[2]));
+            }
+        }
+        return null;
+    }
+
+    private static Command parseMarkingCommands(String userInput) {
+        if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
             int number = Integer.parseInt(userInput.substring(5));
             return new MarkCommand(number);
         } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("unmark")) {
             int number = Integer.parseInt(userInput.substring(7));
             return new UnmarkCommand(number);
-        } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("delete")) {
-            int number = Integer.parseInt(userInput.substring(7));
-            return new DeleteCommand(number);
-        } else if (userInput.length() > 4 && userInput.substring(0, 4).equals("find")) {
-            String stringToFind = userInput.substring(5);
-            return new FindCommand(stringToFind);
-        } else {
-            return new DontknowCommand();
         }
+        return null;
     }
 
+    private static Command parseDeleteCommand(String userInput) {
+        if (userInput.length() > 6 && userInput.substring(0, 6).equals("delete")) {
+            int number = Integer.parseInt(userInput.substring(7));
+            return new DeleteCommand(number);
+        }
+        return null;
+    }
+
+    private static Command parseFindCommand(String userInput) {
+        if (userInput.length() > 4 && userInput.substring(0, 4).equals("find")) {
+            String stringToFind = userInput.substring(5);
+            return new FindCommand(stringToFind);
+        }
+        return null;
+    }
+
+    private static Command parseSingleWordCommands(String userInput) {
+        switch (userInput) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        default:
+            return null;
+        }
+    }
     /**
-     * Extract important information in user's command and organized them into a list of String
+     * Extracts important information in user's command and organizes them into a list of String.
      *
-     * @param userInput User's input with only informative parts, i.e. without the command part
-     * @return A list of String of three elements, the first element is the information about the event,
-     * the second element is the starting time of the event, and the third element is the ending time of the event
+     * @param userInput User's input with only informative parts, i.e. without the command part.
+     * @return A list of String with three elements, the first element is the information about the event,
+     * the second element is the starting time of the event, and the third element is the ending time of the event.
      */
     static String[] processEventMsg(String userInput) {
         String[] eventDetails = new String[3];
@@ -93,11 +140,11 @@ public class Parser {
         return eventDetails;
     }
     /**
-     * Extract important information in user's command and organized them into a list of String
+     * Extracts important information in user's command and organizes them into a list of String.
      *
      * @param userInput User's input with only informative parts, i.e. without the command part
      * @return A list of String of two elements, the first element is the information about the event,
-     * the second element is the deadline of the event
+     * the second element is the deadline of the event.
      */
     static String[] processDeadlineMsg(String userInput) {
         String[] deadlineDetails = new String[2];

@@ -10,16 +10,16 @@ public abstract class Command {
     /**
      * Executing specific command.
      *
-     * @param taskList the List of tasks the command may work on
-     * @param ui to manage the interaction with users
-     * @param storage to store the product of execution locally.
+     * @param taskList The List of tasks the command may work on.
+     * @param ui To manage the interaction with users.
+     * @param storage To store the product of execution locally.
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     /**
-     * Determine whether this command is an exit command
+     * Determine whether this command is an exit command.
      *
-     * @return true if the command is an exit command and false otherwise.
+     * @return True if the command is an exit command and false otherwise.
      */
     public abstract boolean isExit();
 }
