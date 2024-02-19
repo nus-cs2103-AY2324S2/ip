@@ -1,3 +1,35 @@
+# <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="40"> GeePeeTee: Your Java Task Manager ✨ 
+> The only Java I love is Java Chip Frappuccino ☕  - Jared
+
+Manage your tasks efficiently with **GeePeeTee**, the Java-based task manager that keeps you organized and productive.
+
+## Features:
+
+- **Ease of Use**: Simply intuitive
+- **Cross-Platform**: Works on multiple platforms
+- **Open Source**: Dive into the code
+
+## Upcoming Features:
+- [ ] Add JavaFx GUI
+- [ ] :tada: Celebrate the first release!
+
+> [!IMPORTANT]
+> ## How to Get Started
+1. Clone the repository:
+```bash
+git clone https://github.com/Jajared/ip.git
+```
+2. Navigate to the project directory
+```bash
+cd src/main/java
+```
+3. Compile the source code and run the application
+```bash
+javac Main.java && java Main
+```
+
+This project was forked from [CS2103T ip Repo](https://github.com/nus-cs2103-AY2324S2/ip/). Many thanks to the awesome CS2103T Teaching Team! 👍 🏅 💯 
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
@@ -22,3 +54,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
