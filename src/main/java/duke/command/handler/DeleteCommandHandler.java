@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.handler;
 
+import duke.command.handler.CommandHandler;
 import duke.task.TaskManager;
 
 public class DeleteCommandHandler extends CommandHandler {
@@ -17,5 +18,10 @@ public class DeleteCommandHandler extends CommandHandler {
         String deletedTask = taskManager.displayTask(String.join(" ", userMessage));
         taskManager.deleteTask(taskIndex);
         return deletedTask;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Deletes a task. Usage: del 2";
     }
 }

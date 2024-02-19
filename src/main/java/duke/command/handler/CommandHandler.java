@@ -1,4 +1,4 @@
-package duke.command;
+package duke.command.handler;
 
 import duke.task.TaskManager;
 
@@ -24,4 +24,6 @@ public abstract class CommandHandler {
     }
 
     public abstract String handle(String[] userMessage);
+
+    public abstract String getDescription();
 }

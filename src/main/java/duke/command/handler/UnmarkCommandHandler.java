@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.handler;
 
+import duke.command.handler.CommandHandler;
 import duke.task.TaskManager;
 
 public class UnmarkCommandHandler extends CommandHandler {
@@ -16,6 +17,11 @@ public class UnmarkCommandHandler extends CommandHandler {
         int taskIndex = Integer.parseInt(userMessage[1]) - 1;
         taskManager.markAsIncomplete(taskIndex);
         return taskManager.displayTask(String.join(" ", userMessage));
+    }
+
+    @Override
+    public String getDescription() {
+        return "Unmarks a given task. Usage: um 3";
     }
 }
 

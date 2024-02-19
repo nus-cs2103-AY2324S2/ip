@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.handler;
 
+import duke.command.handler.CommandHandler;
 import duke.task.Task;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
@@ -28,6 +29,11 @@ public class FindCommandHandler extends CommandHandler {
         }
 
         return taskDisplay.printFindTaskList(matchingTasks);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Finds a matching task. Usage: f gym";
     }
 }
 

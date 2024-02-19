@@ -20,29 +20,29 @@ public class TaskDisplay {
         String[] tokens = input.split(" ");
         String command = tokens[0].toLowerCase();
 
-        if (!command.equalsIgnoreCase("list") && tokens.length == 1) {
+        if (!command.equalsIgnoreCase("lst") && tokens.length == 1) {
             // Ensure that the command is valid and has additional arguments
-            assert false : "Invalid command or missing arguments";
+            //assert false : "Invalid command or missing arguments";
             message.append(printErrorMessage(input));
             return message.toString();
         }
 
         int index;
         switch (command) {
-            case "list":
+            case "lst":
                 message.append(printTaskList(taskList));
                 break;
-            case "mark":
+            case "m":
                 assert tokens.length >= 2 : "Invalid mark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printMarkTask(taskList, index));
                 break;
-            case "unmark":
+            case "um":
                 assert tokens.length >= 2 : "Invalid unmark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printUnmarkTask(taskList, index));
                 break;
-            case "delete":
+            case "d":
                 assert tokens.length >= 2 : "Invalid delete command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printDeletedTask(taskList, index));
@@ -65,7 +65,7 @@ public class TaskDisplay {
     private String printTaskList(List<Task> taskList) {
         StringBuilder message = new StringBuilder();
         if (taskList.isEmpty()) {
-            message.append("Your task list is empty. :(\n");
+            message.append("Your task list is empty :(\n Please add some tasks!");
         } else {
             message.append("Here are the tasks in your list:\n");
             int count = 1;

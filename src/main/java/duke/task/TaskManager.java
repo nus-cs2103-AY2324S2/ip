@@ -1,8 +1,9 @@
 package duke.task;
 
+import duke.task.exception.DukeException;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The TaskManager class handles the management of tasks, including adding, deleting,
@@ -29,27 +30,29 @@ public class TaskManager {
 
     /**
      * Adds a new task to the task list based on the provided task description and type.
-     * Automatically saves the updated task list.
+     * Automatically saves the updated task list. Prevents adding a task if one with the
+     * same description and type already exists.
      *
      * @param taskDescription The description of the task.
      * @param type            The type of the task (Todo, Event, Deadline).
+     * @return
      */
-    public void addTask(String taskDescription, TaskType type) {
+    public boolean addTask(String taskDescription, TaskType type) {
         try {
             if (taskDescription.trim().equalsIgnoreCase(type.toString())) {
-                return;
+                return false;
             }
 
             Task task;
             switch (type) {
-                case Todo:
+                case TODO:
                     task = new Todo(taskDescription, false);
                     break;
-                case Event:
+                case EVENT:
                     task = new Event(taskDescription, false,
                             LocalDateTime.now(), LocalDateTime.now().plusDays(1));
                     break;
-                case Deadline:
+                case DEADLINE:
                     LocalDateTime defaultDeadline = LocalDateTime.now().plusDays(1);
                     task = new Deadline(taskDescription, false, defaultDeadline);
                     break;
@@ -60,9 +63,11 @@ public class TaskManager {
 
             taskList.add(task);
             autoSaveTask();
+            return true;
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     /**

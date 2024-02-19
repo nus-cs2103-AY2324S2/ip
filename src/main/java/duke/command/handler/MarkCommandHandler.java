@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.handler;
 
+import duke.command.handler.CommandHandler;
 import duke.task.TaskManager;
 
 public class MarkCommandHandler extends CommandHandler {
@@ -16,5 +17,10 @@ public class MarkCommandHandler extends CommandHandler {
         int taskIndex = Integer.parseInt(userMessage[1]) - 1;
         taskManager.markAsComplete(taskIndex);
         return taskManager.displayTask(String.join(" ", userMessage));
+    }
+
+    @Override
+    public String getDescription() {
+        return "Marks a given task. Usage: m 2";
     }
 }
