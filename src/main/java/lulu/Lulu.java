@@ -55,11 +55,11 @@ public class Lulu {
                     command.execute(this.tasks, this.storage);
                 }
             } catch (InvalidCommandException e) {
-                UI.print("My bad, I don't think I quite understood what you meant...");
+                UI.print(e.getMessage());
             } catch (InvalidDateException e) {
                 UI.print("Did you input valid start and end dates?");
             } catch (InvalidSlashParameterException e) {
-                UI.print("Did you input valid date parameters?");
+                UI.print(e.getMessage());
             } catch (LuluException e) {
                 UI.print(e.getMessage());
             }
@@ -89,13 +89,15 @@ public class Lulu {
                 return command.execute(this.tasks, this.storage);
             }
         } catch (InvalidCommandException e) {
-            return "My bad, I don't think I quite understood what you meant...";
+            return e.getMessage();
         } catch (InvalidDateException e) {
             return "Did you input valid start and end dates?";
         } catch (InvalidSlashParameterException e) {
-            return "Did you input valid date parameters?";
+            return e.getMessage();
         } catch (LuluException e) {
             return e.getMessage();
+        } catch (Exception e) {
+            return "Idk what you just said, you might wanna check if your command format is correct";
         }
     }
 

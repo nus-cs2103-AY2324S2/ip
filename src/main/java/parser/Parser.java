@@ -48,7 +48,7 @@ public class Parser {
         } else if (firstWord.equals("find")) {
             return manageTasks(Command.Types.FIND, input);
         } else {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("I don't understand the command you want to call");
         }
     }
 
@@ -73,7 +73,7 @@ public class Parser {
         case FIND:
             return find(input);
         default:
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("I don't recognise this command");
         }
     }
 
@@ -94,7 +94,7 @@ public class Parser {
         case EVENT:
             return event(input);
         default:
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("I don't recognise this command");
         }
     }
 
@@ -108,7 +108,7 @@ public class Parser {
     public Command mark(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'mark {index}'");
         }
         int[] indices = new int[words.length - 1];
         for (int i = 1; i < words.length; i++) {
@@ -127,7 +127,7 @@ public class Parser {
     public Command unmark(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'unmark {index}'");
         }
         int[] indices = new int[words.length - 1];
         for (int i = 1; i < words.length; i++) {
@@ -146,7 +146,7 @@ public class Parser {
     public Command delete(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'delete {index}'");
         }
         int[] indices = new int[words.length - 1];
         for (int i = 1; i < words.length; i++) {
@@ -165,7 +165,7 @@ public class Parser {
     public Command query(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 2) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'query {task_type} {yyyy-mm-dd}'");
         }
 
         String taskType = words[1].toLowerCase();
@@ -185,7 +185,7 @@ public class Parser {
     public Command find(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'find {query_string}'");
         }
 
         String queryString = words[1].toLowerCase();
@@ -201,7 +201,7 @@ public class Parser {
      */
     public Command todo(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'todo {name}'");
         }
         String name = input.substring(5).strip();
         Todo todo = new Todo(name);
@@ -219,11 +219,11 @@ public class Parser {
      */
     public Command deadline(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is 'deadline {name} /by {yyyy-mm-dd}'");
         }
         int indexBy = input.indexOf('/');
         if (!input.substring(indexBy + 1).split(" ")[0].equals("by")) {
-            throw new InvalidSlashParameterException();
+            throw new InvalidSlashParameterException("Correct command format is 'deadline {name} /by {yyyy-mm-dd}'");
         }
         String name = input.substring(9, indexBy).strip();
         String by = input.substring(indexBy + 3).strip();
@@ -242,15 +242,18 @@ public class Parser {
      */
     public Command event(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException("Correct command format is "
+                    + "'event {name} /from {yyyy-mm-dd}' /to {yyyy-mm-dd}'");
         }
         int indexFrom = input.indexOf('/');
         int indexTo = input.indexOf('/', indexFrom + 1);
         if (!input.substring(indexFrom + 1).split(" ")[0].equals("from")) {
-            throw new InvalidSlashParameterException();
+            throw new InvalidSlashParameterException("Correct command format is "
+                    + "'event {name} /from {yyyy-mm-dd}' /to {yyyy-mm-dd}'");
         }
         if (!input.substring(indexTo + 1).split(" ")[0].equals("to")) {
-            throw new InvalidSlashParameterException();
+            throw new InvalidSlashParameterException("Correct command format is "
+                    + "'event {name} /from {yyyy-mm-dd}' /to {yyyy-mm-dd}'");
         }
         String name = input.substring(6, indexFrom).strip();
         String from = input.substring(indexFrom + 5, indexTo).strip();

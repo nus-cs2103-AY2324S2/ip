@@ -5,7 +5,7 @@ package exceptions;
  * This exception is specific to the lulu.Lulu application and is a subclass of {@link LuluException}.
  */
 public class InvalidSlashParameterException extends LuluException {
-    public InvalidSlashParameterException() {
-        super("Could not decipher command after slash");
+    public InvalidSlashParameterException(String message) {
+        super(message);
     }
 }
