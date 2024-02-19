@@ -7,15 +7,15 @@ import tes.taskmanager.TaskList;
  * Represents a class to deal with input and output of the chatbot system.
  */
 public class Ui {
-    private TaskList taskList; // tes.taskmanager.Task List to store tasks
-    private Storage store;
+    private TaskList taskList;
+    private Storage storage;
 
     /**
      * Constructs a User Interface to deal with input and output.
      */
     public Ui() {
-        this.store = new Storage();
-        this.taskList = new TaskList(this.store.loadFromFile());
+        this.storage = new Storage();
+        this.taskList = new TaskList(this.storage.loadFromFile());
     }
 
 

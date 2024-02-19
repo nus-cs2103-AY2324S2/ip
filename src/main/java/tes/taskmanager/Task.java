@@ -6,8 +6,8 @@ package tes.taskmanager;
  * @author Wong Xu Cheng
  */
 public class Task {
-    private String description; // Description of the task.
-    private boolean isDone; // Status of the task.
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructs a task.

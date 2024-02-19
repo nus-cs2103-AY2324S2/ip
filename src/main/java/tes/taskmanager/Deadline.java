@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * Constructs the task with deadline.
      *
      * @param description Description of the task.
-     * @param by tes.taskmanager.Deadline of the task.
+     * @param by Deadline of the task.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);

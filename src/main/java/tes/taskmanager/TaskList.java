@@ -42,8 +42,8 @@ public class TaskList {
      * @param by tes.taskmanager.Deadline of the task.
      */
     public void storeDeadline(String task, String by) {
-        LocalDateTime by1 = LocalDateTime.parse(by, FORMATTER_RECEIVE);
-        Deadline newDeadline = new Deadline(task, by1);
+        LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_RECEIVE);
+        Deadline newDeadline = new Deadline(task, formattedBy);
         this.tasks.add(newDeadline);
         Storage.saveToFile(this.tasks);
     }
@@ -56,9 +56,9 @@ public class TaskList {
      * @param to Ending time of the task.
      */
     public void storeEvent(String task, String from, String to) {
-        LocalDateTime from1 = LocalDateTime.parse(from, FORMATTER_RECEIVE);
-        LocalDateTime to1 = LocalDateTime.parse(to, FORMATTER_RECEIVE);
-        Event newEvent = new Event(task, from1, to1);
+        LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_RECEIVE);
+        LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_RECEIVE);
+        Event newEvent = new Event(task, formattedFrom, formattedTo);
         this.tasks.add(newEvent);
         Storage.saveToFile(this.tasks);
     }
