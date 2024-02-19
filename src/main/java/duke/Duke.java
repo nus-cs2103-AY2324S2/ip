@@ -49,7 +49,7 @@ public class Duke extends Application {
         assert response != null : "Response StringBuilder must not be null";
 
         if (input.equals("bye")) {
-            response.append("    Bye. Hope to see you again soon!");
+            response.append("Bye. Hope to see you again soon!");
             Platform.exit(); // Exit the application
         } else if (input.equals("list")) {
             response.append(TaskList.getTaskList(tasks));
@@ -66,7 +66,7 @@ public class Duke extends Application {
         } else if (tokens[0].equals("find")) {
             response.append(taskList.findTask(input, tasks));
         } else {
-            response.append("     SOMETHING WENT WRONG!! Invalid input.");
+            response.append("SOMETHING WENT WRONG!! Invalid input.");
         }
 
         // Save tasks to duke.txt file

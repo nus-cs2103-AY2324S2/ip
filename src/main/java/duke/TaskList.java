@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Represents a list of tasks and provides methods to manipulate the tasks
  */
 public class TaskList {
+  private static final String SPACING = "     ";
   /**
    * Marks a task as done or undone based on the provided token.
    *
@@ -24,26 +25,27 @@ public class TaskList {
     try {
       int index = Integer.parseInt(token[1]) - 1;
 
-      if (index >= 0 && index < tasks.size()) {
-        if (token[0].equals("mark")) {
-          if (tasks.get(index).getIsDone()) {
-            stringBuilder.append("     This task was already marked as done previously.\n");
-          } else {
-            tasks.get(index).markAsDone();
-            stringBuilder.append("     Nice! I've marked this task as done:\n");
-            stringBuilder.append("       ").append(tasks.get(index));
-          }
-        } else if (token[0].equals("unmark")) {
-          if (!tasks.get(index).getIsDone()) {
-            stringBuilder.append("     This task was already not marked as done previously.\n");
-          } else {
-            tasks.get(index).markAsUndone();
-            stringBuilder.append("     OK, I've marked this task as not done yet:\n");
-            stringBuilder.append("       ").append(tasks.get(index));
-          }
+      boolean isLessThanZero = index < 0;
+      boolean isGreaterEqualSize = index >= tasks.size();
+      boolean isInvalidIndex = isLessThanZero || isGreaterEqualSize;
+
+      if (isInvalidIndex) {
+        return "Invalid index. Please provide a valid task index.";
+      }
+      if (token[0].equals("mark")) {
+        if (tasks.get(index).getIsDone()) {
+          return "This task was already marked as done previously.";
         }
-      } else {
-        stringBuilder.append("Invalid index. Please provide a valid task index.");
+        tasks.get(index).markAsDone();
+        stringBuilder.append("Nice! I've marked this task as done:\n");
+        stringBuilder.append(SPACING).append(tasks.get(index));
+      } else if (token[0].equals("unmark")) {
+        if (!tasks.get(index).getIsDone()) {
+          return "This task was already not marked as done previously.";
+        }
+        tasks.get(index).markAsUndone();
+        stringBuilder.append("OK, I've marked this task as not done yet:\n");
+        stringBuilder.append(SPACING).append(tasks.get(index));
       }
     } catch (NumberFormatException e) {
       stringBuilder.append("Please provide a valid numeric index for marking.");
@@ -70,9 +72,9 @@ public class TaskList {
 
     Task d = new Deadline(tokenD[0].substring(9).trim(), deadlineDateTime);
     tasks.add(d);
-    stringBuilder.append("     Got it. I've added this task:\n");
-    stringBuilder.append("       ").append(d).append("\n");
-    stringBuilder.append("     Now you have " + tasks.size() + " tasks in the list.");
+    stringBuilder.append("Got it. I've added this task:\n");
+    stringBuilder.append(SPACING).append(d).append("\n");
+    stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     return stringBuilder.toString();
   }
 
@@ -94,9 +96,9 @@ public class TaskList {
 
     Task e = new Events(tokenE[0].substring(6).trim(), fromDateTime, toDateTime);
     tasks.add(e);
-    stringBuilder.append("     Got it. I've added this task:\n");
-    stringBuilder.append("       ").append(e).append("\n");
-    stringBuilder.append("     Now you have " + tasks.size() + " tasks in the list.");
+    stringBuilder.append("Got it. I've added this task:\n");
+    stringBuilder.append(SPACING).append(e).append("\n");
+    stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     return stringBuilder.toString();
   }
 
@@ -111,14 +113,13 @@ public class TaskList {
     assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     if (input.substring(4).trim().isEmpty()) {
-      stringBuilder.append("No description found for your todo.");
-    } else {
-      Task t = new Todos(input.substring(4).trim());
-      tasks.add(t);
-      stringBuilder.append("     Got it. I've added this task:\n");
-      stringBuilder.append("       ").append(t).append("\n");
-      stringBuilder.append("     Now you have " + tasks.size() + " tasks in the list.");
+      return "No description found for your todo.";
     }
+    Task t = new Todos(input.substring(4).trim());
+    tasks.add(t);
+    stringBuilder.append("Got it. I've added this task:\n");
+    stringBuilder.append(SPACING).append(t).append("\n");
+    stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     return stringBuilder.toString();
   }
 
@@ -137,14 +138,17 @@ public class TaskList {
     try {
       int index = Integer.parseInt(token[1]) - 1;
 
-      if (index >= 0 && index < tasks.size()) {
-        stringBuilder.append("     Noted. I've removed this task:\n");
-        stringBuilder.append("       ").append(tasks.get(index)).append("\n");
-        stringBuilder.append("     Now you have " + (tasks.size()-1) + " tasks in the list.");
-        tasks.remove(index);
-      } else {
-        stringBuilder.append("Invalid index. Please provide a valid task index.");
+      boolean isLessThanZero = index < 0;
+      boolean isGreaterEqualSize = index >= tasks.size();
+      boolean isInvalidIndex = isLessThanZero || isGreaterEqualSize;
+
+      if (isInvalidIndex) {
+        return "Invalid index. Please provide a valid task index.";
       }
+      stringBuilder.append("Noted. I've removed this task:\n");
+      stringBuilder.append(SPACING).append(tasks.get(index)).append("\n");
+      stringBuilder.append("Now you have " + (tasks.size()-1) + " tasks in the list.");
+      tasks.remove(index);
     } catch (NumberFormatException e) {
       stringBuilder.append("Please provide a valid numeric index for deletion.");
     }
@@ -168,9 +172,9 @@ public class TaskList {
         matchingTasks.add(task);
       }
     }
-    stringBuilder.append("     Here are the matching tasks in your list:\n");
+    stringBuilder.append("Here are the matching tasks in your list:\n");
     for (int i = 1; i <= matchingTasks.size(); i++) {
-      stringBuilder.append("       ").append(i).append(".").append(matchingTasks.get(i - 1)).append("\n");
+      stringBuilder.append(SPACING).append(i).append(".").append(matchingTasks.get(i - 1)).append("\n");
     }
     return stringBuilder.toString();
   }
@@ -187,14 +191,13 @@ public class TaskList {
     try {
       if (tasks.isEmpty()) {
         throw new DukeException("Your task list is empty.");
-      } else {
-        stringBuilder.append("     Here are the tasks in your list\n");
-        for (int i = 1; i <= tasks.size(); i++) {
-          stringBuilder.append("       ").append(i).append(".").append(tasks.get(i - 1)).append("\n");
-        }
+      }
+      stringBuilder.append("Here are the tasks in your list\n");
+      for (int i = 1; i <= tasks.size(); i++) {
+        stringBuilder.append(SPACING).append(i).append(".").append(tasks.get(i - 1)).append("\n");
       }
     } catch (DukeException e) {
-      stringBuilder.append("       ").append(e.getMessage()).append("\n");
+      stringBuilder.append(e.getMessage()).append("\n");
     }
     return stringBuilder.toString();
   }
