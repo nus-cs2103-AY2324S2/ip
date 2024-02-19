@@ -3,8 +3,6 @@ package duke;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -41,6 +39,7 @@ public class MainWindow extends AnchorPane {
     public void showWelcomeMessage() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.welcome(), dukeImage));
     }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -54,7 +53,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (Duke.isExit) {
+        if (duke.isExit()) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
             timeline.play();
         }
