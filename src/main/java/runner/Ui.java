@@ -10,7 +10,8 @@ public class Ui {
      * @returns Greeting.
      */
     public static String start() {
-        return "Hello! I'm Duke\nWhat can I do for you?\n" ;
+        return "Hi, i'm Pororo" + '\n'
+                + "How can i help you?\n" ;
     }
 
     /**
@@ -18,7 +19,7 @@ public class Ui {
      * @returns Bye.
      */
     public static String ending() {
-        return "Bye. Hope to see you again soon!\n";
+        return "Bye bye. Hope to see you soon!\n";
     }
 
     /**
@@ -27,7 +28,7 @@ public class Ui {
      * @returns Message after marking.
      */
     public static String markMSG(Task t) {
-        return "Nice! I've marked this task as done:\n" + ("[X] " + t.getMSG());
+        return "Good job! I've marked this task as done:\n" + ("[X] " + t.getMSG());
     }
 
     /**
@@ -36,7 +37,7 @@ public class Ui {
      * @returns Message after unmarking.
      */
     public static String unmarkMSG(Task t) {
-        return "OK, I've marked this task as not done yet:\n" + ("[ ] " + t.getMSG());
+        return "Noted, I've marked this task as not done yet:\n" + ("[ ] " + t.getMSG());
     }
 
 
@@ -48,9 +49,9 @@ public class Ui {
      */
     public static String deleteMSG(Task t, int n) {
         assert n >= 0 : "Index Invalid";
-        return "Noted. I've removed this task:\n"
+        return "Got it. I've removed this task:\n"
                 + t + "\n"
-                + "Now you have " + n + " tasks in the list.";
+                + "Now you have " + n + " tasks on the list.";
     }
 
     /**
@@ -60,7 +61,7 @@ public class Ui {
      * @returns Message after adding.
      */
     public static String addMSG(Task t, int n) {
-        return "Got it. I've added this task:\n"
+        return "Okay. I've added this task:\n"
                 + t + "\n"
                 + "Now you have " + n + " tasks in the list.";
     }
@@ -71,8 +72,8 @@ public class Ui {
      */
     public static String showList(TaskList t, int i) {
         assert i == 1 || i == 0 : "Invalid Sign";
-        String find_show  = (i == 1) ? "Here are the tasks in your list:\n"
-                : "Here are the matching tasks in your list:\n";
+        String find_show  = (i == 1) ? "Pompom here are the tasks on your list:\n"
+                : "Pompom here are the matching tasks in your list:\n";
         StringBuilder ans = new StringBuilder(find_show);
         for (Task tk : t.getList()) {
             String info = (t.getList().indexOf(tk)+1) + "." + tk.toString() + "\n";
