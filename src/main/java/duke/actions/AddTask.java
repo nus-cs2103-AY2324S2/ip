@@ -65,29 +65,29 @@ public class AddTask extends Command {
 
         // create Command based on instruction
         switch (instruction) {
-            case "todo":
-                t = new ToDo(parametersWithoutTags, tagsList);
-                break;
-            case "deadline": {
-                try {
-                    t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
-                } catch (DateTimeParseException e) {
-                    return ("Error while parsing date: Format should be d-M-yy.");
-                } catch (InvalidInputException e) {
-                    return e.getMessage();
-                }
-                break;
+        case "todo":
+            t = new ToDo(parametersWithoutTags, tagsList);
+            break;
+        case "deadline": {
+            try {
+                t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
+            } catch (DateTimeParseException e) {
+                return ("Error while parsing date: Format should be d-M-yy.");
+            } catch (InvalidInputException e) {
+                return e.getMessage();
             }
-            case "event": {
-                try {
-                   t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
-                } catch (DateTimeParseException e) {
-                    return ("Error while parsing date: Format should be d-M-yy.");
-                } catch (InvalidInputException e) {
-                    return e.getMessage();
-                }
-                break;
+            break;
+        }
+        case "event": {
+            try {
+                t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
+            } catch (DateTimeParseException e) {
+                return ("Error while parsing date: Format should be d-M-yy.");
+            } catch (InvalidInputException e) {
+                return e.getMessage();
             }
+            break;
+        }
         }
         if (t != null) {
             TaskManager.getTasks().add(t);

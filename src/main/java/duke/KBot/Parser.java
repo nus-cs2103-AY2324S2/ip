@@ -36,43 +36,43 @@ public class Parser {
         if (inputs.length > 1) { // if the command requires parameters
             switch (instruction) { // instruction is valid, we pass the parameters into each Action class which
                                    // handles incorrect parameters
-                case "mark":
-                    int indexToMark = Integer.parseInt(inputs[1]);
-                    return new MarkTask(indexToMark - 1);
-                case "unmark":
-                    int indexToUnmark = Integer.parseInt(inputs[1]);
-                    return new UnMarkTask(indexToUnmark - 1);
-                case "delete":
-                    int indexToDelete = Integer.parseInt(inputs[1]);
-                    return new DeleteTask(indexToDelete - 1);
-                case "todo":
-                case "deadline":
-                case "event":
-                    String parameter = inputs[1];
-                    return new AddTask(instruction, parameter);
-                case "find":
-                    String key = inputs[1];
-                    return new FindTask(key);
-                default: // instruction is not valid
-                    throw new InvalidCommandException("Invalid command: " + instruction
-                            + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
+            case "mark":
+                int indexToMark = Integer.parseInt(inputs[1]);
+                return new MarkTask(indexToMark - 1);
+            case "unmark":
+                int indexToUnmark = Integer.parseInt(inputs[1]);
+                return new UnMarkTask(indexToUnmark - 1);
+            case "delete":
+                int indexToDelete = Integer.parseInt(inputs[1]);
+                return new DeleteTask(indexToDelete - 1);
+            case "todo":
+            case "deadline":
+            case "event":
+                String parameter = inputs[1];
+                return new AddTask(instruction, parameter);
+            case "find":
+                String key = inputs[1];
+                return new FindTask(key);
+            default: // instruction is not valid
+                throw new InvalidCommandException("Invalid command: " + instruction
+                        + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
             }
         } else { // if instruction does not have any parameters
             switch (instruction) {
-                case "list":
-                    return new ListTask();
-                case "help":
-                    return new Help();
-                case "mark":
-                case "unmark":
-                case "delete":
-                case "todo":
-                case "deadline":
-                case "event": // instruction is valid but no parameters given
-                    throw new InvalidInputException("Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
-                default: // instruction is not valid
-                    throw new InvalidCommandException("Invalid command: " + instruction
-                            + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
+            case "list":
+                return new ListTask();
+            case "help":
+                return new Help();
+            case "mark":
+            case "unmark":
+            case "delete":
+            case "todo":
+            case "deadline":
+            case "event": // instruction is valid but no parameters given
+                throw new InvalidInputException("Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
+            default: // instruction is not valid
+                throw new InvalidCommandException("Invalid command: " + instruction
+                        + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
             }
         }
     }
