@@ -48,6 +48,7 @@ test {
 }
 
 application {
+    mainClassName = "Launcher"
     mainClass.set("Launcher")
 }
 
