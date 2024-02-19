@@ -1,26 +1,21 @@
 package ui;
 
-import Fredricksen.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import fredricksen.ui.Ui;
 
 public class UiTest {
     @Test
-    public void UiOutput_correctFormat() {
+    public void uiOutput_correctFormat_success() {
         Ui ui = new Ui();
-        assertEquals(ui.output("deadline homework /by 2/12/2019 1800"),
-                "____________________________________________________________\n"
-                        + "deadline homework /by 2/12/2019 1800\n"
-                 + "____________________________________________________________\n");
+        assertEquals("deadline homework /by 2/12/2019 1800", ui.output("deadline homework /by 2/12/2019 1800"));
     }
 
     @Test
-    public void UiOutput2_correctFormat() {
+    public void uiOutput2_correctFormat_success() {
         Ui ui = new Ui();
-        assertEquals(ui.output("todo laundry"),
-                "____________________________________________________________\n"
-                        + "todo laundry\n"
-                        + "____________________________________________________________\n");
+        assertEquals("todo laundry", ui.output("todo laundry"));
     }
 }
