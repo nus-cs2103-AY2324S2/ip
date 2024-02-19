@@ -1,7 +1,7 @@
 package duke;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Takes in and processes user input according to the available bot command.
