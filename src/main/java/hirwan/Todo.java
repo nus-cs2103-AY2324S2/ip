@@ -5,7 +5,7 @@ public class Todo extends Task {
     Tasklist tasks;
 //    Tasklist previousTasks;
 
-    public Todo(String input, Tasklist tasks, Tasklist previousTasks) {
+    public Todo(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
 //        this.previousTasks = previousTasks;

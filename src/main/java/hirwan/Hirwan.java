@@ -43,7 +43,7 @@ public class Hirwan {
 
         String output = new String("");
         Tasklist tasks = new Tasklist(Storage.read());
-        Tasklist previousTasks = tasks.copyList();
+//        Tasklist previousTasks = tasks.copyList();
 
         //undo only for todo, deadline, event, delete, mark, unmark commands
 
@@ -57,7 +57,7 @@ public class Hirwan {
                 Listcommand listcommand = new Listcommand(tasks);
                 output = listcommand.getMessage();
             } else if (input == 2) {
-                Todo todo = new Todo(text, tasks, previousTasks);
+                Todo todo = new Todo(text, tasks);
                 todo.updateData();
                 output = todo.getMessage();
             } else if (input == 3) {
@@ -87,6 +87,10 @@ public class Hirwan {
 //                Undocommand undocommand = new Undocommand(tasks, previousTasks);
 //                undocommand.undo();
 //                undocommand.getMessage();
+            } else if (input == 12) {
+                Period period = new Period(text, tasks);
+                period.updateData();
+                output = period.getMessage();
             } else if (input == 9) {
                 output = "Error: I am sorry but I do not recognise this command";
             } else {
