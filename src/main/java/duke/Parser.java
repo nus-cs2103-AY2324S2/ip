@@ -117,6 +117,7 @@ public class Parser {
 
 
     public LocalDate DateConvert(String s) {
+        assert s.length() > 5: "Invalid length";
         String[] patterns = {"MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy",
                 "M/d/yyyy", "MM-dd-yyyy", "M-dd-yyyy", "MM-d-yyyy", "M-d-yyyy"};
         for (String pattern : patterns) {
@@ -287,6 +288,7 @@ public class Parser {
 
     public String handleBaseCommand(String[] commandSplit) {
         String firstWord = commandSplit[0].toLowerCase();
+        assert firstWord.length() < 7: "Invalid word/I can only mark numbers!";
         try {
             int num = Integer.parseInt(commandSplit[1]);
             switch (firstWord) {
