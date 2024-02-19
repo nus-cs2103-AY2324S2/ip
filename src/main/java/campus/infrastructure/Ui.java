@@ -12,7 +12,7 @@ public class Ui {
      */
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-    private String LINE_BREAK = "------------------------------\n";
+    private String LINE_BREAK = "";
 
     public String printGreeting() {
 

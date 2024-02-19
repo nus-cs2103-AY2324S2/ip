@@ -58,7 +58,8 @@ public class Parser {
 
         switch (firstWord) {
         case "list":
-            // fallthrough
+            msg = this.ui.printTaskList(this.taskList);
+            break;
         case "mark":
             // fallthrough
         case "unmark":
