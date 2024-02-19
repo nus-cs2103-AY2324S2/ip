@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import shodan.tasks.Task;
+import shodan.tasks.impl.Deadline;
+import shodan.tasks.impl.Event;
+import shodan.tasks.impl.Todo;
 
 /**
  * Manages the list of {@link Task tasks}. Contains methods
@@ -61,14 +64,29 @@ public class TaskList {
 
     /**
      * Finds the tasks that contain the specified keywords.
+     * Additionally, if a task type is given as the keyword,
+     * returns all tasks matching that type.
      *
      * @param keywords the keywords to search for.
      * @return the list of tasks that match the search.
      */
     public List<Task> findTasks(List<String> keywords) {
-        return tasks.stream()
-                .filter(task -> keywords.stream().anyMatch(keyword -> task.getName().contains(keyword)))
-                .collect(Collectors.toList());
+        return tasks.stream().filter(task -> keywords.stream().anyMatch(keyword -> {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                return true;
+            } else {
+                // try to match keyword to task type
+                if (task instanceof Todo) {
+                    return "todo".equalsIgnoreCase(keyword);
+                } else if (task instanceof Deadline) {
+                    return "deadline".equalsIgnoreCase(keyword);
+                } else if (task instanceof Event) {
+                    return "event".equalsIgnoreCase(keyword);
+                } else {
+                    throw new RuntimeException("Unable to convert task into any of its concrete implementations.");
+                }
+            }
+        })).collect(Collectors.toList());
     }
 
     /**
