@@ -1,4 +1,4 @@
-package lamball;
+package lamball.exception;
 
 /**
  * An exception that is thrown when the user inputs invalid commands.

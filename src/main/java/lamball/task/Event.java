@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import lamball.exception.InvalidDateException;
+
 /**
  * Event class, an extension of the Task class that has a duration, represented by
  * from and to.
@@ -24,8 +26,16 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        LocalDate parsedFrom = LocalDate.parse(from);
+        LocalDate parsedTo = LocalDate.parse(to);
+
+        if (parsedFrom.isBefore(LocalDate.now()) || parsedTo.isBefore(LocalDate.now())) {
+            throw new InvalidDateException("Parsed date is in the paaast.");
+        } else if (parsedTo.isBefore(parsedFrom)) {
+            throw new InvalidDateException("By should be aaafter from...");
+        }
+        this.from = parsedFrom;
+        this.to = parsedTo;
     }
 
     @Override

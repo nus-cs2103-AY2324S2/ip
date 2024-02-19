@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import lamball.command.ByeCommand;
 import lamball.command.Command;
 import lamball.command.PrintListCommand;
+import lamball.exception.LamballParseException;
 import lamball.memo.MemoList;
 
 public class ParserTest {

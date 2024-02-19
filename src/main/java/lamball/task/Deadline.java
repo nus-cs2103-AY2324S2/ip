@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import lamball.exception.InvalidDateException;
+
 
 /**
  * Deadline class, an extension of the Task class that contains a due date.
@@ -22,6 +24,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
+
+        LocalDate dateToAdd = LocalDate.parse(by);
+
+        if (dateToAdd.isBefore(LocalDate.now())) {
+            throw new InvalidDateException("Parsed date is in the paaast.");
+        }
         this.by = LocalDate.parse(by);
     }
 
