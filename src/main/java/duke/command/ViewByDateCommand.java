@@ -6,6 +6,7 @@ import java.util.List;
 
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing the action of viewing tasks by date.
@@ -29,15 +30,15 @@ public class ViewByDateCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks) {
+    public TaskList execute(TaskList tasks, Ui ui) {
         List<Task> tasksByDate = tasks.getTasksByDate(date);
 
         // Displaying the date header
-        System.out.printf("Here are your tasks on %s:\n", formatDate(date));
+        ui.appendResponse(String.format("Here are your tasks on %s:\n", formatDate(date)));
 
         // Displaying tasks
         for (int i = 0; i < tasksByDate.size(); i++) {
-            System.out.println((i + 1) + ". " + tasksByDate.get(i));
+            ui.appendResponse((i + 1) + ". " + tasksByDate.get(i));
         }
 
         return new TaskList(tasksByDate);

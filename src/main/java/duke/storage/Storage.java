@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -25,6 +27,38 @@ public class Storage {
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = DIRECTORY_PATH + "/tasks.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final String filePath;
+    private final Path folder;
+    private final File storageFile;
+
+    public Storage() {
+        this(FILE_PATH);
+    }
+
+    /**
+     * Constructor of that takes a path of the file and specify the file for
+     * storage of the given path.
+     *
+     * @param filePath The path of the storage file
+     */
+    public Storage(String filePath) {
+        // Get the absolute path of the root directory
+        String rootPath = Paths.get("").toAbsolutePath().toString();
+        // Create the full path to the storage file by concatenating the root path and the file path
+        this.filePath = Paths.get(rootPath, filePath).toString();
+
+        // Get the path of the file
+        Path path = Paths.get(filePath);
+        // Get the number of elements in the path
+        int len = path.getNameCount();
+
+        // Get the parent folder of the storage file by getting the path of all elements except the last one
+        this.folder = Paths.get(rootPath, path.subpath(0, len - 1).toString());
+        // Create a new file object for the storage file
+        this.storageFile = new File(this.filePath);
+    }
+
+
 
     /**
      * Loads tasks from the storage file into a TaskList object.

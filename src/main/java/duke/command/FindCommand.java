@@ -3,11 +3,13 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
+    private static final String SUCCESS_MESSAGE = "Here are the matching tasks in your list:";
     private String keyword;
 
     /**
@@ -21,10 +23,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks) {
+    public TaskList execute(TaskList tasks, Ui ui) {
         TaskList matchingTasks = tasks.findTasksByKeyword(keyword);
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(matchingTasks);
+        ui.appendResponse(SUCCESS_MESSAGE);
+        ui.appendResponse(matchingTasks.toString());
         return tasks;
     }
 }

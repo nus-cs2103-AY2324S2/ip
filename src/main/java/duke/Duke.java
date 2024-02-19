@@ -2,14 +2,12 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Messages;
+import duke.ui.Ui;
 
 /**
  * The main class representing the Duke chatbot application.
@@ -18,48 +16,53 @@ import duke.ui.Messages;
  * It handles user input, parsing, command execution, and storage operations.</p>
  */
 public class Duke {
-    private static final Storage storage = new Storage();
+    private final Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String... args) {
-        System.out.printf(Messages.WELCOME);
+    /**
+     * Constructs a Duke object
+     */
+    public Duke() {
+        this.tasks = new TaskList();
+        this.storage = new Storage();
+        this.ui = new Ui();
 
-        TaskList tasks;
         try {
-            tasks = storage.load();
-            System.out.println(tasks);
+            this.tasks = this.storage.load();
         } catch (FileNotFoundException e) {
-            System.out.printf("Warning: something went wrong when loading the TaskList\n"
-                + e.getMessage());
-            tasks = new TaskList();
+            throw new RuntimeException(e);
         }
+    }
 
-        Scanner sc = new Scanner(System.in);
-        Command currentCommand = null;
+    /**
+     * Gets the response from Duke
+     *
+     * @param input User input
+     * @return Response from Duke
+     */
+    public String getResponse(String input) {
+        try {
+            ui.clear();
 
-        while (true) {
-            try {
-                System.out.printf("\n-> ");
-                String userInput = sc.nextLine();
+            // Parse the input
+            Command command = Parser.parseInput(input);
 
-                // Parse user input
-                Command command = Parser.parseInput(userInput);
+            // Execute the command
+            command.execute(this.tasks, this.ui);
+            storage.save(tasks);
 
-                // Execute the command
-                command.execute(tasks);
-                storage.save(tasks);
+            System.out.printf("\nInput: %s\n + %s", input, this.ui.getResponse());
+            return this.ui.getResponse();
 
-                // Exit condition
-                if (command.getCommand().equals("bye")) {
-                    System.out.printf(Messages.EXIT);
-                    break;
-                }
-            } catch (NoSuchElementException e) {
-                System.out.println("Error reading user input. Exiting.");
-                break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException e) {
+            this.ui.appendResponse(e.getMessage());
+            return this.ui.getResponse();
         }
-        sc.close();
     }
 }
+
+
+
+
+

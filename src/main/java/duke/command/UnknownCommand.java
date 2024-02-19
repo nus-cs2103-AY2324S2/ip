@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing an unknown / undefined command.
@@ -16,7 +17,15 @@ public class UnknownCommand extends Command {
         super("", List.of());
     }
 
-    public TaskList execute(TaskList tasks) {
-        return null;
+    /**
+     * Appends a user-friendly error message to the output.
+     * @param  tasks The task list.
+     * @param  ui    The UI Stringbuilder
+     * @return       Tasks.
+     */
+    public TaskList execute(TaskList tasks, Ui ui) {
+        ui.appendResponse("Sorry.. I don't know what that means!"
+                    + " If you want to leave, just say 'bye'! :(\n");
+        return tasks;
     }
 }

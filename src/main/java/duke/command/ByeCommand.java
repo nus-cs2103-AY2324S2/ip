@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing the action of ending the chatbot session.
@@ -19,7 +20,11 @@ public class ByeCommand extends Command {
         super("bye", List.of());
     }
 
-    public TaskList execute(TaskList tasks) {
+    /**
+     * Prints out bye.
+     */
+    public TaskList execute(TaskList tasks, Ui ui) {
+        ui.appendResponse("Bye! BYEMESSAGE@ByeCommand.java");
         return tasks;
     }
 }

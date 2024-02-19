@@ -5,6 +5,7 @@ import java.util.List;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * A command class representing the action of marking a task as undone.
@@ -19,7 +20,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks) throws DukeException {
+    public TaskList execute(TaskList tasks, Ui ui) throws DukeException {
         // Assuming arguments is a list of one string
         if (!arguments.isEmpty()) {
             try {
@@ -28,7 +29,8 @@ public class UnmarkCommand extends Command {
                     Task task = tasks.getTask(index);
                     if (task.isDone()) {
                         task.markUndone();
-                        System.out.printf("Oh no.. Marked task %d as undone: %s\n", index + 1, task.getDescription());
+                        ui.appendResponse(String.format("Oh no.. Marked task %d as undone: %s\n",
+                            index + 1, task.getDescription()));
                     } else {
                         throw new DukeException(String.format("I can't do that.. Task %d is already undone! ~(T_T)\n",
                             index + 1));
@@ -38,14 +40,14 @@ public class UnmarkCommand extends Command {
                         arguments.get(0)));
                 }
             } catch (DukeException e) {
-                System.out.printf("%s", e.getMessage());
+                ui.appendResponse(e.getMessage());
                 return tasks;
             } catch (NumberFormatException e) {
-                System.out.printf("Sigh.. That's not a valid number! Try 'unmark <NUMBER>'.\n");
+                ui.appendResponse("Sigh.. That's not a valid number! Try 'unmark <NUMBER>'.\n");
                 return tasks;
             }
         } else {
-            System.out.printf("I can't do that.. You need to specify a task index! Try \"mark <index>\".. \n");
+            ui.appendResponse("I can't do that.. You need to specify a task index! Try \"mark <index>\".. \n");
         }
 
         return tasks;

@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * An abstract class representing a command in the Duke application.
@@ -26,7 +27,7 @@ public abstract class Command {
         this.arguments = arguments;
     }
 
-    public abstract TaskList execute(TaskList tasks);
+    public abstract TaskList execute(TaskList tasks, Ui ui);
 
     public String getCommand() {
         return this.command;

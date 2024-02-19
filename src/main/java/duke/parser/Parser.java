@@ -134,10 +134,11 @@ public class Parser {
                     throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
                 }
             default:
-                throw new DukeException("Sorry.. I don't know what that means!"
-                    + " If you want to leave, just say 'bye'! :(\n");
+                return new UnknownCommand();
             }
         } catch (DukeException e) {
+            // to-do: link this to ui
+
             System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
         }
