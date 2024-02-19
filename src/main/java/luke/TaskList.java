@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     private int noTasks;
 
     /**
