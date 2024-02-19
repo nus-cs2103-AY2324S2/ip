@@ -1,5 +1,10 @@
 package duke.parsers;
 
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import duke.commands.Command;
 import duke.commands.CreateDeadlineCommand;
 import duke.commands.CreateEventCommand;
@@ -14,10 +19,6 @@ import duke.commands.MarkTaskCommand;
 import duke.commands.SaveCommand;
 import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
-
 
 /**
  * Parses user input and generates corresponding Command objects.
@@ -42,57 +43,17 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            try {
-                return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            } catch (NumberFormatException e) {
-                return new ErrorCommand("Unable to parse the input as an integer. "
-                        + "Please put a number after " + commandWord + ".");
-            }
+            return handleMarkTask(commandArguments);
         case "unmark":
-            try {
-                return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            } catch (NumberFormatException e) {
-                return new ErrorCommand("Unable to parse the input as an integer. "
-                        + "Please put a number after " + commandWord + ".");
-            }
+            return handleUnmarkTask(commandArguments);
         case "todo":
-            try {
-                return prepareCreateTodo(commandArguments);
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            }
+            return handleAddTodo(commandArguments);
         case "deadline":
-            try {
-                return prepareCreateDeadline(commandArguments);
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            } catch (DateTimeParseException e) {
-                return new ErrorCommand("OPPS! The format for the inputted deadline is not accepted here."
-                        + " Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
-            }
+            return handleAddDeadline(commandArguments);
         case "event":
-            try {
-                return prepareCreateEvent(commandArguments);
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            } catch (DateTimeParseException e) {
-                return new ErrorCommand("OPPS! The format for the inputted start and end time is not "
-                        + "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' "
-                        + "when you are creating the task.");
-            }
+            return handleAddEvent(commandArguments);
         case "delete":
-            try {
-                return new DeleteCommand(prepareTask(commandArguments, "delete"));
-            } catch (DukeException e) {
-                return new ErrorCommand(e.getMessage());
-            } catch (NumberFormatException e) {
-                return new ErrorCommand("Unable to parse the input as an integer. "
-                        + "Please put a number after 'delete'.");
-            }
+            return handleDelete(commandArguments);
         case "save":
             return new SaveCommand();
         case "find":
@@ -180,8 +141,7 @@ public class Parser {
             throw new DukeException("OOPS! You forget to write do the task by when");
         }
         String description = instruction[0];
-        String deadlineStr = instruction[1];
-        LocalDateTime deadline = convertToLocalDateTime(deadlineStr);
+        LocalDateTime deadline = convertToLocalDateTime(instruction[1]);
         return new CreateDeadlineCommand(description, deadline);
     }
 
@@ -214,14 +174,76 @@ public class Parser {
         if (subInstruction.length < 2) {
             throw new DukeException("OOPS! You forget to write the ending time of this event.");
         }
-        String startTimeStr = subInstruction[0];
-        String endTimeStr = subInstruction[1];
-        LocalDateTime startTime = convertToLocalDateTime(startTimeStr);
-        LocalDateTime endTime = convertToLocalDateTime(endTimeStr);
+        LocalDateTime startTime = convertToLocalDateTime(subInstruction[0]);
+        LocalDateTime endTime = convertToLocalDateTime(subInstruction[1]);
         if (!startTime.isBefore(endTime)) {
             throw new DukeException("The start time of the event has to be before the end time.");
         }
         return new CreateEventCommand(description, startTime, endTime);
+    }
+
+    public static Command handleMarkTask(String commandArguments) {
+        try {
+            return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (NumberFormatException e) {
+            return new ErrorCommand("Unable to parse the input as an integer. "
+                    + "Please put a number after mark.");
+        }
+    }
+
+    public static Command handleUnmarkTask(String commandArguments) {
+        try {
+            return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (NumberFormatException e) {
+            return new ErrorCommand("Unable to parse the input as an integer. "
+                    + "Please put a number after unmark.");
+        }
+    }
+
+    public static Command handleAddTodo(String commandArguments) {
+        try {
+            return prepareCreateTodo(commandArguments);
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        }
+    }
+
+    public static Command handleAddDeadline(String commandArguments) {
+        try {
+            return prepareCreateDeadline(commandArguments);
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (DateTimeParseException e) {
+            return new ErrorCommand("OPPS! The format for the inputted deadline is not accepted here."
+                    + " Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+        }
+    }
+
+    public static Command handleAddEvent(String commandArguments) {
+        try {
+            return prepareCreateEvent(commandArguments);
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (DateTimeParseException e) {
+            return new ErrorCommand("OPPS! The format for the inputted start and end time is not "
+                    + "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' "
+                    + "when you are creating the task.");
+        }
+    }
+
+    public static Command handleDelete(String commandArguments) {
+        try {
+            return new DeleteCommand(prepareTask(commandArguments, "delete"));
+        } catch (DukeException e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (NumberFormatException e) {
+            return new ErrorCommand("Unable to parse the input as an integer. "
+                    + "Please put a number after 'delete'.");
+        }
     }
 }
 
