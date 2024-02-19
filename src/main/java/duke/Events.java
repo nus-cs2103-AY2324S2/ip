@@ -20,12 +20,17 @@ public class Events extends Task {
    */
   public Events(String description, LocalDateTime from, LocalDateTime to) {
     super(description);
+    assert from != null : "Start date and time must not be null";
+    assert to != null : "End date and time must not be null";
     this.from = from;
     this.to = to;
   }
 
   @Override
   public String toString() {
+    assert description != null : "Description must not be null";
+    assert from != null : "Start date and time must not be null";
+    assert to != null : "End date and time must not be null";
     String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
     String formattedDateTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
     return "[E][" + getStatusIcon() + "] " + description
@@ -34,6 +39,9 @@ public class Events extends Task {
 
   @Override
   public String toFileString() {
+    assert description != null : "Description must not be null";
+    assert from != null : "Start date and time must not be null";
+    assert to != null : "End date and time must not be null";
     return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
             from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")),
             to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));

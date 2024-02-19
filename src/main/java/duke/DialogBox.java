@@ -26,6 +26,8 @@ public class DialogBox extends HBox {
   private ImageView displayPicture;
 
   private DialogBox(String text, Image img) {
+    assert text != null : "Text must not be null";
+    assert img != null : "Image must not be null";
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
       fxmlLoader.setController(this);
@@ -57,6 +59,8 @@ public class DialogBox extends HBox {
    * @return A DialogBox representing the user's dialog.
    */
   public static duke.DialogBox getUserDialog(String text, Image img) {
+    assert text != null : "Text must not be null";
+    assert img != null : "Image must not be null";
     return new duke.DialogBox(text, img);
   }
 
@@ -69,6 +73,8 @@ public class DialogBox extends HBox {
    * @return A DialogBox representing Duke's dialog.
    */
   public static duke.DialogBox getDukeDialog(String text, Image img) {
+    assert text != null : "Text must not be null";
+    assert img != null : "Image must not be null";
     var db = new duke.DialogBox(text, img);
     db.flip();
     return db;

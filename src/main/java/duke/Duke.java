@@ -42,9 +42,11 @@ public class Duke extends Application {
      * @return The response generated based on the input.
      */
     String getResponse(String input) {
+        assert input != null : "Input must not be null";
         // Process user input and generate response
         String[] tokens = input.split(" ");
         StringBuilder response = new StringBuilder();
+        assert response != null : "Response StringBuilder must not be null";
 
         if (input.equals("bye")) {
             response.append("    Bye. Hope to see you again soon!");

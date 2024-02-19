@@ -17,6 +17,9 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String markTaskAsDoneOrUndone(String[] token, ArrayList<Task> tasks) {
+    assert token != null : "Token array must not be null";
+    assert token.length == 2 : "Token array must have 2 elements";
+    assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     try {
       int index = Integer.parseInt(token[1]) - 1;
@@ -56,6 +59,7 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String addDeadlineTask(String input, ArrayList<Task> tasks) {
+    assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
 
     String[] tokenD = input.split("/");
@@ -80,6 +84,7 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String addEventTask(String input, ArrayList<Task> tasks) {
+    assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     String[] tokenE = input.split("/");
 
@@ -103,6 +108,7 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String addTodoTask(String input, ArrayList<Task> tasks) {
+    assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     if (input.substring(4).trim().isEmpty()) {
       stringBuilder.append("No description found for your todo.");
@@ -124,6 +130,9 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String removeTask(String[] token, ArrayList<Task> tasks) {
+    assert token != null : "Token array must not be null";
+    assert token.length == 2 : "Token array must have 2 elements";
+    assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     try {
       int index = Integer.parseInt(token[1]) - 1;
@@ -150,6 +159,8 @@ public class TaskList {
    * @return A string message indicating the result of the operation.
    */
   protected static String findTask(String keyword, ArrayList<Task> tasks) {
+    assert keyword != null : "Token array must not be null";
+    assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     ArrayList<Task> matchingTasks = new ArrayList<>();
     for (Task task : tasks) {

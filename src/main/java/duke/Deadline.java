@@ -18,17 +18,22 @@ public class Deadline extends Task {
    */
   public Deadline(String description, LocalDateTime by) {
     super(description);
+    assert by != null : "Deadline must not be null";
     this.by = by;
   }
 
   @Override
   public String toString() {
+    assert description != null : "Description must not be null";
+    assert by != null : "Deadline should not be null";
     String formattedDate = by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
     return "[D][" + getStatusIcon() + "] " + description + " (by: " + formattedDate + ")";
   }
 
   @Override
   public String toFileString() {
+    assert description != null : "Description must not be null";
+    assert by != null : "Deadline should not be null";
     return String.format("D | %d | %s | %s", isDone ? 1 : 0, description,
             by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
   }

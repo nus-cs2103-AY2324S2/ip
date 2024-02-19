@@ -30,8 +30,7 @@ public class MainWindow extends AnchorPane {
   public void initialize() {
     scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog("     Hello! I'm Yappy!\n"
-                    + "     What can I do for you? \n", dukeImage)
+            DialogBox.getDukeDialog("     Hello! I'm Yappy!\n" + "     What can I do for you? \n", dukeImage)
     );
   }
 
@@ -52,28 +51,5 @@ public class MainWindow extends AnchorPane {
             DialogBox.getDukeDialog(response, dukeImage)
     );
     userInput.clear();
-  }
-
-  /**
-   * Clears the dialog container.
-   */
-  private void clearDialogContainer() {
-    dialogContainer.getChildren().clear();
-  }
-
-  /**
-   * Displays a message from Duke in the dialog container.
-   * @param message The message to display.
-   */
-  public void displayDukeMessage(String message) {
-    dialogContainer.getChildren().add(DialogBox.getDukeDialog(message, dukeImage));
-  }
-
-  /**
-   * Displays an error message from Duke in the dialog container.
-   * @param errorMessage The error message to display.
-   */
-  public void displayErrorMessage(String errorMessage) {
-    dialogContainer.getChildren().add(DialogBox.getDukeDialog(errorMessage, dukeImage));
   }
 }
