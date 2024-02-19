@@ -1,7 +1,7 @@
 D|true|submit screenshot|8/Feb/2024 02:10 PM
 T|true|read book
 T|false|borrow book
-E|false|book reading|10/Feb/2024 01:00 PM|10/Feb/2024 04:00 PM
+E|false|return book|18/Feb/2024 03:00 PM|18/Feb/2024 05:00 PM
 T|false|add functionality to work with other DateTime formats
 D|false|finish GUI|4/Feb/2024
-D|false|helpme|20/Feb/2024
+D|true|helpme|20/Feb/2024

@@ -4,14 +4,23 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chaterpillar.launcher.MainWindow">
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="522.0" promptText="Type here..." AnchorPane.bottomAnchor="1.0" />
-    <Button fx:id="sendButton" layoutX="523.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="600.0" vvalue="1.0">
-        <content>
-            <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="552.0" prefWidth="588.0" />
-        </content>
-    </ScrollPane>
+<AnchorPane minWidth="500.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chaterpillar.launcher.MainWindow">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+              <content>
+                  <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: linear-gradient(to bottom, #0093E9, #80D0C7);" />
+              </content>
+          </ScrollPane>
+         <HBox VBox.vgrow="NEVER">
+            <children>
+                <TextField fx:id="userInput" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#handleUserInput" prefHeight="40.0" prefWidth="322.0" promptText="Type here..." HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" minHeight="40.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="40.0" prefWidth="80.0" text="Send" />
+            </children>
+         </HBox>
+      </children>
+   </VBox>
 </AnchorPane>

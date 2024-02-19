@@ -12,9 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
 /**
@@ -28,6 +26,8 @@ public class DialogBox extends HBox {
     private Label help;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private VBox messageBox;
 
     /**
      * Basic constructor for this class
@@ -57,7 +57,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.CENTER_LEFT);
-        setBackground(new Background(new BackgroundFill(Paint.valueOf("MINTCREAM"), null, null)));
+        messageBox.setBackground(
+                new Background(new BackgroundFill(Paint.valueOf("MINTCREAM"),
+                        new CornerRadii(10), null)));
     }
 
     /**
@@ -68,7 +70,11 @@ public class DialogBox extends HBox {
      * @return <code>DialogBox</code>
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.messageBox.setBackground(
+                new Background(new BackgroundFill(Paint.valueOf("AZURE"),
+                        new CornerRadii(10), null)));
+        return db;
     }
 
     /**
@@ -107,7 +113,9 @@ public class DialogBox extends HBox {
     public static DialogBox getExceptionDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.setBackground(new Background(new BackgroundFill(Paint.valueOf("LIGHTPINK"), null, null)));
+        db.messageBox.setBackground(new Background(
+                new BackgroundFill(Paint.valueOf("LIGHTPINK"),
+                        new CornerRadii(10), null)));
         return db;
     }
 }
