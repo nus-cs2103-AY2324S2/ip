@@ -33,6 +33,7 @@ public class Storage {
      * @return Boolean value indicating whether the save was successful.
      */
     public boolean save(TaskList list) {
+        assert !list.equals(null);
         ArrayList<Task> ls = list.getList();
         File savedTasks = new File(filePath);
         try {

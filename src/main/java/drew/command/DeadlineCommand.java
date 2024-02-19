@@ -49,6 +49,6 @@ public class DeadlineCommand extends Command {
     }
 
     public static boolean isDeadlineCommand(int inputLength, String input) {
-        return inputLength >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline");
+        return inputLength > 8 && input.substring(0, 8).equalsIgnoreCase("deadline");
     }
 }

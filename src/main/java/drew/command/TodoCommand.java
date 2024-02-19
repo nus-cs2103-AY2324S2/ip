@@ -35,6 +35,6 @@ public class TodoCommand extends Command {
     }
 
     public static boolean isTodoCommand(int inputLength, String input) {
-        return inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("todo");
+        return inputLength > 4 && input.substring(0, 4).equalsIgnoreCase("todo");
     }
 }

@@ -36,6 +36,6 @@ public class UnmarkCommand extends Command {
     }
 
     public static boolean isUnmarkCommand(int inputLength, String input) {
-        return inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark");
+        return inputLength > 6 && input.substring(0, 6).equalsIgnoreCase("unmark");
     }
 }
