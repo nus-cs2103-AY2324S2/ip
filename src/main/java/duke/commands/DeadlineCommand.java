@@ -40,7 +40,7 @@ public class DeadlineCommand implements NamedCommand {
             }
         }
 
-        session.taskList.add(t);
+        session.getTaskList().add(t);
         session.printMessage(String.format("Got it. I've added the following task: \n %s", t.getName()));
     }
 }

@@ -20,7 +20,7 @@ public class Delete implements NamedCommand {
      */
     public void execute(ChatSession session, String commandArgs) {
         int index = Integer.valueOf(commandArgs);
-        Task t = session.taskList.pop(index);
+        Task t = session.getTaskList().pop(index);
         session.printMessage("Nice! I've deleted this task:" + System.lineSeparator() + t.getName());
     }
 }
