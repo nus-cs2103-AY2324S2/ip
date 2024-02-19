@@ -11,18 +11,18 @@ import shodan.ui.TermUi;
  * Marks the specified task as done or not done.
  */
 public class MarkCommand extends Command {
-    private boolean toMark;
+    private boolean shouldMark;
     private int index;
 
     /**
      * Instantiates a new Mark command.
      *
      * @param index  the index of the task to mark
-     * @param toMark whether to mark the task as done, or not done.
+     * @param shouldMark whether to mark the task as done, or not done.
      */
-    public MarkCommand(int index, boolean toMark) {
+    public MarkCommand(int index, boolean shouldMark) {
         this.index = index;
-        this.toMark = toMark;
+        this.shouldMark = shouldMark;
     }
 
     /**
@@ -30,9 +30,9 @@ public class MarkCommand extends Command {
      */
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         try {
-            Task task = tasks.mark(index, toMark);
+            Task task = tasks.mark(index, shouldMark);
             storageManager.saveTasks(tasks.getTasks());
-            if (toMark) {
+            if (shouldMark) {
                 ui.printMsg("Task set to done:\n\t" + task);
             } else {
                 ui.printMsg("Task has been set as not done yet:\n\t" + task);
