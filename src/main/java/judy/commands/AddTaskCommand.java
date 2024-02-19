@@ -10,7 +10,6 @@ import judy.ui.Ui;
 public class AddTaskCommand extends Command {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
-
     public static final String EVENT = "event";
     private final Task task; // The task to be added
     private final TaskList taskList;// The list to which the task will be added
