@@ -1,4 +1,4 @@
-package duke.task;
+package duke.task.exception;
 
 public class FileSaveException extends Exception {
 

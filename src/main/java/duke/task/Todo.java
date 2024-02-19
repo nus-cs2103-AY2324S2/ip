@@ -55,4 +55,9 @@ public class Todo extends Task {
     protected String trimDescription(String taskDescription) {
         return taskDescription.replaceAll("(?i)todo", "").trim();
     }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.TODO;
+    }
 }
