@@ -4,14 +4,26 @@ import judy.task.*;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * Represents the file used to store tasks data.
+ */
 public class Storage {
     private final File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Checks if the file associated with this storage exists.
+     *
+     * @return {@code true} if the file exists, {@code false} otherwise.
+     */
     public boolean isFileExists() {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             return true;
@@ -23,6 +35,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file at the specified file path.
+     */
     public void createNewFile() {
         try {
             this.file.createNewFile();
@@ -31,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Decodes and Loads tasks from the file.
+     *
+     * @return The list of tasks loaded and decoded from the file. If an error occurs during loading,
+     *         an empty list is returned.
+     */
     public ArrayList<Task> load() {
         if (file.length() == 0) {
             return new ArrayList<>(); // Handle empty file
@@ -61,6 +82,11 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Encode the provided task list and updates the file.
+     *
+     * @param taskList The list of tasks to be encoded and written to the file.
+     */
     public void save(ArrayList<Task> taskList) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
             String encodedTasks = Encoder.encodeTasks(taskList);

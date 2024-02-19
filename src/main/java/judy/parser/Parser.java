@@ -9,15 +9,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into corresponding Command objects.
+ */
 public class Parser {
     private final String userInput;
     private final TaskList taskList;
 
+    /**
+     * Constructs a Parser with the specified user input and task list.
+     *
+     * @param userInput The user input to be parsed.
+     * @param taskList  The task list on which the commands operate.
+     */
     public Parser(String userInput, TaskList taskList) {
         this.userInput = userInput;
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @return The Command object representing the parsed user input.
+     * @throws DukeException If an error occurs during the parsing process.
+     */
     public Command parse() throws DukeException {
         String[] commandParts = userInput.split(" ",2);
         Command command;
@@ -57,6 +72,14 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parses a mark task input.
+     *
+     * @param commandParts The parts of the user input after splitting by space.
+     * @return a MarkTaskCommand based on user's input.
+     * @throws DukeException if user entered empty or invalid index.
+     */
+
     private Command handleMark(String[] commandParts) throws DukeException {
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
@@ -71,6 +94,14 @@ public class Parser {
             throw new DukeException(" The index of task cannot be empty.");
         }
     }
+
+    /**
+     * Parses a unmark task input
+     *
+     * @param commandParts The parts of the user input after splitting by space.
+     * @return a UnmarkTaskCommand based on user's input.
+     * @throws DukeException if user entered empty or invalid index.
+     */
     private Command handleUnmark(String[] commandParts) throws DukeException {
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
@@ -86,6 +117,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a delete task input
+     *
+     * @param commandParts The parts of the user input after splitting by space.
+     * @return a DeleteCommand based on user's input.
+     * @throws DukeException if user entered empty or invalid index.
+     */
     private Command handleDelete(String[] commandParts) throws DukeException {
             try {
                 int taskIndex = Integer.parseInt(commandParts[1].trim()) - 1;
@@ -101,6 +139,12 @@ public class Parser {
             }
     }
 
+    /**
+     * Parses a todo input.
+     *
+     * @return a Todo based on user's input.
+     * @throws DukeException if user left the description empty.
+     */
     private static Todo handleTodo(String[] todo) throws DukeException {
         if(todo.length != 2 || todo[1].isEmpty()) {
             throw new DukeException(" The description of a todo cannot be empty :c \n" +
@@ -109,6 +153,12 @@ public class Parser {
         return new Todo(todo[1]);
     }
 
+    /**
+     * Parses a deadline input.
+     *
+     * @return a Deadline based on user's input.
+     * @throws DukeException if user left the description empty or entered invalid format.
+     */
     private static Deadline handleDeadline(String[] deadline) throws DukeException {
         if (deadline.length != 2 || deadline[1].isEmpty()) {
             throw new DukeException(" The description of a deadline cannot be empty.");
@@ -132,6 +182,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an event input.
+     *
+     * @return an Event based on user's input.
+     * @throws DukeException if user left the description empty or entered invalid format.
+     */
     private static Event handleEvent(String[] event) throws DukeException {
         if (event.length != 2 || event[1].isEmpty()) {
             throw new DukeException(" The description of an event cannot be empty.");
