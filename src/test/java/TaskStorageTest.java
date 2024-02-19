@@ -31,7 +31,7 @@ public class TaskStorageTest {
         taskStorage.addTask(t2Task);
         taskStorage.addTask(t3Task);
         taskStorage.removeTask(2);
-        String checkAnswer = "1." + t1Task + "\n2." + t3Task;
+        String checkAnswer = "You have 2 tasks, they are:\n1." + t1Task + "\n2." + t3Task;
         assertEquals(taskStorage.toString(), checkAnswer);
     }
 

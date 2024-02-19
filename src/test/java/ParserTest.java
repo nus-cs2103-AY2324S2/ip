@@ -27,6 +27,6 @@ public class ParserTest {
         taskStorage.addTask(task);
         ParseExecutionable parseExecutionable = parser.parseInput("mark 1");
         parseExecutionable.execute(taskStorage);
-        assertEquals(taskStorage.toString(), "1." + task.toString());
+        assertEquals(taskStorage.toString(), "You have 1 tasks, they are:\n1." + task.toString());
     }
 }

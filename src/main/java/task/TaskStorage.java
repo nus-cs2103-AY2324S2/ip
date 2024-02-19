@@ -135,7 +135,7 @@ public class TaskStorage {
      *
      * Returns the sorted list.
      */
-    public ArrayList<Task> sortStorageList() {
+    public TaskStorage sortStorageList() {
         ArrayList<ToDo> toDoList = new ArrayList<>();
         ArrayList<Deadline> deadlineList = new ArrayList<>();
         ArrayList<Event> eventList = new ArrayList<>();
@@ -155,14 +155,14 @@ public class TaskStorage {
         this.storageList.addAll(deadlineList);
         this.storageList.addAll(eventList);
         this.storageList.addAll(toDoList);
-        return this.storageList;
+        return this;
     }
 
     /**
      * Sorts all Todos in the storagelist based on their name.
      * Returns the sorted list.
      */
-    public ArrayList<Task> sortToDoStorageList() {
+    public TaskStorage sortToDoStorageList() {
         ArrayList<ToDo> toDoList = new ArrayList<>();
         for (Task task : this.storageList) {
             if (task instanceof ToDo) {
@@ -172,14 +172,14 @@ public class TaskStorage {
         Collections.sort(toDoList);
         ArrayList<Task> sortedList = new ArrayList<>();
         sortedList.addAll(toDoList);
-        return sortedList;
+        return new TaskStorage(sortedList);
     }
 
     /**
      * Sorts all Deadlines in the storagelist based on their name and due date.
      * Returns the sorted list.
      */
-    public ArrayList<Task> sortDeadlineStorageList() {
+    public TaskStorage sortDeadlineStorageList() {
         ArrayList<Deadline> deadlineList = new ArrayList<>();
         for (Task task : this.storageList) {
             if (task instanceof Deadline) {
@@ -189,14 +189,14 @@ public class TaskStorage {
         Collections.sort(deadlineList);
         ArrayList<Task> sortedList = new ArrayList<>();
         sortedList.addAll(deadlineList);
-        return sortedList;
+        return new TaskStorage(sortedList);
     }
 
     /**
      * Sorts all Event in the storagelist based on their name and from date.
      * Returns the sorted list.
      */
-    public ArrayList<Task> sortEventStorageList() {
+    public TaskStorage sortEventStorageList() {
         ArrayList<Event> eventList = new ArrayList<>();
         for (Task task : this.storageList) {
             if (task instanceof Event) {
@@ -206,7 +206,7 @@ public class TaskStorage {
         Collections.sort(eventList);
         ArrayList<Task> sortedList = new ArrayList<>();
         sortedList.addAll(eventList);
-        return sortedList;
+        return new TaskStorage(sortedList);
     }
 
     /**
@@ -217,7 +217,7 @@ public class TaskStorage {
      */
     @Override
     public String toString() {
-        String totalAns = "";
+        String totalAns = "You have " + this.size() + " tasks, they are:\n";
         for (int i = 0; i < this.storageList.size(); i++) {
             totalAns += (i + 1) + "." + this.storageList.get(i);
             if (i != this.storageList.size() - 1) {

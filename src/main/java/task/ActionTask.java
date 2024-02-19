@@ -109,7 +109,7 @@ public class ActionTask implements ParseExecutionable {
         case FIND:
             return this.findActions(taskStorage);
         default:
-            return "Unrecognized command";
+            return Messages.MESSAGE_NO_SUCH_COMMAND;
         }
     }
 
@@ -182,7 +182,8 @@ public class ActionTask implements ParseExecutionable {
      */
     private String sortActions(TaskStorage taskStorage) {
         String printMessage = "Sorted the Tasks for you: \n";
-        printMessage += taskStorage.sortStorageList().toString();
+        TaskStorage sortedTaskStorage = taskStorage.sortStorageList();
+        printMessage += sortedTaskStorage.toString();
         return printMessage;
     }
 
@@ -240,8 +241,13 @@ public class ActionTask implements ParseExecutionable {
      * @return the String created from doing this action, for the user to see.
      */
     private String findActions(TaskStorage taskStorage) {
+        String result = "Found: \n";
         if (taskStorage.size() > 0) {
-            return taskStorage.searchForTask(this.searchKeyword);
+            String response = taskStorage.searchForTask(this.searchKeyword);
+            if (response.length() == 0) {
+                return Messages.MESSAGE_SEARCH_NO_RESULTS;
+            }
+            return result + response;
         }
         return Messages.MESSAGE_EMPTY_LIST;
     }

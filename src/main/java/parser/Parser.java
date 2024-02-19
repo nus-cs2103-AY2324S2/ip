@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import task.ActionTask;
 import task.ActionTask.ActionType;
@@ -89,11 +90,14 @@ public class Parser {
      */
     public ParseExecutionable createDeadlines(String userInput) {
         String[] newSplit = userInput.split("/");
+        if (newSplit.length != 2 || (newSplit[1].split("by ").length != 2)) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS_DEADLINE);
+        }
         String[] taskName = newSplit[0].split("deadline ");
         String dateString = userInput.split("by ")[1].trim();
-        LocalDateTime dateTime = parseDate(dateString);
-        if (newSplit.length != 2 || (newSplit[1].split("by ").length != 2)) {
-            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        LocalDateTime dateTime = parseDate(dateString.trim());
+        if (dateTime == null) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS_DEADLINE);
         }
         return new Deadline(taskName[1], dateTime);
     }
@@ -106,14 +110,21 @@ public class Parser {
      */
     public ParseExecutionable createEvents(String userInput) {
         String[] newSplit = userInput.split("/");
-        String[] taskName = newSplit[0].split("event ");
-
-        int fromLength = newSplit[1].split("from ").length;
-        int toLength = newSplit[2].split("to ").length;
-        if (newSplit.length != 3 || fromLength != 2 || toLength != 2) {
-            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        if (newSplit.length != 3) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS_EVENT);
         }
-        return new Event(taskName[1], newSplit[1], newSplit[2]);
+        String[] taskName = newSplit[0].split("event ");
+        int toLength = newSplit[2].split("to ").length;
+        int fromLength = newSplit[1].split("from ").length;
+        if (newSplit.length != 3 || fromLength != 2 || toLength != 2) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS_EVENT);
+        }
+        LocalDateTime fromDate = parseDate(newSplit[1].split("from ")[1].trim());
+        LocalDateTime toDate = parseDate(newSplit[2].split("to ")[1].trim());
+        if (fromDate == null || toDate == null) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS_EVENT);
+        }
+        return new Event(taskName[1], newSplit[1], newSplit[2], fromDate, toDate);
     }
 
     /**
@@ -212,6 +223,10 @@ public class Parser {
      * @return the corrsponding LocalDateTime object created.
      */
     public LocalDateTime parseDate(String dateString) {
-        return LocalDateTime.parse(dateString, DATE_FORMAT);
+        try {
+            return LocalDateTime.parse(dateString, DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 }
