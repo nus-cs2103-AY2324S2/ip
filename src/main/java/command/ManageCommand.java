@@ -77,8 +77,8 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Oops! %d is not a valid index.", index));
-                result += String.format("Oops! %d is not a valid index.\n", index);
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index);
                 continue;
             }
             Task task = tasks.getTask(index);
@@ -95,10 +95,10 @@ public class ManageCommand extends Command {
                 storage.updateLine(index, newLine);
                 storage.updateLine(index, newLine);
             } catch (InvalidStatusUpdateException e) {
-                UI.print("This task was already marked!");
+                UI.print("Naughty boy... This task was already marked!");
                 UI.print(task);
 
-                result += "This task was already marked!\n";
+                result += "Naughty boy... This task was already marked!\n";
                 result += task + "\n";
             }
         }
@@ -117,8 +117,8 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Oops! %d is not a valid index.", index));
-                result += String.format("Oops! %d is not a valid index.\n", index);
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index);
                 continue;
             }
             Task task = tasks.getTask(index);
@@ -134,10 +134,10 @@ public class ManageCommand extends Command {
                 String newLine = line.substring(0, line.length() - 4) + "false";
                 storage.updateLine(index, newLine);
             } catch (InvalidStatusUpdateException e) {
-                UI.print("This task was already unmarked!");
+                UI.print("Naughty boy... This task was already unmarked!");
                 UI.print(task);
 
-                result += "This task was already unmarked!\n";
+                result += "Naughty boy... This task was already unmarked!\n";
                 result += task + "\n";
             }
         }
@@ -156,8 +156,8 @@ public class ManageCommand extends Command {
         for (int index : this.indices) {
             assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
-                UI.print(String.format("Oops! %d is not a valid index.", index));
-                result += String.format("Oops! %d is not a valid index.\n", index);
+                UI.print(String.format("Naughty boy... %d is not a valid index.", index));
+                result += String.format("Naughty boy... %d is not a valid index.\n", index);
                 continue;
             }
             Task removed = tasks.deleteTask(index);

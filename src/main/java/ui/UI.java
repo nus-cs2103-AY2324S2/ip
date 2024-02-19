@@ -23,7 +23,7 @@ public class UI {
      * Prints a welcome message to the user.
      */
     public static void start() {
-        UI.print("Hello! I'm Lulu \n\tWhat can I do for you?");
+        UI.print("Wassup boss! I'm Lulu \n\tHow can I assist you?");
     }
 
     /**
@@ -31,7 +31,7 @@ public class UI {
      * Prints a goodbye message to the user.
      */
     public static void exit() {
-        UI.print("Bye. Hope to see you again soon!");
+        UI.print("All-goods boss, catch you later");
     }
 
     /**
@@ -48,15 +48,16 @@ public class UI {
      * @param tasks The TaskList containing tasks to be printed.
      */
     public static String printTasks(TaskList tasks) {
-        UI.print("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            String output = (i + 1) + "." + tasks.getTask(i);
+        if (tasks.getSize() == 0) {
+            String output = "Naughty boy... You currently don't have any pending tasks";
             UI.print(output);
+            return output;
         }
-
+        UI.print("Here are the tasks in your list:");
         String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
             String output = (i + 1) + "." + tasks.getTask(i);
+            UI.print(output);
             result += output + "\n";
         }
         return result;

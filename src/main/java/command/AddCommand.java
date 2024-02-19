@@ -46,17 +46,17 @@ public class AddCommand extends Command {
         try {
             tasks.addTask(this.task);
             storage.writeLine(this.saveData);
-            UI.print("Got it. I've added this task:");
+            UI.print("Gotcha. I've added this task:");
             UI.print("\t" + this.task);
             UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
 
-            String result = "Got it. I've added this task:\n";
+            String result = "Gotcha. I've added this task:\n";
             result += "\t" + this.task + "\n";
             result += String.format("Now you have %d tasks in the list.\n", tasks.getSize());
             return result;
         } catch (DuplicateInsertionException e) {
-            UI.print("You have already added this task into the task list");
-            return "You have already added this task into the task list\n";
+            UI.print("Naughty boy... You have already added this task into the task list");
+            return "Naughty boy... You have already added this task into the task list\n";
         }
     }
 
