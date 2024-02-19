@@ -1,20 +1,20 @@
-package Duke;
+package zhen;
 import java.util.ArrayList;
 
-import Duke.task.*;
+import zhen.task.*;
 
 /**
- * A system to store a list of task with additional functionality
- * such as inserting, deleting, marking, unmarkinng, etc.
+ * A system to store a list of task with additional functionality.
+ * Functionalities includes inserting, deleting, marking, unmarkinng, etc.
  */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
     /**
-     * Construct TaskList using an ArrayList of tasks
+     * Constructs TaskList using an ArrayList of tasks.
      *
-     * @param tasks ArrayList of tasks
+     * @param tasks ArrayList of tasks.
      */
     TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -22,27 +22,27 @@ public class TaskList {
     }
 
     /**
-     * Accessor to access the number of tasks stored in TaskList
+     * Accesses the number of tasks stored in TaskList.
      *
-     * @return the number of tasks stored in the TaskList
+     * @return The number of tasks stored in the TaskList.
      */
-    public int accessNumberTask() {
+    public int getTaskCount() {
         return taskCount;
     }
 
     /**
-     * Access the ArrayList of tasks
+     * Accesses the ArrayList of tasks.
      *
-     * @return ArrayList of tasks
+     * @return ArrayList of tasks.
      */
-    public ArrayList<Task> accessList() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Inserting a task into the TaskList
+     * Inserts a task into the TaskList.
      *
-     * @param task the task to be added
+     * @param task The task to be added.
      */
     public void insert(Task task) {
         tasks.add(task);
@@ -50,10 +50,10 @@ public class TaskList {
     }
 
     /**
-     * delete a task from the TaskList with specified index
+     * Deletes a task from the TaskList with specified index.
      *
-     * @param index the index of task to be deleted
-     * @return the string representation of the deleted task
+     * @param index Index of task to be deleted.
+     * @return String representation of the deleted task.
      */
     public String delete(int index) {
         assert index > 0 && index < taskCount : "Delete index out of bound.";
@@ -65,10 +65,10 @@ public class TaskList {
     }
 
     /**
-     * mark the task with specified index as done
+     * Marks the task with specified index as done.
      *
-     * @param index the index of tasks to be marked as done
-     * @return the string representation fo the marked task
+     * @param index Index of tasks to be marked as done.
+     * @return String representation fo the marked task.
      */
     public String mark(int index) {
         assert index > 0 && index < taskCount : "Mark index out of bound.";
@@ -77,10 +77,10 @@ public class TaskList {
     }
 
     /**
-     * unmark the task with specified index as not done
+     * Unmarks the task with specified index as not done.
      *
-     * @param index  the index of task to be resumed as not done
-     * @return the string representation of the unmarked task
+     * @param index Index of task to be resumed as not done.
+     * @return String representation of the unmarked task.
      */
     public String unmark(int index) {
         assert index > 0 && index < taskCount : "Unmark index out of bound.";
@@ -89,20 +89,17 @@ public class TaskList {
     }
 
     /**
-     * Returns the string representation of the task list
+     * Returns the string representation of the task list.
      *
-     * @return a string listing all the tasks with each prefixed with its index number
+     * @return String listing all the tasks with each prefixed with its index number.
      */
     @Override
     public String toString() {
         String taskListString = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            if (i == tasks.size() - 1) {
-                taskListString = taskListString + (i + 1) + ". " + tasks.get(i);
-                break;
-            }
+        for (int i = 0; i < tasks.size() - 1; i++) {
             taskListString = taskListString + (i + 1) + ". " + tasks.get(i) + "\n ";
         }
+        taskListString = taskListString + (tasks.size()) + ". " + tasks.get(tasks.size() - 1);
         return taskListString;
     }
 }

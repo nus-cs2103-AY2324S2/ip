@@ -1,28 +1,28 @@
-package Duke;
+package zhen;
 import java.io.*;
 import java.util.ArrayList;
 
-import Duke.task.*;
+import zhen.task.*;
 
 /**
- * Class responsible for storing task information locally and restoring the chat from local
+ * Class stores tasks information locally and restores the chat from local
  */
 public class Storage {
     private String filePath;
 
     /**
-     * Construct a Storage object from a filepath which data is stored to and retrieved from
+     * Constructs a Storage object from a filepath which data is stored to and retrieved from.
      *
-     * @param filePath the filepath the data is stored and retrieved.
+     * @param filePath Filepath the data is stored and retrieved.
      */
     Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Writing the list of task into the file specified by filePath
+     * Writes the list of task into the file specified by filePath.
      *
-     * @param tasksList the list containing task information
+     * @param tasksList List containing task information.
      */
     public void writeDisk(ArrayList<Task> tasksList) {
         try {
@@ -33,17 +33,16 @@ public class Storage {
             fileOutputStream.close();
         } catch (IOException e) {
             System.out.println("Problem writing to hard disk.");
-            //e.printStackTrace();
         }
     }
 
     /**
-     * Loading a list of tasks from the file specified by filePath
+     * Loads a list of tasks from the file specified by filePath.
      *
-     * @return An Arraylist containing the information of task stored by user previously
+     * @return An Arraylist containing the information of task stored by user previously.
      */
     @SuppressWarnings("unchecked")
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadTasks() {
         try {
             FileInputStream file = new FileInputStream(filePath);
             ObjectInputStream in = new ObjectInputStream(file);

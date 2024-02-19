@@ -1,4 +1,4 @@
-package Duke;
+package zhen;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.InputStream;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -25,37 +23,37 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Zhen zhen;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/ZHEN.png"));
+    private Image zhenImage = new Image(this.getClass().getResourceAsStream("/images/ZHEN.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.showWelcome(), dukeImage)
+                DialogBox.getDukeDialog(Ui.showWelcome(), zhenImage)
         );
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setZhen(Zhen d) {
+        zhen = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Zhen's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = zhen.getResponse(input);
         assert userImage != null : "Can't find user image";
-        assert dukeImage != null : "Can't find ZHEN image";
+        assert zhenImage != null : "Can't find ZHEN image";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, zhenImage)
         );
         if (response.equals("Bye")) {
             Platform.exit();
