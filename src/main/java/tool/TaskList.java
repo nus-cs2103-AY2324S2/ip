@@ -41,10 +41,10 @@ public class TaskList {
      *
      * @param description Description of the todo task.
      */
-    public void addToDo(String description, Ui ui) {
+    public Task addToDo(String description, Ui ui) {
         Todo todo = new Todo(description);
         tasks.add(todo);
-        ui.printAddTodoSuccessful(todo, tasks.size());
+        return todo;
     }
 
     /**
@@ -53,10 +53,10 @@ public class TaskList {
      * @param description Description of the task with deadline.
      * @param dueDate Deadline of the task.
      */
-    public void addDeadline(String description, String dueDate, Ui ui) {
+    public Task addDeadline(String description, String dueDate, Ui ui) {
         Deadline deadline = new Deadline(description, dueDate);
         tasks.add(deadline);
-        ui.printAddDeadlineSuccessful(deadline, tasks.size());
+        return deadline;
     }
 
     /**
@@ -66,10 +66,10 @@ public class TaskList {
      * @param from Start date and time of the event.
      * @param to End date and time of the event.
      */
-    public void addEvent(String description, String from, String to, Ui ui) {
+    public Task addEvent(String description, String from, String to, Ui ui) {
         Event event = new Event(description, from, to);
         tasks.add(event);
-        ui.printAddEventSuccessful(event, tasks.size());
+        return event;
     }
 
     /**
@@ -77,11 +77,11 @@ public class TaskList {
      *
      * @param selectedTaskNumberToBeMarked Task number to be marked as completed.
      */
-    public void markTask(int selectedTaskNumberToBeMarked, Ui ui) {
+    public Task markTask(int selectedTaskNumberToBeMarked, Ui ui) {
         Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
         selectedTaskToBeMarked.setMarked();
         tasks.set(selectedTaskNumberToBeMarked - 1, selectedTaskToBeMarked);
-        ui.printMarkTaskSuccessful(selectedTaskToBeMarked);
+        return selectedTaskToBeMarked;
     }
 
     /**
@@ -89,11 +89,11 @@ public class TaskList {
      *
      * @param selectedTaskNumberToBeUnmarked Task number to be unmarked as incomplete.
      */
-    public void unMarkTask(int selectedTaskNumberToBeUnmarked, Ui ui) {
+    public Task unMarkTask(int selectedTaskNumberToBeUnmarked, Ui ui) {
         Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
         selectedTaskToBeUnmarked.setUnmarked();
         tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
-        ui.printUnmarkTaskSuccessful(selectedTaskToBeUnmarked);
+        return selectedTaskToBeUnmarked;
     }
 
     /**
@@ -101,10 +101,10 @@ public class TaskList {
      *
      * @param selectedTaskNumberToBeDeleted Task number to be deleted.
      */
-    public void deleteTask(int selectedTaskNumberToBeDeleted, Ui ui) {
+    public Task deleteTask(int selectedTaskNumberToBeDeleted, Ui ui) {
         Task deletedTask = tasks.get(selectedTaskNumberToBeDeleted - 1);
-        ui.printDeleteTaskSuccessful(deletedTask, tasks.size());
         tasks.remove(selectedTaskNumberToBeDeleted - 1);
+        return deletedTask;
     }
 
     /**
