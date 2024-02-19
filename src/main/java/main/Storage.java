@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,7 +57,7 @@ public class Storage {
                     task = new Deadline(inputs[2], inputs[3]);
                     break;
                 case "E":
-                    task = new Event(inputs[2], inputs[3], inputs[4]);
+                    task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
                     break;
                 default:
                     throw new TaskYapperException("Invalid Task, data file may be corrupted");

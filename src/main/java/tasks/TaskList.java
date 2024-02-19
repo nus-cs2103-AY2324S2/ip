@@ -187,9 +187,14 @@ public class TaskList {
             message = message.substring("event ".length());
             String[] inputs = message.split("/from");
             String[] innerInputs = inputs[1].split("/to");
-            return new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
+            LocalDate from = LocalDate.parse(innerInputs[0].trim());
+            LocalDate to = LocalDate.parse(innerInputs[1].trim());
+            if (from.isAfter(to)) {
+                throw new TaskYapperException("Yapper, the event's start date must be before its end date");
+            }
+            return new Event(inputs[0].trim(), from, to);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new TaskYapperException("YAPYAP, What time is your from and to?");
+            throw new TaskYapperException("YAPYAP, When does the event start and end?");
         } catch (StringIndexOutOfBoundsException e) {
             throw new TaskYapperException("Whats the task, yapper???");
         } catch (DateTimeException e) {
