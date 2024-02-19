@@ -62,7 +62,11 @@ public class StorageManager {
      * @return the list of tasks.
      */
     public List<Task> loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(taskSaveLocation))) {
+        File saveFile = new File(taskSaveLocation);
+        if (!saveFile.exists()) {
+            return new ArrayList<>();
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
             return TaskSerializer.parseText(reader.lines());
         } catch (IOException e) {
             e.printStackTrace();
