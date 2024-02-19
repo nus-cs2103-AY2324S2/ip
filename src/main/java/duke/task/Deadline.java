@@ -21,6 +21,9 @@ public class Deadline extends Task {
         super(name);
         this.by = by;
 
+        assert !name.equals("") : "name should not be empty";
+        assert !by.equals("") : "by date should not be empty";
+
         // Check if they are in dateTime format
         try {
             byDate = LocalDate.parse(by);

@@ -3,11 +3,15 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Class representing Mark commands.
+ */
 public class MarkCommand extends Command {
     private boolean mark;
     private int index;
 
     public MarkCommand(int index, boolean mark) {
+        assert index >= 0 : "index should not be negative";
         this.mark = mark;
         this.index = index;
     }
