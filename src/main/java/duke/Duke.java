@@ -43,6 +43,8 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
+            ui.clear();
+
             // Parse the input
             Command command = Parser.parseInput(input);
 
@@ -50,6 +52,7 @@ public class Duke {
             command.execute(this.tasks, this.ui);
             storage.save(tasks);
 
+            System.out.printf("\nInput: %s\n + %s", input, this.ui.getResponse());
             return this.ui.getResponse();
 
         } catch (IOException e) {

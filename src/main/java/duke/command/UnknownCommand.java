@@ -17,7 +17,15 @@ public class UnknownCommand extends Command {
         super("", List.of());
     }
 
+    /**
+     * Appends a user-friendly error message to the output.
+     * @param  tasks The task list.
+     * @param  ui    The UI Stringbuilder
+     * @return       Tasks.
+     */
     public TaskList execute(TaskList tasks, Ui ui) {
-        return null;
+        ui.appendResponse("Sorry.. I don't know what that means!"
+                    + " If you want to leave, just say 'bye'! :(\n");
+        return tasks;
     }
 }

@@ -12,7 +12,7 @@ public class Ui {
     /**
      * Clears the response.
      */
-    public void reset() {
+    public void clear() {
         this.response = new StringBuilder();
     }
 
