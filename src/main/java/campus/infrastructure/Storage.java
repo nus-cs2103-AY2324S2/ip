@@ -8,6 +8,8 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
 
 import campus.tasks.Task;
 
@@ -32,6 +34,47 @@ public class Storage {
             System.err.println("Error: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initialises the Storage Class given a specific location if the file exists.
+     * @param filePath The filePath as a String of the textfile used for storage.
+     * @param newDatabase Boolean parameter as to whether you want to erase contents
+     */
+    public Storage(String filePath, Boolean newDatabase) {
+        if (newDatabase) {
+            this.filePath = filePath;
+
+            // Delete existing file
+            File fileToDelete = new File(filePath);
+            if (fileToDelete.exists()) {
+                if (!fileToDelete.delete()) {
+                    System.err.println("Error: Unable to delete existing file at " + filePath);
+                }
+            }
+
+            // Create new file
+            try {
+                if (!fileToDelete.createNewFile()) {
+                    System.err.println("Error: Unable to create new file at " + filePath);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Initialize listOfStrings
+            this.listOfStrings = new ArrayList<>();
+        } else {
+            this.filePath = filePath;
+
+            try {
+                this.listOfStrings = this.readFromDBCreateIfNotExists(this.filePath);
+            } catch (FileNotFoundException e) {
+                System.err.println("Error: " + e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
