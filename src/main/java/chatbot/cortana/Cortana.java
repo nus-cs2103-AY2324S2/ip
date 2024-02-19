@@ -30,7 +30,11 @@ public class Cortana {
         this.baseDir = baseDir;
         this.saveDirPath = java.nio.file.Paths.get(this.baseDir, DATA_FOLDER).toString();
         this.storage = new Storage(saveDirPath, SAVE_FILENAME);
-        this.taskList = new TaskList();
+        try {
+            this.taskList = this.storage.loadTaskList();
+        } catch (IOException e) {
+            this.taskList = new TaskList();
+        }
     }
 
     public String getGreetString() {
@@ -44,7 +48,7 @@ public class Cortana {
         Task currTask;
         String response;
         try {
-            Parser.validateInput(command, input, this.taskList);
+            Validator.validateInput(command, input, this.taskList);
             switch (command) {
             case TODO:
                 currTask = Parser.parseTodoTask(input);

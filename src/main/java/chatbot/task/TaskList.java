@@ -117,11 +117,13 @@ public class TaskList {
             } else {
                 String[] descriptionWords = task.getDescription().split(" ");
                 String[] inputWords = input.split(" ");
-                double overallSimilarity = 0, currSimilarity;
+                double overallSimilarity = 0;
+                double currSimilarity;
                 for (String inputWord : inputWords) {
                     currSimilarity = 0;
                     for (String descriptionWord : descriptionWords) {
-                        currSimilarity = Math.max(currSimilarity, fuzzySearch(descriptionWord.trim(), inputWord.trim()));
+                        currSimilarity = Math.max(currSimilarity,
+                        fuzzySearch(descriptionWord.trim(), inputWord.trim()));
                     }
                     overallSimilarity += currSimilarity;
                 }

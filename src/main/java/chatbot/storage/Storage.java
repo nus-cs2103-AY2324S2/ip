@@ -86,17 +86,11 @@ public class Storage {
                 String description = arr[2];
                 Task task;
                 if (type.equals("T")) {
-                    task = new TodoTask(description, isDone);
+                    task = loadTodoTask(description, isDone);
                 } else if (type.equals("D")) {
-                    String by = arr[3];
-                    LocalDateTime byDateTime = LocalDateTime.parse(by);
-                    task = new DeadlineTask(description, byDateTime, isDone);
+                    task = loadDeadlineTask(description, isDone, arr);
                 } else if (type.equals("E")) {
-                    String from = arr[3];
-                    String to = arr[4];
-                    LocalDateTime fromDateTime = LocalDateTime.parse(from);
-                    LocalDateTime toDateTime = LocalDateTime.parse(to);
-                    task = new EventTask(description, fromDateTime, toDateTime, isDone);
+                    task = loadEventTask(description, isDone, arr);
                 } else {
                     throw new Exception();
                 }
@@ -108,6 +102,21 @@ public class Storage {
         } finally {
             sc.close();
         }
+    }
+
+    private static TodoTask loadTodoTask(String description, boolean isDone) {
+        return new TodoTask(description, isDone);
+    }
+
+    private static DeadlineTask loadDeadlineTask(String description, boolean isDone, String[] arr) {
+        LocalDateTime dateTime = LocalDateTime.parse(arr[1]);
+        return new DeadlineTask(description, dateTime, isDone);
+    }
+
+    private static EventTask loadEventTask(String description, boolean isDone, String[] arr) {
+        LocalDateTime fromDateTime = LocalDateTime.parse(arr[1]);
+        LocalDateTime toDateTime = LocalDateTime.parse(arr[2]);
+        return new EventTask(description, fromDateTime, toDateTime, isDone);
     }
 
 
