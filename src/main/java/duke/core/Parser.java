@@ -16,6 +16,8 @@ import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.InvalidCommandException;
+import duke.parserEnums.CommandWord;
+import duke.parserEnums.TaskType;
 import duke.tasks.TaskList;
 
 /**
@@ -40,42 +42,47 @@ public class Parser {
         String[] commandAndRemaining = userInput.strip().split(" ", 2);
         String commandUpper = commandAndRemaining[0].toUpperCase();
         Command cmd;
-        switch (commandUpper) {
-        case "ADD":
+
+        CommandWord commandWord = findInEnum(CommandWord.class, commandUpper);
+        if (commandWord == null) {
+            throw new InvalidCommandException();
+        }
+        switch (commandWord) {
+        case ADD:
             try {
                 cmd = parseAdd(commandAndRemaining[1].strip(), taskList);
                 break;
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException(AddCommand.getUsage());
             }
-        case "LIST":
+        case LIST:
             cmd = new ListCommand(taskList);
             break;
-        case "MARK":
+        case MARK:
             try {
                 cmd = parseMark(commandAndRemaining[1].strip(), taskList);
                 break;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new InvalidCommandException(MarkCommand.getUsage());
             }
-        case "UNMARK":
+        case UNMARK:
             try {
                 cmd = parseUnmark(commandAndRemaining[1].strip(), taskList);
                 break;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new InvalidCommandException(UnmarkCommand.getUsage());
             }
-        case "DELETE":
+        case DELETE:
             try {
                 cmd = parseDelete(commandAndRemaining[1].strip(), taskList);
                 break;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new InvalidCommandException(DeleteCommand.getUsage());
             }
-        case "END":
+        case END:
             cmd = new ExitCommand();
             break;
-        case "FIND":
+        case FIND:
             try {
                 cmd = new FindCommand(taskList, commandAndRemaining[1]);
             } catch (IndexOutOfBoundsException e) {
@@ -101,12 +108,17 @@ public class Parser {
 
         String[] typeAndRemaining = inputWithoutAdd.split(" ", 2);
         String typeUpper = typeAndRemaining[0].toUpperCase();
-        switch (typeUpper) {
-        case "TODO":
+        TaskType taskType = findInEnum(TaskType.class, typeUpper);
+        if (taskType == null) {
+            throw new InvalidCommandException(AddCommand.getUsage());
+        }
+
+        switch (taskType) {
+        case TODO:
             return parseAddTodo(taskList, typeAndRemaining);
-        case "DEADLINE":
+        case DEADLINE:
             return parseAddDeadline(taskList, typeAndRemaining);
-        case "EVENT":
+        case EVENT:
             return parseAddEvent(taskList, typeAndRemaining);
         default:
             throw new InvalidCommandException(AddCommand.getUsage());
@@ -167,7 +179,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Parses the following portion of user input after the "mark" keyword.
      *
@@ -202,5 +213,16 @@ public class Parser {
     protected static DeleteCommand parseDelete(String inputWithoutDelete, TaskList taskList) {
         int index = Integer.parseInt(inputWithoutDelete) - VISUAL_INDEX_OFFSET;
         return new DeleteCommand(taskList, index);
+    }
+
+    private static <T extends Enum<T>> T findInEnum(Class<T> enumClass, String userKeyword) {
+        T[] enumElements = enumClass.getEnumConstants();
+        assert enumElements != null;
+        for (T element : enumElements) {
+            if (element.toString().contains(userKeyword)) {
+                return element;
+            }
+        }
+        return null;
     }
 }
