@@ -124,37 +124,47 @@ public class Storage {
             File file = new File(FILE_PATH);
 
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Create parent directories if they don't exist
-                file.createNewFile(); // Create the file if it doesn't exist
-
-                System.out.println("No tasks file found. Created a new tasks file.");
-
+                handleMissingFile(file);
             } else {
-                // Read each line from the file and attempt to add the corresponding task
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    try {
-                        addTaskFromFileString(line, loadedTasks);
-                    } catch (IllegalArgumentException e) {
-                        // Handle invalid task lines gracefully
-                        System.out.println("Error loading a task. Skipping invalid task line: " + line);
-                    }
-                }
-
-                reader.close();
+                readTasksFromFile(file, loadedTasks);
             }
-        } catch (IOException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
 
-            // Handle the situation where the file is corrupted
-            System.out.println("Deleting the corrupted file and creating a new tasks file.");
-            File corruptedFile = new File(FILE_PATH);
-            corruptedFile.delete(); // Delete the corrupted file
-            loadedTasks = load(); // Recursively call the method to create a new file
+        } catch (IOException e) {
+            handleFileLoadError(e, loadedTasks);
         }
 
         return loadedTasks;
     }
+
+    private void handleMissingFile(File file) throws IOException {
+        file.getParentFile().mkdirs(); // Create parent directories if they don't exist
+        file.createNewFile(); // Create the file if it doesn't exist
+        System.out.println("No tasks file found. Created a new tasks file.");
+    }
+
+    private void readTasksFromFile(File file, List<Task> loadedTasks) throws IOException {
+        // Read each line from the file and attempt to add the corresponding task
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    addTaskFromFileString(line, loadedTasks);
+                } catch (IllegalArgumentException e) {
+                    // Handle invalid task lines gracefully
+                    System.out.println("Error loading a task. Skipping invalid task line: " + line);
+                }
+            }
+        }
+    }
+
+    private void handleFileLoadError(IOException e, List<Task> loadedTasks) {
+        System.out.println("Error loading tasks from file: " + e.getMessage());
+
+        // Handle the situation where the file is corrupted
+        System.out.println("Deleting the corrupted file and creating a new tasks file.");
+        File corruptedFile = new File(FILE_PATH);
+        corruptedFile.delete(); // Delete the corrupted file
+        loadedTasks.addAll(load()); // Recursively call the method to create a new file
+    }
+
 }
