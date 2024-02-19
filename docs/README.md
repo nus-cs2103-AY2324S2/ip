@@ -1,6 +1,6 @@
 # Arona User Guide
 
-![Screenshot] (Ui.png)
+![Screenshot](Ui.png)
 
 Arona is a chatbot app for managing your schedules and tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Arona has a cheerful personality that is sure to make your day.
 
