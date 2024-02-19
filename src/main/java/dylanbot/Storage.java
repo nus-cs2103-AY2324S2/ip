@@ -44,6 +44,7 @@ public class Storage {
         try {
             while ((nextLine = reader.readLine()) != null) {
                 String[] tokens = nextLine.split(Pattern.quote(" | "));
+                assert tokens.length > 0 : "Saved data is empty";
                 Task curr;
                 if (tokens[0].equals("T")) {
                     curr = new TodoTask(tokens[2]);
@@ -73,8 +74,10 @@ public class Storage {
     public void saveDataToFile(TaskList tl) throws IOException {
         ArrayList<Task> tasks = tl.getTasks();
         File newFile = new File(filePath);
-        newFile.getParentFile().mkdirs();
-        newFile.createNewFile();
+        boolean isDirectoryCreated = newFile.getParentFile().mkdirs();
+        assert isDirectoryCreated : "Directory should be created if needed";
+        boolean isFileCreated = newFile.createNewFile();
+        assert isFileCreated : "New file should be created";
 
         FileWriter writer = new FileWriter(filePath);
         for (Task t : tasks) {

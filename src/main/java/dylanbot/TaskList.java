@@ -149,6 +149,7 @@ public class TaskList {
             StringBuilder response = new StringBuilder();
             response.append("Here you go, results from your search for: '" + term + "'");
             response.append(ui.displayTasks(res));
+            assert response.length() > 0 : "Results should be non-zero if search term can be found";
             return response.toString();
         }
     }
