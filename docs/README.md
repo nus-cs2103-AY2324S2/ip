@@ -141,6 +141,7 @@ Data are saved in the hard disk automatically after any command that changes the
 Data are saved automatically as a text file [JAR file location]/data/test.txt. Advanced users are welcome to update data directly by editing that data file.
 
 ## Command Summary
+
 | Action       | Format                                  |
 |--------------|-----------------------------------------|
 | Add Todo     | `todo DESCRIPTION`                      |
