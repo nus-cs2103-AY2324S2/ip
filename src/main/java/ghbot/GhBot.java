@@ -30,8 +30,9 @@ public class GhBot {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response with respect to the user input.
+     * @param input A string containing the user input.
+     * @return A string containing the respective response of the given input.
      */
     public String getResponse(String input) {
         this.ui = new Ui(input);

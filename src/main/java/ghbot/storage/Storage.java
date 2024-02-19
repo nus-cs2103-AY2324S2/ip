@@ -109,9 +109,9 @@ public class Storage {
     }
 
     /**
-     * Write/Update/Delete task in the file.
+     * Writes updated task to the file.
      * @param lst A list of tasks.
-     * @throws IOException throw exception if there is an issue updating the file.
+     * @throws IOException Throw exception if there is an issue updating the file.
      */
     public void writeDataToFile(List<Task> lst) throws IOException {
         try {

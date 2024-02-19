@@ -11,7 +11,7 @@ public class TodoExecutor extends Executor {
     private String executeStr;
 
     /**
-     * TodoExecutor Class.
+     * TodoExecutor Constructor.
      * @param description The description of the todo task.
      */
     public TodoExecutor(String description) {

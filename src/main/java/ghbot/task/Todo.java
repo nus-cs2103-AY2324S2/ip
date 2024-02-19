@@ -16,7 +16,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string description for the item in the list for file operation.
-     * @return A string.
+     * @return A string that describes the item in the list for file operation.
      */
     @Override
     public String toFile() {
@@ -25,7 +25,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string description of a todo item.
-     * @return A string that describe the todo.
+     * @return A string that describes the todo.
      */
     @Override
     public String toString() {

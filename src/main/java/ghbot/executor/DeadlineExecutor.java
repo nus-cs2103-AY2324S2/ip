@@ -23,7 +23,8 @@ public class DeadlineExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that they have successfully added a deadline task.
+     * Returns a string to let user know that they have successfully added a deadline task.
+     * @return A string to let user know that they have successfully added a deadline task.
      */
     @Override
     public String execute() {

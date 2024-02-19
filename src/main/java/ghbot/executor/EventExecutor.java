@@ -26,7 +26,8 @@ public class EventExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that the event has been added.
+     * Returns a string to let user know that the event has been added.
+     * @return A string to let user know that the event has been added.
      */
     @Override
     public String execute() {
