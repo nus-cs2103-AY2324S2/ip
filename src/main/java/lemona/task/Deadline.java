@@ -1,4 +1,4 @@
-package task;
+package lemona.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,6 @@ import java.util.Locale;
  */
 public class Deadline extends Task{
     private LocalDateTime dueDate;
-    private static final String LINE = "\t______________________________________________________";
     private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
@@ -35,12 +34,10 @@ public class Deadline extends Task{
             String time = dueDate.format(outputFormat);
             str = "[D]" + super.print() + "(by: " + time + ")";
         } catch (DateTimeParseException e) {
-            System.out.println(LINE);
-            System.out.println("\t I think you haven't had enough vitamin C."
-                    + "\n\t Your time format should be :"
-                    + "\n\t\t { dd/MM/yyyy HHmm }"
-                    + "\n\t I suggest you take some LEMONA.");
-            System.out.println(LINE);
+            str = "I think you haven't had enough vitamin C."
+                    + "\nYour time format should be :"
+                    + "\n\t{ dd/MM/yyyy HHmm }"
+                    + "\nI suggest you take some LEMONA.";
         }
         return str;
     }

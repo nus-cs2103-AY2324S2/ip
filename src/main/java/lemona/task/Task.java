@@ -1,4 +1,4 @@
-package task;
+package lemona.task;
 
 /**
  * Represents a generic task in the task manager application.
@@ -7,7 +7,6 @@ package task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected String type;
 
     /**
      * Constructs a Task with the specified description.

@@ -1,4 +1,4 @@
-package task;
+package lemona.task;
 
 /**
  * Represents a todo task in the task manager application.

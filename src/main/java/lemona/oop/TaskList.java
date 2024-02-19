@@ -1,11 +1,11 @@
-package oop;
+package lemona.oop;
 
 import java.util.ArrayList;
 
-import task.Task;
+import lemona.task.Task;
 
-import exceptions.DuplicateInstructionException;
-import exceptions.OutOfIndexException;
+import lemona.exceptions.DuplicateInstructionException;
+import lemona.exceptions.OutOfIndexException;
 
 
 /**
@@ -14,7 +14,6 @@ import exceptions.OutOfIndexException;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private static final String LINE = "\t______________________________________________________";
 
     /**
      * Constructs a TaskList with the specified list of tasks.
@@ -51,7 +50,8 @@ public class TaskList {
      *
      * @param index The index of the task to mark as done.
      */
-    public void mark(int index) {
+    public String mark(int index) {
+        String str = "";
         try {
             if (tasks.size() < index) {
                 throw new OutOfIndexException();
@@ -59,19 +59,14 @@ public class TaskList {
                 throw new DuplicateInstructionException();
             }
             tasks.get(index - 1).markAsDone();
-            System.out.println(LINE);
-            System.out.println("\t Nice! I've marked this task as done:" + "\n\t\t" +
-                    tasks.get(index - 1).print());
-            System.out.println(LINE);
+            str = "Nice! I've marked this task as done:" + "\n\t" +
+                    tasks.get(index - 1).print();
         } catch (OutOfIndexException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString(tasks.size()));
-            System.out.println(LINE);
+            str = e.toString(tasks.size());
         } catch (DuplicateInstructionException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString("mark"));
-            System.out.println(LINE);
+            str = e.toString("mark");
         }
+        return str;
     }
 
     /**
@@ -80,7 +75,8 @@ public class TaskList {
      *
      * @param index The index of the task to mark as not done yet.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
+        String str = "";
         try {
             if (tasks.size() < index) {
                 throw new OutOfIndexException();
@@ -88,19 +84,14 @@ public class TaskList {
                 throw new DuplicateInstructionException();
             }
             tasks.get(index - 1).unmarkAsDone();
-            System.out.println(LINE);
-            System.out.println("\t OK, I've marked this task as not done yet:" + "\n\t\t" +
-                    tasks.get(index - 1).print());
-            System.out.println(LINE);
+            str = "OK, I've marked this task as not done yet:" + "\n\t" +
+                    tasks.get(index - 1).print();
         } catch (OutOfIndexException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString(tasks.size()));
-            System.out.println(LINE);
+            str = e.toString(tasks.size());
         } catch (DuplicateInstructionException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString("unmark"));
-            System.out.println(LINE);
+            str = e.toString("unmark");
         }
+        return str;
     }
 
     /**
@@ -109,22 +100,20 @@ public class TaskList {
      *
      * @param index The index of the task to delete.
      */
-    public void delete(int index) {
+    public String delete(int index) {
+        String str = "";
         try {
             if (tasks.size() < index || index < 1) {
                 throw new OutOfIndexException();
             }
-            System.out.println(LINE);
-            System.out.println("\t OK, I've removed this task:" + "\n\t\t" +
-                    tasks.get(index - 1).print());
+            str = "OK, I've removed this task:" + "\n\t" +
+                    tasks.get(index - 1).print();
             tasks.remove(index - 1);
-            System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(LINE);
+            str = str + "\n Now you have " + tasks.size() + " tasks in the list.";
         } catch (OutOfIndexException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString(tasks.size()));
-            System.out.println(LINE);
+            str = e.toString(tasks.size());
         }
+        return str;
     }
 
     /**
@@ -133,7 +122,8 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void add(Task task){
+    public String add(Task task){
+        String str;
         try {
             for (Task value : tasks) {
                 if (value.getDescription().equals(task.getDescription())) {
@@ -141,16 +131,12 @@ public class TaskList {
                 }
             }
             tasks.add(task);
-            System.out.println(LINE);
-            System.out.println("\t Got it. I've added this task:");
-            System.out.print("\t   " + task.print());
-            System.out.println("\n\t Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(LINE);
+            str = "Got it. I've added this task:";
+            str = str + "\n\t" + task.print() + "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (DuplicateInstructionException e) {
-            System.out.println(LINE);
-            System.out.println(e.toString(""));
-            System.out.println(LINE);
+            str = e.toString("");
         }
+        return str;
     }
 
     /**
@@ -158,19 +144,32 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in the task descriptions.
      */
-    public ArrayList<Task> find(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-
-        System.out.println(LINE);
-        System.out.println("\t These are the result of finding the keyword:");
+    public String find(String keyword) {
+        StringBuilder matchingTasks = new StringBuilder();
+        matchingTasks.append("These are the result of finding the keyword:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
-                System.out.println("\t" + (i + 1) + ". " + tasks.get(i).print());
+                matchingTasks.append("\n" + (i + 1) + ". " + tasks.get(i).print());
             }
         }
+        return matchingTasks.toString();
+    }
 
-        System.out.println(LINE);
-
-        return matchingTasks;
+    /**
+     * Displays the list of tasks to the user.
+     */
+    public String list() {
+        StringBuilder str = new StringBuilder();
+        if (tasks.size() == 0) {
+            str.append("I think you haven't had enough vitamin E."
+                    + "\nYou do not have any tasks on the list yet!"
+                    + "\nI suggest you take some LEMONA.");
+        } else {
+            str.append("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                str.append("\n\t" + (i + 1) + ". " + tasks.get(i).print());
+            }
+        }
+        return str.toString();
     }
 }
