@@ -1,3 +1,5 @@
+package Mitsuki;
+
 /**
  * Contains information on the EmptyTaskException class.
  *

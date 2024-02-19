@@ -1,3 +1,5 @@
+package Mitsuki;
+
 import java.util.ArrayList;
 /**
  * Contains information on the DukeException class.

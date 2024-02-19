@@ -1,3 +1,4 @@
+package Mitsuki;
 /**
  * Contains information on the AlreadyDoneException class.
  *
