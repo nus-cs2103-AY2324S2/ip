@@ -44,13 +44,12 @@ test {
 }
 
 application {
-    mainClass.set("lia.Lia")
+    mainClass.set("lia.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "lia"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
