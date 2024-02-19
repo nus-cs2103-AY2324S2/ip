@@ -1,7 +1,5 @@
 package tes.command;
 
-import java.util.Scanner;
-
 import tes.taskmanager.Storage;
 import tes.taskmanager.TaskList;
 
@@ -128,7 +126,7 @@ public class Ui {
      * @param index Index of the task to be unmarked.
      */
     public String delete(int index) {
-        String deletedTask ="Noted. I've removed this task:\n"
+        String deletedTask = "Noted. I've removed this task:\n"
                 + this.taskList.getTaskDescription(index - 1)
                 + "\nNow you have "
                 + (this.taskList.getSize() - 1)
