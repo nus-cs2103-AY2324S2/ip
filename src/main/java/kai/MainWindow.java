@@ -19,8 +19,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private Kai duke;
+    private Kai kai;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image kaiImage = new Image(this.getClass().getResourceAsStream("/images/Kai.png"));
@@ -34,14 +33,14 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDuke(Kai d) {
-        duke = d;
+        kai = d;
     }
 
     /**
      * Displays the welcome message when Duke starts.
      */
     public void showWelcomeMessage() {
-        String welcomeText = duke.displayWelcomeMessage();
+        String welcomeText = kai.displayWelcomeMessage();
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeText, kaiImage));
     }
     /**
@@ -51,7 +50,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = kai.getResponse(input);
 
         // Display user and Duke dialogue boxes
         dialogContainer.getChildren().addAll(

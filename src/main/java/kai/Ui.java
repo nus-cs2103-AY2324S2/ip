@@ -24,10 +24,8 @@ public class Ui {
      *
      * @param e The DukeException containing the error message.
      */
-    public void errorEncounter(KaiException e) {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(e.getMessage());
-        System.out.println("------------------------------------------------------------");
+    public String errorEncounter(KaiException e) {
+        return e.getMessage();
     }
 
     /**

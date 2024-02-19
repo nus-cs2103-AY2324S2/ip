@@ -48,6 +48,7 @@ public class Parser {
             return taskList.list();
 
         } else if (command.equals("bye")) {
+            return ui.finalMessage();
 
         } else if (command.equals("find")) {
             return taskList.find(parts);
@@ -70,6 +71,5 @@ public class Parser {
         } else {
             return taskList.add(command, restOfInputs);
         }
-        return ui.blank();
     }
 }

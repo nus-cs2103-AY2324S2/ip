@@ -147,9 +147,8 @@ public class TaskList {
                 throw new KaiException(ui.displayErrorMessage());
             }
         } catch (KaiException e) {
-            ui.errorEncounter(e);
+            return ui.errorEncounter(e);
         }
-        return ui.blank();
     }
 
     /**
