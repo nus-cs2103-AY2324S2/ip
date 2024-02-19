@@ -9,8 +9,8 @@ public class FindCommand extends Command {
     private static String keyword;
 
     private static final String COMMAND_SUCCESS = "-------------------------------- \n" +
-             "Here are the matching tasks in your list:" +
-            TaskList.findTaskByKeyword(keyword) +
+            "Here are the matching tasks in your list: \n" +
+            "%s \n" +
             "-------------------------------- \n";
 
     public FindCommand(String keyword) {
@@ -18,6 +18,7 @@ public class FindCommand extends Command {
     }
 
     public CommandResult execute() {
-        return new CommandResult(COMMAND_SUCCESS);
+        TaskList taskList = storage.filterListByKeyword(keyword);
+        return new CommandResult(String.format(COMMAND_SUCCESS, taskList.toString()));
     }
 }

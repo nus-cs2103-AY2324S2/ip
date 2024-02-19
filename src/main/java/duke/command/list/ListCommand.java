@@ -9,7 +9,7 @@ public class ListCommand extends Command {
 
     private static final String COMMAND_SUCCESS =
             "-------------------------------- \n" +
-                    "Here are the tasks in your list:" +
+                    "Here are the tasks in your list: \n" +
                     "%s \n" +
                     "-------------------------------- \n"
             ;

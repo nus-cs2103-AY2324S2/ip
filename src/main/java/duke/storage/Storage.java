@@ -146,4 +146,8 @@ public class Storage {
     public String getTasksInString() {
         return taskList.toString();
     }
+
+    public TaskList filterListByKeyword(String keyword) {
+        return taskList.filterTasksByKeyword(keyword);
+    }
 }

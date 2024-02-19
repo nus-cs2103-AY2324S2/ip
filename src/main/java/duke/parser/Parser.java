@@ -3,6 +3,8 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.CommandEnum;
 import duke.command.InvalidCommand;
+import duke.command.find.FindCommand;
+import duke.command.list.ListCommand;
 import duke.command.mark.ChangeisDoneCommand;
 import duke.command.mark.MarkCommand;
 import duke.command.mark.UnmarkCommand;
@@ -151,6 +153,12 @@ public class Parser {
             case UnmarkCommand.COMMAND:
                 return parseUnmarkCommand(args);
 
+            case FindCommand.COMMAND:
+                return parseFindCommand(args);
+
+            case ListCommand.COMMAND:
+                return new ListCommand();
+
             default:
                 return new InvalidCommand(Command.INVALID_COMMAND);
         }
@@ -233,6 +241,10 @@ public class Parser {
         }
     }
 
+    private Command parseFindCommand(String args) {
+        String keyword = args.trim();
+        return new FindCommand(keyword);
+    }
 
 
 }

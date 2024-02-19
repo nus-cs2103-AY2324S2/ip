@@ -44,6 +44,16 @@ public class TaskList extends ArrayList<Task> {
         t.undone();
     }
 
+    public TaskList filterTasksByKeyword(String keyword) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getTaskName().contains(keyword)) {
+                list.add(t);
+            }
+        }
+        return new TaskList(list);
+    }
+
     public static ArrayList<Task> findTaskByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task t: tasks) {
@@ -54,17 +64,17 @@ public class TaskList extends ArrayList<Task> {
         return matchingTasks;
     }
 
+
     @Override
     public String toString() {
         String taskList = "";
-        // Ui.printTasks(tasks);
         if (tasks == null || tasks.isEmpty()) {
             taskList += "----You have no tasks yet.----";
         }
         else {
             for (int i = 0; i < tasks.size(); i++) {
                 Task iTask = tasks.get(i);
-                taskList += (i + 1) + ". " + iTask.toString();
+                taskList += (i + 1) + ". " + iTask.toString() + "\n";
             }
         }
         return taskList;
