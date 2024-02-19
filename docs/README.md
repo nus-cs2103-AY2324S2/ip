@@ -1,7 +1,6 @@
 # Lucifer
 
-
-![img.png](Ui.png)
+<img src="Ui.png" width="300" >
 
 Lucifer is a task management tool that helps you keep track of your tasks and deadlines. It is a command line application that allows you to add, delete, mark, unmark tasks as done. It also allows you to add deadlines, ToDo and events to your tasks.
 
