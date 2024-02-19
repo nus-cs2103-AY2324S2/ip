@@ -8,6 +8,7 @@ import java.util.Scanner;
 import duke.exceptions.FileCorruptionException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Loan;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
@@ -41,6 +42,9 @@ public class Storage {
         case "E":
             t = Storage.parseEventData(fields);
             break;
+        case "L":
+            t = Storage.parseLoanData(fields);
+            break;
         default:
             throw new Exception();
         }
@@ -60,6 +64,11 @@ public class Storage {
     private static Event parseEventData(String[] fields) {
         boolean isDone = (Integer.valueOf(fields[2]) == 1);
         return new Event(fields[1], isDone, fields[3], fields[4], false);
+    }
+
+    private static Loan parseLoanData(String[] fields) {
+        boolean isDone = (Integer.valueOf(fields[2]) == 1);
+        return new Loan(fields[1], isDone, Integer.valueOf(fields[3]));
     }
 
     /**
