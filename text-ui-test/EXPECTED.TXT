@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm luke.luke
+What can I do for you?
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Nice! I've marked this task as done:
+[T][X] borrow book
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][X] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+luke.LukeException: luke.Task does not exist. Please give a valid task number.
+luke.LukeException: luke.Task does not exist. Please give a valid task number.
+Noted. I've removed this task:
+[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+Now you have 2 tasks in the list.
+luke.LukeException: Invalid command/task type.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. Please follow the format for deadline tasks.
+luke.LukeException: Invalid command. Please follow the format for deadline tasks.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. The deadline cannot be empty.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. The from section cannot be empty.
+luke.LukeException: Invalid command. The to section cannot be empty.
+Bye. Hope to see you again soon!
+
 
