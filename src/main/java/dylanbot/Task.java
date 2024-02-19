@@ -3,7 +3,7 @@ package dylanbot;
 /**
  * Represents a general Task
  */
-public class Task {
+public abstract class Task {
 
     private String type;
     private String desc;
@@ -47,11 +47,6 @@ public class Task {
         this.isCompleted = false;
     }
 
-    @Override
-    public String toString() {
-        return "[" + type + "] "
-                + (isCompleted ? "[X]" : "[ ]")
-                + " " + desc;
-    }
+    public abstract String toString();
 }
 

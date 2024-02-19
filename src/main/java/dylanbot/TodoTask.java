@@ -13,4 +13,11 @@ public class TodoTask extends Task {
     public TodoTask(String desc) {
         super("T", desc);
     }
+
+    @Override
+    public String toString() {
+        return "[" + this.getType() + "] "
+                + (this.checkCompleted() ? "[X]" : "[ ]")
+                + " " + this.getDesc();
+    }
 }

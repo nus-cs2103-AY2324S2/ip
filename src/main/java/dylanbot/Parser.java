@@ -25,9 +25,8 @@ public class Parser {
      * @throws DylanBotException If input provided is of an invalid format
      */
     public String parseCommand(String command) throws DylanBotException {
-        String response = "";
         try {
-            switch (command) {
+            switch (command.split(" ")[0]) {
                 case "list":
                     return processListCommand();
                 case "find":
