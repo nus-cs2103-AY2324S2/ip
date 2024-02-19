@@ -15,6 +15,8 @@ public class Parser {
     public String parseCommand(String input, TaskList list) throws BozoException {
         StringBuilder output = new StringBuilder();
 
+        assert list != null : "List should not be null";
+        assert input != null : "Input should not be null";
         if (input.equals("bye")) {
             output.append("Bye. Hope to see you again soon!");
         } else if (input.equals("list")) {
