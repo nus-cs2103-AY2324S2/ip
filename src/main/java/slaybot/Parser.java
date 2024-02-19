@@ -28,8 +28,6 @@ public class Parser {
         DELETE,
         FIND,
         SORT,
-
-
     }
 
     /**
@@ -51,7 +49,7 @@ public class Parser {
         int index = combinedWord.indexOf("/by");
 
         if (index != -1) {
-            dateTime = combinedWord.substring(index + 3).trim();
+            dateTime = combinedWord.substring(index + 4).trim();
             deadlineTitle = combinedWord.substring(0, index);
         } else {
             if (deadlineTitle.isEmpty() && dateTime.isEmpty()) {
@@ -172,7 +170,7 @@ public class Parser {
      * @return The {@code LocalDateTime} object representing the parsed date and time.
      */
     public LocalDateTime parseDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
         return LocalDateTime.parse(dateTime, formatter);
     }
