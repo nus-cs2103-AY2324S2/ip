@@ -32,25 +32,25 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
 
 ## Features
 
-### Adding a Todo Task: `todo`
+### <span style="color: #33FF00;">Adding a Todo Task: `todo`</span>
 Adds a todo task to the task list.
 
 🔹 **Format**: `todo DESCRIPTION`<br><br>
 🌟 **Example**: `todo read book`<br><br>
-✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.
+✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### Adding a Deadline Task: `deadline`
+### <span style="color: #33FF00;">Adding a Deadline Task: `deadline`</span>
 Adds a task with a deadline to the task list, with a specified by date.
 
 🔹 **Format**: `deadline DESCRIPTION /by DATE`<br> 
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
 🌟 **Example**: `deadline return book /by 2023-03-15`<br><br>
-✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.
+✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### Adding an Event Task: `event`
+### <span style="color: #33FF00;">Adding an Event Task: `event`</span>
 
 Adds an event task to the task list, with a specified from and to date.
 
@@ -58,18 +58,18 @@ Adds an event task to the task list, with a specified from and to date.
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
 🌟 **Example**: `event team meeting /from 2023-03-20 /to 2023-03-21`<br><br>
-✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.
+✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### Listing All Tasks: `list`
+### <span style="color: #33FF00;">Listing All Tasks: `list`</span>
 
 Displays all tasks in the task list.
 
 🔹 **Format**: `list`<br><br>
-✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.
+✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br>
 
 
-### Marking a Task as Done: `mark`
+### <span style="color: #33FF00;">Marking a Task as Done: `mark`</span>
 
 Marks an index-specified task as completed.
 
@@ -77,10 +77,10 @@ Marks an index-specified task as completed.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `mark 2`<br><br>
-✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.
+✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.<br>
 
 
-### Unmarking a Task as Not Done: `unmark`
+### <span style="color: #33FF00;">Unmarking a Task as Not Done: `unmark`</span>
 
 Marks an index-specified task as not completed.
 
@@ -88,10 +88,10 @@ Marks an index-specified task as not completed.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `unmark 2`<br><br>
-✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.
+✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.<br>
 
 
-### Deleting a Task: `delete`
+### <span style="color: #33FF00;">Deleting a Task: `delete`</span>
 
 Removes a specified task from the task list.
 
@@ -99,10 +99,10 @@ Removes a specified task from the task list.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `delete 3`<br><br>
-✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.
+✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.<br>
 
 
-### Finding Tasks by Keyword: `find`
+### <span style="color: #33FF00;">Finding Tasks by Keyword: `find`</span>
 
 Finds tasks by a keyword.
 
@@ -111,10 +111,10 @@ Finds tasks by a keyword.
     - Partial words will be matched as well, e.g `meet` will match `meeting`<br>
 <br>
 🌟 **Example**: `find book`<br><br>
-✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.
+✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.<br>
 
 
-### Tagging a Task With Priority: `tag`
+### <span style="color: #33FF00;">Tagging a Task With Priority: `tag`</span>
 
 Tags an index-specified task with a specified priority level
 
@@ -123,10 +123,10 @@ Tags an index-specified task with a specified priority level
     - The `TAG` must be one of these 3 supported options (case-insensitive): `high`, `medium`, `low`<br>
 <br>
 🌟 **Example**: `tag 1 high`<br><br>
-✅ **Expected Outcome**: The application will tag the specified task with a priority level.
+✅ **Expected Outcome**: The application will tag the specified task with a priority level.<br>
 
 
-### Exiting the Application: `bye`
+### <span style="color: #33FF00;">Exiting the Application: `bye`</span>
 
 Exits the application.
 
