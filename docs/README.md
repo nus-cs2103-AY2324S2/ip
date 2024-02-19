@@ -1,30 +1,62 @@
-# Duke User Guide
+# Wei User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of product.](/Ui.png)
 
-// Product screenshot goes here
+**Welcome to Wei, where efficient task management meets intuitive design. Say goodbye to missed deadlines and 
+scattered to-do lists, and hello to better organization at your fingertips.**
 
-// Product intro goes here
+## User Commands:
 
-## Adding deadlines
+### Adding tasks
 
-// Describe the action and its outcome.
+1. todos 
+   - Adds a normal task
+   - Format: `todo DESCRIPTION` 
+   - Example: `todo complete assignment`
 
-// Give examples of usage
+2. deadlines
+   - Adds a task that have a specific due date
+   - Format: `deadline DESCRIPTION /by DATE` 
+   - Example: `deadline complete assignment by/ 2024-02-20`
 
-Example: `keyword (optional arguments)`
+3. events
+   - Adds a task with a specific start and end period
+   - Format: `event DESCRIPTION /start DATE /end DATE` 
+   - Example: `event competition /start 2024-02-20 /end 2024-02-25`
 
-// A description of the expected outcome goes here
+### Deleting tasks
+Deletes the specified task from the task list.
 
-```
-expected output
-```
+Format: `delete INDEX`
 
-## Feature ABC
+Example: `delete 1`
 
-// Feature details
+### Listing tasks
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+### Marking/Unmarking task status
+Indicate a task as complete or incomplete.
+
+Format: `mark INDEX`, `unmark INDEX` 
+
+Example: `mark 1`, `unmark 1`
+
+### Adding reminders
+Set reminder for specific task on a specific day.
+
+Format: `remind INDEX DATE`
+
+Example: `remind 1 2024-02-20`
+
+### Exiting the program
+Exits the program.
+   
+Format: `bye`
 
 
-## Feature XYZ
+## Notes
 
-// Feature details
+- Words in `UPPER_CASE` are the parameters to be supplied by the user.
+- `DATE` must be in format `YYYY-MM-DD`
