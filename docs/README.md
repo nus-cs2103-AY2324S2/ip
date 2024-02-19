@@ -3,7 +3,7 @@
 Kai is a task management application designed to help you keep track of your tasks efficiently.
 With Kai, you can easily add, manage, and organize your tasks to stay productive and organized.
 
-![User Interface](C:\Users\teoka\Desktop\NUS\Y2S2\CS2103T\IP\DUKE\docs\Ui.png)
+![Image](Ui.png)
 
 ## Adding Task
 You can add tasks of different types such as todo, event, and deadline to your task list.
