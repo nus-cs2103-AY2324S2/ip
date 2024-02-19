@@ -1,22 +1,29 @@
 package pingmebot;
 
-import org.junit.jupiter.api.Test;
-import pingmebot.command.*;
-import pingmebot.task.Deadline;
-import pingmebot.task.Events;
-import pingmebot.task.ToDos;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import pingmebot.command.AddCommand;
+import pingmebot.command.DeleteCommand;
+import pingmebot.command.FindCommand;
+import pingmebot.command.MarkCommand;
+import pingmebot.command.UnmarkCommand;
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.ToDos;
+
+
 
 public class ParserTest {
     @Test
     public void parseToDoCommandTest() throws PingMeException {
         String command = "todo project";
         Parser parser = new Parser(command);
-        assertEquals(new AddCommand(new ToDos("project")),parser.parseToDoCommand());
+        assertEquals(new AddCommand(new ToDos("project")), parser.parseToDoCommand());
     }
 
     @Test
@@ -31,9 +38,9 @@ public class ParserTest {
 
     @Test
     public void parseEventsCommandTest() throws PingMeException {
-        String command  = "event project /from 9am /to 8pm";
+        String command = "event project /from 9am /to 8pm";
         Parser parser = new Parser(command);
-        assertEquals(new AddCommand(new Events("project", " 9am"," 8pm")),
+        assertEquals(new AddCommand(new Events("project", " 9am", " 8pm")),
                 parser.parseEventsCommand());
     }
 

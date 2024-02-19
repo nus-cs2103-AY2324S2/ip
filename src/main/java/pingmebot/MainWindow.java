@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image pingMeBotImage = new Image(this.getClass().getResourceAsStream("/images/PingMeBotImage.png"));
 
+    /**
+     * Helps to generate a dialog box to welcome the user when the user boots the application.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

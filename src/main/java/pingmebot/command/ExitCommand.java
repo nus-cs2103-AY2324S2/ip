@@ -5,7 +5,9 @@ import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
 
-
+/**
+ * Represents a command for the user to exit from the application.
+ */
 public class ExitCommand extends Command {
 
     /**

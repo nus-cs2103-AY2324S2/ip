@@ -1,20 +1,19 @@
 package pingmebot;
 
-import pingmebot.task.Task;
-import pingmebot.task.ToDos;
-import pingmebot.task.Deadline;
-import pingmebot.task.Events;
-
-import java.io.IOException;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.Task;
+import pingmebot.task.ToDos;
+
 
 /**
  * Helps to load tasks from and updating tasks to local file.
@@ -49,7 +48,8 @@ public class Storage {
      * Loads tasks into list of tasks which is then used to create the tasklist.
      *
      * @return List of tasks, if any, from the local file.
-     * @throws PingMeException If the path to the file is not found or when syntax of tasks stored in the localfile is not understood.
+     * @throws PingMeException If the path to the file is not found or when syntax of tasks
+     *                         stored in the localfile is not understood.
      */
     public ArrayList<Task> bootingUp() throws PingMeException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -93,7 +93,7 @@ public class Storage {
                         String description = segmentedText[2].trim();
                         String from = " " + segmentedText[3].trim();
                         String to = " " + segmentedText[4].trim();
-                        Events event = new Events(description,from,to);
+                        Events event = new Events(description, from, to);
                         if (isTaskCompleted == 1) {
                             event.markAsDone();
                         }

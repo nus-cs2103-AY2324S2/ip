@@ -5,6 +5,9 @@ import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
 
+/**
+ * Represents a command for the user to delete a task from the task list in the application.
+ */
 public class DeleteCommand extends Command {
 
     private int taskNumber;

@@ -5,10 +5,13 @@ import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
 
+/**
+ * Represents an abstract base class for all command objects in the application.
+ */
 public abstract class Command {
 
     /**
-     * Executing the command to conduct specific actions given by the user, updating the task list, local storage.
+     * Executes the command to conduct specific actions given by the user, updating the task list, local storage.
      * This command will also generate the corresponding response to the user via the ui.
      *
      * @param tasks The task list containing all the tasks which the user has added.
