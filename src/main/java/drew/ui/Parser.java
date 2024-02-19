@@ -54,6 +54,7 @@ public class Parser {
         } else {
             userCommand = UnknownCommand.getUnkownCommand();
         }
+        assert !userCommand.equals(null);
         return userCommand;
     }
 }

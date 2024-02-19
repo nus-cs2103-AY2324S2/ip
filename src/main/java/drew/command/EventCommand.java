@@ -41,12 +41,13 @@ public class EventCommand extends Command {
         reply = "Got it. I've added this task:\n";
         reply = reply + newTask.toStatusString() + "\n";
         listLength++;
+        assert ls.size() == listLength;
         reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
 
         return reply;
     }
 
     public static boolean isEventCommand(int inputLength, String input) {
-        return inputLength >= 5 && input.substring(0, 5).equalsIgnoreCase("event");
+        return inputLength > 5 && input.substring(0, 5).equalsIgnoreCase("event");
     }
 }

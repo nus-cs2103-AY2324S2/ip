@@ -35,6 +35,6 @@ public class MarkCommand extends Command {
     }
 
     public static boolean isMarkCommand(int inputLength, String input) {
-        return inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("mark");
+        return inputLength > 4 && input.substring(0, 4).equalsIgnoreCase("mark");
     }
 }

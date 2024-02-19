@@ -36,13 +36,13 @@ public class DeleteCommand extends Command {
                 + ls.get(taskIndex - 1).toStatusString() + "\n";
         ls.remove(taskIndex - 1);
         listLength--;
-
+        assert ls.size() == listLength;
         reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
 
         return reply;
     }
 
     public static boolean isDeleteCommand(int inputLength, String input) {
-        return inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("delete");
+        return inputLength > 6 && input.substring(0, 6).equalsIgnoreCase("delete");
     }
 }
