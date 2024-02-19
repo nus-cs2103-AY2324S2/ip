@@ -2,7 +2,9 @@ package lindi.parser;
 
 import org.junit.jupiter.api.Test;
 
-import lindi.commands.CreateTaskCommand;
+import lindi.commands.CreateDeadlineCommand;
+import lindi.commands.CreateEventCommand;
+import lindi.commands.CreateToDoCommand;
 import lindi.commands.DeleteCommand;
 import lindi.commands.ExitCommand;
 import lindi.commands.FindCommand;
@@ -32,16 +34,16 @@ public class ParserTest {
         // normal delete command with index argument returns a DeleteCommand
         assert(Parser.parse("delete 3") instanceof DeleteCommand);
 
-        // normal todo command with argument returns a CreateTaskCommand
-        assert(Parser.parse("todo something") instanceof CreateTaskCommand);
+        // normal todo command with argument returns a CreateToDoCommand
+        assert(Parser.parse("todo something") instanceof CreateToDoCommand);
 
-        // normal deadline command with /by argument returns a CreateTaskCommand
+        // normal deadline command with /by argument returns a CreateDeadlineCommand
         assert(Parser.parse("deadline someDeadline /by 2024-02-07-23-59")
-                instanceof CreateTaskCommand);
+                instanceof CreateDeadlineCommand);
 
-        // normal event command with /from and /to argument returns a CreateTaskCommand
+        // normal event command with /from and /to argument returns a CreateEventCommand
         assert(Parser.parse("event someEvent /from 2024-02-07-23-59 /to 2024-02-08-23-59")
-                instanceof CreateTaskCommand);
+                instanceof CreateEventCommand);
 
         // normal bye command returns a ExitCommand
         assert(Parser.parse("bye") instanceof ExitCommand);
