@@ -5,11 +5,11 @@ Scribbles may be a goldfish, but she definitely has a few seconds of memory more
 Free up space in your mind, and allow Scribbles to help you to remember the trivial tasks and events!
 
 #### preview:
-<p align="centre">
+<p align="center">
     <a href="https://github.com/danielleloh/ip">
         <img src=
             "https://i.imgur.com/3jWp7Pi.png"
-            alt="ui preview" height="350">
+            alt="ui preview" height="500">
     </a>
 </p>
 
