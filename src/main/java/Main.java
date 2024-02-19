@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Lery using FXML.
  */
 public class Main extends Application {
 
