@@ -1,94 +1,59 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 public class Storage {
-    private final String filePath;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private String filePath;
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String filepath) {
+        this.filePath = filepath;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
-        try {
-            File file = new File(filePath);
-            file.getParentFile().mkdirs();
-            FileWriter writer = new FileWriter(file, false);
+    // load returns a arraylist object, which can be used to make a tasklist object
+    public ArrayList<Task> load() throws IOException, DukeException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (Files.exists(Paths.get(filePath))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        Task task = Parser.parseFileFormattedTask(line);
+                        tasks.add(task);
+                    } catch (DukeException e) {
+                        // Handle parse exceptions, e.g., log them or throw a custom exception
+                        System.err.println("Error parsing task from file: " + e.getMessage());
+                        // Optionally rethrow or continue processing remaining tasks
+                        // throw e; // Uncomment to rethrow
+                    }
+                }
+            }
+        } else {
+            // Handle the case where the file does not exist
+            // This might simply mean no tasks have been saved yet, so just return the empty list
+            // Or, if appropriate, throw an exception or log a message
+            System.out.println("No saved tasks found.");
+        }
+        return tasks;
+    }
+
+    // takes in an arraylist, then saves it based on each task's overridden toFileString
+    public void save(ArrayList<Task> tasks) throws DukeException, IOException {
+        Path path = Paths.get(this.filePath);
+        // Ensure the parent directories exist
+        if (path.getParent() != null) {
+            Files.createDirectories(path.getParent());
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath, false))) {
             for (Task task : tasks) {
-                writer.write(taskToFileFormat(task) + "\n");
+                writer.write(task.toFileString() + System.lineSeparator());
             }
-            writer.close();
         } catch (IOException e) {
-            System.out.println("An unexpected error occurred while saving tasks!");
+            throw new DukeException("Error saving tasks to file!: " + e.getMessage());
         }
     }
 
-    private String taskToFileFormat(Task task) {
-        String type = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
-        String status = task.isDone() ? "1" : "0";
-        String details = task.getDescription();
-        String time = "";
-        if (task instanceof Deadline) {
-            LocalDateTime by = ((Deadline) task).getBy();
-            time = by.format(formatter);
-        } else if (task instanceof Event) {
-            time = ((Event) task).getTime();
-        }
-        return type + " | " + status + " | " + details + (time.isEmpty() ? "" : " | " + time);
-    }
-
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> loadedTasks = new ArrayList<>();
-        File file = new File(filePath);
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                Task task = parseTask(data);
-                if (task != null) {
-                    loadedTasks.add(task);
-                }
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing task file found. Starting a new task list.");
-        }
-        return loadedTasks;
-    }
-
-    private Task parseTask(String data) {
-        String[] parts = data.split(" \\| ");
-        if (parts.length < 3) return null;
-
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String name = parts[2];
-        Task task = null;
-
-        switch (type) {
-            case "T":
-                task = new Todo(name, isDone);
-                break;
-            case "D":
-                if (parts.length >= 4) {
-                    String byString = parts[3];
-                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
-                    task = new Deadline(name, isDone, by);
-                }
-                break;
-            case "E":
-                if (parts.length >= 4) {
-                    String time = parts[3];
-                    task = new Event(name, isDone, time);
-                }
-                break;
-        }
-        return task;
-    }
 }

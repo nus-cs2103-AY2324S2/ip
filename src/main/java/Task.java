@@ -31,6 +31,8 @@ public class Task {
     }
 
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + " | " + this.description;
+        return (this.isDone ? "1" : "0") + "|" + this.description;
     }
+
+    // 1|description
 }

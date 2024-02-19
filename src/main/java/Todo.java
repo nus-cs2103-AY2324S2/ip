@@ -10,6 +10,8 @@ public class Todo extends Task{
 
     @Override
     public String toFileString() {
-        return "T| " + super.toFileString();
+        return "T|" + super.toFileString();
     }
 }
+
+// // T|1|description
