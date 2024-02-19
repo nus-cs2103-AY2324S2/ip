@@ -132,6 +132,7 @@ public class Parser {
                     } else {
                         String description = token[1];
                         Task todo = tasks.addToDo(description, ui);
+                        assert !tasks.isEmpty() : "Task list should not be empty.";
                         storage.saveTasksToFile(tasks);
                         return ui.printAddTodoSuccessful(todo, tasks.size());
                     }
@@ -148,6 +149,7 @@ public class Parser {
                     String description = descriptionAndBy[0].trim();
                     String dueDate = Parser.formatDateTime(descriptionAndBy[1].trim());
                     Task deadline = tasks.addDeadline(description, dueDate, ui);
+                    assert !tasks.isEmpty() : "Task list should not be empty.";
                     storage.saveTasksToFile(tasks);
                     return ui.printAddDeadlineSuccessful(deadline, tasks.size());
                 } catch (exception.InvalidDeadlineException e) {
@@ -171,6 +173,7 @@ public class Parser {
                     String fromDateAndTime = Parser.formatDateTime(fromAndTo[0].trim());
                     String toDateAndTime = Parser.formatDateTime(fromAndTo[1].trim());
                     Task event = tasks.addEvent(description, fromDateAndTime, toDateAndTime, ui);
+                    assert !tasks.isEmpty() : "Task list should not be empty.";
                     storage.saveTasksToFile(tasks);
                     return ui.printAddEventSuccessful(event, tasks.size());
                 } catch (exception.InvalidEventException e) {
@@ -215,6 +218,7 @@ public class Parser {
                         for (String keyword : keywords) {
                             for (int i = 1; i < tasks.size() + 1; i++) {
                                 Task currentTask = tasks.getTask(i - 1);
+                                assert currentTask != null : "Current task should not be null.";
 
                                 if (currentTask.getDescription().contains(keyword)
                                         && !filteredTasks.contains(currentTask)) {
