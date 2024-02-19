@@ -1,6 +1,5 @@
 package drew;
 
-import drew.command.ByeCommand;
 import drew.command.Command;
 import drew.storage.TaskList;
 import drew.storage.Storage;
@@ -49,12 +48,5 @@ public class Drew {
         }
 
         return reply;
-    }
-
-    public void saveTasks() {
-        storage.save(tasks);
-    }
-
-    public static void main(String[] args) {
     }
 }
