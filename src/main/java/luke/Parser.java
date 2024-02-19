@@ -208,6 +208,13 @@ public class Parser {
         return keyword;
     }
 
+    /**
+     * Edits a task based on the provided input.
+     *
+     * @param input The input string containing details of the edit command.
+     * @return The task that was edited.
+     * @throws LukeException If there is an error processing the edit command.
+     */
     protected Task commandEdit(String input) throws LukeException {
         String details = input.substring(4).trim();
         if (details.isEmpty()) {
