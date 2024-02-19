@@ -100,12 +100,17 @@ public class Parser {
     public String handleFind(String[] commandsplit) {
         try {
             String findTarget = commandsplit[1].toLowerCase();
+            String returntasks = "";
             for (int i = 0; i < tasklist.length(); i++) {
                 if (tasklist.getTask(i).getDescription().toLowerCase().contains(findTarget)) {
-                    return tasklist.getTask(i).toString();
+                    returntasks = returntasks.concat(tasklist.getTask(i).toString());
+                    returntasks = returntasks.concat("\n");
                 }
             }
-            return "It doesn't exist!";
+            if (returntasks.isEmpty()) {
+                return "It doesn't exist!";
+            }
+            return returntasks;
         } catch (Error e) {
             return "[angry quacking] I can only find words!";
         }
