@@ -66,4 +66,19 @@ public class Event extends Task {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
     }
+
+    @Override
+    protected String queryType() {
+        return "Event";
+    }
+
+    @Override
+    protected void changeFrom(String newString) {
+        this.from = newString;
+    }
+
+    @Override
+    protected void changeTo(String newString) {
+        this.to = newString;
+    }
 }

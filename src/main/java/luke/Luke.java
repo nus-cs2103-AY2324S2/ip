@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class Luke  extends Application {
     private Storage storage;
     private TaskList taskList;
@@ -24,20 +26,8 @@ public class Luke  extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image luke = new Image(this.getClass().getResourceAsStream("/images/DaLuke.png"));
-
-    public Luke(String filePath) {
-        storage = new Storage(filePath);
-        try {
-            taskList = new TaskList(storage.loadFile());
-            ui = new Ui(taskList);
-        } catch (LukeException e) {
-            taskList = new TaskList();
-            ui = new Ui();
-            ui.showLoadingError();
-        }
-    }
+    private final Image USER_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image LUKE_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaLuke.png")));
 
     public Luke() {
         storage = new Storage("data/tasks.txt");
@@ -49,17 +39,6 @@ public class Luke  extends Application {
             ui = new Ui();
             ui.showLoadingError();
         }
-    }
-
-    public void run() {
-        ui.welcome();
-        ui.handleInput();
-        storage.saveFile(taskList);
-        ui.end();
-    }
-
-    public static void main(String[] args) {
-        new Luke("data/tasks.txt").run();
     }
 
     @Override
@@ -123,6 +102,13 @@ public class Luke  extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        //Initialize the conversation.
+
+        String lukeText = ui.welcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getLukeDialog(lukeText, LUKE_IMAGE)
+        );
     }
 
     /**
@@ -133,14 +119,16 @@ public class Luke  extends Application {
     private void handleUserInput() {
         String userText = userInput.getText();
         String lukeText = getResponse(userInput.getText());
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, user),
-                DialogBox.getLukeDialog(lukeText, luke)
+                DialogBox.getUserDialog(userText, USER_IMAGE),
+                DialogBox.getLukeDialog(lukeText, LUKE_IMAGE)
         );
+
         userInput.clear();
     }
 
     String getResponse(String input) {
-        return "Luke received: " + input;
+        return ui.handleInput(input);
     }
 }
