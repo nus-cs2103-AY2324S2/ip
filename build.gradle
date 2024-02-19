@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("kokbot.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'kokbot.jar'
 }
 
 run{

@@ -1,4 +1,4 @@
-package duke;
+package Kokbot;
 
 import javafx.application.Application;
 

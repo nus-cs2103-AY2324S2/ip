@@ -1,9 +1,9 @@
-package duke;
+package Kokbot;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import Kokbot.task.Deadline;
+import Kokbot.task.Event;
+import Kokbot.task.Task;
+import Kokbot.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,9 +1,9 @@
-package duke;
+package Kokbot;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import Kokbot.task.Deadline;
+import Kokbot.task.Event;
+import Kokbot.task.Task;
+import Kokbot.task.Todo;
 
 import java.time.format.DateTimeFormatter;
 
@@ -23,12 +23,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
- * Represents the main Duke class
+ * Represents the main Kokbot class
  */
-public class Duke extends Application {
+public class Kokbot extends Application {
 
     /**
      * Represents the type of command
@@ -63,16 +62,12 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/Dauser.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Daduke.jpg"));
-
-
     /**
      * Constructor for Duke
      */
-    public Duke() {
+    public Kokbot() {
         ui = new Ui("KokBot");
-        storage = new Storage(Paths.get("data", "duke.txt"));
+        storage = new Storage(Paths.get("data", "kokbot.txt"));
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
@@ -88,7 +83,7 @@ public class Duke extends Application {
      * @param filePath Path of the file
      * @param botName  Name of the bot
      */
-    public Duke(Path filePath, String botName) {
+    public Kokbot(Path filePath, String botName) {
         ui = new Ui(botName);
         storage = new Storage(filePath);
         parser = new Parser();
@@ -122,7 +117,7 @@ public class Duke extends Application {
         stage.show();
 
         // Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Kokbot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -226,7 +221,7 @@ public class Duke extends Application {
             default:
                 throw new DukeException("Unknown command");
             }
-        } catch (duke.DukeException e) {
+        } catch (DukeException e) {
             return e.getMessage();
         } finally {
             save();

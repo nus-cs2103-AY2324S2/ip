@@ -1,4 +1,4 @@
-package duke;
+package Kokbot;
 
 /**
  * Represents a Command
@@ -8,7 +8,7 @@ public class Command {
     /**
      * Type of the Command
      */
-    public Duke.CommandType type;
+    public Kokbot.CommandType type;
 
     /**
      * Stores the arguments required for running of command
@@ -20,7 +20,7 @@ public class Command {
      *
      * @param newType Type of the Command
      */
-    public Command(Duke.CommandType newType) {
+    public Command(Kokbot.CommandType newType) {
         this.type = newType;
         this.args = new String[]{};
     }
@@ -31,7 +31,7 @@ public class Command {
      * @param newType Type of the Command
      * @param newArgs Arguments required for running of command
      */
-    public Command(Duke.CommandType newType, String[] newArgs) {
+    public Command(Kokbot.CommandType newType, String[] newArgs) {
         this.type = newType;
         this.args = newArgs;
     }

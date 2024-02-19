@@ -1,4 +1,4 @@
-package duke;
+package Kokbot;
 
 /**
  * Represents a DukeException

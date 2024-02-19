@@ -1,11 +1,10 @@
-package duke;
+package Kokbot;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -24,26 +23,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Kokbot kokbot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Dauser.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Daduke.jpg"));
+    private Image kokbotImage = new Image(this.getClass().getResourceAsStream("/images/Daduke.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.setFitToHeight(false);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setOnScroll(event -> {
-            double deltaY = event.getDeltaY();
-            double delta = scrollPane.getVvalue() - deltaY / scrollPane.getContent().getBoundsInLocal().getHeight();
-            scrollPane.setVvalue(delta);
-            event.consume();
-        });
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setKokbot(Kokbot k) {
+        kokbot = k;
     }
 
     /**
@@ -53,10 +46,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = kokbot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, kokbotImage)
         );
         userInput.clear();
         if (input.equalsIgnoreCase("bye")) {

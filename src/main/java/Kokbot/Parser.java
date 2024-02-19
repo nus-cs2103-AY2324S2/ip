@@ -1,4 +1,4 @@
-package duke;
+package Kokbot;
 
 import java.util.Arrays;
 
@@ -25,13 +25,13 @@ public class Parser {
         String[] parts = input.split(" ");
         switch (parts[0]) {
             case "bye":
-                return new Command(Duke.CommandType.BYE);
+                return new Command(Kokbot.CommandType.BYE);
             case "list":
                 return parseList(input);
             case "mark":
-                return parseMarkings(input, Duke.CommandType.MARK);
+                return parseMarkings(input, Kokbot.CommandType.MARK);
             case "unmark":
-                return parseMarkings(input, Duke.CommandType.UNMARK);
+                return parseMarkings(input, Kokbot.CommandType.UNMARK);
             case "todo":
                 return parseTodo(input);
             case "deadline":
@@ -53,13 +53,13 @@ public class Parser {
             if (parts.length > 2) {
                 throw new DukeException("Unknown usage - \"list\" command should not have more than 2 arguments");
             } else {
-                return new Command(Duke.CommandType.LIST, new String[]{parts[1]});
+                return new Command(Kokbot.CommandType.LIST, new String[]{parts[1]});
             }
         } else {
-            return new Command(Duke.CommandType.LIST);
+            return new Command(Kokbot.CommandType.LIST);
         }
     }
-    public Command parseMarkings(String input, Duke.CommandType commandType) throws DukeException {
+    public Command parseMarkings(String input, Kokbot.CommandType commandType) throws DukeException {
         String[] parts = input.split(" ");
         try {
             Integer.parseInt(parts[1]);
@@ -76,7 +76,7 @@ public class Parser {
             throw new DukeException("Incorrect usage - description cannot be empty");
         }
         String[] args = new String[]{todoDesc};
-        return new Command(Duke.CommandType.TODO, args);
+        return new Command(Kokbot.CommandType.TODO, args);
     }
 
     public Command parseDeadline(String input) throws DukeException {
@@ -102,7 +102,7 @@ public class Parser {
             throw new DukeException("Unknown usage - due date of \"deadline\" should not be empty.");
         }
 
-        return new Command(Duke.CommandType.DEADLINE, new String[]{deadlineDesc, dueDateStr});
+        return new Command(Kokbot.CommandType.DEADLINE, new String[]{deadlineDesc, dueDateStr});
     }
 
     public Command parseEvent(String input) throws DukeException {
@@ -138,7 +138,7 @@ public class Parser {
         if (endDateStr.equals("")) {
             throw new DukeException("Unknown usage - end date of \"event\" should not be empty.");
         }
-        return new Command(Duke.CommandType.EVENT, new String[]{description, startDateStr, endDateStr});
+        return new Command(Kokbot.CommandType.EVENT, new String[]{description, startDateStr, endDateStr});
     }
 
     public Command parseDelete(String input) throws DukeException {
@@ -153,7 +153,7 @@ public class Parser {
                 }
             }
             int i = Integer.parseInt(parts[1]) - 1;
-            return new Command(Duke.CommandType.DELETE, new String[]{parts[1]});
+            return new Command(Kokbot.CommandType.DELETE, new String[]{parts[1]});
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("Unknown usage - task number given is not a valid number");
         }
@@ -165,6 +165,6 @@ public class Parser {
             throw new DukeException("Unknown usage - keyword should be included in \"find\" command");
         }
         String keyword = input.substring(5);
-        return new Command(Duke.CommandType.FIND, new String[]{keyword});
+        return new Command(Kokbot.CommandType.FIND, new String[]{keyword});
     }
 }

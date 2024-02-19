@@ -1,6 +1,6 @@
-package duke;
+package Kokbot;
 
-import duke.task.Task;
+import Kokbot.task.Task;
 
 import java.util.ArrayList;
 import java.util.Comparator;

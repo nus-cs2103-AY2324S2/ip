@@ -1,4 +1,4 @@
-package duke.task;
+package Kokbot.task;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
