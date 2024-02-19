@@ -10,9 +10,9 @@ import mike.task.Task;
  */
 public class TaskList extends ArrayList<Task> {
     /**
-     * Filters the view of the task list to tasks permitted by ListView object.
+     * Returns a filtered view of the task list to tasks permitted by the ListView object.
      * @param listView
-     * @return string representation of filtered task list.
+     * @return Filtered task list represented as a String.
      */
     public String view(ListView listView) {
         return this
