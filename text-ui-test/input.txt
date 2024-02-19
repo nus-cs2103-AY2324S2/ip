@@ -1,0 +1,26 @@
+list
+todo eat something nice
+deadline cs2103 assignment /by tomorrow
+event clubbing all night /from tonight /to tomorrow morning
+list
+mark 2
+list
+mark 2
+unmark 1
+mark 1
+unmark 2
+list
+deadline
+deadline name name /by 
+deadline name name /by tonight
+event 
+event name name /from
+event /from tonight
+event name name /from tonight
+event name name /to
+event name name /to tonight
+event name name /from tonight yo /to
+event name name /from /to
+delete 1
+delete 3
+bye
