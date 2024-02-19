@@ -67,13 +67,11 @@ public class MainWindow extends AnchorPane {
             // Creates a pause transition for 1 second
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {
-                // Closes the application after the pause
                 Platform.exit();
                 System.exit(0);
             });
-            pause.play(); // Starts the pause
+            pause.play();
         } else {
-            // Handles other input as normal
             String response = tes.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
