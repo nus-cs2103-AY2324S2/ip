@@ -27,10 +27,10 @@ import java.time.format.DateTimeParseException;
 public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
-    private static final String FILEPATH = "src/main/java/duke/memory/output.txt";
+    private static final String FILE_PATH = "src/main/java/duke/memory/output.txt";
 
     /** Storage format for date. */
-    private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
     /**
      * Constructor for TaskFileManager.
@@ -45,7 +45,7 @@ public class TaskFileManager {
      * @throws IOException Thrown when saving to file and file is not found.
      */
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILEPATH);
+        FileWriter fw = new FileWriter(FILE_PATH);
         for (Task t : tasks) {
             String taskToStore = t.convertToStorageFormat();
             fw.write(taskToStore + "\n");
@@ -61,7 +61,7 @@ public class TaskFileManager {
      * @return Tasks which are saved in the local drive as an ArrayList<Task>.
      */
     public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, IOException {
-        File file = new File(FILEPATH); // create a File for the given file path
+        File file = new File(FILE_PATH); // create a File for the given file path
         if (!file.exists()) { // Check if the file exists. If not, create a new file.
             file.createNewFile();
         }
@@ -82,8 +82,8 @@ public class TaskFileManager {
      * and the information stored in the instruction. Helper function for
      * loadTasksFromFile().
      * 
-     * @param ins  String representing the different instructions.
-     * @param info String representing the information stored in the Task.
+     * @param instruction String representing the different instructions.
+     * @param parameter   String representing the information stored in the Task.
      * @return Returns the Task that is loaded from the given instruction and info.
      */
     public static Task loadTask(String instruction, String parameter) {
@@ -107,14 +107,14 @@ public class TaskFileManager {
                 String tags = deadlineInputs[3];
                 ParseTags pt = new ParseTags(tags);
                 try {
-                    LocalDate deadline = LocalDate.parse(date, STORAGEFORMAT);
+                    LocalDate deadline = LocalDate.parse(date, STORAGE_FORMAT);
                     t = new Deadline(name, deadline, isCompleted, pt.tagsStringToArray());
                 } catch (DateTimeParseException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             }
-            case "E":
+            case "E": {
                 String[] eventInputs = parameter.split(" \\| ", 5);
                 boolean isCompleted = (eventInputs[0].trim() != "");
                 String name = eventInputs[1];
@@ -123,13 +123,14 @@ public class TaskFileManager {
                 String tags = eventInputs[4];
                 ParseTags pt = new ParseTags(tags);
                 try {
-                    LocalDate from = LocalDate.parse(fromDate, STORAGEFORMAT);
-                    LocalDate to = LocalDate.parse(toDate, STORAGEFORMAT);
+                    LocalDate from = LocalDate.parse(fromDate, STORAGE_FORMAT);
+                    LocalDate to = LocalDate.parse(toDate, STORAGE_FORMAT);
                     t = new Event(name, from, to, isCompleted, pt.tagsStringToArray());
                 } catch (DateTimeParseException f) {
                     System.out.println(f.getMessage());
                 }
                 break;
+            }
         }
         return t;
     }

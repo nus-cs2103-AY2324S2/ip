@@ -18,7 +18,9 @@ public class ListTask extends Command {
     }
 
     /**
-     * Prints the Task List, labels them with numbers
+     * Prints the Task List, labels them with numbers.
+     * 
+     * @return The list of Tasks represented by a String.
      */
     @Override
     public String execute() {

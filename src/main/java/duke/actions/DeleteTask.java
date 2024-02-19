@@ -8,7 +8,7 @@ import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
 /**
- * A delete command that deletes a Task from the task list,
+ * A delete command that deletes a Task from the task list.
  * 
  * @author: CHEN WENLONG
  * @version: CS2103T AY23/24 Semester 2
@@ -30,9 +30,8 @@ public class DeleteTask extends Command {
      * Deletes an existing task.
      * 
      * @return String of whether there has been an error or a success.
-     * @throws IndexOutOfBoundsException Throws the exception when the index to mark
-     *                                   is out of range.
-     * @throws IOException               When saving to file and the directory does
+     * @throws IndexOutOfBoundsException If the index to mark is out of range.
+     * @throws IOException               If saving to file and the directory does
      *                                   not exist.
      */
     public String execute() throws IndexOutOfBoundsException, IOException {

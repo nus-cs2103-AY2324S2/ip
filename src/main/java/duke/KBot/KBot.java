@@ -55,15 +55,15 @@ public class KBot extends Application {
         ScrollPane scrollPane = new ScrollPane();
         dialogContainer = new VBox();
 
-        // Anchoring the main layout
+        // Initialising the main layout
         scrollPane.setContent(dialogContainer);
         userInput = new TextField();
         Button sendButton = new Button("Send");
         Button closeButton = new Button("Close");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton, closeButton);
 
+        // Initialising the Scene
         Scene scene = new Scene(mainLayout);
         stage.setScene(scene);
         stage.show();
@@ -75,18 +75,22 @@ public class KBot extends Application {
         stage.setMinWidth(400.0);
         mainLayout.setPrefSize(400.0, 600.0);
 
+        // Formatting the scrollpane
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
+        // Formatting dialogue container
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        // Formatting buttons
         userInput.setPrefWidth(280.0);
         sendButton.setPrefWidth(55.0);
         closeButton.setPrefWidth(55.0);
 
+        // Anchoring the elements to the screen
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 60.0);
@@ -121,12 +125,16 @@ public class KBot extends Application {
         if (userInput.getText().equals("")) {
             Platform.exit(); // alternative method to exit besides the Close button
         }
+
+        // Creating label
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
 
+        // Setting font
         userText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
         dukeText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
 
+        // Printing out the dialogue box
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
@@ -134,8 +142,10 @@ public class KBot extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response to user by parsing the input from user.
+     * 
+     * @param input String to be parsed.
+     * @return The response from the KBot is returned.
      */
     private String getResponse(String input) {
         String response = parse(input);

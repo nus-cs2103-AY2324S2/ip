@@ -5,7 +5,7 @@
 
 # Gradle build files
 /.gradle/
-# /build/
+/build/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
@@ -13,11 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# local files
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED.TXT
+/text-ui-test/input.txt
+/src/test/
 
-# test file
-src/main/java/test.java
+# VSCode files
+.vscode
 
 # local storage file
 src/main/java/temp/output.txt

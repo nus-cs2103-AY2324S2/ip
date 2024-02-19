@@ -12,20 +12,20 @@ import duke.tasks.Task;
  * @version: CS2103T AY23/24 Semester 2
  */
 public class FindTask extends Command {
-    /** String key that stores what we will be searching for */
+    /** String key that stores what we will be searching for. */
     private String key;
 
     /**
      * Constructor for FindTask.
      * 
-     * @param key Key what we will be searching for.
+     * @param key Key that we will be searching for.
      */
     public FindTask(String key) {
         this.key = key;
     }
 
     /**
-     * Executes the finding of the class
+     * Executes the finding of the class.
      * 
      * @return Returns the Tasks that contain the key.
      */

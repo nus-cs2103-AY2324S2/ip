@@ -4,6 +4,9 @@ import javafx.application.Application;
 
 /**
  * Entry point to the program JavaFx.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
  */
 public class Launcher {
     public static void main(String[] args) {

@@ -20,8 +20,8 @@ public class Event extends Task {
     /** A LocalDate value that represents the date of the end of event. */
     private LocalDate endDate;
 
-    private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
-    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM-d-yyyy");
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+    private static final DateTimeFormatter PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM-d-yyyy");
 
     /**
      * Constructor for the Event.
@@ -70,8 +70,8 @@ public class Event extends Task {
      */
     @Override
     public String convertToStorageFormat() {
-        return super.convertToStorageFormat() + " | " + this.startDate.format(STORAGEFORMAT) + " | "
-                + this.endDate.format(STORAGEFORMAT) + " | " + super.tagsToStorageFormat();
+        return super.convertToStorageFormat() + " | " + this.startDate.format(STORAGE_FORMAT) + " | "
+                + this.endDate.format(STORAGE_FORMAT) + " | " + super.tagsToStorageFormat();
     }
 
     /**
@@ -82,7 +82,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         // [T][X] name (from: startTime to: endTime)
-        return super.toString() + " (from: " + this.startDate.format(PRINTFORMAT) + " to: "
-                + this.endDate.format(PRINTFORMAT) + ") Tags:" + super.getTags();
+        return super.toString() + " (from: " + this.startDate.format(PRINT_FORMAT) + " to: "
+                + this.endDate.format(PRINT_FORMAT) + ") Tags:" + super.getTags();
     }
 }

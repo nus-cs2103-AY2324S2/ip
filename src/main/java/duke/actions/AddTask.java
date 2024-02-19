@@ -21,14 +21,14 @@ import duke.tasks.ToDo;
  * @version: CS2103T AY23/24 Semester 2
  */
 public class AddTask extends Command {
-    /** Instruction or type of command. */
+    /** Name of command. */
     private String instruction;
 
     /** Input parameters to the command. */
     private String parameter;
 
     /** Output format for printing dates. */
-    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+    private static final DateTimeFormatter PRINT_FORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
     /**
      * Constructor for AddTask.
@@ -44,60 +44,49 @@ public class AddTask extends Command {
     /**
      * Executes the adding of a new Task to the task list.
      * 
-     * @throws IOException           Exception for writing and loading from
-     *                               memory.
-     * @throws InvalidInputException Exception when input parameters are
-     *                               invalid.
+     * @throws IOException           Exception for writing and loading from memory.
+     * @throws InvalidInputException Exception when input parameters are invalid.
      */
     @Override
     public String execute() throws IOException, InvalidInputException {
         Task t = null;
         assert instruction != null && instruction.length() > 0 : "Command is not initialised or is empty.";
-        String[] tagSplit = instruction.split("/tags");
-        ArrayList<String> tags = new ArrayList<>();
+
+        // handle tag inputs
+        String[] tagSplit = parameter.split("/tags");
+        String parametersWithoutTags = tagSplit[0];
+        String tagsParameter = tagSplit[1];
+        ArrayList<String> tagsList = new ArrayList<>();
         if (tagSplit.length > 1) {
-            ParseTags parsedTags = new ParseTags(tagSplit[1]);
-            tags = parsedTags.tagsStringToArray();
+            ParseTags parsedTags = new ParseTags(tagsParameter);
+            tagsList = parsedTags.tagsStringToArray();
         }
+
+        // create Command based on instruction
         switch (instruction) {
             case "todo":
-                t = new ToDo(parameter, tags);
+                t = new ToDo(parametersWithoutTags, tagsList);
                 break;
-            case "deadline":
-                String[] deadlineParameter = parameter.split(" /by ", 2);
-                if (deadlineParameter.length == 1) { // if there is command but no input
-                    throw new InvalidInputException("Invalid parameters for " + instruction);
-                }
-                String deadlineName = deadlineParameter[0];
-                String deadlineEndDate = deadlineParameter[1].trim();
+            case "deadline": {
                 try {
-                    LocalDate deadline = LocalDate.parse(deadlineEndDate, PRINTFORMAT);
-                    t = new Deadline(deadlineName, deadline, tags);
+                    makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
                 }
                 break;
-            case "event":
-                String[] eventParameter = parameter.split(" /from ", 2);
-                if (eventParameter.length == 1) { // if there is command but no input
-                    throw new InvalidInputException("Invalid parameters for " + instruction);
-                }
-                String eventName = eventParameter[0];
-                String eventDates = eventParameter[1];
-                String[] dateParameters = eventDates.split(" /to ", 2);
-                if (dateParameters.length < 2) { // if there are less than 2 dates given
-                    throw new InvalidInputException("Invalid parameters for " + instruction);
-                }
-                String eventStartDate = dateParameters[0].trim();
-                String eventEndDate = dateParameters[1].trim();
+            }
+            case "event": {
                 try {
-                    LocalDate start = LocalDate.parse(eventStartDate, PRINTFORMAT);
-                    LocalDate end = LocalDate.parse(eventEndDate, PRINTFORMAT);
-                    t = new Event(eventName, start, end, tags);
+                    makeEventCommand(instruction, parametersWithoutTags, tagsList);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
                 }
                 break;
+            }
         }
         if (t != null) {
             TaskManager.getTasks().add(t);
@@ -109,4 +98,57 @@ public class AddTask extends Command {
         return "";
     }
 
+    /**
+     * Makes a new Deadline object.
+     * 
+     * @param instruction String representing the type of Task.
+     * @param parameter   Parameters trailing the instruction.
+     * @param tags        Tags user has input into the command line.
+     * @return A new Deadline object.
+     * @throws InvalidInputException  If the parameters are incorrect.
+     * @throws DateTimeParseException If time format is not input correctly.
+     */
+    public static Deadline makeDeadlineCommand(String instruction, String parameter, ArrayList<String> tags)
+            throws InvalidInputException, DateTimeParseException {
+        String[] deadlineParameter = parameter.split(" /by ", 2);
+        if (deadlineParameter.length == 1) { // if there is command but no input
+            throw new InvalidInputException(
+                    "Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
+        }
+        String deadlineName = deadlineParameter[0];
+        String deadlineEndDate = deadlineParameter[1].trim();
+        LocalDate deadline = LocalDate.parse(deadlineEndDate, PRINT_FORMAT);
+        return new Deadline(deadlineName, deadline, tags);
+    }
+
+    /**
+     * Makes a new Event object.
+     * 
+     * @param instruction String representing the type of Task.
+     * @param parameter   Parameters trailing the instruction.
+     * @param tags        Tags user has input into the command line.
+     * @return A new Event object.
+     * @throws InvalidInputException  If the parameters are incorrect.
+     * @throws DateTimeParseException If time format is not input correctly.
+     */
+    public static Event makeEventCommand(String instruction, String parameter, ArrayList<String> tags)
+            throws InvalidInputException, DateTimeParseException {
+        String[] eventParameter = parameter.split(" /from ", 2);
+        if (eventParameter.length == 1) { // if there is command but no input
+            throw new InvalidInputException(
+                    "Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
+        }
+        String eventName = eventParameter[0];
+        String eventDates = eventParameter[1];
+        String[] dateParameters = eventDates.split(" /to ", 2);
+        if (dateParameters.length < 2) { // if there are less than 2 dates given
+            throw new InvalidInputException(
+                    "Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
+        }
+        String eventStartDate = dateParameters[0].trim();
+        String eventEndDate = dateParameters[1].trim();
+        LocalDate start = LocalDate.parse(eventStartDate, PRINT_FORMAT);
+        LocalDate end = LocalDate.parse(eventEndDate, PRINT_FORMAT);
+        return new Event(eventName, start, end, tags);
+    }
 }

@@ -33,8 +33,9 @@ public class Parser {
         assert userInput != null && userInput.length() > 0 : "Cannot parse empty String!";
         String[] inputs = userInput.trim().split(" ", 2);
         String instruction = inputs[0];
-        if (inputs.length > 1) { // for ins with parameter
-            switch (instruction) { // correct ins but wrong params handled by each method call
+        if (inputs.length > 1) { // if the command requires parameters
+            switch (instruction) { // instruction is valid, we pass the parameters into each Action class which
+                                   // handles incorrect parameters
                 case "mark":
                     int indexToMark = Integer.parseInt(inputs[1]);
                     return new MarkTask(indexToMark - 1);
@@ -52,11 +53,11 @@ public class Parser {
                 case "find":
                     String key = inputs[1];
                     return new FindTask(key);
-                default: // incorrect ins with incorrect params handled here
+                default: // instruction is not valid
                     throw new InvalidCommandException("Invalid command: " + instruction
-                            + "\nPlease input the correct commands. Input help to see list of commands.");
+                            + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
             }
-        } else { // for ins with no parameter
+        } else { // if instruction does not have any parameters
             switch (instruction) {
                 case "list":
                     return new ListTask();
@@ -67,11 +68,11 @@ public class Parser {
                 case "delete":
                 case "todo":
                 case "deadline":
-                case "event": // correct ins but no param handled
-                    throw new InvalidInputException("Error: " + "Invalid parameters for " + instruction);
-                default: // incorrect ins and no param handled here
+                case "event": // instruction is valid but no parameters given
+                    throw new InvalidInputException("Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
+                default: // instruction is not valid
                     throw new InvalidCommandException("Invalid command: " + instruction
-                            + "\nPlease input the correct commands. Input help to see list of commands.");
+                            + "\nPlease input the correct commands. Input \"help\" to see list of commands.");
             }
         }
     }

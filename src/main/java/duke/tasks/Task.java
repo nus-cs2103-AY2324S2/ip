@@ -77,6 +77,11 @@ public class Task {
         return this.type + " | " + mark + " | " + this.name;
     }
 
+    /**
+     * Transforms tags to the correct storage format.
+     * 
+     * @return String to store the tags.
+     */
     public String tagsToStorageFormat() {
         StringBuilder tagsStorage = new StringBuilder();
         for (String tag : tags) {

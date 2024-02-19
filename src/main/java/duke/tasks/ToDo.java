@@ -26,7 +26,7 @@ public class ToDo extends Task {
      * Constuctor used when we are loading from storage.
      * 
      * @param name      A String value that states the name of the Task.
-     * @param completed Boolean of whether Task is completed.
+     * @param isCompleted Boolean of whether Task is completed.
      * @param tags      A list of tags to identify the task.
      */
     public ToDo(String name, boolean isCompleted, ArrayList<String> tags) {
