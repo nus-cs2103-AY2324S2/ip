@@ -23,7 +23,7 @@ public class Lia {
         try {
             tasks.setTasks(storage.loadTasks());
         } catch (LiaException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 
@@ -33,8 +33,13 @@ public class Lia {
      * @param input The user's input.
      */
     public String getResponse(String input) {
-        String response = parser.parseCommand(input);
-        storage.saveTasks(tasks.getTasks());
-        return response;
+        try {
+            String response = parser.parseCommand(input);
+            storage.saveTasks(tasks.getTasks());
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error while processing command";
+        }
     }
 }
