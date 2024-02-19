@@ -57,10 +57,9 @@ public class Jimmy {
         try {
             return parser.parseUserInput(userInput, ui, storage, tasks);
         } catch (IllegalArgumentException e) {
-            System.out.println("Error: Please only use the specified commands in the user guide.");
+            return "Error: Please only use the specified commands in the user guide.";
         } catch (JimmyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-        return "";
     }
 }

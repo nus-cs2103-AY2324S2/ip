@@ -11,7 +11,7 @@ public class Deadline extends Task {
     private final LocalDate deadline;
 
     /**
-     * Constructor for jimmy.tasks.Deadline class.
+     * Constructor for Deadline class.
      *
      * @param taskName Name of the task.
      * @param deadline Deadline of the task.

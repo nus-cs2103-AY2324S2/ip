@@ -47,7 +47,7 @@ public class Ui {
     private String generateListSizeString(int counter) {
         assert counter >= 0;
         if (counter == 0) {
-            return "You have no jimmy.tasks, create some now!";
+            return "You have no tasks, create some now!";
         } else if (counter == 1) {
             return "Now you have 1 task in the list.";
         } else {
@@ -75,7 +75,7 @@ public class Ui {
      */
     public String showAllTasks(ArrayList<Task> taskList) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the jimmy.tasks in your list:\n");
+        sb.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < taskList.size(); i++) {
             sb.append(i + 1).append(".").append(taskList.get(i).toString());
@@ -112,16 +112,17 @@ public class Ui {
      * @return The found tasks, in String format.
      */
     public String showFoundTasks(String foundTasks) {
-        return "Here are the matching jimmy.tasks in your list:" + "\n" + foundTasks;
+        return "Here are the matching tasks in your list:" + "\n" + foundTasks;
     }
 
     /**
      * Displays the schedule.
      *
      * @param schedule The schedule to be displayed.
+     * @param date     The date of the schedule.
      * @return The schedule, in String format.
      */
-    public String showSchedule(String schedule) {
-        return "Here are the tasks on " + schedule + ":\n" + schedule;
+    public String showSchedule(String schedule, String date) {
+        return "Here are the tasks on " + date + ":\n" + schedule;
     }
 }

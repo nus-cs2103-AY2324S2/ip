@@ -12,7 +12,7 @@ import jimmy.tasks.Task;
 import jimmy.tasks.Todo;
 
 /**
- * Represents a list of jimmy.tasks.
+ * Represents a list of tasks.
  */
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
@@ -295,11 +295,10 @@ public class TaskList {
                     sb.append(curr);
                     sb.append(System.getProperty("line.separator"));
                 }
-            } else {
-                continue; // skip todo tasks
             }
         }
-        return ui.showSchedule(sb.toString());
+        return ui.showSchedule(sb.toString(),
+                dateOfInterest.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
 
     private boolean doesEventCoincideWithDate(LocalDate start, LocalDate end, LocalDate dateOfInterest) {
