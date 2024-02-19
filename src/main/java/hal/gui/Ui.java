@@ -31,6 +31,8 @@ public class Ui {
             return new DeleteCommand(Integer.parseInt(userInputArray[1]) - 1);
         case "find":
             return new FindCommand(userInputArray[1]);
+        case "help":
+            return new HelpCommand();
         }
 
         return new UnknownCommand();
