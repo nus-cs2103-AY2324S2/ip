@@ -14,17 +14,39 @@ import javafx.application.Platform;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
+    /**
+     * ScrollPane to contain the dialogContainer
+     */
     @FXML
     private ScrollPane scrollPane;
+
+    /**
+     * Container for the dialog to display
+     */
     @FXML
     private VBox dialogContainer;
+
+    /**
+     * Input field for user to enter commands
+     */
     @FXML
     private TextField userInput;
+
+    /**
+     * Button to send user input
+     */
     @FXML
     private Button sendButton;
 
+    /**
+     * Kokbot to be used in the MainWindow
+     */
     private Kokbot kokbot;
 
+    /**
+     * Images for user and Kokbot
+     */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Dauser.jpg"));
     private Image kokbotImage = new Image(this.getClass().getResourceAsStream("/images/Daduke.jpg"));
 
@@ -35,13 +57,18 @@ public class MainWindow extends AnchorPane {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
+    /**
+     * Sets the Kokbot to be used in the MainWindow
+     *
+     * @param k Kokbot to be used
+     */
     public void setKokbot(Kokbot k) {
         kokbot = k;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Produces and inserts user and Kokbot DialogBoxes to screen
+     * based on user input
      */
     @FXML
     private void handleUserInput() {
@@ -49,7 +76,7 @@ public class MainWindow extends AnchorPane {
         String response = kokbot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, kokbotImage)
+                DialogBox.getKokbotDialog(response, kokbotImage)
         );
         userInput.clear();
         if (input.equalsIgnoreCase("bye")) {
