@@ -1,8 +1,8 @@
 package judy.storage;
 
-import judy.task.Task;
-
 import java.util.ArrayList;
+
+import judy.task.Task;
 
 /**
  * The Encoder class is to encode a list of Task objects into encoded string format for storage.
