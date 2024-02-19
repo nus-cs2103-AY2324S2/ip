@@ -23,8 +23,8 @@ public class Ui {
      *
      * @param m the message to be printed.
      */
-    public void printMessageWithLine(String m) {
-        System.out.println(this.LINE + m + "\n" + this.LINE);
+    public void printMessage(String m) {
+        System.out.println(m + "\n");
     }
 
     /**
@@ -33,15 +33,14 @@ public class Ui {
      * @return
      */
     public String greet() {
-        return this.LINE + "\nHello! I'm Lery."
-                + "\n" + "What can I do for you?\n" + this.LINE;
+        return "\nHello! I'm Lery.\n" + "What can I do for you?\n";
     }
 
     /**
      * Prints an exit message.
      */
     public String exit() {
-        return this.LINE + "\nBye. Hope to see you again soon!\n" + this.LINE;
+        return "\nBye. Hope to see you again soon!\n";
     }
 
 }
