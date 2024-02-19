@@ -3,6 +3,9 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.CommandEnum;
 import duke.command.InvalidCommand;
+import duke.command.mark.ChangeisDoneCommand;
+import duke.command.mark.MarkCommand;
+import duke.command.mark.UnmarkCommand;
 import duke.command.task.DeadlineCommand;
 import duke.command.task.EventCommand;
 import duke.command.task.TaskCommand;
@@ -35,92 +38,92 @@ public class Parser {
      * @param input
      * @return isExit (i.e. to terminate program or not)
      */
-    public static boolean parse(String input) {
-        int cmdSplit = input.indexOf(" ");
-        String command = input;
-        String task = null;
-        if (cmdSplit == -1) {
-            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
-                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-                Ui.showErrorIncorrectNumFormat(command);
-            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
-                System.out.println("-------------------------------- \n" +
-                        "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +
-                        "-------------------------------- \n");
-            } else if (command.equals(CommandEnum.LIST.COMMAND_NAME)) {
-                System.out.println(TaskList.getTaskListInString());
-            } else if (command.equals(CommandEnum.BYE.COMMAND_NAME)) {
-                return true;
-            } else {
-                Ui.showErrorAndPrintCommands();
-            }
-        } else {
-            command = input.substring(0, cmdSplit);
-            task = input.substring(input.indexOf(" ") + 1);
-
-            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
-                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-                try {
-                    int taskNo = Integer.parseInt(task) - 1;
-                    if (command.equals(CommandEnum.MARK.COMMAND_NAME)) {
-                        TaskList.markTask(taskNo);
-                    } else if (command.equals(CommandEnum.UNMARK.COMMAND_NAME)) {
-                        TaskList.unmarkTask(taskNo);
-                    } else if (command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-                        TaskList.removeTask(taskNo);
-                    }
-                } catch (NumberFormatException e) {
-                    Ui.showErrorNumbersOnly();
-                }
-            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME) | command.equals(CommandEnum.DEADLINE.COMMAND_NAME) |
-                    command.equals(CommandEnum.EVENT.COMMAND_NAME)) {
-                try {
-                    Task t = null;
-                    boolean success = false;
-                    if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
-                        t = new ToDo(task, false);
-                        success = true;
-                    } else if (command.equals(CommandEnum.DEADLINE.COMMAND_NAME)) {
-                        if (task == null || !task.contains(" /by ")) {
-                            Ui.showErrorDeadlineFormat();
-                        } else {
-                            String[] deadline = task.split(" /by ");
-                            t = new Deadline(deadline[0], false,
-                                    LocalDateTime.parse(deadline[1], dateTimeFormatter));
-                            success = true;
-                        }
-                    } else {
-                        if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
-                            Ui.showErrorEventFormat();
-                        } else {
-                            String event = task.substring(0, task.indexOf(" /from "));
-                            try {
-                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6,
-                                        task.indexOf(" /to ")), dateTimeFormatter);
-                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)),
-                                        dateTimeFormatter);
-                                t = new Event(event, false, from, to);
-                                success = true;
-                            } catch (IndexOutOfBoundsException e) {
-                                Ui.showErrorEventTimingFormat();
-                            }
-                        }
-                    }
-                    if (success) {
-                        TaskList.addTask(t);
-                    }
-                } catch (DateTimeException e) {
-                    Ui.showErrorDatetimeFormat();
-                }
-            } else if (command.equals(CommandEnum.FIND.COMMAND_NAME)) {
-                Ui.printMatchingTasks(TaskList.findTaskByKeyword(task));
-            }
-            else {
-                Ui.showErrorAndPrintCommands();
-            }
-        }
-        return false;
-    }
+//    public static boolean parse(String input) {
+//        int cmdSplit = input.indexOf(" ");
+//        String command = input;
+//        String task = null;
+//        if (cmdSplit == -1) {
+//            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
+//                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
+//                Ui.showErrorIncorrectNumFormat(command);
+//            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
+//                System.out.println("-------------------------------- \n" +
+//                        "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +
+//                        "-------------------------------- \n");
+//            } else if (command.equals(CommandEnum.LIST.COMMAND_NAME)) {
+//                System.out.println(TaskList.getTaskListInString());
+//            } else if (command.equals(CommandEnum.BYE.COMMAND_NAME)) {
+//                return true;
+//            } else {
+//                Ui.showErrorAndPrintCommands();
+//            }
+//        } else {
+//            command = input.substring(0, cmdSplit);
+//            task = input.substring(input.indexOf(" ") + 1);
+//
+//            if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
+//                    command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
+//                try {
+//                    int taskNo = Integer.parseInt(task) - 1;
+//                    if (command.equals(CommandEnum.MARK.COMMAND_NAME)) {
+//                        TaskList.markTask(taskNo);
+//                    } else if (command.equals(CommandEnum.UNMARK.COMMAND_NAME)) {
+//                        TaskList.unmarkTask(taskNo);
+//                    } else if (command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
+//                        TaskList.removeTask(taskNo);
+//                    }
+//                } catch (NumberFormatException e) {
+//                    Ui.showErrorNumbersOnly();
+//                }
+//            } else if (command.equals(CommandEnum.TODO.COMMAND_NAME) | command.equals(CommandEnum.DEADLINE.COMMAND_NAME) |
+//                    command.equals(CommandEnum.EVENT.COMMAND_NAME)) {
+//                try {
+//                    Task t = null;
+//                    boolean success = false;
+//                    if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
+//                        t = new ToDo(task, false);
+//                        success = true;
+//                    } else if (command.equals(CommandEnum.DEADLINE.COMMAND_NAME)) {
+//                        if (task == null || !task.contains(" /by ")) {
+//                            Ui.showErrorDeadlineFormat();
+//                        } else {
+//                            String[] deadline = task.split(" /by ");
+//                            t = new Deadline(deadline[0], false,
+//                                    LocalDateTime.parse(deadline[1], dateTimeFormatter));
+//                            success = true;
+//                        }
+//                    } else {
+//                        if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
+//                            Ui.showErrorEventFormat();
+//                        } else {
+//                            String event = task.substring(0, task.indexOf(" /from "));
+//                            try {
+//                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6,
+//                                        task.indexOf(" /to ")), dateTimeFormatter);
+//                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)),
+//                                        dateTimeFormatter);
+//                                t = new Event(event, false, from, to);
+//                                success = true;
+//                            } catch (IndexOutOfBoundsException e) {
+//                                Ui.showErrorEventTimingFormat();
+//                            }
+//                        }
+//                    }
+//                    if (success) {
+//                        TaskList.addTask(t);
+//                    }
+//                } catch (DateTimeException e) {
+//                    Ui.showErrorDatetimeFormat();
+//                }
+//            } else if (command.equals(CommandEnum.FIND.COMMAND_NAME)) {
+//                Ui.printMatchingTasks(TaskList.findTaskByKeyword(task));
+//            }
+//            else {
+//                Ui.showErrorAndPrintCommands();
+//            }
+//        }
+//        return false;
+//    }
 
     public Command parseCommand(String input) {
         final Matcher matcher = COMMAND_FORMAT.matcher(input.trim());
@@ -142,12 +145,17 @@ public class Parser {
             case EventCommand.COMMAND:
                 return parseEventCommand(args);
 
+            case MarkCommand.COMMAND:
+                return parseMarkCommand(args);
+
+            case UnmarkCommand.COMMAND:
+                return parseUnmarkCommand(args);
+
             default:
                 return new InvalidCommand(Command.INVALID_COMMAND);
         }
 
     }
-
 
     public Command parseToDoCommand(String args) {
         String task = args.trim();
@@ -182,7 +190,6 @@ public class Parser {
         final Matcher matcher = EventCommand.ARG_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
-            System.out.println("i do not match");
             return new InvalidCommand(EventCommand.INVALID_COMMAND);
         }
 
@@ -196,8 +203,33 @@ public class Parser {
             }
             return new EventCommand(task, from, to);
         } catch (DateTimeException e) {
-            System.out.println("wrong datetime format");
             return new InvalidCommand(TaskCommand.COMMAND_INVALID_DATETIME);
+        }
+    }
+
+    private Command parseMarkCommand(String args) {
+        try {
+            int taskNo = Integer.parseInt(args.trim());
+            return new MarkCommand(taskNo);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(MarkCommand.COMMAND_INVALID_INTEGER);
+        } catch (NullPointerException e) {
+            return new InvalidCommand(Command.ERROR_LIST_EMPTY);
+        } catch (IndexOutOfBoundsException e) {
+            return ChangeisDoneCommand.errorTaskNotExist();
+        }
+    }
+
+    private Command parseUnmarkCommand(String args) {
+        try {
+            int taskNo = Integer.parseInt(args.trim());
+            return new UnmarkCommand(taskNo);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(UnmarkCommand.COMMAND_INVALID_INTEGER);
+        } catch (NullPointerException e) {
+            return new InvalidCommand(Command.ERROR_LIST_EMPTY);
+        } catch (IndexOutOfBoundsException e) {
+            return ChangeisDoneCommand.errorTaskNotExist();
         }
     }
 

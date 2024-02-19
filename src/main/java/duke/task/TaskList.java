@@ -16,12 +16,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public static Task getTask(int taskNo) {
-        try {
-            return tasks.get(taskNo);
-        } catch (IndexOutOfBoundsException e) {
-            Ui.showErrorNotExist(taskNo);
-            return null;
-        }
+        return tasks.get(taskNo);
     }
     public static void addTask(Task t) {
         tasks.add(t);
@@ -35,28 +30,18 @@ public class TaskList extends ArrayList<Task> {
             tasks.remove(taskNo);
             Ui.printTaskRemoved(t, tasks);
         } catch (IndexOutOfBoundsException e) {
-            Ui.showErrorNotExist(taskNo);
+//            Ui.showErrorNotExist(taskNo);
         }
     }
 
-    public static void markTask(int taskNo) {
-        try {
-            Task t = tasks.get(taskNo);
-            t.done();
-            Ui.printTaskMarked(taskNo, t);
-        } catch (IndexOutOfBoundsException e) {
-            Ui.showErrorNotExist(taskNo);
-        }
+    public void markTask(int taskNo) {
+        Task t = tasks.get(taskNo);
+        t.done();
     }
 
     public static void unmarkTask(int taskNo) {
-        try {
-            Task t = tasks.get(taskNo);
-            t.undone();
-            Ui.printTaskUnmarked(taskNo, t);
-        } catch (IndexOutOfBoundsException e) {
-            Ui.showErrorNotExist(taskNo);
-        }
+        Task t = tasks.get(taskNo);
+        t.undone();
     }
 
     public static ArrayList<Task> findTaskByKeyword(String keyword) {
@@ -69,7 +54,8 @@ public class TaskList extends ArrayList<Task> {
         return matchingTasks;
     }
 
-    public static String getTaskListInString() {
+    @Override
+    public String toString() {
         String taskList = "";
         // Ui.printTasks(tasks);
         if (tasks == null || tasks.isEmpty()) {

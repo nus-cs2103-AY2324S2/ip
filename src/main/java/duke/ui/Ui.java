@@ -109,13 +109,13 @@ public class Ui {
                 "Oops, error in uploading saved tasks. Please check if the format is correct.");
     }
 
-    public static void showErrorNotExist(int taskNo) {
-        System.out.println("-------------------------------- \n" +
-                "Oops, task " + (taskNo + 1) + " does not exist. Please try again! \n" +
-                "Here is your list for reference: \n");
-        System.out.println(TaskList.getTaskListInString());
-        System.out.println("-------------------------------- \n");
-    }
+//    public static void showErrorNotExist(int taskNo) {
+//        System.out.println("-------------------------------- \n" +
+//                "Oops, task " + (taskNo + 1) + " does not exist. Please try again! \n" +
+//                "Here is your list for reference: \n");
+//        System.out.println(taskList.toString());
+//        System.out.println("-------------------------------- \n");
+//    }
 
     public static void showErrorNumbersOnly() {
         System.out.println("-------------------------------- \n" +

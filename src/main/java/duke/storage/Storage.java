@@ -117,11 +117,33 @@ public class Storage {
 
     }
 
+    public Task getTaskFromTaskNo(int taskNo) {
+        return taskList.getTask(taskNo);
+    }
     public void addTask(Task t) {
-        TaskList.addTask(t);
+        taskList.addTask(t);
         updateFile();
     }
+
+    public void markTask(int taskNo) {
+        taskList.markTask(taskNo);
+        updateFile();
+    }
+
+    public void unmarkTask(int taskNo) {
+        taskList.unmarkTask(taskNo);
+        updateFile();
+    }
+
     public int getNumOfTasks() {
         return taskList.getNoOfTasks();
+    }
+
+    public String getTaskStringFromTaskNo(int taskNo) {
+        return taskList.get(taskNo).toString();
+    }
+
+    public String getTasksInString() {
+        return taskList.toString();
     }
 }

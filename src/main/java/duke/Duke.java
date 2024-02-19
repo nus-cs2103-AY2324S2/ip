@@ -2,6 +2,9 @@ package duke;
 
 import duke.command.Command;
 import duke.command.CommandResult;
+import duke.command.InvalidCommand;
+import duke.command.mark.ChangeisDoneCommand;
+import duke.command.mark.MarkCommand;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -47,15 +50,15 @@ public class Duke extends Application {
 //        }
     }
 
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            isExit = Parser.parse(fullCommand);
-        }
-        Ui.showExit();
-    }
+//    public void run() {
+//        ui.showWelcome();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            String fullCommand = ui.readCommand();
+//            isExit = Parser.parse(fullCommand);
+//        }
+//        Ui.showExit();
+//    }
 
     public void run_new() {
         ui.showWelcome();
@@ -185,9 +188,18 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        Command command = new Parser().parseCommand(input);
-        CommandResult commandResult = executeCommand(command);
-        return commandResult.toString();
+            Command command = new Parser().parseCommand(input);
+            CommandResult commandResult = executeCommand(command);
+            return commandResult.toString();
+//        } catch (NullPointerException e) {
+//            Command command = new InvalidCommand(MarkCommand.COMMAND_TASK_NOT_EXIST);
+//            CommandResult commandResult = executeCommand(command);
+//            return commandResult.toString();
+//        } catch (IndexOutOfBoundsException e) {
+//            Command command = new InvalidCommand(Command.ERROR_LIST_EMPTY);
+//            CommandResult commandResult = executeCommand(command);
+//            return commandResult.toString();
+//        }
     }
 
 }

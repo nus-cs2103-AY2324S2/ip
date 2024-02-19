@@ -10,12 +10,12 @@ public class ListCommand extends Command {
     private static final String COMMAND_SUCCESS =
             "-------------------------------- \n" +
                     "Here are the tasks in your list:" +
-                    TaskList.getTaskListInString() +
+                    "%s \n" +
                     "-------------------------------- \n"
             ;
 
     public CommandResult execute() {
-        return new CommandResult(COMMAND_SUCCESS);
+        return new CommandResult(String.format(COMMAND_SUCCESS, storage.getTasksInString()));
     }
 
 }

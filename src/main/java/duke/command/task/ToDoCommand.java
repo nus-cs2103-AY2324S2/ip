@@ -9,12 +9,6 @@ public class ToDoCommand extends TaskCommand {
     public static final String COMMAND = "todo";
     private final ToDo t;
 
-//    private final String MESSAGE_SUCCESS =  "-------------------------------- \n" +
-//            "Sure, I've added this task: \n" +
-//            "%s \n" +
-//            "Now you have %d task(s) in the list. \n" +
-//            "-------------------------------- \n";
-
     public ToDoCommand(String task) {
         this.t = new ToDo(task, false);
     }
