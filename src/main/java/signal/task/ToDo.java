@@ -1,8 +1,8 @@
-package signal;
+package signal.task;
 
 public class ToDo extends Task {
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
+    public ToDo(String description) {
+        super(description);
     }
 
     @Override

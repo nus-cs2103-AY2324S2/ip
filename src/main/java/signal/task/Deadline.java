@@ -1,4 +1,4 @@
-package signal;
+package signal.task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,8 +10,8 @@ public class Deadline extends Task {
     private LocalDate byDate;
     private LocalTime byTime;
 
-    public Deadline(String description, String by, boolean isDone) {
-        super(description, isDone);
+    public Deadline(String description, String by) {
+        super(description);
         String[] parseBy = by.split(" ");
         if (parseBy.length > 1) {
             this.byTime = LocalTime.parse(parseBy[1]);

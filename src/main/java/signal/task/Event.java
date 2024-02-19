@@ -1,4 +1,4 @@
-package signal;
+package signal.task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,8 +13,8 @@ public class Event extends Task {
     private LocalDate endDate;
     private LocalTime endTime;
 
-    public Event(String description, String start, String end, boolean isDone) {
-        super(description, isDone);
+    public Event(String description, String start, String end) {
+        super(description);
         String[] parseStart = start.split(" ");
         String[] parseEnd = end.split(" ");
         if (parseStart.length > 1) {
