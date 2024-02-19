@@ -40,6 +40,8 @@ public class TaskManager {
      * @param echo    The Echo instance for communication.
      */
     public TaskManager(Storage storage, Echo echo) {
+        assert storage != null : "Storage cannot be null";
+        assert echo != null : "Echo instance cannot be null";
         this.tasks = new ArrayList<>();
         this.storage = storage;
         this.echo = echo;
@@ -66,6 +68,7 @@ public class TaskManager {
      * @param command The user input command.
      */
     public void executeCommand(String command) {
+        assert command != null : "Command cannot be null";
         String[] tokens = command.split(" ", 2);
 
         switch (tokens[0].toLowerCase()) {

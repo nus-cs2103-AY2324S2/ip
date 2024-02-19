@@ -154,17 +154,22 @@ public class Echo extends Application {
     }*/
     private void handleUserInput() {
         String userInputText = userInput.getText();
+        assert userInputText != null : "User input should not be null";
 
         Label userTextLabel = new Label(getResponse(userInputText));
         DialogBox userDialog = DialogBox.getUserDialog(userTextLabel, new ImageView(user));
+        assert userTextLabel != null : "User label should not be null";
+        assert userDialog != null : "User dialog should not be null";
 
-        //taskManager.executeCommand(userInputText);
         startConversation(userInputText, taskManager);
 
         Label botTextLabel = new Label(formattedBotResponse);
+        assert botTextLabel != null : "Bot label should not be null";
         DialogBox botDialog = DialogBox.getDukeDialog(botTextLabel, new ImageView(echo));
+        assert botDialog != null : "Bot dialog should not be null";
 
         dialogContainer.getChildren().addAll(userDialog, botDialog);
+        assert dialogContainer != null : "Dialog container should not be null";
         userInput.clear();
     }
 
