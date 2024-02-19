@@ -1,8 +1,0 @@
-E | 1 | project meeting | 2020-12-31 | 2021-10-20
-T | 0 | food
-D | 1 | movie | 2019-01-01
-D | 1 | run | 2020-03-04
-T | 1 | food and movie
-T | 0 | sleep
-T | 0 | ace
-D | 0 | ace | 2020-12-10

@@ -10,13 +10,11 @@ public class Ui {
             /*   */              " /    |    \\  | \\_ ( <_> )   |   \\/ __ \\_ \n" +
             /* */                " \\____|__  /__|    \\____/|___|_  (____  / \n" +
             /* */                "         \\/                    \\/     \\/ ";
-    private String greetings = "こんにちは先生、私はアロナです. \n"
-            + "どういうご用件ですか?　\n"
-            + "ここで先生のスケジュールが決まります.";
+    private String greetings = "Hello sensei, what can Arona do for you?";
     private String goodbye = "Goodbye sensei! Hope to see you soon!";
     private String response;
     public void greetings() {
-        response = "開始中... \n"
+        response = "Initiating... \n"
                 + logo + "\n"
                 + greetings + "\n";
     }
