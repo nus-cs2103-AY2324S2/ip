@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import duke.command.CommandType;
+import duke.exception.DukeException;
 import duke.helpers.MyDateTime;
 
 /**
@@ -22,8 +23,11 @@ public class Event extends Task {
      * @param from period when the event start.
      * @param to period when the event end.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
         super(description);
+        if (to.isBefore(from)) {
+            throw new DukeException("Event end time should be after start time!");
+        }
         this.from = from;
         this.to = to;
     }
@@ -36,8 +40,11 @@ public class Event extends Task {
      * @param to period when the event end.
      * @param isDone
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) throws DukeException {
         super(description, isDone);
+        if (to.isBefore(from)) {
+            throw new DukeException("Event end time should be after start time!");
+        }
         this.from = from;
         this.to = to;
     }
