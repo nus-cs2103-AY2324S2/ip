@@ -46,4 +46,14 @@ public class Deadline extends Task {
             return "[D]" + super.toString() + " (by: " + by + ")";
         }
     }
+
+    @Override
+    protected String queryType() {
+        return "Deadline";
+    }
+
+    @Override
+    protected void changeBy(String newString) {
+        this.by = newString;
+    }
 }

@@ -3,162 +3,154 @@ package luke;
 import java.util.Scanner;
 
 public class Ui {
-    protected String input;
 
     protected String command;
 
     protected TaskList taskList;
-    protected String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete", "find"};
+
+    protected Storage storage;
+    private final String[] VALID_COMMANDS = {"bye", "list", "unmark", "mark", "todo", "event", "deadline",
+            "delete", "find", "edit"};
 
     protected Parser parser;
     Ui() {
-        this.input = "";
         this.taskList = new TaskList();
-        this.parser = new Parser(validCommands, taskList);
+        this.parser = new Parser(VALID_COMMANDS, taskList);
+        this.storage = new Storage("data/tasks.txt");
     }
 
     Ui(TaskList taskList) {
-        this.input = "";
         this.taskList = taskList;
-        this.parser = new Parser(validCommands, taskList);
+        this.parser = new Parser(VALID_COMMANDS, taskList);
+        this.storage = new Storage("data/tasks.txt");
     }
 
-    protected void handleInput() {
-        while (!this.command.equals("bye")) {
+    protected String handleInput(String input) {
             try {
-                parser.isInputValid(this.input);
-                this.command = parser.getCommand(this.input);
+                parser.isInputValid(input);
+                this.command = parser.getCommand(input);
             } catch (LukeException e) {
-                System.out.println(e.getMessage());
-                this.input = "";
                 this.command = "";
+                return e.getMessage();
             }
-            switch (this.command) {
-                case "list":
-                    this.list();
-                    parser.commandList(taskList);
-                    break;
-                case "mark":
-                    try {
-                        Task taskMarked = parser.commandMark(this.input);
-                        markSuccess(taskMarked);
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        Task taskUnmarked = parser.commandUnmark(this.input);
-                        unmarkSuccess(taskUnmarked);
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "delete":
-                    try {
-                        Task taskDeleted = parser.commandDelete(this.input);
-                        deleteSuccess(taskDeleted, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "todo":
-                    try {
-                        Task todoAdded = parser.commandTodo(this.input);
-                        taskSuccessfullyAdded(todoAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
-                        Task deadlineAdded = parser.commandDeadline(this.input);
-                        taskSuccessfullyAdded(deadlineAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
-                        Task eventAdded = parser.commandEvent(this.input);
-                        taskSuccessfullyAdded(eventAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "find":
-                    try {
-                        String keyword = parser.commandFind(this.input);
-                        TaskList tasksFound = taskList.search(keyword);
-                        if (tasksFound.getNoTasks() == 0) {
-                            System.out.println("No tasks with the keyword found.");
-                        } else {
-                            tasksSuccessfullyFound(tasksFound);
-                        }
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-            }
-            Scanner scanner = new Scanner (System.in);
-            this.input = scanner.nextLine();
-        }
+        return switch (this.command) {
+            case "list" -> this.list(input);
+            case "mark" -> this.mark(input);
+            case "unmark" -> this.unmark(input);
+            case "delete" -> this.delete(input);
+            case "todo" -> this.todo(input);
+            case "deadline" -> this.deadline(input);
+            case "event" -> this.event(input);
+            case "find" -> this.find(input);
+            case "edit" -> this.edit(input);
+            case "bye" -> this.end();
+            default -> "Invalid command";
+        };
     }
 
     public void showLoadingError() {
         System.out.println("File not found.");
     }
-    public void welcome() {
+
+    public String welcome() {
         String name = "Luke";
-        System.out.println("Hello! I'm " + name + "\nWhat can I do for you?");
-        Scanner scanner = new Scanner (System.in);
-        this.input = scanner.nextLine();
+        return "Hello! I'm " + name + "\nWhat can I do for you?";
+    }
+
+    private String list(String input) {
         try {
-            parser.isInputValid(this.input);
-            this.command = parser.getCommand(input);
-        } catch (LukeException e){
-            System.out.println(e.getMessage());
+            parser.isListCommandValid(input);
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
+        return "Here are the tasks in your list: \n" + parser.commandList(taskList);
+    }
+
+    private String mark(String input) {
+        try {
+            Task taskMarked = parser.commandMark(input);
+            return "Nice! I've marked this task as done: \n" + taskMarked.toString();
+        } catch (LukeException e) {
+            return e.getMessage();
         }
     }
 
-    private void list() {
-        System.out.println("Here are the tasks in your list:");
+    private String unmark(String input) {
+        try {
+            Task taskUnmarked = parser.commandUnmark(input);
+            return "OK, I've marked this task as not done yet: \n" + taskUnmarked.toString();
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    private void markSuccess(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+    private String delete(String input) {
+        try {
+            Task taskDeleted = parser.commandDelete(input);
+            return "Noted. I've removed this task:\n" + taskDeleted.toString()
+                    + "\nNow you have " + taskList.getNoTasks() + " tasks in the list.";
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    private void unmarkSuccess(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+    private String todo(String input) {
+        try {
+            Task todoAdded = parser.commandTodo(input);
+            return taskSuccessfullyAdded(todoAdded, taskList.getNoTasks());
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    private void deleteSuccess(Task task, int noTasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + noTasks + " tasks in the list.");
+    private String deadline(String input) {
+        try {
+            Task deadlineAdded = parser.commandDeadline(input);
+            return taskSuccessfullyAdded(deadlineAdded, taskList.getNoTasks());
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    private void taskSuccessfullyAdded(Task task, int noTasks) {
-        System.out.println("I've added this task: ");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + noTasks + " tasks in the list.");
+    private String event(String input) {
+        try {
+            Task eventAdded = parser.commandEvent(input);
+            return taskSuccessfullyAdded(eventAdded, taskList.getNoTasks());
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    /**
-     * Displays a message indicating successful retrieval of tasks matching a keyword
-     * and the tasks with the keyword.
-     *
-     * @param taskListWithKeyword the TaskList containing tasks matching the keyword
-     */
-    private void tasksSuccessfullyFound(TaskList taskListWithKeyword) {
-        System.out.println("Here are the matching tasks in your list:");
-        taskListWithKeyword.list();
+    private String taskSuccessfullyAdded(Task task, int noTasks) {
+        return "I've added this task:\n" + task.toString() +
+            "\nNow you have " + noTasks + " tasks in the list.";
     }
 
-    public void end() {
-        System.out.println("Bye. Hope to see you again soon!");
+    private String find(String input) {
+        try {
+            String keyword = parser.commandFind(input);
+            TaskList tasksFound = taskList.search(keyword);
+            if (tasksFound.getNoTasks() == 0) {
+                return "No tasks with the keyword found.";
+            } else {
+                return "Here are the matching tasks in your list:\n" + tasksFound.list();
+            }
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    private String edit(String input) {
+        try {
+            Task taskEdited = parser.commandEdit(input);
+            return "Task change successful! This is the new task:\n" + taskEdited.toString();
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String end() {
+        storage.saveFile(taskList);
+        return "File saved. Hope to see you again soon!";
     }
 }

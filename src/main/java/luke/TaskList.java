@@ -82,10 +82,12 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      */
-    public void list() {
+    protected String list() {
+        StringBuilder taskListString = new StringBuilder();
         for (int i = 0; i < noTasks; i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            taskListString.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
         }
+        return taskListString.toString();
     }
 
     /**

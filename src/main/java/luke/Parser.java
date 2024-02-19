@@ -8,6 +8,8 @@ public class Parser {
 
     private TaskList taskList;
 
+    private String[] VALID_FIELDS = {"description", "deadline", "from", "to"};
+
     /**
      * Constructs a Parser object with the specified valid commands and task list.
      *
@@ -49,12 +51,23 @@ public class Parser {
     }
 
     /**
-     * Lists all tasks in the task list.
+     * Checks if the input is a valid list command.
+     *
+     * @param input the input string.
+     */
+    protected void isListCommandValid(String input) throws LukeException {
+         if (!input.substring(4).trim().isEmpty()) {
+             throw new LukeException(LukeException.ExceptionType.listCommandInvalid);
+         }
+    }
+
+    /**
+     * Returns a string containing all tasks in the task list.
      *
      * @param taskList the task list to be listed
      */
-    protected void commandList(TaskList taskList) {
-        taskList.list();
+    protected String commandList(TaskList taskList) {
+        return taskList.list();
     }
 
     /**
@@ -198,5 +211,59 @@ public class Parser {
             throw new LukeException(LukeException.ExceptionType.findKeywordEmpty);
         }
         return keyword;
+    }
+
+    protected Task commandEdit(String input) throws LukeException {
+        String details = input.substring(4).trim();
+        if (details.isEmpty()) {
+            throw new LukeException(LukeException.ExceptionType.editDetailsEmpty);
+        }
+
+        String[] detailsArr = details.split(" ");
+        if (detailsArr.length < 3) {
+            throw new LukeException(LukeException.ExceptionType.editIncorrectNoArguments);
+        }
+
+        int taskNo = Integer.parseInt(detailsArr[0]);
+        if (taskNo > taskList.getNoTasks() || taskNo < 0) {
+            throw new LukeException(LukeException.ExceptionType.taskNumberInvalid);
+        }
+
+        String field = detailsArr[1];
+        Task taskEdited = taskList.getTask(taskNo - 1);
+        String taskType = taskEdited.queryType();
+        StringBuilder newStringBuilder = new StringBuilder();
+        for (int i = 2; i < detailsArr.length; i++) {
+            newStringBuilder.append(detailsArr[i]).append(" ");
+        }
+        String newString = newStringBuilder.toString();
+
+        switch (taskType) {
+            case "Todo":
+                if (field.equals("description")) {
+                    taskEdited.changeDescription(newString);
+                } else {
+                    throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
+                }
+            case "Deadline":
+                if (field.equals("description")) {
+                    taskEdited.changeDescription(newString);
+                } else if (field.equals("by")) {
+                    taskEdited.changeBy(newString);
+                } else {
+                    throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
+                }
+            case "Event":
+                if (field.equals("description")) {
+                    taskEdited.changeDescription(newString);
+                } else if (field.equals("from")) {
+                    taskEdited.changeFrom(newString);
+                } else if (field.equals("to")) {
+                    taskEdited.changeTo(newString);
+                } else {
+                    throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
+                }
+        }
+        return taskEdited;
     }
 }
