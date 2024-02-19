@@ -32,6 +32,7 @@ public class TaskParser {
         int state = 0;
         int sectionNum = 1;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yy HHmmg");
+
         switch (type) {
         case TODO:
             newTask = new Todo(String.join(" ", tokens));
