@@ -43,9 +43,15 @@ public abstract class Task {
         this.description = newString;
     }
 
-    protected void changeFrom(String newString) {};
+    protected void changeFrom(String newString) {
+        assert this.getClass() != Task.class : "changeFrom method should be overridden by subclass";
+    };
 
-    protected void changeTo(String newString) {};
+    protected void changeTo(String newString) {
+        assert this.getClass() != Task.class : "changeFrom method should be overridden by subclass";
+    };
 
-    protected void changeBy(String newString) {};
+    protected void changeBy(String newString) {
+        assert this.getClass() != Task.class : "changeFrom method should be overridden by subclass";
+    };
 }
