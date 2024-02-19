@@ -49,12 +49,12 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("yue.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = 'duke.jar'
+    archiveBaseName = "yue"
+    archiveFileName = 'yue.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 

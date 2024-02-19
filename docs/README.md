@@ -1,10 +1,9 @@
 # BotYue User Guide
 
-
-// Product screenshot goes here
-
-Welcome to BotYue, your personal task manager! BotYue is a command-line application designed to help you keep track of your tasks efficiently. 
+Welcome to BotYue, your personal task manager! BotYue is a command-line application designed to help you keep track of your tasks efficiently.
 Whether it's deadlines, events, or simple to-dos, BotYue has got you covered.
+
+![GUI window](Ui.png)
 
 
 ## Key Features
@@ -170,7 +169,7 @@ BotYue can help you find the tasks that contains the keyword you provided.
 
 __Command format__:
 
-`find <keyword>`
+`find <keyword>` 
 
 __Example__:
 

@@ -1,6 +1,2 @@
-T | 1 | return meeting
-T | 1 | PROJECT MEETING
 T | 0 | project meeting
 T | 0 | return book
-T | 0 | ask
-T | 0 | fill
