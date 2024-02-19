@@ -97,6 +97,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Searches for tasks based on a if the word in front is find.
+     * @param commandsplit An array containing the command split into parts.
+     * @return A string representation of the found task(s) or an error message if no tasks match.
+     */
     public String handleFind(String[] commandsplit) {
         try {
             String findTarget = commandsplit[1].toLowerCase();
@@ -111,11 +116,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the input string can be converted to a valid date.
+     * @param s The input string to be checked.
+     * @return True if the input string can be converted to a date, otherwise false.
+     */
     public boolean canBeHandled(String s) {
         return (DateConvert(s) != null);
     }
 
 
+    /**
+     * Converts a string representation of a date to a LocalDate object.
+     * @param s The string representation of the date.
+     * @return The corresponding LocalDate object, or null if the string cannot be parsed.
+     */
     public LocalDate DateConvert(String s) {
         assert s.length() > 5: "Invalid length";
         String[] patterns = {"MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy",
@@ -144,7 +159,6 @@ public class Parser {
         if (temp.length == 1 || temp[1].startsWith("/by")) {
             return "Deadline cannot be blank";
         }
-        //create the deadline name
         for (int a = 1; a < temp.length; a++) {
             if (temp[a].startsWith("/by")) {
                 break;
@@ -275,6 +289,12 @@ public class Parser {
         return (f.startsWith("mark ") || f.startsWith("unmark ") || f.startsWith("delete "));
     }
 
+    /**
+     * Checks if the input string represents a base command find.
+     *
+     * @param f The input string to be checked.
+     * @return True if the input string starts with "find ", otherwise false.
+     */
     public boolean checkIfFind(String f) {
         return (f.startsWith("find "));
     }
