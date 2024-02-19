@@ -34,7 +34,7 @@ Example:
   
 ## Mark tasks as completed
 
-Mark a task as completed
+Mark a task as complete
 
 Format: ``` mark [INDEX] ```
 
