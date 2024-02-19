@@ -31,9 +31,15 @@ public class Chronos {
         }
     }
 
+    /**
+     * Generates Chronos' response to the given user input.
+     *
+     * @param input Input provided by the user.
+     * @return Chronos' response.
+     * @throws IOException If there is an exception when processing input/output.
+     * @throws ChronosException If there are invalid commands provided.
+     */
     public String getResponse(String input) throws IOException, ChronosException {
         return Parser.processCommand(input, ui, storage, tasks);
     }
 }
-
-
