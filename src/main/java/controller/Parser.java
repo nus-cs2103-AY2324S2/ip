@@ -73,7 +73,7 @@ public class Parser {
      * Parses the input string and returns a {@code LocalDateTime} object.
      * 
      * @param s String to parse, in the form specified in {@link controller.Parser#dtfInput} 
-     * of type {@code DateTimeFormatter}.
+     *     of type {@code DateTimeFormatter}.
      * @return {@code LocalDateTime} object.
      * @throws NullPointerException If the string is null.
      * @throws DateTimeParseException If the string cannot be parsed.

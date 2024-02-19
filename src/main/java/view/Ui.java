@@ -123,7 +123,8 @@ public class Ui {
      * @param dateType The field the error was encountered in - By / To / From.
      */
     public static String showDateTimeParseError(String format, String taskType, String dateType) {
-        return String.format("Please enter a valid DATE and TIME (%s)\nfor your %s task's [%s] date.", format, taskType, dateType);
+        return String.format("Please enter a valid DATE and TIME (%s)\nfor your %s task's [%s] date.",
+                format, taskType, dateType);
     }
 
     public static String showAllMatchingTasks(TaskList tasks) {
