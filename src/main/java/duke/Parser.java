@@ -42,7 +42,7 @@ public class Parser {
                 break;
             case "delete":
                 parseDelete(params);
-            break;
+                break;
             case "todo":
                 parseTodo(params);
                 break;

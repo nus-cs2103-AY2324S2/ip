@@ -1,7 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
-
 /**
  * Task that has a description only.
  */
