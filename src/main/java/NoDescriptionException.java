@@ -1,5 +1,5 @@
-public class NoDescriptionException extends Exception{
+public class NoDescriptionException extends DamonExceptions{
     public NoDescriptionException() {
-        super("Pls add description of this task, thank you! :)");
+        this.message = "Pls add description of this task, thank you! :)";
     }
 }
