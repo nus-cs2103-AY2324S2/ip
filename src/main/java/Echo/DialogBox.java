@@ -14,6 +14,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     public DialogBox(Label l, ImageView iv) {
+        assert l != null : "Label should not be null";
+        assert iv != null : "ImageView should not be null";
         text = l;
         displayPicture = iv;
 

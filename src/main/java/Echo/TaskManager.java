@@ -17,6 +17,7 @@ import Echo.Task.Deadline;
 import Echo.Task.Event;
 import Echo.Storage.Storage;
 
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedWriter;
@@ -40,6 +41,8 @@ public class TaskManager {
      * @param echo    The Echo instance for communication.
      */
     public TaskManager(Storage storage, Echo echo) {
+        assert storage != null : "Storage cannot be null";
+        assert echo != null : "Echo instance cannot be null";
         this.tasks = new ArrayList<>();
         this.storage = storage;
         this.echo = echo;
@@ -66,6 +69,7 @@ public class TaskManager {
      * @param command The user input command.
      */
     public void executeCommand(String command) {
+        assert command != null : "Command cannot be null";
         String[] tokens = command.split(" ", 2);
 
         switch (tokens[0].toLowerCase()) {
@@ -106,9 +110,10 @@ public class TaskManager {
             response.append("No tasks in the list.\n");
         } else {
             response.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
-            }
+            response.append(tasks.stream()
+                    .map(task -> tasks.indexOf(task) + 1 + ". " + task.toString())
+                    .collect(Collectors.joining("\n")));
+            response.append("\n");
         }
 
         response.append("____________________________________________________________");
@@ -122,6 +127,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void markTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -143,6 +149,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void unmarkTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -164,6 +171,7 @@ public class TaskManager {
      * @param tokens The user input tokens.
      */
     public void addTask(String[] tokens) {
+        assert tokens != null : "Tokens cannot be null";
         try {
             if (tokens.length != 2) {
                 throw new IllegalArgumentException("NO! I don't know what is this! " +
@@ -325,26 +333,25 @@ public class TaskManager {
      * @param keyword The keyword to search for in task descriptions.
      */
     public void findTasks(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
-
+        assert keyword != null : "Keyword cannot be null";
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        
         StringBuilder response = new StringBuilder();
 
         if (matchingTasks.isEmpty()) {
             response.append("No matching tasks found.\n");
         } else {
             response.append("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-            }
+            response.append(matchingTasks.stream()
+                    .map(task -> matchingTasks.indexOf(task) + 1 + ". " + task.toString())
+                    .collect(Collectors.joining("\n")));
+            response.append("\n");
         }
 
         echo.displayBotResponse(response.toString());
     }
+
 
 }
