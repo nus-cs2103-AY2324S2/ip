@@ -5,13 +5,28 @@ import signal.task.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Manages the loading and saving of tasks to a file.
+ * This class encapsulates file operations, allowing tasks to be persisted to disk and loaded back into the application.
+ */
 public class Storage {
-
     private static String filePath;
+
+    /**
+     * Constructs Storage with a specified file path for saving and loading tasks.
+     *
+     * @param filePath The file path where tasks are saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the path.
+     * If the file does not exist, it creates a new file. Each line in the file is expected to represent a single task.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         TaskList taskList = new TaskList();
 
@@ -43,6 +58,12 @@ public class Storage {
         return taskList.giveList();
     }
 
+    /**
+     * Helper function to read each line from the file.
+     *
+     * @param line The next line from the file.
+     * @return The Task recorded by the line.
+     */
     public static Task parseTask(String line) {
         // Parse each line to create Task objects
         // Example line format: "T | 1 | read book"
@@ -68,6 +89,12 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Writes the current list of tasks to the file specified by the path.
+     * Converts each task to a string that is recorded in the file.
+     *
+     * @param taskList The list of tasks to be written to the file.
+     */
     public void writeTasks(ArrayList<Task> taskList) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));

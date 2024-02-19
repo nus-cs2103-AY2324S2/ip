@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Handles user interactions with the Signal chatbot.
+ * Carries out instructions to create, delete, list and edit tasks.
+ *
+ */
 public class Ui {
     private final String LOGO = " _______  __                       __ \n"
             + "|     __||__|.-----..-----..---.-.|  |\n"
@@ -25,10 +30,18 @@ public class Ui {
 
     }
 
+    /**
+     * Gets the next user input.
+     *
+     * @return The string input.
+     */
     public String scan() {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Prints the opening message of the Signal chatbot.
+     */
     public void intro() {
         System.out.println("Hello! My name is\n" + LOGO);
         System.out.println("How can I help?");
@@ -36,10 +49,16 @@ public class Ui {
         System.out.println(DIV);
     }
 
+    /**
+     * Prints the closing message of the Signal chatbot.
+     */
     public void leave() {
         signalSays("Bye! Hope you come back soon :D");
     }
 
+    /**
+     * Prints a reponse to an empty input.
+     */
     public void emptyInput() {
         signalSays("Brevity is the soul of wit, but you have to tell me something still!");
     }
@@ -83,11 +102,11 @@ public class Ui {
         return java.util.Arrays.equals(userInputArray, originalArray);
     }
 
-    /**
-     * Adds input to the list.
-     *
+//    /**
+//     * Adds input to the list.
+//     *
 //     * @param input Input collected from the user.
-     */
+//     */
 //    public void taskAdded(String input) {
 //        Task t = new Task(input, false);
 //        this.taskList.add(t);
@@ -125,7 +144,13 @@ public class Ui {
 //    }
 
 
-
+    /**
+     * Finds a string from a list of strings.
+     *
+     * @param checker The string to find.
+     * @param list The list of strings to search in.
+     * @return The index of the string to be found, otherwise returns -1.
+     */
     public int finder(String checker, String[] list) {
         for (int i = 0; i < list.length; i++) {
             if (list[i].equals(checker)) {
@@ -135,6 +160,12 @@ public class Ui {
         return -1;
     }
 
+    /**
+     * Converts an ArrayList to a String.
+     *
+     * @param list An ArrayList of strings to convert.
+     * @return The converted String.
+     */
     public String listToString(ArrayList<String> list) {
         String result = "";
         for (String s : list) {
@@ -143,6 +174,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Save the new task added to the file and print a response to the user.
+     *
+     * @param task The task added.
+     */
     public void taskAdded(Task task) {
         int size = taskList.size();
         signalSays("Got it! I've added this task to your list: \n"
@@ -151,6 +187,11 @@ public class Ui {
         storeFiles.writeTasks(taskList);
     }
 
+    /**
+     * Create a new Task of type ToDo.
+     *
+     * @param inputParts The string array of the user input.
+     */
     public void commandToDo(String[] inputParts) {
         if (inputParts.length < 2) {
             signalSays("Looks like you haven't entered a task description!");
@@ -162,6 +203,11 @@ public class Ui {
         taskAdded(task);
     }
 
+    /**
+     * Create a new Task of type Deadline.
+     *
+     * @param inputParts The string array of the user input.
+     */
     public void commandDeadline(String[] inputParts) {
         if (inputParts.length < 2) {
             signalSays("Looks like you haven't entered a task description!");
@@ -178,6 +224,11 @@ public class Ui {
         taskAdded(task);
     }
 
+    /**
+     * Create a new Task of type Event.
+     *
+     * @param inputParts The string array of the user input.
+     */
     public void commandEvent(String[] inputParts) {
         if (inputParts.length < 2) {
             signalSays("Looks like you haven't entered a task description!");
@@ -241,6 +292,11 @@ public class Ui {
 //        System.out.println(DIV);
 //    }
 
+    /**
+     * Marks the task as done.
+     *
+     * @param current The task to mark.
+     */
     public void commandMark(Task current) {
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
@@ -258,11 +314,21 @@ public class Ui {
 //        return response + "  " + current.toString();
     }
 
+    /**
+     * Calls the commandMark method.
+     *
+     * @param inputParts The string array of the user input.
+     */
     public void markTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
         commandMark(taskList.get(index));
     }
 
+    /**
+     * Unmarks the task as not done.
+     *
+     * @param current The task to unmark.
+     */
     public void commandUnmark(Task current) {
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
@@ -280,6 +346,11 @@ public class Ui {
 //        return response + "  " + current.toString();
     }
 
+    /**
+     * Calls the commandUnark method.
+     *
+     * @param inputParts The string array of the user input.
+     */
     public void unMarkTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
         commandUnmark(taskList.get(index));
@@ -291,7 +362,6 @@ public class Ui {
      * Deletes the task from the list and shifts the subsequent tasks forward.
      *
      * @param x The index of the task to be deleted.
-//     * @throws DukeException
      */
     public void commandDelete(int x) {
         Task current = taskList.get(x);
@@ -331,35 +401,43 @@ public class Ui {
 //        }
     }
 
-    /**
-     * Handles negative and out-of-bounds inputs for deleting tasks.
-     *
-     * @param x
-//     * @throws DukeException
-     */
-    public void commandDeleteInvalid(int x) {
-        if (x == 0) {
-            signalSays("Looks like there's nothing here to remove. Better get on those tasks!");
-//            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
-        }
-        if (x < 0) {
-            signalSays("Negative numbers might exist in maths but not in this list!");
-//            throw new DukeException("Negative numbers might exist in maths but not in this list!");
-        }
-    }
+//    /**
+//     * Handles negative and out-of-bounds inputs for deleting tasks.
+//     *
+//     * @param x
+//     */
+//    public void commandDeleteInvalid(int x) {
+//        if (x == 0) {
+//            signalSays("Looks like there's nothing here to remove. Better get on those tasks!");
+////            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
+//        }
+//        if (x < 0) {
+//            signalSays("Negative numbers might exist in maths but not in this list!");
+////            throw new DukeException("Negative numbers might exist in maths but not in this list!");
+//        }
+//    }
 
+    /**
+     * Response to user input 'blah'
+     */
     public void commandBlah() {
         signalSays("All words are made up, but this one seems more nonsensical than usual. Try something else!");
 //        throw new DukeException("All words are made up, but this one seems more nonsensical than usual. Try something else!");
     }
 
+    /**
+     * Response to user input 'something else'
+     */
     public void commandSomethingelse() {
         signalSays("Haha, very funny. Nice try my guy!");
 //        throw new DukeException("Haha, very funny. Nice try my guy!");
     }
 
+    /**
+     * Prints a user guide.
+     */
     public void commandHelp() {
-        signalSays("Note: Entering any text besides the following creates a new generic task. \n" +
+        signalSays("Note:\n" +
                 "The round brackets indicate you can enter any text, square brackets indicate you should enter a number, without the brackets. \n" +
                 "\nCREATING TASKS: \n" +
                 "* todo () -- creates a To Do task, which has no deadline. \n" +

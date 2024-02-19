@@ -13,6 +13,13 @@ public class Event extends Task {
     private LocalDate endDate;
     private LocalTime endTime;
 
+    /**
+     * Constructor for a new Event task.
+     *
+     * @param description The description of the task.
+     * @param start The start timing of the event.
+     * @param end The end timing of the event.
+     */
     public Event(String description, String start, String end) {
         super(description);
         String[] parseStart = start.split(" ");
@@ -35,6 +42,10 @@ public class Event extends Task {
         return this.startDate;
     }
 
+    /**
+     *
+     * @return The string representation of the Event task.
+     */
     @Override
     public String toString() {
         return "E" + super.toString()

@@ -6,10 +6,20 @@ import java.time.LocalTime;
 import static signal.Duke.formatDate;
 import static signal.Duke.formatTime;
 
+/**
+ * Represents a deadline task in the Signal chat-bot.
+ * A deadline task has an end time in addition to the properties inherited from Task.
+ */
 public class Deadline extends Task {
     private LocalDate byDate;
     private LocalTime byTime;
 
+    /**
+     * Constructor for a new Deadline task.
+     *
+     * @param description The description of the task.
+     * @param by The time that the task is due.
+     */
     public Deadline(String description, String by) {
         super(description);
         String[] parseBy = by.split(" ");
@@ -26,6 +36,10 @@ public class Deadline extends Task {
         return this.byDate;
     }
 
+    /**
+     *
+     * @return The string representation of the Deadline task.
+     */
     @Override
     public String toString() {
         return "D" + super.toString()

@@ -18,6 +18,16 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String FILE_PATH = "../data/signal.txt";
+    private static Storage fileManager = new Storage(FILE_PATH);
+    public static Parser parser;
+    private static ArrayList<Task> taskList = fileManager.loadTasks();
+    private static int index = 0; // index of the next task to be filled
+    private static Ui ui = new Ui(taskList);
+    public Storage getStorage() {
+        return fileManager;
+    }
+
     public static String formatDate(LocalDate date) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String formattedDate = date.format(outputFormatter);
@@ -29,18 +39,6 @@ public class Duke {
         String formattedTime = time.format(formatter);
         return formattedTime;
     }
-
-    private static final String FILE_PATH = "../data/signal.txt";
-    private static Storage fileManager = new Storage(FILE_PATH);
-    public static Parser parser;
-    private static ArrayList<Task> taskList = fileManager.loadTasks();
-    private static int index = 0; // index of the next task to be filled
-    private static Ui ui = new Ui(taskList);
-    public Storage getStorage() {
-        return fileManager;
-    }
-
-
 
     public static void main(String[] args) {
         ui.intro();
