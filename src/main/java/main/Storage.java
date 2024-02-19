@@ -1,11 +1,13 @@
 package main;
 
-import main.TaskList;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Storage {
-    String filePath;
 
     /**
      * Reads the file in the parameter line by line
@@ -23,7 +25,6 @@ public class Storage {
             String str = "";
 
             while (line != null) {
-//            addList(line);
                 str += line + "\n";
                 line = reader.readLine();
             }
@@ -45,9 +46,11 @@ public class Storage {
     public static void writeToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter("./data.txt");
         PrintWriter printWriter = new PrintWriter(fileWriter);
+
         for (int i = 0; i < taskList.getList().size() ; i++) {
             printWriter.println(taskList.getList().get(i).toStringFile());
         }
+
         printWriter.close();
     }
 }
