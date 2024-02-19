@@ -9,15 +9,25 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Aegis class contains the main() method that initiates and runs the Aegis assistant program.
  * Also contains private functions called by main() to execute commands.
  */
-public class Aegis {
+public class Aegis extends Application {
     private static Parser parser;
     private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
+
+    /**
+     * Constructor for creating an Aegis object.
+     */
+    public Aegis() {}
 
     /**
      * Starts the execution of the Aegis assistant program.
@@ -48,6 +58,23 @@ public class Aegis {
                 ui.printDivider();
             }
         }
+    }
+
+    /**
+     * Overridden method from javafx.application.Application that implements own custom stage.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Trinity Processor online."); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     private static void initialSetup() {
