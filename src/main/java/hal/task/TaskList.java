@@ -21,6 +21,8 @@ public class TaskList {
         String returnOutput;
 
         try {
+            assert(userInput.length() > 1);
+
             ArrayList<String> parsedInputArray = parser.parse(userInput);
             String taskType = parsedInputArray.get(0);
             String description = parsedInputArray.get(1);
@@ -42,7 +44,7 @@ public class TaskList {
             Task taskObject = taskList.get(taskList.size() - 1);
             returnOutput = taskObject.toString();
 
-        } catch (HALException | DateTimeParseException e) {
+        } catch (HALException | DateTimeParseException | AssertionError e) {
             System.out.println(e.getMessage());
             returnOutput = "Give me clearer instructions. I cannot do that.";
         }
