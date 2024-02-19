@@ -44,7 +44,7 @@ incremental: false
 detach: false
 port: 4000
 host: 127.0.0.1
-baseurl: "" # does not include hostname
+baseurl: "https://yuechen2001.github.io/ip/" # does not include hostname
 show_dir_listing: false
 
 # Outputting
