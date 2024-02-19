@@ -25,6 +25,7 @@ public class AddCommand extends Command {
      * @param desc The description of the {@code Todo} task.
      */
     public AddCommand(String desc) {
+        assert desc != null && !desc.isEmpty() : "Description cannot be null or empty";
         task = new Todo(desc);
     }
 
@@ -35,6 +36,8 @@ public class AddCommand extends Command {
      * @param deadline The deadline of the {@code Deadline} task.
      */
     public AddCommand(String desc, LocalDateTime deadline) {
+        assert desc != null && !desc.isEmpty() : "Description cannot be null or empty";
+        assert deadline != null : "Deadline cannot be null";
         task = new Deadline(desc, deadline);
     }
 
@@ -46,6 +49,9 @@ public class AddCommand extends Command {
      * @param to The end time of the {@code Event} task.
      */
     public AddCommand(String desc, LocalDateTime from, LocalDateTime to) {
+        assert desc != null && !desc.isEmpty() : "Description cannot be null or empty";
+        assert from != null : "Start time cannot be null";
+        assert to != null : "End time cannot be null";
         task = new Event(desc, from, to);
     }
 
@@ -59,7 +65,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
-        return ui.showAdded(task) + ui.showTasksStatus(tasks);
+        return ui.showAdded(task) + "\n" + ui.showTasksStatus(tasks);
     }
 
     @Override

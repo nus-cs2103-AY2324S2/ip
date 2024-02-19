@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import java.nio.file.Paths;
 
 public class Duke {
-    public static boolean isExit;
+    private static boolean isExit;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -39,8 +39,4 @@ public class Duke {
     public String welcome() {
         return Ui.showWelcome();
     }
-    public boolean isExit() {
-        return isExit;
-    }
-
 }
