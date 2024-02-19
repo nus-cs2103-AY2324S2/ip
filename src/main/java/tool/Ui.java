@@ -76,7 +76,7 @@ public class Ui {
     /**
      * Prints list of commands.
      */
-    public String printHelp() {
+    public static String printHelp() {
         return "Here are the possible commands:\n" + POSSIBLE_COMMANDS;
     }
 
