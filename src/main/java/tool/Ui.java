@@ -1,7 +1,6 @@
 package tool;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import task.Task;
 
@@ -9,8 +8,6 @@ import task.Task;
  * Represents the tool to deal with user interactions.
  */
 public class Ui {
-    private static final String DIVIDER = "------------------------------------------------------------";
-
     private static final String POSSIBLE_COMMANDS = "TODO     --- todo [task name]\n"
             + "DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n"
             + "EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]";
@@ -79,7 +76,7 @@ public class Ui {
     /**
      * Prints list of commands.
      */
-    public String printHelp() {
+    public static String printHelp() {
         return "Here are the possible commands:\n" + POSSIBLE_COMMANDS;
     }
 

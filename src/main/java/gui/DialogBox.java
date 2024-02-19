@@ -30,6 +30,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a dialog box to display on GUI.
+     *
+     * @param text Text input provided by the user or text output processed from the user's input.
+     * @param img Image of speaker (Chronos or user).
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -67,10 +73,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates an instance of a user dialog box with the given text and image.
+     *
+     * @param text Text input provided by the user.
+     * @param img Image of user.
+     * @return A constructed dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates an instance of a Chronos dialog box with the given text and image.
+     *
+     * @param text Text output processed from the user's input.
+     * @param img Image of Chronos.
+     * @return A constructed dialog box.
+     */
     public static DialogBox getChronosDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
