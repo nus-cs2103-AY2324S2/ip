@@ -50,14 +50,13 @@ application {
     mainClass.set("skyler.main.Skyler")
 }
 
-shadowJar {
-    archiveFileName = 'skyler.jar'
-}
 
 shadowJar {
-    archiveBaseName = "skyler"
+    archiveBaseName = 'skyler'
+    archiveFileName = 'skyler.jar'
+    archiveVersion = ''
+    archiveClassifier = ''
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
