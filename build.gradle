@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.KBot.Main")
+    mainClass.set("duke.kbot.KBot")
 }
 
 shadowJar {

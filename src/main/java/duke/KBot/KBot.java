@@ -181,4 +181,8 @@ public class KBot extends Application {
         }
     }
 
+    public static void main(String[] args) {
+        TaskManager.loadLocalSavedTasks(); // checking if there are local files to load
+        Application.launch(KBot.class, args);
+    }
 }
