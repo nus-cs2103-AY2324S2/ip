@@ -1,17 +1,19 @@
 package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * SubcommandParser utility class to handle parsing of commands with subcommands (eg. event task /from 2020-12-12 /to 2020-12-13)
+ * SubcommandParser utility class to handle parsing of commands with subcommands
+ * (eg. event task /from 2020-12-12 /to 2020-12-13)
  */
 public class SubcommandParser {
     /**
      * Parses subcommands from a string
-     * 
-     * @param text String to parse
+     *
+     * @param text        String to parse
      * @param initializer Initializer for subcommands
      * @return Pair of initial argument and list of subcommands
      */

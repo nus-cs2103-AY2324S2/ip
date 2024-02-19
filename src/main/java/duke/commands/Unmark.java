@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.ChatSession;
 import duke.tasks.Task;
 
@@ -6,12 +7,14 @@ import duke.tasks.Task;
  * Unmark class to handle the execution of unmark command
  */
 public class Unmark implements NamedCommand {
-    public String getName() { return "unmark"; }
+    public String getName() {
+        return "unmark";
+    }
 
     /**
      * Unmarks a task from the task list
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {

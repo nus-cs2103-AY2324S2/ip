@@ -1,15 +1,15 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Task {    
-    public static int EXPECTED_FIELDS = 3;
-    protected static String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
-    protected static String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy hh:mm a";
+public class Task {
+    protected static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
+    protected static final String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy hh:mm a";
     public String name;
-    public boolean isDone;
+    private boolean isDone;
 
     Task(String name, boolean done) {
         this.name = name;
@@ -53,7 +53,8 @@ public class Task {
     }
 
     protected ArrayList<String> exportDataAsArray() {
-        ArrayList<String> data = new ArrayList<>(Arrays.asList((String)this.typeOfTask(), this.name, Integer.toString(this.isMarkedAsInt())));
+        ArrayList<String> data = new ArrayList<>(
+            Arrays.asList((String) this.typeOfTask(), this.name, Integer.toString(this.isMarkedAsInt())));
         return data;
     }
 

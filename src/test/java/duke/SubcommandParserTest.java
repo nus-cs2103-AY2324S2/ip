@@ -1,10 +1,10 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class SubcommandParserTest {
     @Test
@@ -24,7 +24,8 @@ public class SubcommandParserTest {
         assertEquals("/subcmd", dataTwo.getSecond().get(0).getFirst());
         assertEquals("", dataTwo.getSecond().get(0).getSecond());
 
-        Pair<String, List<Pair<String, String>>> dataThree = SubcommandParser.parseSubcommands("command /subcmd1 arg11 arg12 /subcmd2 arg21 arg22", "/");
+        Pair<String, List<Pair<String, String>>> dataThree =
+            SubcommandParser.parseSubcommands("command /subcmd1 arg11 arg12 /subcmd2 arg21 arg22", "/");
         assertEquals("command", dataThree.getFirst());
         assertEquals("/subcmd1", dataThree.getSecond().get(0).getFirst());
         assertEquals("arg11 arg12", dataThree.getSecond().get(0).getSecond());

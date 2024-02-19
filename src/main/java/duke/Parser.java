@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.List;
 
 import duke.commands.Bye;
@@ -17,9 +18,9 @@ import duke.exceptions.InvalidParametersException;
  * Parser class to handle parsing of commands
  */
 public class Parser {
+    private List<NamedCommand> commandList;
     private ChatSession session;
-    public List<NamedCommand> commandList;
-    
+
     Parser(ChatSession session) {
         this.initCommands();
         this.session = session;
@@ -28,20 +29,20 @@ public class Parser {
     private void initCommands() {
         this.commandList = List.of(
             new Bye(),
-            new ListTasks(), 
-            new Mark(), 
-            new Unmark(), 
-            new ToDoCommand(), 
-            new EventCommand(), 
+            new ListTasks(),
+            new Mark(),
+            new Unmark(),
+            new ToDoCommand(),
+            new EventCommand(),
             new DeadlineCommand(),
             new Delete(),
             new Find()
-            );
+        );
     }
 
     /**
      * Handles message from user
-     * 
+     *
      * @param message Message from user
      */
     public void handleMessage(String message) {

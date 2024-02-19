@@ -1,4 +1,5 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +10,7 @@ import java.util.Optional;
  * Deadline class for tasks with deadlines
  */
 public class Deadline extends Task {
-    public Optional<LocalDateTime> byDate;
+    private Optional<LocalDateTime> byDate;
 
     public Deadline(String name) {
         super(name);
@@ -38,7 +39,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the task name with deadline time
-     * 
+     *
      * @return String of task name with deadline time
      */
     public String getName() {
@@ -46,24 +47,24 @@ public class Deadline extends Task {
     }
 
     /**
-     * Sets the deadline date
-     * 
-     * @param byDate Deadline date
-     * @throws DateTimeParseException If the date is not in the correct format
-     */
-    public void setByDate(String byDate) throws DateTimeParseException {
-        this.byDate = Optional.of(this.parseDate(byDate, true));
-    }
-
-    /**
      * Gets the deadline date
-     * 
+     *
      * @return String of deadline date in format specified by OUTPUT_DATE_TIME_FORMAT
      */
     public String getByDate() {
         return this.byDate.map(
             d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
-            );
+        );
+    }
+
+    /**
+     * Sets the deadline date
+     *
+     * @param byDate Deadline date
+     * @throws DateTimeParseException If the date is not in the correct format
+     */
+    public void setByDate(String byDate) throws DateTimeParseException {
+        this.byDate = Optional.of(this.parseDate(byDate, true));
     }
 
     protected String getByDateIso() {

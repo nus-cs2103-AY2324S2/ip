@@ -1,11 +1,12 @@
 package duke.commands;
+
 import duke.ChatSession;
 
 /**
  * Bye command to allow user to exit the chat
  */
 public class Bye implements NamedCommand {
-    public static String NAME = "bye";
+    private static final String NAME = "bye";
 
     public String getName() {
         return Bye.NAME;
@@ -13,8 +14,8 @@ public class Bye implements NamedCommand {
 
     /**
      * Executes the command
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {

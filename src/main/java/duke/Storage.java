@@ -1,16 +1,15 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 import duke.exceptions.FileCorruptionException;
-
 import duke.tasks.Deadline;
 import duke.tasks.Event;
-import duke.tasks.ToDo;
-
 import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Storage class to handle file operations
@@ -20,48 +19,11 @@ public class Storage {
 
     /**
      * Constructor for Storage class
+     *
      * @param filePath Path to file
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-    }
-
-    /**
-     * Loads file from path
-     * 
-     * @return File object
-     * @throws IOException
-     */
-    public File loadFile() throws IOException {
-        File data = new File(filePath);
-        data.getParentFile().mkdirs();
-        data.createNewFile();
-        return data;
-    }
-
-    /**
-     * Creates task list from file
-     * 
-     * @return TaskList object
-     * @throws FileCorruptionException
-     * @throws IOException
-     */
-    public TaskList createTaskList() throws FileCorruptionException, IOException {
-        File file = this.loadFile();
-        TaskList taskList = new TaskList(file);
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String taskData = scanner.nextLine();
-                Task task = Storage.parseTaskData(taskData);
-                taskList.add(task);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File does not exist");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new FileCorruptionException("Unable to read file");
-        }
-        return taskList;
     }
 
     private static Task parseTaskData(String data) throws Exception {
@@ -100,6 +62,43 @@ public class Storage {
         return new Event(fields[1], isDone, fields[3], fields[4], false);
     }
 
+    /**
+     * Loads file from path
+     *
+     * @return File object
+     * @throws IOException
+     */
+    public File loadFile() throws IOException {
+        File data = new File(filePath);
+        data.getParentFile().mkdirs();
+        data.createNewFile();
+        return data;
+    }
+
+    /**
+     * Creates task list from file
+     *
+     * @return TaskList object
+     * @throws FileCorruptionException
+     * @throws IOException
+     */
+    public TaskList createTaskList() throws FileCorruptionException, IOException {
+        File file = this.loadFile();
+        TaskList taskList = new TaskList(file);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String taskData = scanner.nextLine();
+                Task task = Storage.parseTaskData(taskData);
+                taskList.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File does not exist");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FileCorruptionException("Unable to read file");
+        }
+        return taskList;
+    }
 
 
 }

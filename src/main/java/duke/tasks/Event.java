@@ -1,4 +1,5 @@
 package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.Optional;
  * Event class to represent tasks with a start and end time
  */
 public class Event extends Task {
-    public Optional<LocalDateTime> fromDate;
-    public Optional<LocalDateTime> toDate;
+    private Optional<LocalDateTime> fromDate;
+    private Optional<LocalDateTime> toDate;
 
     public Event(String name) {
         super(name);
@@ -47,25 +48,25 @@ public class Event extends Task {
     public String getName() {
         return String.format("%s %s", super.getName(), this.constructTimeString());
     }
-    
-    public void setFromDate(String fromDate) {
-        this.fromDate = Optional.of(this.parseDate(fromDate, true));
-    }
-
-    public void setToDate(String toDate) {
-        this.toDate = Optional.of(this.parseDate(toDate, true));
-    }
 
     public String getFromDate() {
         return this.fromDate.map(
             d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
-            );
+        );
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = Optional.of(this.parseDate(fromDate, true));
     }
 
     public String getToDate() {
         return this.toDate.map(
             d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
-            );
+        );
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = Optional.of(this.parseDate(toDate, true));
     }
 
     protected String getFromDateIso() {

@@ -8,12 +8,14 @@ import duke.tasks.Task;
  * Delete class to handle the execution of delete command
  */
 public class Delete implements NamedCommand {
-    public String getName() { return "delete"; }
+    public String getName() {
+        return "delete";
+    }
 
     /**
      * Deletes a task from the task list
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {
