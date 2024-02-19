@@ -27,14 +27,14 @@ public class Event extends Task {
                 "to:" + DateTimeParser.dtToString(this.end) + ")";
     }
     /**
-     * To get the task's start.
+     * Queries the task's start date.
      */
     @Override
     public LocalDate getStart() {
         return this.start;
     }
     /**
-     * To get the task's end.
+     * Queries the task's end date.
      */
     @Override
     public LocalDate getEnd() {

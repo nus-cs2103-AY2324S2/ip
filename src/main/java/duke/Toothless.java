@@ -35,7 +35,7 @@ public class Toothless {
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
 
     /**
-     * Method to instantiate the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
+     * Instantiates the Toothless class when Launcher is run, which will run the main class and call this method.
      */
     public Toothless() {
         this.ui = new Ui();
@@ -55,8 +55,7 @@ public class Toothless {
         FileParser fileParser = new FileParser(f);
         try {
             fileParser.parseFile(f);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         this.taskList = fileParser.getTaskList();
