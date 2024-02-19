@@ -1,9 +1,15 @@
+package damon.ui;
+
+import damon.task.Task;
+import damon.tasklist.TaskList;
+import damon.exceptions.StorageFileLoadingException;
+
 import java.util.Scanner;
 
 public class Ui {
     private final Scanner scanner;
 
-    Ui() {
+    public Ui() {
         //Solution below adapted from https://stackoverflow.com/a/16252290
         this.scanner = new Scanner(System.in);
     }

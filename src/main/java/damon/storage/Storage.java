@@ -1,3 +1,12 @@
+package damon.storage;
+
+import damon.exceptions.StorageFileLoadingException;
+import damon.task.Deadline;
+import damon.task.Event;
+import damon.task.Task;
+import damon.task.ToDo;
+import damon.tasklist.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,11 +20,11 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    ArrayList<Task> load() throws StorageFileLoadingException {
+    public ArrayList<Task> load() throws StorageFileLoadingException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         //Solution below inspired by https://www.w3schools.com/java/java_files_read.asp
         try {
@@ -33,7 +42,7 @@ public class Storage {
     }
 
     //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
-    void createFile() {
+    public void createFile() {
         try {
             File storageFile = new File(filePath);
             if (storageFile.createNewFile()) {
@@ -45,7 +54,7 @@ public class Storage {
     }
 
     //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
-    void writeFile(TaskList tasks) {
+    public void writeFile(TaskList tasks) {
         createFile();
         try {
             FileWriter writer = new FileWriter(filePath, false);

@@ -1,37 +1,41 @@
+package damon.tasklist;
+
 import java.util.ArrayList;
+
+import damon.task.Task;
 
 public class TaskList {
     private ArrayList<Task> taskList;
 
 
-    TaskList() {
+    public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
-    TaskList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
-    int size() {
+    public int size() {
         return this.taskList.size();
     }
 
-    Task get(int index) {
+    public Task get(int index) {
         return this.taskList.get(index);
     }
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
-    void deleteTask(int index) {
+    public void deleteTask(int index) {
         taskList.remove(index);
     }
 
-    void markTask(int index) {
+    public void markTask(int index) {
         this.taskList.get(index).markAsDone();
     }
 
-    void unMarkTask(int index) {
+    public void unMarkTask(int index) {
         this.taskList.get(index).markBackNotDone();
     }
 }

@@ -1,3 +1,5 @@
+package damon.exceptions;
+
 public class DamonExceptions extends Exception{
 
     protected String message;

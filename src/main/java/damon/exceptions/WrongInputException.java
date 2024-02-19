@@ -1,3 +1,5 @@
+package damon.exceptions;
+
 public class WrongInputException extends DamonExceptions{
 
     public WrongInputException() {
