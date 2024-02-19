@@ -3,20 +3,16 @@ package bozo;
 import java.util.Scanner;
 
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 
 /**
  * The Bozo class is the main class for the Bozo chatbot.
  * It contains the main method and the run method.
  */
-@SuppressWarnings("checkstyle:Regexp")
 public class Bozo {
     private static TaskList list;
     private static Storage storage;
     private static Ui ui;
     private static Parser parser;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image bozo = new Image(this.getClass().getResourceAsStream("/images/DaBozo.png"));
 
     /**
      * Constructor for the Bozo class.
