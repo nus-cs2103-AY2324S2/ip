@@ -27,9 +27,9 @@ public class TaskParser {
     /**
      * Parses a line of text and returns the corresponding {@code Task} object.
      *
-     * @param line the line of text representing a task
-     * @return the corresponding {@code Task} object
-     * @throws IllegalArgumentException if the line is in an invalid format
+     * @param line The line of text representing a task.
+     * @return The corresponding {@code Task} object.
+     * @throws IllegalArgumentException If the line is in an invalid format.
      */
     public static Task parse(String line) throws IllegalArgumentException {
         final int minPartsLength = 3;

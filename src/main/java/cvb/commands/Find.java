@@ -32,6 +32,7 @@ public class Find implements Command {
      * @param rc       The response constructor to construct the string for the matching tasks.
      * @throws ConvoBotException If there is an issue executing the command.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
         ArrayList<String> matchingTaskStrings = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -41,14 +42,15 @@ public class Find implements Command {
                 matchingTaskStrings.add(taskList.getTaskString(i));
             }
         }
-        rc.showMatchingTasks(matchingTaskStrings);
+        rc.addMatchingTasks(matchingTaskStrings);
     }
 
     /**
      * Indicates whether the Find command is an exit command.
      *
-     * @return False, as Find is not an exit command.
+     * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

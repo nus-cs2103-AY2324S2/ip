@@ -12,7 +12,7 @@ public class Delete implements Command {
     private final int indexToDelete;
 
     /**
-     * Constructor for the Delete command.
+     * Constructs a Delete command.
      *
      * @param indexToDelete The index of the task to be deleted.
      */
@@ -27,17 +27,19 @@ public class Delete implements Command {
      * @param rc       The response constructor for constructing messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
         String removedTaskString = taskList.getTaskString(indexToDelete);
         taskList.delete(indexToDelete);
-        rc.showRemoved(removedTaskString, taskList.size());
+        rc.addRemoved(removedTaskString, taskList.size());
     }
 
     /**
-     * Checks if the Delete command is an exit command. Always returns false for Delete commands.
+     * Checks if the Delete command is an exit command.
      *
      * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

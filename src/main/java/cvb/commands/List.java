@@ -14,15 +14,17 @@ public class List implements Command {
      * @param taskList The task list to be displayed.
      * @param rc       The response constructor for constructing messages.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) {
-        rc.showTaskList(taskList);
+        rc.addTaskList(taskList);
     }
 
     /**
-     * Checks if the List command is an exit command. Always returns false for List commands.
+     * Checks if the List command is an exit command.
      *
      * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

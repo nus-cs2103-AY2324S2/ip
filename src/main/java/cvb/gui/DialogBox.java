@@ -49,11 +49,23 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
+    /**
+     * Constructs and returns a new user dialog with the given text and profile picture.
+     *
+     * @param text The user's name.
+     * @param img The profile picture of the user.
+     */
+    static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getConvoBotDialog(String text, Image img) {
+    /**
+     * Constructs and returns a new ConvoBot dialog with the given text and profile image.
+     *
+     * @param text ConvoBot's name.
+     * @param img The profile picture of ConvoBot.
+     */
+    static DialogBox getConvoBotDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;

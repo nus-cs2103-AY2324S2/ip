@@ -14,15 +14,17 @@ public class Bye implements Command {
      * @param taskList The task list (not used in this command).
      * @param rc       The response constructor (not used in this command).
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) {
         return;
     }
 
     /**
-     * Checks if the Bye command is an exit command. Always returns true for Bye commands.
+     * Checks if the Bye command is an exit command.
      *
      * @return Always true.
      */
+    @Override
     public boolean isExit() {
         return true;
     }

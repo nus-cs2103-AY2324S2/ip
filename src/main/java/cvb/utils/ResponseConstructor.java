@@ -20,25 +20,25 @@ public class ResponseConstructor {
     }
 
     /**
-     * Displays a welcome message in the console.
+     * Adds a welcome message to the constructed response.
      */
-    public void showWelcomeMsg() {
+    public void addWelcomeMsg() {
         response.append("Hello! I'm ConvoBot. What can I do for you?");
     }
 
     /**
-     * Displays an exit message in the console.
+     * Adds an exit message to the constructed response.
      */
-    public void showExitMsg() {
+    public void addExitMsg() {
         response.append("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Displays the task list in the console.
+     * Adds the task list to the constructed response.
      *
-     * @param tasks the task list to be displayed
+     * @param tasks The task list to be added.
      */
-    public void showTaskList(TaskList tasks) {
+    public void addTaskList(TaskList tasks) {
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
@@ -52,14 +52,13 @@ public class ResponseConstructor {
     }
 
     /**
-     * Displays the matching tasks from the provided ArrayList of tasks.
-     * Each task is printed with its corresponding index in the list.
+     * Adds the matching tasks from the provided ArrayList of tasks to the constructed response.
+     * Each task is added with its corresponding index in the list.
      *
-     * @param tasks An ArrayList of Strings containing the task strings to be displayed.
-     *
+     * @param tasks An ArrayList of Strings containing the task strings to be added.
      * @throws NullPointerException If the tasks ArrayList is null.
      */
-    public void showMatchingTasks(ArrayList<String> tasks) {
+    public void addMatchingTasks(ArrayList<String> tasks) {
         response.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
@@ -68,12 +67,12 @@ public class ResponseConstructor {
     }
 
     /**
-     * Displays a message indicating that a task has been added.
+     * Adds a message indicating that a task has been added.
      *
-     * @param taskString the string representation of the added task
-     * @param dbSize     the size of the task list after adding the task
+     * @param taskString The string representation of the added task.
+     * @param dbSize     The size of the task list after adding the task.
      */
-    public void showAdded(String taskString, int dbSize) {
+    public void addAdded(String taskString, int dbSize) {
         assert dbSize >= 0;
         response.append("Got it. I've added this task:\n");
         response.append("   " + taskString + "\n");
@@ -81,12 +80,12 @@ public class ResponseConstructor {
     }
 
     /**
-     * Displays a message indicating that a task has been removed.
+     * Adds a message indicating that a task has been removed.
      *
-     * @param taskString the string representation of the removed task
-     * @param dbSize     the size of the task list after removing the task
+     * @param taskString The string representation of the removed task.
+     * @param dbSize     The size of the task list after removing the task.
      */
-    public void showRemoved(String taskString, int dbSize) {
+    public void addRemoved(String taskString, int dbSize) {
         assert dbSize >= 0;
         response.append("Noted. I've removed this task:\n");
         response.append("   " + taskString + "\n");
@@ -94,38 +93,38 @@ public class ResponseConstructor {
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Adds a message indicating that a task has been marked as done.
      *
-     * @param taskString the string representation of the marked task
+     * @param taskString The string representation of the marked task.
      */
-    public void showMarked(String taskString) {
+    public void addMarked(String taskString) {
         response.append("Nice! I've marked this task as done:\n");
         response.append("   " + taskString + "\n");
     }
 
     /**
-     * Displays a message indicating that a task has been marked as not done.
+     * Adds a message indicating that a task has been marked as not done.
      *
-     * @param taskString the string representation of the unmarked task
+     * @param taskString The string representation of the unmarked task.
      */
-    public void showUnmarked(String taskString) {
+    public void addUnmarked(String taskString) {
         response.append("OK, I've marked this task as not done yet:\n");
         response.append("   " + taskString + "\n");
     }
 
     /**
-     * Displays an error message in the console.
+     * Adds an error message.
      *
-     * @param errorMsg the error message to be displayed
+     * @param errorMsg The error message.
      */
-    public void showError(String errorMsg) {
+    public void addError(String errorMsg) {
         response.append(errorMsg + "\n");
     }
 
     /**
      * Returns the constructed string and clears the buffer.
      *
-     * @return the constructed string.
+     * @return The constructed string.
      */
     public String getResponse() {
         String result = response.toString();

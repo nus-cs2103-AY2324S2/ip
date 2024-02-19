@@ -9,34 +9,37 @@ import cvb.utils.TaskList;
  */
 public class Unmark implements Command {
 
-    private final int i;
+    private final int indexToUnmark;
 
     /**
-     * Constructor for the Unmark command.
+     * Constructs an Unmark command with a given index.
      *
-     * @param i The index of the task to be unmarked.
+     * @param indexToUnmark The index of the task to be unmarked.
      */
-    public Unmark(int i) {
-        this.i = i;
+    public Unmark(int indexToUnmark) {
+        this.indexToUnmark = indexToUnmark;
     }
 
     /**
-     * Executes the Unmark command by unmarking the specified completed task and displaying a confirmation message.
+     * Executes the Unmark command by unmarking the specified completed task
+     * and displaying a confirmation message.
      *
      * @param taskList The task list containing the task to be unmarked.
      * @param rc       The response constructor for constructing messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
-        taskList.mark(i, false);
-        rc.showUnmarked(taskList.getTaskString(i));
+        taskList.mark(indexToUnmark, false);
+        rc.addUnmarked(taskList.getTaskString(indexToUnmark));
     }
 
     /**
-     * Checks if the Unmark command is an exit command. Always returns false for Unmark commands.
+     * Checks if the Unmark command is an exit command.
      *
      * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

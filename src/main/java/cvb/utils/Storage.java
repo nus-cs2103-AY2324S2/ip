@@ -22,7 +22,7 @@ public class Storage {
     /**
      * Constructs a new {@code Storage} instance with the specified file path.
      *
-     * @param filePath the file path where task data is stored
+     * @param filePath The file path where task data is stored.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -46,7 +46,7 @@ public class Storage {
     /**
      * Reads task data from the specified file and returns an {@code ArrayList} of tasks.
      *
-     * @return an {@code ArrayList} of tasks read from the file
+     * @return An {@code ArrayList} of tasks read from the file.
      */
     public ArrayList<Task> read() {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Storage {
     /**
      * Writes the provided {@code ArrayList} of tasks to the specified file.
      *
-     * @param taskList the {@code ArrayList} of tasks to be written to the file
+     * @param taskList The {@code ArrayList} of tasks to be written to the file.
      */
     public void write(ArrayList<Task> taskList) {
         try {

@@ -19,8 +19,8 @@ public class DateTime {
     /**
      * Converts a {@code LocalDate} object to a formatted string suitable for display.
      *
-     * @param d the {@code LocalDate} object to be converted
-     * @return a formatted string representing the date for display
+     * @param d The {@code LocalDate} object to be converted.
+     * @return A formatted string representing the date for display.
      */
     public static String dateToString(LocalDate d) {
         return d.format(DISPLAY_FORMATTER);
@@ -29,8 +29,8 @@ public class DateTime {
     /**
      * Converts a {@code LocalDate} object to a formatted string suitable for file storage.
      *
-     * @param d the {@code LocalDate} object to be converted
-     * @return a formatted string representing the date for file storage
+     * @param d The {@code LocalDate} object to be converted.
+     * @return A formatted string representing the date for file storage.
      */
     public static String dateToFile(LocalDate d) {
         return d.format(INPUT_FORMATTER);
@@ -39,9 +39,9 @@ public class DateTime {
     /**
      * Converts a formatted string to a {@code LocalDate} object.
      *
-     * @param s the formatted string representing the date
-     * @return a {@code LocalDate} object parsed from the input string
-     * @throws ConvoBotException if the input string is in an invalid date format
+     * @param s The formatted string representing the date.
+     * @return A {@code LocalDate} object parsed from the input string.
+     * @throws ConvoBotException If the input string is in an invalid date format.
      */
     public static LocalDate stringToDate(String s) throws ConvoBotException {
         LocalDate d;

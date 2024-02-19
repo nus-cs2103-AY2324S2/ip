@@ -12,7 +12,7 @@ public class Add implements Command {
     private final Task task;
 
     /**
-     * Constructor for the Add command.
+     * Constructs an Add command.
      *
      * @param task The task to be added.
      */
@@ -26,16 +26,18 @@ public class Add implements Command {
      * @param taskList The task list to which the task will be added.
      * @param rc       The response constructor for constructing messages.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) {
         taskList.add(task);
-        rc.showAdded(task.toString(), taskList.size());
+        rc.addAdded(task.toString(), taskList.size());
     }
 
     /**
-     * Checks if the Add command is an exit command. Always returns false for Add commands.
+     * Checks if the Add command is an exit command.
      *
      * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

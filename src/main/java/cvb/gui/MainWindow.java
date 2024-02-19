@@ -62,4 +62,5 @@ public class MainWindow extends AnchorPane {
     private void addResponse(String response) {
         dialogContainer.getChildren().addAll(DialogBox.getConvoBotDialog(response, convoImage));
     }
+
 }

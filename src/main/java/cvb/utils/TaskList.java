@@ -25,7 +25,7 @@ public class TaskList {
      * Constructs a new {@code TaskList} instance and initializes it
      * with tasks read from the specified storage.
      *
-     * @param db the storage instance used to read tasks
+     * @param db The storage instance used to read tasks.
      */
     public TaskList(Storage db) {
         this.db = db;
@@ -35,7 +35,7 @@ public class TaskList {
     /**
      * Adds a task to the task list and updates the storage.
      *
-     * @param task the task to be added to the task list
+     * @param task The task to be added to the task list.
      */
     public void add(Task task) {
         taskList.add(task);
@@ -46,8 +46,8 @@ public class TaskList {
      * Enforces the bounds of the task list by throwing an exception
      * if the given index is out of bounds.
      *
-     * @param i the index of the task in the task list
-     * @throws ConvoBotException if the index is out of bounds
+     * @param i The index of the task in the task list.
+     * @throws ConvoBotException If the index is out of bounds.
      */
     private void enforceArrayBounds(int i) throws ConvoBotException {
         if (i < 0 || i >= taskList.size()) {
@@ -58,10 +58,10 @@ public class TaskList {
     /**
      * Marks a task in the task list as done or not done based on the specified index.
      *
-     * @param i      the index of the task in the task list
+     * @param i      The index of the task in the task list.
      * @param isDone {@code true} if the task should be marked as done,
-     *               {@code false} if marked as not done
-     * @throws ConvoBotException if the index is out of bounds
+     *               {@code false} if marked as not done.
+     * @throws ConvoBotException If the index is out of bounds.
      */
     public void mark(int i, boolean isDone) throws ConvoBotException {
         enforceArrayBounds(i);
@@ -76,9 +76,9 @@ public class TaskList {
     /**
      * Retrieves the string representation of a task in the task list based on the specified index.
      *
-     * @param i the index of the task in the task list
-     * @return the string representation of the specified task
-     * @throws ConvoBotException if the index is out of bounds
+     * @param i The index of the task in the task list.
+     * @return The string representation of the specified task.
+     * @throws ConvoBotException If the index is out of bounds.
      */
     public String getTaskString(int i) throws ConvoBotException {
         enforceArrayBounds(i);
@@ -88,10 +88,9 @@ public class TaskList {
     /**
      * Retrieves the description of the task at the specified index in the task list.
      *
-     * @param i The index of the task to retrieve. It should be a non-negative integer
-     *          and less than the size of the task list.
+     * @param i The index of the task to retrieve.
      * @return The description of the task at the specified index.
-     * @throws ConvoBotException if the index is out of bounds
+     * @throws ConvoBotException If the index is out of bounds.
      */
     public String getTaskDescription(int i) throws ConvoBotException {
         enforceArrayBounds(i);
@@ -101,8 +100,8 @@ public class TaskList {
     /**
      * Deletes a task from the task list based on the specified index and updates the storage.
      *
-     * @param i the index of the task in the task list
-     * @throws ConvoBotException if the index is out of bounds
+     * @param i The index of the task in the task list.
+     * @throws ConvoBotException If the index is out of bounds.
      */
     public void delete(int i) throws ConvoBotException {
         enforceArrayBounds(i);
@@ -113,7 +112,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the task list.
      *
-     * @return the size of the task list
+     * @return The size of the task list.
      */
     public int size() {
         return taskList.size();

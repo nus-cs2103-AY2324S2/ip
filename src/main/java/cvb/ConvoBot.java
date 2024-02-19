@@ -33,7 +33,7 @@ public class ConvoBot {
      * @return The welcome message.
      */
     public String getWelcome() {
-        rc.showWelcomeMsg();
+        rc.addWelcomeMsg();
         return rc.getResponse();
     }
 
@@ -53,7 +53,7 @@ public class ConvoBot {
                 throw new ExitException();
             }
         } catch (ConvoBotException e) {
-            rc.showError(e.getMessage());
+            rc.addError(e.getMessage());
             return rc.getResponse();
         }
 
@@ -62,13 +62,13 @@ public class ConvoBot {
         try {
             c.execute(tasks, rc);
         } catch (ConvoBotException e) {
-            rc.showError(e.getMessage());
+            rc.addError(e.getMessage());
         }
         return rc.getResponse();
     }
 
     /**
-     * Main entry point for the ConvoBot application.
+     * Functions as the main entry point for the ConvoBot application.
      *
      * @param args Command-line arguments (not used in this application).
      */

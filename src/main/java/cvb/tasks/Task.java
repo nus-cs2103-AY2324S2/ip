@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * Constructs a new {@code Task} instance with the specified description.
      *
-     * @param description the description of the task
+     * @param description The description of the task.
      */
     public Task(String description) {
         this(description, false);
@@ -21,8 +21,8 @@ public abstract class Task {
     /**
      * Constructs a new {@code Task} instance with the specified description and completion status.
      *
-     * @param description the description of the task
-     * @param isDone      the completion status of the task
+     * @param description The description of the task.
+     * @param isDone      The completion status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -32,7 +32,7 @@ public abstract class Task {
     /**
      * Retrieves the description of the task.
      *
-     * @return the description of the task
+     * @return The description of the task.
      */
     public String getDescription() {
         return this.description;
@@ -41,7 +41,7 @@ public abstract class Task {
     /**
      * Retrieves the completion status of the task.
      *
-     * @return {@code true} if the task is done, {@code false} otherwise
+     * @return {@code true} if the task is done, {@code false} otherwise.
      */
     public boolean getIsDone() {
         return isDone;
@@ -50,7 +50,7 @@ public abstract class Task {
     /**
      * Retrieves the status icon of the task.
      *
-     * @return "X" if the task is done, " " (space) otherwise
+     * @return "X" if the task is done, " " (space) otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -73,7 +73,7 @@ public abstract class Task {
     /**
      * Converts the {@code Task} object to a string format suitable for saving to a file.
      *
-     * @return a formatted string representing the task for file storage
+     * @return A formatted string representing the task for file storage.
      */
     public String toFile() {
         return (this.isDone ? "1" : "0") + " | " + this.getDescription();
@@ -82,7 +82,7 @@ public abstract class Task {
     /**
      * Returns a string representation of the {@code Task} object.
      *
-     * @return a formatted string representing the task for display
+     * @return A formatted string representing the task for display.
      */
     @Override
     public String toString() {

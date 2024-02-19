@@ -16,9 +16,9 @@ public class Event extends Task {
     /**
      * Constructs a new {@code Event} instance with the specified description and time period.
      *
-     * @param description the description of the event
-     * @param from        the start date of the event
-     * @param to          the end date of the event
+     * @param description The description of the event.
+     * @param from        The start date of the event.
+     * @param to          The end date of the event.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         this(description, false, from, to);
@@ -27,10 +27,10 @@ public class Event extends Task {
     /**
      * Constructs a new {@code Event} instance with the specified description, completion status, and time period.
      *
-     * @param description the description of the event
-     * @param isDone      the completion status of the event
-     * @param from        the start date of the event
-     * @param to          the end date of the event
+     * @param description The description of the event.
+     * @param isDone      The completion status of the event.
+     * @param from        The start date of the event.
+     * @param to          The end date of the event.
      */
     public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
         super(description, isDone);
@@ -41,7 +41,7 @@ public class Event extends Task {
     /**
      * Converts the {@code Event} object to a string format suitable for saving to a file.
      *
-     * @return a formatted string representing the event for file storage
+     * @return A formatted string representing the event for file storage.
      */
     @Override
     public String toFile() {
@@ -53,7 +53,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the {@code Event} object.
      *
-     * @return a formatted string representing the event for display
+     * @return A formatted string representing the event for display.
      */
     @Override
     public String toString() {

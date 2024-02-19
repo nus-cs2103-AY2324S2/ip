@@ -9,7 +9,7 @@ public class ToDo extends Task {
     /**
      * Constructs a new {@code ToDo} instance with the specified description.
      *
-     * @param description the description of the to-do task
+     * @param description The description of the todo task.
      */
     public ToDo(String description) {
         this(description, false);
@@ -18,8 +18,8 @@ public class ToDo extends Task {
     /**
      * Constructs a new {@code ToDo} instance with the specified description and completion status.
      *
-     * @param description the description of the to-do task
-     * @param isDone      the completion status of the to-do task
+     * @param description The description of the todo task.
+     * @param isDone      The completion status of the todo task.
      */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
@@ -28,7 +28,7 @@ public class ToDo extends Task {
     /**
      * Converts the {@code ToDo} object to a string format suitable for saving to a file.
      *
-     * @return a formatted string representing the to-do task for file storage
+     * @return A formatted string representing the to-do task for file storage.
      */
     @Override
     public String toFile() {
@@ -36,9 +36,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of the {@code ToDo} object.
+     * Returns A string representation of the {@code ToDo} object.
      *
-     * @return a formatted string representing the to-do task for display
+     * @return A formatted string representing the to-do task for display.
      */
     @Override
     public String toString() {

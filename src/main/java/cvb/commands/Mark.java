@@ -12,7 +12,7 @@ public class Mark implements Command {
     private final int indexToMark;
 
     /**
-     * Constructor for the Mark command.
+     * Constructs a Mark command with a given index.
      *
      * @param indexToMark The index of the task to be marked as completed.
      */
@@ -27,16 +27,18 @@ public class Mark implements Command {
      * @param rc       The response constructor for constructing messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
+    @Override
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
         taskList.mark(indexToMark, true);
-        rc.showMarked(taskList.getTaskString(indexToMark));
+        rc.addMarked(taskList.getTaskString(indexToMark));
     }
 
     /**
-     * Checks if the Mark command is an exit command. Always returns false for Mark commands.
+     * Checks if the Mark command is an exit command.
      *
      * @return Always false.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
