@@ -86,36 +86,39 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Comparator for sorting tasks based on their deadlines.
+     */
     private static class DeadlineComparator implements Comparator<Task> {
         @Override
         public int compare(Task task1, Task task2) {
-            // Compare tasks based on their deadlines
             if (task1 instanceof Deadline && task2 instanceof Deadline) {
                 LocalDate deadline1 = ((Deadline) task1).getDeadline();
                 LocalDate deadline2 = ((Deadline) task2).getDeadline();
                 return deadline1.compareTo(deadline2);
             } else {
-                // Handle other task types or non-deadline tasks
-                // You might want to customize this based on your requirements
                 return 0;
             }
         }
     }
+
+    /**
+     * Comparator for sorting tasks based on their types.
+     */
     private static class TaskTypeComparator implements Comparator<Task> {
         @Override
         public int compare(Task task1, Task task2) {
-            // Compare tasks based on their types
             String type1 = task1.getType();
             String type2 = task2.getType();
             return type1.compareTo(type2);
         }
     }
 
+    /**
+     * Sorts the task list based on task types and deadlines.
+     */
     public void sort() {
-        // Sort the task list using the custom comparator
         Collections.sort(taskList, new TaskTypeComparator());
         Collections.sort(taskList, new DeadlineComparator());
     }
-
-
-    }
+}

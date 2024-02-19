@@ -37,6 +37,8 @@ public class Lery {
      *
      * @param input The user input to be processed.
      * @return A response generated based on user's input.
+     *
+     * @throws LeryException If there's an error when getting response.
      */
     public String getResponse(String input) throws LeryException {
         try {

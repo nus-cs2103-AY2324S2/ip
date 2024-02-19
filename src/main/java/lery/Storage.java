@@ -46,7 +46,7 @@ public class Storage {
         try {
             File file = new File(filename);
             if (!file.exists()) {
-                throw new LeryException("Erm... Text file storage does not exist");
+                throw new LeryException("Woof! Text file storage does not exist");
             } else {
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
@@ -57,7 +57,7 @@ public class Storage {
                     String type = splitLine[0];
                     Task newTask;
                     if (splitLine.length < 3 || splitLine.length > 4) {
-                        throw new LeryException("Erm... Textfile not in correct format!" + splitLine.length);
+                        throw new LeryException("Woof! Textfile not in correct format!" + splitLine.length);
                     }
                     switch (type) {
                     case "T":
@@ -73,7 +73,7 @@ public class Storage {
                         newTask = new Event(event, extra);
                         break;
                     default:
-                        throw new LeryException("Erm... Invalid type!" + type);
+                        throw new LeryException("Woof! Invalid type!" + type);
                     }
                     this.taskList.add(newTask);
                 }
@@ -81,7 +81,7 @@ public class Storage {
             }
             return this.taskList;
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            throw new LeryException("Erm... Error loading tasks from file");
+            throw new LeryException("Woof! Error loading tasks from file");
         }
     }
 
@@ -104,7 +104,7 @@ public class Storage {
             this.taskList.add(newTask);
 
         } catch (IOException e) {
-            throw new LeryException("Erm... Error saving tasks to file");
+            throw new LeryException("Woof! Error saving tasks to file");
         }
     }
 
@@ -118,7 +118,7 @@ public class Storage {
         try {
             LocalDate.parse(date, this.formatter);
         } catch (Exception ex) {
-            throw new LeryException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd" + ex);
+            throw new LeryException("Woof! Date not keyed in correct format! Correct format is yyyy-MM-dd");
         }
     }
 

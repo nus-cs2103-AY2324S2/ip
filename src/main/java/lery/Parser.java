@@ -36,40 +36,40 @@ public class Parser {
         assert command != null : "Command should not be null";
         TaskList taskList = this.storage.getTaskList();
         if (command.equalsIgnoreCase("list")) {
-            return taskList.printList();
+            return "Woof! " + taskList.printList();
         } else if (command.startsWith("mark")) {
             try {
                 Integer id = Integer.parseInt(command.substring(5));
                 return taskList.getTask(id - 1).markAsDone();
             } catch (NumberFormatException e) {
-                throw new LeryException("Erm... Please enter a valid task number.");
+                throw new LeryException("Woof! Please enter a valid task number.");
             } catch (IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please enter a task number.");
+                throw new LeryException("Woof! Please enter a task number.");
             }
         } else if (command.startsWith("unmark")) {
             try {
                 Integer id = Integer.parseInt(command.substring(7));
                 return taskList.getTask(id - 1).markAsDone();
             } catch (NumberFormatException e) {
-                throw new LeryException("Erm... Please enter a valid task number.");
+                throw new LeryException("Woof! Please enter a valid task number.");
             } catch (IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please enter a task number.");
+                throw new LeryException("Woof! Please enter a task number.");
             }
         } else if (command.startsWith("delete")) {
             try {
                 Integer id = Integer.parseInt(command.substring(7));
                 return this.parseDeleteTaskCommand(taskList.getTask(id - 1));
             } catch (NumberFormatException e) {
-                throw new LeryException("Erm... Please enter a valid task number.");
+                throw new LeryException("Woof! Please enter a valid task number.");
             } catch (IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please enter a task number.");
+                throw new LeryException("Woof! Please enter a task number.");
             }
         } else if (command.startsWith("find")) {
             String d = command.substring(5);
             return this.parseFindTaskCommand(d);
         } else if (command.startsWith("sort")) {
             this.storage.sortTask();
-            return "\nList is sorted by their deadline and task type.\n";
+            return "\nWoof! List is sorted by their deadline and task type.\n";
         } else {
             return this.parseAddTaskCommand(command);
         }
@@ -84,13 +84,13 @@ public class Parser {
      */
     public String parseAddTaskCommand(String command) throws LeryException {
         assert command != null : "Command should not be null";
-        String msg = "Got it. I've added this task:\n";
+        String msg = "Woof! Got it. I've added this task:\n";
         Task newTask;
         if (command.startsWith("todo")) {
             try {
                 newTask = new Todo(command.substring(5));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please provide event name.");
+                throw new LeryException("Woof! Please provide event name.");
             }
         } else if (command.startsWith("deadline")) {
             try {
@@ -98,16 +98,16 @@ public class Parser {
                 this.storage.checkDateFormat(taskDesc[1]);
                 newTask = new Deadline(taskDesc[0], taskDesc[1]);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please provide event details.");
+                throw new LeryException("Woof! Please provide event details.");
             }
         } else if (command.startsWith("event")) {
             try {
                 newTask = new Event(command.substring(6));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please provide event details.");
+                throw new LeryException("Woof! Please provide event details.");
             }
         } else {
-            throw new LeryException("Erm... Please provide a valid command.");
+            throw new LeryException("Woof! Please provide a valid command.");
         }
         this.storage.saveTasks(newTask);
         msg = msg + "[" + newTask.getType() + "]" + "[" + newTask.getStatusIcon()
@@ -126,7 +126,7 @@ public class Parser {
     public String parseDeleteTaskCommand(Task task) {
         assert task != null : "Task to delete must not be null";
         this.storage.deleteTask(task);
-        String msg = "Noted. I've removed this task:\n" + task.getType() + "["
+        String msg = "Woof! I've removed this task:\n" + task.getType() + "["
                 + task.getStatusIcon() + "]" + " " + task.getDescription()
                 + task.getExtraInfo() + "\nNow you have "
                 + this.storage.getSize() + " tasks in the list.\n";
@@ -150,7 +150,7 @@ public class Parser {
             }
         }
         if (findList.getSize() == 0) {
-            return "Sorry there are no tasks that fits your keyword.";
+            return "Woof! Sorry there are no tasks that fits your keyword.";
         }
         return findList.printList();
     }

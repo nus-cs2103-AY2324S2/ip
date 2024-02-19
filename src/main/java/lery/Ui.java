@@ -30,17 +30,19 @@ public class Ui {
     /**
      * Prints a greeting message with the Lery logo.
      *
-     * @return
+     * @return the greeting message.
      */
     public String greet() {
-        return "\nHello! I'm Lery.\n" + "What can I do for you?\n";
+        return "\nWoof Woof! I'm Lery.\n" + "What can I do for you?\n";
     }
 
     /**
      * Prints an exit message.
+     *
+     * @return the exit message.
      */
     public String exit() {
-        return "\nBye. Hope to see you again soon!\n";
+        return "\nBye. Hope to see you again soon! Woof!\n";
     }
 
 }
