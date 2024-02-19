@@ -19,9 +19,9 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
 
 ## Quick Start
   1. Ensure that you have Java `11` installed in your computer.
-  2. Download the latest `geepeetee.jar` from [here](https://github.com/Jajared/ip/releases/download/v1.0/GeePeeTee.jar).
+  2. Download the latest `GeePeetee.jar` from [here](https://github.com/Jajared/ip/releases/download/v1.0/GeePeeTee.jar).
   3. Copy the file to the folder you want to use as the home folder for the GeePeeTee task manager.
-  4. Open a command terminal, `cd` into the folder you just put the jar file in, and use the `java -jar geepeetee.jar` command to run the application. A GUI similar to the below should appear in a few seconds. <br>
+  4. Open a command terminal, `cd` into the folder you just put the jar file in, and use the `java -jar GeePeeTee.jar` command to run the application. A GUI similar to the below should appear in a few seconds. <br>
   <img src="./Ui.png" alt="GeePeeTee" height="800">
   <br>
   5. Type the command in the input box at the bottom of the GUI and press Send to execute it. Here are some example commands that you can try: <br>
