@@ -1,20 +1,23 @@
 package duke.command.handler;
 
-import duke.command.handler.CommandHandler;
+import duke.task.TaskDisplay;
 import duke.task.TaskManager;
 
 public class ListCommandHandler extends CommandHandler {
-    public ListCommandHandler(TaskManager taskManager) {
+    private final TaskDisplay taskDisplay;
+
+    public ListCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
+        this.taskDisplay = taskDisplay;
     }
 
     @Override
     public String handle(String[] userMessage) {
-        return taskManager.displayTask(String.join(" ", userMessage));
+        return taskDisplay.displayTaskList(taskManager.getTasks());
     }
 
     @Override
     public String getDescription() {
-        return "Lists all the task. Usage: lst";
+        return "Lists all tasks. Usage: lst";
     }
 }

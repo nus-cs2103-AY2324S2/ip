@@ -18,11 +18,6 @@ public abstract class CommandHandler {
         }
     }
 
-    protected String printError(String command) {
-        return "Sorry, the task number is missing after " + command.toUpperCase() +
-                ". Can you please specify a valid task number from the list?";
-    }
-
     public abstract String handle(String[] userMessage);
 
     public abstract String getDescription();

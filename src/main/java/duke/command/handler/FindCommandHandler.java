@@ -1,10 +1,10 @@
 package duke.command.handler;
 
-import duke.command.handler.CommandHandler;
 import duke.task.Task;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FindCommandHandler extends CommandHandler {
@@ -17,23 +17,26 @@ public class FindCommandHandler extends CommandHandler {
 
     @Override
     public String handle(String[] userMessage) {
+
         if (userMessage.length < 2) {
-            return "Can you specify a keyword after the find command so that I can help you better?";
+            return "Hey, you missed the keyword. It's okay! " +
+                    "\nTry this: f <keyword>";
         }
 
-        String keyword = userMessage[1];
+        String keyword = String.join(" ", Arrays.copyOfRange(userMessage, 1, userMessage.length));
+
         List<Task> matchingTasks = taskManager.findTask(keyword);
 
         if (matchingTasks.isEmpty()) {
-            return "No matching tasks found.";
+            return "Sorry, there's no tasks that matches that keyword." +
+                    "\nHow about you try something else!";
         }
 
-        return taskDisplay.printFindTaskList(matchingTasks);
+        return taskDisplay.displayFindTaskList(matchingTasks);
     }
 
     @Override
     public String getDescription() {
-        return "Finds a matching task. Usage: f gym";
+        return "Finds tasks matching a keyword. Usage: find <keyword>";
     }
 }
-

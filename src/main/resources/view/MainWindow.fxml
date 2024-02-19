@@ -18,7 +18,7 @@
             <cursor>
                 <Cursor fx:constant="TEXT" />
             </cursor></TextField>
-        <Button fx:id="sendButton" defaultButton="true" layoutX="383.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #86A7FC; -fx-background-radius: 25px;" text="Send" textFill="#fffefe">
+        <Button fx:id="sendButton" defaultButton="true" layoutX="383.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #0052F5; -fx-background-radius: 25px;" text="Send" textFill="#fffefe">
             <font>
                 <Font name="Avenir Next Demi Bold" size="17.0" />
             </font>

@@ -10,64 +10,55 @@ import java.util.*;
  * marking as complete or incomplete, and displaying tasks.
  */
 public class TaskManager {
-    private TaskDisplay taskDisplay;
     private FileManager fileManager;
-
     private List<Task> taskList;
 
-    /**
-     * Constructs a TaskManager with the specified username, initializing the FileManager
-     * and loading saved tasks from the file.
-     *
-     * @param username The username associated with the task list.
-     */
     public TaskManager(String username) {
         this.fileManager = new FileManager(username);
-        taskDisplay = new TaskDisplay();
         this.taskList = new ArrayList<>();
         loadSavedTasks();
     }
 
     /**
-     * Adds a new task to the task list based on the provided task description and type.
-     * Automatically saves the updated task list. Prevents adding a task if one with the
-     * same description and type already exists.
+     * Adds a new task to the task list and returns the index of the added task.
      *
      * @param taskDescription The description of the task.
      * @param type            The type of the task (Todo, Event, Deadline).
-     * @return
+     * @return The index of the newly added task, or -1 if the task could not be added.
      */
-    public boolean addTask(String taskDescription, TaskType type) {
-        try {
-            if (taskDescription.trim().equalsIgnoreCase(type.toString())) {
-                return false;
-            }
-
-            Task task;
-            switch (type) {
-                case TODO:
-                    task = new Todo(taskDescription, false);
-                    break;
-                case EVENT:
-                    task = new Event(taskDescription, false,
-                            LocalDateTime.now(), LocalDateTime.now().plusDays(1));
-                    break;
-                case DEADLINE:
-                    LocalDateTime defaultDeadline = LocalDateTime.now().plusDays(1);
-                    task = new Deadline(taskDescription, false, defaultDeadline);
-                    break;
-                default:
-                    throw new DukeException("Hey, I'm not quite sure what"
-                            + " that means. Mind giving me another shot at understanding?");
-            }
-
+    public int addTask(String taskDescription, TaskType type) {
+        Task task = createTask(taskDescription, type);
+        if (task != null) {
             taskList.add(task);
             autoSaveTask();
-            return true;
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            return taskList.size() - 1; // Return the index of the newly added task
         }
-        return false;
+        return -1; // Task could not be added
+    }
+
+    private Task createTask(String taskDescription, TaskType type) {
+        switch (type) {
+            case TODO:
+                return new Todo(taskDescription, false);
+            case EVENT:
+                return new Event(taskDescription, false, LocalDateTime.now(), LocalDateTime.now().plusDays(1));
+            case DEADLINE:
+                LocalDateTime defaultDeadline = LocalDateTime.now().plusDays(1);
+                return new Deadline(taskDescription, false, defaultDeadline);
+            default:
+                return null;
+        }
+    }
+
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(taskList);
+    }
+
+    public Task getTask(int index) {
+        if (index >= 0 && index < taskList.size()) {
+            return taskList.get(index);
+        }
+        return null;
     }
 
     /**
@@ -153,14 +144,5 @@ public class TaskManager {
 
     public void autoSaveTask() {
         fileManager.saveTasks(taskList);
-    }
-
-    /**
-     * Displays tasks based on the user input command using the TaskDisplay instance.
-     *
-     * @param input The user input command.
-     */
-    public String displayTask(String input) {
-        return taskDisplay.displayTasks(taskList, input);
     }
 }
