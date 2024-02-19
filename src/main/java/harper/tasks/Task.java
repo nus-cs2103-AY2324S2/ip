@@ -8,7 +8,8 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Create a task with description and the task is marked as not done initially.
+     * Creates a task with description and the task is marked as not done initially.
+     *
      * @param description The description of the task.
      */
     public Task(String description, boolean isDone) {

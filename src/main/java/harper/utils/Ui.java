@@ -24,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Exit the chat.
+     * Exits the chat.
      *
      * @return Exit message.
      */
