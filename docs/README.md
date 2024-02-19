@@ -1,4 +1,4 @@
-# Dude User Guide
+# Dude
 
 ![Dude Ui](./Ui.png)
 
