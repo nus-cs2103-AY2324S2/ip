@@ -32,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/pochacco.jpg"));
     private Image chronosImage = new Image(this.getClass().getResourceAsStream("/images/robot.jpg"));
 
+    /**
+     * Initialise Chronos application layout.
+     */
     @FXML
     public void initialize() {
         String text = Ui.greetUser();
@@ -43,6 +46,11 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Set Chronos object.
+     *
+     * @param c Chronos instance.
+     */
     public void setChronos(Chronos c) {
         chronos = c;
     }
@@ -50,6 +58,9 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Chronos' reply and then appends them to
      * the dialog container.
+     *
+     * @throws IOException If there is an exception when processing input/output.
+     * @throws ChronosException If there are invalid commands provided.
      */
     @FXML
     private void handleUserInput() throws IOException, ChronosException {

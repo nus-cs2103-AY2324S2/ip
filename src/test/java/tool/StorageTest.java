@@ -1,10 +1,11 @@
 package tool;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import task.Task;
+import org.junit.jupiter.api.Test;
+
 import task.Deadline;
+import task.Task;
 
 public class StorageTest {
     private static final String FILE_PATH = "./data/chronos.txt";

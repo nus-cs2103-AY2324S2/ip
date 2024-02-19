@@ -53,10 +53,12 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
-        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2,
+                displayPicture.getFitWidth() / 2);
         displayPicture.setClip(clip);
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY,
+                javafx.geometry.Insets.EMPTY);
         Background background = new Background(backgroundFill);
         this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);
