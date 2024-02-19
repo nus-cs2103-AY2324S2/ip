@@ -7,6 +7,7 @@ package mike;
 enum TokenType {
     // primary command tokens
     EXIT, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND,
+    ARCHIVE,
 
     // prefix character tokens
     FORWARD_DASH,

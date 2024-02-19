@@ -26,6 +26,7 @@ class CommandScanner {
         commands.put("event", TokenType.EVENT);
         commands.put("delete", TokenType.DELETE);
         commands.put("find", TokenType.FIND);
+        commands.put("archive", TokenType.ARCHIVE);
     }
 
     private final String source;
