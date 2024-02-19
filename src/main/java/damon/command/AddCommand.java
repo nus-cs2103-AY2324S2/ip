@@ -1,11 +1,21 @@
+package damon.command;
+
+import damon.storage.Storage;
+import damon.task.Deadline;
+import damon.task.Event;
+import damon.task.Task;
+import damon.task.ToDo;
+import damon.tasklist.TaskList;
+import damon.ui.Ui;
+
 import java.time.LocalDate;
 
 public class AddCommand extends Command {
-    AddCommand(String command) {
+    public AddCommand(String command) {
         super(command);
     }
 
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;
         if (this.command.startsWith("todo")) {
             newTask = addToDoTask(this.command);

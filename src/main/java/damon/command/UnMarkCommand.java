@@ -1,9 +1,15 @@
+package damon.command;
+
+import damon.storage.Storage;
+import damon.tasklist.TaskList;
+import damon.ui.Ui;
+
 public class UnMarkCommand extends Command {
-    UnMarkCommand(String command) {
+    public UnMarkCommand(String command) {
         super(command);
     }
 
-    void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         int index = Integer.parseInt(this.command.split(" ")[1]) - 1;
         tasks.unMarkTask(index);
         ui.showUnMarkTask(tasks, index);
