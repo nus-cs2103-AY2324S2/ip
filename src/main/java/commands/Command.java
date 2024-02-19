@@ -1,7 +1,7 @@
 package commands;
 
 
-import exceptions.DukeException;
+import exceptions.TaskYapperException;
 import main.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -9,7 +9,7 @@ import ui.Ui;
 
 
 /**
- * Defines the set of commands that can be executed within the Duke application.
+ * Defines the set of commands that can be executed within the TaskYapper application.
  * Each enum constant represents a distinct command and defines its own execution behavior.
  */
 
@@ -38,15 +38,15 @@ public enum Command {
      */
     MARK {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             String[] inputs = message.split(" ");
             int index;
             try {
                 index = Integer.parseInt(inputs[1]);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("You didn't specify an input integer yapper");
+                throw new TaskYapperException("You didn't specify an input integer yapper");
             } catch (NumberFormatException e) {
-                throw new DukeException("Input has to be an integer value, yapper");
+                throw new TaskYapperException("Input has to be an integer value, yapper");
             }
             storage.saveTasks(tasks);
             return tasks.markTaskAsDone(index);
@@ -57,16 +57,16 @@ public enum Command {
      */
     UNMARK {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             // Extract task index from argument and mark the task as not done
             String[] inputs = message.split(" ");
             int index;
             try {
                 index = Integer.parseInt(inputs[1]);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("You didn't specify an input integer yapper");
+                throw new TaskYapperException("You didn't specify an input integer yapper");
             } catch (NumberFormatException e) {
-                throw new DukeException("Provide an integer value, yapper");
+                throw new TaskYapperException("Provide an integer value, yapper");
             }
             storage.saveTasks(tasks);
             return tasks.unmarkTaskAsDone(index);
@@ -77,7 +77,7 @@ public enum Command {
      */
     ADD_TODO {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             // Create a new tasks.ToDo task and add it to the task list
             Task task = tasks.initTask(message, "todo");
             tasks.addTasktoTaskList(task);
@@ -90,7 +90,7 @@ public enum Command {
      */
     ADD_DEADLINE {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             // Create a new tasks.Deadline task and add it to the task list
             Task task = tasks.initTask(message, "deadline");
             tasks.addTasktoTaskList(task);
@@ -103,7 +103,7 @@ public enum Command {
      */
     ADD_EVENT {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             // Create a new tasks.Event task and add it to the task list
             Task task = tasks.initTask(message, "event");
             tasks.addTasktoTaskList(task);
@@ -117,15 +117,15 @@ public enum Command {
      */
     DELETE {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             String[] inputs = message.split(" ");
             int index;
             try {
                 index = Integer.parseInt(inputs[1]);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("You didn't specify an input integer yapper");
+                throw new TaskYapperException("You didn't specify an input integer yapper");
             } catch (NumberFormatException e) {
-                throw new DukeException("Provide an integer value, yapper");
+                throw new TaskYapperException("Provide an integer value, yapper");
             }
             Task task = tasks.removeTaskfromTaskList(index);
             storage.saveTasks(tasks);
@@ -134,27 +134,27 @@ public enum Command {
     },
     FIND {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             try {
                 String[] inputs = message.split(" ");
                 String queryString = inputs[1];
                 TaskList tempTaskList = tasks.filterByString(queryString);
                 return tempTaskList.yapTasks();
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Provide a suitable keyword/phrase");
+                throw new TaskYapperException("Provide a suitable keyword/phrase, yapper");
             }
         }
     },
     SCHEDULE {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
             try {
                 String[] inputs = message.split(" ");
                 String queryString = inputs[1];
                 TaskList tempTaskList = tasks.filterByDate(queryString);
                 return tempTaskList.yapTasks();
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Provide a suitable keyword/phrase");
+                throw new TaskYapperException("Provide a suitable keyword/phrase, yapper");
             }
         }
     };
@@ -169,8 +169,8 @@ public enum Command {
      * @param storage The storage instance for saving and loading tasks.
      * @param message The additional message or data required for command execution.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
-        throw new DukeException("This command does not take any arguments.");
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws TaskYapperException {
+        throw new TaskYapperException("This command does not take any arguments.");
     }
 
 

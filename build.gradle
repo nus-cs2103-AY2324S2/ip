@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("TaskYapper")
 }
 
 shadowJar {

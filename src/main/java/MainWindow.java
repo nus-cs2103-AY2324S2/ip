@@ -24,9 +24,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private TaskYapper yapper;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/perrytheplatypus.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/drheinzdoofenshmirtz.png"));
+    private Image yapperImage = new Image(this.getClass().getResourceAsStream("/drheinzdoofenshmirtz.png"));
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -42,14 +42,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Duke instance for the controller. This method allows the
-     * integration of the main logic of the Duke application with this controller,
-     * enabling interaction between the UI and the Duke application logic.
+     * Sets the TaskYapper instance for the controller. This method allows the
+     * integration of the main logic of the TaskYapper application with this controller,
+     * enabling interaction between the UI and the TaskYapper application logic.
      *
-     * @param d The Duke instance to be used by this controller.
+     * @param d The TaskYapper instance to be used by this controller.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setTaskYapper(TaskYapper d) {
+        yapper = d;
     }
 
     /**
@@ -61,7 +61,8 @@ public class MainWindow extends AnchorPane {
         String greeting = "\n" + "ᴛᴀsᴋʏᴀᴘᴘᴇʀ";
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("*YAP* Good morning YAPPER! *YAP*\nGreetings from\n" + greeting, dukeImage)
+                DialogBox.getTaskYapperDialog(
+                        "*YAP* Good morning YAPPER! *YAP*\nGreetings from\n" + greeting, yapperImage)
         );
     }
 
@@ -74,14 +75,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing TaskYapper's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         assert input != null;
-        String response = duke.getResponse(input);
+        String response = yapper.getResponse(input);
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
 
@@ -93,12 +94,12 @@ public class MainWindow extends AnchorPane {
 
 
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        DialogBox yapperDialog = DialogBox.getTaskYapperDialog(response, yapperImage);
         if (response.startsWith("Error")) {
-            dukeDialog.setDialogStyle("-fx-text-fill: red;");
+            yapperDialog.setDialogStyle("-fx-text-fill: red;");
         }
 
-        dialogContainer.getChildren().addAll(userDialog, dukeDialog);
+        dialogContainer.getChildren().addAll(userDialog, yapperDialog);
         userInput.clear();
 
     }

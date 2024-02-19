@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.TaskYapperException;
 
 /**
  * The {@code Parser} class is responsible for interpreting user input messages and converting them into
@@ -9,7 +9,7 @@ import exceptions.DukeException;
  *
  * <p>The parser checks the input message against a predefined set of command patterns and, upon finding a match,
  * returns the corresponding command type. If the input does not correspond to any recognized command pattern,
- * the parser throws a {@link DukeException} to indicate the ambiguity or invalidity of the user's instruction.
+ * the parser throws a {@link TaskYapperException} to indicate the ambiguity or invalidity of the user's instruction.
  *
  * <p>This class is essential for enabling user interaction with the application by providing a way to understand
  * and act upon user commands.
@@ -19,15 +19,15 @@ public class Parser {
     /**
      * Parses the given input message and returns the corresponding Command.
      * The method maps specific keywords or phrases in the input message to predefined commands in the application.
-     * If the input message does not match any known command patterns, the method throws a DukeException with a message
-     * prompting the user to provide a clearer instruction.
+     * If the input message does not match any known command patterns,
+     * the method throws a TaskYapperException with a message prompting the user to provide a clearer instruction.
      *
      * @param message The user input message to be parsed.
      * @return The Command corresponding to the user's input message.
-     * @throws DukeException If the input message does not match any known command patterns, indicating that the
+     * @throws TaskYapperException If the input message does not match any known command patterns, indicating that the
      *                       user's instruction is unclear or invalid within the context of the application.
      */
-    public static Command parse(String message) throws DukeException {
+    public static Command parse(String message) throws TaskYapperException {
         if (message.equals("bye")) {
             return Command.BYE;
         } else if (message.equals("yap")) {
@@ -49,7 +49,7 @@ public class Parser {
         } else if (message.startsWith("schedule")) {
             return Command.SCHEDULE;
         } else {
-            throw new DukeException("What's YAPpening??!! Please yap your instruction more clearly");
+            throw new TaskYapperException("What's YAPpening??!! Please yap your instruction more clearly");
         }
     }
 

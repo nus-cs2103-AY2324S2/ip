@@ -1,33 +1,33 @@
 import commands.Command;
 import commands.Parser;
-import exceptions.DukeException;
+import exceptions.TaskYapperException;
 import javafx.application.Application;
 import main.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
 /**
- * Duke is the main class for the task management application.
+ * TaskYapper is the main class for the task management application.
  * It initializes the application and starts the interaction loop with the user.
  */
-public class Duke {
+public class TaskYapper {
 
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
     /**
-     * Constructs a new Duke object.
+     * Constructs a new TaskYapper object.
      * Initializes the UI, storage, and task list components of the application.
      *
      * @param filePath The path to the file where tasks are saved and loaded from.
      */
-    public Duke(String filePath) {
+    public TaskYapper(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.loadTasks());
-        } catch (DukeException e) {
+        } catch (TaskYapperException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -42,7 +42,7 @@ public class Duke {
             Command c = Parser.parse(userInput);
             assert c != null;
             return c.execute(taskList, ui, storage, userInput);
-        } catch (DukeException e) {
+        } catch (TaskYapperException e) {
             return "Error: " + e.getMessage();
         }
     }

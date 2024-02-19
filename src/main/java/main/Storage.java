@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.DukeException;
+import exceptions.TaskYapperException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -35,7 +35,7 @@ public class Storage {
      *
      * @return An ArrayList of Task objects loaded from the file.
      */
-    public ArrayList<Task> loadTasks() throws DukeException {
+    public ArrayList<Task> loadTasks() throws TaskYapperException {
         File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -59,7 +59,7 @@ public class Storage {
                     task = new Event(inputs[2], inputs[3], inputs[4]);
                     break;
                 default:
-                    throw new DukeException("Invalid Task, data file may be corrupted");
+                    throw new TaskYapperException("Invalid Task, data file may be corrupted");
                 }
                 if (!task.equals(null)) {
                     if (inputs[1].equals("1")) {
@@ -78,9 +78,9 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException ioException) {
-                throw new DukeException("Failed to create a new blank file: " + ioException.getMessage());
+                throw new TaskYapperException("Failed to create a new blank file: " + ioException.getMessage());
             }
-            throw new DukeException("Error reading the datafile, it might be corrupted. "
+            throw new TaskYapperException("Error reading the datafile, it might be corrupted. "
                     + "Creating a new database with any salvaged data");
         }
         return taskList;
