@@ -17,6 +17,7 @@ import Echo.Task.Deadline;
 import Echo.Task.Event;
 import Echo.Storage.Storage;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
@@ -165,11 +166,35 @@ public class TaskManager {
         saveTasksToFile();
     }
 
-    /**
-     * Adds a task based on the user input.
-     *
-     * @param tokens The user input tokens.
-     */
+    private void addTaskWithoutConflictCheck(Task newTask) {
+        tasks.add(newTask);
+        echo.displayBotResponse(getTaskAddedMessage(tasks.size()));
+        saveTasksToFile();
+    }
+
+    private Deadline createDeadline(String taskDescription) {
+        String[] deadlineTokens = taskDescription.split(" /by ", 2);
+        if (deadlineTokens.length != 2) {
+            throw new IllegalArgumentException("NO! Invalid command. " +
+                    "Enter: deadline <description> /by <date/time>");
+        }
+        return new Deadline(deadlineTokens[0], deadlineTokens[1]);
+    }
+
+    private Event createEvent(String taskDescription) {
+        String[] eventTokens = taskDescription.split(" /from ", 2);
+        if (eventTokens.length != 2) {
+            throw new IllegalArgumentException("NO! Invalid command. " +
+                    "Enter: event <description> /from <start> /to <end>");
+        }
+        String[] toTokens = eventTokens[1].split(" /to ", 2);
+        if (toTokens.length != 2) {
+            throw new IllegalArgumentException("NO! Invalid command. " +
+                    "Enter: event <description> /from <start> /to <end>");
+        }
+        return new Event(eventTokens[0], toTokens[0], toTokens[1]);
+    }
+
     public void addTask(String[] tokens) {
         assert tokens != null : "Tokens cannot be null";
         try {
@@ -186,45 +211,34 @@ public class TaskManager {
             }
             String taskDescription = taskTokens[1].trim();
 
+            Task newTask;
             switch (taskType) {
             case "todo":
                 if (taskDescription.isEmpty()) {
                     throw new IllegalArgumentException("NO! " +
                             "The description of a todo cannot be empty.");
                 }
-                tasks.add(new Todo(taskDescription));
+                newTask = new Todo(taskDescription);
                 break;
             case "deadline":
-                String[] deadlineTokens = taskDescription.split(" /by ", 2);
-                if (deadlineTokens.length != 2) {
-                    throw new IllegalArgumentException("NO! Invalid command. " +
-                            "Enter: deadline <description> /by <date/time>");
-                }
-                tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
+                newTask = createDeadline(taskDescription);
                 break;
             case "event":
-                String[] eventTokens = taskDescription.split(" /from ", 2);
-                if (eventTokens.length != 2) {
-                    throw new IllegalArgumentException("NO! Invalid command. " +
-                            "Enter: event <description> /from <start> /to <end>");
-                }
-                String[] toTokens = eventTokens[1].split(" /to ", 2);
-                if (toTokens.length != 2) {
-                    throw new IllegalArgumentException("NO! Invalid command. " +
-                            "Enter: event <description> /from <start> /to <end>");
-                }
-                tasks.add(new Event(eventTokens[0], toTokens[0], toTokens[1]));
+                newTask = createEvent(taskDescription);
                 break;
             default:
-                throw new IllegalArgumentException("No! I don't what what is this! " +
+                throw new IllegalArgumentException("No! I don't know what is this! " +
                         "Invalid task type. Supported types: todo, deadline, event");
             }
 
-            echo.displayBotResponse(getTaskAddedMessage(tasks.size()));
+            if (!hasSchedulingConflict(newTask)) {
+                addTaskWithoutConflictCheck(newTask);
+            } else {
+                echo.displayBotResponse("Scheduling conflict detected! Please choose a different time.");
+            }
         } catch (IllegalArgumentException e) {
             echo.displayBotResponse(e.getMessage());
         }
-        saveTasksToFile();
     }
 
     /**
@@ -354,4 +368,45 @@ public class TaskManager {
     }
 
 
+    public boolean hasSchedulingConflict(Task newTask) {
+        if (newTask instanceof Event) {
+            return hasEventConflict((Event) newTask);
+        } else if (newTask instanceof Deadline) {
+            return hasDeadlineConflict((Deadline) newTask);
+        }
+        return false; // No conflict for other task types
+    }
+
+    private boolean hasEventConflict(Event newEvent) {
+        for (Task task : tasks) {
+            if (task instanceof Event) {
+                Event existingEvent = (Event) task;
+                if (isTimeRangeOverlapping(newEvent, existingEvent)) {
+                    return true; // Clash detected
+                }
+            }
+        }
+        return false; // No clash
+    }
+
+    private boolean hasDeadlineConflict(Deadline newDeadline) {
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline existingDeadline = (Deadline) task;
+                if (isDateTimeEqual(newDeadline.getBy(), existingDeadline.getBy())) {
+                    return true; // Clash detected
+                }
+            }
+        }
+        return false; // No clash
+    }
+
+    private boolean isDateTimeEqual(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.isEqual(dateTime2);
+    }
+
+    private boolean isTimeRangeOverlapping(Event event1, Event event2) {
+        return (event1.getFrom().isBefore(event2.getTo()) || event1.getFrom().isEqual(event2.getTo()))
+                && (event1.getTo().isAfter(event2.getFrom()) || event1.getTo().isEqual(event2.getFrom()));
+    }
 }
