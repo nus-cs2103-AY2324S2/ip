@@ -1,12 +1,16 @@
 package duke;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * Represent a Storage class that saves and loads information.
  */
 public class Storage {
-    String filepath;
+    private String filepath;
 
     /**
      * Constructor for the Storage class.

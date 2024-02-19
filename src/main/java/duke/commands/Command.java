@@ -8,8 +8,8 @@ public abstract class Command {
     /**
      * Abstract method to perform action for a command.
      *
-     * @throws  DukeException throws an exception when error arise in execute.
      * @return String Message with corresponding command.
+     * @throws  DukeException throws an exception when error arise in execute.
      */
     public abstract String execute() throws DukeException;
 

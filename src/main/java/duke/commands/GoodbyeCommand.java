@@ -2,10 +2,10 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.DukeException;
 
 /**
  * Represents a command to exit the chatBot.

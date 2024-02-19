@@ -2,12 +2,12 @@ package duke.commands;
 
 import java.time.DateTimeException;
 
-import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.DukeException;
 import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.Ui;
 
 /**
  * Represents a command to create an event task.

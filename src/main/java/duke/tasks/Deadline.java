@@ -33,7 +33,7 @@ public class Deadline extends Task {
         int dayMonth = dueDate.getDayOfMonth();
         String month = dueDate.getMonth().toString();
         int year = dueDate.getYear();
-        return dayWeek + " " + dayMonth + " " + month + " " +year;
+        return dayWeek + " " + dayMonth + " " + month + " " + year;
     }
 
     @Override

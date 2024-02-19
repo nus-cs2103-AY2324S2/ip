@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import duke.tasks.Task;
 
-
 /**
  * Represent Ui class to interact with user.
  */
