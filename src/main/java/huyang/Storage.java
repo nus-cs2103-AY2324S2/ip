@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
@@ -13,14 +14,49 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String filePath;
+    private File file;
 
     /**
      * Constructor for the Storage class.
      *
-     * @param filePath The file path to the storage file.
+     * @param filePath The file path to the storage file, including directory and file name.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.file = new File(filePath);
+
+        createDirectoryIfNeeded(file.getParentFile());
+        createFileIfNeeded(this.file);
+    }
+
+    /**
+     * Creates the directory if it does not exist.
+     *
+     * @param directory The directory file to check and create.
+     */
+    private void createDirectoryIfNeeded(File directory) {
+        if (!directory.exists() && !directory.mkdirs()) {
+            Ui.print("Failed to create directory: " + directory.getAbsolutePath());
+        }
+    }
+
+    /**
+     * Creates the file if it does not exist.
+     *
+     * @param file The file to check and create.
+     */
+    private void createFileIfNeeded(File file) {
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    Ui.print("File created: " + file.getAbsolutePath());
+                } else {
+                    Ui.print("Failed to create file: " + file.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                Ui.print("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
