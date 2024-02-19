@@ -27,8 +27,7 @@ public class MainWindow extends AnchorPane {
     private Image ezraImage = new Image(this.getClass().getResourceAsStream("/images/Ezra.png"));
 
     /**
-     * Scrolls down to the end every time dialogContainer's height changes.
-     * Displays greeting message.
+     * Displays greeting message and scrolls down to the end every time dialogContainer's height changes.
      */
     @FXML
     public void initialize() {
