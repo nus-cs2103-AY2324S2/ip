@@ -39,8 +39,9 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc This implementation checks whether the event dateTimes include the given date,
-     *      both startDateTime and endDateTime inclusively.
+     * {@inheritDoc}
+     * Checks whether the event dateTimes include the given date,
+     * both startDateTime and endDateTime inclusively.
      */
     @Override
     public boolean isSameDate(LocalDate date) {
@@ -55,7 +56,8 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc Adds the start dateTime and end dateTime at the end.
+     * {@inheritDoc}
+     * Adds the start dateTime and end dateTime at the end.
      */
     @Override
     public String taskFormatter() {

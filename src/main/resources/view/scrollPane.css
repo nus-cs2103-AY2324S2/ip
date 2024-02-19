@@ -1,0 +1,11 @@
+.scroll-pane .viewport {
+    -fx-background-image: url('../images/background.png');
+    -fx-background-size: cover;
+    -fx-opacity: 0.75;
+}
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+.scroll-bar{
+    -fx-background-color: transparent;
+}

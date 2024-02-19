@@ -21,7 +21,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * @inheritDoc This implementation prints an add message after the task is added.
+     * {@inheritDoc}
+     * Prints an add message after the task is added.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -32,7 +33,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * @inheritDoc The AddCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

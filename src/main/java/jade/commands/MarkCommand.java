@@ -20,7 +20,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc This implementation prints a mark message after the task is marked.
+     * {@inheritDoc}
+     * Prints a mark message after the task is marked.
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
@@ -34,7 +35,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc The MarkCommand does not indicate the exit of the program.
+     * {@inheritDoc}
+     * Indicates that the program is not exiting.
      */
     @Override
     public boolean isExit() {

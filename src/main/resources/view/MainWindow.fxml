@@ -10,20 +10,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jade.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" opacity="0.8" prefHeight="41.0" prefWidth="424.0" promptText="Enter your next command..." style="-fx-border-color: #70c491; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" opacity="0.8" prefHeight="41.0" prefWidth="424.0" promptText="Enter your next command..." style="-fx-border-color: #70c491; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="76.0" AnchorPane.leftAnchor="0.0">
          <font>
             <Font name="Monaco" size="15.0" />
          </font>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></TextField>
-        <Button fx:id="sendButton" layoutX="424.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #70c491; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Send" wrapText="true">
+        <Button fx:id="sendButton" layoutX="424.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #70c491; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Send" wrapText="true" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Monaco" size="16.0" />
          </font></Button>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="657.0" prefWidth="500.0" style="-fx-background: #e1ede6;" vbarPolicy="ALWAYS" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" AnchorPane.bottomAnchor="43.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" hvalue="1.0" prefHeight="657.0" prefWidth="500.0" stylesheets="@scrollPane.css" vbarPolicy="ALWAYS" hbarPolicy="NEVER" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefWidth="488.0" style="-fx-background-color: #e1ede6; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
+                <VBox fx:id="dialogContainer" prefWidth="488.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px;"/>
             </content>
         </ScrollPane>
     </children>

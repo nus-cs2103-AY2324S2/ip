@@ -92,7 +92,7 @@ public class Storage {
         }
     }
     /**
-     * Add all local saved task to the task list.
+     * Adds all local saved task to the task list.
      */
     private void addTask(ArrayList<Task> taskList, String line) throws JadeException {
         String[] task = line.split(" \\| ");
