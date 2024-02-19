@@ -46,11 +46,11 @@ class CommandScanner {
 
     /**
      * Scans the command input to return a list of tokens. See {@link mike.Token}.
-     * @return the list of tokens characterizing the command input.
+     * @return A list of tokens characterizing the command input.
      */
     public List<Token> scanTokens() {
         // command token
-        tokens.add(getStartToken());
+        tokens.add(scanStartToken());
 
         // argument tokens
         while (!isAtEnd()) {
@@ -59,11 +59,11 @@ class CommandScanner {
         }
 
         // EOC token
-        tokens.add(getEndToken());
+        tokens.add(scanEndToken());
         return tokens;
     }
 
-    private Token getEndToken() {
+    private Token scanEndToken() {
         return new Token(TokenType.EOC, "");
     }
 
@@ -72,8 +72,8 @@ class CommandScanner {
         ArrayList<Token> nextTokens = new ArrayList<Token>();
         switch (c) {
         case '/':
-            nextTokens.add(getPrefix());
-            nextTokens.add(getParameter());
+            nextTokens.add(scanPrefix());
+            nextTokens.add(scanParameter());
             return nextTokens;
         case ' ':
         case '\r':
@@ -81,35 +81,35 @@ class CommandScanner {
             // ignore whitespace
             break;
         default:
-            nextTokens.add(getLiteral());
+            nextTokens.add(scanLiteral());
             return nextTokens;
         }
         return nextTokens;
     }
 
-    private Token getLiteral() {
-        while (peek() != '/' && !isAtEnd()) {
+    private Token scanLiteral() {
+        while (peekToken() != '/' && !isAtEnd()) {
             advance();
         }
         return createToken(TokenType.LITERAL);
     }
 
-    private Token getParameter() {
+    private Token scanParameter() {
         start = current;
 
-        while (!isWhiteSpace(peek()) && !isAtEnd()) {
+        while (!isWhiteSpace(peekToken()) && !isAtEnd()) {
             advance();
         }
 
         return createToken(TokenType.PARAM);
     }
 
-    private Token getPrefix() {
+    private Token scanPrefix() {
         return createToken(TokenType.FORWARD_DASH);
     }
 
-    private Token getStartToken() {
-        while (!isWhiteSpace(peek()) && !isAtEnd()) {
+    private Token scanStartToken() {
+        while (!isWhiteSpace(peekToken()) && !isAtEnd()) {
             advance();
         }
 
@@ -126,10 +126,9 @@ class CommandScanner {
     private Token createToken(TokenType type) {
         String text = source.substring(start, current).strip();
         return new Token(type, text);
-
     }
 
-    private char peek() {
+    private char peekToken() {
         if (isAtEnd()) {
             return '\0';
         }
