@@ -4,14 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import fredricksen.Fredricksen;
 import fredricksen.tasks.Deadline;
 import fredricksen.tasks.Event;
 
 public class EventTaskTest {
-
-    private Fredricksen fredricksen = new Fredricksen();
-
     @Test
     public void eventToString_correctFormat_success() {
         String fromDateTime = "2/12/2019 1800";
@@ -36,12 +32,4 @@ public class EventTaskTest {
         Deadline newTask = new Deadline("event homework /from " + fromDateTime + " /to " + toDateTime, "E", false);
         assertEquals("Invalid Date", newTask.toString());
     }
-
-    /* @Test
-    public void EventCommand_incorrectCommand_failure() {
-        String fromDateTime = "2/123/2019 1300";
-        String toDateTime = "3/12/2019 1300";
-        assertEquals(new UnknownCommand().execute(), fredricksen.getResponse("even homework /from "
-        + fromDateTime + " /to " + toDateTime));
-    } */
 }

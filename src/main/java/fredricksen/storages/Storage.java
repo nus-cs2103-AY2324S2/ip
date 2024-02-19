@@ -70,22 +70,22 @@ public class Storage {
      * @throws IOException if file cannot be opened or read.
      */
     public TaskList loadFile() throws IOException {
-        TaskList list = new TaskList();
+        TaskList lists = new TaskList();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(this.path.toFile()))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.path.toFile()))) {
             String next;
-            while ((next = br.readLine()) != null) {
+            while ((next = reader.readLine()) != null) {
                 int type = next.indexOf("type: ");
                 int doneIndex = next.indexOf("isDone: ");
                 int content = next.indexOf("content: ");
                 boolean isDone = next.substring(doneIndex + 8, content - 1).equals("true");
                 Task newTask = createNewTask(next.substring(type + 6, type + 7), next.substring(content + 9), isDone);
-                list.addTask(newTask);
+                lists.addTask(newTask);
             }
         } catch (IOException err) {
             System.out.println(err.getMessage());
         }
-        return list;
+        return lists;
     }
 
     /**
@@ -93,13 +93,13 @@ public class Storage {
      * Each task in the list is written to the file in a specific format.
      * Each task's details are on a separate line.
      *
-     * @param list The TaskList containing tasks to be written to the file. Each task in the list
+     * @param lists The TaskList containing tasks to be written to the file. Each task in the list
      *             is expected to have a type, a completion status, and content.
      */
-    public void updateFile(TaskList list) {
+    public void updateFile(TaskList lists) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.path.toFile()))) {
-            for (int i = 0; i < list.size(); i++) {
-                Task task = list.getTask(i);
+            for (int i = 0; i < lists.size(); i++) {
+                Task task = lists.getTask(i);
                 String type = task.getType();
                 String content = task.getTask();
                 boolean isDone = task.getDone();

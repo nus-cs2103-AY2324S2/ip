@@ -10,8 +10,8 @@ import fredricksen.tasks.TaskList;
  * the TaskList tasks that stores the Task type object.
  */
 public class UnmarkCommand extends Command {
-    public UnmarkCommand(String[] fullCommand, TaskList tasks) {
-        super(fullCommand, tasks);
+    public UnmarkCommand(String[] fullCommandWords, TaskList tasks) {
+        super(fullCommandWords, tasks);
     }
 
     /**

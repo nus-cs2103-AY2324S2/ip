@@ -47,11 +47,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.setBackground(setBg());
+        dialogContainer.setBackground(getBg());
         dialogContainer.getChildren().add(greetUser());
     }
 
-    public Background setBg() {
+    public Background getBg() {
         BackgroundFill bgFill = new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY);
         return new Background(bgFill);
     }
