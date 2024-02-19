@@ -10,6 +10,6 @@ public class DukeException extends Exception {
      * @param errorMessage
      */
     public DukeException(String errorMessage) {
-        super(errorMessage);
+        super("Error: " + errorMessage);
     }
 }
