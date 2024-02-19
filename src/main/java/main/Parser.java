@@ -7,6 +7,7 @@ import Objects.Todo;
 import javafx.util.Pair;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
 /**
@@ -31,8 +32,10 @@ public class Parser {
     }
 
     public String processInput(String str){
-        String[] splitStr = str.split("\\s+",2);
-        switch (splitStr[0].toLowerCase()) {
+        try {
+            String[] splitStr = str.split("\\s+", 2);
+            assert splitStr != null : "Input string is null";
+            switch (splitStr[0].toLowerCase()) {
             case "bye":
                 System.exit(0);
                 return Ui.bye();
@@ -54,10 +57,15 @@ public class Parser {
                 return find(splitStr);
             default:
                 return "huh? what did you say?";
+
+            }
+        }catch (ArrayIndexOutOfBoundsException E1){
+            return "No input found after action";
         }
     }
 
     public Pair<Boolean, String> addTodo(String[] splitStr){
+        assert splitStr[1] != null :"No input after action";
         if (splitStr.length == 2) {
             Task todo1 = new Todo(splitStr[1],false);
             taskList.addTask(todo1);
@@ -101,6 +109,7 @@ public class Parser {
 
     public String find(String[] splitStr){
         if (splitStr.length == 2) {
+            assert splitStr[1] != null : "no input after find";
             return taskList.printList(taskList.findList(splitStr[1]));
         } else {
             return Ui.error();
