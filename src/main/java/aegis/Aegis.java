@@ -10,16 +10,20 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 
 /**
  * Aegis class contains the main() method that initiates and runs the Aegis assistant program.
@@ -35,6 +39,8 @@ public class Aegis extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image aegis = new Image(this.getClass().getResourceAsStream("/images/aegis.png"));
 
     /**
      * Constructor for creating an Aegis object.
@@ -114,8 +120,10 @@ public class Aegis extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setSpacing(10.0);
+        dialogContainer.setPadding(new Insets(10, 10, 10, 10));
+
 
         userInput.setPrefWidth(325.0);
 
@@ -131,7 +139,38 @@ public class Aegis extends Application {
 
         stage.show();
 
-        //More code to be added here later
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+    }
+
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getAegisDialog(dukeText, new ImageView(aegis))
+        );
+        userInput.clear();
+    }
+
+    private String getResponse(String input) {
+        return input;
     }
 
     private static void initialSetup() {
