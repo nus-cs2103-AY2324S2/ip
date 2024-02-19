@@ -58,6 +58,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from a string and returns the task.
+     *
+     * @param taskString String representation of the task.
+     * @return Task
+     */
     private Task parseTaskFromString(String taskString) {
         String[] taskStringComponents = taskString.split(" \\| ");
         String taskType = taskStringComponents[0];
@@ -82,7 +88,7 @@ public class Storage {
     }
 
     /**
-     * Save changes to the files in the hard disk
+     * Saves changes to the files in the hard disk
      * especially after unmarking, marking and deleting them.
      *
      * @param tasks The tasks that the user has inputted to BartenderBob.
@@ -103,7 +109,7 @@ public class Storage {
     }
 
     /**
-     * Convert date format from MMM dd yyyy to yyyy-MM-dd
+     * Converts date format from MMM dd yyyy to yyyy-MM-dd
      *
      * @param oldDateFormat Date which is of MMM dd yyyy format.
      * @return Date which is of yyyy-MM-dd format.
@@ -144,7 +150,14 @@ public class Storage {
             ui.showSaveTasksError();
         }
     }
-
+    /**
+     * Creates a save entry for the task to be saved into the storage file.
+     *
+     * @param typeOfTask The type of task.
+     * @param taskString The string representation of the task.
+     * @param taskStatus The status of the task.
+     * @return The save entry for the task.
+     */
     private String createSaveEntry(String typeOfTask, String taskString, String taskStatus) {
         if (typeOfTask.equals("T")) {
             return createTodoSaveEntry(taskString, taskStatus);
@@ -155,10 +168,24 @@ public class Storage {
         }
         return null;
     }
+    /**
+     * Creates a save entry for the todo task to be saved into the storage file.
+     *
+     * @param taskString The string representation of the task.
+     * @param taskStatus The status of the task.
+     * @return The save entry for the todo task.
+     */
     private String createTodoSaveEntry(String taskString, String taskStatus) {
         String taskDescription = taskString.substring(7);
         return "T" + " | " + taskStatus + " | " + taskDescription;
     }
+    /**
+     * Creates a save entry for the deadline task to be saved into the storage file.
+     *
+     * @param taskString The string representation of the task.
+     * @param taskStatus The status of the task.
+     * @return The save entry for the deadline task.
+     */
     private String createDeadlineSaveEntry(String taskString, String taskStatus) {
         int startIndex = taskString.indexOf("(by: ");
         int endIndex = taskString.indexOf(")");
@@ -167,6 +194,13 @@ public class Storage {
         return "D" + " | " + taskStatus + " | " + taskDescription
                 + " | " + deadline;
     }
+    /**
+     * Creates a save entry for the event task to be saved into the storage file.
+     *
+     * @param taskString The string representation of the task.
+     * @param taskStatus The status of the task.
+     * @return The save entry for the event task.
+     */
     private String createEventSaveEntry(String taskString, String taskStatus) {
         int startIndex = taskString.indexOf("(from: ");
         String taskDescription = taskString.substring(7, startIndex - 1);

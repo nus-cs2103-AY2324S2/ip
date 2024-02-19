@@ -1,7 +1,6 @@
 package bartenderbob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * Represents the Event task that has a description, from date and a due date.
