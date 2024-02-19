@@ -45,7 +45,6 @@ public class AddTaskCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         Task curr;
-        String printStatement;
         if (type.equals(Type.T.name())) {
             curr = generateTodo();
         } else if (type.equals(Type.D.name())) {
@@ -55,6 +54,9 @@ public class AddTaskCommand extends Command {
         } else {
             throw new BelleException("You are trying to add an invalid type to the list.");
         }
+
+        assert (curr != null) : "current task to be added is null";
+
         t.addTask(curr);
         s.save(t.getList());
         return generateAddStatement(t, curr);
@@ -69,6 +71,7 @@ public class AddTaskCommand extends Command {
      */
     public Task generateTodo() throws BelleException {
         try {
+            assert (msg.length() >= 5) : "invalid input to generate todo task";
             int todoLength = 5; // as todo + 1 space is 5 characters.
             Task curr = new TodoTask(this.msg.substring(todoLength), false);
             return curr;
@@ -86,6 +89,7 @@ public class AddTaskCommand extends Command {
      */
     public Task generateDeadline() throws BelleException {
         try {
+            assert (msg.length() >= 9) : "invalid input to generate deadline task";
             int deadlineLength = 9; // as deadline + 1 space is 9 characters.
             String[] deadlinelist = msg.substring(deadlineLength).split(" /by ");
             Task curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
@@ -107,7 +111,7 @@ public class AddTaskCommand extends Command {
      *     required information.
      */
     public Task generateEvent() throws BelleException {
-        assert (type.equals("event")) : "task is of an invalid type";
+        assert (msg.length() >= 6) : "invalid input to generate event task";
         try {
             int eventLength = 6; // as event + 1 space is 6 characters.
             String[] eventlist = msg.substring(eventLength).split(" /from ");

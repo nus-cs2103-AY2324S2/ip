@@ -41,6 +41,7 @@ public class SnoozeCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
+            assert (msg.length() >= 7) : "invalid input to run snooze task";
             int snoozeLength = 7; // as snooze + 1 space is 7 characters.
             String[] indexAndDeadline = this.msg.substring(snoozeLength).split(" to ");
             if (indexAndDeadline.length != 2) {

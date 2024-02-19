@@ -1,3 +1,10 @@
 E , true , rabbit , mon 7 , thurs 9pm
-T , true , fish
-D , false , happy birthday , 8 march
+T , false , fish
+D , true , happy birthday , 8 march
+T , false , bae
+T , false , babe
+T , false , belle
+T , false , happy
+T , false , abc
+D , false , janna , 10am
+E , false , edner , 5pm , 6pm
