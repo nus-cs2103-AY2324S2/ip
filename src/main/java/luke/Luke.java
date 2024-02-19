@@ -48,7 +48,7 @@ public class Luke extends Application {
      * </p>
      */
     public Luke() {
-        Storage storage = new Storage("data/tasks.txt");
+        Storage storage = new Storage("./tasks.txt");
         TaskList taskList;
         try {
             taskList = new TaskList(storage.loadFile());
