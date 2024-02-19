@@ -119,12 +119,12 @@ public class TaskList {
 
     public void markDone(Task task) {
         task.markComplete();
-        assert(task.completed);
+        assert(task.isCompleted);
     }
 
     public void markUndone(Task task) {
         task.markIncomplete();
-        assert(!task.completed);
+        assert(!task.isCompleted);
     }
 
     public void addTask(Task task) {

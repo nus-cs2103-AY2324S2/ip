@@ -20,7 +20,7 @@ public class Storage {
     private List<String> listOfStrings;
 
     /**
-     * Initialiser for the Storage Class.
+     * Initialises the Storage Class given a specific location if the file exists.
      * @param filePath The filePath as a String of the textfile used for storage.
      */
     public Storage(String filePath) {

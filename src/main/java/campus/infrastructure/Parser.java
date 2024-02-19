@@ -17,7 +17,7 @@ public class Parser {
     private final Storage storage;
 
     /**
-     * Initialiser for Paser class
+     * Initialises the Parser class, which requires a ui, tasklist and storage field.
      * @param ui The Ui Class
      * @param taskList The TaskList Class
      * @param storage The Storage Class
@@ -124,7 +124,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the command of type 'find'
+     * Function to handle the command of type 'find' which deals with filtering a specific substring.
      * @param remaining the remaining portion of the command line entered
      */
     public String handleFindCommand(String remaining) {

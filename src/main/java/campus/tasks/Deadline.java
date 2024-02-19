@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     public Deadline(String deadlineName, String endDateTime) throws CampusException {
         this.taskName = deadlineName;
-        this.completed = false;
+        this.isCompleted = false;
 
         if (!isValidDateTimeFormat(endDateTime, this.formatter)) {
             throw new CampusException("Error! A deadline task must have an end datetime in the correct format, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>\n");
@@ -24,7 +24,7 @@ public class Deadline extends Task {
 
     public Deadline(String deadlineName, Boolean completed, String endDateTime) throws CampusException {
         this.taskName = deadlineName;
-        this.completed = completed;
+        this.isCompleted = completed;
         if (!isValidDateTimeFormat(endDateTime, this.formatter)) {
             throw new CampusException("Error! A deadline task must have an end datetime in the correct format, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>\n");
         } else {
@@ -34,23 +34,23 @@ public class Deadline extends Task {
 
     @Override
     public void markComplete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     @Override
     public void markIncomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override
     public String toString() {
-        String xMarker = this.completed ? "[X]" : "[ ]";
+        String xMarker = this.isCompleted ? "[X]" : "[ ]";
         return String.format("[D] %s %s (by: %s)", xMarker, this.taskName, this.endDateTime.format(this.formatter));
     }
 
     @Override
     public String toDBFormat() {
-        String completed = this.completed ? "1" : "0";
+        String completed = this.isCompleted ? "1" : "0";
         return String.format("D | %s | %s | %s", completed, this.taskName, this.endDateTime.format(this.formatter));
     }
 }

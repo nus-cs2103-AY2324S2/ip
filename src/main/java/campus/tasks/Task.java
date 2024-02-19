@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Class object which represents a Task, which has a name and a status completion.
  */
 abstract public class Task {
-    public boolean completed;
+    public boolean isCompleted;
     public String taskName;
     public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm dd/MM/yyyy");
 
