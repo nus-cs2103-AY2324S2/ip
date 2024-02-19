@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The {@code TaskList} class represents a list of tasks.
@@ -21,13 +22,17 @@ public class TaskList implements Serializable {
         tasks = new ArrayList<>();
     }
 
-    public int size() {
-        return tasks.size();
+    /**
+     * Creates a {@code TaskList} populated with tasks in the {@code ArrayList} supplied.
+     * 
+     * @param tasks Tasks to populate the {@code TaskList}
+     */
+    private TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
-    private Task addTask(Task t) {
-        tasks.add(t);
-        return t;
+    public int size() {
+        return tasks.size();
     }
 
     /**
@@ -74,13 +79,10 @@ public class TaskList implements Serializable {
     }
 
     public TaskList match(String s) {
-        TaskList result = new TaskList();
-        for (Task t : tasks) {
-            if (t.nameContains(s)) {
-                result.addTask(t);
-            }
-        }
-        return result;
+        return tasks.stream()
+                .filter(t -> t.nameContains(s))
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toCollection(ArrayList::new), TaskList::new));
     }
 
     public String toString() {
