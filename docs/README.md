@@ -13,6 +13,7 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
   - [Deleting a Task: `delete`](#deleting-a-task-delete)
   - [Finding Tasks by Keyword: `find`](#finding-tasks-by-keyword-find)
   - [Tagging a Task with Priority: `tag`](#tagging-a-task-with-priority-tag)
+- [FAQ](#faq)
 - [Command Summary](#command-summary)
 
 
