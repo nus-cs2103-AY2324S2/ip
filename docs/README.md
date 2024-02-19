@@ -3,7 +3,7 @@
 ![Screenshot of BartenderBob chatbot.](Ui.png)
 
 Welcome to the _BartenderBob user guide_! Get step-by-step instructions on how to use BartenderBob,
-and learn about its features below! :grinning:
+and learn about its features below!
 
 ## Feature notes
 - Dates are in the form of `YYYY-MM-DD`.
