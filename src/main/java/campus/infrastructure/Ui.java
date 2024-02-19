@@ -24,9 +24,10 @@ public class Ui {
                 + " \\____\\__,_|_| |_| |_| .__/ \\__,_|___/\n"
                 + "                     |_|\n"
                 + "\n"
-                + "Hello! I'm Campus\n"
-                + "What can I do for you?\n"
-                + "Type in 'help' to get the full list of my commands!\n"
+                + "Greetings! I am at your service.\n"
+                + "How may I be of assistance to you today?\n"
+                + "Should you require a comprehensive list of my capabilities, "
+                + "kindly type 'help' to receive the full catalog of commands available at your disposal.\n"
                 + "\n"
                 + LINE_BREAK;
 
@@ -38,7 +39,8 @@ public class Ui {
      */
     public String printExiting() {
         String message = LINE_BREAK
-                + "Bye. Hope to see you again soon!\n"
+                + "Farewell, esteemed guest! May fortune favor your endeavors until "
+                + "we meet again in the halls of our noble court.\n"
                 + "\n"
                 + LINE_BREAK;
         return message;
@@ -70,7 +72,9 @@ public class Ui {
      */
     public String markDone(Task task) {
         String message = LINE_BREAK
-                + "Nice! I've completed this task successfully:\n"
+                + "Splendid news! Your accomplishment is a testament to your diligence and skill."
+                + "Should you require further assistance or have additional tasks to "
+                + "undertake, do not hesitate to summon me.\n"
                 + String.format("%s\n", task)
                 + LINE_BREAK;
 
@@ -83,7 +87,9 @@ public class Ui {
      */
     public String markUndone(Task task) {
         String message = LINE_BREAK
-                + "Ok, this task is still not done yet:\n"
+                + "Splendid news! Your accomplishment is a testament to your diligence and skill."
+                + "Should you require further assistance or have additional tasks to undertake,"
+                + "do not hesitate to summon me.\n"
                 + String.format("%s\n", task)
                 + LINE_BREAK;
 
@@ -99,7 +105,11 @@ public class Ui {
         int numOfTasks = taskList.getListSize();
 
         String message = LINE_BREAK
-                + "Noted. Task deleted successfully. I have removed the following task:\n"
+                + "\n"
+                + "Your directive has been duly noted. The task has been successfully expunged "
+                + "from our records. Should there be any further matters requiring attention or if "
+                + "new tasks arise, do not hesitate to relay them, and they shall be handled with utmost "
+                + "care and efficiency.\n"
                 + String.format("%s\n", task)
                 + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
                 + LINE_BREAK;
@@ -116,7 +126,10 @@ public class Ui {
         int numOfTasks = taskList.getListSize();
 
         String message = LINE_BREAK
-                + "Got it. I've added this to our list of tasks:\n"
+                + "Your directive has been duly noted. The tas has been successfully expunged from"
+                + "our records. Should there be any further matters requiring attention or if new tasks"
+                + "arise, do not hesitate to relay them, and they shall be handled with utmost care"
+                + "and efficiency.\n"
                 + String.format("added: %s\n", task.toString())
                 + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
                 + LINE_BREAK;
