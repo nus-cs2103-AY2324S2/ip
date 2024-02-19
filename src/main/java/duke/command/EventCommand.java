@@ -29,6 +29,7 @@ public class EventCommand extends Command {
      * @param fromTime  The start time of the event task.
      * @param toDate    The end date of the event task.
      * @param toTime    The end time of the event task.
+     * @param tag       The tag of the event task.
      */
     public EventCommand(String input, String taskDesc, LocalDate fromDate, String fromTime, LocalDate toDate, String toTime, String tag) {
         super(input);
@@ -41,6 +42,16 @@ public class EventCommand extends Command {
         this.isTagged = true;
     }
 
+    /**
+     * Constructs an EventCommand with the specified input, description, start date, start time, end date, and end time.
+     *
+     * @param input     The input string associated with the command.
+     * @param taskDesc  The description of the event task.
+     * @param fromDate  The start date of the event task.
+     * @param fromTime  The start time of the event task.
+     * @param toDate    The end date of the event task.
+     * @param toTime    The end time of the event task.
+     */
     public EventCommand(String input, String taskDesc, LocalDate fromDate, String fromTime, LocalDate toDate, String toTime) {
         super(input);
         this.taskDesc = taskDesc;

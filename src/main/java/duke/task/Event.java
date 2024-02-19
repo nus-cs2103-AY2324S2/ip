@@ -14,7 +14,7 @@ public class Event extends Task {
     protected String toTime;
 
     /**
-     * Constructs a Deadline object with the given description and deadline date.
+     * Constructs an Event object with the given description, from date and time and to date and time.
      *
      * @param description The description of the event task.
      * @param fromDate The start date of the event task.
@@ -32,6 +32,16 @@ public class Event extends Task {
         assert fromDate.isBefore(toDate): "event cannot be from a later date to an earlier date";
     }
 
+    /**
+     * Constructs an Event object with the given description, tag, from date and time and to date and time.
+     *
+     * @param description The description of the event task.
+     * @param tag The tag of the event task.
+     * @param fromDate The start date of the event task.
+     * @param fromTime The time at which the event task starts,
+     * @param toDate The end date of the event task.
+     * @param toTime The time at which the event task ends.
+     */
     public Event(String description, String tag, LocalDate fromDate, String fromTime, LocalDate toDate, String toTime) {
         super(description, tag);
         this.fromDate = fromDate;

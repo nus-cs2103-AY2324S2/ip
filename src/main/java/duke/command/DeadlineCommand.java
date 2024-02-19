@@ -23,6 +23,7 @@ public class DeadlineCommand extends Command {
      * @param input       The input string associated with the command.
      * @param description The description of the deadline task.
      * @param by          The due date of the deadline task.
+     * @param tag         The tag of the deadline task.
      */
     public DeadlineCommand(String input, String description, LocalDate by, String tag) {
         super(input);
@@ -32,6 +33,13 @@ public class DeadlineCommand extends Command {
         this.isTagged = true;
     }
 
+    /**
+     * Constructs a DeadlineCommand with the specified input, description, and due date.
+     *
+     * @param input       The input string associated with the command.
+     * @param description The description of the deadline task.
+     * @param by          The due date of the deadline task.
+     */
     public DeadlineCommand(String input, String description, LocalDate by) {
         super(input);
         this.description = description;

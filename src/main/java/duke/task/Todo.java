@@ -16,6 +16,12 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Constructs a Todo object with the given description and tag.
+     *
+     * @param description The description of the todo task.
+     * @param tag The tag of the todo task.
+     */
     public Todo(String description, String tag) {
         super(description, tag);
     }

@@ -22,6 +22,13 @@ public class Deadline extends Task {
         assert by.isAfter(LocalDate.now()): "deadline should be after the current date";
     }
 
+    /**
+     * Constructs a Deadline object with the given description, tag and deadline date.
+     *
+     * @param description The description of the deadline task.
+     * @param tag The tag of the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(String description, String tag, LocalDate by) {
         super(description, tag);
         this.by = by;

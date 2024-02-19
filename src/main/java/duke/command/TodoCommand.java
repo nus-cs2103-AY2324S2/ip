@@ -14,10 +14,11 @@ public class TodoCommand extends Command {
     private boolean isTagged;
 
     /**
-     * Constructs a TodoCommand object with the specified input and description.
+     * Constructs a TodoCommand object with the specified input, description and tag.
      *
      * @param input       The input command string.
      * @param description The description of the todo task.
+     * @param tag         The tag of the todo task.
      */
     public TodoCommand(String input, String description, String tag) {
         super(input);
@@ -26,6 +27,12 @@ public class TodoCommand extends Command {
         this.isTagged = true;
     }
 
+    /**
+     * Constructs a TodoCommand object with the specified input and description.
+     *
+     * @param input       The input command string.
+     * @param description The description of the todo task.
+     */
     public TodoCommand(String input, String description) {
         super(input);
         this.description = description;

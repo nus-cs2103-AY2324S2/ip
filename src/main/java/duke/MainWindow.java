@@ -65,6 +65,12 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Displays the user input and Duke's response as dialog boxes in the conversation window.
+     *
+     * @param input    The user input to be displayed.
+     * @param response The response from Duke to be displayed.
+     */
     private void displayDialogBoxes(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

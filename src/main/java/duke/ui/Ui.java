@@ -24,7 +24,6 @@ public class Ui {
      * @return The goodbye message.
      */
     public String showByeMessage() {
-        // System.out.println("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }
 

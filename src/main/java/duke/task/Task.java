@@ -21,6 +21,12 @@ public class Task {
         this.isTagged = false;
     }
 
+    /**
+     * Constructs a Task object with the specified description and tag.
+     *
+     * @param description The description of the task.
+     * @param tag The tag of the task.
+     */
     public Task(String description, String tag) {
         this.description = description;
         this.isDone = false;
