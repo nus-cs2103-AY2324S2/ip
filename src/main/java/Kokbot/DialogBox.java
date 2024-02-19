@@ -15,13 +15,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents the DialogBox used in the GUI
  */
 public class DialogBox extends HBox {
+
+    /**
+     * Represents the text to be shown in the dialog
+     */
     @FXML
     private Label dialog;
+
+    /**
+     * Represents the picture to be shown in the dialog
+     */
     @FXML
     private ImageView displayPicture;
 
@@ -56,12 +62,26 @@ public class DialogBox extends HBox {
         this.setStyle("-fx-background-color: #D3D3D3;");
     }
 
+    /**
+     * Gets the dialog box for the user
+     *
+     * @param text Text to be shown
+     * @param img  Image to be shown
+     * @return DialogBox for the user
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #ADD8E6;");
         return db;
     }
 
+    /**
+     * Gets the dialog box for the bot
+     *
+     * @param text Text to be shown
+     * @param img  Image to be shown
+     * @return DialogBox for the bot
+     */
     public static DialogBox getKokbotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

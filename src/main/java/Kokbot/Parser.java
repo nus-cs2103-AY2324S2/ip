@@ -47,18 +47,33 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "list" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "list" command
+     */
     public Command parseList(String input) throws DukeException {
         String[] parts = input.split(" ");
-        if (parts.length > 1) {
-            if (parts.length > 2) {
-                throw new DukeException("Unknown usage - \"list\" command should not have more than 2 arguments");
-            } else {
-                return new Command(Kokbot.CommandType.LIST, new String[]{parts[1]});
-            }
-        } else {
+
+        if (parts.length == 1) {
             return new Command(Kokbot.CommandType.LIST);
         }
+
+        if (parts.length == 2) {
+            return new Command(Kokbot.CommandType.LIST, new String[]{parts[1]});
+        }
+
+        throw new DukeException("Unknown usage - \"list\" command should not have more than 2 arguments");
     }
+
+    /**
+     * Parses the input string and returns the corresponding Command for marking and unmarking tasks
+     * @param input Input string
+     * @param commandType Type of the command
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid marking command
+     */
     public Command parseMarkings(String input, Kokbot.CommandType commandType) throws DukeException {
         String[] parts = input.split(" ");
         try {
@@ -70,6 +85,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "to do" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "to do" command
+     */
     public Command parseTodo(String input) throws DukeException {
         String todoDesc = input.substring(5);
         if (todoDesc.equals("")) {
@@ -79,8 +100,15 @@ public class Parser {
         return new Command(Kokbot.CommandType.TODO, args);
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "deadline" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "deadline" command
+     */
     public Command parseDeadline(String input) throws DukeException {
         String[] parts = input.split(" ");
+
         int byIndex;
         for (byIndex = 0; byIndex < parts.length; byIndex++) {
             if (parts[byIndex].equals("/by")) {
@@ -105,6 +133,12 @@ public class Parser {
         return new Command(Kokbot.CommandType.DEADLINE, new String[]{deadlineDesc, dueDateStr});
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "event" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "event" command
+     */
     public Command parseEvent(String input) throws DukeException {
         String[] parts = input.split(" ");
         int fromIndex = -1;
@@ -141,6 +175,12 @@ public class Parser {
         return new Command(Kokbot.CommandType.EVENT, new String[]{description, startDateStr, endDateStr});
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "delete" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "delete" command
+     */
     public Command parseDelete(String input) throws DukeException {
         String[] parts = input.split(" ");
         try {
@@ -159,6 +199,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command for "find" command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid "find" command
+     */
     public Command parseFind(String input) throws DukeException {
         String[] parts = input.split(" ");
         if (parts.length == 1) {
