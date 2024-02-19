@@ -29,15 +29,15 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public void markTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String markTask(String[] splitMessage, Storage storage, Ui ui) {
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
             this.tasks.get(index).setStatus(true);
             storage.storeTasks(this.tasks);
-            ui.showMarkTaskMsg(this.tasks.get(index));
+            return ui.showMarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
-            ui.showStoreTaskErrorMessage();
             this.tasks.get(index).setStatus(false);
+            return ui.showStoreTaskErrorMessage();
         }
     }
 
@@ -48,15 +48,15 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public void unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
             this.tasks.get(index).setStatus(false);
             storage.storeTasks(this.tasks);
-            ui.showUnmarkTaskMsg(this.tasks.get(index));
+            return ui.showUnmarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
-            ui.showStoreTaskErrorMessage();
             this.tasks.get(index).setStatus(true);
+            return ui.showStoreTaskErrorMessage();
         }
     }
 
@@ -69,7 +69,7 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public void addTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String addTask(String[] splitMessage, Storage storage, Ui ui) {
         try {
             Task task = null;
             boolean isTodo = splitMessage[0].equals("todo");
@@ -88,16 +88,17 @@ public class TaskList {
                 if (task != null) {
                     this.tasks.add(task);
                     storage.storeTasks(this.tasks);
-                    ui.showAddTaskMsg(task, this.tasks.size());
+                    return ui.showAddTaskMsg(task, this.tasks.size());
                 } else {
-                    System.out.println("    No task added");
+                    return "No task added";
                 }
             } catch (IOException e) {
-                ui.showStoreTaskErrorMessage();
                 this.tasks.remove(this.tasks.size() - 1);
+                return ui.showStoreTaskErrorMessage();
             }
         } catch (ByteTalkerException.UnsupportedTaskException ex) {
-            System.out.println("    " + ex.getMessage() + ". Please only enter the supported types of task.");
+            String errorUnsupportedMessage = ex.getMessage() + ". Please only enter the supported types of task.";
+            return errorUnsupportedMessage;
         }
     }
 
@@ -176,15 +177,15 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public void deleteTask(int position, Storage storage, Ui ui) {
+    public String deleteTask(int position, Storage storage, Ui ui) {
         Task task = this.tasks.get(position - 1);
         try {
             this.tasks.remove(position - 1);
             storage.storeTasks(this.tasks);
-            ui.showDeleteTaskMsg(task, this.tasks.size());
+            return ui.showDeleteTaskMsg(task, this.tasks.size());
         } catch (IOException e) {
-            ui.showStoreTaskErrorMessage();
             this.tasks.add(task);
+            return ui.showStoreTaskErrorMessage();
         }
     }
 
@@ -194,10 +195,9 @@ public class TaskList {
      * @param splitMessage Parsed messages of user input and processed by Parser.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public void findTask(String[] splitMessage, Ui ui) {
+    public String findTask(String[] splitMessage, Ui ui) {
         if (splitMessage.length != 2) {
-            System.out.println("    Please use the correct format");
-            return;
+            return "Please use the correct format";
         }
         String content = splitMessage[1];
         ArrayList<Task> foundTasks = new ArrayList<>();
@@ -207,6 +207,6 @@ public class TaskList {
                 foundTasks.add(currentTask);
             }
         }
-        ui.displayFoundTasks(foundTasks);
+        return ui.displayFoundTasks(foundTasks);
     }
 }
