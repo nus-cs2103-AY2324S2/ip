@@ -1,7 +1,7 @@
-T | 1 | join sports club
 T | 0 | borrow book
 T | 0 | PROJECT REFINE
 T | 1 | return meeting
 T | 0 | RETURN BOOK
 T | 0 | PROJECT MEETING
 T | 0 | project meeting
+D | 1 | JOINT SPORTS  | Feb 11 2001

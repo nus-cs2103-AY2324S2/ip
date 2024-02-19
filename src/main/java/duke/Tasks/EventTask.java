@@ -65,7 +65,8 @@ public class EventTask extends Task {
                         LocalDate date = LocalDate.parse(time, formatter4);
                         dateTime = date.atStartOfDay();
                     } catch (DateTimeParseException e4) {
-                        throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
+                        throw new DateTimeParseException("Unable to parse date/time as the time might be missing or in a wrong format "
+                                + time, time, 0, e2);
                     }
                 }
             }

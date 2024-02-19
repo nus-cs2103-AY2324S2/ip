@@ -11,10 +11,18 @@ import duke.Command.DeleteCommand;
 import duke.Command.DeadlineCommand;
 import duke.Command.FindCommand;
 import duke.Command.DetectCommand;
+import duke.Command.GreetCommand;
+
 
 import java.util.Arrays;
 
 public class Parser {
+    String input = null;
+
+    public Parser(String input) {
+        this.input = input;
+
+    }
     /**
      * Parses the user input and returns the corresponding command.
      *
@@ -32,6 +40,8 @@ public class Parser {
         String command = parts[0].toLowerCase();
 
         switch (command) {
+            case "hi":
+                return new GreetCommand();
             case "bye":
                 return new ExitCommand();
             case "detect":
@@ -53,7 +63,7 @@ public class Parser {
             case "find":
                 return new FindCommand(parts[1]);
             default:
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("OOPS!!! I'm sorry, I don't know what that means :-(");
         }
     }
 
@@ -131,7 +141,9 @@ public class Parser {
      */
     private static Command parseTodoCommand(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The description of a todo task cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo task cannot be empty.\n" +
+                    "The correct format of input should be: todo <your task>.");
+
         }
 
         String description = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
@@ -147,18 +159,18 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed or an invalid command is entered.
      */
     private static Command parseDeadlineCommand(String[] parts) throws DukeException {
-        if (parts.length < 2) {
-            DukeException errorMessage = new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
-
-        }
 
         if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.\n"
+            +" The correct format of input should be: \n deadline <your task> /by yyyy-mm-dd\n"
+            +"Or: deadline <your task> /by dd/mm/yyyy");
         }
 
         String[] details = parts[1].split("/by", 2);
         if (details.length < 2) {
-            throw new DukeException("OOPS!!! The deadline of a deadline task cannot be empty.");
+            throw new DukeException("OOPS!!! The deadline of a deadline task cannot be empty.\n"
+                    + "The correct format of input should be:\n deadline <your task> /by yyyy-mm-dd\n"
+                    +"Or: deadline <your task> /by dd/mm/yyyy");
         }
 
         return new DeadlineCommand(details[0], details[1].trim());
@@ -178,12 +190,16 @@ public class Parser {
         String to = null;
 
         if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The time of an event task cannot be empty.");
+            throw new DukeException("OOPS!!! The time of an event task cannot be empty.\n"
+                    +" The correct format of input should be:\n event <your task> /from yyyy-mm-dd /to yyyy-mm-dd\n"
+                    +"Or: event <your task> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm");
         }
 
         String[] split = parts[1].split("/from", 2);
         if (split.length < 2) {
-            throw new DukeException("OOPS!!! The time of an event task cannot be empty.");
+            throw new DukeException("OOPS!!! The time of an event task cannot be empty.\n"
+                    +" The correct format of input should be:\n event <your task> /from yyyy-mm-dd /to yyyy-mm-dd\n"
+                    +"Or: event <your task> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm");
         }
 
         if (split.length == 2) {
@@ -193,7 +209,9 @@ public class Parser {
                 from = details[0].trim();
                 to = details[1].trim();
             } else {
-                throw new DukeException("OOPS!!! The end time of an event task cannot be empty.");
+                throw new DukeException("OOPS!!! The end time of an event task cannot be empty.\n"
+                        +" The correct format of input should be:\n event <your task> /from yyyy-mm-dd /to yyyy-mm-dd\n"
+                        +"Or: event <your task> /from dd/mm/yyyy HH:mm /to dd/mm/yyyy HH:mm");
             }
         }
         return new EventCommand(task, from, to);

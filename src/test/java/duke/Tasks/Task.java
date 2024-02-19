@@ -4,11 +4,11 @@ package duke.Tasks;
 public abstract class Task {
     String task;
 
-    public boolean marked;
+    public boolean isMarked;
 
     public Task(String task) {
         this.task = task;
-        this.marked = false;
+        this.isMarked = false;
 
     }
 
@@ -17,15 +17,15 @@ public abstract class Task {
     }
 
     public void markDone() {
-        marked = true;
+        isMarked = true;
     }
 
     public void markNotDone() {
-        marked = false;
+        isMarked = false;
     }
 
     public String mark() {
-        return (marked ? "[X]" : "[ ]");
+        return (isMarked ? "[X]" : "[ ]");
     }
 
 

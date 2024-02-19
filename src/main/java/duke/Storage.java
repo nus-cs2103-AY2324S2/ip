@@ -94,7 +94,7 @@ public class Storage {
                     continue;
                 }
 
-                writer.write(String.format("%s | %d | %s", taskType, task.marked ? 1 : 0, task.getTask()));
+                writer.write(String.format("%s | %d | %s", taskType, task.isMarked ? 1 : 0, task.getTask()));
                 if (task instanceof DeadlineTask) {
                     writer.write(" | " + ((DeadlineTask) task).getDateTime());
                 } else if (task instanceof EventTask) {

@@ -26,8 +26,10 @@ public class Duke {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves a response based on the provided input string.
+     * @param input The input string to be processed.
+     * @return The response generated based on the input.
+     * @throws DukeException If there is an error in parsing or executing the command.
      */
     String getResponse(String input) throws DukeException {
         assert input != null : "Input string cannot be null";

@@ -61,7 +61,7 @@ public class DetectCommand extends Command {
         return res;
     }
 
-    // Helper method to compare two descriptions character by character
+
     private boolean compareDescriptions(String desc1, String desc2) {
         if (desc1.length() != desc2.length()) {
             return false;
