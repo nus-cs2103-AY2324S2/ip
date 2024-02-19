@@ -233,7 +233,8 @@ public class Parser {
 
         int[] dateComponents = parseDate(dateTimeComponents[0]);
 
-        LocalDateTime returnVariable = LocalDateTime.of(dateComponents[0], dateComponents[1], dateComponents[2], hour, minute);
+        LocalDateTime returnVariable = LocalDateTime.of(dateComponents[0], dateComponents[1], dateComponents[2],
+                hour, minute);
         return returnVariable;
     }
 
