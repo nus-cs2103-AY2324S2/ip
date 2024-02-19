@@ -182,7 +182,7 @@ public class KaiYap {
                 .toArray();
         for (int numericIndex : numericIndices) {
             assert numericIndex > 0 && numericIndex <= this.taskList.size() : "Task index out of bounds";
-            if (numericIndex > this.taskList.size()) {
+            if (numericIndex <= 0 || numericIndex > this.taskList.size()) {
                 throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
             } else if (taskList.get(numericIndex - 1).isTaskDone()) {
                 throw new AlreadyExistsException("\tOne of these tasks has already been marked as done. Great job!");
