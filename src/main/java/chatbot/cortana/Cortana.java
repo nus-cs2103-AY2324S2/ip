@@ -14,9 +14,10 @@ import chatbot.ui.Ui;
  */
 public class Cortana {
 
+    public static final String NAME = "Cortana";
+
     private static final String DATA_FOLDER = "data";
     private static final String SAVE_FILENAME = "tasks.csv";
-    private static final String NAME = "Cortana";
     private TaskList taskList;
     private final String baseDir;
     private final String saveDirPath;
