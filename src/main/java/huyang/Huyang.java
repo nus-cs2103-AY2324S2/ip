@@ -13,9 +13,28 @@ import javafx.util.Duration;
  * input to keep track of tasks.
  */
 public class Huyang {
+    /**
+     * Storage for handling the saving and loading of tasks from a file.
+     * It abstracts the details of how tasks are persisted in local storage.
+     */
     private Storage storage;
+
+    /**
+     * TaskList for managing the in-memory list of tasks.
+     * It provides operations such as add, delete, and search tasks within the list.
+     */
     private TaskList tasks;
+
+    /**
+     * Ui for handling user interactions.
+     * It manages input reading and output formatting to present information to the user.
+     */
     private Ui ui;
+
+    /**
+     * Parser for interpreting user commands.
+     * It translates user input into commands that can be executed by the application.
+     */
     private Parser parser;
 
     /**
@@ -23,14 +42,13 @@ public class Huyang {
      * Initializes the user interface, parser, and storage, and loads tasks from a file.
      */
     public Huyang() {
-        this.ui = new Ui();
         this.parser = new Parser();
-        this.storage = new Storage(System.getProperty("user.home")
-                + "/Downloads/CS2103T/ip/data/huyang_tasks.txt");
+        String relativePath = "data/huyang_tasks.txt";
+        this.storage = new Storage(relativePath);
         try {
             this.tasks = new TaskList(storage.loadTasks());
         } catch (IOException | TaskException e) {
-            ui.print(ui.getErrorMessage("Error initializing tasks: " + e.getMessage()));
+            Ui.print(Ui.getErrorMessage("Error initializing tasks: " + e.getMessage()));
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
@@ -46,40 +64,40 @@ public class Huyang {
         try {
             switch (command) {
             case LIST:
-                return ui.getTasksMessage(tasks.getTasks());
+                return Ui.getTasksMessage(tasks.getTasks());
             case MARK:
                 Task markedTask = tasks.markOrUnmarkTask(input, true);
                 storage.saveTasks(tasks.getTasks());
-                return ui.getMarkOrUnmarkMessage(markedTask, true);
+                return Ui.getMarkOrUnmarkMessage(markedTask, true);
             case UNMARK:
                 Task unmarkedTask = tasks.markOrUnmarkTask(input, false);
                 storage.saveTasks(tasks.getTasks());
-                return ui.getMarkOrUnmarkMessage(unmarkedTask, false);
+                return Ui.getMarkOrUnmarkMessage(unmarkedTask, false);
             case TODO:
             case DEADLINE:
             case EVENT:
                 Task addedTask = tasks.addTask(input, command);
                 storage.saveTasks(tasks.getTasks());
-                return ui.getAddTaskMessage(addedTask, tasks.getSize());
+                return Ui.getAddTaskMessage(addedTask, tasks.getSize());
             case DELETE:
                 Task deletedTask = tasks.deleteTask(input);
                 storage.saveTasks(tasks.getTasks());
-                return ui.getDeleteTaskMessage(deletedTask, tasks.getSize());
+                return Ui.getDeleteTaskMessage(deletedTask, tasks.getSize());
             case FIND:
                 String keyword = input.substring(5).trim().toLowerCase();
                 ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-                return ui.getFoundTasksMessage(foundTasks);
+                return Ui.getFoundTasksMessage(foundTasks);
             case BYE:
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> Platform.exit());
                 delay.play();
-                return ui.getFarewellMessage();
+                return Ui.getFarewellMessage();
             case UNKNOWN:
             default:
-                return ui.getUnknownCommandMessage();
+                return Ui.getUnknownCommandMessage();
             }
         } catch (TaskException | IOException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return Ui.getErrorMessage(e.getMessage());
         }
     }
 
@@ -89,7 +107,7 @@ public class Huyang {
      * Supports other features such as list, mark, unmark and delete.
      */
     public void runCli() {
-        ui.print(Ui.getGreetingMessage());
+        Ui.print(Ui.getGreetingMessage());
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
@@ -100,50 +118,50 @@ public class Huyang {
             try {
                 switch (command) {
                 case LIST:
-                    ui.print(ui.getTasksMessage(tasks.getTasks()));
+                    Ui.print(Ui.getTasksMessage(tasks.getTasks()));
                     break;
                 case MARK:
                     Task markedTask = tasks.markOrUnmarkTask(input, true);
-                    ui.print(ui.getMarkOrUnmarkMessage(markedTask, true));
+                    Ui.print(Ui.getMarkOrUnmarkMessage(markedTask, true));
                     storage.saveTasks(tasks.getTasks());
                     break;
                 case UNMARK:
                     Task unmarkedTask = tasks.markOrUnmarkTask(input, false);
-                    ui.print(ui.getMarkOrUnmarkMessage(unmarkedTask, false));
+                    Ui.print(Ui.getMarkOrUnmarkMessage(unmarkedTask, false));
                     storage.saveTasks(tasks.getTasks());
                     break;
                 case TODO:
                 case DEADLINE:
                 case EVENT:
                     Task addedTask = tasks.addTask(input, command);
-                    ui.print(ui.getAddTaskMessage(addedTask, tasks.getSize()));
+                    Ui.print(Ui.getAddTaskMessage(addedTask, tasks.getSize()));
                     storage.saveTasks(tasks.getTasks());
                     break;
                 case DELETE:
                     Task deletedTask = tasks.deleteTask(input);
-                    ui.print(ui.getDeleteTaskMessage(deletedTask, tasks.getSize()));
+                    Ui.print(Ui.getDeleteTaskMessage(deletedTask, tasks.getSize()));
                     storage.saveTasks(tasks.getTasks());
                     break;
                 case FIND:
                     String keyword = input.substring(5).trim().toLowerCase();
                     ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-                    ui.print(ui.getFoundTasksMessage(foundTasks));
+                    Ui.print(Ui.getFoundTasksMessage(foundTasks));
                     break;
                 case BYE:
                     isExit = true;
                     break;
                 case UNKNOWN:
                 default:
-                    ui.print(ui.getUnknownCommandMessage());
+                    Ui.print(Ui.getUnknownCommandMessage());
                     break;
                 }
             } catch (TaskException | IOException e) {
-                ui.print(ui.getErrorMessage(e.getMessage()));
+                Ui.print(Ui.getErrorMessage(e.getMessage()));
             }
         }
         scanner.close();
-        ui.print(Ui.getFarewellMessage());
-        ui.print("Success");
+        Ui.print(Ui.getFarewellMessage());
+        Ui.print("Success");
     }
 
     /**

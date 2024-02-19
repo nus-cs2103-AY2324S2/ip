@@ -19,14 +19,14 @@ public class Ui {
      *
      * @param message The error message to be returned.
      */
-    public String getErrorMessage(String message) {
+    public static String getErrorMessage(String message) {
         return "Error: " + message;
     }
 
     /**
      * Returns a message for an unknown command.
      */
-    public String getUnknownCommandMessage() {
+    public static String getUnknownCommandMessage() {
         return "I'm sorry master, but I don't know what that means :-(";
     }
 
@@ -42,7 +42,7 @@ public class Ui {
      *
      * @param task The added task to be displayed.
      */
-    public String getAddTaskMessage(Task task, int taskCount) {
+    public static String getAddTaskMessage(Task task, int taskCount) {
         return "Affirmative, master. I've added this task:\n  " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
@@ -53,7 +53,7 @@ public class Ui {
      * @param input The user input.
      * @param isMarked Whether the task is marked as done.
      */
-    public String getMarkOrUnmarkMessage(Task task, boolean isMarked) {
+    public static String getMarkOrUnmarkMessage(Task task, boolean isMarked) {
         String status = isMarked ? "done" : "not done yet";
         return "Nice, master! I've marked this task as " + status + ":\n  " + task;
     }
@@ -64,7 +64,7 @@ public class Ui {
      * @param task The deleted task to be displayed.
      * @param taskCount The current task count to be displayed.
      */
-    public String getDeleteTaskMessage(Task task, int taskCount) {
+    public static String getDeleteTaskMessage(Task task, int taskCount) {
         return "Noted, master. I've removed this task:\n  " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
@@ -74,7 +74,7 @@ public class Ui {
      *
      * @param tasks An ArrayList of tasks to be displayed.
      */
-    public String getTasksMessage(ArrayList<Task> tasks) {
+    public static String getTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             return "You have no tasks in your list, master.";
         }
@@ -90,7 +90,7 @@ public class Ui {
      *
      * @param tasks An ArrayList of tasks containing the tasks found with the given keyword.
      */
-    public String getFoundTasksMessage(ArrayList<Task> tasks) {
+    public static String getFoundTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             return "No tasks found with the given keyword, master.";
         }
@@ -106,7 +106,7 @@ public class Ui {
      *
      * @param s String to be printed.
      */
-    public void print(String s) {
+    public static void print(String s) {
         System.out.println(s);
     }
 }
