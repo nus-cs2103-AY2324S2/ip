@@ -4,6 +4,8 @@ package lamball;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import lamball.exception.DuplicateEntryException;
+import lamball.exception.InvalidDateException;
 import lamball.task.Deadline;
 import lamball.task.Event;
 import lamball.task.Task;
@@ -100,12 +102,17 @@ public class TaskList {
      * @return Boolean to continue keeping the bot running.
      */
     public boolean toDo(String arg, boolean isInit) {
-        Task temp = new ToDo(arg);
-        tasks.add(temp);
-        updateLastDoneTask("Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
-                + " tasks in the list.");
-        if (!isInit) {
-            Storage.writeToFile("0 | " + temp.command());
+        try {
+            Task temp = new ToDo(arg);
+            checkForDuplicateTask(temp);
+            tasks.add(temp);
+            updateLastDoneTask("Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
+                    + " tasks in the list.");
+            if (!isInit) {
+                Storage.writeToFile("0 | " + temp.command());
+            }
+        } catch (DuplicateEntryException e) {
+            updateLastDoneTask(e.getMessage());
         }
         return true;
     }
@@ -120,6 +127,7 @@ public class TaskList {
     public boolean deadline(String[] furtherSplit, boolean isInit) {
         try {
             Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
+            checkForDuplicateTask(temp);
             tasks.add(temp);
             updateLastDoneTask("Added Deadline:\n        " + temp.toString() + "\n    Now you have "
                     + tasks.size() + " tasks in the list.");
@@ -130,6 +138,10 @@ public class TaskList {
             updateLastDoneTask("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
                     + "yyyy-mm-dd (e.g 2001-01-20)");
             return true;
+        } catch (InvalidDateException e) {
+            updateLastDoneTask(e.getMessage());
+        } catch (DuplicateEntryException e) {
+            updateLastDoneTask(e.getMessage());
         }
         return true;
     }
@@ -145,6 +157,7 @@ public class TaskList {
         try {
             Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
                     furtherSplit[2].replaceFirst("to ", ""));
+            checkForDuplicateTask(temp);
             tasks.add(temp);
             updateLastDoneTask("Added Event:\n        " + temp.toString() + "\n    Now you have "
                     + tasks.size() + " tasks in the list.");
@@ -155,6 +168,10 @@ public class TaskList {
             updateLastDoneTask("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
                     + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
             return true;
+        } catch (InvalidDateException e) {
+            updateLastDoneTask(e.getMessage());
+        } catch (DuplicateEntryException e) {
+            updateLastDoneTask(e.getMessage());
         }
         return true;
     }
@@ -188,6 +205,15 @@ public class TaskList {
         }
         printList(positives);
         return true;
+    }
+
+    private boolean checkForDuplicateTask(Task newTask) throws DuplicateEntryException {
+        for (Task t : tasks) {
+            if (t.equals(newTask)) {
+                throw new DuplicateEntryException("Duplicate task, baa.");
+            }
+        }
+        return false;
     }
 
 }

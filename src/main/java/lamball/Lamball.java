@@ -2,6 +2,7 @@ package lamball;
 
 import javafx.scene.image.Image;
 import lamball.command.Command;
+import lamball.exception.LamballParseException;
 import lamball.memo.Memo;
 import lamball.memo.MemoList;
 

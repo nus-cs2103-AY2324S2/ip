@@ -11,25 +11,25 @@ public class DeadlineTest {
     @Test
     public void deadlineCommandTest() {
         // Command Test
-        assertEquals(new Deadline("TEST", "2000-01-01").command(), "deadline TEST /by 2000-01-01");
+        assertEquals(new Deadline("TEST", "2099-01-01").command(), "deadline TEST /by 2099-01-01");
     }
 
     @Test
     public void deadlineStringTest() {
         // String Test
-        assertEquals(new Deadline("TEST", "2000-01-01").toString(), "[D][ ] TEST (by: Jan 1 2000)");
+        assertEquals(new Deadline("TEST", "2099-01-01").toString(), "[D][ ] TEST (by: Jan 1 2099)");
     }
 
     @Test
     public void deadlineMarkTest() {
         // Mark test
-        Deadline test = new Deadline("TEST", "2000-01-01");
+        Deadline test = new Deadline("TEST", "2099-01-01");
         test.mark();
-        assertEquals(test.toString(), "[D][X] TEST (by: Jan 1 2000)");
+        assertEquals(test.toString(), "[D][X] TEST (by: Jan 1 2099)");
 
         // Unmark test
         test.unMark();
-        assertEquals(test.toString(), "[D][ ] TEST (by: Jan 1 2000)");
+        assertEquals(test.toString(), "[D][ ] TEST (by: Jan 1 2099)");
 
     }
 

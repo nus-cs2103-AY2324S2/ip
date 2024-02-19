@@ -5,7 +5,7 @@ package lamball.task;
  *
  * @author ongzhili
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -37,9 +37,7 @@ public class Task {
      *
      * @return Task represented in command form.
      */
-    public String command() {
-        return "How did you get here?";
-    }
+    public abstract String command();
     /**
      * Returns string representation of task for list printing
      *
@@ -59,4 +57,14 @@ public class Task {
     public boolean containing(String compare) {
         return description.contains(compare);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            return ((Task) o).description.compareTo(this.description) == 0;
+        } else {
+            return false;
+        }
+    }
+
 }

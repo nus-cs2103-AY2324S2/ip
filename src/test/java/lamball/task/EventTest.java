@@ -11,34 +11,34 @@ public class EventTest {
     @Test
     public void eventCommandTest() {
         // Command Test
-        assertEquals(new Event("TEST", "2000-01-01", "2000-01-01").command(), "event TEST "
-                + "/from 2000-01-01 /to 2000-01-01");
+        assertEquals(new Event("TEST", "2099-01-01", "2099-01-01").command(), "event TEST "
+                + "/from 2099-01-01 /to 2099-01-01");
     }
 
     @Test
     public void eventStringTest() {
         // String Test
-        assertEquals(new Event("TEST", "2000-01-01", "2000-01-01").toString(),
-                "[E][ ] TEST (from: Jan 1 2000 to: Jan 1 2000)");
+        assertEquals(new Event("TEST", "2099-01-01", "2099-01-01").toString(),
+                "[E][ ] TEST (from: Jan 1 2099 to: Jan 1 2099)");
     }
 
     @Test
     public void eventMarkTest() {
         // Mark test
-        Event test = new Event("TEST", "2000-01-01", "2000-01-01");
+        Event test = new Event("TEST", "2099-01-01", "2099-01-01");
         test.mark();
-        assertEquals(test.toString(), "[E][X] TEST (from: Jan 1 2000 to: Jan 1 2000)");
+        assertEquals(test.toString(), "[E][X] TEST (from: Jan 1 2099 to: Jan 1 2099)");
 
         // Unmark test
         test.unMark();
-        assertEquals(test.toString(), "[E][ ] TEST (from: Jan 1 2000 to: Jan 1 2000)");
+        assertEquals(test.toString(), "[E][ ] TEST (from: Jan 1 2099 to: Jan 1 2099)");
     }
 
     @Test
     public void eventExceptionTest() {
         // DateTimeParseException test
         DateTimeParseException thrown = Assertions.assertThrows(DateTimeParseException.class, () -> {
-            Event test2 = new Event("TEST", "abcdefg", "2000-01-01");
+            Event test2 = new Event("TEST", "abcdefg", "2099-01-01");
         });
 
         // Error Message test
