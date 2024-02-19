@@ -70,6 +70,7 @@ public class Zero extends Application {
             MainWindow mwController = fxmlLoader.<MainWindow>getController();
             mwController.setZero(this);
             mwController.showGreet(Ui.showGreet(NAME_STRING));
+            stage.setTitle("Zero");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
