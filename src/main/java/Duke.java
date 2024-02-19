@@ -43,7 +43,7 @@ public class Duke {
             assert c != null;
             return c.execute(taskList, ui, storage, userInput);
         } catch (DukeException e) {
-            return e.getMessage();
+            return "Error: " + e.getMessage();
         }
     }
 
