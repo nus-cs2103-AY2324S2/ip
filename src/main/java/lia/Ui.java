@@ -36,7 +36,7 @@ public class Ui {
      * @param task The task that has been marked as not done.
      */
     public String showMarkedAsNotDone(Task task) {
-        return "I've marked this task as not done:\n" + task.toString();
+        return "I've unmarked this task:\n" + task.toString();
     }
 
     /**

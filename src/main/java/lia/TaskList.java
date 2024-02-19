@@ -40,6 +40,7 @@ public class TaskList {
      * @return The task at the specified position.
      */
     public Task getTask(int pos) {
+        assert pos >= 1 && pos <= tasks.size() : "Invalid position";
         return tasks.get(pos);
     }
 
@@ -49,6 +50,7 @@ public class TaskList {
      * @param pos The position of the task to mark as done.
      */
     public void markTaskAsDone(int pos) {
+        assert pos >= 1 && pos <= tasks.size() : "Invalid position";
         tasks.get(pos - 1).markAsDone();
     }
 
@@ -58,6 +60,7 @@ public class TaskList {
      * @param pos The position of the task to mark as not done.
      */
     public void markTaskAsNotDone(int pos) {
+        assert pos >= 1 && pos <= tasks.size() : "Invalid position";
         tasks.get(pos - 1).markAsNotDone();
     }
 
@@ -67,6 +70,7 @@ public class TaskList {
      * @param description The description of the Todo task.
      */
     public void addTodoTask(String description) {
+        assert description != null : "Description should not be null";
         tasks.add(new Todo(description, false));
     }
 
@@ -77,6 +81,8 @@ public class TaskList {
      * @param by           The deadline date of the task.
      */
     public void addDeadlineTask(String description, String by) {
+        assert description != null : "Description should not be null";
+        assert by != null : "Deadline should not be null";
         tasks.add(new Deadline(description, by, false));
     }
 
@@ -88,6 +94,9 @@ public class TaskList {
      * @param end         The end time of the event.
      */
     public void addEventTask(String description, String start, String end) {
+        assert description != null : "Description should not be null";
+        assert start != null : "Start time should not be null";
+        assert end != null : "End time should not be null";
         tasks.add(new Event(description, start, end, false));
     }
 
@@ -97,6 +106,7 @@ public class TaskList {
      * @param pos The position of the task to delete.
      */
     public void deleteTask(int pos) {
+        assert pos >= 1 && pos <= tasks.size() : "Invalid position";
         tasks.remove(pos - 1);
     }
 
@@ -123,6 +133,7 @@ public class TaskList {
      * @return An ArrayList containing tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasks) {
