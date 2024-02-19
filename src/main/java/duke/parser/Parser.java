@@ -1,23 +1,18 @@
 package duke.parser;
 
 import duke.command.Command;
-import duke.command.CommandEnum;
 import duke.command.InvalidCommand;
+import duke.command.bye.ByeCommand;
+import duke.command.taskNo.DeleteCommand;
 import duke.command.find.FindCommand;
 import duke.command.list.ListCommand;
-import duke.command.mark.ChangeisDoneCommand;
-import duke.command.mark.MarkCommand;
-import duke.command.mark.UnmarkCommand;
+import duke.command.taskNo.MarkCommand;
+import duke.command.taskNo.TaskNoCommand;
+import duke.command.taskNo.UnmarkCommand;
 import duke.command.task.DeadlineCommand;
 import duke.command.task.EventCommand;
 import duke.command.task.TaskCommand;
 import duke.command.task.ToDoCommand;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.ToDo;
-import duke.ui.Ui;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -156,8 +151,14 @@ public class Parser {
             case FindCommand.COMMAND:
                 return parseFindCommand(args);
 
+            case DeleteCommand.COMMAND:
+                return parseDeleteCommand(args);
+
             case ListCommand.COMMAND:
                 return new ListCommand();
+
+            case ByeCommand.COMMAND:
+                return new ByeCommand();
 
             default:
                 return new InvalidCommand(Command.INVALID_COMMAND);
@@ -224,7 +225,7 @@ public class Parser {
         } catch (NullPointerException e) {
             return new InvalidCommand(Command.ERROR_LIST_EMPTY);
         } catch (IndexOutOfBoundsException e) {
-            return ChangeisDoneCommand.errorTaskNotExist();
+            return TaskNoCommand.errorTaskNotExist();
         }
     }
 
@@ -237,7 +238,20 @@ public class Parser {
         } catch (NullPointerException e) {
             return new InvalidCommand(Command.ERROR_LIST_EMPTY);
         } catch (IndexOutOfBoundsException e) {
-            return ChangeisDoneCommand.errorTaskNotExist();
+            return TaskNoCommand.errorTaskNotExist();
+        }
+    }
+
+    private Command parseDeleteCommand(String args) {
+        try {
+            int taskNo = Integer.parseInt(args.trim());
+            return new DeleteCommand(taskNo);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(DeleteCommand.COMMAND_INVALID_INTEGER);
+        } catch (NullPointerException e) {
+            return new InvalidCommand(Command.ERROR_LIST_EMPTY);
+        } catch (IndexOutOfBoundsException e) {
+            return TaskNoCommand.errorTaskNotExist();
         }
     }
 

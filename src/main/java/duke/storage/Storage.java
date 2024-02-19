@@ -135,6 +135,10 @@ public class Storage {
         updateFile();
     }
 
+    public void deleteTask(int taskNo) {
+        taskList.deleteTask(taskNo);
+    }
+
     public int getNumOfTasks() {
         return taskList.getNoOfTasks();
     }

@@ -1,12 +1,10 @@
-package duke.command.mark;
+package duke.command.taskNo;
 
 import duke.command.Command;
-import duke.command.CommandResult;
 import duke.command.InvalidCommand;
 import duke.task.Task;
-import duke.task.TaskList;
 
-public abstract class ChangeisDoneCommand extends Command {
+public abstract class TaskNoCommand extends Command {
     protected static int taskNo;
     protected Task t;
 
@@ -16,7 +14,7 @@ public abstract class ChangeisDoneCommand extends Command {
             "%s \n" +
             "-------------------------------- \n";
 
-    public ChangeisDoneCommand(int taskNo) {
+    public TaskNoCommand(int taskNo) {
         this.taskNo = taskNo;
         this.t = storage.getTaskFromTaskNo(taskNo - 1);
     }

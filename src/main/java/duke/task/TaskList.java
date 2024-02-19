@@ -20,18 +20,10 @@ public class TaskList extends ArrayList<Task> {
     }
     public static void addTask(Task t) {
         tasks.add(t);
-        Ui.printTaskAdded(t, tasks);
-        //Storage.updateFile(tasks);
     }
 
-    public static void removeTask(int taskNo) {
-        try {
-            Task t = tasks.get(taskNo);
-            tasks.remove(taskNo);
-            Ui.printTaskRemoved(t, tasks);
-        } catch (IndexOutOfBoundsException e) {
-//            Ui.showErrorNotExist(taskNo);
-        }
+    public void deleteTask(int taskNo) {
+        tasks.remove(taskNo);
     }
 
     public void markTask(int taskNo) {

@@ -2,9 +2,6 @@ package duke;
 
 import duke.command.Command;
 import duke.command.CommandResult;
-import duke.command.InvalidCommand;
-import duke.command.mark.ChangeisDoneCommand;
-import duke.command.mark.MarkCommand;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -22,8 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class Duke extends Application {
     private Storage storage;

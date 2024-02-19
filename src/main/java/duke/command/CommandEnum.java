@@ -1,11 +1,11 @@
 package duke.command;
 
 import duke.command.bye.ByeCommand;
-import duke.command.delete.DeleteCommand;
+import duke.command.taskNo.DeleteCommand;
 import duke.command.find.FindCommand;
 import duke.command.list.ListCommand;
-import duke.command.mark.MarkCommand;
-import duke.command.mark.UnmarkCommand;
+import duke.command.taskNo.MarkCommand;
+import duke.command.taskNo.UnmarkCommand;
 import duke.command.task.DeadlineCommand;
 import duke.command.task.EventCommand;
 import duke.command.task.ToDoCommand;

@@ -12,7 +12,7 @@ public abstract class Command {
             getCommandEnumList() +
             "-------------------------------- \n";
     public static final String ERROR_LIST_EMPTY = "-------------------------------- \n" +
-            "Oops, list is still empty! \n" +
+            "Oops, list is still not initialized yet! \n" +
             "-------------------------------- \n";
 
     public Command() {

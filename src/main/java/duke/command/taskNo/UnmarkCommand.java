@@ -1,11 +1,9 @@
-package duke.command.mark;
+package duke.command.taskNo;
 
-import duke.command.Command;
 import duke.command.CommandEnum;
 import duke.command.CommandResult;
-import duke.task.Task;
 
-public class UnmarkCommand extends ChangeisDoneCommand {
+public class UnmarkCommand extends TaskNoCommand {
     public static final String COMMAND = "unmark";
 
     private static final String COMMAND_SUCCESS = "-------------------------------- \n" +
