@@ -79,4 +79,8 @@ public class Deadline extends Task {
                 getDescription(),
                 by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

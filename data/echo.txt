@@ -1,6 +1,2 @@
-T | 0 | borrow books
 D | 0 | return book | 2023-12-19 1600
-T | 1 | what
-T | 1 | alive
-T | 0 | dealine
-T | 0 | code
+E | 0 | sleep | 2023-12-19 1400 | 2023-12-19 1700

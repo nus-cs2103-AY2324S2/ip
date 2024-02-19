@@ -93,4 +93,12 @@ public class Event extends Task {
                 from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
                 to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
+    }
 }
