@@ -139,14 +139,14 @@ public class Duke extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+//        //Part 3. Add functionality to handle user input.
+//        sendButton.setOnMouseClicked((event) -> {
+//            handleUserInput();
+//        });
+//
+//        userInput.setOnAction((event) -> {
+//            handleUserInput();
+//        });
     }
 
     /**
@@ -163,38 +163,29 @@ public class Duke extends Application {
         return textToAdd;
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
+//    /**
+//     * Iteration 2:
+//     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+//     * the dialog container. Clears the user input after processing.
+//     */
+//    private void handleUserInput() {
+//        Label userText = new Label(userInput.getText());
+//        Label dukeText = new Label(getResponse(userInput.getText()));
+//        dialogContainer.getChildren().addAll(
+//                DialogBox.getUserDialog(userText, new ImageView(user)),
+//                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+//        );
+//        userInput.clear();
+//    }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-            Command command = new Parser().parseCommand(input);
-            CommandResult commandResult = executeCommand(command);
-            return commandResult.toString();
-//        } catch (NullPointerException e) {
-//            Command command = new InvalidCommand(MarkCommand.COMMAND_TASK_NOT_EXIST);
-//            CommandResult commandResult = executeCommand(command);
-//            return commandResult.toString();
-//        } catch (IndexOutOfBoundsException e) {
-//            Command command = new InvalidCommand(Command.ERROR_LIST_EMPTY);
-//            CommandResult commandResult = executeCommand(command);
-//            return commandResult.toString();
-//        }
+    public String getResponse(String input) {
+        Command command = new Parser().parseCommand(input);
+        CommandResult commandResult = executeCommand(command);
+        return commandResult.toString();
     }
 
 }
