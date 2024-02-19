@@ -10,8 +10,8 @@ import duke.tasks.EventTask;
 import duke.tasks.Task;
 
 /**
- * Snooze item in list.
- * Command is in format "snooze [index] to [new deadline]"
+ * Snooze item in list meaning
+ * it allows deadlines to be edited.
  */
 public class SnoozeCommand extends Command {
     private String msg;
@@ -37,6 +37,11 @@ public class SnoozeCommand extends Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Print statement for snooze command.
+     * @throws BelleException If index specified
+     *         does not exist in the list and
+     *         command is not given in the right
+     *         format.
      */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {

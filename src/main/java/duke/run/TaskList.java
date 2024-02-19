@@ -9,10 +9,13 @@ import duke.tasks.Task;
  * operations to add/delete tasks in the list.
  */
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list;
 
     /**
      * Constructs TaskList.
+     *
+     * @param l List that represents
+     *          the programs tasklist.
      */
     public TaskList(ArrayList<Task> l) {
         this.list = l;

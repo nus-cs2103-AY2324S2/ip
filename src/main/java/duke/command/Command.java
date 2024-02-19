@@ -18,6 +18,8 @@ public abstract class Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Print statement for each specific
+     *         command.
      */
     public abstract String execute(Storage s, TaskList t, Ui u) throws BelleException;
 

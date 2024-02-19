@@ -41,6 +41,9 @@ public class AddTaskCommand extends Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Print statement for add command.
+     * @throws BelleException If task being added is an
+     *         invalid type.
      */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
@@ -67,7 +70,8 @@ public class AddTaskCommand extends Command {
      * Generates TodoTask based on message.
      *
      * @return TodoTask based on message.
-     * @throws BelleException If did not specify a title.
+     * @throws BelleException If did not specify a
+     *         title in the user input.
      */
     public Task generateTodo() throws BelleException {
         try {
@@ -85,7 +89,7 @@ public class AddTaskCommand extends Command {
      *
      * @return DeadlineTask based on message.
      * @throws BelleException If did not specify all
-     *     required information.
+     *         required information in the user input.
      */
     public Task generateDeadline() throws BelleException {
         try {
@@ -108,7 +112,7 @@ public class AddTaskCommand extends Command {
      *
      * @return EventTask based on message.
      * @throws BelleException If did not specify all
-     *     required information.
+     *         required information in the user input.
      */
     public Task generateEvent() throws BelleException {
         assert (msg.length() >= 6) : "invalid input to generate event task";
@@ -133,6 +137,8 @@ public class AddTaskCommand extends Command {
      *
      * @param t Tasklist.
      * @param curr Current task to add to list.
+     * @return Print statement for adding task
+     *         based on message.
      */
     public String generateAddStatement(TaskList t, Task curr) {
         return "--------------------------" + "\n"

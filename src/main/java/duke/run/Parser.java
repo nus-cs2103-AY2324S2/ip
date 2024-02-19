@@ -14,7 +14,7 @@ public class Parser {
     }
 
     /**
-     * Returns correct belle.belle.command based on users
+     * Returns correct belle command based on users
      * input.
      *
      * @param input Users input.

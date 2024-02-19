@@ -10,6 +10,10 @@ public class Task {
 
     /**
      * Constructs Task.
+     *
+     * @param name Name of task.
+     * @param done Boolean that indicates
+     *             whether task is done.
      */
     public Task(String name, boolean done) {
         this.name = name;

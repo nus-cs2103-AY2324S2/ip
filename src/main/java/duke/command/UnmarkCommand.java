@@ -28,6 +28,9 @@ public class UnmarkCommand extends Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Print statement for unmark command.
+     * @throws BelleException If index specified
+     *         does not exist in the list.
      */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {

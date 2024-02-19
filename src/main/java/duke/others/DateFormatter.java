@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Convert dates to more readable form.
+ * Converts dates to more readable form.
  */
 public class DateFormatter {
     private String date;

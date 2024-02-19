@@ -28,6 +28,7 @@ public class FindCommand extends Command {
      *          previous program.
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
+     * @return Print statement for find command.
      */
     @Override
     public String execute(Storage s, TaskList t, Ui u) {

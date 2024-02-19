@@ -48,10 +48,10 @@ public class Storage {
             if (!f.exists()) {
                 return currList;
             }
-            Scanner listscanner = new Scanner(f);
+            Scanner listScanner = new Scanner(f);
 
             //higher-level function that adds saved data to list
-            addToList(currList, f, listscanner);
+            addToList(currList, listScanner);
             return currList;
         } catch (IOException e) {
             throw new BelleException("Sorry!! I'm having trouble loading the list.");
@@ -59,18 +59,17 @@ public class Storage {
     }
 
     /**
-     * Add tasks from storage to list used by Belle.
+     * Adds tasks from storage to list used by Belle.
      *
      * @param currList ArrayList being used in
      *                 the current program.
-     * @param f File used to store all data.
-     * @param listscanner Scanner to scan data from f.
+     * @param listScanner Scanner to scan data from f.
      * @throws BelleException If tries to add a task
      *      that is not an Event, Deadline or todotask.
      */
-    public void addToList(ArrayList<Task> currList, File f, Scanner listscanner) throws BelleException {
-        while (listscanner.hasNext()) {
-            String currLine = listscanner.nextLine();
+    public void addToList(ArrayList<Task> currList, Scanner listScanner) throws BelleException {
+        while (listScanner.hasNext()) {
+            String currLine = listScanner.nextLine();
             String[] currTask = currLine.split(" , ");
             if (currTask[0].equals(Type.T.name())) {
                 currList.add(new TodoTask(currTask[2], Boolean.valueOf(currTask[1])));
@@ -89,7 +88,9 @@ public class Storage {
     /**
      * Saves list everytime it is updated.
      *
-     * @throws BelleException  If an invalid item that is being saved.
+     * @param currList List to save to database.
+     * @throws BelleException  If an invalid item
+     *         that is being saved.
      */
     public void save(ArrayList<Task> currList) throws BelleException {
         File f = new File(this.filepath);
