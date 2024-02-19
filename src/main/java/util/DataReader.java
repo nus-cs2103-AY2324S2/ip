@@ -19,9 +19,10 @@ import task.ToDo;
  * Class is created to abstract the details of file output operations.
  */
 public class DataReader {
-    static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String SAVED_DATA_FILE = "data.txt";
     private static final String SAVED_DATA_DIRECTORY = "data";
+    private static final String CUR_LOCATION = System.getProperty("user.dir");
 
     /**
      * Reads the file line-by-line to create an ArrayList of Task and TaskStorage object.
@@ -30,9 +31,7 @@ public class DataReader {
      * @return A TaskStorage object with the saved tasks in it.
      */
     public TaskStorage readDataFile(TextUi textUi) {
-        String currentDirectory = System.getProperty("user.dir");
-        java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory, SAVED_DATA_DIRECTORY, SAVED_DATA_FILE);
-
+        java.nio.file.Path path = java.nio.file.Paths.get(CUR_LOCATION, SAVED_DATA_DIRECTORY, SAVED_DATA_FILE);
         boolean fileExists = false;
         ArrayList<String> fileLines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
@@ -45,24 +44,17 @@ public class DataReader {
         } catch (Exception e) {
             System.out.println(e);
         }
-
         if (fileExists) {
             ArrayList<Task> taskList = null;
             try {
                 taskList = convertDataFile(fileLines);
             } catch (ArrayIndexOutOfBoundsException e) {
-                textUi.printMessage(Messages.MESSAGE_SAVE_CORRUPTED);
                 return new TaskStorage();
             }
             if (taskList == null) {
-                textUi.printMessage(Messages.MESSAGE_SAVE_CORRUPTED);
                 return new TaskStorage();
             }
             TaskStorage taskStorage = new TaskStorage(taskList);
-            if (taskStorage.size() != 0) {
-                String message = Messages.MESSAGE_SAVE_FOUND + "\n";
-                textUi.printMessage(message + taskStorage);
-            }
             return taskStorage;
         } else {
             return new TaskStorage();

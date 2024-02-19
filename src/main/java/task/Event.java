@@ -25,12 +25,12 @@ public class Event extends Task implements Comparable<Event> {
      * @param from The start of the event.
      * @param to The end of the event.
      */
-    public Event(String name, String from, String to) {
+    public Event(String name, String from, String to, LocalDateTime fromDate, LocalDateTime toDate) {
         super(name);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
-        this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
-        this.toDateTime = LocalDateTime.parse(to.split("to ")[1].trim(), DATE_FORMAT);
+        this.fromDateTime = fromDate;
+        this.toDateTime = toDate;
     }
 
     /**

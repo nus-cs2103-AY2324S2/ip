@@ -15,7 +15,7 @@ import util.TextUi;
  * This class is a front to manage user input, displaying the corresponding output,
  * and managed the conditional statements for the prompting.
 **/
-public class Duke {
+public class BobBot {
     /**
      * This method will handle user input by parsering the input
      * and creating an Action object for it to be executed.

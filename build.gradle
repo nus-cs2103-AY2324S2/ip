@@ -45,10 +45,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bobBot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'bobBot.jar'
 }
 
 checkstyle {
