@@ -207,4 +207,5 @@ To exit the program, simply type `bye` and press Enter.
 | `deadline <name> /by <date>` | Adds a deadline task with name and date in `d-M-yy` format. | `deadline homework /by 19-2-24` |
 | `event <name> /from <date> /to <date>` | Adds an event task with name and date in `d-M-yy` format. | `event career fair /from 20-2-24 /to 22-2-24` |
 | `bye`             | Exits the program.                            | `bye`                                   |
+
 ---
