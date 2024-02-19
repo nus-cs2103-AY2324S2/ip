@@ -41,12 +41,25 @@ public class Cortana {
         return Ui.greet(Cortana.NAME);
     }
 
+    /**
+     * Shuts down the chatbot.
+     */
+    public void shutDown() {
+        try {
+            this.storage.saveTaskList(this.taskList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.exit(0);
+        }
+    }
+
     public String getResponse(String input) {
         Command command = Parser.parseCommand(input);
         ArrayList<Task> tasks;
         int numTasks;
         Task currTask;
-        String response;
+        String response = "";
         try {
             Validator.validateInput(command, input, this.taskList);
             switch (command) {
@@ -86,6 +99,9 @@ public class Cortana {
                 tasks = this.taskList.findTasks(Parser.parseFindString(input));
                 numTasks = tasks.size();
                 response = Ui.listFindTasks(tasks, numTasks);
+                break;
+            case BYE:
+                shutDown();
                 break;
             default:
                 response = "I'm sorry, but I don't know what that means :-(";

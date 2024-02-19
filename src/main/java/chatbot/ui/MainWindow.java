@@ -61,8 +61,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = cortana.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChatbotDialog(response, chatbotImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getChatbotDialog(response, chatbotImage)
         );
         userInput.clear();
     }

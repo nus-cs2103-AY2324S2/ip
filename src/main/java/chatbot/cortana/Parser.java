@@ -104,4 +104,14 @@ public class Parser {
         return input.substring(5).trim();
     }
 
+    /**
+     * Parses the bye string from the user input
+     * @param input the user input
+     * @return the bye string
+     */
+    public static String parseByeString(String input) {
+        assert input.equals("bye");
+        return input;
+    }
+
 }
