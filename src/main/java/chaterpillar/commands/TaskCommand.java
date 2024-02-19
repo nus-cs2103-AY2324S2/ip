@@ -37,7 +37,7 @@ public class TaskCommand extends Command {
         String output =
                 "Got it. I've added this task:\n"
                 + task.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+                + "Now you have " + tasks.size() + " task(s) in the list.";
         ui.echo(output);
         return output;
     }

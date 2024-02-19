@@ -78,7 +78,7 @@ public class EventTask extends Task {
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString()
+        return "[E]" + super.toString()
                 + String.format(" (from: %s to: %s)", this.dateTimeFrom, this.dateTimeTo);
     }
 }

@@ -87,7 +87,7 @@ public class Parser {
             taskIndex = Integer.parseInt(inputSplit[1]);
             return new UnmarkCommand(taskIndex);
         case "todo":
-            currTask = generateTodoTaskFromString(inputSplit);
+            currTask = generateTodoTaskFromString(input);
             return new TaskCommand(currTask);
         case "deadline":
             tempInputArgs = input.split("/");
@@ -120,13 +120,13 @@ public class Parser {
      * Generates a <code>TodoTask</code> from a String input.
      * Private helper method for <code>parse()</code> method.
      *
-     * @param tempInputArgs input arguments
+     * @param input input string
      * @return <code>TodoTask</code> according to input specification.
      * @throws ChaterpillarException if name of task is empty.
      */
-    private static Task generateTodoTaskFromString(String[] tempInputArgs) throws ChaterpillarException {
+    private static Task generateTodoTaskFromString(String input) throws ChaterpillarException {
         try {
-            String taskName = tempInputArgs[1];
+            String taskName = input.substring(5);
             return new TodoTask(taskName);
         } catch (StringIndexOutOfBoundsException e) {
             throw new ChaterpillarException("""
@@ -193,8 +193,16 @@ public class Parser {
     }
 
     private static UpdateCommand handleUpdateFromInput(String input) throws ChaterpillarException {
-        if (input.substring(8).isBlank()) {
-            throw new ChaterpillarException("Nothing to update?");
+        if (input.substring(6).isBlank()) {
+            throw new ChaterpillarException("""
+                                            Nothing to update?
+                                            You can use the following tags:
+                                            /name - to update the name of the task
+                                            /date - to update the date of the task
+                                            /start - to update the start date of the task
+                                            /end - to update the end date of the task
+                                            \\n
+                                            e.g. update 3 /name new name of task /date new date""\"""");
         }
 
         String[] tempInputArgs;

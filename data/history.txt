@@ -1,7 +1,11 @@
 D|true|submit screenshot|8/Feb/2024 02:10 PM
-T|true|read book
+T|false|read book
 T|false|borrow book
 E|false|return book|18/Feb/2024 03:00 PM|18/Feb/2024 05:00 PM
 T|false|add functionality to work with other DateTime formats
-D|false|finish GUI|4/Feb/2024
+D|false|submit report|21/Feb/2024
 D|true|helpme|20/Feb/2024
+T|false|update README doc
+D|false|submit final report|25/Feb/2024 09:00 PM
+E|false|CCA training|20/Feb/2024 04:00 PM|20/Feb/2024 07:00 PM
+T|false|booking

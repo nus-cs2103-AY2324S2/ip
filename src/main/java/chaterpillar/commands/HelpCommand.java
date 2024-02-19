@@ -14,13 +14,13 @@ public class HelpCommand extends Command {
 
             'list' - lists the tasks registered in the list
             'today' - lists the tasks for today
+            'find' - finds the tasks containing the keyword specified
             'todo' - adds an item that has no due date
             'deadline' - adds an item with a due date
             'event' - adds an item that has a duration
             'mark' - marks the task as completed
             'unmark' - marks the task as not completed
             'update' - updates the task details
-            'find' - finds the tasks containing the keyword specified
             'help' - opens the list of commands available
             'bye' - exits the chatbot""";
 
