@@ -27,8 +27,6 @@ public class Ui {
      * @return Greeting messages for the user.
      */
     public String greet() {
-        //Greetings
-
         return "Hello! I'm " + this.NAME + "\nWhat can I do for you?";
     }
 
@@ -64,6 +62,7 @@ public class Ui {
         int length = taskList.getSize();
 
         for (int i = 0; i < length; i++) {
+            assert i > 0 && i < taskList.getSize() : "Index must be within size of taskList";
             Task task = taskList.getTaskAtPosition(i + 1);
             acc.append(i + 1 + "." + task.toString() + "\n");
         }
@@ -94,6 +93,7 @@ public class Ui {
      * @return Description of the marked task.
      */
     public static String displayMarkedTask(TaskList taskList, int position) {
+        assert position <= taskList.getSize() : "Position of task must be within size of taskList";
         Task markedTask = taskList.getTaskAtPosition(position);
 
         String descToDisplay = "Nice! I've marked this task as done:\n" + "  " + markedTask.toString();
@@ -109,6 +109,7 @@ public class Ui {
      * @return Description of the unmarked task.
      */
     public static String displayUnmarkedTask(TaskList taskList, int position) {
+        assert position <= taskList.getSize() : "Position of task must be within size of taskList";
         Task unmarkedTask = taskList.getTaskAtPosition(position);
 
         String descToDisplay = "OK, I've marked this task as not done yet:\n"
@@ -139,15 +140,17 @@ public class Ui {
      * @return All the tasks with matched description.
      */
     public static String displayMatchingTasks(TaskList taskList, String keyword) {
-        StringBuilder descToDisplay = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder descToDisplay = new StringBuilder("Here are the matching tasks in your list: \n");
         int length = taskList.getSize();
         int counter = 0;
 
 
         for (int i = 1; i < length + 1; i++) {
+            assert i > 0 && i <= taskList.getSize() : "Position must be within size of taskList";
             Task task = taskList.getTaskAtPosition(i);
             if (task.toString().contains(keyword)) {
                 counter++;
+                assert counter <= taskList.getSize() : "Number of matched tasks must be a subset of taskList";
                 descToDisplay.append(counter + "." + task + "\n");
             }
         }

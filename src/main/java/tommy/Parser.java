@@ -41,7 +41,6 @@ public class Parser {
 
         Command command;
 
-        // TODO: handle exception when there is blank space after command
         try {
             String[] components = userInput.split(" ", 2);
             String description;
