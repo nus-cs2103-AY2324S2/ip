@@ -33,7 +33,7 @@ public class Storage {
 
     public ArrayList<Task> load() {
         if (file.length() == 0) {
-            return new ArrayList<>(); // Handle empty file or non-existing file
+            return new ArrayList<>(); // Handle empty file
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

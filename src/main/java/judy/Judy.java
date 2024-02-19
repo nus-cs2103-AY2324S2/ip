@@ -12,7 +12,7 @@ public class Judy {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
-    private static final String FILE_PATH = "src/main/java/judy/data/judy.txt";
+    private static final String FILE_PATH = "judy.txt";
 
     public Judy(String filePath) {
         this.ui = new Ui();
