@@ -94,7 +94,7 @@ public class TaskList {
     public String findTasks(String s) {
         ArrayList<Task> filtered = new ArrayList<>();
         for (Task t : internalList) {
-            if (t.name.contains(s)) {
+            if (t.getName().contains(s)) {
                 filtered.add(t);
             }
         }
