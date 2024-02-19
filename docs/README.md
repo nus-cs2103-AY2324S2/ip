@@ -1,11 +1,14 @@
 # ConvoBot User Guide
 
-Welcome to the ConvoBot User Guide! This guide will walk you through the features and functionalities of our conversational bot, designed to assist you in managing your daily tasks efficiently.
+Welcome to the ConvoBot User Guide!
+
+This guide will walk you through the features and functionalities of our conversational bot, designed to assist you in managing your daily tasks efficiently.
 
 ![ConvoBot Screenshot](./Ui.png)
 
-## Getting Started
-To interact with ConvoBot, simply start typing messages in the text area provided. Commands are case-insensitive and should begin with a keyword followed by any necessary arguments.
+To interact with ConvoBot, simply start typing messages in the text area provided.
+
+Commands are case-insensitive and should begin with a keyword followed by any necessary arguments.
 
 # Create New Tasks
 Add different kinds of tasks easily:
@@ -58,21 +61,24 @@ Mark completed tasks to keep track of your progress:
 
 `mark task_number`
 
-Replace 'task_number' with the appropriate number from your task list. Upon successful completion, ConvoBot will confirm that the task has been marked as complete.
+Replace `task_number` with the appropriate number from your task list, such as `1`.  
+Upon successful completion, ConvoBot will confirm that the task has been marked as complete.
 
 ## Incomplete Tasks
 Unmark tasks that were mistakenly marked as completed:
 
 `unmark task_number`
 
-Similar to the 'mark' command, replace 'task_number' with the correct number from your task list. After processing this request, ConvoBot will notify you whether the task was successfully unmarked.
+Similar to the `mark` command, replace `task_number` with the correct number from your task list, such as `1`.  
+After processing this request, ConvoBot will notify you whether the task was successfully unmarked.
 
 ## Deleting Tasks
 Remove unwanted tasks from your list:
 
 `delete task_number`
 
-Again, substitute 'task_number' with the correct one from your task list. Once processed, ConvoBot will inform you about the deletion status.
+Again, substitute `task_number` with the correct one from your task list, such as `1`.  
+Once processed, ConvoBot will inform you about the deletion status.
 
 ## Searching Your Task List
 Find relevant tasks quickly:
@@ -83,6 +89,7 @@ Input any keywords related to the task(s) you want to locate. Replace `search_te
 
 `find meeting presentation`
 
+### Fuzzy Search
 ConvoBot supports fuzzy string matching using the Levenshtein distance.
 
 # Exit the Application
@@ -111,7 +118,7 @@ As part of our ongoing efforts to improve productivity management capabilities, 
 
 These notifications could arrive via email, push notification, or other messaging platforms depending upon integration possibilities.
 
-With timely reminders enabled, staying organized and maintaining focus becomes simpler than ever before.
+With timely reminders enabled, staying organized and maintaining focus becomes simpler than ever before.  
 
 ## Cloud Storage Integration
 Last but certainly not least, integrating cloud services represents another exciting avenue under exploration.
