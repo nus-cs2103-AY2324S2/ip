@@ -111,7 +111,11 @@ public class TaskList {
         for (int i = 0; i < tasks.size() - 1; i++) {
             taskListString = taskListString + (i + 1) + ". " + tasks.get(i) + "\n ";
         }
-        taskListString = taskListString + (tasks.size()) + ". " + tasks.get(tasks.size() - 1);
+        if (tasks.size() >= 1) {
+            taskListString = taskListString + (tasks.size()) + ". " + tasks.get(tasks.size() - 1);
+        } else {
+            taskListString = "Oh, there is nothing inside the list. Please add some.";
+        }
         return taskListString;
     }
 }
