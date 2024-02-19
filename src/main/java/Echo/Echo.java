@@ -3,6 +3,8 @@ package Echo;
 import Echo.Storage.Storage;
 import Echo.Ui.Ui;
 
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 import java.io.File;
 import javafx.application.Application;
 import javafx.scene.control.Label;
@@ -164,7 +166,7 @@ public class Echo extends Application {
         Label botTextLabel = new Label(formattedBotResponse);
         DialogBox botDialog = DialogBox.getDukeDialog(botTextLabel, new ImageView(echo));
 
-        dialogContainer.getChildren().addAll(userDialog, botDialog);
+        Stream.of(userDialog, botDialog).forEach(dialogContainer.getChildren()::add);
         userInput.clear();
     }
 
@@ -175,15 +177,6 @@ public class Echo extends Application {
     public void displayBotResponse(String response) {
         formattedBotResponse = "Bot: " + response + "\n";
     }
-
-
-    /*public void displayUserInput(String userInput) {
-        String formattedUserInput = "You: " + userInput + "\n";
-        Platform.runLater(() -> {
-            chatArea.appendText(formattedUserInput);
-            dialogContainer.getChildren().add(new DialogBox(new Label(userInput), new ImageView(user)));
-        });
-    }*/
 
     public void echoCommand(String command) {
         Platform.runLater(() -> {

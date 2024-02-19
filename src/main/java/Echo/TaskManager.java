@@ -17,6 +17,7 @@ import Echo.Task.Deadline;
 import Echo.Task.Event;
 import Echo.Storage.Storage;
 
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedWriter;
@@ -106,9 +107,10 @@ public class TaskManager {
             response.append("No tasks in the list.\n");
         } else {
             response.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
-            }
+            response.append(tasks.stream()
+                    .map(task -> tasks.indexOf(task) + 1 + ". " + task.toString())
+                    .collect(Collectors.joining("\n")));
+            response.append("\n");
         }
 
         response.append("____________________________________________________________");
@@ -325,13 +327,9 @@ public class TaskManager {
      * @param keyword The keyword to search for in task descriptions.
      */
     public void findTasks(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
 
         StringBuilder response = new StringBuilder();
 
@@ -339,12 +337,14 @@ public class TaskManager {
             response.append("No matching tasks found.\n");
         } else {
             response.append("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-            }
+            response.append(matchingTasks.stream()
+                    .map(task -> matchingTasks.indexOf(task) + 1 + ". " + task.toString())
+                    .collect(Collectors.joining("\n")));
+            response.append("\n");
         }
 
         echo.displayBotResponse(response.toString());
     }
+
 
 }
