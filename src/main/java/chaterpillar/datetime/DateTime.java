@@ -15,6 +15,8 @@ import chaterpillar.exceptions.ChaterpillarException;
 
 /**
  * Custom date and time class for handling dates within this application.
+ *
+ * @author marclamp
  */
 
 public class DateTime {
@@ -57,6 +59,10 @@ public class DateTime {
      *     invalid/unaccepted format.
      */
     public LocalDateTime parseDateTime(String str) throws ChaterpillarException {
+        /* Solution adapted from:
+            https://www.baeldung.com/java-datetimeformatter
+            Specifically, how to use DateTimeFormatterBuilder and appending patterns.
+         */
         DateTimeFormatterBuilder dateTimeFormatterBuilder =
                 new DateTimeFormatterBuilder()
                         .appendPattern("[d/M/uuuu HHmm]")

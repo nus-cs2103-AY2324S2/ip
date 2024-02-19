@@ -6,6 +6,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to print out the help message.
+ *
+ * @author marclamp
  */
 public class HelpCommand extends Command {
 

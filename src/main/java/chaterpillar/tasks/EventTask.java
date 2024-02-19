@@ -9,6 +9,8 @@ import chaterpillar.exceptions.ChaterpillarException;
  * a boolean indicating whether the task is marked,
  * a String representing the start date and/or time of the event, and
  * a String representing the end date and/or time of the event.
+ *
+ * @author marclamp
  */
 public class EventTask extends Task {
     private DateTime dateTimeFrom;

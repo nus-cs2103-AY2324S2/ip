@@ -15,6 +15,9 @@ import javafx.util.Pair;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    /* Image by <a href="https://www.freepik.com/free-vector/hand-drawn-cartoon-caterpillar-
+       illustration_41965142.htm#query=caterpillar%20with%20glasses%20cartoon&position=3&from_view=search&track=
+       ais&uuid=1c52d891-0773-4104-ae03-207651165b78">Freepik</a> */
     private static final String CHATERPILLAR_IMAGE = "/images/chaterpillar.png";
     private static final String USER_IMAGE = "/images/user.png";
     private final Image chaterpillarImage = new Image(this.getClass().getResourceAsStream(CHATERPILLAR_IMAGE));

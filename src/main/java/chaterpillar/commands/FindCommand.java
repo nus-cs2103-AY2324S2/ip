@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to find all tasks containing the search word.
+ *
+ * @author marclamp
  */
 public class FindCommand extends Command {
     private final String keyword;

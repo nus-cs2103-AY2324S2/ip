@@ -9,6 +9,8 @@ import chaterpillar.ui.Ui;
 /**
  * <code>Command</code> to delete the item in the <code>TaskList</code>>
  * object which contains the list of tasks, at the specified index.
+ *
+ * @author marclamp
  */
 public class DeleteCommand extends Command {
     private final int index;

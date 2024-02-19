@@ -7,6 +7,8 @@ import chaterpillar.ui.Ui;
 /**
  * <code>Command</code> specifically to print all the tasks
  * present in the list of tasks currently.
+ *
+ * @author marclamp
  */
 public class ListAllCommand extends Command {
 

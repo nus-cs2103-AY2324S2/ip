@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to unmark a task at a specified index as not completed.
+ *
+ * @author marclamp
  */
 public class UnmarkCommand extends Command {
     private final int index;

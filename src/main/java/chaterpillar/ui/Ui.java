@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 /**
  * UI class for this application. Handles all the printing of
  * things to the CLI and GUI.
+ *
+ * @author marclamp
  */
 public class Ui {
     private static final String LOGO =

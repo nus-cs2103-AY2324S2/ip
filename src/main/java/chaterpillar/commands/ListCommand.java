@@ -9,6 +9,8 @@ import chaterpillar.ui.Ui;
  * <code>Command</code> to list out the list of tasks given
  * as a parameter in its construction, used in <code>ListAllCommand</code>
  * <code>TasksByDateCommand</code>, and <code>TasksByTodayCommand</code>.
+ *
+ * @author marclamp
  */
 public class ListCommand extends Command {
     private final TaskList tasks;

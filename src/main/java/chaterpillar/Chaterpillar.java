@@ -10,6 +10,8 @@ import javafx.util.Pair;
 
 /**
  * Main class for Chaterpillar chatbot.
+ *
+ * @author marclamp
  */
 public class Chaterpillar {
     private static final String GREETING_MESSAGE = "Hello! I'm Chaterpillar!\n"

@@ -17,6 +17,8 @@ import chaterpillar.tasks.TaskList;
 
 /**
  * Custom <code>Storage</code> for file reading/writing pero=sona.
+ *
+ * @author marclamp
  */
 public class Storage {
     public static final String CHATBOT_PATH_NAME = "./data";

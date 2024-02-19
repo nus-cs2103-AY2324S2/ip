@@ -22,6 +22,8 @@ import chaterpillar.tasks.TodoTask;
 
 /**
  * Utility class for parsing inputs by the user.
+ *
+ * @author marclamp
  */
 public class Parser {
     /**

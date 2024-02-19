@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to mark a task at a specified index as completed.
+ *
+ * @author marclamp
  */
 public class MarkCommand extends Command {
     private final int index;

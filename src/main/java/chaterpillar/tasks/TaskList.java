@@ -6,6 +6,8 @@ import chaterpillar.datetime.DateTime;
 
 /**
  * Custom wrapper class for list of tasks in this application.
+ *
+ * @author marclamp
  */
 public class TaskList {
     private final ArrayList<Task> tasks;

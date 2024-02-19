@@ -8,6 +8,8 @@ import chaterpillar.exceptions.ChaterpillarException;
  * object contains its description or name, represented by a String,
  * a boolean indicating whether the task is marked, and
  * a String representing the date and/or time of deadline.
+ *
+ * @author marclamp
  */
 public class DeadlineTask extends Task {
     private DateTime dateTime;

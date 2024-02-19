@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to update a task from the list of tasks.
+ *
+ * @author marclamp
  */
 public class UpdateCommand extends Command {
     private final int index;

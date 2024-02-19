@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to add a task to the list of tasks.
+ *
+ * @author marclamp
  */
 public class TaskCommand extends Command {
     private final Task task;

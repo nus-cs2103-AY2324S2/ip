@@ -8,6 +8,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to list all tasks on a specified date.
+ *
+ * @author marclamp
  */
 public class TasksDueByDateCommand extends Command {
     private final DateTime date;

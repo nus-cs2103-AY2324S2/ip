@@ -7,6 +7,8 @@ import chaterpillar.exceptions.ChaterpillarException;
  * Represents a task. A <code>tasks.Task</code> object contains its
  * description or name, represented by a String, and a boolean
  * indicating whether the task is marked.
+ *
+ * @author marclamp
  */
 public class Task {
     private boolean isMarked;

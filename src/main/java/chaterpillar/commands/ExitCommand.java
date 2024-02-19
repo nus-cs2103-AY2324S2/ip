@@ -6,6 +6,8 @@ import chaterpillar.ui.Ui;
 
 /**
  * <code>Command</code> to exit the program.
+ *
+ * @author marclamp
  */
 public class ExitCommand extends Command {
 
