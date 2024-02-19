@@ -22,5 +22,5 @@ bin/
 # data files
 /data/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# java archive files
+*.jar
