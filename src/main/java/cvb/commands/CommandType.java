@@ -121,6 +121,9 @@ public enum CommandType {
             if (k == -1 || k == n - 1) {
                 throw new ConvoBotException("Invalid input. End date missing.");
             }
+            if (j > k) {
+                throw new ConvoBotException("Invalid input. /from must be before /to.");
+            }
             String description = String.join(" ", args.subList(1, j));
             String from = String.join(" ", args.subList(j + 1, k));
             String to = String.join(" ", args.subList(k + 1, n));
