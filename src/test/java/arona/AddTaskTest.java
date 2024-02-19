@@ -8,7 +8,7 @@ public class AddTaskTest {
         try {
             Ui ui = new Ui();
             TaskList tasklist = new TaskList(ui);
-            Storage storage = new Storage("./src/data/dummy.txt");
+            Storage storage = new Storage();
             String fullCommandOne = "todo food";
             String fullCommandTwo = "deadline movie /by 2020-12-31";
             String fullCommandThree = "event run /from 2020-10-20 /to 2021-12-20";

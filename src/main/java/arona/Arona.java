@@ -60,6 +60,10 @@ public class Arona  {
 
     }
 
+    /**
+     * Obtain the current
+     * @return
+     */
     public String getResponse() {
         return ui.getResponse();
     }

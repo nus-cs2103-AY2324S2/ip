@@ -25,12 +25,6 @@ public class AddTask extends Command {
             return;
         }
 
-        int originalSize = taskList.getTasks().size();
-        taskList.addTask(fullCommand);
-        int alteredSize = taskList.getTasks().size();
-
-        // assert alteredSize == originalSize + 1 : "Task was not added to tasklist";
-
         storage.save(taskList.getTasks());
     }
 }
