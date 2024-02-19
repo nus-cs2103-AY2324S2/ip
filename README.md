@@ -9,9 +9,7 @@
 - ***FAST SUPER FAST*** to use
 
 And it is **FREE** (for now)!
-
 ![Huyang](docs/Ui.png)
-
 ### Features:
 
 - [x] Managing tasks
