@@ -57,10 +57,12 @@ public class Parser {
      * @return The created Deadline task.
      */
     private static Task createDeadlineTask(String description, String line) {
-        int byIndex = line.indexOf("(by: ");
+        int byIndex = line.indexOf(" (by:");
         int endIndex = line.indexOf(")");
-        String by = line.substring(byIndex + 5, endIndex);
-        Deadline deadlineTask = new Deadline(description, by);
+        int descriptionEnd = description.indexOf(" (by:");
+        String taskDescription = description.substring(0, descriptionEnd);
+        String by = line.substring(byIndex + 6, endIndex);
+        Deadline deadlineTask = new Deadline(taskDescription, by);
         if (line.charAt(IS_DONE_INDEX) == 'X') {
             deadlineTask.mark();
         }
@@ -75,12 +77,14 @@ public class Parser {
      * @return The created Event task.
      */
     private static Task createEventTask(String description, String line) {
-        int fromIndex = line.indexOf("(from: ");
+        int fromIndex = line.indexOf(" (from:");
         int toIndex = line.indexOf(" to: ");
         int endIndex = line.indexOf(")");
-        String from = line.substring(fromIndex + 7, toIndex);
+        int descriptionEnd = description.indexOf(" (from:");
+        String taskDescription = description.substring(0, descriptionEnd);
+        String from = line.substring(fromIndex + 8, toIndex);
         String to = line.substring(toIndex + 5, endIndex);
-        Event eventTask = new Event(description, from, to);
+        Event eventTask = new Event(taskDescription, from, to);
         if (line.charAt(IS_DONE_INDEX) == 'X') {
             eventTask.mark();
         }
