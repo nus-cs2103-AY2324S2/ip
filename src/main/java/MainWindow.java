@@ -1,10 +1,18 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -17,7 +25,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private Duke duke;
+    private ChatPal duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/corgi.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/golden_retriever.jpg"));
@@ -31,7 +39,7 @@ public class MainWindow extends AnchorPane {
         greet();
     }
 
-    public void setDuke(Duke d) {
+    public void setDuke(ChatPal d) {
         duke = d;
     }
 
@@ -39,14 +47,14 @@ public class MainWindow extends AnchorPane {
      * Displays greeting message.
      */
     private void greet() {
-        String text = "Welcome! How can I help you?\n";
+        String text = "Hi Hi!! Your personal ChatPal here! How can I help you?\n";
         DialogBox greetDialog = DialogBox.getDukeDialog(text, dukeImage);
         dialogContainer.getChildren().add(greetDialog);
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing ChatPal's reply and then appends
+     * them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -69,5 +77,9 @@ public class MainWindow extends AnchorPane {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.clear();
+        if (userText.equals("bye")) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
+            timeline.play();
+        }
     }
 }

@@ -7,10 +7,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for ChatPal using FXML.
  */
 public class Main extends Application {
-    private Duke duke = new Duke();
+    private ChatPal duke = new ChatPal();
 
     @Override
     public void start(Stage stage) {

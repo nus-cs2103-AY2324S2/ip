@@ -6,18 +6,18 @@ import duke.helpers.Ui;
 import duke.task.TaskList;
 
 /**
- * Duke class
+ * ChatPal class
  */
-public class Duke {
+public class ChatPal {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
     private Storage secondaryStorage;
 
     /**
-     * Constructor of Duke.
+     * Constructor of ChatPal.
      */
-    public Duke() {
+    public ChatPal() {
         this.ui = new Ui();
         this.tasks = new TaskList();
         this.storage = new Storage(CommandType.FILEPATH.toString());
