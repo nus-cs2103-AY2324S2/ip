@@ -186,6 +186,7 @@ public class Duke {
     public String getResponse(String input) {
         this.ui.showWelcome();
         boolean isExit = false;
+        String divider = "________________________________________";
 
         String[] tempArr;
         Task currTask;
@@ -200,6 +201,8 @@ public class Duke {
 
         if (input.equals("bye")) {
             outputResponse = this.ui.showGoodbye();
+            assert outputResponse.equals(divider + "\nHomie, theres an error loading your tasks!\n" + divider)
+                    : "output response does not match";
             return outputResponse;
         }
 
@@ -227,6 +230,7 @@ public class Duke {
 
         if (input.contains("todo") || input.contains("deadline") || input.contains("event")) {
             tempArr = input.split(" ");
+            assert tempArr.length >= 2 : "Invalid input";
             switch (tempArr[0]) {
             case ("todo"):
                 try {
@@ -241,6 +245,7 @@ public class Duke {
                 break;
 
             case ("deadline"):
+                assert tempArr.length >= 7 : "Invalid Input";
                 tempArr = (input.substring(9)).split("/");
                 Deadline currDeadline = new Deadline(tempArr[0], tempArr[1].substring(3));
                 this.tasks.addTask(currDeadline);
@@ -249,6 +254,7 @@ public class Duke {
                 return outputResponse;
 
             case ("event"):
+                assert tempArr.length >= 6 : "Invalid Input";
                 tempArr = (input.substring(6)).split("/");
                 Event currEvent = new Event(tempArr[0], tempArr[1].substring(5), tempArr[2].substring(3));
                 this.tasks.addTask(currEvent);
@@ -262,6 +268,7 @@ public class Duke {
 
         if (input.contains("mark")) {
             tempArr = input.split(" ");
+            assert tempArr.length == 2 : "Invalid number of inputs";
             currTask = this.tasks.getTask(Integer.parseInt(tempArr[1]) - 1);
             switch (tempArr[0]) {
             case ("mark"):
@@ -277,7 +284,7 @@ public class Duke {
                 return outputResponse;
 
             default:
-                this.ui.showWrongCommand();
+                outputResponse = this.ui.showWrongCommand();
             }
         }
         return outputResponse;
