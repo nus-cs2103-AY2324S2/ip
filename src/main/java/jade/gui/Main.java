@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Jade");
             fxmlLoader.<MainWindow>getController().setJade(jade);
             stage.show();
         } catch (IOException e) {
