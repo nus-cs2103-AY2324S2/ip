@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -182,7 +181,12 @@ public class CatChat extends Application {
      * Clears the user input after processing.
      */
     private void handleUserInput() {
-        String input = ui.getUserInput(); // Get user input using Ui class method
+        if (dialogContainer.getChildren().isEmpty()) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(ui.showGreeting(), dukeImg));
+        }
+
+        String input = ui.getUserInput();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImg),
                 DialogBox.getDukeDialog(getResponse(input), dukeImg)
