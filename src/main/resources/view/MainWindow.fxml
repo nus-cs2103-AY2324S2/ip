@@ -16,7 +16,7 @@
       <Button fx:id="listButton" layoutX="228.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleListButton" prefHeight="41.0" prefWidth="76.0" text="List" />
       <Button fx:id="unmarkButton" layoutX="76.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleUnmarkButton" prefHeight="41.0" prefWidth="76.0" text="Unmark" />
       <Button fx:id="markButton" layoutY="800.0" mnemonicParsing="false" onAction="#handleMarkButton" prefHeight="41.0" prefWidth="76.0" text="Mark" />
-      <Button fx:id="clearButton" layoutX="228.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleClearButton" prefHeight="41.0" prefWidth="76.0" text="Clear List" />
+      <Button fx:id="clearListButton" layoutX="228.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleClearListButton" prefHeight="41.0" prefWidth="76.0" text="Clear List" />
       <Button fx:id="findButton" layoutX="152.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleFindButton" prefHeight="41.0" prefWidth="76.0" text="Find" />
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="800.0" prefWidth="400.0" vvalue="1.0">
             <content>
