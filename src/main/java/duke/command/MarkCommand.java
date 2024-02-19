@@ -3,6 +3,9 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * Class representing Mark commands.
+ */
 public class MarkCommand extends Command {
     private boolean mark;
     private int index;
@@ -10,6 +13,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int index, boolean mark) {
         this.mark = mark;
         this.index = index;
+        assert index >= 0 : "index should be positive";
     }
 
     @Override

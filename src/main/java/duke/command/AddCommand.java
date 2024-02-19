@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
+/**
+ * Class representing Add commands
+ */
 public class AddCommand extends Command {
     private Task task;
     public AddCommand(Task task) {
