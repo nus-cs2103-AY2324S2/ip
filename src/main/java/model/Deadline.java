@@ -19,24 +19,24 @@ public class Deadline implements Task {
     private static DateTimeFormatter dtfOutput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private final String name;
-    private final boolean done;
+    private final boolean isDone;
     private final LocalDateTime deadline;
 
     /**
-     * Contructor to create a new {@code Deadline} object, with {@code done} set to {@code false} by default.
+     * Creates a new {@code Deadline} object, with {@code done} set to {@code false} by default.
      * 
      * @param name Name of the deadline task.
      * @param deadline {@code LocalDateTime} object representing the deadline.
      */
     public Deadline(String name, LocalDateTime deadline) {
         this.name = name;
-        done = false;
+        isDone = false;
         this.deadline = deadline;
     }
 
     private Deadline(String name, boolean done, LocalDateTime deadline) {
         this.name = name;
-        this.done = done;
+        this.isDone = done;
         this.deadline = deadline;
     }
 
@@ -71,7 +71,7 @@ public class Deadline implements Task {
      */
     @Override
     public String toString() {
-        String d = this.done ? "X" : " ";
+        String d = this.isDone ? "X" : " ";
         return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtfOutput));
     }
 }

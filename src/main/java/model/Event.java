@@ -20,12 +20,12 @@ public class Event implements Task {
     private static DateTimeFormatter dtfOutput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private final String name;
-    private final boolean done;
+    private final boolean isDone;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
     /**
-     * Contructor to create a new {@code Event} object, with {@code done} set to {@code false} by default.
+     * Creates a new {@code Event} object, with {@code done} set to {@code false} by default.
      * 
      * @param name Name of the event task.
      * @param startDate {@code LocalDateTime} object representing the start of the event.
@@ -33,14 +33,14 @@ public class Event implements Task {
      */
     public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
-        done = false;
+        isDone = false;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     private Event(String name, boolean done, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
-        this.done = done;
+        this.isDone = done;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -76,7 +76,7 @@ public class Event implements Task {
      */
     @Override
     public String toString() {
-        String d = done ? "X" : " ";
+        String d = isDone ? "X" : " ";
         return String.format("[E][%s] %s (from: %s) (to: %s)", d, name,
                 startDate.format(dtfOutput), endDate.format(dtfOutput));
     }

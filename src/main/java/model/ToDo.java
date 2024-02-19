@@ -13,21 +13,21 @@ package model;
  */
 public class ToDo implements Task {
     private final String name;
-    private final boolean done;
+    private final boolean isDone;
 
     /**
-     * Contructor to create a new {@code ToDo} object, with {@code done} set to {@code false} by default.
+     * Creates a new {@code ToDo} object, with {@code done} set to {@code false} by default.
      * 
      * @param name Name of the "To Do" task.
      */
     public ToDo(String name) {
         this.name = name;
-        done = false;
+        isDone = false;
     }
 
     private ToDo(String name, boolean done) {
         this.name = name;
-        this.done = done;
+        this.isDone = done;
     }
 
     /**
@@ -57,7 +57,7 @@ public class ToDo implements Task {
      */
     @Override
     public String toString() {
-        String d = this.done ? "X" : " ";
+        String d = this.isDone ? "X" : " ";
         return String.format("[T][%s] %s", d, name);
     }
 }
