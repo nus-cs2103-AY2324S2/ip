@@ -24,6 +24,7 @@ public class TalkingJohn {
         List<Task> taskArr = new ArrayList<>();
         this.storage = new Storage(filePath, taskArr);
         this.taskList = new TaskList(storage.loadTasksFromFile(), ui);
+        assert taskArr != null : "taskArr cannot be null";
     }
 
     /**

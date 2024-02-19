@@ -32,12 +32,11 @@ test {
 }
 
 application {
-    mainClass.set("TalkingJohn.TalkingJohn")
+    mainClass.set("talkingjohn.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "TalkingJohn"
-    archiveFileName = 'TalkingJohn.jar'
+    archiveBaseName = "Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

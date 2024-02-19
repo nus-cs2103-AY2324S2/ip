@@ -38,6 +38,7 @@ public class Parser {
      * Handles user input and executes corresponding actions until the "bye" command is received.
      */
     public String handleInput(String input) {
+        assert input != null : "user input cannot be null";
         if (Objects.equals(input, "bye")) {
             storage.saveTasksToFile();
             return ui.goodbye();
@@ -46,8 +47,6 @@ public class Parser {
         if (invalidInputs.contains(input)) {
             return ui.emptyInput(input);
         }
-
         return taskList.action(input);
-
     }
 }

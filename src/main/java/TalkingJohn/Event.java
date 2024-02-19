@@ -4,20 +4,23 @@ package talkingjohn;
  * Represents an event task that has a start date and an end date.
  */
 public class Event extends Task {
-    protected String by1;
-    protected String by2;
+    protected String from;
+    protected String to;
 
     /**
      * Constructs an event task with the description, start date, and end date.
      *
      * @param description The description of the event.
-     * @param by1         The start date of the event.
-     * @param by2         The end date of the event.
+     * @param from         The start date of the event.
+     * @param to         The end date of the event.
      */
-    public Event(String description, String by1, String by2) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.by1 = by1;
-        this.by2 = by2;
+        assert description != null : "description cannot be null";
+        assert from != null : "from cannot be null";
+        assert to != null : "to cannot be null";
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -28,6 +31,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                "(from: " + by1.substring(5) + "to: " + by2.substring(3) + ")";
+                "(from: " + from.substring(5) + "to: " + to.substring(3) + ")";
     }
 }
