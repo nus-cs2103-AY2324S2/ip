@@ -76,4 +76,13 @@ public class Factory {
     public UnmarkTaskProcessor createUnmarkTaskProcessor() {
         return new UnmarkTaskProcessor(taskList, chatbotUi);
     }
+
+    /**
+     * Creates a SortTaskProcessor object.
+     *
+     * @return the created SortTaskProcessor object
+     */
+    public SortTaskProcessor createSortTaskProcessor() {
+        return new SortTaskProcessor(taskList, chatbotUi);
+    }
 }

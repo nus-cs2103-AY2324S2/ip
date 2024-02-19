@@ -9,6 +9,15 @@ import java.util.List;
  */
 public class TaskList {
 
+
+    public enum SortType {
+        ALPHABETICAL,
+        START_DATE,
+        END_DATE,
+        TASK_TYPE,
+        MARK
+    }
+
     private static List<Task> taskList;
 
 
@@ -125,5 +134,44 @@ public class TaskList {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Sorts the TaskList by the start time of the tasks.
+     */
+    public void sortTaskList(TaskList.SortType sortType) {
+        List<Task> tempTaskList = new ArrayList<>(taskList);
+        tempTaskList.sort((task1, task2) -> {
+            switch (sortType) {
+            case ALPHABETICAL:
+                return task1.getDesc().compareTo(task2.getDesc());
+            case START_DATE:
+                if (task1.getStart() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                if (task2.getStart() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                return task1.getStart().compareTo(task2.getStart());
+            case END_DATE:
+                if (task1.getEnd() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                if (task2.getEnd() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                return task1.getEnd().compareTo(task2.getEnd());
+            case TASK_TYPE:
+                return task1.getType().compareTo(task2.getType());
+            case MARK:
+                return Boolean.compare(task1.isDone(), task2.isDone());
+            default:
+                return 0;
+            }
+        });
+        taskList.clear();
+        for (Task task : tempTaskList) {
+            taskList.add(task);
+        }
     }
 }

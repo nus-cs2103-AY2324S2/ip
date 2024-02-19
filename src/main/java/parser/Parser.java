@@ -16,6 +16,7 @@ public class Parser {
     private final FindTaskProcessor findTaskProcessor;
     private final ListTasksProcessor listTasksProcessor;
    //private final MarkUnMarkTaskProcessor markTaskProcessor;
+    private final SortTaskProcessor sortTaskProcessor;
     private final MarkTaskProcessor markTaskProcessor;
     private final UnmarkTaskProcessor unmarkTaskProcessor;
 
@@ -27,6 +28,7 @@ public class Parser {
         this.listTasksProcessor = factory.createListTasksProcessor();
         this.markTaskProcessor = factory.createMarkTaskProcessor();
         this.unmarkTaskProcessor = factory.createUnmarkTaskProcessor();
+        this.sortTaskProcessor = factory.createSortTaskProcessor();
     }
 
     /**
@@ -51,7 +53,10 @@ public class Parser {
         case "list":
             listTasksProcessor.processCommand(userInput);
             break;
-        default:
+        case "sort":
+            sortTaskProcessor.processCommand(userInput);
+            break;
+        default:            
             addTaskProcessor.processCommand(userInput);
             break;
         }
