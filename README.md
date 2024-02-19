@@ -25,12 +25,26 @@
 
 ## *For Java Programmers*
 
-If you are a Java programmer, you can use DukePro to practice Java too. Here's the main method:
+If you are a Java programmer, you can use Skyler to practice Java too. Here's the main method:
 
 ```java
-public class Main {
-    public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
+public class Main extends Application {
+
+    private Skyler skyler = new Skyler();
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setSkyler(skyler);
+            stage.setTitle("Skyler");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
