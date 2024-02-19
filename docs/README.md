@@ -1,6 +1,6 @@
 # Bearducky User Guide
 
-![Ui](docs/Ui.png)
+![Ui](Ui.png)
 
 Bearducky is a CLI-based chatbot that allows the user to handle Tasks, meant to represent a duck wearing a bear hat.
 Tasks consist of three types:
