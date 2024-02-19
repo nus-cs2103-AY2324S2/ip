@@ -15,7 +15,7 @@ public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor to initialise a new empty {@code TaskList}.
+     * Creates a new empty {@code TaskList}.
      */
     public TaskList() {
         tasks = new ArrayList<>();

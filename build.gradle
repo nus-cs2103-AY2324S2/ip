@@ -49,8 +49,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "zero"
-    archiveClassifier = null
+    archiveBaseName.set("zero")
+    archiveClassifier.set(null)
+    archiveVersion.set("0.2")
     dependsOn("distZip", "distTar")
 }
 
