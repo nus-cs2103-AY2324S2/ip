@@ -12,24 +12,23 @@ import java.util.Scanner;
  * Represents a list to store the tasks.
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/Tes.txt"; // path of the file
-    /** Format of the date and time in the command received */
-    private static final DateTimeFormatter FORMATTER_RECEIVE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final String FILE_PATH = "./data/Tes.txt";
+
     /** Format of the date and time in database */
     private static final DateTimeFormatter FORMATTER_STORE = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
-    private ArrayList<Task> storeList;
+    private ArrayList<Task> storageList;
 
     /**
      * Constructs an empty list to load the tasks stored in local disk.
      */
     public Storage() {
-        this.storeList = new ArrayList<>();
+        this.storageList = new ArrayList<>();
     }
 
     /**
      * Saves the recorded tasks into the local disk.
-     * If there is no existing directory mentioned in the path, create one.
+     * If there is no existing directory mentioned in the path, a new one is created.
      */
     public static void saveToFile(ArrayList<Task> tasks) {
         try {
@@ -62,34 +61,40 @@ public class Storage {
                 String line = scanner.nextLine();
                 try {
                     if (line.contains("from:")) {
-                        String[] split = line.split(" \\| ");
-                        String temp = split[3].substring(6);
-                        String[] time = temp.split(" to: ");
-                        String from = time[0];
-                        String to = time[1];
-                        LocalDateTime from1 = LocalDateTime.parse(from, FORMATTER_STORE);
-                        LocalDateTime to1 = LocalDateTime.parse(to, FORMATTER_STORE);
-                        Event store = new Event(split[2], from1, to1);
-                        if (split[1].equals("X")) {
+                        String[] partsOfEventTask = line.split(" \\| ");
+                        String statusOfEvent = partsOfEventTask[1];
+                        String eventDescription = partsOfEventTask[2];
+                        String period = partsOfEventTask[3].substring(6);
+                        String[] fromAndTo = period.split(" to: ");
+                        String from = fromAndTo[0];
+                        String to = fromAndTo[1];
+                        LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_STORE);
+                        LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_STORE);
+                        Event store = new Event(eventDescription, formattedFrom, formattedTo);
+                        if (statusOfEvent.equals("X")) {
                             store.mark();
                         }
-                        storeList.add(store);
+                        storageList.add(store);
                     } else if (line.contains("by:")) {
-                        String[] split = line.split(" \\| ");
-                        String by = split[3].substring(4);
-                        LocalDateTime by1 = LocalDateTime.parse(by, FORMATTER_STORE);
-                        Deadline store = new Deadline(split[2], by1);
-                        if (split[1].equals("X")) {
+                        String[] partsOfDeadlineTask = line.split(" \\| ");
+                        String statusOfDeadline = partsOfDeadlineTask[1];
+                        String deadlineDescription = partsOfDeadlineTask[2];
+                        String by = partsOfDeadlineTask[3].substring(4);
+                        LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_STORE);
+                        Deadline store = new Deadline(deadlineDescription, formattedBy);
+                        if (statusOfDeadline.equals("X")) {
                             store.mark();
                         }
-                        storeList.add(store);
+                        storageList.add(store);
                     } else {
-                        String[] split = line.split(" \\| ");
-                        ToDo store = new ToDo(split[2]);
-                        if (split[1].equals("X")) {
+                        String[] partsOfToDoTask = line.split(" \\| ");
+                        String statusOfToDo = partsOfToDoTask[1];
+                        String toDoDescription = partsOfToDoTask[2];
+                        ToDo store = new ToDo(toDoDescription);
+                        if (statusOfToDo.equals("X")) {
                             store.mark();
                         }
-                        storeList.add(store);
+                        storageList.add(store);
                     }
                 } catch (Exception e) {
                     System.out.println("Error printing task from file: " + e.getMessage());
@@ -99,6 +104,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("Error printing task from file: " + e.getMessage());
         }
-        return this.storeList;
+        return this.storageList;
     }
 }
