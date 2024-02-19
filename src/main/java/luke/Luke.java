@@ -1,30 +1,52 @@
 package luke;
 
+import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-import java.util.Objects;
-
-public class Luke  extends Application {
+/**
+ * The main class for the Luke chatbot application.
+ * <p>
+ * This class extends the JavaFX {@code Application} class and serves as the entry point for the Luke chatbot GUI.
+ * It initializes the UI components and handles user input.
+ * </p>
+ * <p>
+ * The conversation between the user and Luke is displayed in a scrollable dialog container.
+ * User input is processed, and Luke's response is displayed in dialog boxes within the container.
+ * </p>
+ * <p>
+ * This class also loads task data from a storage file and initializes the {@code Ui} object to handle user
+ * interactions.
+ * </p>
+ */
+public class Luke extends Application {
     private Ui ui;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
 
-    private final Image USER_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image LUKE_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaLuke.png")));
+    private final Image userImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image lukeImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaLuke.png")));
 
+    /**
+     * Constructs a new instance of the Luke chatbot application.
+     * <p>
+     * Initializes the storage, task list, and user interface components.
+     * If loading task data from storage fails, it initializes an empty task list and displays a loading error message.
+     * </p>
+     */
     public Luke() {
         Storage storage = new Storage("data/tasks.txt");
         TaskList taskList;
@@ -32,9 +54,7 @@ public class Luke  extends Application {
             taskList = new TaskList(storage.loadFile());
             ui = new Ui(taskList);
         } catch (LukeException e) {
-            taskList = new TaskList();
             ui = new Ui();
-            ui.showLoadingError();
         }
     }
 
@@ -104,7 +124,7 @@ public class Luke  extends Application {
 
         String lukeText = ui.welcome();
         dialogContainer.getChildren().addAll(
-                DialogBox.getLukeDialog(lukeText, LUKE_IMAGE)
+                DialogBox.getLukeDialog(lukeText, lukeImage)
         );
     }
 
@@ -118,8 +138,8 @@ public class Luke  extends Application {
         String lukeText = getResponse(userInput.getText());
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, USER_IMAGE),
-                DialogBox.getLukeDialog(lukeText, LUKE_IMAGE)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getLukeDialog(lukeText, lukeImage)
         );
 
         userInput.clear();

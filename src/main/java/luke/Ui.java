@@ -1,7 +1,12 @@
 package luke;
 
-import java.util.Scanner;
-
+/**
+ * Represents the user interface of the Luke chatbot.
+ * <p>
+ * The UI class handles user input, processes commands, and interacts with the task list.
+ * It uses a parser to interpret user commands and executes corresponding actions.
+ * </p>
+ */
 public class Ui {
 
     protected TaskList taskList;
@@ -22,31 +27,32 @@ public class Ui {
     }
 
     protected String handleInput(String input) {
-            try {
-                parser.isInputValid(input);
-                String command = parser.getCommand(input);
-                return switch (command) {
-                    case "list" -> this.list(input);
-                    case "mark" -> this.mark(input);
-                    case "unmark" -> this.unmark(input);
-                    case "delete" -> this.delete(input);
-                    case "todo" -> this.todo(input);
-                    case "deadline" -> this.deadline(input);
-                    case "event" -> this.event(input);
-                    case "find" -> this.find(input);
-                    case "edit" -> this.edit(input);
-                    case "bye" -> this.end();
-                    default -> "Invalid command";
-                };
-            } catch (LukeException e) {
-                return e.getMessage();
-            }
+        try {
+            parser.isInputValid(input);
+            String command = parser.getCommand(input);
+            return switch (command) {
+            case "list" -> this.list(input);
+            case "mark" -> this.mark(input);
+            case "unmark" -> this.unmark(input);
+            case "delete" -> this.delete(input);
+            case "todo" -> this.todo(input);
+            case "deadline" -> this.deadline(input);
+            case "event" -> this.event(input);
+            case "find" -> this.find(input);
+            case "edit" -> this.edit(input);
+            case "bye" -> this.end();
+            default -> "Invalid command";
+            };
+        } catch (LukeException e) {
+            return e.getMessage();
+        }
     }
 
-    public void showLoadingError() {
-        System.out.println("File not found.");
-    }
-
+    /**
+     * Generates a welcome message for the user.
+     *
+     * @return The welcome message, including the name of the chatbot.
+     */
     public String welcome() {
         String name = "Luke";
         return "Hello! I'm " + name + "\nWhat can I do for you?";
@@ -117,8 +123,8 @@ public class Ui {
     }
 
     private String taskSuccessfullyAdded(Task task, int noTasks) {
-        return "I've added this task:\n" + task.toString() +
-            "\nNow you have " + noTasks + " tasks in the list.";
+        return "I've added this task:\n" + task.toString()
+            + "\nNow you have " + noTasks + " tasks in the list.";
     }
 
     private String find(String input) {

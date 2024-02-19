@@ -25,9 +25,6 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private static final int IMAGE_HEIGHT = 10;
-    private static final int IMAGE_WIDTH = 10;
-
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -53,18 +50,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        ImageView imageView = new ImageView(img);
-        imageView.setFitWidth(IMAGE_WIDTH);
-        imageView.setFitHeight(IMAGE_HEIGHT);
 
-        return new DialogBox(text, imageView.getImage());
+        return new DialogBox(text, img);
     }
 
     public static DialogBox getLukeDialog(String text, Image img) {
-        ImageView imageView = new ImageView(img);
-        imageView.setFitWidth(IMAGE_WIDTH);
-        imageView.setFitHeight(IMAGE_HEIGHT);
-        var db = new DialogBox(text, imageView.getImage());
+        var db = new DialogBox(text, img);
         db.flip();
         return db;
     }

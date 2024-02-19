@@ -38,26 +38,28 @@ public class TaskList {
     private void loadToTaskList(String taskString) {
         String taskType = taskString.substring(1, 2);
         switch (taskType) {
-            case "T":
-                Todo todo = new Todo(taskString.substring(7).trim());
-                taskList.add(todo);
-                break;
-            case "D":
-                String[] deadlineSplit = taskString.split("by: ");
-                String deadlineDescription = deadlineSplit[0].substring(7, deadlineSplit[0].length() - 1);
-                String by = deadlineSplit[1].substring(0, deadlineSplit[1].length() - 1).trim();
-                Deadline deadline = new Deadline(deadlineDescription, by);
-                taskList.add(deadline);
-                break;
-            case "E":
-                String[] eventFirstSplit = taskString.split("from: ");
-                String[] eventSecondSplit = eventFirstSplit[1].split(" to: ");
-                String eventDescription = eventFirstSplit[0].substring(7, eventFirstSplit[0].length() - 1);
-                String from = eventSecondSplit[0].trim();
-                String to = eventSecondSplit[1].substring(0, eventSecondSplit[1].length() - 1).trim();
-                Event event = new Event(eventDescription, from, to);
-                taskList.add(event);
-                break;
+        case "T":
+            Todo todo = new Todo(taskString.substring(7).trim());
+            taskList.add(todo);
+            break;
+        case "D":
+            String[] deadlineSplit = taskString.split("by: ");
+            String deadlineDescription = deadlineSplit[0].substring(7, deadlineSplit[0].length() - 1);
+            String by = deadlineSplit[1].substring(0, deadlineSplit[1].length() - 1).trim();
+            Deadline deadline = new Deadline(deadlineDescription, by);
+            taskList.add(deadline);
+            break;
+        case "E":
+            String[] eventFirstSplit = taskString.split("from: ");
+            String[] eventSecondSplit = eventFirstSplit[1].split(" to: ");
+            String eventDescription = eventFirstSplit[0].substring(7, eventFirstSplit[0].length() - 1);
+            String from = eventSecondSplit[0].trim();
+            String to = eventSecondSplit[1].substring(0, eventSecondSplit[1].length() - 1).trim();
+            Event event = new Event(eventDescription, from, to);
+            taskList.add(event);
+            break;
+        default:
+            break;
         }
     }
 
@@ -182,6 +184,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range
      */
     public Task getTask(int taskNo) {
+
         return taskList.get(taskNo);
     }
 
@@ -190,5 +193,7 @@ public class TaskList {
      *
      * @return the most recent task
      */
-    public Task getMostRecentTask() { return taskList.get(noTasks - 1); }
+    public Task getMostRecentTask() {
+        return taskList.get(noTasks - 1);
+    }
 }
