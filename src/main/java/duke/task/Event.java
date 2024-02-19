@@ -25,6 +25,10 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
 
+        assert !name.equals("") : "name should not be empty";
+        assert !from.equals("") : "from date should not be empty";
+        assert !to.equals("") : "to date should not be empty";
+
         // Check if they are in dateTime format
         // If so, update the string
         try {
