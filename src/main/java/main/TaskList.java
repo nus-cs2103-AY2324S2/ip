@@ -50,6 +50,9 @@ public class TaskList {
     }
 
     public String printList() {
+        if (list.isEmpty()){
+            return "list is empty :(";
+        }
         String str = "Current Tasks JIAYOUS\n";
 
         for (int i = 0; i < list.size(); i++) {
@@ -60,7 +63,10 @@ public class TaskList {
     }
 
     public String printList(ArrayList<Task> taskArrayList){
-        String str = "Here's what you're looking for :)";
+        if (taskArrayList.isEmpty()){
+            return "Can't find what you're looking for :(";
+        }
+        String str = "Here's what you're looking for :)\n";
 
         for (int i = 0; i < taskArrayList.size(); i++) {
             str += String.format("%d. %s\n", i + 1, taskArrayList.get(i).toString());
@@ -79,6 +85,7 @@ public class TaskList {
         }
 
         return temp;
+
     }
 
     public ArrayList<Task> getList() {
@@ -91,6 +98,7 @@ public class TaskList {
      * @param index index of list
      */
     public Pair<Boolean, String> mark(int index) {
+        assert index >= 0 && index < list.size() : "Invalid index provided";
         try {
             Task curr = list.get(index);
             curr.markMark();
@@ -102,12 +110,12 @@ public class TaskList {
     }
 
 
-
     /**
      * Given an index, uncheck the task in the taskList
      * @param index index of list
      */
     public Pair<Boolean, String> unmark(int index) {
+        assert index >= 0 && index < list.size() : "Invalid index provided";
         try {
             Task curr = list.get(index);
             curr.unmarkMark();
@@ -127,18 +135,22 @@ public class TaskList {
      * @param index index of list
      */
     public Pair<Boolean, String> remove(int index) {
+        assert list != null : "Task list is null";
         try {
-            Task curr = this.list.get(index);
-            this.list.remove(index);
+            Task curr = list.get(index);
+            int initialSize = list.size();
+            list.remove(index);
+            assert list.size() == initialSize - 1 : "Task list size did not decrease after removing a task";
 
             return new Pair<>(true,"byebye task! \n" + curr.toString() + "\n" + noOfTask() + "\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return new Pair<>(false,"Index out of bounds :(");
         }
     }
 
     public void addTask(Task task){
         this.list.add(task);
+        assert !list.isEmpty() : "Task list is empty after adding a task";
     }
 
 }
