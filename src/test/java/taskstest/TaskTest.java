@@ -20,4 +20,10 @@ public class TaskTest {
         task.markDone(true);
         assertEquals(task.getStatusIcon(), "[X]");
     }
+
+    public static void main(String[] args) {
+        TaskTest test = new TaskTest();
+        test.testTaskInit();
+        test.testStatusIcon();
+    }
 }

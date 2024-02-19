@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class DukeTest {
+public class TaskYapperTest {
     @Test
     public void dummyTest() {
         assertEquals(2, 2);
@@ -14,7 +14,7 @@ public class DukeTest {
     }
 
     public static void main(String[] args) {
-        DukeTest test = new DukeTest();
+        TaskYapperTest test = new TaskYapperTest();
         test.dummyTest();
         test.anotherDummyTest();
     }
