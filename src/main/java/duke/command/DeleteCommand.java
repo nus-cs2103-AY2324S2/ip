@@ -1,9 +1,8 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.Ui;
+import duke.*;
 import duke.task.Task;
+import duke.task.TaskCommandPair;
 import duke.task.TaskList;
 
 /**
@@ -42,6 +41,7 @@ public class DeleteCommand extends Command {
         } else {
             Task task = tasks.get(index);
             tasks.remove(index);
+            Duke.push(new TaskCommandPair(task, this));
             storage.save(tasks);
             return ui.showDeleted(task) + "\n" + ui.showSize(tasks);
         }

@@ -61,4 +61,8 @@ public class Ui {
                     "\n\t\tQuickly start working on them!!!\n";
         }
     }
+
+    public String showUndo() {
+        return "Your previous action has been undone";
+    }
 }

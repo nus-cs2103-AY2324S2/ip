@@ -1,6 +1,8 @@
 package duke.command;
 
+import duke.Duke;
 import duke.Storage;
+import duke.task.TaskCommandPair;
 import duke.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -65,6 +67,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
+        Duke.push(new TaskCommandPair(task, this));
         return ui.showAdded(task) + "\n" + ui.showTasksStatus(tasks);
     }
 

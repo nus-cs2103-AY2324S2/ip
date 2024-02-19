@@ -20,10 +20,8 @@ public class Parser {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
     public static Command parse(String str) throws DukeException {
         String[] arr = str.split(" ");
-        assert str != null : "Input cannot be null";
-        assert !str.isEmpty() : "Input cannot be empty";=
-        assert arr != null && arr.length > 0: "Error in parsing input";
-        assert arr != null && arr.length > 0 : "Split array cannot be null or empty";
+        assert !str.isEmpty() : "Input cannot be empty";
+        assert arr.length > 0 : "Error in parsing input";
         if (isSingleWordCommand(arr[0])) {
             return handleSingleWordCommand(arr);
         } else {
@@ -31,7 +29,7 @@ public class Parser {
         }
     }
     private static boolean isSingleWordCommand(String command) {
-        return command.equals("bye") || command.equals("list");
+        return command.equals("bye") || command.equals("list") || command.equals("undo");
     }
 
     private static Command handleSingleWordCommand(String[] arr) throws DukeException {
@@ -40,6 +38,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "undo":
+            return new UndoCommand();
         default:
             throw new DukeException("Invalid command");
         }
