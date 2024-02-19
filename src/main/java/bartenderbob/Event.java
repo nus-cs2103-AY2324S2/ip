@@ -12,9 +12,9 @@ public class Event extends Task {
     public static final String MMM_DD_YYYY = "MMM dd yyyy";
     public static final DateTimeFormatter MMM_DD_YYYY_FORMAT = DateTimeFormatter.ofPattern(MMM_DD_YYYY);
     /** Event start date */
-    private LocalDate from;
+    private final LocalDate from;
     /** Event due date */
-    private LocalDate by;
+    private final LocalDate by;
 
     /**
      * Creates an instance of an Event class that has a description, from date
@@ -51,7 +51,6 @@ public class Event extends Task {
      * Verifies whether a string is of the format yyyy-MM-dd.
      *
      * @param by Input String.
-     * @return Whether the string follows the format yyyy-MM-dd.
      */
     private void verifyValidDateFormat(String from, String by) {
         assert from != null : "String parameter 'from' cannot be null";
