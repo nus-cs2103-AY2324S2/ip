@@ -12,7 +12,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructor to instantiate a deadline task.
+     * Instantiates a deadline task.
      *
      * @param description Represents the string describing what the task is.
      * @param by Represent the deadline of the task.
@@ -24,7 +24,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overloaded constructor to instantiate a deadline task with a specific checkmark.
+     * Instantiates a deadline task with a specific checkmark.
      *
      * @param description Represents the string describing what the task is.
      * @param by Represent the deadline of the task.

@@ -15,7 +15,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor that creates an instance of a task.
+     * Instantiates a task.
      *
      * @param description Describes the task that the user has to do.
      */
@@ -25,7 +25,7 @@ public class Task {
     }
 
     /**
-     * Overloaded constructor to instantiate a todo task with a specific checkmark.
+     * Instantiates a todo task with a specific checkmark.
      *
      * @param description Describes the task that the user has to do.
      * @param isDone Represents the boolean describing whether the task is checked.
@@ -85,7 +85,7 @@ public class Task {
     }
 
     /**
-     * Update the description parameter of the task class.
+     * Updates the description parameter of the task class.
      *
      * @param newDescription
      *

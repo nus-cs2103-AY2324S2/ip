@@ -52,6 +52,7 @@ public class Parser {
                     return tskLst.edit(descriptionCommand, descriptionDetails, tsk);
                 case("bye"):
                     System.exit(0);
+                    return "";
                 default:
                     throw new DukeException("OOPS!!! What is that?"
                         + "I'm sorry, but I don't recognise this command :-( \nTry another command!");

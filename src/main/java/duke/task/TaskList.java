@@ -15,7 +15,7 @@ public class TaskList {
     protected ArrayList<Task> instrList = new ArrayList<>();
 
     /**
-     * Constructor that creates an instance of task list.
+     * Instantiates task list.
      *
      * @param arr The current instruction list.
      */
@@ -107,7 +107,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark a task if the user commands it to.
+     * Unmarks a task if the user commands it to.
      *
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
@@ -226,7 +226,7 @@ public class TaskList {
     }
 
     /**
-     * Process todo task.
+     * Processes todo task.
      *
      * @param instr The string with the task information.
      * @param thisStorage Task List manager.
@@ -247,7 +247,7 @@ public class TaskList {
     }
 
     /**
-     * Process deadline task.
+     * Processes deadline task.
      *
      * @param instr The string with the task information.
      * @param thisStorage Task List manager.

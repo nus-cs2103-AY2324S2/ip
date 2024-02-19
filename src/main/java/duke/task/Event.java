@@ -15,7 +15,7 @@ public class Event extends Task {
     protected String end;
 
     /**
-     * Constructor to instantiate an event task.
+     * Instantiates an event task.
      *
      * @param description Represents the string describing what the task is.
      * @param start Represents the start time of the event.
@@ -28,7 +28,7 @@ public class Event extends Task {
     }
 
     /**
-     * Overloaded constructor to instantiate an event task with a specific checkmark.
+     * Instantiates an event task with a specific checkmark.
      *
      * @param description Represents the string describing what the task is.
      * @param start Represents the start time of the event.
@@ -63,7 +63,7 @@ public class Event extends Task {
     }
 
     /**
-     * Update the start parameter of this class.
+     * Updates the start parameter of this class.
      *
      * @param newStart The new value for start date.
      * @return A string representation of the work done.
@@ -75,7 +75,7 @@ public class Event extends Task {
     }
 
     /**
-     * Update the end parameter of this class.
+     * Updates the end parameter of this class.
      *
      * @param newEnd The new value for enddate.
      * @return A string representation of the work done.

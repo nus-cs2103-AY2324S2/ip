@@ -6,7 +6,7 @@ package duke.task;
 public class Todo extends Task {
 
     /**
-     * Constructor to instantiate a todo task.
+     * Instantiates a todo task.
      *
      * @param description Represents the string describing what the task is.
      */
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Overloaded constructor to instantiate a todo task with a specific checkmark.
+     * Instantiates a todo task with a specific checkmark.
      *
      * @param description Represents the string describing what the task is.
      * @param isDone Represents the boolean describing whether the task is checked.

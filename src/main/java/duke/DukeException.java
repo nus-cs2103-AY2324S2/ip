@@ -15,6 +15,6 @@ public class DukeException extends Exception {
     }
 
     public String toString() {
-        return "LAMMEEEEEEE...." + super.getMessage() + "\n"; 
+        return "LAMMEEEEEEE...." + super.getMessage() + "\n";
     }
 }

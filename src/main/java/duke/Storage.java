@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Storage {
 
 
     /**
-     * Constructor that creates an instance of the file if it does not exists.
+     * Instantiates the file if it does not exists.
      *
      * @param filePath Represents the path of the file that stores the task list.
      */
@@ -73,25 +74,20 @@ public class Storage {
         ArrayList<Task> tskList = new ArrayList<>();
         File f = new File(this.filePath);
         try {
-            if (f.exists()) {
-                try (Scanner sc = new Scanner(f)) {
-                    while (sc.hasNext()) {
-                        Task tsk = deconstruct(sc.nextLine());
-                        tskList.add(tsk);
-                    }
-                }
-            } else {
-                throw new DukeException("OOOPS!! File '" + this.filePath
-                    + "' not found in local drive. Please check your working folder!");
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                Task tsk = deconstruct(sc.nextLine());
+                tskList.add(tsk);
             }
-        } catch (IOException e) {
-            throw new DukeException("An error occurred while reading the file: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new DukeException("OOOPS!! File '" + this.filePath
+                + "' not found in local drive. Please check your working folder!");
         }
         return tskList;
     }
 
     /**
-     * Deconstruct the line from cache file to new Task.
+     * Deconstructs the line from cache file to new Task.
      *
      * @param fileStr The line from the cache file.
      * @return A task representing the work to do.

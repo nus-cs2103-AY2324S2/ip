@@ -40,7 +40,7 @@ public class DateFormatter {
     private static final DateTimeFormatter altOutputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
-     * Constructor for date time formatting class.
+     * Instantiates date time formatting class.
      */
     public DateFormatter() {
     }
