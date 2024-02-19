@@ -186,7 +186,7 @@ public class ParserTest {
             command = parser.parse();
         } catch (DukeException e) {
             assertEquals(" Invalid format :c \n" +
-                    " (Eg format: deadline <Description> /by yyyy-MM-dd)", e.getMessage());
+                    " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)", e.getMessage());
         }
     }
     @Test

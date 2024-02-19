@@ -122,12 +122,12 @@ public class Parser {
                     DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                     byDateTime = LocalDateTime.parse(by, pattern);
                 } catch (DateTimeParseException e) {
-                    throw new DukeException(" Invalid date format! Please use yyyy-MM-dd.");
+                    throw new DukeException(" Invalid date format! Please use yyyy-MM-dd HHmm.");
                 }
                 return new Deadline(taskDescription, byDateTime);
             } else {
                 throw new DukeException(" Invalid format :c \n" +
-                        " (Eg format: deadline <Description> /by yyyy-MM-dd)");
+                        " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)");
             }
         }
     }
