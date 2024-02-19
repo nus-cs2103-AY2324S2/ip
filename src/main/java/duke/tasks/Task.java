@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Task {
     protected static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
     protected static final String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy hh:mm a";
-    public String name;
+    private String name;
     private boolean isDone;
 
     Task(String name, boolean done) {

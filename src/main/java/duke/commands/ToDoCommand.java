@@ -24,7 +24,7 @@ public class ToDoCommand implements NamedCommand {
             throw new InvalidParametersException("parameters for todo cannot be empty");
         }
         ToDo t = new ToDo(commandArgs);
-        session.taskList.add(t);
+        session.getTaskList().add(t);
 
         session.printMessage(String.format("Got it. I've added the following task: \n %s", t.getName()));
     }

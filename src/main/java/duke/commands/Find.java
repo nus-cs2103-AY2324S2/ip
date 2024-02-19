@@ -10,6 +10,6 @@ public class Find implements NamedCommand {
     public void execute(ChatSession session, String commandArgs) {
         session.printMessage("Here are the matching tasks in your list:"
             + System.lineSeparator()
-            + session.taskList.findTasks(commandArgs));
+            + session.getTaskList().findTasks(commandArgs));
     }
 }

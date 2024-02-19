@@ -12,7 +12,7 @@ public class GoldBot {
     private TaskList taskList;
 
     GoldBot() {
-        storage = new Storage("./data/data.txt"); 
+        storage = new Storage("./data/data.txt");
         try {
             taskList = storage.createTaskList();
         } catch (IOException e) {
