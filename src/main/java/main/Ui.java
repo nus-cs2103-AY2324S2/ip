@@ -6,8 +6,6 @@ import Objects.Task;
  * Class that has all the methods for printing output purposes
  */
 public class Ui {
-    public void showLoadingError() {
-    }
 
     public static String greetings() {
         return "Yo! I'm Poe\nWhat can I do for you bro";

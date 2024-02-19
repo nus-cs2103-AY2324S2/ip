@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * An object that has methods to change tasks in the list
  */
 public class TaskList {
-      ArrayList<Task> list = new ArrayList<Task>(100);;
+    ArrayList<Task> list = new ArrayList<>(100);;
 
     public TaskList(String str) {
         addList(str);
@@ -28,54 +28,61 @@ public class TaskList {
      */
 
     public void addList(String str) {
-//        Objects.Task task = new Objects.Task(str,false);
-//        list.add(task);
-//        System.out.println(line+"\nadded : "+str+"\n"+line);
         String[] splitLine = str.split("\n");
         for (String x :splitLine) {
             String[] splitStr = x.split("\\|");
-            switch (splitStr[0]) {
-                case "E" :
-                    list.add(new Event(splitStr[2],Integer.parseInt(splitStr[1]) == 1, LocalDate.parse(splitStr[3]), LocalDate.parse(splitStr[4])));
-                    break;
-                case "D" :
-                    list.add(new Deadline(splitStr[2],Integer.parseInt(splitStr[1]) == 1, LocalDate.parse(splitStr[3])));
-                    break;
-                case "T" :
-                    list.add(new Todo(splitStr[2],Integer.parseInt(splitStr[1]) == 1));
-                    break;
-            }
+            addListCase(splitStr);
+        }
+    }
+
+    public void addListCase(String[] str) {
+        switch (str[0]) {
+            case "E" :
+                list.add(new Event(str[2],Integer.parseInt(str[1]) == 1, LocalDate.parse(str[3]), LocalDate.parse(str[4])));
+                break;
+            case "D" :
+                list.add(new Deadline(str[2],Integer.parseInt(str[1]) == 1, LocalDate.parse(str[3])));
+                break;
+            case "T" :
+                list.add(new Todo(str[2],Integer.parseInt(str[1]) == 1));
+                break;
         }
     }
 
     public String printList() {
         String str = "Current Tasks JIAYOUS\n";
+
         for (int i = 0; i < list.size(); i++) {
-            str += String.format("%d. %s\n", i+1, list.get(i).toString());
+            str += String.format("%d. %s\n", i + 1, list.get(i).toString());
         }
+
         return str;
     }
 
     public String printList(ArrayList<Task> taskArrayList){
         String str = "Here's what you're looking for :)";
+
         for (int i = 0; i < taskArrayList.size(); i++) {
-            str += String.format("%d. %s\n", i+1, taskArrayList.get(i).toString());
+            str += String.format("%d. %s\n", i + 1, taskArrayList.get(i).toString());
         }
+
         return str;
     }
 
     public ArrayList<Task> findList(String str){
         ArrayList<Task> temp = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++){
-            if (str.equals(list.get(i).getName().trim())){
-                temp.add(list.get(i));
+
+        for (Task task : list) {
+            if (str.equals(task.getName().trim())) {
+                temp.add(task);
             }
         }
+
         return temp;
     }
 
     public ArrayList<Task> getList() {
-        return list;
+        return this.list;
     }
 
 
@@ -87,9 +94,10 @@ public class TaskList {
         try {
             Task curr = list.get(index);
             curr.markMark();
-            return new Pair<Boolean,String>(true,"Congrats on completing the task!\n" + curr.toString() + "\n");
+
+            return new Pair<>(true,"Congrats on completing the task!\n" + curr + "\n");
         } catch (IndexOutOfBoundsException e) {
-            return new Pair<Boolean,String>(true,"Index out of bounds :(");
+            return new Pair<>(true,"Index out of bounds :(");
         }
     }
 
@@ -103,6 +111,7 @@ public class TaskList {
         try {
             Task curr = list.get(index);
             curr.unmarkMark();
+
             return new Pair<>(true,"\nUnmarked the task, :(\n" + curr.toString() + "\n");
         } catch (IndexOutOfBoundsException e){
             return new Pair<>(false,"Index out of bounds :(");
@@ -119,8 +128,9 @@ public class TaskList {
      */
     public Pair<Boolean, String> remove(int index) {
         try {
-            Task curr = list.get(index);
-            list.remove(index);
+            Task curr = this.list.get(index);
+            this.list.remove(index);
+
             return new Pair<>(true,"byebye task! \n" + curr.toString() + "\n" + noOfTask() + "\n");
         } catch (ArrayIndexOutOfBoundsException e) {
             return new Pair<>(false,"Index out of bounds :(");
@@ -128,7 +138,7 @@ public class TaskList {
     }
 
     public void addTask(Task task){
-        list.add(task);
+        this.list.add(task);
     }
 
 }
