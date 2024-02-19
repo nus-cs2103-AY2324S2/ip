@@ -28,7 +28,9 @@ public class Pay implements NamedCommand {
             }
             Task t = session.getTaskList().getTask(index);
             if (t instanceof Loan) {
+                // CHECKSTYLE.OFF: SeparatorWrap
                 ((Loan) t).pay(amount);
+                // CHECKSTYLE.ON: SeparatorWrap
                 session.printMessage("Nice! I've paid off this loan:" + System.lineSeparator() + t.getName());
             } else {
                 throw new InvalidParameterException("Task is not a loan");
