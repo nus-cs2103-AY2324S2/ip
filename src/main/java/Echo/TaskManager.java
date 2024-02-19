@@ -179,37 +179,37 @@ public class TaskManager {
             String taskDescription = taskTokens[1].trim();
 
             switch (taskType) {
-                case "todo":
-                    if (taskDescription.isEmpty()) {
-                        throw new IllegalArgumentException("NO! " +
-                                "The description of a todo cannot be empty.");
-                    }
-                    tasks.add(new Todo(taskDescription));
-                    break;
-                case "deadline":
-                    String[] deadlineTokens = taskDescription.split(" /by ", 2);
-                    if (deadlineTokens.length != 2) {
-                        throw new IllegalArgumentException("NO! Invalid command. " +
-                                "Enter: deadline <description> /by <date/time>");
-                    }
-                    tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
-                    break;
-                case "event":
-                    String[] eventTokens = taskDescription.split(" /from ", 2);
-                    if (eventTokens.length != 2) {
-                        throw new IllegalArgumentException("NO! Invalid command. " +
-                                "Enter: event <description> /from <start> /to <end>");
-                    }
-                    String[] toTokens = eventTokens[1].split(" /to ", 2);
-                    if (toTokens.length != 2) {
-                        throw new IllegalArgumentException("NO! Invalid command. " +
-                                "Enter: event <description> /from <start> /to <end>");
-                    }
-                    tasks.add(new Event(eventTokens[0], toTokens[0], toTokens[1]));
-                    break;
-                default:
-                    throw new IllegalArgumentException("No! I don't what what is this! " +
-                            "Invalid task type. Supported types: todo, deadline, event");
+            case "todo":
+                if (taskDescription.isEmpty()) {
+                    throw new IllegalArgumentException("NO! " +
+                            "The description of a todo cannot be empty.");
+                }
+                tasks.add(new Todo(taskDescription));
+                break;
+            case "deadline":
+                String[] deadlineTokens = taskDescription.split(" /by ", 2);
+                if (deadlineTokens.length != 2) {
+                    throw new IllegalArgumentException("NO! Invalid command. " +
+                            "Enter: deadline <description> /by <date/time>");
+                }
+                tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
+                break;
+            case "event":
+                String[] eventTokens = taskDescription.split(" /from ", 2);
+                if (eventTokens.length != 2) {
+                    throw new IllegalArgumentException("NO! Invalid command. " +
+                            "Enter: event <description> /from <start> /to <end>");
+                }
+                String[] toTokens = eventTokens[1].split(" /to ", 2);
+                if (toTokens.length != 2) {
+                    throw new IllegalArgumentException("NO! Invalid command. " +
+                            "Enter: event <description> /from <start> /to <end>");
+                }
+                tasks.add(new Event(eventTokens[0], toTokens[0], toTokens[1]));
+                break;
+            default:
+                throw new IllegalArgumentException("No! I don't what what is this! " +
+                        "Invalid task type. Supported types: todo, deadline, event");
             }
 
             echo.displayBotResponse(getTaskAddedMessage(tasks.size()));

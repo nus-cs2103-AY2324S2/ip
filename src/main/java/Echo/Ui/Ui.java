@@ -20,9 +20,9 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public static void greetUser() {
-        echoInstance.echoCommand("Hello! I'm Echo.Echo\nWhat can I do for you?");
-    }
+    /*public static void greetUser() {
+        echoInstance.displayBotResponse("Hello! I'm Echo.Echo\nWhat can I do for you?");
+    }*/
 
     /**
      * Initiates the conversation by invoking the parser to handle user input.
@@ -31,19 +31,19 @@ public class Ui {
      */
     public static void startConversation(String userCommand, TaskManager taskManager) {
         if (!userCommand.equalsIgnoreCase("bye")) {
-            echoInstance.echoCommand(userCommand);
+            //echoInstance.echoCommand(userCommand);
             taskManager.executeCommand(userCommand);
         } else {
-            endConversation();
+            echoInstance.endConversation();
         }
     }
 
     /**
      * Displays a farewell message to the user when ending the conversation.
      */
-    public static void endConversation() {
+    /*public static void endConversation() {
         echoInstance.echoCommand("Bye. Hope to see you again soon!");
-    }
+    }*/
 
     /**
      * Set the Echo instance for communication.
