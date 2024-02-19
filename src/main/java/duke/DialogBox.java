@@ -82,10 +82,9 @@ public class DialogBox extends HBox {
      */
     public void setBackgroundColor(String color) {
         backgroundColor = color;
-        if (backgroundColor != null) {
-            String colorStyle = String.format("-fx-background-color: %s;", color);
-            setStyle(colorStyle);
-        }
+        assert backgroundColor != null : "Background color cannot be null";
+        String colorStyle = String.format("-fx-background-color: %s;", color);
+        setStyle(colorStyle);
     }
 
     /**

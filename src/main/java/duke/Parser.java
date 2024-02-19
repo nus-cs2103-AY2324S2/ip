@@ -11,15 +11,16 @@ public class Parser {
 
     /**
      * Parses the user input and returns the appropriate response.
-     * @param userInput User input.
-     * @param tasks Task list.
-     * @param ui User interface.
-     * @return Appropriate response to the user input.
-     * @throws DukeException If the user input is invalid.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @return The response to the user input.
+     * @throws DukeException If an error occurs during parsing.
      */
     public static String parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] words = userInput.split(" ");
         String command = words[0].toLowerCase();
+        int position = userInput.indexOf(" ");
 
         switch (command) {
         case "bye":
@@ -27,136 +28,190 @@ public class Parser {
         case "list":
             return ui.showTasks(TaskList.getTasks(), TaskList.getTaskNum());
         case "mark":
-            int position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String taskStr = userInput.substring(position + 1);
-
-                int taskNumber = Integer.parseInt(taskStr) - 1; // cause array
-                if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
-                    tasks.markTaskAsDone(taskNumber);
-                    return ui.showMarkedAsDone(TaskList.getTask(taskNumber));
-                } else {
-                    throw new DukeException("     Invalid task number >:((");
-                }
-            }
-            break;
+            return handleTaskStatusChange(userInput, tasks, ui, position, true);
         case "unmark":
-            position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String taskStr = userInput.substring(position + 1);
-
-                int taskNumber = Integer.parseInt(taskStr) - 1;
-                if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
-                    tasks.markTaskAsNotDone(taskNumber);
-                    return ui.showMarkedAsNotDone(TaskList.getTask(taskNumber));
-                } else {
-                    throw new DukeException("     Invalid task number >:((");
-                }
-            }
-            break;
+            return handleTaskStatusChange(userInput, tasks, ui, position, false);
         case "todo":
-            position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String taskStr = userInput.substring(position + 1);
-
-                if (taskStr.isEmpty()) {
-                    throw new DukeException("     Are you gonna be doing nothing?");
-                }
-
-                Task newTask = new Todo(taskStr);
-                tasks.addTask(newTask);
-
-                return ui.showAddedTask(newTask, TaskList.getTaskNum());
-            } else {
-                throw new DukeException("     Invalid command >:((");
-            }
+            return handleTodo(userInput, tasks, ui, position);
         case "deadline":
-            position = userInput.indexOf(" ");
-            int posBy = userInput.indexOf("/by");
-            if (position != -1 && position + 1 < userInput.length() && posBy != -1 && posBy + 1
-                    < userInput.length()) {
-                String taskStr = userInput.substring(position + 1, posBy - 1);
-                String taskStrBy = userInput.substring(posBy + 4);
-
-                if (taskStr.isEmpty() || taskStrBy.isEmpty()) {
-                    throw new DukeException("     Invalid command >:((");
-                }
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                LocalDateTime deadlineDate = LocalDateTime.parse(taskStrBy, formatter);
-
-                Task newTask = new Deadline(taskStr, deadlineDate);
-                tasks.addTask(newTask);
-
-                return ui.showAddedTask(newTask, TaskList.getTaskNum());
-            } else {
-                throw new DukeException("     Invalid command >:((");
-            }
+            return handleDeadline(userInput, tasks, ui, position);
         case "event":
-            position = userInput.indexOf(" ");
-            int posFrom = userInput.indexOf("/from");
-            int posTo = userInput.indexOf("/to");
-
-            if (position != -1 && position + 1 < userInput.length() && posFrom != -1 && posFrom + 1
-                    < userInput.length() && posTo != -1 && posTo + 1 < userInput.length()) {
-                String taskStr =
-                        userInput.substring(position + 1, posFrom - 1);
-                String taskStrFrom =
-                        userInput.substring(posFrom + 6, posTo - 1);
-                String taskStrTo = userInput.substring(posTo + 4);
-
-                if (taskStr.isEmpty() || taskStrFrom.isEmpty() || taskStrTo.isEmpty()) {
-                    throw new DukeException("     Invalid command >:((");
-                }
-
-                Task newTask = new Event(taskStr, taskStrFrom, taskStrTo);
-                tasks.addTask(newTask);
-
-                return ui.showAddedTask(newTask, TaskList.getTaskNum());
-            } else {
-                throw new DukeException("     Invalid command >:(");
-            }
+            return handleEvent(userInput, tasks, ui, position);
         case "delete":
-            position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String taskStr = userInput.substring(position + 1);
-                int taskNumber = Integer.parseInt(taskStr) - 1;
-
-                if (taskStr.isEmpty()) {
-                    throw new DukeException("     You're deleting air");
-                }
-
-                if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
-                    String deleteMessage = ui.showDeleteTask(TaskList.getTask(taskNumber), taskNumber - 1);
-                    tasks.removeTask(taskNumber);
-                    return deleteMessage;
-                } else {
-                    throw new DukeException("     Invalid command >:(");
-                }
-            }
-            break;
+            return handleDelete(userInput, tasks, ui, position);
         case "on":
-            position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String dateStr = userInput.substring(position + 1);
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
-
-                return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
-            } else {
-                throw new DukeException("     Invalid command >:(");
-            }
+            return handleOn(userInput, ui, position);
         case "find":
-            position = userInput.indexOf(" ");
-            if (position != -1 && position + 1 < userInput.length()) {
-                String keyword = userInput.substring(position + 1);
-                return ui.showMatchingTasks(keyword);
-            } else {
-                throw new DukeException("     Invalid command >:(");
-            }
+            return handleFind(userInput, ui, position);
         default:
             throw new DukeException("     Gurl I'm sorry, idk what that means :-(");
         }
-        return "     I'm sorry, but I don't understand that command.";
+    }
+
+    /**
+     * Parses the user input and returns the appropriate response.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @return The response to the user input.
+     */
+    private static String handleTaskStatusChange(String userInput, TaskList tasks, Ui ui, int pos, boolean taskStatus) {
+        assert pos != -1 && pos + 1 < userInput.length() : "Invalid position";
+        String taskStr = userInput.substring(pos + 1);
+        int taskNumber = Integer.parseInt(taskStr) - 1;
+        assert taskNumber >= 0 && taskNumber < TaskList.getTaskNum() : "Invalid task number";
+
+        if (taskStatus) {
+            tasks.markTaskAsDone(taskNumber);
+            return ui.showMarkedAsDone(TaskList.getTask(taskNumber));
+        } else {
+            tasks.markTaskAsNotDone(taskNumber);
+            return ui.showMarkedAsNotDone(TaskList.getTask(taskNumber));
+        }
+    }
+
+    /**
+     * Handles the todo command.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     * @throws DukeException If an error occurs during parsing.
+     */
+    private static String handleTodo(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        String taskStr = userInput.substring(position + 1);
+
+        if (taskStr.isEmpty()) {
+            throw new DukeException("     Are you gonna be doing nothing?");
+        }
+
+        Task newTask = new Todo(taskStr);
+        tasks.addTask(newTask);
+
+        return ui.showAddedTask(newTask, TaskList.getTaskNum());
+    }
+
+    /**
+     * Handles the deadline command.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     * @throws DukeException If an error occurs during parsing.
+     */
+    private static String handleDeadline(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        int posBy = userInput.indexOf("/by");
+        if (posBy != -1 && posBy + 1 < userInput.length()) {
+            String taskStr = userInput.substring(position + 1, posBy - 1);
+            String taskStrBy = userInput.substring(posBy + 4);
+
+            if (taskStr.isEmpty() || taskStrBy.isEmpty()) {
+                throw new DukeException("     Invalid command >:((");
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime deadlineDate = LocalDateTime.parse(taskStrBy, formatter);
+
+            Task newTask = new Deadline(taskStr, deadlineDate);
+            tasks.addTask(newTask);
+
+            return ui.showAddedTask(newTask, TaskList.getTaskNum());
+        } else {
+            throw new DukeException("     Invalid command >:((");
+        }
+    }
+
+    /**
+     * Handles the event command.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     * @throws DukeException If an error occurs during parsing.
+     */
+    private static String handleEvent(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+        int posFrom = userInput.indexOf("/from");
+        int posTo = userInput.indexOf("/to");
+
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        if (posFrom != -1 && posFrom + 1
+                < userInput.length() && posTo != -1 && posTo + 1 < userInput.length()) {
+            String taskStr =
+                    userInput.substring(position + 1, posFrom - 1);
+            String taskStrFrom =
+                    userInput.substring(posFrom + 6, posTo - 1);
+            String taskStrTo = userInput.substring(posTo + 4);
+
+            if (taskStr.isEmpty() || taskStrFrom.isEmpty() || taskStrTo.isEmpty()) {
+                throw new DukeException("     Invalid command >:((");
+            }
+
+            Task newTask = new Event(taskStr, taskStrFrom, taskStrTo);
+            tasks.addTask(newTask);
+
+            return ui.showAddedTask(newTask, TaskList.getTaskNum());
+        } else {
+            throw new DukeException("     Invalid command >:(");
+        }
+    }
+
+    /**
+     * Handles the delete command.
+     * @param userInput The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     * @throws DukeException If an error occurs during parsing.
+     */
+    private static String handleDelete(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        String taskStr = userInput.substring(position + 1);
+        int taskNumber = Integer.parseInt(taskStr) - 1;
+
+        if (taskStr.isEmpty()) {
+            throw new DukeException("     You're deleting air");
+        }
+
+        if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
+            String deleteMessage = ui.showDeleteTask(TaskList.getTask(taskNumber));
+            tasks.removeTask(taskNumber);
+            return deleteMessage;
+        }
+        return "     Invalid command >:(";
+    }
+
+    /**
+     * Handles the on command.
+     * @param userInput The user input.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     */
+    private static String handleOn(String userInput, Ui ui, int position) {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        String dateStr = userInput.substring(position + 1);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
+
+        return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
+    }
+
+    /**
+     * Handles the find command.
+     * @param userInput The user input.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     */
+    private static String handleFind(String userInput, Ui ui, int position) {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        String keyword = userInput.substring(position + 1);
+        return ui.showMatchingTasks(keyword);
     }
 }

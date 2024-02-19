@@ -31,6 +31,7 @@ public class Duke extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
+    private Button sendButton;
 
     /**
      * Constructor for Duke.
@@ -54,7 +55,9 @@ public class Duke extends Application {
         boolean isExit = false;
         while (!isExit) {
             String userInput = ui.readInput();
+            assert userInput != null;
             String result = Parser.parse(userInput, tasks, ui);
+            assert result != null;
             if (result.equals("1")) {
                 isExit = true;
                 ui.closeScanner();
@@ -77,12 +80,21 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
+        initializeLayout(stage);
+        configureScrollPane();
+        configureUserInput();
+        configureSendButton();
+        greetUser();
+        configureEventHandlers();
+    }
+
+    private void initializeLayout(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
-        Button sendButton = new Button("Send");
+        sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -99,7 +111,9 @@ public class Duke extends Application {
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
+    }
 
+    private void configureScrollPane() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -109,40 +123,33 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
 
+    private void configureUserInput() {
+        userInput.setPrefWidth(325.0);
+    }
+
+    private void configureSendButton() {
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Greet the user
+    private void greetUser() {
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(ui.welcomeMessage(), duke)
         );
+    }
 
+    private void configureEventHandlers() {
         //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> handleUserInput());
-
         userInput.setOnAction((event) -> handleUserInput());
     }
 

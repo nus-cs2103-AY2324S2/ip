@@ -79,14 +79,13 @@ public class Ui {
     /**
      * Shows the deleted task message.
      * @param task The deleted task.
-     * @param taskNum The number of tasks.
      * @return The deleted task message.
      */
-    public String showDeleteTask(Task task, int taskNum) {
+    public String showDeleteTask(Task task) {
         StringBuilder result = new StringBuilder();
         result.append("     Noted. I've removed this task:\n");
         result.append("     ").append(task).append("\n");
-        result.append("     Now you have ").append(taskNum + 1).append(" tasks in the list.\n");
+        result.append("     Now you have ").append(TaskList.getTaskNum() - 1).append(" tasks in the list.\n");
         return result.toString();
     }
 

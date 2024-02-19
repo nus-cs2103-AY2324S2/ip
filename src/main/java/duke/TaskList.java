@@ -53,6 +53,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public static Task getTask(int index) {
+        assert index >= 0 && index < taskNum : "Invalid task index";
         return tasks[index];
     }
 
@@ -72,13 +73,12 @@ public class TaskList {
      * @param index The index of the task to be removed.
      */
     public void removeTask(int index) {
-        if (index >= 0 && index < taskNum) {
-            for (int i = index; i < taskNum - 1; i++) {
-                tasks[i] = tasks[i + 1];
-            }
-            tasks[taskNum - 1] = null;
-            taskNum--;
+        assert index >= 0 && index < taskNum : "Invalid task index";
+        for (int i = index; i < taskNum - 1; i++) {
+            tasks[i] = tasks[i + 1];
         }
+        tasks[taskNum - 1] = null;
+        taskNum--;
     }
 
     /**
