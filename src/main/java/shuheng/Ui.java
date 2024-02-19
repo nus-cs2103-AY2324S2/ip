@@ -75,6 +75,105 @@ public class Ui {
             + "_________________________\n";
         return finalPrint;
     }
+
+    private String handleDelete(String[] currentInputSplit) {
+        int focusIndex = -1;
+        try {
+            focusIndex = parser.checkIndexGiven(currentInputSplit[1],
+              history.getLength());
+        } catch (HistoryIndexException e) {
+            return "Invalid index selected!";
+        }
+        String output = history.deleteTask(focusIndex);
+        return output;
+    }
+
+    private String handleMark(String[] currentInputSplit) {
+        int focusIndex = -1;
+        try {
+            focusIndex = parser.checkIndexGiven(currentInputSplit[1],
+              history.getLength());
+        } catch (HistoryIndexException e) {
+            return "Invalid index selected!";
+        }
+        return history.markTask(focusIndex);
+    }
+
+    private String handleUnmark(String[] currentInputSplit) {
+        int focusIndex = -1;
+        try {
+            focusIndex = parser.checkIndexGiven(currentInputSplit[1],
+              history.getLength());
+        } catch (HistoryIndexException e) {
+            return "Invalid index selected!";
+        }
+        return history.unmarkTask(focusIndex);
+    }
+
+    private String handleEvent(String[] currentInputSplit) {
+        Task event = null;
+        PriorityLevel priority;
+        String[] data;
+        try {
+            data = parser.extractDescriptionData(currentInputSplit);
+            priority = Parser.getPriority(data[3]);
+        } catch (InvalidInputException e) {
+            return "That's not a valid input! " + e.getMessage();
+        }
+        try {
+            LocalDateTime startDate = parser.parseDate(data[1]);
+            LocalDateTime endDate = parser.parseDate(data[2]);
+            assert (startDate.compareTo(endDate) <= 0);
+            event = new Event(data[0], startDate, endDate,
+              priority);
+            return history.addTask(event);
+        } catch (InvalidInputException e) {
+            return "Invalid input: " + e.getMessage();
+        }
+    }
+
+    private String handleTodo(String[] currentInputSplit) {
+        Task event = null;
+        PriorityLevel priority;
+        String[] data;
+        try {
+            data = parser.extractDescriptionData(currentInputSplit);
+            priority = Parser.getPriority(data[3]);
+        } catch (InvalidInputException e) {
+            return "Invalid input: " + e.getMessage();
+        }
+        event = new ToDo(data[0], priority);
+        return history.addTask(event);
+    }
+
+    private String handleDeadline(String[] currentInputSplit) {
+        Task event = null;
+        PriorityLevel priority;
+        String[] data;
+        try {
+            data = parser.extractDescriptionData(currentInputSplit);
+            priority = Parser.getPriority(data[3]);
+        } catch (InvalidInputException e) {
+            return "Invalid input: " + e.getMessage();
+        }
+        try {
+            event = new Deadline(data[0], parser.parseDate(data[1]), priority);
+            return history.addTask(event);
+        } catch (InvalidInputException e) {
+            return "Invalid Input: " + e.getMessage();
+        }
+    }
+
+    private String handleFind(String[] currentInputSplit) {
+        String[] data;
+        try {
+            data = parser.extractDescriptionData(currentInputSplit);
+        } catch (InvalidInputException e) {
+            return "Invalid input: " + e.getMessage();
+        }
+        return history.listKeywords(data[0]);
+    }
+
     /**
      * Runs the UI that continuously takes in user input and output.
      *
@@ -83,8 +182,7 @@ public class Ui {
      */
     public String run(String currentInput) {
         String[] currentInputSplit = currentInput.split(" ");
-        Command currentCommand = null;
-        PriorityLevel priority;
+        Command currentCommand;
         try {
             currentCommand = parser.getCommand(currentInputSplit);
         } catch (InvalidTaskException e) {
@@ -96,88 +194,19 @@ public class Ui {
         case BYE:
             return this.sayBye();
         case DELETE:
-            int focusIndex = -1;
-            try {
-                focusIndex = parser.checkIndexGiven(currentInputSplit[1],
-                history.getLength());
-            } catch (HistoryIndexException e) {
-                return "Invalid index selected!";
-            }
-            String output = history.deleteTask(focusIndex);
-            return output;
+            return handleDelete(currentInputSplit);
         case MARK:
-            focusIndex = -1;
-            try {
-                focusIndex = parser.checkIndexGiven(currentInputSplit[1],
-                history.getLength());
-            } catch (HistoryIndexException e) {
-                return "Invalid index selected!";
-            }
-            output = history.markTask(focusIndex);
-            return output;
+            return handleMark(currentInputSplit);
         case UNMARK:
-            focusIndex = -1;
-            try {
-                focusIndex = parser.checkIndexGiven(currentInputSplit[1],
-                history.getLength());
-            } catch (HistoryIndexException e) {
-                return "Invalid index selected!";
-            }
-            output = history.unmarkTask(focusIndex);
-            return output;
+            return handleUnmark(currentInputSplit);
         case EVENT:
-            Task event = null;
-            String[] data;
-            try {
-                data = parser.extractDescriptionData(currentInputSplit);
-                priority = Parser.getPriority(data[3]);
-            } catch (InvalidInputException e) {
-                return "That's not a valid input! " + e.getMessage();
-            }
-            try {
-                LocalDateTime startDate = parser.parseDate(data[1]);
-                LocalDateTime endDate = parser.parseDate(data[2]);
-                assert (startDate.compareTo(endDate) <= 0);
-                event = new Event(data[0], startDate, endDate,
-                    priority);
-                output = history.addTask(event);
-                return output;
-            } catch (InvalidInputException e) {
-                return "Invalid input: " + e.getMessage();
-            }
+            return handleEvent(currentInputSplit);
         case TODO:
-            event = null;
-            try {
-                data = parser.extractDescriptionData(currentInputSplit);
-                priority = Parser.getPriority(data[3]);
-            } catch (InvalidInputException e) {
-                return "Invalid input: " + e.getMessage();
-            }
-            event = new ToDo(data[0], priority);
-            output = history.addTask(event);
-            return output;
+            return handleTodo(currentInputSplit);
         case DEADLINE:
-            try {
-                data = parser.extractDescriptionData(currentInputSplit);
-                priority = Parser.getPriority(data[3]);
-            } catch (InvalidInputException e) {
-                return "Invalid input: " + e.getMessage();
-            }
-            try {
-                event = new Deadline(data[0], parser.parseDate(data[1]), priority);
-                output = history.addTask(event);
-                return output;
-            } catch (InvalidInputException e) {
-                return "Invalid Input: " + e.getMessage();
-            }
+            return handleDeadline(currentInputSplit);
         case FIND:
-            try {
-                data = parser.extractDescriptionData(currentInputSplit);
-            } catch (InvalidInputException e) {
-                return "Invalid input: " + e.getMessage();
-            }
-            output = history.listKeywords(data[0]);
-            return output;
+            return handleFind(currentInputSplit);
         default:
             return "";
         }

@@ -21,9 +21,3 @@ Why use `shuheng`?
 ```bash
 java --jar shuheng.jar
 ```
-
-Features:
-
-- [x] Support deadlines, todos, events
-- [x] Add UI
-- [ ] Add CI/CD pipeline
