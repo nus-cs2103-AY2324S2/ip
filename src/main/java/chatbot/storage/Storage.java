@@ -109,13 +109,13 @@ public class Storage {
     }
 
     private static DeadlineTask loadDeadlineTask(String description, boolean isDone, String[] arr) {
-        LocalDateTime dateTime = LocalDateTime.parse(arr[1]);
+        LocalDateTime dateTime = LocalDateTime.parse(arr[3]);
         return new DeadlineTask(description, dateTime, isDone);
     }
 
     private static EventTask loadEventTask(String description, boolean isDone, String[] arr) {
-        LocalDateTime fromDateTime = LocalDateTime.parse(arr[1]);
-        LocalDateTime toDateTime = LocalDateTime.parse(arr[2]);
+        LocalDateTime fromDateTime = LocalDateTime.parse(arr[3]);
+        LocalDateTime toDateTime = LocalDateTime.parse(arr[4]);
         return new EventTask(description, fromDateTime, toDateTime, isDone);
     }
 
