@@ -14,13 +14,13 @@ public abstract class Command {
      * Runs the command to complete its
      * specific function.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for each specific
      *         command.
      */
-    public abstract String execute(Storage s, TaskList t, Ui u) throws BelleException;
+    public abstract String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException;
 
 }

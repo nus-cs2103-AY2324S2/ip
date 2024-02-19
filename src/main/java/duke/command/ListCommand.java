@@ -19,19 +19,19 @@ public class ListCommand extends Command {
      * Runs the command to list out all tasks
      * in the tasklist.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for list command.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) {
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
         int index = 1;
         String printStatement = "--------------------------" + "\n"
                 + "Here are the tasks in your list:" + "\n";
-        for (int i = 0; i < t.getSize(); i++) {
-            printStatement += index + "." + t.getTask(i).toString() + "\n";
+        for (int i = 0; i < taskList.getSize(); i++) {
+            printStatement += index + "." + taskList.getTask(i).toString() + "\n";
             index += 1;
         }
         printStatement += "--------------------------";

@@ -1,5 +1,7 @@
 E , false , rabbit , mon 7 , thurs 9pm
-T , true , fish
+T , false , fish
 D , true , happy birthday , 8 march
 T , false , bae
-E , false , edner , 5pm , 6pm
+E , true , edner , 5pm , 6pm
+T , true , abc
+T , false , fgh

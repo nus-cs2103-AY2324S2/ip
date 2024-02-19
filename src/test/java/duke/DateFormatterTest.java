@@ -15,12 +15,12 @@ public class DateFormatterTest {
 
     @Test
     public void isValidCorrectDateTest() {
-        assertEquals(true, correctForm.isValidDate());
+        assertEquals(true, correctForm.hasValidDate());
     }
 
     @Test
     public void isValidIncorrectDateTest() {
-        assertEquals(false, incorrectForm.isValidDate());
+        assertEquals(false, incorrectForm.hasValidDate());
     }
 
     @Test

@@ -1,6 +1,14 @@
 package duke.run;
 
-import duke.command.*;
+import duke.command.AddTaskCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.SnoozeCommand;
+import duke.command.UnmarkCommand;
 import duke.others.BelleException;
 
 /**
@@ -22,28 +30,28 @@ public class Parser {
      * @throws BelleException  If an invalid belle command is entered.
      */
     public Command parse(String input) throws BelleException {
-        String[] inputlist = input.split(" ");
-        assert (inputlist != null) : "input list is null";
-        if (inputlist[0].equals("delete")) {
-            return new DeleteCommand(inputlist[1]);
+        String[] inputList = input.split(" ");
+        assert (inputList != null) : "input list is null";
+        if (inputList[0].equals("delete")) {
+            return new DeleteCommand(inputList[1]);
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.equals("bye")) {
             return new ByeCommand();
-        } else if (inputlist[0].equals("mark")) {
-            return new MarkCommand(inputlist[1]);
-        } else if (inputlist[0].equals("unmark")) {
-            return new UnmarkCommand(inputlist[1]);
-        } else if (inputlist[0].equals("todo")) {
+        } else if (inputList[0].equals("mark")) {
+            return new MarkCommand(inputList[1]);
+        } else if (inputList[0].equals("unmark")) {
+            return new UnmarkCommand(inputList[1]);
+        } else if (inputList[0].equals("todo")) {
             return new AddTaskCommand("T", input);
-        } else if (inputlist[0].equals("deadline")) {
+        } else if (inputList[0].equals("deadline")) {
             return new AddTaskCommand("D", input);
-        } else if (inputlist[0].equals("event")) {
+        } else if (inputList[0].equals("event")) {
             return new AddTaskCommand("E", input);
-        } else if (inputlist[0].equals("find")) {
+        } else if (inputList[0].equals("find")) {
             assert (!input.equals("find")) : "Please enter a keyword to find";
-            return new FindCommand(inputlist[1]);
-        } else if (inputlist[0].equals("snooze")) {
+            return new FindCommand(inputList[1]);
+        } else if (inputList[0].equals("snooze")) {
             return new SnoozeCommand(input);
         } else {
             throw new BelleException("Not a valid belle command");

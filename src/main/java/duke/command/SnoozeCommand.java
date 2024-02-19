@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Belle;
 import duke.others.BelleException;
 import duke.run.Storage;
 import duke.run.TaskList;
@@ -33,10 +32,10 @@ public class SnoozeCommand extends Command {
      * Runs the command to snooze a task and edit
      * the deadline.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for snooze command.
      * @throws BelleException If index specified
      *         does not exist in the list and
@@ -44,18 +43,18 @@ public class SnoozeCommand extends Command {
      *         format.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
         try {
             assert (msg.length() >= 7) : "invalid input to run snooze task";
             int snoozeLength = 7; // as snooze + 1 space is 7 characters.
-            String[] indexAndDeadline = this.msg.substring(snoozeLength).split(" to ");
-            if (indexAndDeadline.length != 2) {
+            String[] indexAndDeadlineList = this.msg.substring(snoozeLength).split(" to ");
+            if (indexAndDeadlineList.length != 2) {
                 throw new BelleException("Please enter command in the format ( snooze "
                         + "[index] to [new deadline] )");
             }
-            String index = indexAndDeadline[0].trim();
-            String deadline = indexAndDeadline[1];
-            Task snoozeTask = t.getTask(Integer.valueOf(index) - 1);
+            String index = indexAndDeadlineList[0].trim();
+            String deadline = indexAndDeadlineList[1];
+            Task snoozeTask = taskList.getTask(Integer.valueOf(index) - 1);
             if (snoozeTask.getType().equals(Type.D.name())) {
                 DeadlineTask currTask = (DeadlineTask) snoozeTask;
                 currTask.setDeadline(deadline);
@@ -70,7 +69,7 @@ public class SnoozeCommand extends Command {
                     + snoozeTask.toString() + "\n" + "--------------------------";
 
             //high-level step that saves new list to harddisk
-            s.save(t.getList());
+            storage.save(taskList.getList());
             return printStatement;
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");

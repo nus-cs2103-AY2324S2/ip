@@ -26,9 +26,9 @@ public class DateFormatter {
      * @return Boolean indicating if it is in a
      *     correct format.
      */
-    public Boolean isValidDate() {
+    public Boolean hasValidDate() {
         try {
-            LocalDate currdate = LocalDate.parse(this.date);
+            LocalDate.parse(this.date);
             return true;
         } catch (DateTimeException e) {
             // don't change the date in this case
@@ -42,7 +42,7 @@ public class DateFormatter {
      * readable format.
      */
     public String convertDate() {
-        LocalDate currdate = LocalDate.parse(this.date);
-        return currdate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        LocalDate currDate = LocalDate.parse(this.date);
+        return currDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }

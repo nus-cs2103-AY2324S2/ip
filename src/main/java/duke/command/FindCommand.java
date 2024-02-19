@@ -24,24 +24,24 @@ public class FindCommand extends Command {
      * Runs the command to find a specific task using
      * a keyword.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for find command.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) {
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
         int index = 1;
         String printStatement = "--------------------------" + "\n"
                 + "Here are the matching tasks in your list:" + "\n";
-        for (int i = 0; i < t.getSize(); i++) {
-            Task currTask = t.getTask(i);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task currTask = taskList.getTask(i);
             String currName = currTask.getName();
             if (!currName.contains(this.keyword)) {
                 continue;
             }
-            printStatement += index + "." + t.getTask(i).toString() + "\n";
+            printStatement += index + "." + taskList.getTask(i).toString() + "\n";
             index += 1;
         }
         printStatement += "--------------------------";

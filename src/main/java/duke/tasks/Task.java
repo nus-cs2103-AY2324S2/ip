@@ -5,19 +5,19 @@ package duke.tasks;
  */
 public class Task {
 
-    private boolean isDone = false;
+    private boolean isDone;
     private String name;
 
     /**
      * Constructs Task.
      *
      * @param name Name of task.
-     * @param done Boolean that indicates
+     * @param isDone Boolean that indicates
      *             whether task is done.
      */
-    public Task(String name, boolean done) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = done;
+        this.isDone = isDone;
     }
 
     public String getName() {

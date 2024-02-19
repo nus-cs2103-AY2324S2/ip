@@ -14,23 +14,23 @@ public class EventTask extends Task {
      * Constructs EventTask.
      *
      * @param name Name of task.
-     * @param done Boolean that indicates
+     * @param isDone Boolean that indicates
      *             whether task is done.
      * @param start Start date/time of
      *              event.
      * @param end End date/time of
      *              event.
      */
-    public EventTask(String name, boolean done, String start, String end) {
-        super(name, done);
+    public EventTask(String name, boolean isDone, String start, String end) {
+        super(name, isDone);
         this.start = start;
         this.end = end;
         DateFormatter d1 = new DateFormatter(this.start);
-        if (d1.isValidDate()) {
+        if (d1.hasValidDate()) {
             this.start = d1.convertDate();
         }
         DateFormatter d2 = new DateFormatter(this.end);
-        if (d2.isValidDate()) {
+        if (d2.hasValidDate()) {
             this.end = d2.convertDate();
         }
     }

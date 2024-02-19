@@ -12,16 +12,16 @@ public class DeadlineTask extends Task {
      * Constructs DeadlineTask.
      *
      * @param name Name of task.
-     * @param done Boolean that indicates
+     * @param isDone Boolean that indicates
      *             whether task is done.
      * @param deadline Deadline to be set
      *                 in deadlinetask.
      */
-    public DeadlineTask(String name, boolean done, String deadline) {
-        super(name, done);
+    public DeadlineTask(String name, boolean isDone, String deadline) {
+        super(name, isDone);
         this.deadline = deadline;
         DateFormatter d = new DateFormatter(this.deadline);
-        if (d.isValidDate()) {
+        if (d.hasValidDate()) {
             this.deadline = d.convertDate();
         }
     }
@@ -34,8 +34,8 @@ public class DeadlineTask extends Task {
         return "D";
     }
 
-    public void setDeadline(String newdeadline) {
-        this.deadline = newdeadline;
+    public void setDeadline(String newDeadline) {
+        this.deadline = newDeadline;
     }
     @Override
     public String toString() {

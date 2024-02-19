@@ -18,7 +18,7 @@ import duke.tasks.TodoTask;
  * Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    private String filepath;
+    private String filePath;
 
     enum Type {
         T,
@@ -28,10 +28,10 @@ public class Storage {
     /**
      * Constructs Storage.
      *
-     * @param filepath File containing storage data.
+     * @param filePath File containing storage data.
      */
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Storage {
     public ArrayList<Task> loadList() throws BelleException {
         ArrayList<Task> currList = new ArrayList<>();
         try {
-            File f = new File(filepath);
+            File f = new File(filePath);
 
             if (!f.exists()) {
                 return currList;
@@ -70,15 +70,15 @@ public class Storage {
     public void addToList(ArrayList<Task> currList, Scanner listScanner) throws BelleException {
         while (listScanner.hasNext()) {
             String currLine = listScanner.nextLine();
-            String[] currTask = currLine.split(" , ");
-            if (currTask[0].equals(Type.T.name())) {
-                currList.add(new TodoTask(currTask[2], Boolean.valueOf(currTask[1])));
-            } else if (currTask[0].equals(Type.D.name())) {
-                currList.add(new DeadlineTask(currTask[2], Boolean.valueOf(currTask[1]),
-                        currTask[3]));
-            } else if (currTask[0].equals(Type.E.name())) {
-                currList.add(new EventTask(currTask[2], Boolean.valueOf(currTask[1]),
-                        currTask[3], currTask[4]));
+            String[] currTaskList = currLine.split(" , ");
+            if (currTaskList[0].equals(Type.T.name())) {
+                currList.add(new TodoTask(currTaskList[2], Boolean.valueOf(currTaskList[1])));
+            } else if (currTaskList[0].equals(Type.D.name())) {
+                currList.add(new DeadlineTask(currTaskList[2], Boolean.valueOf(currTaskList[1]),
+                        currTaskList[3]));
+            } else if (currTaskList[0].equals(Type.E.name())) {
+                currList.add(new EventTask(currTaskList[2], Boolean.valueOf(currTaskList[1]),
+                        currTaskList[3], currTaskList[4]));
             } else {
                 throw new BelleException("Not valid item in HardDisk");
             }
@@ -93,13 +93,13 @@ public class Storage {
      *         that is being saved.
      */
     public void save(ArrayList<Task> currList) throws BelleException {
-        File f = new File(this.filepath);
+        File f = new File(this.filePath);
         try {
             if (!f.exists()) {
                 f.getParentFile().mkdirs();
                 f.createNewFile();
             }
-            FileWriter fw = new FileWriter(this.filepath);
+            FileWriter fw = new FileWriter(this.filePath);
 
             //high-level step that writes new list to harddisk
             writeToList(currList, fw);

@@ -14,19 +14,19 @@ public class TaskList {
     /**
      * Constructs TaskList.
      *
-     * @param l List that represents
+     * @param list List that represents
      *          the programs tasklist.
      */
-    public TaskList(ArrayList<Task> l) {
-        this.list = l;
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
     }
 
     public ArrayList<Task> getList() {
         return this.list;
     }
 
-    public Task getTask(int i) {
-        return list.get(i);
+    public Task getTask(int index) {
+        return list.get(index);
     }
 
     /**

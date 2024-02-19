@@ -25,23 +25,23 @@ public class MarkCommand extends Command {
     /**
      * Runs the command to mark a task as done.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for Mark command.
      * @throws BelleException If index specified
      *         does not exist in the list.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
         try {
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
-            assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
+            assert (Integer.valueOf(this.index) <= taskList.getSize()) : "this index is too big";
 
-            Task doingTask = t.getTask(Integer.valueOf(index) - 1);
+            Task doingTask = taskList.getTask(Integer.valueOf(index) - 1);
             doingTask.setTaskDone();
-            s.save(t.getList());
+            storage.save(taskList.getList());
             return generateMarkStatement(doingTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");

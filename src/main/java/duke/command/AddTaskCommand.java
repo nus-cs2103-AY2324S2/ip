@@ -37,16 +37,16 @@ public class AddTaskCommand extends Command {
     /**
      * Runs the command to add task to tasklist.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for add command.
      * @throws BelleException If task being added is an
      *         invalid type.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
         Task curr;
         if (type.equals(Type.T.name())) {
             curr = generateTodo();
@@ -60,9 +60,9 @@ public class AddTaskCommand extends Command {
 
         assert (curr != null) : "current task to be added is null";
 
-        t.addTask(curr);
-        s.save(t.getList());
-        return generateAddStatement(t, curr);
+        taskList.addTask(curr);
+        storage.save(taskList.getList());
+        return generateAddStatement(taskList, curr);
     }
 
 
@@ -80,7 +80,8 @@ public class AddTaskCommand extends Command {
             Task curr = new TodoTask(this.msg.substring(todoLength), false);
             return curr;
         } catch (StringIndexOutOfBoundsException e) {
-            throw new BelleException("You did not specify a title for this todo task");
+            throw new BelleException("You did not specify a"
+                    + "title for this todo task");
         }
     }
 
@@ -95,8 +96,8 @@ public class AddTaskCommand extends Command {
         try {
             assert (msg.length() >= 9) : "invalid input to generate deadline task";
             int deadlineLength = 9; // as deadline + 1 space is 9 characters.
-            String[] deadlinelist = msg.substring(deadlineLength).split(" /by ");
-            Task curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
+            String[] deadlineList = msg.substring(deadlineLength).split(" /by ");
+            Task curr = new DeadlineTask(deadlineList[0], false, deadlineList[1]);
             return curr;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new BelleException("You did not specify "
@@ -118,9 +119,9 @@ public class AddTaskCommand extends Command {
         assert (msg.length() >= 6) : "invalid input to generate event task";
         try {
             int eventLength = 6; // as event + 1 space is 6 characters.
-            String[] eventlist = msg.substring(eventLength).split(" /from ");
-            String[] startend = eventlist[1].split(" /to ");
-            Task curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
+            String[] eventList = msg.substring(eventLength).split(" /from ");
+            String[] startEndList = eventList[1].split(" /to ");
+            Task curr = new EventTask(eventList[0], false, startEndList[0], startEndList[1]);
             return curr;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new BelleException("You did not "

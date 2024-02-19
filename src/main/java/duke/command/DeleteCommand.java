@@ -24,25 +24,25 @@ public class DeleteCommand extends Command {
     /**
      * Runs the command to delete tasks from tasklist.
      *
-     * @param s Storage containing data of
+     * @param storage Storage containing data of
      *          previous program.
-     * @param t Tasklist of program.
-     * @param u Ui that handles user interactions.
+     * @param taskList Tasklist of program.
+     * @param ui Ui that handles user interactions.
      * @return Print statement for delete command.
      * @throws BelleException If index specified
      *         does not exist in the list.
      */
     @Override
-    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
         try {
             assert (Integer.valueOf(index) > 0) : "index cannot be negative";
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
-            assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
+            assert (Integer.valueOf(this.index) <= taskList.getSize()) : "this index is too big";
 
-            Task deleteTask = t.getTask(Integer.valueOf(index) - 1);
-            t.removeTask(Integer.parseInt(index) - 1);
-            s.save(t.getList());
-            return generateDeleteStatement(deleteTask, t);
+            Task deleteTask = taskList.getTask(Integer.valueOf(index) - 1);
+            taskList.removeTask(Integer.parseInt(index) - 1);
+            storage.save(taskList.getList());
+            return generateDeleteStatement(deleteTask, taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
         }
