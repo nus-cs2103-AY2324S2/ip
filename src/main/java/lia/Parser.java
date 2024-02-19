@@ -58,6 +58,7 @@ public class Parser {
                 return ui.showInvalidCommand();
             }
         } catch (LiaException e) {
+            e.printStackTrace();
             return e.getMessage();
         }
     }
