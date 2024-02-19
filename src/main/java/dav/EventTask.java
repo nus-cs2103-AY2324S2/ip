@@ -57,17 +57,23 @@ class EventTask extends Task {
      */
     public static Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
-        if (parts.length == 5) {
-            String[] dateTimeParts = parts[3].split(" ");
-            String[] dateTimePartsTo = parts[4].split(" ");
-            if (dateTimeParts.length == 2 && dateTimePartsTo.length == 2) {
-                EventTask eventTask = new EventTask(parts[2], dateTimeParts[0] + " " + dateTimeParts[1],
-                                                    dateTimePartsTo[0] + " " + dateTimePartsTo[1]);
-                eventTask.isDone = parts[1].equals("1");
-                return eventTask;
-            }
+
+        if (parts.length != 5) {
+            return null;
         }
-        return null;
+
+        String[] dateTimeParts = parts[3].split(" ");
+        String[] dateTimePartsTo = parts[4].split(" ");
+
+        if (dateTimeParts.length != 2 || dateTimePartsTo.length != 2) {
+            return null;
+        }
+
+        EventTask eventTask = new EventTask(parts[2], dateTimeParts[0] + " " + dateTimeParts[1],
+                dateTimePartsTo[0] + " " + dateTimePartsTo[1]);
+        eventTask.isDone = parts[1].equals("1");
+
+        return eventTask;
     }
 
     /**

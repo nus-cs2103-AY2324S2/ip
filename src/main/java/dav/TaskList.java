@@ -1,4 +1,5 @@
 package dav;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -67,54 +68,64 @@ class TaskList {
      */
     public void addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
-        if (details.length == 2) {
-            String description = details[0].trim();
-            String dateTime = details[1].trim();
 
-            if (description.isEmpty()) {
-                System.out.println("No deadline?");
-            } else {
-                try {
-                    String[] dateTimeParts = dateTime.split(" ");
-                    String date = dateTimeParts[0];
-                    String time = dateTimeParts[1];
-
-                    addTask(new DeadlineTask(description, date, time));
-                } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
-                }
-            }
-        } else {
+        if (details.length != 2) {
             System.out.println("Invalid deadline task format.");
+            return;
+        }
+
+        String description = details[0].trim();
+        String dateTime = details[1].trim();
+
+        if (description.isEmpty()) {
+            System.out.println("No deadline?");
+            return;
+        }
+
+        try {
+            String[] dateTimeParts = dateTime.split(" ");
+            String date = dateTimeParts[0];
+            String time = dateTimeParts[1];
+
+            addTask(new DeadlineTask(description, date, time));
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
         }
     }
 
     /**
      * Adds an EventTask to the list with the specified details.
+     *
      * @param taskDetails Details of the EventTask.
      */
     public void addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
-        if (details.length == 2) {
-            String description = details[0].trim();
-            String[] timeDetails = details[1].split(" /to ");
 
-            if (description.isEmpty()) {
-                System.out.println("No event?");
-            } else if (timeDetails.length == 2) {
-                try {
-                    LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                    LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-
-                    addTask(new EventTask(description, fromDateTime, toDateTime));
-                } catch (DateTimeParseException e) {
-                    System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
-                }
-            } else {
-                System.out.println("Invalid event task format.");
-            }
-        } else {
+        if (details.length != 2) {
             System.out.println("Invalid event task format.");
+            return;
+        }
+
+        String description = details[0].trim();
+        String[] timeDetails = details[1].split(" /to ");
+
+        if (description.isEmpty()) {
+            System.out.println("No event?");
+            return;
+        }
+
+        if (timeDetails.length != 2) {
+            System.out.println("Invalid event task format.");
+            return;
+        }
+
+        try {
+            LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+            addTask(new EventTask(description, fromDateTime, toDateTime));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
         }
     }
 
