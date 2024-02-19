@@ -22,14 +22,16 @@ public class MainWindow extends AnchorPane {
 
     private BartenderBob bartenderBob;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Luffy_Avatar.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Ussop_Avatar.png"));
-
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Grey_Cat.png"));
+    private Image bartenderBobImage = new Image(this.getClass().getResourceAsStream("/images/Bartender_Bob.png"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren()
+                .add(DialogBox.getBotWelcomeDialog(new Ui()
+                        .showWelcomeMessage("BartenderBob"), bartenderBobImage));
+        scrollPane.setStyle("-fx-background: #A89A90;");
     }
-
     public void setBartenderBob(BartenderBob d) {
         bartenderBob = d;
     }
@@ -44,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = bartenderBob.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, dukeImage)
+                DialogBox.getBotDialog(response, bartenderBobImage)
         );
         userInput.clear();
     }

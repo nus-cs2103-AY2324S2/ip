@@ -43,6 +43,7 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
+        this.setStyle("-fx-background-color: #7E5E49"); // Lighter brown color
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
@@ -54,6 +55,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getBotDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getBotWelcomeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
