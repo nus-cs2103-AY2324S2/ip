@@ -1,9 +1,12 @@
-package duke.command;
+package xilef.command;
 
-import duke.*;
-import duke.task.Task;
-import duke.task.TaskCommandPair;
-import duke.task.TaskList;
+import xilef.Storage;
+import xilef.Ui;
+import xilef.Xilef;
+import xilef.task.Task;
+import xilef.task.TaskCommandPair;
+import xilef.task.TaskList;
+import xilef.XilefException;
 
 /**
  * Marks a task as done.
@@ -32,16 +35,16 @@ public class MarkCommand extends Command {
      * Marks the task at the given index as done and saves the updated task list.
      * Displays the task that was marked to the user.
      *
-     * @throws DukeException If the index is out of bounds.
+     * @throws XilefException If the index is out of bounds.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws XilefException {
         if (tasks.size() <= index) {
-            throw new DukeException("There is nothing to be marked");
+            throw new XilefException("There is nothing to be marked");
         } else {
             Task task = tasks.get(index);
             task.markDone();
-            Duke.push(new TaskCommandPair(task, this));
+            Xilef.push(new TaskCommandPair(task, this));
             storage.save(tasks);
             return ui.showMarked(task);
         }

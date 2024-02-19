@@ -1,10 +1,10 @@
-package duke;
+package xilef;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import xilef.task.Deadline;
+import xilef.task.Event;
+import xilef.task.Task;
+import xilef.task.TaskList;
+import xilef.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -34,9 +34,9 @@ public class Storage {
      * Loads the tasks from the tasks file.
      *
      * @return An {@code ArrayList} of {@code Task} objects representing the loaded tasks.
-     * @throws DukeException If the tasks file cannot be found.
+     * @throws XilefException If the tasks file cannot be found.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws XilefException {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
@@ -48,7 +48,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException | NoSuchElementException e) {
-            throw new DukeException("File not found: " + e.getMessage());
+            throw new XilefException("File not found: " + e.getMessage());
         }
         return list;
     }
@@ -100,6 +100,7 @@ public class Storage {
             System.out.println("Invalid task type: " + taskType);
         }
         if (taskStatus.equals("1")) {
+            assert t != null;
             t.markDone();
         }
         return t;

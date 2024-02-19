@@ -1,4 +1,4 @@
-package duke.gui;
+package xilef.gui;
 
 import java.io.IOException;
 import java.util.Collections;

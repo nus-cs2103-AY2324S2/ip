@@ -1,6 +1,6 @@
-package duke.task;
+package xilef.task;
 
-import duke.command.Command;
+import xilef.command.Command;
 
 public class TaskCommandPair {
     private final Task task;

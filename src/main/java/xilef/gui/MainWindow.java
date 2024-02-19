@@ -1,7 +1,6 @@
-package duke.gui;
+package xilef.gui;
 
-import duke.Duke;
-import duke.gui.DialogBox;
+import xilef.Xilef;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -23,39 +22,39 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    private Duke duke;
+    private Xilef xilef;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat2.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/cat1.jpeg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat2.jpeg"));
+    private final Image xilefImage = new Image(this.getClass().getResourceAsStream("/images/cat1.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Xilef d) {
+        xilef = d;
     }
 
     @FXML
     public void showWelcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.welcome(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(xilef.welcome(), xilefImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Xilef's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = xilef.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, xilefImage)
         );
         userInput.clear();
-        if (duke.isExit()) {
+        if (xilef.isExit()) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
             timeline.play();
         }

@@ -1,4 +1,4 @@
-package duke.task;
+package xilef.task;
 
 /**
  * A {@code Todo} is a type of {@code Task} with no associated date or time.

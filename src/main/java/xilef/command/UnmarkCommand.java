@@ -1,12 +1,12 @@
-package duke.command;
+package xilef.command;
 
-import duke.Duke;
-import duke.DukeException;
-import duke.Storage;
-import duke.Ui;
-import duke.task.Task;
-import duke.task.TaskCommandPair;
-import duke.task.TaskList;
+import xilef.Xilef;
+import xilef.XilefException;
+import xilef.Storage;
+import xilef.Ui;
+import xilef.task.Task;
+import xilef.task.TaskCommandPair;
+import xilef.task.TaskList;
 
 /**
  * Marks a task as not done.
@@ -35,16 +35,16 @@ public class UnmarkCommand extends Command {
      * Marks the task at the given index as not done and saves the updated task list.
      * Displays the task that was unmarked to the user.
      *
-     * @throws DukeException If the index is out of bounds.
+     * @throws XilefException If the index is out of bounds.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws XilefException {
         if (tasks.size() <= index) {
-            throw new DukeException("There is nothing to be unmarked");
+            throw new XilefException("There is nothing to be unmarked");
         } else {
             Task task = tasks.get(index);
             task.unmarkDone();
-            Duke.push(new TaskCommandPair(task, this));
+            Xilef.push(new TaskCommandPair(task, this));
             storage.save(tasks);
             return ui.showUnmarked(task);
         }
