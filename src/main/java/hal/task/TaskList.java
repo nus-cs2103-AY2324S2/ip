@@ -1,7 +1,7 @@
-package duke.task;
+package hal.task;
 
-import duke.exception.HALException;
-import duke.gui.Parser;
+import hal.exception.HALException;
+import hal.gui.Parser;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class TaskList {
 
         } catch (HALException | DateTimeParseException e) {
             System.out.println(e.getMessage());
-            returnOutput = "error";
+            returnOutput = "Give me clearer instructions. I cannot do that.";
         }
 
         return returnOutput;
@@ -69,33 +69,38 @@ public class TaskList {
         return t.toString();
     }
 
-    public void listTasks() {
-        System.out.println("Tasks:");
+    public String listTasks() {
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < taskList.size(); i++) {
-
             Task t = taskList.get(i);
-            System.out.printf("%d. %s\n", i + 1, t.toString());
+
+            stringBuilder.append(String.format("%d. ", i + 1))
+                    .append(String.format("%s\n", t.toString()));
         }
+
+        return stringBuilder.toString();
     }
 
-    public void listMatchingTasks(String findKeyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String listMatchingTasks(String findKeyword) {
 
+        StringBuilder stringBuilder = new StringBuilder();
         int foundTaskNumber = 1;
 
         for (int i = 0; i < taskList.size(); i++) {
-
             Task t = taskList.get(i);
             String taskDescription = t.getDescription();
-
             int index = taskDescription.indexOf(findKeyword);
 
             if (index != -1) {
-                System.out.printf("%d. %s\n", foundTaskNumber, t.toString());
+                stringBuilder.append(String.format("%d. ", foundTaskNumber))
+                        .append(String.format("%s\n", t.toString()));
+
                 foundTaskNumber++;
             }
         }
+
+        return stringBuilder.toString();
     }
 
     public int getNumberOfTasks() {

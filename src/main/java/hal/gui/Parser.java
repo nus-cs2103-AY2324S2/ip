@@ -1,6 +1,6 @@
-package duke.gui;
+package hal.gui;
 
-import duke.exception.HALException;
+import hal.exception.HALException;
 
 import java.util.ArrayList;
 

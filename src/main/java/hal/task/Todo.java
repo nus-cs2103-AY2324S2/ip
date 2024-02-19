@@ -1,4 +1,4 @@
-package duke.task;
+package hal.task;
 
 public class Todo extends Task {
     String DIVIDER = " | ";

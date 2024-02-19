@@ -1,4 +1,4 @@
-package duke.task;
+package hal.task;
 
 public abstract class Task {
     protected String description;
