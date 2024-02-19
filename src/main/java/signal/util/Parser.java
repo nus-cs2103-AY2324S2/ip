@@ -58,6 +58,7 @@ public class Parser {
             // show help message
             ui.commandHelp();
         } else {
+            // create a new task or other commands
             taskCommands(userInput);
         }
     }
@@ -128,10 +129,13 @@ public class Parser {
         // create tasks
         String[] inputParts = userInput.split(" ");
         if (userInput.startsWith("todo")) {
+            // Create a ToDo task
             ui.commandToDo(inputParts);
         } else if (userInput.startsWith("deadline")) {
+            // Create a Deadline task
             ui.commandDeadline(inputParts);
         } else if (userInput.startsWith("event")) {
+            // Create an Event task
             ui.commandEvent(inputParts);
         } else {
             otherInputs(userInput);
