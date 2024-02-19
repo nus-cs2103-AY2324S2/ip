@@ -22,20 +22,19 @@ public class Skyler {
             }
 
             try {
-                String response = Parser.processUserInput(userInput);
-                Ui.getErrorMessage("Skyler: " + response);
+                Parser.processUserInput(userInput);
             } catch (SkylerException e) {
-                Ui.getErrorMessage("Skyler: Woof, " + e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
 
         scanner.close();
     }
 
-    public static String getResponse(String userInput) throws SkylerException {
+    public String getResponse(String userInput) throws SkylerException {
         if (userInput.equals("bye")) {
             Ui.getByeMessage();
-            Storage.saveTasksToFile(); // Save tasks before exiting
+            Storage.saveTasksToFile(); 
             return "Skyler: Bye. Hope to see you again soon!\n";
         }
         return Parser.processUserInput(userInput);

@@ -45,8 +45,7 @@ public class MainWindow extends AnchorPane {
         try {
             response = skyler.getResponse(input);
         } catch (SkylerException e) {
-            e.printStackTrace();
-            return;
+            response = "Skyler: Woof, " + e.getMessage() + "\n";
         }
 
         if (response.trim().isBlank()) {
