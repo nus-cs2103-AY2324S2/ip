@@ -68,7 +68,7 @@ Format: ``` list ```
 Example:
 - ```list ``` List all tasks from your list.
 
-# Find a specific task
+## Find a specific task
 
 Find a specific task you are looking for from Arona
 
