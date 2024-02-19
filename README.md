@@ -16,8 +16,6 @@ If you have used Slaybot before, you can jump straight to Slaybot's [Features an
 
 ## Getting Started
 
-[//]: # ( <h1 style="color:purple;">Hello World</h1>)
-
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 
 2. Download the latest  from [here](https://github.com/sethteo/ip/releases/tag/v0.2).
