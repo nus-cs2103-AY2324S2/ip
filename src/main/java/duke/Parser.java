@@ -40,9 +40,15 @@ public class Parser {
         case "delete":
             return handleDelete(userInput, tasks, ui, position);
         case "on":
-            return handleOn(userInput, ui, position);
+            assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+            String dateStr = userInput.substring(position + 1);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
+            return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
         case "find":
-            return handleFind(userInput, ui, position);
+            assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+            String keyword = userInput.substring(position + 1);
+            return ui.showMatchingTasks(keyword);
         default:
             throw new DukeException("     Gurl I'm sorry, idk what that means :-(");
         }
@@ -184,34 +190,5 @@ public class Parser {
             return deleteMessage;
         }
         return "     Invalid command >:(";
-    }
-
-    /**
-     * Handles the on command.
-     * @param userInput The user input.
-     * @param ui The user interface.
-     * @param position The position of the command in the user input.
-     * @return The response to the user input.
-     */
-    private static String handleOn(String userInput, Ui ui, int position) {
-        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
-        String dateStr = userInput.substring(position + 1);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
-
-        return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
-    }
-
-    /**
-     * Handles the find command.
-     * @param userInput The user input.
-     * @param ui The user interface.
-     * @param position The position of the command in the user input.
-     * @return The response to the user input.
-     */
-    private static String handleFind(String userInput, Ui ui, int position) {
-        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
-        String keyword = userInput.substring(position + 1);
-        return ui.showMatchingTasks(keyword);
     }
 }

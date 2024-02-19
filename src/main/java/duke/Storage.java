@@ -23,9 +23,7 @@ public class Storage {
      * @param filePath The file path to store the tasks.
      */
     public Storage(String filePath) {
-        if (filePath == null) {
-            throw new IllegalArgumentException("File path cannot be null");
-        }
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -38,16 +36,15 @@ public class Storage {
         assert tasks != null : "Tasks array cannot be null";
         assert taskNum >= 0 : "Invalid task number";
         try {
-            File fileReader = new File(filePath);
-            if (fileReader.getParentFile().mkdirs()) {
+            File file = new File(filePath);
+            if (file.getParentFile().mkdirs()) {
                 System.out.println("Directories created successfully.");
             } else {
                 System.out.println("Saving it to your already created directories");
             }
 
             // Initialize writer outside try block
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileReader))) {
-
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 for (int i = 0; i < taskNum; i++) {
                     writer.write(tasks[i].toSaveString());
                     writer.newLine();
@@ -64,48 +61,48 @@ public class Storage {
      * @throws IOException If there is an error loading the tasks.
      */
     public Task[] loadTasks() throws IOException {
-        try {
-            Path file = Paths.get(filePath);
-            assert Files.exists(file) : "File does not exist";
-
-            Task[] loadedTasks = new Task[100];
-            int loadedTaskNum = 0;
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    loadedTasks[loadedTaskNum] = parseTaskFromLine(line);
-                    loadedTaskNum++;
-                }
-            }
-            return loadedTasks;
-        } catch (IOException e) {
-            throw new IOException("Error loading tasks", e);
+        Path file = Paths.get(filePath);
+        if (!Files.exists(file)) {
+            return new Task[100];
         }
+
+        Task[] loadedTasks = new Task[100];
+        int loadedTaskNum = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                loadedTasks[loadedTaskNum] = parseTaskFromLine(line);
+                loadedTaskNum++;
+            }
+        }
+        return loadedTasks;
     }
 
-    /**
-     * Parses the task from the line.
-     * @param line The line to parse the task from.
-     * @return The task parsed from the line.
-     */
     private Task parseTaskFromLine(String line) {
         char taskType = line.charAt(0);
         boolean isDone = line.charAt(4) == '1';
 
-        int sep1 = line.indexOf("|", 4);
-        String description = line.substring(sep1 + 2);
+        int seperation1 = line.indexOf("|", 4);
 
         Task task;
         switch (taskType) {
         case 'T':
-            task = new Todo(description);
+            String descriptionTodo = line.substring(seperation1 + 2);
+            task = new Todo(descriptionTodo);
             break;
         case 'D':
-            task = parseDeadlineFromLine(line, description);
+            int separationDeadline = line.indexOf(" | ", seperation1 + 3);
+
+            String descriptionDeadline = (separationDeadline != -1) ? line.substring(seperation1 + 2,
+                    separationDeadline) : line.substring(separationDeadline + 3);
+            task = parseDeadlineFromLine(line, descriptionDeadline);
             break;
         case 'E':
-            task = parseEventFromLine(line, description, sep1);
+            int separationEvent = line.indexOf(" | ", seperation1 + 3);
+            String descriptionEvent = (separationEvent != -1) ? line.substring(seperation1 + 2, separationEvent)
+                    : line.substring(separationEvent + 3);
+            task = parseEventFromLine(line, descriptionEvent, separationEvent);
             break;
         default:
             throw new IllegalArgumentException("Invalid task type");
@@ -118,12 +115,6 @@ public class Storage {
         return task;
     }
 
-    /**
-     * Parses the deadline from the line.
-     * @param line The line to parse the deadline from.
-     * @param description The description of the deadline.
-     * @return The deadline parsed from the line.
-     */
     private Task parseDeadlineFromLine(String line, String description) {
         String dateString = line.substring(line.lastIndexOf("|") + 1).trim();
 
@@ -133,18 +124,10 @@ public class Storage {
         return new Deadline(description, deadlineDateTime);
     }
 
-    /**
-     * Parses the event from the line.
-     * @param line The line to parse the event from.
-     * @param description The description of the event.
-     * @param sep1 The index of the first separator.
-     * @return The event parsed from the line.
-     */
-    private Task parseEventFromLine(String line, String description, int sep1) {
-        int sep2 = line.indexOf(" | ", sep1 + 3);
-        int to = line.indexOf(" - ", sep2 + 3);
-        String from = line.substring(sep2 + 3, to);
-        String too = line.substring(to + 3);
-        return new Event(description, from, too);
+    private Task parseEventFromLine(String line, String description, int separationEvent) {
+        int to = line.indexOf(" - ", separationEvent + 3);
+        String from = line.substring(separationEvent + 3, to);
+        String to2 = line.substring(to + 3);
+        return new Event(description, from, to2);
     }
 }

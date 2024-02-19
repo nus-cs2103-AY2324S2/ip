@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private Scanner inputs = new Scanner(System.in);
+    private final Scanner inputs = new Scanner(System.in);
 
     /**
      * Reads the input from the user.
@@ -24,10 +24,8 @@ public class Ui {
      * @return The welcome message.
      */
     public String welcomeMessage() {
-        StringBuilder result = new StringBuilder();
-        result.append("     Hello! I'm TALKTOMEORILLDIE\n");
-        result.append("     What can I do for you?\n");
-        return result.toString();
+        return "     Hello! I'm TALKTOMEORILLDIE\n"
+                + "     What can I do for you?\n";
     }
 
     /**
@@ -44,10 +42,8 @@ public class Ui {
      * @return The task marked as done message.
      */
     public String showMarkedAsDone(Task task) {
-        StringBuilder result = new StringBuilder();
-        result.append("     Nice! I've marked this task as done:\n");
-        result.append("     ").append(task).append("\n");
-        return result.toString();
+        return "     Nice! I've marked this task as done:\n"
+                + "     " + task + "\n";
     }
 
     /**
@@ -56,10 +52,8 @@ public class Ui {
      * @return The task marked as not done message.
      */
     public String showMarkedAsNotDone(Task task) {
-        StringBuilder result = new StringBuilder();
-        result.append("     Nice! I've marked this task as not done:\n");
-        result.append("     ").append(task).append("\n");
-        return result.toString();
+        return "     Nice! I've marked this task as not done:\n"
+                + "     " + task + "\n";
     }
 
     /**
@@ -69,11 +63,9 @@ public class Ui {
      * @return The added task message.
      */
     public String showAddedTask(Task task, int taskNum) {
-        StringBuilder result = new StringBuilder();
-        result.append("     Got it. I've added this task:\n");
-        result.append("     ").append(task).append("\n");
-        result.append("     Now you have ").append(taskNum).append(" tasks in the list.\n");
-        return result.toString();
+        return "     Got it. I've added this task:\n"
+                + "     " + task + "\n"
+                + "     Now you have " + taskNum + " tasks in the list.\n";
     }
 
     /**
@@ -82,11 +74,9 @@ public class Ui {
      * @return The deleted task message.
      */
     public String showDeleteTask(Task task) {
-        StringBuilder result = new StringBuilder();
-        result.append("     Noted. I've removed this task:\n");
-        result.append("     ").append(task).append("\n");
-        result.append("     Now you have ").append(TaskList.getTaskNum() - 1).append(" tasks in the list.\n");
-        return result.toString();
+        return "     Noted. I've removed this task:\n"
+                + "     " + task + "\n"
+                + "     Now you have " + (TaskList.getTaskNum() - 1) + " tasks in the list.\n";
     }
 
     /**
@@ -109,14 +99,6 @@ public class Ui {
             }
         }
         return result.toString();
-    }
-
-    /**
-     * Shows the loading error message.
-     * @return The loading error message.
-     */
-    public static String showLoadingError() {
-        return "     Error: Your file can't be loaded";
     }
 
     /**
