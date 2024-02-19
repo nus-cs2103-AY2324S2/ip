@@ -163,14 +163,14 @@ public class Parser {
     public static Task createTask(CommandType command, String input) {
         String[] parts = input.split(" ", 2);
         switch (command) {
-            case TODO:
-                return createTodoTask(parts, input);
-            case DEADLINE:
-                return createDeadlineTask(parts, input);
-            case EVENT:
-                return createEventTask(parts, input);
-            default:
-                return new InvalidTask("Invalid command.");
+        case TODO:
+            return createTodoTask(parts, input);
+        case DEADLINE:
+            return createDeadlineTask(parts, input);
+        case EVENT:
+            return createEventTask(parts, input);
+        default:
+            return new InvalidTask("Invalid command.");
         }
     }
 
@@ -219,7 +219,13 @@ public class Parser {
                 LocalDate end = parseDate(timeParts[1]);
                 String eventTime = formatEventTime(start, end);
                 if (start == null || end == null) {
-                    return new InvalidTask("Unable to parse the date. Please use the format: yyyy-MM-dd");
+                    return new InvalidTask("Unable to parse the date. Please use the format: yyyy-MM-dd!");
+                }
+                if (start.isAfter(end)) {
+                    return new InvalidTask("End date should not be earlier than start date");
+                }
+                if (!TaskList.checkNoEventOverlap(start, end)) {
+                    return new InvalidTask("Event duration overlaps with an existing event!");
                 }
                 return new Event(eventParts[0], eventTime, input, start, end);
             }

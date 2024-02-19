@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * end dates.
  */
 public class Event extends Task {
-    private LocalDate start;
-    private LocalDate end;
+    protected LocalDate start;
+    protected LocalDate end;
     private String startToEnd;
 
     /**

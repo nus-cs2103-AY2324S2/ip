@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +10,14 @@ import java.util.List;
  */
 public class TaskList {
 
-    private List<Task> tasks; // The list of tasks
+    public static List<Task> tasks; // The list of tasks
     public static int storageFill = 0; // A counter for the number of tasks
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -25,7 +26,7 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
+        TaskList.tasks = tasks;
     }
 
     /**
@@ -48,7 +49,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     protected Task getTask(int index) {
-        return this.tasks.get(index);
+        return TaskList.tasks.get(index);
     }
 
     /**
@@ -57,7 +58,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     protected List<Task> getTasks() {
-        return this.tasks;
+        return TaskList.tasks;
     }
 
     /**
@@ -68,7 +69,7 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         output.append("\tHere are the tasks in your list:\n");
         for (int i = 0; i < TaskList.storageFill; i++) {
-            String formattedOutput = String.format("\t%d. %s\n", (i + 1), this.tasks.get(i));
+            String formattedOutput = String.format("\t%d. %s\n", (i + 1), TaskList.tasks.get(i));
             output.append(formattedOutput);
         }
         return output.toString();
@@ -87,7 +88,7 @@ public class TaskList {
         boolean isFound = false;
 
         for (int i = 0; i < TaskList.storageFill; i++) {
-            Task currTask = this.tasks.get(i);
+            Task currTask = TaskList.tasks.get(i);
             if (currTask.getDetails().toLowerCase().contains(findString.toLowerCase())) {
                 String formattedOutput = String.format("\t%d. %s\n", (i + 1), currTask);
                 output.append(formattedOutput);
@@ -111,5 +112,17 @@ public class TaskList {
         tasks.add(task);
         storageFill++;
         assert previousTasks == storageFill-- : "Task list size should increase by 1";
+    }
+
+    protected static boolean checkNoEventOverlap(LocalDate from, LocalDate to) {
+        for (Task task: tasks) {
+            if (task instanceof Event) {
+                Event event = (Event)task;
+                if (from.isBefore(event.start) && to.isAfter(event.start) || from.equals(event.start)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
