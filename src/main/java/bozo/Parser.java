@@ -28,11 +28,11 @@ public class Parser {
             return handleUnmarkCommand(input, list);
         } else if (input.startsWith("delete")) {
             return handleDeleteCommand(input, list);
-        } else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo") || input.startsWith("t")) {
             return handleTodoCommand(input, list);
-        } else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline") || input.startsWith("d")) {
             return handleDeadlineCommand(input, list);
-        } else if (input.startsWith("event")) {
+        } else if (input.startsWith("event") || input.startsWith("e")) {
             return handleEventCommand(input, list);
         } else {
             return handleInvalidCommand();
@@ -148,7 +148,10 @@ public class Parser {
     private String handleTodoCommand(String input, TaskList list) throws BozoException {
         StringBuilder output = new StringBuilder();
         Ui.showLine();
-        if (input.length() < 6) {
+        if (input.startsWith("todo") && input.length() < 6) {
+            output.append("I want that too but ur todo can't be empty :-((");
+            throw new BozoException("I want that too but ur todo can't be empty :-((");
+        } else if (input.startsWith("t") && input.length() < 3) {
             output.append("I want that too but ur todo can't be empty :-((");
             throw new BozoException("I want that too but ur todo can't be empty :-((");
         } else {
@@ -168,7 +171,10 @@ public class Parser {
     private String handleDeadlineCommand(String input, TaskList list) throws BozoException {
         StringBuilder output = new StringBuilder();
         Ui.showLine();
-        if (input.length() < 10) {
+        if (input.startsWith("deadline") && input.length() < 10) {
+            output.append("I want that too but ur deadline can't be empty :-((");
+            throw new BozoException("I want that too but ur deadline can't be empty :-((");
+        } else if (input.startsWith("d") && input.length() < 5) {
             output.append("I want that too but ur deadline can't be empty :-((");
             throw new BozoException("I want that too but ur deadline can't be empty :-((");
         } else {
@@ -190,7 +196,10 @@ public class Parser {
     private String handleEventCommand(String input, TaskList list) throws BozoException {
         StringBuilder output = new StringBuilder();
         Ui.showLine();
-        if (input.length() < 7) {
+        if (input.startsWith("event") && input.length() < 7) {
+            output.append("I want that too but ur event can't be empty :-((");
+            throw new BozoException("I want that too but ur event can't be empty :-((");
+        } else if (input.startsWith("e") && input.length() < 3) {
             output.append("I want that too but ur event can't be empty :-((");
             throw new BozoException("I want that too but ur event can't be empty :-((");
         } else {
