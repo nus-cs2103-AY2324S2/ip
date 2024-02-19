@@ -1,6 +1,5 @@
 package rick;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,10 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import rick.logic.Executer;
 import rick.logic.Parser;
 import rick.logic.RickException;
@@ -41,7 +37,6 @@ public class Rick {
      */
 
     public Rick() {
-        ui = new Ui();
         storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
@@ -51,29 +46,6 @@ public class Rick {
             Ui.reply(e.getMessage());
             tasks = new TaskList();
         }
-    }
-
-    /**
-     * Create a dialog label with text wrapped
-     * @param text a string to be contained in the label
-     * @return a label which contains the specified string
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Handles user input.
-     */
-    private void handleUserInput() {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), user),
-                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
-        );
-        userInput.clear();
     }
 
     /**
