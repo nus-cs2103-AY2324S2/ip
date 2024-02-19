@@ -37,7 +37,7 @@ Adds a todo task to the task list.
 
 🔹 **Format**: `todo DESCRIPTION`<br><br>
 🌟 **Example**: `todo read book`<br><br>
-✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
+✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Adding a Deadline Task: `deadline`</span>
@@ -47,7 +47,7 @@ Adds a task with a deadline to the task list, with a specified by date.
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
 🌟 **Example**: `deadline return book /by 2023-03-15`<br><br>
-✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
+✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Adding an Event Task: `event`</span>
@@ -58,7 +58,7 @@ Adds an event task to the task list, with a specified from and to date.
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
 🌟 **Example**: `event team meeting /from 2023-03-20 /to 2023-03-21`<br><br>
-✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.<br>
+✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Listing All Tasks: `list`</span>
@@ -66,7 +66,7 @@ Adds an event task to the task list, with a specified from and to date.
 Displays all tasks in the task list.
 
 🔹 **Format**: `list`<br><br>
-✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br>
+✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Marking a Task as Done: `mark`</span>
@@ -77,7 +77,7 @@ Marks an index-specified task as completed.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `mark 2`<br><br>
-✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.<br>
+✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Unmarking a Task as Not Done: `unmark`</span>
@@ -88,7 +88,7 @@ Marks an index-specified task as not completed.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `unmark 2`<br><br>
-✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.<br>
+✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Deleting a Task: `delete`</span>
@@ -99,7 +99,7 @@ Removes a specified task from the task list.
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
 🌟 **Example**: `delete 3`<br><br>
-✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.<br>
+✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Finding Tasks by Keyword: `find`</span>
@@ -111,7 +111,7 @@ Finds tasks by a keyword.
     - Partial words will be matched as well, e.g `meet` will match `meeting`<br>
 <br>
 🌟 **Example**: `find book`<br><br>
-✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.<br>
+✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Tagging a Task With Priority: `tag`</span>
@@ -123,14 +123,18 @@ Tags an index-specified task with a specified priority level
     - The `TAG` must be one of these 3 supported options (case-insensitive): `high`, `medium`, `low`<br>
 <br>
 🌟 **Example**: `tag 1 high`<br><br>
-✅ **Expected Outcome**: The application will tag the specified task with a priority level.<br>
+✅ **Expected Outcome**: The application will tag the specified task with a priority level.<br><br><br>
 
 
 ### <span style="color: #0B6E4F;">Exiting the Application: `bye`</span>
 
 Exits the application.
 
-🔹 **Format**: `bye`<br>
+🔹 **Format**: `bye`<br><br><br>
+
+## FAQ
+**Q:** How do i transfer my data to another Computer?<br>
+**A:** Install the app in the other computer and overwrite the **GeePeeTee.txt** data file that it creates with the existing **GeePeeTee.txt** data file in your current folder.<br><br><br>
 
 ## Command Summary 
 
