@@ -1,4 +1,4 @@
-package duke;
+package lunaris;
 
 public class DukeException extends Exception {
     /**

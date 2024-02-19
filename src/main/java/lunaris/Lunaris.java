@@ -1,4 +1,4 @@
-package duke;
+package lunaris;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import static duke.Parser.isActive;
+import static lunaris.Parser.isActive;
 
-public class Duke extends Application {
+public class Lunaris extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private ScrollPane scrollPane;
@@ -33,7 +33,7 @@ public class Duke extends Application {
     /**
      * Constructor for Lunaris chatbot.
      */
-    public Duke() {
+    public Lunaris() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {
@@ -59,7 +59,7 @@ public class Duke extends Application {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Lunaris().run();
     }
 
     @Override

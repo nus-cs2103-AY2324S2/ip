@@ -1,6 +1,6 @@
-package duke;
+package lunaris;
 
-import duke.task.Task;
+import lunaris.task.Task;
 
 import java.io.File;
 import java.io.FileWriter;

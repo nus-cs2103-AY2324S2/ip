@@ -1,9 +1,9 @@
-package duke;
+package lunaris;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import lunaris.task.Deadline;
+import lunaris.task.Event;
+import lunaris.task.Task;
+import lunaris.task.ToDo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
