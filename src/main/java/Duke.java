@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -148,7 +150,11 @@ public class Duke {
     public static void deadline() {
         String fullString = scan.nextLine();
 
-        String[] tokens = fullString.split("/");
+        int endOfDesc = fullString.indexOf("/by");
+        String description = fullString.substring(1, endOfDesc - 1);
+        String deadline = fullString.substring(endOfDesc + 4);
+
+        String[] tokens = {description, deadline};
         try {
             EmptyTaskException.timedValidate(tokens);
             MissingDeadlineException.validate(tokens);
@@ -157,17 +163,14 @@ public class Duke {
             return;
         } catch(MissingDeadlineException ex) {
             System.out.println("Please give a deadline for your deadline item. Try again! XD");
-            System.out.println("E.g. Type 'deadline return book /by Sunday 2pm' to add the task 'return book' " +
-                    "\nwith a deadline of 'Sunday 2pm' to your list.");
+            System.out.println("E.g. Type 'deadline return book /by 12/20/2024' to add the task 'return book' " +
+                    "\nwith a deadline of '20 Dec 2024' to your list.");
             return;
         }
 
-        String description = tokens[0];
-        String trimmed = description.trim();
-        String by = tokens[1];
-        Task task = new Deadline(trimmed, by);
+        Task task = new Deadline(description, deadline);
         list.add(task);
-        System.out.println("OK, I have added the task '" + trimmed + "' to your list! :)");
+        System.out.println("OK, I have added the task '" + description + "' to your list! :)");
         System.out.println("Now you have " + list.size() + " task(s) in the list.");
     }
 
@@ -345,9 +348,9 @@ public class Duke {
                 int deadlineEnd = fullString.indexOf(')');
 
                 String description = fullString.substring(7, descriptionEnd - 1);
-                String deadline = fullString.substring(descriptionEnd + 1, deadlineEnd);
-
-                Task nextTask = new Deadline(description, deadline);
+                String deadline = fullString.substring(descriptionEnd + 4, deadlineEnd);
+                LocalDate processedDeadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                Task nextTask = new Deadline(description, processedDeadline);
                 Duke.list.add(nextTask);
 
             } else if (fullString.contains("[E]")) {
