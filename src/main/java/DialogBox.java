@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img, boolean isDuke) {
+    private DialogBox(String text, Image img, boolean isTaskYapper) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,7 +37,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         dialog.setPadding(new Insets(0, 10, 0, 10));
         displayPicture.setImage(img);
-        if (isDuke) {
+        if (isTaskYapper) {
             this.setStyle("-fx-background-color: #cfcfcf; -fx-background-radius: 10; -fx-padding: 10;");
         }
     }
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img, false);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getTaskYapperDialog(String text, Image img) {
         var db = new DialogBox(text, img, true);
         db.flip();
         return db;

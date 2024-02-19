@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import exceptions.DukeException;
+import exceptions.TaskYapperException;
 
 
 /**
@@ -54,12 +54,12 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public String markTaskAsDone(int index) throws DukeException {
+    public String markTaskAsDone(int index) throws TaskYapperException {
         try {
             Task task = taskList.get(index - 1);
             return task.markDone(false);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Quit yappin, that task does not exist");
+            throw new TaskYapperException("Quit yappin, that task does not exist");
         }
     }
 
@@ -68,12 +68,12 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public String unmarkTaskAsDone(int index) throws DukeException {
+    public String unmarkTaskAsDone(int index) throws TaskYapperException {
         try {
             Task task = taskList.get(index - 1);
             return task.unmarkDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Quit yappin, that task does not exist");
+            throw new TaskYapperException("Quit yappin, that task does not exist");
         }
     }
 
@@ -95,12 +95,12 @@ public class TaskList {
      * @param index The index of the task in the list to be removed, starting from 1.
      * @return The task that was removed.
      */
-    public Task removeTaskfromTaskList(int index) throws DukeException {
+    public Task removeTaskfromTaskList(int index) throws TaskYapperException {
         try {
             Task task = taskList.remove(index - 1);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Quit yappin, that task does not exist");
+            throw new TaskYapperException("Quit yappin, that task does not exist");
         }
     }
 
@@ -112,7 +112,7 @@ public class TaskList {
      * @param taskType The type of the task (e.g., "todo", "deadline", "event").
      * @return The initialized task, or null if the task could not be created due to invalid input.
      */
-    public Task initTask(String message, String taskType) throws DukeException {
+    public Task initTask(String message, String taskType) throws TaskYapperException {
         Task task;
         switch (taskType) {
         case "todo":
@@ -137,14 +137,14 @@ public class TaskList {
      *
      * @param message The input message containing the task description.
      * @return A new {@code ToDo} object with the specified description.
-     * @throws DukeException If the input message does not contain a valid task description.
+     * @throws TaskYapperException If the input message does not contain a valid task description.
      */
-    private ToDo initTodo(String message) throws DukeException {
+    private ToDo initTodo(String message) throws TaskYapperException {
         try {
             String[] inputs = message.split("todo ");
             return new ToDo(inputs[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Whats the task, yapper???");
+            throw new TaskYapperException("Whats the task, yapper???");
         }
     }
 
@@ -155,20 +155,20 @@ public class TaskList {
      *
      * @param message The input message containing the task description and deadline.
      * @return A new {@code Deadline} object with the specified description and deadline date.
-     * @throws DukeException If the input message does not contain a valid task description or deadline date,
+     * @throws TaskYapperException If the input message does not contain a valid task description or deadline date,
      *                       or if the deadline date is not in the expected format.
      */
-    private Deadline initDeadline(String message) throws DukeException {
+    private Deadline initDeadline(String message) throws TaskYapperException {
         try {
             message = message.substring("deadline ".length());
             String[] inputs = message.split("/by");
             return new Deadline(inputs[0].trim(), inputs[1].trim());
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Deadlines need a deadline, yapper!");
+            throw new TaskYapperException("Deadlines need a deadline, yapper!");
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Whats the task, yapper???");
+            throw new TaskYapperException("Whats the task, yapper???");
         } catch (DateTimeException e) {
-            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+            throw new TaskYapperException("Please put dates in format \"yyyy-mm-dd\"");
         }
     }
 
@@ -179,21 +179,21 @@ public class TaskList {
      *
      * @param message The input message containing the event description, start time, and end time.
      * @return A new {@code Event} object with the specified description, start time, and end time.
-     * @throws DukeException If the input message does not contain a valid event description, start time, or end time,
-     *                       or if the start and end times are not in the expected format.
+     * @throws TaskYapperException When input message does not contain a valid start time, or end time,
+     *                       or are not in the expected format.
      */
-    public Event initEvent(String message) throws DukeException {
+    public Event initEvent(String message) throws TaskYapperException {
         try {
             message = message.substring("event ".length());
             String[] inputs = message.split("/from");
             String[] innerInputs = inputs[1].split("/to");
             return new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("YAPYAP, What time is your from and to?");
+            throw new TaskYapperException("YAPYAP, What time is your from and to?");
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Whats the task, yapper???");
+            throw new TaskYapperException("Whats the task, yapper???");
         } catch (DateTimeException e) {
-            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+            throw new TaskYapperException("Please put dates in format \"yyyy-mm-dd\"");
         }
     }
     /**
@@ -225,10 +225,10 @@ public class TaskList {
      * @param stringDate The date to filter the tasks by, in the format of "yyyy-mm-dd".
      *                   It is used to identify tasks that are due on or are happening on this specific date.
      * @return A new {@code TaskList} containing only the tasks due on or happening on the specified date.
-     * @throws DukeException If the provided date string does not conform to the expected format ("yyyy-mm-dd")
-     *                          a {@code DukeException} is thrown with a message prompting the correct format.
+     * @throws TaskYapperException If the provided date string does not conform to the expected format ("yyyy-mm-dd")
+     *                          a {@code TaskYapperException} is thrown with a message prompting the correct format.
      */
-    public TaskList filterByDate(String stringDate) throws DukeException {
+    public TaskList filterByDate(String stringDate) throws TaskYapperException {
         try {
             LocalDate date = LocalDate.parse(stringDate);
             ArrayList<Task> newList = new ArrayList<>();
@@ -241,7 +241,7 @@ public class TaskList {
             }
             return new TaskList(newList);
         } catch (DateTimeException e) {
-            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+            throw new TaskYapperException("Please put dates in format \"yyyy-mm-dd\"");
         }
     }
 
