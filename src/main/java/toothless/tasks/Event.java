@@ -66,4 +66,8 @@ public class Event extends Task {
         return super.toString() + " (from: " + super.dateTimeFormat(startDate)
                 + " to: " + super.dateTimeFormat(endDate) + ")";
     }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 }
