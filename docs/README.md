@@ -6,11 +6,15 @@ Feeling overloaded?  Meet Plana, your pocket-sized productivity pro!  Chat with 
 
 ## Features
 
-> [!NOTE]
 > ### Notes about the command format:
 > * Words in `UPPER_CASE` are the parameters to be supplied by the user.
 >
->   e.g. in `deadline by/DATE`, `DATE` is a parameter which can be used as `deadline /by 2024-08-02`.
+>   e.g. in `deadline by/ DATE`, `DATE` is a parameter which can be used as `deadline /by 2024-08-02`.
+> 
+> 
+> * Where the command requires a DATE, it can be in any of the following formats:
+> 
+>   `yyyy-MM-dd HH:mm`, `yyyy-MM-dd`, `yyyy-MM`
 > 
 > 
 > * Extraneous parameters for commands that do not take in parameters (such as list and bye) will result in an error.
@@ -85,7 +89,6 @@ Example: `unmark 1`
 
 Finds tasks with the given query.
 
-> [!NOTE]
 > `QUERY` is case sensitive
 
 Format: `find QUERY`
