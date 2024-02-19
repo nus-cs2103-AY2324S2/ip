@@ -135,7 +135,7 @@ public class Parser {
     public static Task parseDataFormat(String dataFormat) throws InvalidDataFormat {
         String[] inputsToCmd;
         TaskTag tag;
-        Boolean isDone;
+        boolean isDone;
         Task result;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
         tag = TaskTag.valueOf(String.valueOf(dataFormat.charAt(0)).toUpperCase());
