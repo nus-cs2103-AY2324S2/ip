@@ -47,4 +47,4 @@ This task adds a "event" task to our task list.
 ## Tips
 > Pro Tip: Regularly use the YAP command to review your tasks and stay on top of your commitments!
 
-Feel free to contact @jyztintan for any enquiries, bug reports or suggestions for improvements.
+Feel free to contact [@jyztintan](https://github.com/jyztintan) for any enquiries, bug reports or suggestions for improvements.
