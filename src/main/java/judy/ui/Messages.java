@@ -13,6 +13,8 @@ public class Messages {
     public static final String DELETE_TASK_MESSAGE = " Noted. I've removed this task: \n";
     public static final String ADD_TASK_MESSAGE = " Got it. I've added this task: \n";
     public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
+    public static final String EMPTY_MATCHING_TASKS_MESSAGE = "Ohno! Can't find a matching task in your list! ";
+    public static final String LIST_MATCHING_TASKS_MESSAGE = " Here are the matching tasks in your list: ";
 
     /**
      * Generates and returns the help message with instructions on using the application.

@@ -60,6 +60,9 @@ public class Parser {
                 Task event = handleEvent(commandParts);
                 command = new AddTaskCommand(event, this.taskList);
                 break;
+            case FindTaskCommand.COMMAND_WORD:
+                command = handleFind(commandParts);
+                break;
             case ExitCommand.COMMAND_WORD:
                 command = new ExitCommand();
                 break;
@@ -218,5 +221,18 @@ public class Parser {
                         " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
             }
         }
+    }
+
+    /**
+     * Parses a find task input.
+     *
+     * @return a FindTaskCommand based on user's input.
+     * @throws DukeException if user left the description empty.
+     */
+    private FindTaskCommand handleFind(String[] input) throws DukeException {
+        if (input.length != 2 || input[1].isEmpty()) {
+            throw new DukeException("The description of find cannot be empty.");
+        }
+        return new FindTaskCommand(this.taskList, input[1]);
     }
 }
