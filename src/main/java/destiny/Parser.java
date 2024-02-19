@@ -1,45 +1,87 @@
 package destiny;
 
+import commands.Command;
+import commands.ListCmd;
+import commands.FindCmd;
+import commands.MarkDoneCmd;
+import commands.MarkNotDoneCmd;
+import commands.DeleteCmd;
+import commands.ToDoCmd;
+import commands.DeadlineCmd;
+import commands.EventCmd;
+
+import java.util.Arrays;
+
 /**
  * Used to understand the user input.
  */
 public class Parser {
     /**
-     * Splits user input into the command and its details.
+     * Determines command that the user has inputted.
      *
      * @param userMessage The user input.
-     * @return An array of strings where the 1st elem is the command and the 2nd is the details of the command.
+     * @return Command object that will subsequently execute desired task by user.
+     * @throws DukeException If description of command is required but not provided by user.
      */
-    public String[] getCommand(String userMessage) {
-        String[] result = new String[2];
+    public Command parse(String userMessage) throws DukeException {
+        String[] input = new String[2];
         Boolean foundSplit = false;
         for (int i = 0; i < userMessage.length(); i++) {
             if (userMessage.charAt(i) == ' ') {
-                result[0] = userMessage.substring(0, i);
-                result[1] = userMessage.substring(i + 1, userMessage.length());
+                input[0] = userMessage.substring(0, i);
+                input[1] = userMessage.substring(i + 1, userMessage.length());
                 foundSplit = true;
                 break;
             }
         }
         if (!foundSplit) {
-            result[0] = userMessage;
+            input[0] = userMessage;
         }
 
-        return result;
-    }
-
-    /**
-     * Used by commands that require details.
-     *
-     * @param cmd The command given.
-     * @param details The details given by the user.
-     * @return Trimmed details.
-     * @throws DukeException If details is empty or null.
-     */
-    public String getCmdDetails(String cmd, String details) throws DukeException {
-        if (details == null || details.trim().length() == 0) {
-            throw new DukeException("Please enter a description for the " + cmd + " command");
+        String cmd = input[0].toLowerCase().trim();
+        System.out.println(cmd == "list");
+        // check if command is in list of valid commands
+        try {
+            AcceptedCmds testCommand = AcceptedCmds.valueOf(cmd.toLowerCase());
+        } catch (IllegalArgumentException e) {
+            throw new DukeException("Please enter a valid command\nThe list of valid commands are as follows:\n"
+                    + Arrays.asList(AcceptedCmds.values()));
         }
-        return details.trim();
+
+        // list is the only command that does not require details
+        if (cmd.equals("list")) {
+            return new ListCmd();
+        }
+
+        // ensure that details are provided
+        if (input[1] == null || input[1].trim().length() == 0) {
+            throw new DukeException("Please enter a description after the command");
+        }
+
+        // start processing commands that require details.
+        String details = input[1].trim();
+
+        //  todo, deadline, event, delete
+        switch (cmd) {
+        case "find":
+            return new FindCmd(details);
+        case "mark":
+            return new MarkDoneCmd(details);
+        case "unmark":
+            return new MarkNotDoneCmd(details);
+        case "delete":
+            return new DeleteCmd(details);
+        case "todo":
+            return new ToDoCmd(details);
+        case "deadline":
+            return new DeadlineCmd(details);
+        case "event":
+            return new EventCmd(details);
+        default:
+            // invalid commands have already been accounted for,
+            // code should not execute beyond this point
+            assert false;
+            throw new DukeException("Critical error");
+        }
     }
 }
