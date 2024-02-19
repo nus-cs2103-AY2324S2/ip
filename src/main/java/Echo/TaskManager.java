@@ -69,29 +69,29 @@ public class TaskManager {
         String[] tokens = command.split(" ", 2);
 
         switch (tokens[0].toLowerCase()) {
-            case "list":
-                listTasks();
-                break;
-            case "mark":
-                markTask(tokens);
-                break;
-            case "unmark":
-                unmarkTask(tokens);
-                break;
-            case "delete":
-                deleteTask(tokens);
-                break;
-            case "find":
-                if (tokens.length == 2) {
-                    findTasks(tokens[1]);
-                } else {
-                    System.out.println("Invalid command. Usage: find <keyword>");
-                }
-                break;
-            case "bye":
-                break;
-            default:
-                addTask(tokens);
+        case "list":
+            listTasks();
+            break;
+        case "mark":
+            markTask(tokens);
+            break;
+        case "unmark":
+            unmarkTask(tokens);
+            break;
+        case "delete":
+            deleteTask(tokens);
+            break;
+        case "find":
+            if (tokens.length == 2) {
+                findTasks(tokens[1]);
+            } else {
+                System.out.println("Invalid command. Usage: find <keyword>");
+            }
+            break;
+        case "bye":
+            break;
+        default:
+            addTask(tokens);
         }
     }
 

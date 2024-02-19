@@ -57,37 +57,37 @@ public class Storage {
 
             // Create the corresponding task object based on the task type
             switch (taskType) {
-                case "T":
-                    Todo todoTask = new Todo(taskDescription);
-                    if (isDone) {
-                        todoTask.markAsDone();
-                    }
-                    tasks.add(todoTask);
-                    break;
-                case "D":
-                    String[] deadlineTokens = tokens[3].split(" ", 2);
-                    if (deadlineTokens.length != 2) {
-                        throw new IllegalArgumentException("Invalid deadline format in file.");
-                    }
-                    Deadline deadlineTask = new Deadline(taskDescription, deadlineTokens[1]);
-                    if (isDone) {
-                        deadlineTask.markAsDone();
-                    }
-                    tasks.add(deadlineTask);
-                    break;
-                case "E":
-                    String[] eventTokens = tokens[3].split(" ", 3);
-                    if (eventTokens.length != 3) {
-                        throw new IllegalArgumentException("Invalid event format in file.");
-                    }
-                    Event eventTask = new Event(taskDescription, eventTokens[1], eventTokens[2]);
-                    if (isDone) {
-                        eventTask.markAsDone();
-                    }
-                    tasks.add(eventTask);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid task type in file!");
+            case "T":
+                Todo todoTask = new Todo(taskDescription);
+                if (isDone) {
+                    todoTask.markAsDone();
+                }
+                tasks.add(todoTask);
+                break;
+            case "D":
+                String[] deadlineTokens = tokens[3].split(" ", 2);
+                if (deadlineTokens.length != 2) {
+                    throw new IllegalArgumentException("Invalid deadline format in file.");
+                }
+                Deadline deadlineTask = new Deadline(taskDescription, deadlineTokens[1]);
+                if (isDone) {
+                    deadlineTask.markAsDone();
+                }
+                tasks.add(deadlineTask);
+                break;
+            case "E":
+                String[] eventTokens = tokens[3].split(" ", 3);
+                if (eventTokens.length != 3) {
+                    throw new IllegalArgumentException("Invalid event format in file.");
+                }
+                Event eventTask = new Event(taskDescription, eventTokens[1], eventTokens[2]);
+                if (isDone) {
+                    eventTask.markAsDone();
+                }
+                tasks.add(eventTask);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type in file!");
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
