@@ -34,8 +34,8 @@ GeePeeTee is a desktop application for users to manage their tasks using a Comma
 ### Adding a Todo Task: `todo`
 Adds a todo task to the task list.
 
-🔹 **Format**: `todo DESCRIPTION`<br>
-🌟 **Example**: `todo read book`<br>
+🔹 **Format**: `todo DESCRIPTION`<br><br>
+🌟 **Example**: `todo read book`<br><br>
 ✅ **Expected Outcome**: The application will add a Todo task with the description "read book" to the task list and display a confirmation message along with the updated number of tasks in your list.
 
 
@@ -45,7 +45,7 @@ Adds a task with a deadline to the task list, with a specified by date.
 🔹 **Format**: `deadline DESCRIPTION /by DATE`<br> 
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
-🌟 **Example**: `deadline return book /by 2023-03-15`<br>
+🌟 **Example**: `deadline return book /by 2023-03-15`<br><br>
 ✅ **Expected Outcome**: The application will add a Deadline task with the description "return book" and deadline date of "2023-03-15" to the task list and display a confirmation message along with the updated number of tasks in your list.
 
 
@@ -56,7 +56,7 @@ Adds an event task to the task list, with a specified from and to date.
 🔹 **Format**: `event DESCRIPTION /from DATE /to DATE`<br>
     - The `DATE` specified must be the <strong>YYYY-MM-DD</strong> format <br>
 <br>
-🌟 **Example**: `event team meeting /from 2023-03-20 /to 2023-03-21`<br>
+🌟 **Example**: `event team meeting /from 2023-03-20 /to 2023-03-21`<br><br>
 ✅ **Expected Outcome**: The application will add an Event task with the description "team meeting, start date of "2023-03-20" and end date of "2023-03-21" to the task list and display a confirmation message along with the updated number of tasks in your list.
 
 
@@ -64,7 +64,7 @@ Adds an event task to the task list, with a specified from and to date.
 
 Displays all tasks in the task list.
 
-🔹 **Format**: `list`<br>
+🔹 **Format**: `list`<br><br>
 ✅ **Expected Outcome**: The application will displays all tasks in your task list, ordered by priority (if tasks are tagged with a priority level) and order of addition of tasks.
 
 
@@ -75,7 +75,7 @@ Marks an index-specified task as completed.
 🔹 **Format**: `mark INDEX`<br>
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
-🌟 **Example**: `mark 2`<br>
+🌟 **Example**: `mark 2`<br><br>
 ✅ **Expected Outcome**: The application will mark a task as completed, denoted by the [X] symbol on the task.
 
 
@@ -86,7 +86,7 @@ Marks an index-specified task as not completed.
 🔹 **Format**: `unmark INDEX`<br>
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
-🌟 **Example**: `unmark 2`<br>
+🌟 **Example**: `unmark 2`<br><br>
 ✅ **Expected Outcome**: The application will mark the specified task as completed, denoted by the [ ] symbol on the task.
 
 
@@ -97,7 +97,7 @@ Removes a specified task from the task list.
 🔹 **Format**: `delete INDEX`<br>
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
 <br>
-🌟 **Example**: `delete 3`<br>
+🌟 **Example**: `delete 3`<br><br>
 ✅ **Expected Outcome**: The application will remove the specified task from the task list and display a confirmation message along with the updated number of tasks in your list.
 
 
@@ -109,7 +109,7 @@ Finds tasks by a keyword.
     - The search is case-insensitive, e.g `meeting` will match `Meeting`<br>
     - Partial words will be matched as well, e.g `meet` will match `meeting`<br>
 <br>
-🌟 **Example**: `find book`<br>
+🌟 **Example**: `find book`<br><br>
 ✅ **Expected Outcome**: The application will search through the the task list for any tasks which description contains the specified keyword and displays the list of matching tasks.
 
 
@@ -121,7 +121,7 @@ Tags an index-specified task with a specified priority level
     - The `INDEX` specified refers to the index number shown in the displayed task list. The index must be a positive integer and a valid index.<br>
     - The `TAG` must be one of these 3 supported options (case-insensitive): `high`, `medium`, `low`<br>
 <br>
-🌟 **Example**: `tag 1 high`<br>
+🌟 **Example**: `tag 1 high`<br><br>
 ✅ **Expected Outcome**: The application will tag the specified task with a priority level.
 
 
@@ -132,6 +132,7 @@ Exits the application.
 🔹 **Format**: `bye`<br>
 
 ## Command Summary 
+
 | Action        | Format                                                  | Examples |
 |---------------|---------------------------------------------------------|-----------------|
 | Add Todo      | `todo <description>`                                    | `todo read book`|

@@ -2,6 +2,7 @@ package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import exception.InvalidDateException;
 import exception.InvalidTaskFormatException;
@@ -32,10 +33,14 @@ public class DeadlineParser {
         if (description.isEmpty()) {
             throw new InvalidTaskFormatException("The description of a deadline cannot be empty.");
         }
-        String by = parts[1].trim();
         LocalDate parsedBy;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        parsedBy = LocalDate.parse(by, formatter);
+        try {
+            parsedBy = LocalDate.parse(parts[1].trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException("Unable to parse date. Ensure the date is in 'yyyy-MM-dd' format.");
+        }
+
         if (parsedBy.isBefore(LocalDate.now())) {
             throw new InvalidDateException("The deadline date cannot be in the past.");
         }
