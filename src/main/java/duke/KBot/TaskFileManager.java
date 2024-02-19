@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -123,7 +122,7 @@ public class TaskFileManager {
      */
     public static ToDo loadToDo(String parameter) {
         String[] todoInput = parameter.split(" \\| ", 3);
-        boolean isCompleted = (todoInput[0].trim() != "");
+        boolean isCompleted = (!todoInput[0].trim().equals(""));
         String name = todoInput[1];
         String tags = todoInput[2];
         ParseTags pt = new ParseTags(tags);
@@ -138,7 +137,7 @@ public class TaskFileManager {
      */
     public static Deadline loadDeadline(String parameter) throws DateTimeParseException {
         String[] deadlineInputs = parameter.split(" \\| ", 4);
-        boolean isCompleted = (deadlineInputs[0].trim() != "");
+        boolean isCompleted = (!deadlineInputs[0].trim().equals(""));
         String name = deadlineInputs[1];
         String date = deadlineInputs[2];
         String tags = deadlineInputs[3];
@@ -155,7 +154,7 @@ public class TaskFileManager {
      */
     public static Event loadEvent(String parameter) throws DateTimeParseException {
         String[] eventInputs = parameter.split(" \\| ", 5);
-        boolean isCompleted = (eventInputs[0].trim() != "");
+        boolean isCompleted = (!eventInputs[0].trim().equals(""));
         String name = eventInputs[1];
         String fromDate = eventInputs[2];
         String toDate = eventInputs[3];
