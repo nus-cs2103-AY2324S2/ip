@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import main.GUi.DialogBox;
 import main.Poe;
 import main.Ui;
 
@@ -48,7 +47,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-//        String response = duke.getResponse(input);
         String response = poe.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
