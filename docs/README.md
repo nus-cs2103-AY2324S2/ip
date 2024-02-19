@@ -8,8 +8,8 @@ Free up space in your mind, and allow Scribbles to help you to remember the triv
 <p align="centre">
     <a href="https://github.com/danielleloh/ip">
         <img src=
-            "https://imgur.com/3jWp7Pi"
-            alt="ui preview" height="500">
+            "https://i.imgur.com/3jWp7Pi.png"
+            alt="ui preview" height="350">
     </a>
 </p>
 
