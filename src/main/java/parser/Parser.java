@@ -40,9 +40,29 @@ public class Parser {
         Commands cmd;
         try {
             cmd = Commands.valueOf(cmdInput.split(" ", 2)[0].toUpperCase());
+            return checkEnumCommands(cmd, cmdInput);
         } catch (IllegalArgumentException e) {
             throw new InvalidCmd(cmdInput);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeFormat(e.getMessage());
         }
+    }
+
+    /**
+     * Handles the switch-cases for commands
+     *
+     * @param cmd Commands object
+     * @param cmdInput String input give by user
+     * @return
+     * @throws DateTimeParseException
+     * @throws InvalidDateTimeFormat
+     * @throws EventEmptyException
+     * @throws DeadlineEmptyException
+     * @throws InvalidCmd
+     */
+    public Command checkEnumCommands(Commands cmd, String cmdInput)
+            throws DateTimeParseException, InvalidDateTimeFormat, EventEmptyException,
+            DeadlineEmptyException, InvalidCmd {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         switch (cmd) {
             case BYE:
@@ -57,22 +77,12 @@ public class Parser {
                 return new TodoCmd(cmdInput.substring(5));
             case EVENT:
                 String[] inputs = parseEvent(cmdInput);
-                try {
-                    return new EventCmd(inputs[0],
-                            LocalDateTime.parse(inputs[1].substring(5), formatter),
-                            LocalDateTime.parse(inputs[2].substring(3), formatter));
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeFormat(e.getMessage());
-                }
-
+                return new EventCmd(inputs[0],
+                        LocalDateTime.parse(inputs[1].substring(5), formatter),
+                        LocalDateTime.parse(inputs[2].substring(3), formatter));
             case DEADLINE:
                 inputs = parseDeadline(cmdInput);
-                try {
-                    return new DeadlineCmd(inputs[0], LocalDateTime.parse(inputs[1], formatter));
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeFormat(e.getMessage());
-                }
-
+                return new DeadlineCmd(inputs[0], LocalDateTime.parse(inputs[1], formatter));
             case ADD:
                 return new AddCmd(cmdInput);
             case DELETE:
@@ -128,9 +138,9 @@ public class Parser {
 
     /**
      * Takes String of the correct data format and returns task object. Used for loading tasks
-     * @param dataFormat
+     * @param dataFormat one line of data in data/sirDuke.txt
      * @return
-     * @throws InvalidDataFormat
+     * @throws InvalidDataFormat that particular line of data is of the incorrect format
      */
     public static Task parseDataFormat(String dataFormat) throws InvalidDataFormat {
         String[] inputsToCmd;
