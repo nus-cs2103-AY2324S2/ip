@@ -18,10 +18,6 @@ public abstract class Task {
         this.isMarked = false;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
-
     public boolean getMarked() {
         return this.isMarked;
     }

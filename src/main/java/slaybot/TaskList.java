@@ -31,7 +31,7 @@ public class TaskList {
 
         try {
             this.tasks.remove(index);
-            String deleteText = "\n Successful deletion \n You now have "
+            String deleteText = "Successful deletion \n You now have "
                     + tasks.size() + " tasks";
             Storage.saveTasks(this);
             return deleteText;
