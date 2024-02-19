@@ -1,6 +1,6 @@
 # Felix
 
-![Screenshot of Felix](Ui.PNG)
+![Screenshot of Felix](Ui.png)
 
 ## Introducing Felix, Your Personal Task Manager and Note-Taking Assistant.
 

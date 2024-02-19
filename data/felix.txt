@@ -1,6 +1,5 @@
 todo|1|Cook dinner
 deadline|0|Wash Laundry|2024-10-20
-deadline|0|Feed the cats|2024-02-20
 event|0|Felix's party|2024-03-19|2024-03-20
 todo|0|Feed Felix some treats
 deadline|0|wow|2024-02-20
