@@ -47,7 +47,11 @@ public class Deadline extends Task {
      */
     public String getDescription(String fullCommand) {
         int descIndex = fullCommand.indexOf("/by");
-        return fullCommand.substring(9, descIndex - 1);
+        int startDesc = 9;
+        if (startDesc >= descIndex - 1) {
+            return "";
+        }
+        return fullCommand.substring(startDesc, descIndex - 1);
     }
 
     /**
@@ -57,9 +61,12 @@ public class Deadline extends Task {
      */
     public String formatByDateString() {
         String formattedByDate = formatByDtPattern(this.getTask());
+        String description = getDescription(this.getTask());
 
         if (formattedByDate.equals("Invalid Date")) {
             return "Invalid Date";
+        } else if (description.equals("")) {
+            return "Invalid description";
         } else {
             return getDescription(this.getTask())
                     + " (by: " + formattedByDate

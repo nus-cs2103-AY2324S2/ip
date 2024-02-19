@@ -67,7 +67,11 @@ public class Event extends Task {
 
     public String getDescription(String fullCommand) {
         int descIndex = fullCommand.indexOf("/from");
-        return fullCommand.substring(6, descIndex - 1);
+        int startDesc = 6;
+        if (startDesc >= descIndex - 1) {
+            return "";
+        }
+        return fullCommand.substring(startDesc, descIndex - 1);
     }
 
     /**
@@ -79,9 +83,12 @@ public class Event extends Task {
     public String formatStringOutput() {
         String formattedFromDate = formatFromDtPattern(this.getTask());
         String formattedToDate = formatToDtPattern(this.getTask());
+        String description = getDescription(this.getTask());
 
         if (formattedFromDate.equals("Invalid Date") || formattedToDate.equals("Invalid Date")) {
             return "Invalid Date";
+        } else if (description.equals("")) {
+            return "Invalid description";
         } else {
             return getDescription(this.getTask())
                     + " (from: " + formattedFromDate

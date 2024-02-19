@@ -102,7 +102,7 @@ public class DialogBox extends HBox {
     }
 
     public void configBotBox() {
-        this.nameLabel.setText("fredricksen");
+        this.nameLabel.setText("Fredricksen");
     }
 
     /**
