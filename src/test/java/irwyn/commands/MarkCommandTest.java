@@ -1,12 +1,14 @@
 package irwyn.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import commands.MarkCommand;
-import misc.StorageManager;
-import misc.Ui;
 import irwyn.tasks.TaskList;
 import irwyn.tasks.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import misc.StorageManager;
+import misc.Ui;
 
 public class MarkCommandTest {
     protected StorageManager s;

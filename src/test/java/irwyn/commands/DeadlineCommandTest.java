@@ -1,12 +1,14 @@
 package irwyn.commands;
 
-import commands.DeadlineCommand;
-import misc.StorageManager;
-import misc.Ui;
-import irwyn.tasks.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import commands.DeadlineCommand;
+import irwyn.tasks.TaskList;
+import misc.StorageManager;
+import misc.Ui;
+
 
 public class DeadlineCommandTest {
     protected StorageManager s;
