@@ -84,6 +84,7 @@ public class DialogBox extends HBox {
      *
      * @param text The text of Lery's message.
      * @param img The profile picture of Lery.
+     * @param isError A boolean indicating whether the message is an error.
      * @return A DialogBox representing Lery's message.
      */
     public static DialogBox getLeryDialog(String text, Image img, boolean isError) {
