@@ -27,12 +27,8 @@ public class Ui {
         return "\t\tBye bye, see you next time!!!";
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
     public String showAdded(Task task) {
-        String s = "\t\tAdded a new task to the list!/n + \t\t  " + task.toString();
+        String s = "\t\tAdded a new task to the list!\n\t\t  " + task.toString();
         return s;
     }
 
