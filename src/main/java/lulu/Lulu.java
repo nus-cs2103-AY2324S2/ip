@@ -46,6 +46,7 @@ public class Lulu {
 
             try {
                 if (input.toLowerCase().equals("bye")) {
+                    UI.exit();
                     break;
                 } else if (input.toLowerCase().equals("list")) {
                     UI.printTasks(this.tasks);
@@ -54,11 +55,11 @@ public class Lulu {
                     command.execute(this.tasks, this.storage);
                 }
             } catch (InvalidCommandException e) {
-                UI.print("Sorry, I don't think I quite understood what you meant...");
+                UI.print("My bad, I don't think I quite understood what you meant...");
             } catch (InvalidDateException e) {
-                UI.print("Please ensure that you are inputting valid start and end dates.");
+                UI.print("Did you input valid start and end dates?");
             } catch (InvalidSlashParameterException e) {
-                UI.print("Please ensure that you are inputting valid date parameters.");
+                UI.print("Did you input valid date parameters?");
             } catch (LuluException e) {
                 UI.print(e.getMessage());
             }
@@ -80,7 +81,7 @@ public class Lulu {
     public String getResponse(String input) {
         try {
             if (input.toLowerCase().equals("bye")) {
-                return "Bye. Hope to see you again soon!";
+                return "All-goods boss, catch you later";
             } else if (input.toLowerCase().equals("list")) {
                 return UI.printTasks(this.tasks);
             } else {
@@ -88,11 +89,11 @@ public class Lulu {
                 return command.execute(this.tasks, this.storage);
             }
         } catch (InvalidCommandException e) {
-            return "Sorry, I don't think I quite understood what you meant...";
+            return "My bad, I don't think I quite understood what you meant...";
         } catch (InvalidDateException e) {
-            return "Please ensure that you are inputting valid start and end dates.";
+            return "Did you input valid start and end dates?";
         } catch (InvalidSlashParameterException e) {
-            return "Please ensure that you are inputting valid date parameters.";
+            return "Did you input valid date parameters?";
         } catch (LuluException e) {
             return e.getMessage();
         }
@@ -112,6 +113,5 @@ public class Lulu {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        UI.exit();
     }
 }
