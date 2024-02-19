@@ -113,6 +113,7 @@ public class TaskParser {
         default:
             throw new IllegalStateException("Unexpected value: " + type);
         }
+        assert newTask != null : "Parsed task is null";
         if (newTask.getName().isBlank()) {
             throw new ShodanException("You need to specify a name for your task.");
         }

@@ -40,6 +40,7 @@ public class StorageManager {
             }
         }
         taskSaveLocation = rb.getString("TASK_SAVE_PATH");
+        assert taskSaveLocation != null : "Save path should not be empty";
     }
 
     /**
@@ -48,6 +49,7 @@ public class StorageManager {
      * @param tasks the tasks to save.
      */
     public void saveTasks(List<Task> tasks) {
+        assert taskSaveLocation != null : "Save path should not be empty";
         String tasksSerialized = TaskSerializer.serialize(tasks);
         try (FileWriter writer = new FileWriter(taskSaveLocation)) {
             writer.write(tasksSerialized);
@@ -62,6 +64,7 @@ public class StorageManager {
      * @return the list of tasks.
      */
     public List<Task> loadTasks() {
+        assert taskSaveLocation != null : "Save path should not be empty";
         File saveFile = new File(taskSaveLocation);
         if (!saveFile.exists()) {
             return new ArrayList<>();

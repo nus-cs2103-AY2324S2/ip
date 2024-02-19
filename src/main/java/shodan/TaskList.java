@@ -54,6 +54,7 @@ public class TaskList {
      */
     public Task mark(int index, boolean done) throws IndexOutOfBoundsException {
         Task task = tasks.get(index);
+        assert task != null : "Task should not be null";
         task.setDone(done);
         return task;
     }
