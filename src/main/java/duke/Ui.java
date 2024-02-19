@@ -103,8 +103,7 @@ public class Ui {
     }
 
     public String listTaskMessage(TaskList taskList) {
-        String listOfTasks = taskList.listTask();
-        return String.format("  Here are the tasks in your list: \n%s", listOfTasks);
+        return taskList.listTask();
     }
 
     public String readCommandLine() {

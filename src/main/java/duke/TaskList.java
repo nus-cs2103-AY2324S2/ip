@@ -90,12 +90,12 @@ public class TaskList {
      *
      */
     public String listTask() {
-        StringBuilder output = new StringBuilder();
+        String output = "  Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {
-            output.append("  ").append(i + 1).append(". ")
-                    .append(taskList.get(i).getDescription()).append("\n");
+              output += "\n  " + (i + 1) + ". " +
+                    taskList.get(i).toString();
         }
-        return output.toString();
+        return output;
     }
 
     /**
