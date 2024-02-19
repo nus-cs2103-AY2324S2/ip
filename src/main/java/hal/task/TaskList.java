@@ -6,7 +6,6 @@ import hal.gui.Parser;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-
 public class TaskList {
         ArrayList<Task> taskList;
         boolean IS_DONE_DEFAULT = false;
@@ -103,15 +102,10 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
-    public int getNumberOfTasks() {
-        return taskList.size();
-    }
-
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
     
-    // add previous list form storage into newly initialised tasklist
     public void initialisePrevTaskList(ArrayList<Task> prevTaskList) {
         System.out.println(prevTaskList);
         this.taskList = prevTaskList;
