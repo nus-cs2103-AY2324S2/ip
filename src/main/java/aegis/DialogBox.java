@@ -46,16 +46,20 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.BOTTOM_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setAlignment(Pos.BOTTOM_RIGHT);
+        db.setSpacing(5);
+        return db;
     }
 
     public static DialogBox getAegisDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setSpacing(5);
         return db;
     }
 }

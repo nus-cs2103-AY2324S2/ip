@@ -1,0 +1,40 @@
+AnchorPane
+{
+    -fx-background-color: "black";
+}
+
+#chatWindow
+{
+    -fx-background-color: "black";
+    -fx-border-color: "white";
+    -fx-border-width: 5px;
+}
+
+#userInput
+{
+    -fx-background-color: "offwhite";
+    -fx-border-color: "grey";
+    -fx-border-radius: 5px;
+
+}
+
+#sendButton
+{
+    -fx-background-color: "white";
+    -fx-text-fill: "grey";
+    -fx-border-color: "lightblue";
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+#chatBox
+{
+    -fx-border-color: "white";
+    -fx-background-color: "grey";
+    -fx-background-radius: 6px;
+    -fx-text-fill: "white";
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-alignment: "TOP_LEFT";
+}
