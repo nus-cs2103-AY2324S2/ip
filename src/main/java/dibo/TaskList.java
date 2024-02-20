@@ -40,7 +40,7 @@ public class TaskList {
      */
     public String getDisplayFormat() {
         if (this.size == 0) {
-            return "Sorry sir. There is currently not task in your list.";
+            return "Sorry sir. There is currently no task in your list.";
         }
         String displayMessage = "Here are the tasks in your list:\n";
         StringBuilder list = new StringBuilder(displayMessage);

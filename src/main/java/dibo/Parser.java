@@ -165,7 +165,7 @@ public class Parser {
             String descriptionEvent = getDescription(fullCommand, "event");
             LocalDate startDate = getStartDate(fullCommand);
             LocalDate endDate = getEndDate(fullCommand);
-            if (!startDate.isBefore(endDate)) {
+            if (startDate.isAfter(endDate)) {
                 throw new DiboException("Oh no sir! Your start date must be before your end date :(");
             }
             return new AddEventCommand(descriptionEvent, startDate, endDate);
@@ -180,7 +180,7 @@ public class Parser {
     private static boolean hasDescription(String fullCommand) {
         String[] details = fullCommand.split("/");
         String[] typeAndDescription = details[0].split(" ");
-        return typeAndDescription.length == 2;
+        return typeAndDescription.length >= 2;
     }
 
     private static String getDescription(String fullCommand, String type) {
