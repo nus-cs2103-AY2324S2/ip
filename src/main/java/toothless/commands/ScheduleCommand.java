@@ -81,6 +81,9 @@ public class ScheduleCommand extends Command{
                 Task t = tasks.get(j);
                 response += (j + 1) + ". " + t + "\n";
             }
+            if (i != keys.length - 1) {
+                response += "\n";
+            }
         }
         return response;
     }

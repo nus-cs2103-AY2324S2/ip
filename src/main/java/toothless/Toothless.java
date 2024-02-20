@@ -9,7 +9,7 @@ public class Toothless {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Command command;
+    private boolean isExit = false;
 
     /**
      * Construct a chatbot with a file storage at a predetermined file path.
@@ -37,6 +37,10 @@ public class Toothless {
         }
     }
 
+    public boolean isExit() {
+        return isExit;
+    }
+
     public String exit() {
         return ui.showFarewell();
     }
@@ -44,12 +48,9 @@ public class Toothless {
     /**
      * Start the application and query the user to input commands.
      */
-    public String getResponse(String input) {
-        try {
-            command = Parser.parseCommand(input);
-            return command.handle(ui, tasks, storage);
-        } catch (ToothlessException e) {
-            return e.getMessage();
-        }
+    public String getResponse(String input) throws ToothlessException{
+        Command command = Parser.parseCommand(input);
+        isExit = command.isExit();
+        return command.handle(ui, tasks, storage);
     }
 }
