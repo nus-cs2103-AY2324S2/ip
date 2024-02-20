@@ -27,7 +27,8 @@ use the `java -jar irwyn.jar` command to run the application.
 A GUI similar to the below should appear in a few seconds.
 
 5. Type the command in the chat box and click send to execute it!
-   <img alt="Image Alt Text" src="images/image1.png"/>
+
+<img alt="Image Alt Text" src="images/image1.png"/>
 
 ## Features <a id="features-anchor"></a>
 
@@ -123,7 +124,8 @@ Format: `find [KEYWORDS]`
 Examples:
 - `find this` returns `this` and `that and this`
 - `find test` returns `test`
-  <img alt="Image Alt Text" src="images/image2.png"/>
+
+<img alt="Image Alt Text" src="images/image2.png"/>
 
 #### <span id="feature-sort-anchor" style="color: yellow;">Sort the tasks: `sort`</span>
 Sorts the tasks in the list.
