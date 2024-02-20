@@ -7,11 +7,14 @@ Aerial Chatbot is a desktop app for keeping track of your daily tasks. It is opt
 ## Getting Started
 
 1) Download the app [here](https://github.com/ReganChoy/ip/releases/tag/A-Release)
+
 2) Put in the jar file in your desired file/directory
+
 3) To run the file, use the following command into a terminal: 
 ```
 java -jar aerial.jar
 ```
+
 4) You are ready to manage your tasks!
 
 >[!NOTE]
