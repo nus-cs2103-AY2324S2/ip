@@ -1,4 +1,5 @@
-T | 1 | dasdasads
-E | 1 | project meeting | Oct 15 2019 18:00 | Oct 15 2019 22:00
-E | 0 | project meeting | Oct 15 2019 18:00 | Oct 15 2019 22:00
-T | 0 | adsasdgrttewgg
+T | 1 | Do Dishes
+T | 0 | Do Laundry
+
+
+T | 0 | Generate IP JAR file
