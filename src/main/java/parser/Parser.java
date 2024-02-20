@@ -52,6 +52,16 @@ public class Parser {
             String advancedCommand = brokenCommand[0];
             String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
             switch (advancedCommand) {
+                case "find": {
+                    if (brokenCommand.length != 2) {
+                        ui.printFindEmptyError();
+                    } else {
+                        String match = brokenCommand[1];
+                        Task[] findOutput = taskList.find(match);
+                        ui.printFindOutput(findOutput);
+                    }
+                    break;
+                }
                 case "mark": {
                     if (brokenCommand.length < 2) {
                         ui.printMarkEmptyNumberError();

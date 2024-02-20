@@ -5,6 +5,8 @@
 
 package task;
 
+import java.util.Arrays;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -44,11 +46,23 @@ public class Task {
      * @return string containing no white space
      */
     public String cleanWhiteSpace(String word) {
-        if (!word.isEmpty() && word.charAt(word.length() - 1) == ' ') {
-            return word.substring(0, word.length() - 1);
-        } else {
-            return word;
+        if (!word.isEmpty()) {
+            while(word.charAt(word.length() - 1) == ' ') {
+                word = word.substring(0, word.length() - 1);
+            }
         }
+        return word;
+    }
+
+    public boolean checkMatch(String match) {
+        String[] brokenDesc = this.description.split("\\s+");
+        for (String word : brokenDesc) {
+            if (word.equals(match)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public String toString() {
