@@ -18,10 +18,12 @@ public class TaskList {
     /**
      * Prints the list out in a systematic organized manner
      */
-    public void printList() {
+    public String printList() {
+        String s = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i));
+            s = s + (i + 1 + ". " + tasks.get(i) + "\n");
         }
+        return s;
     }
 
     /**

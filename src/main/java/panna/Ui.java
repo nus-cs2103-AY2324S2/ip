@@ -21,48 +21,58 @@ public class Ui {
     /**
      * Message to be displayed on launching the bot.
      */
-    public void launchMessage() {
-        System.out.println("----------------------------------------------------------\n"
+    public String launchMessage() {
+        return "----------------------------------------------------------\n"
                 + "Hello! I'm Panna.\n"
                 + "What can I do for you?\n\n"
-                + "----------------------------------------------------------");
+                + "----------------------------------------------------------";
     }
 
     /**
      * Message to be displayed on leaving the bot.
      */
 
-    public void farewellMessage() {
-        System.out.println("----------------------------------------------------------\n"
+    public String farewellMessage() {
+        return "----------------------------------------------------------\n"
                 + "Bye. Hope to see you again soon!\n\n"
-                + "----------------------------------------------------------");
+                + "----------------------------------------------------------";
     }
 
     /**
      * Message to be displayed upon calling the list functionality of the bot
      * @param tl
      */
-    public void listMessage(TaskList tl) {
-        System.out.println("----------------------------------------------------------");
-        tl.printList();
-        System.out.println("----------------------------------------------------------");
+    public String listMessage(TaskList tl) {
+        String s = "----------------------------------------------------------\n"
+        + tl.printList()
+        + "\n----------------------------------------------------------";
+        return s;
     }
 
+    public String markDone(TaskList tasks, int label) throws PannaException {
+        return("----------------------------------------------------------\n"
+                + "Nice! I've marked this task as done: \n"
+                + tasks.get(label - 1)
+                + "\n"
+                + "----------------------------------------------------------");
+    }
+
+    public String unmarkDone(TaskList tasks, int label) throws PannaException {
+        return("----------------------------------------------------------\n"
+                + "Nice! I've marked this task as undone: \n"
+                + tasks.get(label - 1)
+                + "\n"
+                + "----------------------------------------------------------");
+    }
     /**
      * Displays message and marks the relevant task.
      * @param tasks
      * @throws PannaException
      */
-    public void mark(TaskList tasks) throws PannaException {
-        System.out.println("Which one should I mark? Write the label number :] ");
-        try {
-            int label = s.nextInt();
-            tasks.get(label - 1).setDone(true);
+    public void mark(TaskList tasks, int label) throws PannaException {
 
-            System.out.println("----------------------------------------------------------");
-            System.out.println("Nice! I've marked this task as done: \n"
-                    + tasks.get(label - 1));
-            System.out.println("----------------------------------------------------------");
+        try {
+            tasks.get(label - 1).setDone(true);
 
         } catch (Exception e) {
             throw new PannaException("Invalid label! The number of tasks now is "
@@ -77,16 +87,12 @@ public class Ui {
      * @throws PannaException
      */
 
-    public void unmark(TaskList tasks) throws PannaException {
-        System.out.println("Which one should I unmark? Write the label number :] ");
+    public void unmark(TaskList tasks, int label) throws PannaException {
+
         try {
-            int label = s.nextInt();
+
             tasks.get(label - 1).setDone(false);
 
-            System.out.println("----------------------------------------------------------");
-            System.out.println("Okay! I've unmarked this task as done: \n"
-                    + tasks.get(label - 1));
-            System.out.println("----------------------------------------------------------");
         } catch (Exception e) {
             throw new PannaException("Invalid label! The number of tasks now is"
                     + tasks.size()
@@ -101,17 +107,15 @@ public class Ui {
      * @throws PannaException
      */
 
-    public void deleteMessage(TaskList tasks) throws PannaException {
-        System.out.println("Which one should I delete? Write the label number :] ");
+    public String delete(TaskList tasks, int label) throws PannaException {
         try {
-            int label = s.nextInt();
             Task t = tasks.get(label - 1);
             tasks.delete(label - 1);
 
-            System.out.println("----------------------------------------------------------");
-            System.out.println("Task successfully removed! \n"
-                    + t);
-            System.out.println("----------------------------------------------------------");
+            return "----------------------------------------------------------\n"
+                    + "Task successfully removed! \n"
+                    + t + "\n"
+                    + "----------------------------------------------------------";
 
         } catch (Exception e) {
             throw new PannaException("Invalid label! The number of tasks now is "
@@ -125,15 +129,13 @@ public class Ui {
      * @param tasks
      * @throws PannaException
      */
-    public void todoMessage(TaskList tasks) throws PannaException {
+    public String todo(TaskList tasks, String input) throws PannaException {
         try {
-            System.out.println("What kind of todo? ");
-            String input = s.nextLine();
             Task t = new Todo(input);
             t.setDone(false);
             tasks.add(t);
-            System.out.println("Got it! I've added the \n" + t + "\n todo!");
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
+            return "Got it! I've added the \n" + t + "\n todo!\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list! ";
         } catch (Exception e) {
             throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
         }
@@ -147,20 +149,16 @@ public class Ui {
      * @throws PannaException
      */
 
-    public void deadlineMessage(TaskList tasks, Parser p) throws PannaException {
+    public String deadline(TaskList tasks, String input, LocalDate dl) throws PannaException {
         try {
-            System.out.println("What kind of deadline? ");
-            String input = s.nextLine();
-            System.out.println("When is the deadline? ");
-            String deadline = s.nextLine();
-            LocalDate dl = p.parse(deadline);
+
 
             Task t = new Deadline(input, dl);
             t.setDone(false);
             tasks.add(t);
 
-            System.out.println("Got it! I've added the \n" + t + "\n deadline!");
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
+            return "Got it! I've added the \n" + t + "\n deadline!\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list! ";
         } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct!");
         }
@@ -169,27 +167,24 @@ public class Ui {
     }
 
     /**
-     * Displays the message corresponding to a new event task.
+     * Adds event and returns String output
      * @param tasks
-     * @param p
+     * @param event
+     * @param st
+     * @param end
+     * @return
      * @throws PannaException
      */
 
-    public void eventMessage(TaskList tasks, Parser p) throws PannaException {
+    public String event(TaskList tasks, String event, LocalDate st, LocalDate end) throws PannaException {
         try {
-            System.out.println("What kind of event? ");
-            String input = s.nextLine();
-            System.out.println("When does it start? ");
-            String start = s.nextLine();
-            LocalDate st = p.parse(start);
-            System.out.println("When does it end? ");
-            String end = s.nextLine();
-            LocalDate en = p.parse(end);
-            Task t = new Event(input, st, en);
+
+            Task t = new Event(event, st, end);
             t.setDone(false);
             tasks.add(t);
-            System.out.println("Got it! I've added the \n" + t + "\n event!");
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
+
+            return "Got it! I've added the \n" + t + "\n event!\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list! ";
         } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct! ");
         }
@@ -201,9 +196,7 @@ public class Ui {
      * @param tasks
      * @throws PannaException
      */
-    public void find(TaskList tasks) throws PannaException {
-        System.out.println("What shall I find for you! ");
-        String k = s.nextLine();
+    public String find(TaskList tasks, String k) throws PannaException {
 
         TaskList newList = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
@@ -212,7 +205,7 @@ public class Ui {
 
             }
         }
-        System.out.println("The matches are: ");
-        newList.printList();
+        return "The matches are: \n"
+                + newList.printList();
     }
 }
