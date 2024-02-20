@@ -95,7 +95,9 @@ public class TaskList {
      * @return A string that indicates the todo task has been added successfully.
      */
     public String addTodo(String description) {
+        int arraySize = tasks.size();
         tasks.add(new ToDo(description, 0));
+        assert(tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
         String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
@@ -111,7 +113,9 @@ public class TaskList {
      * @return A string that indicates the deadline task has been added successfully.
      */
     public String addDeadline(String description, String deadline) {
+        int arraySize = tasks.size();
         tasks.add(new Deadline(description, 0, deadline));
+        assert (tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
         String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
@@ -128,7 +132,9 @@ public class TaskList {
      * @return A string that indicates the event task has been added.
      */
     public String addEvent(String description, String start, String end) {
+        int arraySize = tasks.size();
         tasks.add(new Event(description, 0, start, end));
+        assert(tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
         String numberOfTasks = "Now you have "
                     + String.valueOf(tasks.size())
@@ -145,11 +151,13 @@ public class TaskList {
      */
     public String deleteTask(int index) throws DukeException {
         try {
+            int arraySize = tasks.size();
             reply = "Ok. I'll be removing this task:\n "
                     + tasks.get(index - 1).toString()
                     + "\n"
                     + "Now you have " + (tasks.size() - 1) + " task(s) left";
             tasks.remove(index - 1);
+            assert(tasks.size() == arraySize - 1) : "Task should be removed from the list";
             storage.removeFromFile(index);
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
