@@ -36,27 +36,31 @@ public class EventTest {
 
     @Test
     public void testToString_notDoneTask() {
-        assertEquals("[E][ ] Birthday (from: Feb 27 2019 to: Feb 28 2019)",
+        String expectedOutput = "[E][ ] Birthday (from: Feb 27 2019 to: Feb 28 2019)";
+        assertEquals(expectedOutput,
                 this.event.toString());
     }
 
     @Test
     public void testToString_doneTask() {
         this.event.markAsDone();
-        assertEquals("[E][X] Birthday (from: Feb 27 2019 to: Feb 28 2019)",
+        String expectedOutput = "[E][X] Birthday (from: Feb 27 2019 to: Feb 28 2019)";
+        assertEquals(expectedOutput,
                 this.event.toString());
     }
 
     @Test
     public void testGetSaveFormat_notDoneTask() {
-        assertEquals("event | 0 | Birthday | Feb 27 2019 | Feb 28 2019",
+        String expectedOutput = "event | 0 | Birthday | Feb 27 2019 | Feb 28 2019";
+        assertEquals(expectedOutput,
                 this.event.getSaveFormat());
     }
 
     @Test
     public void testGetSaveFormat_doneTask() {
         this.event.markAsDone();
-        assertEquals("event | 1 | Birthday | Feb 27 2019 | Feb 28 2019",
+        String expectedOutput = "event | 1 | Birthday | Feb 27 2019 | Feb 28 2019";
+        assertEquals(expectedOutput,
                 this.event.getSaveFormat());
     }
 }

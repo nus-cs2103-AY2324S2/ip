@@ -97,7 +97,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGetTasksWithKeyword() {
+    public void testGetTasksWithKeywords_singleKeyword() {
         Task task1 = new ToDo("A");
         Task task2 = new ToDo("Aa");
         Task task3 = new ToDo("Ba");
@@ -111,4 +111,47 @@ public class TaskListTest {
         }
     }
 
+    @Test
+    public void testGetTasksWithKeywords_multipleKeywords() {
+        Task task1 = new ToDo("A");
+        Task task2 = new ToDo("Aa");
+        Task task3 = new ToDo("AaB");
+        Task task4 = new ToDo("AB");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addTask(task3);
+        taskList.addTask(task4);
+        try {
+            assertEquals(taskList.getTasksWithKeywords(new String[]{"A", "B"}), "1.[T][ ] AaB\n2.[T][ ] AB\n");
+        } catch (DiboException c) {
+            //Ignore
+        }
+    }
+
+    @Test
+    public void testGetTasksWithKeywords_exceptionThrown() {
+        Task task1 = new ToDo("A");
+        Task task2 = new ToDo("Aa");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+
+        assertThrows(DiboException.class, () -> {
+            taskList.getTasksWithKeywords(new String[]{"B"});
+        });
+    }
+
+    @Test
+    public void testGetTasksWithKeywords_exceptionThrownMessage() {
+        Task task1 = new ToDo("A");
+        Task task2 = new ToDo("Aa");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+
+        DiboException exception = assertThrows(DiboException.class, () -> {
+            taskList.getTasksWithKeywords(new String[]{"B"});
+        });
+
+        String expectedMessage = "Oh no sir! We cannot find any task with the specified keywords :(";
+        assertEquals(exception.getMessage(), expectedMessage);
+    }
 }
