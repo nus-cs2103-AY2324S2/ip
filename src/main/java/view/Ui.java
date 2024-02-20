@@ -29,11 +29,20 @@ public class Ui {
                 + "  bye, list, mark, delete, todo, deadline, event.", cmd);
     }
 
+    /**
+     * <pre>Returns the following:
+     *        ╱|、
+     *      (˚ˎ 。7
+     *       |、˜〵
+     *       じしˍ,)ノ
+     * </pre>
+     * @return Cat line-art as UTF-8 {@code String}.
+     */
     public static String showEmptyCommand() {
         return "      \u2571\u007c\u3001\n"
                 + "    \u0028\u02da\u02ce\u0020\u3002\u0037\n"
                 + "     \u007c\u3001\u02dc\u3035\n"
-                + "    \u3058\u3057\u02cd\u002c\u0029\u30ce";
+                + "     \u3058\u3057\u02cd\u002c\u0029\u30ce";
     }
 
     /**
