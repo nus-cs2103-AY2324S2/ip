@@ -48,7 +48,7 @@ public class Zack extends Application {
     public Zack() {
         ui = new Ui();
         storage = new Storage("data/tasks.txt");
-        tasks = new TaskList(); // Initialize with an empty task list
+        tasks = new TaskList();
         try {
             tasks = new TaskList(storage.load());
         } catch (ZackException e) {
@@ -135,23 +135,33 @@ public class Zack extends Application {
         });
     }
 
+    // The following header documentation are written with the help of AI
+    // A-AiAssisted
+
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Creates a label with the specified text. The text in the label is set to wrap
+     * if it's too long to fit on a single line. This method is useful for creating
+     * labels that need to display variable text content in a UI, such as dialog messages.
+     *
+     * @param text The string to be displayed in the label. This text will wrap if it's too long.
+     * @return A `Label` object containing the specified text with wrap text property enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles the processing of user input from a text input component. It retrieves
+     * the text entered by the user, generates a response using the `getResponse` method,
+     * and then displays both the user's text and the response in the dialog container.
+     * This method is essential for the interactive component of the UI, where user
+     * inputs and system responses are displayed.
+     *
+     * Assumes `userInput` is a text input component, `dialogContainer` is a container
+     * for displaying dialog boxes, and `user` and `zack` are predefined entities
+     * representing the user and the system respectively.
      */
     private void handleUserInput() {
         String userText = userInput.getText();
@@ -164,8 +174,18 @@ public class Zack extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes a given string input and returns a response. The method parses the
+     * input to identify the command it represents, executes the command, and then
+     * returns the result of the command execution. If an error occurs during parsing
+     * or execution, an appropriate error message is returned. This method centralizes
+     * the handling of all commands and their responses within the application.
+     *
+     * @param input The user input string to be processed.
+     * @return A string representing the response to the input command. If the command
+     *         execution is successful, the response of the command is returned. If an
+     *         error occurs, an error message is returned.
+     * @throws ZackException If an error specific to the application's logic occurs.
+     * @throws RuntimeException If an I/O error occurs, encapsulated within a RuntimeException.
      */
     String getResponse(String input) {
         try {
