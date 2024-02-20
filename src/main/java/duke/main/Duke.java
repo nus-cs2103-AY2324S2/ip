@@ -168,6 +168,7 @@ public class Duke {
         } catch (IOException e) {
             response = "Error accessing storage file: " + e.getMessage();
         }
+        assert response != null : "Response cannot be null";
         return response;
     }
 }

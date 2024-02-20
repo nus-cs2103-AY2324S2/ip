@@ -160,6 +160,7 @@ public class Parser {
             t = new Event(description, start, end);
         }
         boolean doneOrNot = (status == 'X');
+        assert t != null;
         t.setStatus(doneOrNot);
         return t;
     }
@@ -183,9 +184,8 @@ public class Parser {
      *
      * @param input The date string input by the user.
      * @return The LocalDate object formatted according to the application's storage format.
-     * @throws DukeException If the input date format is invalid.
      */
-    public LocalDate formatInputDate(String input) throws DukeException {
+    public LocalDate formatInputDate(String input) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse(input, inputFormatter);
         DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
