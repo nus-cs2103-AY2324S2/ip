@@ -105,7 +105,7 @@ public final class LocalStorage {
 
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null && !line.isBlank()) {
                 taskList.add(TaskParser.parseTaskListItem(line));
             }
 
