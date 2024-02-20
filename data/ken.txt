@@ -2,4 +2,3 @@ T | 1 | slay
 T | 0 | watch CS2106 lectures
 T | 0 | gui
 T | 1 | stats tut
-T | 0 | tts test
