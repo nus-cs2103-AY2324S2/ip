@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Rectangle?>
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="480.0" style="-fx-font-family: Courier New; -fx-background-color: aliceBlue; -fx-border-radius: 5; -fx-border-color: #24574b; -fx-border-width: 3; -fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="680.0" style="-fx-font-family: Courier New; -fx-background-color: aliceBlue; -fx-border-radius: 5; -fx-border-color: #24574b; -fx-border-width: 3; -fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" style="-fx-font-family: Courier New; -fx-text-fill: black;">
             <HBox.margin>
