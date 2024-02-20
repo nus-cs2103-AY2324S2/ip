@@ -49,7 +49,7 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         dialog.setPadding(textInsets);
-        dialog.setMinSize(dialog.getMinWidth(), dialog.getMinHeight());
+        dialog.setMinHeight(dialog.USE_PREF_SIZE);
         displayPicture.setImage(img);
     }
 
