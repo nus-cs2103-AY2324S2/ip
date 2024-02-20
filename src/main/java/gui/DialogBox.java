@@ -7,14 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -30,13 +28,16 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private static final Color USER_TEXT_COLOR = Color.LIGHTGREEN;
+    private static final Color CHRONOS_TEXT_COLOR = Color.LIGHTBLUE;
+
     /**
      * Constructs a dialog box to display on GUI.
      *
      * @param text Text input provided by the user or text output processed from the user's input.
      * @param img Image of speaker (Chronos or user).
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, Color backgroundColor) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -50,6 +51,10 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
 
         dialog.setWrapText(true);
+        dialog.setStyle("-fx-background-radius: 5px; "
+                + "-fx-background-color: " + toRgbString(backgroundColor) + "; "
+                + "-fx-padding: 10px;");
+
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
@@ -57,12 +62,16 @@ public class DialogBox extends HBox {
                 displayPicture.getFitWidth() / 2);
         displayPicture.setClip(clip);
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY,
-                javafx.geometry.Insets.EMPTY);
-        Background background = new Background(backgroundFill);
-        this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);
         this.setSpacing(15);
+    }
+
+    private String toRgbString(Color color) {
+        return String.format("rgba(%d, %d, %d, %f)",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255),
+                color.getOpacity());
     }
 
     /**
@@ -83,7 +92,7 @@ public class DialogBox extends HBox {
      * @return A constructed dialog box.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, USER_TEXT_COLOR);
     }
 
     /**
@@ -94,7 +103,7 @@ public class DialogBox extends HBox {
      * @return A constructed dialog box.
      */
     public static DialogBox getChronosDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, CHRONOS_TEXT_COLOR);
         db.flip();
         return db;
     }
