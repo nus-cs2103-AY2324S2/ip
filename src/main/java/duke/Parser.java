@@ -49,7 +49,7 @@ public class Parser {
     }
 
     /**
-     * consumes the next token without returning it.
+     * Returns the next token without consuming it.
      *
      * @return The next token.
      * @throws DukeOptionParsingException If all tokens have been read from the input
@@ -63,6 +63,26 @@ public class Parser {
     }
 
     /**
+     * Reads until an option or the end of input is encountered. an option starts with '/'. The option itself
+     * is not consumed.
+     * @return the String before the option or end of input was encountered.
+     * @throws DukeOptionParsingException if the end of input has already been reached.
+     */
+    public String nextUntilOption() throws DukeOptionParsingException {
+        StringBuilder name = new StringBuilder();
+        if (!this.hasNext()) {
+            throw new DukeOptionParsingException("command ended when an argument was expected");
+        }
+        while (this.hasNext() && !this.peek().startsWith("/")) {
+            if (!name.isEmpty()) {
+                name.append(" ");
+            }
+            name.append(this.next());
+        }
+        return name.toString();
+    }
+
+    /**
      * Checks if there's any input available.
      *
      * @return false if all the text has been consumed, false otherwise.
@@ -71,8 +91,18 @@ public class Parser {
         return this.cursor < this.strs.length;
     }
 
+    public void assertNext(String expected) throws DukeOptionParsingException {
+        String actual = this.next();
+
+        if (!actual.equals(expected)) {
+            throw new DukeOptionParsingException
+                    (String.format("expected '%s' but '%s' was given instead", expected, actual));
+        }
+
+    }
+
     /**
-     * Throws if there's any input available.
+     * Asserts that the end of input has been reached. Throws if there's any input available.
      *
      * @throws DukeOptionParsingException If there's any input available.
      */

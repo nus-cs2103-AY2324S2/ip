@@ -12,42 +12,22 @@ import java.time.format.DateTimeParseException;
 public class DeadlineCommand extends Command {
     @Override
     public void run(Parser parser, Duke duke) throws DukeException {
-        StringBuilder by = new StringBuilder();
-        StringBuilder name = new StringBuilder();
+        String by;
+        String name;
         Task t;
 
         final String NO_NAME = "you didn't specify specify a name for your deadline";
         final String NO_BY = "you failed to specify an end date using '/by'";
 
-        while (!parser.peek().startsWith("/")) {
-            if (!name.isEmpty()) {
-                name.append(" ");
-            }
-            name.append(parser.next());
-        }
+        name = parser.nextUntilOption();
+
+        parser.assertNext("/by");
+        by = parser.nextUntilOption();
+
+        parser.assertEnd();
 
         if (name.isEmpty()) {
             throw new DukeOptionParsingException(NO_NAME);
-        }
-
-        {
-            String str = parser.next();
-            if (!str.equals("/by")) {
-                throw new DukeOptionParsingException
-                        (String.format("I encountered an unexpected option '%s'", str));
-            }
-        }
-
-        while (parser.hasNext()) {
-            String next = parser.next();
-            if (next.startsWith("/")) {
-                throw new DukeOptionParsingException
-                        (String.format("I encountered an unexpected option '%s'", next));
-            }
-            if (!by.isEmpty()) {
-                by.append(" ");
-            }
-            by.append(next);
         }
 
         if (by.isEmpty()) {
@@ -55,7 +35,7 @@ public class DeadlineCommand extends Command {
         }
 
         try {
-            t = new Deadline(name.toString(), by.toString());
+            t = new Deadline(name, by);
         } catch (DateTimeParseException e) {
             throw new DukeException("Couldn't parse the end date " + by);
         }

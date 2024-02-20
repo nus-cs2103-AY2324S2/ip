@@ -1,15 +1,12 @@
 package duke.commands;
 
+import java.time.format.DateTimeParseException;
+
 import duke.Duke;
 import duke.DukeException;
 import duke.DukeOptionParsingException;
 import duke.Parser;
-import duke.tasks.Deadline;
 import duke.tasks.Event;
-import duke.tasks.Task;
-
-import java.time.format.DateTimeParseException;
-
 
 public class EventCommand extends Command {
 
@@ -19,60 +16,27 @@ public class EventCommand extends Command {
 
     @Override
     public void run(Parser parser, Duke duke) throws DukeException {
-        StringBuilder from = new StringBuilder();
-        StringBuilder to = new StringBuilder();
-        StringBuilder name = new StringBuilder();
+        String from;
+        String to;
+        String name;
         Event t;
 
-        while (!parser.peek().startsWith("/")) {
-            if (!name.isEmpty()) {
-                name.append(" ");
-            }
-            name.append(parser.next());
-        }
+        name = parser.nextUntilOption();
+
+        parser.assertNext("/from");
+        from = parser.nextUntilOption();
+
+        parser.assertNext("/to");
+        to = parser.nextUntilOption();
+
+        parser.assertEnd();
 
         if (name.isEmpty()) {
             throw new DukeOptionParsingException(NO_NAME);
         }
 
-        {
-            String str = parser.next();
-            if (!str.equals("/from")) {
-                throw new DukeOptionParsingException
-                        (String.format("I encountered an unexpected option '%s'", str));
-            }
-        }
-
-
-        while (!parser.peek().startsWith("/")) {
-            if (!from.isEmpty()) {
-                from.append(" ");
-            }
-            from.append(parser.next());
-        }
-
         if (from.isEmpty()) {
             throw new DukeOptionParsingException(NO_FROM);
-        }
-
-        {
-            String str = parser.next();
-            if (!str.equals("/to")) {
-                throw new DukeOptionParsingException
-                        (String.format("I encountered an unexpected option '%s'", str));
-            }
-        }
-
-        while (parser.hasNext()) {
-            String next = parser.next();
-            if (next.startsWith("/")) {
-                throw new DukeOptionParsingException
-                        (String.format("I encountered an unexpected option '%s'", next));
-            }
-            if (!to.isEmpty()) {
-                to.append(" ");
-            }
-            to.append(next);
         }
 
         if (to.isEmpty()) {
@@ -80,7 +44,7 @@ public class EventCommand extends Command {
         }
 
         try {
-            t = new Event(name.toString(), from.toString(), to.toString());
+            t = new Event(name, from, to);
         } catch (DateTimeParseException e) {
             throw new DukeException(String.format
                     ("Couldn't parse the start/end date %s/%s", from, to));
