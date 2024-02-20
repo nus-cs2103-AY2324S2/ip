@@ -35,7 +35,7 @@ public class Duke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public Duke() {
-
+        storage = new Storage();
     }
 
     public CommandResult executeCommand(Command command) {
