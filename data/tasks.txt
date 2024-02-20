@@ -4,3 +4,9 @@
 [T][ ]buy apples
 [D][ ]buy oranges (by: tmr)
 [E][ ]buy pineapples (from: Feb 20 2003 to: 4/11/2005)
+[T][ ]readbook
+[D][ ]write book  (by: today)
+[T][ ]read       book
+[T][ ]read      book
+[T][ ]read     book
+[T][ ]read    book

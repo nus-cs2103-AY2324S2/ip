@@ -14,7 +14,6 @@ import tommy.task.TaskList;
 public class AddDeadlineCommand extends Command {
     private String description;
 
-
     /**
      * Constructor for an AddDeadline command,
      * which initialises the command with its task description.
@@ -22,7 +21,7 @@ public class AddDeadlineCommand extends Command {
      * @param description Description of the Deadline task.
      */
     public AddDeadlineCommand(String description) {
-        this.description = description;
+        this.description = description.strip();
     }
 
     @Override
@@ -34,6 +33,11 @@ public class AddDeadlineCommand extends Command {
 
             String formattedByDate = Parser.formatDate(byDate);
             String formattedDescription = deadlineDetail + " (by: " + formattedByDate + ")";
+
+            boolean isDuplicate = taskList.isADuplicateTask(taskList, formattedDescription);
+            if (isDuplicate) {
+                throw new InvalidArgumentException("DEADLINE - There is already an identical task");
+            }
 
             Task deadline = new Deadline(formattedDescription);
 
