@@ -17,17 +17,13 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * The constructor for a Deadline object.
+     * A constructor for a Deadline object.
+     * Used when 'by' is given as a String.
      *
      * @param description The description of the Deadline object to be created.
      *                    Handled by the super constructor in the Task class.
-     * @param by The deadline of the Deadline object.
+     * @param by The deadline of the Deadline object, when given as a String object.
      */
-//    public Deadline(String description, String by) {
-//        super(description);
-//        this.by = by;
-//    }
-
     public Deadline(String description, String by) {
         super(description);
         try {
@@ -37,6 +33,14 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * A constructor for a Deadline object.
+     * used when 'by' is given as a LocalDate.
+     *
+     * @param description The description of the Deadline object to be created.
+     *                    Handled by the super constructor in the Task class.
+     * @param by The deadline of the Deadline object, when given as a LocalDate object.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

@@ -2,14 +2,14 @@ package Mitsuki;
 
 import java.util.ArrayList;
 /**
- * Contains information on the DukeException class.
+ * Contains information on the MitsukiException class.
  *
  * @author Tee Chu Jie
  */
 public class MitsukiException extends Exception {
 
     /**
-     * The constructor for a DukeException object.
+     * The constructor for a MitsukiException object.
      *
      * @param message Handled by the super constructor.
      */
