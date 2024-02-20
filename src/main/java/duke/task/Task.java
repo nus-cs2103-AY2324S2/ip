@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * Represents a task in the task list.
  */
 public class Task {
-    public String description;
+    protected String description;
     protected int isDone;
 
     public Task(String description, int isDone) {
@@ -17,6 +17,21 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the description of the task.
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns the status of the task.
+     * @return The status of the task.
+     */
+    public int getIsDone() {
+        return this.isDone;
+    }
     /**
      * Returns the status icon of the task.
      * @return The status icon of the task.

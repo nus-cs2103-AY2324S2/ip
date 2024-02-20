@@ -68,7 +68,7 @@ public class TaskList {
         Iterator<Task> it = tasks.iterator();
         while (it.hasNext()) {
             Task task = it.next();
-            if (task.description.contains(keyword)) {
+            if (task.getDescription().contains(keyword)) {
                 reply += num + "." + task.toString() + "\n";
                 num++;
             }

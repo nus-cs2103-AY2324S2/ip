@@ -18,13 +18,13 @@ public class TaskTest {
     public void testMarkAsDone() {
         Task task = new Task("Test Task", 0);
         task.markAsDone();
-        assertEquals(1, task.isDone);
+        assertEquals(1, task.getIsDone());
     }
 
     @Test
     public void testMarkAsUndone() {
         Task task = new Task("Test Task", 1);
         task.markAsUndone();
-        assertEquals(0, task.isDone);
+        assertEquals(0, task.getIsDone());
     }
 }
