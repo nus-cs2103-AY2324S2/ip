@@ -49,54 +49,23 @@ public class Parser {
             String[] splitInput = userInput.split("\\s+");
             String firstWord = splitInput[0];
             if (firstWord.equalsIgnoreCase("bye")) {
-                return new ByeCommand();
+                return handleBye();
             } else if (firstWord.equalsIgnoreCase("list")) {
-                return new ListCommand();
+                return handleList();
             } else if (firstWord.equalsIgnoreCase("mark")) {
-                try {
-                    int number = Integer.parseInt(splitInput[1]);
-                    return new MarkTaskCommand(number);
-                } catch (NumberFormatException e) {
-                    return new InvalidCommand(e.getMessage() + "\n");
-                }
+                return handleMark(splitInput);
             } else if (firstWord.equalsIgnoreCase("unmark")) {
-                try {
-                    int number = Integer.parseInt(splitInput[1]);
-                    return new UnmarkTaskCommand(number);
-                } catch (NumberFormatException e) {
-                    return new InvalidCommand(e.getMessage() + "\n");
-                }
+                return handleUnmark(splitInput);
             } else if (firstWord.equalsIgnoreCase("todo")) {
-                String description = String.join(" ", java.util.Arrays.copyOfRange(
-                        splitInput, 1, splitInput.length));
-                if (description.isEmpty()) {
-                    throw new InvalidInputException("Invalid input! Proper usage is \n"
-                            + "todo {task description}\n");
-                }
-                ToDo task = new ToDo(description);
-                return new AddTodoCommand(task);
+                return handleTodo(splitInput);
             } else if (firstWord.equalsIgnoreCase("deadline")) {
-                String deadlineText = String.join(" ", java.util.Arrays.copyOfRange(
-                        splitInput, 1, splitInput.length));
-                Deadline task = getDeadlines(deadlineText);
-                return new AddDeadlineCommand(task);
+                return handleDeadline(splitInput);
             } else if (firstWord.equalsIgnoreCase("event")) {
-                String eventText = String.join(" ", java.util.Arrays.copyOfRange(
-                        splitInput, 1, splitInput.length));
-
-                Event task = getEvents(eventText);
-                return new AddEventCommand(task);
+                return handleEvent(splitInput);
             } else if (firstWord.equalsIgnoreCase("delete")) {
-                try {
-                    int number = Integer.parseInt(splitInput[1]);
-                    return new DeleteCommand(number);
-                } catch (NumberFormatException e) {
-                    return new InvalidCommand(e.getMessage() + "\n");
-                }
+                return handleDelete(splitInput);
             } else if (firstWord.equalsIgnoreCase("find")) {
-                String wordToSearch = String.join(" ", java.util.Arrays.copyOfRange(
-                        splitInput, 1, splitInput.length));
-                return new FindCommand(wordToSearch);
+                return handleFind(splitInput);
             } else {
                 throw new InvalidCommandException("I don't know what that means :( Valid commands are: \n"
                         + "list, todo, deadline, event, mark, unmark, bye\n");
@@ -104,6 +73,116 @@ public class Parser {
         } catch (InvalidCommandException | IncorrectDateError | InvalidInputException e) {
             return new InvalidCommand(e.getMessage());
         }
+    }
+
+
+    /**
+     * Handles the parsing of "Bye" from user input
+     * @return A ByeCommand
+     */
+    public ByeCommand handleBye() {
+        return new ByeCommand();
+    }
+
+    /**
+     * Handles the parsing of "List" from user input
+     * @return A ListCommand
+     */
+    public ListCommand handleList() {
+        return new ListCommand();
+    }
+
+    /**
+     * Handles the parsing of "Mark x" from user input
+     * @Param takes in the user input separated by " " to parse the number to mark
+     * @return A MarkTaskCommand if number is valid else InvalidCommand
+     */
+    public Command handleMark(String[] splitInput) {
+        try {
+            int number = Integer.parseInt(splitInput[1]);
+            return new MarkTaskCommand(number);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(e.getMessage() + "\n");
+        }
+    }
+
+    /**
+     * Handles the parsing of "Unmark x" from user input
+     * @Param takes in the user input separated by " " to parse the number to unmark
+     * @return A UnmarkTaskCommand if number is valid else InvalidCommand
+     */
+    public Command handleUnmark(String[] splitInput) {
+        try {
+            int number = Integer.parseInt(splitInput[1]);
+            return new UnmarkTaskCommand(number);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(e.getMessage() + "\n");
+        }
+    }
+
+    /**
+     * Handles the parsing of "Todo x" from user input
+     * @Param takes in the user input separated by " " to parse the information to create a Todo task
+     * @return A AddTodoCommand
+     */
+    public AddTodoCommand handleTodo(String[] splitInput) throws InvalidInputException {
+        String description = String.join(" ", java.util.Arrays.copyOfRange(
+                splitInput, 1, splitInput.length));
+        if (description.isEmpty()) {
+            throw new InvalidInputException("Invalid input! Proper usage is \n"
+                    + "todo {task description}\n");
+        }
+        ToDo task = new ToDo(description);
+        return new AddTodoCommand(task);
+    }
+
+    /**
+     * Handles the parsing of "Deadline x" from user input
+     * @Param takes in the user input separated by " " to parse the information to create a Deadline task
+     * @return A AddDeadlineCommand
+     */
+    public AddDeadlineCommand handleDeadline(String[] splitInput) throws InvalidInputException, IncorrectDateError {
+        String deadlineText = String.join(" ", java.util.Arrays.copyOfRange(
+                splitInput, 1, splitInput.length));
+        Deadline task = getDeadlines(deadlineText);
+        return new AddDeadlineCommand(task);
+    }
+
+    /**
+     * Handles the parsing of "Event x" from user input
+     * @Param takes in the user input separated by " " to parse the information to create a Event task
+     * @return A AddEventCommand
+     */
+    public AddEventCommand handleEvent(String[] splitInput) throws InvalidInputException, IncorrectDateError {
+        String eventText = String.join(" ", java.util.Arrays.copyOfRange(
+                splitInput, 1, splitInput.length));
+        Event task = getEvents(eventText);
+        return new AddEventCommand(task);
+    }
+
+    /**
+     * Handles the parsing of "delete x" from user input
+     * @Param takes in the user input separated by " " to parse the number to delete
+     * @return A DeleteCommand if the number is valid else InvalidCommand
+     */
+    public Command handleDelete(String[] splitInput) {
+        try {
+            int number = Integer.parseInt(splitInput[1]);
+            return new DeleteCommand(number);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(e.getMessage() + "\n");
+        }
+    }
+
+    /**
+     * Handles the parsing of "Find x" from user input
+     * @Param takes in the user input separated by " " to parse the search term
+     * @return A FindCommand
+     */
+    public FindCommand handleFind(String[] splitInput) {
+        String wordToSearch = String.join(" ", java.util.Arrays.copyOfRange(
+                splitInput, 1, splitInput.length));
+        return new FindCommand(wordToSearch);
     }
 
     /**
