@@ -5,9 +5,10 @@ import panda.component.*;
 import panda.exception.PandaException;
 import panda.exception.OutOfBoundsException;
 
-public class AlterMarkCommand extends Command {
+public class ModifyTagCommand extends Command {
     private int idx;
-    private boolean isMarked;
+    private String tag;
+    private boolean isTagged;
 
     /**
      * Constructs a new AlterMarkCommand.
@@ -15,13 +16,14 @@ public class AlterMarkCommand extends Command {
      * @param idx the index of the task to alter mark.
      * @param isMarked the logic to mark the task
      */
-    public AlterMarkCommand(int idx, boolean isMarked) {
+    public ModifyTagCommand(int idx, String tag, boolean isTagged) {
         this.idx = idx;
-        this.isMarked = isMarked;
+        this.tag = tag;
+        this.isTagged = isTagged;
     }
 
     /**
-     * Executes the command on the given TaskList.
+     * Tags the task on the given TaskList.
      * 
      * @param tlist the TaskList on which the command is executed.
      * @throws PandaException if an error occurs during execution.
@@ -31,10 +33,10 @@ public class AlterMarkCommand extends Command {
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
         }
-        if(isMarked) {
-            tlist.mark(idx);
+        if(isTagged) {
+            tlist.tag(idx, tag);
         } else {
-            tlist.unmark(idx);
+            tlist.untag(idx, tag);
         }
     }
 
@@ -51,15 +53,15 @@ public class AlterMarkCommand extends Command {
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
         }
-        if(isMarked) {
-            tlist.mark(idx);
+        if(isTagged) {
+            tlist.tag(idx, tag);
         } else {
-            tlist.unmark(idx);
+            tlist.untag(idx, tag);
         }
         cacheFile.save(tlist);
-        return isMarked
-            ? "Nice! I've marked this task as done:\n  " + tlist.getTaskString(idx)
-            : "Sure! I've unmarked this task:\n  " + tlist.getTaskString(idx);
+        return isTagged 
+            ? String.format("Nice! I've tagged this task as [%s]:\n  " + tlist.getTaskString(idx), tag)
+            : String.format("Sure! I've untagged [%s] from this task:\n  " + tlist.getTaskString(idx), tag);
     }
 
     /**
@@ -78,12 +80,12 @@ public class AlterMarkCommand extends Command {
             return true;
         }
 
-        if (!(o instanceof AlterMarkCommand)) {
+        if (!(o instanceof ModifyTagCommand)) {
             return false;
         }
          
-        AlterMarkCommand c = (AlterMarkCommand) o;
+        ModifyTagCommand c = (ModifyTagCommand) o;
 
-        return idx == c.idx && isMarked == c.isMarked;
+        return idx == c.idx && isTagged == c.isTagged;
     }
 }

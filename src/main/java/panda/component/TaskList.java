@@ -67,6 +67,24 @@ public class TaskList {
     }
 
     /**
+     * Tags a task in the TaskList based on its index.
+     * 
+     * @param idx the index of the task to mark.
+     */
+    public void tag(int idx, String tag) {
+        tlist.get(idx - 1).tag(tag);
+    }
+
+    /**
+     * Untags a task in the TaskList based on its index.
+     * 
+     * @param idx the index of the task to unmark.
+     */
+    public void untag(int idx, String tag) {
+        tlist.get(idx - 1).untag(tag);
+    }
+
+    /**
      * Returns the number of tasks in the TaskList.
      * 
      * @return the number of tasks in the TaskList.
@@ -103,6 +121,23 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks that match the given filter tag.
+     * Tag has to be an exact match.
+     * 
+     * @param fString the filter string to match against.
+     * @return a new TaskList containing only the tasks that match the filter string.
+     */
+    public TaskList filter(String tag) {
+        TaskList tmp = new TaskList();
+        for(Task task : tlist) {
+            if(task.isTagged(tag)) {
+                tmp.insert(task);
+            }
+        }
+        return tmp;
+    }
+
+    /**
      * Returns a string representation of the TaskList.
      * If the TaskList is empty, returns a message indicating that the list is empty.
      * Otherwise, returns a string listing all the tasks in the TaskList.
@@ -126,10 +161,10 @@ public class TaskList {
      * 
      * @return the string representation of the TaskList.
      */
-    public String saveString() {
+    public String toSaveString() {
         String result = "";
         for(Task t : tlist) {
-            result = result + t.saveString() + "\n";
+            result = result + t.toSaveString() + "\n";
         }
         return result;
     }

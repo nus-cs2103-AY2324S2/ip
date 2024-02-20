@@ -1,5 +1,0 @@
-T | 1 | join sports club
-T | 0 | sleep
-T | 0 | wake up
-D | 0 | party | Oct 15 2019 12AM
-T | 0 | game

@@ -15,7 +15,7 @@ import panda.exception.PandaException;
 
 public class Panda extends Application {
     private TaskList tlist;
-    private static final String FILEPATH = "./src/main/list.txt";
+    private static final String FILEPATH = "./src/main/resources/storage/list.txt";
     private Storage cacheFile;
 
     /**

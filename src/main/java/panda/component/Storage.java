@@ -7,6 +7,7 @@ import java.util.Scanner;
 import panda.command.AlterMarkCommand;
 import panda.command.Command;
 import panda.command.NewTaskCommand;
+import panda.command.ModifyTagCommand;
 import panda.exception.CorruptedFileException;
 import panda.exception.PandaException;
 import panda.task.Deadline;
@@ -52,17 +53,24 @@ public class Storage {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
+                String desc = parts[2].split("#", 2)[0].trim();
+                String[] tags = parts[2].split("#", 2).length > 1 
+                        ? parts[2].split("#", 2)[1].trim().split(" ")
+                        : new String[0];
                 if(parts[0].equals("T")) {
-                    clist.add(new NewTaskCommand(new Todo(parts[2])));
+                    clist.add(new NewTaskCommand(new Todo(desc)));
                 } else if(parts[0].equals("D")) {
-                    clist.add(new NewTaskCommand(new Deadline(parts[2], parts[3])));
+                    clist.add(new NewTaskCommand(new Deadline(desc, parts[3])));
                 } else if(parts[0].equals("E")) {
-                    clist.add(new NewTaskCommand(new Event(parts[2],  parts[3], parts[4])));
+                    clist.add(new NewTaskCommand(new Event(desc,  parts[3], parts[4])));
                 } else {
                     myReader.close();
                     throw new CorruptedFileException();
                 }
                 if(parts[1].equals("1")) clist.add(new AlterMarkCommand(idx, true));
+                for(String tag : tags) {
+                    clist.add(new ModifyTagCommand(idx, tag, true));
+                }
                 idx = idx + 1;
             }
             myReader.close();
@@ -78,8 +86,8 @@ public class Storage {
      * @param tlist the TaskList to save to the file.
      */
     public void save(TaskList tlist) {
-        try (FileWriter writer = new FileWriter("./src/main/list.txt", false)) {
-            writer.write(tlist.saveString());
+        try (FileWriter writer = new FileWriter(cacheFile.getAbsolutePath(), false)) {
+            writer.write(tlist.toSaveString());
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

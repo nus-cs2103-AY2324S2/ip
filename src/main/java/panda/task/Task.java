@@ -3,9 +3,13 @@ package panda.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.util.Iterator;
+import java.util.HashSet;
+
 public class Task {
     private final String desc;
     private boolean isDone;
+    private HashSet<String> tags;
     
     /**
      * Constructs a new Task with the given description.
@@ -15,6 +19,7 @@ public class Task {
     public Task(String desc) {
         this.desc = desc;
         isDone = false;
+        tags = new HashSet<>();
     }
 
     /**
@@ -29,6 +34,22 @@ public class Task {
      */
     public void unmark() {
         isDone = false;
+    }
+
+    /**
+     * Tags the task as given tag.
+     * @param tag the string to tag the task
+     */
+    public void tag(String tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Untags the given tag from the task.
+     * @param tag the string to untag the task
+     */
+    public void untag(String tag) {
+        tags.remove(tag);
     }
 
     /**
@@ -54,8 +75,26 @@ public class Task {
      * 
      * @return the string representation of the task.
      */
-    public String saveString() {
-        return (isDone ? "1" : "0") + " | " + desc;
+    public String toSaveString() {
+        return (isDone ? "1" : "0") + " | " + desc + " " + tagToString();
+    }
+
+    /**
+     * Returns the string representation of the tags
+     * 
+     * @return the string representation of the task.
+     */
+    public String tagToString() {
+        // Creating an iterator 
+        Iterator<String> value = tags.iterator(); 
+  
+        // The initial return string
+        String tagString = "#";
+
+        while (value.hasNext()) { 
+            tagString = tagString + value.next() + " "; 
+        } 
+        return tagString;
     }
 
     /**
@@ -69,6 +108,16 @@ public class Task {
         Pattern pattern = Pattern.compile(fString, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(desc);
         return matcher.find();
+    }
+
+    /**
+     * Checks if the task has a matching tag
+     * 
+     * @param tag the filter string to match against.
+     * @return true if the description matches the filter string, false otherwise.
+     */
+    public boolean isTagged(String tag) {
+        return tags.contains(tag);
     }
     
     @Override
