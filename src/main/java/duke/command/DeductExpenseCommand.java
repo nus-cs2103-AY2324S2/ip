@@ -37,53 +37,25 @@ public class DeductExpenseCommand implements Command {
         }
         switch (expense[0].trim().toUpperCase().substring(7)) {
         case "FOOD":
-            if (checkDeductable(amount, list.getFood())) {
-                list.setFood(list.getFood() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense!");
-            }
+            deductFood(list, amount);
             break;
         case "GROCERY":
-            if (checkDeductable(amount, list.getGrocery())) {
-                list.setGrocery(list.getGrocery() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductGrocery(list, amount);
             break;
         case "BOOKS":
-            if (checkDeductable(amount, list.getBooks())) {
-                list.setBooks(list.getBooks() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductBooks(list, amount);
             break;
         case "TRANSPORT":
-            if (checkDeductable(amount, list.getTransport())) {
-                list.setTransport(list.getTransport() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductTransport(list, amount);
             break;
         case "CLOTHES":
-            if (checkDeductable(amount, list.getClothes())) {
-                list.setClothes(list.getClothes() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductClothes(list, amount);
             break;
         case "ENTERTAINMENT":
-            if (checkDeductable(amount, list.getClothes())) {
-                list.setEntertainment(list.getEntertainment() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductEntertainment(list, amount);
             break;
         case "OTHER":
-            if (checkDeductable(amount, list.getOther())) {
-                list.setOther(list.getOther() - amount);
-            } else {
-                throw new DukeException("Amount to deduct is greater than initial expense");
-            }
+            deductOther(list, amount);
             break;
         default:
             throw new DukeException("Invalid category. "
@@ -92,8 +64,55 @@ public class DeductExpenseCommand implements Command {
         storage.writeExpensesToFile(list);
         return ui.showDeductedExpense(list);
     }
-    private boolean checkDeductable(float amount, float initial) {
-        return amount <= initial;
+
+    private void deductFood(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getFood())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setFood(list.getFood() - amount);
+    }
+
+    private void deductGrocery(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getGrocery())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setGrocery(list.getGrocery() - amount);
+    }
+    private void deductBooks(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getBooks())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setBooks(list.getBooks() - amount);
+    }
+    private void deductTransport(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getTransport())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setTransport(list.getTransport() - amount);
+    }
+    private void deductClothes(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getClothes())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setClothes(list.getClothes() - amount);
+    }
+
+    private void deductEntertainment(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getEntertainment())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setEntertainment(list.getEntertainment() - amount);
+    }
+
+    private void deductOther(ExpenseList list, float amount) throws DukeException {
+        if (checkNotDeductable(amount, list.getOther())) {
+            throw new DukeException("Amount to deduct is greater than initial expense!");
+        }
+        list.setOther(list.getOther() - amount);
+    }
+
+    private boolean checkNotDeductable(float amount, float initial) {
+        return amount > initial;
     }
 
     @Override
