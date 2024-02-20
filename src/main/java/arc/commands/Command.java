@@ -16,6 +16,18 @@ import arc.tasks.TaskList;
  */
 public abstract class Command {
 
+    public static final String HELP_MESSAGE = "Here are examples of the commands I understand:\n\n"
+        + "todo <todo_name>\n"
+        + "deadline <deadline_name> /by 2024-02-20\n"
+        + "event <event_name> /from 2024-02-20 /to 2025-02-20\n"
+        + "list\n"
+        + "find\n"
+        + "sort-deadlines\n"
+        + "mark <task_number>\n"
+        + "unmark <task_number>\n"
+        + "delete <task_number>\n"
+        + "bye\n";
+
     /**
      * Enumeration representing the different types of commands available in the Arc application.
      * These commands are used to perform various actions and operations within the application.

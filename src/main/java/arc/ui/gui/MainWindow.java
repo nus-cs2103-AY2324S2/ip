@@ -1,6 +1,7 @@
 package arc.ui.gui;
 
 import arc.Arc;
+import arc.commands.Command;
 import arc.exceptions.ArcException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,12 +33,16 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Initializes the main window.
-     * Binds the scroll pane's vertical value property to the height property of the dialog container
-     * to ensure automatic scrolling as new dialog boxes are added.
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws ArcException {
+        // Ensure automatic scrolling as new dialog boxes are added
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Add initial help message
+        dialogContainer.getChildren().addAll(
+            DialogBox.getArcDialog(Command.HELP_MESSAGE, arcImage)
+        );
     }
 
     /**

@@ -1,10 +1,8 @@
 package arc.ui.gui;
 
-import java.io.IOException;
-
 import arc.Arc;
 import arc.exceptions.ArcException;
-import arc.exceptions.storage.LoadTasksFailedException;
+import arc.exceptions.gui.LoadGuiFailedException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -43,15 +41,15 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
 
             // Set up the scene and display the application window
+            stage.setResizable(false);
             stage.setTitle(Arc.CHAT_BOT_NAME);
             stage.setScene(scene);
             stage.show();
 
             // Set the Arc instance for the controller
             fxmlLoader.<MainWindow>getController().setArc(Main.arc);
-        } catch (IOException ioException) {
-            // Throw a custom exception if loading the FXML layout fails
-            throw new LoadTasksFailedException(ioException);
+        } catch (Exception exception) {
+            throw new LoadGuiFailedException(exception);
         }
     }
 }
