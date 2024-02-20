@@ -7,9 +7,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tes.gui.HelpWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="700.0" prefWidth="600.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" fitToWidth="true" fitToHeight="true" vvalue="1.0">
             <content>
-                <TableView fx:id="userGuideTable">
+                <TableView fx:id="userGuideTable" prefHeight="700.0">
                     <columns>
                         <TableColumn fx:id="commandColumn" text="Command" prefWidth="150.0"/>
                         <TableColumn fx:id="usageColumn" text="Usage" prefWidth="450.0"/>
