@@ -12,7 +12,7 @@ public class ParserTest {
     @Test
     public void testDateTimeParser() {
         Parser parser = new Parser();
-        LocalDateTime testDateTime = parser.parseDateTime("2/12/2019 1800");
+        LocalDateTime testDateTime = parser.parseDateTime("12/02/2019 1800");
         int year = 2019;
         int month = 2;
         int day = 12;
