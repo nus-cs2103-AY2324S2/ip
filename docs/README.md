@@ -120,18 +120,18 @@ The data provided by the user is saved in the hard disk automatically without an
 The automatic save happens after any command that changes the data.
 
 ## Command Summary
-| Command        | Syntax                                                         |
-|----------------|----------------------------------------------------------------|
-| Get Help       | help or sos                                                |
-| Add Todo       | todo return book or td return book                         |
-| Add Deadline   | deadline DESCRIPTION /by YYYY-MM-DD HH:MM or dl DESCRIPTION /by YYYY-MM-DD HH:MM |
-| Add Event      | event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM or ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM |
-| List Tasks     | list or ls                                                |
-| Find Tasks     | find KEYWORD [MORE_KEYWORDS] or f KEYWORD [MORE_KEYWORDS] |
-| Mark Task      | mark INDEX or mk INDEX                                     |
-| Unmark Task    | unmark INDEX or umk INDEX                                  |
-| Delete Task    | delete INDEX or rm INDEX                                   |
-| Exit Program   | bye                                                        |
+Command        | Syntax
+----------------|------------------------
+Get Help       | help or sos
+Add Todo       | todo return book or td return book
+Add Deadline   | deadline DESCRIPTION /by YYYY-MM-DD HH:MM or dl DESCRIPTION /by YYYY-MM-DD HH:MM
+Add Event      | event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM or ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
+List Tasks     | list or ls
+Find Tasks     | find KEYWORD [MORE_KEYWORDS] or f KEYWORD [MORE_KEYWORDS]
+Mark Task      | mark INDEX or mk INDEX
+Unmark Task    | unmark INDEX or umk INDEX
+Delete Task    | delete INDEX or rm INDEX
+Exit Program   | bye
 
 The structure of this user guide took considerable reference from the user guide of AB3, 
 which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
