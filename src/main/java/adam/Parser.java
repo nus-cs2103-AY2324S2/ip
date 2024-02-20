@@ -9,6 +9,8 @@ import adam.command.ListCommand;
 import adam.command.MarkCommand;
 import adam.command.UnmarkCommand;
 
+import java.lang.management.ThreadMXBean;
+
 /**
  * Parses the user input and creates the commands requested by the user.
  */
@@ -28,8 +30,6 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws AdamException {
         String command = fullCommand.split(" ")[0];
-        String[] splitCommandParts;
-        String[] splitDescParts;
 
         switch (command) {
         case "list":
@@ -37,83 +37,111 @@ public class Parser {
             return new ListCommand();
         case "todo":
         case "td":
-            // Splits the command from the description
-            splitCommandParts = fullCommand.split(" ", 2);
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Description of a todo cannot be empty.");
-            } else {
-                return new AddCommand("todo", splitCommandParts[1]);
-            }
+            return parseTodo(fullCommand);
         case "deadline":
         case "dl":
-            splitCommandParts = fullCommand.split(" ", 2);
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Description of a deadline cannot be empty.");
-            }
-
-            // Splits the description from the date
-            splitDescParts = splitCommandParts[1].split(" /by ", 2);
-            if (splitDescParts.length == 1) {
-                throw new AdamException("Date/time of a deadline cannot be empty.");
-            }
-
-            return new AddCommand("deadline", splitDescParts[0], splitDescParts[1]);
+            return parseDeadline(fullCommand);
         case "event":
         case "ev":
-            splitCommandParts = fullCommand.split(" ", 2);
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Description of a event cannot be empty.");
-            }
-
-            // Splits the description from the start and end details
-            splitDescParts = splitCommandParts[1].split(" /from ", 2);
-            if (splitDescParts.length == 1) {
-                throw new AdamException("Start date/time of a event cannot be empty.");
-            }
-
-            // Splits the start from the end
-            String[] splitFrom = splitDescParts[1].split(" /to ", 2);
-            if (splitFrom.length == 1) {
-                throw new AdamException("End date/time of a event cannot be empty.");
-            }
-
-            return new AddCommand("event", splitDescParts[0], splitFrom[0], splitFrom[1]);
+            return parseEvent(fullCommand);
         case "mark":
         case "mk":
-            splitCommandParts = fullCommand.split(" ");
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Task number of mark cannot be empty.");
-            }
-
-            return new MarkCommand(Integer.parseInt(splitCommandParts[1]));
+            return parseMark(fullCommand);
         case "unmark":
         case "umk":
-            splitCommandParts = fullCommand.split(" ");
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Task number of unmark cannot be empty.");
-            }
-
-            return new UnmarkCommand(Integer.parseInt(splitCommandParts[1]));
+            return parseUnmark(fullCommand);
         case "delete":
         case "del":
-            splitCommandParts = fullCommand.split(" ");
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Task number of delete cannot be empty.");
-            }
-
-            return new DeleteCommand(Integer.parseInt(splitCommandParts[1]));
+            return parseDelete(fullCommand);
         case "find":
         case "f":
-            splitCommandParts = fullCommand.split(" ");
-            if (splitCommandParts.length == 1) {
-                throw new AdamException("Task number of delete cannot be empty.");
-            }
-
-            return new FindCommand(splitCommandParts[1]);
+            return parseFind(fullCommand);
         case "bye":
             return new ExitCommand();
         default:
             throw new AdamException("I don't know what that means.");
         }
+    }
+
+    private static AddCommand parseTodo(String fullCommand) throws AdamException {
+        // Splits the command from the description
+        String[] splitCommandParts = fullCommand.split(" ", 2);
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Description of a todo cannot be empty.");
+        } else {
+            return new AddCommand("todo", splitCommandParts[1]);
+        }
+    }
+
+    private static AddCommand parseDeadline(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ", 2);
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Description of a deadline cannot be empty.");
+        }
+
+        // Splits the description from the date
+        String[] splitDescParts = splitCommandParts[1].split(" /by ", 2);
+        if (splitDescParts.length == 1) {
+            throw new AdamException("Date/time of a deadline cannot be empty.");
+        }
+
+        return new AddCommand("deadline", splitDescParts[0], splitDescParts[1]);
+    }
+
+    private static AddCommand parseEvent(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ", 2);
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Description of a event cannot be empty.");
+        }
+
+        // Splits the description from the start and end details
+        String[] splitDescParts = splitCommandParts[1].split(" /from ", 2);
+        if (splitDescParts.length == 1) {
+            throw new AdamException("Start date/time of a event cannot be empty.");
+        }
+
+        // Splits the start from the end
+        String[] splitFrom = splitDescParts[1].split(" /to ", 2);
+        if (splitFrom.length == 1) {
+            throw new AdamException("End date/time of a event cannot be empty.");
+        }
+
+        return new AddCommand("event", splitDescParts[0], splitFrom[0], splitFrom[1]);
+    }
+
+    private static MarkCommand parseMark(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ");
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Task number of mark cannot be empty.");
+        }
+
+        return new MarkCommand(Integer.parseInt(splitCommandParts[1]));
+    }
+
+    private static UnmarkCommand parseUnmark(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ");
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Task number of unmark cannot be empty.");
+        }
+
+        return new UnmarkCommand(Integer.parseInt(splitCommandParts[1]));
+    }
+
+    private static DeleteCommand parseDelete(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ");
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Task number of delete cannot be empty.");
+        }
+
+        return new DeleteCommand(Integer.parseInt(splitCommandParts[1]));
+    }
+
+    private static FindCommand parseFind(String fullCommand) throws AdamException {
+        String[] splitCommandParts = fullCommand.split(" ");
+        if (splitCommandParts.length == 1) {
+            throw new AdamException("Task number of delete cannot be empty.");
+        }
+
+        return new FindCommand(splitCommandParts[1]);
     }
 }
