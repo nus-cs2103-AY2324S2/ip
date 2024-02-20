@@ -23,6 +23,7 @@ public class DuplicateInstructionException extends Exception{
                     + "\nYour task is already unmarked!";
             break;
         default:
+            // Same task already present in taskList. C-DetectDuplicates
             str = "I think you haven't had enough vitamin D."
                     + "\nYour task is already existing in the list!";
             break;

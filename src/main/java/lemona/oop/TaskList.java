@@ -122,12 +122,12 @@ public class TaskList {
 
     /**
      * Adds the given task to the task list.
-     * If the task description already exists in the list, appropriate error message is displayed.
+     * If the task description already exists in the list, appropriate error message is displayed. C-DetectDuplicates
      *
      * @param task The task to be added to the list.
      * @return The string message to be printed.
      */
-    public String add(Task task){
+    public String add(Task task) {
         String str;
         try {
             for (Task value : tasks) {
