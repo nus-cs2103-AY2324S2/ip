@@ -15,6 +15,9 @@ public class DialogBox extends HBox {
     private Label dialog;
 
     @FXML
+    private Label name;
+
+    @FXML
     private ImageView displayPicture;
 
     DialogBox(String text, Image img) {
@@ -29,7 +32,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setMinWidth(Region.USE_COMPUTED_SIZE);
-        dialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        dialog.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         dialog.setWrapText(true);
 
         displayPicture.setImage(img);
