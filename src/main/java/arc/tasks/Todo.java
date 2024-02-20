@@ -2,8 +2,8 @@ package arc.tasks;
 
 import java.util.ArrayList;
 
-import arc.Arc;
 import arc.exceptions.tasks.EmptyDescriptionException;
+import arc.storage.Storage;
 
 /**
  * Represents a Todo task in the Arc application.
@@ -46,7 +46,7 @@ public class Todo extends Task {
         taskArgs.add(this.getDescription());
         taskArgs.add(this.isDone() ? "1" : "0");
 
-        return String.join(Arc.ARG_DELIMITER, taskArgs);
+        return String.join(Storage.STORAGE_DELIMITER, taskArgs);
     }
 
     /**

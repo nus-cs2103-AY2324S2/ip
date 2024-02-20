@@ -3,6 +3,7 @@ package arc.storage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -22,6 +23,16 @@ import arc.tasks.Todo;
  * and to save tasks into the file upon exiting.
  */
 public class Storage {
+    /**
+     * The default file path used for storing tasks data.
+     */
+    public static final Path TASKS_FILE_PATH = Paths.get(".", "data", "arc.tasks");
+
+    /**
+     * The delimiter used for separating command arguments in the storage file.
+     */
+    public static final String STORAGE_DELIMITER = "\u241f";
+
     private final Path filePath;
     private final String argDelimiter;
 

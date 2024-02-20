@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import arc.Arc;
 import arc.exceptions.tasks.EmptyDescriptionException;
+import arc.storage.Storage;
 
 /**
  * Represents an Event task in the Arc application.
@@ -92,7 +92,7 @@ public class Event extends Task {
         taskArgs.add(this.getTo().toString());
         taskArgs.add(this.isDone() ? "1" : "0");
 
-        return String.join(Arc.ARG_DELIMITER, taskArgs);
+        return String.join(Storage.STORAGE_DELIMITER, taskArgs);
     }
 
     /**

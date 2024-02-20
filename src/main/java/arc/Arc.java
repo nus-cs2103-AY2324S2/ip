@@ -1,7 +1,6 @@
 package arc;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import arc.commands.Command;
 import arc.exceptions.ArcException;
@@ -21,15 +20,6 @@ public class Arc {
      */
     public static final String CHAT_BOT_NAME = "Arc Chat-Bot";
 
-    /**
-     * The default file path used for storing tasks data.
-     */
-    public static final Path TASKS_FILE_PATH = Paths.get(".", "data", "arc.tasks");
-
-    /**
-     * The delimiter used for separating command arguments in the storage file.
-     */
-    public static final String ARG_DELIMITER = "\u241f";
     /**
      * The storage field used to load and save tasks data.
      */
@@ -98,7 +88,7 @@ public class Arc {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        Arc arc = new Arc(TASKS_FILE_PATH, ARG_DELIMITER);
+        Arc arc = new Arc(Storage.TASKS_FILE_PATH, Storage.STORAGE_DELIMITER);
         arc.run();
     }
 }
