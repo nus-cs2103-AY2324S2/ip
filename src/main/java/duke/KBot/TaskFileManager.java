@@ -27,7 +27,7 @@ import java.time.format.DateTimeParseException;
 public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
-    private static final String FILE_PATH = "src/main/java/duke/memory/output.txt";
+    private static final String FILE_PATH = "data/storage.txt";
 
     /** Storage format for date. */
     private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("d-M-yy");
@@ -63,6 +63,7 @@ public class TaskFileManager {
     public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, IOException {
         File file = new File(FILE_PATH); // create a File for the given file path
         if (!file.exists()) { // Check if the file exists. If not, create a new file.
+            file.getParentFile().mkdirs();
             file.createNewFile();
         }
         Scanner sc = new Scanner(file); // create a Scanner using the File as the source
