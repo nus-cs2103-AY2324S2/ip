@@ -1,3 +1,5 @@
+package duke.display;
+
 import javafx.application.Application;
 
 /**

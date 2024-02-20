@@ -1,3 +1,5 @@
+package duke.display;
+
 import java.io.IOException;
 
 import duke.command.DukeException;

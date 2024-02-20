@@ -1,3 +1,5 @@
+package duke.display;
+
 import java.io.IOException;
 
 import duke.command.DukeException;
@@ -5,6 +7,7 @@ import duke.command.Parser;
 import duke.command.Storage;
 import duke.command.TaskList;
 import duke.command.Ui;
+import duke.display.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
