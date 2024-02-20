@@ -47,23 +47,27 @@ public class Ui {
             task.Task currentTask = tasks.getTask(i - 1);
             message.add(i + ". " + currentTask.toString() + "\n");
         }
+        message.set(message.size() - 1, message.get(message.size() - 1).substring(0,
+                message.get(message.size() - 1).length() - 1));
         return String.join(" ", message);
     }
 
-    /**
-     * Prints filtered task list.
-     *
-     * @param tasks List of tasks with the specific keyword.
-     */
-    public String printFilteredTasks(TaskList tasks) {
-        ArrayList<String> message = new ArrayList<>();
-        message.add("Here are the matching tasks in your list:\n");
-        for (int i = 1; i < tasks.size() + 1; i++) {
-            task.Task currentTask = tasks.getTask(i - 1);
-            message.add(i + ". " + currentTask.toString() + "\n");
-        }
-        return String.join(" ", message);
-    }
+//    /**
+//     * Prints filtered task list.
+//     *
+//     * @param tasks List of tasks with the specific keyword.
+//     */
+//    public String printFilteredTasks(TaskList tasks) {
+//        ArrayList<String> message = new ArrayList<>();
+//        message.add("Here are the matching tasks in your list:\n");
+//        for (int i = 1; i < tasks.size() + 1; i++) {
+//            task.Task currentTask = tasks.getTask(i - 1);
+//            message.add(i + ". " + currentTask.toString() + "\n");
+//        }
+//        message.set(message.size() - 1, message.get(message.size() - 1).substring(0,
+//                message.get(message.size() - 1).length() - 1));
+//        return String.join(" ", message);
+//    }
 
     /**
      * Prints no outstanding tasks and list of commands.
