@@ -30,6 +30,19 @@ public class Parser {
         return new String[]{ command, desc };
     }
 
+    public static String[] parse (String input) {
+        // Separating the command and description from user input
+        String[] commandDesc = input.split("\\s+", 2);
+        String command = commandDesc[0];
+        String desc = "";
+
+        if (commandDesc.length > 1) {
+            desc = commandDesc[1];
+        }
+
+        return new String[]{ command, desc };
+    }
+
     /**
      * Checks if the provided task description is empty and throws an exception if it is.
      * This method is used to ensure that tasks have descriptions when needed.

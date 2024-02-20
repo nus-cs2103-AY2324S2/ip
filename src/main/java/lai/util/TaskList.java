@@ -31,13 +31,11 @@ public class TaskList implements Iterable<Task> {
      * @param storage The storage utility to update the tasks file.
      * @return The updated list of tasks.
      */
-    public List<Task> add(Task newTask, Storage storage) {
+    public TaskList add(Task newTask, Storage storage) {
         this.tasks.add(newTask);
         storage.updateTasksFile(this);
 
-        Ui.printTaskAdded(newTask, this);
-
-        return this.tasks;
+        return this;
     }
 
     /**
