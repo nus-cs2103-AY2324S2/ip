@@ -15,7 +15,7 @@ It is designed to be simple and easy to use, and is in the form of an interactiv
 
 ## Features
 
-### Adding a todo task: 'todo'
+### Adding a todo task: `todo`
 Description: todo tasks are tasks without date to finish or start.
 Format: `todo <task description>`
 Examples: 
@@ -23,7 +23,7 @@ Examples:
 todo read CS2103T textbook
 ```
 
-### Adding a deadline task: 'deadline'
+### Adding a deadline task: `deadline`
 Description: deadline tasks are tasks with a date to finish.
 Format: `deadline <task description> /by <yyyy-mm-dd>`
 Examples: 
@@ -31,7 +31,7 @@ Examples:
 deadline submit report /by 2023-03-10
 ```
 
-### Adding an event task: 'event'
+### Adding an event task: `event`
 Description: event tasks are tasks with a date to start and end.
 Format: `event <task description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
 Examples:
@@ -39,7 +39,7 @@ Examples:
 event finish math homework /from 2022-11-13 /to 2022-11-14
 ```
 
-### Marking a task as done: 'mark'
+### Marking a task as done: `mark`
 Description: mark a task as done.
 Format: `mark <task number>`
 Examples:
@@ -47,7 +47,7 @@ Examples:
 mark 1
 ```
 
-### Unmarking a task as done: 'unmark'
+### Unmarking a task as done: `unmark`
 Description: unmark a task as done.
 Format: `unmark <task number>`
 Examples:
@@ -55,7 +55,7 @@ Examples:
 unmark 1
 ```
 
-### Deleting a task: 'delete'
+### Deleting a task: `delete`
 Description: delete a task from the task list.
 Format: `delete <task number>`
 Examples:
@@ -63,7 +63,7 @@ Examples:
 delete 1
 ```
 
-### Finding tasks by keyword: 'find'
+### Finding tasks by keyword: `find`
 Description: find tasks by keyword in the task content.
 Format: `find <keyword>`
 Examples:
@@ -71,7 +71,7 @@ Examples:
 find homework
 ```
 
-### Listing all tasks: 'list'
+### Listing all tasks: `list`
 Description: list all tasks in the task list.
 Format: `list`
 Examples:
@@ -85,7 +85,7 @@ Here are the tasks in your list:
 3. [E][ ] finish math homework (from: Nov 13 2022 to: Nov 14 2022)
 ```
 
-### Exiting the application: 'bye'
+### Exiting the application: `bye`
 Description: exit the application after 2 seconds.
 Format: `bye`
 Examples:
