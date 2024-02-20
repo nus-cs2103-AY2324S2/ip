@@ -52,7 +52,7 @@ public abstract class Task {
     }
 
     /**
-     * Unmark the task. Task is not completed.
+     * Unmark the task as not complete
      */
     public void setNotMarked() {
         this.isDone = false;
