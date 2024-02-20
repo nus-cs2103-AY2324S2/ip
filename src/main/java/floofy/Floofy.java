@@ -69,6 +69,10 @@ public class Floofy {
                     ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
                     storage.saveTasks(tasks);
                     continue;
+                case "find":
+                    TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
+                    ui.showMatchingTasks(matchingTasks);
+                    continue;
                 case "todo":
                     String todoTask = input[1];
                     ToDo newTodo = new ToDo(todoTask);

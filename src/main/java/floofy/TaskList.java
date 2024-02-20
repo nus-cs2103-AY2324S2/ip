@@ -45,4 +45,14 @@ public class TaskList {
         this.tasks.get(index).unmarkTask();
     }
 
+    public TaskList findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.hasMatchingDescription(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
+
 }

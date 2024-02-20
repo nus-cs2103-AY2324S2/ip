@@ -35,6 +35,13 @@ public class Parser {
             parsedInput[0] = "unmark";
             parsedInput[1] = userInput.substring(7);
             return parsedInput;
+        } else if (userInput.startsWith("find")) {
+            if (userInput.length() < 6) {
+                throw new FloofyException("To find a task, type 'find ' followed by the task to find! e.g. 'find book':)");
+            }
+            parsedInput[0] = "find";
+            parsedInput[1] = userInput.substring(5);
+            return parsedInput;
         } else if (userInput.startsWith("todo")) {
             parsedInput[0] = "todo";
             if (userInput.length() < 6) {
