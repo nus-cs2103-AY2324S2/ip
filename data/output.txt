@@ -1,5 +1,5 @@
-T | 1 | sleep
+T | 1 | survive
 D | 0 | hehe | Jun 6 2024 1800
 T | 0 | meow
 T | 1 | read book
-T | 0 | jackoff
+T | 0 | think about life

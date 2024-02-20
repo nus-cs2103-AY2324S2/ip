@@ -1,11 +1,19 @@
-# User Guide for Yoda Chatbot
+# Yoda Chatbot User Guide
 
-Yoda Chatbot is a task management assistant that helps you keep track of various tasks including todos, deadlines, and events.
+Welcome to the Yoda Chatbot, your personal assistant for managing tasks with the wisdom of Yoda himself. This guide will help you navigate through the application and utilize its features to organize your to-do list effectively.
+
+## Starting Up
+- Launch the Yoda Chatbot application.
+- A greeting from Yoda will welcome you to the application.
+- You are now ready to start managing your tasks.
 
 ## Features
 
-### Adding a Task
-You can add three types of tasks: todo, deadline, and event.
+## Adding Tasks
+- To add a task, type in the task description and send it.
+- For Todo tasks: Simply type the task and send it.
+- For Deadline tasks: Type the task followed by 'by:' and the due date/time.
+- For Event tasks: Type the event description followed by 'from:' and 'to:' with start and end date/time.
 
 #### `todo` - Adds a todo task.
 A todo task only contains a description.
@@ -40,8 +48,8 @@ Hmm, added this task, I have:
 [E][ ] project meeting (from: Monday 2pm to: 4pm)
 Tasks in the list, now you have 3, hmm.
 
-### Marking a Task as Done
-You can mark a task as completed.
+## Marking Tasks as Done
+- To mark a task as done, type 'mark' followed by the task number.
 
 #### `mark` - Marks a task as done.
 
@@ -52,8 +60,8 @@ Expected outcome:
 Done, this task is:
 [T][X] read book
 
-### Marking a Task as Unone
-You can unmark a task as completed.
+## Marking Tasks as Undone
+- To mark a task as not done, type 'unmark' followed by the task number.
 
 #### `unmark` - Marks a task as done.
 
@@ -80,8 +88,8 @@ Tasks in your list, here they are:
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Monday 2pm to: 4pm)
 
-### Deleting a Task
-You can delete a task from your list.
+## Deleting Tasks
+- To delete a task, type 'delete' followed by the task number.
 
 #### `delete` - Deletes a task.
 
@@ -93,7 +101,37 @@ Removed, this task has been:
 [T][X] read book
 Tasks in the list, now you have 2, hmm.
 
-### Exiting the Chatbot
+## Saving Your List
+- To save your tasks, type 'save'. Your tasks will be saved for the next time you use the chatbot.
+
+#### `save` - Saves the current task list.
+
+Example of usage:
+`save`
+
+Expected outcome:
+Saved, your tasks have been.
+
+## Updating Tasks
+- To update a task, type 'update' followed by the task number. Yoda will prompt you for the details to update, depending on the type of task.
+    - For Todo: You'll be asked for a new description.
+    - For Deadline: You can update the description or the due date/time.
+    - For Event: You have the option to update the description, the start date/time, or the end date/time.
+
+#### `update` - Updates a task.
+
+Example of usage:
+`update 1` (for a Todo task)
+
+Expected outcome:
+Yoda: Enter 'description' you must.
+User: description
+Yoda: New description, enter you must.
+User: [new description]
+Yoda: Updated, the task description is.
+
+
+## Exiting the Chatbot
 You can exit the chatbot using the `bye` command.
 
 #### `bye` - Exits the application.
