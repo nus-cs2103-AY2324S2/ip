@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    // Referenced HusseinSafwan02's code and AI
+    // Adapted from @HusseinSafwan02 and AI
     private static final String FILE_PATH = "./data/linus.txt";
     private static final String DIRECTORY_PATH = "./data";
 
@@ -59,7 +59,7 @@ public class Storage {
         }
     }
 
-    private String taskToFileString(Task task) {
+    public String taskToFileString(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
