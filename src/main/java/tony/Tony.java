@@ -59,8 +59,10 @@ public class Tony {
                     return handleFindCommand(input);
                 case "update":
                     return handleUpdateCommand(input);
+                case "hello":
+                    return Ui.hello();
                 default:
-                    throw new IllegalArgumentException("Invalid command: " + command);
+                    throw new IllegalArgumentException("Sorry dawg, that's an invalid command: " + command);
                 }
             } catch (IllegalArgumentException e) {
                 return "Error: " + e.getMessage();

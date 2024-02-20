@@ -32,7 +32,7 @@ public class TodoList {
         String addString = "_______________________\n"
                 + "Got it dawg. I've added this task: \n"
                 + item.toString() + "\n"
-                + "Now you got " + numberOfTasks + " tony.tasks fam \n"
+                + "Now you got " + numberOfTasks + " tasks fam \n"
                 + "_______________________\n";
         return addString;
     }
@@ -118,31 +118,31 @@ public class TodoList {
                 Deadline deadline = (Deadline) task;
                 deadline.setDueDate(parsedDate);
                 return "_______________________\n"
-                        + "Updated due date of item " + index + " successfully."
+                        + "Updated due date of item " + index + " successfully.\n"
                         + "_______________________\n";
             } else if (task instanceof Event && (field.equals("from") || field.equals("to"))) {
                 Event event = (Event) task;
                 if (field.equals("from")) {
                     event.setFromDate(parsedDate);
                     return "_______________________\n"
-                            + "Updated from date of item " + index + " successfully."
+                            + "Updated from date of item " + index + " successfully.\n"
                             + "_______________________\n";
                 } else {
                     event.setToDate(parsedDate);
                     return "_______________________\n"
-                            + "Updated to date of item " + index + " successfully."
+                            + "Updated to date of item " + index + " successfully.\n"
                             + "_______________________\n";
                 }
             } else {
                 return "_______________________\n"
-                        + "Cannot update date for this type of task."
+                        + "Cannot update date for this type of task.\n"
                         + "_______________________\n";
             }
         } catch (IndexOutOfBoundsException e) {
             return handleInvalidIndex();
         } catch (BadDateException e) {
             return "_______________________\n"
-                    + "Invalid date input."
+                    + "Invalid date input.\n"
                     + "_______________________\n";
         }
     }
@@ -154,7 +154,7 @@ public class TodoList {
      */
     private String handleInvalidIndex() {
         return "_______________________\n"
-                + "Invalid index provided."
+                + "Invalid index provided.\n"
                 + "_______________________\n";
     }
 
@@ -276,7 +276,7 @@ public class TodoList {
             if (parts.length >= 5) {
                 String startDate = parts[3];
                 String endDate = parts[4];
-                task = taskFactory.createTask(TaskType.EVENT, taskDetails, "from: " + startDate, "to: " + endDate);
+                task = taskFactory.createTask(TaskType.EVENT, taskDetails, "from " + startDate, "to " + endDate);
             } else {
                 throw new InvalidTaskException("Event task information incomplete");
             }
