@@ -35,7 +35,7 @@ public class Parser {
     }
 
     public void parse(String command) {
-        // The loop that takes in user input and determine what to do.
+        // The loop that takes in user input and determines what to do.
         while (command != null) {
             // Taking in next user input.
             command = scan.next();

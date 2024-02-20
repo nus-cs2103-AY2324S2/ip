@@ -45,7 +45,6 @@ public class Ui {
             }
         }
 
-
     /**
      * Says goodbye to Mitsuki and exits the Chat bot.
      */

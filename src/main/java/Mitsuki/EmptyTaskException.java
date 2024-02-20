@@ -22,7 +22,7 @@ public class EmptyTaskException extends MitsukiException {
      * @throws EmptyTaskException the exception that will be thrown if no task description is given.
      */
     public static void validate(String description) throws EmptyTaskException {
-        if (description.isEmpty()) {
+        if (description.isBlank()) {
             throw new EmptyTaskException("Empty Task Given");
         }
     }
