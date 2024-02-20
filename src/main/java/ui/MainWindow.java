@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer
                 .getChildren()
-                .add(DialogBox.getWilliamDialog("Hello! I'm William, aka Chopper! "
+                .add(DialogBox.getWilliamDialog("Hello! I'm William! "
                         + "What can I do for you?", WILLIAM_IMAGE));
     }
 

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Provides the layout for dialog box between William chatbot and user
@@ -34,7 +35,18 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(60.0);
+        displayPicture.setFitWidth(60.0);
+
+        Rectangle clip = new Rectangle(
+                displayPicture.getFitWidth(), displayPicture.getFitHeight()
+        );
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+
+        displayPicture.setClip(clip);
     }
 
     /**
