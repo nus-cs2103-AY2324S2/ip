@@ -6,10 +6,10 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-mainClassName = "duke.Duke"
+mainClassName = "duke.Launcher"
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("duke.Launcher")
 }
 
 
