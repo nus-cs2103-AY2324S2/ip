@@ -18,7 +18,7 @@ If you have used Slaybot before, you can jump straight to Slaybot's [Features an
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 
-2. Download the latest  from [here](https://github.com/sethteo/ip/releases/tag/v0.2).
+2. Download the latest  from [here](https://github.com/sethteo/ip/releases/tag/v0.2.1).
 
 3. Copy the file to the folder you want to use as the home folder for your Slaybot.
 
