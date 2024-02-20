@@ -61,9 +61,11 @@ public class FileManaging {
     public static void writeToFile(String filePath, String filePath2, TaskList storage) throws IOException {
         FileWriter fw2 = new FileWriter(filePath2);
         File f = new File(filePath);
+        if (!f.exists()) {
+            f.createNewFile();
+        }
         Scanner s = new Scanner(f);
         StringBuilder output = new StringBuilder("");
-
         while (s.hasNext()) {
             String line = s.nextLine();
             output.append(line);

@@ -48,12 +48,12 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = 'duke.jar'
+    archiveBaseName = "ChatPal"
+    archiveFileName = 'ChatPal.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
