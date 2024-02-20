@@ -18,6 +18,10 @@ public class Task {
     this.isDone = false;
   }
 
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   /**
    * Returns the status icon representing whether the task is done ("X") or not (" ").
    *

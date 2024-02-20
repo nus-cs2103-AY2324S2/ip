@@ -63,18 +63,22 @@ public class TaskList {
   protected static String addDeadlineTask(String input, ArrayList<Task> tasks) {
     assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
+    try {
+      String[] tokenD = input.split("/");
+      String by = tokenD[1].substring(3).trim();
 
-    String[] tokenD = input.split("/");
-    String by = tokenD[1].substring(3).trim();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+      LocalDateTime deadlineDateTime = LocalDateTime.parse(by, formatter);
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    LocalDateTime deadlineDateTime = LocalDateTime.parse(by, formatter);
-
-    Task d = new Deadline(tokenD[0].substring(9).trim(), deadlineDateTime);
-    tasks.add(d);
-    stringBuilder.append("Got it. I've added this task:\n");
-    stringBuilder.append(SPACING).append(d).append("\n");
-    stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
+      Task d = new Deadline(tokenD[0].substring(9).trim(), deadlineDateTime);
+      tasks.add(d);
+      stringBuilder.append("Got it. I've added this task:\n");
+      stringBuilder.append(SPACING).append(d).append("\n");
+      stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
+    } catch (Exception e) {
+      stringBuilder.append("Error! Please follow proper formatting!\n" +
+              "E.g. deadline (your task) /by dd-mm-yyyy hhmm");
+    }
     return stringBuilder.toString();
   }
 
@@ -88,17 +92,23 @@ public class TaskList {
   protected static String addEventTask(String input, ArrayList<Task> tasks) {
     assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
-    String[] tokenE = input.split("/");
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    LocalDateTime fromDateTime = LocalDateTime.parse(tokenE[1].substring(5).trim(), formatter);
-    LocalDateTime toDateTime = LocalDateTime.parse(tokenE[2].substring(3).trim(), formatter);
+    try {
+      String[] tokenE = input.split("/");
 
-    Task e = new Events(tokenE[0].substring(6).trim(), fromDateTime, toDateTime);
-    tasks.add(e);
-    stringBuilder.append("Got it. I've added this task:\n");
-    stringBuilder.append(SPACING).append(e).append("\n");
-    stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+      LocalDateTime fromDateTime = LocalDateTime.parse(tokenE[1].substring(5).trim(), formatter);
+      LocalDateTime toDateTime = LocalDateTime.parse(tokenE[2].substring(3).trim(), formatter);
+
+      Task e = new Events(tokenE[0].substring(6).trim(), fromDateTime, toDateTime);
+      tasks.add(e);
+      stringBuilder.append("Got it. I've added this task:\n");
+      stringBuilder.append(SPACING).append(e).append("\n");
+      stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
+    } catch (Exception e) {
+      stringBuilder.append("Error! Please follow proper formatting!\n" +
+              "E.g. event (your task) /from dd-mm-yyyy hhmm /to dd-mm-yyyy hhmm");
+    }
     return stringBuilder.toString();
   }
 
@@ -112,6 +122,7 @@ public class TaskList {
   protected static String addTodoTask(String input, ArrayList<Task> tasks) {
     assert input != null : "Token array must not be null";
     StringBuilder stringBuilder = new StringBuilder();
+
     if (input.substring(4).trim().isEmpty()) {
       return "No description found for your todo.";
     }
@@ -120,6 +131,7 @@ public class TaskList {
     stringBuilder.append("Got it. I've added this task:\n");
     stringBuilder.append(SPACING).append(t).append("\n");
     stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
+
     return stringBuilder.toString();
   }
 
@@ -151,6 +163,40 @@ public class TaskList {
       tasks.remove(index);
     } catch (NumberFormatException e) {
       stringBuilder.append("Please provide a valid numeric index for deletion.");
+    }
+    return stringBuilder.toString();
+  }
+
+  /**
+   * Updates details of an existing task.
+   *
+   * @param token The token array containing the command and index.
+   * @param newDescription The new description for the task.
+   * @param tasks      The list of tasks.
+   * @return A string message indicating the result of the operation.
+   */
+  protected static String updateTask(String[] token, String newDescription, ArrayList<Task> tasks) {
+    assert tasks != null : "Tasks list must not be null";
+    StringBuilder stringBuilder = new StringBuilder();
+    try {
+      Task taskToUpdate = tasks.get(Integer.parseInt(token[1]) - 1);
+      if (taskToUpdate instanceof Deadline) {
+        Deadline deadlineTask = (Deadline) taskToUpdate;
+        deadlineTask.setDescription(newDescription.substring(9));
+      } else if (taskToUpdate instanceof Events) {
+        Events eventTask = (Events) taskToUpdate;
+        eventTask.setDescription(newDescription.substring(9));
+      } else if (taskToUpdate instanceof Todos) {
+        taskToUpdate.setDescription(newDescription.substring(9));
+      } else {
+        return "Unsupported task type.";
+      }
+      stringBuilder.append("Task updated successfully:\n");
+      stringBuilder.append(SPACING).append(taskToUpdate).append("\n");
+    } catch (IndexOutOfBoundsException e) {
+      stringBuilder.append("Invalid task index.");
+    } catch (Exception e) {
+      stringBuilder.append("An error occurred while updating the task: ").append(e.getMessage());
     }
     return stringBuilder.toString();
   }

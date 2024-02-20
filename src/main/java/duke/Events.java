@@ -26,6 +26,14 @@ public class Events extends Task {
     this.to = to;
   }
 
+  public void setFromDateTime(LocalDateTime from) {
+    this.from = from;
+  }
+
+  public void setToDateTime(LocalDateTime to) {
+    this.to = to;
+  }
+
   @Override
   public String toString() {
     assert description != null : "Description must not be null";
