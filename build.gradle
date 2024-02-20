@@ -47,10 +47,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "xilef"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = 'xilef.Xilef'
+    mainClassName = 'xilef.gui.Launcher'
     archiveFileName = 'xilef.jar'
 }
 
