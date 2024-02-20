@@ -1,19 +1,21 @@
 package paimon.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import paimon.ChatException;
-import paimon.util.UiHandler;
-import paimon.task.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import paimon.ChatException;
+import paimon.task.TaskList;
+import paimon.util.UiHandler;
+
+
+
 
 public class DeadlineCommandTest {
     private final PrintStream standardOut = System.out;
@@ -39,22 +41,34 @@ public class DeadlineCommandTest {
         validDateCommands.add(new DeadlineCommand("fly kite 2", "13/05/2001"));
 
         validDateCommands.get(0).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] buy donuts 1 (by: 2022-01-02 01:01)\n-------------------->\nYou have 1 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] buy donuts 1 (by: 2022-01-02 01:01)\n"
+                + "-------------------->\nYou have 1 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
         validDateCommands.get(1).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] buy donuts 2 (by: 2022-01-02 00:00)\n-------------------->\nYou have 2 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] buy donuts 2 (by: 2022-01-02 00:00)\n"
+                + "-------------------->\nYou have 2 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
         validDateCommands.get(2).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] do stuff 1 (by: 2023-02-01 10:01)\n-------------------->\nYou have 3 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] do stuff 1 (by: 2023-02-01 10:01)\n"
+                + "-------------------->\nYou have 3 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
         validDateCommands.get(3).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] do stuff 2 (by: 2023-02-01 00:00)\n-------------------->\nYou have 4 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] do stuff 2 (by: 2023-02-01 00:00)\n"
+                + "-------------------->\nYou have 4 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
         validDateCommands.get(4).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] fly kite 1 (by: 2001-05-13 13:04)\n-------------------->\nYou have 5 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] fly kite 1 (by: 2001-05-13 13:04)\n"
+                + "-------------------->\nYou have 5 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
         validDateCommands.get(5).execute(taskList, ui);
-        assertEquals("Okay Traveller, I've added the following task!\n-------------------->\n[D][ ] fly kite 2 (by: 2001-05-13 00:00)\n-------------------->\nYou have 6 tasks in your list", outputStreamCaptor.toString().trim());
+        assertEquals("Okay Traveller, I've added the following task!\n"
+                + "-------------------->\n[D][ ] fly kite 2 (by: 2001-05-13 00:00)\n"
+                + "-------------------->\nYou have 6 tasks in your list", outputStreamCaptor.toString().trim());
         outputStreamCaptor.reset();
     }
     @Test

@@ -27,16 +27,16 @@ public class DeleteCommand extends Command {
      * Notifies the user of the action through the UI handler.
      *
      * @param taskList The task list from which a task will be deleted.
-     * @param ui       The UI handler for interacting with the user.
+     * @return A String to be displayed.
      * @throws ChatException If the index string cannot be converted to a valid integer,
      *                       or if the index is out of bounds for the task list.
      */
-    public void execute(TaskList taskList, UiHandler ui) throws ChatException {
+    public String execute(TaskList taskList) throws ChatException {
         try {
             int deleteIndex = Integer.parseInt(indexString);
             if (deleteIndex >= 1 && deleteIndex <= taskList.getSize()) {
                 taskList.deleteTask(deleteIndex - 1);
-                ui.displayDeleteTaskMessage(taskList.getSize());
+                return UiHandler.getDeleteTaskMessage(taskList.getSize());
             } else {
                 throw new ChatException("Sorry Traveller, that task does not exist");
             }
