@@ -64,8 +64,8 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new ZackException("Task file not found. A new file will be created "
-                    + "upon adding tasks to the task list.");
+            throw new ZackException("Hmm looks like you don't have a storage file yet. Don't worry, just"
+                    + "start adding tasks to the task list and I'll create oen for you!");
         }
         return loadedTasks;
     }
@@ -81,7 +81,7 @@ public class Storage {
         String[] parts = line.split(" \\| "); // split by " | "
         // handle exceptions for when the text file is edited.
         if (parts.length < 4) {
-            throw new ZackException("Invalid task format");
+            throw new ZackException("Check your task formatting!");
         }
         String type = parts[0];
         boolean isDone = "1".equals(parts[1].trim());
@@ -95,13 +95,13 @@ public class Storage {
         case "D":
             // ["D", "1", "assignment", "2022-08-01 2200", "2019-01-21T05:47:08.644"]
             if (parts.length < 5) {
-                throw new ZackException("Invalid deadline format");
+                throw new ZackException("Check your deadline formatting!");
             }
             addedTime = LocalDateTime.parse(parts[4]);
             return new Deadline(description, parts[3], isDone, addedTime);
         case "E":
             if (parts.length < 5) {
-                throw new ZackException("Invalid event format");
+                throw new ZackException("Check your event formatting!");
             }
             // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300", "2019-01-21T05:47:08.644"]
             addedTime = LocalDateTime.parse(parts[4]);
@@ -110,7 +110,8 @@ public class Storage {
             String to = fromTo[1];
             return new Event(description, from, to, isDone, addedTime);
         default:
-            throw new ZackException("Unknown task type found inside storage.");
+            throw new ZackException("There's an unknown task in your storage file! You might wana check it " +
+                    "out and see what's going on...");
         }
     }
 }

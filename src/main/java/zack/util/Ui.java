@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import zack.ZackException;
 import zack.tasks.Deadline;
@@ -14,38 +13,7 @@ import zack.tasks.Task;
  * Handles user interaction and displays messages to the user.
  */
 public class Ui {
-    private Scanner scanner;
-
-    /**
-     * Constructs a Ui object and initializes the scanner for user input.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads the command from the user.
-     *
-     * @return The command input by the user.
-     * @throws ZackException If the input is empty.
-     */
-    public String readCommand() throws ZackException {
-        String input = scanner.nextLine().trim();
-        if (input.isEmpty()) {
-            throw new ZackException("The input cannot be empty.");
-        }
-        return input;
-    }
-
-
-    /**
-     * Displays the specified error message to the user.
-     *
-     * @param errorMessage The error message to be displayed.
-     */
-    public void showError(String errorMessage) {
-        System.out.println("OOPS!!! " + errorMessage);
-    }
+    // There is no constructor as the Ui class does not need to perform any initialization anymore.
 
     /**
      * Shows a message when a task is added, along with the current number of tasks.
@@ -55,8 +23,8 @@ public class Ui {
      * @return
      */
     public String showAddedTask(Task task, int totalTasks) {
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + totalTasks
-                + " tasks in the list.";
+        return "Righty-ho! I've added this task:\n  " + task + "\nNow you have " + totalTasks
+                + " tasks in the list. All the best!";
     }
 
     /**
@@ -67,15 +35,15 @@ public class Ui {
      * @return
      */
     public String showDeletedTask(Task task, int totalTasks) {
-        return "Noted. I've removed this task:\n" + task + "\nNow you have " + totalTasks
-                + " tasks in the list.";
+        return "Gotcha, let's get rid of that task for ya. I've removed:\n" + task + "\nNow you " +
+                "have " + totalTasks + " tasks left the list.";
     }
 
     /**
      * Prints the goodbye message when the user exits the application.
      */
     public String showGoodbyeMessage() {
-        return "Goodbye! Hope to see you again soon!";
+        return "Bye bye! Hope to see you again soon :)!";
     }
 
     /**
@@ -86,9 +54,9 @@ public class Ui {
      */
     public String showMarkedTask(Task task, boolean isDone) {
         if (isDone) {
-            return "Nice! I've marked this task as done:\n" + task;
+            return "Good job completing your task! It's now officially done:\n" + task;
         } else {
-            return "OK, I've marked this task as not done yet:\n" + task;
+            return "Alright run it back boys, this task ain't over just yet:\n" + task;
         }
     }
 
@@ -99,7 +67,7 @@ public class Ui {
      */
     public String showTaskList(ArrayList<Task> tasks, String ascOrDesc, String sortType) {
         if (tasks.isEmpty()) {
-            return "The task list is empty.";
+            return "Nice! There are no tasks to do now. 😁";
         }
         StringBuilder sb = new StringBuilder();
         if (sortType.equalsIgnoreCase("alpha")) {
@@ -108,7 +76,7 @@ public class Ui {
             sb.append("Here are your tasks sorted in ").append(ascOrDesc).append(" added order:\n");
         } else {
             // normally display all tasks
-            sb.append("Here are the tasks in your list:\n");
+            sb.append("Here are all tasks in your list:\n");
         }
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
@@ -127,7 +95,7 @@ public class Ui {
      */
     public String showDeadlinesList(List<Deadline> tasks, String ascOrDesc) {
         if (tasks.isEmpty()) {
-            return "There are currently no deadlines in your list.";
+            return "No deadlines coming up, time to kick back and relax 😋";
         }
         StringBuilder sb = new StringBuilder();
         sb.append("Here are your deadlines sorted in " + ascOrDesc + " added order:\n");
@@ -145,7 +113,7 @@ public class Ui {
      */
     public String showTasksOnDate(LocalDate date, ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "It seems that are no tasks that correspond to this date. Try another date?";
+            return "You haven't got tasks related to this date. Maybe try another date?";
         }
         StringBuilder sb = new StringBuilder();
         sb.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))).append(":\n");
@@ -161,7 +129,8 @@ public class Ui {
      * @param e The exception that occurred while loading tasks.
      */
     public void showLoadingError(ZackException e) {
-        System.err.println("Error: " + e.getMessage()); // Display the exception message
+        System.err.println("Houston, we've got a problem: " + e.getMessage()); // Display the exception
+        // message
     }
 
     /**
@@ -179,7 +148,7 @@ public class Ui {
     public String showFoundTasks(TaskList foundTasks) throws ZackException {
         StringBuilder sb = new StringBuilder();
         if (foundTasks.getSize() == 0) {
-            sb.append("No matching tasks in your list!");
+            sb.append("There's no such task in your list brah!");
         } else {
             sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.getSize(); i++) {

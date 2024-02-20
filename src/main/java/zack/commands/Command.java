@@ -31,12 +31,4 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException;
 
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public boolean isExit() {
-        return isExit;
-    }
 }
