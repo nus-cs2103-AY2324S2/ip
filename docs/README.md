@@ -1,30 +1,41 @@
-# Duke User Guide
+# Lemona User Guide
 
-// Update the title above to match the actual product name
+## Starting LEMONA
 
-// Product screenshot goes here
+run `main` of Launcher class to start the LEMONA. 
 
-// Product intro goes here
+## Adding tasks
 
-## Adding deadlines
+### Types of tasks :
+- Todo
+- Deadline
+- Event
 
-// Describe the action and its outcome.
+### Each types of functions should follow the following format :
+- todo (taskDescription)
+- deadline (taskDescription) /by (dueDate in dd/MM/yyyy HHmm format)
+- event (taskDescription) /from (startDate in dd/MM/yyyy HHmm format) /to (endDate in dd/MM/yyyy HHmm format)
 
-// Give examples of usage
+### Example : 
+- todo take vitamin C
+- deadline take lemona /by 22/02/2024 2359
+- event lemona party /from 20/02/2024 2150 /to 22/02/2024 2359
 
-Example: `keyword (optional arguments)`
+## Mark / Unmark / Delete
 
-// A description of the expected outcome goes here
+You can mark/unmark/delete tasks in list of tasks
 
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+mark 1  -> marks first task in list as done
+unmark 2 -> marks second task in list as not done
+delete 3 -> deletes third task in list
 
 
-## Feature XYZ
+## List
 
-// Feature details
+lists up all the tasks in your task list
+
+## Find
+
+finds a wanted keyword from the descriptions of the tasks in list
+
+find lemona -> returns a task with word lemona in its description, like (deadline take lemona /by 22/02/2024 2359)
