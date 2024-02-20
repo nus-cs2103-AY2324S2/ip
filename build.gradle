@@ -35,7 +35,7 @@ test {
 }
 
 application {
-    mainClass.set("Panna.PannaBot")
+    mainClass.set("main.java.panna.PannaBot")
 }
 
 shadowJar {
