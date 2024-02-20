@@ -1,4 +1,0 @@
-T | 1 | read book
-D | 0 | hw2 | 2024-01-31T09:00
-E | 0 | movie | 2024-03-01T09:00 | 2024-03-01T11:00
-DA | 0 | return sunglasses | hiking

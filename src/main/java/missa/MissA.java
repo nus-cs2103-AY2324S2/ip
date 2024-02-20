@@ -46,16 +46,12 @@ public class MissA {
             Command command = parser.parse(input, tasks);
             tasks = command.execute();
             assert tasks != null : "Task list needs to be initialised";
-            String newData = tasks.getUpdatedData();
-            storage.writeBackData(newData);
             return command.getReply(ui);
         } catch (IncorrectTaskTypeException
                  | NoSuchTaskException
                  | NoTimingException
                  | NoContentException e) {
             return ui.showError(e);
-        } catch (IOException e) {
-            return "Sorry, I am unable to update data file.";
         }
     }
 
@@ -64,9 +60,12 @@ public class MissA {
      *
      * @param input User input to be analysed.
      * @return True if this is a bye command.
+     * @throws IOException Alerts users that data cannot be saved locally.
      */
-    public boolean checkBye(String input) {
+    public boolean checkBye(String input) throws IOException {
         if (input.toLowerCase().equals("bye")) {
+            String newData = tasks.getUpdatedData();
+            storage.writeBackData(newData);
             return true;
         }
         return false;

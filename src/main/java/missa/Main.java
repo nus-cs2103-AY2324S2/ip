@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * Entry point of Miss-A program.
  */
 public class Main extends Application {
-    private MissA missA = new MissA("src/main/java/data/tasks.txt");
+    private MissA missA = new MissA("src/main/java/data/tasks");
 
     @Override
     public void start(Stage stage) {

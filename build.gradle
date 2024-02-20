@@ -5,6 +5,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'missa.Launch'
+
 checkstyle {
     toolVersion('10.2')
 }
@@ -47,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("missa.Main")
+    mainClass.set("missa.Launch")
 }
 
 shadowJar {

@@ -1,5 +1,6 @@
 package missa;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -75,15 +76,33 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String userText = userInput.getText();
-        boolean isBye = missA.checkBye(userText);
-        String dukeText = missA.getResponse(userText);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, user),
-                DialogBox.getMissADialog(dukeText, host)
-        );
-        userInput.clear();
-        if (isBye) {
+        try {
+            String userText = userInput.getText();
+            boolean isBye = missA.checkBye(userText);
+            String missaText = missA.getResponse(userText);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, user),
+                    DialogBox.getMissADialog(missaText, host)
+            );
+            userInput.clear();
+            if (isBye) {
+                new Timer().schedule(
+                        new TimerTask() {
+                            public void run() {
+                                Platform.exit();
+                                System.exit(0);
+                            }
+                        }, 1500);
+            }
+        } catch (IOException e) {
+            String missaText = "Sorry, I am unable to update data file.\n"
+                    + "Bye. Hope you have a nice day!";
+            String userText = "bye";
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, user),
+                    DialogBox.getMissADialog(missaText, host)
+            );
+            userInput.clear();
             new Timer().schedule(
                     new TimerTask() {
                         public void run() {
