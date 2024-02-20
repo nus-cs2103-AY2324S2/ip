@@ -112,12 +112,16 @@ public class Storage {
         for (int i = 0; i < numOfTasks; ++i) {
             String currentLine = br.readLine();
 
-            if (i != index) {
-                if (i < numOfTasks - 1) {
-                    bw.write(currentLine + System.lineSeparator());
-                } else {
-                    bw.write(currentLine);
-                }
+            if (i == index) {
+                continue;
+            }
+
+            if (index == numOfTasks - 1 && i == numOfTasks - 2) {
+                bw.write(currentLine);
+            } else if (i < numOfTasks - 1) {
+                bw.write(currentLine + System.lineSeparator());
+            } else {
+                bw.write(currentLine);
             }
         }
 
