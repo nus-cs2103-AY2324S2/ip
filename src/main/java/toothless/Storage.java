@@ -80,7 +80,7 @@ public class Storage {
      * If the file cannot be written to, an error message is printed.
      * @param tasks the TaskList containing tasks to be saved to the file.
      */
-    public void writeTasks(TaskList tasks){
+    public void writeTasks(TaskList tasks) throws ToothlessException {
         try {
             FileWriter writer = new FileWriter(this.filepath);
             for (int i = 0; i < tasks.size(); i++){
@@ -88,8 +88,8 @@ public class Storage {
                 writer.write(task.toWrite() + "\n");
             }
             writer.close();
-        } catch (IOException e){
-            System.err.println("Unable to save task :(");
+        } catch (IOException e) {
+            throw new ToothlessException("Toothless cannot write to file :(");
         }
     }
 }

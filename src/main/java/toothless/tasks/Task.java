@@ -1,7 +1,10 @@
 package toothless.tasks;
 
+import toothless.ToothlessException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This abstract class represents a task within the Toothless application.
@@ -65,6 +68,14 @@ public abstract class Task {
      */
     public String dateTimeFormat(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+    }
+
+    public LocalDateTime parseDateTime(String dateTime) throws ToothlessException {
+        try {
+            return LocalDateTime.parse(dateTime);
+        } catch (DateTimeParseException e) {
+            throw new ToothlessException("Human date is not correct!");
+        }
     }
 
     /**

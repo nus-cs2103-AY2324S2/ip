@@ -1,5 +1,7 @@
 package toothless.tasks;
 
+import toothless.ToothlessException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,9 +16,9 @@ public class Deadline extends Task {
      * @param description The deadline's description.
      * @param date The end date of the deadline in a parsable datetime format.
      */
-    public Deadline(String description, String date) {
+    public Deadline(String description, String date) throws ToothlessException {
         super.description = description;
-        this.date = LocalDateTime.parse(date);
+        this.date = parseDateTime(date);
     }
 
     /**

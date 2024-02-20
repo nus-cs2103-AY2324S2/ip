@@ -2,6 +2,7 @@ package toothless.commands;
 
 import toothless.Storage;
 import toothless.TaskList;
+import toothless.ToothlessException;
 import toothless.Ui;
 
 /**
@@ -17,7 +18,7 @@ public class ByeCommand extends Command {
      * @return String message to be displayed to the user.
      */
     @Override
-    public String handle(Ui ui, TaskList taskList, Storage storage) {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         storage.writeTasks(taskList);
         return ui.showFarewell();
     }
