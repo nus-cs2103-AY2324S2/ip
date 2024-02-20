@@ -38,4 +38,8 @@ public class TaskList {
     public void unMarkTask(int index) {
         this.taskList.get(index).markBackNotDone();
     }
+
+    public ArrayList<Task> getArrayList() {
+        return this.taskList;
+    }
 }
