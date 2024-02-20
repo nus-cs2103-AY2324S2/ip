@@ -1,30 +1,23 @@
-# Duke User Guide
+# AaronBot User Guide
+Welcome to the user guide for aaronbot!!
 
-// Update the title above to match the actual product name
+## Viewing the list
+Simply type `show list` to view the task list
 
-// Product screenshot goes here
+## Adding Tasks
+Simply type `add` followed by one of three tasks
+- `TODO`: Type `add todo [task description]`
+- `EVENT`: Type `add event [task description] /from [start date] /to [end date]`
+- `DEADLINE`: Type `add deadline [task description] /by [due date]`
 
-// Product intro goes here
+## Marking/Unmarking Tasks
+In order to mark/unmark a task as done, simply type `mark/unmark [index of task to be marked]`
 
-## Adding deadlines
+## Deleting Tasks
+In order to delete a task, simply type `delete [index of task to be deleted]`
 
-// Describe the action and its outcome.
+## Snoozing tasks
+In order to snooze a deadline/event task, type `snooze [index of task to be snoozed]` to delay it by 3 days
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+## Exiting the program
+In order to exist the program, simply type `bye`
