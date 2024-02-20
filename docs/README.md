@@ -1,22 +1,17 @@
-# Stratify User Guide
+# Stratify: User Guide
 
 ![A screenshot of the UI](Ui.png)
 
 >_Stratify is more than just a task organizer; it's a seamless experience designed to amplify your productivity._
 
-### Here's why it stands out:
+A user-friendly, **command-line-input based interface** ensures 
+efficient task handling without unnecessary complexities. 
+Stratify empowers you to effortlessly manage your tasks, 
+providing a streamlined approach to boost your productivity.
+Easy to use, Stratify eliminates the learning curve. 
+Dive in, follow a few simple steps, and let it transform how you manage your tasks.
 
-* :computer: **Command-Line Simplicity**: A user-friendly, command-line-input based interface ensures efficient task handling without unnecessary complexities.
-* :watch: **Effective Task Management**: Stratify empowers you to effortlessly manage your tasks, providing a streamlined approach to boost your productivity.
-* :bust_in_silhouette: **User-Friendly Design**: Easy to use, Stratify eliminates the learning curve. Dive in, follow a few simple steps, and let it transform how you manage your tasks.
-
-### Features That Set Stratify Apart:
-- [x] :memo: **Task Management**: Efficiently organize your to-dos.
-- [x] :date: **Deadline Tracking**: Stay ahead by managing crucial deadlines.
-- [x] :people_holding_hands: **Event Coordination**: Seamlessly integrate and manage your events.
-- [x] :leftwards_arrow_with_hook: **Made a mistake?** Undo your changes!
-
-
+* [Quick Start](#quick-start)
 * [Features](#features)
   * [Listing your task list: `list`](#listing-your-task-list--list)
   * [Ending the chat: `bye`](#ending-the-chat--bye)
@@ -36,6 +31,19 @@
 
 ---
 
+## Quick Start
+
+1. Ensure that you have Java 11 or above installed on your computer.
+1. Download the latest `stratify.jar` from [here](https://github.com/tituschewxj/ip/releases).
+1. Copy the jar file into the folder that you want to use as the home directory for Stratify.
+1. Open up a command terminal, `cd` into the folder you put the jar file in, 
+and use the `java -jar stratify.jar` command to run the application. 
+A GUI similar to the below should appear.
+
+![The GUI when you start up](StartWindow.png)
+
+---
+
 ## Features
 
 <a name="list"></a>
@@ -43,7 +51,7 @@
 
 Displays your task list, with all your added tasks within.
 
-> [!TIP] Example
+> **Example**
 >
 > `list`
 >
@@ -54,7 +62,7 @@ Displays your task list, with all your added tasks within.
 
 Ends the chat.
 
-> [!TIP] Example
+> **Example**
 >
 > `bye`
 >
@@ -65,11 +73,11 @@ Ends the chat.
 
 Adds a named todo, into your task list.
 
-> [!NOTE] Format
+> **Format**
 > 
 > `todo <name>`
 
-> [!TIP] Example
+> **Example**
 > 
 > `todo homework`
 > 
@@ -80,14 +88,14 @@ Adds a named todo, into your task list.
 
 Adds a named deadline, with a by date, into your task list.
 
-> [!NOTE] Format
+> **Format**
 > 
 > `deadline <name> /by <by_date>`
 > 
 > * The `<by_date>` does not need to be a date, but can be formatted as a date.
 >   * The supported date formats are `MMM d yyyy` and `yyyy-MM-dd`.
 
-> [!TIP] Example
+> **Example**
 > 
 > `deadline read book /by Friday`
 > 
@@ -99,14 +107,14 @@ Adds a named deadline, with a by date, into your task list.
 
 Adds a named event, with, into your task list.
 
-> [!NOTE] Format
+> **Format**
 > 
 > `event <name> /from <start_date> /to <end_date>`
 > 
 > * The `<start_date>` and `<end_date>` do not need to be dates, but can be formatted as dates.
 >   * The supported date formats are `MMM d yyyy` and `yyyy-MM-dd`.
 
-> [!TIP] Example
+> **Example**
 > 
 > `event cs2103t tutorial /from 1pm /to 2pm`
 > 
@@ -119,14 +127,14 @@ Adds a named event, with, into your task list.
 
 Marks a task as complete.
 
-> [!NOTE] Format
+> **Format**
 >
 > `mark <index>`
 >
 > * The <index> must be a valid index from the task list,
 > meaning that the task must exist.
 
-> [!TIP] Example
+> **Example**
 >
 > `mark 1`
 >
@@ -137,14 +145,14 @@ Marks a task as complete.
 
 Marks a task as incomplete.
 
-> [!NOTE] Format
+> **Format**
 >
 > `unmark <index>`
 >
 > * The <index> must be a valid index from the task list,
 > meaning that the task must exist.
 
-> [!TIP] Example
+> **Example**
 >
 > `unmark 1`
 >
@@ -155,14 +163,14 @@ Marks a task as incomplete.
 
 Deletes a task from your task list.
 
-> [!NOTE] Format
+> **Format**
 >
 > `delete <index>`
 >
 > * The <index> must be a valid index from the task list,
 > meaning that the task must exist.
 
-> [!TIP] Example
+> **Example**
 > 
 > `delete 1`
 > 
@@ -173,11 +181,11 @@ Deletes a task from your task list.
 
 Finds a task from your task list.
 
-> [!NOTE] Format
+> **Format**
 >
 > `find <name>`
 
-> [!TIP] Example
+> **Example**
 >
 > `find work`
 >
@@ -191,7 +199,7 @@ Finds a task from your task list.
 
 Undoes a change that you have made.
 
-> [!NOTE] Format
+> **Format**
 >
 > `undo [/by <steps>]`
 >
@@ -200,7 +208,7 @@ Undoes a change that you have made.
 > * The `<steps>` is the number of steps to rollback by, which should be a positive integer.
 > * You can only undo changes from the current session.
 
-> [!TIP] Example
+> **Example**
 >
 > User inputs:
 > ```
@@ -211,7 +219,7 @@ Undoes a change that you have made.
 > * This undoes the previous change, which is creating a todo called `assignment`,
 > * The Task list is roll backed to its previous state, before that todo was created.
 
-> [!TIP] Example
+> **Example**
 >
 > User inputs:
 > ```
@@ -235,7 +243,7 @@ The chatbot can be resized to fit your screen, by resizing the window.
 The data is saved as a human-readable file in `[JAR file location]/data/save.txt`. 
 Advanced users can modify the data file directly.
 
-> [!CAUTION]
+> **Caution**
 > 
 > If the format of the save file is invalid, your save file will be discarded and replaced with a new save file,
 > with an empty task list. It is recommended to have a backup of your save file if you have modified it directly.
@@ -244,19 +252,19 @@ Advanced users can modify the data file directly.
 
 ## FAQ
 
-> [!TIP] **Q**: How can I undo a change that I made?
+> **Q**: How can I undo a change that I made?
 > 
 > **A**: Use the `undo` command to roll back your change.
 
-> [!TIP] **Q**: How can I transfer my data to another device?
+> **Q**: How can I transfer my data to another device?
 >
 > **A**: Copy over the save file, and your data should be transferred.
 
-> [!TIP] **Q**: Why does save file fail to load?
+> **Q**: Why does save file fail to load?
 >
 > **A**: Your save file is either in the wrong format, or stored in the wrong location.
  
-> [!TIP] **Q**: How can I tell if my command was successful?
+> **Q**: How can I tell if my command was successful?
 >
 > **A**: If your command is successful, there will be a success message. Otherwise, there would be an error message.
 
