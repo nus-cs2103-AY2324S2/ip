@@ -18,7 +18,7 @@ If you have used Dibo before, you can jump straight to Dibo's [Features and Comm
 
 **Figure 1**: Example of Dibo's GUI.
 
-## Getting Started
+## Getting Started :smile:
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 2. Download the latest  from [here](https://github.com/ziyang27/ip/releases/tag/v0.2).
