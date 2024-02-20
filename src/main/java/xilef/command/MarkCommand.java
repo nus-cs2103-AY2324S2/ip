@@ -35,6 +35,7 @@ public class MarkCommand extends Command {
      * Marks the task at the given index as done and saves the updated task list.
      * Displays the task that was marked to the user.
      *
+     * @return A string indicating the task is marked and shows task current status.
      * @throws XilefException If the index is out of bounds.
      */
     @Override

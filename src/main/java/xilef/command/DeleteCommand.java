@@ -21,8 +21,6 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a new {@code DeleteCommand} with the given index.
      *
-     * Deletes the task at the given index from the task list.
-     *
      * @param index The index of the task to delete.
      */
     public DeleteCommand(int index) {
@@ -35,6 +33,7 @@ public class DeleteCommand extends Command {
      * Deletes the task at the given index from the task list and saves the updated task list.
      * Displays the task that was deleted to the user.
      *
+     * @return A string indicating the task that was deleted and the updated task list size.
      * @throws XilefException If the index is out of bounds.
      */
     @Override

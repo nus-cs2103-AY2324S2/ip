@@ -62,6 +62,8 @@ public class AddCommand extends Command {
      *
      * Adds the task to the task list and saves the updated task list.
      * Displays the task that was added to the user.
+     *
+     * @return A string indicating the task that was added and the updated task list size.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

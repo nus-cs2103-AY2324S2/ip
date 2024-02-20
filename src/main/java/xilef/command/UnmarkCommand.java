@@ -35,6 +35,7 @@ public class UnmarkCommand extends Command {
      * Marks the task at the given index as not done and saves the updated task list.
      * Displays the task that was unmarked to the user.
      *
+     * @return A string indicating the task is unmarked and shows task current status.
      * @throws XilefException If the index is out of bounds.
      */
     @Override

@@ -21,6 +21,8 @@ public class ExitCommand extends Command {
      * {@inheritDoc}
      *
      * Displays a message to the user indicating that the program is exiting.
+     *
+     * @return A string that says bye to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

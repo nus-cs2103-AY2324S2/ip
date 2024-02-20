@@ -1,20 +1,39 @@
 package xilef.command;
 
-import xilef.XilefException;
 import xilef.Storage;
 import xilef.Ui;
 import xilef.task.Task;
 import xilef.task.TaskList;
 
+/**
+ * Represents a command to find tasks containing a specified keyword.
+ */
 public class FindCommand extends Command{
 
+    /**
+     * The keyword to search for in task descriptions.
+     */
     private final String keyword;
 
+    /**
+     * Constructs a new {@code FindCommand} with the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Finds the tasks associated with the specified keyword from the task list.
+     * Displays the tasks associated with the keyword to the user.
+     *
+     * @return A string showing the tasks that are associated the with keyword.
+     */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws XilefException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList list = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -23,16 +42,7 @@ public class FindCommand extends Command{
             }
 
         }
-        if (list.size() == 0) {
-            return "\t\tThere are no matching tasks in your list";
-        } else {
-            StringBuilder s = new StringBuilder("\t\tThese are the matching tasks in your list");
-            for (int i = 1; i < list.size() + 1; i++) {
-                Task t = list.get(i - 1);
-                s.append("\n\t\t").append(i).append(".").append(t.toString());
-            }
-            return s.toString();
-        }
+        return ui.showFind(list);
     }
 
     @Override
