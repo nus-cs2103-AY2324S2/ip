@@ -51,9 +51,10 @@ public class ParserTest {
         Parser parser = new Parser(ui, taskList, storage);
 
         String res = parser.parseMessage("todo eat");
-        String message = "Your directive has been duly noted. The tas has been successfully expunged fromour records. Should there be any further matters requiring attention or if new tasksarise, do not hesitate to relay them, and they shall be handled with utmost careand efficiency.\n"
-            + "added: [T] [ ] eat\n"
-            + "Now you have 1 task(s) in the list.\n";
+        String message = "Your directive has been duly noted. The task has been successfully expunged from our records. Should there be any further matters requiring attention or if new tasks arise, do not hesitate to relay them, and they shall be handled with utmost care and efficiency.\n"
+                + "added: [T] [ ] eat\n"
+                + "Now you have 1 task(s) in the list.\n";
+        System.out.println(res);
         assert(Objects.equals(res, message));
     }
 
@@ -66,7 +67,6 @@ public class ParserTest {
 
         String res = parser.parseMessage("todo");
         String message = "Error! A todo task must have a name, please follow the following syntax: todo <task name>\n\n";
-        System.out.println(res);
         assert(Objects.equals(res, message));
     }
 
@@ -78,7 +78,7 @@ public class ParserTest {
         Parser parser = new Parser(ui, taskList, storage);
 
         String res = parser.parseMessage("deadline finish work /by 2359 08/02/2001");
-        String message = "Your directive has been duly noted. The tas has been successfully expunged fromour records. Should there be any further matters requiring attention or if new tasksarise, do not hesitate to relay them, and they shall be handled with utmost careand efficiency.\n"
+        String message = "Your directive has been duly noted. The task has been successfully expunged from our records. Should there be any further matters requiring attention or if new tasks arise, do not hesitate to relay them, and they shall be handled with utmost care and efficiency.\n"
                 + "added: [D] [ ] finish work (by: 2359 08/02/2001)\n"
                 + "Now you have 1 task(s) in the list.\n";
         assert(Objects.equals(res, message));
@@ -106,10 +106,9 @@ public class ParserTest {
         Parser parser = new Parser(ui, taskList, storage);
 
         String res = parser.parseMessage("event floor hotpot /from 1900 08/02/2001 /to 2200 08/02/2001");
-        String message = "Your directive has been duly noted. The tas has been successfully expunged fromour records. Should there be any further matters requiring attention or if new tasksarise, do not hesitate to relay them, and they shall be handled with utmost careand efficiency.\n"
+        String message = "Your directive has been duly noted. The task has been successfully expunged from our records. Should there be any further matters requiring attention or if new tasks arise, do not hesitate to relay them, and they shall be handled with utmost care and efficiency.\n"
                 + "added: [E] [ ] floor hotpot (from: 1900 08/02/2001 to: 2200 08/02/2001)\n"
                 + "Now you have 1 task(s) in the list.\n";
-        System.out.println(res);
         assert(Objects.equals(res, message));
     }
 
