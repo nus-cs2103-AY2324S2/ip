@@ -1,0 +1,12 @@
+event national day /from Mon 2pm /to 4pm
+deadline finish ip /by 25th August
+todo buy iphone
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+unmark 2
+list
+bye
