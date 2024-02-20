@@ -45,14 +45,24 @@ public class TaskList {
     public void unmark(int i) {
         tasks.get(i - 1).unmark();
     }
+
+    /**
+     * Returns tasks for interactions with parser
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Returns size of task list so that UI can inform user about the number of tasks they have in their list
+     */
     public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns task at specified index for marking, unmarking and deletion
+     */
     public Task get(int i) {
         return this.tasks.get(i - 1);
     }

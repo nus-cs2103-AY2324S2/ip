@@ -91,9 +91,11 @@ public class Parser {
             case "mark":
                 tl.markAsDone(Integer.parseInt(commandDescription));
                 return ui.markedTask(tl.get(Integer.parseInt(commandDescription)));
+
             case "unmark":
                 tl.unmark(Integer.parseInt(commandDescription));
                 return ui.unmarkedTask(tl.get(Integer.parseInt(commandDescription)));
+
             case "delete":
                 Task deletedTask = tl.get(Integer.parseInt(commandDescription));
                 tl.delete(Integer.parseInt(commandDescription));
@@ -104,8 +106,13 @@ public class Parser {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            //catches invalid index from user input for mark, unmark and delete
+            if (command.equals("event")) {
+                return ui.eventFormat();
+            } else if (command.equals("deadline")) {
+                return ui.deadlineFormat();
+            }
             return ui.invalidIndex(tl.getSize());
+
         } catch (DateTimeParseException d) {
             return ui.invalidDate();
         }

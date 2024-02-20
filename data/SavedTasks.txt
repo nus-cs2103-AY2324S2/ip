@@ -1,5 +1,7 @@
 todo_eat lunch_0
 event_ip meeting /from 2pm /to 6pm_0
+deadline_go back in time  /by 2020-10-13_0
 deadline_test sort 2 /by 2024-02-13_0
 deadline_test sort /by 2024-02-14_0
+deadline_test sort /by 2024-02-20_0
 EOF

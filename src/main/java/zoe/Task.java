@@ -23,6 +23,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the marked condition X or empty to supplement the marking command
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -41,12 +44,15 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status of the respective task for visualisation in the GUI
+     */
     public String getStatus() {
         return String.format("[%s][%s] %s", this.type, this.getStatusIcon(), this.description);
     }
 
     /**
-     * Records whether a task is done or not for data loading
+     * Records whether a task is done or not in numerical form for data loading
      */
     public int isDoneNumerical() {
         //to help with saving and loading
@@ -64,6 +70,9 @@ public class Task {
         return String.format("%d|%s", this.isDoneNumerical(), this.description);
     }
 
+    /**
+     * Returns a priority to sort the tasks in the following order: todos, events, deadlines according to date
+     */
     public int getPriority() {
         return priority;
     }

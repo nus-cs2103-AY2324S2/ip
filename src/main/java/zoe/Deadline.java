@@ -47,6 +47,9 @@ public class Deadline extends Task {
         return String.format("deadline_%s/by %s_%d", description, date, isDoneNumerical());
     }
 
+    /**
+     * Provides date to the comparator to sort deadlines
+     */
     public LocalDate getDate() {
         return LocalDate.parse(date);
     }
