@@ -25,12 +25,14 @@ public class MainWindow extends AnchorPane {
 
     private Linus linus;
 
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Bad_Luck_Brian.png"));
     private Image linusImage = new Image(this.getClass().getResourceAsStream("/images/linus_image.png"));
 
     @FXML
     public void initialize() {
         linus = new Linus();
+        dialogContainer.setStyle("-fx-background-color: #CCB3FF");
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(linus.loadData(), linusImage),

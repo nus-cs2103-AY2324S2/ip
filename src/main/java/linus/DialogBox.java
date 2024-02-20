@@ -9,11 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
 
 /**
  * An example of a custom control using FXML.
@@ -22,9 +21,10 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
     @FXML
-    private TextArea dialog;
+    private Label dialog;
     @FXML
     private ImageView displayPicture;
+
 
     private DialogBox(String text, Image img) {
         try {
@@ -35,10 +35,18 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }
+
+    // /**
+    //  * sets colour of label area
+    //  * @param colour String of hex colour code
+    //  */
+    // public void setColour(String colour) {
+    //     dialog.setStyle(String.format("-fx-background-color: %s", colour));
+    // }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -51,7 +59,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
