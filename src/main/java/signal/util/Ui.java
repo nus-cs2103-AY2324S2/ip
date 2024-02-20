@@ -25,8 +25,9 @@ public class Ui {
     private ArrayList<Task> taskList;
     private Storage storeFiles;
 
-    public Ui(ArrayList<Task> taskList) {
+    public Ui(ArrayList<Task> taskList, Storage storage) {
         this.taskList = taskList;
+        this.storeFiles = storage;
 
     }
 
@@ -196,11 +197,13 @@ public class Ui {
         if (inputParts.length < 2) {
             signalSays("Looks like you haven't entered a task description!");
 //            throw new DukeException("Looks like you haven't entered a task description!");
+        } else {
+            String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
+            Task task = new ToDo(description);
+            taskList.add(task);
+            taskAdded(task);
         }
-        String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
-        Task task = new ToDo(description);
-        taskList.add(task);
-        taskAdded(task);
+
     }
 
     /**
@@ -265,16 +268,11 @@ public class Ui {
             ArrayList<String> response = new ArrayList<>();
             response.add("Here is your tasklist!");
             for (Task i : taskList) {
-                response.add(i.toString());
+                response.add(taskList.indexOf(i) + 1 + ". " + i.toString());
             }
             signalSays(listToString(response));
         }
-//        System.out.println(DIV);
-//        System.out.println("Here is your tasklist!");
-//        for (int i = 0; i < index; i++) {
-//            System.out.println((i + 1) + ". " + taskList.get(i).toString());
-//        }
-//        System.out.println(DIV);
+
     }
 
 
@@ -298,20 +296,13 @@ public class Ui {
      * @param current The task to mark.
      */
     public void commandMark(Task current) {
+        current.markDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is already done! Yay!\n"
                 : "Nice! I've marked this task as done:\n");
         response.add("  " + current.toString());
-        current.markDone();
         signalSays(listToString(response));
-
-//        Task current = taskList.get(x);
-//        String response = current.checkDone()
-//                ? "Task " + (x + 1) + " is already done! Yay!\n"
-//                : "Nice! I've marked this task as done:\n";
-//        current.markDone();
-//        return response + "  " + current.toString();
     }
 
     /**
@@ -321,7 +312,7 @@ public class Ui {
      */
     public void markTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        commandMark(taskList.get(index));
+        commandMark(taskList.get(index -1));
     }
 
     /**
@@ -330,20 +321,13 @@ public class Ui {
      * @param current The task to unmark.
      */
     public void commandUnmark(Task current) {
+        current.markUnDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is not yet done! Yay!\n"
                 : "OK, I've marked this task as undone:\n");
         response.add("  " + current.toString());
-        current.markUnDone();
         signalSays(listToString(response));
-
-//        Task current = taskList.get(x);
-//        String response = current.checkDone()
-//                ? "Task " + (x + 1) + " is not done yet!\n"
-//                : "OK, I've marked this task as undone:\n";
-//        current.markUnDone();
-//        return response + "  " + current.toString();
     }
 
     /**
@@ -353,7 +337,7 @@ public class Ui {
      */
     public void unMarkTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        commandUnmark(taskList.get(index));
+        commandUnmark(taskList.get(index - 1));
     }
 
 
@@ -375,30 +359,16 @@ public class Ui {
                     + initialSize + (initialSize == 1 ? " item" : " items") + " in this list");
 //            throw new DukeException("I'd say shoot for the stars but in this case there are only "
 //                    + initialSize + (initialSize == 1 ? " item" : " items") + " in this list");
+        } else {
+            ArrayList<String> response = new ArrayList<>();
+            taskList.remove(x);
+            response.add("Noted, I've deleted this task from your list:");
+            response.add("  " + current.toString());
+            response.add("Now you have " + (initialSize - 1)
+                    + (initialSize - 1 == 1 ? " task" : " tasks") + " in the list.");
+            storeFiles.writeTasks(taskList);
+            signalSays(listToString(response));
         }
-        ArrayList<String> response = new ArrayList<>();
-        taskList.remove(x);
-        response.add("Noted, I've deleted this task from your list:");
-        response.add("  " + current.toString());
-        response.add("Now you have " + (initialSize - 1)
-                + (initialSize - 1 == 1 ? " task" : " tasks") + " in the list.");
-        storeFiles.writeTasks(taskList);
-        signalSays(listToString(response));
-
-////        if (index == 0) {
-////            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
-////        }
-//        if (x >= 0 && x <= index) {
-//            taskList.remove(x);
-//            index -= 1;
-//            signalSays("Noted, I've deleted this task from your list: \n"
-//                    + "  " + current.toString() + "\n"
-//                    + "Now you have " + (index) + (index == 1 ? " task" : " tasks") + " in the list.");
-//            writeTasks(taskList);
-//        } else {
-//            throw new DukeException("I'd say shoot for the stars but in this case there are only "
-//                    + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list");
-//        }
     }
 
 //    /**
@@ -417,18 +387,35 @@ public class Ui {
 //        }
 //    }
 
+    public ArrayList<String> find(String key) {
+        ArrayList<String> result = new ArrayList<>();
+        int count = 1;
+        for (Task i : taskList) {
+            if (i.getDescription().contains(key)) {
+                result.add(Integer.toString(count) + ". " + i.toString());
+                count++;
+            }
+        }
+        return result;
+    }
+
     public void commandFind(String[] inputParts) {
         String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
-        ArrayList<Integer> foundIndex = null;
-        for (Task i : taskList) {
-            String[] taskParts = i.getDescription().split(" ");
-            foundIndex.add(finder(toFind, taskParts));
-        }
-        ArrayList<String> response = null;
-        for (Integer i : foundIndex) {
-            response.add(taskList.get(i).toString());
-        }
+        ArrayList<String> response = new ArrayList<String>();
+        response.add("Sure, here are the tasks containing '" + toFind + "':");
+        response.addAll(find(toFind));
         signalSays(listToString(response));
+//        ArrayList<Integer> foundIndex = null;
+//        for (Task i : taskList) {
+//            String[] taskParts = i.getDescription().split(" ");
+//            Integer findIndex = Integer.valueOf(finder(toFind, taskParts));
+//            foundIndex.add(findIndex);
+//        }
+//        ArrayList<String> response = null;
+//        for (Integer i : foundIndex) {
+//            response.add(taskList.get(i).toString());
+//        }
+//        signalSays(listToString(response));
     }
 
     /**

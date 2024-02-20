@@ -19,11 +19,11 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String FILE_PATH = "../data/signal.txt";
-    private static Storage fileManager = new Storage(FILE_PATH);
-    public static Parser parser;
+    private static Storage fileManager = new Storage();
     private static ArrayList<Task> taskList = fileManager.loadTasks();
-    private static int index = 0; // index of the next task to be filled
-    private static Ui ui = new Ui(taskList);
+//    private static TaskList taskList = new TaskList(readIn);
+    private static Ui ui = new Ui(taskList, fileManager);
+    public static Parser parser = new Parser(taskList, ui);
     public Storage getStorage() {
         return fileManager;
     }

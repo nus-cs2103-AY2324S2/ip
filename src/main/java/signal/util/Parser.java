@@ -58,7 +58,7 @@ public class Parser {
             // find a keyword
             ui.commandFind(inputParts);
         } else if (ui.isPermutationMatch(inputParts[0], "find")) {
-
+            findTypo(inputParts);
         } else if (userInput.equals("help")) {
             // show help message
             ui.commandHelp();
@@ -104,14 +104,6 @@ public class Parser {
             ui.commandList();
         } else {
             ui.signalSays("What else can I help you with?");
-
-//            ui.signalSays("Do you want to add " + userInput + "? (y/n)");
-//            String addCommandCheck = ui.scan();
-//            if (addCommandCheck.equals("n")) {
-//                ui.signalSays("What else can I help you with?");
-//            } else if(addCommandCheck.equals("y")) {
-//                taskCommands(userInput);
-//            }
         }
     }
 
@@ -130,7 +122,7 @@ public class Parser {
      */
     public void listDelete(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        ui.commandDelete(index);
+        ui.commandDelete(index - 1);
     }
 
     /**

@@ -10,15 +10,13 @@ import java.util.ArrayList;
  * This class encapsulates file operations, allowing tasks to be persisted to disk and loaded back into the application.
  */
 public class Storage {
-    private static String filePath;
+    private static final String FILE_PATH = "../data/signal.txt";
 
     /**
-     * Constructs Storage with a specified file path for saving and loading tasks.
+     * Constructs Storage to the specified file path for saving and loading tasks.
      *
-     * @param filePath The file path where tasks are saved and loaded from.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     /**
@@ -31,7 +29,7 @@ public class Storage {
         TaskList taskList = new TaskList();
 
         try {
-            File file = new File(this.filePath);
+            File file = new File(this.FILE_PATH);
             if (!file.exists()) {
                 // Create the file and necessary directory structure if it doesn't exist
                 file.getParentFile().mkdirs();
@@ -39,7 +37,7 @@ public class Storage {
                 return taskList.giveList(); // Return an empty list since there are no tasks yet
             }
 
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -97,7 +95,7 @@ public class Storage {
      */
     public void writeTasks(ArrayList<Task> taskList) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.FILE_PATH));
 
             for (Task task : taskList) {
                 // Write each task to a line in the file
