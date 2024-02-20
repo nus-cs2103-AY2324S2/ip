@@ -1,5 +1,4 @@
 package eve.tasks;
-
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -8,7 +7,7 @@ public class Todo extends Task {
 
     public Todo(String description, String isDone) {
         super(description);
-        if(isDone.equals("0")){
+        if (isDone.equals("0")) {
             this.isDone = false;
         } else {
             this.isDone = true;
@@ -17,12 +16,12 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString(); 
+        return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString();
     }
 
     @Override
     public String toStore() {
-        return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "\n"; 
+        return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "\n";
     }
 
 }

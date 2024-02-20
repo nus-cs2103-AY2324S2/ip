@@ -1,5 +1,6 @@
 package eve;
 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,18 @@ public class Eve extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+
+/**
+ * Main window of the program, starting point of the program.
+ */
+public class Eve {
+    /**
+     * Main method of the program.
+     * Runs a Hello command and then the listener command that starts the whole thing.
+     * @param args
+     */
+
+
     public static void main(String[] args) {
         Commands.commandHello();
         Commands.commandListener();
