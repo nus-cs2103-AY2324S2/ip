@@ -16,7 +16,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Lai lai;
+    private Lai lai = new Lai();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image laiImage = new Image(this.getClass().getResourceAsStream("/images/lai.png"));

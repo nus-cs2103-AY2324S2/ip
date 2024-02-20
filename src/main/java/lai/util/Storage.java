@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import static lai.util.Ui.printLine;
 
 /**
  * Manages storage operations for tasks in the Lai application.
@@ -100,9 +99,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         } catch (LaiException e) {
-            printLine();
             System.out.println(e);
-            printLine();
         }
 
         return tasks;

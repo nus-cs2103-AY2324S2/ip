@@ -8,10 +8,18 @@ import java.util.List;
 
 public class Lai {
 
-    public static String getResponse (String input) {
-        Storage storage = new Storage();
-        TaskList tasks = new TaskList(storage.readTasksFile());
+    private Storage storage = new Storage();
+    private TaskList tasks;
 
+
+    /**
+     * Constructs a Lai object, .
+     */
+    public Lai() {
+        tasks = new TaskList(storage.readTasksFile());
+    }
+
+    public String getResponse (String input) {
         String[] parsedInput = Parser.parse(input);
         String command = parsedInput[0];
         String desc = parsedInput[1];
