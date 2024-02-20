@@ -7,8 +7,6 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
-import goldbot.tasks.Event;
-
 public class EventTest {
     @Test
     public void setDate_success() {

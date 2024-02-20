@@ -6,9 +6,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import goldbot.Pair;
-import goldbot.SubcommandParser;
-
 public class SubcommandParserTest {
     @Test
     public void parseSubcommandsTest() {
