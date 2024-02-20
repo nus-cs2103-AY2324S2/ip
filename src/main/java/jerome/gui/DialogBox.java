@@ -63,8 +63,8 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
 
-        // Referenced from: https://www.tabnine.com/code/java/methods/javafx.scene.layout.BorderPane/setBackground
-        this.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.dialog.setStyle("-fx-border-color: black; -fx-border-width: 5; -fx-padding: 5; " +
+                "-fx-background-color: rgba(48,48,90,0.13); -fx-border-radius: 2;");
     }
 
     /**
