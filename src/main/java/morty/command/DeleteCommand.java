@@ -2,7 +2,6 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Morty;
 import morty.MortyException;
 import morty.Response;
 import morty.task.Task;

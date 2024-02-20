@@ -1,6 +1,5 @@
 package morty.command;
 
-import morty.MortyException;
 import morty.Storage;
 import morty.TaskList;
 import morty.Response;
@@ -36,7 +35,6 @@ public abstract class Command {
    * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the command.
-   * @throws MortyException If an error occurs during execution.
    */
   public abstract String execute(TaskList tasks, Response ui, Storage storage);
 
