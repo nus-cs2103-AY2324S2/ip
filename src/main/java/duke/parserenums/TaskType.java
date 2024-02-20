@@ -1,4 +1,4 @@
-package duke.parserEnums;
+package duke.parserenums;
 
 /**
  * This enum class contains types of Task

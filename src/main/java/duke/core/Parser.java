@@ -16,8 +16,8 @@ import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.InvalidCommandException;
-import duke.parserEnums.CommandWord;
-import duke.parserEnums.TaskType;
+import duke.parserenums.CommandWord;
+import duke.parserenums.TaskType;
 import duke.tasks.TaskList;
 
 /**

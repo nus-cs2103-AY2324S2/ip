@@ -3,16 +3,27 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.core.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FBFCEE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+        <TextField fx:id="userInput" layoutX="6.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="33.0" prefWidth="310.0" AnchorPane.bottomAnchor="9.0" />
+      <ImageView fitHeight="117.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/MeanDukeBanner.png" />
+         </image>
+      </ImageView>
+        <Button fx:id="sendButton" layoutX="320.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-border-color: #000000; -fx-background-radius: 25; -fx-border-radius: 25; -fx-background-color: #7a4c0b;" text="Send" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="117.0" prefHeight="432.0" prefWidth="400.0" style="-fx-background: #FBFCEE;" vbarPolicy="ALWAYS" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" />
             </content>
         </ScrollPane>
     </children>

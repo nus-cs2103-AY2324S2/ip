@@ -2,6 +2,7 @@ package duke.core;
 
 import duke.commands.Command;
 import duke.exceptions.MeanDukeException;
+import duke.gui.MainWindow;
 import duke.tasks.TaskList;
 
 /**

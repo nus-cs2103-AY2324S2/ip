@@ -1,10 +1,9 @@
-package duke.core;
+package duke.gui;
 
+import duke.core.MeanDuke;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -18,11 +17,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initialises the MainWindow controller, which hosts the MeanDuke application
@@ -31,7 +25,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(MeanDuke.initialise(this), this.dukeImage)
+                DialogBox.getDukeDialog(MeanDuke.initialise(this))
         );
     }
 
@@ -42,11 +36,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = this.userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
         String response = MeanDuke.getResponse(input, this);
         assert !response.isEmpty();
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, this.userImage),
-                DialogBox.getDukeDialog(response, this.dukeImage));
+                DialogBox.getUserDialog(input),
+                DialogBox.getDukeDialog(response)
+        );
         this.userInput.clear();
     }
 
@@ -57,7 +55,7 @@ public class MainWindow extends AnchorPane {
      */
     public void showMessage(String message) {
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(message, this.dukeImage)
+                DialogBox.getDukeDialog(message)
         );
     }
 }

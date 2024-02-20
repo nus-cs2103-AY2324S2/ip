@@ -11,6 +11,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import duke.gui.MainWindow;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
