@@ -1,18 +1,20 @@
 package duke.ui;
 
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
     static String LINE = "_____________________________________________";
 
-    public String open() {
-        return "Hello! I'm Tofu.\nWhat can I do for you today?\n";
+    public static String welcomeMessage() {
+        return "\uD83D\uDC3E Hi there! It's me, Tofu the cat! How can I make your day purr-fect? \uD83D\uDE3A\u201D";
     }
 
-    public void close() {
+    public static String close() {
         String closing = "Bye. Hope to see you again soon!\n";
         String out = closing + LINE;
-        System.out.println(out);
+        return out;
     }
 
     public String readCommand() {
@@ -21,50 +23,67 @@ public class Ui {
     }
 
     public String addMessage(String str, int taskSize) {
-        return "Got it. I've added this task:\n" + str + "\nNow you have "
-                + taskSize + " tasks in this list.";
+        return "Purr-fect! I've added this task for you \uD83D\uDC3E :\n      " + str
+                    + "\nNow you have " + taskSize
+                    + " tasks in your list. Keep up the good work! \uD83D\uDE3A";
     }
 
     public String deleteMessage(String str, int taskSize) {
-        return "Noted. I've removed this task:\n" + str + "\nNow you have "
-                + taskSize + " tasks in the list.";
+        return "Meow! I've scratched off this task for you \uD83D\uDC3E :\n      " + str
+                + "\nNow you have " + taskSize
+                + " tasks in your list. Keep up the good work! \uD83D\uDE3A";
     }
 
     public String markMessage(String str) {
-        return "Nice! I've marked this task as done:\n" + str;
+        return "Pawsome! I've marked this task as done for you \uD83D\uDC3E :\n      " + str;
     }
 
     public String unmarkMessage(String str) {
-        return "OK, I've marked this task as not done yet:\n" + str;
+        return "Alright! I've marked this task as not done yet \uD83D\uDC3E :\n       " + str;
     }
 
     public String listMessage(String str) {
-        return "Here are the tasks in your list:\n" + str;
+        return "Here are the tasks in your list \uD83D\uDC3E :\n" + str;
     }
 
     public String findMessage(String str) {
-        return "Here are the matching tasks in your list:\n" + str;
+        return "Here are the matching tasks in your list \uD83D\uDC3E :\n" + str;
     }
 
     public static String indexError() {
-        return "Oops! The index you provided is not valid. Please enter an index greater than 0.";
+        return "\uD83D\uDC3E Oops! The index you provided seems to be hiding. Please enter an index greater than 0.";
     }
 
     public static String emptyDescriptionError() {
-        return "Oops! It seems like the description field is empty. Please provide a description to proceed.";
+        return "\uD83D\uDC3E Oops! It seems like the description field is as empty as a food bowl. Please provide a description to proceed.";
+    }
+
+    public static String emptyListError() {
+        return "\uD83D\uDC3E Hooray! Your task list is as clear as a sunny day! You have no tasks at the moment. " +
+                "Enjoy your free time! \uD83D\uDE3A";
+    }
+
+    public static String noMatchError() {
+        return "\uD83D\uDC3E Looks like we couldn't find a match in your list. It's as elusive as a mouse in the night! " +
+                "Let's try searching for something else. \uD83D\uDE3A";
+    }
+
+    public static String indexTooBigError(TaskList tasks) {
+        return "\uD83D\uDC3E Paws for a moment! You only have " + tasks.size() + " tasks in your list. " +
+                "Isn't it nice to have such a manageable list? \uD83D\uDE3A";
     }
 
     public static String unknownCommandError() {
-        String errorMessage = "I'm sorry, I don't know what that means.\n" +
+        String errorMessage = "I'm sorry, but I'm a bit confused. \uD83D\uDE40\n" +
                 "Please input valid commands (i.e. [command] [description]).\n";
         String availableCommands = "You can choose from the following available commands:\n" +
-                "   * todo [desc]\n" +
-                "   * event [desc] /from [desc] /to [desc]\n" +
-                "   * deadline [desc] /by [desc]\n" +
-                "   * list\n" +
-                "   * mark [number]\n" +
-                "   * unmark [number]\n" +
-                "   * delete [number]";
+                "   \uD83D\uDC3E todo [desc]\n" +
+                "   \uD83D\uDC3E event [desc] /from [yyyy-MM-dd] /to [yyyy-MM-dd]\n" +
+                "   \uD83D\uDC3E deadline [desc] /by [yyyy-MM-dd]\n" +
+                "   \uD83D\uDC3E list\n" +
+                "   \uD83D\uDC3E mark [integer]\n" +
+                "   \uD83D\uDC3E unmark [integer]\n" +
+                "   \uD83D\uDC3E delete [integer]";
         return errorMessage + availableCommands;
     }
 }
