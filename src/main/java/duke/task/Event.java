@@ -1,7 +1,11 @@
 package duke.task;
 
+import duke.Duke;
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * A type of task with a LocalDate variable from and to, to represent the event starting and
@@ -17,10 +21,14 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
-    public Event(String desc, boolean isDone, String from, String to) {
+    public Event(String desc, boolean isDone, String from, String to) throws DukeException {
         super(desc, isDone);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException ex) {
+            throw new DukeException("Oops! The date and time format you provided is not valid. Please enter in the format yyyy-MM-dd");
+        }
     }
 
     public String toStore() {
