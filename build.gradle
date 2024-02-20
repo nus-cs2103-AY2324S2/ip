@@ -49,8 +49,8 @@ test {
 }
 
 application {
-    mainClassName = 'Duck.Duck';
-    mainClass.set("Duck.Duck")
+    mainClassName = 'duck.Duck';
+    mainClass.set("duck.Duck")
 }
 
 shadowJar {
