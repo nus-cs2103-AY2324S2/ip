@@ -106,15 +106,15 @@ public class MainApp extends Application{
     /**
      * Handles user input and triggers appropriate actions.
      * Current functions:
-     * LIST           WORKING
-     * MARK           WORKING
-     * UNMARK         WORKING
-     * TODO           WORKING
-     * DEADLINE       WORKING
-     * EVENT          WORKING
-     * DELETE         WORKING
-     * FIND           WORKING
-     * BYE            WORKING
+     * LIST 
+     * MARK
+     * UNMARK
+     * TODO
+     * DEADLINE
+     * EVENT
+     * DELETE
+     * FIND
+     * BYE
      */
     private void handleUserInput() {
         String input = userInput.getText();
