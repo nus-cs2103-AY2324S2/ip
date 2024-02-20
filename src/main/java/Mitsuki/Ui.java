@@ -68,6 +68,22 @@ public class Ui {
         }
 
     /**
+     * Prints the list of tasks related to keyWord in the user's current taskList.
+     *
+     * @param keyWord the keyWord that the tasks to be displayed must contain.
+     * @param taskList the user's current todo list.
+     */
+    public void printFound(String keyWord, ArrayList<Task> taskList) {
+        System.out.println("Here are the tasks related to: " + keyWord);
+        for (int i = 0; i < taskList.size(); i++) {
+            int j = i + 1;
+            String task = taskList.get(i).toString();
+            if (task.contains(keyWord)) {
+                System.out.println(j + ". " + task);
+            }
+        }
+    }
+    /**
      * Says goodbye to Mitsuki and exits the Chat bot.
      */
     public void printByeMessage(Scanner scan) {

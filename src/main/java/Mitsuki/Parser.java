@@ -38,6 +38,7 @@ public class Parser {
         this.commands.add("unmark");
         this.commands.add("delete");
         this.commands.add("bye");
+        this.commands.add("find");
     }
 
     /**
@@ -100,6 +101,10 @@ public class Parser {
                     ui.printErrorMessage(ex);
                 }
                 ui.printByeMessage(scan);
+
+            case "find":
+                TaskList.find(scan);
+                break;
 
             default:
                 break;
