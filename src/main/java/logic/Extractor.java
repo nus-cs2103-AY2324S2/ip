@@ -4,6 +4,11 @@ package logic;
  * This class contains all the static methods used to convert
  */
 public class Extractor {
+    /**
+     * Extract Todo details from a valid Todo command
+     * @param command The String input Todo command from user
+     * @return An array containing the parameters of the Todo task (description)
+     */
     public static String[] extractTodoParameters(String command) {
         String[] parameters = new String[1];
         String todoDescription = command.replaceFirst("(?i)todo", "").trim();
@@ -11,6 +16,11 @@ public class Extractor {
         return parameters;
     }
 
+    /**
+     * Extracts Deadline details from a valid Deadline command
+     * @param command The String input Deadline command from user
+     * @return An array containing the parameters of the Deadline task (description, due date)
+     */
     public static String[] extractDeadlineParameters(String command) {
         String[] parameters = new String[2];
         String deadlineDescriptionDueDate = command.replaceFirst("(?i)deadline", "").trim();
@@ -22,6 +32,11 @@ public class Extractor {
         return parameters;
     }
 
+    /**
+     * Extracts Event details from a valid Event command
+     * @param command The String input Event command from the user
+     * @return An array containing the parameters of the Event task (description, from date, to date)
+     */
     public static String[] extractEventParameters(String command) {
         String[] parameters = new String[3];
         String eventDescriptionFromTo = command.replaceFirst("(?i)event", "").trim();
@@ -37,6 +52,11 @@ public class Extractor {
         return parameters;
     }
 
+    /**
+     * Extracts keyword(s) to be searched from a valid Search command
+     * @param command The String input Search command from the user
+     * @return A string containing the extracted search terms
+     */
     public static String extractSearchTerm(String command) {
         String searchTerm = command.replace("find ", "");
         return searchTerm;

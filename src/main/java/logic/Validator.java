@@ -14,7 +14,18 @@ import exceptions.MissingParametersException;
 import exceptions.ParseDateException;
 import tasks.TaskList;
 
+/**
+ * This class contains class methods used to validate parameters of specific commands
+ */
 public class Validator {
+
+    /**
+     * Calls the relevant command validation method depending on the command type
+     * @param commandType Command type
+     * @param command String input command
+     * @param existingTaskList TaskList object containing current tasks
+     * @throws Exception Exception to explain invalidity of command
+     */
     public static void validateCommand(Commands commandType, String command, TaskList existingTaskList)
             throws Exception {
         switch (commandType) {
@@ -52,6 +63,12 @@ public class Validator {
             throw new CommandNotFoundException(ErrorMessages.COMMAND_NOT_FOUND);
         }
     }
+
+    /**
+     *
+     * @param command
+     * @throws CommandNotFoundException
+     */
     public static void validateByeCommand(String command) throws CommandNotFoundException {
         // command contains more than the 'bye' word
         if (command.split(" ").length > 1) {
