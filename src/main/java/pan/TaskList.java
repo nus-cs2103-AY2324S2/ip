@@ -21,8 +21,8 @@ public class TaskList {
      * @param storage Storage instance that would handle the writing of the state of taskList to a .txt file.
      */
     public TaskList(Storage storage) {
-        this.tasks = new ArrayList<Task>();
         this.storage = storage;
+        this.tasks = storage.readList();
     }
 
     /**

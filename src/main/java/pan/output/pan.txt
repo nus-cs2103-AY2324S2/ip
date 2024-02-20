@@ -1,2 +1,4 @@
-[T][ ] smurf
-[T][ ] pan
+[T][X] smurf
+[D][ ] sleep (by: Dec 03 2024)
+[E][X] play (from: Jan 12 2024 to: Dec 02 2024)
+[E][ ] study (from: Jan 01 2024 to: Dec 01 2024)
