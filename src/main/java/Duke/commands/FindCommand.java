@@ -1,5 +1,8 @@
 package duke.commands;
 
+import java.util.ArrayList;
+
+import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
@@ -18,17 +21,10 @@ public class FindCommand extends Command {
         super();
         this.words = words;
     }
-    /**
-     * Executes the find command, searching for tasks containing the specified keyword.
-     *
-     * @param tasks The TaskList containing the list of tasks.
-     * @param ui The UI object for displaying messages.
-     * @param storage The Storage object for saving data to a file.
-     * @return False indicating that the program should continue running.
-     */
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) {
-        ui.displayFoundTask(tasks.findTasksWithString(words[1].trim()));
-        return false;
+    public String executeForString(TaskList tasks, UI ui, Storage storage) {
+        String descriptionToFind = words[1].trim();
+        ArrayList<Task> foundTasks = tasks.findTasksWithString(descriptionToFind);
+        return ui.foundTaskMessage(foundTasks);
     }
 }

@@ -13,7 +13,6 @@ import duke.exceptions.InvalidEventException;
  * Class for Event Task
  */
 public class Event extends Task {
-
     private String start;
     private String end;
     private LocalDateTime startDate;

@@ -1,7 +1,9 @@
 package duke.commands;
 
 import duke.exceptions.DukeException;
+import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
@@ -41,17 +43,22 @@ public class UnMarkCommand extends Command {
      * @return False indicating that the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        int currentIdx = tasks.getItems().size();
-        if (words.length == 1 || !isNumeric(words[1])) {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        boolean hasEmptyDescription = words.length == 1;
+        if (hasEmptyDescription) {
+            throw new EmptyDescriptionException("unMark");
+        }
+        int currentIdx = tasks.getNumberOfTasks();
+        String unMarkIdx = words[1].trim();
+        if (!isNumeric(unMarkIdx)) {
             throw new InvalidTaskIndexException(currentIdx);
         }
-        int taskIdx = Integer.parseInt(words[1]) - 1;
+        int taskIdx = Integer.parseInt(unMarkIdx) - 1;
         if (taskIdx >= currentIdx || taskIdx < 0) {
             throw new InvalidTaskIndexException(currentIdx);
         }
-        ui.displayUnMark(tasks.unMarkTask(taskIdx));
-        storage.rewriteFile(tasks.getItems());
-        return false;
+        Task unMarkedTask = tasks.unMarkTask(taskIdx);
+        storage.rewriteFile(tasks.getTasks());
+        return ui.unMarkMessage(unMarkedTask);
     }
 }

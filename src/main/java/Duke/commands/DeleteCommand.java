@@ -2,7 +2,9 @@ package duke.commands;
 
 
 import duke.exceptions.DukeException;
+import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
@@ -38,28 +40,25 @@ public class DeleteCommand extends Command {
         }
         return true;
     }
-    /**
-     * Executes the delete command.
-     *
-     * @param tasks The task list.
-     * @param ui The user interface.
-     * @param s The storage.
-     * @return Always returns false.
-     * @throws DukeException If an error occurs during execution.
-     */
+
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage s) throws DukeException {
-        int currentIdx = tasks.getItems().size();
-        if (words.length == 1 || !isNumeric(words[1])) {
+    public String executeForString(TaskList tasks, UI ui, Storage s) throws DukeException {
+        boolean isOneWord = words.length == 1;
+        if (isOneWord) {
+            throw new EmptyDescriptionException("delete");
+        }
+        String deleteIdx = words[1].trim();
+        int currentIdx = tasks.getNumberOfTasks();
+        if (!isNumeric(deleteIdx)) {
             throw new InvalidTaskIndexException(currentIdx);
         }
-        int taskIdx2 = Integer.parseInt(words[1]) - 1;
-        if (taskIdx2 >= currentIdx || taskIdx2 < 0) {
+        int taskIdx = Integer.parseInt(deleteIdx) - 1;
+        if (taskIdx >= currentIdx || taskIdx < 0) {
             throw new InvalidTaskIndexException(currentIdx);
         }
         currentIdx--;
-        ui.displayDelete(tasks.delete(taskIdx2), currentIdx);
-        s.rewriteFile(tasks.getItems());
-        return false;
+        Task deletedTask = tasks.delete(taskIdx);
+        s.rewriteFile(tasks.getTasks());
+        return ui.deleteMessage(deletedTask, currentIdx);
     }
 }

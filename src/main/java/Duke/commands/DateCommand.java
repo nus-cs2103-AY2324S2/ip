@@ -24,49 +24,69 @@ public class DateCommand extends Command {
         super();
         this.words = words;
     }
-    /**
-     * Checks if the provided deadline string has a valid date format.
-     * @param deadline The deadline string to be validated.
-     * @return True if the deadline string has a valid date format, otherwise false.
-     */
-    private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 12 || deadline.length() >= 16) {
-            return false;
-        }
-        String[] dateNumbers = deadline.split("[/ ]");
-        if (dateNumbers.length != 4) {
-            return false;
-        }
+    private static boolean checkArrayContainIntegers(String[] inputs) {
         try {
-            for (String i : dateNumbers) {
-                Integer.parseInt(i);
+            for (String input : inputs) {
+                Integer.parseInt(input);
             }
         } catch (NumberFormatException e) {
             return false;
         }
+        return true;
+    }
+    private static boolean checkValidInteger24hourFormat(int time) {
+        boolean isNegative = time < 0;
+        boolean isMoreThan2400 = time >= 2400;
+        if (isNegative || isMoreThan2400) {
+            return false;
+        }
+        int numberOfMinutes = 60;
+        boolean hasValidMinutes = (time % 100) < numberOfMinutes;
+        return hasValidMinutes;
+    }
+    /**
+     * Checks if the provided deadline string has a valid date format.
+     * @param dateString The deadline string to be validated.
+     * @return True if the deadline string has a valid date format, otherwise false.
+     */
+    private static boolean isValidDateFormat(String dateString) {
+        boolean isShorterThanMinimum = dateString.length() <= 12;
+        boolean isLongerThanMaximum = dateString.length() >= 16;
+        if (isShorterThanMinimum || isLongerThanMaximum) {
+            return false;
+        }
+        String[] dateNumbers = dateString.split("[/ ]");
+        boolean hasIncorrectDateFormatNumbers = dateNumbers.length != 4;
+        if (hasIncorrectDateFormatNumbers) {
+            return false;
+        }
+        boolean isDateNumberAllIntegers = checkArrayContainIntegers(dateNumbers);
+        if (!isDateNumberAllIntegers) {
+            return false;
+        }
         int time = Integer.parseInt(dateNumbers[3]);
-        if (time >= 2400 || time < 0) {
+        if (!checkValidInteger24hourFormat(time)) {
             return false;
         }
         return true;
     }
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        if (words.length == 1) {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        boolean hasEmptyDescription = words.length == 1;
+        if (hasEmptyDescription) {
             throw new EmptyDescriptionException("date command");
         }
-        words[1] = words[1].trim();
-        if (!isValidDateFormat(words[1])) {
+        String dateString = words[1].trim();
+        if (!isValidDateFormat(dateString)) {
             throw new InvalidDateFormatException();
         }
-        String[] dateNumbers = words[1].split("[/ ]");
+        String[] dateNumbers = dateString.split("[/ ]");
         LocalDateTime toFind = LocalDateTime.of(
                 Integer.parseInt(dateNumbers[2]),
                 Integer.parseInt(dateNumbers[1]),
                 Integer.parseInt(dateNumbers[0]),
                 Integer.parseInt(dateNumbers[3].substring(0, 2)),
                 Integer.parseInt(dateNumbers[3].substring(2)));
-        ui.displayFoundList(tasks.findTaskWithDate(toFind));
-        return false;
+        return ui.foundListMessage(tasks.findTaskWithDate(toFind));
     }
 }

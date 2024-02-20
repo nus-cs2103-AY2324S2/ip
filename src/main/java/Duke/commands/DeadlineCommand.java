@@ -25,27 +25,27 @@ public class DeadlineCommand extends Command {
         super();
         this.words = words;
     }
-    /**
-     * Executes the DeadlineCommand to add a deadline task.
-     * @param tasks The TaskList containing the tasks.
-     * @param ui The UI object for user interaction.
-     * @param storage The Storage object for data storage.
-     * @return False, indicating that the command should not exit the application.
-     * @throws DukeException If there is an issue executing the command.
-     */
+
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        if (words.length == 1) {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        boolean isOneWord = words.length == 1;
+        if (isOneWord) {
             throw new EmptyDescriptionException("deadline");
         }
+
         int deadlineStartIdx = words[1].indexOf("/by");
-        if (deadlineStartIdx == -1) {
+        boolean isInvalidDeadline = deadlineStartIdx == -1;
+        if (isInvalidDeadline) {
             throw new InvalidDeadlineException();
         }
-        Task newTask = new Deadline(words[1].substring(0, deadlineStartIdx),
-                words[1].substring(deadlineStartIdx + 4));
-        ui.displayAdd(tasks.addTask(newTask), tasks.getItems().size());
-        storage.addToWriteFile(newTask);
-        return false;
+
+        String deadlineDescription = words[1].substring(0, deadlineStartIdx);
+        String deadlineDate = words[1].substring(deadlineStartIdx + 4);
+        Task newDeadline = new Deadline(deadlineDescription, deadlineDate);
+        tasks.addTask(newDeadline);
+        storage.addToWriteFile(newDeadline);
+        int numberOfCurrentTasks = tasks.getNumberOfTasks();
+        String result = ui.addTaskMessage(newDeadline, numberOfCurrentTasks);
+        return result;
     }
 }

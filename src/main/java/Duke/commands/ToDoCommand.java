@@ -22,22 +22,17 @@ public class ToDoCommand extends Command {
         super();
         this.words = words;
     }
-    /**
-     * Executes the find command, searching for tasks containing the specified keyword.
-     *
-     * @param tasks The TaskList containing the list of tasks.
-     * @param ui The UI object for displaying messages.
-     * @param storage The Storage object for saving data to a file.
-     * @return False indicating that the program should continue running.
-     */
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        if (words.length == 1) {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        boolean hasEmptyDescription = words.length == 1;
+        if (hasEmptyDescription) {
             throw new EmptyDescriptionException("todo");
         }
-        Task newTask = new ToDo(words[1]);
-        ui.displayAdd(tasks.addTask(newTask), tasks.getItems().size());
+        String toDoDescription = words[1].trim();
+        Task newTask = new ToDo(toDoDescription);
         storage.addToWriteFile(newTask);
-        return false;
+        tasks.addTask(newTask);
+        int currentNumberOfTasks = tasks.getNumberOfTasks();
+        return ui.addTaskMessage(newTask, currentNumberOfTasks);
     }
 }
