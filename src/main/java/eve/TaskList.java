@@ -122,9 +122,15 @@ public class TaskList {
     }
 
     public static void commandFind(String[] tempyArr, ArrayList<Task> list) {
-        /* need to get the find string from tempy array
-         * and search this string in the list of task
-         * after that print out the tasks found.
-         */
+        int count = 1;
+
+        String taskToFind = tempyArr[1];
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : list) {
+            if (task.getTask().contains(taskToFind)) {
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
     }
 }
