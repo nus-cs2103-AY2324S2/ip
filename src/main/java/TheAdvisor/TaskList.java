@@ -11,14 +11,12 @@ import java.util.stream.Collectors;
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> taskList;
-
     /**
      * Constructs a new TaskList with an empty list of tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
-
     /**
      * Gets the list of tasks.
      *
@@ -27,7 +25,6 @@ public class TaskList implements Serializable {
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
-
     /**
      * Adds a task to the list and prints a confirmation message.
      *
@@ -41,7 +38,6 @@ public class TaskList implements Serializable {
                 + "Now you have " + taskList.size()
                 + " tasks in the list.";
     }
-
     /**
      * Deletes a task from the list based on the given index and prints a confirmation message.
      *
@@ -49,7 +45,9 @@ public class TaskList implements Serializable {
      * @return The confirmation message.
      */
     public String deleteFromList(int index) {
-        if (checkIndex(index)) {
+        if (index < 0) {
+            return "Index is out of bounds! We use 1-based indexing here!";
+        } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to delete is not there";
             this.taskList.remove(index);
@@ -61,7 +59,6 @@ public class TaskList implements Serializable {
                     + "Do try again :)";
         }
     }
-
     /**
      * Marks a task at the specified index as done.
      *
@@ -70,7 +67,9 @@ public class TaskList implements Serializable {
      *       or a message indicating that the task has already been marked.
      */
     public String markTask(int index) {
-        if (checkIndex(index)) {
+        if (index < 0) {
+            return "Index is out of bounds! We use 1-based indexing here!";
+        } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to mark is present";
             if (!checkMarked(task)) {
@@ -84,8 +83,6 @@ public class TaskList implements Serializable {
             return "Index is out of bounds! We use 1-based indexing here!";
         }
     }
-
-
     /**
      * Unmarks a task as done based on the given index and prints a confirmation message.
      *
@@ -93,7 +90,9 @@ public class TaskList implements Serializable {
      * @return The confirmation message.
      */
     public String unmarkTask(int index) {
-        if (checkIndex(index)) {
+        if (index < 0) {
+            return "Index is out of bounds! We use 1-based indexing here!";
+        } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to unmark is not present";
             if (!checkUnmarked(task)) {
@@ -107,7 +106,6 @@ public class TaskList implements Serializable {
             return "Index is out of bounds! We use 1-based indexing here!";
         }
     }
-
     /**
      * Checks if a task is already marked and throws an exception if it is.
      *
@@ -116,7 +114,6 @@ public class TaskList implements Serializable {
     public boolean checkMarked(Task task) {
         return task.isDone;
     }
-
     /**
      * Checks if a task is already unmarked and throws an exception if it is.
      *
@@ -125,7 +122,6 @@ public class TaskList implements Serializable {
     public boolean checkUnmarked(Task task) {
         return !task.isDone;
     }
-
     /**
      * Checks if the provided index is within the bounds of the task list.
      *
@@ -135,23 +131,20 @@ public class TaskList implements Serializable {
     public boolean checkIndex(int index) {
         assert index > 0 : "Index must be 1-based";
         int size = this.taskList.size();
-        return index < size && size != 0;
+        return index < size;
     }
-
-
     /**
      * Finds tasks in the list that match the given keyword.
      *
      * @param keyword The keyword to search for.
      * @return A string representation of matching tasks, even if only matching partially.
-     * @throws TheAdvisorException If no matching tasks are found.
      */
-    public String findItem(String keyword) throws TheAdvisorException {
+    public String findItem(String keyword) {
         List<Task> matchingTasks = taskList.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
         if (matchingTasks.isEmpty()) {
-            throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
+            return "Sorry! There are no tasks that match your search criteria.";
         } else {
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int j = 0; j < matchingTasks.size(); j++) {

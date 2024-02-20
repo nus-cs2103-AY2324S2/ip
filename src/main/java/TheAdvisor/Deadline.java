@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
  * Extends the Task class and implements Serializable for persistence.
  */
 public class Deadline extends Task implements Serializable {
-
-    // protected String by;
     protected final LocalDateTime by;
 
     /**

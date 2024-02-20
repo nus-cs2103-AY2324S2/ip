@@ -57,95 +57,31 @@ public class TheAdvisor implements Serializable {
                 response = ui.printList(taskList);
                 break;
             case MARK:
-                if (checkArrayLength(2, strings)) {
-                    int markNumber = Integer.parseInt(strings[1]);
-                    response = taskList.markTask(markNumber - 1);
-                    storage.saveTasks(taskList);
-                } else {
-                    response = "Invalid format. Make sure that the format is: "
-                            + "mark + (number) to mark something on the list as completed.";
-                }
+                response = markTaskResponse(strings);
                 break;
             case UNMARK:
-                if (checkArrayLength(2, strings)) {
-                    int unmarkNumber = Integer.parseInt(strings[1]);
-                    response = taskList.unmarkTask(unmarkNumber - 1);
-                    storage.saveTasks(taskList);
-                } else {
-                    response = "Invalid format. Make sure that the format is: "
-                            + "unmark + (number) to unmark something on the list.";
-                }
+                response = unmarkTaskResponse(strings);
                 break;
             case DELETE:
-                if (checkArrayLength(2, strings)) {
-                    int deleteNumber = Integer.parseInt(strings[1]);
-                    response = taskList.deleteFromList(deleteNumber - 1);
-                    storage.saveTasks(taskList);
-                } else {
-                    response = "Invalid format. Make sure that the format is: "
-                               + "delete + (number) to delete something from the list.";
-                }
+                response = deleteResponse(strings);
                 break;
             case TODO:
                 String todo = req.substring(4);
-                if (!checkEmptyDescription(todo)) {
-                    ToDos toDos = new ToDos(todo);
-                    response = taskList.addToList(toDos);
-                    storage.saveTasks(taskList);
-                } else {
-                    response = "The description for todo cannot be empty. "
-                            + "The input should be <todo> + description";
-                }
+                response = todoRequest(todo);
                 break;
             case DEADLINE:
                 String due = req.substring(8);
                 String[] arrTask = due.split(" /by ");
-                if (checkArrayLength(2, arrTask)) {
-                    try {
-                        Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1],
-                                Task.INPUT_FORMAT));
-                        response = taskList.addToList(deadline);
-                        storage.saveTasks(taskList);
-                    } catch (DateTimeException e) {
-                        throw new TheAdvisorException("Incorrect format of your timestamp! "
-                                + "Please input YYYY-MM-DD HHmm");
-                    }
-                } else {
-                    response = "Invalid deadline format. Please use the correct format: deadline + description + /by +"
-                            + " <YYYY-MM-DD HHmm>";
-                }
+                response = deadlineRequest(arrTask);
                 break;
             case EVENT:
                 String event = req.substring(5);
                 String[] eventArr = event.split(" /from ");
-                if (checkArrayLength(2, eventArr)) {
-                    String[] timings = eventArr[1].split(" /to");
-                    String startStr = timings[0].trim();
-                    String endStr = timings[1].trim();
-                    try {
-                        LocalDateTime start = LocalDateTime.parse(startStr, Task.INPUT_FORMAT);
-                        LocalDateTime end = LocalDateTime.parse(endStr, Task.INPUT_FORMAT);
-                        Events events = new Events(eventArr[0], start, end);
-                        response = taskList.addToList(events);
-                        storage.saveTasks(taskList);
-                    } catch (DateTimeException e) {
-                        throw new TheAdvisorException("Incorrect format of your timestamp! "
-                                + "Please input YYYY-MM-DD HHmm");
-                    }
-                } else {
-                    response = "Invalid event format. "
-                            + "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
-                            + "/to <YYYY-MM-DD HHmm>";
-                }
+                response = eventRequest(eventArr);
                 break;
             case FIND:
                 String keyword = req.substring(5);
-                if (!checkEmptyDescription(keyword)) {
-                    response = taskList.findItem(keyword);
-                } else {
-                    response = "Please key in the keyword of what you wish "
-                            + "to find please!";
-                }
+                response = findRequest(keyword);
                 break;
             case WRONG:
                 response = "Incorrect prompt use. Please try again with these prompts: "
@@ -160,8 +96,102 @@ public class TheAdvisor implements Serializable {
         }
         return response;
     }
-
-    private static boolean checkEmptyDescription(String description) {
+    private String markTaskResponse(String[] str) {
+        String response;
+        if (checkArrayLength(2, str)) {
+            response = taskList.markTask(Integer.parseInt(str[1]) - 1);
+            storage.saveTasks(taskList);
+            return response;
+        } else {
+            response = "Invalid format. Make sure that the format is: "
+                    + "mark + (number) to mark something on the list as completed.";
+        }
+        return response;
+    }
+    private String unmarkTaskResponse(String[] str) {
+        String response;
+        if (checkArrayLength(2, str)) {
+            response = taskList.unmarkTask(Integer.parseInt(str[1]) - 1);
+            storage.saveTasks(taskList);
+            return response;
+        } else {
+            response = "Invalid format. Make sure that the format is: "
+                    + "unmark + (number) to unmark something on the list.";
+        }
+        return response;
+    }
+    private String deleteResponse(String[] str) {
+        String response;
+        if (checkArrayLength(2, str)) {
+            response = taskList.deleteFromList(Integer.parseInt(str[1]) - 1);
+            storage.saveTasks(taskList);
+        } else {
+            response = "Invalid format. Make sure that the format is: "
+                    + "delete + (number) to delete something from the list.";
+        }
+        return response;
+    }
+    private String todoRequest(String todo) {
+        String response;
+        if (emptyDescription(todo)) {
+            response = "The description for todo cannot be empty. "
+                    + "The input should be <todo> + description";
+        } else {
+            ToDos toDos = new ToDos(todo);
+            response = taskList.addToList(toDos);
+            storage.saveTasks(taskList);
+        }
+        return response;
+    }
+    private String deadlineRequest(String[] arrTask) throws TheAdvisorException {
+        String response;
+        if (checkArrayLength(2, arrTask)) {
+            try {
+                Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1],
+                        Task.INPUT_FORMAT));
+                response = taskList.addToList(deadline);
+                storage.saveTasks(taskList);
+            } catch (DateTimeException e) {
+                response = "Incorrect format of your timestamp! Please input YYYY-MM-DD HHmm";
+            }
+        } else {
+            response = "Invalid deadline format. Please use the correct format: deadline + description + /by +"
+                    + " <YYYY-MM-DD HHmm>";
+        }
+        return response;
+    }
+    private String eventRequest(String[] eventArr) throws TheAdvisorException {
+        String response;
+        if (checkArrayLength(2, eventArr)) {
+            try {
+                String[] time = eventArr[1].split(" /to");
+                String startStr = time[0].trim();
+                String endStr = time[1].trim();
+                LocalDateTime start = LocalDateTime.parse(startStr, Task.INPUT_FORMAT);
+                LocalDateTime end = LocalDateTime.parse(endStr, Task.INPUT_FORMAT);
+                Events events = new Events(eventArr[0], start, end);
+                response = taskList.addToList(events);
+                storage.saveTasks(taskList);
+            } catch (DateTimeException e) {
+                response = "Incorrect format of your timestamp! Please input YYYY-MM-DD HHmm";
+            }
+        } else {
+            response = "Invalid event format. " + "The input should be <event> + description + "
+                    + "/from <YYYY-MM-DD HHmm> + " + "/to <YYYY-MM-DD HHmm>";
+        }
+        return response;
+    }
+    private String findRequest(String keyword) throws TheAdvisorException {
+        String response;
+        if (emptyDescription(keyword)) {
+            response = "Please key in the keyword of what you wish "
+                    + "to find please!";
+        } else {
+            response = taskList.findItem(keyword);
+        }
+        return response;
+    }
+    private static boolean emptyDescription(String description) {
         return description.isEmpty();
     }
 
