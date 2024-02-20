@@ -78,7 +78,7 @@ public class TaskManager {
             storage.updateRecords(todos);
         }
 
-        return ("Got it. Added this task:" + "\n" + event.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
+        return ("Wow hardworker! Added: " + "\n" + event.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
     }
 
     public static String processDeadline(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
@@ -110,7 +110,7 @@ public class TaskManager {
             System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
-        return ("Got it. Added this task:" + "\n" + deadline.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
+        return ("Ah deadlines. Added this task:" + "\n" + deadline.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
     }
     public static String processTodo(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
         if (arr.length == 1) {
@@ -133,7 +133,7 @@ public class TaskManager {
             System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
-        return ("Got it. Added this task:\n" + todo.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
+        return ("Ooo happening! Added this task:\n" + todo.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
     }
     public static String processMark(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
         // mark task as done
@@ -141,11 +141,11 @@ public class TaskManager {
         Task currTask = todos.get(index);
         currTask.markAsDone();
         if (isVerbose) {
-            System.out.print(" Nice! I've marked this task as done:\n");
+            System.out.print(" Mark task as done:\n");
             System.out.println(" " + currTask.toString());
             storage.updateRecords(todos);
         }
-        return (" Nice! I've marked this task as done:\n" + " " + currTask.toString());
+        return (" Great job! I've marked this as done:\n" + " " + currTask.toString());
     }
     public static String processList(String[] arr, String UserInput, TaskList todos, Boolean isVerbose) {
         if (isVerbose) {
@@ -200,6 +200,6 @@ public class TaskManager {
             System.out.println(" Sorry no tasks found matching that word :<");
             return (" Sorry no tasks found matching that word :<");
         }
-        return (" Here are the tasks in your list:\n" + matchingTasksString);
+        return (" Here are the matching tasks:\n" + matchingTasksString);
     }
 }

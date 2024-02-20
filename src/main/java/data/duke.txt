@@ -1,1 +1,2 @@
-E | 0 | dinner w da boys | 2024-02-18 18:00 | 2024-02-19 | funn'
+T | 0 | me | null
+T | 0 | everyone #fun | null
