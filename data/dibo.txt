@@ -1,6 +1,7 @@
-todo | 1 | a
-deadline | 0 | c | Jan 01 2019
-deadline | 0 | ps2 | Feb 27 2024
-todo | 0 | ps1
-todo | 0 | ps0
-todo | 0 | ps3
+todo | 0 | cs2103t ip
+deadline | 0 | cs2109s ps4 | Feb 24 2024
+event | 0 | arsenal vs porto | Feb 22 2024 | Feb 23 2024
+deadline | 0 | cs2109s ps4 | Feb 24 2024
+do-after | 0 | watch football | Feb 24 2024
+do-after | 0 | watch football | Feb 24 2024
+event | 0 | taylor swift's concert | Mar 02 2024 | Mar 09 2024

@@ -140,6 +140,10 @@ public class Storage {
 
     private void createNewFile() throws DiboException {
         File f = new File(this.filePath);
+        File parentDir = f.getParentFile();
+        if (parentDir != null) {
+            parentDir.mkdirs();
+        }
         try {
             boolean fileCreated = f.createNewFile();
             if (!fileCreated) {
