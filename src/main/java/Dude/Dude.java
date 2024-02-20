@@ -17,104 +17,97 @@ import java.time.format.DateTimeFormatter;
  * and processing user commands.
  */
 public class Dude {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList tasks;
+    TaskList tasks;
+    Ui ui = new Ui();
+
+    public Dude() {
         try {
             tasks = new TaskList(TaskStorage.loadTasksFromFile());
         } catch (IOException e) {
             tasks = new TaskList(new ArrayList<>());
         }
-        Ui ui = new Ui();
-        ui.showMessage("Loaded " + tasks.size() + " tasks from file.");
-        ui.showWelcome();
-
-        boolean running = true;
-
-        while (running) {
-            try {
-                String input = scanner.nextLine();
-                Command cmd = Parser.getCommand(input);
-                int index;
-
-                switch (cmd.action){
-                    case BYE:
-                        ui.showGoodbye();
-                        scanner.close();
-                        running = false;
-                        break;
-                    case LIST:
-                        ui.showTaskList(tasks.toArrayList());
-                        break;
-                    case DONE:
-                        index = Parser.getDoneIndex(input);
-
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        tasks.get(index).markAsDone();
-                        ui.showDone(tasks.get(index));
-                        break;
-                    case UNDONE:
-                        index = Parser.getDoneIndex(input);
-
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        tasks.get(index).markAsNotDone();
-                        ui.showUndone(tasks.get(index));
-                    case DELETE:
-                        index = Parser.getDeleteIndex(input);
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        Task removedTask = tasks.remove(index);
-                        ui.showDelete(removedTask);
-                        break;
-                    case FIND:
-                        String keyword = cmd.info;
-                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-                        ui.showTaskList(matchingTasks);
-                        break;
-                    case TODO:
-                        ToDo todo = new ToDo(cmd.info);
-                        tasks.add(todo);
-                        ui.showAddTask(todo);
-                        break;
-                    case DEADLINE:
-                        if (!cmd.info.contains(" /by ")) {
-                            throw new IllegalArgumentException(
-                                    "Invalid deadline format. Use '/by' to specify the deadline.");
-                        }
-                        String[] deadlineParts = cmd.info.split(" /by ", 2);
-                        Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        tasks.add(deadline);
-                        ui.showAddTask(deadline);
-                        break;
-                    case EVENT:
-                        if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
-                            throw new IllegalArgumentException(
-                                    "Invalid event format. Use '/from' and '/to' to specify the event times.");
-                        }
-                        String[] eventParts = cmd.info.split(" /from ", 2);
-                        String[] eventTimes = eventParts[1].split(" /to ", 2);
-                        Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
-                        tasks.add(newEvent);
-                        ui.showAddTask(newEvent);
-                        break;
-                }
-
-                TaskStorage.saveTasksToFile(tasks.toArrayList());
-            } catch (NumberFormatException e) {
-                ui.showError("Please enter a valid task number.");
-            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                ui.showError("An unexpected error occurred: " + e.getMessage());
-            }
-        }
 
     }
+
+
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command cmd = Parser.getCommand(input);
+            int index;
+
+            switch (cmd.action){
+                case BYE:
+                    return ui.showGoodbye();
+                case LIST:
+                    return ui.showTaskList(tasks.toArrayList());
+                case DONE:
+                    index = Parser.getDoneIndex(input);
+
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    tasks.get(index).markAsDone();
+                    return ui.showDone(tasks.get(index));
+                case UNDONE:
+                    index = Parser.getDoneIndex(input);
+
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    tasks.get(index).markAsNotDone();
+                    return ui.showUndone(tasks.get(index));
+                case DELETE:
+                    index = Parser.getDeleteIndex(input);
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    Task removedTask = tasks.remove(index);
+                    return ui.showDelete(removedTask);
+                case FIND:
+                    String keyword = cmd.info;
+                    ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                    return ui.showTaskList(matchingTasks);
+                case TODO:
+                    ToDo todo = new ToDo(cmd.info);
+                    tasks.add(todo);
+                    return ui.showAddTask(todo);
+                case DEADLINE:
+                    if (!cmd.info.contains(" /by ")) {
+                        throw new IllegalArgumentException(
+                                "Invalid deadline format. Use '/by' to specify the deadline.");
+                    }
+                    String[] deadlineParts = cmd.info.split(" /by ", 2);
+                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    tasks.add(deadline);
+                    return ui.showAddTask(deadline);
+                case EVENT:
+                    if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
+                        throw new IllegalArgumentException(
+                                "Invalid event format. Use '/from' and '/to' to specify the event times.");
+                    }
+                    String[] eventParts = cmd.info.split(" /from ", 2);
+                    String[] eventTimes = eventParts[1].split(" /to ", 2);
+                    Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+                    tasks.add(newEvent);
+                    return ui.showAddTask(newEvent);
+            }
+
+            TaskStorage.saveTasksToFile(tasks.toArrayList());
+        } catch (NumberFormatException e) {
+            return ui.showError("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            return ui.showError(e.getMessage());
+        } catch (Exception e) {
+            return ui.showError("An unexpected error occurred: " + e.getMessage());
+        }
+        return "";
+    }
+
 }
 
 // Base Task class
@@ -166,6 +159,8 @@ abstract class Task {
      */
     @Override
     public abstract String toString();
+
+    public abstract String toFileString();
 }
 
 
@@ -193,6 +188,12 @@ class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
+    }
+
+    @Override
+    public String toFileString() {
+        return "T|" + (isDone ? "1" : "0") + "|" + description;
+
     }
 }
 
@@ -229,6 +230,13 @@ class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         String formattedDate = by.format(formatter);
         return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + formattedDate + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String byDate = by.format(formatter);
+        return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + byDate;
     }
 }
 
@@ -271,6 +279,14 @@ class Event extends Task {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + formattedStart + " to: " + formattedEnd
                 + ")";
     }
+
+    @Override
+    public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String startDate = start.format(formatter);
+        String endDate = end.format(formatter);
+        return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + startDate + "|" + endDate;
+    }
 }
 
 /**
@@ -291,7 +307,7 @@ class TaskStorage {
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME));
         for (Task task : tasks) {
-            String taskString = taskToFileString(task);
+            String taskString = task.toFileString();
             if (!taskString.isEmpty()) {
                 bufferedWriter.write(taskString);
                 bufferedWriter.newLine();
@@ -320,28 +336,8 @@ class TaskStorage {
         return tasks;
     }
 
-    /**
-     * Converts a Task object into a string format for file storage.
-     * The format includes task type, completion status, description, and dates if applicable.
-     *
-     * @param task The Task object to be converted.
-     * @return A string representation of the Task object.
-     */
-    private static String taskToFileString(Task task) {
-        StringBuilder sb = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (task instanceof ToDo) {
-            sb.append("T|").append(task.isDone ? "1" : "0").append("|").append(task.description);
-        } else if (task instanceof Deadline deadline) {
-            String byDate = deadline.by.format(formatter);
-            sb.append("D|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(byDate);
-        } else if (task instanceof Event event) {
-            String startDate = event.start.format(formatter);
-            String endDate = event.end.format(formatter);
-            sb.append("E|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(startDate).append("|").append(endDate);
-        }
-        return sb.toString();
-    }
+
+
 
     /**
      * Converts a string representation of a task back into a Task object.
@@ -383,62 +379,60 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
-    public void showWelcome() {
-        System.out.println("Hello! I'm Dude\nWhat can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Dude\nWhat can I do for you?";
     }
 
-    public void showAddTask(Event event){
-        System.out.println("Added Event: " + event);
+    public String showAddTask(Event event){
+        return "Added Event: " + event;
     }
 
-    public void showAddTask(Deadline deadline) {
-        System.out.println("Added Deadline: " + deadline);
+    public String showAddTask(Deadline deadline) {
+        return "Added Deadline: " + deadline;
     }
 
-    public void showAddTask(ToDo todo) {
-        System.out.println("Added Todo: " + todo);
+    public String showAddTask(ToDo todo) {
+        return "Added Todo: " + todo;
     }
 
-    public void showDelete(Task task) {
-        System.out.println("Deleted: "  + task);
+    public String showDelete(Task task) {
+        return "Deleted: "  + task;
     }
 
-    public void showDone(Task task) {
-        System.out.println("Marked as Done: " + task);
+    public String showDone(Task task) {
+        return "Marked as Done: " + task;
     }
 
-    public void showUndone(Task task) {
-        System.out.println("Marked as Not Done: " + task);
+    public String showUndone(Task task) {
+        return "Marked as Not Done: " + task;
     }
 
 
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return("Bye. Hope to see you again soon!");
     }
 
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return("Error: " + message);
     }
 
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return(message);
     }
 
-    public void showTaskList(ArrayList<Task> tasks) {
+    public String showTaskList(ArrayList<Task> tasks) {
+        StringBuilder s = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            System.out.println("No Tasks to show.");
-            return;
+            return ("No Tasks to show.");
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            s.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-    }
-    public void closeScanner() {
-        scanner.close();
+        return s.toString();
     }
 }
 
