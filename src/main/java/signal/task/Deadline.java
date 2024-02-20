@@ -3,14 +3,14 @@ package signal.task;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static signal.Duke.formatDate;
-import static signal.Duke.formatTime;
+import signal.util.TimeManager;
 
 /**
  * Represents a deadline task in the Signal chat-bot.
  * A deadline task has an end time in addition to the properties inherited from Task.
  */
 public class Deadline extends Task {
+    private TimeManager timeManager = new TimeManager();
     private LocalDate byDate;
     private LocalTime byTime;
 
@@ -43,7 +43,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "D" + super.toString()
-                + " | by: " + formatDate(byDate) + (byTime != null ? " " + formatTime(byTime) : "");
+                + " | by: " + timeManager.formatDate(byDate) + (byTime != null ? " " + timeManager.formatTime(byTime) : "");
     }
 
     @Override

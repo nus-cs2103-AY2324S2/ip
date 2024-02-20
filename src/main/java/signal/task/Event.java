@@ -1,13 +1,13 @@
 package signal.task;
 
+import signal.util.TimeManager;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static signal.Duke.formatDate;
-import static signal.Duke.formatTime;
 
 public class Event extends Task {
-
+    private TimeManager timeManager = new TimeManager();
     private LocalDate startDate;
     private LocalTime startTime;
     private LocalDate endDate;
@@ -49,8 +49,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "E" + super.toString()
-                + " | from: " + formatDate(startDate) + (startTime != null ? " " + formatTime(startTime) : "")
-                +  " | to: " + (endDate != null ? " " + formatDate(endDate) : "") + formatTime(endTime);
+                + " | from: " + timeManager.formatDate(startDate) + (startTime != null ? " " + timeManager.formatTime(startTime) : "")
+                +  " | to: " + (endDate != null ? " " + timeManager.formatDate(endDate) : "") + timeManager.formatTime(endTime);
     }
 
     @Override

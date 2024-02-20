@@ -22,17 +22,6 @@ public class Duke {
     private static Ui ui = new Ui(taskList, fileManager);
     public static Parser parser = new Parser(taskList, ui);
 
-    public static String formatDate(LocalDate date) {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        String formattedDate = date.format(outputFormatter);
-        return formattedDate;
-    }
-
-    public static String formatTime(LocalTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-        String formattedTime = time.format(formatter);
-        return formattedTime;
-    }
 
     public static void main(String[] args) {
         ui.intro();
