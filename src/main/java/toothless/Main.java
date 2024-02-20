@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setToothless(toothless);
             fxmlLoader.<MainWindow>getController().startUp();
+            stage.setTitle("Toothless");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
