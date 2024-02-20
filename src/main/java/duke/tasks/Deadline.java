@@ -5,7 +5,8 @@ import java.time.LocalDate;
 import duke.parsers.DateTimeParser;
 
 /**
- * Type of task with a deadline
+ * Subclass of task with a deadline. Has an attribute deadline that keeps track of when the task
+ * needs to be completed.
  */
 public class Deadline extends Task {
 
@@ -20,13 +21,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * To mark the task as done using the superclass's mark method.
+     * Marks the task in the list as done using the superclass's mark method.
      */
     public void mark() {
         super.mark();
     }
     /**
-     * To unmark the task as done using the superclass's mark method.
+     * Unmarks the task as done using the superclass's mark method.
      */
     public void unmark() {
         super.unmark();

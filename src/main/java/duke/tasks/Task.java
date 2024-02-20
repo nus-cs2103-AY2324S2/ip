@@ -17,13 +17,13 @@ public class Task {
         this.taskType = taskType;
     }
     /**
-     * To mark the task as done, changing the isDone boolean value.
+     * Marks the task as done, changing the isDone boolean value.
      */
     public void mark() {
         this.isDone = true;
     }
     /**
-     * To mark the task as done, changing the isDone boolean value.
+     * Marks the task as undone, changing the isDone boolean value.
      */
     public void unmark() {
         this.isDone = false;
