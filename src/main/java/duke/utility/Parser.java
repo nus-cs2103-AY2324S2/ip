@@ -44,24 +44,21 @@ public class Parser {
      * @throws DukeException
      */
     public static Command parseInstructions(String userInput) throws DukeException {
+        String[] inputArr = userInput.split(" ");
         if (userInput.toLowerCase().equals("bye")) {
             return new ExitCommand();
         } else if (userInput.toLowerCase().equals("list")) {
             return new ListTasksCommand();
         } else if (userInput.toLowerCase().startsWith("mark")) {
-            String[] inputArr = userInput.split(" ");
             int index = Integer.parseInt(inputArr[1]) - 1;
             return new MarkTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("unmark")) {
-            String[] inputArr = userInput.split(" ");
             int index = Integer.parseInt(inputArr[1]) - 1;
             return new UnmarkTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("delete")) {
-            String[] inputArr = userInput.split(" ");
             int index = Integer.parseInt(inputArr[1]) - 1;
             return new DeleteTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("find")) {
-            String[] inputArr = userInput.split(" ");
             assert inputArr[0].toLowerCase() == "find";
             if (inputArr.length > 2) {
                 throw new DukeException("Pengu can only look up one-word long keywords");
@@ -71,11 +68,15 @@ public class Parser {
             return new UpdateTaskCommand(userInput);
         }
         String keyword = userInput.split(" ")[0].toLowerCase();
+        return taskParser(userInput);
+    }
+
+    private static boolean taskCheck(String keyword) throws DukeException {
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))) {
             throw new DukeException("*HONK* Pengu has never seen such a command before,"
                     + " some commands Pengu can do are: list, todo, deadline");
         } else {
-            return taskParser(userInput);
+            return true;
         }
     }
 
@@ -287,23 +288,9 @@ public class Parser {
         String infoString = fileInput.substring(7);
         String[] strArr = infoString.split(" ");
         int fromIndex = Arrays.asList(strArr).indexOf("(from:");
-        StringBuilder descBuilder = new StringBuilder();
-        for (int k = 0; k < fromIndex; k++) {
-            if (k == fromIndex - 1) {
-                descBuilder.append(strArr[k]);
-            } else {
-                descBuilder.append(strArr[k] + " ");
-            }
-        }
+        StringBuilder descBuilder = parseEventDescription(strArr);
         int toIndex = Arrays.asList(strArr).indexOf("to:");
-        StringBuilder fromBuilder = new StringBuilder();
-        for (int k = fromIndex + 1; k < toIndex; k++) {
-            if (k == toIndex - 1) {
-                fromBuilder.append(strArr[k]);
-            } else {
-                fromBuilder.append(strArr[k] + " ");
-            }
-        }
+        StringBuilder fromBuilder = parseEventFromDate(strArr);
         StringBuilder toBuilder = new StringBuilder();
         for (int k = toIndex + 1; k < strArr.length; k++) {
             if (k == strArr.length - 1) {
@@ -323,5 +310,32 @@ public class Parser {
             LocalDateTime toTime = LocalDateTime.parse(toDateTimeStr, dTFormatter);
             return new Event(descBuilder.toString(), fromTime, toTime);
         }
+    }
+
+    private static StringBuilder parseEventDescription(String[] userInput) {
+        int fromIndex = Arrays.asList(userInput).indexOf("(from:");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 0; k < fromIndex; k++) {
+            if (k == fromIndex - 1) {
+                descBuilder.append(userInput[k]);
+            } else {
+                descBuilder.append(userInput[k] + " ");
+            }
+        }
+        return descBuilder;
+    }
+
+    private static StringBuilder parseEventFromDate(String[] userInput) {
+        int fromIndex = Arrays.asList(userInput).indexOf("(from:");
+        int toIndex = Arrays.asList(userInput).indexOf("to:");
+        StringBuilder fromBuilder = new StringBuilder();
+        for (int k = fromIndex + 1; k < toIndex; k++) {
+            if (k == toIndex - 1) {
+                fromBuilder.append(userInput[k]);
+            } else {
+                fromBuilder.append(userInput[k] + " ");
+            }
+        }
+        return fromBuilder;
     }
 }
