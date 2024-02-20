@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class DeadlineTest {
     @Test
     public void testDeadlineMark() {
         Deadline deadline = new Deadline("return book","2/12/2019 1800");
-        deadline.mark();
+        deadline.setMark();
         assertTrue(deadline.checkDone());
     }
 }

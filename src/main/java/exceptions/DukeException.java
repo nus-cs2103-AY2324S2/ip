@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Custom exception class for handling exceptions specific to the Duke application.
@@ -7,7 +7,7 @@ package Exceptions;
  *
  * @author Muhammad Rizki Bayuaji
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructs a new DukeException with the specified detail message.

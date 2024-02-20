@@ -1,9 +1,6 @@
-package UI;
+package ui;
 
-import Exceptions.DukeException;
-import Tasks.Task;
-
-import java.util.List;
+import exceptions.DukeException;
 
 public class Parser {
 

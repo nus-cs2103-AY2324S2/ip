@@ -1,9 +1,9 @@
-package Storage;
+package storage;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;
@@ -42,25 +42,25 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                switch (parts[0]) {
+                String[] taskComponents = line.split(" \\| ");
+                switch (taskComponents[0]) {
                     case "T":
-                        Todo todo = new Todo(parts[2]);
-                        if (parts[1].equals("1")) todo.mark();
+                        Todo todo = new Todo(taskComponents[2]);
+                        if (taskComponents[1].equals("1")) todo.setMark();
                         tasks.add(todo);
                         break;
                     case "D":
                         try {
-                            Deadline deadline = new Deadline(parts[2], parts[3]);
-                            if (parts[1].equals("1")) deadline.mark();
+                            Deadline deadline = new Deadline(taskComponents[2], taskComponents[3]);
+                            if (taskComponents[1].equals("1")) deadline.setMark();
                             tasks.add(deadline);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Error parsing date for task '" + parts[2] + "': " + e.getMessage());
+                            System.out.println("Error parsing date for task '" + taskComponents[2] + "': " + e.getMessage());
                         }
                         break;
                     case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
-                        if (parts[1].equals("1")) event.mark();
+                        Event event = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                        if (taskComponents[1].equals("1")) event.setMark();
                         tasks.add(event);
                         break;
                 }

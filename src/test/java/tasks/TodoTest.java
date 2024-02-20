@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class TodoTest {
     @Test
     public void testMarkTodo() {
         Todo todo = new Todo("Read book");
-        todo.mark();
+        todo.setMark();
         assertTrue(todo.checkDone());
     }
 }
