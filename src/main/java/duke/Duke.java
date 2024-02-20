@@ -1,7 +1,7 @@
 package duke;
 
 import duke.exceptions.InvalidCommandException;
-import duke.exceptions.ListOutofBoundsException;
+import duke.exceptions.ListOutOfBoundsException;
 import duke.exceptions.MissingArgumentsException;
 import duke.exceptions.WrongTimeFormatException;
 import duke.parser.Command;
@@ -45,13 +45,13 @@ public class Duke {
         case UNMARK:
             try {
                 return dukeResponse.unMarkTask(output.getSelectedItem() - 1);
-            } catch (ListOutofBoundsException e) {
+            } catch (ListOutOfBoundsException e) {
                 return Responses.error(e.getMessage());
             }
         case MARK:
             try {
                 return dukeResponse.markTaskUI(output.getSelectedItem() - 1);
-            } catch (ListOutofBoundsException e) {
+            } catch (ListOutOfBoundsException e) {
                 return Responses.error(e.getMessage());
             }
         case FIND:
@@ -65,13 +65,13 @@ public class Duke {
         case DELETE:
             try {
                 return dukeResponse.removeTask(output.getSelectedItem() - 1);
-            } catch (ListOutofBoundsException e) {
+            } catch (ListOutOfBoundsException e) {
                 return Responses.error(e.getMessage());
             }
         case PRIORITY:
             try {
                 return dukeResponse.updatePriority(output.getSelectedItem() - 1, output.getPriority());
-            } catch (ListOutofBoundsException e) {
+            } catch (ListOutOfBoundsException e) {
                 return Responses.error(e.getMessage());
             }
         default:

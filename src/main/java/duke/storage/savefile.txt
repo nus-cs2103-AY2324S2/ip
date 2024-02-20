@@ -1,5 +1,1 @@
-save 0 -1 todo hw
-save 0 0 todo hw2
-save 0 0 todo hw3
-save 0 0 event test /from 1/1/2034 /to 1/1/2044
-save 0 1 deadline test2 /by 1/1/2025
+save 0 -1 todo testsave

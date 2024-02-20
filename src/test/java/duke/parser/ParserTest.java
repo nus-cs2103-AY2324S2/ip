@@ -16,7 +16,7 @@ public class ParserTest {
             assertEquals(output.getCmd(), Command.TODO);
             assertEquals(output.getSelectedItem(), 0);
             assertEquals(output.getTask().getOriginalCommand(), sampleInput);
-            assertEquals(output.getTask().toString(), "[T][ ] hw");
+            assertEquals(output.getTask().toString(), "[T][ ] hw ");
         } catch (Exception e) {
             System.out.println("fix your tests!!!!");
         }

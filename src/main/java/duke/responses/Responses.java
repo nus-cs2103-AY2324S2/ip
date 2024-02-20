@@ -1,6 +1,6 @@
 package duke.responses;
 
-import duke.exceptions.ListOutofBoundsException;
+import duke.exceptions.ListOutOfBoundsException;
 import duke.parser.Priority;
 import duke.storage.Storage;
 import duke.storage.Task;
@@ -67,12 +67,12 @@ public class Responses {
      *
      * @param input The index of the task to be marked as done.
      * @return A string containing the confirmation message.
-     * @throws ListOutofBoundsException If the provided index is out of bounds.
+     * @throws ListOutOfBoundsException If the provided index is out of bounds.
      */
-    public String markTaskUI(int input) throws ListOutofBoundsException {
+    public String markTaskUI(int input) throws ListOutOfBoundsException {
         StringBuilder stringBuilder = new StringBuilder();
         if (input < 0 || input > this.taskList.taskLength() - 1) {
-            throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
+            throw new ListOutOfBoundsException(String.format("%d", this.taskList.taskLength()));
         }
         stringBuilder.append("    Nice! I've marked this task as done:");
         stringBuilder.append(this.taskList.markTask(input));
@@ -84,22 +84,30 @@ public class Responses {
      *
      * @param input The index of the task to be marked as not done.
      * @return A string containing the confirmation message.
-     * @throws ListOutofBoundsException If the provided index is out of bounds.
+     * @throws ListOutOfBoundsException If the provided index is out of bounds.
      */
-    public String unMarkTask(int input) throws ListOutofBoundsException {
+    public String unMarkTask(int input) throws ListOutOfBoundsException {
         StringBuilder stringBuilder = new StringBuilder();
         if (input < 0 || input > this.taskList.taskLength() - 1) {
-            throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
+            throw new ListOutOfBoundsException(String.format("%d", this.taskList.taskLength()));
         }
         stringBuilder.append("    OK, I've marked this task as not done yet:\n");
         stringBuilder.append(this.taskList.unMarkTask(input));
         return stringBuilder.toString();
     }
 
-    public String updatePriority(int input, Priority priority) throws ListOutofBoundsException {
+    /**
+     * Updates the priority of a task at the specified index with the given priority.
+     *
+     * @param input    the index of the task to update
+     * @param priority the new priority to set
+     * @return a string indicating the successful update
+     * @throws ListOutOfBoundsException if the input index is out of bounds
+     */
+    public String updatePriority(int input, Priority priority) throws ListOutOfBoundsException {
         StringBuilder stringBuilder = new StringBuilder();
         if (input < 0 || input > this.taskList.taskLength() - 1) {
-            throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
+            throw new ListOutOfBoundsException(String.format("%d", this.taskList.taskLength()));
         }
         stringBuilder.append("    OK, I've updated this task's Priority:\n");
         stringBuilder.append(this.taskList.updatePriority(input, priority));
@@ -111,14 +119,14 @@ public class Responses {
      *
      * @param input The index of the task to be removed.
      * @return A string containing the confirmation message.
-     * @throws ListOutofBoundsException If the provided index is out of bounds.
+     * @throws ListOutOfBoundsException If the provided index is out of bounds.
      */
-    public String removeTask(int input) throws ListOutofBoundsException {
+    public String removeTask(int input) throws ListOutOfBoundsException {
 
         StringBuilder stringBuilder = new StringBuilder();
 
         if (input < 0 || input > this.taskList.taskLength() - 1) {
-            throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
+            throw new ListOutOfBoundsException(String.format("%d", this.taskList.taskLength()));
         }
 
         stringBuilder.append("    Noted. I've removed this task:\n");

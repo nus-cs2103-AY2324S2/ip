@@ -1,8 +1,9 @@
 package duke.storage;
 
+import java.util.ArrayList;
+
 import duke.parser.Priority;
 
-import java.util.ArrayList;
 
 /**
  * The TaskList class represents a list of tasks in the Duke task manager.
@@ -76,6 +77,14 @@ public class TaskList {
         return toPrint;
     }
 
+    /**
+     * Updates the priority of the task at the specified index with the given priority,
+     * then saves the changes to the file.
+     *
+     * @param number   the index of the task to update
+     * @param priority the new priority to set
+     * @return a string representation of the updated task
+     */
     public String updatePriority(int number, Priority priority) {
         this.tasks.get(number).setPriority(priority);
         System.out.println(this.tasks.get(number).getPriority());
@@ -125,6 +134,12 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Returns the priority of the given task as a string representation.
+     *
+     * @param task the task to get the priority for
+     * @return the priority of the task as a string ("-1" for LOW, "0" for empty, "1" otherwise)
+     */
     private String getPriority(Task task) {
         if (task.getPriority().equals("")) {
             return "0";

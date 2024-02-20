@@ -6,7 +6,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-import duke.exceptions.*;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.MissingArgumentsException;
+import duke.exceptions.MissingArgumentsExceptionDeadlines;
+import duke.exceptions.MissingArgumentsExceptionEvents;
+import duke.exceptions.MissingArgumentsExceptionMarking;
+import duke.exceptions.MissingArgumentsExceptionTodo;
+import duke.exceptions.WrongTimeFormatException;
 import duke.storage.Deadlines;
 import duke.storage.Events;
 import duke.storage.Task;
@@ -108,67 +114,15 @@ public class Parser {
             break;
 
         case "event":
-            int positionOfFromInCmd = Arrays.asList(split).indexOf("/from");
-            int positionOfToInCmd = Arrays.asList(split).indexOf("/to");
-            boolean isPositionOfFromLessThanTwo = positionOfFromInCmd < 2;
-            boolean isPositionOfToLast = positionOfToInCmd == split.length - 1;
-            boolean isPositionOfFromAndToLessThanOne = positionOfToInCmd - positionOfFromInCmd <= 1;
-
-            if (split.length < 5) {
-                throw new MissingArgumentsExceptionEvents("event");
-            } else if (isPositionOfFromLessThanTwo || isPositionOfToLast
-                    || isPositionOfFromAndToLessThanOne) {
-                throw new MissingArgumentsExceptionEvents("event");
-            }
-            int spaceInEventCmd = this.input.indexOf(" ");
-            int fromInEventCmd = this.input.indexOf("/from");
-            int toInEvenCmd = this.input.indexOf("/to");
-
-            String fromDateTime = checkEventFrom(fromInEventCmd, toInEvenCmd);
-            String toDateTime = checkEventTo(toInEvenCmd);
-            task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEventCmd)
-                    .trim(), fromDateTime, toDateTime);
-            token = new Token(Command.EVENT, task);
+            token = handleEvent(split);
             break;
 
         case "deadline":
-            int positionOfByInCmd = Arrays.asList(split).indexOf("/by");
-            boolean isPositionOfByLessThanTwo = positionOfByInCmd < 2;
-            boolean isPositionOfByLast = positionOfByInCmd == split.length - 1;
-            if (split.length < 4) {
-                throw new MissingArgumentsExceptionDeadlines("deadline");
-            } else if (isPositionOfByLessThanTwo || isPositionOfByLast) {
-                throw new MissingArgumentsExceptionDeadlines("deadline");
-            }
-            int spaceInDeadlineCmd = this.input.indexOf(" ");
-            int byInDeadlineCmd = this.input.indexOf("/by");
-
-            String byDateTime = checkDeadline();
-            task = new Deadlines(this.input, this.input.substring(spaceInDeadlineCmd + 1, byInDeadlineCmd)
-                    .trim(), byDateTime);
-            token = new Token(Command.DEADLINE, task);
+            token = handleDeadline(split);
             break;
 
         case "save":
-            boolean marked = split[1].equals("1") ? true : false;
-            this.input = String.join(" ", Arrays.copyOfRange(split, 3, split.length));
-            token = this.parse();
-            if (marked) {
-                token.getTask().mark();
-            }
-            switch (split[2]) {
-            case "0":
-                token.getTask().setPriority(Priority.NONE);
-                break;
-            case "1":
-                token.getTask().setPriority(Priority.HIGH);
-                break;
-            case "-1":
-                token.getTask().setPriority(Priority.LOW);
-                break;
-            default:
-            }
-            token.setAsSaved();
+            token = handleSave(split);
             break;
         case "priority":
             Priority p = checkPriority(split);
@@ -177,6 +131,72 @@ public class Parser {
         default:
             throw new InvalidCommandException("InvalidCommandException");
         }
+        return token;
+    }
+
+    private Token handleEvent(String[] split) throws MissingArgumentsException, WrongTimeFormatException {
+        int positionOfFromInCmd = Arrays.asList(split).indexOf("/from");
+        int positionOfToInCmd = Arrays.asList(split).indexOf("/to");
+        boolean isPositionOfFromLessThanTwo = positionOfFromInCmd < 2;
+        boolean isPositionOfToLast = positionOfToInCmd == split.length - 1;
+        boolean isPositionOfFromAndToLessThanOne = positionOfToInCmd - positionOfFromInCmd <= 1;
+
+        if (split.length < 5) {
+            throw new MissingArgumentsExceptionEvents("event");
+        } else if (isPositionOfFromLessThanTwo || isPositionOfToLast
+                || isPositionOfFromAndToLessThanOne) {
+            throw new MissingArgumentsExceptionEvents("event");
+        }
+        int spaceInEventCmd = this.input.indexOf(" ");
+        int fromInEventCmd = this.input.indexOf("/from");
+        int toInEvenCmd = this.input.indexOf("/to");
+
+        String fromDateTime = checkEventFrom(fromInEventCmd, toInEvenCmd);
+        String toDateTime = checkEventTo(toInEvenCmd);
+        Task task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEventCmd)
+                .trim(), fromDateTime, toDateTime);
+        return new Token(Command.EVENT, task);
+    }
+
+    private Token handleDeadline(String[] split) throws MissingArgumentsException, WrongTimeFormatException {
+        int positionOfByInCmd = Arrays.asList(split).indexOf("/by");
+        boolean isPositionOfByLessThanTwo = positionOfByInCmd < 2;
+        boolean isPositionOfByLast = positionOfByInCmd == split.length - 1;
+        if (split.length < 4) {
+            throw new MissingArgumentsExceptionDeadlines("deadline");
+        } else if (isPositionOfByLessThanTwo || isPositionOfByLast) {
+            throw new MissingArgumentsExceptionDeadlines("deadline");
+        }
+        int spaceInDeadlineCmd = this.input.indexOf(" ");
+        int byInDeadlineCmd = this.input.indexOf("/by");
+
+        String byDateTime = checkDeadline();
+        Task task = new Deadlines(this.input, this.input.substring(spaceInDeadlineCmd + 1, byInDeadlineCmd)
+                .trim(), byDateTime);
+        return new Token(Command.DEADLINE, task);
+    }
+
+    private Token handleSave(String[] split) throws InvalidCommandException, MissingArgumentsException,
+            WrongTimeFormatException {
+        boolean marked = split[1].equals("1") ? true : false;
+        this.input = String.join(" ", Arrays.copyOfRange(split, 3, split.length));
+        Token token = this.parse();
+        if (marked) {
+            token.getTask().mark();
+        }
+        switch (split[2]) {
+        case "0":
+            token.getTask().setPriority(Priority.NONE);
+            break;
+        case "1":
+            token.getTask().setPriority(Priority.HIGH);
+            break;
+        case "-1":
+            token.getTask().setPriority(Priority.LOW);
+            break;
+        default:
+        }
+        token.setAsSaved();
         return token;
     }
 
@@ -352,7 +372,7 @@ public class Parser {
                     + "[HHmm]"
                     + "[Hmm]"
                     + "[h:mm a]"
-                    + "[hmm a]"
+                    + "[Hmm a]"
                     + "[H:mm]");
             DateTimeFormatter outPutFormatter = DateTimeFormatter.ofPattern("h:mm a");
 

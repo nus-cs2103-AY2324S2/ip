@@ -22,7 +22,8 @@ public class MissingArgumentsExceptionDeadlines extends MissingArgumentsExceptio
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + " /by {your deadline}";
+        return super.getMessage()
+                + " /by {your deadline}";
     }
 
 }

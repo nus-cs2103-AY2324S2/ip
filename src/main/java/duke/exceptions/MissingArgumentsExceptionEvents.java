@@ -23,6 +23,8 @@ public class MissingArgumentsExceptionEvents extends MissingArgumentsExceptionTo
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + " /from {your starting time} /to {your ending time}";
+        return super.getMessage()
+                + " /from {your starting time}"
+                + "\n    {space}/to {your ending time}";
     }
 }

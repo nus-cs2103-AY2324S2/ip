@@ -25,8 +25,9 @@ public class InvalidCommandException extends Exception {
         return "    " + super.getMessage()
                 + "\n    You have entered an invalid "
                 + "command:\n"
-                + "    Try todo, event, deadline, list , delete , mark {index},"
-                + "\n    unmark {index} instead,"
+                + "    Try todo, event, deadline, list, delete, "
+                + "\n    mark {index},"
+                + "\n    unmark {index},"
                 + "\n    or priority {index} {high/low}.";
     }
 }

@@ -45,6 +45,13 @@ public class Token {
         this.selectedItem = selectedItem;
     }
 
+    /**
+     * Constructs a new Token object with the given command, selected item index, and priority.
+     *
+     * @param cmd          the command associated with the token
+     * @param selectedItem the index of the selected item
+     * @param p            the priority associated with the token
+     */
     public Token(Command cmd, int selectedItem, Priority p) {
         this.cmd = cmd;
         this.selectedItem = selectedItem;
@@ -104,10 +111,20 @@ public class Token {
         return this.searchKey;
     }
 
+    /**
+     * Returns the priority associated with this object.
+     *
+     * @return the priority associated with this object
+     */
     public Priority getPriority() {
         return this.priority;
     }
 
+    /**
+     * Sets the priority associated with this object.
+     *
+     * @param priority the priority to set
+     */
     public void setPriority(Priority priority) {
         this.priority = priority;
     }

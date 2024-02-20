@@ -68,6 +68,11 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Retrieves the priority of the task as a string representation.
+     *
+     * @return the priority of the task as a string ("HIGH!!" for HIGH, "LOW" for LOW, "" for NONE)
+     */
     public String getPriority() {
         if (this.priority.equals(Priority.NONE)) {
             return "";
@@ -78,6 +83,11 @@ public class Task {
         }
     }
 
+    /**
+     * Sets the priority of the task.
+     *
+     * @param p the priority to set
+     */
     public void setPriority(Priority p) {
         this.priority = p;
     }

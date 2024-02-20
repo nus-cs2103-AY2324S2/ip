@@ -22,7 +22,7 @@ public class MissingArgumentsException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    MissingArgumentException\n    You have missing arguments:\n"
+        return "    You have missing arguments:\n"
                 + "    Try " + super.getMessage();
     }
 }

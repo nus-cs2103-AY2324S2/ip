@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,6 +29,15 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
+    private Label titleLabel = new Label(
+            "\n"
+                    + "        Hello from \n"
+                    + "                 ░██╗░░░░░░░██╗░█████╗░███╗░░██╗░██████╗░\n"
+                    + "                ░██║░░██╗░░██║██╔══██╗████╗░██║██╔════╝░\n"
+                    + "                ░╚██╗████╗██╔╝███████║██╔██╗██║██║░░██╗░\n"
+                    + "                ░░████╔═████║░██╔══██║██║╚████║██║░░╚██╗\n"
+                    + "                ░░╚██╔╝░╚██╔╝░██║░░██║██║░╚███║╚██████╔╝\n"
+                    + "                ░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░");
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -39,6 +49,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(titleLabel);
     }
 
     /**
