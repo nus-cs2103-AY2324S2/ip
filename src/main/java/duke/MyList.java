@@ -44,6 +44,8 @@ public class MyList {
      * @return A message indicating the success of the operation.
      */
     public String addTask(Task t) {
+        assert t != null : "Task should not be null";
+        assert !t.getDescription().isEmpty() : "Task description should not be empty";
         this.tasks.add(t);
         return "Got it. I've added this task:\n" + t.toString() + "\nNow you have " + this.tasks.size()
                 + " tasks in the list.";
