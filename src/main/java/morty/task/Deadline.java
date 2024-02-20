@@ -15,7 +15,7 @@ public class Deadline extends Task {
    * Initializes the task with a title and a deadline date.
    *
    * @param title The title of the deadline task.
-   * @param by    The deadline date for the task.
+   * @param by The deadline date for the task.
    */
   public Deadline(String title, LocalDate by) {
     super(title);
@@ -26,8 +26,8 @@ public class Deadline extends Task {
    * Constructor to create a new Deadline task.
    * Initializes the task with a title, a deadline date and a completion status.
    *
-   * @param title  The title of the deadline task.
-   * @param by     The deadline date for the task.
+   * @param title The title of the deadline task.
+   * @param by The deadline date for the task.
    * @param isDone The completion status of the task.
    */
   public Deadline(String title, LocalDate by, boolean isDone) {

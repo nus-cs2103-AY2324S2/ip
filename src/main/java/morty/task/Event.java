@@ -15,7 +15,7 @@ public class Event extends Task {
    * Initializes the task with a title and event details.
    *
    * @param title The title of the event task.
-   * @param at    The time of the event.
+   * @param at The time of the event.
    */
   public Event(String title, LocalDate at) {
     super(title);
@@ -26,8 +26,8 @@ public class Event extends Task {
    * Constructor to create a new Event task.
    * Initializes the task with a title, event details and a completion status.
    *
-   * @param title  The title of the event task.
-   * @param at     The location or time of the event.
+   * @param title The title of the event task.
+   * @param at The location or time of the event.
    * @param isDone The completion status of the task.
    */
   public Event(String title, LocalDate at, boolean isDone) {
