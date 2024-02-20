@@ -5,7 +5,7 @@ import sleepy.tools.Parser;
 import sleepy.tools.ResponseHandler;
 
 /**
- * This class is the main class for the Sleepy AI Chatbot.
+ * This class is the primary class for the Sleepy AI Chatbot.
  *
  * @author kjw142857
  */

@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 /**
  * This control represents a dialog box for the sleepy GUI.
  *
- * @author Jeffrey Lum
+ * @author Jeffry Lum
  * @author kjw142857
  */
 public class DialogBox extends HBox {
