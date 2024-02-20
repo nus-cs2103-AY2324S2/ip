@@ -26,6 +26,7 @@ public class TaskList {
    * @param tasks The list of tasks.
    */
   public TaskList(List<Task> tasks) {
+    assert tasks != null : "List of tasks cannot be null";
     this.tasks = tasks;
   }
 
@@ -36,6 +37,7 @@ public class TaskList {
    * @return The task at the given index.
    */
   public Task get(int index) {
+    assert index >= 0 && index < tasks.size() : "Index out of bounds";
     return tasks.get(index);
   }
 
@@ -46,6 +48,7 @@ public class TaskList {
    * @return True if the task is added successfully, false otherwise.
    */
   public boolean add(Task task) {
+    assert task != null : "Task cannot be null";
     return tasks.add(task);
   }
 
@@ -56,6 +59,7 @@ public class TaskList {
    * @return The task that is removed.
    */
   public Task remove(int index) {
+    assert index >= 0 && index < tasks.size() : "Index out of bounds";
     return tasks.remove(index);
   }
 
@@ -65,6 +69,7 @@ public class TaskList {
    * @return The number of tasks in the list.
    */
   public int getSize() {
+    assert tasks != null : "List of tasks cannot be null";
     return tasks.size();
   }
 
@@ -74,6 +79,7 @@ public class TaskList {
    * @return The list of tasks.
    */
   public List<Task> getTasks() {
+    assert tasks != null : "List of tasks cannot be null";
     return tasks;
   }
 
@@ -83,6 +89,7 @@ public class TaskList {
    * @param index The index of the task to be marked as done.
    */
   public void markDone(int index) {
+    assert index >= 0 && index < tasks.size() : "Index out of bounds";
     tasks.get(index).markDone();
   }
 
@@ -93,6 +100,7 @@ public class TaskList {
    * @return The list of tasks that contain the given keyword.
    */
   public List<Task> find(String keyword) {
+    assert keyword != null : "Keyword cannot be null";
     return tasks.stream()
         .filter(task -> task.getTitle().contains(keyword))
         .collect(Collectors.toList());

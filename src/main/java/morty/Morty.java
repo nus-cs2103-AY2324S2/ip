@@ -11,7 +11,7 @@ public class Morty {
 
     private Storage storage;
     private TaskList tasks;
-    private Response ui;
+    private Response response;
 
     /**
      * Constructs a Morty object.
@@ -19,12 +19,11 @@ public class Morty {
      * @param filePath File path to store the tasks.
      */
     public Morty(String filePath) {
-        ui = new Response();
+        response = new Response();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (Exception e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
@@ -37,8 +36,9 @@ public class Morty {
      */
     public String getResponse(String input) {
         try {
+            assert input != null : "Input cannot be null";
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, response, storage);
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }
