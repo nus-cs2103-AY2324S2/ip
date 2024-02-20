@@ -1,7 +1,0 @@
-T,0,aff
-D,0,activity 1,2024-12-01T00:00
-E,0,activity 2,2024-01-01T16:00,2024-02-02T00:00
-D,0,ill write it down on a piece of paper,2024-01-31T00:00
-T,0,abc
-A,0,task 6,4
-T,0,task 7
