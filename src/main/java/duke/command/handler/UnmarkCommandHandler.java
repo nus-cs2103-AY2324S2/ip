@@ -3,13 +3,33 @@ package duke.command.handler;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
 
+/**
+ * Handles marking a task as incomplete.
+ *
+ * This command handler marks a specified task as incomplete in the task manager.
+ *
+ * Usage: um <task number>
+ */
 public class UnmarkCommandHandler extends CommandHandler {
     private final TaskDisplay taskDisplay;
 
+    /**
+     * Constructs an UnmarkCommandHandler.
+     *
+     * @param taskManager the task manager
+     * @param taskDisplay the task display
+     */
     public UnmarkCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
+
+    /**
+     * Handles the user's input for marking a task as incomplete.
+     *
+     * @param userMessage the user's input message
+     * @return a message indicating the result of marking the task as incomplete
+     */
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
@@ -30,6 +50,11 @@ public class UnmarkCommandHandler extends CommandHandler {
                 taskDisplay.displayUnmarkTask(taskManager.getTasks(), taskIndex);
     }
 
+    /**
+     * Retrieves the description of the command handler.
+     *
+     * @return the description of the command handler
+     */
     @Override
     public String getDescription() {
         return "Marks a task as incomplete. Usage: um <task number>";

@@ -31,9 +31,9 @@ public class TaskManager {
         if (task != null) {
             taskList.add(task);
             autoSaveTask();
-            return taskList.size() - 1; // Return the index of the newly added task
+            return taskList.size() - 1;
         }
-        return -1; // Task could not be added
+        return -1;
     }
 
     private Task createTask(String taskDescription, TaskType type) {
@@ -138,11 +138,18 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Loads saved tasks from file.
+     */
     private void loadSavedTasks() {
         taskList = fileManager.loadTasks(taskList);
     }
 
+    /**
+     * Automatically saves tasks to file.
+     */
     public void autoSaveTask() {
         fileManager.saveTasks(taskList);
     }
+
 }

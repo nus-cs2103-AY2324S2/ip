@@ -10,17 +10,33 @@ public class Conversation {
     protected Hashtable<String, List<String>> dialogues;
     private final Random random;
 
+    /**
+     * Constructs a Conversation object.
+     *
+     * @param username the username
+     */
     public Conversation(String username) {
         dialogues = new Hashtable<>();
         random = new Random();
         initializeDialogues(username);
     }
 
+    /**
+     * Adds a dialogue response for a specific key.
+     *
+     * @param key the key for the dialogue
+     * @param response the response to be added
+     */
     public void addDialogue(String key, String response) {
         key = key.toLowerCase();
         dialogues.computeIfAbsent(key, k -> new ArrayList<>()).add(response);
     }
 
+    /**
+     * Initializes the dialogues with common responses.
+     *
+     * @param username the username
+     */
     public void initializeDialogues(String username) {
         addDialogue("bye", "Catch you later, alligator! 🐊");
         addDialogue("bye", "Goodbye! Don't forget to come back for more adventures! 🚀");
@@ -54,6 +70,12 @@ public class Conversation {
         addDialogue("good night", "Nighty night! Don't let the bed bugs byte... err, I mean bite. 🐛");
     }
 
+    /**
+     * Retrieves a dialogue response based on the input message.
+     *
+     * @param message the input message
+     * @return a dialogue response
+     */
     public String printDialogue(String message) {
         StringBuilder dialogueMessage = new StringBuilder();
         List<String> dialoguesList = dialogues.get(message.toLowerCase());
