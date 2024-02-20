@@ -36,17 +36,19 @@ public class VirtueTaskList {
      * Adds a todo task to the task list.
      *
      * @param description The description of the todo task to be added.
+     * @return The message to be sent to the user.
      */
-    private void addTodo(String description) {
+    private String addTodo(String description) {
         Todo todo = new Todo(description);
         tasks.add(todo);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Got it. I've added this task:");
-        Ui.printWithIndent("   " + todo);
-        Ui.printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" Got it. I've added this task:\n");
+        message += Virtue.indent("   " + todo + "\n");
+        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
@@ -54,17 +56,19 @@ public class VirtueTaskList {
      *
      * @param description The description of the deadline task to be added.
      * @param by The date/time for the task to be completed.
+     * @return The message to be sent to the user.
      */
-    private void addDeadline(String description, VirtueDateTime by) {
+    private String addDeadline(String description, VirtueDateTime by) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Got it. I've added this task:");
-        Ui.printWithIndent("   " + deadline);
-        Ui.printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" Got it. I've added this task:\n");
+        message += Virtue.indent("   " + deadline + "\n");
+        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
@@ -73,92 +77,114 @@ public class VirtueTaskList {
      * @param description The description of the event task to be added.
      * @param from The date/time of the start of the event.
      * @param to The date/time of the end of the event.
+     * @return The message to be sent to the user.
      */
-    private void addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
+    private String addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
         Event event = new Event(description, from, to);
         tasks.add(event);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Got it. I've added this task:");
-        Ui.printWithIndent("   " + event);
-        Ui.printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" Got it. I've added this task:\n");
+        message += Virtue.indent("   " + event + "\n");
+        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
      * Marks the i-th task in the task list as done, where i is the index input by the user.
      *
      * @param index The index input by the user (starts from 1 and not 0).
+     * @return The message to be sent to the user.
      */
-    private void markTaskAsDone(int index) {
+    private String markTaskAsDone(int index) {
         VirtueTask task = getTask(index);
         task.markAsDone();
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Nice! I've marked this task as done:");
-        Ui.printWithIndent("   " + task);
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" Nice! I've marked this task as done:\n");
+        message += Virtue.indent("   " + task);
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
      * Marks the i-th task in the task list as not done, where i is the index input by the user.
      *
      * @param index The index input by the user (starts from 1 and not 0).
+     * @return The message to be sent to the user.
      */
-    private void markTaskAsNotDone(int index) {
+    private String markTaskAsNotDone(int index) {
         VirtueTask task = getTask(index);
         task.markAsNotDone();
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" OK, I've marked this task as not done yet:");
-        Ui.printWithIndent("   " + task);
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" OK, I've marked this task as not done yet:\n");
+        message += Virtue.indent("   " + task);
+        message = Virtue.sandwich(message);
+        return message;
     }
 
-    /** Prints out the task list with all the tasks contained in it. */
-    protected void printOut() {
+    /**
+     * Prints out the task list with all the tasks contained in it.
+     *
+     * @return The message to be sent to the user, including the task list.
+     */
+    protected String printOut() {
         int numOfTasks = tasks.size();
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Here are the tasks in your list:");
+        String message = "";
+        message += Virtue.indent(" Here are the tasks in your list:\n");
 
         for (int index = 1; index <= numOfTasks; index++) {
-            Ui.printWithIndent(" " + index + "." + tasks.get(index - 1));
+            message += Virtue.indent(" " + index + "." + tasks.get(index - 1));
+
+            if (index < numOfTasks) {
+                message += "\n";
+            }
         }
 
-        Ui.printHorizontalLine();
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
      * Deletes the i-th task in the task list, where i is the index input by the user.
      *
      * @param index The index input by the user (starts from 1 and not 0).
+     * @return The message to be sent to the user.
      */
-    private void deleteTask(int index) {
+    private String deleteTask(int index) {
         VirtueTask deletedTask = tasks.remove(index - 1);
         int numTasks = numTasks();
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Noted. I've removed this task:");
-        Ui.printWithIndent("   " + deletedTask);
-        Ui.printWithIndent(" Now you have " + numTasks + " tasks in the list.");
-        Ui.printHorizontalLine();
+        String message = "";
+        message += Virtue.indent(" Noted. I've removed this task:\n");
+        message += Virtue.indent("   " + deletedTask + "\n");
+        message += Virtue.indent(" Now you have " + numTasks + " tasks in the list.");
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
      * Prints the tasks in the list that contains a certain keyword.
      *
      * @param keyword The keyword to filter the list with.
+     * @return The message to be sent to the user, including the tasks.
      */
-    private void printTasksWithWord(String keyword) {
+    private String printTasksWithWord(String keyword) {
         int numOfTasks = tasks.size();
-        Ui.printHorizontalLine();
-        Ui.printWithIndent(" Here are the matching tasks in your list:");
+        String message = "";
+        message += Virtue.indent(" Here are the matching tasks in your list:\n");
 
         for (int index = 1; index <= numOfTasks; index++) {
             if (getTask(index).hasKeyword(keyword)) {
-                Ui.printWithIndent(" " + index + "." + tasks.get(index - 1));
+                message += Virtue.indent(" " + index + "." + tasks.get(index - 1));
+                if (index < numOfTasks) {
+                    message += "\n";
+                }
             }
         }
 
-        Ui.printHorizontalLine();
+        message = Virtue.sandwich(message);
+        return message;
     }
 
     /**
@@ -166,32 +192,36 @@ public class VirtueTaskList {
      *
      * @param command The command to be executed on this task list.
      */
-    public void executeCommand(Command command) {
+    public String executeCommand(Command command) {
+        String message;
+
         switch (command.type) {
         case LIST:
-            printOut();
+            message = printOut();
             break;
         case MARK:
-            markTaskAsDone(command.index);
+            message = markTaskAsDone(command.index);
             break;
         case UNMARK:
-            markTaskAsNotDone(command.index);
+            message = markTaskAsNotDone(command.index);
             break;
         case DELETE:
-            deleteTask(command.index);
+            message = deleteTask(command.index);
             break;
         case TODO:
-            addTodo(command.description);
+            message = addTodo(command.description);
             break;
         case DEADLINE:
-            addDeadline(command.description, command.by);
+            message = addDeadline(command.description, command.by);
             break;
         case EVENT:
-            addEvent(command.description, command.from, command.to);
+            message = addEvent(command.description, command.from, command.to);
             break;
         default: // case FIND:
-            printTasksWithWord(command.description);
+            message = printTasksWithWord(command.description);
         }
+
+        return message;
     }
 
     /**
