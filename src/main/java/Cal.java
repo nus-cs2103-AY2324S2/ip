@@ -59,14 +59,20 @@ public class Cal {
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
-    public static void mark(int taskNum) {
+    public static void mark(int taskNum) throws CalException {
+        if (taskNum < 1 || taskNum > tasks.size()) {
+            throw new CalException("Invalid task number!");
+        }
         Task t = tasks.get(taskNum - 1);
         t.setStatus();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(t);
     }
 
-    public static void unmark(int taskNum) {
+    public static void unmark(int taskNum) throws CalException {
+        if (taskNum < 1 || taskNum > tasks.size()) {
+            throw new CalException("Invalid task number!");
+        }
         Task t = tasks.get(taskNum - 1);
         t.setStatus();  
         System.out.println("OK, I've marked this task as not done yet:");
@@ -92,32 +98,70 @@ public class Cal {
                         list();
                         break;
                     case "mark":
+                        if (tokens.length < 2) {
+                            throw new CalException("Task number not provided!");
+                        }
                         mark(Integer.parseInt(tokens[1]));
                         break;
                     case "unmark":
+                        if (tokens.length < 2) {
+                            throw new CalException("Task number not provided!");
+                        }
                         unmark(Integer.parseInt(tokens[1]));
                         break;
                     case "todo":
                         description = input.substring(5);
+                        if (description.isBlank()) {
+                            throw new CalException("Task description not provided!");
+                        }
                         add(description);
                         break;
                     case "deadline":
                         int byIndex = input.indexOf("/by");
-                        description = input.substring(9, byIndex).strip();
-                        String by = input.substring(byIndex + 4).strip();
+                        String by = "";
+
+                        try {
+                            description = input.substring(9, byIndex).strip();
+                        } catch (StringIndexOutOfBoundsException e){
+                            throw new CalException("Task description not provided!");
+                        }
+
+                        try {
+                            by = input.substring(byIndex + 4).strip();
+                        } catch (StringIndexOutOfBoundsException e) {
+                            throw new CalException("Task due date (by) not provided!");
+                        }
+                        
                         add(description, by);
                         break;
                     case "event":
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
-                        description = input.substring(6, fromIndex).strip();
-                        String startDate = input.substring(fromIndex + 5, toIndex).strip();
-                        String endDate = input.substring(toIndex + 3).strip();
+                        String startDate = "";
+                        String endDate = "";
+
+                        try {
+                            description = input.substring(6, fromIndex).strip();
+                        } catch (StringIndexOutOfBoundsException e){
+                            throw new CalException("Task description not provided!");
+                        }
+
+                        try {
+                            startDate = input.substring(fromIndex + 5, toIndex).strip();
+                        } catch (StringIndexOutOfBoundsException e){
+                            throw new CalException("Event start date not provided!");
+                        }
+
+                        try {
+                            endDate = input.substring(toIndex + 3).strip();
+                        } catch (StringIndexOutOfBoundsException e){
+                            throw new CalException("Event end date not provided!");
+                        }
+
                         add(description, startDate, endDate);
                         break;
                     default:
-                        System.out.println("Command not recognised.");
-                        break;
+                        throw new CalException("Command not recognized.");
                 }
                 System.out.println(line);
             } catch(Exception e) {
