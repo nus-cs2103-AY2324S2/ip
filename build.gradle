@@ -43,7 +43,7 @@ application {
 
 shadowJar {
     archiveBaseName = "BartenderBob"
-    archiveVersion = "0.2"
+    archiveVersion = "0.3"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
