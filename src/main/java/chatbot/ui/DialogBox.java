@@ -1,5 +1,6 @@
 package chatbot.ui;
 
+import chatbot.print.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -39,25 +40,44 @@ public class DialogBox extends HBox {
     private static final String FONT_FAMILY = "Consolas";
 
     /**
-     * Class Constructor.
+     * Constructor.
      * Reused from {@code https://se-education.org/guides/tutorials/javaFx.html}.
      *
-     * @param text A {@link String} of text to insert into this.
+     * @param message A {@link Message} of text to insert into this.
      * @param displayPicture An {@link Image}.
      */
-    public DialogBox(String text, Image displayPicture) {
-        Label label = new Label(text);
+    public DialogBox(Message message, Image displayPicture) {
+        this(message);
+        this.getChildren().add(roundImage(displayPicture));
+    }
+
+    /**
+     * Constructor.
+     * Reused from {@code https://se-education.org/guides/tutorials/javaFx.html}.
+     *
+     * @param message A {@link Message} of text to insert into this.
+     */
+    public DialogBox(Message message) {
+        Label label = new Label(message.toString());
         label.setPadding(new Insets(DEFAULT_PADDING));
         label.setWrapText(true);
         label.setFont(Font.font(FONT_FAMILY));
+        setLabelTextColor(label, message.getStatus());
 
         this.setPadding(new Insets(DEFAULT_PADDING));
         this.setAlignment(Pos.TOP_RIGHT);
 
-        this.getChildren().addAll(
-                label,
-                roundImage(displayPicture)
-        );
+        this.getChildren().add(label);
+    }
+
+    private void setLabelTextColor(Label label, Message.Status messageStatus) {
+        if (messageStatus == Message.Status.LOG) {
+            label.setTextFill(Color.TEAL);
+        } else if (messageStatus == Message.Status.ERROR) {
+            label.setTextFill(Color.DARKRED);
+        } else {
+            label.setTextFill(Color.BLACK);
+        }
     }
 
     /**
@@ -97,11 +117,11 @@ public class DialogBox extends HBox {
     /**
      * Gets the {@link DialogBox} that represents the user's input.
      *
-     * @param text The text to insert into the {@link DialogBox}.
+     * @param message The message to insert into the {@link DialogBox}.
      * @return The {@link DialogBox} that contains the text.
      */
-    public static DialogBox getUserDialog(String text) {
-        DialogBox dialogBox = new DialogBox(text, USER_IMAGE);
+    public static DialogBox getUserDialog(Message message) {
+        DialogBox dialogBox = new DialogBox(message, USER_IMAGE);
         dialogBox.setBackground(Color.LIGHTSTEELBLUE);
         return dialogBox;
     }
@@ -109,12 +129,27 @@ public class DialogBox extends HBox {
     /**
      * Gets the {@link DialogBox} by the chatbot.
      *
-     * @param text The text to insert into the {@link DialogBox}.
+     * @param message The message to insert into the {@link DialogBox}.
      * @return The {@link DialogBox} that contains the text.
      */
-    public static DialogBox getChatBotDialog(String text) {
-        DialogBox dialogBox = new DialogBox(text, CHAT_BOT_IMAGE);
+    public static DialogBox getChatBotDialog(Message message) {
+        if (message.getStatus() == Message.Status.LOG) {
+            return getLogDialog(message);
+        }
+        DialogBox dialogBox = new DialogBox(message, CHAT_BOT_IMAGE);
         dialogBox.setBackground(Color.LIGHTGRAY);
+        dialogBox.flip();
+        return dialogBox;
+    }
+    /**
+     * Gets the {@link DialogBox} by the chatbot.
+     *
+     * @param message The message to insert into the {@link DialogBox}.
+     * @return The {@link DialogBox} that contains the text.
+     */
+    public static DialogBox getLogDialog(Message message) {
+        DialogBox dialogBox = new DialogBox(message);
+        dialogBox.setBackground(Color.WHITESMOKE);
         dialogBox.flip();
         return dialogBox;
     }

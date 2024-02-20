@@ -9,10 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import chatbot.parse.TaskParser;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Deadline;
 import chatbot.task.TaskList;
 import chatbot.task.exception.InvalidTaskStringException;
-import chatbot.ui.PrintFormatter;
 
 /**
  * This saves the {@link TaskList} into local storage in the directory {@value RELATIVE_PATH}
@@ -109,12 +109,15 @@ public final class LocalStorage {
                 taskList.add(TaskParser.parseTaskListItem(line));
             }
 
-            PrintFormatter.addToFormatterQueue("I have found and loaded a previous save file successfully!");
+            PrintFormatter.addLogToMessageQueue(
+                    "Found and loaded a previous save file successfully!");
             return taskList;
         } catch (IOException e) {
-            PrintFormatter.addToFormatterQueue("I cannot read the save file! Invalid file format!");
+            PrintFormatter.addLogToMessageQueue(
+                    "Cannot read the save file! Invalid file format! Creating new save...");
         } catch (InvalidTaskStringException e) {
-            PrintFormatter.addToFormatterQueue("I cannot understand the save file! Invalid task format!");
+            PrintFormatter.addLogToMessageQueue(
+                    "Cannot understand the save file! Invalid task format!  Creating new save...");
         }
 
         return new TaskList();

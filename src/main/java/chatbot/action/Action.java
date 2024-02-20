@@ -6,9 +6,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.StringValue;
 
 /**
@@ -39,7 +39,7 @@ public abstract class Action {
         this.command = command;
         this.suppliedArguments = suppliedArguments;
         command.validateSuppliedArguments(suppliedArguments);
-        command.castSuppliedArgumentValues(suppliedArguments);
+        command.castSuppliedArgumentsValues(suppliedArguments);
     }
 
     /**

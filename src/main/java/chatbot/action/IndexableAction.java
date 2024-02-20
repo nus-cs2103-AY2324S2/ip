@@ -13,6 +13,8 @@ import chatbot.value.exception.InvalidValueTypeException;
 
 /**
  * This represents an abstract {@link Action} that takes an index as it's default argument.
+ * <p>
+ * If an action takes an index, it must be an action that modifies a task or a task list.
  *
  * @author Titus Chew
  */

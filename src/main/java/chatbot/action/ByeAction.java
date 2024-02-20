@@ -6,8 +6,8 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the behaviour when ending the chat.
@@ -38,7 +38,7 @@ public final class ByeAction extends Action {
     @Override
     public void execute(TaskList taskList) {
         // Perform behaviour
-        PrintFormatter.addToFormatterQueue("Bye! Hope to see you again soon!");
+        PrintFormatter.addToMessageQueue("Bye! Hope to see you again soon!");
     }
 
     public static String getName() {

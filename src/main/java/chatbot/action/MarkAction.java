@@ -7,9 +7,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.IntegerStringValue;
 
 /**
@@ -44,7 +44,7 @@ public final class MarkAction extends IndexableAction {
         // Perform behaviour
         Task markedTask = performIndexingAction(taskList::markTask);
 
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Nice! I've marked this task as done:",
                 "    " + markedTask
         );

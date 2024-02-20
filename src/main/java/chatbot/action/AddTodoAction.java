@@ -5,10 +5,10 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.ToDo;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.StringValue;
 
 /**
@@ -43,7 +43,7 @@ public final class AddTodoAction extends ModifyAction {
 
         // Perform behaviour
         Task task = taskList.addTodo(name);
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Got it. I've added this to-do:",
                 "    " + task,
                 taskList.getSizeMessage()

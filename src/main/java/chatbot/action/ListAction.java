@@ -6,9 +6,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the behaviour when listing the {@link Task}.
@@ -39,11 +39,11 @@ public final class ListAction extends Action {
     @Override
     public void execute(TaskList taskList) {
         if (taskList.isEmpty()) {
-            PrintFormatter.addToFormatterQueue(
+            PrintFormatter.addToMessageQueue(
                     "Your list is empty."
             );
         } else {
-            PrintFormatter.addToFormatterQueue(
+            PrintFormatter.addToMessageQueue(
                     "Here are the tasks in your list:",
                     taskList.toString()
             );

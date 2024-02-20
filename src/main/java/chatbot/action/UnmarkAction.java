@@ -7,9 +7,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.IntegerStringValue;
 
 /**
@@ -44,7 +44,7 @@ public final class UnmarkAction extends IndexableAction {
         // Perform behaviour
         Task unmarkedTask = performIndexingAction(taskList::unmarkTask);
 
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Ok, I've marked this task as not done yet:",
                 "    " + unmarkedTask
         );

@@ -1,6 +1,8 @@
 package chatbot.ui;
 
 import chatbot.ChatBot;
+import chatbot.print.Message;
+import chatbot.print.PrintFormatter;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +23,12 @@ public class MainWindow {
 
     /** Stores the window height of the JavaFX stage */
     private static final int WINDOW_HEIGHT = 600;
+
+    /** Stores the default padding value for anchors. */
+    private static final double DEFAULT_ANCHOR_PADDING = 1.0;
+
+    /** Stores the default height for the bottom bar */
+    private static final double BOTTOM_BAR_HEIGHT = 25.0;
 
     /** Scroll pane for the JavaFX stage. */
     private ScrollPane scrollPane;
@@ -64,28 +72,36 @@ public class MainWindow {
      * @param stage The stage that contains the components.
      */
     public void formatWindow(Stage stage, String chatBotName) {
+        // format window
         stage.setTitle(chatBotName);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(WINDOW_HEIGHT);
         stage.setMinWidth(WINDOW_WIDTH);
-
         mainLayout.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        scrollPane.setPrefSize(385, 535);
+        // format scroll pane
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+        AnchorPane.setTopAnchor(scrollPane, DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setRightAnchor(scrollPane, DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setLeftAnchor(scrollPane, DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setBottomAnchor(scrollPane, BOTTOM_BAR_HEIGHT + DEFAULT_ANCHOR_PADDING);
 
+        // format dialog container
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        userInput.setPrefWidth(325.0);
-        sendButton.setPrefWidth(55.0);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        // format send button
+        sendButton.setPrefWidth(55.0);
+        AnchorPane.setBottomAnchor(sendButton, DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setRightAnchor(sendButton, DEFAULT_ANCHOR_PADDING);
+
+        // format user input
+        userInput.setPrefWidth(325.0);
+        AnchorPane.setLeftAnchor(userInput , DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setBottomAnchor(userInput, DEFAULT_ANCHOR_PADDING);
+        AnchorPane.setRightAnchor(userInput, sendButton.getPrefWidth() + DEFAULT_ANCHOR_PADDING);
     }
 
     /**
@@ -111,13 +127,15 @@ public class MainWindow {
      * @param chatBot The chatbot that is currently used to accept user input.
      */
     private void handleUserInput(ChatBot chatBot) {
-        String userText = userInput.getText();
-        String chatBotText = chatBot.getResponseMessage(userInput.getText());
+        Message userMessage = Message.createMessage(userInput.getText());
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(userMessage));
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText),
-                DialogBox.getChatBotDialog(chatBotText)
-        );
+        Message[] chatBotMessages = chatBot.getResponseMessages(userInput.getText());
+
+        for (Message m : chatBotMessages) {
+            dialogContainer.getChildren().add(DialogBox.getChatBotDialog(m));
+        }
+
 
         userInput.clear();
     }
@@ -126,11 +144,24 @@ public class MainWindow {
      * Gets the messages from the chatbot,
      * that are stored in the {@link PrintFormatter},
      * and removes them from the {@link PrintFormatter}.
+     *
+     * @param chatBot The chatbot that is currently used to accept user input.
      */
-    public void getChatBotMessages() {
-        String chatBotText = PrintFormatter.getMessages();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getChatBotDialog(chatBotText)
-        );
+    public void getStartUpMessages(ChatBot chatBot) {
+        chatBot.greetUser();
+        Message[] messages = PrintFormatter.getAllMessages();
+        for (Message m : messages) {
+            dialogContainer.getChildren().add(DialogBox.getChatBotDialog(m));
+        }
+    }
+
+    /**
+     * Ends the chat by disabling the input boxes.
+     */
+    public void endChat() {
+        // clear and disable input
+        userInput.clear();
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
     }
 }
