@@ -30,17 +30,18 @@ And it is **FREE** to use! 🚫💵
 - [x] GUI View
 
 ## Command Summary
-| Action | Command Format, Examples |
-| --- | --- | 
-| Add todo | `todo DESCRIPTION` <br>e.g., `todo read book1` |
-| Add deadline | `deadline DESCRIPTION /by yyyy-MM-dd HH:mm` <br>e.g., `deadline return book /by 2024-02-20 23:59` | 
-| Add event | `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm` <br>e.g., `event meeting /from 2024-02-20 15:00 /to 2024-02-20 17:00` |
-| List content | `List` |
-| Mark for completed | `mark INDEX` <br>e.g., `mark 2` |
-| UnMark for incomplete | `unmark INDEX` <br>e.g., `unmark 2` |
-| Search task based on description | `search DESCRIPTION` <br>e.g., `search book` |
-| Search task based on date | `date yyyy-MM-dd HH:mm` <br>e.g., `date 2024-02-20` |
-| Exit | `bye` |
+| Action | Description | Command Format, Examples |
+| --- | --- | --- | 
+| Add todo | Add a new todo task to the list, and will be stored in a txt file. | `todo DESCRIPTION` <br>e.g., `todo read book` |
+| Add deadline | Add a new deadline task to the list, and will be stored in a txt file. | `deadline DESCRIPTION /by yyyy-MM-dd HH:mm` <br>e.g., `deadline return book /by 2024-02-20 23:59` | 
+| Add event | Add a new event task to the list, and will be stored in a txt file. | `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm` <br>e.g., `event meeting /from 2024-02-20 15:00 /to 2024-02-20 17:00` |
+| List content | List down all the existing tasks in the list/txt file. | `List` |
+| Mark for completed | Marks a task in the list as completed. <br>> [!NOTE] `INDEX` must be positive and not exceed the size of the list. | `mark INDEX` <br>e.g., `mark 2` |
+| UnMark for incomplete | Unmarks a task in the list as incomplete. <br>> [!NOTE] `INDEX` must be positive and not exceed the size of the list. | `unmark INDEX` <br>e.g., `unmark 2` |
+| Search task based on description | Finds all tasks with matching keywords for description. | `search DESCRIPTION` <br>e.g., `search book` |
+| Search task based on date | Finds all tasks with matching date. | `date yyyy-MM-dd HH:mm` <br>e.g., `date 2024-02-20` |
+| Setting priority | > [!NOTE] `DEFAULT` by optional<br> Set the priority level for each task. <br> Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT` | `todo DESCRIPTION /priority LEVEL` <br>e.g., `todo join club /priority medium` |
+| Exit | Exits the program. | `bye` |
 
 
 ## Java Developer Guide
