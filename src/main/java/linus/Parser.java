@@ -63,39 +63,39 @@ public class Parser {
         try {
             Command command;
             switch (userCommand) {
-                case "BYE":
-                    storage.saveData(taskList);
-                    command = new CommandBye(taskList, ui);
-                    break;
-                case "LIST":
-                    command = new CommandList(taskList, ui);
-                    break;
-                case "MARK": 
-                    command = new CommandMark(taskList, ui);
-                    break;
-                case "UNMARK": 
-                    command = new CommandUnmark(taskList, ui);
-                    break;
-                case "DELETE":
-                    command = new CommandDelete(taskList, ui);
-                    break;
-                case "TODO": 
-                    command = new CommandToDo(taskList, ui);
-                    break;
-                case "DEADLINE":
-                    command = new CommandDeadline(taskList, ui);
-                    break;
-                case "EVENT":
-                    command = new CommandEvent(taskList, ui);
-                    break;
-                case "FIND":
-                    command = new CommandFind(taskList, ui);
-                    break;
-                case "SORT":
-                    command = new CommandSort(taskList, ui);
-                    break;
-                default:
-                    throw new UnknownCommandException("Sorry I don't recognize that command :/");
+            case "BYE":
+                storage.saveData(taskList);
+                command = new CommandBye(taskList, ui);
+                break;
+            case "LIST":
+                command = new CommandList(taskList, ui);
+                break;
+            case "MARK": 
+                command = new CommandMark(taskList, ui);
+                break;
+            case "UNMARK": 
+                command = new CommandUnmark(taskList, ui);
+                break;
+            case "DELETE":
+                command = new CommandDelete(taskList, ui);
+                break;
+            case "TODO": 
+                command = new CommandToDo(taskList, ui);
+                break;
+            case "DEADLINE":
+                command = new CommandDeadline(taskList, ui);
+                break;
+            case "EVENT":
+                command = new CommandEvent(taskList, ui);
+                break;
+            case "FIND":
+                command = new CommandFind(taskList, ui);
+                break;
+            case "SORT":
+                command = new CommandSort(taskList, ui);
+                break;
+            default:
+                throw new UnknownCommandException("Sorry I don't recognize that command :/");
             }
             command.execute(description);
         } catch (Exception e) {

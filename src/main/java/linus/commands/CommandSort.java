@@ -20,20 +20,20 @@ public class CommandSort extends Command {
         try {
             Comparator<Task> taskComparator;
             switch(sortBy.toUpperCase()) {
-                case "DESCRIPTION":
-                    taskComparator = TaskComparatorCreator.getDescriptionComparator();
-                    break;
-                case "TASK":
-                    taskComparator = TaskComparatorCreator.getTaskComparator();
-                    break;
-                case "MARK":
-                    taskComparator = TaskComparatorCreator.getMarkComparator();
-                    break;
-                case "DATE":
-                    taskComparator = TaskComparatorCreator.getDateComparator();
-                    break;
-                default:
-                    throw new UnknownCommandException("Unknown sort by command");
+            case "DESCRIPTION":
+                taskComparator = TaskComparatorCreator.getDescriptionComparator();
+                break;
+            case "TASK":
+                taskComparator = TaskComparatorCreator.getTaskComparator();
+                break;
+            case "MARK":
+                taskComparator = TaskComparatorCreator.getMarkComparator();
+                break;
+            case "DATE":
+                taskComparator = TaskComparatorCreator.getDateComparator();
+                break;
+            default:
+                throw new UnknownCommandException("Unknown sort by command");
             }
             taskList.sort(taskComparator);
             ui.printSortedMessage(sortBy);
