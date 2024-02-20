@@ -44,7 +44,7 @@ public class AddCommandHandler extends CommandHandler {
             case "e":
             case "event":
                 return TaskType.EVENT;
-            case "d":
+            case "dl":
             case "deadline":
                 return TaskType.DEADLINE;
             default:
