@@ -30,6 +30,7 @@ public class Storage {
    * @param path The path of the file to be saved to.
    */
   public Storage(String path) {
+    assert path != null : "Path cannot be null";
     this.path = path;
   }
 

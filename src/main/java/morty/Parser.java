@@ -23,6 +23,7 @@ public class Parser {
    * @return The corresponding command.
    */
   public static Command parse(String input) {
+    assert input != null : "Input should not be null";
     String[] tokens = input.split(" ", 2);
     if (tokens[0].equals("bye")) {
       return new ExitCommand(tokens);
