@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
         }
 
         t.mark();
-        duke.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
+        duke.getUi().print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
         duke.getStorage().writeTasks(duke.getTasks());
     }
 }

@@ -9,7 +9,6 @@ import duke.tasks.Task;
 
 import java.time.format.DateTimeParseException;
 
-
 public class DeadlineCommand extends Command {
     @Override
     public void run(Parser parser, Duke duke) throws DukeException {
@@ -61,7 +60,7 @@ public class DeadlineCommand extends Command {
             throw new DukeException("Couldn't parse the end date " + by);
         }
 
-        duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
+        duke.getUi().print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
         duke.getTasks().add(t);
         duke.getStorage().writeTasks(duke.getTasks());
     }

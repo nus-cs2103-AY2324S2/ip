@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
         }
 
         duke.getTasks().remove(index - 1);
-        duke.print("I'm deleting this task. bye...\n" + t.describe());
+        duke.getUi().print("I'm deleting this task. bye...\n" + t.describe());
         duke.getStorage().writeTasks(duke.getTasks());
     }
 }

@@ -32,7 +32,7 @@ public class UnmarkCommand extends Command {
         }
 
         t.unmark();
-        duke.print("CONGRATULATION!!!!!! you uncompleted this task:\n" + t.describe());
+        duke.getUi().print("CONGRATULATION!!!!!! you uncompleted this task:\n" + t.describe());
         duke.getStorage().writeTasks(duke.getTasks());
     }
 }

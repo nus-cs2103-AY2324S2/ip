@@ -9,7 +9,7 @@ public class ByeCommand extends Command {
     @Override
     public void run(Parser parser, Duke duke) throws DukeException {
         parser.assertEnd();
-        duke.print("Ok, going to sleep...");
+        duke.getUi().print("Ok, going to sleep...");
         Platform.exit();
     }
 }

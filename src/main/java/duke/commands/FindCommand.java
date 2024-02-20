@@ -11,6 +11,6 @@ public class FindCommand extends Command {
         String toFind = parser.rest();
         String response = String.format("I found the following tasks with names that match '%s':\n%s",
                 toFind, duke.getTasks().filterSubString(toFind));
-        duke.print(response);
+        duke.getUi().print(response);
     }
 }

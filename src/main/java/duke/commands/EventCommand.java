@@ -86,7 +86,7 @@ public class EventCommand extends Command {
                     ("Couldn't parse the start/end date %s/%s", from, to));
         }
 
-        duke.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
+        duke.getUi().print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
         duke.getTasks().add(t);
         duke.getStorage().writeTasks(duke.getTasks());
     }

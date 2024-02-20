@@ -16,7 +16,7 @@ public class ToDoCommand extends Command {
     public void run(Parser parser, Duke duke) throws DukeException {
         String str = parser.rest();
         Task t = new ToDo(str);
-        duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
+        duke.getUi().print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
         duke.getTasks().add(t);
         duke.getStorage().writeTasks(duke.getTasks());
     }
