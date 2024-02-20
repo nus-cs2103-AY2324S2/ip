@@ -38,7 +38,8 @@ test {
 }
 
 application {
-    mainClass.set("bartenderbob.BartenderBob")
+    //mainClass.set("bartenderbob.BartenderBob")
+    mainClass.set("bartenderbob.Launcher")
 }
 
 shadowJar {
