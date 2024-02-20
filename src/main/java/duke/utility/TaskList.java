@@ -35,7 +35,7 @@ public class TaskList {
      */
     public Task markTask(int index) {
         Task currTask = taskStore.get(index);
-        currTask.updateTaskStatus(true);
+        currTask.markTask();
         return currTask;
     }
 
@@ -47,7 +47,7 @@ public class TaskList {
      */
     public Task unmarkTask(int index) {
         Task currTask = taskStore.get(index);
-        currTask.updateTaskStatus(false);
+        currTask.unmarkTask();
         return currTask;
     }
 

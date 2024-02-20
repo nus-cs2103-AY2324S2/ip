@@ -31,7 +31,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns the Task Object as a String
+     * Returns the Task Object as a String.
      *
      * @return String Representation of the Task Object.
      */
@@ -41,20 +41,33 @@ public abstract class Task {
     }
 
     /**
-     * Updates the Tasks status of whether it is marked done.
-     *
-     * @param isDone Boolean value indicating whether the Task should be marked done.
+     * Marks the task as done.
      */
-    public void updateTaskStatus(boolean isDone) {
-        if (isDone == true) {
-            this.isDone = true;
-        } else {
-            isDone = false;
-        }
+    public void markTask() {
+        this.isDone = true;
     }
 
+    /**
+     * Unmarks the task as not done.
+     */
+    public void unmarkTask() {
+        this.isDone = false;
+    }
+
+    /**
+     * Abstract updateTaskDescription method for child task classes.
+     *
+     * @param field field to be updated.
+     * @param updatedDescription description to be updated to.
+     * @throws DukeException
+     */
     public abstract void updateTaskDescription(String field, String updatedDescription) throws DukeException;
 
+    /**
+     * Returns the string representation of the description of the task.
+     *
+     * @return String representation of the description of this task.
+     */
     public String getDescription() {
         return this.description;
     }
