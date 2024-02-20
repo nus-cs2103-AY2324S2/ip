@@ -35,6 +35,7 @@ public class DeleteCommand extends Command {
             return ui.lastCommandUndoed();
         } else {
             new AddCommand(toRemove).execute(tasks, ui, storage);
+            super.setUnDone();
             return ui.undoDelete(toRemove);
         }
     }

@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
                 .add(DialogBox.getDukeDialog(Ui.intro(), dukeImage));
     }
 
-    public void setDuke(Megatron d) {
+    public void setMegatron(Megatron d) {
         megatron = d;
     }
 

@@ -107,7 +107,7 @@ public class Parser {
     }
 
     private static AddCommand parseDeadline(String fullCmd) throws DukeException {
-        String deadlineFormTxt = "Sorry! Please use the given format for deadline tasks:\n"
+        String deadlineFormTxt = "Sorry! Deadlines are formatted as such:\n"
                 + "\tdeadline (description) /by DD/MM/YYYY hhmm\n"
                 + "\teg. deadline homework /by 30/01/2023 1800\n";
 
@@ -131,7 +131,7 @@ public class Parser {
     }
 
     private static AddCommand parseEvent(String fullCmd) throws DukeException {
-        String eventFormTxt = "Sorry! Please use the given format for event tasks:\n"
+        String eventFormTxt = "Sorry! Events are formatted as such:\n"
                 + "\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
                 + "\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
         try {

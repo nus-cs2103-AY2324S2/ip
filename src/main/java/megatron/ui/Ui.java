@@ -47,9 +47,9 @@ public class Ui {
      * @return message for list of tasks
      */
     public String list(List<Task> store) {
-        StringBuilder listingTxt = new StringBuilder("You humans... here are the tasks in your list:\n");
+        StringBuilder listingTxt = new StringBuilder("You humans... here are your tasks:\n");
         for (int i = 0; i < store.size(); i++) {
-            listingTxt.append(" ").append(i + 1).append(".").append(store.get(i)).append("\n");
+            listingTxt.append(" ").append(i + 1).append(". ").append(store.get(i)).append("\n");
         }
         return "" + listingTxt;
     }
@@ -62,7 +62,7 @@ public class Ui {
      * @return details of task added message
      */
     public String addTask(Task newTask, int numItems) {
-        String addTaskTxt = "You underestimate me. I've added this task:\n";
+        String addTaskTxt = "You underestimate me. Added task:\n";
         return addTaskTxt + "\t" + newTask + "\n"
                 + "Now you have " + numItems + " tasks in the list.\n";
     }
@@ -89,7 +89,7 @@ public class Ui {
      */
     public String mark(Task updateTask, boolean isComplete) {
         String markTxt = "Wow! I've marked this task as done:\n";
-        String unmarkTxt = "Foolish humans, I've marked this task as not done yet:\n";
+        String unmarkTxt = "Foolish humans, I've marked this task as incomplete:\n";
         String markFormTxt = "Human! To mark or unmark tasks, please do\n"
                 + "\t(un)mark (number)\n";
 
@@ -106,7 +106,7 @@ public class Ui {
     public String find(List<Task> searchList) {
         StringBuilder findTxt = new StringBuilder("Quick, here's what I found:\n");
         for (int i = 0; i < searchList.size(); i++) {
-            findTxt.append(" ").append(i + 1).append(".").append(searchList.get(i)).append("\n");
+            findTxt.append(" ").append(i + 1).append(". ").append(searchList.get(i)).append("\n");
         }
         return "" + findTxt;
     }
