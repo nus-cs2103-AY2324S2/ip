@@ -149,11 +149,12 @@ public class Ui {
                 + "     3. event <description> /at <date> <time> \n"
                 + "             - Adds an event task\n\n"
                 + "     4. list \n             - Lists all tasks\n\n"
-                + "     5. done <task number> \n             - Marks a task as done\n\n"
-                + "     6. delete <task number> \n             - Deletes a task\n\n"
-                + "     7. find <keyword> \n             - Finds tasks with the keyword\n\n"
-                + "     8. on <date dd/mm/yyyy> \n"
+                + "     5. mark <task number> \n             - Marks a task as done\n\n"
+                + "     6. unmark <task number> \n             - Unmasks a task as not done\n\n"
+                + "     7. delete <task number> \n             - Deletes a task\n\n"
+                + "     8. find <keyword> \n             - Finds tasks with the keyword\n\n"
+                + "     9. on <date dd/mm/yyyy> \n"
                 + "             - Finds tasks with the matching date\n\n"
-                + "     9. bye \n             - Exits the program\n";
+                + "     10. bye \n             - Exits the program\n";
     }
 }
