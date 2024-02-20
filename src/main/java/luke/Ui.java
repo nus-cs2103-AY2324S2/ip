@@ -30,19 +30,31 @@ public class Ui {
         try {
             parser.isInputValid(input);
             String command = parser.getCommand(input);
-            return switch (command) {
-            case "list" -> this.list(input);
-            case "mark" -> this.mark(input);
-            case "unmark" -> this.unmark(input);
-            case "delete" -> this.delete(input);
-            case "todo" -> this.todo(input);
-            case "deadline" -> this.deadline(input);
-            case "event" -> this.event(input);
-            case "find" -> this.find(input);
-            case "edit" -> this.edit(input);
-            case "bye" -> this.end();
-            default -> "Invalid command";
-            };
+            String result;
+            switch (command) {
+            case "list":
+                return this.list(input);
+            case "mark":
+                return this.mark(input);
+            case "unmark":
+                return this.unmark(input);
+            case "delete":
+                return this.delete(input);
+            case "todo":
+                return this.todo(input);
+            case "deadline":
+                return this.deadline(input);
+            case "event":
+                return this.event(input);
+            case "find":
+                return this.find(input);
+            case "edit":
+                return this.edit(input);
+            case "bye":
+                return this.end();
+            default:
+                throw new LukeException(LukeException.ExceptionType.commandInvalid);
+            }
         } catch (LukeException e) {
             return e.getMessage();
         }

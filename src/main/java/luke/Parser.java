@@ -259,13 +259,12 @@ public class Parser {
             break;
         case "Event":
             switch (field) {
-            case "description" -> taskEdited.changeDescription(newString);
-            case "from" -> taskEdited.changeFrom(newString);
-            case "to" -> taskEdited.changeTo(newString);
-            default -> throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
+            case "description": taskEdited.changeDescription(newString);
+            case "from": taskEdited.changeFrom(newString);
+            case "to": taskEdited.changeTo(newString);
+            default: throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
             }
-            break;
-        default:
+            default:
             throw new LukeException(LukeException.ExceptionType.editFieldInvalid);
         }
         return taskEdited;
