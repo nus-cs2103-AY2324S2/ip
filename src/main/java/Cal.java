@@ -1,6 +1,7 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import storage.StorageManager;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -8,7 +9,13 @@ import tasks.Todo;
 
 public class Cal {
     static String line = "____________________________________________________________";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks;
+    private static StorageManager storageManager;
+
+    public static void init() {
+        storageManager = new StorageManager();
+        tasks = storageManager.loadTasksFromStorage();
+    }
 
     public static void greet() {
         String name = "Cal";
@@ -41,6 +48,7 @@ public class Cal {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void add(String description, String by) {
@@ -49,6 +57,7 @@ public class Cal {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void add(String description, String startDate, String endDate) {
@@ -57,6 +66,7 @@ public class Cal {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void mark(int taskNum) throws CalException {
@@ -64,9 +74,10 @@ public class Cal {
             throw new CalException("Invalid task number!");
         }
         Task t = tasks.get(taskNum - 1);
-        t.setStatus();
+        t.setStatus(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(t);
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void unmark(int taskNum) throws CalException {
@@ -74,9 +85,10 @@ public class Cal {
             throw new CalException("Invalid task number!");
         }
         Task t = tasks.get(taskNum - 1);
-        t.setStatus();  
+        t.setStatus(false);  
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t);
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void delete(int taskNum) {
@@ -85,6 +97,7 @@ public class Cal {
         System.out.println("Noted. I've removed this task");
         System.out.println(t);
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        storageManager.saveTasksToStorage(tasks);
     }
 
     public static void run() {
@@ -125,7 +138,7 @@ public class Cal {
                         } catch (StringIndexOutOfBoundsException e) {
                             throw new CalException("Task description not provided!");
                         }
-                        
+
                         add(description);
                         break;
                     case "deadline":
@@ -177,6 +190,7 @@ public class Cal {
     }
 
     public static void main(String[] args) {
+        init();
         greet();
         run();
         exit();

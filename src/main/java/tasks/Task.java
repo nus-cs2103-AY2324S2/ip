@@ -21,8 +21,8 @@ public class Task {
         return description;
     }
 
-    public void setStatus() {
-        this.isDone = !this.isDone;
+    public void setStatus(boolean status) {
+        this.isDone = status;
     }
 
     public void setDescription(String description) {
