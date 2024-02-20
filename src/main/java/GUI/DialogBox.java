@@ -22,6 +22,13 @@ public class DialogBox extends HBox {
     private int TEXTBOX_HEIGHT = 100;
     private int TEXTBOX_WIDTH = 240;
 
+    /**
+     * Constructs a Dialog Box for the Signal chatbot.
+     *
+     * @param l The text in the dialog box.
+     * @param iv The image respresenting the user or Signal.
+     * @param type Indicates if the dialog box is for a user or for Signal.
+     */
     public DialogBox(Label l, ImageView iv, String type) {
         text = l;
         displayPicture = iv;
@@ -38,8 +45,12 @@ public class DialogBox extends HBox {
         dialogBoxStyle(textBox, displayPicture);
     }
 
-
-
+    /**
+     * Styles the rectangle of the textbox and stacks the text on top of it.
+     *
+     * @param stack The stack containing the rectangle and the text.
+     * @param text The text.
+     */
     private void makeTextbox(StackPane stack, Label text) {
         // Create a rectangle shape with rounded corners to enclose the text
         Rectangle rect = new Rectangle();
@@ -52,10 +63,20 @@ public class DialogBox extends HBox {
         stack.getChildren().addAll(rect, text);
     }
 
+    /**
+     * Styles the text of the dialog.
+     *
+     * @param text The text.
+     */
     private void textStyle(Label text) {
         text.setWrapText(true);
     }
 
+    /**
+     * Styles the display picture.
+     *
+     * @param img The display picture.
+     */
     private void displayPicStyle(ImageView img) {
         img.setFitWidth(100.0);
         img.setFitHeight(100.0);
@@ -64,6 +85,12 @@ public class DialogBox extends HBox {
         img.setClip(clip);
     }
 
+    /**
+     * Styles the dialog box.
+     *
+     * @param stack The stack of the textbox.
+     * @param img The display picture.
+     */
     private void dialogBoxStyle(StackPane stack, ImageView img) {
         this.setAlignment(Pos.TOP_RIGHT);
         this.setSpacing(10);
