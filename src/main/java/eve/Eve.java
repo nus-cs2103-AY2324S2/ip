@@ -12,24 +12,20 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Eve extends Application {
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-/**
- * Main window of the program, starting point of the program.
- */
-public class Eve {
+public class Eve extends Application{
     /**
      * Main method of the program.
      * Runs a Hello command and then the listener command that starts the whole thing.
      * @param args
      */
 
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+ 
 
     public static void main(String[] args) {
         Commands.commandHello();
