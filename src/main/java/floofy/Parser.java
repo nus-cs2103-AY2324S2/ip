@@ -1,11 +1,24 @@
 package floofy;
 
+/**
+ * Represents a parser that parses user commands.
+ */
 public class Parser {
-    // parsing of command (mark, delete etc) DONE HERE!!
+
+    /**
+     * Constructs a new object of the Parser class.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Parses the user input and returns the parsed input.
+     *
+     * @param userInput The user input to be parsed.
+     * @return The parsed input.
+     * @throws FloofyException If the user input is invalid.
+     */
     public String[] parse(String userInput) throws FloofyException {
         String[] parsedInput = new String[4];
         if (userInput.startsWith("mark")) {
