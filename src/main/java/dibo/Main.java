@@ -8,9 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+//@@author ziyang27-reused
+//Reused from <a href="https://se-education.org/guides/tutorials/javaFxPart4.html">FXML tutorial</a>.
+
 /**
  * A GUI for Dibo using FXML.
- * Referenced <a href="https://se-education.org/guides/tutorials/javaFxPart4.html">FXML tutorial</a>.
  */
 public class Main extends Application {
 
@@ -28,4 +30,4 @@ public class Main extends Application {
         }
     }
 }
-
+//@@author

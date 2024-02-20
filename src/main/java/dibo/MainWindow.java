@@ -12,9 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+//@@author ziyang27-reused
+//Reused from <a href="https://se-education.org/guides/tutorials/javaFxPart4.html">FXML tutorial</a>.
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
- * Referenced <a href="https://se-education.org/guides/tutorials/javaFxPart4.html">FXML tutorial</a>.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -86,4 +88,4 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 }
-
+//@@author
