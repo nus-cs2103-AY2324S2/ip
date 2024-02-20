@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to mark a task as done.
  */
-public class MarkTaskCommand extends Command{
+public class MarkTaskCommand extends Command {
     private int index;
 
     /**

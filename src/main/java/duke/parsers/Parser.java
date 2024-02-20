@@ -172,6 +172,12 @@ public class Parser {
         return new CreateEventCommand(description, startTime, endTime);
     }
 
+    /**
+     * Handles the command to mark a task as done.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to mark the task.
+     */
     public static Command handleMarkTask(String commandArguments) {
         try {
             return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
@@ -183,6 +189,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the command to unmark a task as not done.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to unmark the task.
+     */
     public static Command handleUnmarkTask(String commandArguments) {
         try {
             return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
@@ -194,6 +206,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the command to add a new todo task.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to add the todo task.
+     */
     public static Command handleAddTodo(String commandArguments) {
         try {
             return prepareCreateTodo(commandArguments);
@@ -202,6 +220,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the command to add a new deadline task.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to add the deadline task.
+     */
     public static Command handleAddDeadline(String commandArguments) {
         try {
             return prepareCreateDeadline(commandArguments);
@@ -213,6 +237,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the command to add a new event task.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to add the event task.
+     */
     public static Command handleAddEvent(String commandArguments) {
         try {
             return prepareCreateEvent(commandArguments);
@@ -225,6 +255,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the command to delete a task.
+     *
+     * @param commandArguments The arguments provided with the command.
+     * @return A Command object to delete the task.
+     */
     public static Command handleDelete(String commandArguments) {
         try {
             return new DeleteCommand(prepareTask(commandArguments, "delete"));

@@ -4,9 +4,16 @@ import static duke.constants.Constant.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
 
-
-
+/**
+ * Utility methods for common tasks.
+ */
 public class Utils {
+    /**
+     * Removes extra spaces from the input string.
+     *
+     * @param input the input string
+     * @return the string with extra spaces removed
+     */
     public static String removeExtraSpaces(String input) {
         return input.trim();
     }

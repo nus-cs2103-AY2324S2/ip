@@ -1,7 +1,7 @@
 package duke.commands;
 
-import duke.tasks.TaskList;
-import duke.ui.Ui;
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+import static duke.constants.Constant.RELATIVE_PATH;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,13 +10,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static duke.constants.Constant.RELATIVE_PATH;
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command to save all the tasks to a file.
  */
-public class SaveCommand extends Command{
+public class SaveCommand extends Command {
     /**
      * Constructs a new SaveCommand object.
      */

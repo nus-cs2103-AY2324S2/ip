@@ -1,11 +1,12 @@
 package duke.commands;
 
-import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-
-public class FindCommand extends Command{
+/**
+ * Represents a command to search for certain tasks.
+ */
+public class FindCommand extends Command {
     private String keyword;
 
     public FindCommand(String keyword) {

@@ -1,18 +1,17 @@
 package duke.commands;
 
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+
+import java.time.LocalDateTime;
+
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
-import java.time.LocalDateTime;
-
-import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
-
 /**
  * Represents a command to create a deadline task.
  */
-public class CreateDeadlineCommand extends Command{
+public class CreateDeadlineCommand extends Command {
     private String description;
     private LocalDateTime deadline;
 

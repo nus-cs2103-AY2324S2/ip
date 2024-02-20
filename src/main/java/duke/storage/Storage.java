@@ -25,6 +25,9 @@ import duke.utils.Utils;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the default file path.
+     */
     public Storage() {
         this.filePath = RELATIVE_PATH;
     }
@@ -68,6 +71,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Checks if the status string represents a marked task.
+     *
+     * @param status The status string to check.
+     * @return {@code true} if the status represents a marked task, {@code false} otherwise.
+     */
     public boolean isMark(String status) {
         return status.equals("1");
     }
@@ -118,6 +127,13 @@ public class Storage {
         return new Event(description, status, startTime, endTime, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
+    /**
+     * Adds a task to the list based on its type.
+     *
+     * @param tasks    The list of tasks to add to.
+     * @param taskType The type of task.
+     * @param line     The string representation of the task.
+     */
     public void addTaskToList(List<Task> tasks, String taskType, String line) {
         switch (taskType) {
         case "T":

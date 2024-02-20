@@ -1,18 +1,18 @@
 package duke.commands;
 
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+
+import java.time.LocalDateTime;
+
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
-
-import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
-
 /**
  * Represents a command to create an event task.
  */
-public class CreateEventCommand extends Command{
+public class CreateEventCommand extends Command {
     private String description;
     private LocalDateTime start;
     private LocalDateTime end;
