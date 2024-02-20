@@ -14,6 +14,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+
+import javafx.geometry.Insets;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+
+
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -24,8 +30,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private Color textboxColor;
+    private int textboxWidth = 240;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String type) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(GUI.MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -35,8 +43,19 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        if (type.equals("USER")) {
+            textboxColor = Color.LIGHTBLUE;
+        } else {
+            textboxColor = Color.LIGHTPINK;
+        }
+
+        textStyle(dialog);
+        displayPicStyle(displayPicture);
+
     }
 
     /**
@@ -50,12 +69,38 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, "USER");
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, "");
         db.flip();
         return db;
     }
+
+
+    /**
+     * Styles the text of the dialog.
+     *
+     * @param text The text.
+     */
+    private void textStyle(Label text) {
+        text.setWrapText(true);
+        text.setPadding(new Insets(10));
+    }
+
+    /**
+     * Styles the display picture.
+     *
+     * @param img The display picture.
+     */
+    private void displayPicStyle(ImageView img) {
+        img.setFitWidth(100.0);
+        img.setFitHeight(100.0);
+
+        Circle clip = new Circle(50, 50, 50);
+        img.setClip(clip);
+    }
+
+
 }
