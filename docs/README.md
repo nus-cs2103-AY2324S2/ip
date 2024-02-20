@@ -31,6 +31,11 @@ And it is **FREE** to use! 🚫💵
 - [x] Search Tasks based on date
 - [x] GUI View
 
+### Listing all the existing tasks in the list/ txt file: ```List```
+Add a new todo task to the list/txt file.
+Format: `todo DESCRIPTION`
+
+
 ## Command Summary
 | Action | Description | Command Format, Examples |
 | --- | --- | --- | 
