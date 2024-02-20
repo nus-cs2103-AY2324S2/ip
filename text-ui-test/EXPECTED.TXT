@@ -1,6 +1,6 @@
 Hello! I'm NotDuke
 What can I do for you?
-Got it. I've added this duke.task:
+Got it. I've added this notduke.task:
 [T][ ] read book
-Now you have 1 duke.task in the list.
+Now you have 1 notduke.task in the list.
 Bye. Hope to see you again soon!
