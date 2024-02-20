@@ -11,7 +11,7 @@
       <VBox maxHeight="-Infinity" maxWidth="-Infinity">
          <children>
               <Label fx:id="displayName" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-font-weight: bold;" text="Label" />
-              <Label fx:id="dialog"  maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: #F2CD4B; -fx-background-radius: 5; -fx-label-padding: 5 10;" text="Label" wrapText="true" />
+              <Label fx:id="dialog" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #F2CD4B; -fx-background-radius: 5; -fx-label-padding: 5 10;" text="Label" wrapText="true" />
          </children>
       </VBox>
         <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />

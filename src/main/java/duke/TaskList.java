@@ -22,6 +22,10 @@ public class TaskList {
     assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     try {
+      if(token.length < 2) {
+        return "[E-ERROR? Oh, good grief... ERROR] Missing task index!";
+      }
+
       int index = Integer.parseInt(token[1]) - 1;
 
       boolean isLessThanZero = index < 0;
@@ -77,7 +81,7 @@ public class TaskList {
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
       stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "deadline task /by dd-mm-yyyy hhmm");
+              "deadline (task) /by dd-mm-yyyy hhmm");
     }
     return stringBuilder.toString();
   }
@@ -107,7 +111,7 @@ public class TaskList {
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
       stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "event task /from dd-mm-yyyy hhmm /to dd-mm-yyyy hhmm");
+              "event (task) /from dd-mm-yyyy hhmm /to dd-mm-yyyy hhmm");
     }
     return stringBuilder.toString();
   }
@@ -125,7 +129,7 @@ public class TaskList {
 
     if (input.substring(4).trim().isEmpty()) {
       return "[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "todo task";
+              "todo (task)";
     }
     Task t = new Todos(input.substring(4).trim());
     tasks.add(t);
@@ -149,6 +153,10 @@ public class TaskList {
     assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     try {
+      if(token.length < 2) {
+        return "[E-ERROR? Oh, good grief... ERROR] Missing task index!";
+      }
+
       int index = Integer.parseInt(token[1]) - 1;
 
       boolean isLessThanZero = index < 0;
@@ -180,6 +188,10 @@ public class TaskList {
     assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     try {
+      if(token.length <= 2) {
+        return "[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
+                "update (index) (task)";
+      }
       Task taskToUpdate = tasks.get(Integer.parseInt(token[1]) - 1);
       if (taskToUpdate instanceof Deadline) {
         Deadline deadlineTask = (Deadline) taskToUpdate;
@@ -212,10 +224,17 @@ public class TaskList {
     assert tasks != null : "Tasks list must not be null";
     StringBuilder stringBuilder = new StringBuilder();
     ArrayList<Task> matchingTasks = new ArrayList<>();
+
+    if (keyword.substring(4).isEmpty()) {
+      return "[E-ERROR? Oh, good grief... ERROR] Missing task index!";
+    }
     for (Task task : tasks) {
       if (task.toString().contains(keyword.substring(5))) {
         matchingTasks.add(task);
       }
+    }
+    if(matchingTasks.size() == 0) {
+      return "Uh... Seems like there are no match found...";
     }
     stringBuilder.append("Okay... sigh. Here are the matching tasks in your list:\n");
     for (int i = 1; i <= matchingTasks.size(); i++) {

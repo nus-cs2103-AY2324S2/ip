@@ -13,7 +13,7 @@
       <SplitPane dividerPositions="0.6900452488687783" prefHeight="49.0" prefWidth="500.0" BorderPane.alignment="CENTER">
         <items>
             <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="120.0" prefWidth="353.0" />
-            <Button fx:id="sendButton" onAction="#handleUserInput" mnemonicParsing="false" prefHeight="158.0" prefWidth="138.0" style="-fx-background-color: #F2CD4B;" text="Send">
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="158.0" prefWidth="138.0" style="-fx-background-color: #F2CD4B;" text="Send">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -22,9 +22,9 @@
       </SplitPane>
    </bottom>
    <center>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="dialogContainer" prefHeight="613.0" prefWidth="507.0" style="-fx-background-color: #49a2de;" />
+            <VBox fx:id="dialogContainer" prefHeight="599.0" prefWidth="483.0" style="-fx-background-color: #49a2de;" />
          </content>
       </ScrollPane>
    </center>
