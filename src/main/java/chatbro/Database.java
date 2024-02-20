@@ -76,7 +76,7 @@ public class Database {
             default:
                 throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) { // fix
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
         }
     }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
@@ -13,9 +14,9 @@ public class DialogBox extends HBox {
     private Label text;
     private ImageView displayPicture;
 
-    public DialogBox(Label l, ImageView iv) {
-        text = l;
-        displayPicture = iv;
+    public DialogBox(String l, Image iv) {
+        text.setText(l);
+        displayPicture.setImage(iv);
 
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
@@ -31,11 +32,11 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
+    public static DialogBox getUserDialog(String l, Image iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getChatbroDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

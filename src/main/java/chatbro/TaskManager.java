@@ -17,28 +17,29 @@ public class TaskManager {
      * Deletes a task from the list.
      * @param index Index of the task to be deleted.
      */
-    public static void deleteTask(int index) { // Index is guaranteed to contain a valid task
+    public static String deleteTask(int index) { // Index is guaranteed to contain a valid task
         if (index < 1 || index > 100) {
-            Ui.printMessage("You can only delete tasks within the range of 1 to 100.");
-            return;
+            return "You can only delete tasks within the range of 1 to 100.";
         }
         Task task = taskList.get(index);
         taskList.remove(index);
         decrementTaskCount();
+        return "";
     }
     /**
      * Adds a task to the list.
      * @param task Task to be added.
+     * @return Empty string if task added successfully, error String if task list is full.
      */
-    public static void addTask(Task task) {
+    public static String addTask(Task task) {
         for (int i = 1; i <= 100; i++) {
             if (taskList.get(i) == null) {
                 taskList.add(i, task);
                 incrementTaskCount();
-                return;
+                return "";
             }
         }
-        Ui.printMessage("Sorry bro, you can only have up to 100 tasks in your list.");
+        return "Sorry bro, you can only have up to 100 tasks in your list.";
     }
     public static Task getTask(int index) {
         return taskList.get(index);

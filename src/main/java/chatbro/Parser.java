@@ -5,56 +5,35 @@ import java.util.Scanner;
  * Parser class parses user input and executes commands.
  */
 public class Parser {
-    private static Scanner sc;
 
-    public Parser() {
-        sc = new Scanner(System.in);
-    }
-    public static String readInput() {
-        return sc.nextLine();
-    }
     /**
      * Parses the user input and executes the appropriate command.
      */
-    public static void parseCommand() {
-        String input = readInput();
+    public static String parseCommand(String input) {
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
         case "bye":
-            Command.BYE.execute(input);
-            break;
+            return Command.BYE.execute(input);
         case "list":
-            Command.LIST.execute(input);
-            break;
+            return Command.LIST.execute(input);
         case "mark":
-            Command.MARK.execute(input);
-            break;
+            return Command.MARK.execute(input);
         case "unmark":
-            Command.UNMARK.execute(input);
-            break;
+            return Command.UNMARK.execute(input);
         case "delete":
-            Command.DELETE.execute(input);
-            break;
+            return Command.DELETE.execute(input);
         case "todo":
-            Command.ADD_TODO.execute(input);
-            break;
+            return Command.ADD_TODO.execute(input);
         case "deadline":
-            Command.ADD_DEADLINE.execute(input);
-            break;
+            return Command.ADD_DEADLINE.execute(input);
         case "event":
-            Command.ADD_EVENT.execute(input);
-            break;
+            return Command.ADD_EVENT.execute(input);
         case "help":
-            Command.HELP.execute(input);
-            break;
+            return Command.HELP.execute(input);
         case "find":
-            Command.FIND.execute(input);
-            break;
+            return Command.FIND.execute(input);
         default:
-            Ui.printMessage("Sorry bro, I don't understand that command.");
+            return "Sorry bro, I don't understand that command.";
         }
-    }
-    public static void closeScanner() {
-        sc.close();
     }
 }
