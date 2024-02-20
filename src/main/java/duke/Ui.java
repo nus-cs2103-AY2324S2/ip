@@ -88,7 +88,7 @@ public class Ui {
     public String showDeadlinesEventsOnDate(Task[] tasks, int taskNum, LocalDate dateToCheck) {
         StringBuilder result = new StringBuilder();
         result.append("     Deadlines/Events occurring on ")
-                .append(dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append(dateToCheck.format(DateTimeFormatter.ofPattern("d MMM yyyy")))
                 .append(":\n");
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] instanceof Deadline) {
@@ -121,7 +121,7 @@ public class Ui {
 
     /**
      * Shows the matching tasks.
-     * @param matchingTasks The matching tasks.
+     * @param keyword The keyword to match.
      * @return The matching tasks.
      */
     public String showMatchingTasks(String matchingTasks) {

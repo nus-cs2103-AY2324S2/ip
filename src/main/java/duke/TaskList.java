@@ -95,4 +95,13 @@ public class TaskList {
     public void markTaskAsNotDone(int index) {
         tasks[index].markAsNotDone();
     }
+
+    public static boolean containsTask(String taskStr) {
+        for (int i = 0; i < taskNum; i++) {
+            if (tasks[i] != null && String.valueOf(tasks[i]).equals(taskStr)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  * Represents a parser for Duke.
@@ -130,6 +131,10 @@ public class Parser {
         }
 
         Task newTask = new Todo(taskStr);
+
+        if (TaskList.containsTask(String.valueOf(newTask))) {
+            return "     This task already exists in the list.";
+        }
         tasks.addTask(newTask);
 
         return ui.showAddedTask(newTask, TaskList.getTaskNum());
@@ -151,20 +156,32 @@ public class Parser {
             String taskStr = userInput.substring(position + 1, posBy - 1);
             String taskStrBy = userInput.substring(posBy + 4);
 
-            if (taskStr.isEmpty() || taskStrBy.isEmpty()) {
-                throw new DukeException("     Invalid command >:((");
+            // Validate the date format
+            if (!isValidDateFormat(taskStrBy)) {
+                throw new DukeException("Please write the date in the format dd/mm/yyyy");
             }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             LocalDateTime deadlineDate = LocalDateTime.parse(taskStrBy, formatter);
 
             Task newTask = new Deadline(taskStr, deadlineDate);
+            if (tasks.containsTask(String.valueOf(newTask))) {
+                return "     This task already exists in the list.";
+            }
             tasks.addTask(newTask);
 
             return ui.showAddedTask(newTask, TaskList.getTaskNum());
         } else {
             throw new DukeException("     Invalid command >:((");
         }
+    }
+
+    private static boolean isValidDateFormat(String dateString) {
+        // Define regex pattern for the date format dd/mm/yyyy
+        String regexPattern = "\\d{2}/\\d{2}/\\d{4}";
+
+        // Check if the date string matches the regex pattern
+        return dateString.matches(regexPattern);
     }
 
     /**
@@ -183,10 +200,8 @@ public class Parser {
         assert position != -1 && position + 1 < userInput.length() : "Invalid position";
         if (posFrom != -1 && posFrom + 1
                 < userInput.length() && posTo != -1 && posTo + 1 < userInput.length()) {
-            String taskStr =
-                    userInput.substring(position + 1, posFrom - 1);
-            String taskStrFrom =
-                    userInput.substring(posFrom + 6, posTo - 1);
+            String taskStr = userInput.substring(position + 1, posFrom - 1);
+            String taskStrFrom = userInput.substring(posFrom + 6, posTo - 1);
             String taskStrTo = userInput.substring(posTo + 4);
 
             if (taskStr.isEmpty() || taskStrFrom.isEmpty() || taskStrTo.isEmpty()) {
@@ -194,6 +209,9 @@ public class Parser {
             }
 
             Task newTask = new Event(taskStr, taskStrFrom, taskStrTo);
+            if (tasks.containsTask(String.valueOf(newTask))) {
+                return "     This task already exists in the list.";
+            }
             tasks.addTask(newTask);
 
             return ui.showAddedTask(newTask, TaskList.getTaskNum());
