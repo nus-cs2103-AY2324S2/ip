@@ -1,4 +1,4 @@
-# Cleo Chatbot User Guide
+# Cleo Chatbot User Guide 😸
 
 Welcome to **Cleo**, your friendly Desktop GUI chatbot app designed to help you manage your tasks with ease. Cleo can help you keep track of your todos, deadlines, and events, making sure you stay organized and productive.
 This is optimized for use via a Command Line Interface (CLI) while still having the benefits of a GUI. If you can type fast, Cleo can help you manage your tasks faster than traditional GUI apps.
