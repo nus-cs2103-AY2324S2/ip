@@ -1,24 +1,10 @@
 package Blawg;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import commands.Command;
 import exceptions.BlawgException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
-import ui.DialogBox;
 import ui.Ui;
 
 /**
@@ -40,7 +26,7 @@ public class Blawg {
 
     public Blawg(){
         ui = new Ui();
-        storage = new Storage("src/main/java/data/tasks.txt");
+        storage = new Storage("data/tasks.txt");
         try {
             tasks = new TaskList(storage.read());
         } catch (BlawgException e) {
@@ -87,6 +73,7 @@ public class Blawg {
     }
 
     public String getResponse(String input) {
+        assert !input.trim().isEmpty() : "input should not be empty";
         try {
             Command c = new Parser().parse(input);
             String result = c.execute(tasks, ui, storage);

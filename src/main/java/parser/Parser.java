@@ -45,6 +45,7 @@ public class Parser {
      * @throws InvalidInputException If the input for the commands is invalid or incomplete.
      */
     public Command parse(String userInput) {
+        assert !userInput.trim().isEmpty() : "input should not be empty";
         try {
             String[] splitInput = userInput.split("\\s+");
             String firstWord = splitInput[0];
