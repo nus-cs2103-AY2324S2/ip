@@ -1,21 +1,21 @@
 package task;
 
 public class TaskList {
-    public Task[] taskList;
+    public Task[] tasks;
 
     public TaskList(Task[] tasks) {
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
     public TaskList() {
-        this.taskList = new Task[100];
+        this.tasks = new Task[100];
     }
 
     public Task[] getTaskList() {
-        return taskList.clone();
+        return tasks.clone();
     }
 
     public void updateTaskList(TaskList tasks) {
-        this.taskList = tasks.getTaskList();
+        this.tasks = tasks.getTaskList();
     }
 }
