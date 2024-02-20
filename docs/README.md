@@ -24,13 +24,6 @@ And it is **FREE** to use! 🚫💵
 
 ## Features
 
-- [x] Managing ToDos
-- [x] Managing deadlines 
-- [x] Managing Events
-- [x] Search Tasks
-- [x] Search Tasks based on date
-- [x] GUI View
-
 ### Listing all the existing tasks in the list/ txt file: `list`
 List down all the tasks in the list/txt file.
 Format: `list`
