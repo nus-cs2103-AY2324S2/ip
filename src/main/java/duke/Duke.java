@@ -10,20 +10,25 @@ import duke.exceptions.DukeException;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
+    private LoanRecords loans;
 
     /**
      * Constructs a <code>Duke</code> to start the program.
      *
-     * @param filePath File path for persistent task storage.
+     * @param taskDataPath Tasks data path for persistent task storage.
+     * @param loanRecordsPath Loan records path for persistent task storage.
      */
-    public Duke(String filePath) {
-        storage = new Storage(filePath);
+    public Duke(String taskDataPath, String loanRecordsPath) {
+        storage = new Storage(taskDataPath, loanRecordsPath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
+            loans = new LoanRecords(storage.loadLoans());
         } catch (IOException ie) {
             tasks = new TaskList();
+            loans = new LoanRecords();
         }
         assert tasks != null : "TaskList should not be null!";
+        assert loans != null : "Loan Records should not be null!";
     }
 
     /**
@@ -52,7 +57,7 @@ public class Duke {
     public String readCommand(String command) {
         try {
             Command c = Parser.parse(command);
-            return c.execute(tasks, storage);
+            return c.execute(tasks, loans, storage);
         } catch (DukeException de) {
             return de.getMessage();
         }

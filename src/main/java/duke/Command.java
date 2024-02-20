@@ -28,9 +28,10 @@ public class Command {
      * @param st <code>Storage</code> instance to update file for persistence of task data.
      * @throws DukeException If command fails.
      */
-    protected String execute(TaskList tl, Storage st) throws DukeException {
+    protected String execute(TaskList tl, LoanRecords loans, Storage st) throws DukeException {
         if (command.equals("list")) {
-            return tl.list();
+            String res = tl.list() + "\n";
+            return res + loans.list();
         } else if (command.equals("unmark")) {
             return tl.unmark(st, arguments);
         } else if (command.equals("mark")) {
@@ -39,6 +40,12 @@ public class Command {
             return tl.deleteTask(st, arguments);
         } else if (command.equals("find")) {
             return tl.find(arguments[0]);
+        } else if (command.equals("lend")) {
+            return loans.giveLoan(st, arguments);
+        } else if (command.equals("owe")) {
+            return loans.takeLoan(st, arguments);
+        } else if (command.equals("paid")) {
+            return loans.returnLoan(st, arguments);
         } else {
             return tl.addTask(st, command, arguments);
         }
