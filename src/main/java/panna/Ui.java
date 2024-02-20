@@ -25,26 +25,29 @@ public class Ui {
      * @param tl
      */
     public String listMessage(TaskList tl) {
+        String intro = "Fine... Your list is \n";
         String output = "----------------------------------------------------------\n"
                         + tl.printList()
                         + "\n----------------------------------------------------------";
-        return output;
+        return intro + output;
     }
 
     public String markDone(TaskList tasks, int label) throws PannaException {
         String output = "----------------------------------------------------------\n"
-                + "Nice! I've marked this task as done: \n"
+                + "Congratulations on getting done with the task \n"
                 + tasks.get(label - 1)
                 + "\n"
+                + "Have a cookie! [o]\n"
                 + "----------------------------------------------------------";
         return output;
     }
 
     public String unmarkDone(TaskList tasks, int label) throws PannaException {
         String output = "----------------------------------------------------------\n"
-                + "Nice! I've marked this task as undone: \n"
+                + "Awwwww Man we were doing so well!\nI've marked this task as undone: \n"
                 + tasks.get(label - 1)
                 + "\n"
+                + "I take back my cookie :[   Me <- [o] <- you\n"
                 + "----------------------------------------------------------";
         return output;
     }
@@ -97,8 +100,9 @@ public class Ui {
             tasks.delete(label - 1);
 
             String output = "----------------------------------------------------------\n"
-                    + "Task successfully removed! \n"
+                    + "Goodbye task \n"
                     + t + "\n"
+                    + "You were a good task while you lasted :(\n"
                     + "----------------------------------------------------------";
             return output;
 
@@ -119,7 +123,7 @@ public class Ui {
             Task t = new Todo(input);
             t.setDone(false);
             tasks.add(t);
-            String output = "Got it! I've added the \n" + t + "\n todo!\n"
+            String output = "I've added the \n" + t + "\n todo!\nYou better do it!\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
@@ -143,7 +147,7 @@ public class Ui {
             t.setDone(false);
             tasks.add(t);
 
-            String output = "Got it! I've added the \n" + t + "\n deadline!\n"
+            String output = "Got it! I've added the \n" + t + "\n deadline!\nIf you don't do it on time I will be mad\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
@@ -167,11 +171,12 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).taskName.equals(taskn)) {
                 tasks.get(i).setTaskName(changedName);
-                return "Name changed successfully!";
+                return "We have updated the name from\n"
+                        + taskn + "\nTo\n" + changedName;
             }
         }
 
-        return "No task of such name found!";
+        return "Please check the list before making me do work for no reason ;(";
     }
     public String event(TaskList tasks, String event, LocalDate st, LocalDate end) throws PannaException {
         try {
@@ -180,7 +185,7 @@ public class Ui {
             t.setDone(false);
             tasks.add(t);
 
-            String output = "Got it! I've added the \n" + t + "\n event!\n"
+            String output = "Woah! The event\n" + t + " has been added!\nI hope you're excited!\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
@@ -203,7 +208,8 @@ public class Ui {
             }
         }
 
-        return "The matches are: \n"
-                + newList.printList();
+        return "Woah! We found the following matches. \n"
+                + newList.printList()
+                + "\nWho knew a bot could play matchmaker :]";
     }
 }
