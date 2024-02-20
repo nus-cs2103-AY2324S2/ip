@@ -44,7 +44,7 @@ Format: `todo (DESCRIPTION)`
 
 Example: `todo homework`
 
-expected output:
+Expected output:
 
 ```
 Righty-ho! I've added this task:
@@ -82,6 +82,7 @@ Format: `event (DESCRIPTION) [/from] (start of event in YYYY-MM-DD HHMM format) 
   will result in an error.
 
 Example: `event test /from 2024-04-21 2200 /to 2024-04-23 2200`
+
 Expected output:
 ```
 Righty-ho! I've added this task:
@@ -98,7 +99,8 @@ Format: `list`
 a message saying that the list is empty will be displayed to the user.
 
 Example: `list`
-expected output:
+
+Expected output:
 ```
 Here are all tasks in your list:
 1. [T][] homework
@@ -116,7 +118,8 @@ Format: `mark (INDEX)` or `unmark (INDEX)`
 - The index must be a positive integer 1, 2, 3, ...
 
 Example: `mark 1`
-expected output:
+
+Expected output:
 ```
 Good job completing your task! It's now officially done:
 [T][X] homework
@@ -131,7 +134,8 @@ Format: `delete (INDEX)`
 - The index refers to the index number shown in the displayed task list. The index must be a positive integer 1, 2, 3, ...
 
 Example: `delete 1`
-expected output:
+
+Expected output:
 ```
 Gotcha, let's get rid of that task for ya. I've removed:
 [T][X] homework
@@ -150,7 +154,8 @@ Format: `find (KEYWORD)`
 e.g. `homework` will return `homework 1`, `homework 2`
 
 Example: `find as`
-expected output:
+
+Expected output:
 ```
 Here are the matching tasks in your list:
 1. [D][] assignment (by: 2024-03-01T22:00)
@@ -166,7 +171,8 @@ Format: `date (date in YYYY-MM-DD format)`
 so and prompts the user to try another date.
 
 Example: `date 2024-03-01`
-expected output:
+
+Expected output:
 ```
 Here are the matching tasks in your list:
 1. [D][] assignment (by: 2024-03-01T22:00)
@@ -187,7 +193,8 @@ new order after each sort. To change back to the original order, use the command
 `sort addtime asc`
 
 Example: `sort alpha asc`
-expected output:
+
+Expected output:
 ```
 Here are your tasks sorted in asc alphabetical order:
 1. [D][] assignment (by: 2024-03-01T22:00)

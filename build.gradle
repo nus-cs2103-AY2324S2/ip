@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("zack.Zack")
+    mainClass.set("zack.Launcher")
 }
 
 shadowJar {
