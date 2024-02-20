@@ -64,6 +64,7 @@ public class CreateTaskCommand extends Command {
         default:
             assert false : taskType;
         }
+        assert newTask != null : "New task created should not be null";
         tasks.addNewTask(newTask);
     }
 }
