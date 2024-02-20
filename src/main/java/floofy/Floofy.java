@@ -8,13 +8,30 @@ import floofy.task.ToDo;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * Represents the main class of the Floofy chat-bot application.
+ */
 public class Floofy {
+    /** The storage object to handle the loading and saving of tasks. */
     private Storage storage;
+
+    /** The parser object to handle the parsing of user input. */
     private Parser parser;
+
+    /** The task list object to handle the list of tasks. */
     private TaskList tasks;
+
+    /** The user interface object to handle the interaction with the user. */
     private Ui ui;
 
+    /** The file path of the file to store the tasks. */
     private static final String FILE_PATH = "./data/duke.txt";
+
+    /**
+     * Constructs a new object of the Floofy class.
+     *
+     * @param filePath The file path of the file to store the tasks.
+     */
     public Floofy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,6 +44,10 @@ public class Floofy {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the Floofy chat-bot application.
+     */
     public void run() {
         ui.showWelcomeMsg();
         Scanner scanner = new Scanner(System.in);
@@ -94,6 +115,10 @@ public class Floofy {
             }
         }
     }
+
+    /**
+     * The main method of the Floofy chat-bot application.
+     */
     public static void main(String[] args) {
         new Floofy(FILE_PATH).run();
     }
