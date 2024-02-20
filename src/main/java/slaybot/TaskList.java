@@ -1,8 +1,6 @@
 package slaybot;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import entity.Task;
@@ -27,8 +25,12 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Removes a Task from the TaskList by the given index.
+     *
+     * @param index The index of the task to be removed.
+     */
     public String removeTask(int index) {
-
         try {
             this.tasks.remove(index);
             String deleteText = "Successful deletion \n You now have "

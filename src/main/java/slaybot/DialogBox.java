@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -27,8 +26,8 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private static String USER_DIALOG_COLOR = " #218aff";
-    private static String BOT_DIALOG_COLOR = " #39ff5a";
+    private static final String USER_DIALOG_COLOR = " #218aff";
+    private static final String BOT_DIALOG_COLOR = " #39ff5a";
 
     private DialogBox(String text, Image img, String color) {
         try {
@@ -43,9 +42,11 @@ public class DialogBox extends HBox {
         vbox.setFillWidth(true);
         dialog.setText(text);
         displayPicture.setImage(img);
-        dialog.setStyle("-fx-background-color: " + color + ";" + "; -fx-background-radius: 25 25 25 25; -fx-background-radius: 25 25 25 25;" + "-fx-padding: 10px; ");
+        dialog.setStyle("-fx-background-color: " + color + ";"
+                + "; -fx-background-radius: 25 25 25 25; -fx-background-radius: 25 25 25 25;" + "-fx-padding: 10px; ");
 
-        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2,
+                displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
         displayPicture.setClip(clip);
 
     }
