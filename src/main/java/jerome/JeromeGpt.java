@@ -8,7 +8,7 @@ import jerome.parser.Parser;
 import jerome.ui.Ui;
 
 /**
- * Duke is a command-line application that allows users to interact with it by entering commands.
+ * Runs the JeromeGPT, a command-line application that allows user interaction by entering commands.
  * This class is used for testing the command line interface.
  * @@author se-edu
  * Reuse from https://github.com/se-edu/addressbook-level2
@@ -55,7 +55,7 @@ public class JeromeGpt {
     }
 
     /**
-     * The main method of the application.
+     * Executes the main method of the application for command-line mode.
      * @param args the command-line arguments
      */
     public static void main(String[] args) {

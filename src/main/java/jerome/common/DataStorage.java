@@ -49,7 +49,6 @@ public class DataStorage {
         try {
             if (!this.file.createNewFile()) {
                 // This means that the file already exists here.
-                // System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
                 this.tasksList = readTextFileIfAlreadyCreated();
             }
         } catch (IOException e) {
@@ -194,7 +193,7 @@ public class DataStorage {
 
 
     /**
-     * Set the completion status of a task at the specified index, and updates the HDD file.
+     * Sets the completion status of a task at the specified index, and updates the HDD file.
      *
      * @param taskIndex the index of the task.
      * @param status    the status of the task (true indicates completed, while false indicates incomplete).
