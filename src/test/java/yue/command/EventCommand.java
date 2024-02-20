@@ -1,11 +1,11 @@
-package yue.Command;
+package yue.command;
 
 
-import yue.Tasks.EventTask;
-import yue.Tasks.TaskList;
+import yue.tasks.EventTask;
+import yue.tasks.TaskList;
 import yue.Storage;
 import yue.YueException;
-import yue.Tasks.Task;
+import yue.tasks.Task;
 
 
 
@@ -73,4 +73,5 @@ public class EventCommand extends Command {
         return false;
     }
 }
+
 

@@ -1,9 +1,9 @@
-package yue.Command;
+package yue.command;
 
 import yue.Storage;
 import yue.YueException;
-import yue.Tasks.Task;
-import yue.Tasks.TaskList;
+import yue.tasks.Task;
+import yue.tasks.TaskList;
 
 /**
  * Represents a command to mark a task as done.

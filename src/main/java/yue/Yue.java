@@ -1,7 +1,7 @@
 package yue;
 
-import yue.Command.Command;
-import yue.Tasks.TaskList;
+import yue.command.Command;
+import yue.tasks.TaskList;
 import java.util.ArrayList;
 
 public class Yue {

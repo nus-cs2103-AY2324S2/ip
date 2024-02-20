@@ -1,50 +1,49 @@
-package yue.Command;
+package yue.command;
 
+import yue.tasks.DeadlineTask;
+import yue.tasks.TaskList;
 import yue.Storage;
 import yue.YueException;
-import yue.Tasks.Task;
-import yue.Tasks.TaskList;
-import yue.Tasks.TodoTask;
+import yue.tasks.Task;
+
 
 
 /**
- * Represents a command to add a new todo task.
+ * Represents a command to add a deadline task.
  */
-public class TodoCommand extends Command {
+public class DeadlineCommand extends Command {
     private String description;
+    private String deadline;
 
 
     /**
-     * Constructs a TodoCommand object with the given task description.
+     * Constructs a DeadlineCommand object with the given description and deadline.
      *
-     * @param description The description of the todo task to be added.
+     * @param description The description of the deadline task.
+     * @param deadline    The deadline of the task.
      */
-    public TodoCommand(String description) {
+    public DeadlineCommand(String description, String deadline) {
         this.description = description;
+        this.deadline = deadline;
     }
 
 
-
     /**
-     * Executes the TodoCommand, adding a new todo task to the task list.
+     * Executes the DeadlineCommand, adding a deadline task to the task list.
      *
      * @param tasks   The list of tasks.
      * @param storage The storage handler.
      * @throws YueException If an error occurs during command execution.
      */
-
     @Override
     public String execute(TaskList tasks, Storage storage) throws YueException {
-        assert tasks != null : "TaskList cannot be null";
-        assert storage != null : "Storage cannot be null";
 
-        Task task = new TodoTask(description);
+        Task task = new DeadlineTask(description, deadline);
         tasks.addTask(task);
         int count = tasks.size();
 
         String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
                 "    Now you have " + count + " tasks in the list.\n";
-
 
         storage.save(tasks.getAllTasks());
 

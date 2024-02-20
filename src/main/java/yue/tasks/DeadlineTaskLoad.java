@@ -1,4 +1,4 @@
-package yue.Tasks;
+package yue.tasks;
 
 /**
  * Represents a deadline task loaded from storage.

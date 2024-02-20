@@ -1,4 +1,4 @@
-package yue.Tasks;
+package yue.tasks;
 
 public class TodoTask extends Task {
     public TodoTask(String task) {

@@ -1,7 +1,7 @@
-package yue.Command;
+package yue.command;
 
 import yue.Storage;
-import yue.Tasks.TaskList;
+import yue.tasks.TaskList;
 
 /**
  * Represents a command to list all tasks.

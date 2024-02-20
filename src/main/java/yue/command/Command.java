@@ -1,8 +1,8 @@
-package yue.Command;
+package yue.command;
 
 import yue.YueException;
 import yue.Storage;
-import yue.Tasks.TaskList;
+import yue.tasks.TaskList;
 
 
 /**

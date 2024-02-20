@@ -1,4 +1,4 @@
-package yue.Tasks;
+package yue.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -81,7 +81,7 @@ public class EventTask extends Task {
      * @param dateTime The LocalDateTime object representing the date and time.
      * @return The formatted string representing the date and time.
      */
-    private String formatDateTime(LocalDateTime dateTime) {
+    public String formatDateTime(LocalDateTime dateTime) {
         assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
         if (check == 1 || check == 2) {
@@ -134,4 +134,5 @@ public class EventTask extends Task {
         return "[E]" + super.toString() + " (from: " + formatDateTime(startTime) + " to: " + formatDateTime(endTime) + ")";
     }
 }
+
 

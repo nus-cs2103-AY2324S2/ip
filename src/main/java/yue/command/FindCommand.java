@@ -1,8 +1,8 @@
-package yue.Command;
+package yue.command;
 
 import yue.Storage;
-import yue.Tasks.TaskList;
-import yue.Tasks.Task;
+import yue.tasks.TaskList;
+import yue.tasks.Task;
 import java.util.List;
 import java.util.ArrayList;
 

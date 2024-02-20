@@ -1,17 +1,17 @@
 package yue;
 
-import yue.Command.Command;
-import yue.Command.TodoCommand;
-import yue.Command.EventCommand;
-import yue.Command.ExitCommand;
-import yue.Command.ListCommand;
-import yue.Command.MarkCommand;
-import yue.Command.UnmarkCommand;
-import yue.Command.DeleteCommand;
-import yue.Command.DeadlineCommand;
-import yue.Command.FindCommand;
-import yue.Command.DetectCommand;
-import yue.Command.GreetCommand;
+import yue.command.Command;
+import yue.command.TodoCommand;
+import yue.command.EventCommand;
+import yue.command.ExitCommand;
+import yue.command.ListCommand;
+import yue.command.MarkCommand;
+import yue.command.UnmarkCommand;
+import yue.command.DeleteCommand;
+import yue.command.DeadlineCommand;
+import yue.command.FindCommand;
+import yue.command.DetectCommand;
+import yue.command.GreetCommand;
 
 
 import java.util.Arrays;
