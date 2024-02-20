@@ -47,12 +47,12 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("paimon.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion =  '0.1.0'
+    archiveBaseName = "paimon"
+    archiveVersion =  '0.2.0'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
