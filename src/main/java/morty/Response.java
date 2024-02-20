@@ -51,34 +51,12 @@ public class Response {
   }
 
   /**
-   * Shows the loading error message.
-   */
-  public String showLoadingError() {
-    return "Error loading file. Creating new task list.";
-  }
-
-  /**
-   * Shows the line.
-   */
-  public String showLine() {
-    return "\n============================================================\n";
-  }
-
-  /**
-   * Shows the error message.
-   *
-   * @param message The error message.
-   */
-  public String showError(String message) {
-    return message;
-  }
-
-  /**
    * Shows the task list.
    *
    * @param taskList The task list.
    */
   public String showTaskList(TaskList taskList) {
+    assert taskList.getTasks() != null : "List of tasks cannot be null";
     StringBuilder toReturn = new StringBuilder();
     for (int i = 0; i < taskList.getSize(); i++) {
       toReturn.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
@@ -93,6 +71,7 @@ public class Response {
    * @param size The size of the task list.
    */
   public String showTaskAdded(Task task, int size) {
+    assert task != null : "Task cannot be null";
     return "Got it. I've added this task:"
         + "\n" + task.toString()
         + "\n" + "Now you have " + size + " tasks in the list.";
@@ -104,6 +83,7 @@ public class Response {
    * @param task The matching task list.
    */
   public String showTaskMarkedDone(Task task) {
+    assert task != null : "Task cannot be null";
     return "Nice! I've marked this task as done:"
         + "\n" + task.toString();
   }
@@ -115,6 +95,8 @@ public class Response {
    * @param size The size of the matching task list.
    */
   public String showTaskRemoved(Task task, int size) {
+    assert task != null : "Task cannot be null";
+    assert size >= 0 : "Size of task list cannot be negative";
     return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
   }
 
