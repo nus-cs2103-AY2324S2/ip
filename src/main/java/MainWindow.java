@@ -28,6 +28,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        displayWelcomeMessage();
     }
 
     public void setDuke(Duke d) {
@@ -51,5 +52,10 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             Platform.exit();
         }
+    }
+
+    private void displayWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm Duke, your personal assistant. How can I help you today?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 }

@@ -7,6 +7,7 @@ import tasks.Todo;
 import ui.Parser;
 import ui.Ui;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class Duke {
@@ -15,6 +16,7 @@ public class Duke {
     private final Ui ui;
     private final Parser parser;
     private final List<Task> tasks;
+
 
     public Duke() {
         storage = new Storage();
@@ -49,23 +51,35 @@ public class Duke {
                 break;
             case TODO:
                 Todo newTodo = new Todo(inputs[1]);
-                tasks.add(newTodo);
-                response.append(ui.printTodo(newTodo, tasks));
-                storage.saveTasks(tasks);
+                if (!checkDuplicateTask(newTodo,tasks)) {
+                    tasks.add(newTodo);
+                    response.append(ui.printTodo(newTodo, tasks));
+                    storage.saveTasks(tasks);
+                } else {
+                    response.append("Task already exist");
+                }
                 break;
             case DEADLINE:
                 String[] deadlineSplit = inputs[1].split(" /by ");
                 Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
-                tasks.add(newDeadline);
-                response.append(ui.printDeadline(newDeadline, tasks));
-                storage.saveTasks(tasks);
+                if (!checkDuplicateTask(newDeadline,tasks)) {
+                    tasks.add(newDeadline);
+                    response.append(ui.printDeadline(newDeadline, tasks));
+                    storage.saveTasks(tasks);
+                } else {
+                    response.append("Task already exist");
+                }
                 break;
             case EVENT:
                 String[] eventSplit = inputs[1].split(" /from | /to ");
                 Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
-                tasks.add(newEvent);
-                response.append(ui.printEvent(newEvent, tasks));
-                storage.saveTasks(tasks);
+                if (!checkDuplicateTask(newEvent,tasks)) {
+                    tasks.add(newEvent);
+                    response.append(ui.printEvent(newEvent, tasks));
+                    storage.saveTasks(tasks);
+                } else {
+                    response.append("Task already exist");
+                }
                 break;
             case DELETE:
                 index = Integer.parseInt(inputs[1]) - 1;
@@ -93,6 +107,15 @@ public class Duke {
         Duke duke = new Duke();
 
 
+    }
+
+    private boolean checkDuplicateTask(Task newTask, List<Task> tasks) {
+        for (Task task : tasks) {
+            if (task.toString().equals(newTask.toString())) {
+                return true; // Duplicate found
+            }
+        }
+        return false; // No duplicate found
     }
 }
 
