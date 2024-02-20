@@ -1,11 +1,9 @@
-package Panna;
+package panna;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -39,18 +37,19 @@ public class Storage {
                     t.setDone(done);
                 } else if (task.equals("D")) {
                     String deadline = s.nextLine();
-                    LocalDate dt =  df.parse(deadline);
+                    LocalDate dt = df.parse(deadline);
                     t = new Deadline(desc, dt);
                     t.setDone(done);
                 } else if (task.equals("E")) {
                     String start = s.nextLine();
                     String deadline = s.nextLine();
-                    LocalDate start_date = df.parse(start);
-                    LocalDate end_date = df.parse(deadline);
-                    t = new Event(desc, start_date, end_date);
+                    LocalDate startDate = df.parse(start);
+                    LocalDate endDate = df.parse(deadline);
+                    t = new Event(desc, startDate, endDate);
                     t.setDone(done);
                 } else {
-                    throw new PannaException("Something went wrong in panna.txt! Please check and make sure everything is okay");
+                    throw new PannaException("Something went wrong in panna.txt!"
+                            + "Please check and make sure everything is okay");
                 }
                 tasks.add(t);
             }

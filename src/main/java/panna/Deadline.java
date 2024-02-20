@@ -1,4 +1,4 @@
-package Panna;
+package panna;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline subtask. Each deadline subtask consists of a
  * String input for the task and a LocalDate value which represents the deadline.
  */
-public class Deadline extends Task{
-    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
+public class Deadline extends Task {
+    private DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Constructor method for Deadline.

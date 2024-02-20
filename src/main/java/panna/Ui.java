@@ -1,7 +1,8 @@
-package Panna;
+package panna;
 
-import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.Scanner;
+
 
 /**
  * Encapsulates all the Ui elements of the bot.
@@ -22,9 +23,9 @@ public class Ui {
      */
     public void launchMessage() {
         System.out.println("----------------------------------------------------------\n"
-                + "Hello! I'm Panna.\n" +
-                "What can I do for you?\n\n" +
-                "----------------------------------------------------------");
+                + "Hello! I'm Panna.\n"
+                + "What can I do for you?\n\n"
+                + "----------------------------------------------------------");
     }
 
     /**
@@ -32,9 +33,9 @@ public class Ui {
      */
 
     public void farewellMessage() {
-        System.out.println("----------------------------------------------------------\n"  +
-                "Bye. Hope to see you again soon!\n\n" +
-                "----------------------------------------------------------");
+        System.out.println("----------------------------------------------------------\n"
+                + "Bye. Hope to see you again soon!\n\n"
+                + "----------------------------------------------------------");
     }
 
     /**
@@ -63,10 +64,10 @@ public class Ui {
                     + tasks.get(label - 1));
             System.out.println("----------------------------------------------------------");
 
-        }
-        catch (Exception e) {
-            throw new PannaException("Invalid label! The number of tasks now is " + tasks.size() +
-                    "\nPlease try with a more appropriate value! ");
+        } catch (Exception e) {
+            throw new PannaException("Invalid label! The number of tasks now is "
+                    + tasks.size()
+                    + "\nPlease try with a more appropriate value! ");
         }
     }
 
@@ -86,10 +87,10 @@ public class Ui {
             System.out.println("Okay! I've unmarked this task as done: \n"
                     + tasks.get(label - 1));
             System.out.println("----------------------------------------------------------");
-        }
-        catch (Exception e) {
-            throw new PannaException("Invalid label! The number of tasks now is" + tasks.size() +
-                    "\nPlease try with a more appropriate value! ");
+        } catch (Exception e) {
+            throw new PannaException("Invalid label! The number of tasks now is"
+                    + tasks.size()
+                    + "\nPlease try with a more appropriate value! ");
         }
 
     }
@@ -104,18 +105,18 @@ public class Ui {
         System.out.println("Which one should I delete? Write the label number :] ");
         try {
             int label = s.nextInt();
-            Task t = tasks.get(label-1);
-            tasks.delete(label-1);
+            Task t = tasks.get(label - 1);
+            tasks.delete(label - 1);
 
             System.out.println("----------------------------------------------------------");
             System.out.println("Task successfully removed! \n"
                     + t);
             System.out.println("----------------------------------------------------------");
 
-        }
-        catch (Exception e) {
-            throw new PannaException("Invalid label! The number of tasks now is " + tasks.size() +
-                    "\nPlease try with a more appropriate value! ");
+        } catch (Exception e) {
+            throw new PannaException("Invalid label! The number of tasks now is "
+                    + tasks.size()
+                    + "\nPlease try with a more appropriate value! ");
         }
     }
 
@@ -124,7 +125,7 @@ public class Ui {
      * @param tasks
      * @throws PannaException
      */
-    public void todoMessage(TaskList tasks) throws PannaException{
+    public void todoMessage(TaskList tasks) throws PannaException {
         try {
             System.out.println("What kind of todo? ");
             String input = s.nextLine();
@@ -133,8 +134,7 @@ public class Ui {
             tasks.add(t);
             System.out.println("Got it! I've added the \n" + t + "\n todo!");
             System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
         }
 
@@ -147,7 +147,7 @@ public class Ui {
      * @throws PannaException
      */
 
-    public void deadlineMessage(TaskList tasks, Parser p) throws PannaException{
+    public void deadlineMessage(TaskList tasks, Parser p) throws PannaException {
         try {
             System.out.println("What kind of deadline? ");
             String input = s.nextLine();
@@ -161,9 +161,7 @@ public class Ui {
 
             System.out.println("Got it! I've added the \n" + t + "\n deadline!");
             System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
-        }
-        catch (Exception e) {
-
+        } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct!");
         }
 
@@ -192,21 +190,24 @@ public class Ui {
             tasks.add(t);
             System.out.println("Got it! I've added the \n" + t + "\n event!");
             System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct! ");
         }
 
     }
 
-
+    /**
+     * finds the task with the substring provided
+     * @param tasks
+     * @throws PannaException
+     */
     public void find(TaskList tasks) throws PannaException {
         System.out.println("What shall I find for you! ");
         String k = s.nextLine();
 
         TaskList newList = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).taskName.contains(k)) {
+            if (tasks.get(i).taskName.contains(k)) {
                 newList.add(tasks.get(i));
 
             }

@@ -1,11 +1,11 @@
-package Panna;
+package panna;
 
 import java.util.ArrayList;
 
 /**
  * Encapsulates the tasks in the list at an instant of time
  */
-public class TaskList  {
+public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
@@ -20,7 +20,7 @@ public class TaskList  {
      */
     public void printList() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + ". " + tasks.get(i));
+            System.out.println(i + 1 + ". " + tasks.get(i));
         }
     }
 
@@ -49,8 +49,7 @@ public class TaskList  {
     public Task get(int i) throws PannaException {
         try {
             return tasks.get(i);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new PannaException("Index out of bounds!");
         }
     }
@@ -63,10 +62,10 @@ public class TaskList  {
     public void delete(int label) throws PannaException {
         try {
             tasks.remove(label);
-        }
-        catch (Exception e) {
-            throw new PannaException("Invalid label! The number of tasks now is " + size() +
-                    "\nPlease try with a more appropriate value! ");
+        } catch (Exception e) {
+            throw new PannaException("Invalid label! The number of tasks now is "
+                    + size()
+                    + "\nPlease try with a more appropriate value! ");
         }
 
     }
