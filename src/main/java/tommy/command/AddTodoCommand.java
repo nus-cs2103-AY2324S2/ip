@@ -21,6 +21,7 @@ public class AddTodoCommand extends Command {
      * @param description Description of the Todo task.
      * @throws InvalidArgumentException If the description is empty.
      */
+
     public AddTodoCommand(String description) throws InvalidArgumentException {
         if (description == null || description.trim().isBlank()) {
             throw new InvalidArgumentException("TODO");

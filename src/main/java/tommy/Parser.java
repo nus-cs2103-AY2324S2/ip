@@ -124,7 +124,6 @@ public class Parser {
             try {
                 parsedDateTime = LocalDate.parse(date, formatter);
                 break;
-
             } catch (DateTimeParseException e) {
                 System.out.println("Does not match the pattern: " + e.getMessage());
             }

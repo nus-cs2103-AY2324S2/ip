@@ -1,19 +1,6 @@
-[T][X]fhewjaks
 [T][X]read book
-[D][ ]write book (by: today)
+[D][X]write book (by: today)
 [E][ ]throw book (from: ystd to: tmr)
-[T][ ]hfiewa
-[T][X]hfeuw
-[T][ ]fheiwa
-[T][ ]hfuewaj
-[T][ ]hfuewaifhwaeuofhpweaifhewiu
-[T][ ]hfueawoaewf
-[T][ ]fhuwei
-[T][X]hfuewihfe
-[T][X]fhuewifh
-[T][X]fhuweaof
-[T][ ]fhiewa
-[T][ ]fijewas
-[T][ ]fewofnsfnwaienflawnfjnwaesfjkaeswnfvjeswnfjnwasfjnwasefnwasefwasedfnclsdjkfncnsdljk
-[D][ ]hfueoi (by: tmr)
-[T][ ]fewajif
+[T][ ]buy apples
+[D][ ]buy oranges (by: tmr)
+[E][ ]buy pineapples (from: Feb 20 2003 to: 4/11/2005)

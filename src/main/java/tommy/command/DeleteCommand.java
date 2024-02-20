@@ -12,6 +12,7 @@ import tommy.task.TaskList;
 public class DeleteCommand extends Command {
 
     private int positionToDelete;
+    private static final String indexOutOfRangeWarning = "The index is out of range >.<";
 
     /**
      * Constructor for a delete task command,
@@ -33,7 +34,7 @@ public class DeleteCommand extends Command {
             taskList.deleteTaskAtPosition(positionToDelete);
             return ui.displayDeletedTask(taskList, taskToDelete);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("The index is out of range >.<");
+            throw new InvalidArgumentException(indexOutOfRangeWarning);
         }
     }
 }

@@ -17,6 +17,7 @@ public class InvalidArgumentException extends TommyException {
 
     @Override
     public String getErrorMessage() {
-        return "Invalid Arguments - " + getMessage();
+        String invalidArgumentPrefix = "Invalid Arguments - ";
+        return invalidArgumentPrefix + getMessage();
     }
 }

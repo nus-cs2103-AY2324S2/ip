@@ -33,13 +33,12 @@ public class AddEventCommand extends Command {
             String fromDate = components[1];
             String toDate = components[2];
 
-            // format the dates
             String formattedFromDate = Parser.formatDate(fromDate);
             String formattedToDate = Parser.formatDate(toDate);
 
-            // instantiate event
             String formattedDescription = eventDetail
                     + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
+
             Task event = new Event(formattedDescription);
 
             taskList.addTask(event);
