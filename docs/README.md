@@ -14,7 +14,7 @@ Graphical User Interface (GUI) for easy viewing.
   - doafter tasks
 - Track completion status of tasks
 - Quick overview of all tasks
-- Filtering tasks by keyword
+- Filter tasks by keyword
 
 ## Usage
 ### `Todo {description}` Adding todo tasks
