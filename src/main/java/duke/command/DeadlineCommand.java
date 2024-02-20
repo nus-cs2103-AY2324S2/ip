@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command {
                 }
             }
         } catch (IOException | DateTimeParseException e) {
-            return "Invalid deadline task format";
+            return "Make sure date is in the format yyyy-mm-dd";
         }
     }
 }

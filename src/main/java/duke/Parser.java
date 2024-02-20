@@ -33,6 +33,8 @@ public class Parser {
             return new UnmarkCommand(input);
         case "delete":
             return new DeleteCommand(input);
+        case "help":
+            return new HelpCommand();
         case "bye":
             return new ExitCommand();
         default:

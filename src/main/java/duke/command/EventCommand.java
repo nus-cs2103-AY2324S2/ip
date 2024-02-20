@@ -37,7 +37,7 @@ public class EventCommand extends Command {
                 }
             }
         } catch (IOException | DateTimeParseException e) {
-            return "Invalid event task format";
+            return "Make sure date is in the format yyyy-mm-dd";
         }
     }
 }

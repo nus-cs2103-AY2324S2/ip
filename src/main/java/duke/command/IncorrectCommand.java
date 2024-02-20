@@ -9,9 +9,6 @@ import duke.command.Command;
  */
 public class IncorrectCommand extends Command {
 
-    public IncorrectCommand() {
-    }
-
     /**
      * Executes the command and prints an error message.
      *

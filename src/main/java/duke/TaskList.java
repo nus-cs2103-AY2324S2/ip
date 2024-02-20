@@ -20,6 +20,7 @@ public class TaskList {
     protected Storage storage;
 
     private String reply;
+
     public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
         this.storage = storage;
@@ -99,9 +100,7 @@ public class TaskList {
         tasks.add(new ToDo(description, 0));
         assert(tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
-        String numberOfTasks = "Now you have "
-                    + String.valueOf(tasks.size())
-                    + " task(s) left";
+        String numberOfTasks = "Now you have " + tasks.size() + " task(s) left";
         reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
     }
@@ -117,9 +116,7 @@ public class TaskList {
         tasks.add(new Deadline(description, 0, deadline));
         assert (tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
-        String numberOfTasks = "Now you have "
-                    + String.valueOf(tasks.size())
-                    + " task(s) left";
+        String numberOfTasks = "Now you have " + tasks.size() + " task(s) left";
         reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
     }
@@ -137,7 +134,7 @@ public class TaskList {
         assert(tasks.size() == arraySize + 1) : "Task should be added to the list";
         String task = tasks.get(tasks.size() - 1).toString();
         String numberOfTasks = "Now you have "
-                    + String.valueOf(tasks.size())
+                    + tasks.size()
                     + " task(s) left";
         reply = "Ok. I added this task:\n" + task + "\n" + numberOfTasks;
         return reply;
