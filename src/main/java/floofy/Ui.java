@@ -61,6 +61,16 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void showMatchingTasks(TaskList list) {
+        System.out.println(line);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
+            System.out.println(numberedOutput);
+        }
+        System.out.println(line);
+    }
+
     public void showGoodbyeMsg() {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");

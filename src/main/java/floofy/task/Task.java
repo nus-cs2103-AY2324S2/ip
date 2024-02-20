@@ -52,6 +52,13 @@ public class Task {
     }
 
     /**
+     * Returns true if the description of the task contains the keyword
+     */
+    public boolean hasMatchingDescription(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    /**
      * Returns the String of a task in its file format.
      */
     public String toFileFormat() {
