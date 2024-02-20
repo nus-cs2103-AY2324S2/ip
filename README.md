@@ -3,7 +3,7 @@
 The Count is a **task management GUI app**.  
 The Count will help manage your tasks <ins>efficiently</ins>.
 
-![Product Image](./Ui.png)
+![Product Image](./docs/Ui.png)
 
 Keep track of your tasks using The Count!
 
