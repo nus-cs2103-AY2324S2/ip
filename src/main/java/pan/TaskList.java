@@ -1,7 +1,6 @@
 package pan;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import pan.enums.TaskStatus;
@@ -107,6 +106,8 @@ public class TaskList {
 
     /**
      * Prints out the tasks within a Task List to the user.
+     *
+     * @return String output representing all the tasks in the list.
      */
     public String list(List<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -121,6 +122,7 @@ public class TaskList {
      * Finds and prints out the tasks that matches the user's search keyword.
      *
      * @param searchKeyword String representation of the keyword that has been entered by the user.
+     * @return String output representing all the matched tasks in the list.
      */
     public String find(String searchKeyword) {
         StringBuilder stringBuilder = new StringBuilder();

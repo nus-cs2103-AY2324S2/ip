@@ -1,22 +1,20 @@
 package pan;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import pan.enums.TaskStatus;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 /**
  * Storage - Represents the Storage Class that handles read and write operations
- * 
+ *
  * @author Jerome Goh
  */
 public class Storage {
@@ -26,6 +24,8 @@ public class Storage {
     /**
      * Persists the state of the tasks into a .txt file through overwriting the file
      * at every function call.
+     *
+     * @param tasks the list of tasks to take reference from when program tries to save it to a .txt file.
      */
     public void save(List<Task> tasks) {
         try {
@@ -43,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the completion status of a given task within the Task List to completed.
+     *
+     * @return list of Tasks instances that used to set the intitial state of the task list.
+     */
     public List<Task> readList() {
         List<Task> newList = new ArrayList<Task>();
         try {
@@ -60,6 +65,12 @@ public class Storage {
         return newList;
     }
 
+    /**
+     * Updates the completion status of a given task within the Task List to completed.
+     *
+     * @param commandLine
+     * @return Task instance that represents the command of a single line within the .txt file.
+     */
     public Task parseCommand(String commandLine) {
         String baseString = commandLine.substring(7);
         String commandDescription = baseString.split(" ")[0];
@@ -69,29 +80,29 @@ public class Storage {
             completionStatus = TaskStatus.COMPLETE;
         }
         switch (commandLine.charAt(1)) {
-            case 'T':
-                ToDos todo = new ToDos(commandDescription, completionStatus);
-                return todo;
-            case 'D':
-                LocalDate by = LocalDate.parse(
-                        baseString.substring(baseString.indexOf(":") + 1, baseString.indexOf(")")).trim(), formatter);
-                Deadlines deadline = new Deadlines(commandDescription, completionStatus, by);
-                return deadline;
-            case 'E':
-                int fromIndex = baseString.indexOf("from:") + 5;
-                int toIndex = baseString.indexOf("to:") - 1;
-                String fromDateString = baseString.substring(fromIndex, toIndex).trim();
+        case 'T':
+            ToDos todo = new ToDos(commandDescription, completionStatus);
+            return todo;
+        case 'D':
+            LocalDate by = LocalDate.parse(
+                baseString.substring(baseString.indexOf(":") + 1, baseString.indexOf(")")).trim(), formatter);
+            Deadlines deadline = new Deadlines(commandDescription, completionStatus, by);
+            return deadline;
+        case 'E':
+            int fromIndex = baseString.indexOf("from:") + 5;
+            int toIndex = baseString.indexOf("to:") - 1;
+            String fromDateString = baseString.substring(fromIndex, toIndex).trim();
 
-                int endIndex = baseString.indexOf(")", toIndex + 3);
-                String toDateString = baseString.substring(toIndex + 4, endIndex).trim();
+            int endIndex = baseString.indexOf(")", toIndex + 3);
+            String toDateString = baseString.substring(toIndex + 4, endIndex).trim();
 
-                LocalDate fromDate = LocalDate.parse(fromDateString, formatter);
-                LocalDate toDate = LocalDate.parse(toDateString, formatter);
-                Events event = new Events(commandDescription, completionStatus, fromDate, toDate);
-                return event;
+            LocalDate fromDate = LocalDate.parse(fromDateString, formatter);
+            LocalDate toDate = LocalDate.parse(toDateString, formatter);
+            Events event = new Events(commandDescription, completionStatus, fromDate, toDate);
+            return event;
 
-            default:
-                return null;
+        default:
+            return null;
         }
     }
 }
