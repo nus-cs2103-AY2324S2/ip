@@ -18,50 +18,89 @@ public class TaskList {
         this.myList = new ArrayList<>();
     }
 
+    /**
+     * Adds new task into the task list.
+     *
+     * @param task The task to be added to the task list.
+     */
     public void addTask(Task task) {
         this.myList.add(task);
     }
 
-    public Task getTask(int i) {
-        return this.myList.get(i - 1);
-    }
-
-    public void deleteTask(int index) {
-        myList.remove(index - 1);
+    /**
+     * Returns the task with the specified index in the task list.
+     *
+     * @param taskIndex Index of the task in the task list.
+     * @return The task with the specified index.
+     */
+    public Task getTask(int taskIndex) {
+        return this.myList.get(taskIndex - 1);
     }
 
     /**
-     * Method to call to get all tasks in a String
-     * @return All the tasks contained in the task list object in a String
+     * Deletes the task with the specified index from the task list.
+     *
+     * @param taskIndex The index of the task to be deleted.
      */
-    public String showTasks() {
+    public void deleteTask(int taskIndex) {
+        myList.remove(taskIndex - 1);
+    }
+
+    /**
+     * Gets all tasks from the task list.
+     *
+     * @return All the tasks contained in the task list object in a String.
+     */
+    public String getTasks() {
         String tasks = "";
         int index = 1;
         for (Task task : this.myList) {
-            tasks = tasks + index + ". " + task.toString() + "\n";
+            tasks = tasks + "\t" + index + ". " + task.toString() + "\n";
+            index++;
         }
         return tasks;
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return this.myList.size();
     }
 
+    /**
+     * Returns an Array list of the task list.
+     *
+     * @return The Array list of the task list.
+     */
     public ArrayList<Task> getListOfTasks() {
         return this.myList;
     }
 
-    public void markTask(int index) {
-        this.myList.get(index).setDone();
-    }
-
-    public void unMarkTask(int index) {
-        this.myList.get(index).setNotDone();
+    /**
+     * Marks a task in the task list as done.
+     *
+     * @param taskIndex Index of the task to be marked in the task list.
+     */
+    public void markTask(int taskIndex) {
+        this.myList.get(taskIndex - 1).setDone();
     }
 
     /**
-     * Method to find a particular task using matching task name
-     * @param text The keyword text to be matched in the task list
+     * Unmarks a task in the task list as done.
+     *
+     * @param taskIndex Index of the task to be marked in the task list.
+     */
+    public void unMarkTask(int taskIndex) {
+        this.myList.get(taskIndex - 1).setNotDone();
+    }
+
+    /**
+     * Finds all tasks with matching keyword.
+     *
+     * @param text The keyword to be matched in the task list
      * @return The matching tasks in a string
      */
     public String findTask(String text) {
@@ -69,7 +108,8 @@ public class TaskList {
         int index = 1;
         for (Task task : this.myList) {
             if (task.toString().contains(text)) {
-                matchingTasks = index + ". " + task.toString() + "\n";
+                matchingTasks = matchingTasks + "\t" + index + ". " + task.toString() + "\n";
+                index++;
             }
         }
         return matchingTasks;
