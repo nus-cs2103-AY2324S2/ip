@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to unmark a task.
  */
-public class UnmarkTaskCommand extends Command{
+public class UnmarkTaskCommand extends Command {
     private int index;
 
     /**

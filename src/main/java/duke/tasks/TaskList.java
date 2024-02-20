@@ -74,6 +74,12 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Finds tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A TaskList containing tasks that match the keyword.
+     */
     public TaskList find(String keyword) {
         List<Task> searchResults = new ArrayList<>();
         for (Task task : tasks) {
@@ -83,6 +89,4 @@ public class TaskList {
         }
         return new TaskList(searchResults);
     }
-
-
 }

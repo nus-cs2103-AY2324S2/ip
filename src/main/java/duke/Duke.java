@@ -1,14 +1,13 @@
 package duke;
 
+import static duke.constants.Constant.RELATIVE_PATH;
+
 import duke.commands.Command;
 import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-
-
-import static duke.constants.Constant.RELATIVE_PATH;
 
 /**
  * The main class of the Duke application.
@@ -19,6 +18,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Duke object.
+     *
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -50,6 +53,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Shows the welcome message.
+     * @return the welcome message string.
+     */
     public String showWelcome() {
         return ui.showWelcome();
     }

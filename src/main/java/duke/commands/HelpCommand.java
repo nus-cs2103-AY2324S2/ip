@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to display helps.
  */
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
 
     /**
      * Constructs a new ExitCommand object.

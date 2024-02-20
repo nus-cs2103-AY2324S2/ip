@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to display helps.
  */
-public class ErrorCommand extends Command{
+public class ErrorCommand extends Command {
 
     private String errorMessage;
 

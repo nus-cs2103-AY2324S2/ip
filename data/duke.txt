@@ -2,3 +2,12 @@ T | 0 | borrow
 T | 0 | return book
 T | 0 | find book
 T | 0 | borrow
+T | 0 | huhu
+T | 0 | huhu
+T | 0 | abc
+T | 0 | s
+T | 0 | f
+T | 0 | h
+T | 0 | h
+T | 0 | borrow book
+T | 0 | borrow book
