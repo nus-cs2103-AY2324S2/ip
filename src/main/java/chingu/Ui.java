@@ -13,7 +13,8 @@ public class Ui {
 
     private static final String LINE = "_________________________________________________________";
 
-    private static final String LOADING_ERROR = "Loaded wrongly - Please check again!";
+    private static final String LOADING_ERROR = "Your tasks are loaded wrongly " +
+            "- Please check your list.txt again, my friend!";
 
     private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:";
 

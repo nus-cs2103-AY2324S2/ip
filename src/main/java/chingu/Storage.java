@@ -97,7 +97,7 @@ public class Storage {
         divided = toPriority.split("/priority", 2);
         String to = divided[0].trim();
         String priority = divided[1].trim();
-        Task new_task = new Events(D, from, to, priority);
+        Task new_task = new Event(D, from, to, priority);
         if (isDone) {
             new_task.markAsDone();
         }
@@ -154,7 +154,7 @@ public class Storage {
     public String sortTask(Task temp, String to_add) {
         if (temp instanceof ToDos) {
             return saveToDo(temp, to_add);
-        } else if (temp instanceof Events) {
+        } else if (temp instanceof Event) {
             return saveEvent(temp, to_add);
         } else {
             return saveDeadline(temp, to_add);
@@ -173,7 +173,7 @@ public class Storage {
     }
 
     public String saveEvent(Task temp, String to_add) {
-        Events t = (Events) temp;
+        Event t = (Event) temp;
         String isDone = "0";
         if (temp.isDone) {
             isDone = "1";

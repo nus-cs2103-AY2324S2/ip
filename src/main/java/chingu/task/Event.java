@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * This class is implementation of Task which contains description, from and to.
  */
-public class Events extends Task {
+public class Event extends Task {
     public LocalDateTime from;
     public LocalDateTime to;
 
@@ -18,7 +18,7 @@ public class Events extends Task {
      * @param from
      * @param to
      */
-    public Events(String description, String from, String to, String priority) {
+    public Event(String description, String from, String to, String priority) {
         super(description, priority);
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));

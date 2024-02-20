@@ -32,7 +32,7 @@ public class Parser {
         } else if (fullCommand.equals("bye")) {
             return new ExitCommand();
         } else {
-            throw new NoCommandException("Please tell me what you want me to do.");
+            throw new NoCommandException("Friend, please tell me what you want me to do.");
         }
     }
 

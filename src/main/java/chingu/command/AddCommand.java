@@ -126,7 +126,7 @@ public class AddCommand extends Command {
         assert !validateFromDate : "format of the event start date is WRONG!";
         boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
         assert !validateToDate : "format of the event end date is WRONG!";
-        Task new_task = new Events(D, from, to, priority);
+        Task new_task = new Event(D, from, to, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
