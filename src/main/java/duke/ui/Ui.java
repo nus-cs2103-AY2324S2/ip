@@ -15,7 +15,7 @@ public class Ui {
      * @return The welcome message.
      */
     public String showWelcomeMessage() {
-        return "Heyy! I'm cookie! :) \n"+ "What can I do for you?";
+        return "Heyy! I'm Cookie! :) \n"+ "What can I do for you?";
     }
 
     /**
@@ -24,7 +24,7 @@ public class Ui {
      * @return The goodbye message.
      */
     public String showByeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Byee! Hope to see you again soon :)";
     }
 
     /**
@@ -35,7 +35,7 @@ public class Ui {
      * @return The message confirming the addition of the task.
      */
     public String showAddTaskMessage(Task t, int counter) {
-        return "Got it. I've added this task: \n" + t.toString() + t.tagString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list.";
+        return "Okay! I've added this task: \n" + t.toString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list.";
     }
 
     /**
@@ -46,7 +46,7 @@ public class Ui {
      * @return The message confirming the removal of the task.
      */
     public String showRemoveTaskMessage(Task t, int counter) {
-        return "Noted. I've removed this task: \n" + t.toString() + t.tagString() + "\n Now you have " + (counter - 1) + " tasks in the list.";
+        return "Okay! I've removed this task: \n" + t.toString() + "\n" + "Now you have " + (counter - 1) + " tasks in the list.";
     }
 
     /**
@@ -73,8 +73,7 @@ public class Ui {
         for (int i = 1; i <= counter; i++) {
             Task task = taskArr[i - 1];
             String taskDesc = task.toString();
-            String tag = task.tagString();
-            toPrint = toPrint + i + ". " + taskDesc + tag + '\n';
+            toPrint = toPrint + i + ". " + taskDesc + '\n';
         }
 
         return toPrint;
@@ -86,14 +85,13 @@ public class Ui {
      * @param tasks The array containing the tasks.
      * @return The formatted string representing the tasks containing the keyword.
      */
-    public String showTasksContainingKeyword(Task[] tasks) {
-        String toPrint = "Here are the matching tasks in your list: \n";
+    public String showTasksContainingKeyword(Task[] tasks, String keyword) {
+        String toPrint = "Here are the tasks containing " + keyword + ": \n";
         int counter = 0;
         Task t = tasks[counter];
         while(t != null) {
             String taskDesc = t.toString();
-            String tag = t.tagString();
-            toPrint += (counter + 1) + ". " + taskDesc + tag + "\n";
+            toPrint += (counter + 1) + ". " + taskDesc + "\n";
             counter++;
             t = tasks[counter];
         }
@@ -106,14 +104,13 @@ public class Ui {
      * @param tasks The array containing the tasks.
      * @return The formatted string representing the tasks containing the keyword.
      */
-    public String displayTaggedTasks(Task[] tasks) {
-        String toPrint = "Here are the tagged tasks! \n";
+    public String displayTaggedTasks(Task[] tasks, String tag) {
+        String toPrint = "Here are the tasks tagged " + tag + ": \n";
         int counter = 0;
         Task t = tasks[counter];
         while(t != null) {
             String taskDesc = t.toString();
-            String tag = t.tagString();
-            toPrint += (counter + 1) + ". " + taskDesc + tag + "\n";
+            toPrint += (counter + 1) + ". " + taskDesc + "\n";
             counter++;
             t = tasks[counter];
         }

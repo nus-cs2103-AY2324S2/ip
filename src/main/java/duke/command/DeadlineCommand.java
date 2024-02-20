@@ -52,7 +52,6 @@ public class DeadlineCommand extends Command {
     public String executeAndReply(Ui ui, TaskList tasks, Storage storage) {
         int counter = tasks.getCounter();
 
-
         Task t;
         if (isTagged) {
             t = new Deadline(description, tag, by);

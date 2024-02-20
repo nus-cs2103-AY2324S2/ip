@@ -28,10 +28,9 @@ public class DisplayTaggedCommand extends Command {
     @Override
     public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
         Task[] taggedTasks = tasks.displayTagged(tag);
-        if (taggedTasks[0] != null) {
-            return ui.displayTaggedTasks(taggedTasks);
-        } else {
+        if (taggedTasks[0] == null) {
             throw new DukeException("UH OH! No tasks of this tag!");
         }
+        return ui.displayTaggedTasks(taggedTasks, "#" + tag);
     }
 }

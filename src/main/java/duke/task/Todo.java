@@ -31,8 +31,8 @@ public class Todo extends Task {
         String status = getStatusIcon();
         String todoStatus = "[T][" + status + "] ";
         String desc = super.toString();
-
-        return todoStatus + desc;
+        String tag = super.tagString();
+        return todoStatus + desc + tag;
     }
 
     @Override

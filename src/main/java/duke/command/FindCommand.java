@@ -27,7 +27,7 @@ public class FindCommand extends Command {
     public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
         Task[] tasksToPrint = tasks.searchKeyWord(keyword);
         if (tasksToPrint[0] != null) {
-            return ui.showTasksContainingKeyword(tasksToPrint);
+            return ui.showTasksContainingKeyword(tasksToPrint, keyword);
         } else {
             throw new DukeException("UH OH! No tasks containing this keyword!");
         }

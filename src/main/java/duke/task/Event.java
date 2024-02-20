@@ -58,11 +58,12 @@ public class Event extends Task {
 
         String eventStatus = "[E][" + status + "] ";
         String description = super.toString();
-        String from = " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        String tag = super.tagString() + "\n";
+        String from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " " + fromTime;
-        String to = " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + toTime + ")";
+        String to = " -> " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + toTime;
 
-        return eventStatus + description + from + to;
+        return eventStatus + description + tag + from + to;
     }
 
     public String toFileString() {

@@ -157,7 +157,7 @@ public class Parser {
 
     private static Command parseDeleteCommand(String input) throws DukeException {
         String taskNum = input.substring(7);
-        int taskNumber = Integer.parseInt(taskNum);
+        int taskNumber = Integer.parseInt(taskNum.trim());
         assert taskNumber > 0: "Task number has to be greater than 0";
         return new DeleteCommand("delete", taskNumber);
     }

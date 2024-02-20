@@ -41,15 +41,16 @@ public class Deadline extends Task {
 
         String deadlineStatus = "[D][" + status + "] ";
         String desc = super.toString();
-        String by = " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        String tag = super.tagString() + "\n";
+        String by = "by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-        return deadlineStatus + desc + by;
+        return deadlineStatus + desc + tag + by;
     }
 
     @Override
     public String toFileString() {
         String deadlineStatus = "D | " + (isDone ? "1" : "0");
-        String desc = " | " + description;
+        String desc = " | " + description + " | ";
         String tg = " | " + tag + " | ";
         return deadlineStatus + desc + by + tg;
     }
