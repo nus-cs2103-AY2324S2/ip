@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 
-import andelu.Andelu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,8 +14,6 @@ import javafx.stage.Stage;
 public class MainGui extends Application {
 
 
-    private Andelu andelu;
-
     /**
      * Starts the GUI interface.
      *
@@ -25,14 +22,13 @@ public class MainGui extends Application {
      */
     @Override
     public void start(Stage stage) {
-        andelu = new Andelu("duke");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainGui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Andelu Task Bot");
-            fxmlLoader.<MainWindow>getController().setAndelu("duke");
+            fxmlLoader.<MainWindow>getController().setAndelu("andeluFile");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

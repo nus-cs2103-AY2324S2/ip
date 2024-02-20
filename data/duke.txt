@@ -1,7 +1,0 @@
-T | 1 | read book | DEFAULT
-T | 0 | summarise book | MEDIUM
-D | 0 | return book | 2024-02-13T23:59 | DEFAULT
-D | 1 | return item | 2024-02-14T23:59 | HIGH
-E | 0 | meeting | 2024-02-13T14:00 | 2024-02-13T16:00 | HIGH
-E | 0 | lunch | 2024-02-13T14:00 | 2024-02-13T16:00 | DEFAULT
-T | 1 | doing project | DEFAULT

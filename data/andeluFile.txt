@@ -1,0 +1,2 @@
+T | 0 | read book | DEFAULT
+E | 0 | project meeting | 2024-02-20T00:00 | 2024-02-20T23:59 | HIGH
