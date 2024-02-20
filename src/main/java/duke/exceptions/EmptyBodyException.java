@@ -8,6 +8,6 @@ public class EmptyBodyException extends BaseException {
      * Calls parent constructor with specific pre-defined message.
      */
     public EmptyBodyException() {
-        super("!!!ERROR: Please specify the content of the task you want to add.");
+        super("!!!ERROR: Please specify the content.");
     }
 }

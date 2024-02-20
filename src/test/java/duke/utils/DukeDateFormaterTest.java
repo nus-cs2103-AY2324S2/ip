@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class DukeDateFormaterTest {
     @Test
-    public void dukeDateFormater_stringToDate_success() {
+    public void stringToDate_validDate_success() {
         DukeDateFormater formater = new DukeDateFormater();
         // Format date success - the string is valid
         LocalDate date = formater.stringToDate("2019-12-01");
@@ -16,7 +16,7 @@ public class DukeDateFormaterTest {
     }
 
     @Test
-    public void dukeDateFormater_stringToDate_exceptionThrown1() {
+    public void stringToDate_emptyString_exceptionThrown() {
         DukeDateFormater formater = new DukeDateFormater();
         // Format date fail - the string is empty
         Assertions.assertThrows(DateTimeParseException.class, () -> {
@@ -25,7 +25,7 @@ public class DukeDateFormaterTest {
     }
 
     @Test
-    public void dukeDateFormater_stringToDate_exceptionThrown2() {
+    public void stringToDate_largeDate_exceptionThrown() {
         DukeDateFormater formater = new DukeDateFormater();
         // Format date fail - the string exceeds the valid date range.
         Assertions.assertThrows(DateTimeParseException.class, () -> {
@@ -34,7 +34,7 @@ public class DukeDateFormaterTest {
     }
 
     @Test
-    public void dukeDateFormater_stringToDate_exceptionThrown3() {
+    public void stringToDate_wrongFormat_exceptionThrown() {
         DukeDateFormater formater = new DukeDateFormater();
         // Format date fail - the string is not in supported date format
         Assertions.assertThrows(DateTimeParseException.class, () -> {
