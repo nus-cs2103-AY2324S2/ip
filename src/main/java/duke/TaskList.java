@@ -144,12 +144,14 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public String deleteTask(int index) throws DukeException {
+        int arraySize = tasks.size();
         try {
             reply = "Ok. I'll be removing this task:\n "
                     + tasks.get(index - 1).toString()
                     + "\n"
                     + "Now you have " + (tasks.size() - 1) + " task(s) left";
             tasks.remove(index - 1);
+            assert arraySize - 1 == tasks.size() : "Task should be removed";
             storage.removeFromFile(index);
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
