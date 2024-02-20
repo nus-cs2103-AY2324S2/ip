@@ -151,7 +151,6 @@ public class TaskList {
                     + "\n"
                     + "Now you have " + (tasks.size() - 1) + " task(s) left";
             tasks.remove(index - 1);
-            assert arraySize - 1 == tasks.size() : "Task should be removed";
             storage.removeFromFile(index);
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
