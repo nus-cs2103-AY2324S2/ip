@@ -11,6 +11,7 @@ import duke.task.Task;
 import duke.task.Tasklist;
 import duke.task.Todo;
 import duke.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * Represents a parser that parses user input and executes the corresponding commands.
@@ -49,13 +50,16 @@ public class Parser {
             return handleDelete(ui, details, todolist);
         case "find":
             return findTask(ui, details, todolist);
+        case "sort":
+            sortTodolist(todolist, storage);
+            return "Sorted";
         case "bye":
-            break;
+            Platform.exit();
+            return "Bye. Hope to see you again soon!";
         default:
             outputMessage = "OOPS!!! I'm sorry, but I don't know what that means :-(";
             return outputMessage;
         }
-        return "Error";
     }
     public boolean commandIsBye(String input) {
         return input.trim().equals("bye");
@@ -149,5 +153,17 @@ public class Parser {
         outputMessage = tasksWithKeyword.toString().trim();
         ui.printMessage(outputMessage);
         return outputMessage;
+    }
+
+    /**
+     * Sorts the task list by description.
+     */
+    public void sortTodolist(Tasklist todolist, Storage storage) throws DukeException {
+        try {
+            todolist.sortTodolist();
+            storage.saveData(todolist.getTodolist());
+        } catch (IOException e) {
+            throw new DukeException("An error occurred while writing to the file.");
+        }
     }
 }

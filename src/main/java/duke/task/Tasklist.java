@@ -3,6 +3,7 @@ package duke.task;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,5 +111,12 @@ public class Tasklist {
                 addItem(new Event(details[2], LocalDate.parse(details[3]), LocalDate.parse(details[4]), isDone));
             }
         }
+    }
+
+    /**
+     * Sorts the task list by description.
+     */
+    public void sortTodolist() {
+        todolist.sort(Comparator.comparing(Task::getDescription));
     }
 }
