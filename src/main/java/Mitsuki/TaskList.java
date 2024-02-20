@@ -28,6 +28,7 @@ public class TaskList {
     public Task get(int index) {
         return list.get(index);
     }
+    private static Ui ui = new Ui();
 
 
     /**
@@ -37,6 +38,8 @@ public class TaskList {
      *      [D][ ] Return book (By Sunday 2pm)
      *      to the user's list
      * Throws an exception if empty task description or no deadline is given.
+     *
+     * @param scan the scanner used to scan the details of the deadline to add.
      */
     public static void deadline(Scanner scan) {
         String fullString = scan.nextLine();
@@ -74,6 +77,8 @@ public class TaskList {
      *      [T][ ] Go running
      *      to the user's list.
      * Throws an exception if empty task description is given.
+     *
+     * @param scan the scanner used to scan the details of the todo to add.
      */
     public static void todo(Scanner scan) {
         String description1 = scan.nextLine();
@@ -98,6 +103,8 @@ public class TaskList {
      *      [E][ ] Party (From Friday 8pm to 11pm)
      *      to the user's list.
      * Throws an exception if no task description, or no event start or end timing is given.
+     *
+     * @param scan the scanner used to scan the details of the event to add.
      */
     public static void event(Scanner scan) {
         String fullString1 = scan.nextLine();
@@ -147,6 +154,8 @@ public class TaskList {
      * Informs user that the task is marked as done, and also displays the task.
      * If task was already marked as done, exception is thrown and user is informed that they
      * had already completed the task.
+     *
+     * @param scan the scanner used to scan the index of the task to mark.
      */
     public static void mark(Scanner scan) {
         int index = scan.nextInt();
@@ -170,6 +179,8 @@ public class TaskList {
      * Informs user that the task is marked as not done, and also displays the task.
      * If task was already marked as not done, exception is thrown and user is informed that they
      * had not yet completed the task.
+     *
+     * @param scan the scanner used to scan the index of the task to unmark.
      */
     public static void unmark(Scanner scan) {
         int index1 = scan.nextInt();
@@ -191,6 +202,8 @@ public class TaskList {
      * Deletes an item from the user's todo list.
      * E.g. 'delete 3' deletes the 3rd item on the list.
      * Informs user that the task is deleted, and also displays the deleted task.
+     *
+     * @param scan the scanner used to scan the index of the task to delete
      */
     public static void delete(Scanner scan) {
         int index2 = scan.nextInt();
@@ -199,5 +212,15 @@ public class TaskList {
 
         System.out.println("Alright, I have removed the following task from your list:\n" + goneTask);
         System.out.println("Now you have " + list.size() + " task(s) in the list.");
+    }
+
+    /**
+     * Finds related items and their index on the user's current list.
+     *
+     * @param scan the scanner used to scan the keyWord.
+     */
+    public static void find(Scanner scan) {
+        String keyWord = scan.nextLine();
+        ui.printFound(keyWord, list);
     }
 }
