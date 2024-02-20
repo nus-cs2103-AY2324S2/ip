@@ -10,7 +10,7 @@ The most basic feature of DevGPT is adding todos. It allows you to add tasks to 
 Represented by a `[T]` in the chatbot and `[X]` to represent a completed task.
 
 Send a message in the following format:  
-`todo <description>`
+`todo <description>`  
 Example: `todo borrow book`
 
 A message would indicate that the task has been added to the chatbot.
@@ -61,7 +61,7 @@ DevGPT:
 List all tasks in the chatbot.
 
 Send a message in the following format:  
-`list task`
+`list`
 
 A message would indicate that the tasks have been listed.
 ```
@@ -77,8 +77,8 @@ Mark a task as done in the chatbot to indicate that it has been completed.
 Represented by a `[X]` in the chatbot to indicate the task is completed.
 
 Send a message in the following format:  
-`done <task number>`  
-Example: `done 1`  
+`mark <task number>`  
+Example: `mark 1`  
 
 A message would indicate that the task has been marked as done.
 ```
@@ -92,13 +92,13 @@ Mark a task as undone in the chatbot to indicate that it has not been completed.
 Represented by a `[ ]` to indicate that the task is not completed.
 
 Send a message in the following format:  
-`undone <task number>`
-Example: `undone 1`  
+`unmark <task number>`  
+Example: `unmark 1`  
 
 A message would indicate that the task has been marked as undone.
 ```
 DevGPT:
-    Got it! I've marked this task as undone:
+    Got it! I've marked this task as not done yet:
     [T][ ] borrow book
 ```
 
