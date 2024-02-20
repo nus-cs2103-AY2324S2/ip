@@ -20,8 +20,8 @@ public class Ui {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
                 + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
                 + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
-        String output = String.format("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
-        System.out.printf(output);
+        String output = String.format("Woof! I'm\n\n%s\n\nYour very own personal task manager.\n" +
+                "What can I do for you today?\n%n", logo);
         return output;
     }
 
@@ -30,7 +30,6 @@ public class Ui {
      */
     public String sendGoodbye() {
         String output = "Bye. Hope to see you again soon!\n";
-        System.out.printf(output);
         return output;
     }
 
@@ -44,7 +43,6 @@ public class Ui {
         String output = String.format("Got it. I've added this task:\n%s\n"
                         + "Now you have %d task(s) in the list.\n",
                 taskList.getLastTask().toString(), taskList.getSize());
-        System.out.printf(output);
         return output;
     }
 
@@ -59,7 +57,6 @@ public class Ui {
         String output = String.format("Noted. I've removed this task:\n%s\n"
                         + "Now you have %d tasks in the list.\n",
                 deletedTask.toString(), taskList.getSize());
-        System.out.printf(output);
         return output;
     }
 
@@ -73,7 +70,6 @@ public class Ui {
         String output = String.format("Got it. I've added this task:\n%s\n"
                         + "Now you have %d task(s) in the list.\n",
                 taskList.getLastTask().toString(), taskList.getSize());
-        System.out.printf(output);
         return output;
     }
 
@@ -86,7 +82,6 @@ public class Ui {
      */
     public String sendNoResults(String keyword) {
         String output = String.format("No results found for the given keyword %s\n", keyword);
-        System.out.printf(output);
         return output;
     }
 
@@ -110,7 +105,6 @@ public class Ui {
                 + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n"
                 + "9. update [index] [new description] - Updates a task's description. Use this in"
                 + " conjunction with the 'list' command!.\n";
-        System.out.printf(output);
         return output;
     }
 
@@ -138,7 +132,6 @@ public class Ui {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task = String.format("%d. %s\n", i + 1, taskList.getTask(i).toString());
-            System.out.printf(task);
             output.append(task);
         }
 
@@ -155,7 +148,6 @@ public class Ui {
      */
     public String sendMark(Task task) {
         String output = "Nice! I've marked this task as completed:\n" + task.toString() + "\n";
-        System.out.printf(output);
         return output;
     }
 
@@ -169,7 +161,6 @@ public class Ui {
         String output = String.format("Got it. I've added this task:\n%s\n"
                 + "Now you have %d task(s) in the list.\n",
                 taskList.getLastTask().toString(), taskList.getSize());
-        System.out.printf(output);
         return output;
     }
 
@@ -181,7 +172,6 @@ public class Ui {
      */
     public String sendUnmark(Task task) {
         String output = "Nice! I've marked this task as incomplete:\n" + task.toString() + "\n";
-        System.out.printf(output);
         return output;
     }
 
@@ -194,7 +184,6 @@ public class Ui {
     public String sendUpdate(Task task) {
         String output = "Nice! I've updated the task description to '" + task.getDescription() + "'\n"
                 + "The task looks like this now:\n" + task.toString() + "\n";
-        System.out.printf(output);
         return output;
     }
 }

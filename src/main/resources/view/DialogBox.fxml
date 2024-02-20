@@ -11,7 +11,7 @@
          minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #C1E3ED;
+        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #FFE87C;
          -fx-background-radius: 10;" text="Label" wrapText="true">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
