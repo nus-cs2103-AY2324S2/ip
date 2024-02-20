@@ -1,30 +1,38 @@
-# Duke User Guide
+# Andelu Task Bot
+> [!NOTE]
+> Life lacks excitement without tasks - Andelu
 
-// Update the title above to match the actual product name
+Andelu Bot is here to help you keep track of all your tasks, ensuring your life is both meaningful and seamless.
+It is:
 
-// Product screenshot goes here
+- Text based
+- Easy to learn 
+- ~~Fast~~ _SUPER SUPER FAST_ to use
 
-// Product intro goes here
+## Getting Started 💻
 
-## Adding deadlines
+To use  Andelu Bot, follow these steps:
 
-// Describe the action and its outcome.
+1. Download it from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
+2. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
+3. Add your tasks (Todo, Deadline, Event)
+4. Let Andelu Bot manage your tasks😉
 
-// Give examples of usage
+And it is **FREE** to use! 🚫💵
 
-Example: `keyword (optional arguments)`
+## Features
 
-// A description of the expected outcome goes here
+- [x] Managing ToDos
+- [x] Managing deadlines 
+- [x] Managing Events
+- [x] Search Tasks
+- [x] Search Tasks based on date
+- [x] GUI
 
+## Java Developer Guide
+Entry point for Andelu Bot (Duke.java):
 ```
-expected output
+public static void main(String[] args) {
+        new Duke("duke").run();
+    }
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
