@@ -40,9 +40,15 @@ public class MainWindow extends AnchorPane {
     public void initialize(Duke duke, Ui ui) {
         assert duke != null : "Duke object should not be null";
         assert ui != null : "Ui object should not be null";
+        botIntro(ui);
         this.duke = duke;
-        DialogBox.getUserDialog(ui.showWelcome(), dukeImage);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+    @FXML
+    private void botIntro(Ui ui) {
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(ui.showWelcome(), dukeImage)
+        );
     }
 
     /**

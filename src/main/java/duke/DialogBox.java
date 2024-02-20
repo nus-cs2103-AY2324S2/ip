@@ -8,7 +8,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +36,7 @@ public class DialogBox extends HBox {
      * Initializes a DialogBox object with the given text and image.
      *
      * @param text Text to be displayed in the dialog box.
-     * @param img Image to be displayed in the dialog box.
+     * @param img  Image to be displayed in the dialog box.
      */
     private DialogBox(String text, Image img) {
         try {
@@ -58,6 +60,8 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setBackground(new Background(new BackgroundFill(Paint.valueOf("#D1D3D4"), CornerRadii.EMPTY, Insets.EMPTY)));
+        dialog.setAlignment(Pos.CENTER_LEFT);
+        dialog.setContentDisplay(ContentDisplay.LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
