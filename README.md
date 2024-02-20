@@ -1,24 +1,14 @@
-# Duke project template
+# TheAdvisor project
+This is a chatbot that can help you and store tasks that you wish to do, such as todo, events and deadline. With features such as find, marking and unmarking a task as done or not done and many more!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-
-## Setting up in Intellij
-
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+- **list**: To view the tasks stored in the list, will also load tasklist from previous usage.
+- **mark**: To mark a task and set it as done.
+- **unmark**: To unmark a task and set it as undone.
+- **todo**: To add a todo task into your tasklist.
+- **deadline**: To add a task with a deadline into your tasklist.
+- **event**: To add a task with a start date and an end date into your tasklist.
+- **find**: Search for tasks by keyword.
+- **Error Handling**: Informative error messages for incorrect inputs.
+- **Storage**: Persist tasks between sessions.
+- **User Interface**: Simple and intuitive user interface.
