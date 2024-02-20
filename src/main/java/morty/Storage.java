@@ -55,17 +55,17 @@ public class Storage {
       while ((line = bufferedReader.readLine()) != null) {
         char taskType = line.charAt(0);
         switch (taskType) {
-          case 'T':
-            tasks.add(Todo.deserialize(line));
-            break;
-          case 'D':
-            tasks.add(Deadline.deserialize(line));
-            break;
-          case 'E':
-            tasks.add(Event.deserialize(line));
-            break;
-          default:
-            break;
+        case 'T':
+          tasks.add(Todo.deserialize(line));
+          break;
+        case 'D':
+          tasks.add(Deadline.deserialize(line));
+          break;
+        case 'E':
+          tasks.add(Event.deserialize(line));
+          break;
+        default:
+          break;
         }
       }
       bufferedReader.close();
