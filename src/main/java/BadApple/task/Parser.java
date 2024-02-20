@@ -24,7 +24,7 @@ public class Parser {
         ArrayList<String> args = new ArrayList<String>(Arrays.asList(tokens));
 
         String reply = "DEFAULT";
-
+        assert(false);
         switch (args.get(0).toLowerCase()) {
             case "list":
                 return TaskList.listTasks(new BufferedReader(new FileReader(BadPingGuo.FILENAME)));
@@ -55,10 +55,11 @@ public class Parser {
                 }
                 break;
             case "todo":
-                // it is possible to relegate exception handling to addTask
-                // you must use fp and implement lazy evaluation
                 try {
+                    int before = TaskList.tasks.size();
                     reply = Storage.addTask(Todo.extractDetails(s));
+                    int after = TaskList.tasks.size();
+                    assert (after == before + 1);
                 } catch (BadAppleException be) {
                     System.out.println(be);
                     reply = be.toString();
