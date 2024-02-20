@@ -21,8 +21,8 @@ public class InvalidCommand extends Command {
   /**
    * Executes the InvalidCommand.
    *
-   * @param tasks   The list of tasks.
-   * @param ui      The user interface.
+   * @param tasks The list of tasks.
+   * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the InvalidCommand.
    */

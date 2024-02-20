@@ -21,8 +21,8 @@ public class FindCommand extends Command {
   /**
    * Executes the command to find tasks.
    *
-   * @param tasks   The list of tasks.
-   * @param ui      The user interface.
+   * @param tasks The list of tasks.
+   * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the command to find tasks.
    */
