@@ -44,7 +44,7 @@ public class Event extends Task {
     }
 
     /**
-     * Formats Event as a string to be saved to file.
+     * Format Event as a string to be saved to file.
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
@@ -55,14 +55,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + this.printDoneStatus() + "] "
+        return "[E][" + (isDone ? "X" : " ") + "] "
                 + this.description + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("hh:mm a")) + ")";
     }
 
     /**
-     * Parses and converts string to LocalTime object.
+     * Parse and convert string to LocalTime object.
      *
      * @param time      String containing time.
      * @return time     LocalTime object.

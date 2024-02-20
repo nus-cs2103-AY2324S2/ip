@@ -35,6 +35,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + this.printDoneStatus() + "] " + this.description;
+        return "[T][" + (isDone ? "X" : " ") + "] " + this.description;
     }
 }

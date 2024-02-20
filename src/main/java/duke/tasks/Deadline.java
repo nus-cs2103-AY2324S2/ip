@@ -34,7 +34,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Formats Deadline as a string to be saved to file.
+     * Format Deadline as a string to be saved to file.
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
@@ -45,7 +45,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + this.printDoneStatus() + "] " + this.description + " (by: "
+        return "[D][" + (isDone ? "X" : " ") + "] " + this.description + " (by: "
                 + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 }

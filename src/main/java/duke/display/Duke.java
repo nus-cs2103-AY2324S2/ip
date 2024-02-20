@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Handles Duke chatbox operations.
+ * Handles Anxi taskbot operations.
  */
 public class Duke extends Application {
 
