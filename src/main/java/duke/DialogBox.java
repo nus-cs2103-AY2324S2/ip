@@ -50,9 +50,10 @@ public class DialogBox extends HBox {
 
         setBoxAlignment(isUser);
 
-        dialog.setStyle("-fx-background-color: #efe6dc; "
+        dialog.setStyle("-fx-background-color: #e9f7ff; "
                 + "-fx-background-radius: 10; "
-                + "-fx-padding: 10px; ");
+                + "-fx-padding: 10px; "
+        );
     }
 
     private void setBoxAlignment(boolean isUser) {

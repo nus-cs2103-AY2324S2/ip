@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getCookieDialog("Heyy! I'm cookie! :) \n" +
                 "What can I do for your today?", dukeImage));
-        scrollPane.setStyle("-fx-background: #C0C0C0;");
+        scrollPane.setStyle("-fx-background: #cdeaff;");
 
     }
 
