@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.HashSet;
+
 /**
  * Represents a generic task in a task management application.
  * This class serves as a base class for different types of tasks.
@@ -84,4 +86,6 @@ public class Task {
     public String toString() {
         return getStatusIcon() + " " + description;
     }
+
+
 }
