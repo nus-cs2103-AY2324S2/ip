@@ -3,7 +3,6 @@ package unim.application;
 import java.io.IOException;
 import java.util.Collections;
 
-import unim.io.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,8 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import unim.io.MainWindow;
 
 
+/**
+ * Custom dialog box component for JavaFX applications, representing chat-like interfaces.
+ * Displays a message alongside an image with the option to flip the order of text and image.
+ * Factory methods for creating user and application dialogs are provided.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

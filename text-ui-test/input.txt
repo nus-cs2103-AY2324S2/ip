@@ -1,5 +1,6 @@
 todo eat lunch
 deadline finish assignment /by Sunday 10am
+deadline finish task /by 2/5/2022 1530
 event team lunch /from 02/18/2024 1200 /to 02/18/2024 1330
 list
 mark 1

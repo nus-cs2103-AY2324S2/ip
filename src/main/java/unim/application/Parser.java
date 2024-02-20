@@ -42,9 +42,10 @@ public class Parser {
         if ("list".equalsIgnoreCase(input)) {
             return Ui.showTaskList(taskList.getTaskList());
         } else if ("bye".equalsIgnoreCase(input)) {
+            Storage.saveTasks(taskList.getTaskList());
             return Ui.showByeMessage();
-        } else if (parsedInput[0].equalsIgnoreCase("mark") ||
-                parsedInput[0].equalsIgnoreCase("unmark")) {
+        } else if (parsedInput[0].equalsIgnoreCase("mark")
+                || parsedInput[0].equalsIgnoreCase("unmark")) {
             return markingHandler(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("deadline")) {
             if (isDeadlineInput(input)) {
@@ -114,6 +115,7 @@ public class Parser {
      */
     private static String handleTodos(String input, TaskList taskList) {
         String description = input.substring(5).trim();
+        System.out.println("Debug: Description before checking for duplicates: " + description);
 
         if (isDuplicateTask(description, taskList)) {
             return Ui.showErrorMessage("Duplicate task found. Task was not added, it's already there!");
@@ -188,7 +190,7 @@ public class Parser {
                     Event event = new Event(description, d1, d2);
                     taskList.addTask(event);
                     Storage.saveTasks(taskList.getTaskList());
-                    return Ui.showTaskAdded(event, taskList.getTotalTasks());
+                    return Ui.showEventAdded(event, taskList.getTotalTasks());
                 } else {
                     return Ui.showErrorMessage("Invalid input format for event. Please provide valid dates.");
                 }
@@ -253,10 +255,12 @@ public class Parser {
             String keyword = splitParts[1].trim();
             StringBuilder foundTasks = new StringBuilder(Ui.showFindItemList(keyword));
 
+            int count = 0;
             for (int i = 0; i < tasks.getTotalTasks(); i++) {
                 Task item = tasks.getTask(i);
                 if (item.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    foundTasks.append(Ui.showFoundTask(item));
+                    count++;
+                    foundTasks.append(count).append(". ").append(Ui.showFoundTask(item));
                     isFound = true;
                 }
             }

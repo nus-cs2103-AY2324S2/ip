@@ -1,5 +1,8 @@
 package unim.application;
 
+/**
+ * UnimException class throws exceptions specific to the Unim application.
+ */
 public class UnimException extends IllegalArgumentException {
 
     /**

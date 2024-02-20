@@ -35,8 +35,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (d1 != null) {
-            return "[D]" + super.toString() + " (by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            return super.getStatusIcon() + "[D] " + getDescription()
+                    + " (by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
-        return "[D]" + super.toString() + " (by: " + byDate + ")";
+        return super.getStatusIcon() + "[D] " + getDescription() + " (by: " + byDate + ")";
     }
 }

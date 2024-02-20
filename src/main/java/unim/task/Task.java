@@ -26,7 +26,7 @@ public class Task {
      * @return The status icon ("[X]" if done, "[ ]" if not done).
      */
     public String getStatusIcon() {
-        return (isDone ?  "[X] " : "[ ] "); // mark done task with X
+        return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
     /**
@@ -45,7 +45,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return userInput;
+        return userInput.replaceFirst("^\\[.*\\]\\s*", "");
     }
 
     @Override

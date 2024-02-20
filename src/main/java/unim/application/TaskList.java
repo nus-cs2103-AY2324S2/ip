@@ -1,6 +1,8 @@
 package unim.application;
-import unim.task.Task;
+
 import java.util.ArrayList;
+
+import unim.task.Task;
 
 /**
  * TaskList - Represents a list of tasks.

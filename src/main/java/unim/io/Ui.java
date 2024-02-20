@@ -1,9 +1,12 @@
 package unim.io;
+
+import java.util.ArrayList;
+
 import unim.task.Deadline;
+import unim.task.Event;
 import unim.task.Task;
 import unim.task.Todo;
 
-import java.util.ArrayList;
 
 /**
  * Ui - Handles interactions with the user, including input and output.
@@ -16,8 +19,8 @@ public class Ui {
      * @return The welcome message as a String.
      */
     public static String showWelcomeMessage() {
-        return "Hey there, welcome back to Unim!\n" +
-                "What's on your mind today?\n";
+        return "Hey there, welcome back to Unim!\n"
+                + "What's on your mind today?\n";
     }
 
     /**
@@ -44,9 +47,7 @@ public class Ui {
      * Displays an error message for invalid inputs.
      */
     public static String showErrorForInput() {
-        String message = "I'm sorry, I don't understand! Please type your request again. \n " +
-                "You can choose to: \n 1. add tasks (todo, deadline, event) \n 2. find tasks \n " +
-                "3. mark or unamrk tasks \n 4. delete tasks";
+        String message = "I'm sorry, I don't understand! Please type your request again. \n ";
         return message;
     }
 
@@ -92,8 +93,8 @@ public class Ui {
      * @return A formatted message as a String.
      */
     public static String showDeadlineAdded(Deadline deadline, int totalTasks) {
-        return "New deadline alert!\n " + deadline + "!\n" +
-                "Now you have " + totalTasks + " tasks in your list.\n";
+        return "New deadline alert!\n " + deadline + "!\n"
+                + "Now you have " + totalTasks + " tasks in your list.\n";
     }
 
 
@@ -113,8 +114,8 @@ public class Ui {
      * @return String representation of the marked task.
      */
     public static String showMarkedAsDone(Task task) {
-        return "Boom! " + task + " is marked done.\n" +
-                "You're crushing it!! What's next?";
+        return "Boom! " + task + " is marked done.\n"
+                + "You're crushing it!! What's next?";
     }
 
     /**
@@ -124,20 +125,20 @@ public class Ui {
      * @return String representation of the unmarked task.
      */
     public static String showUnmarkedTask(Task task) {
-        return "Not done yet? Time is ticking!! " +
-                "Try to finish this task soon: \n" + task + "\n";
+        return "Not done yet? Time is ticking!! "
+                + "Try to finish this task soon: \n" + task + "\n";
     }
 
     /**
      * Displays a message indicating that a task has been added.
      *
-     * @param task       The task that has been added.
+     * @param event       The task that has been added.
      * @param totalTasks The total number of tasks after the addition.
      * @return String representation of the added task.
      */
-    public static String showTaskAdded(Task task, int totalTasks) {
-        return "Ok! " + task + "is on the list!\n" +
-                "Now you have " + totalTasks + " tasks in your list.\n";
+    public static String showEventAdded(Event event, int totalTasks) {
+        return "Ok! " + event + " is on the list!\n"
+                + "Now you have " + totalTasks + " tasks in your list.\n";
     }
 
     /**
@@ -148,8 +149,8 @@ public class Ui {
      * @return String representation of the removed task.
      */
     public static String showTaskRemoved(Task removedTask, int totalTasks) {
-        return "Poof! This task has been removed from your list:\n  " + removedTask +
-                "\nNow you have " + totalTasks + " tasks in your list.\n";
+        return "Poof! This task has been removed from your list:\n  " + removedTask
+                + "\nNow you have " + totalTasks + " tasks in your list.\n";
     }
 
     /**
@@ -160,7 +161,7 @@ public class Ui {
      */
     public static String showFindItemList(String keyword) {
         assert keyword != null : "Keyword should not be null";
-        return "Here are the tasks with " + keyword + " in them: \n" +
-                "You're going to nail this! ";
+        return "Here are the tasks with " + keyword + " in them: \n"
+                + "You're going to nail this! \n";
     }
 }

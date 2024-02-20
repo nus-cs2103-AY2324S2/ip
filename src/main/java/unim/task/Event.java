@@ -33,17 +33,18 @@ public class Event extends Task {
      * @param d2          The end date of the event as a LocalDate.
      */
     public Event(String description, LocalDate d1, LocalDate d2) {
-       super(description);
-       this.d1 = d1;
-       this.d2 = d2;
+        super(description);
+        this.d1 = d1;
+        this.d2 = d2;
     }
 
     @Override
     public String toString() {
         if (d1 != null && d2 != null) {
-            return "[E]" + super.toString() + " (from: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-                    + d2.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            return super.getStatusIcon() + "[E] " + getDescription() + " (from: "
+                    + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " to: " + d2.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
-        return "[E]" + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
+        return super.getStatusIcon() + "[E] " + getDescription() + " (from: " + fromDate + " to: " + toDate + ")";
     }
 }

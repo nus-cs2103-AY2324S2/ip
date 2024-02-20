@@ -1,10 +1,18 @@
 package unim.io;
-import unim.task.Task;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import unim.task.Task;
+
 
 /**
  * Storage - Handles saving and loading tasks to and from a file.
@@ -37,7 +45,7 @@ public class Storage {
     public static void saveTasks(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks should not be null";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
             for (Task task : tasks) {
                 writer.write(task.toString());
                 writer.newLine();
