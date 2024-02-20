@@ -23,6 +23,13 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constructor for Event class
+     * @param title
+     * @param startTime
+     * @param startTime
+     * @param endTime
+     */
     public Event(String title, boolean isMarked, LocalDateTime startTime, LocalDateTime endTime) {
         super(title);
         this.isMarked = isMarked;

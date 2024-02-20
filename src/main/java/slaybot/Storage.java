@@ -66,6 +66,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file defined by {@link #PATH}.
+     * This method reads the file line by line, parses each line to recreate the task objects,
+     * and adds them to a list of tasks which is then returned.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> loadData() {
         List<Task> result = new ArrayList<>();
         try {
@@ -79,18 +86,18 @@ public class Storage {
 
                 String taskType = taskDetails[0];
                 switch (taskType) {
-                    case "T":
-                        currentTask = loadToDo(taskDetails);
-                        break;
-                    case "D":
-                        currentTask = loadDeadline(taskDetails);
-                        break;
-                    case "E":
-                        currentTask = loadEvent(taskDetails);
-                        break;
-                    default:
-                        currentTask = null;
-                        break;
+                case "T":
+                    currentTask = loadToDo(taskDetails);
+                    break;
+                case "D":
+                    currentTask = loadDeadline(taskDetails);
+                    break;
+                case "E":
+                    currentTask = loadEvent(taskDetails);
+                    break;
+                default:
+                    currentTask = null;
+                    break;
                 }
                 if (currentTask != null) {
                     result.add(currentTask);
@@ -102,6 +109,12 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Parses the details of a ToDo task from a string array and creates a ToDo object.
+     *
+     * @param taskDetails A string array containing the details of the ToDo task.
+     * @return A new ToDo object.
+     */
     public ToDo loadToDo(String[] taskDetails) {
         if (taskDetails[1].trim().equals("Not Done")) {
             return new ToDo(taskDetails[2].trim(), false);
@@ -110,6 +123,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the details of a Deadline task from a string array and creates a Deadline object.
+     *
+     * @param taskDetails A string array containing the details of the Deadline task.
+     * @return A new Deadline object with the specified description, completion status, and deadline.
+     */
     public Deadline loadDeadline(String[] taskDetails) {
         LocalDateTime dateTime = LocalDateTime.parse(taskDetails[3]);
         if (taskDetails[1].trim().equals("Not Done")) {
@@ -119,6 +138,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the details of an Event task from a string array and creates an Event object.
+     *
+     * @param taskDetails A string array containing the details of the Event task.
+     * @return A new Event object with the specified description, completion status, start time, and end time.
+     */
     public Event loadEvent(String[] taskDetails) {
         LocalDateTime startTime = LocalDateTime.parse(taskDetails[3]);
         LocalDateTime endTime = LocalDateTime.parse(taskDetails[4]);

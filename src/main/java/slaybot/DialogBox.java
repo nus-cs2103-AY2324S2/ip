@@ -21,13 +21,13 @@ import javafx.scene.shape.Circle;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+
+    private static final String USER_DIALOG_COLOR = " #218aff";
+    private static final String BOT_DIALOG_COLOR = " #39ff5a";
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
-    private static final String USER_DIALOG_COLOR = " #218aff";
-    private static final String BOT_DIALOG_COLOR = " #39ff5a";
 
     private DialogBox(String text, Image img, String color) {
         try {

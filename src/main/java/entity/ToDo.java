@@ -15,6 +15,11 @@ public class ToDo extends Task {
         super(title);
     }
 
+    /**
+     * Constructor for ToDo class
+     * @param title
+     * @param isMarked
+     */
     public ToDo(String title, boolean isMarked) {
         super(title);
         this.isMarked = isMarked;

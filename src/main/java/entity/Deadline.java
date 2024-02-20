@@ -19,6 +19,12 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Constructor for Deadline class
+     * @param title
+     * @param isMarked
+     * @param dateTime
+     */
     public Deadline(String title, boolean isMarked, LocalDateTime dateTime) {
         super(title);
         this.isMarked = isMarked;
