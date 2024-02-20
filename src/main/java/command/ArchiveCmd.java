@@ -1,6 +1,7 @@
 package command;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ public class ArchiveCmd extends Command {
     public String execute() {
         try {
             createNewFileIfNeeded();
+            save();
             tasks.clear();
             response = ui.ArchivedResponse();
             return response;
@@ -28,10 +30,13 @@ public class ArchiveCmd extends Command {
             assert dir.exists(): "How can file exist without diectory existing?";
             file.createNewFile();
         }
-        Files.copy(Paths.get("data/sirDuke.txt"), Paths.get("archive/archived.txt"));
-
     }
 
+    public void save() throws IOException {
+        FileWriter fw = new FileWriter("archive/archived.txt");
+        fw.write(tasks.toDataFormat());
+        fw.close();
+    }
     public ArchiveCmd() {
 
     }
