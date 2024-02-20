@@ -29,10 +29,12 @@ test {
 
 application {
     mainClass.set("Mitsuki.Mitsuki")
+    //mainClassName = 'Mitsuki.Mitsuki'
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    //archiveFileName = 'Mitsuki.jar'
+    archiveBaseName = "Mitsuki"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
