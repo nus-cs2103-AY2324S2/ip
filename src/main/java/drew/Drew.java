@@ -58,4 +58,7 @@ public class Drew {
 
         return reply;
     }
+    public String getUpcoming() {
+        return tasks.getUpcoming();
+    }
 }

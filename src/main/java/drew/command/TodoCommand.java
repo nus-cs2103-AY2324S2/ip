@@ -24,6 +24,10 @@ public class TodoCommand extends Command {
 
         String todoDescription = input.substring(5);
         Todo newTask = new Todo(todoDescription);
+        if (tasks.isDuplicate(newTask)) {
+            reply = "Todo already exists. Task not added.";
+            return reply;
+        }
         ls.add(newTask);
 
         reply = "Got it. I've added this task:\n";

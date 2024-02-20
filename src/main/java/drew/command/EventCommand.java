@@ -36,6 +36,10 @@ public class EventCommand extends Command {
         LocalDate startDate = LocalDate.parse(input.substring(firstBackslashIndex + 5, secondBackslashIndex).trim());
         LocalDate endDate = LocalDate.parse(input.substring(secondBackslashIndex + 3).trim());
         Event newTask = new Event(eventDescription, startDate, endDate);
+        if (tasks.isDuplicate(newTask)) {
+            reply = "Event already exists. Task not added.";
+            return reply;
+        }
         ls.add(newTask);
 
         reply = "Got it. I've added this task:\n";

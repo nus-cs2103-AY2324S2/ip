@@ -35,4 +35,33 @@ public class Deadline extends Task {
         String status = (super.isDone) ? "1" : "0";
         return String.format("D | %s | %s | %s\n", status, super.toString(), this.date);
     }
+
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) task;
+        if (deadline == this) {
+            return true;
+        }
+        if (!deadline.date.equals(this.date)) {
+            return false;
+        }
+        if (!deadline.description.equals(this.description)) {
+            return false;
+        }
+        assert this.description.equals(deadline.description) && deadline.date.equals(this.date);
+        return true;
+    }
+
+    /**
+     * Checks if this deadline task is due todau or after today.
+     * @return True if deadline is due today or after today.
+     */
+    public boolean isUpcoming() {
+        LocalDate now = LocalDate.now();
+        boolean beforeDue = date.isAfter(now);
+        return beforeDue;
+    }
 }

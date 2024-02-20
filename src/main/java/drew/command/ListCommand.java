@@ -20,10 +20,7 @@ public class ListCommand extends Command {
         int listLength = ls.size();
 
         reply = reply + "Tasks in your list, you have." + "\n";
-        for (int i = 0; i < listLength; i++) {
-            reply = reply + Integer.toString(i + 1) + ". "
-                    + ls.get(i).toStatusString() + "\n";
-        }
+        reply += tasks.getTaskList();
         reply = reply + String.format("%d task(s) in the list, there are.", listLength);
 
         return reply;

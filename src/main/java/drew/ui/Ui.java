@@ -22,13 +22,6 @@ public class Ui {
     }
 
     /**
-     * The last message to be printed before saving.
-     */
-    public void bidFarewell() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
      * Encloses input string with lines.
      * @param input String to be enclosed in lines
      */
@@ -37,9 +30,4 @@ public class Ui {
         System.out.println(input);
         System.out.println(DELIMITER);
     }
-
-    public String readInput() {
-        return sc.nextLine();
-    }
-
 }

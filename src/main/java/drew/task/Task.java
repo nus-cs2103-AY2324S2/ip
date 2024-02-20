@@ -36,6 +36,7 @@ public abstract class Task {
     }
 
     public abstract String toSaveFormatString();
+    public abstract boolean isEqual(Task task);
 
     public void setDone() {
         isDone = true;
@@ -43,5 +44,9 @@ public abstract class Task {
 
     public void setNotDone() {
         isDone = false;
+    }
+
+    protected boolean isDone() {
+        return isDone;
     }
 }
