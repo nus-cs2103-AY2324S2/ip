@@ -1,5 +1,6 @@
 package morty;
 
+import morty.command.ArchiveCommand;
 import morty.command.Command;
 import morty.command.DeadlineCommand;
 import morty.command.DeleteCommand;
@@ -42,6 +43,8 @@ public class Parser {
       return new EventCommand(tokens);
     case "find":
       return new FindCommand(tokens);
+    case "archive":
+      return new ArchiveCommand(tokens);
     default:
       return new InvalidCommand(tokens);
     }
