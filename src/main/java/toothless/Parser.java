@@ -29,7 +29,7 @@ public class Parser {
      * @throws ToothlessException if the input is invalid or no Command is suitable
      */
     public static Command parseCommand(String input) throws ToothlessException {
-        String[] split = input.split(" ", 2);
+        String[] split = input.trim().split(" ", 2);
         String commandType = split[0].toUpperCase();
         switch (commandType) {
         case "BYE":
@@ -40,7 +40,7 @@ public class Parser {
             if (split.length < 2) {
                 throw new ToothlessException("Input keyword pls");
             }
-            return new FindCommand(split[1]);
+            return new FindCommand(split[1].trim());
         case "MARK":
         case "UNMARK":
         case "DELETE":
@@ -62,13 +62,14 @@ public class Parser {
             throw new ToothlessException("Input description @_@");
         }
         String taskType = split[0].toUpperCase();
+        String taskDetails = split[1].trim();
         switch (taskType) {
         case "TODO":
-            return new TodoCommand(split[1]);
+            return new TodoCommand(taskDetails);
         case "EVENT":
-            return new EventCommand(split[1]);
+            return new EventCommand(taskDetails);
         case "DEADLINE":
-            return new DeadlineCommand(split[1]);
+            return new DeadlineCommand(taskDetails);
         default:
             assert false : taskType;
             throw new ToothlessException("Invalid Task Command");
@@ -80,13 +81,14 @@ public class Parser {
             throw new ToothlessException("Input number pls");
         }
         String updateType = split[0].toUpperCase();
+        String taskDetails = split[1].trim();
         switch (updateType) {
         case "MARK":
-            return new MarkCommand(split[1]);
+            return new MarkCommand(taskDetails);
         case "UNMARK":
-            return new UnmarkCommand(split[1]);
+            return new UnmarkCommand(taskDetails);
         case "DELETE":
-            return new DeleteCommand(split[1]);
+            return new DeleteCommand(taskDetails);
         default:
             assert false : updateType;
             throw new ToothlessException("Invalid Update Command");
