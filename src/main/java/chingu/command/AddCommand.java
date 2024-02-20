@@ -75,17 +75,15 @@ public class AddCommand extends Command {
             throw new DeadlineException("What deadline do you need to record?");
         }
         String [] divided = description.split("/by", 2);
-        if (divided.length < 2) {
-            throw new DeadlineException("When do you have to get it done");
-        }
+        checkDeadlineSplit(divided.length);
         String D = divided[0];
         String byPriority = divided[1].trim();
         divided = byPriority.split("/priority", 2);
-        if (divided.length < 2) {
-            throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
-        }
         String by = divided[0].trim();
         String priority = divided[1].trim();
+        if (priority.isEmpty()) {
+            throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
+        }
         boolean validateDate = by.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}");
         if (!validateDate) {
             throw new DateException("Invalid format of the date");
@@ -103,35 +101,43 @@ public class AddCommand extends Command {
             throw new EventException("What event do you need to record?");
         }
         String [] divided = description.split("/from", 2);
-        if (divided.length < 2) {
-            throw new EventException("There is no event timeline!");
-        }
+        checkEventSplit(divided.length);
         String D = divided[0];
         String fromTo = divided[1];
         divided = fromTo.split("/to", 2);
-        if (divided.length < 2) {
-            throw new EventException("There is no event timeline!");
-        }
+        checkEventSplit(divided.length);
         String from = divided[0].trim();
         String toPriority = divided[1].trim();
         divided = toPriority.split("/priority", 2);
-        if (divided.length < 2) {
-            throw new EventException("Please insert the priority of the task - /priority High/Mid/low");
-        }
+        checkEventSplit(divided.length);
         String to = divided[0].trim();
         String priority = divided[1].trim();
-        System.out.println(from);
-        System.out.println(to);
-        boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
-        assert !validateFromDate : "format of the event start date is WRONG!";
-        boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
-        assert !validateToDate : "format of the event end date is WRONG!";
+        validateDates(from, to);
         Task new_task = new Event(D, from, to, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
                 "Now you have " + length + " tasks in the list.";
         return Response;
+    }
+
+    public void checkDeadlineSplit(int length) throws DeadlineException {
+        if (length < 2) {
+            throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
+        }
+    }
+
+    public void checkEventSplit(int length) throws EventException{
+        if (length < 2) {
+            throw new EventException("There is no event timeline!");
+        }
+    }
+
+    public void validateDates(String from, String to) {
+        boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
+        assert !validateFromDate : "format of the event start date is WRONG!";
+        boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
+        assert !validateToDate : "format of the event end date is WRONG!";
     }
 
     public boolean isExit() {
