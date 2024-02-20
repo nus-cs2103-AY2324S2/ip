@@ -18,11 +18,11 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 ## Show all tasks
 
-Shows all the task in the task list
+Shows all tasks in the task list
 
 Format: ```list```
 
-## mark a task
+## Mark a task
 
 Mark a task as done in the task list
 
@@ -40,7 +40,7 @@ Nice! I've marked this task as done:
 
 Adds a todo task to the task list.
 
-Format: todo TASK_DESCRIPTION
+Format: ```todo TASK_DESCRIPTION```
 
 Example:
 - ```todo read book```
@@ -55,7 +55,7 @@ Now you have 7 tasks in the list.
 
 Adds a deadline task to the task list.
 
-Format: deadline TASK_DESCRIPTION /by DATE_TIME
+Format: ```deadline TASK_DESCRIPTION /by DATE_TIME```
 
 Example: 
 - ```deadline read book /by 2024-02-21 1800```
@@ -81,7 +81,7 @@ Got it. I've added this task:
 Now you have 7 tasks in the list.
 ```
 
-## delete a task
+## Delete a task
 
 Delete a task in the task list
 
