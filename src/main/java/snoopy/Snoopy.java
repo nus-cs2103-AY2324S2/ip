@@ -1,16 +1,10 @@
-package duke;
-import exceptions.DukeException;
-import exceptions.TaskNotExistException;
-import model.Deadline;
-import model.Event;
-import model.Task;
-import model.Todo;
+package snoopy;
 import service.Parser;
 import service.Storage;
 import service.TaskList;
 import ui.UI;
 
-public class Duke {
+public class Snoopy {
 
     private static TaskList taskList;
     private static UI ui;
@@ -86,25 +80,25 @@ public class Duke {
     }
 
     /**
-     * Constructor of Duke
+     * Constructor of Snoopy
      * @param filePath file storage location to save and retrieve list of tasks
      */
-    public Duke(String filePath) {
+    public Snoopy(String filePath) {
         ui = new UI();
         taskList = new TaskList();
         storage = new Storage(filePath);
     }
 
     /**
-     * Constructor of Duke without parameters 
+     * Constructor of Snoopy without parameters
      */
-    public Duke() {
-       new Duke("./src/main/java/data/duke.txt");
+    public Snoopy() {
+       new Snoopy("./src/main/java/data/snoopy.txt");
     }
 
 
     /**
-     * With a Duke object, .run() is the main entry point of the program, running all its processes.
+     * With a Snoopy object, .run() is the main entry point of the program, running all its processes.
      *
      */
     public void run() {
@@ -132,6 +126,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Snoopy("./data/duke.txt").run();
     }
 }

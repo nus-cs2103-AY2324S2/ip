@@ -21,8 +21,6 @@ public class Deadline extends Task {
             String example = "2024-12-14";
             throw new BadDateException(e.getMessage(), expectedDateFormat, example, by);
         }
-        this.tag = "";
-
     }
 
     public Deadline(String description, String by, String tag) {
@@ -55,7 +53,7 @@ public class Deadline extends Task {
      * @return String representation of the deadline that is savable.
      */
     public String fileSavingString() {
-        return "D | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + byString + " | " + super.tag;
+        return "D | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + byString + " | " + super.getTag();
     }
 
 }

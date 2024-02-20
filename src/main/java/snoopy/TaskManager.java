@@ -1,4 +1,4 @@
-package duke;
+package snoopy;
 
 import exceptions.DukeException;
 import exceptions.TaskNotExistException;
@@ -14,17 +14,38 @@ import java.util.Arrays;
 public class TaskManager {
 
 
-    public static boolean isValidDelete(String[] arr) {
-        if (arr.length <= 1) {
-            return false;
-        }
-        return true;
+    /**
+     * Checks if the delete command is valid
+     * @param inputArguments the array of input arguments
+     * @return true if the delete command is valid, false otherwise
+     */
+    public static boolean isValidDeleteCommand(String[] inputArguments) {
+        return inputArguments.length <= 1;
     }
-    public static String processDelete(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (!isValidDelete(arr)) {
-            return ("arr:" + Arrays.toString(arr) + "\n Nuh uh! Which task to delete? \nMake sure to add the task number!");
+
+    /**
+     * Checks if the event command is valid
+     * @param inputArguments the array of input arguments
+     * @return true if the event command is valid, false otherwise
+     */
+    private static boolean isValidEventCommand(String[] inputArguments) {
+        return inputArguments.length == 4;
+    }
+
+    /**
+     * Handles the delete command and removes the task from the list
+     * @param inputArguments the array of input arguments
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @param storage the storage object
+     * @return the string output
+     */
+    public static String processDelete(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+        if (!isValidDeleteCommand(inputArguments)) {
+            return ("inputArguments:" + Arrays.toString(inputArguments) + "\n Nuh uh! Which task to delete? \nMake sure to add the task number!");
         }
-        Integer i = Integer.valueOf(arr[1]);
+        Integer i = Integer.valueOf(inputArguments[1]);
         Task task;
         try {
             task = todos.get(i - 1);
@@ -42,15 +63,25 @@ public class TaskManager {
         System.out.println("Reached here");
         return ("Okay! I've fed this task to Woodstock, bye bye!:" + "\n" + task.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
     }
-    public static String processEvent(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (arr.length == 4) {
+
+    /**
+     * Handles the event command and interpreting details like dates and tags
+     * @param inputArguments the inputArgumentsay of strings
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @param storage the storage object
+     * @return the string output
+     */
+    public static String processEvent(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+        if (isValidEventCommand(inputArguments)) {
             throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
         }
         if (isVerbose) {
             System.out.println("Got it. Added this task:");
         }
         // extraction of parameters
-        String getDesc[] = arr[1].split(" /from ");
+        String getDesc[] = inputArguments[1].split(" /from ");
         String desc = getDesc[0];
         String getDates[] = getDesc[1].split(" /to ");
         String getDateAndTag[] = getDates[1].split(" /tag ");
@@ -81,14 +112,23 @@ public class TaskManager {
         return ("Wow hardworker! Added: " + "\n" + event.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
     }
 
-    public static String processDeadline(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (arr.length == 1) {
+    /**
+     * Processes the deadline command
+     * @param inputArguments the inputArgumentsay of strings
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @param storage the storage object
+     * @return the string output
+     */
+    public static String processDeadline(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+        if (inputArguments.length == 1) {
             throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
         }
         if (isVerbose) {
             System.out.println("Got it. Added this task:");
         }
-        String arguments[] = arr[1].split(" /by ");
+        String arguments[] = inputArguments[1].split(" /by ");
         String description = arguments[0];
         String byAndTag[] = arguments[1].split(" /tag ");
         String by = byAndTag[0];
@@ -112,14 +152,24 @@ public class TaskManager {
         }
         return ("Ah deadlines. Added this task:" + "\n" + deadline.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
     }
-    public static String processTodo(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (arr.length == 1) {
+
+    /**
+     * Processes the todo command
+     * @param inputArguments the inputArgumentsay of strings
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @param storage the storage object
+     * @return the string output
+     */
+    public static String processTodo(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+        if (inputArguments.length == 1) {
             throw new DukeException(" Nuh uh! The description of a todo cannot be empty.");
         }
         if (isVerbose) {
             System.out.println("Got it. Added this task:");
         }
-        String arguments[] = arr[1].split(" /tag ");
+        String arguments[] = inputArguments[1].split(" /tag ");
         System.out.println("arguments:" + Arrays.toString(arguments));
         Todo todo;
         if (arguments.length > 1) { // if there are tags
@@ -135,9 +185,19 @@ public class TaskManager {
         }
         return ("Ooo happening! Added this task:\n" + todo.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
     }
-    public static String processMark(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+
+    /**
+     * Processes the mark command
+     * @param inputArguments the inputArgumentsay of strings
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @param storage the storage object
+     * @return the string output
+     */
+    public static String processMark(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
         // mark task as done
-        Integer index = Integer.valueOf(arr[1]) - 1;
+        Integer index = Integer.valueOf(inputArguments[1]) - 1;
         Task currTask = todos.get(index);
         currTask.markAsDone();
         if (isVerbose) {
@@ -147,7 +207,16 @@ public class TaskManager {
         }
         return (" Great job! I've marked this as done:\n" + " " + currTask.toString());
     }
-    public static String processList(String[] arr, String UserInput, TaskList todos, Boolean isVerbose) {
+
+    /**
+     * Processes the list command
+     * @param inputArguments the arguments of strings
+     * @param UserInput the user input
+     * @param todos the list of tasks
+     * @param isVerbose the verbosity of the output
+     * @return the string output
+     */
+    public static String processList(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose) {
         if (isVerbose) {
             System.out.println(" Here are the tasks in your list:");
         }
@@ -162,11 +231,11 @@ public class TaskManager {
         return (" Here are the tasks in your list:\n" + tasksString);
     }
 
-    public static String processUnmark(String[] arr, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        Integer index = Integer.valueOf(arr[1]) - 1;
+    public static String processUnmark(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
+        Integer index = Integer.valueOf(inputArguments[1]) - 1;
         Task currTask = todos.get(index);
         // mark task as undone
-        index = Integer.valueOf(arr[1]) - 1;
+        index = Integer.valueOf(inputArguments[1]) - 1;
         if (isVerbose) {
             System.out.print(" OK, I've marked this task as not done yet:\n");
         }
@@ -180,9 +249,9 @@ public class TaskManager {
         }
         return (" OK, I've marked this task as not done yet:\n" + " " + currTask.toString());
     }
-    public static String processFind(String[] arr, String UserInput, TaskList todos, Boolean isVerbose) {
+    public static String processFind(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose) {
         TaskList matchingTasks = new TaskList();
-        String query = arr[1];
+        String query = inputArguments[1];
         String matchingTasksString = "";
         for (int i = 0; i < todos.size(); i++) {
             Task currTask = todos.get(i);

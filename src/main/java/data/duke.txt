@@ -1,2 +1,0 @@
-T | 0 | me | null
-T | 0 | everyone #fun | null

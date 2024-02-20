@@ -16,7 +16,6 @@ public class Event extends Task {
         this.toString = to;
         this.from = super.parseDateTime(from);
         this.to = super.parseDateTime(to);
-        this.tag = "";
     }
 
     public Event(String description, String from, String to, String tag) {
@@ -42,11 +41,6 @@ public class Event extends Task {
      * @return String representation of the event that is savable.
      */
     public String fileSavingString() {
-        return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.fromString + " | " + this.toString + " | " + super.tag;
+        return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.fromString + " | " + this.toString + " | " + super.getTag();
     }
 }
-
-// event project meeting /from Mon 2pm /to 4pm
-//    ____________________________________________________________
-//     Got it. I've added this task:
-//       [E][ ] project meeting (from: Mon 2pm to: 4pm)

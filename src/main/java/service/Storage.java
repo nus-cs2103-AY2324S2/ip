@@ -1,6 +1,6 @@
 package service;
 
-import duke.Duke;
+import snoopy.Snoopy;
 import exceptions.DukeException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,20 +59,20 @@ public class Storage {
             switch (type) {
             case "D":
                 time1 = task[3];
-                Duke.processCommand("Deadline " + desc + " /by " + time1, taskList, false);
+                Snoopy.processCommand("Deadline " + desc + " /by " + time1, taskList, false);
                 break;
             case "E":
                 time1 = task[3];
                 time2 = task[4];
-                Duke.processCommand("Event " + desc + " /from " + time1 + " /to " + time2, taskList, false);
+                Snoopy.processCommand("Event " + desc + " /from " + time1 + " /to " + time2, taskList, false);
                 break;
             case "T":
-                Duke.processCommand("Todo " + desc, taskList, false);
+                Snoopy.processCommand("Todo " + desc, taskList, false);
                 break;
             }
 
             if (done.equals("1")) { // done
-                Duke.processCommand("Mark " + taskCounter.toString(), taskList, false);
+                Snoopy.processCommand("Mark " + taskCounter.toString(), taskList, false);
             }
             //parse each line
             taskCounter++;
@@ -123,7 +123,7 @@ public class Storage {
     }
 
     /**
-     * Update the database (duke.txt) on the most recent version of the tasklist.
+     * Update the database (snoopy.txt) on the most recent version of the tasklist.
      * @param taskList most updated version of the tasklist.
      * @throws RuntimeException
      */

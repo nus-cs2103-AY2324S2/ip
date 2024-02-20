@@ -1,6 +1,6 @@
 ##Testing things to add:
 
 > For file retrieval
-- duke.txt not available 
-- duke.txt being corrupted
-- duke.txt working fine
+- snoopy.txt not available 
+- snoopy.txt being corrupted
+- snoopy.txt working fine

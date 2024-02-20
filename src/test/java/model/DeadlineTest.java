@@ -7,13 +7,13 @@ public class DeadlineTest {
     @Test
     public void dateParsing_properDate_dateParsedCorrectlyForSaving(){
         Deadline deadline = new Deadline("test description", "2024-02-01");
-        assertEquals(deadline.fileSavingString(), "D | 0 | test description | 2024-02-01");
+        assertEquals("D | 0 | test description | 2024-02-01 | ", deadline.fileSavingString());
     }
 
     @Test
     public void dateParsing_properDatetime_dateParsedCorrectlyForPrinting(){
         Deadline deadline = new Deadline("test description", "2024-02-01");
-        assertEquals(deadline.toString(), "[D][ ] test description (by: Feb 01 2024 0000)");
+        assertEquals("[D][ ] test description (by: Feb 01 2024 0000)", deadline.toString());
     }
 }
 

@@ -70,8 +70,16 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description + " " + (this.tag == null ? "" : "#" + this.tag);
+        return "[" + this.getStatusIcon() + "] " + this.description + (this.tag == null ? "" : " #" + this.tag);
     }
 
     public abstract String fileSavingString();
+
+    public String getTag() {
+        if (this.tag == null) {
+            return "";
+        } else {
+            return this.tag;
+        }
+    }
 }

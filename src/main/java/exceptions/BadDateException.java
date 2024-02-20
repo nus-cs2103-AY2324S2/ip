@@ -1,5 +1,8 @@
 package exceptions;
 
+//@@author ForAeons-reused
+//{Adapted BadDateException}
+// with minor modifications
 public class BadDateException extends RuntimeException {
     protected final String expected;
     protected final String example;
@@ -32,3 +35,5 @@ public class BadDateException extends RuntimeException {
         return String.format("%s%s%s%s", badInputMessage, message, expectedMessage, exampleMessage);
     }
 }
+
+//@@author ForAeons
