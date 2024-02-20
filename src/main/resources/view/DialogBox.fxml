@@ -16,6 +16,7 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets></Label>
+        <!--SVGPath below adapted from https://stackoverflow.com/questions/37700640/javafx-whatapp-like-conversationview-->
       <SVGPath content="M50 0 L0 40 L0 5 Z" fill="#dddddd" style="-fx-translate-y: 15;" />
         <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 15;" />
     </children>
