@@ -2,6 +2,7 @@ package theadvisor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents an event task, with a description of the task, when it starts, and when it ends
@@ -59,4 +60,18 @@ public class Events extends Task implements Serializable {
         return "[E]" + super.toString() + " (from: " + startTime.format(Task.OUTPUT_FORMAT) + "hrs to: "
                 + endTime.format(Task.OUTPUT_FORMAT) + "hrs)";
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Events events = (Events) o;
+        return Objects.equals(getDescription(), events.getDescription())
+                && Objects.equals(startTime, events.startTime)
+                && Objects.equals(endTime, events.endTime);
+    }
+
 }

@@ -1,6 +1,7 @@
 package theadvisor;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a todo task with a description.
@@ -47,4 +48,16 @@ public class ToDos extends Task implements Serializable {
     public String toString() {
         return "[T]" + super.toString();
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ToDos toDos = (ToDos) o;
+        return Objects.equals(getDescription(), toDos.getDescription());
+    }
+
 }

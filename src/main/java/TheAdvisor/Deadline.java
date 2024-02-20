@@ -2,6 +2,7 @@ package theadvisor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents a deadline task with a description and a deadline.
@@ -52,5 +53,17 @@ public class Deadline extends Task implements Serializable {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(Task.OUTPUT_FORMAT) + "hrs)";
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Deadline deadline = (Deadline) o;
+        return Objects.equals(getDescription(), deadline.getDescription())
+                && Objects.equals(by, deadline.by);
     }
 }

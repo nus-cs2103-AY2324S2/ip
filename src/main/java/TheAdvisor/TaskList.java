@@ -159,4 +159,14 @@ public class TaskList implements Serializable {
             return toReturn.toString();
         }
     }
+    /**
+     * Checks whether the specified task is present in the task list.
+     *
+     * @param task The task to be checked for presence in the task list.
+     * @return {@code true} if the task is present in the task list, {@code false} otherwise.
+     */
+    public boolean contains(Task task) {
+        return taskList.contains(task);
+    }
+
 }

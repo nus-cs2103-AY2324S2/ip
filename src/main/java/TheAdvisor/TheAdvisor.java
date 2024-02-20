@@ -141,8 +141,12 @@ public class TheAdvisor implements Serializable {
                     + "description or you will face my wrath.";
         } else {
             ToDos toDos = new ToDos(todo);
-            response = taskList.addToList(toDos);
-            storage.saveTasks(taskList);
+            if (taskList.contains(toDos)) {
+                response = "You already have this in your list. AMETERASU!";
+            } else {
+                response = taskList.addToList(toDos);
+                storage.saveTasks(taskList);
+            }
         }
         return response;
     }
@@ -152,8 +156,12 @@ public class TheAdvisor implements Serializable {
             try {
                 Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1],
                         Task.INPUT_FORMAT));
-                response = taskList.addToList(deadline);
-                storage.saveTasks(taskList);
+                if (taskList.contains(deadline)) {
+                    response = "You already have this in your list. AMETERASU!";
+                } else {
+                    response = taskList.addToList(deadline);
+                    storage.saveTasks(taskList);
+                }
             } catch (DateTimeException e) {
                 response = "YOU FOOL. Your time format is wrong, change it to YYYY-MM-DD HHmm"
                         + " before I put you in my genjutsu";
@@ -174,8 +182,12 @@ public class TheAdvisor implements Serializable {
                 LocalDateTime start = LocalDateTime.parse(startStr, Task.INPUT_FORMAT);
                 LocalDateTime end = LocalDateTime.parse(endStr, Task.INPUT_FORMAT);
                 Events events = new Events(eventArr[0], start, end);
-                response = taskList.addToList(events);
-                storage.saveTasks(taskList);
+                if (taskList.contains(events)) {
+                    response = "You already have this in your list. AMETERASU!";
+                } else {
+                    response = taskList.addToList(events);
+                    storage.saveTasks(taskList);
+                }
             } catch (DateTimeException e) {
                 response = "YOU FOOL. Your time format is wrong, change it to YYYY-MM-DD HHmm"
                         + " before I put you in my genjutsu";
