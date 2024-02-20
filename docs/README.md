@@ -1,6 +1,7 @@
 # shirmin User Guide
 
-shirmin is a simple todo list app that allows you to add, delete, manipulate and find your tasks!
+shirmin is a simple todo list app that allows you to add, delete, manipulate and find your tasks! <br>
+![shirmin](Ui.png)
 
 # Commands: 
 Note: Do not include the angle brackets <> for all fields enclosed within them <br>
