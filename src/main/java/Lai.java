@@ -17,6 +17,8 @@ public class Lai {
      */
     public Lai() {
         tasks = new TaskList(storage.readTasksFile());
+
+        assert tasks.size() >= 0 : "TaskList initialization failed, tasks has a size of less than 0";
     }
 
     /**
@@ -81,6 +83,10 @@ public class Lai {
     public String addDeadline(String desc) throws LaiException {
         Parser.checkDescription(desc);
 
+        // Assert that the description is not empty after checking
+        assert !desc.isEmpty() : "Deadline creation failed, " +
+                "description for new Deadline is empty";
+
         // Separating the deadline from description
         String[] descBy = desc.split(" /by ", 2);
         desc = descBy[0];
@@ -104,6 +110,10 @@ public class Lai {
     public String addToDo(String desc) throws LaiException {
         Parser.checkDescription(desc);
 
+        // Assert that the description is not empty after checking
+        assert !desc.isEmpty() : "ToDo creation failed, " +
+                "description for new ToDo is empty";
+
         ToDo newTask = new ToDo(desc);
 
         return Ui.printTaskAdded(newTask, tasks.add(newTask, storage));
@@ -118,6 +128,10 @@ public class Lai {
      */
     public String addEvent(String desc) throws LaiException {
         Parser.checkDescription(desc);
+
+        // Assert that the description is not empty after checking
+        assert !desc.isEmpty() : "Event creation failed, " +
+                "description for new Event is empty";
 
         // Separating the start from description
         String[] descFrom = desc.split(" /from ", 2);
@@ -163,6 +177,9 @@ public class Lai {
         String[] parsedInput = Parser.parse(input);
         String command = parsedInput[0];
         String desc = parsedInput[1];
+
+        // Assert that only the command and description are being parsed
+        assert parsedInput.length <= 2 : "parsedInput contains more than 2 elements";
 
         try {
             switch (command) {
