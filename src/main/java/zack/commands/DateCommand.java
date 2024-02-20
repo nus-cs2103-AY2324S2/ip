@@ -21,9 +21,8 @@ public class DateCommand extends Command {
      * Constructs a DateCommand with the specified date.
      *
      * @param date The date for which tasks will be displayed.
-     * @throws ZackException If there is an error with the provided date.
      */
-    public DateCommand(LocalDate date) throws ZackException {
+    public DateCommand(LocalDate date) {
         this.date = date;
     }
 
