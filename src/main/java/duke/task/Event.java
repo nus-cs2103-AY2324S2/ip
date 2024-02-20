@@ -41,6 +41,13 @@ public class Event extends Task {
         return String.format("[E]" + super.toString() + " (from: %s to: %s)", fromDateString, toDateString);
     }
 
+    /**
+     * Updates one of the value/description of the fields in this task.
+     *
+     * @param field field to be updated.
+     * @param updatedDescription description to be updated to.
+     * @throws DukeException
+     */
     @Override
     public void updateTaskDescription(String field, String updatedDescription) throws DukeException {
         String fieldInput = field.toLowerCase();

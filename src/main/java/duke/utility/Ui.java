@@ -10,6 +10,8 @@ import duke.task.Task;
 public class Ui {
     /**
      * Prints out a welcome message.
+     *
+     * @return String containing the welcome message.
      */
     public String showWelcome() {
         return "Hello! I'm Pengu\n" + "What can I do for you?\n"
@@ -18,6 +20,8 @@ public class Ui {
 
     /**
      * Prints out a exit message.
+     *
+     * @return String containing the exit message.
      */
     public String showExit() {
         return "Bye. Hope to see you again soon! **HONK HONK**";
@@ -27,6 +31,7 @@ public class Ui {
      * Prints out the Tasks in the TaskList.
      *
      * @param taskList ArrayList of Tasks.
+     * @return String containing all the tasks in the TaskLists.
      */
     public String showTaskListContents(ArrayList<Task> taskList) {
         String output;
@@ -48,6 +53,7 @@ public class Ui {
      * Prints out the marked Task Object.
      *
      * @param markedTask Task Object that was marked.
+     * @return String containg the marked task.
      */
     public String showMarkedTask(Task markedTask) {
         return "*Honk!* Good Job!, Pengu has marked this task as done:\n" + markedTask.toString();
@@ -57,6 +63,7 @@ public class Ui {
      * Prints out the Task Object that was unmarked.
      *
      * @param unmarkedTask Task Object taht was unmarked.
+     * @return String containing the unmarked task.
      */
     public String showUnmarkedTask(Task unmarkedTask) {
         return "*Honk!* Pengu has marked this task as not done yet:\n" + unmarkedTask.toString();
@@ -67,6 +74,7 @@ public class Ui {
      *
      * @param deletedTask Task Object that was deleted.
      * @param taskStoreSize int of the size of TaskList.
+     * @return String containing the deleted task.
      */
     public String showDeletedTask(Task deletedTask, int taskStoreSize) {
         String output = String.format("*Honk* Pengu has removed the following task:\n" + deletedTask.toString()
@@ -78,6 +86,7 @@ public class Ui {
      * Prints out the error message.
      *
      * @param errMessage error message.
+     * @return String containing an error message.
      */
     public String showError(String errMessage) {
         return errMessage;
@@ -118,6 +127,12 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints out the Task that has been updated.
+     *
+     * @param taskToBeUpdated Tasks that was updated.
+     * @return String containing the updated task.
+     */
     public String showUpdatedTask(Task taskToBeUpdated) {
         return String.format("*Honk! Pengu has updated the following task:"
                 + "\n %s", taskToBeUpdated.toString());

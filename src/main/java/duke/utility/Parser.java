@@ -150,6 +150,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the userInput to return a todo Task.
+     *
+     * @param userInput String containing the userInput.
+     * @return a todo Task.
+     */
     private static Task parseTodo(String userInput) {
         String[] descriptionArr = userInput.split(" ");
         StringBuilder descBuilder = new StringBuilder();
@@ -163,6 +169,13 @@ public class Parser {
         return new ToDo(descBuilder.toString());
     }
 
+    /**
+     * Parses the userInput to return a Deadline Object.
+     *
+     * @param userInput String containing the userInput
+     * @return a Deadline Object.
+     * @throws DukeException
+     */
     private static Task parseDeadline(String userInput) throws DukeException {
         String[] descriptionArr = userInput.split(" ");
         int byIndex = Arrays.asList(descriptionArr).indexOf("/by");
@@ -185,6 +198,13 @@ public class Parser {
         return new Deadline(descBuilder.toString(), checkDates(byBuilder.toString()));
     }
 
+    /**
+     * Parses userInput and returns an Event object.
+     *
+     * @param userInput String containing userInput.
+     * @return a Event Object.
+     * @throws DukeException
+     */
     private static Task parseEvent(String userInput) throws DukeException {
         String[] descriptionArr = userInput.split(" ");
         int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
@@ -217,6 +237,13 @@ public class Parser {
                 checkDates(toBuilder.toString()));
     }
 
+    /**
+     * Parses the fileInput returning Deadline task to restore TaskList state.
+     *
+     * @param fileInput String containing the fileInput.
+     * @return a Deadline Object.
+     * @throws DukeException
+     */
     private static Task parseFileDeadline(String fileInput) throws DukeException {
         DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
         String infoString = fileInput.substring(7);
@@ -248,6 +275,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the fileInput returning Event task to restore TaskList state.
+     *
+     * @param fileInput String containng fileInput
+     * @return an Event Object.
+     * @throws DukeException
+     */
     private static Task parseFileEvent(String fileInput) throws DukeException {
         DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
         String infoString = fileInput.substring(7);
