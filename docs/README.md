@@ -57,9 +57,3 @@ Very well, I've unmarked this task with my supreme visual prowess:
 [E][ ] play game (from Feb 20 2024 2100hrs to: Feb 20 2024 2300hrs)
 Now you have 2 tasks in the list.
 ```
-- Find task
-    - find sl
-```
-My eyes have shown it to me, those that you seek are here:
-1. [T][ ] sleep
-```
