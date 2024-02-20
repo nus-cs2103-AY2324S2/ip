@@ -20,7 +20,7 @@ Try it now and experience the future of streamlined task and expense management!
 - Deduct expenses
 - View expenses
 - View total expenses
-- Clos application
+- Close application
 - Concatenate commands
 
 ## Adding tasks
