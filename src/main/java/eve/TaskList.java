@@ -120,4 +120,11 @@ public class TaskList {
         System.out.println(t.toString());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
+
+    public static void commandFind(String[] tempyArr, ArrayList<Task> list) {
+        /* need to get the find string from tempy array
+         * and search this string in the list of task
+         * after that print out the tasks found.
+         */
+    }
 }

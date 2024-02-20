@@ -85,6 +85,11 @@ public class Commands {
                     TaskList.commandEvent(tempyArr, list);
                     break;
 
+
+                case "find":
+                    TaskList.commandFind(tempyArr, list);
+                    break;
+
                 default:
                     throw new EveExceptions("OOPS!!! I'm sorry, but I don't know what that means, please try again");
 
