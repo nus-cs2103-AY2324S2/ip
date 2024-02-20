@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: pink; -fx-border-color: black; -fx-spacing: 25;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" contentDisplay="CENTER" style="-fx-background-color: &quot;03F335&quot;;" text="Label" textAlignment="CENTER" textFill="#9517ab" translateY="40.0" wrapText="true" HBox.hgrow="ALWAYS">
+        <Text fx:id="dialog" style="-fx-background-color: &quot;03F335&quot;;" text="Label" textAlignment="CENTER" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Comic Sans MS" size="10.0" />
-         </font></Label>
+         </font></Text>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
     </children>
     <padding>

@@ -9,17 +9,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * This control represents a dialog box for the sleepy GUI.
  */
 public class DialogBox extends HBox {
+    // Changing Label to Text inspired by marcus-ny
+    // Purpose: To ensure that long lists are not cut off
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
     private ImageView displayPicture;
 
