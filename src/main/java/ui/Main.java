@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("William aka Chopper ChatBot");
+            primaryStage.setTitle("William");
             fxmlLoader.<MainWindow>getController().setWilliam(william);
             primaryStage.show();
         } catch (IOException e) {
