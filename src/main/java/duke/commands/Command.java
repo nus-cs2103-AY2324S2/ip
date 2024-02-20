@@ -41,6 +41,12 @@ public abstract class Command {
         return false;
     }
     /**
+     * Returns if command type can be undone
+     *
+     * @return true it can be undone
+     */
+    public abstract boolean getIsUndoable();
+    /**
      * returns True if command has been undone before
      */
     public boolean getIsUnDone() {

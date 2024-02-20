@@ -1,4 +1,5 @@
 package duke;
+import duke.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,8 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren()
-                .add(DialogBox.getDukeDialog("Hello! I'm Megatron\n"
-                        + "What can I do for you?\n", dukeImage));
+                .add(DialogBox.getDukeDialog(Ui.intro(), dukeImage));
     }
 
     public void setDuke(Duke d) {

@@ -41,11 +41,16 @@ public class MarkCommand extends Command {
     @Override
     public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (super.getIsUnDone()) {
-            return "Last command was already undone";
+            return ui.lastCommandUndoed();
         } else {
             this.isComplete = !isComplete;
             this.execute(tasks, ui, storage);
-            return "Undo-ed last mark / unmark";
+            return ui.undoMark(isComplete);
         }
+    }
+
+    @Override
+    public boolean getIsUndoable() {
+        return true;
     }
 }

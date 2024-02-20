@@ -16,6 +16,11 @@ public class ListCommand extends Command {
 
     @Override
     public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        return "Nothing to undo";
+        return ui.nothingToUndo();
+    }
+
+    @Override
+    public boolean getIsUndoable() {
+        return false;
     }
 }

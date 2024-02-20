@@ -12,15 +12,15 @@ public class ToDoTest {
     @Test
     public void markTest() {
         Task markTask = new ToDo("hello");
-        markTask.mark();
+        markTask.setMarked();
         assertEquals(markTask.toString(), "[T][X] hello");
     }
 
     @Test
     public void unmarkTest() {
         Task markTask = new ToDo("hello");
-        markTask.mark();
-        markTask.unmark();
+        markTask.setMarked();
+        markTask.setNotMarked();
         assertEquals(markTask.toString(), "[T][ ] hello");
     }
 }

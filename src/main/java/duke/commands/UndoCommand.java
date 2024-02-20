@@ -22,11 +22,16 @@ public class UndoCommand extends Command {
 
     @Override
     public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        return "Cannot undo an undo";
+        return ui.lastCommandUndoed();
     }
 
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    @Override
+    public boolean getIsUndoable() {
+        return false;
     }
 }

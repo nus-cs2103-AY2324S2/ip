@@ -32,10 +32,15 @@ public class DeleteCommand extends Command {
     @Override
     public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (super.getIsUnDone()) {
-            return "Last command was already undone";
+            return ui.lastCommandUndoed();
         } else {
             new AddCommand(toRemove).execute(tasks, ui, storage);
-            return "Undo-ed last delete";
+            return ui.undoDelete(toRemove);
         }
+    }
+
+    @Override
+    public boolean getIsUndoable() {
+        return true;
     }
 }
