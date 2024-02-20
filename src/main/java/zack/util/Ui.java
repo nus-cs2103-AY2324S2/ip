@@ -23,7 +23,7 @@ public class Ui {
      * @return
      */
     public String showAddedTask(Task task, int totalTasks) {
-        return "Righty-ho! I've added this task:\n  " + task + "\nNow you have " + totalTasks
+        return "Righty-ho! I've added this task:\n" + task + "\nNow you have " + totalTasks
                 + " tasks in the list. All the best!";
     }
 
