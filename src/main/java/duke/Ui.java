@@ -124,19 +124,10 @@ public class Ui {
      * @param keyword The keyword to match.
      * @return The matching tasks.
      */
-    public String showMatchingTasks(String keyword) {
+    public String showMatchingTasks(String matchingTasks) {
         StringBuilder result = new StringBuilder();
         result.append("     Here are the matching tasks in your list:\n");
-        int matchCount = 0;
-        for (Task task : TaskList.getTasks()) {
-            if (task != null && task.description.contains(keyword)) {
-                result.append("     ").append(matchCount + 1).append(".").append(task).append("\n");
-                matchCount++;
-            }
-        }
-        if (matchCount == 0) {
-            result.append("     No matching tasks found.\n");
-        }
+        result.append(matchingTasks);
         return result.toString();
     }
 
