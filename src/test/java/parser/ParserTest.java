@@ -29,7 +29,6 @@ public class ParserTest {
 
     @Test
     public void parseTodoCmdTest() {
-        // 1 argument tests
         assertThrows(ArgumentException.class, () -> Parser.parseInput(" todo     "));
         assertThrows(CommandException.class, () -> Parser.parseInput(" 123,   todo     "));
         assertDoesNotThrow(() -> assertTrue(Parser.parseInput("    todo     //f/r/123    ") instanceof AddCommand));
@@ -37,7 +36,6 @@ public class ParserTest {
 
     @Test
     public void parseDeadlineCmdTest() {
-        // 2 argument tests
         assertThrows(ArgumentException.class, () -> Parser.parseInput(" deadline     "));
         assertThrows(ArgumentException.class, () -> Parser.parseInput(" deadline   123   "));
         assertThrows(CommandException.class, () -> Parser.parseInput(" deadline123     "));

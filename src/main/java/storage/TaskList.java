@@ -82,7 +82,7 @@ public class TaskList {
         int outputIndex = 1;
         for (Task t : list) {
             if (t.isFound(matcher)) {
-                output += outputIndex + "." + t.toString() + "\n";
+                output += outputIndex + "." + t + "\n";
                 outputIndex++;
             }
         }

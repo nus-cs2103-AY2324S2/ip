@@ -28,14 +28,6 @@ public class MainWindow extends AnchorPane {
      */
     public MainWindow(UserInterface ui) {
         this.ui = ui;
-        this.scrollPane = new ScrollPane();
-        this.dialogContainer = new VBox();
-        this.scrollPane.setContent(dialogContainer);
-
-        this.userInput = new TextField();
-        this.sendButton = new Button("Send");
-
-        this.getChildren().addAll(scrollPane, userInput, sendButton);
         this.initialize();
     }
 
@@ -69,25 +61,43 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         this.setPrefSize(400.0, 600.0);
 
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        setDialogContainer();
+        setScrollPane();
+        setSendButton();
+        setTextField();
 
+        this.getChildren().addAll(scrollPane, userInput, sendButton);
+        setAnchors();
+    }
+    private void setDialogContainer() {
+        this.dialogContainer = new VBox();
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
+    private void setScrollPane() {
+        this.scrollPane = new ScrollPane();
+        scrollPane.setContent(dialogContainer);
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
+    }
+    private void setSendButton() {
+        this.sendButton = new Button("Send");
         sendButton.setPrefWidth(55.0);
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
-
+    }
+    private void setTextField() {
+        this.userInput = new TextField();
         userInput.setPrefWidth(325.0);
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-
+    }
+    private void setAnchors() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
