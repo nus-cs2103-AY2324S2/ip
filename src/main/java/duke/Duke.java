@@ -72,6 +72,12 @@ public class Duke {
 
     public String getResponse(String input) {
         Command c = Command.interpret(input);
-        return c.execute();
+
+        if (c.terminate()) {
+            System.exit(0);
+        }
+
+        String response = c.execute();
+        return response;
     }
 }
