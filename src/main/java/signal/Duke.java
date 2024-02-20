@@ -1,6 +1,6 @@
 package signal;
 
-import GUI.DialogBox;
+
 import signal.task.Task;
 
 import signal.util.Parser;
