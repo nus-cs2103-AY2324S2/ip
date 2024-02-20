@@ -64,5 +64,12 @@ public class Haro {
             return e.getMessage();
         }
     }
+
+    /**
+     * Saves the current list to the save file.
+     */
+    public void saveList() {
+        this.haroStorage.saveToDisk(this.taskList);
+    }
 }
 

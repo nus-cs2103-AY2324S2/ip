@@ -54,6 +54,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, cropImage(dukeImage, imageRadius))
         );
         userInput.clear();
+        haro.saveList();
     }
 
     private Image cropImage(Image image, double radius) {
