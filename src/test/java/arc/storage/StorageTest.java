@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import arc.exceptions.storage.CreateTasksFileFailedException;
 
 public class StorageTest {
-    private static final Path INVALID_FILE_PATH = Paths.get("/ACCESS_DENIED");
+    private static final Path INVALID_FILE_PATH = Paths.get("/iGXJtbsQwnFjulPz9wNFuGW9E4Z4B8Ko");
     private Storage storage;
 
     @BeforeEach
