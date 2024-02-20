@@ -26,42 +26,86 @@ public class Parser {
 
      static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
-            return new ExitCommand();
+            return parseExitCommand();
         } else if (userInput.equals("list")) {
-            return new ListCommand();
+            return parseListCommand();
         } else if (userInput.startsWith("mark")) {
-            int num = parseTaskNumber(userInput, "mark");
-            return new MarkCommand(num);
+            return parseMarkCommand(userInput);
         } else if (userInput.startsWith("unmark")) {
-            int num = parseTaskNumber(userInput, "unmark");
-            return new UnMarkCommand(num);
+            return parseUnMarkCommand(userInput);
         } else if (userInput.startsWith("todo")) {
-            String todo = userInput.replace("todo", "").trim();
-            processEmptyDescription(todo, "todo");
-            return new ToDoCommand(todo);
+            return parseTodoCommand(userInput);
         } else if (userInput.startsWith("deadline")) {
-            String[] deadline = parseDeadlineInput(userInput, "deadline");
-            return new DeadlineCommand(deadline[0], deadline[1]);
+            return parseDeadlineCommand(userInput);
         } else if (userInput.startsWith("event")) {
-            String[] event = parseEventInput(userInput, "event");
-            return new EventCommand(event[0], event[1], event[2]);
+            return parseEventCommand(userInput);
         } else if(userInput.startsWith("delete")) {
-            int num = parseTaskNumber(userInput, "delete");
-            return new DeleteCommand(num);
+            return parseDeleteCommand(userInput);
         } else if (userInput.startsWith("view")) {
-            String dateInput = userInput.replace("view", "").trim();
-            processEmptyDescription(dateInput, "view");
-            LocalDate targetDate = parseOnDateTime(dateInput);
-            return new ViewCommand(targetDate);
+            return parseViewCommand(userInput);
         } else if (userInput.startsWith("find")) {
-            String findWord = userInput.replace("find", "").trim();
-            processEmptyDescription(findWord, "find");
-            return new FindCommand(findWord);
+            return parseFindCommand(userInput);
         } else if (userInput.startsWith("undo")) {
-            return new UndoCommand();
+            return parseUndoCommand();
         } else {
             throw new DukeException("Error! I don't know what that means.");
         }
+    }
+
+    private static MarkCommand parseMarkCommand(String input) throws DukeException {
+        int num = parseTaskNumber(input, "mark");
+        return new MarkCommand(num);
+    }
+
+    private static UndoCommand parseUndoCommand() {
+        return new UndoCommand();
+    }
+
+    private static ExitCommand parseExitCommand() {
+        return new ExitCommand();
+    }
+
+    private static ListCommand parseListCommand() {
+        return new ListCommand();
+    }
+
+    private static UnMarkCommand parseUnMarkCommand(String input) throws DukeException {
+        int num = parseTaskNumber(input, "unmark");
+        return new UnMarkCommand(num);
+    }
+
+    private static ToDoCommand parseTodoCommand(String input) throws DukeException {
+        String todo = input.replace("todo", "").trim();
+        processEmptyDescription(todo, "todo");
+        return new ToDoCommand(todo);
+    }
+
+    private static DeadlineCommand parseDeadlineCommand(String input) throws DukeException {
+        String[] deadline = parseDeadlineInput(input, "deadline");
+        return new DeadlineCommand(deadline[0], deadline[1]);
+    }
+
+    private static EventCommand parseEventCommand(String input) throws DukeException {
+        String[] event = parseEventInput(input, "event");
+        return new EventCommand(event[0], event[1], event[2]);
+    }
+
+    private static DeleteCommand parseDeleteCommand(String input) throws DukeException {
+        int num = parseTaskNumber(input, "delete");
+        return new DeleteCommand(num);
+    }
+
+    private static ViewCommand parseViewCommand(String input) throws DukeException {
+        String dateInput = input.replace("view", "").trim();
+        processEmptyDescription(dateInput, "view");
+        LocalDate targetDate = parseOnDateTime(dateInput);
+        return new ViewCommand(targetDate);
+    }
+
+    private static FindCommand parseFindCommand(String input) throws DukeException {
+        String findWord = input.replace("find", "").trim();
+        processEmptyDescription(findWord, "find");
+        return new FindCommand(findWord);
     }
 
     /**
