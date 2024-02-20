@@ -1,9 +1,11 @@
 import java.util.ArrayList;
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import tasks.Task; 
 
 public class Cal {
     static String line = "____________________________________________________________";
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void greet() {
         String name = "Cal";
@@ -33,15 +35,39 @@ public class Cal {
 
     public static void list() {
         System.out.println(line);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
+            Task t = tasks.get(i);
+            String str = String.format("%d. [%s] %s", i + 1, t.getStatusIcon(), t.getDescription());
+            System.out.println(str);
         }
         System.out.println(line);
     }
 
     public static String add(String input) {
-        tasks.add(input);
-        return String.format("added: %s", input);
+        Task t = new Task(input);
+        tasks.add(t);
+        return String.format("added: %s", t.getDescription());
+    }
+
+    public static void mark(int taskNum) {
+        Task t = tasks.get(taskNum - 1);
+        System.out.println(line);
+        t.setStatus();
+        System.out.println("Nice! I've marked this task as done:");
+        String str = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
+        System.out.println(str);
+        System.out.println(line);
+    }
+
+    public static void unmark(int taskNum) {
+        Task t = tasks.get(taskNum - 1);
+        t.setStatus();
+        System.out.println(line);
+        System.out.println("OK, I've marked this task as not done yet:");
+        String str = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
+        System.out.println(str);
+        System.out.println(line);
     }
 
     public static void main(String[] args) {
@@ -49,11 +75,28 @@ public class Cal {
 
         Scanner sc = new Scanner(System.in);
         while(true) {
-            String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            String input = sc.nextLine().stripLeading();
+            String[] tokens = input.split(" ");
+            String command = tokens[0];
+
+            if (command.equalsIgnoreCase("bye")) {
                 break;
-            } else if (input.equalsIgnoreCase("list")){
+            } else if (command.equalsIgnoreCase("list")){
                 list();
+            } else if (command.equalsIgnoreCase("mark")) {
+                int taskNum = Integer.parseInt(tokens[1]);
+                if (taskNum < 1 || taskNum > tasks.size()) {
+                    System.out.println("Couldn't find task. Try again?");
+                    continue;
+                }
+                mark(taskNum);
+            } else if (command.equalsIgnoreCase("unmark")) {
+                int taskNum = Integer.parseInt(tokens[1]);
+                if (taskNum < 1 || taskNum > tasks.size()) {
+                    System.out.println("Couldn't find task. Try again?");
+                    continue;
+                }
+                unmark(taskNum);
             } else {
                 input = add(input); 
                 echo(input);
