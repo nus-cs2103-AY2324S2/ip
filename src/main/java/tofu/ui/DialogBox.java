@@ -18,6 +18,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 /**
  * An example of a custom control using FXML.
@@ -39,11 +40,15 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Set dialog
+        dialog.setFont(new Font(13.5));
         dialog.setText(text);
-        displayPicture.setImage(img);
         dialog.setWrapText(true);
         dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(15), Insets.EMPTY)));
         dialog.setPadding(new Insets(10));
+        // Set image
+        displayPicture.setImage(img);
     }
 
     /**

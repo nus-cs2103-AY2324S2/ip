@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    public void parseToTask_correctFormat_success() throws DukeException {
+    public void parseToTask_correctFormat_success() throws TofuException {
         // parse string to Task for ToDo
         assertEquals(new ToDo("test"), Parser.parseToTask("T |   | test", " | "));
         // parse string to Task for Deadline
@@ -27,12 +27,12 @@ public class ParserTest {
         try {
             assertEquals(new ToDo("test"), Parser.parseToTask("O |   | test", " | "));
             fail();
-        } catch (DukeException ex) {
+        } catch (TofuException ex) {
             assertEquals("Corrupted Data!", ex.getMessage());
         }
     }
 
-    public void parseToCommand_correctFormat_success() throws DukeException {
+    public void parseToCommand_correctFormat_success() throws TofuException {
         // parse command for List
         assertEquals(new ListCommand(), Parser.parseToCommand("list"));
         // parse command for bye
@@ -43,7 +43,7 @@ public class ParserTest {
         try {
             assertEquals(0, Parser.parseToCommand("test"));
             fail();
-        } catch (DukeException ex) {
+        } catch (TofuException ex) {
             assertEquals(Ui.unknownCommandError(), ex.getMessage());
         }
     }

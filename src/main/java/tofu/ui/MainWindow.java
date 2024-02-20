@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image tofuImage = new Image(this.getClass().getResourceAsStream("/images/tofu.png"));
-    private Image background = new Image(this.getClass().getResourceAsStream("/images/background.jpg"));
+    private Image background = new Image(this.getClass().getResourceAsStream("/images/background.png"));
 
     @FXML
     public void initialize() {
@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
                 BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         dialogContainer.setBackground(background);
+
         dialogContainer.getChildren().add(DialogBox.getTofuDialog(Ui.welcomeMessage(), tofuImage));
     }
 
@@ -45,8 +46,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Tofu's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Tofu's reply and then
+     * appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

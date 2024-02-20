@@ -22,13 +22,14 @@ public class AddCommand implements Command {
     }
 
     /**
-     * Add the corresponding Task into the TaskList based on the command word
-     * and display the UI message
+     * Executes the appropriate command based on the string commandWord, adds the corresponding Task to the TaskList,
+     * and display the UI message.
      *
-     * @param tasks the TaskList for which the Task will be added to
-     * @param ui the UI that will be used to display the message
-     * @return a String of the UI message and the new Task that will be added to the TaskList
-     * @throws TofuException if format of the description does not match
+     * @param tasks The TaskList to which the Task will be added.
+     * @param ui The UI that will display the message.
+     * @return A string representing the UI message and the new Task that has been added to the TaskList.
+     * @throws TofuException If the format of the input string does not match the expected format
+     * for the identified command word.
      */
     public String execute(TaskList tasks, Ui ui) throws TofuException {
         Task task;

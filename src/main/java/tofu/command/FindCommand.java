@@ -8,21 +8,21 @@ public class FindCommand implements Command {
     private String keyword;
 
     /**
-     * Initializes a new FindCommand to find tasks based on the keyword.
+     * Initializes a new FindCommand to search for tasks based on a keyword.
      *
-     * @param keyword the String keyword of the task description to find
+     * @param keyword The keyword used to search the task descriptions.
      */
     public FindCommand(String  keyword) {
         this.keyword = keyword;
     }
 
     /**
-     * Find tasks in the TaskList based on the keyword and returns the UI string message.
+     * Searches for tasks in the TaskList that match the keyword and returns a UI message.
      *
-     * @param tasks the TaskList for which the task is in
-     * @param ui the UI that will be used to display the message
-     * @return a String of the UI message and a list of tasks that are found matching with the
-     * keyword in the TaskList
+     * @param tasks The TaskList to be searched.
+     * @param ui The UI used to generate the message.
+     * @return A string representing the UI message and the list of matching tasks.
+     * @throws TofuException If no matching tasks are found in the TaskList.
      */
     public String execute(TaskList tasks, Ui ui) throws TofuException {
         TaskList foundList = tasks.find(keyword);

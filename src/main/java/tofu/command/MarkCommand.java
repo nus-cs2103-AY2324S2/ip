@@ -10,10 +10,10 @@ public class MarkCommand implements Command {
     boolean isDone;
 
     /**
-     * Initializes a new MarkCommand to mark or un-mark a task.
+     * Constructs a new MarkCommand to update the status of a task.
      *
-     * @param index the index of task in the TaskList that wants to be marked/un-marked
-     * @param isDone true for mark and false for un-mark
+     * @param index The zero-based index of the task in the TaskList to be updated.
+     * @param isDone The new status of the task. Pass 'true' to mark the task as done, 'false' to mark it as not done.
      */
     public MarkCommand(int index, boolean isDone) {
         this.index = index;
@@ -21,13 +21,12 @@ public class MarkCommand implements Command {
     }
 
     /**
-     * Marks or Un-marks the Task in the TaskList according to the index
-     * and displays the UI message.
+     * Updates the status of a task based on the provided index and boolean.
      *
-     * @param tasks the TaskList for which the Task will be added to
-     * @param ui the UI that will be used to display the message
-     * @return a String of the UI message and the marked task
-     * @throws TofuException if the index is greater than the number of Task in the TaskList
+     * @param tasks The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @return A string message indicating the result of the operation.
+     * @throws TofuException If the provided index is invalid.
      */
     public String execute(TaskList tasks, Ui ui) throws TofuException {
         assert index > 0;

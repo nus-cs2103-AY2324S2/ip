@@ -1,30 +1,49 @@
 package tofu.task;
 
 import tofu.TofuException;
-
+import tofu.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * A type of task with a LocalDate variable by, to represent the deadline dated
+ * Represent a task with a deadline.
+ * This task type includes a LocalDate variable 'by' to represent the deadline date.
  */
 public class Deadline extends Task {
     private LocalDate by;
 
+    /**
+     * Constructs a new Deadline task with the specified description and deadline date.
+     *
+     * @param desc The description of the task.
+     * @param by The deadline of the task in yyyy-MM-dd format.
+     * @throws TofuException If the provided date format is invalid.
+     */
     public Deadline(String desc, String by) throws TofuException {
         super(desc);
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException ex) {
-            throw new TofuException("Oops! The date and time format you provided is not valid. " +
-                    "Please enter in the format yyyy-MM-dd");
+            throw new TofuException(Ui.invalidDateError());
         }
     }
 
-    public Deadline(String desc, boolean isDone, String by) {
+    /**
+     * Constructs a new Deadline task with the specified description, status, and deadline date.
+     *
+     * @param desc The description of the task.
+     * @param isDone The status of the task.
+     * @param by The deadline of the task in yyyy-MM-dd format.
+     * @throws TofuException If the provided date format is invalid.
+     */
+    public Deadline(String desc, boolean isDone, String by) throws TofuException {
         super(desc, isDone);
-        this.by = LocalDate.parse(by);
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException ex) {
+            throw new TofuException(Ui.invalidDateError());
+        }
     }
 
     @Override
@@ -47,5 +66,4 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
-
 }

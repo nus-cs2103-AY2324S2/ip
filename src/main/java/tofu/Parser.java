@@ -9,12 +9,12 @@ import tofu.ui.Ui;
 class Parser {
 
     /**
-     * Parsed the line input and returns a Task.
+     * Parses the input string and returns a corresponding Task.
      *
-     * @param line the String input to be parsed
-     * @param splitFormat the separator for the input
-     * @return a Task corresponding to the input
-     * @throws TofuException if the format of the input does not match
+     * @param line the input string input to be parsed
+     * @param splitFormat the separator string used to split the input string.
+     * @return A Task object corresponding to the input string.
+     * @throws TofuException If the format of the input string does not match the expected format
      */
     public static Task parseToTask(String line, String splitFormat) throws TofuException {
         Task task;
@@ -41,11 +41,12 @@ class Parser {
     }
 
     /**
-     * Parsed the line input and returns a Command.
+     * Parses the input string and returns a corresponding Command for Tofu to execute.
      *
-     * @param line the String input to be parsed
-     * @return a Command corresponding to the input
-     * @throws TofuException if the format of the input does not match
+     * @param line the input string to be parsed.
+     * @return A Command object corresponding to the input string.
+     * @throws TofuException If the format of the input string does not match the expected format
+     * for the identified command word.
      */
     public static Command parseToCommand(String line) throws TofuException {
         String[] stringComponents = line.split(" ");
@@ -56,11 +57,11 @@ class Parser {
         if (commandWord.equals("list")) {
             command = new ListCommand();
         } else {
-            if (stringComponents.length < 2) {
-                throw new TofuException(Ui.emptyDescriptionError());
-            }
             switch (commandWord) {
             case "mark":
+                if (stringComponents.length < 2) {
+                    throw new TofuException(Ui.emptyDescriptionError());
+                }
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
                     throw new TofuException(Ui.indexError());
@@ -68,12 +69,18 @@ class Parser {
                 command = new MarkCommand(index, true);
                 break;
             case "unmark":
+                if (stringComponents.length < 2) {
+                    throw new TofuException(Ui.emptyDescriptionError());
+                }
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
                     throw new TofuException(Ui.indexError());
                 }
                 command = new MarkCommand(index, false);
             case "delete":
+                if (stringComponents.length < 2) {
+                    throw new TofuException(Ui.emptyDescriptionError());
+                }
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
                     throw new TofuException(Ui.indexError());
@@ -81,12 +88,18 @@ class Parser {
                 command = new DeleteCommand(index);
                 break;
             case "find":
+                if (stringComponents.length < 2) {
+                    throw new TofuException(Ui.emptyDescriptionError());
+                }
                 String keyword = line.split(commandWord + " ")[1];
                 command = new FindCommand(keyword.trim());
                 break;
             case "event":
             case "todo":
             case "deadline":
+                if (stringComponents.length < 2) {
+                    throw new TofuException(Ui.emptyDescriptionError());
+                }
                 String description = line.split(commandWord + " ")[1];
                 command = new AddCommand(commandWord, description);
                 break;

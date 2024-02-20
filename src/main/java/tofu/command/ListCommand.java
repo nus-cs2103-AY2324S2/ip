@@ -7,11 +7,12 @@ import tofu.ui.Ui;
 public class ListCommand implements Command {
 
     /**
-     * Display all the Task in TaskList.
+     * Display all the tasks in TaskList using the UI.
      *
-     * @param tasks the TaskList where the Task are in
-     * @param ui the UI that will be used to display the message
-     * @return a String of the UI message and a list of tasks that are in the TaskList
+     * @param tasks The TaskList containing the tasks to be displayed.
+     * @param ui The UI used to generate the message.
+     * @return A string representing the UI message and the list of tasks in the TaskList.
+     * @throws TofuException If the TaskList is empty.
      */
     public String execute(TaskList tasks, Ui ui) throws TofuException {
         if (tasks.isEmpty()) {

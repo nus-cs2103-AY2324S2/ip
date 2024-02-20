@@ -2,6 +2,7 @@ package tofu;
 
 import tofu.task.Task;
 import tofu.task.TaskList;
+import tofu.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,12 +22,13 @@ class Storage {
     }
 
     /**
-     * Read the content of the file and returns a Task ArrayList.
-     * If no existing file is found or file is corrupted, returns empty ArrayList.
+     * Reads the content of the file and returns a Task ArrayList.
+     * If no existing file is found or if the file is corrupted, an empty ArrayList is returned.
      *
-     * @return ArrayList<Task> of the content of the file.
+     * @return An ArrayList<Task> containing the content of the file.
+     * @throws TofuException If the data in the file is corrupted.
      */
-    ArrayList<Task> load() {
+    ArrayList<Task> load() throws TofuException {
         ArrayList<Task> tasks = new ArrayList<>();
         // If file doesn't exist, create the parent directories and the file
         try {
@@ -42,29 +44,25 @@ class Storage {
                 lineRead = sc.nextLine();
                 tasks.add(Parser.parseToTask(lineRead, "\\|"));
             }
-        } catch (IOException e) {
-            System.out.println("An error occurred while creating the file.\n" +
-                    "Program will run without saved file.");
-        } catch (TofuException ex) {
-            System.out.println("An error occurred while reading the file.\n" +
-                    "File may contain corrupted data!\n" +
-                    "Program will run without saved file.");
+        } catch (IOException | TofuException e) {
+            throw new TofuException(Ui.corruptedDataError());
         }
         return tasks;
     }
 
     /**
-     * Write the content of the tasks into the file.
+     * Writes the content of the tasks into the file.
      *
-     * @param tasks the TaskList that will be written into the file.
+     * @param tasks The TaskList that will be written into the file.
+     * @throws TofuException If an I/O error occurs.
      */
-    void save(TaskList tasks) {
+    void save(TaskList tasks) throws TofuException {
         try {
             FileWriter fw = new FileWriter(file);
             fw.write(tasks.toStore());
             fw.close();
         } catch (IOException ex) {
-            System.out.println("Failed to save progress!");
+            throw new TofuException("Failed to save progress!");
         }
     }
 }

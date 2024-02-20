@@ -3,6 +3,7 @@ package tofu.task;
 import java.util.ArrayList;
 
 import tofu.TofuException;
+import tofu.ui.Ui;
 
 import java.util.List;
 
@@ -14,12 +15,15 @@ public class TaskList {
         this.tasks = new ArrayList<>(tasks);
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param task The task to be added.
+     * @throws TofuException If the task already exists in the list.
+     */
     public void add(Task task) throws TofuException {
-        for (Task item: tasks) {
-            if (item.equals(task)) {
-                throw new TofuException("\uD83D\uDC3E Oops! It seems like this item already exists in our list. " +
-                        "Let's try adding something new. \uD83D\uDE3A");
-            }
+        if (tasks.contains(task)) {
+            throw new TofuException(Ui.duplicateTaskError());
         }
         tasks.add(task);
     }
@@ -35,6 +39,12 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Search for tasks in the list that contain the specified string.
+     *
+     * @param str The string to search for.
+     * @return A new TaskList containing the found tasks.
+     */
     public TaskList find(String str) {
         ArrayList<Task> foundList = new ArrayList<>();
         for (Task task: tasks) {

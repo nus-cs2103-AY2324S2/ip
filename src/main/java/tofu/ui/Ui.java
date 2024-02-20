@@ -54,6 +54,11 @@ public class Ui {
         return "\uD83D\uDC3E Oops! The index you provided seems to be hiding. Please enter an index greater than 0.";
     }
 
+    public static String duplicateTaskError() {
+        return "\uD83D\uDC3E Oops! It seems like this item already exists in our list. " +
+                "Let's try adding something new. \uD83D\uDE3A";
+    }
+
     public static String emptyDescriptionError() {
         return "\uD83D\uDC3E Oops! It seems like the description field is as empty as a food bowl. Please provide a description to proceed.";
     }
@@ -66,6 +71,16 @@ public class Ui {
     public static String noMatchError() {
         return "\uD83D\uDC3E Looks like we couldn't find a match in your list. It's as elusive as a mouse in the night! " +
                 "Let's try searching for something else. \uD83D\uDE3A";
+    }
+
+    public static String invalidDateError() {
+        return "\uD83D\uDC3E Oops! The date and time format you provided is not valid. " +
+                "Please enter in the format yyyy-MM-dd";
+    }
+
+    public static String corruptedDataError() {
+        return "\uD83D\uDC3E Oops! It seems like the file for your saved tasks is corrupted. " +
+                "I will use a new empty list for you this time.";
     }
 
     public static String indexTooBigError(TaskList tasks) {

@@ -10,7 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Tofu using FXML.
+ * Represents the main application for the Tofu GUI using FXML.
+ * This class is responsible for initializing the application and loading the main window.
  */
 public class Main extends Application {
 
@@ -23,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("\uD83D\uDC3E Tofu List");
+            stage.setTitle("\uD83D\uDC3E Tofu the Cat");
 
             fxmlLoader.<MainWindow>getController().setTofu(tofu);
             stage.show();
@@ -31,6 +32,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 }
 
