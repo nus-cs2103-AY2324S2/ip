@@ -22,7 +22,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Button sendButton;
 
     private Dude dude;
 
@@ -31,7 +30,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        Ui ui = new Ui();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getDudeDialog(ui.showWelcome(), dukeImage));
     }
 
     public void setDude(Dude d) {

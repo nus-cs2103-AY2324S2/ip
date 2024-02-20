@@ -10,238 +10,104 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * The Dude class is the entry point of the application that manages tasks.
  * It is responsible for initializing the system, loading existing tasks from a file,
  * and processing user commands.
  */
-public class Dude extends Application {
+public class Dude {
+    TaskList tasks;
+    Ui ui = new Ui();
+
     public Dude() {
-        System.out.println("yes");
-        // ...
+        try {
+            tasks = new TaskList(TaskStorage.loadTasksFromFile());
+        } catch (IOException e) {
+            tasks = new TaskList(new ArrayList<>());
+        }
+
     }
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    @Override
-    public void start(Stage stage) {
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-    }
-
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDudeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList tasks;
         try {
-            tasks = new TaskList(TaskStorage.loadTasksFromFile());
-        } catch (IOException e) {
-            tasks = new TaskList(new ArrayList<>());
-        }
-        Ui ui = new Ui();
-        ui.showMessage("Loaded " + tasks.size() + " tasks from file.");
-        ui.showWelcome();
+            Command cmd = Parser.getCommand(input);
+            int index;
 
-        boolean running = true;
+            switch (cmd.action){
+                case BYE:
+                    return ui.showGoodbye();
+                case LIST:
+                    return ui.showTaskList(tasks.toArrayList());
+                case DONE:
+                    index = Parser.getDoneIndex(input);
 
-        while (running) {
-            try {
-                String input = scanner.nextLine();
-                Command cmd = Parser.getCommand(input);
-                int index;
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    tasks.get(index).markAsDone();
+                    return ui.showDone(tasks.get(index));
+                case UNDONE:
+                    index = Parser.getDoneIndex(input);
 
-                switch (cmd.action){
-                    case BYE:
-                        ui.showGoodbye();
-                        scanner.close();
-                        running = false;
-                        break;
-                    case LIST:
-                        ui.showTaskList(tasks.toArrayList());
-                        break;
-                    case DONE:
-                        index = Parser.getDoneIndex(input);
-
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        tasks.get(index).markAsDone();
-                        ui.showDone(tasks.get(index));
-                        break;
-                    case UNDONE:
-                        index = Parser.getDoneIndex(input);
-
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        tasks.get(index).markAsNotDone();
-                        ui.showUndone(tasks.get(index));
-                    case DELETE:
-                        index = Parser.getDeleteIndex(input);
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new IndexOutOfBoundsException("Task number does not exist.");
-                        }
-                        Task removedTask = tasks.remove(index);
-                        ui.showDelete(removedTask);
-                        break;
-                    case FIND:
-                        String keyword = cmd.info;
-                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-                        ui.showTaskList(matchingTasks);
-                        break;
-                    case TODO:
-                        ToDo todo = new ToDo(cmd.info);
-                        tasks.add(todo);
-                        ui.showAddTask(todo);
-                        break;
-                    case DEADLINE:
-                        if (!cmd.info.contains(" /by ")) {
-                            throw new IllegalArgumentException(
-                                    "Invalid deadline format. Use '/by' to specify the deadline.");
-                        }
-                        String[] deadlineParts = cmd.info.split(" /by ", 2);
-                        Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        tasks.add(deadline);
-                        ui.showAddTask(deadline);
-                        break;
-                    case EVENT:
-                        if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
-                            throw new IllegalArgumentException(
-                                    "Invalid event format. Use '/from' and '/to' to specify the event times.");
-                        }
-                        String[] eventParts = cmd.info.split(" /from ", 2);
-                        String[] eventTimes = eventParts[1].split(" /to ", 2);
-                        Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
-                        tasks.add(newEvent);
-                        ui.showAddTask(newEvent);
-                        break;
-                }
-
-                TaskStorage.saveTasksToFile(tasks.toArrayList());
-            } catch (NumberFormatException e) {
-                ui.showError("Please enter a valid task number.");
-            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                ui.showError("An unexpected error occurred: " + e.getMessage());
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    tasks.get(index).markAsNotDone();
+                    return ui.showUndone(tasks.get(index));
+                case DELETE:
+                    index = Parser.getDeleteIndex(input);
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    Task removedTask = tasks.remove(index);
+                    return ui.showDelete(removedTask);
+                case FIND:
+                    String keyword = cmd.info;
+                    ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                    return ui.showTaskList(matchingTasks);
+                case TODO:
+                    ToDo todo = new ToDo(cmd.info);
+                    tasks.add(todo);
+                    return ui.showAddTask(todo);
+                case DEADLINE:
+                    if (!cmd.info.contains(" /by ")) {
+                        throw new IllegalArgumentException(
+                                "Invalid deadline format. Use '/by' to specify the deadline.");
+                    }
+                    String[] deadlineParts = cmd.info.split(" /by ", 2);
+                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    tasks.add(deadline);
+                    return ui.showAddTask(deadline);
+                case EVENT:
+                    if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
+                        throw new IllegalArgumentException(
+                                "Invalid event format. Use '/from' and '/to' to specify the event times.");
+                    }
+                    String[] eventParts = cmd.info.split(" /from ", 2);
+                    String[] eventTimes = eventParts[1].split(" /to ", 2);
+                    Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+                    tasks.add(newEvent);
+                    return ui.showAddTask(newEvent);
             }
-        }
 
+            TaskStorage.saveTasksToFile(tasks.toArrayList());
+        } catch (NumberFormatException e) {
+            return ui.showError("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            return ui.showError(e.getMessage());
+        } catch (Exception e) {
+            return ui.showError("An unexpected error occurred: " + e.getMessage());
+        }
+        return "";
     }
+
 }
 
 // Base Task class
@@ -513,62 +379,60 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
-    public void showWelcome() {
-        System.out.println("Hello! I'm Dude\nWhat can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Dude\nWhat can I do for you?";
     }
 
-    public void showAddTask(Event event){
-        System.out.println("Added Event: " + event);
+    public String showAddTask(Event event){
+        return "Added Event: " + event;
     }
 
-    public void showAddTask(Deadline deadline) {
-        System.out.println("Added Deadline: " + deadline);
+    public String showAddTask(Deadline deadline) {
+        return "Added Deadline: " + deadline;
     }
 
-    public void showAddTask(ToDo todo) {
-        System.out.println("Added Todo: " + todo);
+    public String showAddTask(ToDo todo) {
+        return "Added Todo: " + todo;
     }
 
-    public void showDelete(Task task) {
-        System.out.println("Deleted: "  + task);
+    public String showDelete(Task task) {
+        return "Deleted: "  + task;
     }
 
-    public void showDone(Task task) {
-        System.out.println("Marked as Done: " + task);
+    public String showDone(Task task) {
+        return "Marked as Done: " + task;
     }
 
-    public void showUndone(Task task) {
-        System.out.println("Marked as Not Done: " + task);
+    public String showUndone(Task task) {
+        return "Marked as Not Done: " + task;
     }
 
 
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return("Bye. Hope to see you again soon!");
     }
 
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return("Error: " + message);
     }
 
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return(message);
     }
 
-    public void showTaskList(ArrayList<Task> tasks) {
+    public String showTaskList(ArrayList<Task> tasks) {
+        StringBuilder s = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            System.out.println("No Tasks to show.");
-            return;
+            return ("No Tasks to show.");
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            s.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-    }
-    public void closeScanner() {
-        scanner.close();
+        return s.toString();
     }
 }
 
