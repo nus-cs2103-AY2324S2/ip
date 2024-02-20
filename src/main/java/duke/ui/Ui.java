@@ -103,6 +103,33 @@ public class Ui {
     }
     
     /**
+     * Generate a help message to help the user navigate the chatbot.
+     * @return A help message
+     */
+    public String help() {
+        String help = "Here's a guide to using Jinni:\n"
+                + "type\n"
+                + "'list': allows you to view all tasks you have\n"
+                + System.lineSeparator()
+                + "'mark X': allows you to mark a task as done (X stands for the task number)\n"
+                + System.lineSeparator()
+                + "'unmark X': allows you to unmark a task as undone (X stands for the task number)\n"
+                + System.lineSeparator()
+                + "'todo description': allows you to add a task of todo followed by the description of the task\n"
+                + System.lineSeparator()
+                + "'deadline description /by dd/mm/yyyy': allows you to add a task with deadline (note the date format must be precise)\n"
+                + System.lineSeparator()
+                + "'event description /from dd/mm/yyyy /to dd/mm/yyyy': allows you to add an event task with the duration (note the date formate too \n"
+                + System.lineSeparator()
+                + "'delete X': allows you to delete a task (X stands for the task number)\n"
+                + System.lineSeparator()
+                + "'find keyword': allows you to find the tasks with the keyword you desire\n"
+            + System.lineSeparator()
+                + "'bye': quits Jinni";
+        return help;
+    }
+    
+    /**
      * Checks for errors in the mark command input by the user and throws an exception if the input is invalid.
      *
      * @param inputFromUser The user input for marking a task.

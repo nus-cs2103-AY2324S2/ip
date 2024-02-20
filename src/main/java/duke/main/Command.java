@@ -163,4 +163,8 @@ public class Command {
         String keyword = parser.getKeywordForFind(input);
         return ui.finding(list, keyword);
     }
+    
+    public String getHelpResponse(Ui ui) {
+        return ui.help();
+    }
 }
