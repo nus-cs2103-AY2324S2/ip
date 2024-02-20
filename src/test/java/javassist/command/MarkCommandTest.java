@@ -60,7 +60,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_markNegative_dukeException() {
+    public void execute_markNegative_javassistException() {
         MarkCommand mc = new MarkCommand("mark -2", true);
         Todo t = new Todo("read book");
         ArrayList<Task> arr = new ArrayList<Task>();

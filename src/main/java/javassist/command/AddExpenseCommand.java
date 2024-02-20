@@ -69,4 +69,10 @@ public class AddExpenseCommand implements Command {
     public boolean isExpenseCommand() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object a) {
+        AddExpenseCommand aec = (AddExpenseCommand) a;
+        return this.input.equals(aec.input);
+    }
 }
