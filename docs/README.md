@@ -1,11 +1,13 @@
 # Belle User Guide
 
-// Product screenshot goes here
+<picture>
+<img alt="Belle Ui" src="Ui.png">
+</picture>
 
 Belle is a friendly chatbot that helps you to
 keep track of you many tasks.
 
-## 1) Adding Deadline Tasks
+## 1) Adding Deadline Tasks : `deadline`
 
 Add deadline tasks to todo list.
 Deadline tasks are tasks with a deadline.
@@ -48,7 +50,7 @@ Now you have 1 tasks in the list.
 ```
 
 
-## 2) Adding Event Tasks
+## 2) Adding Event Tasks : `event`
 
 Add event tasks to todo list.
 event tasks are tasks with a start date/time and an end date/time.
@@ -92,7 +94,7 @@ Now you have 1 tasks in the list.
 ```
 
 
-## 3) Adding Todo Tasks
+## 3) Adding Todo Tasks : `todo`
 
 Add Todo tasks to todo list.
 Todo tasks do not have additional information.
@@ -117,7 +119,7 @@ Now you have 1 tasks in the list.
 --------------------------
 ```
 
-## 4) bye
+## 4) bye : `bye`
 
 Stops the program. Upon entering another input, the program will exit.
 
@@ -139,7 +141,7 @@ Till next time!! Goodbye.
 
 
 
-## 5) Delete
+## 5) Delete : `delete`
 
 Removes a task from the todo list by specifying its index.
 
@@ -162,7 +164,7 @@ Now you have 5 tasks in the list.
 --------------------------
 ```
 
-## 6) Find
+## 6) Find : `find`
 
 Search for a task by a keyword in the name of the task.
 
@@ -187,7 +189,7 @@ Here are the matching tasks in your list.
 
 
 
-## 6) List
+## 7) List : `list`
 
 List out all the tasks in your todo list.
 
@@ -211,7 +213,7 @@ Here are the tasks in your list.
 
 
 
-## 7) Mark
+## 8) Mark : `mark`
 
 Mark a task as done by using the index of the task.
 
@@ -235,7 +237,7 @@ Nice! I have marked this task as done:
 
 
 
-## 8) Unmark
+## 9) Unmark : `unmark`
 
 Mark a task as not done by using the index of the task.
 
@@ -257,7 +259,7 @@ OK, I've marked this task as not done yet:
 --------------------------
 ```
 
-## 9) Snooze
+## 10) Snooze : `snooze`
 
 Edit the deadline of deadline tasks and event tasks.
 
