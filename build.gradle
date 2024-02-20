@@ -54,7 +54,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "duke.jar"
+    archiveFileName = "aerial.jar"
 }
 
 run{
