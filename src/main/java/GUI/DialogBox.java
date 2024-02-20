@@ -16,8 +16,10 @@ import javafx.scene.layout.HBox;
 
 
 import javafx.geometry.Insets;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 /**
@@ -34,19 +36,13 @@ public class DialogBox extends HBox {
     private int textboxWidth = 240;
 
     private DialogBox(String text, Image img, String type) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(GUI.MainWindow.class.getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        dialog = new Label(text);
+        displayPicture = new ImageView(img);
 
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
         if (type.equals("USER")) {
             textboxColor = Color.LIGHTBLUE;
         } else {
@@ -54,7 +50,10 @@ public class DialogBox extends HBox {
         }
 
         textStyle(dialog);
+        StackPane textBox = new StackPane();
+        makeTextbox(textBox, dialog);
         displayPicStyle(displayPicture);
+        dialogBoxStyle(textBox, displayPicture);
 
     }
 
@@ -80,6 +79,25 @@ public class DialogBox extends HBox {
 
 
     /**
+     * Styles the rectangle of the textbox and stacks the text on top of it.
+     *
+     * @param stack The stack containing the rectangle and the text.
+     * @param text The text.
+     */
+    private void makeTextbox(StackPane stack, Label text) {
+        // Create a rectangle shape with rounded corners to enclose the text
+        Rectangle rect = new Rectangle();
+        rect.setArcWidth(20);
+        rect.setArcHeight(20);
+        rect.setFill(textboxColor);
+        rect.setWidth(textboxWidth);
+//        rect.setHeight(textboxHeight);
+        rect.heightProperty().bind(text.heightProperty()); // Adjust padding as needed
+
+        stack.getChildren().addAll(rect, text);
+    }
+
+    /**
      * Styles the text of the dialog.
      *
      * @param text The text.
@@ -100,6 +118,19 @@ public class DialogBox extends HBox {
 
         Circle clip = new Circle(50, 50, 50);
         img.setClip(clip);
+    }
+
+    /**
+     * Styles the dialog box.
+     *
+     * @param stack The stack of the textbox.
+     * @param img The display picture.
+     */
+    private void dialogBoxStyle(StackPane stack, ImageView img) {
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.setSpacing(10);
+        this.getChildren().addAll(stack, img);
+        this.setPadding(new Insets(10));
     }
 
 
