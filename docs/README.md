@@ -1,6 +1,6 @@
 # Zack User Guide
 
-![Screenshot of a use case of the Zack chatbot showcasing its full GUI window](docs/Ui.png)
+![Screenshot of a use case of the Zack chatbot showcasing its full GUI window](Ui.png)
 
 Introducing Zack, your innovative personal assistant chatbot designed 
 to streamline your task management through the convenience of a Command 

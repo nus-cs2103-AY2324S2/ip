@@ -1,5 +1,0 @@
-T | 1 | read book
-D | 0 | return book | 2024-08-01 2200
-E | 0 | project meeting | 2024-08-01 2200 to 2024-08-01 2200
-T | 1 | join sports club
-T | 0 | homework
