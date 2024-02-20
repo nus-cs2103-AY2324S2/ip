@@ -52,7 +52,7 @@ public class Deadline extends Task {
      * 
      * @return the string representation of the Deadline.
      */
-    public String saveString() {
-        return "D | " + super.saveString() + " | " + dateString();
+    public String toSaveString() {
+        return "D | " + super.toSaveString() + " | " + dateString();
     }
 }

@@ -24,7 +24,7 @@ public class Todo extends Task {
      * 
      * @return the string representation of the task.
      */
-    public String saveString() {
-        return "T | " + super.saveString();
+    public String toSaveString() {
+        return "T | " + super.toSaveString();
     }
 }

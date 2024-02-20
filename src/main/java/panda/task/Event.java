@@ -72,7 +72,7 @@ public class Event extends Task {
      * 
      * @return the string representation of the event.
      */
-    public String saveString() {
-        return "E | " + super.saveString() + " | " + startString() + " | " + stopString();
+    public String toSaveString() {
+        return "E | " + super.toSaveString() + " | " + startString() + " | " + stopString();
     }
 }

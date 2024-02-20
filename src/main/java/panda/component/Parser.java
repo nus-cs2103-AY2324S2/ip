@@ -36,9 +36,22 @@ public class Parser {
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);
                 return new DeleteCommand(target);
             }
+            String argString = userInput.trim().split(" ", 2)[1].trim();
             if(commandWord.equals("find")) {
-                String argString = userInput.trim().split(" ", 2)[1].trim();
                 return new FindCommand(argString);
+            }
+            if(commandWord.equals("filter")) {
+                return new FilterCommand(argString);
+            }
+            if(commandWord.equals("tag")) {
+                int target;
+                target = Integer.parseInt(argString.split(" ", 2)[0]);
+                return new ModifyTagCommand(target, argString.split(" ", 2)[1], true);
+            }
+            if(commandWord.equals("untag")) {
+                int target;
+                target = Integer.parseInt(argString.split(" ", 2)[0]);
+                return new ModifyTagCommand(target, argString.split(" ", 2)[1], false);
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidFormatException();
