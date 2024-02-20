@@ -53,58 +53,46 @@ class Parser {
         Command command;
         int index;
 
-        switch (commandWord) {
-        case "list":
+        if (commandWord.equals("list")) {
             command = new ListCommand();
-            break;
-        case "bye":
-            command = new ExitCommand();
-            break;
-        case "mark":
-            // Exception handling and splitting the string
+        } else {
             if (stringComponents.length != 2) {
-                throw new DukeException("Invalid input format!");
+                throw new DukeException(Ui.emptyDescriptionError());
             }
-            index = Integer.parseInt(stringComponents[1]) - 1;
-            if (index <= 0) {
-                throw new DukeException("Index must be greater than 0!");
+            switch (commandWord) {
+            case "mark":
+                index = Integer.parseInt(stringComponents[1]) - 1;
+                if (index < 0) {
+                    throw new DukeException(Ui.indexError());
+                }
+                command = new MarkCommand(index, true);
+                break;
+            case "unmark":
+                index = Integer.parseInt(stringComponents[1]) - 1;
+                if (index < 0) {
+                    throw new DukeException(Ui.indexError());
+                }
+                command = new MarkCommand(index, false);
+            case "delete":
+                index = Integer.parseInt(stringComponents[1]) - 1;
+                if (index < 0) {
+                    throw new DukeException(Ui.indexError());
+                }
+                command = new DeleteCommand(index);
+                break;
+            case "find":
+                String keyword = line.split(commandWord + " ")[1];
+                command = new FindCommand(keyword.trim());
+                break;
+            case "event":
+            case "todo":
+            case "deadline":
+                String description = line.split(commandWord + " ")[1];
+                command = new AddCommand(commandWord, description);
+                break;
+            default:
+                throw new DukeException(Ui.unknownCommandError());
             }
-            command = new MarkCommand(index, true);
-            break;
-        case "unmark":
-            // Exception handling and splitting the string
-            if (stringComponents.length != 2) {
-                throw new DukeException("Invalid input format!");
-            }
-            index = Integer.parseInt(stringComponents[1]) - 1;
-            if (index <= 0) {
-                throw new DukeException("Index must be greater than 0!");
-            }
-            command = new MarkCommand(index, false);
-        case "delete":
-            if (stringComponents.length < 2) {
-                throw new DukeException("Invalid input format!");
-            }
-            index = Integer.parseInt(stringComponents[1]) - 1;
-            if (index <= 0) {
-                throw new DukeException("Index must be greater than 0!");
-            }
-            command = new DeleteCommand(index);
-        case "find":
-            if (stringComponents.length < 2) {
-                throw new DukeException("Invalid input format!");
-            }
-            String keyword = line.split(commandWord + " ")[1];
-            command = new FindCommand(keyword.trim());
-            break;
-        case "event":
-        case "todo":
-        case "deadline":
-            String description = line.split(commandWord + " ")[1];
-            command = new AddCommand(commandWord, description);
-            break;
-        default:
-            throw new DukeException(Ui.unknownCommandError());
         }
         return command;
     }

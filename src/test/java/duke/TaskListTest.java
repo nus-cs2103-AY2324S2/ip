@@ -10,9 +10,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
 
-    private static TaskList tasks = new TaskList(List.of(new ToDo("test"),
-            new Deadline("test", "2024-01-01"),
-            new Event("test", "2024-01-01", "2024-02-02")));
+    private static TaskList tasks;
+    static {
+        try {
+            tasks = new TaskList(List.of(new ToDo("test"),
+                    new Deadline("test", "2024-01-01"),
+                    new Event("test", "2024-01-01", "2024-02-02")));
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void toStore_taskList_success() {
 
