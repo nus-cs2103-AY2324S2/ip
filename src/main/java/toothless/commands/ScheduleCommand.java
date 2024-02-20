@@ -20,6 +20,9 @@ public class ScheduleCommand extends Command{
 
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+        if (taskList.size() == 0) {
+            throw new ToothlessException(ui.showEmptyListWarning());
+        }
         HashMap<LocalDate, List<Task>> hashMap = new HashMap<>();
         addAllTask(taskList, hashMap);
         LocalDate[] keys = hashMap.keySet().toArray(new LocalDate[0]);

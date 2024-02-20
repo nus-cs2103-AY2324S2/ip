@@ -23,7 +23,7 @@ public class ListCommand extends Command {
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (taskList.size() == 0) {
-            throw new ToothlessException("Human list is empty like my tummy right now :/");
+            throw new ToothlessException(ui.showEmptyListWarning());
         }
         return ui.showAllTasks(taskList);
     }

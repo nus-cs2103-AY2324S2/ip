@@ -36,12 +36,12 @@ public class DeadlineCommand extends Command{
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
-            throw new ToothlessException("Human task no name :(");
+            throw new ToothlessException(ui.showNoTaskNameWarning());
         }
 
         int dateIndex = detail.indexOf("/by");
         if (dateIndex == -1) {
-            throw new ToothlessException("Human deadline no deadline @_@");
+            throw new ToothlessException(ui.showNoDeadlineWarning());
         }
 
         String description = detail.substring(0, dateIndex - 1);

@@ -35,7 +35,7 @@ public class TodoCommand extends Command {
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
-            throw new ToothlessException("Human task no name :(");
+            throw new ToothlessException(ui.showNoTaskNameWarning());
         }
 
         Task t = new Todo(detail);

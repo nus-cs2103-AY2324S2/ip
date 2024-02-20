@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = getTaskIndex(detail);
         if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
-            throw new ToothlessException("Human trying to delete nothing ^O^. Absurd");
+            throw new ToothlessException(ui.showInvalidDeleteWarning());
         }
 
         Task t = taskList.getTask(taskIndex);
