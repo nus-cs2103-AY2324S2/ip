@@ -11,7 +11,7 @@ import java.util.List;
  * It provides methods to display welcome and goodbye messages to the user.
  */
 public class Ui {
-    
+
     public Response welcomeMessage() {
         return new Response("Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\np.s. say help if you need!\n");
     }

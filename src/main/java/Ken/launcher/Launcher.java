@@ -1,7 +1,6 @@
 package ken.launcher;
 
 import javafx.application.Application;
-import ken.Ken;
 import ken.Main;
 
 /**
@@ -9,6 +8,6 @@ import ken.Main;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Ken.class, args);
+        Application.launch(Main.class, args);
     }
 }
