@@ -5,10 +5,8 @@ import java.util.Scanner;
 public class Ui {
     static String LINE = "_____________________________________________";
 
-    public void open() {
-        String greeting = "Hello! I'm Donald.\nWhat can I do for you?\n";
-        String out = LINE + "\n" + greeting + LINE;
-        System.out.println(out);
+    public String open() {
+        return "Hello! I'm Tofu.\nWhat can I do for you today?\n";
     }
 
     public void close() {
@@ -46,6 +44,14 @@ public class Ui {
 
     public String findMessage(String str) {
         return "Here are the matching tasks in your list:\n" + str;
+    }
+
+    public static String indexError() {
+        return "Oops! The index you provided is not valid. Please enter an index greater than 0.";
+    }
+
+    public static String emptyDescriptionError() {
+        return "Oops! It seems like the description field is empty. Please provide a description to proceed.";
     }
 
     public static String unknownCommandError() {
