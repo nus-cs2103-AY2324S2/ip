@@ -17,6 +17,7 @@ public class Ui {
     public static final String BYE_TEXT = "Bye. Hope to see you again soon!";
     private Parser parser;
     private TaskList tasks;
+    private Storage storage;
 
     /**
      * Constructor for Ui class
@@ -24,7 +25,8 @@ public class Ui {
      */
     public Ui(TaskList tasks) {
         this.parser = new Parser();
-        this.tasks = tasks;
+        this.storage = new Storage();
+        this.tasks = new TaskList(storage.loadData());
     }
 
     /**
@@ -67,7 +69,7 @@ public class Ui {
             }
 
             tasks.addTask(todo);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
             return "Todo Task Added: " + todo.toString() + "\n" + "You have " + tasks.getSize() + " tasks";
 
         case DEADLINE:
@@ -80,7 +82,7 @@ public class Ui {
             }
 
             tasks.addTask(deadline);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
             return "Deadline Task Added: " + deadline.toString() + "\nYou have " + tasks.getSize() + " tasks";
 
         case EVENT:
@@ -93,19 +95,19 @@ public class Ui {
             }
 
             tasks.addTask(event);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
             return "Event Task Added: " + event.toString() + "\nYou have " + tasks.getSize() + " tasks";
 
 
         case MARK:
             Task t = tasks.markTask(Integer.parseInt(splitWords[1]) - 1);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
             return "OK, I've marked this task as done:\n" + t.toString();
 
 
         case UNMARK:
             Task t1 = tasks.unmarkTask(Integer.parseInt(splitWords[1]) - 1);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
             return "OK, I've marked this task as not done yet:\n" + t1.toString();
 
         case DELETE:

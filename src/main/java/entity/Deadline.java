@@ -19,6 +19,12 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    public Deadline(String title, boolean isMarked, LocalDateTime dateTime) {
+        super(title);
+        this.isMarked = isMarked;
+        this.dateTime = dateTime;
+    }
+
     /**
      * Helper function to generate a string representation of the Deadline object for saving purposes.
      *
@@ -27,9 +33,9 @@ public class Deadline extends Task {
     @Override
     public String save() {
         if (this.getMarked()) {
-            return "D | Done | " + this.title;
+            return "D|Done|" + this.title + "|" + this.dateTime;
         } else {
-            return "D | Not Done | " + this.title;
+            return "D|Not Done|" + this.title + "|" + this.dateTime;
         }
     }
     @Override

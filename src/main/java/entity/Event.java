@@ -23,6 +23,13 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String title, boolean isMarked, LocalDateTime startTime, LocalDateTime endTime) {
+        super(title);
+        this.isMarked = isMarked;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     /**
      * Helper function to generate a string representation of the Event object for saving purposes.
      *
@@ -31,9 +38,9 @@ public class Event extends Task {
     @Override
     public String save() {
         if (this.getMarked()) {
-            return "E | Done | " + this.title;
+            return "E|Done|" + this.title + "|" + this.startTime + "|" + this.endTime;
         } else {
-            return "E | Not Done | " + this.title;
+            return "E|Not Done| " + this.title + "|" + this.startTime + "|" + this.endTime;
         }
     }
 
