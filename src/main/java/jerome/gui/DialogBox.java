@@ -9,10 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * DialogBox controlled using FXML.
@@ -40,7 +43,11 @@ public class DialogBox extends HBox {
         }
 
         this.dialog.setText(text);
-        this.displayPicture.setImage(img);
+
+        // Leave a nicer space between the Image and the text that user input.
+        // Inspired by ChatGPT.
+        this.setSpacing(10);
+        this.displayPicture.setImage(getRoundedImage(img));
     }
 
     /**
@@ -51,6 +58,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        this.dialog.setStyle("-fx-border-color: black; -fx-border-width: 5; -fx-padding: 5; "
+                + "-fx-background-color: rgba(48,48,90,0.13); -fx-border-radius: 2;");
     }
 
     /**
@@ -75,5 +85,18 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+    }
+
+    // Solution taken from: https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle
+    private static Image getRoundedImage(Image image) {
+        // Prompted about ideal radius using ChatGPT.
+        double radius = Math.min(image.getWidth(), image.getHeight()) / 2;
+
+        Circle clip = new Circle(image.getWidth() / 2, image.getHeight() / 2, radius);
+        ImageView imageView = new ImageView(image);
+        imageView.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(parameters, null);
     }
 }
