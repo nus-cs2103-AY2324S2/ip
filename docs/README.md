@@ -22,6 +22,9 @@ Add tasks with set deadlines
 
 Example: `deadline life /by 02/03/2045 1800`
 
+1. time can be omitted from the command
+2. does not accept any past datetime
+
 ```
 Got it. I've added the task:
 [D][] life
@@ -34,6 +37,9 @@ Now you have 2 tasks in the list
 Add tasks with set start time and end time
 
 Example: `event life /from 02/03/2045 1800 /to 02/04/2066 1900`
+
+1. time can be omitted from the command
+2. does not accept any past datetime
 
 ```
 Got it. I've added the task:
@@ -62,6 +68,8 @@ Remove tasks in task list
 
 Example: `delete 1(index in list)`
 
+1. list is 1 indexed
+
 ```
 Noted. I've removed this task:
 [T][] life
@@ -71,6 +79,8 @@ Now you have 2 tasks in the list.
 ## Marking and Unmarking tasks
 
 Mark or unmark task as complete
+
+1. list is 1 indexed
 
 Example: `mark 1(index in list)`
 Example: `unmark 1(index in list)`
@@ -86,6 +96,9 @@ Nice! I've marked this task as done:
 Set high or low priority to tasks
 
 Example: `priority 1(index in list)`
+
+1. list is 1 indexed
+2. high & low command is **not** case-sensitive
 
 ```
 OK! I've updated this task's Priority:
