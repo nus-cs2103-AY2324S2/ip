@@ -1,5 +1,4 @@
-T | 1 | project meeting
-E | 1 | group discussion  | Feb 12 2024 18:00-Feb 12 2024 18:30
+T | 0 | project meeting
 T | 0 | ask
 T | 0 | ASK
-E | 0 | ok | Mar 12 2201-Sep 15 2012
+E | 0 | group discussion  | Feb 12 2024 18:00-Feb 12 2024 18:30

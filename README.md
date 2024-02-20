@@ -237,6 +237,11 @@ on a task with an __invalid index__, BotYue throws the following error:
 `OOPS!!! Please enter a valid task index to [action].`
 
 
+When the user attempts to perform an action (e.g., mark, unmark, delete)
+on a task with an __index out of range__, BotYue throws the following error:
+
+`OOPS!!! The index is out of range.`
+
 ### 4. Empty Task Description
 When adding a todo task or a deadline/event task without a description,
 BotYue responds with:

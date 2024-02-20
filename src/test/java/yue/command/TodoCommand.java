@@ -4,25 +4,29 @@ import yue.Storage;
 import yue.YueException;
 import yue.tasks.Task;
 import yue.tasks.TaskList;
+import yue.tasks.TodoTask;
+
 
 /**
- * Represents a command to mark a task as not done.
+ * Represents a command to add a new todo task.
  */
-public class UnmarkCommand extends Command {
-    private int index;
+public class TodoCommand extends Command {
+    private String description;
+
 
     /**
-     * Constructs an UnmarkCommand object with the given task index.
+     * Constructs a TodoCommand object with the given task description.
      *
-     * @param TASK_INDEX The index of the task to mark as not done.
+     * @param description The description of the todo task to be added.
      */
-    public UnmarkCommand(int TASK_INDEX) {
-        this.index = TASK_INDEX;
+    public TodoCommand(String description) {
+        this.description = description;
     }
 
 
+
     /**
-     * Executes the UnmarkCommand, marking the specified task as not done.
+     * Executes the TodoCommand, adding a new todo task to the task list.
      *
      * @param tasks   The list of tasks.
      * @param storage The storage handler.
@@ -34,20 +38,18 @@ public class UnmarkCommand extends Command {
         assert tasks != null : "TaskList cannot be null";
         assert storage != null : "Storage cannot be null";
 
-        if (index < 1 || index > tasks.size()) {
-            throw new YueException("OOPS!!! The index is out of range.");
-        }
+        Task task = new TodoTask(description);
+        tasks.addTask(task);
+        int count = tasks.size();
 
-        Task task = tasks.get(index - 1);
-        task.markNotDone();
-        String unmarkedMessage = "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n";
+        String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
+                "    Now you have " + count + " tasks in the list.\n";
+
 
         storage.save(tasks.getAllTasks());
 
-        return unmarkedMessage;
+        return addedMessage;
     }
-
-
 
     /**
      * Checks if the command is an exit command.
@@ -59,4 +61,3 @@ public class UnmarkCommand extends Command {
         return false;
     }
 }
-

@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws YueException {
         if (index < 1 || index > tasks.size()) {
 
-            throw new YueException("OOPS!!! duke.Tasks.Task index is out of range.");
+            throw new YueException("OOPS!!! The index is out of range.");
         }
 
         Task task = tasks.get(index - 1);
