@@ -31,6 +31,7 @@ public class MainGui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Andelu Task Bot");
             fxmlLoader.<MainWindow>getController().setAndelu("duke");
             stage.show();
         } catch (IOException e) {

@@ -37,10 +37,10 @@ public class MainWindow extends AnchorPane {
     private Andelu andelu;
 
     /** The image of the user. */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.jpg"));
 
     /** The image of Andelu bot. */
-    private Image andeluImage = new Image(this.getClass().getResourceAsStream("/images/DaAndelu.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/BotImage.png"));
 
     /**
      * Initialises some properties for GUI.
@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren()
-                .addAll(DialogBox.getAndeluDialog("Hello! I'm AndrewOng2066.\nWhat can I do for you?", andeluImage));
+                .addAll(DialogBox.getAndeluDialog("Hello! I'm AndrewOng2066.\nWhat can I do for you?", botImage));
     }
 
     /**
@@ -77,7 +77,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAndeluDialog(response, andeluImage)
+                DialogBox.getAndeluDialog(response, botImage)
         );
         userInput.clear();
     }
