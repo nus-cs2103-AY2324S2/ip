@@ -81,9 +81,9 @@ public class TaskDisplay {
     private String printTaskList(List<Task> taskList) {
         StringBuilder message = new StringBuilder();
         if (taskList.isEmpty()) {
-            message.append("Your task list is empty :(\n Please add some tasks!");
+            message.append("Looks like there's nothing here yet! 😅 Let's add some tasks!");
         } else {
-            message.append("Here are the tasks in your list:\n");
+            message.append("Here's what we've got on the agenda! 📋\n");
             int count = 1;
             for (Task task : taskList) {
                 message.append("   ").append(count).append(". ")
@@ -115,52 +115,48 @@ public class TaskDisplay {
     private String printMarkTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            return "The task number provided is invalid.";
+            return "Hmm, I couldn't find that task number. 🤔";
         }
         Task task = taskList.get(index);
-        message.append("Nice! I've marked this task as done:\n")
-                .append("   ").append(task.getTaskIcon())
-                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append("\n");
+        message.append("\n   ").append(task.getTaskIcon())
+                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append(" ✔️\n");
         return message.toString();
     }
 
     private String printUnmarkTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            return "The task number provided is invalid.";
+            return "Oops! That task number seems off. 🧐";
         }
         Task task = taskList.get(index);
-        message.append("OK, I've marked this task as pending:\n")
-                .append("   ").append(task.getTaskIcon())
-                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append("\n");
+        message.append("\n   ").append(task.getTaskIcon())
+                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append(" 🕒\n");
         return message.toString();
     }
 
     private String printDeletedTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            return "Sorry, I believe the TASK NUMBER you specified doesn't exist.";
+            return "Uh-oh, I couldn't find that task. Are you sure it exists? 🤨";
         }
         Task deletedTask = taskList.get(index);
-        message.append("Noted. I've removed this task:\n")
-                .append("     ").append(deletedTask.getTaskIcon())
-                .append(deletedTask.getStatusIcon()).append(" ").append(deletedTask.getTaskDescription()).append("\n")
-                .append("Now you have ").append(taskList.size() - 1)
-                .append(" tasks left in this list.\n");
+        message.append("\n     ").append(deletedTask.getTaskIcon())
+                .append(deletedTask.getStatusIcon()).append(" ").append(deletedTask.getTaskDescription()).append(" 🗑️\n")
+                .append("You're now down to ").append(taskList.size() - 1)
+                .append(" tasks.\n");
         return message.toString();
     }
 
     private String printAddedTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            return "The task couldn't be added properly.";
+            return "Hmm, something went wrong. I couldn't add the task. 🙁";
         }
         Task task = taskList.get(index);
-        message.append("Got it. I've added this task: \n")
-                .append("   ").append(task.getTaskIcon())
-                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append("\n")
-                .append("Now you have ").append(taskList.size())
-                .append(" tasks in the list.\n");
+        message.append("\n   ").append(task.getTaskIcon())
+                .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append(" 📝\n")
+                .append("Bringing your total to ").append(taskList.size())
+                .append(" tasks. Let's keep this productivity train going! 🚂💨\n");
         return message.toString();
     }
 

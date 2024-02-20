@@ -14,20 +14,21 @@ public class MarkCommandHandler extends CommandHandler {
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
-            return "You used the wrong syntax haha. Don't worry,\nmistakes are allowed! " +
-                    "Use this: m <task number>";
+            return "Whoopsie-doodle! 😜 Looks like we're speaking different languages. No biggie! " +
+                    "Try saying it like this: m <task number>. You've got this! 🌟";
         }
 
         int taskIndex = Integer.parseInt(userMessage[1]) - 1;
         if (taskIndex < 0 || taskIndex >= taskManager.getTasks().size()) {
-            return "Sorry, I think you have entered a task number\nthat does not exist. " +
-                    "Can you please check?";
+            return "Oh noes! 🙈 It seems like that task number is playing hide and seek and it's winning. " +
+                    "Could you give it another look? Pretty please with a cherry 🍒 on top?";
         }
 
         taskManager.markAsComplete(taskIndex);
-        return taskDisplay.displayMarkTask(taskManager.getTasks(), taskIndex);
+        return "YAY! 🎉 We did it! Task " + (taskIndex + 1) + " is now marked as done! " +
+                "Feels good, doesn't it? Here's a high five! ✋\n" +
+                taskDisplay.displayMarkTask(taskManager.getTasks(), taskIndex);
     }
-
     @Override
     public String getDescription() {
         return "Marks a task as complete. Usage: m <task number>";

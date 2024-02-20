@@ -13,7 +13,7 @@
     <children>
         <TextField fx:id="userInput" layoutX="10.0" layoutY="601.0" onAction="#handleUserInput" prefHeight="45.0" prefWidth="372.0" promptText="Type your message here..." style="-fx-border-color: #F0F0F0; -fx-border-radius: 25px; -fx-background-color: white;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="102.0">
             <font>
-                <Font name="Lato" size="14.0" />
+                <Font name="Segoe UI Emoji" size="14.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="TEXT" />
@@ -32,7 +32,7 @@
         </Button>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="582.0" prefWidth="464.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: white;" vvalue="1.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="595.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #e9ecef; -fx-background-color: white;">
+                <VBox fx:id="dialogContainer" prefHeight="595.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #ced4da; -fx-background-color: white;">
                     <cursor>
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>

@@ -10,22 +10,24 @@ public class UnmarkCommandHandler extends CommandHandler {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
-
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
-            return "You used the wrong syntax haha. Don't worry,\nmistakes are allowed! " +
-                    "Use this: um <task number>";
+            return "Oopsie daisy! 🌼 Looks like the magic spell was a bit off. No worries, " +
+                    "we all fumble sometimes! 🤷‍♂️ " +
+                    "Try casting it like this: um <task number>. You've got this! 💪";
         }
 
         int taskIndex = Integer.parseInt(userMessage[1]) - 1;
         if (taskIndex < 0 || taskIndex >= taskManager.getTasks().size()) {
-            return "Sorry, I think you have entered a task number that does not exist. " +
-                    "Can you please check?";
+            return "Hmm... 🤔 I peeked through my magic book 📖 and couldn't find a task with that number. " +
+                    "Could you double-check? Maybe it's hiding under a cloak of invisibility! 🧙‍♂️";
         }
 
         taskManager.markAsIncomplete(taskIndex);
-        return taskDisplay.displayUnmarkTask(taskManager.getTasks(), taskIndex);
+        return "Abracadabra! Your task is back on the list, ready to conquer! " +
+                "Remember, completing tasks is a journey, not a sprint.\n" +
+                taskDisplay.displayUnmarkTask(taskManager.getTasks(), taskIndex);
     }
 
     @Override

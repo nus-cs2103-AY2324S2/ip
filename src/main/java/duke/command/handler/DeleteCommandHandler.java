@@ -15,23 +15,23 @@ public class DeleteCommandHandler extends CommandHandler {
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
-            return "You used the wrong syntax haha. Don't worry,\nmistakes are allowed! " +
-                    "Use this: del <task number>";
+            return "Oops! Looks like we're missing something. 🤷‍♂️ No problemo, everyone has those days! " +
+                    "Try this magic spell: del <task number> 🪄";
         }
 
         int taskIndex = Integer.parseInt(userMessage[1]) - 1;
         if (taskIndex < 0 || taskIndex >= taskManager.getTasks().size()) {
-            return "Sorry, I think you have entered a task number \nthat does not exist. " +
-                    "Can you please check?";
+            return "Hmmm, I peeked everywhere 🕵️‍♂️ but couldn't find a task with that number... " +
+                    "Could you double-check? Maybe it's playing hide and seek! 🙈";
         }
 
         Task taskToDelete = taskManager.getTask(taskIndex);
         if (taskToDelete != null) {
             String taskDetails = taskDisplay.displayDeleteTask(taskManager.getTasks(), taskIndex);
             taskManager.deleteTask(taskIndex);
-            return taskDetails;
+            return "Poof! ✨ Your task vanished into thin air! Here's what we said goodbye to:\n" + taskDetails;
         } else {
-            return "hey, I think the task number you provided doesn't exist.";
+            return "This is awkward... 😅 Seems like that task number is a bit of a mystery. Mind trying again?";
         }
     }
 

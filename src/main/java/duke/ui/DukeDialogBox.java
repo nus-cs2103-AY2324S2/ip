@@ -14,7 +14,7 @@ public class DukeDialogBox extends DialogBox {
 
     public DukeDialogBox(String text, Image img) {
         super("Sophia", text, img);
-        setLabelStyle("-fx-background-color: #F5F5F5; -fx-background-radius: 10px;", Color.BLACK);
+        setLabelStyle("-fx-background-color: #f5f5f5; -fx-background-radius: 10px;", Color.BLACK);
     }
 
     /**
