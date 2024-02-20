@@ -1,4 +1,4 @@
-package doummi.task;
+package chingu.task;
 
 /**
  * This class is Task that consist of different types such as ToDos, Deadline and Events

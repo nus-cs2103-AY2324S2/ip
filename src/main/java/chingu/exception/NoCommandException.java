@@ -1,11 +1,11 @@
-package doummi;
+package chingu.exception;
 
 /**
  * Custom NoCmdException class which return error message when there is error in the command format
  */
 
-public class NoCmdException extends Exception{
-    public NoCmdException(String msg) {
+public class NoCommandException extends Exception{
+    public NoCommandException(String msg) {
         super(msg);
     }
 }

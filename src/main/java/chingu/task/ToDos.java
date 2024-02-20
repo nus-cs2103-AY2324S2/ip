@@ -1,4 +1,4 @@
-package doummi.task;
+package chingu.task;
 
 /**
  * This class is implementation of Task which contains description.

@@ -1,7 +1,8 @@
-package doummi;
+package chingu;
 
-import doummi.command.Command;
-import doummi.task.TaskList;
+import chingu.command.Command;
+import chingu.exception.NoCommandException;
+import chingu.task.TaskList;
 
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 /**
  * Class Duke that is the main class that helps to run the program
  */
-public class Doummi {
+public class Chingu {
 
     private Storage storage;
     private TaskList tasks;
@@ -19,7 +20,7 @@ public class Doummi {
 
 
 
-    public Doummi() {
+    public Chingu() {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -44,7 +45,7 @@ public class Doummi {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (NoCmdException e) {
+            } catch (NoCommandException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -57,7 +58,7 @@ public class Doummi {
         try {
             Command newCommand = Parser.parse(userInput);
             Response = newCommand.execute(tasks, ui, storage);
-        } catch (NoCmdException e) {
+        } catch (NoCommandException e) {
             throw new RuntimeException(e);
         }
         return Response;
@@ -66,7 +67,7 @@ public class Doummi {
     }
 
     public static void main(String[] args) {
-        new Doummi().run();
+        new Chingu().run();
     }
 
 }

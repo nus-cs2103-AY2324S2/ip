@@ -1,6 +1,6 @@
-package doummi;
+package chingu;
 
-import doummi.task.Events;
+import chingu.task.Events;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

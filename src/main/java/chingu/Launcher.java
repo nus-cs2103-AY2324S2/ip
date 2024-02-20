@@ -1,4 +1,4 @@
-package doummi;
+package chingu;
 
 import javafx.application.Application;
 

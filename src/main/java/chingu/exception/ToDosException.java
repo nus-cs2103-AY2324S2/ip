@@ -1,4 +1,4 @@
-package doummi.task;
+package chingu.exception;
 
 /**
  * Custom ToDosException class which return error message when there is error in the Todos format

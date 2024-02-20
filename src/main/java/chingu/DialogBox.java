@@ -1,4 +1,4 @@
-package doummi;
+package chingu;
 
 import java.io.IOException;
 import java.util.Collections;

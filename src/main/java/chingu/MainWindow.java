@@ -1,4 +1,4 @@
-package doummi;
+package chingu;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,12 +20,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Doummi doummi;
+    private Chingu chingu;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private static final String GREET = "Hello! I'm DOUMMI\n" +
+    private static final String GREET = "Hello! I'm your ChinGu\n" +
             "What can I do for you?";
 
     @FXML
@@ -34,8 +34,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(GREET, dukeImage));
     }
 
-    public void setDoummi(Doummi d) {
-        doummi = d;
+    public void setDoummi(Chingu d) {
+        chingu = d;
     }
 
     /**
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = doummi.getResponse(input);
+        String response = chingu.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

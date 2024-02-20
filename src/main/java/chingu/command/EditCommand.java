@@ -1,9 +1,9 @@
-package doummi.command;
+package chingu.command;
 
-import doummi.Storage;
-import doummi.task.Task;
-import doummi.task.TaskList;
-import doummi.Ui;
+import chingu.Storage;
+import chingu.task.Task;
+import chingu.task.TaskList;
+import chingu.Ui;
 
 public class EditCommand extends Command {
     private String editType;

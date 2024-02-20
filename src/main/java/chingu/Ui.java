@@ -1,6 +1,6 @@
-package doummi;
+package chingu;
 
-import doummi.task.Task;
+import chingu.task.Task;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -12,7 +12,6 @@ public class Ui {
     private final PrintStream OUT;
 
     private static final String LINE = "_________________________________________________________";
-
 
     private static final String LOADING_ERROR = "Loaded wrongly - Please check again!";
 
@@ -36,7 +35,7 @@ public class Ui {
     }
 
     public String showError(String msg) {
-        return "Sir, " + msg;
+        return "My dear friend, " + msg;
     }
 
     public String showLoadingError() {

@@ -1,4 +1,4 @@
-package doummi;
+package chingu;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Doummi duke = new Doummi();
+    private Chingu duke = new Chingu();
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("DOUMMI The Helper");
+            stage.setTitle("Chingu YOUR Friend");
             fxmlLoader.<MainWindow>getController().setDoummi(duke);
             stage.show();
         } catch (IOException e) {

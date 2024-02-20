@@ -1,6 +1,6 @@
-package doummi;
+package chingu;
 
-import doummi.task.*;
+import chingu.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -58,8 +58,8 @@ public class Storage {
         boolean isDone;
         data = divided[1];
         divided = data.split("\\|", 2);
-        String status = divided[0];
-        if (status == "1") {
+        String status = divided[0].trim();
+        if (status.equals("1")) {
             isDone = true;
         } else {
             isDone = false;
@@ -81,8 +81,8 @@ public class Storage {
         boolean isDone;
         data = divided[1];
         divided = data.split("\\|", 2);
-        String status = divided[0];
-        if (status == "1") {
+        String status = divided[0].trim();
+        if (status.equals("1")) {
             isDone = true;
         } else {
             isDone = false;
@@ -110,14 +110,13 @@ public class Storage {
         boolean isDone;
         data = divided[1];
         divided = data.split("\\|", 2);
-        String status = divided[0];
-        if (status == "1") {
+        String status = divided[0].trim();
+        if (status.equals("1")) {
             isDone = true;
         } else {
             isDone = false;
         }
         data = divided[1];
-        System.out.println(data);
         divided = data.split("\\|", 2);
         String D = divided[0];
         String byPriority = divided[1].trim();

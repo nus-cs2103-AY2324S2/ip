@@ -1,4 +1,4 @@
-package doummi.task;
+package chingu.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

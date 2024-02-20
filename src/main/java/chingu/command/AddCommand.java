@@ -1,7 +1,11 @@
-package doummi.command;
+package chingu.command;
 
-import doummi.*;
-import doummi.task.*;
+import chingu.*;
+import chingu.exception.DateException;
+import chingu.exception.DeadlineException;
+import chingu.exception.EventException;
+import chingu.exception.ToDosException;
+import chingu.task.*;
 
 import java.util.ArrayList;
 
