@@ -77,6 +77,7 @@ public class Parser {
      * @param argument The index of the task to mark as done.
      */
     private String markTaskAsDone(String argument) {
+        assert (argument != null);
         int index = Integer.parseInt(argument.trim()) - 1;
         checkIndexBounds(index);
         taskList.getTasks().get(index).markAsDone();
@@ -91,6 +92,7 @@ public class Parser {
      * @param argument The index of the task to delete.
      */
     private String markTaskAsUndone(String argument) {
+        assert (argument != null);
         int index = Integer.parseInt(argument.trim()) - 1;
         if (checkIndexBounds(index)) {
             return ui.showMessage("Index out of bounds");
@@ -107,6 +109,7 @@ public class Parser {
      * @param argument The index of the task to delete.
      */
     private String deleteTask(String argument) {
+        assert (argument != null);
         int index = Integer.parseInt(argument.trim()) - 1;
         if (checkIndexBounds(index)) {
             return ui.showMessage("Index out of bounds");
@@ -121,6 +124,7 @@ public class Parser {
      * @param argument The description of the to do task.
      */
     private String addTodoTask(String argument) {
+        assert (argument != null);
         taskList.addTask(new Task(TaskType.TODO, argument));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
@@ -131,6 +135,7 @@ public class Parser {
      * @param argument The description and deadline of the deadline task.
      */
     private String addDeadlineTask(String argument) {
+        assert (argument != null);
         String[] parts = argument.split("/by");
         if (parts.length != 2) {
             return "Wrong format. Please retype according to /help";
@@ -150,6 +155,7 @@ public class Parser {
      * @param argument The description and time period of the event task.
      */
     private String addEventTask(String argument) {
+        assert (argument != null);
         String[] parts = argument.split("/from");
         if (parts.length != 2) {
             return ui.showMessage("Wrong format. Please retype according to /help");
@@ -186,6 +192,7 @@ public class Parser {
      * @param by The deadline string to check.
      */
     private boolean checkDeadline(String by) {
+        assert (by != null);
         try {
             LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
         } catch (DateTimeParseException e) {
@@ -202,6 +209,8 @@ public class Parser {
      * @param to   The end date string of the event.
      */
     private boolean checkEvent(String from, String to) {
+        assert (from != null);
+        assert (to != null);
         try {
             LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
             LocalDate.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy"));
