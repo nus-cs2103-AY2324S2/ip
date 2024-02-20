@@ -31,9 +31,57 @@ And it is **FREE** to use! 🚫💵
 - [x] Search Tasks based on date
 - [x] GUI View
 
-### Listing all the existing tasks in the list/ txt file: ```List```
-Add a new todo task to the list/txt file.
+▶️### Listing all the existing tasks in the list/ txt file: `list`
+List down all the tasks in the list/txt file.
+Format: `list`
+
+▶️### Adding a new todo task: `todo`
+Add a new todo task to the list, and it will be stored in a txt file.
 Format: `todo DESCRIPTION`
+
+▶️### Adding a new deadline task: `deadline`
+Add a new deadline task to the list, and it will be stored in a txt file.
+Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`
+
+▶️### Adding a new event task: `event`
+Add a new event task to the list, and it will be stored in a txt file.
+Format: `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm`
+
+▶️### Deleting a task: `delete`
+Delete an existing task in the list, and it will be removed from the txt file.
+Format: `delete INDEX`
+📝The `INDEX` refers to the index number of a task in the list. 
+⚠️: `INDEX` must be positive and not exceed the size of the list.
+
+▶️### Marking a task: `mark`
+Mark a task in the list as completed. 
+Format: `mark INDEX`
+📝The `INDEX` refers to the index number of a task in the list. 
+⚠️: `INDEX` must be positive and not exceed the size of the list.
+
+▶️### Unmarking a task: `mark`
+Unmark a task in the list as incomplete. 
+Format: `unmark INDEX`
+📝The `INDEX` refers to the index number of a task in the list. 
+⚠️: `INDEX` must be positive and not exceed the size of the list.
+
+▶️### Searching tasks based on the description: `search`
+Find all tasks with matching keywords for description. 
+Format: `search DESCRIPTION`
+
+▶️### Searching tasks based on the date: `date`
+Find all tasks with the matching date. 
+Format: `date yyyy-MM-dd`
+
+▶️### Setting priority level
+Add a priority level to each new task.
+📝: `DEFAULT` if not stated explicitly.
+🎚️Priority Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`
+Format: `todo DESCRIPTION /priority LEVEL`
+
+▶️### Exiting the program: `bye`
+Exit the program.
+Format: `bye`
 
 
 ## Command Summary
