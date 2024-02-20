@@ -1,29 +1,53 @@
-# User Guide
+# Bearducky User Guide
 
-## Features 
+![Ui](Ui.png)
 
-### Feature-ABC
+Bearducky is a CLI-based chatbot that allows the user to handle Tasks, meant to represent a duck wearing a bear hat.
+Tasks consist of three types:
+1. Todo, tasks that do not have any deadlines.
+2. Deadline, tasks that have a single deadline.
+3. Event, tasks that have a start date and end date.
 
-Description of the feature.
+## Features available
+-Adding tasks
+-Deleting tasks
+-Marking tasks
+-Unmarking tasks
+-Searching for tasks
+-Listing out tasks
+-Feeding bearducky bread
 
-### Feature-XYZ
 
-Description of the feature.
+## Adding tasks
 
-## Usage
+### Adding Todo:
+To add a Todo task, the syntax is todo taskname. For example, to add task "do 2103", one would enter ```todo do 2103```.
 
-### `Keyword` - Describe action
+### Adding Deadline:
+To add a Deadline task, the syntax is deadline /by date (mm/dd/yyyy format). For example, to add deadline "do 2103" by 23/2/2023, one would enter 
+```deadline do 2103 /by 02/23/2023```. When listed, it will appear as "do 2103 (by: 2023-02-23)".
 
-Describe the action and its outcome.
+### Adding Event:
+To add a Event task, the syntax is event /from startdate (mm/dd/yyyy format) /to enddate (mm/dd/yyyy format). For example, to add deadline "do 2103" from 23/2/2023 to 24/2/2023, one would enter ```event do 2103 /from 2/23/2023 /to 2/24/2023```. 
+When listed, it will appear as "do 2103 (from: 2023-02-23 to 2023-02-24)".
 
-Example of usage: 
+## Deleting tasks
+To delete the nth item on the list, enter the command ```delete n```.
 
-`keyword (optional arguments)`
+## Marking tasks
+To mark the nth item on the list, enter the command ```mark n```.
 
-Expected outcome:
+## Unmarking tasks
+To unmark the nth item on the list, enter the command ```unmark n```.
 
-Description of the outcome.
+## Searching for tasks
+To search for a task, enter the command ```find task```. All tasks that have matching names will show up.
 
-```
-expected output
-```
+## Listing out tasks
+To list out tasks, enter the command ```list```.
+
+## Feeding
+One has the option to make bearducky marginally less depressed by entering ```Feed bread to bearducky```.
+
+## Exit
+Enter ```bye```

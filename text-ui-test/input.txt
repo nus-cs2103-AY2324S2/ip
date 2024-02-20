@@ -1,0 +1,12 @@
+test
+todo cs2103
+deadline cs2103 /by tonight
+event cs2103 /tonight 8pm /tonight 11pm
+listi
+mark 1
+mark 2
+unmark 2
+unmark 1
+list
+feed bread to bearducky
+bye
