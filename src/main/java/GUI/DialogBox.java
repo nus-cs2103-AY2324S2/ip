@@ -31,28 +31,43 @@ public class DialogBox extends HBox {
             textboxColor = Color.LIGHTPINK;
         }
 
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        textStyle(text);
+        StackPane textBox = new StackPane();
+        makeTextbox(textBox, text);
+        displayPicStyle(displayPicture);
+        dialogBoxStyle(textBox, displayPicture);
+    }
 
-        Circle clip = new Circle(50, 50, 50);
-        displayPicture.setClip(clip);
 
+
+    private void makeTextbox(StackPane stack, Label text) {
         // Create a rectangle shape with rounded corners to enclose the text
         Rectangle rect = new Rectangle();
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.setFill(textboxColor);
-        rect.setWidth(TEXTBOX_WIDTH); // Adjust the width as needed
-        rect.setHeight(TEXTBOX_HEIGHT); // Adjust the height as needed
+        rect.setWidth(TEXTBOX_WIDTH);
+        rect.setHeight(TEXTBOX_HEIGHT);
 
-        StackPane textBox = new StackPane();
-        textBox.getChildren().addAll(rect, text);
-        text.setTextAlignment(TextAlignment.RIGHT);
+        stack.getChildren().addAll(rect, text);
+    }
 
+    private void textStyle(Label text) {
+        text.setWrapText(true);
+    }
+
+    private void displayPicStyle(ImageView img) {
+        img.setFitWidth(100.0);
+        img.setFitHeight(100.0);
+
+        Circle clip = new Circle(50, 50, 50);
+        img.setClip(clip);
+    }
+
+    private void dialogBoxStyle(StackPane stack, ImageView img) {
         this.setAlignment(Pos.TOP_RIGHT);
         this.setSpacing(10);
-        this.getChildren().addAll(textBox, displayPicture);
+        this.getChildren().addAll(stack, img);
         this.setPadding(new Insets(10));
     }
 
