@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sleepy.gui.MainWindow;
 
@@ -22,8 +22,8 @@ public class Main extends Application {
         try {
             stage.setTitle("Sleepy - your tired AI chatbot");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            HBox hb = fxmlLoader.load();
+            Scene scene = new Scene(hb);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setSleepy(sleepy);
             stage.show();

@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import sleepy.Sleepy;
@@ -16,8 +17,11 @@ import sleepy.Sleepy;
  * Controller for MainWindow. Provides the layout for the other controls.
  *
  * @author Jeffry Lum
+ * @author kjw142857
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends HBox {
+    @FXML
+    private GridPane gridPane;
     @FXML
     private ScrollPane scrollPane;
     @FXML

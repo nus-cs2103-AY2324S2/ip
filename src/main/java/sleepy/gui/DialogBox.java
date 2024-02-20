@@ -16,6 +16,9 @@ import javafx.scene.text.Text;
 
 /**
  * This control represents a dialog box for the sleepy GUI.
+ *
+ * @author Jeffrey Lum
+ * @author kjw142857
  */
 public class DialogBox extends HBox {
     // Changing Label to Text inspired by marcus-ny
