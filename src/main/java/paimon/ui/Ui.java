@@ -4,6 +4,7 @@ import paimon.task.Task;
 import paimon.task.TaskList;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Ui {
@@ -83,7 +84,7 @@ public class Ui {
      */
     public String showFarewell() {
         this.scanner.close();
-        return FAREWELLS.get(1);
+        return chooseRandomOption(FAREWELLS);
     }
 
     /**
@@ -190,6 +191,11 @@ public class Ui {
      * Prints ChatBot greeting message.
      */
     public String showWelcomeNoLogo() {
-        return GREETINGS.get(1);
+        return chooseRandomOption(GREETINGS);
+    }
+
+    public String chooseRandomOption(List<String> options) {
+        Random randomizer = new Random();
+        return options.get(randomizer.nextInt(options.size()));
     }
 }
