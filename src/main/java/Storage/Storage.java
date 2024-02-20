@@ -38,7 +38,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-
+            assert file.exists() : "Missing file was not made";
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
