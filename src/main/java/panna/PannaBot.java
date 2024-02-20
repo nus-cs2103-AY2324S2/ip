@@ -55,6 +55,8 @@ public class PannaBot extends Application {
     private void handleUserInput() throws PannaException {
         Label userText = new Label(userInput.getText());
         Label bugText = new Label(getResponse(userInput.getText()));
+        userText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+        bugText.setStyle("-fx-text-fill: blue; -fx-font-size: 16px;");
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getBugDialog(bugText, new ImageView(panna))
@@ -141,6 +143,7 @@ public class PannaBot extends Application {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
+        dialogContainer.setStyle("-fx-background-color:rgb(255, 253, 208);");
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -148,7 +151,10 @@ public class PannaBot extends Application {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+
         Scene scene = new Scene(mainLayout);
+        mainLayout.setStyle("-fx-background-color:rgb(0, 0, 255);");
 
         stage.setScene(scene);
         stage.show();
