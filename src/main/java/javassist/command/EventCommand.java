@@ -48,8 +48,13 @@ public class EventCommand implements Command {
 
     }
 
-    private Task createTask(String[] task, String[] time) {
-        Task t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
+    private Task createTask(String[] task, String[] time) throws JavAssistException {
+        Task t = null;
+        try {
+            t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
+        } catch (JavAssistException e) {
+            throw e;
+        }
         return t;
     }
 
