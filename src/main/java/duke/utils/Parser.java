@@ -74,6 +74,7 @@ public class Parser {
         case DELETE:
             try {
                 this.index = new Integer(userInputSplit[1]) - 1;
+                this.inputDetail = this.index.toString();
             } catch (Exception e) {
                 throw new InvalidNumberException();
             }
@@ -81,10 +82,15 @@ public class Parser {
         default:
             break;
         }
+
+        // check if the user input contains only empty spaces.
+        if (!(currentKey.equals(KeyEnum.LIST) || currentKey.equals(KeyEnum.EXITKEY)) && inputDetail.trim().isEmpty()) {
+            throw new EmptyBodyException();
+        }
     }
 
     /**
-     * Checks if the user input is valid.
+     * Checks if the user input contains special character.
      *
      * @param userInput String user input.
      * @return True if the user input is valid.

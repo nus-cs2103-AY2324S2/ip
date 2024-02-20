@@ -159,14 +159,25 @@ public class TaskList {
         nextTasks.sort(new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
-                if (o1 instanceof Deadline && o2 instanceof Deadline) {
-                    return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
-                } else if (o1 instanceof Event && o2 instanceof Event) {
-                    return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
-                } else if (o1 instanceof Todo) {
+                if (o1 instanceof Todo) {
                     return 1;
-                } else if (o2 instanceof Todo) {
+                }
+                if (o2 instanceof Todo) {
                     return -1;
+                }
+
+                if (o1 instanceof Deadline) {
+                    if (o2 instanceof Deadline) {
+                        return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
+                    } else if (o2 instanceof Event) {
+                        return ((Deadline) o1).getBy().compareTo(((Event) o2).getBy());
+                    }
+                } else if (o1 instanceof Event) {
+                    if (o2 instanceof Deadline) {
+                        return ((Event) o1).getBy().compareTo(((Deadline) o2).getBy());
+                    } else if (o2 instanceof Event) {
+                        return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
+                    }
                 }
                 return 0;
             }
