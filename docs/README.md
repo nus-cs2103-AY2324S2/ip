@@ -7,6 +7,18 @@ The Count will help manage your tasks <ins>efficiently</ins>.
 
 Keep track of your tasks using The Count!
 
+## Adding TODOs
+
+Example: `todo CS3230 Assignment` <br>
+Outcome: Adds "1.[T][] CS3230 Assignment" to the existing list of tasks<br>
+Format: `todo (event)`
+
+```
+Ah-ah-ah! I have added ONE task:
+[D][] CS3230 Assignment (by: Feb 21 2024)
+You have one, two... 1 task(s)!
+```
+
 ## Adding deadlines
 
 Example: `deadline CS3230 Assignment /by 2024-02-21` <br>
@@ -64,3 +76,6 @@ Here are the tasks in your list:
 1. [D][] CS3230 Assignment #work (by: Feb 21 2024)
 2. [E][X] Part-Time Job (from: Aug 6th to: 8th)
 ```
+
+## Saving data
+The data is automatically saved in `data/thecount.txt` after every command. Users can also edit information there directly.
