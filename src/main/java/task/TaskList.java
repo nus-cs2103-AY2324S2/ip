@@ -6,14 +6,14 @@
 package task;
 
 public class TaskList {
-    public Task[] taskList;
+    public Task[] tasks;
 
     public TaskList(Task[] tasks) {
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
     public TaskList() {
-        this.taskList = new Task[100];
+        this.tasks = new Task[100];
     }
 
     /**
@@ -22,7 +22,7 @@ public class TaskList {
      * @return Task List Array
      */
     public Task[] getTaskList() {
-        return taskList.clone();
+        return tasks.clone();
     }
 
     /**
@@ -31,6 +31,6 @@ public class TaskList {
      * @param tasks task list that overwrites the current one
      */
     public void updateTaskList(TaskList tasks) {
-        this.taskList = tasks.getTaskList();
+        this.tasks = tasks.getTaskList();
     }
 }

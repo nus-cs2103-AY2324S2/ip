@@ -8,7 +8,7 @@ package ui;
 import task.Task;
 
 public class Ui {
-    private final String line = "------------------------------------------";
+    private final String LINE = "------------------------------------------";
 
     public Ui() {
     }
@@ -17,18 +17,18 @@ public class Ui {
      * Prints welcome message for the user.
      */
     public void printWelcome() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("I'm Balkan Bot\n" + "Jebem ti mat");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
      * Prints farewell message for the user.
      */
     public void printByeMessage() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Јебаћу ти бабицу");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -37,10 +37,10 @@ public class Ui {
      * @param listOutput task list
      */
     public void printTaskList(String listOutput) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Here is your list of tasks:");
         System.out.println(listOutput);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     // Mark
@@ -94,22 +94,22 @@ public class Ui {
      * Prints confirmation that a task has been added to the task list.
      */
     public void printComplexTask(Task[] arr, int current) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Got it I've now added this task:");
         System.out.println(arr[current - 1].toString());
         System.out.println("Now you have " + current + " task(s) in the list.");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
      * Prints confirmation that a task has been deleted from the task list.
      */
     public void printDeletion(Task deletedTask, int current) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.println(deletedTask.toString());
         System.out.println("Now you have " + current + " task(s) in the list.");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
