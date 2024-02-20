@@ -32,9 +32,15 @@ And it is **FREE** to use! 🚫💵
 ## Command Summary
 | Action | Command Format, Examples |
 | --- | --- | 
-| Add todo | todo DESCRIPTION 
-  e.g., todo read book
-| Add deadline | deadline DESCRIPTION /by yyyy-mm-dd HH:mm 
+| Add todo | `todo DESCRIPTION` <br>e.g., `todo read book1` |
+| Add deadline | `deadline DESCRIPTION /by yyyy-MM-dd HH:mm` <br>e.g., `deadline return book /by 2024-02-20 23:59` | 
+| Add event | `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm` <br>e.g., `event meeting /from 2024-02-20 15:00 /to 2024-02-20 17:00` |
+| List content | `List` |
+| Mark for completed | `mark INDEX` <br>e.g., `mark 2` |
+| UnMark for incomplete | `unmark INDEX` <br>e.g., `unmark 2` |
+| Search task based on description | `search DESCRIPTION` <br>e.g., `search book` |
+| Search task based on date | `date yyyy-MM-dd HH:mm` <br>e.g., `date 2024-02-20` |
+| Exit | `bye` |
 
 
 ## Java Developer Guide
