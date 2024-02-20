@@ -23,7 +23,13 @@ public class ToDo extends Task {
      * @throws DukeException If an error occurs while adding the task.
      */
     public static String addToDoTask(TaskList taskList, String description) throws DukeException {
+        assert ("todo " + description).length() > "todo ".length() : "Input not handled properly";
+
         taskList.addTask(new ToDo(description));
+
+        int newSize = taskList.size();
+        assert newSize > 0 : "Task not added successfully";
+
         String result = "Got it. I've added this task:\n" +
                 taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
                 "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";
