@@ -17,6 +17,7 @@ To use  Andelu Bot, follow these steps:
 2. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
 3. Add your tasks (Todo, Deadline, Event)
 4. Let Andelu Bot manage your tasks😉
+![Uploading image.png…]()
 
 And it is **FREE** to use! 🚫💵
 
