@@ -1,7 +1,9 @@
-package duke;
+package duke.task;
 
 import java.util.ArrayList;
-import duke.task.Task;
+
+import duke.DukeException;
+
 import java.util.List;
 
 public class TaskList {
@@ -51,11 +53,15 @@ public class TaskList {
         return out;
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     public String toString() {
         int index = 1;
         String out = "";
         for (Task task: tasks) {
-            out += index + "." + task.toString() + "\n";
+            out += "    " + index + ". " + task.toString() + "\n";
             index++;
         }
         return out;

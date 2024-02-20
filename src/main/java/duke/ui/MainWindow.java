@@ -40,9 +40,7 @@ public class MainWindow extends AnchorPane {
                 BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         dialogContainer.setBackground(background);
-
-        String welcomeMessage = "\uD83D\uDC3E Hi there! It\u2019s me, Tofu the cat! \uD83D\uDC31 How can I make your day purr-fect? \uD83D\uDE3A\u201D";
-        dialogContainer.getChildren().add(DialogBox.getTofuDialog(welcomeMessage, tofuImage));
+        dialogContainer.getChildren().add(DialogBox.getTofuDialog(Ui.welcomeMessage(), tofuImage));
     }
 
     public void setDuke(Duke d) {

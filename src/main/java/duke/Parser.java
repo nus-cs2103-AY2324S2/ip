@@ -56,7 +56,7 @@ class Parser {
         if (commandWord.equals("list")) {
             command = new ListCommand();
         } else {
-            if (stringComponents.length != 2) {
+            if (stringComponents.length < 2) {
                 throw new DukeException(Ui.emptyDescriptionError());
             }
             switch (commandWord) {

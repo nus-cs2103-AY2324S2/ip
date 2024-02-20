@@ -1,5 +1,6 @@
 package duke;
 
+import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.command.Command;
 
@@ -38,19 +39,19 @@ public class Duke {
     }
 
     public void run() {
-        this.ui.open();
+        System.out.println(ui.welcomeMessage());
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parseToCommand(fullCommand);
-                c.execute(tasks, ui);
+                System.out.println(c.execute(tasks, ui));
                 isExit = c.isExit();
             } catch (DukeException ex) {
                 System.out.println(ex.toString());
             }
         }
-        ui.close();
+        System.out.println(ui.close());
         storage.save(tasks);
     }
 

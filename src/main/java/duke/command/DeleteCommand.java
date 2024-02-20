@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskList;
+import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.task.Task;
 
@@ -28,7 +28,7 @@ public class DeleteCommand implements Command {
     public String execute(TaskList tasks, Ui ui) throws DukeException {
         assert index > 0;
         if (index + 1 > tasks.size()) {
-            throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
+            throw new DukeException(Ui.indexTooBigError(tasks));
         }
         Task task = tasks.get(index);
         tasks.remove(index);

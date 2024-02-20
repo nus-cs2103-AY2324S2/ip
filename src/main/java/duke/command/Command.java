@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.ui.Ui;
-import duke.TaskList;
+import duke.task.TaskList;
 import duke.DukeException;
 
 public interface Command {

@@ -16,7 +16,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException ex) {
-            throw new DukeException("Oops! The date and time format you provided is not valid. Please enter in the format yyyy-MM-dd");
+            throw new DukeException("Oops! The date and time format you provided is not valid. " +
+                    "Please enter in the format yyyy-MM-dd");
         }
     }
 

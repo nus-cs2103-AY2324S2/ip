@@ -1,10 +1,9 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskList;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 public class FindCommand implements Command {
     private String keyword;
 
@@ -25,8 +24,11 @@ public class FindCommand implements Command {
      * @return a String of the UI message and a list of tasks that are found matching with the
      * keyword in the TaskList
      */
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) throws DukeException{
         TaskList foundList = tasks.find(keyword);
+        if (foundList.isEmpty()) {
+            throw new DukeException(Ui.noMatchError());
+        }
         return ui.findMessage(foundList.toString());
     }
 

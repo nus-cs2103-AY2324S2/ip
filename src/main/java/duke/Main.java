@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("\uD83D\uDC3E Tofu List");
 
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();

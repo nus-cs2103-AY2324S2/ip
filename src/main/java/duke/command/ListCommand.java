@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskList;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class ListCommand implements Command {
@@ -14,6 +14,9 @@ public class ListCommand implements Command {
      * @return a String of the UI message and a list of tasks that are in the TaskList
      */
     public String execute(TaskList tasks, Ui ui) throws DukeException {
+        if (tasks.isEmpty()) {
+            throw new DukeException(Ui.emptyListError());
+        }
         return ui.listMessage(tasks.toString());
     }
 
