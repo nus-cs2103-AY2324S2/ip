@@ -1,13 +1,5 @@
-D | 0 | a | 1111-11-11T11:11
-T | 0 | 1
-D | 0 | do work | 2024-01-01T16:00
-E | 0 | school event | 2024-01-01T08:00/2024-01-04T20:00
-T | 0 | work day
-T | 1 | new task
-T | 0 | new test
-D | 0 | task a | 2024-02-14T12:00
-D | 0 | task b | 2024-02-15T12:00
-D | 0 | task c | 2024-02-14T12:00
-E | 0 | event a | 2024-02-13T12:00/2024-02-15T12:00
-E | 0 | event a | 2024-02-20T12:00/2024-02-23T12:00
-E | 0 | event a | 2024-02-21T12:00/2024-02-23T12:00
+T | 1 | Apply Internships
+T | 0 | Revise CS2103t
+D | 0 | CS2101 presentation | 2024-02-22T16:00
+D | 0 | CS2106 Lab2 | 2024-02-26T15:00
+E | 0 | Recess Week | 2024-03-03T00:00/2024-03-10T00:00
