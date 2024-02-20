@@ -23,6 +23,7 @@ public class Storage {
      */
     public static List<String> loadData() throws IOException {
         Path dirPath = path.getParent();
+        assert dirPath != null;
         Files.createDirectories(dirPath);
         if (!Files.exists(path)) {
             Files.createFile(path);

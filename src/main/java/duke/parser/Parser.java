@@ -29,6 +29,7 @@ public class Parser {
      */
     public String parseCommand(String input, Ui ui,
                                 Storage storage, Tasklist todolist) throws DukeException {
+        assert(input != null);
         String[] parts = input.trim().split(" ", 2);
         String command = parts[0];
         String details = parts.length > 1 ? parts[1].trim() : ""; // contains the details after command is issued
@@ -94,6 +95,7 @@ public class Parser {
     }
 
     private Task createDeadline(String details) throws DukeException {
+        assert(details != null);
         String[] parts = details.split("/by", 2);
         if (parts.length < 2) {
             throw new DukeException("Invalid deadline format. Use 'deadline [name] /by yyyy-mm-dd'");
@@ -103,6 +105,7 @@ public class Parser {
     }
 
     private Task createEvent(String details) throws DukeException {
+        assert(details != null);
         String[] parts = details.split("/from | /to ", 3);
         if (parts.length < 3) {
             throw new DukeException("Invalid event format. Use 'event [name] /from yyyy-mm-dd /to yyyy-mm-dd'");
