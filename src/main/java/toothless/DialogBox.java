@@ -36,7 +36,7 @@ public class DialogBox extends HBox {
     private Font warningFont = Font.font("Comic Sans MS", FontWeight.BOLD, 12);
     private Insets textInsets  = new Insets(10);
     private static Insets insets = new Insets(3);
-    private static CornerRadii cornerRadii = new CornerRadii(15);
+    private static CornerRadii cornerRadii = new CornerRadii(6.5);
 
     private DialogBox(String text, Image img) {
         try {
