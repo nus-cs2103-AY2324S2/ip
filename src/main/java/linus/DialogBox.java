@@ -39,15 +39,6 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    // /**
-    //  * sets colour of label area
-    //  * @param colour String of hex colour code
-    //  */
-    // public void setColour(String colour) {
-    //     dialog.setStyle(String.format("-fx-background-color: %s", colour));
-    // }
-
-
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
