@@ -3,12 +3,14 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
+import duke.loans.Loan;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -18,32 +20,35 @@ import duke.tasks.Todo;
  * Handles data storage using file IO.
  */
 public class Storage {
-    private String filePath = "./data/duke.txt";
+    private String taskFilePath = "./data/tasks.txt";
+    private String loanFilePath = "./data/loans.txt";
     private FileWriter data;
 
     /**
-     * Constructs a new <code>Storage</code> that stores tasks from specified file.
+     * Constructs a new <code>Storage</code> that stores tasks and loans from specified file.
      *
-     * @param specifiedFilePath File to be written.
+     * @param specifiedTaskFilePath Task data file to be written.
+     * @param specifiedLoanFilePath Loan data file to be written.
      */
-    protected Storage(String specifiedFilePath) {
-        filePath = specifiedFilePath;
+    protected Storage(String specifiedTaskFilePath, String specifiedLoanFilePath) {
+        taskFilePath = specifiedTaskFilePath;
+        loanFilePath = specifiedLoanFilePath;
     }
 
     /**
-     * Loads, parses and returns data from specified file.
+     * Loads, parses and returns task data from specified tasks file.
      *
-     * @return an <code>ArrayList</code> of tasks.
+     * @return <code>ArrayList</code> of tasks.
      * @throws IOException When <code>Scanner</code> does not find the file.
      */
-    protected ArrayList<Task> load() throws IOException {
+    protected ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        File f = new File(filePath);
-        if (!f.exists()) {
-            f.getParentFile().mkdirs();
-            f.createNewFile();
+        File tasksFile = new File(taskFilePath);
+        if (!tasksFile.exists()) {
+            tasksFile.getParentFile().mkdirs();
+            tasksFile.createNewFile();
         }
-        Scanner sc = new Scanner(f);
+        Scanner sc = new Scanner(tasksFile);
         while (sc.hasNext()) {
             String[] token = sc.nextLine().split("\\|");
             if (token[0].equals("T")) {
@@ -60,13 +65,38 @@ public class Storage {
     }
 
     /**
+     * Loads, parses and returns loan data from specified loans file.
+     *
+     * @return <code>ArrayList</code> of loans.
+     * @throws IOException When <code>Scanner</code> does not find the file.
+     */
+    protected ArrayList<Loan> loadLoans() throws IOException {
+        ArrayList<Loan> arr = new ArrayList<>();
+        File loansFile = new File(loanFilePath);
+        if (!loansFile.exists()) {
+            loansFile.getParentFile().mkdirs();
+            loansFile.createNewFile();
+        }
+        Scanner sc = new Scanner(loansFile);
+        while (sc.hasNext()) {
+            String[] token = sc.nextLine().split("\\|");
+            boolean taken = (token[2].equals("given")) ? false : true;
+            arr.add(new Loan(new BigDecimal(token[0]), token[1],
+                    taken, Boolean.parseBoolean(token[3])));
+        }
+        sc.close();
+        return arr;
+    }
+
+    /**
      * Saves current tasks in instance to specified file.
      *
      * @param taskList <code>ArrayList</code> of tasks to store.
+     * @throws DukeException If there is error in IO.
      */
-    protected void save(ArrayList<Task> taskList) throws DukeException {
+    protected void saveTasks(ArrayList<Task> taskList) throws DukeException {
         try {
-            data = new FileWriter(filePath);
+            data = new FileWriter(taskFilePath);
             for (Task task : taskList) {
                 if (task instanceof Todo) {
                     data.write(String.format("T|%s|%s\n", task.getTaskName(), task.isDone()));
@@ -79,6 +109,25 @@ public class Storage {
                     data.write(String.format("E|%s|%s|%s|%s\n",
                             e.getTaskName(), e.isDone(), e.getFrom(), e.getTo()));
                 }
+            }
+            data.close();
+        } catch (IOException ie) {
+            throw new DukeException("Unable to save! Reason: " + ie.getMessage());
+        }
+    }
+
+    /**
+     * Saves current loans in instance to specified file.
+     *
+     * @param loanRecord <code>ArrayList</code> of loans to store.
+     * @throws DukeException If there is error in IO.
+     */
+    protected void saveLoans(ArrayList<Loan> loanRecord) throws DukeException {
+        try {
+            data = new FileWriter(loanFilePath);
+            for (Loan loan : loanRecord) {
+                data.write(String.format("%s|%s|%s|%s\n",
+                        loan.getAmount(), loan.getDetails(), loan.getType(), loan.getReturnStatus()));
             }
             data.close();
         } catch (IOException ie) {

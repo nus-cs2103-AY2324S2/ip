@@ -56,7 +56,7 @@ public class TaskList {
         }
 
         tasks.add(t);
-        st.save(tasks);
+        st.saveTasks(tasks);
         return "Got it. I've added this task:\n  "
                 + t + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
@@ -90,7 +90,7 @@ public class TaskList {
     protected String deleteTask(Storage st, String... args) throws DukeException {
         Task t = tasks.get(Integer.parseInt(args[0]) - 1);
         tasks.remove(t);
-        st.save(tasks);
+        st.saveTasks(tasks);
         return "Noted. I've removed this task:\n  "
                 + t + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
@@ -123,7 +123,7 @@ public class TaskList {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markAsDone();
-            st.save(tasks);
+            st.saveTasks(tasks);
             return "Nice! I've marked this task as done:\n"
                     + t;
         } catch (IndexOutOfBoundsException ie) {
@@ -143,7 +143,7 @@ public class TaskList {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markUndone();
-            st.save(tasks);
+            st.saveTasks(tasks);
             return "OK, I've marked this task as not done yet:\n"
                     + t;
         } catch (IndexOutOfBoundsException ie) {

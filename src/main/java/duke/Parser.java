@@ -20,6 +20,9 @@ public class Parser {
             put("unmark", Arrays.asList("unmark"));
             put("delete", Arrays.asList("delete"));
             put("find", Arrays.asList("find"));
+            put("lend", Arrays.asList("lend", "/amount"));
+            put("owe", Arrays.asList("owe", "/amount"));
+            put("paid", Arrays.asList("paid"));
             put("bye", null);
         }};
 
