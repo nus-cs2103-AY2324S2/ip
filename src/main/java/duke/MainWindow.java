@@ -43,8 +43,8 @@ public class MainWindow extends AnchorPane {
      *
      * @param d The Duke instance to be set.
      */
-    public void setDuke(Duke d) {
-        georgie = d;
+    public void setDuke(Duke georgie) {
+        this.georgie = georgie;
     }
 
     /**
