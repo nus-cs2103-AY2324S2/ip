@@ -43,18 +43,18 @@ public class TaskTest {
     @Test
     public void testDeadlineToString() {
         Deadline deadline = new Deadline(1, "test deadline", Parser.parseDate("2020-08-23"));
-        assertEquals("[D][ ] test deadline (by: 2020-08-23)", deadline.toString());
+        assertEquals("[D][ ] test deadline (by: Aug 23 2020)", deadline.toString());
 
         Deadline deadline2 = new Deadline(1, "test deadline", Parser.parseDate("2020-08-23"), true);
-        assertEquals("[D][X] test deadline (by: 2020-08-23)", deadline2.toString());
+        assertEquals("[D][X] test deadline (by: Aug 23 2020)", deadline2.toString());
     }
 
     @Test
     public void testEventToString() {
         Event event = new Event(1, "test event", Parser.parseDate("2020-08-23"), Parser.parseDate("2020-08-25"));
-        assertEquals("[E][ ] test event (from: 2020-08-23 to: 2020-08-25)", event.toString());
+        assertEquals("[E][ ] test event (from: Aug 23 2020 to: Aug 25 2020)", event.toString());
 
         Event event2 = new Event(1, "test event", Parser.parseDate("2020-08-23"), Parser.parseDate("2020-08-25"), true);
-        assertEquals("[E][X] test event (from: 2020-08-23 to: 2020-08-25)", event2.toString());
+        assertEquals("[E][X] test event (from: Aug 23 2020 to: Aug 25 2020)", event2.toString());
     }
 }
