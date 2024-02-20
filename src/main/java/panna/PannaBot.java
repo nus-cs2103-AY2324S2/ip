@@ -10,9 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.Scanner;
-
-
 
 // to add: tag for A-Classes
 // to add: tag for A-Collections
@@ -59,7 +56,7 @@ public class PannaBot extends Application {
         bugText.setStyle("-fx-text-fill: blue; -fx-font-size: 16px;");
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getBugDialog(bugText, new ImageView(panna))
+                DialogBox.getPannaDialog(bugText, new ImageView(panna))
         );
         userInput.clear();
     }

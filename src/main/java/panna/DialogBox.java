@@ -25,9 +25,7 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(text, displayPicture);
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
+
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -39,9 +37,9 @@ public class DialogBox extends HBox {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getBugDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
-        db.flip();
-        return db;
+    public static DialogBox getPannaDialog(Label l, ImageView iv) {
+        DialogBox dialog = new DialogBox(l, iv);
+        dialog.flip();
+        return dialog;
     }
 }
