@@ -1,5 +1,6 @@
 package secretaryw;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -22,13 +23,19 @@ public class SecretaryW {
         parser = new Parser(ui, taskList);
     }
 
+    /**
+     * Processes the user input and returns a response.
+     *
+     * @param input The user input to process.
+     * @return A response generated based on the user input.
+     */
     public String getResponse(String input) {
         try{
             String response = parser.handleCommand(input.trim().split("\\s+", 2));
             storage.saveTasksToFile(taskList.getTasks());
             return response;
-        } catch (Exception e) {
-            return "OOPS!!! " + e.getMessage();
+        } catch (IOException e) {
+            return "Error saving tasks to file: " + e.getMessage();
         }
     }
 }
