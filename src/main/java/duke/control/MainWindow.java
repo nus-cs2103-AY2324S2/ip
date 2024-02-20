@@ -46,10 +46,12 @@ public class MainWindow extends AnchorPane {
             this.duke = new Duke();
             String welcomeString = WELCOME_MESSAGE + "\n" + duke.getNextDueTasks();
             scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            // Show welcome message @A1WAYSD
             dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeString, dukeImage)
             );
         } catch (BaseException e) {
+            // If there is an exception occur, exit the screen @A1WAYSD
             dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(ERROR_MASSAGE, dukeImage)
             );
@@ -73,7 +75,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (response.equals(new UI().onExit())) {
-            // Close the window after 2 seconds
+            // Close the window after 2 seconds @A1WAYSD
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> System.exit(0));
             pause.play();
