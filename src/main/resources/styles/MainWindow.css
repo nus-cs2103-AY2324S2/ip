@@ -1,0 +1,14 @@
+#userInput {
+    -fx-background-color: #4E586A;
+    -fx-text-fill: #F3F4F6;
+    -fx-background-radius: 7;
+}
+
+#canvas {
+    -fx-background-color: #23272F;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0.5, 0.0, 0.0);
+}
+
+#scrollPane {
+    -fx-background-color: #F2FAF0;
+}
