@@ -3,6 +3,8 @@ package duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import duke.command.Command;
+
 /**
  * The main class representing the chatbot.
  * It is a chatbot that allows users to manage tasks,
@@ -26,29 +28,35 @@ public class Duke {
         try {
             myList = new MyList(storage.load());
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File not Found");
+            ui.showError("Error: File not Found");
             myList = new MyList();
         } catch (DukeException e) {
-            System.out.println("Error: " + e.getMsg());
+            ui.showError(e.getMsg());
             myList = new MyList();
         } catch (IOException e) {
-            System.err.println("Error reading task from file: " + e.getMessage());
+            ui.showError("Error reading task from file");
             myList = new MyList();
         }
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a string representation of a successful message
+     * of the operation determined by the user input.
+     *
+     * @param userInput A string representation of the operation to be done
      */
     public String getResponse(String userInput) {
         Parser parser = new Parser();
+        Command command;
         String response;
         if (userInput.equalsIgnoreCase("bye")) {
             storage.save(myList);
         }
         try {
-            response = parser.parseCommand(myList, userInput);
+            ui.clear();
+            command = parser.parseCommand(userInput);
+            command.execute(myList, ui);
+            response = ui.getResponse();
         } catch (DukeException e) {
             response = e.getMsg();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -72,22 +80,24 @@ public class Duke {
 
     private void runCommandLoopUntilExitCommand() {
         Parser parser = new Parser();
-        Parser.Request request;
-        do {
-            String userInput = ui.getUserRequest();
-            request = parser.getRequest(userInput);
-            String result;
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                result = parser.parseCommand(myList, userInput);
+                ui.clear();
+                String userInput = ui.getUserRequest();
+                Command command = parser.parseCommand(userInput);
+                command.execute(myList, ui);
+                isExit = command.isExit();
             } catch (DukeException e) {
-                result = e.getMsg();
+                ui.showError(e.getMsg());
             } catch (ArrayIndexOutOfBoundsException e) {
-                result = "Incorrect format";
+                ui.showError("Incorrect format");
             } catch (NumberFormatException e) {
-                result = "Please enter a number.";
+                ui.showError("Please enter a number.");
+            } finally {
+                ui.showResultToUser();
             }
-            ui.showResultToUser(result);
-        } while (request != Parser.Request.BYE);
+        }
     }
 
     public static void main(String[] args) {

@@ -4,6 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+
 /**
  * Parses user commands and manages the execution of corresponding tasks.
  */
@@ -18,102 +27,43 @@ public class Parser {
     /**
      * Parses the user command and executes the corresponding action based on the request.
      *
-     * @param myList    The list of tasks to be modified.
      * @param userInput The user's input command.
      * @return A string message indicating the result of the command execution.
      */
-    public String parseCommand(MyList myList, String userInput) throws DukeException, NumberFormatException,
+    public Command parseCommand(String userInput) throws DukeException, NumberFormatException,
             ArrayIndexOutOfBoundsException {
         Request request = getRequest(userInput);
         int index;
-        String s;
-        String taskString;
-        String dateTimePattern;
-        String[] s1;
-        String[] s2;
         Task task;
 
         switch (request) {
         case BYE:
-            return "Bye. Hope to see you again soon!";
+            return new ByeCommand();
         case LIST:
-            return myList.getTasks();
+            return new ListCommand();
         case MARK:
             index = Integer.parseInt(userInput.substring("mark".length()).trim());
-            return myList.markTask(index);
+            return new MarkCommand(index);
         case TODO:
-            s = userInput.substring("todo".length()).trim();
-
-            if (s.isEmpty()) {
-                throw new DukeException("duke.Task description cannot be empty.");
-            }
-            task = new Todo(s);
-            return myList.addTask(task);
+            task = parseTodo(userInput);
+            return new AddCommand(task);
         case DEADLINE:
-            s = userInput.substring("deadline".length()).trim();
-            s1 = s.split("/by");
-            if (s1.length > 2) {
-                throw new DukeException("Please enter format deadline (task) /by (yyyy-mm-dd hhmm)");
-            } else if (s1[1].trim().isEmpty()) {
-                throw new DukeException("Empty timing. Please enter format deadline (task) /by (yyyy-mm-dd hhmm)");
-            }
-            taskString = s1[0].trim();
-            String byString = s1[1].trim();
-            dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
-
-            if (Pattern.matches(dateTimePattern, byString)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime dateTimeBy = LocalDateTime.parse(byString, formatter);
-                //Task task = new Deadline(taskString, dateTimeBy);
-                task = new Deadline(taskString, dateTimeBy);
-                return myList.addTask(task);
-            } else {
-                throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
-            }
+            task = parseDeadline(userInput);
+            return new AddCommand(task);
         case EVENT:
-            s = userInput.substring("event".length()).trim();
-            s1 = s.split("/from");
-
-            if (s1.length > 2) {
-                throw new DukeException("Please enter format event (task) /from (yyyy-mm-dd hhmm) "
-                        + "/to (yyyy-mm-dd hhmm)");
-            } else if (s1[1].trim().isEmpty()) {
-                throw new DukeException("Empty timing. Please enter format event (task) /from "
-                        + "(yyyy-mm-dd hhmm) /to (yyyy-mm-dd hhmm)");
-            }
-            s2 = s1[1].split("/to");
-
-            if (s2.length > 2) {
-                throw new DukeException("Please enter format event (task) /from (yyyy-mm-dd hhmm)"
-                        + " /to (yyyy-mm-dd hhmm)");
-            } else if (s2[1].trim().isEmpty()) {
-                throw new DukeException("Empty timing. Please enter format event (task) /from "
-                        + "(yyyy-mm-dd hhmm) /to (yyyy-mm-dd hhmm)");
-            }
-            taskString = s1[0].trim();
-            String fromString = s2[0].trim();
-            String toString = s2[1].trim();
-            dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
-
-            if (Pattern.matches(dateTimePattern, fromString) && Pattern.matches(dateTimePattern, toString)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime dateTimeFrom = LocalDateTime.parse(fromString, formatter);
-                LocalDateTime dateTimeTo = LocalDateTime.parse(toString, formatter);
-                task = new Event(taskString, dateTimeFrom, dateTimeTo);
-                return myList.addTask(task);
-            } else {
-                throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
-            }
+            task = parseEvent(userInput);
+            return new AddCommand(task);
         case DELETE:
             index = Integer.parseInt(userInput.substring("delete".length()).trim());
-            return myList.delete(index);
+            return new DeleteCommand(index);
         case FIND:
             String keyword = userInput.substring("find".length()).trim();
-            return myList.findByKeyword(keyword);
+            return new FindCommand(keyword);
         case INVALID:
-            return "OOPS! That was an invalid input";
+            return new InvalidCommand();
+        default:
+            return new InvalidCommand();
         }
-        return "";
     }
 
     /**
@@ -132,5 +82,73 @@ public class Parser {
         }
 
         return Request.INVALID;
+    }
+
+    private Task parseTodo(String userInput) throws DukeException {
+        String desc = userInput.substring("todo".length()).trim();
+        if (desc.isEmpty()) {
+            throw new DukeException("Task description cannot be empty.");
+        }
+        return new Todo(desc);
+    }
+
+    private Task parseDeadline(String userInput) throws DukeException {
+        String desc = userInput.substring("deadline".length()).trim();
+        String[] taskAndDeadline = desc.split("/by");
+
+        if (taskAndDeadline.length > 2) {
+            throw new DukeException("Please enter format deadline (task) /by (yyyy-mm-dd hhmm)");
+        } else if (taskAndDeadline[1].trim().isEmpty()) {
+            throw new DukeException("Empty timing. Please enter format deadline (task) /by (yyyy-mm-dd hhmm)");
+        }
+
+        String taskString = taskAndDeadline[0].trim();
+        String byString = taskAndDeadline[1].trim();
+        String dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+
+        if (Pattern.matches(dateTimePattern, byString)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime dateTimeBy = LocalDateTime.parse(byString, formatter);
+            return new Deadline(taskString, dateTimeBy);
+        } else {
+            throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
+        }
+    }
+
+    private Task parseEvent(String userInput) throws DukeException {
+        String desc = userInput.substring("event".length()).trim();
+        String[] taskFromAndTo = desc.split("/from");
+
+        if (taskFromAndTo.length > 2) {
+            throw new DukeException("Please enter format event (task) /from (yyyy-mm-dd hhmm) "
+                    + "/to (yyyy-mm-dd hhmm)");
+        } else if (taskFromAndTo[1].trim().isEmpty()) {
+            throw new DukeException("Empty timing. Please enter format event (task) /from "
+                    + "(yyyy-mm-dd hhmm) /to (yyyy-mm-dd hhmm)");
+        }
+
+        String[] fromAndTo = taskFromAndTo[1].split("/to");
+
+        if (fromAndTo.length > 2) {
+            throw new DukeException("Please enter format event (task) /from (yyyy-mm-dd hhmm)"
+                    + " /to (yyyy-mm-dd hhmm)");
+        } else if (fromAndTo[1].trim().isEmpty()) {
+            throw new DukeException("Empty timing. Please enter format event (task) /from "
+                    + "(yyyy-mm-dd hhmm) /to (yyyy-mm-dd hhmm)");
+        }
+
+        String taskString = taskFromAndTo[0].trim();
+        String fromString = fromAndTo[0].trim();
+        String toString = fromAndTo[1].trim();
+        String dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+
+        if (Pattern.matches(dateTimePattern, fromString) && Pattern.matches(dateTimePattern, toString)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(fromString, formatter);
+            LocalDateTime dateTimeTo = LocalDateTime.parse(toString, formatter);
+            return new Event(taskString, dateTimeFrom, dateTimeTo);
+        } else {
+            throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
+        }
     }
 }
