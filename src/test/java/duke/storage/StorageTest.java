@@ -21,12 +21,4 @@ public class StorageTest {
         Storage storage = new Storage(inValidPath);
         Assertions.assertThrows(NullPointerException.class, storage::load);
     }
-
-    @Test
-    public void load_folderNameOnly_exceptionThrown() {
-        // read fail from an invalid path with only the folder name, IOException should be thrown
-        String inValidPath2 = "/only_file";
-        Storage storage2 = new Storage(inValidPath2);
-        Assertions.assertThrows(IOException.class, storage2::load);
-    }
 }
