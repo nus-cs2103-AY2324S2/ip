@@ -54,8 +54,8 @@ Dibo will also let you know how many tasks you have in the list after adding thi
 
 To add a task with a deadline to your task list, you can type `deadline [TASK_NAME] /by [DEADLINE_DATE]`
 
-[!IMPORTANT]
-Please note that the format for the `[DEADLINE_DATE]` is **'YYYY-MM-DD'**
+> [!IMPORTANT]
+> Please note that the format for the `[DEADLINE_DATE]` is **'YYYY-MM-DD'**
 
 
 **Example of usage:**
@@ -76,8 +76,8 @@ Dibo will also let you know how many tasks you have in the list after adding thi
 
 To add a task with a date to do after to your task list, you can type `do-after [TASK_NAME] /after [DO_AFTER_DATE]`
 
-[!IMPORTANT]
-Please note that the format for the `[DO_AFTER_DATE]` is **'YYYY-MM-DD'**
+> [!IMPORTANT]
+> Please note that the format for the `[DO_AFTER_DATE]` is **'YYYY-MM-DD'**
 
 **Example of usage:**
 
@@ -97,8 +97,8 @@ Dibo will also let you know how many tasks you have in the list after adding thi
 
 To add an event task with a start and end time to your task list, you can type `event [TASK_NAME] /from [START_DATE] /to [END_DATE]`
 
-[!IMPORTANT]
-Please note that the format for both `START_DATE` and `END_DATE` is **'YYYY-MM-DD'**
+> [!IMPORTANT]
+> Please note that the format for both `START_DATE` and `END_DATE` is **'YYYY-MM-DD'**
 
 **Example of usage:**
 
@@ -138,8 +138,8 @@ To mark a task as done, you can type `mark [TASK_INDEX]`
 
 Please note that the format for both `START_DATE` and `END_DATE` is **'YYYY-MM-DD'**
 
-[!IMPORTANT]
-Please note that the `[TASK_INDEX]` is **1-based**.
+> [!IMPORTANT]
+> Please note that the `[TASK_INDEX]` is **1-based**.
 
 **Example of usage:**
 
@@ -156,8 +156,8 @@ OK, I've marked this task as done:
 
 To mark a task as not done, you can type `unmark [TASK_INDEX]`
 
-[!IMPORTANT]
-Please note that the `[TASK_INDEX]` is **1-based**.
+> [!IMPORTANT]
+> Please note that the `[TASK_INDEX]` is **1-based**.
 
 **Example of usage:**
 
@@ -174,8 +174,8 @@ OK, I've marked this task as not done yet:
 
 To delete a task, you can type `delete [TASK_INDEX]`
 
-[!IMPORTANT]
-Please note that the `[TASK_INDEX]` is **1-based**.
+> [!IMPORTANT]
+> Please note that the `[TASK_INDEX]` is **1-based**.
 
 **Example of usage:**
 
@@ -205,7 +205,8 @@ To find a task, you can type `find [WORDS]`
 Good news sir! We've found the tasks in your list:
 1. [D][ ] cs2109s ps4 (by: Feb 24 2024)
 ```
- [!TIP] You may enter more than one word to conduct a more specific search for tasks that contain **ALL** the keywords.
+> [!TIP] 
+> You may enter more than one word to conduct a more specific search for tasks that contain **ALL** the keywords.
 
 ---
 ### `bye` - Exit the bot
