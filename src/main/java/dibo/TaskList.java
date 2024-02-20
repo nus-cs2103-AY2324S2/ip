@@ -38,10 +38,13 @@ public class TaskList {
      * Returns the string representation of the list to be displayed.
      */
     public String getDisplayFormat() {
+        if (this.size == 0) {
+            return "Sorry sir. There is currently not task in your list.";
+        }
         String displayMessage = "Here are the tasks in your list:\n";
         StringBuilder list = new StringBuilder(displayMessage);
 
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < this.size; ++i) {
             int taskIndex = i + 1;
             String taskToString = tasks.get(i).toString();
             String taskString = String.format("%d.%s\n", taskIndex, taskToString);

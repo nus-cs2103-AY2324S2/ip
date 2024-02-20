@@ -1,5 +1,6 @@
 package dibo;
 
+import dibo.exception.DiboException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -36,11 +37,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        sayHi();
     }
 
-    public void setDibo(Dibo dibo) {
-        this.dibo = dibo;
+    public void setDibo() {
+        try {
+            this.dibo = new Dibo();
+            sayHi();
+        } catch (DiboException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDiboDialog(e.getMessage(),
+                            diboImage)
+            );
+            delayedExit();
+        }
     }
 
     /**
@@ -72,7 +81,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void delayedExit() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        PauseTransition delay = new PauseTransition(Duration.seconds(6));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }

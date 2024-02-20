@@ -99,9 +99,7 @@ public class Storage {
             fw.write(updatedData);
             fw.close();
         } catch (IOException e) {
-            throw new DiboException("Oh no sir! We are unable to update the task lists.\n"
-                    + "We are terminating the chatbot :(. Check the file again and restart.\n"
-                    + "We will be waiting for you here :D.");
+            throw new DiboException("Oh no sir! We are unable to update the task lists.");
         }
     }
 
@@ -141,13 +139,14 @@ public class Storage {
 
     private void createNewFile() throws DiboException {
         File f = new File(this.filePath);
-        if (f.mkdir()) {
-            System.out.println("Hi sir! We have just created a new text file "
-                    + "for you to store your task list :D");
-        } else {
-            throw new DiboException("Sorry sir! We tried to add new text file "
-                    + "for you to store your task list but was unable to do so.\n"
-                    + "Please do us a favour and check the path name :D");
+        try {
+            boolean fileCreated = f.createNewFile();
+            if (!fileCreated) {
+                throw new DiboException("The file at " + this.filePath + " already exists or cannot be created.");
+            }
+        } catch (IOException io) {
+            throw new DiboException("An error occurred while trying to create the file at "
+                    + this.filePath + ".\nPlease check the path name and your file system permissions.");
         }
     }
 

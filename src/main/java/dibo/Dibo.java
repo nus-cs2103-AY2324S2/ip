@@ -1,7 +1,5 @@
 package dibo;
 
-import java.util.ArrayList;
-
 import dibo.command.Command;
 import dibo.exception.DiboException;
 
@@ -19,16 +17,11 @@ public class Dibo {
     /**
      * Constructs a Dibo object.
      */
-    public Dibo() {
+    public Dibo() throws DiboException {
         this.isBye = false;
         this.storage = new Storage(FILE_PATH);
         this.ui = new Ui();
-        try {
-            this.tasks = new TaskList(this.storage.loadData());
-        } catch (DiboException e) {
-            System.out.println(e.getMessage());
-            this.tasks = new TaskList(new ArrayList<>());
-        }
+        this.tasks = new TaskList(this.storage.loadData());
     }
 
     public String getResponse(String input) {
