@@ -26,6 +26,8 @@ public class Storage {
     public Storage(String pathString) {
         this.pathString = pathString;
         this.path = Paths.get(pathString);
+        assert this.path.startsWith("./data");
+        assert this.path.endsWith(".txt");
     }
 
     public String getCurrentPath() {
@@ -40,6 +42,8 @@ public class Storage {
     public void switchPath(String pathString) {
         this.pathString = pathString;
         this.path = Paths.get(pathString);
+        assert this.path.startsWith("./data");
+        assert this.path.endsWith(".txt");
     }
 
     /**
