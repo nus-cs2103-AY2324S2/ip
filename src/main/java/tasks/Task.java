@@ -76,7 +76,6 @@ public abstract class Task {
         }
     }
 
-
     /**
      * Returns "X" if task is done, " " otherwise.
      */
