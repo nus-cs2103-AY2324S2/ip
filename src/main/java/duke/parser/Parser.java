@@ -54,7 +54,7 @@ public class Parser {
             assert false : "Unknown task code from storage";
         }
         if (isMarked) {
-            decodedTask.mark();
+            decodedTask.setMarked();
         }
         return decodedTask;
     }

@@ -32,7 +32,7 @@ public abstract class Task {
      * @return "X" if completed else " "
      */
     protected String getStatusIcon() {
-        return (this.hasCompleted() ? "X" : " ");
+        return (this.isCompleted() ? "X" : " ");
     }
 
     /**
@@ -40,21 +40,21 @@ public abstract class Task {
      *
      * @return True if task is completed
      */
-    public boolean hasCompleted() {
+    public boolean isCompleted() {
         return this.isDone;
     }
 
     /**
      * Marks that task is complete
      */
-    public void mark() {
+    public void setMarked() {
         this.isDone = true;
     }
 
     /**
      * Unmark the task. Task is not completed.
      */
-    public void unmark() {
+    public void setNotMarked() {
         this.isDone = false;
     }
 
@@ -66,7 +66,6 @@ public abstract class Task {
     public String getDetails() {
         return this.name;
     }
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.name;

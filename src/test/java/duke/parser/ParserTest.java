@@ -27,7 +27,7 @@ public class ParserTest {
     public void parseToDoStorageTest() {
         String testTaskStored = "T;;;1;;;hi";
         Task decodedTask = new ToDo("hi");
-        decodedTask.mark();
+        decodedTask.setMarked();
         assertEquals(Parser.parseFromStorage(testTaskStored).toString(), decodedTask.toString());
     }
 

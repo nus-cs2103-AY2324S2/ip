@@ -79,9 +79,9 @@ public class TaskList {
         Task updateTask = tasks.get(updateIndex - 1);
 
         if (taskComplete) {
-            updateTask.mark();
+            updateTask.setMarked();
         } else {
-            updateTask.unmark();
+            updateTask.setNotMarked();
         }
         return updateTask;
     }

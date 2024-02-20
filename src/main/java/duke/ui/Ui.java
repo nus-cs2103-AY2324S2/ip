@@ -14,11 +14,12 @@ public class Ui {
     private static final String TXT_NODESC = "Please provide the description of your task!\n";
 
     /**
-     * Prints welcome lines for user during initial start-up
+     * Returns welcome lines for user during initial start-up
+     * @return introduction message
      */
-    public String intro() {
+    public static String intro() {
         return "Hello! I'm Megatron\n"
-                + "What can I do for you?\n";
+                + "Before I launch you straight into the sun, what can I do for you?\n";
     }
 
     /**
@@ -31,20 +32,22 @@ public class Ui {
     }
 
     /**
-     * Prints exit lines to the user
+     * Returns exit lines
+     * @return exit message
      */
     public String exit() {
-        String outroTxt = "Bye. Hope to see you again soon!\n";
+        String outroTxt = "Bye, I'm off to find the SPARK!\n";
         return outroTxt;
     }
 
     /**
-     * Prints the list of tasks given
+     * Returns the list of tasks given
      *
      * @param store List of tasks to be printed
+     * @return message for list of tasks
      */
     public String list(List<Task> store) {
-        StringBuilder listingTxt = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder listingTxt = new StringBuilder("You humans... here are the tasks in your list:\n");
         for (int i = 0; i < store.size(); i++) {
             listingTxt.append(" ").append(i + 1).append(".").append(store.get(i)).append("\n");
         }
@@ -52,39 +55,42 @@ public class Ui {
     }
 
     /**
-     * Prints details of task added to the user
+     * Returns details of task added to the user
      *
      * @param newTask task that was added
      * @param numItems number of items currently in the list
+     * @return details of task added message
      */
     public String addTask(Task newTask, int numItems) {
-        String addTaskTxt = "Got it. I've added this task:\n";
+        String addTaskTxt = "You underestimate me. I've added this task:\n";
         return addTaskTxt + "\t" + newTask + "\n"
                 + "Now you have " + numItems + " tasks in the list.\n";
     }
 
     /**
-     * Prints details of task deleted to the user
+     * Returns details of task deleted
      *
      * @param toRemove task that was deleted
      * @param numItems number of items left in the list
+     * @return details of task deletion message
      */
     public String deleteTask(Task toRemove, int numItems) {
-        String deleteTxt = "Noted. I will remove this task for you:\n";
+        String deleteTxt = "I am LEADER of the DECEPTICONS. I will remove this task for you:\n";
         return deleteTxt + "\t" + toRemove + "\n"
                 + "Now you have " + numItems + " tasks in the list.\n";
     }
 
     /**
-     * Prints details of task updated to the user
+     * Returns details of task updated
      *
      * @param updateTask task that was updated
      * @param isComplete completion status of updated task
+     * @return task marked or unmarked message
      */
     public String mark(Task updateTask, boolean isComplete) {
-        String markTxt = "Nice! I've marked this task as done:\n";
-        String unmarkTxt = "OK, I've marked this task as not done yet:\n";
-        String markFormTxt = "Sorry! To mark or unmark tasks, please do\n"
+        String markTxt = "Wow! I've marked this task as done:\n";
+        String unmarkTxt = "Foolish humans, I've marked this task as not done yet:\n";
+        String markFormTxt = "Human! To mark or unmark tasks, please do\n"
                 + "\t(un)mark (number)\n";
 
         String toPrint = isComplete ? markTxt : unmarkTxt;
@@ -92,12 +98,13 @@ public class Ui {
     }
 
     /**
-     * Prints search results to user
+     * Returns search results to user
      *
      * @param searchList containing list of task matched
+     * @return search results message
      */
     public String find(List<Task> searchList) {
-        StringBuilder findTxt = new StringBuilder("Here's what I found:\n");
+        StringBuilder findTxt = new StringBuilder("Quick, here's what I found:\n");
         for (int i = 0; i < searchList.size(); i++) {
             findTxt.append(" ").append(i + 1).append(".").append(searchList.get(i)).append("\n");
         }
@@ -105,9 +112,10 @@ public class Ui {
     }
 
     /**
-     * Prints error line to the user
+     * Returns error message
      *
      * @param errorMsg containing details of the issue
+     * @return error message
      */
     public String showError(String errorMsg) {
         if (errorMsg.equals("Description Blank")) {
@@ -118,4 +126,59 @@ public class Ui {
             return errorMsg;
         }
     }
+
+    /**
+     * Returns message that last command was already undone
+     *
+     * @return last command already undone message
+     */
+    public String lastCommandUndoed() {
+        return "It seems you are trying to undo what has already been undone...";
+    }
+
+    /**
+     * Returns message that add has been undone
+     *
+     * @return message for undo-ing task addition
+     */
+    public String undoAdd(Task reversedTask) {
+        String undoAddTaskTxt = "You AUTOBOTS are so indecisive!\n";
+        return undoAddTaskTxt + "\t" + reversedTask + "\n"
+                + "has been removed.\n";
+    }
+
+    /**
+     * Returns message that delete has been undone
+     *
+     * @return message for undo-ing task deletion
+     */
+    public String undoDelete(Task reversedTask) {
+        String undoDeleteTaskTxt = "You are lucky I kept it!\n";
+        return undoDeleteTaskTxt + "\t" + reversedTask + "\n"
+                + "has been added back.\n";
+    }
+
+    /**
+     * Returns message that nothing left to undo
+     *
+     * @return message for nothing to undo
+     */
+    public String nothingToUndo() {
+        String nothingToUndoTxt = "There's nothing left to undo. I am MEGATRON!";
+        return nothingToUndoTxt;
+    }
+
+    /**
+     * Returns message that unmark / mark has been undone
+     *
+     * @return message for undo-ing mark or unmark
+     */
+    public String undoMark(boolean isComplete) {
+        String undoMarkTxt = isComplete ? "re-marked " : "unmarked ";
+        undoMarkTxt = "Who do you think  I am?\n"
+                + "Fine, I have " + undoMarkTxt
+                + "the task for you.";
+        return undoMarkTxt;
+    }
+
 }

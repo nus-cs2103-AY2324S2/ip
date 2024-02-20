@@ -39,7 +39,9 @@ public class Duke {
     public String getResponse(String fullCommand) {
         try {
             Command c = Parser.parse(fullCommand, lastCommand);
-            this.lastCommand = c;
+            if (c.getIsUndoable()) {
+                this.lastCommand = c;
+            }
             return c.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
