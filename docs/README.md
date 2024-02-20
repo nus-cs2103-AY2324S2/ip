@@ -28,64 +28,76 @@ And it is **FREE** to use! 🚫💵
 List down all the tasks in the list/txt file. <br>
 Format: `list`<br>
 
+<br>
 
-### Adding a new todo task: `todo`
+### ▶️ Adding a new todo task: `todo`
 Add a new todo task to the list, and it will be stored in a txt file.<br>
 Format: `todo DESCRIPTION`<br>
 
+<br>
 
-### Adding a new deadline task: `deadline`
+### ▶️ Adding a new deadline task: `deadline`
 Add a new deadline task to the list, and it will be stored in a txt file.<br>
 Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`<br>
 
+<br>
 
-### Adding a new event task: `event`
+### ▶️ Adding a new event task: `event`
 Add a new event task to the list, and it will be stored in a txt file.<br>
 Format: `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm`<br>
 
+<br>
 
-### Deleting a task: `delete`
+### ▶️ Deleting a task: `delete`
 Delete an existing task in the list, and it will be removed from the txt file.<br>
 Format: `delete INDEX`<br>
 📝The `INDEX` refers to the index number of a task in the list.<br> 
 ⚠️: `INDEX` must be positive and not exceed the size of the list.
 
+<br>
 
-### Marking a task: `mark`
+### ▶️ Marking a task: `mark`
 Mark a task in the list as completed. <br>
 Format: `mark INDEX`<br>
 📝The `INDEX` refers to the index number of a task in the list. <br>
 ⚠️: `INDEX` must be positive and not exceed the size of the list.<br>
 
+<br>
 
-### Unmarking a task: `mark`
+### ▶️ Unmarking a task: `mark`
 Unmark a task in the list as incomplete. <br>
 Format: `unmark INDEX`<br>
 📝The `INDEX` refers to the index number of a task in the list. <br>
 ⚠️: `INDEX` must be positive and not exceed the size of the list.<br>
 
+<br>
 
-### Searching tasks based on the description: `search`
+### ▶️ Searching tasks based on the description: `search`
 Find all tasks with matching keywords for description. <br>
 Format: `search DESCRIPTION`<br>
 
+<br>
 
-### Searching tasks based on the date: `date`
+### ▶️ Searching tasks based on the date: `date`
 Find all tasks with the matching date. <br>
 Format: `date yyyy-MM-dd`<br>
 
+<br>
 
-### Setting priority level
+### ▶️ Setting priority level
 Add a priority level to each new task.<br>
 📝: `DEFAULT` if not stated explicitly.<br>
 🎚️Priority Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`<br>
 Format: `todo DESCRIPTION /priority LEVEL`<br>
 
+<br>
 
-### Exiting the program: `bye`
+### ▶️ Exiting the program: `bye`
 Exit the program.<br>
 Format: `bye`<br>
 
+<br>
+<br>
 
 ## Command Summary
 | Action | Description | Command Format, Examples |
