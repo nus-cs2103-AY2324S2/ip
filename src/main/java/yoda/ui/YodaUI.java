@@ -1,4 +1,4 @@
-package yoda.yodaUI;
+package yoda.ui;
 
 
 import yoda.exceptions.InvalidTaskException;
@@ -6,14 +6,12 @@ import yoda.parser.UpdateState;
 import yoda.task.Task;
 import yoda.task.Deadline;
 import yoda.task.Event;
-import yoda.task.Todo;
 import yoda.task.TaskList;
 import yoda.constants.Replies;
 import yoda.storage.Storage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import yoda.datetimeutil.DateTimeUtil;
-import yoda.constants.Replies;
 
 
 public class YodaUI {

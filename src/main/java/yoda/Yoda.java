@@ -4,7 +4,7 @@ import yoda.parser.Parser;
 import yoda.storage.Storage;
 import yoda.task.TaskList;
 import yoda.constants.FilePaths;
-import yoda.yodaUI.YodaUI;
+import yoda.ui.YodaUI;
 
 import java.io.IOException;
 
