@@ -79,13 +79,21 @@ public class Cal {
         System.out.println(t);
     }
 
+    public static void delete(int taskNum) {
+        Task t = tasks.get(taskNum - 1);
+        tasks.remove(taskNum - 1);
+        System.out.println("Noted. I've removed this task");
+        System.out.println(t);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+    }
+
     public static void run() {
         Scanner sc = new Scanner(System.in);
         while(true) {
             try {
-                String input = sc.nextLine();
+                String input = sc.nextLine().toLowerCase();
                 String[] tokens = input.split(" ");
-                String command = tokens[0].toLowerCase();
+                String command = tokens[0];
                 
                 String description = "";
 
@@ -101,19 +109,23 @@ public class Cal {
                         if (tokens.length < 2) {
                             throw new CalException("Task number not provided!");
                         }
+
                         mark(Integer.parseInt(tokens[1]));
                         break;
                     case "unmark":
                         if (tokens.length < 2) {
                             throw new CalException("Task number not provided!");
                         }
+                        
                         unmark(Integer.parseInt(tokens[1]));
                         break;
                     case "todo":
-                        description = input.substring(5);
-                        if (description.isBlank()) {
+                        try {
+                            description = input.substring(5);
+                        } catch (StringIndexOutOfBoundsException e) {
                             throw new CalException("Task description not provided!");
                         }
+                        
                         add(description);
                         break;
                     case "deadline":
@@ -122,14 +134,10 @@ public class Cal {
 
                         try {
                             description = input.substring(9, byIndex).strip();
-                        } catch (StringIndexOutOfBoundsException e){
-                            throw new CalException("Task description not provided!");
-                        }
-
-                        try {
                             by = input.substring(byIndex + 4).strip();
                         } catch (StringIndexOutOfBoundsException e) {
-                            throw new CalException("Task due date (by) not provided!");
+                            throw new CalException("Deadline Task is not in the format: " +
+                                "deadline (description) /by (due date)!");
                         }
                         
                         add(description, by);
@@ -142,23 +150,20 @@ public class Cal {
 
                         try {
                             description = input.substring(6, fromIndex).strip();
-                        } catch (StringIndexOutOfBoundsException e){
-                            throw new CalException("Task description not provided!");
-                        }
-
-                        try {
                             startDate = input.substring(fromIndex + 5, toIndex).strip();
-                        } catch (StringIndexOutOfBoundsException e){
-                            throw new CalException("Event start date not provided!");
-                        }
-
-                        try {
                             endDate = input.substring(toIndex + 3).strip();
                         } catch (StringIndexOutOfBoundsException e){
-                            throw new CalException("Event end date not provided!");
+                            throw new CalException("Event Task is not in the format: " + 
+                                "event (description) /from (startDate) /to (endDate)!");
                         }
 
                         add(description, startDate, endDate);
+                        break;
+                    case "delete":
+                        if (tokens.length < 2) {
+                            throw new CalException("Task number not provided!");
+                        }
+                        delete(Integer.parseInt(tokens[1]));
                         break;
                     default:
                         throw new CalException("Command not recognized.");
@@ -168,7 +173,6 @@ public class Cal {
                 System.err.println(e);
                 break;
             }
-            
         }
     }
 
