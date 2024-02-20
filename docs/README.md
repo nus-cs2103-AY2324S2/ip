@@ -21,16 +21,13 @@ If you have used Dibo before, you can jump straight to Dibo's [Features and Comm
 ## Getting Started
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
-
 2. Download the latest  from [here](https://github.com/ziyang27/ip/releases/tag/v0.2).
-
 3. Copy the file to the folder you want to use as the home folder for your Dibo.
-
 4. Open a command terminal.
-
 5. Change the working directory to the folder you put the .jar in, by typing and running `cd {directory}`
 
 6. Then, type and run the `java -jar dibo.jar` command to run the application.
+
 
 ## Features and Commands
 
