@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 import duke.storage.Storage;
 
 /**
@@ -16,7 +16,7 @@ import duke.storage.Storage;
 public class Tasklist {
     private List<Task> todolist = new ArrayList<>();
 
-    public Tasklist() throws DukeException {
+    public Tasklist() throws JosephException {
         restoreData();
     }
 
@@ -81,7 +81,7 @@ public class Tasklist {
     /**
      * Restores the data from existing file, if any.
      */
-    public void restoreData() throws DukeException {
+    public void restoreData() throws JosephException {
         try {
             List<String> tasks = Storage.loadData();
             processDataFromString(tasks);
@@ -95,7 +95,7 @@ public class Tasklist {
      *
      * @param tasks The data from the file.
      */
-    public void processDataFromString(List<String> tasks) throws DukeException {
+    public void processDataFromString(List<String> tasks) throws JosephException {
         boolean isDone;
         for (String task : tasks) {
             String[] details = task.split("\\|");

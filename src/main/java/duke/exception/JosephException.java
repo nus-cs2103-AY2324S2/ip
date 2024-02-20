@@ -3,13 +3,13 @@ package duke.exception;
 /**
  * Represents an exception specific to the Duke application.
  */
-public class DukeException extends Exception {
+public class JosephException extends Exception {
     /**
      * Constructor for DukeException.
      *
      * @param message The message to be displayed when the exception is thrown.
      */
-    public DukeException(String message) {
+    public JosephException(String message) {
         super(message);
     }
 }

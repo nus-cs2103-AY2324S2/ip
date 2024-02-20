@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 
 /**
  * Represents an event task.
@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param from The start date of the event task.
      * @param to The end date of the event task.
      */
-    public Event(String description, LocalDate from, LocalDate to, boolean isDone) throws DukeException {
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) throws JosephException {
         super(description);
         this.from = from;
         this.to = to;

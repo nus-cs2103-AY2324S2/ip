@@ -3,7 +3,7 @@ package duke.parser;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -29,7 +29,7 @@ public class Parser {
      * @param todolist The task list to operate on.
      */
     public String parseCommand(String input, Ui ui,
-                                Storage storage, Tasklist todolist) throws DukeException {
+                                Storage storage, Tasklist todolist) throws JosephException {
         assert(input != null);
         String[] parts = input.trim().split(" ", 2);
         String command = parts[0];
@@ -65,19 +65,19 @@ public class Parser {
         return input.trim().equals("bye");
     }
 
-    private String handleList(Ui ui, Tasklist todolist, Storage storage) throws DukeException {
+    private String handleList(Ui ui, Tasklist todolist, Storage storage) throws JosephException {
         try {
             storage.saveData(todolist.getTodolist());
             outputMessage = todolist.printTodolist();
             ui.printMessage(outputMessage);
             return outputMessage;
         } catch (IOException e) {
-            throw new DukeException("An error occurred while writing to the file.");
+            throw new JosephException("An error occurred while writing to the file.");
         }
     }
 
     private String handleMarkUnmark(Ui ui, String details,
-                                  boolean isMark, Tasklist todolist) throws DukeException {
+                                  boolean isMark, Tasklist todolist) throws JosephException {
         try {
             int taskNumber = Integer.parseInt(details) - 1;
             todolist.markTaskAsDone(taskNumber, isMark);
@@ -87,7 +87,7 @@ public class Parser {
             ui.printMessage(outputMessage);
             return outputMessage;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("Please provide a valid task number to mark or unmark.");
+            throw new JosephException("Please provide a valid task number to mark or unmark.");
         }
     }
 
@@ -98,28 +98,28 @@ public class Parser {
         return outputMessage;
     }
 
-    private Task createDeadline(String details) throws DukeException {
+    private Task createDeadline(String details) throws JosephException {
         assert(details != null);
         String[] parts = details.split("/by", 2);
         if (parts.length < 2) {
-            throw new DukeException("Invalid deadline format. Use 'deadline [name] /by yyyy-mm-dd'");
+            throw new JosephException("Invalid deadline format. Use 'deadline [name] /by yyyy-mm-dd'");
         }
         LocalDate by = LocalDate.parse(parts[1].trim());
         return new Deadline(parts[0].trim(), by, false);
     }
 
-    private Task createEvent(String details) throws DukeException {
+    private Task createEvent(String details) throws JosephException {
         assert(details != null);
         String[] parts = details.split("/from | /to ", 3);
         if (parts.length < 3) {
-            throw new DukeException("Invalid event format. Use 'event [name] /from yyyy-mm-dd /to yyyy-mm-dd'");
+            throw new JosephException("Invalid event format. Use 'event [name] /from yyyy-mm-dd /to yyyy-mm-dd'");
         }
         LocalDate from = LocalDate.parse(parts[1].trim());
         LocalDate to = LocalDate.parse(parts[2].trim());
         return new Event(parts[0].trim(), from, to, false);
     }
 
-    private String handleDelete(Ui ui, String details, Tasklist todolist) throws DukeException {
+    private String handleDelete(Ui ui, String details, Tasklist todolist) throws JosephException {
         try {
             int taskNumber = Integer.parseInt(details) - 1;
             Task removed = todolist.removeItem(taskNumber);
@@ -127,13 +127,13 @@ public class Parser {
             ui.printMessage(outputMessage);
             return outputMessage;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("Please provide a valid task number to delete.");
+            throw new JosephException("Please provide a valid task number to delete.");
         }
     }
 
-    private String findTask(Ui ui, String details, Tasklist todolist) throws DukeException {
+    private String findTask(Ui ui, String details, Tasklist todolist) throws JosephException {
         if (details.isEmpty()) {
-            throw new DukeException("Please provide a keyword to search for.");
+            throw new JosephException("Please provide a keyword to search for.");
         }
 
         StringBuilder tasksWithKeyword = new StringBuilder();
@@ -158,12 +158,12 @@ public class Parser {
     /**
      * Sorts the task list by description.
      */
-    public void sortTodolist(Tasklist todolist, Storage storage) throws DukeException {
+    public void sortTodolist(Tasklist todolist, Storage storage) throws JosephException {
         try {
             todolist.sortTodolist();
             storage.saveData(todolist.getTodolist());
         } catch (IOException e) {
-            throw new DukeException("An error occurred while writing to the file.");
+            throw new JosephException("An error occurred while writing to the file.");
         }
     }
 }

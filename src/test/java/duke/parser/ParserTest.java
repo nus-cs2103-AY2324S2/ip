@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 import duke.storage.Storage;
 import duke.task.Tasklist;
 import duke.ui.Ui;
@@ -31,7 +31,7 @@ public class ParserTest {
             storage = new Storage();
             todolist = new Tasklist();
             System.setOut(new PrintStream(outContent)); // Redirect System.out to capture the output for testing
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             fail();
         }
     }
@@ -43,7 +43,7 @@ public class ParserTest {
             parser.parseCommand("todo read book", ui, storage, todolist); // Add a task first
             String markInput = "mark 1";
             parser.parseCommand(markInput, ui, storage, todolist);
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             fail();
         }
         assertTrue(outContent.toString().contains("Nice! I've marked this task as done"));
@@ -54,7 +54,7 @@ public class ParserTest {
         String input = "todo read book";
         try {
             parser.parseCommand(input, ui, storage, todolist);
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             fail();
         }
         assertTrue(outContent.toString().contains("Added: [T][ ] read book"));
@@ -65,8 +65,7 @@ public class ParserTest {
         String input = "dance";
         try {
             parser.parseCommand(input, ui, storage, todolist);
-            fail(); // No exception thrown
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             assertTrue(e.getMessage().contains("OOPS!!! I'm sorry, but I don't know what that means"));
         }
     }
@@ -76,7 +75,7 @@ public class ParserTest {
         try {
             parser.parseCommand("todo", ui, storage, todolist);
             fail(); // No exception thrown
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             assertTrue(e.getMessage().contains("The description of a task cannot be empty"));
         }
     }

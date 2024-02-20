@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 
 /**
  * Represents a deadline task.
@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The deadline of the deadline task.
      */
-    public Deadline(String description, LocalDate by, boolean isDone) throws DukeException {
+    public Deadline(String description, LocalDate by, boolean isDone) throws JosephException {
         super(description);
         this.by = by;
         this.isDone = isDone;

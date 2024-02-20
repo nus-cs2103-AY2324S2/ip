@@ -1,4 +1,4 @@
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Tasklist;
@@ -8,7 +8,7 @@ import duke.ui.Ui;
  * The main class of the Duke application.
  * Runs the application.
  */
-public class Duke {
+public class Joseph {
     private Ui ui;
     private Storage storage;
     private Tasklist todolist;
@@ -17,19 +17,19 @@ public class Duke {
     /**
      * Constructor for the Duke class.
      */
-    public Duke() {
+    public Joseph() {
         try {
             todolist = new Tasklist();
             ui = new Ui();
             storage = new Storage();
             parser = new Parser();
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             ui.printMessage(e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
+        Joseph duke = new Joseph();
         duke.run();
     }
 
@@ -45,7 +45,7 @@ public class Duke {
             try {
                 commandIsBye = parser.commandIsBye(command);
                 parser.parseCommand(command, ui, storage, todolist);
-            } catch (DukeException e) {
+            } catch (JosephException e) {
                 ui.printMessage(e.getMessage());
             }
         }
@@ -54,7 +54,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             return parser.parseCommand(input, ui, storage, todolist);
-        } catch (DukeException e) {
+        } catch (JosephException e) {
             ui.printMessage(e.getMessage());
             return "Error";
         }

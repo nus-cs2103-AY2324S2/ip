@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.exception.DukeException;
+import duke.exception.JosephException;
 
 /**
  * Represents a todo task.
@@ -13,7 +13,7 @@ public class Todo extends Task {
      * @param description The description of the todo task.
      * @param isDone The status of the todo task.
      */
-    public Todo(String description, boolean isDone) throws DukeException {
+    public Todo(String description, boolean isDone) throws JosephException {
         super(description);
         this.isDone = isDone;
     }
