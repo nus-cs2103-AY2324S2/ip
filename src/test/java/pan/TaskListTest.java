@@ -20,18 +20,17 @@ public class TaskListTest {
 
     @Test
     public void testMark_withOutOfBoundsIndex() {
-        int outOfBoundsIndex = 1;
         TaskList taskList = new TaskList(new Storage());
-        assertThrows(TaskIndexException.class, () -> taskList.mark(outOfBoundsIndex));
+        int invalidIndex = taskList.getTasks().size() + 1;
+        assertThrows(TaskIndexException.class, () -> taskList.mark(invalidIndex));
     }
 
     @Test
     public void testMark_withValidIndex() {
-        // user input would start from 1 in this case
-        int validIndex = 1;
         TaskList taskList = new TaskList(new Storage());
-        taskList.add(new Task("", TaskStatus.INCOMPLETE));
-        assertEquals(taskList.getTasks().size(), 1);
+        taskList.add(new ToDos("", TaskStatus.INCOMPLETE));
+        int validIndex = taskList.getTasks().size();
         assertDoesNotThrow(() -> taskList.mark(validIndex));
+        assertDoesNotThrow(() -> taskList.delete(validIndex));
     }
 }
