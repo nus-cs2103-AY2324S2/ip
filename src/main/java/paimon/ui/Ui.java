@@ -185,4 +185,11 @@ public class Ui {
     public String showLoadArchiveSuccess(String fileName) {
         return String.format("Archive has been successfully loaded from %s", fileName);
     }
+
+    /**
+     * Prints ChatBot greeting message.
+     */
+    public String showWelcomeNoLogo() {
+        return GREETINGS.get(1);
+    }
 }

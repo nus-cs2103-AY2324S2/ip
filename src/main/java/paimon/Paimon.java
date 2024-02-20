@@ -63,4 +63,10 @@ public class Paimon {
     public String greet() {
         return ui.showWelcome();
     }
+    public String greet(boolean isShowingLogo) {
+        if (isShowingLogo) {
+            return this.greet();
+        }
+        return ui.showWelcomeNoLogo();
+    }
 }

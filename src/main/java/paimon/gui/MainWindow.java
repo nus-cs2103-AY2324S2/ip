@@ -33,15 +33,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Welcome", dukeImage)
-        );
     }
 
     public void setBot(Paimon paimon) {
         this.paimon = paimon;
     }
 
+    public void showInitialGreeting() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(paimon.greet(false), dukeImage)
+        );
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Paimon's reply and then appends them to
      * the dialog container. Clears the user input after processing.

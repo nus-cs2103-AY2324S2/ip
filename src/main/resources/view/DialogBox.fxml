@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text fx:id="dialog" text="Label">
+        <Text fx:id="dialog" text="Label" >
             <font>
                 <Font name="Montserrat" size="12.0" />
             </font>
