@@ -1,30 +1,30 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+    //    //  //  //==\\  //      //  //||    //||   //
+   //____//  //  //  //  //      //  // ||   // ||  //
+  //----//  //  //=\\   //  //  //  //==||  //  || //
+ //    //  //  //   \\ //==//==//  //   || //   ||//
+ 
+ # HIRWAN
 
 ```
-expected output
+List
 ```
 
-## Feature ABC
+- a
+- bullet
+- list
 
-// Feature details
+1. a 
+2. numbered 
+3. list
+```ruby
+a fenced code block (with syntax highlighting)
+```
+- [x] a 
+- [ ] task 
+- [ ] list
 
-
-## Feature XYZ
-
-// Feature details
+an emoji 🐒 
+> a blockquote
+[a hyperlink](https://pages.github.com/)
+`inline code`
+some text formatting: **bold**, _italic_, ~~strikethrough~~ etc.
