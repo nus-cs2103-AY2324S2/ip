@@ -85,7 +85,7 @@ public class MainWindow extends AnchorPane {
             );
         } finally {
             if (toothless.isExit()) {
-                PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1.5));
+                PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
                 pauseTransition.setOnFinished(event -> {
                     Platform.exit();
                 });
