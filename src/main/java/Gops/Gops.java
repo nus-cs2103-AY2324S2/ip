@@ -61,6 +61,7 @@ public class Gops extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Cannot start without a stage";
         run();
 
         scrollPane = new ScrollPane();
@@ -127,6 +128,7 @@ public class Gops extends Application {
         input.clear();
     }
     private String getResponse(String input) {
+        assert input != null : "getResponse cannot respond without an input";
         return parser.parse(input, this.taskList, this.txtFile);
     }
 

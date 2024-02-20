@@ -8,6 +8,10 @@ public class Parser {
      * @param txtFile file containing tasks
      */
     public String parse(String userReply, TaskList taskList, File txtFile) {
+        assert userReply != null : "User reply missing";
+        assert taskList != null: "Task list missing";
+        assert txtFile != null : "Text file missing";
+
         if (userReply.equals("clear")) {
             taskList.clearList();
             Storage.writeToHardDisk(taskList, txtFile);
