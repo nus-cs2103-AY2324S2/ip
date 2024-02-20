@@ -45,6 +45,7 @@ Format: `event DESCRIPTION /from FROM /to TO`
 - The FROM and TO is the start and end time of the event.
 - FROM and TO can be any String e.g "tmr", "weekend" with no specific datetime format.
 
+
 | :information_source:        |  DateTime format will be supported in future releases.    |
 |---------------|:------------------------|
 
@@ -124,6 +125,7 @@ Examples:
 - `find book` finds all tasks in the task list that contain the keyword "book" in their description.
 - `find meeting` finds all tasks in the task list that contain the keyword "meeting" in their description.
 
+
 | :memo:        | The `find` command only searches for tasks based on their description. It does not search for tasks based on their task type or additional details.     |
 |---------------|:------------------------|
 
@@ -169,6 +171,7 @@ Format: `load ARCHIVE_NAME`
 Examples:
 
 - `load 1` loads the archived task list from archive 1 in the local storage.
+
 
 | :warning: WARNING          |
 |:---------------------------|
