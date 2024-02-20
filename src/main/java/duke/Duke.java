@@ -14,22 +14,22 @@ import java.util.Scanner;
 public class Duke {
     //    public static final String DATABASE_PATH = "../data/duke.txt";
     public static final String DATABASE_PATH = "data/duke.txt";
-    private DatabaseHandler DatabaseHandler;
+    private DatabaseHandler databaseHandler;
     private TaskList taskList;
-    private Ui Ui;
+    private Ui userInterface;
     private CommandParser commandParser;
 
     /**
      * Initializes a Duke instance, loads tasks and components before starting up the application.
      */
     public Duke() {
-        Ui = new Ui();
-        DatabaseHandler = new DatabaseHandler(DATABASE_PATH);
+        userInterface = new Ui();
+        databaseHandler = new DatabaseHandler(DATABASE_PATH);
         try {
-            taskList = new TaskList(DatabaseHandler.loadData());
+            taskList = new TaskList(databaseHandler.loadData());
             commandParser = new CommandParser(new Scanner(System.in), this.taskList);
         } catch (DukeBotException e) {
-            Ui.displayLoadError();
+            userInterface.displayLoadError();
             taskList = new TaskList();
         }
     }
@@ -77,7 +77,7 @@ public class Duke {
             String stringTask = TaskList.taskToDbString(task);
             lines.add(stringTask);
         }
-        this.DatabaseHandler.writeToFile(lines);
+        this.databaseHandler.writeToFile(lines);
     }
 
     /**
@@ -91,7 +91,7 @@ public class Duke {
 
         String goodbye = " Au revoir! Till we meet again!\n"
                 + "____________________________________________________________";
-        Ui.greeting();
+        userInterface.greeting();
 
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         String input = scanner.nextLine(); // Get first input
