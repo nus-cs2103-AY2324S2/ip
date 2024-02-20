@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.util.MainWindow">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javassist.util.MainWindow">
    <children>
       <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#handleUserInput" style="-fx-background-color: #FBDCE7; -fx-border-color: #302931; -fx-border-radius: 5;" text="Send" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="565.0">
          <font>
