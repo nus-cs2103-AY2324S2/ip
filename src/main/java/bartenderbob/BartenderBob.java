@@ -37,4 +37,8 @@ public class BartenderBob {
     String getResponse(String input) {
         return InputHandler.handleInput(tasks, ui, input);
     }
+
+    public static void main(String[] args) {
+        // This main method is empty
+    }
 }
