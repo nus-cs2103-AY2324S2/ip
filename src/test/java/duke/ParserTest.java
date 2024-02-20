@@ -13,7 +13,7 @@ public class ParserTest {
     @Test
     public void testcase(){
         // normal division results in an integer answer 2
-        assertEquals(null, new Parser(new Scanner(System.in), new TaskList(new ArrayList<Task>()),new Storage("./data/tasks.txt")).DateConvert("hi"));
+        assertEquals(null, new Parser(new Scanner(System.in), new TaskList(new ArrayList<Task>()),new Storage("./data/tasks.txt")).dateConvert("hi"));
 
     }
 }
