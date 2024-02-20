@@ -74,6 +74,10 @@ public class EventTask extends Task {
      * @return Whether the start date is before or on the end date.
      */
     private boolean isCorrectDateOrder() {
+        if (formattedFromDate == null || formattedToDate == null) {
+            // Vacuously returns true as date order cannot be checked
+            return true;
+        }
         return !formattedFromDate.isAfter(formattedToDate);
     }
 }
