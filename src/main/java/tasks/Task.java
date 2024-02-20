@@ -1,6 +1,4 @@
-package Tasks;
-
-import java.util.List;
+package tasks;
 
 /**
  * Represents a generic task in a task management application.
@@ -51,7 +49,7 @@ public class Task {
      *
      * @author Muhammad Rizki Bayuaji
      */
-    public void mark() {
+    public void setMark() {
         isDone = true;
     }
 
@@ -60,7 +58,7 @@ public class Task {
      *
      * @author Muhammad Rizki Bayuaji
      */
-    public void unMark() {
+    public void setUnMark() {
         isDone = false;
     }
 

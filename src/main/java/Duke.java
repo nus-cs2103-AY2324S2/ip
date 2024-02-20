@@ -1,25 +1,13 @@
-import Exceptions.DukeException;
-import Storage.Storage;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
-import UI.Parser;
-import UI.Ui;
+import exceptions.DukeException;
+import storage.Storage;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+import ui.Parser;
+import ui.Ui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -41,57 +29,57 @@ public class Duke {
         Parser.Command command = parser.parse(inputs[0]);
         try {
             switch (command) {
-                case BYE:
-                    response.append(ui.printGoodbye());
-                    break;
-                case LIST:
-                    response.append(ui.printList(tasks));
-                    break;
-                case MARK:
-                    index = Integer.parseInt(inputs[1]) - 1;
-                    tasks.get(index).mark();
-                    response.append(ui.printMark(tasks.get(index)));
-                    storage.saveTasks(tasks);
-                    break;
-                case UNMARK:
-                    index = Integer.parseInt(inputs[1]) - 1;
-                    tasks.get(index).unMark();
-                    response.append(ui.printUnmark(tasks.get(index)));
-                    storage.saveTasks(tasks);
-                    break;
-                case TODO:
-                    Todo newTodo = new Todo(inputs[1]);
-                    tasks.add(newTodo);
-                    response.append(ui.printTodo(newTodo, tasks));
-                    storage.saveTasks(tasks);
-                    break;
-                case DEADLINE:
-                    String[] deadlineSplit = inputs[1].split(" /by ");
-                    Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
-                    tasks.add(newDeadline);
-                    response.append(ui.printDeadline(newDeadline, tasks));
-                    storage.saveTasks(tasks);
-                    break;
-                case EVENT:
-                    String[] eventSplit = inputs[1].split(" /from | /to ");
-                    Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
-                    tasks.add(newEvent);
-                    response.append(ui.printEvent(newEvent, tasks));
-                    storage.saveTasks(tasks);
-                    break;
-                case DELETE:
-                    index = Integer.parseInt(inputs[1]) - 1;
-                    Task toDelete = tasks.get(index);
-                    tasks.remove(toDelete);
-                    response.append(ui.printDelete(toDelete, tasks));
-                    storage.saveTasks(tasks);
-                    break;
-                case FIND:
-                    response.append(ui.findTasks(inputs[1], tasks));
-                    break;
-                default:
-                    response.append(ui.printError("Command not found!"));
-                    break;
+            case BYE:
+                response.append(ui.printGoodbye());
+                break;
+            case LIST:
+                response.append(ui.printList(tasks));
+                break;
+            case MARK:
+                index = Integer.parseInt(inputs[1]) - 1;
+                tasks.get(index).setMark();
+                response.append(ui.printMark(tasks.get(index)));
+                storage.saveTasks(tasks);
+                break;
+            case UNMARK:
+                index = Integer.parseInt(inputs[1]) - 1;
+                tasks.get(index).setUnMark();
+                response.append(ui.printUnmark(tasks.get(index)));
+                storage.saveTasks(tasks);
+                break;
+            case TODO:
+                Todo newTodo = new Todo(inputs[1]);
+                tasks.add(newTodo);
+                response.append(ui.printTodo(newTodo, tasks));
+                storage.saveTasks(tasks);
+                break;
+            case DEADLINE:
+                String[] deadlineSplit = inputs[1].split(" /by ");
+                Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                tasks.add(newDeadline);
+                response.append(ui.printDeadline(newDeadline, tasks));
+                storage.saveTasks(tasks);
+                break;
+            case EVENT:
+                String[] eventSplit = inputs[1].split(" /from | /to ");
+                Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                tasks.add(newEvent);
+                response.append(ui.printEvent(newEvent, tasks));
+                storage.saveTasks(tasks);
+                break;
+            case DELETE:
+                index = Integer.parseInt(inputs[1]) - 1;
+                Task toDelete = tasks.get(index);
+                tasks.remove(toDelete);
+                response.append(ui.printDelete(toDelete, tasks));
+                storage.saveTasks(tasks);
+                break;
+            case FIND:
+                response.append(ui.findTasks(inputs[1], tasks));
+                break;
+            default:
+                response.append(ui.printError("Command not found!"));
+                break;
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {

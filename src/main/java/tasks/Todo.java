@@ -1,11 +1,11 @@
-package Tasks;
+package tasks;
 /**
  * Represents a Todo task in a task management application.
  * A Todo task is a basic task with a description.
  *
  * @author Muhammad Rizki Bayuaji
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructs a new Todo instance with the specified description.
      *
