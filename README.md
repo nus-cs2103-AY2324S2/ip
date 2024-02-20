@@ -15,7 +15,7 @@ To get started with LEMONA, follow these steps:
 1. Clone this repository to your local machine.
 2. Ensure you have Java installed on your system.
 3. Compile the Java files using a Java compiler.
-4. Run the main class `Duke` to start LEMONA.
+4. Run the main class `Launcher` to start LEMONA.
 
 ## Contributing
 Contributions are welcome! If you have any ideas or improvements for LEMONA, feel free to open an issue or submit a pull request.
