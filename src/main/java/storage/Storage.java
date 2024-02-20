@@ -78,7 +78,7 @@ public class Storage {
                 boolean proceed = true;
 
                 String taskNature = task.substring(0, 6);
-                String[] details = task.substring(6).split("\\s+");
+                String[] details = task.substring(7).split("\\s+");
                 String type = taskNature.substring(1, 2);
                 String complete = taskNature.substring(4, 5);
                 switch (type) {

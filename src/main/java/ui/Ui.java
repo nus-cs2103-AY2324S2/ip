@@ -75,4 +75,23 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("There was an issue loading the file stated in the file path");
     }
+
+    public void printFindEmptyError() {
+        System.out.println("OOPS!!! Either no keyword was provided or the keyword was more than one word.");
+    }
+
+    public void printFindOutput(Task[] findOutput) {
+        System.out.println(line);
+        System.out.println("Here are the matches found:");
+        StringBuilder toPrint = new StringBuilder();
+        for (int i = 0; i < findOutput.length; i++) {
+            if (findOutput[i] == null) {
+                break;
+            } else {
+                toPrint.append(i + 1).append(". ").append(findOutput[i].toString()).append("\n");
+            }
+        }
+        System.out.println(toPrint);
+        System.out.println(line);
+    }
 }
