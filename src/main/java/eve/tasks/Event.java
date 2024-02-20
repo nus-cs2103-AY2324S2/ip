@@ -29,6 +29,8 @@ public class Event extends Task {
         }
     }
 
+
+
     @Override
     public String toString() {
         return "[E]" + "[" + super.getStatusIcon() + "]"
@@ -41,5 +43,13 @@ public class Event extends Task {
         return "E" + " | " + super.getStatusInteger() + " | "
                 + super.toString() + " | " + startString
                 + endString + "\n";
+    }
+
+    public String getStartString() {
+        return startString.toString();
+    }
+    
+    public String getEndString() {
+        return endString.toString();
     }
 }

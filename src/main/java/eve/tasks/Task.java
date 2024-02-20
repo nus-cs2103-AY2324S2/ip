@@ -10,6 +10,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getTaskStatus() {
+        return isDone;
+    }
 
 
     public String getStatusIcon() {
@@ -34,6 +37,10 @@ public class Task {
     }
 
     public String toStore() {
+        return description;
+    }
+
+    public String getTask() {
         return description;
     }
 }
