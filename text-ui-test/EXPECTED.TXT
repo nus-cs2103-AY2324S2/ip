@@ -1,7 +1,80 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+_____________________________________________
+Hello! I'm Donald.
+What can I do for you?
+_____________________________________________
 
+_____________________________________________
+Got it. I've added this task:
+[D][ ] submit report (by: 13th Jan)
+Now you have 1 tasks in this list.
+_____________________________________________
+
+_____________________________________________
+Got it. I've added this task:
+[T][ ] buy groceries
+Now you have 2 tasks in this list.
+_____________________________________________
+
+_____________________________________________
+Here are the tasks in your list:
+1.[D][ ] submit report (by: 13th Jan)
+2.[T][ ] buy groceries
+_____________________________________________
+
+_____________________________________________
+Got it. I've added this task:
+[E][ ] conference (from: 8:00 to: 10:00)
+Now you have 3 tasks in this list.
+_____________________________________________
+
+_____________________________________________
+Here are the tasks in your list:
+1.[D][ ] submit report (by: 13th Jan)
+2.[T][ ] buy groceries
+3.[E][ ] conference (from: 8:00 to: 10:00)
+_____________________________________________
+
+_____________________________________________
+Nice! I've marked this task as done:
+[D][X] submit report (by: 13th Jan)
+_____________________________________________
+
+_____________________________________________
+Nice! I've marked this task as done:
+[E][X] conference (from: 8:00 to: 10:00)
+_____________________________________________
+
+_____________________________________________
+Here are the tasks in your list:
+1.[D][X] submit report (by: 13th Jan)
+2.[T][ ] buy groceries
+3.[E][X] conference (from: 8:00 to: 10:00)
+_____________________________________________
+
+_____________________________________________
+OK, I've marked this task as not done yet:
+[D][ ] submit report (by: 13th Jan)
+_____________________________________________
+
+_____________________________________________
+Nice! I've marked this task as done:
+[T][X] buy groceries
+_____________________________________________
+
+_____________________________________________
+Got it. I've added this task:
+[T][ ] catch up on cs2103
+Now you have 4 tasks in this list.
+_____________________________________________
+
+_____________________________________________
+Here are the tasks in your list:
+1.[D][ ] submit report (by: 13th Jan)
+2.[T][X] buy groceries
+3.[E][X] conference (from: 8:00 to: 10:00)
+4.[T][ ] catch up on cs2103
+_____________________________________________
+
+_____________________________________________
+Bye. Hope to see you again soon!
+_____________________________________________
