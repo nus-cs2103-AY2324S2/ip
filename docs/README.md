@@ -120,6 +120,7 @@ The data provided by the user is saved in the hard disk automatically without an
 The automatic save happens after any command that changes the data.
 
 ## Command Summary
+
 | Command         | Syntax                                                     |
 |-----------------|------------------------------------------------------------|
 | **Get Help**    | `help` or `sos`                                            |
