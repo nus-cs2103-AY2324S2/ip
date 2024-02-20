@@ -24,6 +24,7 @@ public class TodoList {
      * Adds a task to the task list.
      *
      * @param item The task to be added.
+     * @returns A message indicating the success or failure of the add operation.
      */
     public String add(Task item) {
         list.add(item);
@@ -40,6 +41,7 @@ public class TodoList {
      * Marks a task as done based on the provided input.
      *
      * @param input The input representing the task to mark as done.
+     * @returns A message indicating the success or failure of the mark operation.
      */
     public String mark(String input) {
         try {
@@ -163,6 +165,7 @@ public class TodoList {
      * Unmarks a previously marked task as undone based on the provided input.
      *
      * @param input The input representing the task to unmark as done.
+     * @returns A message indicating the success or failure of the unmark operation.
      */
     public String unmark(String input) {
         try {
@@ -184,6 +187,7 @@ public class TodoList {
      * Deletes a task from the task list based on the provided input.
      *
      * @param input The input representing the task to delete.
+     * @returns A message indicating the success or failure of the delete operation.
      */
     public String delete(String input) {
         try {
@@ -203,6 +207,7 @@ public class TodoList {
 
     /**
      * Prints the list of tasks.
+     * @returns A string containing the list of tasks.
      */
     public String print() {
         return "_______________________\n"
@@ -291,6 +296,7 @@ public class TodoList {
      * Function to find tasks via description
      *
      * @param input The description of the tasks that want to be listed
+     * @returns A message indicating the success or failure of the find operation.
      */
     public String find(String input) {
         List<String> output = list.stream()
@@ -309,9 +315,6 @@ public class TodoList {
         findString.append("_______________________\n");
         return findString.toString();
     }
-
-
-
 
     public int size() {
         return list.size();
