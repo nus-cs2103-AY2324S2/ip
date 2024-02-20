@@ -30,7 +30,6 @@ public class FindCommand extends Command {
      */
     private String searchString;
 
-    
     public FindCommand(String searchTerm) {
         this.searchString = searchTerm;
     }
