@@ -6,41 +6,46 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
+
 
 public class DialogBox extends HBox {
 
-    private Label text;
+    private Label dialog;
     private ImageView displayPicture;
     private Color textboxColor;
-    private int TEXTBOX_HEIGHT = 100;
-    private int TEXTBOX_WIDTH = 240;
+    private int textboxWidth = 240;
 
     /**
      * Constructs a Dialog Box for the Signal chatbot.
      *
-     * @param l The text in the dialog box.
-     * @param iv The image respresenting the user or Signal.
+     * @param text The text in the dialog box.
+     * @param img The image respresenting the user or Signal.
      * @param type Indicates if the dialog box is for a user or for Signal.
      */
-    public DialogBox(Label l, ImageView iv, String type) {
-        text = l;
-        displayPicture = iv;
+    public DialogBox(String text, Image img, String type) {
+
+        dialog = new Label(text);
+        displayPicture = new ImageView(img);
+
+
+        dialog.setText(text);
+        displayPicture.setImage(img);
         if (type.equals("USER")) {
             textboxColor = Color.LIGHTBLUE;
         } else {
             textboxColor = Color.LIGHTPINK;
         }
 
-        textStyle(text);
+        textStyle(dialog);
         StackPane textBox = new StackPane();
-        makeTextbox(textBox, text);
+        makeTextbox(textBox, dialog);
         displayPicStyle(displayPicture);
         dialogBoxStyle(textBox, displayPicture);
     }
@@ -57,8 +62,9 @@ public class DialogBox extends HBox {
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.setFill(textboxColor);
-        rect.setWidth(TEXTBOX_WIDTH);
-        rect.setHeight(TEXTBOX_HEIGHT);
+        rect.setWidth(textboxWidth);
+//        rect.setHeight(textboxHeight);
+        rect.heightProperty().bind(text.heightProperty()); // Adjust padding as needed
 
         stack.getChildren().addAll(rect, text);
     }
@@ -70,6 +76,7 @@ public class DialogBox extends HBox {
      */
     private void textStyle(Label text) {
         text.setWrapText(true);
+        text.setPadding(new Insets(10));
     }
 
     /**
@@ -108,11 +115,11 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
+    public static DialogBox getUserDialog(String l, Image iv) {
         return new DialogBox(l, iv, "USER");
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getDukeDialog(String l, Image iv) {
         var db = new DialogBox(l, iv, "");
         db.flip();
         return db;

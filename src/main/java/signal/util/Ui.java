@@ -43,11 +43,18 @@ public class Ui {
     /**
      * Prints the opening message of the Signal chatbot.
      */
-    public void intro() {
-        System.out.println("Hello! My name is\n" + LOGO);
-        System.out.println("How can I help?");
-        System.out.println("Enter 'help' to see the list of commands available :D");
-        System.out.println(DIV);
+    public String intro() {
+//        System.out.println("Hello! My name is\n" + LOGO);
+//        System.out.println("How can I help?");
+//        System.out.println("Enter 'help' to see the list of commands available :D");
+//        System.out.println(DIV);
+
+        ArrayList<String> response = new ArrayList<>();
+        response.add("Hello! My name is\n" + LOGO);
+        response.add("How can I help?");
+        response.add(("Enter 'help' to see the list of commands available :D"));
+        return listToString(response);
+
     }
 
     /**
