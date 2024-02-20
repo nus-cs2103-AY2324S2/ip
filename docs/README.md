@@ -1,10 +1,10 @@
-# Duke User Guide
+# HAL9000 User Guide
 
-// Update the title above to match the actual product name
+![HAL9000 Screenshot](Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+HAL9000 is a Task Manager application that helps you keep track of your
+tasks so that you don't have to! It is tailored to users who are familiar
+with a CLI.
 
 ## Adding deadlines
 
@@ -12,7 +12,7 @@
 
 // Give examples of usage
 
-Example: `keyword (optional arguments)`
+Example: `deadline My Homework /by 12-12-2021`
 
 // A description of the expected outcome goes here
 
@@ -20,11 +20,143 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Adding Events
 
-// Feature details
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
 
 
-## Feature XYZ
+## Adding Todos
 
-// Feature details
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Deleting Tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Marking Tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Unmarking Tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+## Listing Tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Searching Tasks
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+
+## Undoing Commands
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Redoing Commands
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
+
+## Exiting the Application
+
+// Describe the action and its outcome.
+
+// Give examples of usage
+
+Example: `deadline My Homework /by 12-12-2021`
+
+// A description of the expected outcome goes here
+
+```
+expected output
+```
