@@ -1,6 +1,6 @@
 # Morty Chatbot
 
-![Morty Chatbot UI](./screenshot.PNG)
+<img src="./Ui.png" alt="Morty Chatbot UI" />
 
 **Morty** is your go-to chatbot for managing todos, deadlines, and events with ease. Designed to be text-based for simplicity and speed, Morty is an essential tool for anyone looking to streamline their task management. Now with a graphical user interface (GUI) on the horizon, managing your tasks with Morty is about to get even easier.
 
