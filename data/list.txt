@@ -1,3 +1,3 @@
 T | 0 | make a soup for Ryan/priority high
-T | 1 | do home laundry/priority low
+T | 0 | do home laundry/priority low
 E | 1 | Trip to Italy|2025/02/07 1200|2025/02/17 1900/priority High

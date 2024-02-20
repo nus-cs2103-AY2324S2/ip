@@ -46,9 +46,10 @@ application {
     mainClass.set("chingu.Launcher")
 }
 
+mainClassName = 'chingu.Launcher'
 
 shadowJar {
-    archiveBaseName = "chingu"
+    archiveBaseName= 'chingu'
     archiveFileName = 'chingu.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")

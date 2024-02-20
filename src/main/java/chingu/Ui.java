@@ -18,7 +18,7 @@ public class Ui {
 
     private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:";
 
-    private static final String BYE = "Hope to see you again soon!";
+    public static final String BYE = "Hope to see you again soon!";
 
     public Ui() {
         this(System.in, System.out);

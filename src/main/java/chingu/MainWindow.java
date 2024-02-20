@@ -1,5 +1,6 @@
 package chingu;
 
+import chingu.command.ExitCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Chingu chingu;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/YOU.png"));
+    private Image chinguImage = new Image(this.getClass().getResourceAsStream("/images/CHINGU.png"));
 
     private static final String GREET = "Hello! I'm your ChinGu\n" +
             "What can I do for you?";
@@ -31,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(GREET, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(GREET, chinguImage));
     }
 
     public void setDoummi(Chingu d) {
@@ -46,9 +47,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = chingu.getResponse(input);
+        if (response.equals(Ui.BYE)) {
+            System.exit(0);
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, chinguImage)
         );
         userInput.clear();
     }
