@@ -1,8 +1,8 @@
 package arc.ui.gui;
 
-import arc.Arc;
 import java.io.IOException;
 
+import arc.Arc;
 import arc.exceptions.ArcException;
 import arc.exceptions.storage.LoadTasksFailedException;
 import javafx.application.Application;
@@ -43,6 +43,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
 
             // Set up the scene and display the application window
+            stage.setTitle(Arc.CHAT_BOT_NAME);
             stage.setScene(scene);
             stage.show();
 

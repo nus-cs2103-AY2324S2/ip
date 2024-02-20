@@ -84,7 +84,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box representing a Arc's message.
+     * Creates a dialog box representing an Arc's message.
      * This method sets the background color to light pink and returns the dialog box.
      * Additionally, it flips the dialog box such that the image is on the left and text on the right.
      *

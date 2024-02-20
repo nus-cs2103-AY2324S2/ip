@@ -17,6 +17,11 @@ import javafx.application.Platform;
  */
 public class Arc {
     /**
+     * The name of the chat-bot.
+     */
+    public static final String CHAT_BOT_NAME = "Arc Chat-Bot";
+
+    /**
      * The default file path used for storing tasks data.
      */
     public static final Path TASKS_FILE_PATH = Paths.get(".", "data", "arc.tasks");
