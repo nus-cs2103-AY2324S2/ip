@@ -15,7 +15,7 @@ public class Database {
     private static Connection conn;
 
     /**
-     * Connect to the database.
+     * Connects to the database.
      */
     public void connect() throws SQLException {
         Config cfg = Config.getConfig();
@@ -33,14 +33,14 @@ public class Database {
     }
 
     /**
-     * Disconnect from the database.
+     * Disconnects from the database.
      */
     public void disconnect() throws SQLException {
         conn.close();
     }
 
     /**
-     * Execute a SQL statement.
+     * Executes a SQL statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -56,7 +56,7 @@ public class Database {
     }
 
     /**
-     * Execute a SQL statement.
+     * Executes a SQL statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -77,7 +77,7 @@ public class Database {
     }
 
     /**
-     * Execute a SQL insert statement.
+     * Executes a SQL insert statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -93,7 +93,7 @@ public class Database {
     }
 
     /**
-     * Execute a SQL insert statement.
+     * Executes a SQL insert statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -114,7 +114,7 @@ public class Database {
     }
 
     /**
-     * Execute a SQL select statement.
+     * Executes a SQL select statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -130,7 +130,7 @@ public class Database {
     }
 
     /**
-     * Execute a SQL select statement.
+     * Executes a SQL select statement.
      *
      * @param sql
      *            the SQL statement to execute
@@ -151,7 +151,7 @@ public class Database {
     }
 
     /**
-     * Migrate the database with the necessary tables, if they don't exist.
+     * Migrates the database with the necessary tables, if they don't exist.
      * This method should be called after connecting to the database.
      *
      * @throws SQLException
