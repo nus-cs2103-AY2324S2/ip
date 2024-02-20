@@ -32,6 +32,11 @@ public class Parser {
     public void parse(String userInput) throws InvalidKeyException, EmptyBodyException,
             WrongFormatException, InvalidNumberException, DateTimeParseException {
         String[] userInputSplit = userInput.split(" ");
+        // verify that the user input is valid
+        String checkInputMsg = checkSpecialCharacter(userInputSplit);
+        if (!checkInputMsg.equals("valid")) {
+            throw new WrongFormatException(checkInputMsg);
+        }
         this.determineCurrentKey(userInputSplit[0]);
         switch (this.currentKey) {
         case DEADLINE:
@@ -76,6 +81,22 @@ public class Parser {
         default:
             break;
         }
+    }
+
+    /**
+     * Checks if the user input is valid.
+     *
+     * @param userInput String user input.
+     * @return True if the user input is valid.
+     */
+    public String checkSpecialCharacter(String[] userInput) {
+        // match the special character |
+        for (String s : userInput) {
+            if (s.contains("|")) {
+                return "Should not use special character |";
+            }
+        }
+        return "valid";
     }
 
     /**
@@ -131,7 +152,6 @@ public class Parser {
      */
     public static LocalDate formatDate(String str) {
         LocalDate date = null;
-        System.out.println(str);
         try {
             date = FORMATER.stringToDate(str);
         } catch (DateTimeParseException e) {
