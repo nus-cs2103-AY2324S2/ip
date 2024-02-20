@@ -93,7 +93,7 @@ public class DatabaseHandler {
         String databaseFilePath = "data/duketest.txt";
         DatabaseHandler databaseHandler = new DatabaseHandler(databaseFilePath);
 
-        // Clear and initialize data/duke.txt
+        // Clear and initialize the data/duke.txt
         databaseHandler.clearFile();
 
         List<String> input = new ArrayList<>();
