@@ -26,6 +26,8 @@ public class DialogBox extends HBox {
     private TextFlow txt;
     @FXML
     private Circle displayPicture;
+    @FXML
+    private HBox box;
 
     private DialogBox(String text, Image img) {
         assert (img != null) : "Image is null";
@@ -59,6 +61,8 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.box.setStyle("-fx-background-color: #AA99FF; -fx-border-radius: 10; -fx-border-color: #F5F3F8;"
+                + "-fx-border-width: 1; -fx-background-radius: 10;");
         return db;
     }
 }
