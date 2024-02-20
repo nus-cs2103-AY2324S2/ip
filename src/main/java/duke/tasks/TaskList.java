@@ -110,8 +110,8 @@ public class TaskList {
         if (id >= this.getNumOfTasks() || id < 0) {
             throw new OutOfBoundException();
         }
-        this.tasks.get(id).setStatus(status);
-        assert this.tasks.get(id).getStatus() == status : "Task should be marked";
+        this.tasks.get(id).setIsDone(status);
+        assert this.tasks.get(id).getIsDone() == status : "Task should be marked";
         return this.tasks.get(id);
     }
 
@@ -156,6 +156,7 @@ public class TaskList {
      */
     public TaskList findNextDueTasks(int numOfTasks) {
         ArrayList<Task> nextTasks = new ArrayList<>(tasks);
+        nextTasks.removeIf(Task::getIsDone); // remove completed tasks
         nextTasks.sort(new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
