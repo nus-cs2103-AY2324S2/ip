@@ -26,21 +26,21 @@ And it is **FREE** to use! 🚫💵
 
 ### Listing all the existing tasks in the list/ txt file: `list`
 List down all the tasks in the list/txt file. <br>
-Format: `list`
+Format: `list`<br>
 
 
 ### Adding a new todo task: `todo`
 Add a new todo task to the list, and it will be stored in a txt file.<br>
-Format: `todo DESCRIPTION`
+Format: `todo DESCRIPTION`<br>
 
 
 ### Adding a new deadline task: `deadline`
 Add a new deadline task to the list, and it will be stored in a txt file.<br>
-Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`
+Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`<br>
 
 
 ### Adding a new event task: `event`
-Add a new event task to the list, and it will be stored in a txt file.
+Add a new event task to the list, and it will be stored in a txt file.<br>
 Format: `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm`<br>
 
 
@@ -62,29 +62,29 @@ Format: `mark INDEX`<br>
 Unmark a task in the list as incomplete. <br>
 Format: `unmark INDEX`<br>
 📝The `INDEX` refers to the index number of a task in the list. <br>
-⚠️: `INDEX` must be positive and not exceed the size of the list.
+⚠️: `INDEX` must be positive and not exceed the size of the list.<br>
 
 
 ### Searching tasks based on the description: `search`
 Find all tasks with matching keywords for description. <br>
-Format: `search DESCRIPTION`
+Format: `search DESCRIPTION`<br>
 
 
 ### Searching tasks based on the date: `date`
 Find all tasks with the matching date. <br>
-Format: `date yyyy-MM-dd`
+Format: `date yyyy-MM-dd`<br>
 
 
 ### Setting priority level
 Add a priority level to each new task.<br>
 📝: `DEFAULT` if not stated explicitly.<br>
 🎚️Priority Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`<br>
-Format: `todo DESCRIPTION /priority LEVEL`
+Format: `todo DESCRIPTION /priority LEVEL`<br>
 
 
 ### Exiting the program: `bye`
 Exit the program.<br>
-Format: `bye`
+Format: `bye`<br>
 
 
 ## Command Summary
