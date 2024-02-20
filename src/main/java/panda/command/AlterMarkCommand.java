@@ -33,8 +33,7 @@ public class AlterMarkCommand extends Command {
         }
         if(isMarked) {
             tlist.mark(idx);
-        }
-        else {
+        } else {
             tlist.unmark(idx);
         }
     }
@@ -54,8 +53,7 @@ public class AlterMarkCommand extends Command {
         }
         if(isMarked) {
             tlist.mark(idx);
-        }
-        else {
+        } else {
             tlist.unmark(idx);
         }
         cacheFile.save(tlist);

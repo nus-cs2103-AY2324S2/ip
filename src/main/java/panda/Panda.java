@@ -32,7 +32,7 @@ public class Panda extends Application {
     }
 
     /**
-     * Generate response for the given user input
+     * Generates response for the given user input
      * 
      * @param userInput the user input given
      * @return the response from the chat bot
@@ -47,7 +47,6 @@ public class Panda extends Application {
     }
 
     /**
-     * Entry point for the Panda application.
      * Creates a new Panda instance and runs it.
      * 
      * @param args command-line arguments (not used).

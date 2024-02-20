@@ -11,7 +11,7 @@ public class PrintListCommand extends Command {
     }
 
     /**
-     * Generate a string of current TaskList
+     * Generates a string of current TaskList
      * 
      * @param tlist the TaskList into which the task is inserted.
      * @param cacheFile the cache file to save changes to.
