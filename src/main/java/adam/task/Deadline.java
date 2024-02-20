@@ -25,7 +25,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new AdamException("Invalid date or date format");
+            throw new AdamException("Invalid date or date format, date format is yyyy-mm-dd");
         }
     }
 

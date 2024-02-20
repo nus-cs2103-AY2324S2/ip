@@ -24,7 +24,7 @@ Adds a deadline task to the list of tasks.
 
 Format: `deadline DESC /by DATE`
 
-- `DATE` must be in the format **YYYY-MM-DD**. e.g. 2024-02-02 to represent 2 February 2024
+- `DATE` must be in the format **yyyy-mm-dd**. e.g. 2024-02-02 to represent 2 February 2024
 
 Example: `deadline submit hw /by 2024-02-02`
 
