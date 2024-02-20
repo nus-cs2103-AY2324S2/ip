@@ -114,10 +114,10 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
-    public String getDeleteMsg(TaskList tasks, int taskNumber) {
+    public String getDeleteMsg(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("Alright! The task has been deleted:").append("\n");
-        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
+        sb.append("  ").append(task.toString()).append("\n");
         return sb.toString();
     }
 
