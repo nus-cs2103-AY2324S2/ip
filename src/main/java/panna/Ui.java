@@ -25,26 +25,28 @@ public class Ui {
      * @param tl
      */
     public String listMessage(TaskList tl) {
-        String s = "----------------------------------------------------------\n"
-        + tl.printList()
-        + "\n----------------------------------------------------------";
-        return s;
+        String output = "----------------------------------------------------------\n"
+                        + tl.printList()
+                        + "\n----------------------------------------------------------";
+        return output;
     }
 
     public String markDone(TaskList tasks, int label) throws PannaException {
-        return("----------------------------------------------------------\n"
+        String output = "----------------------------------------------------------\n"
                 + "Nice! I've marked this task as done: \n"
                 + tasks.get(label - 1)
                 + "\n"
-                + "----------------------------------------------------------");
+                + "----------------------------------------------------------";
+        return output;
     }
 
     public String unmarkDone(TaskList tasks, int label) throws PannaException {
-        return("----------------------------------------------------------\n"
+        String output = "----------------------------------------------------------\n"
                 + "Nice! I've marked this task as undone: \n"
                 + tasks.get(label - 1)
                 + "\n"
-                + "----------------------------------------------------------");
+                + "----------------------------------------------------------";
+        return output;
     }
     /**
      * Displays message and marks the relevant task.
@@ -94,10 +96,11 @@ public class Ui {
             Task t = tasks.get(label - 1);
             tasks.delete(label - 1);
 
-            return "----------------------------------------------------------\n"
+            String output = "----------------------------------------------------------\n"
                     + "Task successfully removed! \n"
                     + t + "\n"
                     + "----------------------------------------------------------";
+            return output;
 
         } catch (Exception e) {
             throw new PannaException("Invalid label! The number of tasks now is "
@@ -116,8 +119,9 @@ public class Ui {
             Task t = new Todo(input);
             t.setDone(false);
             tasks.add(t);
-            return "Got it! I've added the \n" + t + "\n todo!\n"
+            String output = "Got it! I've added the \n" + t + "\n todo!\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
+            return output;
         } catch (Exception e) {
             throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
         }
@@ -139,8 +143,9 @@ public class Ui {
             t.setDone(false);
             tasks.add(t);
 
-            return "Got it! I've added the \n" + t + "\n deadline!\n"
+            String output = "Got it! I've added the \n" + t + "\n deadline!\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
+            return output;
         } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct!");
         }
@@ -165,8 +170,9 @@ public class Ui {
             t.setDone(false);
             tasks.add(t);
 
-            return "Got it! I've added the \n" + t + "\n event!\n"
+            String output = "Got it! I've added the \n" + t + "\n event!\n"
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
+            return output;
         } catch (Exception e) {
             throw new PannaException("Please ensure all your formats are correct! ");
         }
@@ -184,7 +190,6 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).taskName.contains(k)) {
                 newList.add(tasks.get(i));
-
             }
         }
 
