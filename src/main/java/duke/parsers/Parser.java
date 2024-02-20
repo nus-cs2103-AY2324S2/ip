@@ -1,7 +1,5 @@
 package duke.parsers;
 
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -19,6 +17,7 @@ import duke.commands.MarkTaskCommand;
 import duke.commands.SaveCommand;
 import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeException;
+import duke.utils.Utils;
 
 /**
  * Parses user input and generates corresponding Command objects.
@@ -35,7 +34,7 @@ public class Parser {
         String commandWord = parts[0].toLowerCase();
         String commandArguments = "";
         if (parts.length == 2) {
-            commandArguments = parts[1].trim();
+            commandArguments = Utils.removeExtraSpaces(parts[1]);
         }
         switch (commandWord) {
         case "bye":
@@ -97,15 +96,6 @@ public class Parser {
     }
 
     /**
-     * Converts time string to LocalDateTime object, accepted date time format is yyyy-MM-dd HHmm
-     * @param timeStr for convert to LocalDateTime
-     * @return time in LocalDateTime object
-     */
-    public static LocalDateTime convertToLocalDateTime(String timeStr) {
-        return LocalDateTime.parse(timeStr, DATE_TIME_FORMATTER);
-    }
-
-    /**
      * Parses the task description string and returns a command to create a todo task.
      *
      * @param arguments The arguments provided for parsing.
@@ -141,7 +131,7 @@ public class Parser {
             throw new DukeException("OOPS! You forget to write do the task by when");
         }
         String description = instruction[0];
-        LocalDateTime deadline = convertToLocalDateTime(instruction[1]);
+        LocalDateTime deadline = Utils.convertToLocalDateTime(instruction[1]);
         return new CreateDeadlineCommand(description, deadline);
     }
 
@@ -174,8 +164,8 @@ public class Parser {
         if (subInstruction.length < 2) {
             throw new DukeException("OOPS! You forget to write the ending time of this event.");
         }
-        LocalDateTime startTime = convertToLocalDateTime(subInstruction[0]);
-        LocalDateTime endTime = convertToLocalDateTime(subInstruction[1]);
+        LocalDateTime startTime = Utils.convertToLocalDateTime(subInstruction[0]);
+        LocalDateTime endTime = Utils.convertToLocalDateTime(subInstruction[1]);
         if (!startTime.isBefore(endTime)) {
             throw new DukeException("The start time of the event has to be before the end time.");
         }

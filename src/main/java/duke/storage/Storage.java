@@ -1,6 +1,5 @@
 package duke.storage;
 
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
 import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 import static duke.constants.Constant.RELATIVE_PATH;
 
@@ -18,6 +17,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
+import duke.utils.Utils;
 
 /**
  * Handles the loading and conversion of task data from a file.
@@ -68,6 +68,9 @@ public class Storage {
         return tasks;
     }
 
+    public boolean isMark(String status) {
+        return status.equals("1");
+    }
     /**
      * Converts a string representation of a todo task into a ToDo object.
      *
@@ -76,8 +79,8 @@ public class Storage {
      */
     public ToDo convertToTodo(String string) {
         String[] parts = string.split("\\|");
-        boolean status = parts[1].trim().equals("1");
-        String description = parts[2].trim();
+        boolean status = isMark(Utils.removeExtraSpaces(parts[1]));
+        String description = Utils.removeExtraSpaces(parts[2]);
         return new ToDo(description, status);
     }
 
@@ -90,10 +93,10 @@ public class Storage {
      */
     public Deadline convertToDeadline(String string) throws DateTimeParseException {
         String[] parts = string.split("\\|");
-        boolean status = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-        String deadlineStr = parts[3].trim();
-        LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
+        boolean status = isMark(Utils.removeExtraSpaces(parts[1]));
+        String description = Utils.removeExtraSpaces(parts[2]);
+        String deadlineStr = Utils.removeExtraSpaces(parts[3]);
+        LocalDateTime deadline = Utils.convertToLocalDateTime(deadlineStr);
         return new Deadline(description, status, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
@@ -106,12 +109,12 @@ public class Storage {
      */
     public Event convertToEvent(String string) throws DateTimeParseException {
         String[] parts = string.split("\\|");
-        boolean status = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-        String startTimeStr = parts[3].trim();
-        String endTimeStr = parts[4].trim();
-        LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
-        LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DATE_TIME_FORMATTER);
+        boolean status = isMark(Utils.removeExtraSpaces(parts[1]));
+        String description = Utils.removeExtraSpaces(parts[2]);
+        String startTimeStr = Utils.removeExtraSpaces(parts[3]);
+        String endTimeStr = Utils.removeExtraSpaces(parts[4]);
+        LocalDateTime startTime = Utils.convertToLocalDateTime(startTimeStr);
+        LocalDateTime endTime = Utils.convertToLocalDateTime(endTimeStr);
         return new Event(description, status, startTime, endTime, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
