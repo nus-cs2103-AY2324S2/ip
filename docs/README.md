@@ -2,7 +2,7 @@
 > [!NOTE]
 > Life lacks excitement without tasks - Andelu
 
-Andelu Bot is here to help you keep track of all your tasks, ensuring your life is both meaningful and seamless.
+Andelu Task Bot is here to help you keep track of all your tasks, ensuring your life is both meaningful and seamless.
 It is:
 
 - Text based
@@ -13,10 +13,11 @@ It is:
 
 To use  Andelu Bot, follow these steps:
 
-1. Download the `latest` jar file from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
-2. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
-3. Add your tasks (Todo, Deadline, Event)
-4. Let Andelu Bot manage your tasks😉
+1. Ensure you have Java version `11` or above installed on your Computer.
+2. Download the `latest` jar file from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
+3. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
+4. Add your tasks (Todo, Deadline, Event) via Command Line Interface (CLI)
+5. Let Andelu Bot manage your tasks😉
 ![Ui](https://github.com/AndrewOng2066/ip/assets/156929179/5edfabda-b64a-4fe0-8328-510581945530)
 
 And it is **FREE** to use! 🚫💵
@@ -49,7 +50,10 @@ And it is **FREE** to use! 🚫💵
 ## Java Developer Guide
 Entry point for Andelu Bot (Duke.java):
 ```
-public static void main(String[] args) {
-        new Duke("duke").run();
+public class Launcher {
+
+    public static void main(String[] args) {
+        Application.launch(MainGui.class, args);
     }
+}
 ```
