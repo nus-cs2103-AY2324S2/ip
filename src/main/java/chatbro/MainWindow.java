@@ -3,6 +3,7 @@ package chatbro;
 import javafx.fxml.FXML;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,12 +26,13 @@ public class MainWindow extends AnchorPane {
     private boolean isRunning = true;
     private ChatBro chatbro;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image chatBroImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image chatBroImage = new Image(this.getClass().getResourceAsStream("/images/DaBro.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.getChildren().addAll(
             DialogBox.getChatbroDialog(Ui.welcomeMessage(), chatBroImage)
         );
@@ -46,8 +48,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText().toLowerCase();
-        if (input.equals("bye")) {
+        String input = userInput.getText();
+        if (input.equalsIgnoreCase("bye")) {
             isRunning = false;
         }
         String response = getResponse(input);
@@ -59,7 +61,7 @@ public class MainWindow extends AnchorPane {
         // Reused from https://github.com/nus-cs2103-AY2324S2/ip/pull/21/
         // code idea taken from Shu Heng's MainWindow.java
         if (!isRunning) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
             pause.setOnFinished(event -> {
                 Platform.exit();
             });

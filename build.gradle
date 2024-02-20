@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("ChatBro.ChatBro")
+    mainClass.set("chatbro.Launcher")
 }
 
 shadowJar {

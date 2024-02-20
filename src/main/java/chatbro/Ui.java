@@ -60,7 +60,7 @@ public class Ui {
             if (TaskManager.getList().get(i) == null) {
                 break;
             }
-           sb.append(i + "." + TaskManager.getList().get(i).toString());
+           sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n");
         }
         return sb.toString();
     }

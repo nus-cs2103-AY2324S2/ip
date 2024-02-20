@@ -10,10 +10,10 @@ public class Finder {
         for (int i = 1; i <= TaskManager.getTaskCount(); i++) {
             if (TaskManager.getTask(i).getDescription().contains(keyword)) {
                 if (count == 0) {
-                    sb.append("Here are the matching tasks in your list bro:");
+                    sb.append("Here are the matching tasks in your list bro:" + "\n");
                 }
                 count++;
-                sb.append(count + ". " + TaskManager.getTask(i).toString());
+                sb.append(count + ". " + TaskManager.getTask(i).toString() + "\n");
             }
         }
         if (count == 0) {

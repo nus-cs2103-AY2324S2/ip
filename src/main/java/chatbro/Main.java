@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private ChatBro chatBro;
     @Override
     public void start(Stage stage) {
         try {
@@ -19,7 +20,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("ChatBro");
-            fxmlLoader.<MainWindow>getController().setChatBro(new ChatBro());
+            chatBro = new ChatBro();
+            fxmlLoader.<MainWindow>getController().setChatBro(chatBro);
             stage.show();
         } catch (WrongFileFormatException wffe) {
             showAlert(wffe.getMessage());
@@ -27,9 +29,14 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    /**
+     * Shows an alert with window name "Information" with the given message.
+     *
+     * @param message The message to be shown in the alert.
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Pop-up");
+        alert.setTitle("Information");
         alert.setHeaderText(null);
         alert.setContentText(message);
 
