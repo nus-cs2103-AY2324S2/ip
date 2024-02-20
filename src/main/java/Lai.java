@@ -17,12 +17,17 @@ public class Lai {
      */
     public Lai() {
         tasks = new TaskList(storage.readTasksFile());
+
+        assert tasks.size() >= 0 : "TaskList initialization failed, tasks has a size of less than 0";
     }
 
     public String getResponse (String input) {
         String[] parsedInput = Parser.parse(input);
         String command = parsedInput[0];
         String desc = parsedInput[1];
+
+        // Assert that only the command and description are being parsed
+        assert parsedInput.length <= 2 : "parsedInput contains more than 2 elements";
 
         try {
             if (command.equals("mark")) {
@@ -53,25 +58,36 @@ public class Lai {
             } else if (command.equals("deadline")) {
                 Parser.checkDescription(desc);
 
+                // Assert that the description is not empty after checking
+                assert !desc.isEmpty() : "Deadline creation failed, " +
+                        "description for new Deadline is empty";
+
                 // Separating the deadline from description
                 String[] descBy = desc.split(" /by ", 2);
                 desc = descBy[0];
+
                 String by = "";
                 if (descBy.length > 1) {
                     by = descBy[1];
                 }
 
                 Deadline newTask = new Deadline(desc, by);
-
                 return Ui.printTaskAdded(newTask, tasks.add(newTask, storage));
             } else if (command.equals("todo")) {
                 Parser.checkDescription(desc);
 
-                ToDo newTask = new ToDo(desc);
+                // Assert that the description is not empty after checking
+                assert !desc.isEmpty() : "ToDo creation failed, " +
+                        "description for new ToDo is empty";
 
+                ToDo newTask = new ToDo(desc);
                 return Ui.printTaskAdded(newTask, tasks.add(newTask, storage));
             } else if (command.equals("event")) {
                 Parser.checkDescription(desc);
+
+                // Assert that the description is not empty after checking
+                assert !desc.isEmpty() : "Event creation failed, " +
+                        "description for new Event is empty";
 
                 // Separating the start from description
                 String[] descFrom = desc.split(" /from ", 2);
@@ -89,7 +105,6 @@ public class Lai {
                 }
 
                 Event newTask = new Event(desc, from, to);
-
                 return Ui.printTaskAdded(newTask, tasks.add(newTask, storage));
             } else if (command.equals("list")) {
                 return Ui.listTasks(tasks);
