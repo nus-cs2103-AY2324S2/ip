@@ -29,26 +29,26 @@ public class TaskList {
       boolean isInvalidIndex = isLessThanZero || isGreaterEqualSize;
 
       if (isInvalidIndex) {
-        return "[ERROR] Please provide a valid task index!";
+        return "[E-ERROR? Oh, good grief... ERROR] Invalid task index!";
       }
 
       if (token[0].equals("mark")) {
         if (tasks.get(index).getIsDone()) {
-          return "Seems like this task was already marked as done...";
+          return "Uh... Seem like this task was already marked as done...";
         }
         tasks.get(index).markAsDone();
-        stringBuilder.append("Okay... I've marked this task as done:\n");
+        stringBuilder.append("Okay... sigh. I've marked this task as done:\n");
         stringBuilder.append(SPACING).append(tasks.get(index));
       } else if (token[0].equals("unmark")) {
         if (!tasks.get(index).getIsDone()) {
-          return "Seems like this task was already marked as undone...";
+          return "Uh... Seem like this task was already marked as undone...";
         }
         tasks.get(index).markAsUndone();
-        stringBuilder.append("Okay... I've marked this task as not done:\n");
+        stringBuilder.append("Okay... sigh. I've marked this task as not done:\n");
         stringBuilder.append(SPACING).append(tasks.get(index));
       }
     } catch (NumberFormatException e) {
-      stringBuilder.append("[ERROR] Please provide a valid numeric index for the marking!");
+      stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid numeric index!");
     }
     return stringBuilder.toString();
   }
@@ -72,11 +72,11 @@ public class TaskList {
 
       Task d = new Deadline(tokenD[0].substring(9).trim(), deadlineDateTime);
       tasks.add(d);
-      stringBuilder.append("Okay... I've added this task:\n");
+      stringBuilder.append("Okay... sigh. I've added this task:\n");
       stringBuilder.append(SPACING).append(d).append("\n");
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
-      stringBuilder.append("[ERROR] Please follow the proper format!\n\n" +
+      stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
               "deadline task /by dd-mm-yyyy hhmm");
     }
     return stringBuilder.toString();
@@ -102,11 +102,11 @@ public class TaskList {
 
       Task e = new Events(tokenE[0].substring(6).trim(), fromDateTime, toDateTime);
       tasks.add(e);
-      stringBuilder.append("Okay... I've added this task:\n");
+      stringBuilder.append("Okay... sigh. I've added this task:\n");
       stringBuilder.append(SPACING).append(e).append("\n");
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
-      stringBuilder.append("[ERROR] Please follow the proper format!\n\n" +
+      stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
               "event task /from dd-mm-yyyy hhmm /to dd-mm-yyyy hhmm");
     }
     return stringBuilder.toString();
@@ -124,12 +124,12 @@ public class TaskList {
     StringBuilder stringBuilder = new StringBuilder();
 
     if (input.substring(4).trim().isEmpty()) {
-      return "[ERROR] Please follow the proper format!\n\n" +
+      return "[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
               "todo task";
     }
     Task t = new Todos(input.substring(4).trim());
     tasks.add(t);
-    stringBuilder.append("Okay... I've added this task:\n");
+    stringBuilder.append("Okay... sigh. I've added this task:\n");
     stringBuilder.append(SPACING).append(t).append("\n");
     stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
 
@@ -156,14 +156,14 @@ public class TaskList {
       boolean isInvalidIndex = isLessThanZero || isGreaterEqualSize;
 
       if (isInvalidIndex) {
-        return "[ERROR] Please provide a valid task index!";
+        return "[E-ERROR? Oh, good grief... ERROR] Invalid task index!";
       }
-      stringBuilder.append("Okay... I've removed this task:\n");
+      stringBuilder.append("Okay... sigh. I've removed this task:\n");
       stringBuilder.append(SPACING).append(tasks.get(index)).append("\n");
       stringBuilder.append("Now you have " + (tasks.size()-1) + " tasks in the list.");
       tasks.remove(index);
     } catch (NumberFormatException e) {
-      stringBuilder.append("[ERROR] Please provide a valid numeric index for deletion!");
+      stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid numeric index!");
     }
     return stringBuilder.toString();
   }
@@ -192,13 +192,10 @@ public class TaskList {
       } else {
         return "[ERROR] Unsupported task type!";
       }
-      stringBuilder.append("Okay... Task updated successfully:\n");
+      stringBuilder.append("Okay... sigh. Task updated successfully:\n");
       stringBuilder.append(SPACING).append(taskToUpdate).append("\n");
     } catch (IndexOutOfBoundsException e) {
-      stringBuilder.append("[ERROR] Please provide a valid task index!");
-    } catch (Exception e) {
-      stringBuilder.append("[ERROR] Seems like there's an error occurred while updating the task: ")
-              .append(e.getMessage());
+      stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid task index!");
     }
     return stringBuilder.toString();
   }
@@ -220,7 +217,7 @@ public class TaskList {
         matchingTasks.add(task);
       }
     }
-    stringBuilder.append("Okay... Here are the matching tasks in your list:\n");
+    stringBuilder.append("Okay... sigh. Here are the matching tasks in your list:\n");
     for (int i = 1; i <= matchingTasks.size(); i++) {
       stringBuilder.append(SPACING).append(i).append(".").append(matchingTasks.get(i - 1)).append("\n");
     }
@@ -240,7 +237,7 @@ public class TaskList {
       if (tasks.isEmpty()) {
         throw new DukeException("Your task list is empty...");
       }
-      stringBuilder.append("Okay... Here are the tasks in your list:\n");
+      stringBuilder.append("Okay... sigh. Here are the tasks in your list:\n");
       for (int i = 1; i <= tasks.size(); i++) {
         stringBuilder.append(SPACING).append(i).append(".").append(tasks.get(i - 1)).append("\n");
       }
