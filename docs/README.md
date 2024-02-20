@@ -1,5 +1,7 @@
 # Lite User Guide
 
+![https://github.com/Ryan-Reno/ip/blob/master/docs/Ui.png]
+
 Lite is a user-friendly chatbot, especially designed towards
 forgetful students to keep track of their ToDos, Events, and Deadlines.
 Lite will be able to keep track the dates and status of completion of tasks,
@@ -109,7 +111,7 @@ This task has been unmarked!
 ## List out all the tasks added
 
 Allow users to see the list of tasks that they have added so far.
-It also keeps track of the tasks that may have been added before (It has memory :astonished: ) 
+It also keeps track of the tasks that may have been added before 
 
 Format: list
 
