@@ -79,7 +79,7 @@ public class Storage {
      */
     public Task parseStringToTask(String line) throws ZackException {
         String[] parts = line.split(" \\| "); // split by " | "
-        // handle exceptions for when the text file is edited.
+        // handle exceptions for when the text file has incorrectly formatted instructions.
         if (parts.length < 4) {
             throw new ZackException("Check your task formatting!");
         }
@@ -89,11 +89,9 @@ public class Storage {
         LocalDateTime addedTime;
         switch (type) {
         case "T":
-            // ["T", "1", "homework", "2019-01-21T05:47:08.644"]
             addedTime = LocalDateTime.parse(parts[3]);
             return new Todo(description, isDone, addedTime);
         case "D":
-            // ["D", "1", "assignment", "2022-08-01 2200", "2019-01-21T05:47:08.644"]
             if (parts.length < 5) {
                 throw new ZackException("Check your deadline formatting!");
             }
@@ -103,7 +101,6 @@ public class Storage {
             if (parts.length < 5) {
                 throw new ZackException("Check your event formatting!");
             }
-            // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300", "2019-01-21T05:47:08.644"]
             addedTime = LocalDateTime.parse(parts[4]);
             String[] fromTo = parts[3].split(" to ");
             String from = fromTo[0];
