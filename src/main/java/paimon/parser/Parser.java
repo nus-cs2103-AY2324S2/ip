@@ -120,9 +120,17 @@ public class Parser {
                     "try: event <event_name> /by <from> /to <to>");
         }
         String[] parametersArr = parameters.split(" /from | /to ");
+
         if (parametersArr.length < 3) {
             throw new ChatBotParameterException("Missing description and/or from and/or to for event \n" +
                     "try: event <event_name> /by <from> /to <to>");
+        }
+
+        // Check on which /from or /to come first
+        if (parameters.split("/from")[0].length() > parameters.split("/to")[0].length()) {
+            String tempString = parametersArr[1];
+            parametersArr[1] = parametersArr[2];
+            parametersArr[2] = tempString;
         }
         return parametersArr;
     }
