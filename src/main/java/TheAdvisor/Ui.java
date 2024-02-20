@@ -14,8 +14,7 @@ public class Ui {
      * @return The introduction message.
      */
     public static String intro() {
-        return "Hello, I am The Advisor. The one and only advisor you will ever need in your investing "
-                + "journey. What can I do for you?";
+        return "I am Madara Uchiha, the god of all Shinobi. Tell me, what do you seek.";
     }
 
     /**
@@ -24,8 +23,7 @@ public class Ui {
      * @return The goodbye message.
      */
     public String goodbye() {
-        return "Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed"
-                + " to help you in your investing journey!";
+        return "Brave soul, may we meet again when our path meet. AMETERASU!!!";
     }
 
     /**
@@ -37,7 +35,8 @@ public class Ui {
     public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
         if (tasks.isEmpty()) {
-            return "Sorry, there are no tasks in your list. Start adding them :)";
+            String angryEmoji = "\uD83D\uDCA2";
+            return "There is nothing here! ARE YOU FOOLING ME!?!?" + angryEmoji;
         } else {
             return "Here are the tasks in your list: \n"
                     + tasks.stream()

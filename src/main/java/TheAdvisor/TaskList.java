@@ -33,7 +33,7 @@ public class TaskList implements Serializable {
      */
     public String addToList(Task task) {
         this.taskList.add(task);
-        return "Got it. I've added this task:\n"
+        return "Very well, your task has been added:\n"
                 + task.toString() + "\n"
                 + "Now you have " + taskList.size()
                 + " tasks in the list.";
@@ -46,17 +46,17 @@ public class TaskList implements Serializable {
      */
     public String deleteFromList(int index) {
         if (index < 0) {
-            return "Index is out of bounds! We use 1-based indexing here!";
+            return "YOU FOOL! We use 1-based indexing here.";
         } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to delete is not there";
             this.taskList.remove(index);
             assert !this.taskList.contains(task) : "Task was not removed from the list";
-            return "Noted. I've removed this task:\n" + task.toString() + "\n"
+            return "Very well. I've removed this task with my supreme visual prowess:\n" + task.toString() + "\n"
                     + "Now you have " + taskList.size() + " tasks in the list.";
         } else {
-            return "We use 1-based indexing for deletion, marking and unmarking! "
-                    + "Do try again :)";
+            return "Hey you, 1-based indexing for deletion, marking and unmarking in here. "
+                    + "Stop fooling around or I'll send you off to another dimension";
         }
     }
     /**
@@ -68,19 +68,21 @@ public class TaskList implements Serializable {
      */
     public String markTask(int index) {
         if (index < 0) {
-            return "Index is out of bounds! We use 1-based indexing here!";
+            return "YOU FOOL! We use 1-based indexing here.";
         } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to mark is present";
             if (!checkMarked(task)) {
                 task.markDone();
                 assert task.isDone : "Task is not marked as done after marking";
-                return "Nice! I've marked this task as done:\n" + task.toString();
+                return "Very well. I've marked this task as done with my supreme visual prowess:\n" + task.toString();
             } else {
-                return "The task is already marked! You can go ahead and mark/unmark other tasks :).";
+                return "Are you trying to fool me. The task is already marked! Fool me once more and "
+                        + "I'll make sure to send nine-tails on you";
             }
         } else {
-            return "Index is out of bounds! We use 1-based indexing here!";
+            return "Hey you, 1-based indexing for deletion, marking and unmarking in here. "
+                    + "Stop fooling around or I'll send you off to another dimension";
         }
     }
     /**
@@ -91,19 +93,21 @@ public class TaskList implements Serializable {
      */
     public String unmarkTask(int index) {
         if (index < 0) {
-            return "Index is out of bounds! We use 1-based indexing here!";
+            return "YOU FOOL! We use 1-based indexing here.";
         } else if (checkIndex(index)) {
             Task task = this.taskList.get(index);
             assert task != null : "Task to unmark is not present";
             if (!checkUnmarked(task)) {
                 task.unmark();
                 assert !task.isDone : "Task is still marked as done after unmarking";
-                return "OK, I've marked this task as not done yet:\n" + task.toString();
+                return "Very well. I've unmarked this task with my supreme visual prowess:\n" + task.toString();
             } else {
-                return "The task is already unmarked! You can go ahead and mark/unmark other tasks :).";
+                return "Are you trying to fool me. The task is already unmarked! Fool me once more and "
+                        + "I'll make sure to send nine-tails on you";
             }
         } else {
-            return "Index is out of bounds! We use 1-based indexing here!";
+            return "Hey you, 1-based indexing for deletion, marking and unmarking in here. "
+                    + "Stop fooling around or I'll send you off to another dimension";
         }
     }
     /**
@@ -144,9 +148,10 @@ public class TaskList implements Serializable {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
         if (matchingTasks.isEmpty()) {
-            return "Sorry! There are no tasks that match your search criteria.";
+            return "Unfortunate. There are nothing matching who you are finding despite me using my "
+                    + "all-seeing eyes to help you seek.";
         } else {
-            StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder toReturn = new StringBuilder("My eyes have shown it to me, those that you seek are here:\n");
             for (int j = 0; j < matchingTasks.size(); j++) {
                 Task task = matchingTasks.get(j);
                 toReturn.append(j + 1).append(". ").append(task.toString()).append("\n");

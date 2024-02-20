@@ -84,8 +84,8 @@ public class TheAdvisor implements Serializable {
                 response = findRequest(keyword);
                 break;
             case WRONG:
-                response = "Incorrect prompt use. Please try again with these prompts: "
-                        + "todo, list, mark, unmark, bye, event, deadline, find";
+                response = "Stop fooling around or I'll wipe you off with my susanoo. Use the right inputs such as: "
+                        + "todo, list, mark, unmark, bye, event, deadline, find. OR ELSE!";
                 break;
             default:
                 throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
@@ -103,8 +103,9 @@ public class TheAdvisor implements Serializable {
             storage.saveTasks(taskList);
             return response;
         } else {
-            response = "Invalid format. Make sure that the format is: "
-                    + "mark + (number) to mark something on the list as completed.";
+            String evilSmirkEmoji = "\uD83D\uDE0F";
+            response = "If you want my help, then do it right. Mark it in the format of: mark + (number). "
+                    + "Or I'll burn you to crisp using my Ameterasu." + evilSmirkEmoji;
         }
         return response;
     }
@@ -115,8 +116,9 @@ public class TheAdvisor implements Serializable {
             storage.saveTasks(taskList);
             return response;
         } else {
-            response = "Invalid format. Make sure that the format is: "
-                    + "unmark + (number) to unmark something on the list.";
+            String evilSmirkEmoji = "\uD83D\uDE0F";
+            response = "If you want my help, then do it right. Unmark it in the format of: unmark + (number). "
+                    + "Or I'll burn you to crisp using my Ameterasu." + evilSmirkEmoji;
         }
         return response;
     }
@@ -126,16 +128,17 @@ public class TheAdvisor implements Serializable {
             response = taskList.deleteFromList(Integer.parseInt(str[1]) - 1);
             storage.saveTasks(taskList);
         } else {
-            response = "Invalid format. Make sure that the format is: "
-                    + "delete + (number) to delete something from the list.";
+            String evilSmirkEmoji = "\uD83D\uDE0F";
+            response = "If you want my help, then do it right. Delete it in the format of: delete + (number). "
+                    + "Or I'll burn delete you myself. MUAHAHAHAHAHA" + evilSmirkEmoji;
         }
         return response;
     }
     private String todoRequest(String todo) {
         String response;
         if (emptyDescription(todo)) {
-            response = "The description for todo cannot be empty. "
-                    + "The input should be <todo> + description";
+            response = "THE DESCRIPTION IS EMPTY!? ARE YOU TRYING TO ANGER THE GOD? Input todo + "
+                    + "description or you will face my wrath.";
         } else {
             ToDos toDos = new ToDos(todo);
             response = taskList.addToList(toDos);
@@ -152,11 +155,12 @@ public class TheAdvisor implements Serializable {
                 response = taskList.addToList(deadline);
                 storage.saveTasks(taskList);
             } catch (DateTimeException e) {
-                response = "Incorrect format of your timestamp! Please input YYYY-MM-DD HHmm";
+                response = "YOU FOOL. Your time format is wrong, change it to YYYY-MM-DD HHmm"
+                        + " before I put you in my genjutsu";
             }
         } else {
-            response = "Invalid deadline format. Please use the correct format: deadline + description + /by +"
-                    + " <YYYY-MM-DD HHmm>";
+            response = "YOU DARE GIVE ME THE WRONG FORMAT!? Provide me the right format following : deadline + "
+                    + "description + /by <YYYY-MM-DD HHmm> or you too, shall be placed under my genjutsu.";
         }
         return response;
     }
@@ -173,19 +177,19 @@ public class TheAdvisor implements Serializable {
                 response = taskList.addToList(events);
                 storage.saveTasks(taskList);
             } catch (DateTimeException e) {
-                response = "Incorrect format of your timestamp! Please input YYYY-MM-DD HHmm";
+                response = "YOU FOOL. Your time format is wrong, change it to YYYY-MM-DD HHmm"
+                        + " before I put you in my genjutsu";
             }
         } else {
-            response = "Invalid event format. " + "The input should be <event> + description + "
-                    + "/from <YYYY-MM-DD HHmm> + " + "/to <YYYY-MM-DD HHmm>";
+            response = "YOU DARE GIVE ME THE WRONG FORMAT!? Provide me the right format following :"
+                    + " event + description /from <YYYY-MM-DD HHmm> /to <YYYY-MM-DD HHmm>";
         }
         return response;
     }
     private String findRequest(String keyword) throws TheAdvisorException {
         String response;
         if (emptyDescription(keyword)) {
-            response = "Please key in the keyword of what you wish "
-                    + "to find please!";
+            response = "Key in the word you wish for me to seek. My eye sees everything.";
         } else {
             response = taskList.findItem(keyword);
         }
