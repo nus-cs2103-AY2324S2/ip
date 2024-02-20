@@ -97,7 +97,7 @@ public class Duke {
      */
     public String getResponse(String inputFromUser) {
         String response;
-        
+        Command command = new Command();
         try {
             Duke duke = new Duke(FILE_PATH);
             Instruction instruction = duke.getInstr(inputFromUser);
@@ -105,51 +105,28 @@ public class Duke {
             
             switch (instruction) {
             case LIST:
-                response = duke.ui.listing(duke.list);
+                response = command.getListResponse(duke.ui, duke.list);
                 break;
             case MARK:
-                duke.ui.handleMarkError(inputFromUser, duke.list);
-                Task taskToBeMarked = duke.parser.getTaskTobeMarked(inputFromUser, duke.list);
-                taskToBeMarked.markDone();
-                response = duke.ui.marking(taskToBeMarked);
-                duke.storage.changeFileContent(duke.list);
+                response = command.getMarkResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case UNMARK:
-                duke.ui.handleUnmarkError(inputFromUser, duke.list);
-                Task taskToBeUnmarked = duke.parser.getTaskToBeUnmarked(inputFromUser, duke.list);
-                taskToBeUnmarked.markUndone();
-                response = duke.ui.unmarking(taskToBeUnmarked);
-                duke.storage.changeFileContent(duke.list);
+                response = command.getUnmarkResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case TODO:
-                duke.ui.handleTodoError(inputFromUser);
-                Task todoTask = duke.parser.createToDo(inputFromUser);
-                response = duke.ui.echo(todoTask, duke.list);
-                duke.storage.addTaskToFile((todoTask));
+                response = command.getTodoResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case DEADLINE:
-                duke.ui.handleDeadlineError(inputFromUser);
-                Task deadlineTask = duke.parser.createDeadline(inputFromUser);
-                response = duke.ui.echo(deadlineTask, duke.list);
-                duke.storage.addTaskToFile((deadlineTask));
+                response = command.getDeadlineResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case EVENT:
-                duke.ui.handleEventError(inputFromUser);
-                Task eventTask = duke.parser.createEvent(inputFromUser);
-                response = duke.ui.echo(eventTask, duke.list);
-                duke.storage.addTaskToFile((eventTask));
+                response = command.getEventResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case DELETE:
-                int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
-                duke.ui.handleDeleteError(duke.list,indexOfTaskToDelete);
-                Task taskToDelete = duke.parser.getTaskToDelete(inputFromUser, duke.list);
-                response = duke.ui.deleting(taskToDelete, duke.list);
-                duke.list.delete(taskToDelete);
-                duke.storage.changeFileContent(duke.list);
+                response = command.getDeleteResponse(duke.ui, duke.parser, duke.storage, duke.list, inputFromUser);
                 break;
             case FIND:
-                String keyword = duke.parser.getKeywordForFind(inputFromUser);
-                response = duke.ui.finding(duke.list, keyword);
+                response = command.getFindResponse(duke.ui, duke.parser, duke.list, inputFromUser);
                 break;
             case BYE:
                 response = duke.ui.bye();
