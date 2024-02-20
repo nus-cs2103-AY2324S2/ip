@@ -13,7 +13,7 @@ public class Ui {
     private String chatBotName = "Toothless";
     private String greetingString = "Hi! " + chatBotName + " is " + chatBotName + "!\n"
             + "What can " + chatBotName + " do for human?\n";
-    private String exitString = "Bye. Hope to see you again soon!";
+    private String exitString = "Toothless will miss you, human. Toothless will be here when you need Toothless.";
 
     /**
      * Displays the welcome message to the user.
