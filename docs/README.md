@@ -185,9 +185,9 @@ descending order.
 
 Format: `sort (CRITERIA) (asc OR desc)`
 - There are currently only 3 criterias to sort by:
-  - alpha - sorts by alphabetical order of the description
-  - deadlines - sorts and only shows the deadlines in the task list by their due date
-  - addtime - sorts by the time that the task was added into the task list
+  - `alpha` - sorts by alphabetical order of the description
+  - `deadlines` - sorts and only shows the deadlines in the task list by their due date
+  - `addtime` - sorts by the time that the task was added into the task list
 - Note that the order of the task list will be permanently changed to the 
 new order after each sort. To change back to the original order, use the command
 `sort addtime asc`
