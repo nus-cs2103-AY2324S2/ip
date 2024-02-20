@@ -12,13 +12,18 @@ import java.io.IOException;
  */
 public class Mitsuki {
     /**
-     * Initiating the user's todo list.
+     * The user's todo list.
      */
     protected static TaskList toDoList;
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
 
+    /**
+     * A constructor for a Mitsuki object
+     *
+     * @param filePath the file where the saved list can be found, if it exists.
+     */
     public Mitsuki(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -37,6 +42,9 @@ public class Mitsuki {
         }
     }
 
+    /**
+     * Runs the Mitsuki chatbot and takes in user commands.
+     */
     public void run() {
         // Greeting the user.
         ui.greet();

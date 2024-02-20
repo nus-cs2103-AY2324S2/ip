@@ -21,6 +21,12 @@ public class Parser {
      */
     protected ArrayList<String> commands = new ArrayList<String>();
     private Ui ui = new Ui();
+
+    /**
+     * A constructor for a Parser object.
+     * Adds all currently available commands to the list of commands
+     * that will be used by the Parser object.
+     */
     public Parser() {
         // Adding the commands to the list of commands Mitsuki can execute.
         this.commands.add("help");
@@ -34,6 +40,12 @@ public class Parser {
         this.commands.add("bye");
     }
 
+    /**
+     * Processes user input and calls the relevant method based
+     * on what user comand is.
+     *
+     * @param command the command to be executed.
+     */
     public void parse(String command) {
         // The loop that takes in user input and determines what to do.
         while (command != null) {

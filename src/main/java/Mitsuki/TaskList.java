@@ -17,7 +17,6 @@ public class TaskList {
     public TaskList(ArrayList<Task> list) {
         TaskList.list = list;
     }
-
     public void add(Task task) {
         list.add(task);
     }
