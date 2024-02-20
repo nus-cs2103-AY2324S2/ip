@@ -88,7 +88,7 @@ public class Ui {
     public String showDeadlinesEventsOnDate(Task[] tasks, int taskNum, LocalDate dateToCheck) {
         StringBuilder result = new StringBuilder();
         result.append("     Deadlines/Events occurring on ")
-                .append(dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append(dateToCheck.format(DateTimeFormatter.ofPattern("d MMM yyyy")))
                 .append(":\n");
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] instanceof Deadline) {
@@ -121,18 +121,21 @@ public class Ui {
 
     /**
      * Shows the matching tasks.
-     * @param matchingTasks The matching tasks.
+     * @param keyword The keyword to match.
      * @return The matching tasks.
      */
-    public String showMatchingTasks(String... matchingTasks) {
+    public String showMatchingTasks(String keyword) {
         StringBuilder result = new StringBuilder();
         result.append("     Here are the matching tasks in your list:\n");
-        if (matchingTasks.length == 0) {
-            result.append("     No matching tasks found.\n");
-        } else {
-            for (int i = 0; i < matchingTasks.length; i++) {
-                result.append("     ").append(i + 1).append(".").append(matchingTasks[i]).append("\n");
+        int matchCount = 0;
+        for (Task task : TaskList.getTasks()) {
+            if (task != null && task.description.contains(keyword)) {
+                result.append("     ").append(matchCount + 1).append(".").append(task).append("\n");
+                matchCount++;
             }
+        }
+        if (matchCount == 0) {
+            result.append("     No matching tasks found.\n");
         }
         return result.toString();
     }
