@@ -46,11 +46,12 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "BadApple"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run {
     standardInput = System.in
+    enableAssertions = true
 }
