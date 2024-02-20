@@ -82,6 +82,7 @@ public class Storage {
    * Saves the given list of tasks to the file.
    *
    * @param tasks The list of tasks to be saved.
+   * @throws MortyException If there is an error saving the tasks.
    */
   public void save(TaskList tasks) throws MortyException {
     try {
@@ -97,6 +98,8 @@ public class Storage {
 
   /**
    * Archives the tasks to a file.
+   * 
+   * @throws MortyException If there is an error archiving the tasks.
    */
   public void archive() throws MortyException {
     try {
