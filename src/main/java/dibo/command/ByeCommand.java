@@ -5,24 +5,17 @@ import dibo.TaskList;
 import dibo.Ui;
 
 /**
- * Class to represent the bye command.
+ * The ByeCommand class represents a command to end the interaction with Dibo.
  */
 public class ByeCommand extends Command {
 
-    /**
-     * Run the bye command.
-     *
-     * @param taskList The TaskList object which contains all the tasks.
-     * @param ui The Ui object which is responsible for printing the goodbye message.
-     * @param storage The Storage object which is responsible to save the changes into a text file.
-     */
+    @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         ui.sayBye();
     }
 
     /**
-     * Flag to the main program that there should not be any command after this.
-     * @return A boolean true value to signal that this is the end.
+     * Returns a boolean false to signal that the interaction with Dibo has ended.
      */
     @Override
     public boolean isBye() {

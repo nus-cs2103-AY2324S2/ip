@@ -6,30 +6,23 @@ import dibo.Ui;
 import dibo.exception.DiboException;
 
 /**
- * Class to handle a command which finds tasks with a specified keyword.
+ * The FindCommand class represents a command to find task(s) with the specified keyword(s).
  */
 public class FindCommand extends Command {
     private final String[] keywords;
 
     /**
-     * Constructor for the FindCommand class.
+     * Constructs a new FindCommand object with the specified parameters.
      *
-     * @param keywords The keywords we are using to find the tasks.
+     * @param keywords The keyword(s) we are using to find the task(s).
      */
     public FindCommand(String ... keywords) {
         this.keywords = keywords;
     }
 
-    /**
-     * Run the find task command.
-     *
-     * @param taskList The TaskList object which contains all the tasks.
-     * @param ui The Ui object which is responsible for printing the marked message.
-     * @param storage The Storage object which is responsible to save the changes into a text file.
-     * @throws DiboException when an error occurs when we cannot find the task.
-     */
+    @Override
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
-        ui.showFound(taskList.getTasksWithKeywords(this.keywords));
+        ui.storeFoundMessage(taskList.getTasksWithKeywords(this.keywords));
     }
 
 }

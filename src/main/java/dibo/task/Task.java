@@ -3,7 +3,7 @@ package dibo.task;
 import java.util.Arrays;
 
 /**
- * Class to represent a task.
+ * The Task class represents a task of the user.
  */
 public abstract class Task {
     private String description;
@@ -11,9 +11,9 @@ public abstract class Task {
 
 
     /**
-     * Constructor for the Task class.
+     * Constructs a new Deadline object with the specified parameters.
      *
-     * @param description The description of the task.
+     * @param description The String description of the task.
      */
     public Task(String description) {
         this.description = description.trim();
@@ -24,7 +24,6 @@ public abstract class Task {
      * Returns the string representation for the task,
      * usually for the display format in the ui.
      *
-     * @return The string representation of the task for displaying.
      */
     @Override
     public String toString() {
@@ -32,14 +31,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;
@@ -48,22 +47,22 @@ public abstract class Task {
     /**
      * Returns the string representation of the task,
      * usually for saving in the text file.
-     *
-     * @return The string representation of the task for saving.
      */
     public String getSaveFormat() {
         return (this.isDone ? "1 | " : "0 | ") + this.description;
     }
 
+    /**
+     * Returns a boolean value to signal if the task is done.
+     */
     public boolean isDone() {
         return isDone;
     }
 
     /**
-     * Returns true if the description contains the specified keywords.
+     * Returns true if the description contains ALL the specified keywords.
      *
      * @param keywords The specified keywords.
-     * @return True if the description has all the keywords, false otherwise.
      */
     public boolean hasKeywords(String[] keywords) {
         return Arrays.stream(keywords)

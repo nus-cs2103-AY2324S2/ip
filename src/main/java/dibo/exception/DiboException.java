@@ -1,14 +1,14 @@
 package dibo.exception;
 
 /**
- * Class to handle exception related to the Dibo chatbot.
+ * The DiboException class represents an exception that occurs when interacting with Dibo.
  */
 public class DiboException extends Exception {
 
     /**
-     * Constructor for the DiboException
+     * Constructs a new DiboException object with the specified parameters.
      *
-     * @param errorMessage Error message to be printed for the user.
+     * @param errorMessage The error message of the exception.
      */
     public DiboException(String errorMessage) {
         super(errorMessage);

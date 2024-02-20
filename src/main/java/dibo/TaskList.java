@@ -6,16 +6,17 @@ import dibo.exception.DiboException;
 import dibo.task.Task;
 
 /**
- * Class to store all the tasks.
+ * The TaskList class represents the entity to keep all the tasks of the user.
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
     private int size;
 
     /**
-     * Constructs the TaskList class.
+     * Constructs a new TaskList object.
      *
-     * @param storage The ArrayList returned from loading the text file.
+     * @param storage The ArrayList which contains all the current tasks of the user.
+     *                It is loaded from the text file.
      */
     public TaskList(ArrayList<Task> storage) {
         assert storage != null : "The ArrayList should not be null";
@@ -24,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Takes in a task and adds it into the TaskList.
+     * Adds a new task into the TaskList.
      *
      * @param task The task to be added.
      */
@@ -98,8 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Takes in an index, marks the task at that index as done
-     * and returns the string representation of that task.
+     * Marks the task at as done and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
      * @throws DiboException If there is no such task with the index.
@@ -118,8 +118,7 @@ public class TaskList {
     }
 
     /**
-     * Takes in an index, marks the task at that index as not done
-     * and returns the string representation of that task.
+     * Marks the task as not done and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
      * @throws DiboException If there is no such task with the index.
@@ -138,8 +137,7 @@ public class TaskList {
     }
 
     /**
-     * Takes in an index, deletes the task at that index
-     * and returns the string representation of that task.
+     * Deletes the task and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
      * @throws DiboException If there is no such task with the index.
@@ -159,7 +157,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the size of the TaskList to be shown to the user.
+     * Returns the size of the TaskList.
      */
     public int getSize() {
         return this.size;

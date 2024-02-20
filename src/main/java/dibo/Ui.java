@@ -1,60 +1,60 @@
 package dibo;
 
 /**
- * Class to deal with the interaction with the users.
+ * The Ui class represents the entity which is responsible for communicating with the user.
  */
 public class Ui {
     private final StringBuilder outputString;
 
     /**
-     * Constructs the Ui class.
+     * Constructs a new Ui object.
      */
     public Ui() {
         this.outputString = new StringBuilder();
     }
 
     /**
-     * Takes in the string representation of the taskList
-     * and stores it in the StringBuilder object to be returned later.
+     * Stores the string representation of the taskList
+     * to be outputted as response later.
      *
      * @param taskList The String representation of the taskList.
      */
-    public void showList(String taskList) {
+    public void storeList(String taskList) {
         this.outputString.append(taskList);
     }
 
     /**
-     * Adds the successfully unmarked message into the
-     * StringBuilder object to be returned later.
+     * Stores the successfully unmarked message
+     * to be outputted as response later.
      *
      * @param task The String representation of the task.
      */
-    public void showUnmarked(String task) {
+    public void storeUnmarkedMessage(String task) {
         String unmarkedMessage = "OK, I've marked this task as not done yet:\n";
         this.outputString.append(unmarkedMessage);
         this.outputString.append(task);
     }
 
     /**
-     * Adds the successfully marked message into the
-     * StringBuilder object to be returned later.
+     * Stores the successfully marked message
+     * to be outputted as response later.
      *
      * @param task The String representation of the task.
      */
-    public void showMarked(String task) {
+    public void storeMarkedMessage(String task) {
         String markedMessage = "OK, I've marked this task as done:\n";
         this.outputString.append(markedMessage);
         this.outputString.append(task);
     }
 
     /**
-     * Adds the successfully deleted message into the
-     * StringBuilder object to be returned later.
+     * Stores the successfully deleted message
+     * to be outputted as response later.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
      */
-    public void showDeleted(String task, int size) {
+    public void storeDeletedMessage(String task, int size) {
         String deletedMessage = "Noted. I'm removing this task:\n";
         this.outputString.append(deletedMessage);
         this.outputString.append(task);
@@ -63,13 +63,13 @@ public class Ui {
     }
 
     /**
-     * Adds the successfully added message into the
-     * StringBuilder object to be returned later.
+     * Stores the successfully added message
+     * to be outputted as response later.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
      */
-    public void showAdded(String task, int size) {
+    public void storeAddedMessage(String task, int size) {
         String addedMessage = "Good news sir! I've added this task:\n";
         this.outputString.append(addedMessage);
         this.outputString.append(task);
@@ -78,21 +78,20 @@ public class Ui {
     }
 
     /**
-     * Takes in the string representation of the tasks with the specified keyword(s)
-     * and stores it in the StringBuilder object to be returned later.
+     * Stores the task(s) with the specified keyword(s)
+     * to be outputted as response later.
      *
      * @param tasksWithKeywords The string representation of the tasks
      *                         that contains the specified keyword.
      */
-    public void showFound(String tasksWithKeywords) {
+    public void storeFoundMessage(String tasksWithKeywords) {
         String foundMessage = "Good news sir! We've found the tasks in your list:\n";
         this.outputString.append(foundMessage);
         this.outputString.append(tasksWithKeywords);
     }
 
     /**
-     * Adds the goodbye message into the
-     * StringBuilder object to be returned later.
+     * Adds the goodbye message to be outputted as response later.
      */
     public void sayBye() {
         String goodbyeMessage = "Bye sir! Always happy to assist you :D\nHope to see you again soon!";

@@ -6,13 +6,13 @@ import dibo.Ui;
 import dibo.exception.DiboException;
 
 /**
- * Class to handle a command which mark a task as done.
+ * The MarkCommand class represents a command to mark a task in TaskList as done.
  */
 public class MarkCommand extends Command {
     private final int taskId;
 
     /**
-     * Constructor for the MarkCommand class.
+     * Constructs a new MarkCommand object with the specified parameters.
      *
      * @param taskId The index of the task to be mark as done in the TaskList.
      */
@@ -20,16 +20,9 @@ public class MarkCommand extends Command {
         this.taskId = taskId;
     }
 
-    /**
-     * Run the mark task as not done command.
-     *
-     * @param taskList The TaskList object which contains all the tasks.
-     * @param ui The Ui object which is responsible for printing the marked message.
-     * @param storage The Storage object which is responsible to save the changes into a text file.
-     * @throws DiboException when an error occurs when trying to save the changes into a text file.
-     */
+    @Override
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
-        ui.showMarked(taskList.markTask(taskId));
+        ui.storeMarkedMessage(taskList.markTask(taskId));
         storage.saveData(taskList);
     }
 }

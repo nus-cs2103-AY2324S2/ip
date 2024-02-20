@@ -19,15 +19,15 @@ import dibo.command.UnmarkCommand;
 import dibo.exception.DiboException;
 
 /**
- * The class to make sense of the commands given by the user.
+ * The Parser class represents the parser to make sense of the user input.
  */
 public class Parser {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Takes in the command and tries to make sense of it.
-     * Returns a Command object which can be run at the end.
+     * Returns a Command object which can be executed to provide desired result and output.
      *
+     * @param fullCommand The String representation of the user input/command.
      * @throws DiboException If an error occurs when parsing.
      */
     public static Command parse(String fullCommand) throws DiboException {

@@ -18,14 +18,16 @@ import dibo.task.Task;
 import dibo.task.ToDo;
 
 /**
- * The class to load data from and save data to the text file.
+ * The Storage class represents the entity which interacts with the hardware, text file.
+ * It is responsible for loading thr data from the text file
+ * as well as saving the changes to it.
  */
 public class Storage {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final String filePath;
 
     /**
-     * Constructs the Storage class.
+     * Constructs a new Storage object.
      *
      * @param filePath The relative file path to the text file.
      */
@@ -36,7 +38,6 @@ public class Storage {
     /**
      * Loads the data from the text file and returns an ArrayList.
      *
-     * @return An ArrayList to be used to instantiate the TaskList object.
      * @throws DiboException If an error occurs when loading.
      */
     public ArrayList<Task> loadData() throws DiboException {

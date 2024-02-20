@@ -7,32 +7,25 @@ import dibo.exception.DiboException;
 import dibo.task.ToDo;
 
 /**
- * Class to handle the command which adds a to-do task.
+ * The AddToDoCommand class represents a command to add a to-do task to TaskList.
  */
 public class AddToDoCommand extends Command {
     private final String description;
 
     /**
-     * Constructor for the AddToDoCommand class.
+     * Constructs a new AddToDoCommand object with the specified parameters.
      *
-     * @param description The description of the to-do task.
+     * @param description The String description of the to-do task.
      */
     public AddToDoCommand(String description) {
         this.description = description;
     }
 
-    /**
-     * Run the add to-do task command.
-     *
-     * @param taskList The TaskList object which contains all the tasks.
-     * @param ui The Ui object which is responsible for printing the added message.
-     * @param storage The Storage object which is responsible to save the changes into a text file.
-     * @throws DiboException when an error occurs when trying to save the changes into a text file.
-     */
+    @Override
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
         ToDo toDo = new ToDo(this.description);
         taskList.addTask(toDo);
-        ui.showAdded(toDo.toString(), taskList.getSize());
+        ui.storeAddedMessage(toDo.toString(), taskList.getSize());
         storage.saveData(taskList);
     }
 }

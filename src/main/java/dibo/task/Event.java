@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class to represent an event.
+ * The Deadline class represents an event task of the user.
  */
 public class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
 
     /**
-     * Constructor for the Event class.
+     * Constructs a new Event object with the specified parameters.
      *
-     * @param description The description of the task.
-     * @param start The date the event starts.
-     * @param end The date the event ends.
+     * @param description The String description of the task.
+     * @param start The LocalDate object for the date the event starts.
+     * @param end The LocalDate object for the date the event ends.
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -23,12 +23,6 @@ public class Event extends Task {
         this.end = end;
     }
 
-    /**
-     * Returns the string representation for the event task,
-     * usually for the display format in the ui.
-     *
-     * @return The string representation of the event task for displaying.
-     */
     @Override
     public String toString() {
         String outputStartString = this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
@@ -37,12 +31,6 @@ public class Event extends Task {
                 + " to: " + outputEndString + ")";
     }
 
-    /**
-     * Returns the string representation of the event task,
-     * usually for saving in the text file.
-     *
-     * @return The string representation of the event task for saving.
-     */
     @Override
     public String getSaveFormat() {
         String outputStartString = this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
