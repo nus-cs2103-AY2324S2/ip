@@ -14,7 +14,7 @@ If you're new here, you can start with [Getting Started](#getting-started). :ful
 
 If you have used Dibo before, you can jump straight to Dibo's [Features and Commands](#features-and-commands). :new_moon:
 
-<img src="Ui.png" width="100%" display='block' margin-left="auto" margin-right="auto"/>
+<img src="./docs/Ui.png" width="100%" display='block' margin-left="auto" margin-right="auto"/>
 
 **Figure 1**: Example of Dibo's GUI.
 
