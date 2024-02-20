@@ -1,5 +1,5 @@
 # Andelu Task Bot
-> [!NOTE]
+> [!NOTE] Hello
 > Life lacks excitement without tasks - Andelu
 
 Andelu Bot is here to help you keep track of all your tasks, ensuring your life is both meaningful and seamless.
