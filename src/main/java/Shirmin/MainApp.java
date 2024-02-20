@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Main application class for the Shirmin chatbot.
+ * Handles the graphical user interface and user interactions.
+ */
 public class MainApp extends Application{
 
     private ScrollPane scrollPane;
@@ -26,11 +30,23 @@ public class MainApp extends Application{
     final int panePrefHeight = 535;
     final int userInputWidth = 325;
     final int sendButtonWidth = 55;
+    final Double anchorPaneOffset = 1.0;
+
+    /**
+     * Initializes the Shirmin chatbot.
+     *
+     * @throws Exception If an error occurs during initialization.
+     */
     @Override
     public void init() throws Exception {
         shirmin = new Shirmin();
     }
 
+    /**
+     * Starts the application, setting up the graphical user interface.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         Label helloWorld = new Label("Hello World!");
@@ -68,11 +84,11 @@ public class MainApp extends Application{
         userInput.setPrefWidth(userInputWidth);
         sendButton.setPrefWidth(sendButtonWidth);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setTopAnchor(scrollPane, anchorPaneOffset);
+        AnchorPane.setBottomAnchor(sendButton, anchorPaneOffset);
+        AnchorPane.setRightAnchor(sendButton, anchorPaneOffset);
+        AnchorPane.setLeftAnchor(userInput , anchorPaneOffset);
+        AnchorPane.setBottomAnchor(userInput, anchorPaneOffset);
 
         sendButton.setOnMouseClicked((event) -> handleUserInput());
         userInput.setOnAction((event) -> handleUserInput());
@@ -86,9 +102,11 @@ public class MainApp extends Application{
             .getResourceAsStream("/images/lulu.jpg")));
     private final Image min = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/Shirmin.jpg")));
+    
 
-    /** Functions Status
-     * 9/9 complete  hell yea        - retest whenever big changes are made
+    /**
+     * Handles user input and triggers appropriate actions.
+     * Current functions:
      * LIST           WORKING
      * MARK           WORKING
      * UNMARK         WORKING
@@ -108,6 +126,10 @@ public class MainApp extends Application{
         handleOtherInputs(input);
         userInput.clear();
     }
+
+    /**
+     * Handles saying goodbye and exits the application.
+     */
     private void sayGoodbye() {
         Label goodbyeText = new Label("Goodbye! See you again!");
         ImageView ShirminImageView = new ImageView(min);
