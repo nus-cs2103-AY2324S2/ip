@@ -12,7 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -50,12 +53,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var userDialogBox = new DialogBox(text, img);
+        userDialogBox.setBackground(new Background(new BackgroundFill(Color.SANDYBROWN, null, null)));
+        return userDialogBox;
     }
 
     public static DialogBox getZoeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var zoeDialogBox = new DialogBox(text, img);
+        zoeDialogBox.flip();
+        zoeDialogBox.setBackground(new Background(new BackgroundFill(Color.ROSYBROWN, null, null)));
+        return zoeDialogBox;
     }
 }
