@@ -55,10 +55,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /**
-     * Sets the properties this object and its children.
-     */
-    public void initialize() {
+    private void initialize() {
         this.setPrefSize(400.0, 600.0);
 
         setDialogContainer();
@@ -69,10 +66,12 @@ public class MainWindow extends AnchorPane {
         this.getChildren().addAll(scrollPane, userInput, sendButton);
         setAnchors();
     }
+
     private void setDialogContainer() {
         this.dialogContainer = new VBox();
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
     }
+
     private void setScrollPane() {
         this.scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
@@ -83,6 +82,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.setFitToWidth(true);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
+
     private void setSendButton() {
         this.sendButton = new Button("Send");
         sendButton.setPrefWidth(55.0);
@@ -90,6 +90,7 @@ public class MainWindow extends AnchorPane {
             handleUserInput();
         });
     }
+
     private void setTextField() {
         this.userInput = new TextField();
         userInput.setPrefWidth(325.0);
@@ -97,6 +98,7 @@ public class MainWindow extends AnchorPane {
             handleUserInput();
         });
     }
+
     private void setAnchors() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);

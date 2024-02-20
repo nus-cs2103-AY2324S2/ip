@@ -41,8 +41,7 @@ public class TaskList {
      * @throws ArgumentException if the provided index is out of bounds.
      */
     public void markTaskDone(int index) throws ArgumentException {
-        throwIfInvalidIndex(index);
-        list.get(index - 1).markDone();
+        this.getTask(index).markDone();
     }
 
     /**
@@ -51,8 +50,7 @@ public class TaskList {
      * @throws ArgumentException if the provided index is out of bounds.
      */
     public void markTaskNotDone(int index) throws ArgumentException {
-        throwIfInvalidIndex(index);
-        list.get(index - 1).markNotDone();
+        this.getTask(index).markNotDone();
     }
 
     /**
@@ -90,6 +88,15 @@ public class TaskList {
     }
 
     /**
+     * Updates the details of the task at the specified 1-based index.
+     *
+     * @throws ArgumentException if the provided index is out of bounds or if insufficient details are provided.
+     */
+    public void updateTask(int index, String details) throws ArgumentException {
+        this.getTask(index).update(details);
+    }
+
+    /**
      * Returns the list of tasks converted to their String save format.
      */
     public List<String> toSaveFormat() {
@@ -112,7 +119,7 @@ public class TaskList {
     }
 
     private void throwIfInvalidIndex(int index) throws ArgumentException {
-        if (index > list.size()) {
+        if (index > list.size() || index < 1) {
             throw new ArgumentException("Invalid index: " + index);
         }
     }

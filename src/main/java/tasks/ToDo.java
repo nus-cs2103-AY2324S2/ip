@@ -29,6 +29,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public void update(String details) {
+        this.description = details;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
