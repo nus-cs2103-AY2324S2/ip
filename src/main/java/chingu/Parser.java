@@ -1,6 +1,12 @@
 package chingu;
 
-import chingu.command.*;
+import chingu.command.AddCommand;
+import chingu.command.Command;
+import chingu.command.ListCommand;
+import chingu.command.EditCommand;
+import chingu.command.DeleteCommand;
+import chingu.command.FindCommand;
+import chingu.command.ExitCommand;
 import chingu.exception.NoCommandException;
 
 /**
