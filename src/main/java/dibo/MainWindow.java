@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     private Dibo dibo;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser2.png"));
     private final Image diboImage = new Image(this.getClass().getResourceAsStream("/images/DaDibo.png"));
 
     /**
