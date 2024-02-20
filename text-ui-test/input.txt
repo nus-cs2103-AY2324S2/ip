@@ -1,0 +1,9 @@
+todo simple task
+deadline simple assignment /by today
+event simple celebration /from 26 Jan 4pm /to 26 Jan 6pm
+list
+mark 2
+mark 3
+unmark 2
+list
+bye
