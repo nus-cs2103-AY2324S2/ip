@@ -63,7 +63,9 @@ public class TaskList {
      */
     public void delete(int label) throws PannaException {
         try {
+            int length = tasks.size();
             tasks.remove(label);
+            assert(tasks.size() == length - 1);
         } catch (Exception e) {
             throw new PannaException("Invalid label! The number of tasks now is "
                     + size()

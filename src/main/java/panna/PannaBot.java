@@ -75,6 +75,7 @@ public class PannaBot extends Application {
             return ui.listMessage(taskList);
         } else if (input.startsWith("mark")) {
             String[] words = input.split(" ", 2);
+            assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
                 ui.mark(taskList, i);
@@ -84,6 +85,7 @@ public class PannaBot extends Application {
             }
         } else if (input.startsWith("unmark")) {
             String[] words = input.split(" ", 2);
+            assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
                 ui.unmark(taskList, i);
@@ -93,19 +95,23 @@ public class PannaBot extends Application {
             }
         } else if (input.startsWith("event")) {
             String[] words = input.split(" ", 4);
+            assert words.length <= 4;
 
             return ui.event(taskList, words[1], parser.parse(words[2]), parser.parse(words[3]));
 
         } else if (input.startsWith("todo")) {
             String[] words = input.split(" ", 2);
+            assert words.length <= 2;
             return ui.todo(taskList, words[1]);
 
         } else if (input.startsWith("deadline")) {
             String[] words = input.split(" ", 3);
+            assert words.length <= 3;
             return ui.deadline(taskList, words[1], parser.parse(words[2]));
 
         } else if (input.startsWith("delete")) {
             String[] words = input.split(" ", 2);
+            assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
                 return ui.delete(taskList, i);
@@ -115,6 +121,11 @@ public class PannaBot extends Application {
 
         } else if (input.startsWith("find")) {
             String[] words = input.split(" ", 2);
+            for (String s: words) {
+                System.out.println(s);
+            }
+            System.out.println(words.length);
+
             return ui.find(taskList, words[1]);
 
         } else {

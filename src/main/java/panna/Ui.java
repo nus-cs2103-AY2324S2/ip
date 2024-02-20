@@ -18,25 +18,7 @@ public class Ui {
     }
 
 
-    /**
-     * Message to be displayed on launching the bot.
-     */
-    public String launchMessage() {
-        return "----------------------------------------------------------\n"
-                + "Hello! I'm Panna.\n"
-                + "What can I do for you?\n\n"
-                + "----------------------------------------------------------";
-    }
 
-    /**
-     * Message to be displayed on leaving the bot.
-     */
-
-    public String farewellMessage() {
-        return "----------------------------------------------------------\n"
-                + "Bye. Hope to see you again soon!\n\n"
-                + "----------------------------------------------------------";
-    }
 
     /**
      * Message to be displayed upon calling the list functionality of the bot
@@ -205,6 +187,7 @@ public class Ui {
 
             }
         }
+
         return "The matches are: \n"
                 + newList.printList();
     }
