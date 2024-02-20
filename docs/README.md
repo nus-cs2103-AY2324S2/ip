@@ -1,6 +1,6 @@
 # Plaudern User Guide
 
-![Plaudern](docs/Ui.png)
+![Screenshot of Plaudern](Ui.png)
 
 Plaudern is a task management application that allows users to record their upcoming tasks and update tasks' states. 
 It is designed to be simple and easy to use, and is in the form of an interactive chatbot which makes the communication more interesting.
