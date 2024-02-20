@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 import mike.task.Deadline;
@@ -15,7 +16,7 @@ import mike.task.Todo;
  * Storage is responsible for loading and saving {@link TaskList} instance data.
  * @author ningc
  */
-class Storage {
+public class Storage {
     private final String fileDirectory;
     private final String filePath;
     private File file;
@@ -25,8 +26,22 @@ class Storage {
      * @param filePath The relative path to the storage file.
      */
     Storage(String filePath) {
-        this.fileDirectory = filePath.split("/")[1];
+        String[] filePathComponents = filePath.split("/");
+        this.fileDirectory = filePathComponents[1];
         this.filePath = filePath;
+    }
+
+    /**
+     * Clear the storage file.
+     */
+    private void clearFile() {
+        try {
+            PrintWriter fileWriter = new PrintWriter(file);
+            fileWriter.print("");
+            fileWriter.close();
+        } catch (IOException e) {
+            assert false;
+        }
     }
 
     /**
@@ -45,6 +60,22 @@ class Storage {
         } catch (MikeException e) {
             Ui.displayError(e.getMessage());
             return new TaskList();
+        }
+    }
+
+    /**
+     * Archives the current file.
+     *
+     */
+    public void archive(String archiveFileName) throws MikeException {
+        try {
+            String archiveFileDirectory = fileDirectory + "/archive";
+            String archiveFilePath = archiveFileDirectory + "/" + archiveFileName;
+            initializeArchiveFileDirectory(archiveFileDirectory, archiveFilePath);
+            File archiveFile = initializeArchiveFile(archiveFilePath);
+            clearFile();
+        } catch (IOException e) {
+            throw new MikeException(e.getMessage());
         }
     }
 
@@ -73,16 +104,35 @@ class Storage {
         }
     }
 
+    private void initializeArchiveFileDirectory(String archiveFileDirectory, String archiveFilePath) {
+        if (new File(archiveFileDirectory).mkdirs()) {
+            Ui.display("Archive file location created at " + archiveFilePath);
+        } else {
+            Ui.display("Archive file location already exists");
+        }
+    }
+
     private File initializeFile() throws IOException {
         File file = new File(filePath);
         this.file = file;
 
         if (file.createNewFile()) {
-            Ui.display("File created: " + file.getName());
+            Ui.display("File '" + file.getName() + "'");
         } else {
             Ui.display("File already exists");
         }
         return file;
+    }
+
+    private File initializeArchiveFile(String archiveFilePath) throws IOException, MikeException {
+        File archiveFile = new File(archiveFilePath);
+        Files.copy(file.toPath(), archiveFile.toPath());
+        if (archiveFile.exists()) {
+            Ui.display("Archive '" + archiveFile.getName() + "' created");
+        } else {
+            throw new MikeException("Error: an archive exists with that name already");
+        }
+        return archiveFile;
     }
 
     /**

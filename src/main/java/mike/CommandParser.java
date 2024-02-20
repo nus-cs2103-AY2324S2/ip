@@ -2,16 +2,7 @@ package mike;
 
 import java.util.List;
 
-import mike.command.AddDeadlineCommand;
-import mike.command.AddEventCommand;
-import mike.command.AddTodoCommand;
-import mike.command.Command;
-import mike.command.DeleteCommand;
-import mike.command.ExitCommand;
-import mike.command.FindCommand;
-import mike.command.ListCommand;
-import mike.command.MarkCommand;
-import mike.command.UnmarkCommand;
+import mike.command.*;
 
 /**
  * CommandParser is the class responsible for parsing the command input and generating {@link Command} objects,
@@ -58,6 +49,8 @@ class CommandParser {
             return parseDelete();
         case FIND:
             return parseFind();
+        case ARCHIVE:
+            return parseArchive();
         case EOC:
             throw createError("Say something.");
         default:
@@ -208,6 +201,13 @@ class CommandParser {
         default:
             throw createError(fullFindUsage);
         }
+    }
+
+    private Command parseArchive() throws MikeException {
+        String usage = "Usage: archive [filename]";
+        String archiveFileName = getLiteral(usage);
+        consume(TokenType.EOC, usage);
+        return new ArchiveCommand(archiveFileName);
     }
 
     private boolean match(TokenType...types) {

@@ -56,7 +56,7 @@ public class Mike {
         try {
             List<Token> tokens = new CommandScanner(userInput).scanTokens();
             Command command = new CommandParser(tokens).parse();
-            String response = command.execute(taskList);
+            String response = command.execute(taskList, storage);
             return new MikeResponse(response, command.isExit());
         } catch (MikeException e) {
             return new MikeResponse(e.getMessage());
