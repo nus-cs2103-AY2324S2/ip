@@ -124,8 +124,8 @@ public class Storage {
         bw.close();
         br.close();
 
-        oldFile.delete();
-        temp.renameTo(new File(filePath));
+        assert oldFile.delete();
+        assert temp.renameTo(new File(filePath));
     }
 
     /**
@@ -163,8 +163,8 @@ public class Storage {
         bw.close();
         br.close();
 
-        oldFile.delete();
-        temp.renameTo(new File("./data/duke.txt"));
+        assert oldFile.delete();
+        assert temp.renameTo(new File("./data/duke.txt"));
     }
 
     /**
@@ -180,5 +180,7 @@ public class Storage {
         } finally {
             file.createNewFile();
         }
+
+        assert file.exists();
     }
 }
