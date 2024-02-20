@@ -37,7 +37,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setPadding(new Insets(0, 10, 0, 10));
-        displayPicture.setStyle("-fx-border-radius: 100%; -fx-background-radius: 100%; -fx-background-color: transparent;");
+        displayPicture.setStyle("-fx-border-radius: 100%; -fx-background-radius: 100%; "
+                        + "-fx-background-color: transparent;");
 
         dialog.setText(text);
         displayPicture.setImage(img);
