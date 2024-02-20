@@ -163,6 +163,16 @@ public class Ui {
      * @throws PannaException
      */
 
+    public String update(TaskList tasks, String taskn, String changedName) throws PannaException {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).taskName.equals(taskn)) {
+                tasks.get(i).setTaskName(changedName);
+                return "Name changed successfully!";
+            }
+        }
+
+        return "No task of such name found!";
+    }
     public String event(TaskList tasks, String event, LocalDate st, LocalDate end) throws PannaException {
         try {
 

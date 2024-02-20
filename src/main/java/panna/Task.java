@@ -66,6 +66,10 @@ public class Task {
         taskType = 'E';
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
     /**
      * Generates the status icon corresponding to if a task is marked or not
      * @return corresponding icon
