@@ -4,18 +4,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="231.0" prefWidth="414.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="TOP_RIGHT" depthTest="DISABLE" prefHeight="201.0" prefWidth="325.0" text="Label" textFill="#000000c2" wrapText="true">
+        <Label fx:id="dialog" alignment="CENTER_RIGHT" depthTest="DISABLE" prefHeight="201.0" prefWidth="250.0" style="-fx-label-padding: 10; -fx-background-color: #dddddd;" text="Label" textFill="#000000c2" wrapText="true">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
          <opaqueInsets>
             <Insets />
          </opaqueInsets></Label>
-        <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+      <SVGPath content="M50 0 L0 40 L0 5 Z" fill="#dddddd" style="-fx-translate-y: 15;" />
+        <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 15;" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

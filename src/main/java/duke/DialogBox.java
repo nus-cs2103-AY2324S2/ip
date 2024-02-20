@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
 
 /**
  * An example of a custom control using FXML.
@@ -59,6 +60,22 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        this.setStyle("-fx-background-color: #242424;");
+
+        // Loop through the children to find the Label and set its alignment to TOP_LEFT
+        for (Node node : getChildren()) {
+            if (node instanceof Label) {
+                ((Label) node).setAlignment(Pos.TOP_LEFT);
+            }
+        }
+
+        // Flip the SVGPath
+        for (Node node : getChildren()) {
+            if (node instanceof SVGPath) {
+                SVGPath svgPath = (SVGPath) node;
+                svgPath.setScaleX(-1); // Flip horizontally
+            }
+        }
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
