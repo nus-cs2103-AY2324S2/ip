@@ -1,61 +1,55 @@
 package theadvisor;
 
-import java.io.IOException;
-import java.util.Collections;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a dialog box in the application GUI. Each dialog box contains a message and an image.
+ * The appearance and alignment of the dialog box depend on whether it represents a user message or an advisor message.
  */
 public class DialogBox extends HBox {
-    @FXML
-    private Label dialog;
-    @FXML
+    private static final double IMAGE_SIZE = 50;
+    private Label text;
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Constructs a new DialogBox with the provided message and image.
+     * The appearance and alignment of the dialog box depend on whether it represents a user message or an
+     *      advisor message.
+     *
+     * @param text  The message text to be displayed in the dialog box.
+     * @param img   The image representing the speaker.
+     * @param isUserMessage  A boolean flag indicating whether the message is from the user (true) or advisor (false).
+     */
+    public DialogBox(String text, Image img, boolean isUserMessage) {
+        this.text = new Label(text);
+        displayPicture = new ImageView(img);
+
+        this.text.setWrapText(true);
+        displayPicture.setFitWidth(IMAGE_SIZE);
+        displayPicture.setFitHeight(IMAGE_SIZE);
+        Circle clip = new Circle(IMAGE_SIZE / 2, IMAGE_SIZE / 2, IMAGE_SIZE / 2);
+        displayPicture.setClip(clip);
+        if (isUserMessage) {
+            this.text.setStyle("-fx-background-color: #FFCCCC; -fx-padding: 8px;");
+            setAlignment(Pos.TOP_RIGHT);
+        } else {
+            this.text.setStyle("-fx-background-color: #CCCCFF; -fx-padding: 8px;");
+            setAlignment(Pos.TOP_LEFT);
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
-    }
-
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        this.getChildren().addAll(this.text, displayPicture);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     public static DialogBox getAdvisorDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        return new DialogBox(text, img, false);
     }
 }
