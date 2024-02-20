@@ -2,7 +2,7 @@
 
 ## About
 
-Dibo is a chatbot with an intuitive Graphical User Interface (GUI) that helps you track your tasks. :smile:
+Dibo is a chatbot with an intuitive Graphical User Interface (GUI) that helps you track your tasks.
 
 These are the tasks that Dibo supports:
 * To-do: Basic task with description
@@ -10,15 +10,15 @@ These are the tasks that Dibo supports:
 * Event: Task with a start and end date
 * Do-after: Task that can only be done after a certain date
 
-If you're new here, you can start with [Getting Started](#getting-started). :full_moon:
+If you're new here, you can start with [Getting Started](#getting-started). 
 
-If you have used Dibo before, you can jump straight to Dibo's [Features and Commands](#features-and-commands). :new_moon:
+If you have used Dibo before, you can jump straight to Dibo's [Features and Commands](#features-and-commands). 
 
-<img src="Ui.png" width="100%" display='block' margin-left="auto" margin-right="auto"/>
+<img src="Ui.png" width="70%" display='block' margin-left="auto" margin-right="auto"/>
 
 **Figure 1**: Example of Dibo's GUI.
 
-## Getting Started :smile:
+## Getting Started 
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 2. Download the latest  from [here](https://github.com/ziyang27/ip/releases/tag/v0.2).
@@ -210,7 +210,7 @@ Good news sir! We've found the tasks in your list:
 ---
 ### `bye` - Exit the bot
 
-Going so soon? :slightly_frowning_face:
+Going so soon?
 
 To exit the bot, you can type `bye`
 
