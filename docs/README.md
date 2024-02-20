@@ -1,13 +1,14 @@
-~~# UncleBob User Guide
+# UncleBob User Guide
+
 ***
-![Product screenshot](../docs/Ui.png)
+![Product screenshot](Ui.png)
 Uncle Bob is a Java CLI application which enables a user to include tasks, enabling the user to mark tasks, set dates for deadlines and events and also remind the user of daily upcoming tasks.
 ***
+
 ## Adding Todos: `todo`
 Adds a todo to the task list.
 
 Format: `todo DESCRIPTION`
-
 Example: `todo assignment 1`
 
 ![Todo](../images/Todo.png)
@@ -22,7 +23,7 @@ Example: `deadline quiz 2 /by 2024-02-19`
 ![Deadline](../images/Deadline.png)
 
 ## Adding Events: `event`
-Adds a event to the task list. Specifying the start and end date.
+Adds an event to the task list. Specifying the start and end date.
 
 Format: `event DESCRIPTION /from DATE /to DATE`
 
@@ -38,7 +39,7 @@ Format: `list`
 ![List](../images/List.png)
 
 ## Marking Completed Tasks: `mark`
-Marks a task as done. 
+Marks a task as done.
 
 Format: `mark INDEX`
 
