@@ -16,7 +16,6 @@ import javafx.application.Platform;
 public class Logic {
     private static final String DATA_FILE_DIRECTORY = "./data/";
     private static final String SAVE_FILE_NAME = "savefile.txt";
-    private static final String HISTORY_FILE_NAME = "history.txt";
     private Scanner scan;
     private CommandProcessor cmd;
     private boolean isStartUpSuccess = false;
@@ -30,7 +29,7 @@ public class Logic {
             scan = new Scanner(System.in);
             Storage storage = new Storage(DATA_FILE_DIRECTORY, SAVE_FILE_NAME);
             State startState = storage.getCurrState(Command.BYE);
-            HistoryManager historyManager = new HistoryManager(DATA_FILE_DIRECTORY, HISTORY_FILE_NAME, startState);
+            HistoryManager historyManager = new HistoryManager(startState);
             cmd = new CommandProcessor(storage, historyManager);
             isStartUpSuccess = true;
         } catch (HalException e) {

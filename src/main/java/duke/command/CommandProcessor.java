@@ -92,7 +92,6 @@ public class CommandProcessor {
         historyManager.updateHistory(currState);
         return result;
     }
-
     /**
      * Processes the DELETE command input to extract the task index to be deleted.
      *

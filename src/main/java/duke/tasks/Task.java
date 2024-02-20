@@ -8,7 +8,7 @@ import java.io.Serializable;
 public abstract class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String identifier;
-    private Boolean done;
+    private Boolean isDone;
     private final String taskName;
 
 
@@ -20,27 +20,27 @@ public abstract class Task implements Serializable {
      */
     public Task(String taskName, Boolean done) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = done;
         this.identifier = " ";
     }
 
     public void markDone() {
-        done = true;
+        isDone = true;
     }
 
     public void markUndone() {
-        done = false;
+        isDone = false;
     }
 
     public String getIdentifier() {
         return identifier;
     }
     public boolean getDone() {
-        return done;
+        return isDone;
     }
     @Override
     public String toString() {
-        return String.format("[%s] [%s] %s", identifier, done ? "X" : "  ", taskName);
+        return String.format("[%s] [%s] %s", identifier, isDone ? "X" : "  ", taskName);
     }
 
     public String getTaskName() {
@@ -48,7 +48,7 @@ public abstract class Task implements Serializable {
     }
 
     public String[] encode() {
-        return new String[]{identifier, done.toString(), taskName};
+        return new String[]{identifier, isDone.toString(), taskName};
     }
 }
 

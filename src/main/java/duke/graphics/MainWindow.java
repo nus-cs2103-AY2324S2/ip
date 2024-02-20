@@ -32,7 +32,9 @@ public class MainWindow extends AnchorPane {
             .getResourceAsStream("/images/dave.png")));
     private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/hal9000.png")));
-
+    /**
+     * Creates a dialog box that greets the user based on the Logic class' greet method
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
