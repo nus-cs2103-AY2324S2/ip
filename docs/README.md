@@ -5,7 +5,7 @@
 Watched too much anime but still can't get enough of your favourite tsundere waifu?<br>
 Look no further! Your friendly ~~(or not)~~ Tsundere chatbot assistant is here as your personal task manager!
 
-## Setting Up
+## Setting Up 🛠️
 All you need to do is, 
 1. Ensure you have Java `11` installed in your computer. [How to check](https://www.baeldung.com/java-check-is-installed)
    - If you do not have Java `11`, download it from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
@@ -16,7 +16,7 @@ All you need to do is,
 
 Now the GUI would have popped up and you can start managing your tasks!
 
-## Adding Tasks
+## Adding Tasks ➕
 
 There are three types of tasks which can you add: ToDos, Events and Deadlines.
 
@@ -25,7 +25,7 @@ __Format:__
  - `event [task], from [ ], to [ ]`
  - `deadline [task], by [YYYY-MM-DD]` 
 
-__Things to note:__
+💡 __Things to note:__
  - Omit the square brackets `[]` when entering the commands
  - Adding events currently supports any input for the `from` and `to` fields
  - Adding deadlines currently supports only the data format `YYYY-MM-DD`
@@ -36,7 +36,7 @@ __Things to note:__
 
 A confirmation response will be seen once a task has been successfully added with the notation `T`, `E` and `D` denoting _ToDos_, _Events_ and _Deadlines_ respectively.
 
-## Listing Tasks
+## Listing Tasks 📃
 
 You can list all recorded tasks.
 
@@ -47,7 +47,7 @@ __Format:__
 
 ![img.png](list.png)
 
-## Deleting Tasks
+## Deleting Tasks ➖
 
 You can delete tasks based on their index or task number.
 
@@ -55,7 +55,7 @@ __Format:__
 - `delete [task number]`
 
 
-__Things to note:__
+💡 __Things to note:__
 - Omit the square brackets `[]` when entering the commands
 - Inputting invalid task numbers will prompt you with the proper command format
 
@@ -65,7 +65,7 @@ __Things to note:__
 
 A confirmation response will be seen once a task has been successfully deleted.
 
-## Additional Features
+## Additional Features ✅🏷️🔍
 
 1. Marking and Unmarking tasks
 2. Tagging and Untagging tasks
@@ -78,42 +78,40 @@ __Format:__
 - `untag [task number] [tag name]`
 - `find [keyword]`
 
-__Things to note:__
+💡 __Things to note:__
 - Omit the square brackets `[]` when entering the commands
 - Inputting invalid task numbers will prompt you with the proper command format
 - You can tag each task with a maximum of 3 unique tags
 - The find command is currently case-sensitive
+- Tasks are unmarked by default denoted with `[ ]` while marked tasks are denoted with `[X]`
+- Tagged tasks have their tags appended after their description. Eg. `...borrow book #fun...`
 
 <br>
 <img src="tag.png" width="400" alt="mark/tag">
 
-Tasks are unmarked by default denoted with `[ ]` while marked tasks are denoted with `[X]`.
-<br>
-Tagged tasks have their tags appended after their description. Eg. `...borrow book #fun...`.
-
 <img src="find.png" width="400" alt="find">
 
-## Getting help
+## Getting help 🆘
 
 If you can't be bothered to read the rest of the User Guide or if you need help while using the program. `help` displays all the available commands.
 
-__Format:__
+__Format:__ 
 - `help`
 
 <br>
 <img src="help.png" width="400" alt="mark/tag">
 
-## Exiting program and Saving data
+## Exiting program and Saving data 💾
 
 __Format:__
 - `bye`
 
 Typing `bye` exits the program and automatically saves the current session data into a `data.txt` file. A new `data.txt` will be created if one doesn't exist already.
 
-## FAQ
+## FAQ ❓🙋‍♂️
 
-Q: Can I edit the data file directly or transfer it to another device? <br>
-A: Data storage is done by converting each task and their details to strings and parsing them when loading it for a new session. As such, invalid changes to the `data.txt` file could cause problems and it is not recommended to directly edit the file.
+__Q:__ Can I edit the data file directly or transfer it to another device? <br>
+__A:__ Data storage is done by converting each task and their details to strings and parsing them when loading it for a new session. As such, invalid changes to the `data.txt` file could cause problems and it is not recommended to directly edit the file.
 To transfer data to another device, just copy the `data.txt` file to the `data` directory of the `tsundere.jar` file.
 
 ## Acknowledgements for images
