@@ -29,7 +29,7 @@ public class Ui {
      * Displays the welcome message when the Duke application starts.
      */
     public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Hao Wen\n" + "What can I do for you?");
+        System.out.println("Hello! I'm PepegPro \n" + "What can I do for you?");
     }
 
     /**
