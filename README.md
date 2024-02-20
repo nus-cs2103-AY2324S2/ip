@@ -7,7 +7,7 @@ This is optimized for use via a Command Line Interface (CLI) while still having 
 
 ### Installation
 
-To get started with Cleo, follow these simple steps:
+To get started with Cleo, follow these simple steps 🎉:
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest cleo.jar from here.
