@@ -1,9 +1,10 @@
 package eve.tasks;
-
+/*
+ * This object is what is stored in the list
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -20,11 +21,11 @@ public class Task {
     }
 
     public void markAsDone() {
-        isDone = true; 
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        isDone = false; 
+        isDone = false;
     }
 
     @Override
@@ -35,5 +36,4 @@ public class Task {
     public String toStore() {
         return description;
     }
-
 }
