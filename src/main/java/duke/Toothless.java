@@ -35,7 +35,9 @@ public class Toothless {
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
 
     /**
-     * Instantiates the Toothless class when Launcher is run, which will run the main class and call this method.
+     * Main class of duke chatbot project. Upon running, creates a new ui to handle interactions with user and a parser to parse instructions
+     * from the user. Stores a txt file containing consequences of the instructions using Storage and parses the txt file for future
+     * use using the FileParser class.
      */
     public Toothless() {
         this.ui = new Ui();
@@ -109,7 +111,7 @@ public class Toothless {
     }
 
     /**
-     * Prints out line for formatting purposes when not running GUI
+     * print lines for formatting
      */
     static void printLines() {
         System.out.println("____________________________________________________________");
