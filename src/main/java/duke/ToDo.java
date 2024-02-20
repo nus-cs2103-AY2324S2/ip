@@ -17,15 +17,18 @@ public class ToDo extends Task {
     /**
      * Adds a new ToDo task to the specified task list with the provided description.
      *
-     * @param taskList    The task list to which the task will be added.
+     * @param taskList The task list to which the task will be added.
      * @param description The description of the to-do task.
+     * @return A string representing the result of adding the ToDo task.
      * @throws DukeException If an error occurs while adding the task.
      */
-    public static void addToDoTask(TaskList taskList, String description) throws DukeException {
+    public static String addToDoTask(TaskList taskList, String description) throws DukeException {
         taskList.addTask(new ToDo(description));
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
+        String result = "Got it. I've added this task:\n" +
+                taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
+                "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";
+        System.out.println(result);
+        return result;
     }
 
     /**

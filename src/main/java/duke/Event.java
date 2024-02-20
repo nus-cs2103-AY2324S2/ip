@@ -12,8 +12,8 @@ public class Event extends Task {
      * Creates an Event task with the given description, start, and end details.
      *
      * @param description The description of the task.
-     * @param start       The start details of the event.
-     * @param end         The end details of the event.
+     * @param start The start details of the event.
+     * @param end The end details of the event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -24,17 +24,20 @@ public class Event extends Task {
     /**
      * Adds an Event task to the task list with the specified description, start, and end details.
      *
-     * @param taskList     The task list to add the task to.
-     * @param description  The description of the task.
-     * @param start        The start details of the event.
-     * @param end          The end details of the event.
+     * @param taskList The task list to add the task to.
+     * @param description The description of the task.
+     * @param start The start details of the event.
+     * @param end The end details of the event.
+     * @return A string representing the result of adding the Event task.
      * @throws DukeException If there is an issue adding the task.
      */
-    public static void addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
+    public static String addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
         taskList.addTask(new Event(description, start, end));
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
+        String result = "Got it. I've added this task:\n" +
+                taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
+                "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";
+        System.out.println(result);
+        return result;
     }
 
     /**

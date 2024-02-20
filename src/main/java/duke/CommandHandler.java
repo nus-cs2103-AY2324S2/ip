@@ -11,69 +11,59 @@ public class CommandHandler {
      * Handles the user input command.
      *
      * @param userInput The user input command.
-     * @param tasks     The task list to be modified.
+     * @param taskList     The task list to be modified.
      * @throws DukeException If there is an issue handling the command.
      */
-    public static void handleCommand(String userInput, TaskList tasks) throws DukeException {
+    public static String handleCommand(String userInput, TaskList taskList) throws DukeException {
         String[] parsedCommand = Parser.parse(userInput);
         String commandType = parsedCommand[0].toLowerCase();
 
         switch (commandType) {
             case "bye":
-                Ui.showGoodbye();
-                System.exit(0);
-                break;
+                return Ui.showGoodbye();
             case "list":
-                listTasks(tasks);
-                break;
+                return listTasks(taskList);
             case "todo":
-                handleTodoCommand(parsedCommand, tasks);
-                break;
+                return handleTodoCommand(parsedCommand, taskList);
             case "deadline":
-                handleDeadlineCommand(userInput, tasks);
-                break;
+                return handleDeadlineCommand(userInput, taskList);
             case "event":
-                handleEventCommand(userInput, tasks);
-                break;
+                return handleEventCommand(userInput, taskList);
             case "delete":
-                handleDeleteCommand(parsedCommand, tasks);
-                break;
+                return handleDeleteCommand(parsedCommand, taskList);
             case "mark":
-                handleMarkCommand(parsedCommand, tasks);
-                break;
+                return handleMarkCommand(parsedCommand, taskList);
             case "unmark":
-                handleUnmarkCommand(parsedCommand, tasks);
-                break;
+                return handleUnmarkCommand(parsedCommand, taskList);
             case "find":
-                handleFindCommand(parsedCommand, tasks);
-                break;
+                return handleFindCommand(parsedCommand, taskList);
             default:
-                Ui.showInvalidCommand();
-                break;
+                return Ui.showInvalidCommand();
         }
     }
 
-    private static void listTasks(TaskList taskList) {
+    private static String listTasks(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
+            return "There are no tasks in your list.";
         } else {
-            System.out.println("Here " + (tasks.size() == 1 ? "is the task" : "are the tasks") + " in your list:");
+            StringBuilder result = new StringBuilder("Here " + (tasks.size() == 1 ? "is the task" : "are the tasks") + " in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).getStatusIcon());
+                result.append((i + 1)).append(".").append(tasks.get(i).getStatusIcon()).append("\n");
             }
+            return result.toString();
         }
     }
 
-    private static void handleTodoCommand(String[] parsedCommand, TaskList tasks) throws DukeException {
+    private static String handleTodoCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
         if (parsedCommand.length < 2) {
             throw new DukeException("Umm... The todo command is incomplete!");
         }
         String description = parsedCommand[1];
-        ToDo.addToDoTask(tasks, description);
+        return ToDo.addToDoTask(taskList, description);
     }
 
-    private static void handleDeadlineCommand(String userInput, TaskList taskList) throws DukeException {
+    private static String handleDeadlineCommand(String userInput, TaskList taskList) throws DukeException {
         if (userInput.length() <= 9) {
             throw new DukeException("Oops! The deadline command is incomplete.");
         }
@@ -85,10 +75,10 @@ public class CommandHandler {
         }
 
         String dueBy = descriptionAndDueBy[1];
-        Deadline.addDeadlineTask(taskList, descriptionAndDueBy[0], dueBy);
+        return Deadline.addDeadlineTask(taskList, descriptionAndDueBy[0], dueBy);
     }
 
-    private static void handleEventCommand(String userInput, TaskList taskList) throws DukeException {
+    private static String handleEventCommand(String userInput, TaskList taskList) throws DukeException {
         if (userInput.length() <= 6) {
             throw new DukeException("Uh oh! The event command is incomplete.");
         }
@@ -101,30 +91,40 @@ public class CommandHandler {
 
         String start = description[1];
         String end = description[2];
-        Event.addEventTask(taskList, description[0], start, end);
+        return Event.addEventTask(taskList, description[0], start, end);
     }
 
-    private static void handleDeleteCommand(String[] parsedCommand, TaskList tasks) throws DukeException {
+    private static String handleDeleteCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
         int index = parseIndex(parsedCommand);
-
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= taskList.size()) {
             throw new DukeException("Oops! Invalid delete command. Please provide a valid task number.");
         }
-
-        Task removedTask = tasks.deleteTask(index);
+        return taskList.deleteTask(index);
     }
 
-    private static void handleMarkCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+    private static String handleMarkCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+        if (parsedCommand.length < 2) {
+            throw new DukeException("Erm... Invalid mark command. Please provide a task number.");
+        }
         int index = parseIndex(parsedCommand);
-        taskList.markTaskAsDone(index);
+        if (index < 0 || index >= taskList.size()) {
+            throw new DukeException("Erm... Invalid mark command. Please provide a valid task number.");
+        }
+        return taskList.markTaskAsDone(index);
     }
 
-    private static void handleUnmarkCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+    private static String handleUnmarkCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+        if (parsedCommand.length < 2) {
+            throw new DukeException("Erm... Invalid unmark command. Please provide a task number.");
+        }
         int index = parseIndex(parsedCommand);
-        taskList.markTaskAsNotDone(index);
+        if (index < 0 || index >= taskList.size()) {
+            throw new DukeException("Erm... Invalid unmark command. Please provide a valid task number.");
+        }
+        return taskList.markTaskAsNotDone(index);
     }
 
-    private static void handleFindCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+    private static String handleFindCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
         if (parsedCommand.length < 2) {
             throw new DukeException("Umm... The find command is incomplete!");
         }
@@ -132,12 +132,13 @@ public class CommandHandler {
         ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
 
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i).getStatusIcon());
+                result.append((i + 1)).append(".").append(matchingTasks.get(i).getStatusIcon()).append("\n");
             }
+            return result.toString();
         }
     }
 

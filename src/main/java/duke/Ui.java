@@ -21,16 +21,15 @@ public class Ui {
     /**
      * Displays the welcome message to the user.
      */
-    public static void showWelcomeMessage() {
-        System.out.println("Hello! I'm Georgie.");
-        System.out.println("What can I do for you?");
+    public static String showWelcomeMessage() {
+        return "Hello! I'm Georgie. \nWhat can I do for you?";
     }
 
     /**
      * Displays the goodbye message to the user.
      */
-    public static void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -61,7 +60,7 @@ public class Ui {
     /**
      * Displays a message for an invalid command.
      */
-    public static void showInvalidCommand() {
-        System.out.println("I don't understand what you mean :c");
+    public static String showInvalidCommand() {
+        return "I don't understand what you mean :c";
     }
 }

@@ -25,17 +25,20 @@ public class Deadline extends Task {
     /**
      * Adds a Deadline task to the task list with the specified description and due by date.
      *
-     * @param taskList     The task list to add the task to.
-     * @param description  The description of the task.
-     * @param dueBy        The due by date of the task.
+     * @param taskList The task list to add the task to.
+     * @param description The description of the task.
+     * @param dueBy The due by date of the task.
+     * @return A string representing the result of adding the Deadline task.
      * @throws DukeException If there is an issue adding the task.
      */
-    public static void addDeadlineTask(TaskList taskList, String description, String dueBy) throws DukeException{
+    public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws DukeException {
         LocalDate dueByDate = parseDate(dueBy);
         taskList.addTask(new Deadline(description, dueByDate));
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
+        String result = "Got it. I've added this task:\n" +
+                taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
+                "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";
+        System.out.println(result);
+        return result;
     }
 
     /**
