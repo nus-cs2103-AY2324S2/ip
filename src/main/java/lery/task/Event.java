@@ -19,9 +19,10 @@ public class Event extends Task {
      * the start and end times from the description.
      *
      * @param description the description of the event task.
+     * @param isDone      the completion status of the task (true if done, false otherwise).
      */
-    public Event(String description) {
-        super(description.split("/")[0]);
+    public Event(String description, boolean isDone) {
+        super(description.split("/")[0], isDone);
         int fromId = description.indexOf("/from");
         int toId = description.indexOf("/to");
         this.start = description.substring(fromId + 6, toId - 1);
@@ -33,9 +34,10 @@ public class Event extends Task {
      *
      * @param event      the event description of the event task.
      * @param extraInfo  the extra information containing the start and end times.
+     * @param isDone      the completion status of the task (true if done, false otherwise).
      */
-    public Event(String event, String extraInfo) {
-        super(event);
+    public Event(String event, String extraInfo, boolean isDone) {
+        super(event, isDone);
         String[] x = extraInfo.split("-");
         this.start = x[0];
         this.end = x[1];

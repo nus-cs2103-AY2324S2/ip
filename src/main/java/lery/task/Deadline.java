@@ -18,24 +18,14 @@ public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Constructs a Deadline object with the specified description, extracting
-     * the deadline date from the description.
-     *
-     * @param description the description of the deadline task.
-     */
-    public Deadline(String description) {
-        super(description.split("/")[0]);
-        this.deadline = LocalDate.parse(description.split("/by ")[1], formatter);
-    }
-
-    /**
      * Constructs a Deadline object with the specified event name and extra information.
      *
      * @param event      the event description of the deadline task.
      * @param extraInfo  the extra information containing the deadline date.
+     * @param isDone     the completion status of the task (true if done, false otherwise).
      */
-    public Deadline(String event, String extraInfo) {
-        super(event);
+    public Deadline(String event, String extraInfo, boolean isDone) {
+        super(event, isDone);
         this.deadline = LocalDate.parse(extraInfo.replace('/', '-'), formatter);;
     }
 

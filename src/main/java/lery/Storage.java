@@ -1,10 +1,12 @@
 package lery;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import lery.task.Deadline;
@@ -56,28 +58,11 @@ public class Storage {
                     String line = s.nextLine();
                     assert line.contains("|") : "Command in text file should contain '|'";
                     String[] splitLine = line.split(" \\| ");
-                    String event = splitLine[2];
-                    String type = splitLine[0];
-                    Task newTask;
+
                     if (splitLine.length < 3 || splitLine.length > 4) {
                         throw new LeryException("Woof! Textfile not in correct format!" + splitLine.length);
                     }
-                    switch (type) {
-                    case "T":
-                        newTask = new Todo(event);
-                        break;
-                    case "D":
-                        String extraInfo = splitLine[3];
-                        checkDateFormat(extraInfo);
-                        newTask = new Deadline(event, extraInfo);
-                        break;
-                    case "E":
-                        String extra = splitLine[3];
-                        newTask = new Event(event, extra);
-                        break;
-                    default:
-                        throw new LeryException("Woof! Invalid type!" + type);
-                    }
+                    Task newTask = createTaskFromSplitLine(splitLine);
                     this.taskList.add(newTask);
                 }
                 s.close();
@@ -89,26 +74,61 @@ public class Storage {
     }
 
     /**
+     * Creates a Task object based on the information provided in a string array.
+     * The string array represents a line from the text file, with elements separated by "|".
+     *
+     * @param splitLine The array containing information about the task.
+     * @return A Task object.
+     * @throws LeryException If there is an error creating the task, such as an invalid type.
+     */
+    private Task createTaskFromSplitLine(String[] splitLine) throws LeryException {
+        String event = splitLine[2];
+        String type = splitLine[0];
+        String isDoneSign = splitLine[1];
+        System.out.println(Arrays.toString(splitLine));
+        boolean isDone = false;
+        if (isDoneSign.contains("X")) {
+            isDone = true;
+        }
+        switch (type) {
+        case "T":
+            return new Todo(event, isDone);
+        case "D":
+            String extraInfo = splitLine[3];
+            checkDateFormat(extraInfo);
+            return new Deadline(event, extraInfo, isDone);
+        case "E":
+            String extra = splitLine[3];
+            return new Event(event, extra, isDone);
+        default:
+            throw new LeryException("Woof! Invalid type!" + type);
+        }
+    }
+
+    /**
      * Saves a new task to the text file and adds it to the task list.
      *
-     * @param newTask the task to be saved.
+     * @param tlist The TaskList to be saved.
      * @throws LeryException if an error occurs during the saving process.
      */
-    public void saveTasks(Task newTask) throws LeryException {
-        String msg = " | 0 | ";
-        msg = "\n" + newTask.getType() + msg + newTask.getDescription();
-        if (newTask instanceof Event || newTask instanceof Deadline) {
-            msg += ("| " + newTask.getExtraInfoShortened());
-        }
-        try {
-            FileWriter fw = new FileWriter(filename, true);
-            fw.write(msg);
-            fw.close();
-            this.taskList.add(newTask);
+    public void saveTasks(TaskList tlist) throws LeryException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false))) {
+            for (int i = 0; i < tlist.getSize(); i++) {
+                Task task = tlist.getTask(i);
+                StringBuilder msg = new StringBuilder(task.getType() + " | "
+                        + task.getStatusIcon() + " | " + task.getDescription());
+                if (task instanceof Event || task instanceof Deadline) {
+                    msg.append(" | ").append(task.getExtraInfoShortened());
+                }
+                writer.write(msg.toString());
+                writer.newLine();
+            }
 
         } catch (IOException e) {
             throw new LeryException("Woof! Error saving tasks to file");
         }
+
+
     }
 
     /**
@@ -147,10 +167,16 @@ public class Storage {
      * Deletes a specified task from the task list.
      *
      * @param t the task to be deleted.
+     * @return the updated task list.
      */
-    public void deleteTask(Task t) {
+    public TaskList deleteTask(Task t) {
         this.taskList.delete(t);
+        return this.taskList;
     }
+
+    /**
+     * Sorts the task list.
+     */
     public void sortTask() {
         this.taskList.sort();
     }

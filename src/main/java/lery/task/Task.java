@@ -19,11 +19,12 @@ public class Task {
      * the completion status to false.
      *
      * @param description the description of the task.
+     * @param isDone      the completion status of the task (true if done, false otherwise).
      */
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         assert description != null : "Task description should not be null";
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
@@ -47,14 +48,17 @@ public class Task {
     /**
      * Marks the task as done or not done and returns a corresponding message.
      *
-     * @return a message indicating the status change.
      */
-    public String markAsDone() {
-        this.isDone = !isDone;
-        String msg = this.isDone
-                ? "Woof! I've marked this task as done:\n"
-                : "Woof! I've marked this task as not done yet:\n";
-        return msg + "[" + this.getStatusIcon() + "] " + this.description;
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Unmarks the task as done or not done and returns a corresponding message.
+     *
+     */
+    public void unmarkAsDone() {
+        this.isDone = false;
     }
 
     /**
@@ -82,6 +86,10 @@ public class Task {
      */
     public String getExtraInfo() {
         return "";
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
 }

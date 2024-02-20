@@ -1,16 +1,11 @@
-T | 1 | read book
-D | 0 | return book | 2019-10-15
-E | 0 | project meeting | Aug 6th 2pm-4pm
-T | 1 | join sports club
-D | 0 | buy toy | 2023-01-15
-D | 0 | buy toy | 2017-01-15
-E | 0 | project meeting | Mon 2pm-4pm
-T | 0 | run
-T | 0 | watch drama
-D | 0 | return book | 2020-10-15
-D | 0 | return book | 2019-09-15
-D | 0 | return book | 2019-12-15
-T | 0 | run
-E | 0 | project meeting | Mon 2pm-4pm
-D | 0 | return book | 2022-09-24
-D | 0 | run | 2023-02-28
+D | X | return book | 2019-09-15
+D | X | read book  | 2021-01-22
+D |   | leave  | 2022-11-11
+D |   | code  | 2024-01-22
+E | X | gaming  | sunday 2pm-3pm
+E |   | cook  | Sunday 2pm-4pm
+E |   | run  | sunday 2pm-3pm
+T |   | run
+T | X | run
+T |   | write
+T |   | run

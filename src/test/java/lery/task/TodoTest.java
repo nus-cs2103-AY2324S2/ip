@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Test;
 public class TodoTest {
     @Test
     public void testGetType() {
-        assertEquals("T", new Todo("read book").getType());
+        assertEquals("T", new Todo("read book", false).getType());
     }
 
     @Test
     public void testGetExtraInfo() {
-        assertEquals("", new Todo("read book").getExtraInfo());
+        assertEquals("", new Todo("read book", false).getExtraInfo());
     }
     @Test
     public void testGetExtraInfoShortened() {
-        assertEquals("", new Todo("read book").getExtraInfoShortened());
+        assertEquals("", new Todo("read book", false).getExtraInfoShortened());
     }
 }
