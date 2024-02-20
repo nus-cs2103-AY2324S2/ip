@@ -98,6 +98,14 @@ public class TaskList extends BarebonesTaskList {
             ui.errorMsg(e.getMessage());
         }
     }
+
+    @Override
+    public void clear() {
+        taskList.clear();
+        taskCount = 0;
+        storage.save();
+    }
+
     public BarebonesTaskList find(String query) {
         BarebonesTaskList result = new BarebonesTaskList();
         Task curr;
@@ -109,7 +117,6 @@ public class TaskList extends BarebonesTaskList {
         }
         return result;
     }
-
 
     public String toDataFormat() {
         StringBuilder text = new StringBuilder();
