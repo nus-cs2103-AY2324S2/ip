@@ -9,6 +9,8 @@ public class Task {
     protected String type;
     protected boolean isDone;
 
+    protected int priority;
+
     public Task() {
         this.description = "";
         this.type = "";
@@ -60,5 +62,9 @@ public class Task {
      */
     public String saveTask() {
         return String.format("%d|%s", this.isDoneNumerical(), this.description);
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }

@@ -1,6 +1,7 @@
 package zoe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Stores all tasks that is manipulated by zoe
@@ -18,6 +19,7 @@ public class TaskList {
      */
     public void add(Task t) {
         this.tasks.add(t);
+        Collections.sort(tasks, new PriorityComparator());
     }
     /**
      * Deletes a new task to the list, when delete(task) is called
@@ -25,6 +27,7 @@ public class TaskList {
      */
     public void delete(int i) {
         tasks.remove(Integer.valueOf(i) - 1);
+        Collections.sort(tasks, new PriorityComparator());
     }
 
     /**
