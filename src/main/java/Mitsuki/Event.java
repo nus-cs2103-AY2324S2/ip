@@ -10,25 +10,25 @@ public class Event extends Task {
     /**
      * The time when the event starts.
      */
-    protected String from;
+    protected String startTime;
 
     /**
      * The time when the event ends.
      */
-    protected String to;
+    protected String endTime;
 
     /**
      * The constructor for an Event object.
      *
      * @param description The description of the Event object to be created.
      *                    Handled by the super constructor in the Task class.
-     * @param from The time when the event starts.
-     * @param to The time when the event ends.
+     * @param startTime The time when the event starts.
+     * @param endTime The time when the event ends.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -37,6 +37,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + from + to + ")";
+        return "[E]" + super.toString() + " (" + startTime + endTime + ")";
     }
 }
