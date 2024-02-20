@@ -103,47 +103,6 @@ public class Ui {
         return java.util.Arrays.equals(userInputArray, originalArray);
     }
 
-//    /**
-//     * Adds input to the list.
-//     *
-//     * @param input Input collected from the user.
-//     */
-//    public void taskAdded(String input) {
-//        Task t = new Task(input, false);
-//        this.taskList.add(t);
-//        index += 1;
-//        signalSays("Added: " + input);
-//    }
-//
-//    public void commandAddTask(String type, String input) throws DukeException {
-//        if (input == "") {
-//            throw new DukeException("Looks like you haven't entered a task description!");
-//        }
-//        if (type.equals("todo")) {
-//            taskList.add(new ToDo(input, false));
-//        } else {
-//            String command[] = input.split(" /");
-//            if (type.equals("deadline")) {
-//                if (command.length < 2) {
-//                    throw new DukeException("Looks like you haven't added a deadline!");
-//                }
-//                String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
-//                taskList.add(new Deadline(command[0], deadline, false));
-//            } else if (type.equals("event")){
-//                if (command.length < 3) {
-//                    throw new DukeException("Looks like you haven't added a start or end time!");
-//                }
-//                String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
-//                String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
-//                taskList.add(new Event(command[0], start, end, false));
-//            } else {
-//                taskList.add(new Task(input, false));
-//            }
-//
-//        }
-//        taskAdded(taskList.get(index));
-//    }
-
 
     /**
      * Finds the first string from a list of strings.
@@ -276,20 +235,6 @@ public class Ui {
     }
 
 
-
-//    public void commandListDate(String date) {
-//        LocalDate d = LocalDate.parse(date);
-//        System.out.println(DIV);
-//        System.out.println("Here's what's happening on " + formatDate(d) + ":");
-//        for (int i = 0; i < index; i++){
-//            Task t = taskList.get(i);
-//            if (t.getDue() == d) {
-//                System.out.println(t.toString());
-//            }
-//        }
-//        System.out.println(DIV);
-//    }
-
     /**
      * Marks the task as done.
      *
@@ -371,21 +316,6 @@ public class Ui {
         }
     }
 
-//    /**
-//     * Handles negative and out-of-bounds inputs for deleting tasks.
-//     *
-//     * @param x
-//     */
-//    public void commandDeleteInvalid(int x) {
-//        if (x == 0) {
-//            signalSays("Looks like there's nothing here to remove. Better get on those tasks!");
-////            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
-//        }
-//        if (x < 0) {
-//            signalSays("Negative numbers might exist in maths but not in this list!");
-////            throw new DukeException("Negative numbers might exist in maths but not in this list!");
-//        }
-//    }
 
     public ArrayList<String> find(String key) {
         ArrayList<String> result = new ArrayList<>();
@@ -405,17 +335,6 @@ public class Ui {
         response.add("Sure, here are the tasks containing '" + toFind + "':");
         response.addAll(find(toFind));
         signalSays(listToString(response));
-//        ArrayList<Integer> foundIndex = null;
-//        for (Task i : taskList) {
-//            String[] taskParts = i.getDescription().split(" ");
-//            Integer findIndex = Integer.valueOf(finder(toFind, taskParts));
-//            foundIndex.add(findIndex);
-//        }
-//        ArrayList<String> response = null;
-//        for (Integer i : foundIndex) {
-//            response.add(taskList.get(i).toString());
-//        }
-//        signalSays(listToString(response));
     }
 
     /**
@@ -444,6 +363,7 @@ public class Ui {
                 "* todo () -- creates a To Do task, which has no deadline. \n" +
                 "* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'. \n" +
                 "* event () \\from () \\to () -- creates an Event task, indicate its start and end after '\\from' and '\\to'. \n" +
+                "Note: dates are formatted as yyyy-mm-dd. time is formatted as \n" +
                 "\nCOMMANDS: \n" +
                 "* list -- prints a numbered list of the tasks created, in input order.\n" +
                 "* mark [] -- marks the task at index [] as completed. \n" +
