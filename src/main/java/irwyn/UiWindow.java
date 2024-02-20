@@ -1,7 +1,6 @@
 package irwyn;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,7 +11,6 @@ import javafx.scene.layout.VBox;
  * This is for the MainWindow. Provides the layout for the other controls.
  */
 public class UiWindow extends AnchorPane {
-    private Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML
