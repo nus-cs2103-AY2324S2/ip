@@ -5,6 +5,8 @@ plugins {
     id 'checkstyle'
 }
 
+mainClassName = 'campus.Launcher'
+
 checkstyle {
     toolVersion = '10.2'
 }
@@ -52,9 +54,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "campus"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'campus.jar'
 }
 
 run {
