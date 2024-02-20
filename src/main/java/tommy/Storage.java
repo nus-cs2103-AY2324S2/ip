@@ -34,6 +34,8 @@ public class Storage {
      * @param filePath String of the path of the file to retrieve the past log taskList from.
      */
     public Storage(String filePath) {
+        assert !filePath.isBlank() : "the file path should not be blank";
+
         this.filePath = filePath;
 
         try {

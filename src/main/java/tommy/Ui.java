@@ -60,6 +60,8 @@ public class Ui {
         StringBuilder accumulator = new StringBuilder("Here are the tasks in your list:\n");
 
         for (int i = 1; i <= length; i++) {
+            assert i > 0 && i < taskList.getSize() : "Index must be within size of taskList";
+
             String counter = i + ".";
             Task task = taskList.getTaskAtPosition(i);
             String descOfTask = task.toString();
@@ -95,6 +97,8 @@ public class Ui {
      * @return Description of the marked task.
      */
     public static String displayMarkedTask(TaskList taskList, int position) {
+        assert position <= taskList.getSize() : "Position of task must be within size of taskList";
+
         Task markedTask = taskList.getTaskAtPosition(position);
         String descOfMarkedTask = markedTask.toString();
         String markedTaskConfirmation = "Nice! I've marked this task as done:\n" + "  ";
@@ -112,6 +116,8 @@ public class Ui {
      * @return Description of the unmarked task.
      */
     public static String displayUnmarkedTask(TaskList taskList, int position) {
+        assert position <= taskList.getSize() : "Position of task must be within size of taskList";
+
         String unmarkedTaskConfirmation = "OK, I've marked this task as not done yet:\n" + "  ";
         Task unmarkedTask = taskList.getTaskAtPosition(position);
         String descOfUnmarkedTask = unmarkedTask.toString();
@@ -150,8 +156,9 @@ public class Ui {
         int length = taskList.getSize();
         int counter = 1;
 
-
         for (int i = 1; i <= length; i++) {
+            assert i > 0 && i <= taskList.getSize() : "Position must be within size of taskList";
+
             Task task = taskList.getTaskAtPosition(i);
             Boolean containsKeyword = task.toString().contains(keyword);
 
@@ -159,6 +166,7 @@ public class Ui {
                 String position = counter + ".";
                 accumulator.append(position + task + System.lineSeparator());
                 counter++;
+                assert counter <= taskList.getSize() : "Number of matched tasks must be a subset of taskList";
             }
         }
 

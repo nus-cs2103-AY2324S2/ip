@@ -27,6 +27,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+        assert positionToDelete <= taskList.getSize() && positionToDelete > 0 : "The position to delete should be within the size of the taskLis.";
+
         try {
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);
             taskList.deleteTaskAtPosition(positionToDelete);

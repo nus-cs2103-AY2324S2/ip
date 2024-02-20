@@ -26,6 +26,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+        assert positionToUnmark <= taskList.getSize() && positionToUnmark > 0 : "The position to unmark should be within the size of the taskLis.";
         try {
             taskList.unmarkTask(positionToUnmark);
             Storage.save(taskList);

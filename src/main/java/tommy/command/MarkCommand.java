@@ -27,6 +27,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+        assert positionToMark <= taskList.getSize() && positionToMark > 0 : "The position to mark should be within the size of the taskLis.";
         try {
             taskList.markTask(positionToMark);
             Storage.save(taskList);
