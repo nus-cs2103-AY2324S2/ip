@@ -163,13 +163,15 @@ Format: `load ARCHIVE_NAME`
 - Loads the archived task list with the specified ARCHIVE_NAME from the local storage.
 - The loaded task list will replace the current task list.
 
+Warning: 
+- Loading an archived task list will replace the current task list. 
+- Make sure to save your current task list before loading an archive if you want to keep it.
+
 Examples:
 
 - `load 1` loads the archived task list from archive 1 in the local storage.
 
-Warning: 
-- Loading an archived task list will replace the current task list. 
-- Make sure to save your current task list before loading an archive if you want to keep it.
+
 
 
 
