@@ -28,7 +28,8 @@ All commands are inputted into the text field at the bottom of the Gui window.
 Here is a list of basic commands and their usage:
 - `bye`: exits the application.
 - `list`: views the task list.
-- `todo [description]`: creates a todo with a description and adds it to the task list.
+- `todo [desc]`: creates a todo with a description and adds it to the task list.
+
 ---
 
 ## Core Features

@@ -45,7 +45,6 @@ public class MainWindow extends AnchorPane {
      * Starting behaviour.
      */
     public void start() {
-        dialogContainer.getChildren().addAll(DialogBox.getMikeDialog(mike.getLogo(), mikeImage));
         Timeline timeline = new Timeline();
         timeline.setCycleCount(0);
         timeline.getKeyFrames().addAll(
