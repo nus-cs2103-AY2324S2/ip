@@ -11,22 +11,23 @@ providing a streamlined approach to boost your productivity.
 Easy to use, Stratify eliminates the learning curve. 
 Dive in, follow a few simple steps, and let it transform how you manage your tasks.
 
+<!-- The links do not work in IntelliJ, but work on GitHub pages. -->
 * [Quick Start](#quick-start)
 * [Features](#features)
-  * [Listing your task list: `list`](#listing-your-task-list--list)
-  * [Ending the chat: `bye`](#ending-the-chat--bye)
-  * [Adding todos: `todo`](#adding-todos--todo)
-  * [Adding deadlines: `deadline`](#adding-deadlines--deadline)
-  * [Adding events: `event`](#adding-events--event)
-  * [Marking a task: `mark`](#marking-a-task--mark)
-  * [Unmarking a task: `unmark`](#unmarking-a-task--unmark)
-  * [Deleting a task: `delete`](#deleting-a-task--delete)
-  * [Finding tasks: `find`](#finding-tasks--find)
-  * [Undoing an action: `undo`](#undoing-an-action--undo)
+  * [Listing your task list: `list`](#listing-your-task-list-list)
+  * [Ending the chat: `bye`](#ending-the-chat-bye)
+  * [Adding todos: `todo`](#adding-todos-todo)
+  * [Adding deadlines: `deadline`](#adding-deadlines-deadline)
+  * [Adding events: `event`](#adding-events-event)
+  * [Marking a task: `mark`](#marking-a-task-mark)
+  * [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
+  * [Deleting a task: `delete`](#deleting-a-task-delete)
+  * [Finding tasks: `find`](#finding-tasks-find)
+  * [Undoing an action: `undo`](#undoing-an-action-undo)
   * [Resizing your chatbot](#resizing-your-chatbot)
   * [Editing the data file](#editing-the-data-file)
 * [FAQ](#faq)
-* [Commands: Quick reference](#commands--quick-reference)
+* [Commands: Quick reference](#commands-quick-reference)
   * [Command Syntax](#command-syntax)
 
 ---
@@ -46,8 +47,7 @@ A GUI similar to the below should appear.
 
 ## Features
 
-<a name="list"></a>
-### Listing your task list: `list`
+### Listing your task list:`list`
 
 Displays your task list, with all your added tasks within.
 
@@ -57,7 +57,6 @@ Displays your task list, with all your added tasks within.
 >
 > * This lists all the tasks in your task list.
 
-<a name="bye"></a>
 ### Ending the chat: `bye`
 
 Ends the chat.
@@ -68,7 +67,6 @@ Ends the chat.
 >
 > * This ends the chat, disabling the input, and prompts the user to exit.
 
-<a name="todo"></a>
 ### Adding todos: `todo`
 
 Adds a named todo, into your task list.
@@ -83,7 +81,6 @@ Adds a named todo, into your task list.
 > 
 > * This adds a todo of the name `homework` into your task list.
 
-<a name="deadline"></a>
 ### Adding deadlines: `deadline`
 
 Adds a named deadline, with a by date, into your task list.
@@ -102,7 +99,6 @@ Adds a named deadline, with a by date, into your task list.
 > * This adds a deadline of the name `read book`, 
 > with a deadline by `Friday` into your task list.
 
-<a name="event"></a>
 ### Adding events: `event`
 
 Adds a named event, with, into your task list.
@@ -122,7 +118,6 @@ Adds a named event, with, into your task list.
 > with the start date at `1pm` and end date at `2pm`, 
 > into your task list.
 
-<a name="mark"></a>
 ### Marking a task: `mark`
 
 Marks a task as complete.
@@ -140,7 +135,6 @@ Marks a task as complete.
 >
 > * This marks the first task from your task list.
 
-<a name="unmark"></a>
 ### Unmarking a task: `unmark`
 
 Marks a task as incomplete.
@@ -158,7 +152,6 @@ Marks a task as incomplete.
 >
 > * This marks the first task from your task list.
 
-<a name="delete"></a>
 ### Deleting a task: `delete`
 
 Deletes a task from your task list.
@@ -176,7 +169,6 @@ Deletes a task from your task list.
 > 
 > * This deletes the first task from your task list.
 
-<a name="find"></a>
 ### Finding tasks: `find`
 
 Finds a task from your task list.
@@ -194,7 +186,6 @@ Finds a task from your task list.
 > in the name of the task.
 > * It doesn't find from other argument values, such as `<by_date>` in a deadline.
 
-<a name="undo"></a>
 ### Undoing an action: `undo`
 
 Undoes a change that you have made.
@@ -272,18 +263,18 @@ Advanced users can modify the data file directly.
 
 ## Commands: Quick reference
 
-| Command                                   | Format                                           |
-|-------------------------------------------|--------------------------------------------------|
-| [`list`](#listing-your-task-list--list)   | `list`                                           |
-| [`bye`](#ending-the-chat--bye)            | `bye`                                            |
-| [`todo`](#adding-todos--todo)             | `todo <name>`                                    |
-| [`deadline`](#adding-deadlines--deadline) | `deadline <name> /by <by_date>`                  |
-| [`event`](#adding-events--event)          | `event <name> /from <start_date> /to <end_date>` |
-| [`mark`](#marking-a-task--mark)           | `mark <index>`                                   |
-| [`unmark`](#unmarking-a-task--unmark)     | `unmark <index>`                                 |
-| [`delete`](#deleting-a-task--delete)      | `delete <index>`                                 |
-| [`find`](#finding-tasks--find)            | `find <name`                                     |
-| [`undo`](#undoing-an-action--undo)        | `undo [/by <steps>]`                             |
+| Command                                  | Format                                           |
+|------------------------------------------|--------------------------------------------------|
+| [`list`](#listing-your-task-list-list)   | `list`                                           |
+| [`bye`](#ending-the-chat-bye)            | `bye`                                            |
+| [`todo`](#adding-todos-todo)             | `todo <name>`                                    |
+| [`deadline`](#adding-deadlines-deadline) | `deadline <name> /by <by_date>`                  |
+| [`event`](#adding-events-event)          | `event <name> /from <start_date> /to <end_date>` |
+| [`mark`](#marking-a-task-mark)           | `mark <index>`                                   |
+| [`unmark`](#unmarking-a-task-unmark)     | `unmark <index>`                                 |
+| [`delete`](#deleting-a-task-delete)      | `delete <index>`                                 |
+| [`find`](#finding-tasks-find)            | `find <name`                                     |
+| [`undo`](#undoing-an-action-undo)        | `undo [/by <steps>]`                             |
 
 ### Command Syntax
 
