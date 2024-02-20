@@ -31,11 +31,11 @@ And it is **FREE** to use! 🚫💵
 - [x] Search Tasks based on date
 - [x] GUI View
 
-▶️### Listing all the existing tasks in the list/ txt file: `list`
+### Listing all the existing tasks in the list/ txt file: `list`
 List down all the tasks in the list/txt file.
 Format: `list`
 
-▶️### Adding a new todo task: `todo`
+▶### Adding a new todo task: `todo`
 Add a new todo task to the list, and it will be stored in a txt file.
 Format: `todo DESCRIPTION`
 
