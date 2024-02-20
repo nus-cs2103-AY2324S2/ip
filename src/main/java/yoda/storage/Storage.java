@@ -152,8 +152,12 @@ public class Storage {
             if (parts.length < 4) return null;
             return createDeadlineTask(isDone, description, parts[3]);
         case "E":
-            if (parts.length < 5) return null;
-            return createEventTask(isDone, description, parts[3], parts[4]);
+            if (parts.length < 4) return null;
+            String[] eventTimes = parts[3].split(" to ");
+            if (eventTimes.length < 2) return null; // Basic validation for time range
+            String startTime = eventTimes[0];
+            String endTime = eventTimes[1];
+            return createEventTask(isDone, description, startTime, endTime);
         default:
             return null;
         }

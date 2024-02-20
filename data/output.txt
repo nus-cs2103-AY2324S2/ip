@@ -1,5 +1,5 @@
 T | 1 | survive
-D | 0 | hehe | Jun 6 2024 1800
-T | 0 | meow
-T | 1 | read book
-T | 0 | think about life
+D | 1 | complete CS2103T | Feb 23 2024 1800
+T | 0 | sleep
+T | 0 | kill darth vader
+E | 0 | project meeting | Feb 21 2024 2200 to Feb 21 2024 2300

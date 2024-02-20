@@ -1,7 +1,7 @@
 list
 find book
-deadline return book /by 6 June 2024 1800
-event project meeting /from 6 Aug 2024 1400 /to 6 Aug 2024 1600
+deadline complete CS2103T /by 23 Feb 2024 1800
+event project meeting /from 21 Feb 2024 2200 /to 21 Feb 2024 2300
 todo join sports club
 todo borrow book
 list
