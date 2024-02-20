@@ -146,18 +146,9 @@ Below are events that are operating on 1 February 2024
 
 
 ## Installation
+Download the `lulu.jar` file from the latest release.
+Run the following command in terminal:
 
-This is Lulu `Lulu chatbot = new Lulu();`.
-
-```java
-public static void main(String[] args) {
-        Lulu chatbot = new Lulu();
-        UI.start();
-        try {
-            chatbot.respond();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        UI.exit();
-    }
+```shell
+java -jar lulu.jar
 ```
