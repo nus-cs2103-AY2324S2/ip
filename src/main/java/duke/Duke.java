@@ -36,6 +36,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Gets the greeting from Duke
+     * @return the greeting from Duke
+     */
     public String getGreeting() {
         return "Hello! I'm Taro\nWhat can I do for you?";
     }
