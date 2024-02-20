@@ -18,6 +18,7 @@ public class Executer {
      * @param storage the storage to use.
      */
     public Executer(TaskList taskList, Storage storage) {
+        assert taskList != null && storage != null;
         this.taskList = taskList;
         this.storage = storage;
     }
@@ -29,6 +30,7 @@ public class Executer {
      */
     public String execute(Command command) throws RickException {
         try {
+            assert command != null && command.respond()[0] != null;
             switch (command.respond()[0]) {
             case ("B"):
                 return command.respond()[1];
