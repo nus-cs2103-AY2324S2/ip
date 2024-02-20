@@ -7,9 +7,10 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with start and end date-time.
  * Extends the abstract base class Task.
  */
-public class Event extends Task {
+public class Event extends Task implements RecurringTask {
     private LocalDateTime start;
     private LocalDateTime end;
+    private boolean isRecurring;
 
     /**
      * Initializes a new Event task with the given description, start, and end date-time.
@@ -22,6 +23,7 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
+        this.isRecurring = false;
     }
 
     /**
@@ -51,5 +53,35 @@ public class Event extends Task {
         String endDateTime = this.end.format(customFormatter);
         return "E | " + (super.isDone ? "1" : "0") + " | " + super.description
                 + " | " + startDateTime + " | " + endDateTime;
+    }
+
+    @Override
+    public String makeRecur() {
+        this.isRecurring = true;
+        return this.toString();
+    }
+
+    @Override
+    public LocalDateTime getEndDateTime() {
+        return this.end;
+    }
+
+    /**
+     * Checks if the task is recurring.
+     *
+     * @return True if the task is recurring, false otherwise.
+     */
+    @Override
+    public boolean isRecurring() {
+        return this.isRecurring;
+    }
+
+    /**
+     * Adjusts the deadline for a recurring task.
+     */
+    @Override
+    public void adjustDeadline() {
+        this.start = this.start.plusWeeks(1);
+        this.end = this.end.plusWeeks(1);
     }
 }

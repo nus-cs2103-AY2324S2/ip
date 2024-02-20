@@ -16,6 +16,7 @@ public class Duke {
     private Storage storage;
     private MyList myList;
     private Ui ui;
+    private RecurringTaskScheduler recurringTaskScheduler;
 
     /**
      * Constructs a Duke instance with the specified file path for storage.
@@ -36,6 +37,9 @@ public class Duke {
         } catch (IOException e) {
             ui.showError("Error reading task from file");
             myList = new MyList();
+        } finally {
+            recurringTaskScheduler = new RecurringTaskScheduler(myList);
+            recurringTaskScheduler.startScheduler(20);
         }
     }
 
@@ -51,6 +55,7 @@ public class Duke {
         String response;
         if (userInput.equalsIgnoreCase("bye")) {
             storage.save(myList);
+            recurringTaskScheduler.stopScheduler();
         }
         try {
             ui.clear();
@@ -75,6 +80,7 @@ public class Duke {
         ui.showWelcomeMessage();
         runCommandLoopUntilExitCommand();
         storage.save(myList);
+        recurringTaskScheduler.stopScheduler();
         System.exit(0);
     }
 

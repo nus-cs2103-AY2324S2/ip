@@ -12,6 +12,7 @@ import duke.command.FindCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.RecurCommand;
 
 /**
  * Parses user commands and manages the execution of corresponding tasks.
@@ -21,7 +22,7 @@ public class Parser {
      * Represents the possible requests that can be parsed from user commands.
      */
     public enum Request {
-        BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID
+        BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID, RECUR
     }
 
     /**
@@ -59,8 +60,9 @@ public class Parser {
         case FIND:
             String keyword = userInput.substring("find".length()).trim();
             return new FindCommand(keyword);
-        case INVALID:
-            return new InvalidCommand();
+        case RECUR:
+            index = Integer.parseInt(userInput.substring("recur".length()).trim());
+            return new RecurCommand(index);
         default:
             return new InvalidCommand();
         }
@@ -146,6 +148,11 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime dateTimeFrom = LocalDateTime.parse(fromString, formatter);
             LocalDateTime dateTimeTo = LocalDateTime.parse(toString, formatter);
+
+            if (dateTimeTo.isBefore(dateTimeFrom)) {
+                throw new DukeException("Date and time of /to is before /from");
+            }
+
             return new Event(taskString, dateTimeFrom, dateTimeTo);
         } else {
             throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");

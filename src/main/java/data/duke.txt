@@ -1,5 +1,7 @@
 T | 1 | Buy groceries
-D | 0 | Read a book | 2022-02-15 1800
-E | 0 | Attend meeting | 2022-02-15 1400 | 2022-02-15 1600
-D | 0 | wash up | 2023-08-06 1800
-E | 0 | prepare | 2023-08-06 1800 | 2023-08-06 2000
+D | 0 | Read a book | 2022-05-10 1800
+E | 0 | Attend meeting | 2022-02-22 1400 | 2022-02-22 1600
+D | 0 | wash up | 2023-10-29 1800
+E | 0 | prepare | 2023-08-13 1800 | 2023-08-13 2000
+D | 0 | test deadline should be 27 feb | 2024-02-27 1800
+E | 0 | test event should be 27 feb | 2024-02-27 1800 | 2024-02-27 2000

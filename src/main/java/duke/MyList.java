@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class MyList {
      */
     public MyList(List<Task> t) {
         this.tasks = t;
+        checkAndAdjustRecurringTasks();
     }
 
     /**
@@ -85,6 +87,26 @@ public class MyList {
     }
 
     /**
+     * Make a task recur based on its index in the list.
+     *
+     * @param index The index of the task to recur.
+     * @return A message indicating the success of the operation or if the index is out of bounds.
+     */
+    public String recurTask(int index) throws DukeException {
+        if (index < 1 || index > this.tasks.size()) {
+            throw new DukeException("Number is outside length of list");
+        } else {
+            Task task = this.tasks.get(index - 1);
+            if (task instanceof RecurringTask) {
+                RecurringTask recurringTask = (RecurringTask) task;
+                return "Nice! I've made this task recur:\n" + recurringTask.makeRecur();
+            } else {
+                return "task cannot recur";
+            }
+        }
+    }
+
+    /**
      * Deletes a task based on its index in the list.
      *
      * @param index The index of the task to be deleted.
@@ -121,6 +143,22 @@ public class MyList {
             return "No tasks found containing keyword";
         } else {
             return listWithKeyword.getTasks();
+        }
+    }
+
+    /**
+     * Checks and adjusts recurring tasks in the list.
+     * Updates the deadline for recurring tasks that have passed.
+     */
+    public void checkAndAdjustRecurringTasks() {
+        LocalDateTime now = LocalDateTime.now();
+        for (Task task : this.tasks) {
+            if (task instanceof RecurringTask) {
+                RecurringTask recurringTask = (RecurringTask) task;
+                if (recurringTask.isRecurring() && recurringTask.getEndDateTime().isBefore(now)) {
+                    recurringTask.adjustDeadline();
+                }
+            }
         }
     }
 }
