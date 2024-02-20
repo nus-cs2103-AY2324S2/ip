@@ -26,13 +26,13 @@ Add a deadline task to the list.<br>
 Format: `deadline [DESCRIPTION] /by [TIME]` <br>
 Examples:<br>
 `deadline do CS2103T IP /by 23/02/2024 2359`<br>
-`[TIME]` can be provided in the `dd/mm/yy hhmm` format.
+`[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
 
 ### Adding Events: `event`
 Add an event task to the list.<br>
 Format: `event [DESCRIPTION] /from [TIME] /to [TIME]` <br>
 Examples:<br>
-`event watch CS2103T lecture vidoes /from 20/02/2024 0000 /to 20/02/2024 0230`<br>
+`event watch CS2103T lecture videos /from 20/02/2024 0000 /to 20/02/2024 0230`<br>
 `[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
 
 ### Marking Tasks as Done: `mark`
