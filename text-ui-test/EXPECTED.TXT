@@ -1,5 +1,5 @@
     __________________________________________________
-    Hello! I'm Shirmin
+    Hello! I'm shirmin
     What can I do for you?
     __________________________________________________
     Got it. I've added this task:

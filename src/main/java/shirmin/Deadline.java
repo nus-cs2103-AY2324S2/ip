@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

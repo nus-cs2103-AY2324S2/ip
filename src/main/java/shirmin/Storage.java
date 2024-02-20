@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 import java.io.FileWriter;
 import java.io.IOException;

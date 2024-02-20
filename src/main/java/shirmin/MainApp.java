@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 /**
- * Main application class for the Shirmin chatbot.
+ * Main application class for the Shirmin Chatbot.
  * Handles the graphical user interface and user interactions.
  */
 public class MainApp extends Application{
@@ -33,7 +33,7 @@ public class MainApp extends Application{
     final Double anchorPaneOffset = 1.0;
 
     /**
-     * Initializes the Shirmin chatbot.
+     * Initializes the Shirmin Chatbot.
      *
      * @throws Exception If an error occurs during initialization.
      */
@@ -67,7 +67,7 @@ public class MainApp extends Application{
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Shirmin");
+        stage.setTitle("shirmin");
         stage.setResizable(false);
         stage.setMinHeight(stageMinHeight);
         stage.setMinWidth(stageMinWidth);
@@ -102,7 +102,7 @@ public class MainApp extends Application{
             .getResourceAsStream("/images/lulu.jpg")));
     private final Image min = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/Shirmin.jpg")));
-    
+
 
     /**
      * Handles user input and triggers appropriate actions.

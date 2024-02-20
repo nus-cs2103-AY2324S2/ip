@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

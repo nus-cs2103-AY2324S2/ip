@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 public class Task {
     protected final String description;

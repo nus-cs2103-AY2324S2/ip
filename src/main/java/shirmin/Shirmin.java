@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 /**
  * Represents the main class of the Shirmin application.

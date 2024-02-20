@@ -1,4 +1,4 @@
-package Shirmin;
+package shirmin;
 
 /**
  * Represents a basic task without any additional date/time.
