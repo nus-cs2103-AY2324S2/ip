@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBot(paimon);
+            stage.setTitle("Paimon Chat Window");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
