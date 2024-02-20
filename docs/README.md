@@ -11,19 +11,6 @@ This is a chatbot that can help you and store tasks that you wish to do, such as
 - **find**: Search for tasks by keyword.
 - **Error Handling**: Informative error messages for incorrect inputs.
 - **Storage**: Persist tasks between sessions.
-- **User Interface**: Simple and intuitive user interface.
-  =======
-- **list**: View the tasks stored in the list; will also load the task list from previous sessions.
-- **mark**: Mark a task as done.
-- **unmark**: Unmark a task, setting it as undone.
-- **delete** Delete a task, with 1-based indexing
-- **todo**: Add a todo task to your task list.
-- **deadline**: Add a task with a deadline to your task list.
-- **event**: Add a task with a start and end date to your task list.
-- **find**: Search for tasks by keyword.
-- **Error Handling**: Informative error messages for incorrect inputs.
-- **Storage**: Persist tasks between sessions.
-- **User Interface**: Simple and intuitive interface for interaction.
 
 ## Examples of creating tasks
 - Todo task
