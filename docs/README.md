@@ -24,7 +24,7 @@ And it is **FREE** to use! 🚫💵
 
 ## Features
 
-### Listing all the existing tasks in the list/ txt file: `list`
+### ▶️ Listing all the existing tasks in the list/ txt file: `list`
 List down all the tasks in the list/txt file. <br>
 Format: `list`<br>
 
