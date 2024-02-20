@@ -73,7 +73,7 @@ public class Floofy {
                     String todoTask = input[1];
                     ToDo newTodo = new ToDo(todoTask);
                     tasks.addTask(newTodo);
-                    ui.showAddedTask(newTodo, tasks.size());
+                    ui.showAddedTask(newTodo, tasks.getSize());
                     storage.saveTasks(tasks);
                     continue;
                 case "deadline":
@@ -81,7 +81,7 @@ public class Floofy {
                     LocalDate deadlineBy = LocalDate.parse(input[2]);
                     Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
                     tasks.addTask(newDeadline);
-                    ui.showAddedTask(newDeadline, tasks.size());
+                    ui.showAddedTask(newDeadline, tasks.getSize());
                     storage.saveTasks(tasks);
                     continue;
                 case "event":
@@ -90,14 +90,14 @@ public class Floofy {
                     LocalDate eventDateTo = LocalDate.parse(input[3]);
                     Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
                     tasks.addTask(newEvent);
-                    ui.showAddedTask(newEvent, tasks.size());
+                    ui.showAddedTask(newEvent, tasks.getSize());
                     storage.saveTasks(tasks);
                     continue;
                 case "delete":
                     int deleteIdx = Integer.parseInt(input[1]) - 1;
                     Task deletedTask = tasks.getTask(deleteIdx);
                     tasks.deleteTask(deleteIdx);
-                    ui.showDeletedTask(deletedTask, tasks.size());
+                    ui.showDeletedTask(deletedTask, tasks.getSize());
                     storage.saveTasks(tasks);
                     continue;
                 case "list":
