@@ -1,6 +1,7 @@
 package victor.tasktype;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -67,6 +68,8 @@ public class Deadline extends Task {
      */
     @Override
     public String saveInput() {
+        assert !tempBy.getClass().equals(LocalDate.class): "tempBy is not a LocalDate. When accessing it \" +\n" +
+                "                \"from the datanase, it will not format correctly.";
         return "D | " + isDone + " | " + description + " | " + tempBy;
     }
 }

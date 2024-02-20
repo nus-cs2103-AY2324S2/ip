@@ -24,11 +24,11 @@ public class Storage {
     /**
      * The dataFile variable is a File that is used to store the data file.
      */
-    private File dataFile;
+    private final File dataFile;
     /**
      * The filePath variable is a String that contains the path to the data file location.
      */
-    private String filePath;
+    private final String filePath;
 
     /**
      * The Storage Constructor will take in the filePath of the
@@ -49,9 +49,6 @@ public class Storage {
      * It will then return an empty ArrayList if there is no datafile found.
      *
      * @return an ArrayList of tasks.
-     * @throws FileNotFoundException If the file doesn't exist at the file path location
-     * @throws IOException           If the program is unable to create a new file
-     *                               at the file path location
      */
     public ArrayList<Task> load() {
         ArrayList<Task> currentLists = new ArrayList<>();

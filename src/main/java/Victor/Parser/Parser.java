@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import javafx.application.Platform;
 import victor.storage.Storage;
@@ -88,6 +89,7 @@ public class Parser {
         case "mark" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
+                assert position >= currentTasks.getSize(): "Position out of list";
                 Task currentTask = currentTasks.getPosValue(position - 1);
                 currentTask.markAsDone();
                 returnString = "Nice! I've marked this task as done:\n" + currentTask;
@@ -105,6 +107,7 @@ public class Parser {
         case "unmark" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
+                assert position >= currentTasks.getSize(): "Position out of list";
                 Task currentTask = currentTasks.getPosValue(position - 1);
                 currentTask.unmarkAsDone();
                 returnString = "OK, I've marked this task as not done yet:\n" + currentTask;
@@ -184,6 +187,7 @@ public class Parser {
         case "delete" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
+                assert position >= currentTasks.getSize(): "Position out of list";
                 Task chosenTask = currentTasks.getPosValue(position - 1);
                 currentTasks.removeTask(position - 1);
                 returnString = "Noted. I've removed this task:\n"

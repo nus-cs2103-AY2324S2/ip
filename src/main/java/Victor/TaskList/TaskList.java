@@ -114,10 +114,11 @@ public class TaskList {
      *         matching the word search
      */
     public String findTask(String wordSearch) {
+        assert !wordSearch.getClass().equals(String.class): "wordSearch is not a string.";
         StringBuilder listString = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : currentTaskLists) {
             if (task.descriptionContains(wordSearch)) {
-                listString.append(task.toString() + "\n");
+                listString.append(task.toString()).append("\n");
             }
         }
         return listString.toString();

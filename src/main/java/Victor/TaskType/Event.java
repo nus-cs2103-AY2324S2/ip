@@ -86,6 +86,10 @@ public class Event extends Task {
      */
     @Override
     public String saveInput() {
+        assert !tempTo.getClass().equals(LocalDateTime.class): "tempTo is not a LocalDateTime. When accessing it \" +\n" +
+                "                \"from the datanase, it will not format correctly.";
+        assert !tempFrom.getClass().equals(LocalDateTime.class): "tempFrom is not a LocalDateTime. When accessing it " +
+                "from the datanase, it will not format correctly.";
         return "E | " + isDone + " | " + description + " | "
                 + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
     }

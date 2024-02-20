@@ -44,13 +44,6 @@ public class Victor {
     private static Parser parser;
 
     /**
-     * This is a victorImage image that holds the image for victor
-     */
-
-    private Image victorImage = new Image(this.getClass().getResourceAsStream("/images/victorImage.png"));
-
-
-    /**
      * The Victor constructor is used to call in all the various parts
      * of the program in order to run it from this file. It would also
      * use the ui.showIntro() method to show the greeting of the ui.
@@ -77,6 +70,7 @@ public class Victor {
 
         while (!userInput.equals("bye")) {
             userInput = ui.readCommand();
+            assert userInput.isBlank(): "User input is empty. Need to check." ;
             parser.parse(userInput);
         }
         ui.showEnding();
