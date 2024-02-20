@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        welcome();
     }
 
 
@@ -59,5 +60,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, georgieImage)
         );
         userInput.clear();
+    }
+
+    @FXML
+    private void welcome() {
+        Ui ui = new Ui();
+        String response = ui.showWelcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, georgieImage)
+        );
+
     }
 }

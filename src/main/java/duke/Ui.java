@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -39,22 +38,6 @@ public class Ui {
      */
     public static void showError(String errorMessage) {
         System.out.println(errorMessage);
-    }
-
-    /**
-     * Displays the list of tasks to the user.
-     *
-     * @param tasks The list of tasks to be displayed.
-     */
-    public static void showTaskList(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
-        } else {
-            System.out.println("Here " + (tasks.size() == 1 ? "is the task" : "are the tasks") + " in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).getStatusIcon());
-            }
-        }
     }
 
     /**

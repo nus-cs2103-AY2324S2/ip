@@ -22,15 +22,10 @@ public class Duke extends Application {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        String name = "Georgie";
         TaskList taskList = new TaskList();
 
         Storage storage = new Storage(FILE_PATH);
         storage.loadTasksFromFile(taskList.getTasks());
-
-        Ui.showWelcomeMessage();
-
-        // System.out.println(Ui.showWelcomeMessage());
 
         while (true) {
             try {
