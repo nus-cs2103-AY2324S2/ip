@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="680.0" style="-fx-font-family: Courier New; -fx-background-color: aliceBlue; -fx-border-radius: 5; -fx-border-color: #24574b; -fx-border-width: 3; -fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" style="-fx-font-family: Courier New; -fx-text-fill: black;">
+            <HBox.margin>
+                <Insets left="11.0" right="11.0" top="10.0" />
+            </HBox.margin>
+        </Label>
+        <StackPane style="-fx-background-radius: 50; -fx-background-color: transparent;">
+            <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+                <clip>
+                    <Rectangle width="99.0" height="99.0" arcWidth="35.0" arcHeight="35.0" /> <!-- These arcWidth and arcHeight values control the rounding -->
+                </clip>
+            </ImageView>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
