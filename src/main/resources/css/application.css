@@ -1,0 +1,61 @@
+.root { 
+    -fx-accent: #1ec637;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #101010;
+    -fx-background-color: derive(-fx-base, 10%);
+    -fx-control-inner-background: derive(-fx-base, 10%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+}
+
+#bottomBar {
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: -fx-accent;
+    -fx-border-style: solid;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
+.label{
+    -fx-text-fill: lightgray;
+}
+
+.text-field {
+    -fx-prompt-text-fill: gray;
+
+}
+
+.button{
+    -fx-focus-traversable: false;
+    -fx-background-color: derive(-fx-base, 15%);
+}
+
+.button:hover{
+    -fx-text-fill: white;
+}
+
+.separator *.line { 
+    -fx-background-color: -fx-accent;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+}
+
+.scroll-bar{
+    -fx-background-color: derive(-fx-base, 25%)
+}
+
+.button:default {
+    -fx-base: -fx-accent ;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
