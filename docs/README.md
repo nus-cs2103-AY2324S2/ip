@@ -133,3 +133,5 @@ The automatic save happens after any command that changes the data.
 | Delete Task  | `delete INDEX` or `rm INDEX`                                                                                                       |
 | Exit Program | `bye`                                                                                                               |
 
+The structure of this user guide took considerable reference from the user guide of AB3, 
+which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
