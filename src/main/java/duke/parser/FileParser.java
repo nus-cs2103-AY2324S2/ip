@@ -7,7 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.tasks.*;
+import duke.tasks.DeadlineTask;
+import duke.tasks.DoAfterTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
 
 /**
  * The FileParser class handles the parsing of a file containing task data.

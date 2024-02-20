@@ -16,7 +16,6 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
         this.isActive = true;
-        this.greet();
     }
 
     /**
@@ -28,9 +27,6 @@ public class Ui {
         for (String s: strs) {
             System.out.println(s);
         }
-    }
-    private void greet() {
-        this.sendSystemMessage(TextTemplate.LINE_BREAK, TextTemplate.GREETING, TextTemplate.LINE_BREAK);
     }
 
     /**

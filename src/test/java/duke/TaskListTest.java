@@ -1,11 +1,14 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exceptions.InvalidMarkException;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
     @Test
@@ -43,8 +46,8 @@ public class TaskListTest {
         taskList.add(t1);
         taskList.add(t2);
         String result = taskList.listTasks();
-        assertEquals("Here are the tasks in your list:\n1. " + t1.toString() +
-                "\n2. " + t2.toString() + "\n" + TextTemplate.LINE_BREAK, result);
+        assertEquals("Here are the tasks in your list:\n1. " + t1.toString()
+                + "\n2. " + t2.toString(), result);
     }
 
     @Test

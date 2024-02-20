@@ -3,6 +3,7 @@ package duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import duke.exceptions.InvalidDateFormException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidMarkException;
 import duke.exceptions.StorageException;
@@ -62,6 +63,8 @@ public class Duke {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (InvalidInputException e) {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
+            } catch (InvalidDateFormException e) {
+                this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (IOException e) {
                 this.ui.sendSystemMessage("Error saving to file\nTerminating Process..."
                         + TextTemplate.LINE_BREAK);
@@ -81,6 +84,8 @@ public class Duke {
         } catch (InvalidMarkException e) {
             return e.getMessage();
         } catch (InvalidInputException e) {
+            return e.getMessage();
+        } catch (InvalidDateFormException e) {
             return e.getMessage();
         } catch (IOException e) {
             return e.getMessage();

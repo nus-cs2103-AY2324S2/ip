@@ -27,6 +27,19 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the MainWindow layout and sets up initial dialog boxes.
+     * <p>
+     * This method is automatically called by JavaFX after the FXML file has been loaded and all @FXML annotated fields
+     * have been injected. It binds the vertical scroll position of the scrollPane to the height of the dialogContainer
+     * so that the scrollPane automatically scrolls to the bottom when new content is added to the dialogContainer.
+     * It also adds a greeting dialog from Duke to the dialog container upon initialization.
+     * </p>
+     * <p>
+     * This method should not be called directly. Instead, it is called automatically by the JavaFX framework
+     * during the initialization of the MainWindow UI component.
+     * </p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

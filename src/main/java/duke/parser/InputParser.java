@@ -10,7 +10,12 @@ import duke.TextTemplate;
 import duke.exceptions.InvalidDateFormException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidMarkException;
-import duke.tasks.*;
+import duke.tasks.DeadlineTask;
+import duke.tasks.DoAfterTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
+
 
 /**
  * The InputParser class handles the parsing of user input and performs corresponding actions.
@@ -92,22 +97,16 @@ public class InputParser {
         return TextTemplate.ADD_TASK + "\n" + todo.toString() + "\n" + taskCounterMsg;
     }
 
-    private String addEvent(String input, TaskList tasks) {
+    private String addEvent(String input, TaskList tasks) throws InvalidDateFormException {
         // 3 splits are necessary to split "event task 1 /from 2024-01-01 1600 /to 2024-01-02 1600" into:
         // event, task 1, 2024-01-01 1600, 2024-01-02 1600.
         String[] parts = input.split(" /from ", 2);
         String desc = parts[0].split(" ", 2)[1];
         String[] duration = parts[1].split(" /to ", 2);
-        assert duration.length == 2: "Event tasks should specify from and start time.";
+        assert duration.length == 2 : "Event tasks should specify from and start time.";
 
-        LocalDateTime start;
-        LocalDateTime end;
-        try {
-            start = parseDateTime(duration[0]);
-            end = parseDateTime(duration[1]);
-        } catch (InvalidDateFormException e) {
-            return e.getMessage();
-        }
+        LocalDateTime start = parseDateTime(duration[0]);
+        LocalDateTime end = parseDateTime(duration[1]);
 
         EventTask event = new EventTask(desc, start, end);
         tasks.add(event);
@@ -134,7 +133,7 @@ public class InputParser {
         return TextTemplate.ADD_TASK + "\n" + doAfter.toString() + "\n" + taskCounterMsg;
     }
 
-    private String addDeadline(String s, TaskList tasks) {
+    private String addDeadline(String s, TaskList tasks) throws InvalidDateFormException {
         // 2 splits are necessary to split "deadline task 1 /by 2024-01-01 1600" into:
         // deadline, task 1, 2024-01-01 1600.
         String[] parts = s.split(" /by ", 2);
@@ -143,11 +142,7 @@ public class InputParser {
         String end = parts[1];
 
         LocalDateTime deadlineTime;
-        try {
-            deadlineTime = parseDateTime(end);
-        } catch (InvalidDateFormException e) {
-            return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
-        }
+        deadlineTime = parseDateTime(end);
 
         DeadlineTask deadline = new DeadlineTask(desc, deadlineTime);
         tasks.add(deadline);
@@ -223,7 +218,8 @@ public class InputParser {
      * @return the response message after processing the input
      * @throws InvalidInputException if the input is invalid or does not match any known action
      */
-    public String processCommand(String input, TaskList tasks) throws InvalidInputException, InvalidMarkException {
+    public String processCommand(String input, TaskList tasks) throws InvalidInputException,
+            InvalidMarkException, InvalidDateFormException {
         Actions act = this.getAction(input);
         switch (act) {
         case BYE:
@@ -240,7 +236,7 @@ public class InputParser {
         case TODO:
             return this.addTodo(input, tasks);
         case DOAFTER:
-            return this.addDoAfter(input,tasks);
+            return this.addDoAfter(input, tasks);
         case EVENT:
             return this.addEvent(input, tasks);
         case DEADLINE:

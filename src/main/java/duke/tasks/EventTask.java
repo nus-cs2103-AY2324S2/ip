@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.TaskList;
-
 import java.time.LocalDateTime;
+
+import duke.TaskList;
 
 /**
  * The EventTask class represents a task with an event description and start/end date/time.

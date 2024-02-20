@@ -3,8 +3,16 @@ package duke.tasks;
 import duke.TaskList;
 import duke.exceptions.InvalidMarkException;
 
+/**
+ * The DoAfterTask class represents a task with a description and a task that should be completed before.
+ * Inherits from the Task class.
+ */
 public class DoAfterTask extends Task {
 
+    /**
+     * Enum representing the status of the task that needs to be completed before the DoAfterTask.
+     * This enum is used in the DoAfterTask class.
+     */
     public enum BeforeTaskStatus {
         VALID,
         INVALID,
@@ -81,8 +89,6 @@ public class DoAfterTask extends Task {
 
     /**
      * Gets the status of the beforeTask.
-     *
-     * @return the status of the beforeTask
      */
     public void markAsDone() throws InvalidMarkException {
         if (this.beforeTask.isDone() || this.beforeTaskStatus == BeforeTaskStatus.INVALID) {
@@ -97,7 +103,7 @@ public class DoAfterTask extends Task {
      * Returns a string representation of the DoAfter task.
      *
      * @return a string representation of the DoAfter task, including its status icon, description,
-     * and the task that has to be completed before
+     *     and the task that has to be completed before
      */
     public String toString() {
         assert this.beforeTaskStatus != BeforeTaskStatus.NOT_UPDATED : "beforeTaskStatus cannot be NOT_UPDATED";

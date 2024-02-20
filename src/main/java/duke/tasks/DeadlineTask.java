@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.TaskList;
-
 import java.time.LocalDateTime;
+
+import duke.TaskList;
 
 /**
  * The DeadlineTask class represents a task with a deadline description and end datetime.

@@ -130,6 +130,12 @@ public class TaskList {
         return t;
     }
 
+    /**
+     * Checks if the task list contains a specific task.
+     *
+     * @param task the task to be checked for presence in the task list
+     * @return true, if the task list contains the specified task, false otherwise
+     */
     public boolean containsTask(Task task) {
         if (this.tasks.contains(task)) {
             return true;
