@@ -43,6 +43,7 @@ Format for guide:
     Expected output (Example): 
     "1. [T][] task 1
      2. [T][] task 2"
+
 #### find
     Displays current tasks with search term
     Format: "find <search term>"
