@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import morty.task.Task;
 
+/**
+ * A class that represents a list of tasks.
+ */
 public class TaskList {
 
   /**
