@@ -54,7 +54,7 @@ public class Ui {
 
     public void showTaskList(TaskList list) {
         System.out.println(line);
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.getSize(); i++) {
             String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
             System.out.println(numberedOutput);
         }
