@@ -3,11 +3,13 @@ package morty.command;
 import morty.Storage;
 import morty.TaskList;
 import morty.Response;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Test for ListCommand.
