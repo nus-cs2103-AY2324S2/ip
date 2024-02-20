@@ -26,7 +26,7 @@ public class CommandParser {
         this.taskDisplay = new TaskDisplay();
         this.commandMap = new HashMap<>();
         this.defaultCommands = Set.of("f", "find", "lst", "list", "m", "mark", "um", "unmark", "t",
-                "todo", "e", "event", "d", "deadline", "del", "delete");
+                "todo", "e", "event", "dl", "deadline", "del", "delete");
 
         defineDefaultCommands();
     }
@@ -68,7 +68,7 @@ public class CommandParser {
         commandMap.put("todo", new AddCommandHandler(taskManager, taskDisplay));
         commandMap.put("e", new AddCommandHandler(taskManager, taskDisplay));
         commandMap.put("event", new AddCommandHandler(taskManager, taskDisplay));
-        commandMap.put("d", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("dl", new AddCommandHandler(taskManager, taskDisplay));
         commandMap.put("deadline", new AddCommandHandler(taskManager, taskDisplay));
         commandMap.put("del", new DeleteCommandHandler(taskManager, taskDisplay));
         commandMap.put("delete", new DeleteCommandHandler(taskManager, taskDisplay));

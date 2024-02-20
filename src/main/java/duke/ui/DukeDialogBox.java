@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.Collections;
@@ -12,8 +13,8 @@ import java.util.Collections;
 public class DukeDialogBox extends DialogBox {
 
     public DukeDialogBox(String text, Image img) {
-        super(text, img);
-        setLabelStyle("-fx-background-color: #0052F5; -fx-background-radius: 10px;", Color.WHITE);
+        super("Sophia", text, img);
+        setLabelStyle("-fx-background-color: #F5F5F5; -fx-background-radius: 10px;", Color.BLACK);
     }
 
     /**
@@ -26,10 +27,21 @@ public class DukeDialogBox extends DialogBox {
     }
 
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        if (this.getChildren().size() == 2) {
+            Node firstChild = this.getChildren().get(0);
+            Node secondChild = this.getChildren().get(1);
+
+            this.getChildren().clear();
+            this.getChildren().addAll(secondChild, firstChild);
+
+            if (firstChild instanceof VBox) {
+                ((VBox) firstChild).setAlignment(Pos.CENTER_LEFT);
+            }
+            if (secondChild instanceof VBox) {
+                ((VBox) secondChild).setAlignment(Pos.CENTER_RIGHT);
+            }
+
+        }
     }
 
 }

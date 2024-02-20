@@ -130,7 +130,7 @@ public class TaskDisplay {
             return "The task number provided is invalid.";
         }
         Task task = taskList.get(index);
-        message.append("OK, I've marked this task as not done yet:\n")
+        message.append("OK, I've marked this task as pending:\n")
                 .append("   ").append(task.getTaskIcon())
                 .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append("\n");
         return message.toString();
@@ -145,7 +145,7 @@ public class TaskDisplay {
         message.append("Noted. I've removed this task:\n")
                 .append("     ").append(deletedTask.getTaskIcon())
                 .append(deletedTask.getStatusIcon()).append(" ").append(deletedTask.getTaskDescription()).append("\n")
-                .append("  Now you have ").append(taskList.size() - 1)
+                .append("Now you have ").append(taskList.size() - 1)
                 .append(" tasks left in this list.\n");
         return message.toString();
     }
@@ -156,7 +156,7 @@ public class TaskDisplay {
             return "The task couldn't be added properly.";
         }
         Task task = taskList.get(index);
-        message.append("Got it. I've added this task: ")
+        message.append("Got it. I've added this task: \n")
                 .append("   ").append(task.getTaskIcon())
                 .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append("\n")
                 .append("Now you have ").append(taskList.size())
