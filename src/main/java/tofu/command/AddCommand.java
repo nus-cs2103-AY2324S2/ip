@@ -1,9 +1,9 @@
-package duke.command;
+package tofu.command;
 
-import duke.task.*;
-import duke.DukeException;
-import duke.ui.Ui;
-import duke.task.TaskList;
+import tofu.task.*;
+import tofu.TofuException;
+import tofu.ui.Ui;
+import tofu.task.TaskList;
 
 public class AddCommand implements Command {
 
@@ -28,9 +28,9 @@ public class AddCommand implements Command {
      * @param tasks the TaskList for which the Task will be added to
      * @param ui the UI that will be used to display the message
      * @return a String of the UI message and the new Task that will be added to the TaskList
-     * @throws DukeException if format of the description does not match
+     * @throws TofuException if format of the description does not match
      */
-    public String execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws TofuException {
         Task task;
         if (commandWord.equals("todo")) {
             task = new ToDo(description.trim());
@@ -38,7 +38,7 @@ public class AddCommand implements Command {
         } else if (commandWord.equals("deadline")) {
             String[] splitBy = description.split("/by");
             if (splitBy.length < 2) {
-                throw new DukeException("Deadline /by cannot be empty!");
+                throw new TofuException("Deadline /by cannot be empty!");
             }
             description = splitBy[0];
             String by = splitBy[1];
@@ -48,12 +48,12 @@ public class AddCommand implements Command {
         } else {
             String[] splitFrom = description.split("/from");
             if (splitFrom.length < 2) {
-                throw new DukeException("Event /from cannot be empty!");
+                throw new TofuException("Event /from cannot be empty!");
             }
             description = splitFrom[0];
             String[] splitTo = splitFrom[1].split("/to");
             if (splitTo.length < 2) {
-                throw new DukeException("Event /to cannot be empty!");
+                throw new TofuException("Event /to cannot be empty!");
             }
             String from = splitTo[0];
             String to = splitTo[1];

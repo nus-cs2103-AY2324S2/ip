@@ -1,12 +1,12 @@
-package duke;
+package tofu;
 
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDo;
-import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
+import tofu.command.ExitCommand;
+import tofu.command.ListCommand;
+import tofu.task.Deadline;
+import tofu.task.Event;
+import tofu.task.ToDo;
+import tofu.ui.Ui;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 

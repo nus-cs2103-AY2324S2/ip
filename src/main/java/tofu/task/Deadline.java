@@ -1,6 +1,7 @@
-package duke.task;
+package tofu.task;
 
-import duke.DukeException;
+import tofu.TofuException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,12 +12,12 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDate by;
 
-    public Deadline(String desc, String by) throws DukeException {
+    public Deadline(String desc, String by) throws TofuException {
         super(desc);
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException ex) {
-            throw new DukeException("Oops! The date and time format you provided is not valid. " +
+            throw new TofuException("Oops! The date and time format you provided is not valid. " +
                     "Please enter in the format yyyy-MM-dd");
         }
     }

@@ -1,22 +1,22 @@
-package duke;
+package tofu;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.command.Command;
+import tofu.task.TaskList;
+import tofu.ui.Ui;
+import tofu.command.Command;
 
-public class Duke {
+public class Tofu {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke() {
+    public Tofu() {
         ui = new Ui();
-        storage = new Storage("./data/duke.txt");
+        storage = new Storage("./data/tofu.txt");
         tasks = new TaskList(storage.load());
     }
 
-    public Duke(String filePath) {
+    public Tofu(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
@@ -32,7 +32,7 @@ public class Duke {
             Command c = Parser.parseToCommand(input);
             output = c.execute(tasks, ui);
             storage.save(tasks);
-        } catch (DukeException ex) {
+        } catch (TofuException ex) {
             output = ex.getMessage();
         }
         return output;
@@ -47,7 +47,7 @@ public class Duke {
                 Command c = Parser.parseToCommand(fullCommand);
                 System.out.println(c.execute(tasks, ui));
                 isExit = c.isExit();
-            } catch (DukeException ex) {
+            } catch (TofuException ex) {
                 System.out.println(ex.toString());
             }
         }
@@ -56,6 +56,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Tofu("./data/tofu.txt").run();
     }
 }

@@ -1,4 +1,4 @@
-package duke.ui;
+package tofu.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,7 +18,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.

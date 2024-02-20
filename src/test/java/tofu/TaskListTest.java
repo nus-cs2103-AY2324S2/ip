@@ -1,9 +1,9 @@
-package duke;
+package tofu;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.TaskList;
-import duke.task.ToDo;
+import tofu.task.Deadline;
+import tofu.task.Event;
+import tofu.task.TaskList;
+import tofu.task.ToDo;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;

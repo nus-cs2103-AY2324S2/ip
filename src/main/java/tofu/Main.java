@@ -1,7 +1,7 @@
-package duke;
+package tofu;
 
 import java.io.IOException;
-import duke.ui.*;
+import tofu.ui.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Tofu using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Tofu tofu = new Tofu();
 
     @Override
     public void start(Stage stage) {
@@ -25,7 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("\uD83D\uDC3E Tofu List");
 
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTofu(tofu);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

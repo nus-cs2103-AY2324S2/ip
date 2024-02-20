@@ -1,7 +1,7 @@
-package duke;
+package tofu;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import tofu.task.Task;
+import tofu.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -45,7 +45,7 @@ class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file.\n" +
                     "Program will run without saved file.");
-        } catch (DukeException ex) {
+        } catch (TofuException ex) {
             System.out.println("An error occurred while reading the file.\n" +
                     "File may contain corrupted data!\n" +
                     "Program will run without saved file.");

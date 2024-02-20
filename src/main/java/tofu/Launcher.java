@@ -1,4 +1,4 @@
-package duke;
+package tofu;
 
 import javafx.application.Application;
 

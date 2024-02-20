@@ -1,8 +1,8 @@
-package duke.task;
+package tofu.task;
 
 import java.util.ArrayList;
 
-import duke.DukeException;
+import tofu.TofuException;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ public class TaskList {
         this.tasks = new ArrayList<>(tasks);
     }
 
-    public void add(Task task) throws DukeException {
+    public void add(Task task) throws TofuException {
         for (Task item: tasks) {
             if (item.equals(task)) {
-                throw new DukeException("\uD83D\uDC3E Oops! It seems like this item already exists in our list. " +
+                throw new TofuException("\uD83D\uDC3E Oops! It seems like this item already exists in our list. " +
                         "Let's try adding something new. \uD83D\uDE3A");
             }
         }

@@ -1,9 +1,9 @@
-package duke;
+package tofu;
 
-import duke.task.Task;
-import duke.command.*;
-import duke.task.*;
-import duke.ui.Ui;
+import tofu.task.Task;
+import tofu.command.*;
+import tofu.task.*;
+import tofu.ui.Ui;
 
 
 class Parser {
@@ -14,9 +14,9 @@ class Parser {
      * @param line the String input to be parsed
      * @param splitFormat the separator for the input
      * @return a Task corresponding to the input
-     * @throws DukeException if the format of the input does not match
+     * @throws TofuException if the format of the input does not match
      */
-    public static Task parseToTask(String line, String splitFormat) throws DukeException {
+    public static Task parseToTask(String line, String splitFormat) throws TofuException {
         Task task;
         String[] stringComponents = line.split(splitFormat);
         for (int i = 0; i < stringComponents.length; i++) {
@@ -35,7 +35,7 @@ class Parser {
             task = new Event(stringComponents[2], isDone, stringComponents[3], stringComponents[4]);
             break;
         default:
-            throw new DukeException("Corrupted Data!");
+            throw new TofuException("Corrupted Data!");
         }
         return task;
     }
@@ -45,9 +45,9 @@ class Parser {
      *
      * @param line the String input to be parsed
      * @return a Command corresponding to the input
-     * @throws DukeException if the format of the input does not match
+     * @throws TofuException if the format of the input does not match
      */
-    public static Command parseToCommand(String line) throws DukeException {
+    public static Command parseToCommand(String line) throws TofuException {
         String[] stringComponents = line.split(" ");
         String commandWord = stringComponents[0].trim();
         Command command;
@@ -57,26 +57,26 @@ class Parser {
             command = new ListCommand();
         } else {
             if (stringComponents.length < 2) {
-                throw new DukeException(Ui.emptyDescriptionError());
+                throw new TofuException(Ui.emptyDescriptionError());
             }
             switch (commandWord) {
             case "mark":
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
-                    throw new DukeException(Ui.indexError());
+                    throw new TofuException(Ui.indexError());
                 }
                 command = new MarkCommand(index, true);
                 break;
             case "unmark":
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
-                    throw new DukeException(Ui.indexError());
+                    throw new TofuException(Ui.indexError());
                 }
                 command = new MarkCommand(index, false);
             case "delete":
                 index = Integer.parseInt(stringComponents[1]) - 1;
                 if (index < 0) {
-                    throw new DukeException(Ui.indexError());
+                    throw new TofuException(Ui.indexError());
                 }
                 command = new DeleteCommand(index);
                 break;
@@ -91,7 +91,7 @@ class Parser {
                 command = new AddCommand(commandWord, description);
                 break;
             default:
-                throw new DukeException(Ui.unknownCommandError());
+                throw new TofuException(Ui.unknownCommandError());
             }
         }
         return command;

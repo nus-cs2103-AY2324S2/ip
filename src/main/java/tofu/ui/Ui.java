@@ -1,6 +1,6 @@
-package duke.ui;
+package tofu.ui;
 
-import duke.task.TaskList;
+import tofu.task.TaskList;
 
 import java.util.Scanner;
 

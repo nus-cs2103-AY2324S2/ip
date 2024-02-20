@@ -1,15 +1,12 @@
-package duke.ui;
+package tofu.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import duke.Duke;
-import javafx.scene.paint.Color;
+import tofu.Tofu;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Tofu tofu;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image tofuImage = new Image(this.getClass().getResourceAsStream("/images/tofu.png"));
@@ -43,18 +40,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getTofuDialog(Ui.welcomeMessage(), tofuImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setTofu(Tofu d) {
+        tofu = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Tofu's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = tofu.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getTofuDialog(response, tofuImage)
