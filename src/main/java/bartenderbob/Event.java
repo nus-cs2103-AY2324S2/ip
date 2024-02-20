@@ -71,7 +71,7 @@ public class Event extends Task {
     private void verifyFromBeforeBy(String from, String by) {
         LocalDate fromDate = LocalDate.parse(from, YYYY_MM_DD_FORMAT);
         LocalDate byDate = LocalDate.parse(by, YYYY_MM_DD_FORMAT);
-        if (!fromDate.isBefore(byDate)) {
+        if (!fromDate.isBefore(byDate) && !fromDate.isEqual(byDate)) {
             throw new IllegalArgumentException();
         }
     }

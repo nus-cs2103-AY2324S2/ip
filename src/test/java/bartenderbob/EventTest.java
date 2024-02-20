@@ -73,4 +73,11 @@ public class EventTest {
         assertNotNull(test, "Event instance should not be null");
         assertEquals(test.show(), "[E][ ] Testing! (from: Oct 10 2019 to: Oct 12 2019)");
     }
+
+    @Test
+    public void event_equalUserInputs_classCreated() {
+        Event test = new Event("Testing!", "2019-10-10", "2019-10-10");
+        assertNotNull(test, "Event instance should not be null");
+        assertEquals(test.show(), "[E][ ] Testing! (from: Oct 10 2019 to: Oct 10 2019)");
+    }
 }
