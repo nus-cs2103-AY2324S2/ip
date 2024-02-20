@@ -11,6 +11,7 @@ import tommy.task.TaskList;
 public class UnmarkCommand extends Command {
 
     private int positionToUnmark;
+    private static final String indexOutOfRangeWarning = "The index is out of range >.<";
 
     /**
      * Constructor for an unmark task command,
@@ -30,7 +31,7 @@ public class UnmarkCommand extends Command {
             Storage.save(taskList);
             return ui.displayUnmarkedTask(taskList, positionToUnmark);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("The index is out of range >.<");
+            throw new InvalidArgumentException(indexOutOfRangeWarning);
         }
     }
 }

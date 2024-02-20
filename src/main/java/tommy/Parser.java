@@ -41,7 +41,6 @@ public class Parser {
 
         Command command;
 
-        // TODO: handle exception when there is blank space after command
         try {
             String[] components = userInput.split(" ", 2);
             String description;
@@ -125,7 +124,6 @@ public class Parser {
             try {
                 parsedDateTime = LocalDate.parse(date, formatter);
                 break;
-
             } catch (DateTimeParseException e) {
                 System.out.println("Does not match the pattern: " + e.getMessage());
             }

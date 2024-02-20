@@ -15,10 +15,6 @@ import tommy.exception.InvalidFileException;
 import tommy.task.Task;
 import tommy.task.TaskList;
 
-
-
-
-
 /**
  * Represents the database to store the past logs of taskList.
  */
@@ -60,12 +56,12 @@ public class Storage {
      */
     public static void save(TaskList taskList) {
         ArrayList<Task> arrayListOfTasks = taskList.getArrayList();
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : arrayListOfTasks) {
                 writer.write(task.toString());
                 writer.newLine();
             }
-
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -81,15 +77,16 @@ public class Storage {
         ArrayList arrayTaskList = new ArrayList();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String data;
+            String data = reader.readLine();
 
-            while ((data = reader.readLine()) != null) {
+            while (data != null) {
                 Task task = Task.parseFromFileString(data);
-                if (task != null) {
-                    arrayTaskList.add(task);
+                if (task == null) {
+                    break;
                 }
+                arrayTaskList.add(task);
+                data = reader.readLine();
             }
-
         } catch (FileNotFoundException e) {
             throw new InvalidFileException("No existing file. Starting with an empty task list.");
         } catch (IOException e) {

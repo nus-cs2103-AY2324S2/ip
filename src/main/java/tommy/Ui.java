@@ -2,7 +2,6 @@ package tommy;
 
 import java.util.Scanner;
 
-import tommy.exception.TommyException;
 import tommy.task.Task;
 import tommy.task.TaskList;
 
@@ -27,8 +26,6 @@ public class Ui {
      * @return Greeting messages for the user.
      */
     public String greet() {
-        //Greetings
-
         return "Hello! I'm " + this.NAME + "\nWhat can I do for you?";
     }
 
@@ -59,16 +56,18 @@ public class Ui {
      * @returns Numbered list of tasks as a String.
      */
     public static String displayAllTasks(TaskList taskList) {
-        StringBuilder acc = new StringBuilder("Here are the tasks in your list:\n");
-
         int length = taskList.getSize();
+        StringBuilder accumulator = new StringBuilder("Here are the tasks in your list:\n");
 
-        for (int i = 0; i < length; i++) {
-            Task task = taskList.getTaskAtPosition(i + 1);
-            acc.append(i + 1 + "." + task.toString() + "\n");
+        for (int i = 1; i <= length; i++) {
+            String counter = i + ".";
+            Task task = taskList.getTaskAtPosition(i);
+            String descOfTask = task.toString();
+
+            accumulator.append(counter + descOfTask + System.lineSeparator());
         }
 
-        return acc.toString();
+        return accumulator.toString();
     }
 
     /**
@@ -80,8 +79,10 @@ public class Ui {
      */
     public static String displayDeletedTask(TaskList taskList, Task task) {
         String descOfTaskToDelete = task.toString();
-        String descToDisplay = "Noted. I've removed this task:\n  " + descOfTaskToDelete
-                + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        String deletedTaskConfirmation = "Noted. I've removed this task:\n  ";
+        String taskListSummary = "\nNow you have " + taskList.getSize() + " tasks in the list.";
+
+        String descToDisplay =  deletedTaskConfirmation + descOfTaskToDelete + taskListSummary;
 
         return descToDisplay;
     }
@@ -95,8 +96,10 @@ public class Ui {
      */
     public static String displayMarkedTask(TaskList taskList, int position) {
         Task markedTask = taskList.getTaskAtPosition(position);
+        String descOfMarkedTask = markedTask.toString();
+        String markedTaskConfirmation = "Nice! I've marked this task as done:\n" + "  ";
 
-        String descToDisplay = "Nice! I've marked this task as done:\n" + "  " + markedTask.toString();
+        String descToDisplay = markedTaskConfirmation + descOfMarkedTask;
 
         return descToDisplay;
     }
@@ -109,10 +112,11 @@ public class Ui {
      * @return Description of the unmarked task.
      */
     public static String displayUnmarkedTask(TaskList taskList, int position) {
+        String unmarkedTaskConfirmation = "OK, I've marked this task as not done yet:\n" + "  ";
         Task unmarkedTask = taskList.getTaskAtPosition(position);
+        String descOfUnmarkedTask = unmarkedTask.toString();
 
-        String descToDisplay = "OK, I've marked this task as not done yet:\n"
-                + "  " + unmarkedTask.toString();
+        String descToDisplay = unmarkedTaskConfirmation + descOfUnmarkedTask;
 
         return descToDisplay;
     }
@@ -125,8 +129,11 @@ public class Ui {
      * @return Description of the newly created task.
      */
     public static String displayNewTask(Task task, TaskList taskList) {
-        String descToDisplay = "Got it. I've added this task:\n"
-                + "  " + task.toString() + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        String newTaskConfirmation = "Got it. I've added this task:\n" + "  ";
+        String descOfNewTask = task.toString();
+        String taskListSummary = "\nNow you have " + taskList.getSize() + " tasks in the list.";
+
+        String descToDisplay =  newTaskConfirmation + descOfNewTask + taskListSummary;
 
         return descToDisplay;
     }
@@ -139,29 +146,23 @@ public class Ui {
      * @return All the tasks with matched description.
      */
     public static String displayMatchingTasks(TaskList taskList, String keyword) {
-        StringBuilder descToDisplay = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder accumulator = new StringBuilder("Here are the matching tasks in your list:\n");
         int length = taskList.getSize();
-        int counter = 0;
+        int counter = 1;
 
 
-        for (int i = 1; i < length + 1; i++) {
+        for (int i = 1; i <= length; i++) {
             Task task = taskList.getTaskAtPosition(i);
-            if (task.toString().contains(keyword)) {
+            Boolean containsKeyword = task.toString().contains(keyword);
+
+            if (containsKeyword) {
+                String position = counter + ".";
+                accumulator.append(position + task + System.lineSeparator());
                 counter++;
-                descToDisplay.append(counter + "." + task + "\n");
             }
         }
 
-        return descToDisplay.toString();
-    }
-
-    /**
-     * Returns the relevant error message for the TommyException thrown.
-     *
-     * @return Error message due to TommyException thrown.
-     */
-    public static String printError(TommyException e) {
-        return e.getErrorMessage();
+        return accumulator.toString();
     }
 
     /**

@@ -20,7 +20,7 @@ public class AddTodoCommand extends Command {
      *
      * @param description Description of the Todo task.
      */
-    public AddTodoCommand(String description) throws InvalidArgumentException {
+    public AddTodoCommand(String description) {
         this.description = description;
     }
 

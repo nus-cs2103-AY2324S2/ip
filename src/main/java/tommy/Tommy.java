@@ -1,6 +1,5 @@
 package tommy;
 
-import javafx.scene.image.Image;
 import tommy.command.Command;
 import tommy.exception.TommyException;
 import tommy.task.TaskList;
@@ -15,10 +14,6 @@ public class Tommy {
 
     private Ui ui;
     private boolean isActive = true;
-
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/bobIcon.png"));
-    private Image tommy = new Image(this.getClass().getResourceAsStream("/images/bearIcon.png"));
 
     /**
      * Constructor for the Chatbot and retrieve the past log from the storage.

@@ -11,6 +11,8 @@ import tommy.task.TaskList;
 public class MarkCommand extends Command {
 
     private int positionToMark;
+    private static final String indexOutOfRangeWarning = "The index is out of range >.<";
+
 
     /**
      * Constructor for a mark task command,
@@ -30,7 +32,7 @@ public class MarkCommand extends Command {
             Storage.save(taskList);
             return ui.displayMarkedTask(taskList, positionToMark);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("The index is out of range >.<");
+            throw new InvalidArgumentException(indexOutOfRangeWarning);
         }
     }
 }
