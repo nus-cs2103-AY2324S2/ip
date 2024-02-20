@@ -10,7 +10,7 @@ Format: `todo DESCRIPTION`
 
 Example: `todo assignment 1`
 
-![Todo](docs/Todo.png)
+![Todo](images/Todo.png)
 
 ## Adding Deadlines: `deadline`
 Adds a deadline to the task list, specifying a date the task should be completed by.
@@ -19,7 +19,7 @@ Format: `deadline DESCRIPTION /by DATE`
 
 Example: `deadline quiz 2 /by 2024-02-19`
 
-![Deadline](docs/Deadline.png)
+![Deadline](images/Deadline.png)
 
 ## Adding Events: `event`
 Adds an event to the task list. Specifying the start and end date.
@@ -28,14 +28,14 @@ Format: `event DESCRIPTION /from DATE /to DATE`
 
 Example: `event Inter-Hall Games /from 2024-02-19 /to 2024-03-21`
 
-![Event](docs/Event.png)
+![Event](images/Event.png)
 
 ## Listing All Tasks: `list`
 Lists all tasks.
 
 Format: `list`
 
-![List](docs/List.png)
+![List](images/List.png)
 
 ## Marking Completed Tasks: `mark`
 Marks a task as done.
@@ -44,7 +44,7 @@ Format: `mark INDEX`
 
 Example: `mark 1`
 
-![Mark](docs/Mark.png)
+![Mark](images/Mark.png)
 
 ## Unmarking Completed Tasks: `mark`
 Unmark a task.
@@ -53,7 +53,7 @@ Format: `unmark INDEX`
 
 Example: `unmark 1`
 
-![Unmark](docs/Unmark.png)
+![Unmark](images/Unmark.png)
 
 ## Deleting Tasks: `delete`
 Delete a task.
@@ -62,7 +62,7 @@ Format: `delete INDEX`
 
 Example: `delete 1`
 
-![Delete](docs/Delete.png)
+![Delete](images/Delete.png)
 
 ## Finding Tasks: `find`
 Find all tasks containing the specified keyword.
@@ -71,14 +71,14 @@ Format: `find KEYWORD`
 
 Example: `find Games`
 
-![Find](docs/Find.png)
+![Find](images/Find.png)
 
 ## Getting Reminders: `remind`
 Reminds the user of all tasks occurring on the day.
 
 Format: `remind`
 
-![Remind](docs/Remind.png)
+![Remind](images/Remind.png)
 
 ## Saving the data
 UncleBob data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
