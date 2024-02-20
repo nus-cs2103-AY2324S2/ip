@@ -29,6 +29,7 @@ public class Main extends Application {
     }
 
     public static void main(String args[]) {
-        new Duke("./src/main/java/data/duke.txt").run();
+        String storagePath = "./data/duke.txt"; //"./src/main/java/data/duke.txt"
+        new Duke(storagePath).run();
     }
 }
