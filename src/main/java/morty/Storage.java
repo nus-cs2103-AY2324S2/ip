@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,4 +94,27 @@ public class Storage {
     }
   }
 
+  /**
+   * Archives the tasks to a file.
+   */
+  public void archive() {
+    try {
+      FileReader r = new FileReader(this.path);
+      BufferedReader bufferedReader = new BufferedReader(r);
+      String archiveFileName = "archive/"
+          + DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(java.time.LocalDateTime.now()) + ".txt";
+      // Create archive directory if it does not exist
+      File archiveDirectory = new File("archive");
+      archiveDirectory.mkdirs();
+      Writer w = new FileWriter(archiveFileName);
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        System.out.println(line);
+        w.write(line);
+      }
+      r.close();
+      w.close();
+    } catch (IOException e) {
+    }
+  }
 }
