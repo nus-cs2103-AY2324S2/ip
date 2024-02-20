@@ -1,8 +1,12 @@
 package eve.tasks;
 
 import java.time.LocalDateTime;
+
 import eve.parser.Parser;
 
+/*
+ * Event class is a subclass of Task class
+ */
 public class Event extends Task {
     protected LocalDateTime startString;
     protected LocalDateTime endString;
@@ -18,7 +22,7 @@ public class Event extends Task {
         this.startString = Parser.stringToDateTime(start);
         this.endString = Parser.stringToDateTime(start);
         
-        if(isDone.equals("0")){
+        if (isDone.equals("0")) {
             this.isDone = false;
         } else {
             this.isDone = true;
@@ -27,13 +31,15 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + "[" + super.getStatusIcon() + "]" + super.toString() + " (from: " + startString + "to: " + endString + ")" ; 
+        return "[E]" + "[" + super.getStatusIcon() + "]"
+                + super.toString() + " (from: " + startString
+                + "to: " + endString + ")";
     }
 
     @Override
     public String toStore() {
-        return "E" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + startString + endString + "\n"; 
+        return "E" + " | " + super.getStatusInteger() + " | "
+                + super.toString() + " | " + startString
+                + endString + "\n";
     }
-
-    
 }
