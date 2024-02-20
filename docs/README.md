@@ -4,6 +4,22 @@
 
 Welcome to Duking Time! Duking Time is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI). If you can type fast, Duking Time can help you manage your tasks faster than traditional GUI apps.
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+  - [Create a todo task](#todo---add-a-todo-task)
+  - [Create an deadline task](#deadline---add-a-deadline-task)
+  - [Create an event task](#event---add-an-event-task)
+  - [Mark a task as complete](#mark---mark-a-task-as-done)
+  - [Unmark a task as complete](#unmark---unmark-a-task-as-done)
+  - [Listing all tasks](#list---list-all-tasks)
+  - [Deleting a task](#delete---delete-a-task)
+  - [Show help message](#help---show-help-message)
+  - [Exit the app](#exit-the-app)
+- [Cheatsheet](#cheatsheet)
+
 ## Features
 
 ### Add tasks
@@ -73,7 +89,7 @@ The deadline task is added to the task list.
 
 ```
 Got it. I've added this task:
-[D][✘] return book (by: 2021-09-30)
+[D][✘] return book (by: Sep 30 2021)
 Now you have 2 tasks in the list.
 ```
 
@@ -88,7 +104,7 @@ event <description> /from <start date> /to <end date>
 
 Example of usage:
 
-`event project meeting /from 2021-10-01 /to 2021-10-01`
+`event project meeting /from 2021-10-01 /to 2021-10-02`
 
 Expected outcome:
 
@@ -96,7 +112,7 @@ The event task is added to the task list.
 
 ```
 Got it. I've added this task:
-[E][✘] project meeting (from: 2021-10-01 to: 2021-10-01)
+[E][✘] project meeting (from: Oct 01 2021 to: Oct 02 2021)
 Now you have 3 tasks in the list.
 ```
 
@@ -161,8 +177,8 @@ The tasks are listed.
 ```
 Here are the tasks in your list:
 1. [T][✘] read book
-2. [D][✘] return book (by: 30 Sep 2021 06:00 PM)
-3. [E][✘] project meeting (from: 01 Oct 2021 to: 01 Oct 2021)
+2. [D][✘] return book (by: Sep 30 2021)
+3. [E][✘] project meeting (from: Oct 01 2021 to: Oct 01 2021)
 ```
 
 ### `delete` - Delete a task
@@ -184,7 +200,7 @@ The task is deleted from the task list.
 
 ```
 Noted. I've removed this task:
-[D][✘] return book (by: 30 Sep 2021 06:00 PM)
+[D][✘] return book (by: Sep 30 2021)
 Now you have 2 tasks in the list.
 ```
 
@@ -211,3 +227,37 @@ Format: delete <task number>
 Example: delete 2
 ```
 
+### 'bye' - Exit the app
+
+Exit the app.
+
+To exit the app, run the following command:
+```
+bye
+```
+
+Example of usage:
+
+`bye`
+
+Expected outcome:
+
+The app is exited.
+
+```
+Bye. Hope to see you again soon!
+```
+
+## Cheatsheet
+
+| Command    | Format                                                  | Examples                                                |
+|------------|---------------------------------------------------------|---------------------------------------------------------|
+| `todo`     | `todo <description>`                                    | `todo read book`                                        |
+| `deadline` | `deadline <description> /by <deadline>`                 | `deadline return book /by 2021-09-30`                   |
+| `event`    | `event <description> /from <start date> /to <end date>` | `event project meeting /from 2021-10-01 /to 2021-10-02` |
+| `mark`     | `mark <task number>`                                    | `mark 1`                                                |
+| `unmark`   | `unmark <task number>`                                  | `unmark 1`                                              |
+| `list`     | `list`                                                  | `list`                                                  |
+| `delete`   | `delete <task number>`                                  | `delete 2`                                              |
+| `help`     | `help <optional command>`                               | `help delete`                                           |
+| `bye`      | `bye`                                                   | `bye`                                                   |
