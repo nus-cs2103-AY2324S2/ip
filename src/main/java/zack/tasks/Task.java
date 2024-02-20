@@ -1,11 +1,14 @@
 package zack.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a generic task with a description and completion status.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected LocalDateTime addedTime;
 
     /**
      * Constructs a Task with the specified description and completion status.
@@ -13,10 +16,15 @@ public class Task {
      * @param description The description of the task.
      * @param isDone      True if the task is marked as done, false otherwise.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, LocalDateTime addedTime) {
         assert description != null : "description cannot be null";
         this.description = description;
         this.isDone = isDone;
+        this.addedTime = addedTime;
+    }
+
+    public LocalDateTime getAddedTime() {
+        return addedTime;
     }
 
     /**
@@ -67,7 +75,7 @@ public class Task {
      */
     public String toFileString() {
         // Basic implementation for Task
-        return "T | " + (isDone ? 1 : 0) + " | " + description;
+        return "T | " + (isDone ? 1 : 0) + " | " + description + " | " + addedTime;
     }
 
     @Override

@@ -3,9 +3,11 @@ package zack.util;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import zack.ZackException;
+import zack.tasks.Deadline;
 import zack.tasks.Task;
 
 /**
@@ -95,12 +97,40 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public String showTaskList(ArrayList<Task> tasks) {
+    public String showTaskList(ArrayList<Task> tasks, String ascOrDesc, String sortType) {
         if (tasks.isEmpty()) {
-            return "The task list is currently empty. Try adding some tasks!";
+            return "The task list is empty.";
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
+        if (sortType.equalsIgnoreCase("alpha")) {
+            sb.append("Here are your tasks sorted in ").append(ascOrDesc).append(" alphabetical order:\n");
+        } else if (sortType.equalsIgnoreCase("addtime")) {
+            sb.append("Here are your tasks sorted in ").append(ascOrDesc).append(" added order:\n");
+        } else {
+            // normally display all tasks
+            sb.append("Here are the tasks in your list:\n");
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Generates a formatted string representation of a list of deadlines, sorted based on their added time.
+     *
+     * @param tasks     the list of deadlines to display.
+     * @param ascOrDesc a string indicating the order in which the deadlines are sorted ("asc" for ascending,
+     *                 "desc" for descending).
+     * @return a formatted string representing the sorted list of deadlines, along with an indication of the
+     *     sorting order.
+     */
+    public String showDeadlinesList(List<Deadline> tasks, String ascOrDesc) {
+        if (tasks.isEmpty()) {
+            return "There are currently no deadlines in your list.";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are your deadlines sorted in " + ascOrDesc + " added order:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
         }

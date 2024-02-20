@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,33 +78,39 @@ public class Storage {
      * @throws ZackException If there is an error in parsing the line.
      */
     public Task parseStringToTask(String line) throws ZackException {
-        String[] parts = line.split(" \\| ");
+        String[] parts = line.split(" \\| "); // split by " | "
         // handle exceptions for when the text file is edited.
-        if (parts.length < 3) {
+        if (parts.length < 4) {
             throw new ZackException("Invalid task format");
         }
         String type = parts[0];
         boolean isDone = "1".equals(parts[1].trim());
         String description = parts[2];
+        LocalDateTime addedTime;
         switch (type) {
         case "T":
-            return new Todo(description, isDone);
+            // ["T", "1", "homework", "2019-01-21T05:47:08.644"]
+            addedTime = LocalDateTime.parse(parts[3]);
+            return new Todo(description, isDone, addedTime);
         case "D":
-            if (parts.length < 4) {
+            // ["D", "1", "assignment", "2022-08-01 2200", "2019-01-21T05:47:08.644"]
+            if (parts.length < 5) {
                 throw new ZackException("Invalid deadline format");
             }
-            return new Deadline(description, parts[3], isDone);
+            addedTime = LocalDateTime.parse(parts[4]);
+            return new Deadline(description, parts[3], isDone, addedTime);
         case "E":
-            if (parts.length < 4) {
+            if (parts.length < 5) {
                 throw new ZackException("Invalid event format");
             }
-            // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300"]
+            // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300", "2019-01-21T05:47:08.644"]
+            addedTime = LocalDateTime.parse(parts[4]);
             String[] fromTo = parts[3].split(" to ");
             String from = fromTo[0];
             String to = fromTo[1];
-            return new Event(description, from, to, isDone);
+            return new Event(description, from, to, isDone, addedTime);
         default:
-            throw new ZackException("Unknown task type");
+            throw new ZackException("Unknown task type found inside storage.");
         }
     }
 }

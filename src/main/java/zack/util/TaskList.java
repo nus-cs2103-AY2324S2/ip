@@ -1,8 +1,13 @@
 package zack.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import zack.ZackException;
+import zack.tasks.Deadline;
 import zack.tasks.Task;
 
 /**
@@ -102,5 +107,53 @@ public class TaskList {
             }
         }
         return foundTasks;
+    }
+
+    /**
+     * Sorts the list of tasks alphabetically by their description.
+     *
+     * @param ascOrDesc a string indicating whether to sort in ascending ("asc") or descending ("desc") order.
+     */
+    public void sortByAlphabetical(String ascOrDesc) {
+        if (ascOrDesc.equalsIgnoreCase("asc")) {
+            tasks.sort(Comparator.comparing(Task::getDescription));
+        } else {
+            tasks.sort(Comparator.comparing(Task::getDescription).reversed());
+        }
+    }
+
+    /**
+     * Sorts the list of deadlines by the deadline time.
+     *
+     * @param ascOrDesc a string indicating whether to sort in ascending ("asc") or descending ("desc") order.
+     * @return a sorted list of deadlines according to the specified order.
+     */
+    public List<Deadline> sortDeadlines(String ascOrDesc) {
+        Stream<Deadline> deadlineStream = this.tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task);
+
+        if ("asc".equalsIgnoreCase(ascOrDesc)) {
+            return deadlineStream
+                    .sorted(Comparator.comparing(Deadline::getBy))
+                    .collect(Collectors.toList());
+        } else {
+            return deadlineStream
+                    .sorted(Comparator.comparing(Deadline::getBy).reversed())
+                    .collect(Collectors.toList());
+        }
+    }
+
+    /**
+     * Sorts the list of tasks by their added time.
+     *
+     * @param ascOrDesc a string indicating whether to sort in ascending ("asc") or descending ("desc") order.
+     */
+    public void sortByAddTime(String ascOrDesc) {
+        if (ascOrDesc.equalsIgnoreCase("asc")) {
+            tasks.sort(Comparator.comparing(Task::getAddedTime));
+        } else {
+            tasks.sort(Comparator.comparing(Task::getAddedTime).reversed());
+        }
     }
 }

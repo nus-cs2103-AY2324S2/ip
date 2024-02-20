@@ -183,6 +183,6 @@ public class Zack extends Application {
      * Enumeration representing different types of tasks.
      */
     public enum TaskType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE, FIND
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE, FIND, SORT
     }
 }
