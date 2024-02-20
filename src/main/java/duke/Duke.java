@@ -1,5 +1,8 @@
 package duke;
 
+import duke.task.Task;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 
@@ -16,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * duke.Main class of the program.
@@ -38,6 +42,7 @@ public class Duke extends Application {
     File f = new File("data/EUEU.txt");
     File contFile = new File("data/Contacts.txt");
     Scanner user = new Scanner(System.in);
+
     Storage storage = new Storage(f);
     TaskList tasklist = new TaskList(storage);
     Storage contStorage = new Storage(contFile);
@@ -47,13 +52,11 @@ public class Duke extends Application {
 
         File f = new File("data/EUEU.txt");
         Scanner user = new Scanner(System.in);
-        Storage storage = new Storage(f);
-        TaskList tasklist = new TaskList(storage);
 
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws FileNotFoundException {
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -86,8 +89,12 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        Label welcomeMessage = new Label ("Hi babyyy! It's your EUEU!! \n"
-                                                + "What are you doing today??");
+
+
+//        Label welcomeMessage = new Label ("Hi babyyy! It's your EUEU!! \n"
+//                                                + "What are you doing today??");
+
+        Label welcomeMessage = new Label (tasklist.list());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, new ImageView(eueu)));
 
 

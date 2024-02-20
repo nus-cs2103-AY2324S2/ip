@@ -60,7 +60,11 @@ public class Event extends Task {
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write (this.add() + "\n");
+            if (!this.isDone()) {
+                fw.write("E/0/" + this.getTask() + "/" + start + "/" + end + "\n");
+            } else {
+                fw.write("E/0/" + this.getTask() + "/" + start + "/" + end + "\n");
+            }
             fw.close();
         } catch (IOException e) {
             System.out.println("file not found! try again xx");

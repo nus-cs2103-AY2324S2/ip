@@ -34,7 +34,11 @@ public class Todo extends Task {
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write(this.getCat() + this.marked() + " " + this.getTask() + "\n");
+            if (!this.isDone()) {
+                fw.write("T/0/" + this.getTask() + "\n");
+            } else {
+                fw.write("T/1/" + this.getTask() + "\n");
+            }
             fw.close();
         } catch (IOException e) {
             System.out.println("file not found! try again bb");

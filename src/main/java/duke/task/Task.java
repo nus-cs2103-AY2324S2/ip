@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public abstract class Task {
     private String task;
-    private boolean isDone;
+    private boolean isDone = false;
 
     public Task(String task) {
         this.task = task;
@@ -27,6 +28,10 @@ public abstract class Task {
      */
     public void setNotDone() {
         isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -87,12 +92,12 @@ public abstract class Task {
      * @param filePath Filepath to File to be written to.
      */
     public void writeToFile(File filePath) throws IOException {
-        if (this instanceof Todo) {
-            ((Todo) this).writeToFile(filePath);
-        } else if (this instanceof Deadline) {
-            ((Deadline) this).writeToFile(filePath);
-        } else if (this instanceof Event) {
-            ((Event) this).writeToFile(filePath);
+        try {
+            FileWriter fw = new FileWriter(filePath.getPath(), true);
+            fw.write(this.add() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("file not found! try again bb");
         }
     }
 

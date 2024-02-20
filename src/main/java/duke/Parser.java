@@ -58,12 +58,12 @@ private ContactsList contactsList;
             res = tasklist.list() + "\n";
             res += WELCOME_MESSAGE;
         } else if (command.equals("clear list")) {
-            tasklist.clearCurrentTasks();
+            tasklist.clearCurrentList();
             res = tasklist.clearList();
         } else if (command.equals("bye")) {
             res = EXIT_MESSAGE;
-            tasklist.write();
-            tasklist.clearCurrentTasks();
+//            tasklist.write();
+//            tasklist.clearCurrentTasks();
             contactsList.write();
             contactsList.clearContacts();
         } else if (command.startsWith("mark")) {
@@ -126,18 +126,6 @@ private ContactsList contactsList;
                     } catch(ArrayIndexOutOfBoundsException e) {
                         res = INVALID_EVENT_TIMINGS;
                     }
-//                } else if (command.startsWith("cont add")) {
-//                    try {
-//                        String str = command.substring(9);
-//                        String[] arr = str.split(" ");
-//                        String name = arr[0];
-//                        int number = Integer.parseInt(arr[1]);
-//
-//                    } catch (StringIndexOutOfBoundsException e) {
-//                        res = "Enter contact command";
-//                    } catch (NumberFormatException e) {
-//                        res = "Enter contact number";
-//                    }
                 } else {
                     res = NON_COMMAND_RESPONSE;
                 }

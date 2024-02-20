@@ -59,7 +59,11 @@ public class Deadline extends Task{
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write(this.add() + "\n");
+            if (!this.isDone()) {
+                fw.write("D/0/" + this.getTask() + "/" + deadline + "\n");
+            } else {
+                fw.write("D/1/" + this.getTask() + "/" + deadline + "\n");
+            }
             fw.close();
         } catch (IOException e) {
             System.out.println("file not found! try again xx");
