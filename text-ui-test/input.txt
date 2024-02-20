@@ -1,0 +1,25 @@
+todo homework
+deadline ip /by 25-01-2024 23:59
+event tutorial /from 02-02-2024 15:00 /to 02-02-2024 16:00
+list
+mark 1
+mark 2
+list
+unmark 2
+mark 3
+list
+lorem ipsum
+todo
+deadline someTask
+event someEvent /from /to
+event someOtherEvent /from  /to
+mark 4
+mark abc
+unmark 0
+delete 0
+delete abc
+delete 1
+find ip
+mark 2
+list
+bye
