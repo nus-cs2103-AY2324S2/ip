@@ -1,6 +1,6 @@
 # Toothless User Guide
 
-![Screenshot of Toothless application](./Ui.png)
+![Screenshot of Toothless application](Ui.png)
 
 Do you have a lot of tasks to keep track of? Toothless is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI). It is a chatbot that helps you keep track of your tasks, deadlines and events. If you can type fast, Toothless can help you keep track of your tasks faster than traditional GUI apps.
 
@@ -197,4 +197,4 @@ Toothless data are saved in the hard disk automatically after any command that c
 
 ## Acknowledgements
 
-Toothless is based on the Duke project created by the [SE-EDU initiative](https://se-education.org). It is a project that is part of the CS2103T Software Engineering module at the National University of Singapore. It is created by the following contributors:
+Toothless is based on the Duke project created by the [SE-EDU initiative](https://se-education.org). It is a project that is part of the CS2103T Software Engineering module at the National University of Singapore.
