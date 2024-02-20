@@ -74,7 +74,7 @@ public class Responses {
         if (input < 0 || input > this.taskList.taskLength() - 1) {
             throw new ListOutOfBoundsException(String.format("%d", this.taskList.taskLength()));
         }
-        stringBuilder.append("    Nice! I've marked this task as done:");
+        stringBuilder.append("    Nice! I've marked this task as done:\n");
         stringBuilder.append(this.taskList.markTask(input));
         return stringBuilder.toString();
     }

@@ -1,1 +1,5 @@
-save 0 -1 todo testsave
+save 1 1 todo cs2103 hw
+save 0 0 deadline sale /by 02/06/2024 1800
+save 0 0 deadline life /by 02/03/2045 1800
+save 0 0 todo life
+save 0 0 event test /from 02/02/2044 /to 02/02/2045
