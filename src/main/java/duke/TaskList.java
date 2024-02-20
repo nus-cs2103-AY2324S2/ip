@@ -129,6 +129,9 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1]) - 1;
+        if (no > list.size()){
+            return "invalid input.";
+        }
         list.get(no).markAsDone();
         System.out.println("Nice! I've marked this task as done:\n");
         System.out.println(list.get(no).ToString());
@@ -146,6 +149,9 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1]) - 1;
+        if (no > list.size()){
+            return "invalid input.";
+        }
         list.get(no).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:\n");
         System.out.println(list.get(no).ToString());
