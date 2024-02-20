@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException {
         if (index < 0 || index >= tasks.getSize()) {
-            throw new ZackException("Task index is out of range. Please enter a number between 1 and "
+            throw new ZackException("That's not a task index you have! Please use a number between 1 and "
                     + tasks.getSize() + ".");
         }
         Task removedTask = tasks.deleteTask(index);

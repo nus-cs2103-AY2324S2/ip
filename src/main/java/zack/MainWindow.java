@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * Displays a welcome message from Zack in the conversation dialog.
      */
     public void showWelcomeMessage() {
-        String welcomeMessage = "Hello! I'm Zack\nWhat can I do for you?";
+        String welcomeMessage = "Hello! I'm Zack\nWhat's on your mind?";
         dialogContainer.getChildren().add(DialogBox.getZackDialog(welcomeMessage, zackImage));
     }
 
@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
         StringBuilder taskInfoBuilder = new StringBuilder();
 
         if (tasks.getSize() == 0) {
-            taskInfoBuilder.append("Task file successfully loaded but it is currently empty.");
+            taskInfoBuilder.append("Don't worry we've got the file, it's just currently empty!");
         } else {
             taskInfoBuilder.append("Here are the tasks that I have loaded from storage:\n");
             for (int i = 0; i < tasks.getSize(); i++) {

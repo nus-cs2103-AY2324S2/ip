@@ -100,7 +100,7 @@ public class Parser {
      */
     private static Command processByeCommand(String[] sections) throws ZackException {
         if (sections.length > 1) {
-            throw new ZackException("Please only type 'bye' if you want to quit.");
+            throw new ZackException("Please only type 'bye' if you wana exit!");
         }
         return new ByeCommand();
     }
@@ -117,7 +117,7 @@ public class Parser {
      */
     private static Command processMarkCommand(String[] sections, Zack.TaskType taskType) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("No task index provided. Please specify the task index to mark.");
+            throw new ZackException("You gotta provide the task index for me to mark or unmark!");
         }
         int index = parseIndex(sections[1]);
         boolean isDone = taskType == Zack.TaskType.MARK;
@@ -135,7 +135,7 @@ public class Parser {
      */
     private static Command processListCommand(String[] sections) throws ZackException {
         if (sections.length > 1) {
-            throw new ZackException("Please only type 'list' to view the list of tasks.");
+            throw new ZackException("Please only type 'list' to view the list of tasks!");
         }
         return new ListCommand();
     }
@@ -151,7 +151,7 @@ public class Parser {
      */
     private static Command processAddTaskCommand(String[] sections, Zack.TaskType taskType) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("The description of a " + sections[0] + " cannot be empty.");
+            throw new ZackException("Hey now, the description of a " + sections[0] + " can't be empty.");
         }
         return new AddTaskCommand(sections[1], taskType);
     }
@@ -167,7 +167,7 @@ public class Parser {
      */
     private static Command processDeleteCommand(String[] sections) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("No task index provided. Please specify the task index to delete.");
+            throw new ZackException("You gotta provide the task index for me to delete!");
         }
         int deleteIndex = parseIndex(sections[1]);
         return new DeleteCommand(deleteIndex);
@@ -184,7 +184,7 @@ public class Parser {
      */
     private static Command processDateCommand(String[] sections) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("No date provided. Please specify a date.");
+            throw new ZackException("You gotta provide a date for me man!");
         }
         LocalDate specificDate = parseDate(sections[1]);
         return new DateCommand(specificDate);
@@ -201,14 +201,14 @@ public class Parser {
      */
     private static Command processFindCommand(String[] sections) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("No keyword provided. Please specify a keyword.");
+            throw new ZackException("You have to tell me what you're looking for, silly😂");
         }
         return new FindCommand(sections[1]);
     }
 
     private static Command processSortCommand(String[] sections) throws ZackException {
         if (sections.length < 2) {
-            throw new ZackException("No criteria provided. Please specify a criteria to sort by.");
+            throw new ZackException("You might've forgotten to tell me what exactly to sort by😅");
         }
         return new SortCommand(sections[1]);
     }
@@ -225,7 +225,7 @@ public class Parser {
         try {
             return Integer.parseInt(section.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new ZackException("Invalid task index. Please enter a valid number.");
+            throw new ZackException("You gotta gimme a proper number for the task index!");
         }
     }
 
@@ -241,7 +241,8 @@ public class Parser {
         try {
             return LocalDate.parse(section.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
-            throw new ZackException("Invalid date format. Please enter a date in yyyy-MM-dd format.");
+            throw new ZackException("Sorry, but your date format has to be exactly like this: yyyy-MM-dd. " +
+                    "Take it up with the big man, I don't set the rules!");
         }
     }
 }
