@@ -1,7 +1,7 @@
 # Megatron User Guide
 #### Your fierce chat-bot
 
-![Ui Image](./Ui.png)
+<img src="./Ui.png" alt="drawing" width="330"/>
 
 Megatron is a desktop app for **managing a list of things to do** through a Graphical User Interface (GUI).
 
