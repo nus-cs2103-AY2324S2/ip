@@ -11,9 +11,9 @@ import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.OptionalArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.storage.SaveState;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.IntegerStringValue;
 
 /**
@@ -52,7 +52,7 @@ public class UndoAction extends Action {
         String[] rolledBackCommands = SaveState.rollback(getNumberOfRollbackSteps());
 
         if (rolledBackCommands.length == 0) {
-            PrintFormatter.addToFormatterQueue("There is nothing to undo!");
+            PrintFormatter.addToMessageQueue("There is nothing to undo!");
             return;
         }
 
@@ -60,7 +60,7 @@ public class UndoAction extends Action {
         String previousCommands = Arrays.stream(rolledBackCommands)
                 .reduce("", (commandList, command) -> commandList + "\n    `" + command + "`")
                 .trim();
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Ok, I've undone the previous change(s):",
                 "    " + previousCommands,
                 taskList.isEmpty()

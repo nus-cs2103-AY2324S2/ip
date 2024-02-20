@@ -5,13 +5,13 @@ import chatbot.action.ByeAction;
 import chatbot.action.ModifyAction;
 import chatbot.action.exception.ActionException;
 import chatbot.parse.InputParser;
+import chatbot.print.Message;
+import chatbot.print.PrintFormatter;
 import chatbot.storage.LocalStorage;
 import chatbot.storage.SaveState;
 import chatbot.task.TaskList;
 import chatbot.ui.MainWindow;
-import chatbot.ui.PrintFormatter;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +27,9 @@ public class ChatBot extends Application {
     /** Stores the user's tasks. */
     private static final TaskList USER_TASK_LIST = LocalStorage.loadTaskList();
 
+    /** Store the main window of the chatbot. */
+    private static final MainWindow MAIN_WINDOW = new MainWindow();
+
     /**
      * Setups the JavaFX application.
      * <p>
@@ -34,13 +37,10 @@ public class ChatBot extends Application {
      */
     @Override
     public void start(Stage stage) {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.setUpStage(stage);
-        mainWindow.formatWindow(stage, CHATBOT_NAME);
-        mainWindow.handleUserUpdate(this);
-
-        greetUser();
-        mainWindow.getChatBotMessages();
+        MAIN_WINDOW.setUpStage(stage);
+        MAIN_WINDOW.formatWindow(stage, CHATBOT_NAME);
+        MAIN_WINDOW.handleUserUpdate(this);
+        MAIN_WINDOW.getStartUpMessages(this);
     }
 
     /**
@@ -49,14 +49,14 @@ public class ChatBot extends Application {
      * <p>
      * Reused with changes from {@code https://se-education.org/guides/tutorials/javaFx.html}.
      */
-    public String getResponseMessage(String commandLineInput) {
+    public Message[] getResponseMessages(String commandLineInput) {
         try {
             executeCommand(commandLineInput);
         } catch (ActionException e) {
-            PrintFormatter.addToFormatterQueue(e.getMessage());
+            PrintFormatter.addErrorToMessageQueue(e.getMessage());
         }
 
-        return PrintFormatter.getMessages();
+        return PrintFormatter.getAllMessages();
     }
 
     /**
@@ -75,7 +75,8 @@ public class ChatBot extends Application {
         }
 
         if (userAction instanceof ByeAction) {
-            Platform.exit();
+            PrintFormatter.addLogToMessageQueue("Chat has ended. Close the chat to exit.");
+            MAIN_WINDOW.endChat();
         }
     }
 
@@ -83,7 +84,7 @@ public class ChatBot extends Application {
      * Greets the user when entering a session with this {@link ChatBot}.
      */
     public void greetUser() {
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Hello! I'm " + CHATBOT_NAME + "!",
                 "What can I do for you?"
         );

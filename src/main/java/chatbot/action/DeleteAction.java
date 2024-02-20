@@ -7,9 +7,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.IntegerStringValue;
 
 /**
@@ -42,7 +42,7 @@ public final class DeleteAction extends IndexableAction {
         // Perform behaviour
         Task deletedTask = performIndexingAction(taskList::deleteTask);
 
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Noted. I've removed this task:",
                 "    " + deletedTask
         );

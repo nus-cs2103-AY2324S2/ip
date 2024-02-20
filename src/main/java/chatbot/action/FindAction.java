@@ -6,9 +6,9 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.StringValue;
 
 /**
@@ -44,7 +44,7 @@ public class FindAction extends Action {
 
         // Perform behaviour
         int[] matchingSortedTaskIndices = taskList.findMatchingTaskIndices(pattern);
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Here are the matching tasks in your list: ",
                 taskList.toString(matchingSortedTaskIndices)
         );

@@ -5,10 +5,10 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.DateStringValue;
 import chatbot.value.StringValue;
 
@@ -50,7 +50,7 @@ public final class AddEventAction extends ModifyAction {
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Got it. I've added this event:",
                 "    " + task,
                 taskList.getSizeMessage()

@@ -1,6 +1,8 @@
 package chatbot.ui;
 
 import chatbot.ChatBot;
+import chatbot.print.Message;
+import chatbot.print.PrintFormatter;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -125,13 +127,15 @@ public class MainWindow {
      * @param chatBot The chatbot that is currently used to accept user input.
      */
     private void handleUserInput(ChatBot chatBot) {
-        String userText = userInput.getText();
-        String chatBotText = chatBot.getResponseMessage(userInput.getText());
+        Message userMessage = Message.createMessage(userInput.getText());
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(userMessage));
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText),
-                DialogBox.getChatBotDialog(chatBotText)
-        );
+        Message[] chatBotMessages = chatBot.getResponseMessages(userInput.getText());
+
+        for (Message m : chatBotMessages) {
+            dialogContainer.getChildren().add(DialogBox.getChatBotDialog(m));
+        }
+
 
         userInput.clear();
     }
@@ -140,11 +144,24 @@ public class MainWindow {
      * Gets the messages from the chatbot,
      * that are stored in the {@link PrintFormatter},
      * and removes them from the {@link PrintFormatter}.
+     *
+     * @param chatBot The chatbot that is currently used to accept user input.
      */
-    public void getChatBotMessages() {
-        String chatBotText = PrintFormatter.getMessages();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getChatBotDialog(chatBotText)
-        );
+    public void getStartUpMessages(ChatBot chatBot) {
+        chatBot.greetUser();
+        Message[] messages = PrintFormatter.getAllMessages();
+        for (Message m : messages) {
+            dialogContainer.getChildren().add(DialogBox.getChatBotDialog(m));
+        }
+    }
+
+    /**
+     * Ends the chat by disabling the input boxes.
+     */
+    public void endChat() {
+        // clear and disable input
+        userInput.clear();
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
     }
 }

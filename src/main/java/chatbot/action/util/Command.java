@@ -129,11 +129,11 @@ public final class Command {
     }
 
     /**
-     * Casts the {@link SuppliedArgument} to their expected type.
+     * Casts the {@link SuppliedArgument}(s) to their expected type.
      *
      * @throws InvalidArgumentValueException If the value cannot be cast successfully.
      */
-    public void castSuppliedArgumentValues(SuppliedArgument[] suppliedArguments) throws InvalidArgumentValueException {
+    public void castSuppliedArgumentsValues(SuppliedArgument[] suppliedArguments) throws InvalidArgumentValueException {
         for (ExpectedArgument expectedArg : this.arguments) {
             Optional<SuppliedArgument> matchingArgument = Arrays
                     .stream(suppliedArguments)

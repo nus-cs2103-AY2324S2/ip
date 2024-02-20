@@ -5,10 +5,10 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.action.util.SuppliedArgument;
+import chatbot.print.PrintFormatter;
 import chatbot.task.Deadline;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.PrintFormatter;
 import chatbot.value.DateStringValue;
 import chatbot.value.StringValue;
 
@@ -46,7 +46,7 @@ public final class AddDeadlineAction extends ModifyAction {
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
-        PrintFormatter.addToFormatterQueue(
+        PrintFormatter.addToMessageQueue(
                 "Got it. I've added this deadline:",
                 "    " + task,
                 taskList.getSizeMessage()
