@@ -30,6 +30,7 @@ public class Parser {
      * @return An array containing the trimmed and non-empty parts of the input string.
      */
     public static String[] trim(String input) {
+        assert !input.isEmpty() : "empty input is not allowed!";
         String[] untrimmedParts = input.split(" ", 2);
         String[] parts = Arrays.stream(untrimmedParts)
                 .map(String::trim)
@@ -42,17 +43,17 @@ public class Parser {
      * Parses the input string into meaningful parts.
      *
      * @param input The input string to be parsed.
-     * @return An array containing the parsed parts of the input string.
+     * @return A Command corresponding to the user input.
      */
     public static Command parse(String input) throws MissingIndexException, MissingDescriptionException {
         String[] parts = trim(input);
         int size = parts.length;
-        if (parts[0].equals("mark") || parts[0].equals("unmark") || parts[0].equals("delete") ||
-                parts[0].equals("find") && size == 1) {
+        if (parts[0].equals("mark") || parts[0].equals("unmark") || parts[0].equals("delete") && size == 1) {
             if (size == 1) {
                 throw new MissingIndexException();
             }
         }
+        assert parts[0].equals("find") && size > 1: "No keyword will result in printing all tasks!";
 
         switch (parts[0]) {
         case ("deadline"):
