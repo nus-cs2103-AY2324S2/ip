@@ -17,35 +17,29 @@ public class Ui {
     /**
      * Prints out welcome message and command format the user can use to enter the task.
      */
-    public void showWelcome() {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Hello! I'm bytetalker.ByteTalker");
-        System.out.println("    What can I do for you?");
-        System.out.println("    Supported tasks are todo, deadline, and event");
-        System.out.println("    todo {task}");
-        System.out.println("    deadline {task} /by {date and time}");
-        System.out.println("    event {task} /from {date and time} /to {date and time}");
-        System.out.println("    Supported date and time format are yyyy-MM-dd HHmm, and dd/MM/yyyy HHmm");
-        System.out.println("    -----------------------------------");
+    public String showWelcome() {
+        String welcomeMessage = "Hello! I'm bytetalker.ByteTalker\n" + "What can I do for you?\n" + "Supported tasks " +
+                "are todo, deadline, and event\n" + "todo {task}\n" + "deadline {task} /by {date and time}\n" +
+                "event {task} /from {date and time} /to {date and time}\n" + "Supported date and time format are " +
+                "yyyy-MM-dd HHmm, and dd/MM/yyyy HHmm";
+        return welcomeMessage;
     }
 
     /**
      * Prints out bye message.
      */
-    public void showBye() {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    -----------------------------------");
+    public String showBye() {
+        String byeString =
+                "    Bye. Hope to see you again soon!";
+        return byeString;
     }
 
     /**
      * Prints out error message if there is an error while changing the task list.
      */
-    public void showStoreTaskErrorMessage() {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Error while changing the task list");
-        System.out.println("    Please try again");
-        System.out.println("    -----------------------------------");
+    public String showStoreTaskErrorMessage() {
+        String storeTaskErrorMessage = "Error while changing the task list\n" + "Please try again";
+        return storeTaskErrorMessage;
     }
 
     /**
@@ -63,11 +57,9 @@ public class Ui {
      *
      * @param task Task that user wants to mark as done.
      */
-    public void showMarkTaskMsg(Task task) {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      " + task.toString());
-        System.out.println("    -----------------------------------");
+    public String showMarkTaskMsg(Task task) {
+        String markedTaskMessage = "Nice! I've marked this task as done:\n" + "      " + task.toString();
+        return markedTaskMessage;
     }
 
     /**
@@ -75,11 +67,9 @@ public class Ui {
      *
      * @param task Task the user wants to mark as undone.
      */
-    public void showUnmarkTaskMsg(Task task) {
-        System.out.println("    -----------------------------------");
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("      " + task.toString());
-        System.out.println("    -----------------------------------");
+    public String showUnmarkTaskMsg(Task task) {
+        String unmarkedTaskMessage = "OK, I've marked this task as not done yet:\n" + "      " + task.toString();
+        return unmarkedTaskMessage;
     }
 
     /**
@@ -89,12 +79,10 @@ public class Ui {
      * @param task Task the user wants to delete from the task list.
      * @param length Length of the task list after deleting the task.
      */
-    public void showDeleteTaskMsg(Task task, int length) {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Got it. I've removed this task:");
-        System.out.println("        " + task.toString());
-        System.out.println("    Now you have " + length + " task in the list.");
-        System.out.println("    -----------------------------------");
+    public String showDeleteTaskMsg(Task task, int length) {
+        String deletedTaskMessage = "Got it. I've removed this task:" + "\n" + "        " + task.toString() + "\n" +
+                "Now you have " + length + " task in the list.";
+        return deletedTaskMessage;
     }
 
     /**
@@ -104,19 +92,17 @@ public class Ui {
      * @param task Task that the user wants to add to the lsit.
      * @param length Length of the task list after adding the task.
      */
-    public void showAddTaskMsg(Task task, int length) {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("       " + task.toString());
-        System.out.println("    Now you have " + length + " tasks in the list.");
-        System.out.println("    -----------------------------------");
+    public String showAddTaskMsg(Task task, int length) {
+        String addedTaskMessage = "Got it. I've added this task:" + "\n" + "       " + task.toString() + "\n" + "Now " +
+                "you have " + length + " tasks in the list.";
+        return addedTaskMessage;
     }
 
     /**
      * Prints out the message when a file is not found in the system.
      */
-    public void showFileNotFoundErrorMsg() {
-        System.out.println("File is not found");
+    public String showFileNotFoundErrorMsg() {
+        return "File is not found";
     }
 
     /**
@@ -124,13 +110,13 @@ public class Ui {
      *
      * @param tasks Task list that contains all the tasks added.
      */
-    public void returnList(ArrayList<Task> tasks) {
-        System.out.println("    -----------------------------------");
-        System.out.println("    Here are the tasks in your list:");
+    public String returnList(ArrayList<Task> tasks) {
+        String taskListMessage = "";
+        taskListMessage += "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
+            taskListMessage += "    " + (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
-        System.out.println("    -----------------------------------");
+        return taskListMessage;
     }
 
     /**
@@ -147,14 +133,14 @@ public class Ui {
      *
      * @param foundTasks List of tasks found.
      */
-    public void displayFoundTasks(ArrayList<Task> foundTasks) {
-        System.out.println("    -----------------------------------");
+    public String displayFoundTasks(ArrayList<Task> foundTasks) {
+        String foundTasksMessage = "Here are the found tasks:\n";
         for (int i = 0; i < foundTasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + foundTasks.get(i).toString());
+            foundTasksMessage += (i + 1) + "." + foundTasks.get(i).toString() + "\n";
         }
         if (foundTasks.size() == 0) {
-            System.out.println("    No tasks found");
+            return "No tasks found";
         }
-        System.out.println("    -----------------------------------");
+        return foundTasksMessage;
     }
 }

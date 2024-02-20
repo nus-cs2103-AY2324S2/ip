@@ -67,7 +67,7 @@ public class Storage {
             boolean isEvent = currentTask.getTaskType() == TaskType.EVENT;
             String done = currentTask.getStatus() ? "1" : "0";
             String temp = currentTask.getTaskType().getIcon() + " / " + done + " / " + currentTask.getTask();
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
             if (isDeadline) {
                 Deadline deadlineTask = (Deadline) currentTask;
                 temp += " / " + deadlineTask.getDeadline().format(outputFormatter);
