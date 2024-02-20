@@ -15,70 +15,98 @@ It is designed to be simple and easy to use, and is in the form of an interactiv
 
 ## Features
 
-### Adding a todo task: `todo`
+### Adding a todo task: `todo <task description>`
 Description: todo tasks are tasks without date to finish or start.
-Format: `todo <task description>`
 Examples: 
 ```
 todo read CS2103T textbook
 ```
+Sample output:
+```
+Got it. I've added this task:
+[T][ ] read CS2103T textbook
+Now you have 1 tasks in the list.
+```
 
-### Adding a deadline task: `deadline`
+### Adding a deadline task: `deadline <task description> /by <yyyy-mm-dd>`
 Description: deadline tasks are tasks with a date to finish.
-Format: `deadline <task description> /by <yyyy-mm-dd>`
 Examples: 
 ```
 deadline submit report /by 2023-03-10
 ```
+Sample output:
+```
+Got it. I've added this task:
+[D][ ] submit report (by: Mar 10 2023)
+Now you have 2 tasks in the list.
+```
 
-### Adding an event task: `event`
+### Adding an event task: `event <task description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
 Description: event tasks are tasks with a date to start and end.
-Format: `event <task description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
 Examples:
 ```
 event finish math homework /from 2022-11-13 /to 2022-11-14
 ```
+Sample output:
+```
+Got it. I've added this task:
+[E][ ] finish math homework (from: Nov 13 2022 to: Nov 14 2022)
+Now you have 3 tasks in the list.
+```
 
-### Marking a task as done: `mark`
+### Marking a task as done: `mark <task number>`
 Description: mark a task as done.
-Format: `mark <task number>`
 Examples:
 ```
 mark 1
 ```
+Sample output:
+```
+Nice! I've marked this task as done:
+[T][X] read CS2103T textbook
+```
 
-### Unmarking a task as done: `unmark`
+### Unmarking a task as done: `unmark <task number>`
 Description: unmark a task as done.
-Format: `unmark <task number>`
 Examples:
 ```
 unmark 1
 ```
+Sample output:
+```
+Noted. I've marked this task as undone:
+[T][ ] read CS2103T textbook
+```
 
-### Deleting a task: `delete`
+### Deleting a task: `delete <task number>`
 Description: delete a task from the task list.
-Format: `delete <task number>`
 Examples:
 ```
 delete 1
 ```
+Sample output:
+```
+Noted. I've removed this task:
+[T][ ] read CS2103T textbook
+Now you have 2 tasks in the list.
+```
 
-### Finding tasks by keyword: `find`
+### Finding tasks by keyword: `find <keyword>`
 Description: find tasks by keyword in the task content.
-Format: `find <keyword>`
 Examples:
 ```
 find homework
 ```
+Sample output:
+```
+Here are the matching tasks in your list:
+1. [E][ ] finish math homework (from: Nov 13 2022 to: Nov 14 2022)
+```
 
 ### Listing all tasks: `list`
 Description: list all tasks in the task list.
-Format: `list`
-Examples:
+Sample output:
 ```
-list
-
-// Expected output
 Here are the tasks in your list:
 1. [T][ ] read CS2103T textbook
 2. [D][ ] submit report (by: Mar 10 2023)
@@ -87,14 +115,20 @@ Here are the tasks in your list:
 
 ### Exiting the application: `bye`
 Description: exit the application after 2 seconds.
-Format: `bye`
-Examples:
+Sample output:
 ```
-bye
+Bye. Hope to see you again soon!
 ```
 
 ### Displaying most recent tasks upon entering the application
 Description: When user enters the application, the 2 unmarked tasks with the most recent due will be displayed.
+Sample output:
+```
+==Reminder==
+Those tasks are due next:
+1. [D][ ] submit report (by: Mar 10 2023)
+2. [E][ ] finish math homework (from: Nov 13 2022 to: Nov 14 2022)
+```
 
 ### Saving the data
 Description: The data will be saved in the hard disk in the form of a txt file automatically after any command that changes the data. There is no need to save manually.
