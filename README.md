@@ -1,4 +1,4 @@
-#**DukePro**
+# **DukePro**
 > “Your mind is for having ideas, not holding them.” – David Allen (source)
 
 DukePro frees your mind from having to remember things you need to do. It's,
