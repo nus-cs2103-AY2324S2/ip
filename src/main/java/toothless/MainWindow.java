@@ -1,5 +1,7 @@
 package toothless;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,6 +14,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -73,6 +76,15 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getExceptionDialog(e.getMessage(), warningImage)
             );
         } finally {
+            if (toothless.isExit()) {
+                PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1.5));
+                pauseTransition.setOnFinished(event -> {
+                    Platform.exit();
+                });
+                pauseTransition.play();
+                userInput.setDisable(true);
+                sendButton.setDisable(true);
+            }
             userInput.clear();
         }
     }
