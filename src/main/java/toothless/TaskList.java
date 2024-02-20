@@ -6,22 +6,22 @@ import java.util.List;
 import toothless.tasks.Task;
 
 /**
- * Represents a list of tasks. This class provides functionalities to manage tasks such as
- * adding, removing, and retrieving tasks from the list.
+ * Represents a list of tasks.
+ * This class is responsible for managing the tasks in the list.
  */
 public class TaskList {
     private List<Task> taskList;
 
     /**
-     * Constructs a new TaskList with the specified list of tasks.
-     * @param taskList A list of tasks to be managed.
+     * Constructs a TaskList with the specified list of tasks.
+     * @param taskList The list of tasks to be used to construct the TaskList.
      */
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs a TaskList with an empty list of tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();

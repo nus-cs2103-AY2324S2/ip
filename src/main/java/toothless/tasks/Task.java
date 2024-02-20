@@ -70,13 +70,7 @@ public abstract class Task {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
-    public LocalDateTime parseDateTime(String dateTime) throws ToothlessException {
-        try {
-            return LocalDateTime.parse(dateTime);
-        } catch (DateTimeParseException e) {
-            throw new ToothlessException("Human date is not correct!");
-        }
-    }
+
 
     /**
      * Checks if the task's description contains the keyword.

@@ -11,22 +11,25 @@ import toothless.commands.MarkCommand;
 import toothless.commands.ScheduleCommand;
 import toothless.commands.TodoCommand;
 import toothless.commands.UnmarkCommand;
+import toothless.tasks.Deadline;
+import toothless.tasks.Event;
+import toothless.tasks.Task;
+import toothless.tasks.Todo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
- * This class is responsible for interpreting the user's inputs and converting them
- * into specific Commands that can be executed within the application.
- * This class acts as a bridge between the user interface and the application's command execution logic,
- * ensuring that user inputs are understood and acted upon appropriately.
+ * This class is responsible for parsing user input and converting it into a corresponding Command object.
+ * It also provides methods for parsing task data and date-time data from string representations.
  */
 public class Parser {
 
     /**
-     * Parses the given input string to produce a corresponding Command object that represents
-     * a specific operation or action to be performed by the application.
-     * This method identifies the type of command along with any necessary arguments by the user.
-     * @param input the raw input string provided by the user, which includes the command keyword and any arguments
-     * @return Command corresponding to the user's request
-     * @throws ToothlessException if the input is invalid or no Command is suitable
+     * Parses a string representing a command and returns the corresponding Command object.
+     * @param input the string representing a command.
+     * @return the Command object corresponding to the string.
+     * @throws ToothlessException if the string cannot be parsed correctly.
      */
     public static Command parseCommand(String input) throws ToothlessException {
         String[] split = input.trim().split(" ", 2);
@@ -92,6 +95,49 @@ public class Parser {
         default:
             assert false : updateType;
             throw new ToothlessException("Invalid Update Command");
+        }
+    }
+
+    /**
+     * Parses a string representing a task and returns the corresponding Task object.
+     * @param storedTask the string representing a task.
+     * @return the Task object corresponding to the string.
+     * @throws ToothlessException if the string cannot be parsed correctly.
+     */
+    public static Task parseTask(String[] storedTask) throws ToothlessException {
+        try {
+            String taskType = storedTask[0];
+            String description = storedTask[2];
+            boolean isDone = storedTask[1].equals("1");
+            switch (taskType) {
+                case "T":
+                    return new Todo(description, isDone);
+                case "D":
+                    String date = storedTask[3];
+                    return new Deadline(description, date, isDone);
+                case "E":
+                    String startDate = storedTask[3];
+                    String endDate = storedTask[4];
+                    return new Event(description, startDate, endDate, isDone);
+                default:
+                    throw new ToothlessException("File corrupted O_O.\nTry again later.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ToothlessException("File corrupted O_O.\nTry again later.");
+        }
+    }
+
+    /**
+     * Parses a string representing a date-time and returns the corresponding LocalDateTime object.
+     * @param dateTime the string representing a date-time.
+     * @return the LocalDateTime object corresponding to the string.
+     * @throws ToothlessException if the string cannot be parsed correctly.
+     */
+    public static LocalDateTime parseDateTime(String dateTime) throws ToothlessException {
+        try {
+            return LocalDateTime.parse(dateTime);
+        } catch (DateTimeParseException e) {
+            throw new ToothlessException("Human date is not correct!");
         }
     }
 }

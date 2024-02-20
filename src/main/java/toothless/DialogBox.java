@@ -66,6 +66,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image that is styled to represent a warning message.
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getExceptionDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.setFont(db.warningFont);
@@ -75,6 +81,12 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image that is styled to represent a user message.
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.setFont(db.userFont);
@@ -83,6 +95,12 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image that is styled to represent a Toothless message.
+     * @param text The text to be displayed in the dialog box.
+     * @param img The image to be displayed in the dialog box.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getToothlessDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.setFont(db.toothlessFont);

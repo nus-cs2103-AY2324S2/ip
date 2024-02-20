@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import toothless.tasks.*;
 
 /**
- * This class is responsible for managing the user interface for the Toothless application.
- * It handles displaying messages to the user, including welcome and farewell messages, tasks,
- * and task lists, as well as reading user input.
+ * Represents the user interface of the chatbot.
+ * This class is responsible for displaying messages to the user.
  */
 public class Ui {
     private String chatBotName = "Toothless";
@@ -15,9 +14,6 @@ public class Ui {
             + "What can " + chatBotName + " do for human?\n";
     private String exitString = "Toothless will miss you, human. Toothless will be here when you need Toothless.";
 
-    /**
-     * Displays the welcome message to the user.
-     */
     public String showWelcome() {
         return greetingString;
     }
@@ -30,6 +26,7 @@ public class Ui {
         return "Loading previous human kept tasks...\n";
     }
 
+    // Task messages
     public String showDeletedTask(Task task, int size) {
         return "Toothless deletes this task:\n" + task.toString() + "\nHuman has " + size + " tasks now.";
     }
@@ -46,6 +43,11 @@ public class Ui {
         return "Nice! Toothless have marked this task as undone:\n" + task.toString();
     }
 
+    // List messages
+    /**
+     * Displays the tasks found by the find command to the user.
+     * @param tasks The list of tasks found by the find command.
+     */
     public String showFoundTasks(ArrayList<Task> tasks) {
         String message = "Toothless have found these same tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -54,6 +56,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Displays all tasks to the user.
+     * @param tasks The TaskList containing the tasks to be displayed.
+     */
     public String showAllTasks(TaskList tasks) {
         String message = "Here all human tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -77,6 +83,7 @@ public class Ui {
         return message;
     }
 
+    // Warning messages
     public String showNoTaskNameWarning() {
         return "Human task no name :(";
     }

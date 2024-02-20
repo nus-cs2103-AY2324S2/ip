@@ -53,6 +53,9 @@ public class MainWindow extends AnchorPane {
         toothless = t;
     }
 
+    /**
+     * Initializes the application with Toothless' loading tasks and greeting.
+     */
     public void startUp(){
         dialogContainer.getChildren().addAll(
                 DialogBox.getToothlessDialog(toothless.loadingTasks(), toothlessImage),
@@ -62,8 +65,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Toothless' reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes,
+     * one echoing user input and the other containing Toothless' reply.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

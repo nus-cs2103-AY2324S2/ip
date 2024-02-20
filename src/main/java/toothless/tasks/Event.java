@@ -1,6 +1,8 @@
 package toothless.tasks;
 
 import java.time.LocalDateTime;
+
+import toothless.Parser;
 import toothless.ToothlessException;
 
 /**
@@ -21,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, String startDate, String endDate) throws ToothlessException {
         super.description = description;
-        LocalDateTime start = parseDateTime(startDate);
-        LocalDateTime end = parseDateTime(endDate);
+        LocalDateTime start = Parser.parseDateTime(startDate);
+        LocalDateTime end = Parser.parseDateTime(endDate);
         if (start.isAfter(end)) {
             throw new ToothlessException("End date is earlier :/");
         }
@@ -42,8 +44,8 @@ public class Event extends Task {
     public Event(String description, String startDate, String endDate, boolean isDone) throws ToothlessException {
         super.description = description;
         super.isDone = isDone;
-        LocalDateTime start = parseDateTime(startDate);
-        LocalDateTime end = parseDateTime(endDate);
+        LocalDateTime start = Parser.parseDateTime(startDate);
+        LocalDateTime end = Parser.parseDateTime(endDate);
         if (start.isAfter(end)) {
             throw new ToothlessException("End date is earlier :/");
         }

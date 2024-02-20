@@ -8,17 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import toothless.tasks.Deadline;
-import toothless.tasks.Event;
 import toothless.tasks.Task;
-import toothless.tasks.Todo;
 
 /**
- * Handles loading and storing tasks.
- * This class is responsible for reading tasks from a specific file
- * and writing tasks back to the file.
- * The tasks are stored in a specific format that allows them to be
- * easily parsed and reconstructed into their respective tasks.
+ * Represents the storage of tasks in a file.
+ * This class is responsible for loading tasks from the file and saving tasks to the file.
  */
 public class Storage {
     private String filepath;
@@ -45,7 +39,7 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] storedTask = sc.nextLine().split(" \\| ");
-                Task task = parseTask(storedTask);
+                Task task = Parser.parseTask(storedTask);
                 list.add(task);
             }
             return list;
@@ -53,30 +47,6 @@ public class Storage {
             new File(this.filepath).getParentFile().mkdirs();
             return new ArrayList<>();
         }
-    }
-
-    private Task parseTask(String[] storedTask) throws ToothlessException {
-        try {
-            String taskType = storedTask[0];
-            String description = storedTask[2];
-            boolean isDone = storedTask[1].equals("1");
-            switch (taskType) {
-                case "T":
-                    return new Todo(description, isDone);
-                case "D":
-                    String date = storedTask[3];
-                    return new Deadline(description, date, isDone);
-                case "E":
-                    String startDate = storedTask[3];
-                    String endDate = storedTask[4];
-                    return new Event(description, startDate, endDate, isDone);
-                default:
-                    throw new ToothlessException("File corrupted O_O.\nTry again later.");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ToothlessException("File corrupted O_O.\nTry again later.");
-        }
-
     }
 
     /**

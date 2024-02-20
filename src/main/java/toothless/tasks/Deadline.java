@@ -1,5 +1,6 @@
 package toothless.tasks;
 
+import toothless.Parser;
 import toothless.ToothlessException;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date) throws ToothlessException {
         super.description = description;
-        this.date = parseDateTime(date);
+        this.date = Parser.parseDateTime(date);
     }
 
     /**
@@ -30,7 +31,7 @@ public class Deadline extends Task {
     public Deadline(String description, String date, boolean isDone) throws ToothlessException {
         super.description = description;
         super.isDone = isDone;
-        this.date = parseDateTime(date);
+        this.date = Parser.parseDateTime(date);
     }
 
     @Override

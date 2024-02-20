@@ -24,6 +24,10 @@ public class Toothless {
         return ui.showLoadingTasks();
     }
 
+    /**
+     * Loads the tasks from the storage file, creates a new TaskList if the file does not exist.
+     * @return The message to be displayed to the user.
+     */
     public String load() {
         try {
             tasks = new TaskList(storage.load());
