@@ -103,7 +103,6 @@ public class MainApp extends Application{
     private final Image min = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/Shirmin.jpg")));
 
-
     /**
      * Handles user input and triggers appropriate actions.
      * Current functions:
