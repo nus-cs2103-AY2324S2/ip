@@ -30,6 +30,7 @@ public class Storage {
      * @param mylist The list containing tasks to be saved.
      */
     public void save(MyList mylist) {
+        assert mylist != null : "MyList should not be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
             for (Task t : mylist.getTasksForSaving()) {
                 writer.write(t.toSave());
