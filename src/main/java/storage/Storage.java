@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -41,9 +43,14 @@ public class Storage {
      */
     public void write(ArrayList<Task> data) throws FileError {
         try {
-            FileWriter writer = new FileWriter(fileName, false);
+            File file = new File(fileName);
+            // Ensure the parent directories exist
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+            FileWriter writer = new FileWriter(file, false);
             writer.write(convertArrayToStr(data) + "\n");
-            writer.close();
         } catch (IOException e) {
             throw new FileError("Problem writing to file!");
         }
@@ -65,13 +72,12 @@ public class Storage {
     public ArrayList<Task> read() throws FileError, FileAccessError {
         ArrayList<String> contents = new ArrayList<>();
         try {
-            File file = new File(fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+            InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = reader.readLine()) != null) {
                 contents.add(line);
             }
-            reader.close();
         } catch (IOException e) {
             throw new FileError("Problem reading from file!");
         }
