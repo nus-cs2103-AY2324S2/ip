@@ -9,7 +9,7 @@ PannaBot provides the following functionality for **you**
 * Having a joyful exuberant ~~Mildly irritating~~ personality,
 
 
-**To set it up, all you have to do is: **
+**To set it up, all you have to do is:**
 
 1. Clone the github repo using the following command on git bash
    ```
