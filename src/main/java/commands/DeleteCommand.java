@@ -16,6 +16,10 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    public DeleteCommand() {
+        this.index = 0;
+    }
+
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         Task removedTask = tasks.getTaskList().get(index - 1);
@@ -25,5 +29,10 @@ public class DeleteCommand extends Command {
                 + String.format("Now you have %d tasks in the list\n", tasks.getTaskList().size());
         storage.write(tasks.getTaskList());
         return result;
+    }
+
+    @Override
+    public String showUsage() {
+        return "Usage: Delete {index of task to be deleted}";
     }
 }

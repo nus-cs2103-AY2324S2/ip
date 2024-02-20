@@ -15,6 +15,9 @@ public class UnmarkTaskCommand extends Command {
         this.index = index;
     }
 
+    public UnmarkTaskCommand() {
+        this.index = 0;
+    }
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         tasks.getTaskList().get(index - 1).unmarkAsDone();
@@ -22,5 +25,10 @@ public class UnmarkTaskCommand extends Command {
                 + tasks.getTaskList().get(index - 1);
         storage.write(tasks.getTaskList());
         return result;
+    }
+
+    @Override
+    public String showUsage() {
+        return "Usage: Unmark {index of task to be unmarked}";
     }
 }

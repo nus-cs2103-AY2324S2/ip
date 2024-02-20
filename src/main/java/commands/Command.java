@@ -22,4 +22,6 @@ public abstract class Command {
         }
         return obj != null && this.getClass() == obj.getClass();
     }
+
+    public abstract String showUsage();
 }

@@ -24,6 +24,10 @@ public class AddCommand extends Command {
                 + String.format("Now you have %d tasks in the list\n", tasks.getTaskList().size());
         storage.write(tasks.getTaskList());
         return result;
+    }
 
+    @Override
+    public String showUsage() {
+        return "";
     }
 }

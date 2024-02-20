@@ -16,6 +16,10 @@ public class FindCommand extends Command {
         this.wordToSearch = wordToSearch;
     }
 
+    public FindCommand() {
+        this.wordToSearch = "";
+    }
+
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         StringBuilder output = new StringBuilder();
@@ -29,5 +33,10 @@ public class FindCommand extends Command {
             }
         }
         return String.valueOf(output);
+    }
+
+    @Override
+    public String showUsage() {
+        return "Usage: Find {description of task to be found}";
     }
 }

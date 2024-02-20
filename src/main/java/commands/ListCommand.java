@@ -17,4 +17,9 @@ public class ListCommand extends Command {
         }
         return String.valueOf(output);
     }
+
+    @Override
+    public String showUsage() {
+        return "Usage: List";
+    }
 }

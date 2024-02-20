@@ -15,6 +15,10 @@ public class MarkTaskCommand extends Command {
         this.index = index;
     }
 
+    public MarkTaskCommand() {
+        this.index = 0;
+    }
+
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         tasks.getTaskList().get(index - 1).markAsDone();
@@ -22,5 +26,10 @@ public class MarkTaskCommand extends Command {
                 + tasks.getTaskList().get(index - 1);
         storage.write(tasks.getTaskList());
         return result;
+    }
+
+    @Override
+    public String showUsage() {
+        return "Usage: Mark {index of task to be marked}";
     }
 }

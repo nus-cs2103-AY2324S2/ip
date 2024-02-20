@@ -32,8 +32,9 @@ public class Ui {
      * This method prints the goodbye message on termination of chatBot
      */
     public String showBye() {
-        return " Alright, this kitty's got to go chase some shadows. See you later!";
+        return "Alright, this kitty's got to go chase some shadows. See you later!";
     }
+
 
     /**
      * This method prints the dividing line

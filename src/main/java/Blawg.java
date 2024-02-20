@@ -1,4 +1,4 @@
-package Blawg;
+package blawg;
 
 import commands.Command;
 import exceptions.BlawgException;
@@ -18,13 +18,11 @@ public class Blawg {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
-   
+
     /**
      * initialises a Blawg class
-     * @param filepath where the data storage file is read and written to
      */
-
-    public Blawg(){
+    public Blawg() {
         ui = new Ui();
         storage = new Storage("data/tasks.txt");
         try {
@@ -34,8 +32,11 @@ public class Blawg {
             tasks = new TaskList();
         }
     }
-   
 
+    /**
+     * initialises a Blawg class
+     * @param filepath where the data storage file is read and written to
+     */
     public Blawg(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);

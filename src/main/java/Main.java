@@ -12,7 +12,7 @@ import ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Blawg.Blawg blawg = new Blawg.Blawg();
+    private final blawg.Blawg blawgObj = new blawg.Blawg();
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(blawg);
+            fxmlLoader.<MainWindow>getController().setDuke(blawgObj);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

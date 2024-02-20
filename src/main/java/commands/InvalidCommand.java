@@ -19,4 +19,9 @@ public class InvalidCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return result;
     }
+
+    @Override
+    public String showUsage() {
+        return "";
+    }
 }

@@ -11,6 +11,7 @@ import commands.ByeCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkTaskCommand;
@@ -40,9 +41,6 @@ public class Parser {
      *
      * @param userInput The user input string to be parsed.
      * @return The specific Command object representing the intended action.
-     * @throws InvalidCommandException If the command is not recognised.
-     * @throws IncorrectDateError If the date for deadline or event commands is in an incorrect format.
-     * @throws InvalidInputException If the input for the commands is invalid or incomplete.
      */
     public Command parse(String userInput) {
         assert !userInput.trim().isEmpty() : "input should not be empty";
@@ -67,6 +65,8 @@ public class Parser {
                 return handleDelete(splitInput);
             } else if (firstWord.equalsIgnoreCase("find")) {
                 return handleFind(splitInput);
+            } else if (firstWord.equalsIgnoreCase("help")) {
+                return handleHelp(splitInput);
             } else {
                 throw new InvalidCommandException("I don't know what that means :( Valid commands are: \n"
                         + "list, todo, deadline, event, mark, unmark, bye\n");
@@ -151,7 +151,7 @@ public class Parser {
 
     /**
      * Handles the parsing of "Event x" from user input
-     * @Param takes in the user input separated by " " to parse the information to create a Event task
+     * @Param takes in the user input separated by " " to parse the information to create an Event task
      * @return A AddEventCommand
      */
     public AddEventCommand handleEvent(String[] splitInput) throws InvalidInputException, IncorrectDateError {
@@ -184,6 +184,39 @@ public class Parser {
         String wordToSearch = String.join(" ", java.util.Arrays.copyOfRange(
                 splitInput, 1, splitInput.length));
         return new FindCommand(wordToSearch);
+    }
+
+    /**
+     * Handles the parsing of "Help x" from user input
+     * @Param takes in the user input separated by " " to parse the term to get help from
+     * @return A HelpCommand if user input is one of the valid search terms else Invalid Command
+     */
+    public Command handleHelp(String[] splitInput) {
+        if (splitInput.length == 1) {
+            return new HelpCommand();
+        }
+        String searchTerm = splitInput[1];
+        if (searchTerm.equalsIgnoreCase("bye")) {
+            return new HelpCommand(new ByeCommand());
+        } else if (searchTerm.equalsIgnoreCase("list")) {
+            return new HelpCommand(new ListCommand());
+        } else if (searchTerm.equalsIgnoreCase("mark")) {
+            return new HelpCommand(new MarkTaskCommand());
+        } else if (searchTerm.equalsIgnoreCase("unmark")) {
+            return new HelpCommand(new UnmarkTaskCommand());
+        } else if (searchTerm.equalsIgnoreCase("todo")) {
+            return new HelpCommand(new AddTodoCommand());
+        } else if (searchTerm.equalsIgnoreCase("deadline")) {
+            return new HelpCommand(new AddDeadlineCommand());
+        } else if (searchTerm.equalsIgnoreCase("event")) {
+            return new HelpCommand(new AddEventCommand());
+        } else if (searchTerm.equalsIgnoreCase("delete")) {
+            return new HelpCommand(new MarkTaskCommand());
+        } else if (searchTerm.equalsIgnoreCase("find")) {
+            return new HelpCommand(new FindCommand());
+        } else {
+            return new InvalidCommand("Enter help {term to search for}");
+        }
     }
 
     /**
@@ -249,7 +282,7 @@ public class Parser {
 
     /**
      * helper function that checks if the data entered by user is of the correct format
-     * @param date String of date to check validiity for
+     * @param date String of date to check validity for
      * @throws IncorrectDateError if Date is invalid
      */
     private static String checkValidDate(String date) throws IncorrectDateError {

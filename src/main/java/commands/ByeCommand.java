@@ -16,11 +16,13 @@ public class ByeCommand extends Command {
         storage.write(tasks.getTaskList());
         return ui.showBye();
     }
-
-
-
     @Override
     public Boolean isExit() {
         return true;
+    }
+
+    @Override
+    public String showUsage() {
+        return "Usage: Bye";
     }
 }
