@@ -68,6 +68,7 @@ public class Storage {
      * @throws InvalidCommandException If stored data is in invalid format.
      */
     private static void loadTasks(Scanner scanner, TaskList list) throws InvalidCommandException {
+        assert scanner != null : "Scanner is missing from loadTasks";
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
             String[] taskDetails = currentTask.split("\\|");

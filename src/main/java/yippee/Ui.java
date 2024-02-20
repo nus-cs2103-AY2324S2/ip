@@ -112,5 +112,6 @@ public class Ui {
             System.out.printf("      %d. %s\n", count, task.toString());
             count++;
         }
+        assert count >= 1;
     }
 }

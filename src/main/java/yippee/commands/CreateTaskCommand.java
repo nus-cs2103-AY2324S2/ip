@@ -29,17 +29,20 @@ public class CreateTaskCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        Task newTask;
-        if (taskType.equals("todo")) {
+        Task newTask = null;
+        switch(taskType) {
+        case "todo":
             newTask = new ToDo(details);
-        } else if (taskType.equals("deadline")) {
+            break;
+        case "deadline":
             String[] deadlineSplit = details.trim().split("/by");
             if (deadlineSplit.length == 1) {
                 throw new InvalidCommandException(
                         "Invalid format >:( Make sure you used '/by' to indicate the deadline!");
             }
             newTask = new Deadline(deadlineSplit[0].trim(), deadlineSplit[1].trim());
-        } else {
+            break;
+        case "event":
             String[] fromSplit = details.split("/from");
             if (fromSplit.length == 1) {
                 throw new InvalidCommandException(
@@ -57,9 +60,10 @@ public class CreateTaskCommand extends Command {
             String from = toSplit[0].trim();
             String to = toSplit[1].trim();
             newTask = new Event(eventName, from, to);
+            break;
+        default:
+            assert false : taskType;
         }
-
         tasks.addNewTask(newTask);
-
     }
 }
