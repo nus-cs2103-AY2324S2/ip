@@ -1,8 +1,11 @@
 package tofu;
 
+import tofu.task.Task;
 import tofu.task.TaskList;
 import tofu.ui.Ui;
 import tofu.command.Command;
+
+import java.util.ArrayList;
 
 /**
  * Tofu program is an application that records tasks
@@ -24,7 +27,12 @@ public class Tofu {
     public Tofu() {
         ui = new Ui();
         storage = new Storage("./data/tofu.txt");
-        tasks = new TaskList(storage.load());
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (TofuException ex) {
+            System.out.println(ex.getMessage());
+            tasks = new TaskList(new ArrayList<Task>());
+        }
     }
 
     /**
@@ -37,7 +45,12 @@ public class Tofu {
     public Tofu(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (TofuException ex) {
+            System.out.println(ex.getMessage());
+            tasks = new TaskList(new ArrayList<Task>());
+        }
     }
 
     /**
@@ -72,12 +85,12 @@ public class Tofu {
                 Command c = Parser.parseToCommand(fullCommand);
                 System.out.println(c.execute(tasks, ui));
                 isExit = c.isExit();
+                storage.save(tasks);
             } catch (TofuException ex) {
                 System.out.println(ex.getMessage());
             }
         }
         System.out.println(ui.close());
-        storage.save(tasks);
     }
 
     public static void main(String[] args) {

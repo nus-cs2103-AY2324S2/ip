@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
         }
 
         // Set dialog
-        dialog.setFont(new Font(13.5));
+        dialog.setFont(new Font(13));
         dialog.setText(text);
         dialog.setWrapText(true);
         dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(15), Insets.EMPTY)));
