@@ -119,4 +119,10 @@ public class DeductExpenseCommand implements Command {
     public boolean isExpenseCommand() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object a) {
+        DeductExpenseCommand dec = (DeductExpenseCommand) a;
+        return this.input.equals(dec.input);
+    }
 }

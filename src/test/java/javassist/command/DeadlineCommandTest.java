@@ -33,7 +33,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_deadlineWrongDateFormat_dukeException() {
+    public void execute_deadlineWrongDateFormat_javassistException() {
         DeadlineCommand dc = new DeadlineCommand("deadline return book /by 20/12/2020 10:01");
         TaskList list = new TaskList();
         try {

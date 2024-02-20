@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import javassist.command.AddExpenseCommand;
 import javassist.command.DeadlineCommand;
+import javassist.command.DeductExpenseCommand;
 import javassist.command.DeleteCommand;
 import javassist.command.EventCommand;
 import javassist.command.FindCommand;
@@ -83,7 +85,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_deleted_dukeException() {
+    public void parseCommand_deleted_javassistException() {
         String input = "deleted 1000";
         try {
             Parser.parseCommand(input);
@@ -104,7 +106,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_todoNoDescription_dukeException() {
+    public void parseCommand_todoNoDescription_javassistException() {
         String input = "todo  ";
         try {
             Parser.parseCommand(input);
@@ -125,7 +127,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void parseCommand_deadlineMissingDate_dukeException() {
+    public void parseCommand_deadlineMissingDate_javassistException() {
         String input = "deadline return book /by ";
         try {
             Parser.parseCommand(input);
@@ -137,7 +139,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_deadlineMissingDescription_dukeException() {
+    public void parseCommand_deadlineMissingDescription_javassistException() {
         String input = "deadline /by 20-12-2023 17:10";
         try {
             Parser.parseCommand(input);
@@ -159,7 +161,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_eventMissingStart_dukeException() {
+    public void parseCommand_eventMissingStart_javassistException() {
         String input = "event meeting /to 20-12-2023 17:10";
         try {
             Parser.parseCommand(input);
@@ -172,7 +174,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_eventSwapStartEnd_dukeException() {
+    public void parseCommand_eventSwapStartEnd_javassistException() {
         String input = "event meeting /to 20-12-2023 17:10 /from 20-12-2023 10:00";
         try {
             Parser.parseCommand(input);
@@ -205,13 +207,68 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_findNoKeyword_dukeException() {
+    public void parseCommand_findNoKeyword_javassistException() {
         String input = "find ";
         try {
             Parser.parseCommand(input);
             fail();
         } catch (JavAssistException e) {
             assertEquals("Specify 1 or more keyword/s to search.\nTry 'find [keywords]'.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_add_addExpenseCommand() {
+        String input = "add clothes /amount 10.90";
+        try {
+            assertEquals(new AddExpenseCommand(input), Parser.parseCommand(input));
+        } catch (JavAssistException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parseCommand_addMissingCategory_javassistException() {
+        String input = "add  /amount 10.90";
+        try {
+            Parser.parseCommand(input);
+            fail();
+        } catch (JavAssistException e) {
+            assertEquals("The category and amount of an expense cannot be empty.\n"
+                    + "Try 'add [category] /amount [expense]'.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_addMissingAmount_javassistException() {
+        String input = "add Food /amount ";
+        try {
+            Parser.parseCommand(input);
+            fail();
+        } catch (JavAssistException e) {
+            assertEquals("The category and amount of an expense cannot be empty.\n"
+                    + "Try 'add [category] /amount [expense]'.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_deduct_deductExpenseCommand() {
+        String input = "deduct clothes /amount 10.90";
+        try {
+            assertEquals(new DeductExpenseCommand(input), Parser.parseCommand(input));
+        } catch (JavAssistException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parseCommand_missingAmountKeyword_javassistException() {
+        String input = "deduct clothes / 10.90";
+        try {
+            Parser.parseCommand(input);
+        } catch (JavAssistException e) {
+            assertEquals("The category and amount of an expense to deduct cannot be empty.\n"
+                    + "Try 'deduct [category] /amount [expense]'.", e.getMessage());
         }
     }
 }

@@ -16,9 +16,6 @@ import javassist.util.TaskList;
 import javassist.util.Ui;
 
 
-
-
-
 public class DeleteCommandTest {
 
     @Test
@@ -39,7 +36,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteNegativeIndex_dukeException() {
+    public void execute_deleteNegativeIndex_javassistException() {
         DeleteCommand dc = new DeleteCommand("delete -1");
         Deadline dl = new Deadline("return book", "20-12-2020 10:01");
         ArrayList<Task> arr = new ArrayList<>();
@@ -57,7 +54,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteFromEmptyList_dukeException() {
+    public void execute_deleteFromEmptyList_javassistException() {
         DeleteCommand dc = new DeleteCommand("delete 1");
         TaskList list = new TaskList();
         try {

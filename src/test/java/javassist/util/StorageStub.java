@@ -23,4 +23,14 @@ public class StorageStub extends Storage {
     public ArrayList<Task> readFromFile() throws JavAssistException {
         return null;
     }
+
+    @Override
+    public void writeExpensesToFile(ExpenseList list) {
+        return;
+    }
+
+    @Override
+    public ExpenseList readFromExpenseFile() throws JavAssistException {
+        return null;
+    }
 }
