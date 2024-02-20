@@ -378,30 +378,39 @@ public class Parser {
             // Fallthrough
         } else {
             switch(token[0]) {
+            case "sos":
             case "help":
                 return parseAndExecuteHelp(token);
                 // Fallthrough
+            case "ls":
             case "list":
                 return parseAndExecuteList(token, ui, tasks);
                 // Fallthrough
+            case "mk":
             case "mark":
                 return parseAndExecuteMark(token, ui, storage, tasks);
                 // Fallthrough
+            case "umk":
             case "unmark":
                 return parseAndExecuteUnmark(token, ui, storage, tasks);
                 // Fallthrough
+            case "td":
             case "todo":
                 return parseAndExecuteTodo(token, ui, storage, tasks);
                 // Fallthrough
+            case "dl":
             case "deadline":
                 return parseAndExecuteDeadline(token, ui, storage, tasks);
                 // Fallthrough
+            case "ev":
             case "event":
                 return parseAndExecuteEvent(token, ui, storage, tasks);
                 // Fallthrough
+            case "rm":
             case "delete":
                 return parseAndExecuteDelete(token, ui, storage, tasks);
                 // Fallthrough
+            case "f":
             case "find":
                 return parseAndExecuteFind(token, ui, tasks);
                 // Fallthrough
