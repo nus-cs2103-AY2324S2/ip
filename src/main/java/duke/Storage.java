@@ -61,7 +61,7 @@ public class Storage {
      * @throws IOException If there is an error loading the tasks.
      */
     public Task[] loadTasks() throws IOException {
-        Path file = Paths.get(filePath);
+        Path file = Paths.get(this.filePath);
         if (!Files.exists(file)) {
             return new Task[100];
         }
@@ -83,24 +83,24 @@ public class Storage {
         char taskType = line.charAt(0);
         boolean isDone = line.charAt(4) == '1';
 
-        int seperation1 = line.indexOf("|", 4);
+        int separation1 = line.indexOf("|", 4);
 
         Task task;
         switch (taskType) {
         case 'T':
-            String descriptionTodo = line.substring(seperation1 + 2);
+            String descriptionTodo = line.substring(separation1 + 2);
             task = new Todo(descriptionTodo);
             break;
         case 'D':
-            int separationDeadline = line.indexOf(" | ", seperation1 + 3);
+            int separationDeadline = line.indexOf(" | ", separation1 + 3);
 
-            String descriptionDeadline = (separationDeadline != -1) ? line.substring(seperation1 + 2,
+            String descriptionDeadline = (separationDeadline != -1) ? line.substring(separation1 + 2,
                     separationDeadline) : line.substring(separationDeadline + 3);
             task = parseDeadlineFromLine(line, descriptionDeadline);
             break;
         case 'E':
-            int separationEvent = line.indexOf(" | ", seperation1 + 3);
-            String descriptionEvent = (separationEvent != -1) ? line.substring(seperation1 + 2, separationEvent)
+            int separationEvent = line.indexOf(" | ", separation1 + 3);
+            String descriptionEvent = (separationEvent != -1) ? line.substring(separation1 + 2, separationEvent)
                     : line.substring(separationEvent + 3);
             task = parseEventFromLine(line, descriptionEvent, separationEvent);
             break;
