@@ -56,6 +56,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + getStartDate() + " to:" + getEndDate() + ")";
+        return "[E]" + super.toString() + " (from: " + getStartDate() + " to: " + getEndDate() + ")";
     }
 }
