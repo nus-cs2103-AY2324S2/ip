@@ -65,7 +65,7 @@ find book
 bye
 
 
-## FAQs
+## FAQs :question:
 
 **Q: How do I ensure my tasks are saved?**  
 A: Cleo automatically saves your tasks in a file. Your tasks will be loaded the next time you start the app.
