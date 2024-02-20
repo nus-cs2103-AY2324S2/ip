@@ -1,6 +1,7 @@
 package lunaris;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,9 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
+import static javafx.application.Platform.exit;
 import static lunaris.Parser.isActive;
 
 public class Lunaris extends Application {
@@ -141,6 +145,18 @@ public class Lunaris extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
+
+        if (Objects.equals(dukeText.getText(), "  " +
+                "Leaving so soon? Alright, have a great day ahead!")) {
+            Platform.runLater(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();;
+                }
+                exit();
+            });
+        }
         userInput.clear();
     }
 
