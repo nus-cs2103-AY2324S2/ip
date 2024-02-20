@@ -1,10 +1,7 @@
 # Plaudern User Guide
 
-// Update the title above to match the actual product name
+![Plaudern](docs/Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
 Plaudern is a task management application that allows users to record their upcoming tasks and update tasks' states. 
 It is designed to be simple and easy to use, and is in the form of an interactive chatbot which makes the communication more interesting.
 
@@ -106,6 +103,7 @@ Description: The data will be saved in the hard disk in the form of a txt file a
 Description: The data will be loaded from the txt file in the hard disk when the application starts up.
 >[!NOTE]
 > If it is the first time the application starts up, the application will automatically create the data file for storage.
+
 >[!CAUTION]
 > DO NOT CHANGE THE DATA FILE MANUALLY: If the format of data in the data file is invalid, Plaudern will not be able to load the data and will require the user to delete the data file manually.
 
