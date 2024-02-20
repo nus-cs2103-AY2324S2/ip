@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import tes.Tes;
+import tes.Main;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,6 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Tes tes;
 
+    private Main mainApp;
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image tesImage = new Image(this.getClass().getResourceAsStream("/images/tes.jpg"));
 
@@ -41,6 +44,10 @@ public class MainWindow extends AnchorPane {
     public void displayGreet() {
         String greet = tes.greet();
         dialogContainer.getChildren().add(DialogBox.getTesDialog(greet, tesImage));
+    }
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
     }
 
     /**
@@ -60,7 +67,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if ("bye".equals(input.trim().toLowerCase())) {
+        if (input.trim().equals("help")) {
+            mainApp.showHelpWindow();
+        } else if (input.trim().equals("bye")) {
             String closingLine = tes.exit();
             dialogContainer.getChildren().add(DialogBox.getTesDialog(closingLine, tesImage));
 
