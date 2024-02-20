@@ -79,10 +79,11 @@ public class Zack extends Application {
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
+        stage.setTitle("Zack");
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Zack");
+
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
