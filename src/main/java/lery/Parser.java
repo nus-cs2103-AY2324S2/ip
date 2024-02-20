@@ -152,6 +152,6 @@ public class Parser {
         if (findList.getSize() == 0) {
             return "Woof! Sorry there are no tasks that fits your keyword.";
         }
-        return findList.printList();
+        return "Woof! " + findList.printList();
     }
 }

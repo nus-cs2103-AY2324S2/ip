@@ -52,8 +52,8 @@ public class Task {
     public String markAsDone() {
         this.isDone = !isDone;
         String msg = this.isDone
-                ? "Nice! I've marked this task as done:\n"
-                : "OK, I've marked this task as not done yet:\n";
+                ? "Woof! I've marked this task as done:\n"
+                : "Woof! I've marked this task as not done yet:\n";
         return msg + "[" + this.getStatusIcon() + "] " + this.description;
     }
 
