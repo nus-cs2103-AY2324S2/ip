@@ -128,6 +128,9 @@ public class PannaBot extends Application {
 
             return ui.find(taskList, words[1]);
 
+        } else if (input.startsWith("update")) {
+            String[] words = input.split(" ", 3);
+            return ui.update(taskList, words[1], words[2]);
         } else {
             return "I dont understand you!";
         }
