@@ -5,6 +5,7 @@ package zoe;
  * Contains some global methods so that all subclasses have access to that method
  */
 public class Task {
+    protected static int DONE_STATE = 1;
     protected String description;
     protected String type;
     protected boolean isDone;
@@ -18,7 +19,7 @@ public class Task {
     }
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.type = "";
         this.isDone = false;
     }

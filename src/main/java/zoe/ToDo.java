@@ -13,9 +13,10 @@ public class ToDo extends Task {
     public ToDo(String description, String isDoneNumber) {
         super(description);
         this.type = "T";
-        assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
-        assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
-        this.isDone = isDoneNumber.equals(DoneStates.DONE);
+        int doneState = Integer.parseInt(isDoneNumber);
+        assert doneState < 2 : "Data file corrupted, invalid state";
+        assert doneState >= 0 : "Data file corrupted, invalid state";
+        this.isDone = doneState == (DONE_STATE);
         this.priority = TaskPriority.TODO.getPriority();
     }
 

@@ -15,10 +15,19 @@ public class Parser {
         this.ui = new Ui();
     }
     public String process(String command) {
+        if (command.contains("_")) {
+            return ui.avoidUnderscores();
+        }
+
         int idx = command.indexOf(" ");
+
         if (idx > -1) {
             String[] str = command.split(" ", 2);
+            if (str[1].trim().length() == 0 || str[1].charAt(0) == ('/')) {
+                return ui.noDescription();
+            }
             return carryOutLongCommand(str[0], str[1]);
+
         } else {
             return carryOutShortCommand(command);
         }
@@ -64,14 +73,17 @@ public class Parser {
                 ToDo td = new ToDo(commandDescription);
                 tl.add(td);
                 return ui.addedTask(td, tl.getSize());
+
             case "deadline":
                 Deadline dl = new Deadline(commandDescription);
                 tl.add(dl);
                 return ui.addedTask(dl, tl.getSize());
+
             case "event":
                 Event e = new Event(commandDescription);
                 tl.add(e);
                 return ui.addedTask(e, tl.getSize());
+
             case "find":
                 String res = "";
                 int counter = 0;

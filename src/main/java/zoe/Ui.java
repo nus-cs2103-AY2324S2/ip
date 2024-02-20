@@ -111,4 +111,18 @@ public class Ui {
         return "Invalid deadline format. Please key it in as follows:\n" +
                 "deadline <description> /by yyyy-mm-dd\nI only accept that specific date format.";
     }
+
+    /**
+     * Alerts user in the event they keyed in an underscore, ensures that data corruption is not done by bot
+     */
+    public String avoidUnderscores(){
+        return "Please avoid keying in underscores as it will break the bot!";
+    }
+
+    /**
+     * Alerts user in the event they keyed in an underscore, ensures that data corruption is not done by bot
+     */
+    public String noDescription(){
+        return "The task you are trying to create lacks a description, refer to the website for formatting info :D";
+    }
 }

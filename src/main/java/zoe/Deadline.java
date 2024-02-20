@@ -13,9 +13,9 @@ public class Deadline extends Task {
     protected String date;
     protected String formattedDate;
     public Deadline(String desc) {
-        String[] str = desc.split("/by ");
-        this.description = str[DESCRIPTION];
-        this.date = str[DATE];
+        String[] str = desc.split("/by");
+        this.description = str[DESCRIPTION].trim();
+        this.date = str[DATE].trim();
         LocalDate inputDate = LocalDate.parse(date);
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
@@ -24,21 +24,22 @@ public class Deadline extends Task {
     }
 
     public Deadline(String desc, String isDoneNumber) {
-        String[] str = desc.split("/by ");
-        this.description = str[DESCRIPTION];
-        this.date = str[DATE];
+        String[] str = desc.split("/by");
+        this.description = str[DESCRIPTION].trim();
+        this.date = str[DATE].trim();
         LocalDate inputDate = LocalDate.parse(date);
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
-        assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
-        assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
-        this.isDone = isDoneNumber.equals(DoneStates.DONE);
+        int doneState = Integer.parseInt(isDoneNumber);
+        assert doneState < 2 : "Data file corrupted, invalid state";
+        assert doneState >= 0 : "Data file corrupted, invalid state";
+        this.isDone = doneState == DONE_STATE;
         this.priority = TaskPriority.DEADLINE.getPriority();
     }
 
     @Override
     public String getStatus() {
-        return String.format("[%s][%s] %s(by:%s)", type, getStatusIcon(),
+        return String.format("[%s][%s] %s (by: %s)", type, getStatusIcon(),
                 description, formattedDate);
     }
 
