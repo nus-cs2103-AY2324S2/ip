@@ -147,7 +147,7 @@ public class InputParser {
         tasks.add(deadline);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return deadline.toString() + "\n" + taskCounterMsg;
+        return TextTemplate.ADD_TASK + "\n" + deadline.toString() + "\n" + taskCounterMsg;
     }
 
     private String matchKeyword(String input, TaskList tasks) {
