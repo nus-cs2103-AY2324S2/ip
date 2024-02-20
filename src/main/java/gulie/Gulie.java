@@ -10,18 +10,20 @@ import java.util.Scanner;
  * A simple task manager.
  */
 public class Gulie {
+
+    public static final String NAME = "Güliedistodiez";
     private GulieTasklist tasklist;
     private final static String savepath = "./data/Gulie.txt";
-    private GulieTextUi ui;
+    private GulieUi ui;
     private GulieStorage storage;
     private GulieParser parser;
 
     public Gulie(GulieInterface gulieInterface) {
-        ui = new GulieTextUi(gulieInterface);
+        ui = new GulieUi(gulieInterface);
         storage = new GulieStorage(ui, "./data/Gulie.txt");
         parser = new GulieParser();
         tasklist = storage.load();
-        ui.greet();
+        ui.printGreet();
     }
 
     /**
@@ -43,7 +45,7 @@ public class Gulie {
         } catch (GulieException ge) {
             ui.error(ge);
         }
-        ui.farewell();
+        ui.printFarewell();
     }
 
     private static void launchTextGulie() {

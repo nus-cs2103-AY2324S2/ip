@@ -1,5 +1,6 @@
 package gulie.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,6 +29,11 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime by, boolean mark) {
         super(name, mark);
         this.by = by;
+    }
+
+    @Override
+    public boolean onDate(LocalDate date) {
+        return by.toLocalDate().equals(date);
     }
 
     @Override

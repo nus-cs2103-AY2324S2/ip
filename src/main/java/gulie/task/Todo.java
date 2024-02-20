@@ -1,5 +1,6 @@
 package gulie.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -21,6 +22,11 @@ public class Todo extends Task {
      */
     public Todo(String name, boolean mark) {
         super(name, mark);
+    }
+
+    @Override
+    public boolean onDate(LocalDate date) {
+        return false;
     }
 
     @Override

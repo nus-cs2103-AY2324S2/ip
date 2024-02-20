@@ -1,6 +1,7 @@
 package gulie;
 import gulie.task.Task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -55,10 +56,29 @@ public class GulieTasklist extends ArrayList<Task> {
         task.setIsMarked(false);
     }
 
+    /**
+     * Finds all tasks that contain the keyword.
+     * @param keyword
+     * @return A GulieTaskList containing all the found tasks.
+     */
     public GulieTasklist find(String keyword) {
         GulieTasklist tasklist = new GulieTasklist();
         for (Task task : this) {
             if (task.hasKeyword(keyword)) {
+                tasklist.store(task);
+            }
+        }
+        return tasklist;
+    }
+
+    /**
+     * Finds all tasks that happen on the specified date.
+     * @return
+     */
+    public GulieTasklist getSchedule(LocalDate date) {
+        GulieTasklist tasklist = new GulieTasklist();
+        for (Task task : this) {
+            if (task.onDate(date)) {
                 tasklist.store(task);
             }
         }

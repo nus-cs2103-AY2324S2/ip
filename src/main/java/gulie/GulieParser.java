@@ -5,6 +5,7 @@ import gulie.task.Event;
 import gulie.task.Task;
 import gulie.task.Todo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -28,7 +29,7 @@ public class GulieParser {
         case "list": {
             return (ui, storage, tasklist) -> {
                 if (!silent) {
-                    ui.list(tasklist);
+                    ui.printList(tasklist);
                 }
             };
         }
@@ -38,7 +39,7 @@ public class GulieParser {
                 return (ui, storage, tasklist) -> {
                     tasklist.mark(index);
                     if (!silent) {
-                        ui.mark(tasklist.get(index));
+                        ui.printMark(tasklist.get(index));
                     }
                 };
             } catch (NumberFormatException e) {
@@ -51,7 +52,7 @@ public class GulieParser {
                 return (ui, storage, tasklist) -> {
                     tasklist.unmark(index);
                     if (!silent) {
-                        ui.unmark(tasklist.get(index));
+                        ui.printUnmark(tasklist.get(index));
                     }
                 };
             } catch (NumberFormatException e) {
@@ -64,7 +65,7 @@ public class GulieParser {
                 Todo todo = new Todo(name);
                 tasklist.add(todo);
                 if (!silent) {
-                    ui.store(todo, tasklist.size());
+                    ui.printStore(todo, tasklist.size());
                 }
             };
         }
@@ -76,7 +77,7 @@ public class GulieParser {
                     Deadline deadline = new Deadline(name, by);
                     tasklist.add(deadline);
                     if (!silent) {
-                        ui.store(deadline, tasklist.size());
+                        ui.printStore(deadline, tasklist.size());
                     }
                 };
             } catch (DateTimeParseException e) {
@@ -92,7 +93,7 @@ public class GulieParser {
                     Event event = new Event(name, from, to);
                     tasklist.add(event);
                     if (!silent) {
-                        ui.store(event, tasklist.size());
+                        ui.printStore(event, tasklist.size());
                     }
                 };
             } catch (DateTimeParseException e) {
@@ -105,7 +106,7 @@ public class GulieParser {
                 return (ui, storage, tasklist) -> {
                     Task task = tasklist.delete(index);
                     if (!silent) {
-                        ui.delete(task, tasklist.size());
+                        ui.printDelete(task, tasklist.size());
                     }
                 };
             } catch (NumberFormatException e) {
@@ -115,8 +116,18 @@ public class GulieParser {
         case "find": {
             final String keyword = getArgument(input, "find", "keyword");
             return (ui, storage, tasklist) -> {
-                ui.find(tasklist.find(keyword));
+                ui.printFind(tasklist.find(keyword));
             };
+        }
+        case "schedule": {
+            try {
+                final LocalDate date = LocalDate.parse(getArgument(input, "schedule", "date"));
+                return (ui, storage, tasklist) -> {
+                    ui.printSchedule(date, tasklist.getSchedule(date));
+                };
+            } catch (DateTimeParseException e) {
+                throw new GulieException("The date that you have given is invalid.");
+            }
         }
         default:
             throw new GulieException("Apologies. I do not understand.");

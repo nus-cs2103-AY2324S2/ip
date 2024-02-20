@@ -12,14 +12,14 @@ import java.util.Scanner;
  */
 public class GulieStorage {
     private String savepath;
-    private GulieTextUi ui;
+    private GulieUi ui;
 
     /**
      * A constructor for GulieStorage.
      * @param ui
      * @param savepath The file to be saved to and loaded from.
      */
-    public GulieStorage(GulieTextUi ui, String savepath) {
+    public GulieStorage(GulieUi ui, String savepath) {
         this.savepath = savepath;
         this.ui = ui;
     }

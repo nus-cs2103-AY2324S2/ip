@@ -2,59 +2,58 @@ package gulie;
 
 import gulie.task.Task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * A user interface for Gulie.
  */
-public class GulieTextUi {
-    private static final String NAME = "Güliedistodiez";
-    private static final String LINE = "____________________________________________________________";
+public class GulieUi {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd'/'MM'/'yyyy HH':'mm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd'/'MM'/'yyyy");
 
     private GulieInterface gulieInterface;
 
     /**
      * A constructor for GulieUi
-     * @param input
-     * @param output
+     * @param gulieInterface An interface to interact with Gulie.
      */
-    public GulieTextUi(GulieInterface gulieInterface) {
+    public GulieUi(GulieInterface gulieInterface) {
         this.gulieInterface = gulieInterface;
     }
 
 
-    public void greet() {
-        gulieInterface.print(String.format(" Greetings. I am %s.\n What can I do for you?", NAME));
+    public void printGreet() {
+        gulieInterface.print(String.format(" Greetings. I am %s.\n What can I do for you?", Gulie.NAME));
     }
 
-    public void farewell() {
+    public void printFarewell() {
         gulieInterface.print(" Goodbye.");
         gulieInterface.close();
     }
 
-    public void store(Task task, int size) {
+    public void printStore(Task task, int size) {
         String line1 = " Understood. I have added this task:\n   " + task;
         String line2 = String.format(" You now have %d tasks in the list", size);
         gulieInterface.print(line1 + '\n' + line2);
     }
 
-    public void delete(Task task, int size) {
+    public void printDelete(Task task, int size) {
         String line1 = " I have removed this task:\n   " + task;
         String line2 = String.format(" You now have %d tasks in the list", size);
         gulieInterface.print(line1 + '\n' + line2);
     }
 
-    public void mark(Task task) {
+    public void printMark(Task task) {
         gulieInterface.print(" I have marked this task as completed:\n   " + task);
     }
 
-    public void unmark(Task task) {
+    public void printUnmark(Task task) {
         gulieInterface.print(" I have marked this task as incomplete:\n   " + task);
     }
 
-    public void list(GulieTasklist tasklist) {
+    public void printList(GulieTasklist tasklist) {
         if (tasklist.size()  == 0) {
             gulieInterface.print("The list is currently empty.");
             return;
@@ -70,14 +69,31 @@ public class GulieTextUi {
      * Displays a list of tasks found with the "find" command. 
      * @param tasklist the tasklist found
      */
-    public void find(GulieTasklist tasklist) {
-        String lines = " These are the matching tasks in yur list: ";
+    public void printFind(GulieTasklist tasklist) {
+        String lines = " These are the matching tasks in your list: ";
         for (int i = 0; i < tasklist.size(); i++) {
             lines += '\n' + String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER));
         }
         gulieInterface.print(lines);
     }
 
+    /**
+     * Displays a list of tasks on the specified date.
+     * @param date
+     * @param tasklist
+     */
+    public void printSchedule(LocalDate date, GulieTasklist tasklist) {
+        String lines = " These are the tasks you have on " + date.format(DATE_FORMATTER);
+        for (int i = 0; i < tasklist.size(); i++) {
+            lines += '\n' + String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER));
+        }
+        gulieInterface.print(lines);
+    }
+
+    /**
+     * Prints an error.
+     * @param ge
+     */
     public void error(GulieException ge) {
         gulieInterface.print(" " + ge.getMessage());
     }

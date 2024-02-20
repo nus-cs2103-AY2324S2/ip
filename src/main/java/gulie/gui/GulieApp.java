@@ -82,7 +82,7 @@ public class GulieApp extends Application implements GulieInterface {
     }
 
     private void styleComponents(Stage stage) {
-        stage.setTitle("Duke");
+        stage.setTitle(Gulie.NAME);
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -125,7 +125,9 @@ public class GulieApp extends Application implements GulieInterface {
     @Override
     public String getString() {
         assert isRunning : "App should be running";
-        input = new CompletableFuture<>();
+        if (input == null) {
+            input = new CompletableFuture<>();
+        }
         String inp = input.join();
         input = null;
         return inp;

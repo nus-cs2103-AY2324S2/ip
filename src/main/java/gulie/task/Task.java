@@ -2,6 +2,7 @@ package gulie.task;
 
 import gulie.GulieException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -36,14 +37,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns a String suitable for use in a save file.
-     * @return
-     */
-    public String toSaveString() {
-        return String.format("%s\t%s", isMarked ? "1" : "0", name);
-    }
-
-    /**
      * Returns true if the keyword is in this Task.
      *
      * @param keyword
@@ -51,6 +44,21 @@ public abstract class Task {
      */
     public boolean hasKeyword(String keyword) {
         return name.contains(keyword);
+    }
+
+    /**
+     * Returns true if this task is on the specified date.
+     * @param date
+     * @return
+     */
+    public abstract boolean onDate(LocalDate date);
+
+    /**
+     * Returns a String suitable for use in a save file.
+     * @return
+     */
+    public String toSaveString() {
+        return String.format("%s\t%s", isMarked ? "1" : "0", name);
     }
 
     /**
