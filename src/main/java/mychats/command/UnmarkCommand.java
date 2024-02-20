@@ -7,22 +7,22 @@ import mychats.main.Ui;
 /**
  * Represents a command to unmark a task as done in the task list.
  */
-public class UnMarkCommand extends Command {
+public class UnmarkCommand extends Command {
 
     private int zeroItem;
 
     /**
-     * Constructs an UnMarkCommand to unmark the task with the
+     * Constructs an UnmarkCommand to unmark the task with the
      * given task number as done.
      *
      * @param oneItem The one-indexed task number to be unmarked as done.
      */
-    public UnMarkCommand(int oneItem) {
+    public UnmarkCommand(int oneItem) {
         this.zeroItem = oneItem - 1;
     }
 
     /**
-     * Executes the UnMarkCommand by unmarking the task with
+     * Executes the UnmarkCommand by unmarking the task with
      * the given task number as done in the task list,
      * displaying the completion message, and saving
      * the updated task list using Storage.
@@ -41,7 +41,7 @@ public class UnMarkCommand extends Command {
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new MyChatsException("Error! Task number '" + oneItem + "' does not exist.");
         }
-        tasks.unMarkAsDone(zeroItem);
+        tasks.unmarkTask(zeroItem);
         ui.printToScreen("OK, I've marked this task as not done yet:\n" + tasks.get(zeroItem) + "\n");
         storage.saveList(tasks.getTasks());
     }

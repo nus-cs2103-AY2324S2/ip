@@ -68,7 +68,7 @@ public class Storage {
                 throw new MyChatsException("Error! Incorrect mychats.txt format: unexpected task type.");
             }
             if (Integer.parseInt(splitInput[1]) == 1) {
-                task.markAsDone();
+                task.markTask();
             }
             tasks.add(task);
         }

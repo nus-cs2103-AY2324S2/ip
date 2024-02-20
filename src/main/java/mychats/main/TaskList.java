@@ -58,10 +58,10 @@ public class TaskList {
      *
      * @param num The zero-indexed task index to mark as done.
      */
-    public void markAsDone(int num) {
+    public void markTask(int num) {
         Task taskToMark = tasks.get(num);
         assert taskToMark != null : "Task to mark as done cannot be null";
-        taskToMark.markAsDone();
+        taskToMark.markTask();
     }
 
     /**
@@ -69,10 +69,10 @@ public class TaskList {
      *
      * @param num The zero-indexed task index to mark as not done.
      */
-     public void unMarkAsDone(int num) {
+     public void unmarkTask(int num) {
          Task taskToUnMark = tasks.get(num);
          assert taskToUnMark != null : "Task to mark as not done cannot be null";
-         taskToUnMark.unMarkAsDone();
+         taskToUnMark.unmarkTask();
     }
 
     /**

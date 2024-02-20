@@ -1,13 +1,6 @@
 package mychats.main;
-import mychats.command.DeadlineCommand;
-import mychats.command.DeleteCommand;
-import mychats.command.EventCommand;
-import mychats.command.ExitCommand;
-import mychats.command.ListCommand;
-import mychats.command.MarkCommand;
-import mychats.command.ViewCommand;
-import mychats.command.ToDoCommand;
-import mychats.command.UnMarkCommand;
+import mychats.command.*;
+import mychats.command.UnmarkCommand;
 
 import mychats.exception.MyChatsException;
 
@@ -27,6 +20,6 @@ public class ParserTest {
         assertTrue(Parser.parse("view Oct 15 2019") instanceof ViewCommand, "view parser passed");
         assertTrue(Parser.parse("view Oct 17 2019") instanceof ViewCommand, "view parser passed");
         assertTrue(Parser.parse("todo go to school") instanceof ToDoCommand, "todo parser passed");
-        assertTrue(Parser.parse("unmark 20") instanceof UnMarkCommand, "unmark parser passed");
+        assertTrue(Parser.parse("unmark 20") instanceof UnmarkCommand, "unmark parser passed");
     }
 }

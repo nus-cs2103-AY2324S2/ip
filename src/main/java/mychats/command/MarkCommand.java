@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new MyChatsException("Error! Task number '" + oneItem + "' does not exist.");
         }
-        tasks.markAsDone(zeroItem);
+        tasks.markTask(zeroItem);
         ui.printToScreen("Nice! I've marked this task as done:\n" +
                 tasks.get(zeroItem));
         storage.saveList(tasks.getTasks());

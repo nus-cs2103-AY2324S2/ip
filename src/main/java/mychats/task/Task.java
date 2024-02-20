@@ -34,14 +34,14 @@ public class Task {
     /**
      * Marks the task as done by setting the completion status to true.
      */
-    public void markAsDone() {
+    public void markTask() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not done by setting the completion status to false.
      */
-    public void unMarkAsDone() {
+    public void unmarkTask() {
         this.isDone = false;
     }
 

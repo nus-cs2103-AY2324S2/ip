@@ -11,17 +11,17 @@ import mychats.task.Deadline;
 public class DeadlineCommand extends Command {
 
     private String description;
-    private String by;
+    private String byWhen;
 
     /**
      * Constructs a DeadlineCommand with a description and a deadline.
      *
      * @param description Description of the task.
-     * @param by Deadline of the task.
+     * @param byWhen Deadline of the task.
      */
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, String byWhen) {
         this.description = description;
-        this.by = by;
+        this.byWhen = byWhen;
     }
 
     /**
@@ -36,7 +36,7 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
         Deadline deadline;
-        deadline = new Deadline(description, by);
+        deadline = new Deadline(description, byWhen);
         tasks.add(deadline);
         ui.addResponse(deadline, tasks);
         storage.saveList(tasks.getTasks());

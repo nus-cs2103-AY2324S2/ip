@@ -1,18 +1,7 @@
 package mychats.main;
 
-import mychats.command.Command;
-import mychats.command.DeadlineCommand;
-import mychats.command.DeleteCommand;
-import mychats.command.EventCommand;
-import mychats.command.ExitCommand;
-import mychats.command.FindCommand;
-import mychats.command.ListCommand;
-import mychats.command.MarkCommand;
-import mychats.command.ToDoCommand;
-import mychats.command.UndoCommand;
-import mychats.command.UnMarkCommand;
-import mychats.command.ViewCommand;
-
+import mychats.command.*;
+import mychats.command.UnmarkCommand;
 import mychats.exception.MyChatsException;
 
 import java.time.format.DateTimeFormatter;
@@ -33,7 +22,7 @@ public class Parser {
         } else if (userInput.startsWith("mark")) {
             return parseMarkCommand(userInput);
         } else if (userInput.startsWith("unmark")) {
-            return parseUnMarkCommand(userInput);
+            return parseUnmarkCommand(userInput);
         } else if (userInput.startsWith("todo")) {
             return parseTodoCommand(userInput);
         } else if (userInput.startsWith("deadline")) {
@@ -70,9 +59,9 @@ public class Parser {
         return new ListCommand();
     }
 
-    private static UnMarkCommand parseUnMarkCommand(String input) throws MyChatsException {
+    private static UnmarkCommand parseUnmarkCommand(String input) throws MyChatsException {
         int num = parseTaskNumber(input, "unmark");
-        return new UnMarkCommand(num);
+        return new UnmarkCommand(num);
     }
 
     private static ToDoCommand parseTodoCommand(String input) throws MyChatsException {
