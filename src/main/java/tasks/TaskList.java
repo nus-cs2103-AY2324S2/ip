@@ -1,7 +1,6 @@
 package tasks;
 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -95,7 +94,7 @@ public class TaskList {
      * @param taskNum Index of task on list
      */
     public String deleteTask(int taskNum) {
-        Task taskToBeRemoved = taskList.get(taskNum-1);
+        Task taskToBeRemoved = taskList.get(taskNum - 1);
         taskList.remove(taskToBeRemoved);
         System.out.print("Task deleted:\n");
         System.out.print("   " + taskToBeRemoved.getTaskDetails() + "\n");
@@ -129,8 +128,7 @@ public class TaskList {
                 System.out.print((i + 1) + ". " + thisTask.getTaskDetails() + "\n");
                 result.append(i + 1).append(". ").append(thisTask.getTaskDetails()).append("\n");
             }
-        }
-        else {
+        } else {
             System.out.print("No tasks in list.\n");
             result.append("No tasks in list.");
         }
@@ -153,7 +151,7 @@ public class TaskList {
      * @param taskNum Index of task on list
      */
     public String markTaskDone(int taskNum) {
-        Task thisTask = taskList.get(taskNum-1);
+        Task thisTask = taskList.get(taskNum - 1);
         thisTask.markDone();
         String markedDoneText = "Nice! I've marked this task as done:\n";
         String taskText = "    " + thisTask.getTaskDetails() + "\n";
@@ -170,7 +168,7 @@ public class TaskList {
      * @param taskNum Index of task on list
      */
     public String markTaskUndone(int taskNum) {
-        Task thisTask = taskList.get(taskNum-1);
+        Task thisTask = taskList.get(taskNum - 1);
         thisTask.markUndone();
         String markedUndoneText = "Ok, i've marked this task as not done yet:\n";
         String taskText = "    " + thisTask.getTaskDetails() + "\n";

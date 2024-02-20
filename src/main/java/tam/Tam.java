@@ -1,24 +1,23 @@
 package tam;
 
 import gui.DialogBox;
+import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import logic.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * The tam.Tam class is the main class from which tam.Tam the Task Manager is launched.
@@ -33,15 +32,15 @@ public class Tam extends Application {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/person.jpg"));
     private Image tamImage = new Image(this.getClass().getResourceAsStream("/images/litten2.png"));
 
+    public Tam() {
+    }
+
     /**
      * Main method which is not in use.
      *
      * @param args String arguments
      */
     public static void main(String[] args) {
-    }
-
-    public Tam() {
     }
 
     /**
@@ -163,5 +162,4 @@ public class Tam extends Application {
         String response = Parser.parseAndExecuteCommand(input, taskListObj).getValue();
         return response;
     }
-
 }

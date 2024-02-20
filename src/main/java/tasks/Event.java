@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * a task with a from date and a to date
  */
 public class Event extends Task {
-    LocalDate fromDate;
-    LocalDate toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     /**
      * Constructor for an empty Event task
@@ -99,7 +99,7 @@ public class Event extends Task {
         }
         LocalDate eventFromDateLocal = LocalDate.of(fromDateArray[0], fromDateArray[1], fromDateArray[2]);
         LocalDate eventToDateLocal = LocalDate.of(toDateArray[0], toDateArray[1], toDateArray[2]);
-        return new Event(taskDescription,eventFromDateLocal, eventToDateLocal, isDone);
+        return new Event(taskDescription, eventFromDateLocal, eventToDateLocal, isDone);
     }
 
     /**

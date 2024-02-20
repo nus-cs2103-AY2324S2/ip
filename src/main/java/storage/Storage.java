@@ -1,21 +1,19 @@
 package storage;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Todo;
 
 
 /**
@@ -33,7 +31,7 @@ public class Storage {
      *
      * @return TaskList object
      */
-    public static TaskList getSavedTasks () {
+    public static TaskList getSavedTasks() {
 
         File saveFile = new File(saveFilePath);
         TaskList taskListObj = new TaskList();
@@ -53,8 +51,7 @@ public class Storage {
                 System.out.println("File not found. New save file created.");
             }
             return taskListObj;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }

@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * This class contains all the error messages used in the Tam program.
+ */
 public class ErrorMessages {
     public static final String COMMAND_NOT_FOUND =
             "Invalid command entered. "

@@ -1,10 +1,11 @@
 package parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import logic.Parser;
 import tasks.TaskList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
@@ -15,8 +16,7 @@ public class ParserTest {
         try {
             Parser.parseAndExecuteCommand("event Sleep /from 14/09/2011 /to 15/4/2022",
                     existingTaskList);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("Text '14/09/2011' could not be parsed at index 0", e.getMessage());
         }
     }
@@ -28,8 +28,7 @@ public class ParserTest {
 
         try {
             Parser.parseAndExecuteCommand("delete fifty", existingTaskList);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             thrown = true;
             assertEquals("For input string: \"fifty\"", e.getMessage());
         }

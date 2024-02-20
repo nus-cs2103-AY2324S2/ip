@@ -5,16 +5,23 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
+/**
+ * This class is a custom class for a DialogBox object,
+ * consisting of a label and an ImageView.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
-
+    /**
+     * Constructor for a DialogBox object
+     * @param l the label in the DialogBox
+     * @param iv the ImageView in the DialogBox
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

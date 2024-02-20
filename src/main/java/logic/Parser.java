@@ -1,18 +1,29 @@
 package logic;
 
+import static logic.Extractor.extractDeadlineParameters;
+import static logic.Extractor.extractEventParameters;
+import static logic.Extractor.extractSearchTerm;
+import static logic.Extractor.extractTodoParameters;
+import static logic.Validator.validateByeCommand;
+import static logic.Validator.validateDeadlineCommand;
+import static logic.Validator.validateDeleteAllCommand;
+import static logic.Validator.validateDeleteCommand;
+import static logic.Validator.validateEventCommand;
+import static logic.Validator.validateFindCommand;
+import static logic.Validator.validateHelpCommand;
+import static logic.Validator.validateListCommand;
+import static logic.Validator.validateMarkCommand;
+import static logic.Validator.validateTodoCommand;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
 import commands.Commands;
-import exceptions.*;
+import exceptions.CommandNotFoundException;
 import javafx.util.Pair;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.stream.Stream;
-
-import static logic.Extractor.*;
-import static logic.Validator.*;
 
 /**
  * The Parser class parses user input (a command) and executes the command accordingly
@@ -76,7 +87,7 @@ public class Parser {
         }
     }
 
-    public static Pair<Integer, String> parseAndExecuteBye(String input, TaskList existingTaskList) throws CommandNotFoundException {
+    public static Pair<Integer, String> parseAndExecuteBye(String input, TaskList existingTaskList) {
         String response;
         try {
             validateByeCommand(input);

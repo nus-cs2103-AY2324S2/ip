@@ -1,5 +1,8 @@
 package logic;
 
+/**
+ * This class contains all the static methods used to convert
+ */
 public class Extractor {
     public static String[] extractTodoParameters(String command) {
         String[] parameters = new String[1];

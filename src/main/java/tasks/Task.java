@@ -50,7 +50,9 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getTaskCode() { return this.taskCode; }
+    public String getTaskCode() {
+        return this.taskCode;
+    }
 
     public boolean isDone() {
         return this.isDone;

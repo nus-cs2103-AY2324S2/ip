@@ -1,17 +1,22 @@
 package logic;
 
-import commands.Commands;
-import exceptions.*;
-import tasks.TaskList;
+import static logic.Extractor.extractDeadlineParameters;
+import static logic.Extractor.extractEventParameters;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static logic.Extractor.extractDeadlineParameters;
-import static logic.Extractor.extractEventParameters;
+import commands.Commands;
+import exceptions.CommandNotFoundException;
+import exceptions.ErrorMessages;
+import exceptions.IncorrectParametersException;
+import exceptions.MissingParametersException;
+import exceptions.ParseDateException;
+import tasks.TaskList;
 
 public class Validator {
-    public static void validateCommand(Commands commandType, String command, TaskList existingTaskList) throws Exception {
+    public static void validateCommand(Commands commandType, String command, TaskList existingTaskList)
+            throws Exception {
         switch (commandType) {
         case BYE:
             validateByeCommand(command);
@@ -138,7 +143,8 @@ public class Validator {
     }
 
     public static void validateDeadlineCommand(String command)
-            throws MissingParametersException, IncorrectParametersException, DateTimeParseException, ParseDateException {
+            throws MissingParametersException, IncorrectParametersException,
+            DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
         if (!command.contains("/by")) {
             throw new MissingParametersException(ErrorMessages.MISSING_DUE_DATE);
@@ -173,7 +179,8 @@ public class Validator {
     }
 
     public static void validateEventCommand(String command)
-            throws MissingParametersException, IncorrectParametersException, DateTimeParseException, ParseDateException {
+            throws MissingParametersException, IncorrectParametersException,
+            DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
         if (!command.contains("/from") || !command.contains("/to")) {
             throw new MissingParametersException(ErrorMessages.MISSING_FROM_TO_DATE);

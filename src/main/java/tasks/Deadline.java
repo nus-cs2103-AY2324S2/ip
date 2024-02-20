@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * a task with a due date
  */
 public class Deadline extends Task {
-    LocalDate dueDate;
+    private LocalDate dueDate;
 
     /**
      * Constructor for an empty Deadline task
