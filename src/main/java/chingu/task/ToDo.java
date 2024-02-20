@@ -3,13 +3,13 @@ package chingu.task;
 /**
  * This class is implementation of Task which contains description.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Creates an instance of ToDos which contains description detail of the task.
      * @param description
      */
-    public ToDos(String description, String priority) {
+    public ToDo(String description, String priority) {
         super(description, priority);
     }
 

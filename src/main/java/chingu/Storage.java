@@ -68,7 +68,7 @@ public class Storage {
         divided = data.split("/priority", 2);
         String description = divided[0].trim();
         String priority = divided[1].trim();
-        Task new_task = new ToDos(description, priority);
+        Task new_task = new ToDo(description, priority);
         if (isDone) {
             new_task.markAsDone();
         }
@@ -152,7 +152,7 @@ public class Storage {
     }
 
     public String sortTask(Task temp, String to_add) {
-        if (temp instanceof ToDos) {
+        if (temp instanceof ToDo) {
             return saveToDo(temp, to_add);
         } else if (temp instanceof Event) {
             return saveEvent(temp, to_add);

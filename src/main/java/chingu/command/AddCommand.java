@@ -62,7 +62,7 @@ public class AddCommand extends Command {
         }
         description = divided[0];
         String priority = divided[1].trim();
-        Task new_task = new ToDos(description, priority);
+        Task new_task = new ToDo(description, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
