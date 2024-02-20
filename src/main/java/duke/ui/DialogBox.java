@@ -1,6 +1,9 @@
 package duke.ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -15,12 +18,12 @@ public class DialogBox extends HBox {
     private Label dialog;
 
     @FXML
-    private Label name;
+    private Label infoLabel;
 
     @FXML
     private ImageView displayPicture;
 
-    DialogBox(String text, Image img) {
+    DialogBox(String username, String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -30,6 +33,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String timestamp = now.format(formatter);
+
+        this.infoLabel.setText(username + " [" + timestamp + "]");
         dialog.setText(text);
         dialog.setMinWidth(Region.USE_COMPUTED_SIZE);
         dialog.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
