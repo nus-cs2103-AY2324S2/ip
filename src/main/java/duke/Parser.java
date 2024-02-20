@@ -319,13 +319,14 @@ public class Parser {
         assert firstWord.length() < 7 : "Invalid word/I can only mark numbers!";
         try {
             int num = Integer.parseInt(commandSplit[1]);
-            switch (firstWord) {
-            case "mark" -> tasklist.mark(num - 1);
-            case "unmark" -> tasklist.unmark(num - 1);
-            case "delete" -> tasklist.delete(num - 1);
-            default -> {
+            if ("mark".equals(firstWord)) {
+                tasklist.mark(num - 1);
+            } else if ("unmark".equals(firstWord)) {
+                tasklist.unmark(num - 1);
+            } else if ("delete".equals(firstWord)) {
+                tasklist.delete(num - 1);
+            } else {
                 return "Done!";
-            }
             }
         } catch (NumberFormatException e) {
             return "[angry quacking] I can only mark/delete numbers!";
