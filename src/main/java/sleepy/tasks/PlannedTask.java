@@ -37,7 +37,7 @@ public class PlannedTask extends Task {
     public String getDescription() {
         String triggerDate = formattedDate == null
                 ? precedingEvent : formattedDate.format(DATE_FORMAT);
-        return "[A]" + super.getDescription() + " (after: " + triggerDate + ")";
+        return "[P]" + super.getDescription() + " (after: " + triggerDate + ")";
     }
 
     /**
