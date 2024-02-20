@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
  */
 public class Ui {
     private final BufferedReader br;
+    private String response = "";
 
     /**
      * Constructs a UI instance with the specified input stream.
@@ -18,6 +19,10 @@ public class Ui {
      */
     public Ui(InputStream in) {
         this.br = new BufferedReader(new InputStreamReader(in));
+    }
+
+    public String getResponse() {
+        return this.response;
     }
 
     /**
@@ -42,12 +47,23 @@ public class Ui {
         }
     }
 
+    public void clear() {
+        this.response = "";
+    }
+
+    public void addResponse(String message) {
+        this.response += message;
+    }
+
+    public void showError(String error) {
+        System.out.println(error);
+    }
+
     /**
      * Displays the provided string message to the user.
      *
-     * @param s The message to be shown to the user.
      */
-    public void showResultToUser(String s) {
-        System.out.println(s);
+    public void showResultToUser() {
+        System.out.println(this.response);
     }
 }

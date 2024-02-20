@@ -1,4 +1,5 @@
-T | 0 | Buy groceries
+T | 1 | Buy groceries
 D | 0 | Read a book | 2022-02-15 1800
 E | 0 | Attend meeting | 2022-02-15 1400 | 2022-02-15 1600
-T | 0 | read book
+D | 0 | wash up | 2023-08-06 1800
+E | 0 | prepare | 2023-08-06 1800 | 2023-08-06 2000
