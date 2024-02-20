@@ -3,7 +3,6 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 /**
  * Represents a parser for Duke.
@@ -43,11 +42,17 @@ public class Parser {
         case "on":
             assert position != -1 && position + 1 < userInput.length() : "Invalid position";
             String dateStr = userInput.substring(position + 1);
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            // Validate the date format
+            if (!isValidDateFormat(dateStr)) {
+                throw new DukeException("Please write the date in the format dd/mm/yyyy");
+            }
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
             LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
             return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
         case "find":
             return handleFind(userInput, ui, position);
+        case "help":
+            return ui.showHelp();
         default:
             throw new DukeException("     Gurl I'm sorry, idk what that means :-(");
         }
@@ -165,7 +170,7 @@ public class Parser {
             LocalDateTime deadlineDate = LocalDateTime.parse(taskStrBy, formatter);
 
             Task newTask = new Deadline(taskStr, deadlineDate);
-            if (tasks.containsTask(String.valueOf(newTask))) {
+            if (TaskList.containsTask(String.valueOf(newTask))) {
                 return "     This task already exists in the list.";
             }
             tasks.addTask(newTask);
@@ -209,7 +214,7 @@ public class Parser {
             }
 
             Task newTask = new Event(taskStr, taskStrFrom, taskStrTo);
-            if (tasks.containsTask(String.valueOf(newTask))) {
+            if (TaskList.containsTask(String.valueOf(newTask))) {
                 return "     This task already exists in the list.";
             }
             tasks.addTask(newTask);

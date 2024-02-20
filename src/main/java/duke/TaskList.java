@@ -96,6 +96,10 @@ public class TaskList {
         tasks[index].markAsNotDone();
     }
 
+    /**
+     * Returns the string representation of the list of tasks.
+     * @return String representation of the list of tasks.
+     */
     public static boolean containsTask(String taskStr) {
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] != null && String.valueOf(tasks[i]).equals(taskStr)) {

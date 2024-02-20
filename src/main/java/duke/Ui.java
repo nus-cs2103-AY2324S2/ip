@@ -121,14 +121,12 @@ public class Ui {
 
     /**
      * Shows the matching tasks.
-     * @param keyword The keyword to match.
+     * @param matchingTasks The keyword to match.
      * @return The matching tasks.
      */
     public String showMatchingTasks(String matchingTasks) {
-        StringBuilder result = new StringBuilder();
-        result.append("     Here are the matching tasks in your list:\n");
-        result.append(matchingTasks);
-        return result.toString();
+        return "     Here are the matching tasks in your list:\n"
+                + matchingTasks;
     }
 
 
@@ -137,5 +135,25 @@ public class Ui {
      */
     public void closeScanner() {
         inputs.close();
+    }
+
+    /**
+     * Shows the help message.
+     * @return The help message.
+     */
+    public String showHelp() {
+        return "     Here are the commands you can use:\n"
+                + "     1. todo <description> \n             - Adds a todo task\n\n"
+                + "     2. deadline <description> /by <date in dd/mm/yyyy> <time> \n"
+                + "             - Adds a deadline task\n\n"
+                + "     3. event <description> /at <date> <time> \n"
+                + "             - Adds an event task\n\n"
+                + "     4. list \n             - Lists all tasks\n\n"
+                + "     5. done <task number> \n             - Marks a task as done\n\n"
+                + "     6. delete <task number> \n             - Deletes a task\n\n"
+                + "     7. find <keyword> \n             - Finds tasks with the keyword\n\n"
+                + "     8. on <date dd/mm/yyyy> \n"
+                + "             - Finds tasks with the matching date\n\n"
+                + "     9. bye \n             - Exits the program\n";
     }
 }
