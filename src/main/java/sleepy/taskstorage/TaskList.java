@@ -39,11 +39,12 @@ public class TaskList {
                     markTaskAsDone(tasks.size());
                 }
             }
-            isStartingUp = false;
         } catch (IllegalArgumentException i) {
+            tasks = new ArrayList<>();
             ResponseHandler.appendLineToResponse("Sleepy encountered a problem upon startup!"
-                    + "Your saved data has unfortunately been lost.");
+                    + " Your saved data has unfortunately been lost.");
         }
+        isStartingUp = false;
     }
 
     /**

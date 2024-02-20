@@ -111,9 +111,8 @@ public class Parser {
      *
      * @param toDoDetails Task of type ToDoTask, as a string.
      * @return Parsed toDo, as an array of strings.
-     * @throws IllegalArgumentException If the string is of an invalid format.
      */
-    public static String[] parseTodo(String toDoDetails) throws IllegalArgumentException {
+    public static String[] parseTodo(String toDoDetails) {
         return new String[]{ "todo", toDoDetails };
     }
 
@@ -126,13 +125,16 @@ public class Parser {
      */
     public static String[] parseDeadline(String deadlineDetails) throws IllegalArgumentException {
         String[] details = deadlineDetails.split("(?i)/by ");
-        if (details.length == 1) {
-            throw new IllegalArgumentException("Missing the task description or the '/by' field! Try again.");
+        String deadlineDescription = details[0].trim();
+        if (details.length == 1 || deadlineDescription.isEmpty()) {
+            throw new IllegalArgumentException("Missing the deadline description or the '/by' field! Try again.");
         } else if (details.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/by' field! Try again.");
         }
-        String deadlineDescription = details[0].trim();
         String deadlineTiming = details[1].trim();
+        if (deadlineTiming.isEmpty()) {
+            throw new IllegalArgumentException("Your deadline timing is empty! Try again.");
+        }
         return new String[]{ "deadline", deadlineDescription, deadlineTiming };
     }
 
@@ -145,14 +147,17 @@ public class Parser {
      */
     public static String[] parsePlan(String planDetails) throws IllegalArgumentException {
         String[] details = planDetails.split("(?i)/after ");
-        if (details.length == 1) {
-            throw new IllegalArgumentException("Missing the task description or the '/after' field!"
+        String planDescription = details[0].trim();
+        if (details.length == 1 || planDescription.isEmpty()) {
+            throw new IllegalArgumentException("Missing the plan description or the '/after' field!"
                     + " Try again.");
         } else if (details.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/after' field! Try again.");
         }
-        String planDescription = details[0].trim();
         String planTiming = details[1].trim();
+        if (planTiming.isEmpty()) {
+            throw new IllegalArgumentException("Your plan timing is empty! Try again.");
+        }
         return new String[]{ "plan", planDescription, planTiming };
     }
 
@@ -165,8 +170,9 @@ public class Parser {
      */
     public static String[] parseEvent(String eventDetails) throws IllegalArgumentException {
         String[] firstSplit = eventDetails.split("(?i)/from ");
-        if (firstSplit.length == 1) {
-            throw new IllegalArgumentException("Missing the task description or the '/from' field!"
+        String eventDescription = firstSplit[0].trim();
+        if (firstSplit.length == 1 || eventDescription.isEmpty()) {
+            throw new IllegalArgumentException("Missing the event description or the '/from' field!"
                     + " Try again.");
         }
         if (firstSplit.length >= 3) {
@@ -179,9 +185,13 @@ public class Parser {
         } else if (secondSplit.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/to' field! Try again.");
         }
-        String eventDescription = firstSplit[0].trim();
         String eventStartTiming = secondSplit[0].trim();
         String eventEndTiming = secondSplit[1].trim();
+        if (eventStartTiming.isEmpty()) {
+            throw new IllegalArgumentException("Your event start timing is empty! Try again.");
+        } else if (eventEndTiming.isEmpty()) {
+            throw new IllegalArgumentException("Your event end timing is empty! Try again.");
+        }
         return new String[]{ "event", eventDescription, eventStartTiming, eventEndTiming };
     }
 }
