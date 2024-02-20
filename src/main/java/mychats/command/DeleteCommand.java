@@ -10,7 +10,7 @@ import mychats.task.Task;
  */
 public class DeleteCommand extends Command {
 
-    private int zeroItem;
+    private int indexToDelete;
     
     /**
      * Constructs a DeleteCommand given the task number to be deleted.
@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param oneItem One-indexed task number to be deleted.
      */
     public DeleteCommand(int oneItem) {
-        this.zeroItem = oneItem - 1;
+        this.indexToDelete = oneItem - 1;
     }
 
     /**
@@ -34,14 +34,14 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
-        int taskNumber = zeroItem + 1;
+        int taskNumber = indexToDelete + 1;
         boolean isOutsideLowerLimit = taskNumber < 1;
         boolean isOutsideUpperLimit = taskNumber > tasks.getSize();
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new MyChatsException("Error! Task number '" + taskNumber + "' does not exist.");
         }
-        Task description = tasks.get(zeroItem);
-        tasks.deleteTask(zeroItem);
+        Task description = tasks.get(indexToDelete);
+        tasks.deleteTask(indexToDelete);
         ui.deleteResponse(description, tasks);
         storage.saveList(tasks.getTasks());
     }

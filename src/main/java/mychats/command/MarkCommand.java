@@ -9,7 +9,7 @@ import mychats.main.Ui;
  */
 public class MarkCommand extends Command {
 
-    private int zeroItem;
+    private int indexToMark;
 
     /**
      * Constructs a MarkCommand to mark the task with the
@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
      * @param oneItem The one-indexed task number to be marked as done.
      */
     public MarkCommand(int oneItem) {
-        this.zeroItem = oneItem - 1;
+        this.indexToMark = oneItem - 1;
     }
 
     /**
@@ -35,15 +35,15 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
-        int oneItem = zeroItem + 1;
-        boolean isOutsideLowerLimit = oneItem < 1;
-        boolean isOutsideUpperLimit = oneItem > tasks.getSize();
+        int oneIndex = indexToMark + 1;
+        boolean isOutsideLowerLimit = oneIndex < 1;
+        boolean isOutsideUpperLimit = oneIndex > tasks.getSize();
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
-            throw new MyChatsException("Error! Task number '" + oneItem + "' does not exist.");
+            throw new MyChatsException("Error! Task number '" + oneIndex + "' does not exist.");
         }
-        tasks.markTask(zeroItem);
+        tasks.markTask(indexToMark);
         ui.printToScreen("Nice! I've marked this task as done:\n" +
-                tasks.get(zeroItem));
+                tasks.get(indexToMark));
         storage.saveList(tasks.getTasks());
     }
 }

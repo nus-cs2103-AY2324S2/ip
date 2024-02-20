@@ -9,16 +9,16 @@ import mychats.main.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    private int zeroItem;
+    private int indexToUnmark;
 
     /**
      * Constructs an UnmarkCommand to unmark the task with the
      * given task number as done.
      *
-     * @param oneItem The one-indexed task number to be unmarked as done.
+     * @param oneIndex The one-indexed task number to be unmarked as done.
      */
-    public UnmarkCommand(int oneItem) {
-        this.zeroItem = oneItem - 1;
+    public UnmarkCommand(int oneIndex) {
+        this.indexToUnmark = oneIndex - 1;
     }
 
     /**
@@ -35,14 +35,14 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
-        int oneItem = zeroItem + 1;
-        boolean isOutsideLowerLimit = oneItem < 1;
-        boolean isOutsideUpperLimit = oneItem > tasks.getSize();
+        int oneIndex = indexToUnmark + 1;
+        boolean isOutsideLowerLimit = oneIndex < 1;
+        boolean isOutsideUpperLimit = oneIndex > tasks.getSize();
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
-            throw new MyChatsException("Error! Task number '" + oneItem + "' does not exist.");
+            throw new MyChatsException("Error! Task number '" + oneIndex + "' does not exist.");
         }
-        tasks.unmarkTask(zeroItem);
-        ui.printToScreen("OK, I've marked this task as not done yet:\n" + tasks.get(zeroItem) + "\n");
+        tasks.unmarkTask(indexToUnmark);
+        ui.printToScreen("OK, I've marked this task as not done yet:\n" + tasks.get(indexToUnmark) + "\n");
         storage.saveList(tasks.getTasks());
     }
 }

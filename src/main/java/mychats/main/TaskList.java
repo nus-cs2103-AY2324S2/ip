@@ -31,10 +31,10 @@ public class TaskList {
         return tasks;
     }
 
-    public Task get(int zeroItem) {
-        Task task = tasks.get(zeroItem);
-        assert task != null : "Task at index " + zeroItem + " should not be null";
-        return tasks.get(zeroItem);
+    public Task get(int zeroIndex) {
+        Task task = tasks.get(zeroIndex);
+        assert task != null : "Task at index " + zeroIndex + " should not be null";
+        return tasks.get(zeroIndex);
     }
 
     public int getSize() {
