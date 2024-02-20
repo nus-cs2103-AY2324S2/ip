@@ -1,7 +1,5 @@
 # GoldBot User Guide
 
-// Update the title above to match the actual product name
-
 ![GoldBot](Ui.png)
 
 GoldBot is a desktop chatbot for managing tasks, optimized for use via a text-based interface.
