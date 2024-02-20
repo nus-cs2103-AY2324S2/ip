@@ -20,6 +20,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private HBox inputContainer;
 
     private Tofu tofu;
 
@@ -29,7 +31,19 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 40.0);
+
+        HBox.setHgrow(userInput, Priority.ALWAYS);
+        AnchorPane.setBottomAnchor(inputContainer, 0.0);
+        AnchorPane.setLeftAnchor(inputContainer, 0.0);
+        AnchorPane.setRightAnchor(inputContainer, 0.0);
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
 
         // Add background to Vbox
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
@@ -37,7 +51,7 @@ public class MainWindow extends AnchorPane {
                 BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         dialogContainer.setBackground(background);
-
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty());
         dialogContainer.getChildren().add(DialogBox.getTofuDialog(Ui.welcomeMessage(), tofuImage));
     }
 
@@ -52,11 +66,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.trim().equals("")) {
+            return;
+        }
         String response = tofu.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTofuDialog(response, tofuImage)
-        );
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox tofuDialog = DialogBox.getTofuDialog(response, tofuImage);
+        userDialog.prefWidthProperty().bind(dialogContainer.widthProperty());
+        tofuDialog.prefWidthProperty().bind(dialogContainer.widthProperty());
+
+        dialogContainer.getChildren().addAll(userDialog, tofuDialog);
         userInput.clear();
     }
 }
