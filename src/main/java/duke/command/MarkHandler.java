@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to mark task.
+ * Handles inputs related to mark task.
  */
 public class MarkHandler {
 
@@ -16,7 +16,7 @@ public class MarkHandler {
     }
 
     /**
-     * Mark specific task index as done.
+     * Marks specific task index as done.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -33,7 +33,7 @@ public class MarkHandler {
     }
 
     /**
-     * Parse and call relevant methods to mark task as done and update storage.
+     * Parse and calls relevant methods to mark task as done and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.

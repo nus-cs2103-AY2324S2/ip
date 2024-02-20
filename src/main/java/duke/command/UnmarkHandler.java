@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to unmark task.
+ * Handles inputs related to unmark task.
  */
 public class UnmarkHandler {
 
@@ -16,7 +16,7 @@ public class UnmarkHandler {
     }
 
     /**
-     * Unmark specific task index.
+     * Unmarks specific task index.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -33,7 +33,7 @@ public class UnmarkHandler {
     }
 
     /**
-     * Parse and call relevant methods to unmark task and update storage.
+     * Parses and calls relevant methods to unmark task and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.

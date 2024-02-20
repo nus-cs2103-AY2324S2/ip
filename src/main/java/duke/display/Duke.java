@@ -69,9 +69,8 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input, the other containing Duke's reply.
+     * Clears the user input after processing.
      */
     private void handleUserInput() throws DukeException, IOException {
         String input = userInput.getText();
@@ -84,7 +83,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Get taskbot response to user input.
+     * Gets taskbot response to user input.
      * @param input             User input string.
      * @return response         Result of parsing the user input.
      */
@@ -94,7 +93,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Set up required components for taskbot GUI.
+     * Sets up required components for taskbot GUI.
      * @param stage         Instance of stage object.
      * @return mainLayout   AnchorPane object.
      */
@@ -119,7 +118,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Format the window to look as expected.
+     * Formats the window to look as expected.
      * @param stage         Instance of stage object.
      * @param mainLayout    Instance of AnchorPane object.
      */
@@ -156,7 +155,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Add functionality to handle user input.
+     * Adds functionality to handle user input.
      */
     private void userInput() {
         sendButton.setOnMouseClicked((event) -> {

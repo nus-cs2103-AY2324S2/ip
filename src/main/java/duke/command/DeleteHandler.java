@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to delete tasks.
+ * Handles inputs related to delete tasks.
  */
 public class DeleteHandler {
 
@@ -16,7 +16,7 @@ public class DeleteHandler {
     }
 
     /**
-     * Delete task from list.
+     * Deletes task from list.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -33,7 +33,7 @@ public class DeleteHandler {
     }
 
     /**
-     * Parse and calls relevant methods to add new todo and update storage.
+     * Parses and calls relevant methods to add new todo and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.

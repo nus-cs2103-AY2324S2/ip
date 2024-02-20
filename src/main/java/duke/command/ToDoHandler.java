@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to ToDo tasks.
+ * Handles inputs related to ToDo tasks.
  */
 public class ToDoHandler {
 
@@ -16,7 +16,7 @@ public class ToDoHandler {
     }
 
     /**
-     * Add new todo task.
+     * Adds new todo task.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -33,7 +33,7 @@ public class ToDoHandler {
     }
 
     /**
-     * Parse and call relevant methods to add new todo and update storage.
+     * Parses and calls relevant methods to add new todo and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.

@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to Deadline tasks.
+ * Handles inputs related to Deadline tasks.
  */
 public class DeadlineHandler {
 
@@ -16,13 +16,13 @@ public class DeadlineHandler {
     }
 
     /**
-     * Add new Deadline task.
+     * Adds new Deadline task.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
      * @param taskList      Instance of TaskList class.
      * @param ui            Instance of Ui class.
-     * @return
+     * @return String       Indicates if task was successfully completed.
      */
     public String addDeadline(String input, Storage storage, TaskList taskList, Ui ui) {
         try {
@@ -33,7 +33,7 @@ public class DeadlineHandler {
     }
 
     /**
-     * Parse and call relevant methods to add new deadline and update storage.
+     * Parses and calls relevant methods to add new deadline and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.

@@ -23,7 +23,7 @@ public class Task {
     }
 
     /**
-     * Update if task is done.
+     * Updates if task is done.
      * @param isDone    Marks task as completed/uncompleted. [True: complete, False: uncompleted]
      */
     public void updateIsDone(boolean isDone) {

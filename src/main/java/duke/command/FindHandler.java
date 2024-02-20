@@ -1,7 +1,7 @@
 package duke.command;
 
 /**
- * Handle inputs related to find tasks.
+ * Handles inputs related to find tasks.
  */
 public class FindHandler {
 
@@ -12,7 +12,7 @@ public class FindHandler {
     }
 
     /**
-     * Find tasks that partially/fully contain input string.
+     * Finds tasks that partially/fully contain input string.
      *
      * @param input         String to find.
      * @param taskList      Instance of TaskList class.
@@ -28,7 +28,7 @@ public class FindHandler {
     }
 
     /**
-     * Parse and call relevant methods to find task that matches input.
+     * Parses and calls relevant methods to find task that matches input.
      *
      * @param input         String to find.
      * @param taskList      Instance of TaskList class.

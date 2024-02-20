@@ -12,7 +12,7 @@ public class Parser {
     }
 
     /**
-     * Parse user input and call the relevant commands.
+     * Parses user input and calls the relevant commands.
      *
      * @param input             User command input.
      * @param storage           Storage instance.

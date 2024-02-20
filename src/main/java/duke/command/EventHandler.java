@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.tasks.Task;
 
 /**
- * Handle inputs related to event tasks.
+ * Handles inputs related to event tasks.
  */
 public class EventHandler {
 
@@ -16,7 +16,7 @@ public class EventHandler {
     }
 
     /**
-     * Add new event task.
+     * Adds new event task.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -33,7 +33,7 @@ public class EventHandler {
     }
 
     /**
-     * Parse and call relevant methods to add new event and update storage.
+     * Parses and calls relevant methods to add new event and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
