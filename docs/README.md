@@ -45,7 +45,7 @@ Format: `event DESCRIPTION /from FROM /to TO`
 - The FROM and TO is the start and end time of the event.
 - FROM and TO can be any String e.g "tmr", "weekend" with no specific datetime format.
 
-| :information:        |  DateTime format will be supported in future releases.    |
+| :information_source:        |  DateTime format will be supported in future releases.    |
 |---------------|:------------------------|
 
 Examples:
