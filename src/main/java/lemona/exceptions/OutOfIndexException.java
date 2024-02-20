@@ -1,5 +1,16 @@
 package lemona.exceptions;
+
+/**
+ * An exception class handling when index of commands does not match the tasklist.
+ */
 public class OutOfIndexException extends Exception {
+
+    /**
+     * Prints the error messages corresponding to the type of command.
+     *
+     * @param index the size of the taskList.
+     * @return the string message to be printed
+     */
     public String toString(Integer index) {
         String message;
         if (index == 1) {

@@ -2,7 +2,13 @@ package lemona.command;
 
 import lemona.oop.TaskList;
 
+/**
+ * A ByeCommand to handle bye command.
+ */
 public class ByeCommand extends Command{
+    /**
+     * Constructs ByeCommand object to handle bye command.
+     */
     public ByeCommand(){}
 
     @Override

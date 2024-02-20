@@ -2,8 +2,15 @@ package lemona.command;
 
 import lemona.oop.TaskList;
 
+/**
+ * A DeleteCommand to handle Delete command.
+ */
 public class DeleteCommand extends Command{
     private String[] input;
+
+    /**
+     * Constructs DeleteCommand object to handle Delete command.
+     */
     public DeleteCommand(String[] input) {
         this.input = input;
     }

@@ -4,9 +4,15 @@ import lemona.oop.TaskList;
 import lemona.task.Task;
 import lemona.task.Deadline;
 
+/**
+ * A DeadlineCommand to handle deadline command.
+ */
 public class DeadlineCommand extends Command {
     private String[] input;
 
+    /**
+     * Constructs DeadlineCommand object to handle deadline command.
+     */
     public DeadlineCommand(String[] input) {
         this.input = input;
     }

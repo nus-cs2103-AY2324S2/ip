@@ -2,10 +2,11 @@ package lemona.oop;
 
 import java.util.ArrayList;
 
-import lemona.task.Task;
-
 import lemona.exceptions.DuplicateInstructionException;
 import lemona.exceptions.OutOfIndexException;
+
+import lemona.task.Task;
+
 
 
 /**
@@ -49,6 +50,7 @@ public class TaskList {
      * If the index is out of range or the task is already marked as done, appropriate error messages are displayed.
      *
      * @param index The index of the task to mark as done.
+     * @return The string message to be printed.
      */
     public String mark(int index) {
         String str = "";
@@ -74,6 +76,7 @@ public class TaskList {
      * If the index is out of range or the task is already marked as not done, appropriate error messages are displayed.
      *
      * @param index The index of the task to mark as not done yet.
+     * @return The string message to be printed.
      */
     public String unmark(int index) {
         String str = "";
@@ -99,6 +102,7 @@ public class TaskList {
      * If the index is out of range, appropriate error message is displayed.
      *
      * @param index The index of the task to delete.
+     * @return The string message to be printed.
      */
     public String delete(int index) {
         String str = "";
@@ -121,6 +125,7 @@ public class TaskList {
      * If the task description already exists in the list, appropriate error message is displayed.
      *
      * @param task The task to be added to the list.
+     * @return The string message to be printed.
      */
     public String add(Task task){
         String str;
@@ -143,6 +148,7 @@ public class TaskList {
      * Searches for tasks that contain the given keyword.
      *
      * @param keyword The keyword to search for in the task descriptions.
+     * @return The string message to be printed.
      */
     public String find(String keyword) {
         StringBuilder matchingTasks = new StringBuilder();
@@ -157,6 +163,8 @@ public class TaskList {
 
     /**
      * Displays the list of tasks to the user.
+     *
+     * @return The string message to be printed.
      */
     public String list() {
         StringBuilder str = new StringBuilder();

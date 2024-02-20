@@ -2,8 +2,14 @@ package lemona.command;
 
 import lemona.oop.TaskList;
 
+/**
+ * A WrongInputCommand to handle wrong commands.
+ */
 public class WrongInputCommand extends Command{
 
+    /**
+     * Constructs WrongInputCommand object to handle wrong commands.
+     */
     public WrongInputCommand() {}
 
     @Override

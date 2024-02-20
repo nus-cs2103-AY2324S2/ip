@@ -22,7 +22,6 @@ import lemona.task.Event;
  */
 public class Storage {
     private static String filePath;
-    private static final String LINE = "\t______________________________________________________";
 
     /**
      * Constructs a Storage object with the specified file path.
