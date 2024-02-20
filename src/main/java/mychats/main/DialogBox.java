@@ -58,7 +58,7 @@ public class DialogBox extends HBox {
 
         StackPane dialogTextPane = (StackPane) this.getChildren().get(0);
         dialogTextPane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), null)));
-        Insets padding = new Insets(0, 20, 0, 20); // Adjust the values as needed
+        Insets padding = new Insets(0, 20, 0, 20);
         dialogTextPane.setPadding(padding);
     }
 
