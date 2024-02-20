@@ -26,7 +26,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns an iterator over elements of type {@code duke.task.Task}.
+     * Returns an iterator over elements of type {@code paimon.task.Task}.
      *
      * @return an Iterator.
      */

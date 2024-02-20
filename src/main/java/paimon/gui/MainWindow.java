@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Paimon paimon;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Traveller.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Paimon.jpg"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Paimon.jpg"));
 
     @FXML
     public void initialize() {
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
 
     public void showInitialGreeting() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(paimon.greet(false), dukeImage)
+                DialogBox.getBotDialog(paimon.greet(false), botImage)
         );
     }
     /**
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = paimon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         if (input.equals("bye")) {
             // Pause for 6s before close the programme

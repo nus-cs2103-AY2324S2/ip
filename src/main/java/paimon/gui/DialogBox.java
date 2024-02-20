@@ -59,7 +59,7 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getBotDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img, Color.BLACK);
         db.setStyle("-fx-background-color: #f8f4f4;");
         db.flip();

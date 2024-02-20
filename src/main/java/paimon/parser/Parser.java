@@ -83,7 +83,7 @@ public class Parser {
      */
     public static String[] parseToDo(String parameters) throws ChatBotParameterException {
         if (parameters.isEmpty()) {
-            throw new ChatBotParameterException("Missing description for duke.task.ToDo \n" +
+            throw new ChatBotParameterException("Missing description for todo \n" +
                     "try: todo <todo_name>");
         }
         return new String[]{parameters};
@@ -97,12 +97,12 @@ public class Parser {
      */
     public static String[] parseDeadline(String parameters) throws ChatBotParameterException {
         if (parameters.isEmpty()) {
-            throw new ChatBotParameterException("There is no description and by for duke.task.Deadline \n" +
+            throw new ChatBotParameterException("There is no description and by for deadline \n" +
                     "try: deadline <deadline_name> /by <by>");
         }
         String[] parametersArr = parameters.split(" /by ");
         if (parametersArr.length == 1) {
-            throw new ChatBotParameterException("Missing description or by for duke.task.Deadline \n" +
+            throw new ChatBotParameterException("Missing description or by for deadline \n" +
                     "try: deadline <deadline_name> /by <by>");
         }
         return parametersArr;
@@ -116,12 +116,12 @@ public class Parser {
      */
     public static String[] parseEvent(String parameters) throws ChatBotParameterException {
         if (parameters.isEmpty()) {
-            throw new ChatBotParameterException("There is no description and from and to for duke.task.Event \n" +
+            throw new ChatBotParameterException("There is no description and from and to for event \n" +
                     "try: event <event_name> /by <from> /to <to>");
         }
         String[] parametersArr = parameters.split(" /from | /to ");
         if (parametersArr.length < 3) {
-            throw new ChatBotParameterException("Missing description and/or from and/or to for duke.task.Event \n" +
+            throw new ChatBotParameterException("Missing description and/or from and/or to for event \n" +
                     "try: event <event_name> /by <from> /to <to>");
         }
         return parametersArr;
