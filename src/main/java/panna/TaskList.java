@@ -18,10 +18,19 @@ public class TaskList {
     /**
      * Prints the list out in a systematic organized manner
      */
+
+    public int getIndex(int i) {
+        return i + 1;
+    }
+
+    public String indexTaskConcat(int i, Task t) {
+        String output = i + ". " + t;
+        return output;
+    }
     public String printList() {
         String s = "";
         for (int i = 0; i < tasks.size(); i++) {
-            s = s + (i + 1 + ". " + tasks.get(i) + "\n");
+            s = s + indexTaskConcat(getIndex(i), tasks.get(i)) + "\n";
         }
         return s;
     }

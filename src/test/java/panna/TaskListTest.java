@@ -33,4 +33,16 @@ public class TaskListTest {
         int size2 = tasks.size();
         assertEquals(size + 1, size2);
     }
+
+    @Test
+    public void printListTest() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("test"));
+        tasks.add(new Todo("test2"));
+
+        String expected = "1. [T] [ ] test\n"
+                          + "2. [T] [ ] test2\n";
+        String actual = tasks.printList();
+        assertEquals(expected, actual);
+    }
 }
