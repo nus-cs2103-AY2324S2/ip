@@ -13,15 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StorageTest {
     @Test
     public void readTasksFile_validFile_success() throws IOException {
-        File file = File.createTempFile( "test-tasks", "txt");
+        File file = File.createTempFile( "test-tasks", ".txt");
         file.deleteOnExit();
 
         Task task = new Event("testing", "2024-01-01", "2024-02-02");
         Task task2 = new ToDo("testing again");
 
-        FileWriter fw = new FileWriter(file);
-        fw.write(task + System.lineSeparator());
-        fw.write(task2 + System.lineSeparator());
+        try (FileWriter fw = new FileWriter(file)) {
+            fw.write(task + System.lineSeparator());
+            fw.write(task2 + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("Error occurred: " + e.getMessage());
+        }
 
         Storage storage = new Storage(file.getPath());
         List<Task> tasks = storage.readTasksFile();
