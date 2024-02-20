@@ -143,6 +143,7 @@ The data will be loaded from the txt file in the hard disk when the application 
 
 ## Additional notes about commands
 - Usage of the special character `|` is strictly prohibited in the command.
+- Commands are **case-insensitive**.
 - Words in `<angle brackets>` are the parameters to be supplied by the user.
 - `<task number>` is **1-based integer index** of the task in the task list.
 - Date format: `yyyy-mm-dd`
