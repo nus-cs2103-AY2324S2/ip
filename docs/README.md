@@ -16,7 +16,7 @@ It is designed to be simple and easy to use, and is in the form of an interactiv
 ## Features
 
 ### Adding a todo task: `todo <task description>`
-Description: todo tasks are tasks without date to finish or start.
+Todo tasks are tasks without date to finish or start.<br>
 Examples: 
 ```
 todo read CS2103T textbook
@@ -29,7 +29,7 @@ Now you have 1 tasks in the list.
 ```
 
 ### Adding a deadline task: `deadline <task description> /by <yyyy-mm-dd>`
-Description: deadline tasks are tasks with a date to finish.
+Deadline tasks are tasks with a date to finish.<br>
 Examples: 
 ```
 deadline submit report /by 2023-03-10
@@ -42,7 +42,7 @@ Now you have 2 tasks in the list.
 ```
 
 ### Adding an event task: `event <task description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
-Description: event tasks are tasks with a date to start and end.
+Event tasks are tasks with a date to start and end.<br>
 Examples:
 ```
 event finish math homework /from 2022-11-13 /to 2022-11-14
@@ -55,7 +55,7 @@ Now you have 3 tasks in the list.
 ```
 
 ### Marking a task as done: `mark <task number>`
-Description: mark a task as done.
+Mark a task as done.<br>
 Examples:
 ```
 mark 1
@@ -67,7 +67,7 @@ Nice! I've marked this task as done:
 ```
 
 ### Unmarking a task as done: `unmark <task number>`
-Description: unmark a task as done.
+Unmark a task as done.<br>
 Examples:
 ```
 unmark 1
@@ -79,7 +79,7 @@ Noted. I've marked this task as undone:
 ```
 
 ### Deleting a task: `delete <task number>`
-Description: delete a task from the task list.
+Delete a task from the task list.<br>
 Examples:
 ```
 delete 1
@@ -92,7 +92,7 @@ Now you have 2 tasks in the list.
 ```
 
 ### Finding tasks by keyword: `find <keyword>`
-Description: find tasks by keyword in the task content.
+Find tasks by keyword in the task content.<br>
 Examples:
 ```
 find homework
@@ -104,7 +104,7 @@ Here are the matching tasks in your list:
 ```
 
 ### Listing all tasks: `list`
-Description: list all tasks in the task list.
+List all tasks in the task list.<br>
 Sample output:
 ```
 Here are the tasks in your list:
@@ -114,14 +114,14 @@ Here are the tasks in your list:
 ```
 
 ### Exiting the application: `bye`
-Description: exit the application after 2 seconds.
+Exit the application after 2 seconds.<br>
 Sample output:
 ```
 Bye. Hope to see you again soon!
 ```
 
 ### Displaying most recent tasks upon entering the application
-Description: When user enters the application, the 2 unmarked tasks with the most recent due will be displayed.
+When user enters the application, the 2 unmarked tasks with the most recent due will be displayed.<br>
 Sample output:
 ```
 ==Reminder==
@@ -131,10 +131,10 @@ Those tasks are due next:
 ```
 
 ### Saving the data
-Description: The data will be saved in the hard disk in the form of a txt file automatically after any command that changes the data. There is no need to save manually.
+The data will be saved in the hard disk in the form of a txt file automatically after any command that changes the data. There is no need to save manually.
 
 ### Loading the data
-Description: The data will be loaded from the txt file in the hard disk when the application starts up.
+The data will be loaded from the txt file in the hard disk when the application starts up.
 >[!NOTE]
 > If it is the first time the application starts up, the application will automatically create the data file for storage.
 
