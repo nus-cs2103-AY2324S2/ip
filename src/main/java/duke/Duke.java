@@ -63,6 +63,8 @@ public class Duke extends Application {
             response.append(taskList.addTodoTask(input, tasks));
         } else if (tokens[0].equals("delete")) {
             response.append(taskList.removeTask(tokens, tasks));
+        } else if (tokens[0].equals("update")) {
+            response.append(taskList.updateTask(tokens, input, tasks));
         } else if (tokens[0].equals("find")) {
             response.append(taskList.findTask(input, tasks));
         } else {
