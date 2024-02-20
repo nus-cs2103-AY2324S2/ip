@@ -7,16 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -63,8 +59,8 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
 
-        this.dialog.setStyle("-fx-border-color: black; -fx-border-width: 5; -fx-padding: 5; " +
-                "-fx-background-color: rgba(48,48,90,0.13); -fx-border-radius: 2;");
+        this.dialog.setStyle("-fx-border-color: black; -fx-border-width: 5; -fx-padding: 5; "
+                + "-fx-background-color: rgba(48,48,90,0.13); -fx-border-radius: 2;");
     }
 
     /**
