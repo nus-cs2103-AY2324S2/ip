@@ -25,65 +25,65 @@ And it is **FREE** to use! 🚫💵
 ## Features
 
 ### Listing all the existing tasks in the list/ txt file: `list`
-List down all the tasks in the list/txt file.
+List down all the tasks in the list/txt file. <br>
 Format: `list`
 
 
 ### Adding a new todo task: `todo`
-Add a new todo task to the list, and it will be stored in a txt file.
+Add a new todo task to the list, and it will be stored in a txt file.<br>
 Format: `todo DESCRIPTION`
 
 
 ### Adding a new deadline task: `deadline`
-Add a new deadline task to the list, and it will be stored in a txt file.
+Add a new deadline task to the list, and it will be stored in a txt file.<br>
 Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`
 
 
 ### Adding a new event task: `event`
 Add a new event task to the list, and it will be stored in a txt file.
-Format: `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm`
+Format: `event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm`<br>
 
 
 ### Deleting a task: `delete`
-Delete an existing task in the list, and it will be removed from the txt file.
-Format: `delete INDEX`
-📝The `INDEX` refers to the index number of a task in the list. 
+Delete an existing task in the list, and it will be removed from the txt file.<br>
+Format: `delete INDEX`<br>
+📝The `INDEX` refers to the index number of a task in the list.<br> 
 ⚠️: `INDEX` must be positive and not exceed the size of the list.
 
 
 ### Marking a task: `mark`
-Mark a task in the list as completed. 
-Format: `mark INDEX`
-📝The `INDEX` refers to the index number of a task in the list. 
-⚠️: `INDEX` must be positive and not exceed the size of the list.
+Mark a task in the list as completed. <br>
+Format: `mark INDEX`<br>
+📝The `INDEX` refers to the index number of a task in the list. <br>
+⚠️: `INDEX` must be positive and not exceed the size of the list.<br>
 
 
 ### Unmarking a task: `mark`
-Unmark a task in the list as incomplete. 
-Format: `unmark INDEX`
-📝The `INDEX` refers to the index number of a task in the list. 
+Unmark a task in the list as incomplete. <br>
+Format: `unmark INDEX`<br>
+📝The `INDEX` refers to the index number of a task in the list. <br>
 ⚠️: `INDEX` must be positive and not exceed the size of the list.
 
 
 ### Searching tasks based on the description: `search`
-Find all tasks with matching keywords for description. 
+Find all tasks with matching keywords for description. <br>
 Format: `search DESCRIPTION`
 
 
 ### Searching tasks based on the date: `date`
-Find all tasks with the matching date. 
+Find all tasks with the matching date. <br>
 Format: `date yyyy-MM-dd`
 
 
 ### Setting priority level
-Add a priority level to each new task.
-📝: `DEFAULT` if not stated explicitly.
-🎚️Priority Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`
+Add a priority level to each new task.<br>
+📝: `DEFAULT` if not stated explicitly.<br>
+🎚️Priority Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`<br>
 Format: `todo DESCRIPTION /priority LEVEL`
 
 
 ### Exiting the program: `bye`
-Exit the program.
+Exit the program.<br>
 Format: `bye`
 
 
