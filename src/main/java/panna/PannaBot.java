@@ -73,6 +73,7 @@ public class PannaBot extends Application {
 
     private String getResponse(String input) throws PannaException {
         System.out.println(input);
+        input = input.trim().toLowerCase();
         if (input.equals("list")) {
             return ui.listMessage(taskList);
         } else if (input.startsWith("mark")) {

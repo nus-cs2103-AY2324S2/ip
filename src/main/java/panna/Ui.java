@@ -180,6 +180,9 @@ public class Ui {
     }
     public String event(TaskList tasks, String event, LocalDate st, LocalDate end) throws PannaException {
         try {
+            if (st.isAfter(end)) {
+                return "Your start is after your end. That is not possible";
+            }
 
             Task t = new Event(event, st, end);
             t.setDone(false);
@@ -206,6 +209,10 @@ public class Ui {
             if (tasks.get(i).taskName.contains(k)) {
                 newList.add(tasks.get(i));
             }
+        }
+
+        if (newList.size() == 0) {
+            return "Ugh I could not find any matches. Try again!";
         }
 
         return "Woah! We found the following matches. \n"
