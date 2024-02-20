@@ -46,30 +46,11 @@ public class Duke extends Application {
     }
 
     /**
-     * Runs the Duke program.
-     * @throws DukeException If there is an error running the program.
-     */
-    public void run() throws DukeException {
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = ui.readInput();
-            assert userInput != null;
-            String result = Parser.parse(userInput, tasks, ui);
-            assert result != null;
-            if (result.equals("1")) {
-                isExit = true;
-                ui.closeScanner();
-            }
-        }
-    }
-
-    /**
      * Main method to start the Duke program.
      * @param args The arguments to start the program.
-     * @throws DukeException If there is an error starting the program.
      */
-    public static void main(String[] args) throws DukeException {
-        new Duke().run();
+    public static void main(String[] args) {
+        launch(args);
     }
 
     /**

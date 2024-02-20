@@ -12,4 +12,3 @@ E | 0 | project meeting | Mon 2pm - 4pm
 E | 0 | deathhh | Wed 10am - 10pm
 D | 0 | ip | 2024-02-21 2359
 T | 0 | somethung with a knife
-T | 0 | die
