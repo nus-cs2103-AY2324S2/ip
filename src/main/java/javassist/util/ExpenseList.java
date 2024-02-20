@@ -1,5 +1,7 @@
 package javassist.util;
 
+import javassist.exception.JavAssistException;
+
 /**
  * Represents a list of expenses.
  */
@@ -11,6 +13,20 @@ public class ExpenseList implements JavAssistList {
     private float clothes;
     private float entertainment;
     private float other;
+
+    /**
+     * Represents the possible categories of expenses.
+     */
+    public enum ExpenseCategory {
+        FOOD,
+        GROCERY,
+        BOOKS,
+        TRANSPORT,
+        CLOTHES,
+        ENTERTAINMENT,
+        OTHER
+    }
+
 
     /**
      * Constructs an ExpenseList instance by initialising all expenses to zero.
@@ -134,4 +150,83 @@ public class ExpenseList implements JavAssistList {
     public float getOther() {
         return other;
     }
+
+    /**
+     * Deducts the amount of specified category.
+     *
+     * @param category Category to deduct from.
+     * @param amount Amount to deduct.
+     * @throws JavAssistException If amount is more than current expense.
+     */
+    public void deductExpense(ExpenseCategory category, float amount) throws JavAssistException {
+        float currentExpense = getCategoryExpense(category);
+
+        if (amount > currentExpense) {
+            throw new JavAssistException("Amount to deduct is greater than initial expense!");
+        }
+
+        setCategoryExpense(category, currentExpense - amount);
+    }
+
+    /**
+     * Increment the amount of specified category.
+     *
+     * @param category Category to add to.
+     * @param amount Amount to add.
+     */
+    public void addExpense(ExpenseCategory category, float amount) {
+        float currentExpense = getCategoryExpense(category);
+        setCategoryExpense(category, currentExpense + amount);
+    }
+
+    // Used chatGPT 3.5 to generate code for managing getting expenses for all categories in one method.
+    private float getCategoryExpense(ExpenseCategory category) {
+        switch (category) {
+        case FOOD:
+            return getFood();
+        case GROCERY:
+            return getGrocery();
+        case BOOKS:
+            return getBooks();
+        case TRANSPORT:
+            return getTransport();
+        case CLOTHES:
+            return getClothes();
+        case ENTERTAINMENT:
+            return getEntertainment();
+        case OTHER:
+            return getOther();
+        default:
+            return 0.0f;
+        }
+    }
+
+    // Used chatGPT 3.5 to generate code for managing setting expenses for all categories in one method.
+    private void setCategoryExpense(ExpenseCategory category, float expense) {
+        switch (category) {
+        case FOOD:
+            setFood(expense);
+            break;
+        case GROCERY:
+            setGrocery(expense);
+            break;
+        case BOOKS:
+            setBooks(expense);
+            break;
+        case TRANSPORT:
+            setTransport(expense);
+            break;
+        case CLOTHES:
+            setClothes(expense);
+            break;
+        case ENTERTAINMENT:
+            setEntertainment(expense);
+            break;
+        case OTHER:
+            setOther(expense);
+            break;
+        default:
+        }
+    }
+
 }
