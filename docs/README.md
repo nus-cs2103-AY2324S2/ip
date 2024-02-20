@@ -182,6 +182,7 @@ Ends the program and save the current task list to local storages.
 Format: `bye`
 > [!WARNING]
 > Close programme without saying goodbye will not save your current tasklist for next usage!
+
 Examples:
 
 - `bye` displays a goodbye message and ends the program.
