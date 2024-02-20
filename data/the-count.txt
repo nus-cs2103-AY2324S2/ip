@@ -1,4 +1,4 @@
 1 | D | 1 | CS1101 Assignment | 2024-01-01
 2 | E | 0 | Raffles Hall Supper | Aug 6th-8th
 3 | T | 0 | CS2102 Assignment #work
-4 | D | 0 | CS2103T Quiz | 2024-02-03
+4 | D | 0 | CS2103T Quiz #elmo | 2024-02-03
