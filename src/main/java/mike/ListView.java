@@ -78,7 +78,7 @@ public class ListView {
     }
 
     private boolean isPartialMatch(String description, String keyword) {
-        // bitap algorithm taken from:
+        // bitap algorithm adapted from:
         // https://en.wikipedia.org/wiki/Bitap_algorithm
         String text = description;
         String pattern = keyword;
@@ -87,6 +87,8 @@ public class ListView {
     }
 
     private char[] bitapFuzzyBitwiseSearch(String text, String pattern, int k) {
+        // bitap algorithm adapted from:
+        // https://en.wikipedia.org/wiki/Bitap_algorithm
         char[] result = null;
         int patternLength = pattern.length();
         long[] R;
