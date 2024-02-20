@@ -37,19 +37,19 @@ public class EventCommand extends Command{
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
-            throw new ToothlessException("Human task no name :(");
+            throw new ToothlessException(ui.showNoTaskNameWarning());
         }
 
         int date1Index = detail.indexOf("/from");
         if (date1Index == -1) {
-            throw new ToothlessException("Human event no start date D:");
+            throw new ToothlessException(ui.showEventNoStartWarning());
         }
         String description = detail.substring(0, date1Index - 1);
         detail = detail.substring(date1Index + 6);
 
         int date2Index = detail.indexOf("/to");
         if (date2Index == -1) {
-            throw new ToothlessException("Human event no end date D:");
+            throw new ToothlessException(ui.showEventNoEndWarning());
         }
 
         String startDate = detail.substring(0, date2Index - 1);

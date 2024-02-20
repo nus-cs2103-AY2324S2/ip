@@ -1,7 +1,7 @@
 package toothless;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 import toothless.tasks.*;
 
 /**
@@ -33,27 +33,27 @@ public class Ui {
      * Displays a loading message indicating that previous tasks are being loaded from the file.
      */
     public String showLoadingTasks() {
-        return "Loading previous recorded tasks...\n";
+        return "Loading previous human kept tasks...\n";
     }
 
     public String showDeletedTask(Task task, int size) {
-        return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
+        return "Toothless deletes this task:\n" + task.toString() + "\nHuman has " + size + " tasks now.";
     }
 
     public String showAddedTask(Task task, int size) {
-        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
+        return "Toothless adds this task:\n" + task.toString() + "\nHuman has " + size + " tasks now.";
     }
 
     public String showMarkedTask(Task task) {
-        return "Nice! I've marked this task as done:\n" + task.toString();
+        return "Nice! Toothless have marked this task as done:\n" + task.toString();
     }
 
     public String showUnmarkedTask(Task task) {
-        return "Nice! I've marked this task as undone:\n" + task.toString();
+        return "Nice! Toothless have marked this task as undone:\n" + task.toString();
     }
 
     public String showFoundTasks(ArrayList<Task> tasks) {
-        String message = "Here are the matching tasks in your list:\n";
+        String message = "Toothless have found these same tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
             message += (i + 1) + ". " + tasks.get(i) + "\n";
         }
@@ -61,7 +61,7 @@ public class Ui {
     }
 
     public String showAllTasks(TaskList tasks) {
-        String message = "Here are the tasks in your list:\n";
+        String message = "Here all human tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
             message += (i + 1) + ". " + tasks.getTask(i) + "\n";
         }
@@ -73,8 +73,7 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to be displayed.
      */
     public String showIncompleteTask(TaskList tasks) {
-        String message = "You have these unmarked tasks:\n";
-        System.out.println("You have these unmarked tasks:");
+        String message = "Reminder\nHuman still have these tasks to do:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
             if (!t.isDone()) {
@@ -82,5 +81,41 @@ public class Ui {
             }
         }
         return message;
+    }
+
+    public String showNoTaskNameWarning() {
+        return "Human task no name :(";
+    }
+
+    public String showNoDeadlineWarning() {
+        return "Human deadline no deadline @_@";
+    }
+
+    public String showEventNoStartWarning() {
+        return "Human event no start date :/";
+    }
+
+    public String showEventNoEndWarning() {
+        return "Human event no end date :/";
+    }
+
+    public String showEmptyListWarning() {
+        return "Human list is empty like my tummy right now D:";
+    }
+
+    public String showNoMatchingTaskWarning() {
+        return "No matching tasks in your list!";
+    }
+
+    public String showInvalidMarkWarning() {
+        return "Human trying to mark nothing ^O^.\nFoolish";
+    }
+
+    public String showInvalidUnmarkWarning() {
+        return "Human trying to unmark nothing ^O^.\nSilly";
+    }
+
+    public String showInvalidDeleteWarning() {
+        return "Human trying to delete nothing ^O^.\nAbsurd";
     }
 }

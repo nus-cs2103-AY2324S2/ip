@@ -38,7 +38,7 @@ public class MarkCommand extends Command {
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
         if (taskIndex >= taskList.size() || taskIndex < 0) {
-            throw new ToothlessException("Human trying to mark nothing ^O^. Foolish");
+            throw new ToothlessException(ui.showInvalidMarkWarning());
         }
 
         Task t = taskList.getTask(taskIndex);

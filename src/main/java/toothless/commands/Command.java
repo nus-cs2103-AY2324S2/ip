@@ -40,7 +40,7 @@ public abstract class Command {
             int taskIndex = Integer.valueOf(detail);
             return taskIndex - 1;
         } catch (NumberFormatException e) {
-            throw new toothless.ToothlessException("Number put is not number.\nPlease put real number ._.");
+            throw new ToothlessException("Number put is not number.\nPlease put real number ._.");
         }
     }
 }

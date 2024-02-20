@@ -34,7 +34,7 @@ public class FindCommand extends Command{
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (taskList.size() == 0) {
-            throw new ToothlessException("Human list is empty like my tummy right now :/");
+            throw new ToothlessException(ui.showEmptyListWarning());
         }
 
         ArrayList<Task> list = new ArrayList<>();
@@ -46,7 +46,7 @@ public class FindCommand extends Command{
         }
 
         if (list.size() == 0) {
-            throw new ToothlessException("No matching tasks in your list!");
+            throw new ToothlessException(ui.showNoMatchingTaskWarning());
         }
 
         return ui.showFoundTasks(list);
