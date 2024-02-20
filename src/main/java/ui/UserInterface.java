@@ -139,4 +139,11 @@ public class UserInterface {
         this.showMessage("Here are the matching tasks in your list:\n" + list);
     }
 
+    /**
+     * Displays the String representation of the task after update.
+     */
+    public void showUpdate(Task task) {
+        this.showMessage("Sure! Here's how the task looks like now:\n " + task);
+    }
+
 }

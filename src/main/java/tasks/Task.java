@@ -99,9 +99,19 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns true if the description contains the given String, false otherwise.
+     */
     public boolean isFound(String matcher) {
         return Parser.matchStrings(this.description, matcher);
     }
+
+    /**
+     * Updates description and any other task details.
+     *
+     * @throws ArgumentException if details provided are insufficient.
+     */
+    public abstract void update(String details) throws ArgumentException;
 
     /**
      * Returns the save format of this Task containing its status and description.

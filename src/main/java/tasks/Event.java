@@ -3,6 +3,10 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import exceptions.ArgumentException;
+import parser.Parser;
+
+
 /**
  * Represents a Task that has both a starting and ending date.
  */
@@ -35,6 +39,14 @@ public class Event extends Task {
     @Override
     public String toSaveFormat() {
         return "E " + super.toSaveFormat() + " /from " + from + " /to " + to;
+    }
+
+    @Override
+    public void update(String details) throws ArgumentException {
+        String[] args = Parser.parseEventArgument(details);
+        this.description = args[0].trim();
+        this.from = LocalDate.parse(args[1].trim());
+        this.to = LocalDate.parse(args[2].trim());
     }
 
     @Override

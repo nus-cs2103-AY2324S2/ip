@@ -8,6 +8,7 @@ import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
 import commands.MarkNotDoneCommand;
+import commands.UpdateCommand;
 import exceptions.ArgumentException;
 import exceptions.CommandException;
 import tasks.Task;
@@ -53,6 +54,10 @@ public class Parser {
         case "find":
             throwIfInsufficientArgs(inputArgs.length, 2, "Please provide a word to find");
             return new FindCommand(inputArgs[1].trim());
+        case "update":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please provide an index to update");
+            String[] updateArgs = parseUpdateArgument(inputArgs[1].trim());
+            return new UpdateCommand(Integer.parseInt(updateArgs[0].trim()), updateArgs[1].trim());
         default:
             throw new CommandException("Please input a valid command");
         }
@@ -72,7 +77,7 @@ public class Parser {
     }
 
     /**
-     * Parses a string into an array of String of size 2 with arguments for constructor of Deadline
+     * Parses a String into an array of String of size 2 with arguments for constructor of Deadline
      *
      * @param arg String containing the arguments for Deadline.
      * @return array of String of size 2.
@@ -80,19 +85,34 @@ public class Parser {
      */
     public static String[] parseDeadlineArgument(String arg) throws ArgumentException {
         String[] result = arg.split("\\/by", 2);
-        throwIfInsufficientArgs(result.length, 2, "Insufficient argument provided for deadline task");
+        throwIfInsufficientArgs(result.length, 2, "Insufficient arguments provided for deadline task");
         return result;
     }
 
     /**
-     * Parses a string into an array of String of size 3 with arguments for constructor of Event.
+     * Parses a String into an array of String of size 3 with arguments for constructor of Event.
      * @param arg String containing the arguments for Event.
      * @return array of String of size 3.
      * @throws ArgumentException if less than 3 arguments are provided.
      */
     public static String[] parseEventArgument(String arg) throws ArgumentException {
         String[] result = arg.split("\\/from|\\/to", 3);
-        throwIfInsufficientArgs(result.length, 3, "Insufficient argument provided for event task");
+        throwIfInsufficientArgs(result.length, 3, "Insufficient arguments provided for event task");
+        return result;
+    }
+
+    /**
+     * Parses a string into an array of String of size 2, with the first element being a String representation
+     * of an integer.
+     * @param arg String input.
+     * @return array of String of size 2.
+     * @throws ArgumentException if less than 2 arguments are provided or the first element of the return array
+     *                           cannot be converted to an int.
+     */
+    public static String[] parseUpdateArgument(String arg) throws ArgumentException {
+        String[] result = arg.split(" ", 2);
+        throwIfInsufficientArgs(result.length, 2, "Insufficient arguments provided");
+        throwIfNotInteger(result[0]);
         return result;
     }
 
