@@ -30,7 +30,8 @@ public class MainWindow extends AnchorPane {
     private JeromeGpt jeromeGpt;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    // Image of JeromeGPT is an emoji that is captured as a screenshot with resolution of 84 by 84.
+    private Image jeromeGptImage = new Image(this.getClass().getResourceAsStream("/images/JeromeGpt.png"));
 
     /**
      * Ensures that the scrollPane automatically scrolls to the bottom
@@ -42,7 +43,7 @@ public class MainWindow extends AnchorPane {
 
         // Display welcome message.
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Welcome to JeromeGPT!", dukeImage)
+                DialogBox.getDukeDialog("Welcome to JeromeGPT!", jeromeGptImage)
         );
 
 
@@ -68,7 +69,7 @@ public class MainWindow extends AnchorPane {
         String response = jeromeGpt.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, jeromeGptImage)
         );
         userInput.clear();
     }
