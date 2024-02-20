@@ -30,7 +30,7 @@ Cleo supports the following commands to help you manage your tasks:
 - **Tasks on**: Lists tasks happening on a specific date.
 - **Bye**: Exits the app.
 
-### Usage
+### Usage 🧰
 
 Below are some examples of how to use Cleo's commands:
 
