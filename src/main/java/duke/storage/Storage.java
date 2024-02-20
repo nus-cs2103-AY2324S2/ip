@@ -40,7 +40,7 @@ public class Storage {
      * @return task list read from the file.
      * @throws IOException
      */
-    public ArrayList<Task> load() throws IOException {
+    public ArrayList<Task> load() throws IOException, NullPointerException {
         if (!this.file.getParentFile().exists()) {
             this.file.getParentFile().mkdirs();
         }
