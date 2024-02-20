@@ -25,13 +25,10 @@ If you have used Dibo before, you can jump straight to Dibo's [Features and Comm
 3. Copy the file to the folder you want to use as the home folder for your Dibo.
 4. Open a command terminal.
 5. Change the working directory to the folder you put the .jar in, by typing and running `cd {directory}`
-
 6. Then, type and run the `java -jar dibo.jar` command to run the application.
-
 
 ## Features and Commands
 
----
 ### `todo` - Add a to-do task
 
 To add a todo task to your task list, you can type `todo [TASK_NAME]`
