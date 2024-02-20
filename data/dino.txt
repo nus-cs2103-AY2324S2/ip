@@ -1,0 +1,3 @@
+ E | 0 | lunch | from: Mar 04 2023 12:34 to: Apr 03 2034 17:00
+ T | 0 | buy slippers
+ T | 0 | sleep
