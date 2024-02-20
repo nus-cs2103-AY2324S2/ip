@@ -12,21 +12,21 @@ public class TaskListTest {
     @SuppressWarnings("checkstyle:EmptyCatchBlock")
     @Test
     public void checkTaskListFunctionTest() {
-        TaskList tasks = new TaskList();
-        Task todo = new ToDo("todo");
-
-        LocalDateTime from = LocalDateTime.of(2021, 1, 8, 6, 30);
-        LocalDateTime to = LocalDateTime.of(2021, 1, 9, 6, 30);
-        Event event = new Event("event", from, to);
-
-        LocalDateTime by = LocalDateTime.of(2021, 1, 8, 6, 30);
-        Deadline deadline = new Deadline("deadline", by);
-
-        tasks.add(todo);
-        tasks.add(event);
-        tasks.add(deadline);
-
         try {
+            TaskList tasks = new TaskList();
+            Task todo = new ToDo("todo");
+
+            LocalDateTime from = LocalDateTime.of(2021, 1, 8, 6, 30);
+            LocalDateTime to = LocalDateTime.of(2021, 1, 9, 6, 30);
+            Event event = new Event("event", from, to);
+
+            LocalDateTime by = LocalDateTime.of(2021, 1, 8, 6, 30);
+            Deadline deadline = new Deadline("deadline", by);
+
+            tasks.add(todo);
+            tasks.add(event);
+            tasks.add(deadline);
+
             tasks.markDone("1");
             assertEquals("[T][X] todo", todo.toString());
             tasks.markDone("2");
