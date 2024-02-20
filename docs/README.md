@@ -44,6 +44,7 @@ Format: `event DESCRIPTION /from FROM /to TO`
 - The DESCRIPTION is a brief summary of the event .
 - The FROM and TO is the start and end time of the event.
 - FROM and TO can be any String e.g "tmr", "weekend" with no specific datetime format.
+
 | :information:        |  DateTime format will be supported in future releases.    |
 |---------------|:------------------------|
 
