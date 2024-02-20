@@ -3,6 +3,7 @@
 Welcome to the Yoda Chatbot, your personal assistant for managing tasks with the wisdom of Yoda himself. This guide will help you navigate through the application and utilize its features to organize your to-do list effectively.
 
 ## Starting Up
+- Download A-Jar-3 from the 'Releases' section.
 - Launch the Yoda Chatbot application.
 - A greeting from Yoda will welcome you to the application.
 - You are now ready to start managing your tasks.
