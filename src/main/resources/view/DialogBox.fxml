@@ -2,25 +2,38 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Label fx:id="dialogLabel" contentDisplay="RIGHT" text="HAHHHHH" wrapText="true">
+
+<fx:root alignment="TOP_RIGHT" fillHeight="false" maxHeight="1.7976931348623157E308" prefWidth="460.0" type="HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+    <Label fx:id="dialogLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" maxHeight="1.7976931348623157E308" minHeight="88.0" pickOnBounds="false" text="Hello everyone my name is markiplierHello everyone my name is markiplierHello everyone my name is markiplierHello everyone my name is markiplierHello everyone my name is markiplierHello everyone my name is markiplierHello everyone my name is markiplier" wrapText="true">
          <font>
-            <Font name="Arial" size="15.0" />
+            <Font name="SansSerif Regular" size="15.0" />
          </font>
-         <HBox.margin>
-            <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
-         </HBox.margin>
          <padding>
-            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-         </padding></Label>
-      <Circle fx:id="circle" fill="WHITE" radius="44.0" stroke="BLACK" strokeType="INSIDE" />
-  </children>
-  <padding>
-    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-  </padding>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+         </padding>
+         <HBox.margin>
+            <Insets left="4.0" right="4.0" />
+         </HBox.margin>
+      </Label>
+      <Circle fx:id="circle" fill="WHITE" radius="44.0" stroke="BLACK" strokeType="INSIDE">
+         <HBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </HBox.margin>
+      </Circle>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
+   </padding>
+   <effect>
+      <DropShadow height="10.0" radius="4.5" width="10.0" />
+   </effect>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </fx:root>

@@ -50,7 +50,7 @@ public class DateManager {
             }
         }
 
-        throw new InputException("Sorry, I can't recognize that date and time format of yours.");
+        throw new InputException("Sorry, Izuna can't recognize that date and time format.");
     }
 
     /**

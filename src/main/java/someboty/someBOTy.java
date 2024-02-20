@@ -21,15 +21,15 @@ public class SomeBoty {
     }
 
     public String getResponse(String input) {
-        String response;
-
         try {
-            response = commandCenter.parse(input);
-        } catch (TerminateException e) {
-            response = ExitMessage();
-        }
+            String response = commandCenter.parse(input);
+            return response;
 
-        return response;
+        } catch (TerminateException e) { 
+            // re-wrap exception with a farewell message.
+            throw new TerminateException(ExitMessage());
+        }
+        
     }
 
     /**
@@ -46,7 +46,8 @@ public class SomeBoty {
      * Prints out a farewell message from the bot to user.
      */
     public static String ExitMessage() {
-        String message = "もう出ていくの？　じゃーいってらっしゃい、主殿！";
+        String message = "もう出ていくの？　じゃーいってらっしゃい、主殿！\n\n"
+                       + "*Press enter again to close the window.*";
         
         return message;
     }

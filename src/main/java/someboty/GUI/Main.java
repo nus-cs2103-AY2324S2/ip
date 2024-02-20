@@ -25,13 +25,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
 
-            //String cssFilePath = "/view/Application.css";
-            //scene.getStylesheets().add(Main.class.getResource(cssFilePath).toExternalForm());
-
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBot(bot);
             stage.show();
-
+        
         } catch (IOException e) {
             e.printStackTrace();
         }
