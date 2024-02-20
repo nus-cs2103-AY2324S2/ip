@@ -11,7 +11,7 @@ public class UI {
      * Method to output initial greeting messages for user
      */
     public String greet() {
-        return "Hello, I am AaronBot, please talk to me I love my students very much :)";
+        return "Hello student, I am AaronBot, please talk to me I love my students very much :)";
     }
 
     /**
@@ -29,7 +29,7 @@ public class UI {
      */
     public String taskListLoadedMessage(TaskList taskList, UI ui) {
         if (taskList.getTasklistSize() > 0) {
-            return "Tasklist successfully loaded.\n" + taskList.showList();
+            return "STUDENT!!! Tasklist successfully loaded.\n" + taskList.showList();
         } else {
             return "Student, no previous tasklist found";
         }
@@ -50,7 +50,7 @@ public class UI {
      * @param taskList tasklist modified
      */
     public String markMessage(int taskIndex, TaskList taskList) {
-        return "Successfully marked task: \n"
+        return "STUDENT I HAVE Successfully marked task: \n"
                 + taskList.printTask(taskIndex);
     }
 
@@ -60,7 +60,7 @@ public class UI {
      * @param taskList tasklist modified
      */
     public String unmarkMessage(int taskIndex, TaskList taskList) {
-        return "Successfully unmarked task: \n"
+        return "STUDENT I HAVE Successfully unmarked task: \n"
                 + taskList.printTask(taskIndex);
     }
 
@@ -69,7 +69,7 @@ public class UI {
      * @param taskList tasklist modified
      */
     public String taskAddedMessage(TaskList taskList) {
-        return "Successfully added task: \n"
+        return "STUDENT I HAVE Successfully added task: \n"
                 + taskList.printTask(taskList.getTasklistSize());
     }
 
@@ -78,7 +78,7 @@ public class UI {
      * @param e error generated
      */
     public String errorMessage(Exception e) {
-        return "Oh no, there seems to have been an error \n" + e.getMessage();
+        return "STUDENT!!!!!!! there seems to have been an error \n" + e.getMessage();
     }
 
     /**
@@ -96,13 +96,6 @@ public class UI {
     }
 
     /**
-     * Message when exiting execution cycle
-     */
-    public String goodbyeMessage() {
-        return "Goodbye student, HAND.";
-    }
-
-    /**
      * Method to display a message to the user
      * @param messageString message to be displayed
      */
@@ -116,7 +109,7 @@ public class UI {
      * @return message
      */
     public String showTaskDeletedMsg(int index) {
-        return ("Successfully deleted task " + index);
+        return ("STUDENT!!!! \nSuccessfully deleted task " + index);
     }
 
     /**
@@ -125,7 +118,7 @@ public class UI {
      * @return message
      */
     public String showTaskSnoozedMessage(int index) {
-        return ("Successfully snoozed task " + index);
+        return ("STUDENT!!!! Successfully snoozed task " + index);
     }
  
 }

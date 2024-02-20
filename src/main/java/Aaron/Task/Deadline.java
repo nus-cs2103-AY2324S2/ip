@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 
 import aaron.exception.AaronBotException;
 import aaron.exception.DateFormatException;
-import aaron.exception.InvalidDateException;
 
 /**
  * class that represents a deadline type of task instantiated in an Aaronbot
