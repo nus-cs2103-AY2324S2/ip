@@ -1,7 +1,7 @@
 package logic;
 
 /**
- * This class contains all the static methods used to convert
+ * This class contains all the static methods used to extract details from Strings
  */
 public class Extractor {
     /**
@@ -60,5 +60,15 @@ public class Extractor {
     public static String extractSearchTerm(String command) {
         String searchTerm = command.replace("find ", "");
         return searchTerm;
+    }
+
+    /**
+     * Extracts link to help page from the output of a valid Help command
+     * @param text The full String of help details
+     * @return The extracted link from the full String to the external help page
+     */
+    public static String extractHelpLink(String text) {
+        String link = text.substring(text.indexOf("http"), text.indexOf(".md") + 3);
+        return link;
     }
 }

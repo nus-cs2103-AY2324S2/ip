@@ -13,7 +13,8 @@ public enum Commands {
     UNMARK,
     BYE,
     DELETE,
-    FIND;
+    FIND,
+    REDIRECT;
 
     public String getHelpMessage() {
         switch (this) {
@@ -22,11 +23,11 @@ public enum Commands {
         case TODO:
             return "Create todo: todo [task name] (eg: todo borrow book)";
         case DEADLINE:
-            return "Create deadline: deadline [task name] /by [due date] "
-                    + "(eg: deadline homework /by Sun 6pm)";
+            return "Create deadline: deadline [task name] /by [due date in yyyy-mm-dd] "
+                    + "(eg: deadline homework /by 2024-10-10)";
         case EVENT:
-            return "Create event: event [task name] /from [from date] /to [to date] "
-                    + "(eg: event concert /from Mon 6pm /to Mon 8pm)";
+            return "Create event: event [task name] /from [from date in yyyy-mm-dd] /to [to date in yyyy-mm-dd] "
+                    + "(eg: event concert /from 2024-10-10 /to 2024-10-11)";
         case LIST:
             return "List current tasks: list";
         case MARK:
@@ -43,6 +44,8 @@ public enum Commands {
                     + "(eg: find book)";
         case BYE:
             return "Close Tam the Task Manager: bye";
+        case REDIRECT:
+            return "https://github.com/brennalaurentan/ip/blob/master/docs/HELP.md";
         default:
             return "getHelpMessage() ERROR";
         }

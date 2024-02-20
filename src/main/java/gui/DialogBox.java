@@ -4,9 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * This class is a custom class for a DialogBox object,
@@ -16,6 +18,8 @@ public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
+
+    private Hyperlink hyperLink;
 
     /**
      * Constructor for a DialogBox object
@@ -34,6 +38,21 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(text, displayPicture);
     }
 
+    public DialogBox(Label l, Hyperlink hLink, ImageView iv) {
+        text = l;
+        hyperLink = hLink;
+        displayPicture = iv;
+
+        text.setWrapText(true);
+        displayPicture.setFitWidth(100.0);
+        displayPicture.setFitHeight(100.0);
+
+        VBox labelHyperlink = new VBox(text, hyperLink);
+
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.getChildren().addAll(labelHyperlink, displayPicture);
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -50,6 +69,12 @@ public class DialogBox extends HBox {
 
     public static DialogBox getTamDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getTamDialog(Label l, Hyperlink hLink, ImageView iv) {
+        var db = new DialogBox(l, hLink, iv);
         db.flip();
         return db;
     }
