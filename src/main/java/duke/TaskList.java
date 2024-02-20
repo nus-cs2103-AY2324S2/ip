@@ -142,7 +142,7 @@ public class TaskList {
             ArrayList<Task> tmpTaskList = cloneTaskList(taskList);
             taskList = prevTaskList;
             prevTaskList = tmpTaskList;
-            System.out.println("Undo successful!");
+            System.out.println("Undo is successful!");
         }
     }
 
