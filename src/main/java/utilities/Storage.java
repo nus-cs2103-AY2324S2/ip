@@ -66,32 +66,8 @@ public class Storage {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String[] line = s.nextLine().split(" \\| ");
-                if (line[0].equals("T")) {
-                    Task task = new ToDo(line[3]);
-                    if (line[1].equals("1")) {
-                        task.setCompleted();
-                    }
-                    task.setPriority(line[2]);
-                    tasks.add(task);
-                } else if (line[0].equals("D")) {
-                    Task task = new Deadline(line[3], line[4]);
-                    if (line[1].equals("1")) {
-                        task.setCompleted();
-                    }
-                    task.setPriority(line[2]);
-                    tasks.add(task);
-                } else if (line[0].equals("E")) {
-                    String[] timing = line[4].split(" to ");
-                    Task task = new Event(line[3], timing[0], timing[1]);
-                    if (line[1].equals("1")) {
-                        task.setCompleted();
-                    }
-                    task.setPriority(line[2]);
-                    tasks.add(task);
-                } else {
-                    //should not reach here
-                    assert false : "File format has been corrupted";
-                }
+                Task taskToAdd = createTask(line);
+                tasks.add(taskToAdd);
             }
         } catch (IOException e) {
             throw new YpxmmException("IOException");
@@ -100,5 +76,36 @@ public class Storage {
             throw new YpxmmException("Wah bro your file is corrupted leh...I help you delete first");
         }
         return tasks;
+    }
+
+    private Task createTask(String[] line) throws IOException, ArrayIndexOutOfBoundsException,
+            YpxmmException {
+        if (line[0].equals("T")) {
+            Task task = new ToDo(line[3]);
+            if (line[1].equals("1")) {
+                task.setCompleted();
+            }
+            task.setPriority(line[2]);
+            return task;
+        } else if (line[0].equals("D")) {
+            Task task = new Deadline(line[3], line[4]);
+            if (line[1].equals("1")) {
+                task.setCompleted();
+            }
+            task.setPriority(line[2]);
+            return task;
+        } else if (line[0].equals("E")) {
+            String[] timing = line[4].split(" to ");
+            Task task = new Event(line[3], timing[0], timing[1]);
+            if (line[1].equals("1")) {
+                task.setCompleted();
+            }
+            task.setPriority(line[2]);
+            return task;
+        } else {
+            //should not reach here. returns dummy task
+            assert false : "File format has been corrupted";
+            return new ToDo("error");
+        }
     }
 }
