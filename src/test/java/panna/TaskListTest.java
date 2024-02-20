@@ -25,7 +25,7 @@ public class TaskListTest {
 
 
     @Test
-    public void sizeTest() {
+    public void sizeTest() throws PannaException {
         TaskList tasks = new TaskList();
         tasks.add(new Task("test"));
         int size = tasks.size();
@@ -35,7 +35,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void printListTest() {
+    public void printListTest() throws PannaException {
         TaskList tasks = new TaskList();
         tasks.add(new Todo("test"));
         tasks.add(new Todo("test2"));

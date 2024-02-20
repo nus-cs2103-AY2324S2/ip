@@ -39,7 +39,13 @@ public class TaskList {
      * Adds a Task t to the list
      * @param t
      */
-    public void add(Task t) {
+    public void add(Task t) throws PannaException {
+        for (Task task: tasks) {
+            if (t.equals(task)) {
+                throw new PannaException("Cannot add repeat items");
+            }
+        }
+
         tasks.add(t);
     }
 
