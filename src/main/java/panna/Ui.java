@@ -123,7 +123,7 @@ public class Ui {
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
-            throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
+            return "The task may already be in the list!";
         }
 
     }
@@ -147,7 +147,7 @@ public class Ui {
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
-            throw new PannaException("Please ensure all your formats are correct!");
+            return "The task may already be in the list!";
         }
 
 
@@ -174,7 +174,7 @@ public class Ui {
                     + "Now you have " + tasks.size() + " task(s) in the list! ";
             return output;
         } catch (Exception e) {
-            throw new PannaException("Please ensure all your formats are correct! ");
+            return "The task may already be in the list!";
         }
 
     }

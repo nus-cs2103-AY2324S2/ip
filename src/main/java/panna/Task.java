@@ -122,6 +122,15 @@ public class Task {
     public String toString() {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + taskName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Task t = (Task) o; // Okay since we are only going to be dealing with Tasks.
+        if (this.taskType == t.taskType && this.taskName.equals(t.taskName)) {
+            return true;
+        }
+        return false;
+    }
 }
 
 

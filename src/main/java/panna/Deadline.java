@@ -29,4 +29,15 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (By: " + getDeadline().format(df) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Deadline e = (Deadline) o;
+        System.out.println(this.getDeadline().equals(e.getDeadline()));
+        return this.getDeadline().equals(e.getDeadline()) && super.equals(e);
+    }
 }

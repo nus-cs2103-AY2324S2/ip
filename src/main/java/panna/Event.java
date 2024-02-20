@@ -32,4 +32,15 @@ public class Event extends Task {
         return super.toString() + " (from: " + getStart().format(df) + " to " + getEnd().format(df) + ")";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Event e = (Event) o;
+
+        return this.getStart().equals(e.getStart()) && this.getEnd().equals(e.getEnd()) && super.equals(e);
+    }
+
 }
