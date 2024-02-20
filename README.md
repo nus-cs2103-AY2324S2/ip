@@ -8,21 +8,22 @@ William is a **desktop application designed for managing tasks such as to-dos, e
 3. Copy the file to the folder you want to use as the _home folder_ for your William
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar William.jar` command to run the application. A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br>
 5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing enter will show you the list of tasks.<br>
+   ![Ui](./docs/Ui.png)
 Some example commands you can try
    - `list`: Lists all the tasks.
    - `todo cs2103 assignment`: Add a todo with a description of the cs2103 assignment to your list of tasks.
-   - `delete 3`: Deletes the 3rd task shown in the current list.
+   - `delete 3`: Deletes the 3rd task in the list
    - `bye`: Exits the application.
 6. Refer to [Features](#features) below for details of each command
 
 ## Features
 ℹ️ Notes about the command format:
 - Words in UPPER_CASE are the parameters to be supplied by the user.<br>
-e.g. in todo DESCRIPTION, DESCRIPTION is a parameter that can be used as todo n/play games.
+  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo play games`.
 - Parameters must be in fixed order.<br>
-e.g. in event DESCRIPTION /from FROM_DATE /to TO_DATE, FROM_DATE must always be before TO_DATE.
-- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines 
-as space characters surrounding line breaks may be omitted when copied over to the application.
+  e.g. in `event DESCRIPTION /from FROM_DATE /to TO_DATE`, `FROM_DATE` must always be before `TO_DATE`.
+- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
+  as space characters surrounding line breaks may be omitted when copied over to the application.
 
 ### Listing all tasks: `list`
 Shows a list of all tasks in the task list.  
@@ -108,7 +109,7 @@ Examples:
 Priorities the task at a specified index  
 
 Format: `priority /id INDEX /priority PRIORITY_LEVEL`
-- Prioritise the task at a specified `INDEX` with an appropriate **PRIORITY_LEVEL**
+- Prioritise the task at a specified `INDEX` with an appropriate `PRIORITY_LEVEL`
 - The `INDEX` refers to the index number shown in the displayed task list.
 - The `INDEX` **must be a positive integer** 1, 2, 3, …​
 - The `PRIORITY_LEVEL` has 4 categories only: `HIGH`, `MEDIUM`, `LOW`, `NONE`
@@ -126,7 +127,7 @@ Format: `bye`
 William's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
-William's data is saved automatically as a .txt file [JAR file location]/data/tasks.txt. Advanced users are welcome to update data directly by editing that data file.
+William's data is saved automatically as a `.txt` file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update data directly by editing that data file.
 
 > [!CAUTION]
 Caution: If your changes to the data file make its format invalid, Willaim will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
