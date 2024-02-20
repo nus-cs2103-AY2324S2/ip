@@ -6,9 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -52,7 +50,7 @@ public class Storage {
 
       bufferedReader.close();
     } catch (FileNotFoundException e) {
-      System.err.println("File not found: " + FILE_PATH);
+      System.err.println("[ERROR] File not found: " + FILE_PATH);
     } catch (IOException e) {
       e.printStackTrace();
     }

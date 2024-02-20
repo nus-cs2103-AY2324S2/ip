@@ -35,12 +35,16 @@ public class Task {
     return this.isDone;
   }
 
-  /** Marks the task as done ("X") */
+  /**
+   * Marks the task as done ("X")
+   */
   public void markAsDone() {
     this.isDone = true;
   }
 
-  /** Marks the task as undone (" ") */
+  /**
+   * Marks the task as undone (" ")
+   */
   public void markAsUndone() {
     this.isDone = false;
   }

@@ -5,13 +5,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends BorderPane {
   @FXML
   private ScrollPane scrollPane;
   @FXML
@@ -30,7 +31,7 @@ public class MainWindow extends AnchorPane {
   public void initialize() {
     scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog("Hello! I'm Yappy!\n" + "What can I do for you? \n", dukeImage)
+            DialogBox.getDukeDialog("Hello, I am Peanut... What can I do for you?", "Peanut", dukeImage)
     );
   }
 
@@ -47,8 +48,8 @@ public class MainWindow extends AnchorPane {
     String input = userInput.getText();
     String response = duke.getResponse(input);
     dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(input, "Me", userImage),
+            DialogBox.getDukeDialog(response, "Peanut", dukeImage)
     );
     userInput.clear();
   }

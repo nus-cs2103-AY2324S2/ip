@@ -1,9 +1,7 @@
 package duke;
 
 import java.io.IOException;
-
 import java.util.Collections;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,9 +22,12 @@ public class DialogBox extends HBox {
   private Label dialog;
   @FXML
   private ImageView displayPicture;
+  @FXML
+  private Label displayName;
 
-  private DialogBox(String text, Image img) {
+  private DialogBox(String text, String name, Image img) {
     assert text != null : "Text must not be null";
+    assert name != null : "Name must not be null";
     assert img != null : "Image must not be null";
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -39,6 +40,7 @@ public class DialogBox extends HBox {
 
     dialog.setText(text);
     displayPicture.setImage(img);
+    displayName.setText(name);
   }
 
   /**
@@ -58,10 +60,11 @@ public class DialogBox extends HBox {
    * @param img  The image to be displayed in the dialog box.
    * @return A DialogBox representing the user's dialog.
    */
-  public static duke.DialogBox getUserDialog(String text, Image img) {
+  public static duke.DialogBox getUserDialog(String text, String name, Image img) {
     assert text != null : "Text must not be null";
+    assert name != null : "Name must not be null";
     assert img != null : "Image must not be null";
-    return new duke.DialogBox(text, img);
+    return new duke.DialogBox(text, name, img);
   }
 
   /**
@@ -72,10 +75,11 @@ public class DialogBox extends HBox {
    * @param img  The image to be displayed in Duke's dialog box.
    * @return A DialogBox representing Duke's dialog.
    */
-  public static duke.DialogBox getDukeDialog(String text, Image img) {
+  public static duke.DialogBox getDukeDialog(String text, String name, Image img) {
     assert text != null : "Text must not be null";
+    assert name != null : "Name must not be null";
     assert img != null : "Image must not be null";
-    var db = new duke.DialogBox(text, img);
+    var db = new duke.DialogBox(text, name, img);
     db.flip();
     return db;
   }

@@ -1,11 +1,12 @@
 package duke;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
   private Duke duke = new Duke();
+  private Image DaBanner = new Image(this.getClass().getResourceAsStream("/images/DaBanner.png"));
 
   /**
    * Initializes and starts the Duke application GUI.
@@ -30,8 +32,9 @@ public class Main extends Application {
 
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(duke.Main.class.getResource("/view/MainWindow.fxml"));
-      stage.setTitle("Duke");
-      AnchorPane ap = fxmlLoader.load();
+      stage.setTitle("Peanut");
+      stage.getIcons().add(DaBanner);
+      BorderPane ap = fxmlLoader.load();
       Scene scene = new Scene(ap);
       stage.setScene(scene);
       fxmlLoader.<MainWindow>getController().setDuke(duke);

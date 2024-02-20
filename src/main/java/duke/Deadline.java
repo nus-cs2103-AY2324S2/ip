@@ -22,10 +22,6 @@ public class Deadline extends Task {
     this.by = by;
   }
 
-  public void setDeadline(LocalDateTime by) {
-    this.by = by;
-  }
-
   @Override
   public String toString() {
     assert description != null : "Description must not be null";

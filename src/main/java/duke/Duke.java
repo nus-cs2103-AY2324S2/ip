@@ -3,8 +3,8 @@ package duke;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 /**
  * Duke is a task management system that allows users to manage their tasks through a command-line interface
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Duke extends Application {
     private ArrayList<Task> tasks = new ArrayList<>();
     private TaskList taskList = new TaskList();
+    Image image = new Image(getClass().getResourceAsStream("/images/warning.png"));
 
     /**
      * Launches the JavaFX application
@@ -49,7 +50,7 @@ public class Duke extends Application {
         assert response != null : "Response StringBuilder must not be null";
 
         if (input.equals("bye")) {
-            response.append("Bye. Hope to see you again soon!");
+            response.append("Goodbye... See you again.");
             Platform.exit(); // Exit the application
         } else if (input.equals("list")) {
             response.append(TaskList.getTaskList(tasks));
@@ -68,7 +69,7 @@ public class Duke extends Application {
         } else if (tokens[0].equals("find")) {
             response.append(taskList.findTask(input, tasks));
         } else {
-            response.append("SOMETHING WENT WRONG!! Invalid input.");
+            response.append("[ERROR] Invalid input!");
         }
 
         // Save tasks to duke.txt file
