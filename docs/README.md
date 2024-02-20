@@ -11,7 +11,7 @@ _Redefining task management_
 1. Ensure that Java 11 is installed. You may download Oracle's jdk 11 from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html).
 2. Download the latest version of Arc from [here](https://github.com/jjchee77/ip/releases). As of this writing, the latest version is 3.0.0
 3. Double-click on the jar file to execute Arc.
-4. If double-clicking does not work, launch a terminal, navigate to the directory containing Arc and execute `java -jar Arc-<ver>.jar`
+4. If double-clicking does not work, launch a terminal, navigate to the directory containing Arc and execute `java -jar arc-<ver>.jar`
 
 ---
 
