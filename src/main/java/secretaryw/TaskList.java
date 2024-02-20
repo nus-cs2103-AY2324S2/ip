@@ -33,6 +33,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
+        assert (task != null);
         tasks.add(task);
     }
 
@@ -50,6 +51,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert (index >= 0 && index < tasks.size());
         return tasks.get(index);
     }
 
