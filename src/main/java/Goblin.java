@@ -1,23 +1,28 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Goblin {
     static String greetings = "Hello！ I'm NetGoblin\n"
             + "What can I do for you?\n";
     static String bye = "Bye. Hope to see you agian soon!\n";
 
+    static ArrayList<String> list = new ArrayList<>();
+
     public static void main(String[] args) {
-        line();
         sayHello();
-        line();
         Scanner input = new Scanner(System.in);
         while (input.hasNext()){
-            String userInput = input.next();
+            String userInput = input.nextLine();
             if (userInput.equals("bye")) {
                 sayBye();
                 input.close();
                 break;
+            } else if (userInput.equals("list")){
+                showList();
             } else {
-                echo(userInput);
+                line();
+                System.out.println("added: " + userInput);
+                line();
+                list.add(userInput);
             }
         }
     }
@@ -26,7 +31,9 @@ public class Goblin {
     }
 
     public static void sayHello() {
+        line();
         System.out.println(greetings);
+        line();
     }
 
     public static void sayBye() {
@@ -38,5 +45,12 @@ public class Goblin {
         line();
         System.out.println(input);
         line();
+    }
+
+    public static void showList() {
+        line();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + list.get(i));
+        }
     }
 }
