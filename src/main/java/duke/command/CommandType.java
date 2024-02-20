@@ -4,8 +4,8 @@ package duke.command;
  * Enums of all command type.
  */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE, FILEPATH, CHECKDATE, FIND,
-    SECONDARYFILEPATH, UNDO;
+    LISTCOMMANDS, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, CHECKDATE, FIND, UNDO, BYE, FILEPATH,
+    SECONDARYFILEPATH, TASK;
 
     /**
      * Returns Command line of respective enums.

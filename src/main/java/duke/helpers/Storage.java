@@ -2,7 +2,6 @@ package duke.helpers;
 
 import java.io.FileNotFoundException;
 
-import duke.command.CommandType;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 

@@ -26,6 +26,95 @@ public class TaskList {
     }
 
     /**
+     * Creates a todo task based on the provided task description.
+     *
+     * @param task The description of the todo task.
+     * @return The created todo task.
+     * @throws DukeException If task description is empty.
+     */
+    private Task createTodoTask(String task) throws DukeException {
+        if (task.equals("")) {
+            throw new DukeException("The description is not provided. "
+                    + "Write command using format: "
+                    + CommandType.TODO.getCommand());
+        }
+        return new ToDo(task);
+    }
+
+    /**
+     * Creates a deadline task based on the provided task description.
+     *
+     * @param task The description of the deadline task.
+     * @return The created deadline task.
+     * @throws DukeException If task description or deadline is not provided.
+     */
+    private Task createDeadlineTask(String task) throws DukeException {
+        String[] taskArr = task.split(" /by ");
+
+        if (taskArr.length <= 1) {
+            throw new DukeException("The description or deadline is not provided. "
+                    + "Write command using format: "
+                    + CommandType.DEADLINE.getCommand());
+        }
+
+        String by = taskArr[1];
+        LocalDateTime datetime = MyDateTime.convertDateTime(by);
+        String description = taskArr[0];
+        return new Deadline(description, datetime);
+    }
+
+    /**
+     * Creates an event task based on the provided task description.
+     *
+     * @param task The description of the event task.
+     * @return The created event task.
+     * @throws DukeException If task description or event period is not provided.
+     */
+    private Task createEventTask(String task) throws DukeException {
+        String[] taskArr = task.split(" /from ");
+
+        if (taskArr.length <= 1) {
+            throw new DukeException("The description or event period is not provided. "
+                    + "Write command using format: "
+                    + CommandType.EVENT.getCommand());
+        }
+
+        String[] fromArr = taskArr[1].split(" /to ");
+
+        if (fromArr.length <= 1) {
+            throw new DukeException("The description or event period is not provided. "
+                    + "Write command using format: "
+                    + CommandType.EVENT.getCommand());
+        }
+
+        String by = fromArr[0];
+        String to = fromArr[1];
+        String description = taskArr[0];
+        return new Event(description, MyDateTime.convertDateTime(by), MyDateTime.convertDateTime(to));
+    }
+
+    /**
+     * Creates a task based on the provided type and task description.
+     *
+     * @param type The type of task to create.
+     * @param task The description of the task.
+     * @return The created task.
+     * @throws DukeException If the command is unavailable or if task description is invalid.
+     */
+    private Task createTask(String type, String task) throws DukeException {
+        if (type.equals(CommandType.TODO.toString())) {
+            return createTodoTask(task);
+        } else if (type.equals(CommandType.DEADLINE.toString())) {
+            return createDeadlineTask(task);
+        } else if (type.equals(CommandType.EVENT.toString())) {
+            return createEventTask(task);
+        } else {
+            throw new DukeException("This command is unavailable. Please refer to command list by using command: "
+                    + CommandType.LISTCOMMANDS.getCommand());
+        }
+    }
+
+    /**
      * Returns message and adds input task into storage.
      *
      * @param type Type of the task.
@@ -33,57 +122,7 @@ public class TaskList {
      * @return message.
      */
     public String addTask(String type, String task) throws DukeException {
-        Task newTask;
-
-        if (type.equals(CommandType.TODO.toString())) {
-            if (task.equals("")) {
-                throw new DukeException("The description is not provided. "
-                        + "Write command using format: "
-                        + CommandType.TODO.getCommand());
-            }
-            newTask = new ToDo(task);
-
-        } else if (type.equals(CommandType.DEADLINE.toString())) {
-
-            String[] taskArr = task.split(" /by ");
-
-            if (taskArr.length <= 1) {
-                throw new DukeException("The description or deadline is not provided. "
-                        + "Write command using format: "
-                        + CommandType.DEADLINE.getCommand());
-            }
-
-            String by = taskArr[1];
-            LocalDateTime datetime = MyDateTime.convertDateTime(by);
-            String description = taskArr[0];
-            newTask = new Deadline(description, datetime);
-
-        } else if (type.equals(CommandType.EVENT.toString())) {
-            String[] taskArr = task.split(" /from ");
-
-            if (taskArr.length <= 1) {
-                throw new DukeException("The description or event period is not provided. "
-                        + "Write command using format: "
-                        + CommandType.EVENT.getCommand());
-            }
-
-            String[] fromArr = taskArr[1].split(" /to ");
-
-            if (fromArr.length <= 1) {
-                throw new DukeException("The description or event period is not provided. "
-                        + "Write command using format: "
-                        + CommandType.EVENT.getCommand());
-            }
-
-            String by = fromArr[0];
-            String to = fromArr[1];
-            String description = taskArr[0];
-            newTask = new Event(description, MyDateTime.convertDateTime(by), MyDateTime.convertDateTime(to));
-        } else {
-            throw new DukeException("This command is unavailable. Please refer to command list by using command: "
-                    + CommandType.LISTCOMMANDS.getCommand());
-        }
-
+        Task newTask = createTask(type, task);
         storage.add(newTask);
 
         String temp = storage.size() > 1 ? " tasks" : " task";

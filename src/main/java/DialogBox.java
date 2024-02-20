@@ -59,7 +59,8 @@ public class DialogBox extends HBox {
      * @param imageView
      */
     private void clipImageViewToCircle(ImageView imageView) {
-        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, imageView.getFitWidth() / 2);
+        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2,
+                imageView.getFitWidth() / 2);
         imageView.setClip(clip);
     }
 
@@ -73,14 +74,28 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(String l, Image iv) {
-        DialogBox output = new DialogBox(l, iv, true);
+    /**
+     * Creates a DialogBox object representing a user message.
+     *
+     * @param message The message to be displayed in the dialog box.
+     * @param image The image to be displayed alongside the message.
+     * @return A DialogBox object representing a user message.
+     */
+    public static DialogBox getUserDialog(String message, Image image) {
+        DialogBox output = new DialogBox(message, image, true);
         output.setBackground(new Background(new BackgroundFill(Color.web("#81c483"), null, null)));
         return output;
     }
 
-    public static DialogBox getDukeDialog(String l, Image iv) {
-        var db = new DialogBox(l, iv, false);
+    /**
+     * Creates a DialogBox object representing a message from ChatPal.
+     *
+     * @param message The message to be displayed in the dialog box.
+     * @param image The image to be displayed alongside the message.
+     * @return A DialogBox object representing a message from ChatPal.
+     */
+    public static DialogBox getChatPalDialog(String message, Image image) {
+        var db = new DialogBox(message, image, false);
         db.flip();
         db.setBackground(new Background(new BackgroundFill(Color.web("#ffff83"), null, null)));
         return db;

@@ -25,10 +25,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private ChatPal duke;
+    private ChatPal chatPal;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/corgi.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/golden_retriever.jpg"));
+    private Image chatPalImage = new Image(this.getClass().getResourceAsStream("/images/golden_retriever.jpg"));
 
     /**
      * Initializes Dialog Container.
@@ -39,8 +39,8 @@ public class MainWindow extends AnchorPane {
         greet();
     }
 
-    public void setDuke(ChatPal d) {
-        duke = d;
+    public void setChatPal(ChatPal d) {
+        chatPal = d;
     }
 
     /**
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
      */
     private void greet() {
         String text = "Hi Hi!! Your personal ChatPal here! How can I help you?\n";
-        DialogBox greetDialog = DialogBox.getDukeDialog(text, dukeImage);
+        DialogBox greetDialog = DialogBox.getChatPalDialog(text, chatPalImage);
         dialogContainer.getChildren().add(greetDialog);
     }
 
@@ -61,22 +61,50 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         assert userText != null;
 
-        String dukeText = duke.getResponseMessage(userText);
+        String chatPalText = chatPal.getResponseMessage(userText);
 
         DialogBox userDialog = DialogBox.getUserDialog(userText, userImage);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, dukeImage);
+        DialogBox chatPalDialog = DialogBox.getChatPalDialog(chatPalText, chatPalImage);
 
-        if (dukeText.contains("Error:")) {
-            dukeDialog.setBackground(new Background(new BackgroundFill(Color.web("#ffbfbf"), null, null)));
-        }
+        updateDialogContainer(userDialog, chatPalDialog);
+        handleChatPalError(chatPalText, chatPalDialog);
+
+        userInput.clear();
+        handleExit(userText);
+    }
+
+    /**
+     * Updates the dialog container with the user and ChatPal dialog boxes.
+     *
+     * @param userDialog The dialog box containing the user's message.
+     * @param chatPalDialog The dialog box containing ChatPal's response.
+     */
+    private void updateDialogContainer(DialogBox userDialog, DialogBox chatPalDialog) {
         dialogContainer.getChildren().addAll(
                 userDialog,
-                dukeDialog
+                chatPalDialog
         );
         dialogContainer.setPadding(new Insets(10));
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
 
-        userInput.clear();
+    /**
+     * Handles ChatPal error messages by setting the background color of the ChatPal dialog box to indicate an error.
+     *
+     * @param chatPalText The text of ChatPal's response.
+     * @param chatPalDialog The dialog box containing ChatPal's response.
+     */
+    private void handleChatPalError(String chatPalText, DialogBox chatPalDialog) {
+        if (chatPalText.contains("Error:")) {
+            chatPalDialog.setBackground(new Background(new BackgroundFill(Color.web("#ffbfbf"), null, null)));
+        }
+    }
+    /**
+     * Handles the exit command by terminating the application after a delay.
+     *
+     * @param userText The text entered by the user.
+     */
+    private void handleExit(String userText) {
         if (userText.equals("bye")) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
             timeline.play();

@@ -27,7 +27,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns tring representation of duke.task.ToDo task.
+     * Returns String representation of duke.task.ToDo task.
      *
      * @return String representation of duke.task.ToDo task.
      */
