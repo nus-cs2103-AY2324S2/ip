@@ -13,7 +13,7 @@ It is:
 
 To use  Andelu Bot, follow these steps:
 
-1. Download it from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
+1. Download the lastest jar file from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
 2. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
 3. Add your tasks (Todo, Deadline, Event)
 4. Let Andelu Bot manage your tasks😉
