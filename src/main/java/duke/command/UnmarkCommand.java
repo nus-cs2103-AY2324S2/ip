@@ -40,6 +40,7 @@ public class UnmarkCommand extends Command {
 
             Task undoTask = taskList.getTask(Integer.valueOf(index) - 1);
             undoTask.setTaskUndone();
+
             storage.save(taskList.getList());
             return generateUnmarkStatement(undoTask);
         } catch (IndexOutOfBoundsException e) {

@@ -1,4 +1,5 @@
 package duke.others;
+
 /**
  * Encompasses all errors in belle.
  */

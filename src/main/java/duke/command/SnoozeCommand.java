@@ -67,7 +67,6 @@ public class SnoozeCommand extends Command {
             String printStatement = "--------------------------" + "\n"
                     + "Nice! I have shifted the deadline of:" + "\n"
                     + snoozeTask.toString() + "\n" + "--------------------------";
-
             //high-level step that saves new list to harddisk
             storage.save(taskList.getList());
             return printStatement;

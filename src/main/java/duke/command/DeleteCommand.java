@@ -41,7 +41,9 @@ public class DeleteCommand extends Command {
 
             Task deleteTask = taskList.getTask(Integer.valueOf(index) - 1);
             taskList.removeTask(Integer.parseInt(index) - 1);
+
             storage.save(taskList.getList());
+
             return generateDeleteStatement(deleteTask, taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");

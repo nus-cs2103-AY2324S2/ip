@@ -76,6 +76,7 @@ public class AddTaskCommand extends Command {
     public Task generateTodo() throws BelleException {
         try {
             assert (msg.length() >= 5) : "invalid input to generate todo task";
+
             int todoLength = 5; // as todo + 1 space is 5 characters.
             Task curr = new TodoTask(this.msg.substring(todoLength), false);
             return curr;
@@ -95,6 +96,7 @@ public class AddTaskCommand extends Command {
     public Task generateDeadline() throws BelleException {
         try {
             assert (msg.length() >= 9) : "invalid input to generate deadline task";
+
             int deadlineLength = 9; // as deadline + 1 space is 9 characters.
             String[] deadlineList = msg.substring(deadlineLength).split(" /by ");
             Task curr = new DeadlineTask(deadlineList[0], false, deadlineList[1]);
@@ -116,8 +118,9 @@ public class AddTaskCommand extends Command {
      *         required information in the user input.
      */
     public Task generateEvent() throws BelleException {
-        assert (msg.length() >= 6) : "invalid input to generate event task";
         try {
+            assert (msg.length() >= 6) : "invalid input to generate event task";
+
             int eventLength = 6; // as event + 1 space is 6 characters.
             String[] eventList = msg.substring(eventLength).split(" /from ");
             String[] startEndList = eventList[1].split(" /to ");

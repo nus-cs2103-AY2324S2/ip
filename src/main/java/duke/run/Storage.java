@@ -12,8 +12,6 @@ import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
 
-
-
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
  */
@@ -44,7 +42,6 @@ public class Storage {
         ArrayList<Task> currList = new ArrayList<>();
         try {
             File f = new File(filePath);
-
             if (!f.exists()) {
                 return currList;
             }
@@ -71,6 +68,7 @@ public class Storage {
         while (listScanner.hasNext()) {
             String currLine = listScanner.nextLine();
             String[] currTaskList = currLine.split(" , ");
+
             if (currTaskList[0].equals(Type.T.name())) {
                 currList.add(new TodoTask(currTaskList[2], Boolean.valueOf(currTaskList[1])));
             } else if (currTaskList[0].equals(Type.D.name())) {

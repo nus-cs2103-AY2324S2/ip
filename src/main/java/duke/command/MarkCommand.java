@@ -6,7 +6,6 @@ import duke.run.TaskList;
 import duke.run.Ui;
 import duke.tasks.Task;
 
-
 /**
  * Marks items as done.
  */
@@ -41,7 +40,9 @@ public class MarkCommand extends Command {
 
             Task doingTask = taskList.getTask(Integer.valueOf(index) - 1);
             doingTask.setTaskDone();
+
             storage.save(taskList.getList());
+
             return generateMarkStatement(doingTask);
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
@@ -51,7 +52,7 @@ public class MarkCommand extends Command {
     /**
      * Generates mark print statement.
      *
-     * @param doingTask Task to be marked.
+     * @param doingTask Task to be marked done.
      * @return Print statement for marked task.
      */
     public String generateMarkStatement(Task doingTask) {
