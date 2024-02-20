@@ -1,13 +1,13 @@
 package adam.task;
 
-import adam.AdamException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import adam.AdamException;
+
 /**
- * @inheritDoc
+ * {@inheritDoc}
  * A deadline additionally has a date for the deadline.
  */
 public class Deadline extends Task {

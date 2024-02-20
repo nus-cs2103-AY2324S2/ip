@@ -8,7 +8,7 @@ import adam.ui.Ui;
 /**
  * Represents a command to be executed by the program.
  */
-abstract public class Command {
+public abstract class Command {
     /**
      * Executes the command.
      *

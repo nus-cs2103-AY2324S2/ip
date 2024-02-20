@@ -1,15 +1,15 @@
 package adam.command;
 
+import java.util.ArrayList;
+
 import adam.AdamException;
 import adam.Storage;
 import adam.task.Task;
 import adam.task.TaskList;
 import adam.ui.Ui;
 
-import java.util.ArrayList;
-
 /**
- * @inheritDoc
+ * {@inheritDoc}
  * Represents a command to print the list of tasks.
  */
 public class ListCommand extends Command {
@@ -21,7 +21,13 @@ public class ListCommand extends Command {
 
     /**
      * Prints the list of tasks.
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param taskList Current TaskList of program.
+     * @param ui Ui used by the program.
+     * @param storage Storage used by the program.
+     * @return The result of the command executed to be printed as the program's response.
+     * @throws AdamException If command cannot be executed.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
@@ -38,7 +44,9 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return True if program will exit.
      */
     @Override
     public boolean isExit() {

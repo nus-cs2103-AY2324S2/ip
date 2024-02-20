@@ -1,8 +1,8 @@
 package adam.task;
 
-import adam.AdamException;
-
 import java.util.ArrayList;
+
+import adam.AdamException;
 
 /**
  * Represents a list of tasks to be stored.
@@ -34,7 +34,7 @@ public class TaskList {
     public void add(Task task) {
         int before = tasks.size();
         tasks.add(task);
-        assert tasks.size() == before + 1: "task was not added";
+        assert tasks.size() == before + 1 : "task was not added";
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
         }
         int before = tasks.size();
         Task t = tasks.remove(taskNumber - 1);
-        assert tasks.size() == before - 1: "task was not deleted";
+        assert tasks.size() == before - 1 : "task was not deleted";
         return t.toString();
     }
 
@@ -90,6 +90,12 @@ public class TaskList {
         return t.toString();
     }
 
+    /**
+     * Returns a list of tasks that contains the given keyword.
+     *
+     * @param keyword The keyword to find tasks with.
+     * @return A list of tasks containing the given keyword.
+     */
     public ArrayList<String> find(String keyword) {
         ArrayList<String> found = new ArrayList<>();
         for (Task t : tasks) {

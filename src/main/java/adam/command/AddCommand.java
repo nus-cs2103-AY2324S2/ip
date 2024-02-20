@@ -47,17 +47,17 @@ public class AddCommand extends Command {
         Task t;
         switch (command) {
         case "todo":
-            assert details.length == 0: "todo should not have any details";
+            assert details.length == 0 : "todo should not have any details";
             t = new Todo(desc);
             taskList.add(t);
             break;
         case "deadline":
-            assert details.length == 1: "deadline should have 1 detail";
+            assert details.length == 1 : "deadline should have 1 detail";
             t = new Deadline(desc, details[0]);
             taskList.add(t);
             break;
         case "event":
-            assert details.length == 2: "event should have 2 details";
+            assert details.length == 2 : "event should have 2 details";
             t = new Event(desc, details[0], details[1]);
             taskList.add(t);
             break;

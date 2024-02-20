@@ -10,7 +10,7 @@ import adam.ui.Ui;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    int taskNumber;
+    private int taskNumber;
 
     /**
      * Returns a command to mark a task as done.
@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
         String t = taskList.mark(taskNumber);
-        return  ui.showResult(
+        return ui.showResult(
                 "Nice, I've marked this task as done:",
                 t);
     }

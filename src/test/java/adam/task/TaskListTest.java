@@ -1,14 +1,16 @@
 package adam.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
-    public void testDeleteTaskRemoved(){
+    public void testDeleteTaskRemoved() {
         try {
             TaskList tasks = new TaskList(new ArrayList<>());
             for (int i = 0; i < 5; i++) {
@@ -25,7 +27,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeleteCorrectTaskReturned(){
+    public void testDeleteCorrectTaskReturned() {
         try {
             TaskList tasks = new TaskList(new ArrayList<>());
             for (int i = 0; i < 5; i++) {
@@ -41,7 +43,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeleteFail(){
+    public void testDeleteFail() {
         TaskList tasks = new TaskList(new ArrayList<>());
         for (int i = 0; i < 5; i++) {
             tasks.add(new Todo("desc" + i));
