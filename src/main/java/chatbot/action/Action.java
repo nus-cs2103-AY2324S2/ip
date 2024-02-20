@@ -15,9 +15,8 @@ import chatbot.value.StringValue;
  * An Action encapsulates the behaviour of a {@link Command} and it's {@link Argument}(s).
  * <li>An action may be invalid.
  * <li>An action can be executed, with validation checks.
- * <p>
- * <code>ModifyAction <: Action</code>
- * <code>IndexableAction <: ModifyAction</code>
+ * <li><code>ModifyAction <: Action</code>
+ * <li><code>IndexableAction <: ModifyAction</code>
  *
  * @author Titus Chew
  */

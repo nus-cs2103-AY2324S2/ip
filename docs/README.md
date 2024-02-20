@@ -208,7 +208,7 @@ Undoes a change that you have made.
 > ```
 >
 > * This undoes the previous change, which is creating a todo called `assignment`,
-> * The Task list is rolled back to its previous state, before that todo was created.
+> * The task list is rolled back to its previous state, before that todo was created.
 
 > **Example**
 >
@@ -223,7 +223,7 @@ Undoes a change that you have made.
 > * This undoes the previous two changes, which is creating a deadline called `homework` 
 > and a todo called `assignment`. 
 > * `list` does not modify the anything, so is not included as a change.
-> * The Task list is rolled back to its previous state, before the todo and deadline were created.
+> * The task list is rolled back to its previous state, before the todo and deadline were created.
 
 ### Resizing your chatbot
 
@@ -283,6 +283,7 @@ Command refers to some text that a user can input, which results in the executio
 and displays something in the chat. The execution can be either successful or unsuccessful (gives error message).
 * `name` refers to a word, or a group of words, that are within brackets or after a forward slash.
     * The `name` at the start of a command refers to the name of the command.
+    * `name`s are trimmed, whitespace before and after it are removed.
 * Square brackets (`[`, `]`) around an argument represents an **optional** argument, which does not have to be included.
 * Angled brackets (`<`, `>`) around a `name` represents the name of the value of the argument.
 * Forward slash `/` followed by a `name` represents the name of the argument.
