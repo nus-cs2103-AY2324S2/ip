@@ -55,7 +55,7 @@ public class Duke {
      * Enum representing possible instructions that Duke can process.
      */
     public enum Instruction {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, FIND, ANYTHING_ELSE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, FIND, HELP, ANYTHING_ELSE
     }
     
     /**
@@ -83,6 +83,8 @@ public class Duke {
             return Instruction.FIND;
         } else if (input.toLowerCase().startsWith("bye")){
             return Instruction.BYE;
+        } else if(input.toLowerCase().startsWith("help")) {
+            return Instruction.HELP;
         } else {
             return Instruction.ANYTHING_ELSE;
         }
@@ -128,6 +130,9 @@ public class Duke {
             case FIND:
                 response = command.getFindResponse(duke.ui, duke.parser, duke.list, inputFromUser);
                 break;
+            case HELP:
+                response = command.getHelpResponse(duke.ui);
+                break;
             case BYE:
                 response = duke.ui.bye();
                 PauseTransition delay = new PauseTransition(Duration.seconds(2));
@@ -138,7 +143,7 @@ public class Duke {
                 delay.play();
                 break;
             default:
-                 response = "Can't understand your instruction";
+                 response = "Can't understand your instruction. Try typing help";
             }
         } catch (DukeException e) {
             response = e.getMessage();
