@@ -1,7 +1,6 @@
 # Andelu Task Bot
 > [!NOTE]
 > Life lacks excitement without tasks - Andelu
-> sdsds
 
 Andelu Bot is here to help you keep track of all your tasks, ensuring your life is both meaningful and seamless.
 It is:
@@ -28,7 +27,15 @@ And it is **FREE** to use! 🚫💵
 - [x] Managing Events
 - [x] Search Tasks
 - [x] Search Tasks based on date
-- [x] GUI
+- [x] GUI View
+
+## Command Summary
+| Action | Command Format, Examples |
+| --- | --- | 
+| Add todo | todo DESCRIPTION 
+  e.g., todo read book
+| Add deadline | deadline DESCRIPTION /by yyyy-mm-dd HH:mm 
+
 
 ## Java Developer Guide
 Entry point for Andelu Bot (Duke.java):
