@@ -21,9 +21,10 @@ public class EventTask extends Task {
      * @param description Description of the event details.
      * @param start When the event starts.
      * @param end When the event ends.
+     * @throws IllegalArgumentException If the start and end dates are in the wrong order.
      */
 
-    public EventTask(String description, String start, String end) {
+    public EventTask(String description, String start, String end) throws IllegalArgumentException {
         super(description);
         this.start = start;
         this.end = end;
@@ -36,6 +37,9 @@ public class EventTask extends Task {
             this.formattedToDate = LocalDate.parse(end);
         } catch (DateTimeParseException d) {
             formattedToDate = null;
+        }
+        if (!isCorrectDateOrder()) {
+            throw new IllegalArgumentException("Your start date must be before or on your end date!");
         }
     }
 
@@ -62,5 +66,14 @@ public class EventTask extends Task {
     public String getRawDescription() {
         String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
         return "event " + details + "/from " + start + "/to " + end;
+    }
+
+    /**
+     * Checks if the start and end dates are in the correct order, if both are formatted.
+     *
+     * @return Whether the start date is before or on the end date.
+     */
+    private boolean isCorrectDateOrder() {
+        return !formattedFromDate.isAfter(formattedToDate);
     }
 }
