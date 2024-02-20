@@ -1,4 +1,4 @@
-# Duke User Guide
+# JavAssist User Guide
 
 ![Screenshot of product.](Ui.png)
 
