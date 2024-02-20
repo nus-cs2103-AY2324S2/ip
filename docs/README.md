@@ -1,6 +1,6 @@
 # Shodan User Guide
 
-![Product Image](UI.png)
+![Product Image](Ui.png)
 
 SHODAN is a bot that helps manage your tasks! 🤖
 
