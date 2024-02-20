@@ -1,3 +1,0 @@
-T | 0 | do homework
-E | 0 | dinner with friends | 1900 29/01/2024 | 2200 29/01/2024
-D | 0 | buy cny decorations | 2359 30/01/2024

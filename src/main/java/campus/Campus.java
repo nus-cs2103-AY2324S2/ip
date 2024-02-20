@@ -17,7 +17,7 @@ public class Campus {
      */
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public Campus() {
-        final String FILE_PATH = "src/main/java/campus/dataTest.txt";
+        final String FILE_PATH = "/src/main/java/campus/data.txt";
         this.ui = new Ui();
         TaskList taskList = new TaskList();
         Storage storage = new Storage(FILE_PATH);
