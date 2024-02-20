@@ -42,7 +42,7 @@ public class Parser {
         Command command;
 
         try {
-            String[] components = userInput.split(" ", 2);
+            String[] components = userInput.stripTrailing().split(" ", 2);
             String description;
             CommandType commandType = CommandType.valueOf(components[0].toUpperCase());
 

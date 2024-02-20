@@ -4,6 +4,7 @@ package tommy.task;
  * Represents the task with a deadline in the format [ <code>details</code> (by: <code>date</code>) ].
  */
 public class Deadline extends Task {
+    private static final String symbol = "[D]";
 
     /**
      * Constructor for a Deadline task with its status as default not done.
@@ -27,7 +28,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + this.getStatusIcon() + this.description;
+        return symbol + this.getStatusIcon() + this.description;
     }
 
 }

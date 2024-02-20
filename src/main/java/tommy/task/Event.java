@@ -4,6 +4,8 @@ package tommy.task;
  * Represents an Event task with the format [ details (from: <code>date</code>) to: <code>date</code>) ].
  */
 public class Event extends Task {
+    private static final String symbol = "[E]";
+
     /**
      * Constructor for an Event task with status as default not done.
      *
@@ -26,7 +28,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + this.getStatusIcon() + this.description;
+        return symbol + this.getStatusIcon() + this.description;
     }
 }
 

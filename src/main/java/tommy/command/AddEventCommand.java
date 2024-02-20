@@ -22,7 +22,7 @@ public class AddEventCommand extends Command {
      * @param description Description of the Event task.
      */
     public AddEventCommand(String description) {
-        this.description = description;
+        this.description = description.strip();
     }
 
     @Override
@@ -38,6 +38,11 @@ public class AddEventCommand extends Command {
 
             String formattedDescription = eventDetail
                     + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
+
+            boolean isDuplicate = taskList.isADuplicateTask(taskList, formattedDescription);
+            if (isDuplicate) {
+                throw new InvalidArgumentException("EVENT - There is already an identical task");
+            }
 
             Task event = new Event(formattedDescription);
 

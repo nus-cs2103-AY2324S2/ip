@@ -4,6 +4,7 @@ package tommy.task;
  * Represents the task of type Todo.
  */
 public class Todo extends Task {
+    private static final String symbol = "[T]";
 
     /**
      * Constructor for a Todo task with its status as default not done.
@@ -26,6 +27,6 @@ public class Todo extends Task {
     }
     @Override
     public String toString() {
-        return "[T]" + this.getStatusIcon() + this.description;
+        return symbol + this.getStatusIcon() + this.description;
     }
 }
