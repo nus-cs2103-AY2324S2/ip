@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private GoldBot goldBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image goldbotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -37,9 +37,9 @@ public class MainWindow extends AnchorPane {
     public void setGoldBot(GoldBot g) {
         goldBot = g;
     }
-    public void printDukeMessage(String message) {
+    public void printBotMessage(String message) {
         dialogContainer.getChildren().add(
-            DialogBox.getDukeDialog(message, dukeImage)
+            DialogBox.getBotDialog(message, goldbotImage)
         );
     }
 
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing GoldBot's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -64,7 +64,7 @@ public class MainWindow extends AnchorPane {
         ArrayList<String> responses = goldBot.getResponse(input);
         printUserMessage(input);
         for (String response : responses) {
-            printDukeMessage(response);
+            printBotMessage(response);
         }
         if (goldBot.shouldExit()) {
             closeWindow();
