@@ -25,6 +25,17 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Deadline deadline) {
+            return super.equals(deadline) && by.equals(deadline.by);
+        } else {
+            return false;
+        }
+    }
+
     public String toStore() {
         // need to store status as well
         return "D | " + super.toStore() + " | " + by;

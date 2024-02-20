@@ -12,7 +12,13 @@ public class TaskList {
         this.tasks = new ArrayList<>(tasks);
     }
 
-    public void add(Task task) {
+    public void add(Task task) throws DukeException {
+        for (Task item: tasks) {
+            if (item.equals(task)) {
+                throw new DukeException("\uD83D\uDC3E Oops! It seems like this item already exists in our list. " +
+                        "Let's try adding something new. \uD83D\uDE3A");
+            }
+        }
         tasks.add(task);
     }
 

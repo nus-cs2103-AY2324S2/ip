@@ -14,11 +14,14 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public boolean equals(Task task) {
-        if (task == this) {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
+        } else if (obj instanceof Task task) {
+            return desc.equals(task.desc);
         } else {
-            return task.desc == desc && task.isDone == isDone;
+            return false;
         }
     }
 

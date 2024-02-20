@@ -31,6 +31,17 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Event event) {
+            return super.equals(event) && from.equals(event.from) && to.equals(event.to);
+        } else {
+            return false;
+        }
+    }
+
     public String toStore() {
         // need to store status as well
         return "E | " + super.toStore() + " | " + from + " | " + to;
