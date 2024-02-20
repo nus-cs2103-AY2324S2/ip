@@ -88,14 +88,15 @@ public class ParserTest {
     @Test
     public void parse_markWithInvalidIndex_exceptionThrown() {
         Exception exception = assertThrows(ZackException.class, () -> Parser.parse("mark xyz"));
-        String expectedMessage = "Invalid task index. Please enter a valid number.";
+        String expectedMessage = "You gotta gimme a proper number for the task index!";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
 
     @Test
     public void parse_dateWithInvalidDateFormat_exceptionThrown() {
         Exception exception = assertThrows(ZackException.class, () -> Parser.parse("date 2022/12/25"));
-        String expectedMessage = "Invalid date format. Please enter a date in yyyy-MM-dd format.";
+        String expectedMessage = "Sorry, but your date format has to be exactly like this: yyyy-MM-dd. "
+                + "Take it up with the big man, I don't set the rules!";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
 

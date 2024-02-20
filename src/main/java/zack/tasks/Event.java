@@ -29,6 +29,16 @@ public class Event extends Task {
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+            // Check if the 'from' date and time is after the 'to' date and time
+            if (this.from.isAfter(this.to)) {
+                throw new ZackException("Wait a minute, you can't have an event ending before it begins!.");
+            }
+            // Check if the 'from' and 'to' dates and times are exactly the same
+            if (this.from.isEqual(this.to)) {
+                throw new ZackException("Hang on, you can't be starting and ending an event at the same "
+                        + "time!");
+            }
         } catch (DateTimeParseException e) {
             throw new ZackException("Invalid date and time format. Please enter in yyyy-MM-dd HHmm format.");
         }
@@ -41,7 +51,8 @@ public class Event extends Task {
      * @return True if the event is happening at the specified date and time, false otherwise.
      */
     public boolean isHappeningOnDate(LocalDateTime date) {
-        return !from.toLocalDate().isAfter(date.toLocalDate()) && !to.toLocalDate().isBefore(date.toLocalDate());
+        return !from.toLocalDate().isAfter(date.toLocalDate())
+                && !to.toLocalDate().isBefore(date.toLocalDate());
     }
 
     /**

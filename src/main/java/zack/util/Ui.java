@@ -35,8 +35,8 @@ public class Ui {
      * @return
      */
     public String showDeletedTask(Task task, int totalTasks) {
-        return "Gotcha, let's get rid of that task for ya. I've removed:\n" + task + "\nNow you " +
-                "have " + totalTasks + " tasks left the list.";
+        return "Gotcha, let's get rid of that task for ya. I've removed:\n" + task + "\nNow you "
+                + "have " + totalTasks + " tasks left the list.";
     }
 
     /**
@@ -67,7 +67,7 @@ public class Ui {
      */
     public String showTaskList(ArrayList<Task> tasks, String ascOrDesc, String sortType) {
         if (tasks.isEmpty()) {
-            return "Nice! There are no tasks to do now. 😁";
+            return "Nice! There are no tasks to do now.";
         }
         StringBuilder sb = new StringBuilder();
         if (sortType.equalsIgnoreCase("alpha")) {

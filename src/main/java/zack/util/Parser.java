@@ -115,7 +115,8 @@ public class Parser {
      * @return A MarkCommand to mark a task as done or not done.
      * @throws ZackException If the task index is invalid or not provided.
      */
-    private static Command processMarkCommand(String[] sections, Zack.TaskType taskType) throws ZackException {
+    private static Command processMarkCommand(String[] sections, Zack.TaskType taskType)
+            throws ZackException {
         if (sections.length < 2) {
             throw new ZackException("You gotta provide the task index for me to mark or unmark!");
         }
@@ -190,7 +191,6 @@ public class Parser {
         return new DateCommand(specificDate);
     }
 
-
     /**
      * Processes the 'find' command.
      * This method creates a FindCommand to search for tasks containing a specified keyword.
@@ -241,8 +241,8 @@ public class Parser {
         try {
             return LocalDate.parse(section.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
-            throw new ZackException("Sorry, but your date format has to be exactly like this: yyyy-MM-dd. " +
-                    "Take it up with the big man, I don't set the rules!");
+            throw new ZackException("Sorry, but your date format has to be exactly like this: yyyy-MM-dd. "
+                    + "Take it up with the big man, I don't set the rules!");
         }
     }
 }

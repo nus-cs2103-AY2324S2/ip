@@ -66,6 +66,14 @@ public class AddTaskCommand extends Command {
             }
             newTask = new Event(parts[0], times[0], times[1], false, LocalDateTime.now());
         }
+
+        // Check for duplicates
+        for (Task task : tasks.getAllTasks()) {
+            if (task.equals(newTask)) {
+                throw new ZackException("This task already exists in your list and won't be re-added!");
+            }
+        }
+
         tasks.addTask(newTask);
         storage.save(tasks.getAllTasks());
         assert tasks.getAllTasks().contains(newTask) : "Task list should contain the newly added task";

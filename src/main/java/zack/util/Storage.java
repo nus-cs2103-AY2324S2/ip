@@ -110,8 +110,8 @@ public class Storage {
             String to = fromTo[1];
             return new Event(description, from, to, isDone, addedTime);
         default:
-            throw new ZackException("There's an unknown task in your storage file! You might wana check it " +
-                    "out and see what's going on...");
+            throw new ZackException("There's an unknown task in your storage file! You might wana check it "
+                    + "out and see what's going on...");
         }
     }
 }
