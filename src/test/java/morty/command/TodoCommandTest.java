@@ -2,6 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void execute_todoCommand_addsNewTodo() {
+    public void execute_todoCommand_addsNewTodo() throws MortyException {
         // Set up tokens to simulate user input for a todo task
         tokens = new String[] { "todo", "new todo" };
         TodoCommand todoCommand = new TodoCommand(tokens);
@@ -54,7 +55,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void execute_todoCommandWithMissingTitle_showsUsage() {
+    public void execute_todoCommandWithMissingTitle_showsUsage() throws MortyException {
         // Set up tokens to simulate user input with missing task title
         tokens = new String[] { "todo" };
         TodoCommand todoCommand = new TodoCommand(tokens);

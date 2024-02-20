@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Deadline;
 import morty.task.Task;
@@ -41,9 +42,7 @@ public class DeadlineCommand extends Command {
       tasks.add(newTask);
       storage.save(tasks);
       return ui.showTaskAdded(newTask, tasks.getSize());
-    } catch (ArrayIndexOutOfBoundsException e) {
-      return ui.showDeadlineUsage();
-    } catch (DateTimeParseException e) {
+    } catch (MortyException e) {
       return ui.showDeadlineUsage();
     }
   }

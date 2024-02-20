@@ -2,6 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Todo;
 
@@ -35,7 +36,7 @@ public class TodoCommand extends Command {
       tasks.add(newTodo);
       storage.save(tasks);
       return ui.showTaskAdded(newTodo, tasks.getSize());
-    } catch (ArrayIndexOutOfBoundsException e) {
+    } catch (MortyException e) {
       return ui.showTodoUsage();
     }
   }

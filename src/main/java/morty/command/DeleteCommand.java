@@ -2,6 +2,8 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.Morty;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Task;
 
@@ -34,9 +36,7 @@ public class DeleteCommand extends Command {
       tasks.remove(index);
       storage.save(tasks);
       return ui.showTaskRemoved(task, tasks.getSize());
-    } catch (NumberFormatException e) {
-      return ui.showInvalidDelete();
-    } catch (IndexOutOfBoundsException e) {
+    } catch (MortyException e) {
       return ui.showInvalidDelete();
     }
   }

@@ -2,6 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Task;
 
@@ -35,9 +36,7 @@ public class DoneCommand extends Command {
       tasks.markDone(index);
       storage.save(tasks);
       return ui.showTaskMarkedDone(task);
-    } catch (NumberFormatException e) {
-      return ui.showInvalidDone();
-    } catch (IndexOutOfBoundsException e) {
+    } catch (MortyException e) {
       return ui.showInvalidDone();
     }
   }

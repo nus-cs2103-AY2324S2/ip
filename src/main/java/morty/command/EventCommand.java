@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import morty.Storage;
 import morty.TaskList;
+import morty.MortyException;
 import morty.Response;
 import morty.task.Event;
 import morty.task.Task;
@@ -41,9 +42,7 @@ public class EventCommand extends Command {
       tasks.add(newTask);
       storage.save(tasks);
       return ui.showTaskAdded(newTask, tasks.getSize());
-    } catch (ArrayIndexOutOfBoundsException e) {
-      return ui.showEventUsage();
-    } catch (DateTimeParseException e) {
+    } catch (MortyException e) {
       return ui.showEventUsage();
     }
   }

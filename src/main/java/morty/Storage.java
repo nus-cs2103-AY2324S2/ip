@@ -83,7 +83,7 @@ public class Storage {
    *
    * @param tasks The list of tasks to be saved.
    */
-  public void save(TaskList tasks) {
+  public void save(TaskList tasks) throws MortyException {
     try {
       FileWriter writer = new FileWriter(this.path);
       for (Task task : tasks.getTasks()) {
@@ -91,13 +91,14 @@ public class Storage {
       }
       writer.close();
     } catch (IOException e) {
+      throw new MortyException("Error saving tasks");
     }
   }
 
   /**
    * Archives the tasks to a file.
    */
-  public void archive() {
+  public void archive() throws MortyException {
     try {
       FileReader r = new FileReader(this.path);
       BufferedReader bufferedReader = new BufferedReader(r);
@@ -115,6 +116,7 @@ public class Storage {
       r.close();
       w.close();
     } catch (IOException e) {
+      throw new MortyException("Error archiving tasks");
     }
   }
 }
