@@ -27,7 +27,7 @@ Dive in, follow a few simple steps, and let it transform how you manage your tas
   * [Resizing your chatbot](#resizing-your-chatbot)
   * [Editing the data file](#editing-the-data-file)
 * [FAQ](#faq)
-* [Commands: Quick reference](#commands-quick-reference)
+* [Commands: Quick reference](#commands--quick-reference)
   * [Command Syntax](#command-syntax)
 
 ---
@@ -208,7 +208,7 @@ Undoes a change that you have made.
 > ```
 >
 > * This undoes the previous change, which is creating a todo called `assignment`,
-> * The Task list is roll backed to its previous state, before that todo was created.
+> * The Task list is rolled back to its previous state, before that todo was created.
 
 > **Example**
 >
@@ -223,7 +223,7 @@ Undoes a change that you have made.
 > * This undoes the previous two changes, which is creating a deadline called `homework` 
 > and a todo called `assignment`. 
 > * `list` does not modify the anything, so is not included as a change.
-> * The Task list is roll backed to its previous state, before the todo and deadline were created.
+> * The Task list is rolled back to its previous state, before the todo and deadline were created.
 
 ### Resizing your chatbot
 
@@ -261,7 +261,7 @@ Advanced users can modify the data file directly.
 
 ---
 
-## Commands: Quick reference
+## Commands:  Quick reference
 
 | Command                                   | Format                                           |
 |-------------------------------------------|--------------------------------------------------|
