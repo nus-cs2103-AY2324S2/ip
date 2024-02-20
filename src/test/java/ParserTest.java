@@ -30,12 +30,10 @@ public class StorageTest {
         tasks = storage.stringToList(tasks, input);
         System.setOut(System.out);
         String actualOutput = outContent.toString().trim();
-        String output = "\t______________________________________________________"
-                + "\n\t I think you haven't had enough vitamin C."
-                + "\n\t Your time format should be :"
-                + "\n\t\t { dd/MM/yyyy HHmm }"
-                + "\n\t I suggest you take some LEMONA."
-                + "\n\t______________________________________________________";
+        String output = "I think you haven't had enough vitamin C."
+                + "\nYour time format should be :"
+                + "\n\t{ dd/MM/yyyy HHmm }"
+                + "\nI suggest you take some LEMONA.";
 
         assertEquals(output.trim(), actualOutput.replace("\r\n", "\n"));
     }
