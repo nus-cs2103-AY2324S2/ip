@@ -179,7 +179,7 @@ public class ExpenseList implements JavAssistList {
         setCategoryExpense(category, currentExpense + amount);
     }
 
-    // Used chatGPT 3.5 to generate code for managing getting expenses for all categories in one method.
+    // Used chatGPT 3.5 to help with managing getting expenses for all categories in one method.
     private float getCategoryExpense(ExpenseCategory category) {
         switch (category) {
         case FOOD:
@@ -201,7 +201,7 @@ public class ExpenseList implements JavAssistList {
         }
     }
 
-    // Used chatGPT 3.5 to generate code for managing setting expenses for all categories in one method.
+    // Used chatGPT 3.5 to help with managing setting expenses for all categories in one method.
     private void setCategoryExpense(ExpenseCategory category, float expense) {
         switch (category) {
         case FOOD:
