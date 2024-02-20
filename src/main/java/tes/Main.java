@@ -40,7 +40,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Stage helpStage = new Stage();
-            helpStage.setTitle("Help - User Manual");
+            helpStage.setTitle("Help - User Guide");
             helpStage.initModality(Modality.WINDOW_MODAL);
             helpStage.initOwner(primaryStage);
             Scene helpScene = new Scene(ap);

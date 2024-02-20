@@ -12,7 +12,7 @@
                 <TableView fx:id="userGuideTable">
                     <columns>
                         <TableColumn fx:id="commandColumn" text="Command" prefWidth="150.0"/>
-                        <TableColumn fx:id="descriptionColumn" text="Format, Examples" prefWidth="450.0"/>
+                        <TableColumn fx:id="usageColumn" text="Usage" prefWidth="450.0"/>
                     </columns>
                 </TableView>
             </content>

@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.trim().equals("/help")) {
+        if (input.trim().equals("help")) {
             mainApp.showHelpWindow();
         } else if (input.trim().equals("bye")) {
             String closingLine = tes.exit();

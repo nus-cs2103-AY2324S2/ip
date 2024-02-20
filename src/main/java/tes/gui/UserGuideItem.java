@@ -4,18 +4,19 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class UserGuideItem {
     private final SimpleStringProperty command;
-    private final SimpleStringProperty description;
+    private final SimpleStringProperty usage;
 
-    public UserGuideItem(String command, String description) {
+    public UserGuideItem(String command, String usage) {
         this.command = new SimpleStringProperty(command);
-        this.description = new SimpleStringProperty(description);
+        this.usage = new SimpleStringProperty(usage);
     }
 
     public String getCommand() {
         return command.get();
     }
 
-    public String getDescription() {
-        return description.get();
+    public String getUsage() {
+        return usage.get();
     }
+
 }
