@@ -13,7 +13,7 @@ public class Ui {
     private String greeting = "Hello from Miss A\n"
             + "What can I do for you?\n"
             + emptyLine
-            + "I can record 3 types of tasks now.\n"
+            + "I can record 4 types of tasks now.\n"
             + "ToDos: e.g. todo clean my room\n"
             + "Deadlines: e.g. deadline submit homework /by 2021-4-1 21\n"
             + "Events: e.g. event lecture /from 2021-4-2 14 /to 2021-4-2 16\n"
