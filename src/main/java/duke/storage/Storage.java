@@ -1,9 +1,9 @@
 package duke.storage;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+import static duke.constants.Constant.RELATIVE_PATH;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
-import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
-import static duke.constants.Constant.RELATIVE_PATH;
-
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Handles the loading and conversion of task data from a file.
@@ -47,44 +47,24 @@ public class Storage {
         Path path = Paths.get(filePath);
         boolean directoryExists = Files.exists(path);
         List<Task> tasks = new ArrayList<>();
-        if (directoryExists) {
-            try {
-                List<String> lines = Files.readAllLines(path);
-                for (String line : lines) {
-                    try (Scanner scanner = new Scanner(line)) {
-                        if (scanner.hasNext()) {
-                            String taskType = scanner.next();
-                            switch (taskType) {
-                            case "T":
-                                tasks.add(convertToTodo(line));
-                                break;
-                            case "D":
-                                try {
-                                    tasks.add(convertToDeadline(line));
-                                } catch (DateTimeParseException e) {
-                                    System.err.println("OPPS! The format for the inputted deadline is not " +
-                                            "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' " +
-                                             "when you are creating the task.");
-                                }
-                                break;
-                            case "E":
-                                try {
-                                    tasks.add(convertToEvent(line));
-                                } catch (DateTimeParseException e) {
-                                    System.err.println("OPPS! The format for the inputted start and end time is " +
-                                            "not accepted here. Please follow this format: 'yyyy-MM-dd HHmm' " +
-                                            "when you are creating the task.");
-                                }
-                                break;
-                            }
-                        }
-                    }
+        if (!directoryExists) {
+            return tasks;
+        }
+        List<String> lines = new ArrayList<>();
+        try {
+            lines = Files.readAllLines(path);
+        } catch (IOException e) {
+            System.err.println("There is an error in reading the files");
+        }
+        for (String line : lines) {
+            try (Scanner scanner = new Scanner(line)) {
+                if (scanner.hasNext()) {
+                    String taskType = scanner.next();
+                    addTaskToList(tasks, taskType, line);
                 }
-                System.out.println("The file is loaded");
-            } catch (IOException e) {
-                System.err.println("There is error in loading file.");
             }
         }
+        System.out.println("The file is loaded");
         return tasks;
     }
 
@@ -133,5 +113,33 @@ public class Storage {
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
         LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DATE_TIME_FORMATTER);
         return new Event(description, status, startTime, endTime, DATE_TIME_FORMATTER_FOR_PRINT);
+    }
+
+    public void addTaskToList(List<Task> tasks, String taskType, String line) {
+        switch (taskType) {
+        case "T":
+            tasks.add(convertToTodo(line));
+            break;
+        case "D":
+            try {
+                tasks.add(convertToDeadline(line));
+            } catch (DateTimeParseException e) {
+                System.err.println("OPPS! The format for the inputted deadline is not "
+                        + "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' "
+                        + "when you are creating the task.");
+            }
+            break;
+        case "E":
+            try {
+                tasks.add(convertToEvent(line));
+            } catch (DateTimeParseException e) {
+                System.err.println("OPPS! The format for the inputted start and end time is "
+                        + "not accepted here. Please follow this format: 'yyyy-MM-dd HHmm' "
+                        + "when you are creating the task.");
+            }
+            break;
+        default:
+            System.err.println("Incorrect task type in the file");
+        }
     }
 }
