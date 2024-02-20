@@ -32,7 +32,13 @@ public class Event extends Task {
      * @throws DukeException If there is an issue adding the task.
      */
     public static String addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
+        assert (start + " /to " + end).length() >= "event /from /to".length() : "Input not handled properly";
+
         taskList.addTask(new Event(description, start, end));
+
+        int newSize = taskList.size();
+        assert newSize > 0 : "Task not added successfully";
+
         String result = "Got it. I've added this task:\n" +
                 taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
                 "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";

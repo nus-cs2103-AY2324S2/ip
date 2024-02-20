@@ -38,23 +38,6 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list at the specified index.
-     *
-     * @param index The index of the task to be deleted.
-     * @return A string representing the result of the deletion.
-     * @throws DukeException If the index is invalid.
-     */
-    public String deleteTask(int index) throws DukeException {
-        validateIndex(index);
-        Task removedTask = tasks.remove(index);
-        String result = "Noted. I've removed this task:\n" +
-                removedTask.getStatusIcon() + "\nNow you have " +
-                tasks.size() + " " + (tasks.size() <= 1 ? "task" : "tasks") + " in the list.";
-        System.out.println(result);
-        return result;
-    }
-
-    /**
      * Gets a task from the list at the specified index.
      *
      * @param index The index of the task to be retrieved.
@@ -82,6 +65,26 @@ public class TaskList {
     }
 
     /**
+     * Deletes a task from the list at the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return A string representing the result of the deletion.
+     * @throws DukeException If the index is invalid.
+     */
+    public String deleteTask(int index) throws DukeException {
+        validateIndex(index);
+        Task removedTask = tasks.remove(index);
+
+        assert ("delete " + (index + 1)).length() >= "delete #".length() : "Input not handled properly";
+
+        String result = "Noted. I've removed this task:\n" +
+                removedTask.getStatusIcon() + "\nNow you have " +
+                tasks.size() + " " + (tasks.size() <= 1 ? "task" : "tasks") + " in the list.";
+        System.out.println(result);
+        return result;
+    }
+
+    /**
      * Marks a task in the list as done.
      *
      * @param index The index of the task to be marked as done.
@@ -91,9 +94,15 @@ public class TaskList {
     public String markTaskAsDone(int index) throws DukeException {
         validateIndex(index);
         Task task = tasks.get(index);
+
+        assert ("mark " + (index + 1)).length() >= "mark #".length() : "Input not handled properly";
+
         if (task.isDone()) {
             throw new DukeException("Oops! This task is already marked as done.");
         }
+
+        assert !task.isDone() : "Task already marked as done";
+
         task.markAsDone();
         return "Nice! I've marked this task as done:\n" + task.getStatusIcon();
     }
@@ -108,9 +117,15 @@ public class TaskList {
     public String markTaskAsNotDone(int index) throws DukeException {
         validateIndex(index);
         Task task = tasks.get(index);
+
+        assert ("unmark " + (index + 1)).length() >= "unmark #".length() : "Input not handled properly";
+
         if (!task.isDone()) {
             throw new DukeException("Oops! This task is not marked as done yet.");
         }
+
+        assert task.isDone() : "Task not marked as done";
+
         task.markAsNotDone();
         return "OK, I've marked this task as not done yet:\n" + task.getStatusIcon();
     }
@@ -123,6 +138,9 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        assert keyword.length() >= "find #".length() : "Input not handled properly";
+
         for (Task task : tasks) {
             if (task.description.contains(keyword)) {
                 matchingTasks.add(task);

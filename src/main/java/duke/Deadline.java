@@ -32,8 +32,14 @@ public class Deadline extends Task {
      * @throws DukeException If there is an issue adding the task.
      */
     public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws DukeException {
+        assert dueBy.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
+
         LocalDate dueByDate = parseDate(dueBy);
         taskList.addTask(new Deadline(description, dueByDate));
+
+        int newSize = taskList.size();
+        assert newSize > 0 : "Task not added successfully";
+
         String result = "Got it. I've added this task:\n" +
                 taskList.getTask(taskList.size() - 1).getStatusIcon() + "\n" +
                 "Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.";
