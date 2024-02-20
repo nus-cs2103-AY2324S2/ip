@@ -107,16 +107,33 @@ public class Parser {
         return resultCommand;
     }
 
+    /**
+     * Creates a ByeCommand object.
+     *
+     * @return A ByeCommand object.
+     */
     private static Command processByeCommand() {
         ByeCommand byeCommand = new ByeCommand();
         return byeCommand;
     }
 
+    /**
+     * Creates a ListCommand object.
+     *
+     * @return A ListCommand object.
+     */
     private static Command processListCommand() {
         ListCommand listCommand = new ListCommand();
         return listCommand;
     }
 
+    /**
+     * Creates a MarkCommand object.
+     *
+     * @param userInput The user input specifying the task to mark.
+     * @return A MarkCommand object.
+     * @throws InvalidArgsException If the user input is not numeric.
+     */
     private static Command processMarkCommand(String userInput) throws InvalidArgsException {
         if (!isNumeric(userInput)) {
             throw new InvalidArgsException("Please input a number for the task you want to mark!\n");
@@ -127,6 +144,13 @@ public class Parser {
         return markCommand;
     }
 
+    /**
+     * Creates an UnmarkCommand object.
+     *
+     * @param userInput The user input specifying the task to unmark.
+     * @return An UnmarkCommand object.
+     * @throws InvalidArgsException If the user input is not numeric.
+     */
     private static Command processUnmarkCommand(String userInput) throws InvalidArgsException {
         if (!isNumeric(userInput)) {
             throw new InvalidArgsException("Please input a number for the task you want to unmark!\n");
@@ -137,12 +161,25 @@ public class Parser {
         return unmarkCommand;
     }
 
+    /**
+     * Creates a TodoCommand object.
+     *
+     * @param userInput The user input specifying the todo task to be added.
+     * @return An AddCommand object with the Todo task to be added.
+     */
     private static Command processTodoCommand(String userInput) {
         Task newTodo = new ToDo(userInput.trim());
         AddCommand addCommand = new AddCommand(newTodo);
         return addCommand;
     }
 
+    /**
+     * Creates a DeadlineCommand object.
+     *
+     * @param userInput The user input specifying the deadline task to be added.
+     * @return An AddCommand object with the Deadline task to be added.
+     * @throws MissingDuedateException If the due date is missing.
+     */
     private static Command processDeadlineCommand(String userInput) throws  MissingDuedateException {
         if (!userInput.contains("/by")) {
             throw new MissingDuedateException("Please specify a due date using '/by'!\n");
@@ -156,6 +193,13 @@ public class Parser {
         return addCommand;
     }
 
+    /**
+     * Creates an EventCommand object.
+     *
+     * @param userInput The user input specifying the event task to be added.
+     * @return An AddCommand object with the Event task to be added.
+     * @throws MissingEventTimeException If the event start or end time is missing.
+     */
     private static Command processEventCommand(String userInput) throws  Exception {
         if (!userInput.contains("/from")) {
             throw new MissingEventTimeException("Please specify a start date using '/from'!\n");
@@ -176,6 +220,13 @@ public class Parser {
         return addCommand;
     }
 
+    /**
+     * Creates a DeleteCommand object.
+     *
+     * @param userInput The user input specifying the task to delete.
+     * @return A DeleteCommand object.
+     * @throws InvalidArgsException If the user input is not numeric.
+     */
     private static Command processDeleteCommand(String userInput) throws InvalidArgsException{
         if (!isNumeric(userInput)) {
             throw new InvalidArgsException("Please input a number for the task you want to delete!\n");
@@ -186,6 +237,13 @@ public class Parser {
         return deleteCommand;
     }
 
+    /**
+     * Creates a FindCommand object.
+     *
+     * @param userInput The user input specifying the search string.
+     * @return A FindCommand object.
+     * @throws InvalidArgsException If the search string is empty.
+     */
     private static Command processFindCommand(String userInput) throws InvalidArgsException {
         userInput = userInput.trim();
 
@@ -197,6 +255,14 @@ public class Parser {
         return findCommand;
     }
 
+
+    /**
+     * Creates an EditCommand object.
+     *
+     * @param userInput The user input specifying the task to be edited.
+     * @return An EditCommand object.
+     * @throws InvalidArgsException If the user input is invalid.
+     */
     private static Command processEditCommand(String userInput) throws InvalidArgsException {
         String[] editArgs = userInput.split("\\s", 2);
 
@@ -227,6 +293,13 @@ public class Parser {
         EditCommand editCommand = new EditCommand(taskIndex, portionToEdit, updatedPortion);
         return editCommand;
     }
+
+    /**
+     * Handles unknown user inputs not corresponding to existing commands.
+     *
+     * @param userInput The user input for the unknown command.
+     * @throws Exception If the command is empty or invalid.
+     */
     private static void processUnknownCommand(String userInput) throws Exception {
         if (userInput.equals("")) {
             throw new EmptyCommandException("Empty command! Type something!\n ");
@@ -249,6 +322,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks the validity of the command arguments.
+     *
+     * @param userInputs The array of user inputs containing the command arguments.
+     * @throws EmptyTaskException If the task name is missing.
+     */
     private static void checkArguments(String[] userInputs) throws EmptyTaskException {
         if (userInputs.length < 2 || userInputs[1].equals("")) {
             throw new EmptyTaskException("Please input a task name\n");
