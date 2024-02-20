@@ -40,4 +40,27 @@ public class Event extends Task {
         String status = (super.isDone) ? "1" : "0";
         return String.format("E | %s | %s | %s | %s\n", status, super.toString(), this.startDate, this.endDate);
     }
+
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        Event event = (Event) task;
+        if (event == this) {
+            return true;
+        }
+        if (!event.startDate.equals(this.startDate)) {
+            return false;
+        }
+        if (!event.endDate.equals(this.endDate)) {
+            return false;
+        }
+        if (!event.description.equals(this.description)) {
+            return false;
+        }
+        assert this.description.equals(event.description) && event.startDate.equals(this.startDate);
+        return true;
+
+    }
 }

@@ -24,5 +24,22 @@ public class Todo extends Task {
         String status = (super.isDone) ? "1" : "0";
         return String.format("T | %s | %s\n", status, super.toString());
     }
+
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+        Todo todo = (Todo) task;
+        if (todo == this) {
+            return true;
+        }
+        if (!todo.description.equals(this.description)) {
+            return false;
+        }
+        assert this.description.equals(todo.description);
+        return true;
+    }
+
 }
 

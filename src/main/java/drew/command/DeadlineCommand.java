@@ -38,6 +38,11 @@ public class DeadlineCommand extends Command {
         LocalDate deadline = LocalDate.parse(input.substring(firstBackslashIndex + 4).trim());
 
         Deadline newTask = new Deadline(deadlineDescription, deadline);
+
+        if (tasks.isDuplicate(newTask)) {
+            reply = "Deadline already exists. Task not added.";
+            return reply;
+        }
         ls.add(newTask);
 
         reply = "Got it. I've added this task:\n";
