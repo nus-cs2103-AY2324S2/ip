@@ -4,7 +4,7 @@ This is a user guide for Remi, a c(h)atbot for managing your different tasks.
 
 ## Downloading and running the file
 Prerequisite: Ensure java 11 is downloaded on your computer
-1. Open github and go to this repository: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+1. Open github and go to this repository: https://github.com/ivan24004/ip
 2. Download remi.jar from `Code` > `Releases` > `ip v0.2` > `remi.jar`
 3. Run `remi.jar` by double-clicking on file explorer or by running `./remi.jar` on terminal.
 4. A program called Remi should show up now, with a welcome message.
