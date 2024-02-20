@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -25,7 +26,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, Color textColor) {
         // Set spacing between horizontal component
         super(10);
         try {
@@ -38,6 +39,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setFill(textColor);
         displayPicture.setImage(img);
     }
 
@@ -52,11 +54,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img, Color.WHITE);
+        db.setStyle("-fx-background-color: #686464;");
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img, Color.BLACK);
+        db.setStyle("-fx-background-color: #f8f4f4;");
         db.flip();
         return db;
     }
