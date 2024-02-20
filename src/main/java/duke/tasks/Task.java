@@ -23,16 +23,7 @@ public class Task {
     }
 
     /**
-     * Get done status of task.
-     * @return statusIcon   "X": Task is completed.
-     *                      " ": Task has not been completed.
-     */
-    public String printDoneStatus() {
-        return isDone ? "X" : " ";
-    }
-
-    /**
-     * Update if task is done.
+     * Updates if task is done.
      * @param isDone    Marks task as completed/uncompleted. [True: complete, False: uncompleted]
      */
     public void updateIsDone(boolean isDone) {
@@ -87,6 +78,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.printDoneStatus() + "] " + this.description;
+        return "[" + (isDone ? "X" : " ") + "] " + this.description;
     }
 }

@@ -1,6 +1,5 @@
-import java.io.IOException;
+package duke.display;
 
-import duke.command.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -41,7 +40,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException, IOException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = this.duke.getResponse(input);
         dialogContainer.getChildren().addAll(

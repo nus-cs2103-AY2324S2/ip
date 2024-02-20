@@ -30,7 +30,7 @@ public class TaskList {
     }
 
     /**
-     * Print all tasks in task list.
+     * Prints all tasks in task list.
      * @return allTasks     String of all tasks in the task list.
      */
     public String printTaskList() {
@@ -45,7 +45,7 @@ public class TaskList {
     }
 
     /**
-     * Mark task as complete.
+     * Marks task as complete.
      *
      * @param index     Index of task.
      * @return  task    Updated task.
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Mark task as uncompleted.
+     * Marks task as uncompleted.
      *
      * @param index     Index of task.
      * @return  task    Updated task.
@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Add new ToDo task.
+     * Adds new ToDo task.
      *
      * @param name      Task name or description of task.
      * @return task     New ToDo task.
@@ -80,7 +80,7 @@ public class TaskList {
     }
 
     /**
-     * Add new Deadline task.
+     * Adds new Deadline task.
      *
      * @param name      Task name or description of task.
      * @param by        Date and time task has to be completed by.
@@ -94,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * Add new Event task.
+     * Adds new Event task.
      *
      * @param name      Task name or description of task.
      * @param from      Date and time the event starts.
@@ -109,7 +109,7 @@ public class TaskList {
     }
 
     /**
-     * Delete task from task list.
+     * Deletes task from task list.
      *
      * @param index     Index of task.
      * @return task     Deleted task.
@@ -122,7 +122,7 @@ public class TaskList {
     }
 
     /**
-     * Print all matching tasks.
+     * Prints all matching tasks.
      *
      * @param match                 String to compare with task description.
      * @return allMatchingTasks     String of all tasks that contain/match the task description.
@@ -139,7 +139,7 @@ public class TaskList {
     }
 
     /**
-     * Retrieve the number of tasks in the task list.
+     * Retrieves the number of tasks in the task list.
      *
      * @return numOfTasks   Number of tasks in the task list.
      */

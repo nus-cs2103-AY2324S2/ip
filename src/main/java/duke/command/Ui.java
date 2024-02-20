@@ -39,21 +39,21 @@ public class Ui {
     }
 
     /**
-     * Print error loading tasks from file.
+     * Prints error loading tasks from file.
      */
     public void showLoadingError() {
         System.out.println("File corrupted, unable to load saved tasks \nResetting list.............................");
     }
 
     /**
-     * Print a line.
+     * Prints a line.
      */
     public void printLine() {
         System.out.println(Line);
     }
 
     /**
-     * Return task list string to be printed to GUI.
+     * Returns task list string to be printed to GUI.
      * @return taskList     Consolidated task list.
      */
     public String printTaskList(String tasks) {
@@ -63,7 +63,7 @@ public class Ui {
     }
 
     /**
-     * Return task marked message to be printed to GUI.
+     * Returns task marked message to be printed to GUI.
      *
      * @param taskString    String representation of task.
      * @return markedTask   Information of successfully marked task.
@@ -75,7 +75,7 @@ public class Ui {
     }
 
     /**
-     * Return task unmarked message to be printed to GUI.
+     * Returns task unmarked message to be printed to GUI.
      *
      * @param taskString        String representation of task.
      * @return unmarkedTask     Information of successfully unmarked task.
@@ -87,7 +87,7 @@ public class Ui {
     }
 
     /**
-     * Return add task message to be printed to GUI.
+     * Returns add task message to be printed to GUI.
      *
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
@@ -103,7 +103,7 @@ public class Ui {
     }
 
     /**
-     * Return delete task message to be printed to GUI.
+     * Returns delete task message to be printed to GUI.
      *
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
@@ -119,7 +119,7 @@ public class Ui {
     }
 
     /**
-     * Return find task message to be printed to GUI.
+     * Returns find task message to be printed to GUI.
      * @return findTask     All tasks that contain/match input string.
      */
     public String printFindTask(String tasks) {
@@ -129,7 +129,7 @@ public class Ui {
     }
 
     /**
-     * Return unknown command message to be printed to GUI.
+     * Returns unknown command message to be printed to GUI.
      *
      * @param command   Input command string.
      * @return unknownCommandString     Indicates that command entered is not a known command.
@@ -142,7 +142,7 @@ public class Ui {
     }
 
     /**
-     * Return error message to be printed to GUI.
+     * Returns error message to be printed to GUI.
      *
      * @param errorMessage      Error message string.
      * @return errorMessage     Error message string.

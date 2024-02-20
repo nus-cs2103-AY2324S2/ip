@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("display.Duke")
 }
 
 checkstyle {

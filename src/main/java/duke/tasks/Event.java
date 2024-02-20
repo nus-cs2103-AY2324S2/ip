@@ -55,14 +55,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + this.printDoneStatus() + "] "
+        return "[E][" + (isDone ? "X" : " ") + "] "
                 + this.description + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("hh:mm a")) + ")";
     }
 
     /**
-     * Parses and converts string to LocalTime object.
+     * Parse and convert string to LocalTime object.
      *
      * @param time      String containing time.
      * @return time     LocalTime object.

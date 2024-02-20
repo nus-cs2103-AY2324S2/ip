@@ -33,7 +33,7 @@ public class Storage {
     }
 
     /**
-     * Load tasks from save file.
+     * Loads tasks from save file.
      *
      * @return taskList     List of tasks retrieved from save file.
      * @throws IOException  If scanner cannot read next line.
@@ -74,7 +74,7 @@ public class Storage {
     }
 
     /**
-     * Add new task to file.
+     * Adds new task to file.
      *
      * @param task          New task to save to file.
      * @throws IOException  If FileWriter cannot access/write to file.
@@ -112,12 +112,16 @@ public class Storage {
         for (int i = 0; i < numOfTasks; ++i) {
             String currentLine = br.readLine();
 
-            if (i != index) {
-                if (i < numOfTasks - 1) {
-                    bw.write(currentLine + System.lineSeparator());
-                } else {
-                    bw.write(currentLine);
-                }
+            if (i == index) {
+                continue;
+            }
+
+            if (index == numOfTasks - 1 && i == numOfTasks - 2) {
+                bw.write(currentLine);
+            } else if (i < numOfTasks - 1) {
+                bw.write(currentLine + System.lineSeparator());
+            } else {
+                bw.write(currentLine);
             }
         }
 
@@ -129,7 +133,7 @@ public class Storage {
     }
 
     /**
-     * Updated task saved in file.
+     * Updates task saved in file.
      *
      * @param task          Updated task.
      * @param index         Index of task to be deleted.

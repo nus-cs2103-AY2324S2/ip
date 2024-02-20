@@ -1,3 +1,5 @@
+package duke.display;
+
 import java.io.IOException;
 
 import duke.command.DukeException;
@@ -17,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Handles Duke chatbox operations.
+ * Handles Anxi taskbot operations.
  */
 public class Duke extends Application {
 
@@ -54,7 +56,48 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
+        AnchorPane mainLayout = initializeContainer(stage);
 
+        //Step 2. Formatting the window to look as expected
+        customizeContainer(stage, mainLayout);
+
+        //Step 3. Add functionality to handle user input.
+        userInput();
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input, the other containing Duke's reply.
+     * Clears the user input after processing.
+     */
+    private void handleUserInput() throws DukeException, IOException {
+        String input = userInput.getText();
+        String response = getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, user),
+                DialogBox.getDukeDialog(response, duke)
+        );
+        userInput.clear();
+    }
+
+    /**
+     * Gets taskbot response to user input.
+     * @param input             User input string.
+     * @return response         Result of parsing the user input.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser();
+        return parser.parseInput(input, storage, taskList, ui);
+    }
+
+    /**
+     * Sets up required components for taskbot GUI.
+     * @param stage         Instance of stage object.
+     * @return mainLayout   AnchorPane object.
+     */
+    private AnchorPane initializeContainer(Stage stage) {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -71,8 +114,16 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        return mainLayout;
+    }
+
+    /**
+     * Formats the window to look as expected.
+     * @param stage         Instance of stage object.
+     * @param mainLayout    Instance of AnchorPane object.
+     */
+    private void customizeContainer(Stage stage, AnchorPane mainLayout) {
+        stage.setTitle("Anxi");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -101,14 +152,18 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Step 3. Add functionality to handle user input.
+    /**
+     * Adds functionality to handle user input.
+     */
+    private void userInput() {
         sendButton.setOnMouseClicked((event) -> {
             try {
                 handleUserInput();
             } catch (IOException e) {
                 System.out.println();
-            } catch (DukeException d) {
+            } catch (DukeException de) {
                 System.out.println();
             }
         });
@@ -122,34 +177,5 @@ public class Duke extends Application {
                 System.out.println();
             }
         });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() throws DukeException, IOException {
-        String input = userInput.getText();
-        String response = getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, user),
-                DialogBox.getDukeDialog(response, duke)
-        );
-        userInput.clear();
-    }
-
-    /**
-     * Get taskbot response to user input.
-     * @param input             User input string.
-     * @return response         Result of parsing the user input.
-     * @throws IOException      If there is errors with File I/O in storage.
-     */
-    public String getResponse(String input) throws IOException {
-        Parser parser = new Parser();
-        return parser.parseInput(input, storage, taskList, ui);
     }
 }
