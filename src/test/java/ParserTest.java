@@ -1,40 +1,37 @@
 package oop;
 
-import lemona.oop.Storage;
+import lemona.exceptions.MissingDescriptionException;
+import lemona.oop.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import lemona.task.Task;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-public class StorageTest {
+public class ParserTest {
 
     @Test
-    public void stringToList_givenString_success(){
-        ArrayList<Task> tasks = new ArrayList<>();
-        String input = "[T] / [ ] / vitamin c";
-        Storage storage = new Storage("data/lemona.txt");
-        tasks = storage.stringToList(tasks, input);
-        assertEquals("[T][ ] vitamin c", tasks.get(0).print());
+    public void parseDates_givenString_success() {
+        try {
+            String input = "deadline take lemona /by 01/11/2022 2359";
+            String[] output = Parser.parseDates(Parser.trim(input));
+            String[] expectedOutput = {"deadline", "take lemona ","01/11/2022 2359"};
+            assertEquals(expectedOutput[0], output[0]);
+            assertEquals(expectedOutput[1], output[1]);
+            assertEquals(expectedOutput[2], output[2]);
+        } catch (MissingDescriptionException e) {
+        }
     }
 
-    @Test void stringToList_dateTimeParse_exceptionThrown() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        String input = "[D] / [ ] / vitamin c / 1/1/1";
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Storage storage = new Storage("data/lemona.txt");
-        tasks = storage.stringToList(tasks, input);
-        System.setOut(System.out);
-        String actualOutput = outContent.toString().trim();
-        String output = "I think you haven't had enough vitamin C."
-                + "\nYour time format should be :"
-                + "\n\t{ dd/MM/yyyy HHmm }"
-                + "\nI suggest you take some LEMONA.";
-
-        assertEquals(output.trim(), actualOutput.replace("\r\n", "\n"));
+    @Test
+    void parseDates_missingDescription_exceptionThrown() {
+        String input = "deadline /by 01/11/2022 2359";
+        try {
+            Parser.parseDates(Parser.trim(input));
+        } catch (MissingDescriptionException e) {
+            String expectedOutput = "I think you haven't had enough vitamin K." +
+                    "\nYour input should be in format of:"
+                    + "\n\t{ deadline (Task) (/by DueDate) }"
+                    + "\nI suggest you take some LEMONA.";
+            assertEquals(expectedOutput, e.toString(Parser.trim(input)[0]));
+        }
     }
 }

@@ -42,11 +42,9 @@ public class TaskListTest {
 
         System.setOut(System.out);
         String actualOutput = outContent.toString().trim();
-        String output = "\t______________________________________________________"
-                + "\n\t I think you haven't had enough vitamin D."
-                + "\n\t Your task is already existing in the list!"
-                + "\n\t I suggest you take some LEMONA"
-                + "\n\t______________________________________________________";
+        String output = "I think you haven't had enough vitamin D."
+                + "\nYour task is already existing in the list!"
+                + "\nI suggest you take some LEMONA";
 
         assertEquals(output.trim(), actualOutput.replace("\r\n", "\n"));
     }

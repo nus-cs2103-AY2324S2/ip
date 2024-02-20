@@ -49,7 +49,9 @@ public class Parser {
     public static String[] parseDates(String[] trimmedInput) throws MissingDescriptionException {
         switch (trimmedInput[0]) {
         case ("deadline") :
-            if (trimmedInput.length == 1 || trimmedInput[1].split("/by ").length == 1) {
+            if (trimmedInput.length == 1 || trimmedInput[1].split("/by ").length == 1
+                    || trimmedInput[1].split("/by ")[0].equals("")) {
+                System.out.println();
                 throw new MissingDescriptionException();
             }
 
@@ -57,7 +59,8 @@ public class Parser {
             String[] deadlineInput = {trimmedInput[0], content[0], content[1]};
             return deadlineInput;
         case ("event") :
-            if (trimmedInput.length == 1 || trimmedInput[1].split("/from ").length == 1) {
+            if (trimmedInput.length == 1 || trimmedInput[1].split("/from ").length == 1
+                    || trimmedInput[1].split("/from ")[0].equals("")) {
                 throw new MissingDescriptionException();
             }
 

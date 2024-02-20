@@ -29,9 +29,11 @@ public class Ui {
      * @return the string message to be printed.
      */
     public String showDateTimeParsingError() {
-        return "I think you haven't had enough vitamin C."
+        String str =  "I think you haven't had enough vitamin C."
                 + "\nYour time format should be :"
                 + "\n\t{ dd/MM/yyyy HHmm }"
                 + "\nI suggest you take some LEMONA.";
+        System.out.println(str);
+        return str;
     }
 }

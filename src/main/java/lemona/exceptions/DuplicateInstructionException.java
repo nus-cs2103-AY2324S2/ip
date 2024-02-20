@@ -29,6 +29,7 @@ public class DuplicateInstructionException extends Exception{
             break;
         }
         str = str + "\nI suggest you take some LEMONA";
+        System.out.println(str);
         return str;
     }
 }
