@@ -109,7 +109,7 @@ public class TaskList {
     public Task deleteTask(int index) throws InvalidArgsException {
         if (index >= tasks.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
-        } else if (index < 0) {
+        } else if (index <= 0) {
             throw new InvalidArgsException("Please input a positive task number!\n");
         }
 
