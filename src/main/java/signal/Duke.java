@@ -59,6 +59,7 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        parser.read(input);
         return "Signal heard: " + input;
     }
 

@@ -33,7 +33,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     private Color textboxColor;
-    private int textboxWidth = 240;
+    private int textboxWidth = 260;
 
     private DialogBox(String text, Image img, String type) {
 
@@ -91,8 +91,7 @@ public class DialogBox extends HBox {
         rect.setArcHeight(20);
         rect.setFill(textboxColor);
         rect.setWidth(textboxWidth);
-//        rect.setHeight(textboxHeight);
-        rect.heightProperty().bind(text.heightProperty()); // Adjust padding as needed
+        rect.heightProperty().bind(text.heightProperty());
 
         stack.getChildren().addAll(rect, text);
     }

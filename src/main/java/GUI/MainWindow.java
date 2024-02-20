@@ -37,6 +37,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Handles displaying the introduction message from Duke.
+     */
+    public void handleSignalIntro() {
+        String introMessage = duke.getIntro(); // Assuming Duke has a method to retrieve the intro message
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(introMessage, dukeImage));
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
