@@ -49,3 +49,9 @@ In addition, the gradelew has been set up for you. Please run the following comm
 # windows
 gradlew.exe run
 ```
+
+**Releases**
+
+| Version    | Link                                                       |
+| ---------- | ---------------------------------------------------------- |
+| Morty v0.1 | [here](https://github.com/rickkoh/ip/releases/tag/A-JUnit) |
