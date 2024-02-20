@@ -13,7 +13,7 @@ public class DateCommandTest {
         UI ui = new UI();
         TaskList tasks = new TaskList(storage.readFile());
         try {
-            String input = "date 20/12/2034 0000";
+            String input = "date gibberish";
             String[] words = input.split(" ", 2);
             System.out.println(new ListCommand().executeForString(tasks, ui, storage));
             System.out.println(new DateCommand(words).executeForString(tasks, ui, storage));

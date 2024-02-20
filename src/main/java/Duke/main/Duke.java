@@ -63,10 +63,12 @@ public class Duke {
         this.ui = new UI();
         this.tasks = new TaskList(storage.readFile());
     }
-    private static Command parseCommand(String s) throws IllegalArgumentException {
-        String[] words = s.split(" ", 2);
+    private static Command parseCommand(String s) throws DukeException {
+        String[] commandAndDescription = s.split(" ", 2);
+        String lowerCaseCommandWithoutSpace = commandAndDescription[0].trim().toLowerCase();
         Command result;
-        switch (words[0].trim().toLowerCase()) {
+
+        switch (lowerCaseCommandWithoutSpace) {
         case "bye":
             result = new ByeCommand();
             break;
@@ -74,72 +76,52 @@ public class Duke {
             result = new ListCommand();
             break;
         case "mark":
-            result = new MarkCommand(words);
+            result = new MarkCommand(commandAndDescription);
             break;
         case "unmark":
-            result = new UnMarkCommand(words);
+            result = new UnMarkCommand(commandAndDescription);
             break;
         case "delete":
-            result = new DeleteCommand(words);
+            result = new DeleteCommand(commandAndDescription);
             break;
         case "todo":
-            result = new ToDoCommand(words);
+            result = new ToDoCommand(commandAndDescription);
             break;
         case "deadline":
-            result = new DeadlineCommand(words);
+            result = new DeadlineCommand(commandAndDescription);
             break;
         case "event":
-            result = new EventCommand(words);
+            result = new EventCommand(commandAndDescription);
             break;
         case "date":
-            result = new DateCommand(words);
+            result = new DateCommand(commandAndDescription);
             break;
         case "find":
-            result = new FindCommand(words);
+            result = new FindCommand(commandAndDescription);
             break;
         case "name":
-            result = new NameCommand(words);
+            result = new NameCommand(commandAndDescription);
             break;
         default:
-            throw new IllegalArgumentException();
+            throw new UnknownInputException();
         }
         return result;
     }
-
-    /**
-     * Runs the Duke application, displaying the intro message and handling user commands.
-     */
-    public void run() {
-        ui.displayIntro();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String echoInput = this.ui.receiveNextLine();
-                Command token = parseCommand(echoInput.trim());
-                isExit = token.execute(tasks, ui, storage);
-            } catch (IllegalArgumentException e) {
-                this.ui.displayExceptionMsg(new UnknownInputException());
-            } catch (DukeException e) {
-                this.ui.displayExceptionMsg(e);
-            }
-        }
-    }
-
     /**
      * Method to be called by GUI to respond to user message
      * @param userInput message keyed in by user
      * @return duke response to be displayed to user by gui
      */
     public String run(String userInput) {
+        String result;
         try {
-            Command token = parseCommand(userInput.trim());
-            String result = token.executeForString(this.tasks, this.ui, this.storage);
-            return result;
-        } catch (IllegalArgumentException e) {
-            return new UnknownInputException().toString();
+            String userInputWithoutSpace = userInput.trim();
+            Command userCommand = parseCommand(userInputWithoutSpace);
+            result = userCommand.executeForString(this.tasks, this.ui, this.storage);
         } catch (DukeException e) {
-            return ui.exceptionMsg(e);
+            result = this.ui.exceptionMsg(e);
         }
+        return result;
     }
     public String getUserName() {
         return ui.getName();

@@ -16,11 +16,11 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline object with the given description and deadline string.
      *
-     * @param descr    The description of the task.
+     * @param description    The description of the task.
      * @param deadline The deadline string in the format "dd/MM/yyyy HHmm".
      */
-    public Deadline(String descr, String deadline) {
-        super(descr);
+    public Deadline(String description, String deadline) {
+        super(description);
         deadline = deadline.trim();
         if (isValidDateFormat(deadline)) {
             String[] dateNumbers = deadline.split("[/ ]");
@@ -62,29 +62,49 @@ public class Deadline extends Task {
     /**
      * Checks if the given deadline string has a valid date format.
      *
-     * @param deadline The deadline string to be checked.
-     * @return True if the deadline string has a valid format, otherwise false.
+     * @param dateString The dateString to be checked.
+     * @return True if the dateString has a valid format, otherwise false.
      */
-    private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 12 || deadline.length() >= 16) {
+    private static boolean isValidDateFormat(String dateString) {
+        boolean isShorterThanMinimum = dateString.length() <= 12;
+        boolean isLongerThanMaximum = dateString.length() >= 16;
+        if (isShorterThanMinimum || isLongerThanMaximum) {
             return false;
         }
-        String[] dateNumbers = deadline.split("[/ ]");
-        if (dateNumbers.length != 4) {
+        String[] dateNumbers = dateString.split("[/ ]");
+        boolean hasIncorrectDateFormatNumbers = dateNumbers.length != 4;
+        if (hasIncorrectDateFormatNumbers) {
             return false;
         }
+        boolean isDateNumberAllIntegers = checkArrayContainIntegers(dateNumbers);
+        if (!isDateNumberAllIntegers) {
+            return false;
+        }
+        int time = Integer.parseInt(dateNumbers[3]);
+        if (!checkValidInteger24hourFormat(time)) {
+            return false;
+        }
+        return true;
+    }
+    private static boolean checkArrayContainIntegers(String[] inputs) {
         try {
-            for (String i : dateNumbers) {
-                Integer.parseInt(i);
+            for (String input : inputs) {
+                Integer.parseInt(input);
             }
         } catch (NumberFormatException e) {
             return false;
         }
-        int time = Integer.parseInt(dateNumbers[3]);
-        if (time >= 2400 || time < 0) {
+        return true;
+    }
+    private static boolean checkValidInteger24hourFormat(int time) {
+        boolean isNegative = time < 0;
+        boolean isMoreThan2400 = time >= 2400;
+        if (isNegative || isMoreThan2400) {
             return false;
         }
-        return true;
+        int numberOfMinutes = 60;
+        boolean hasValidMinutes = (time % 100) < numberOfMinutes;
+        return hasValidMinutes;
     }
     /**
      * Writes the Deadline object into a string format for storage.

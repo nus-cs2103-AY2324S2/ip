@@ -1,7 +1,3 @@
-deadline | [X] | eat food  | 20/12/0020 0000
-deadline | [ ] | eat food  | 20/12/0020 0000
-todo | [ ] | eat       
-todo | [ ] | eat       
-event | [ ] | test event  | 20/12/2020 0000 | 20/12/2034 0000
-deadline | [ ] | test FindCommand  | today
-todo | [ ] | eat     
+todo | [ ] | eat 
+todo | [ ] | eat 
+todo | [ ] | Eat 

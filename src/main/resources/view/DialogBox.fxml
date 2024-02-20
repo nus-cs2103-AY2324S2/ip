@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="400.0" styleClass="dialogBox" stylesheets="@DialogBox.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Label with increased text size -->
-      <Label fx:id="dialog" text="Label" wrapText="true" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" style="-fx-font-size: 16px;"/>
+      <Label fx:id="dialogText" maxWidth="1.7976931348623157E308" style="-fx-font-size: 16px;" styleClass="dialogLabel" stylesheets="@DialogBox.css" text="Label" wrapText="true" HBox.hgrow="ALWAYS" />
       <!-- ImageView will not grow and will have a fixed size -->
-      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER"/>
+      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
    </children>
    <padding>
       <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
@@ -20,4 +21,3 @@
       <Priority fx:value="ALWAYS" />
    </HBox.hgrow>
 </fx:root>
-

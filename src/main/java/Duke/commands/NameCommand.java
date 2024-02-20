@@ -13,20 +13,14 @@ public class NameCommand extends Command {
         super();
         this.words = words;
     }
-
-    @Override
-    public boolean execute(TaskList tasks, UI ui, Storage storage) {
-        ui.setName(this.words[1]);
-        System.out.println(ui.getName());
-        return false;
-    }
-
     @Override
     public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        if (words.length == 1) {
+        boolean hasEmptyDescription = words.length == 1;
+        if (hasEmptyDescription) {
             throw new EmptyDescriptionException("name");
         }
-        ui.setName(words[1]);
+        String userName = words[1].trim();
+        ui.setName(userName);
         return ui.nameMessage();
     }
 }
