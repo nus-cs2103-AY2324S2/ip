@@ -150,7 +150,6 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public String deleteTask(int index) throws DukeException {
-        int arraySize = tasks.size();
         try {
             int arraySize = tasks.size();
             reply = "Ok. I'll be removing this task:\n "
