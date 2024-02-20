@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Return message and adds input task into storage.
+     * Returns message and adds input task into storage.
      *
      * @param type Type of the task.
      * @param task The task to be done.
@@ -120,7 +120,7 @@ public class TaskList {
     }
 
     /**
-     * Return string of all the task from the storage.
+     * Returns string of all the task from the storage.
      * @return String of all tasks.
      */
     public String getListTasksMessage() {

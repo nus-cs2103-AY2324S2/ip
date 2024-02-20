@@ -12,10 +12,22 @@ public class DeadlineTest {
         LocalDateTime by = LocalDateTime.of(2021, 1, 8, 6, 30);
         Deadline task = new Deadline("study", by);
         assertEquals("[D][ ] study (by: Jan 08, 2021 06:30)", task.toString());
+    }
+
+    @Test
+    public void markDeadlineTest() {
+        LocalDateTime by = LocalDateTime.of(2021, 1, 8, 6, 30);
+        Deadline task = new Deadline("study", by);
 
         task.markDone();
         assertEquals("[D][X] study (by: Jan 08, 2021 06:30)", task.toString());
+    }
 
+    @Test
+    public void unmarkDeadlineTest() {
+        LocalDateTime by = LocalDateTime.of(2021, 1, 8, 6, 30);
+        Deadline task = new Deadline("study", by);
+        task.markDone();
         task.markUndone();
         assertEquals("[D][ ] study (by: Jan 08, 2021 06:30)", task.toString());
     }
