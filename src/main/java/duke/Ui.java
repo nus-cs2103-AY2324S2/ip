@@ -124,16 +124,10 @@ public class Ui {
      * @param matchingTasks The matching tasks.
      * @return The matching tasks.
      */
-    public String showMatchingTasks(String... matchingTasks) {
+    public String showMatchingTasks(String matchingTasks) {
         StringBuilder result = new StringBuilder();
         result.append("     Here are the matching tasks in your list:\n");
-        if (matchingTasks.length == 0) {
-            result.append("     No matching tasks found.\n");
-        } else {
-            for (int i = 0; i < matchingTasks.length; i++) {
-                result.append("     ").append(i + 1).append(".").append(matchingTasks[i]).append("\n");
-            }
-        }
+        result.append(matchingTasks);
         return result.toString();
     }
 

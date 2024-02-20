@@ -46,11 +46,47 @@ public class Parser {
             LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
             return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
         case "find":
-            assert position != -1 && position + 1 < userInput.length() : "Invalid position";
-            String keyword = userInput.substring(position + 1);
-            return ui.showMatchingTasks(keyword);
+            return handleFind(userInput, ui, position);
         default:
             throw new DukeException("     Gurl I'm sorry, idk what that means :-(");
+        }
+    }
+
+    /**
+     * Handles the find command.
+     * @param userInput The user input.
+     * @param ui The user interface.
+     * @param position The position of the command in the user input.
+     * @return The response to the user input.
+     */
+    private static String handleFind(String userInput, Ui ui, int position) {
+        assert position != -1 && position + 1 < userInput.length() : "Invalid position";
+        String keyword = userInput.substring(position + 1).trim().toLowerCase();
+
+        // Ensure the keyword has at least two characters
+        if (keyword.length() < 2) {
+            return "     Please provide a keyword with at least two characters.";
+        }
+
+        StringBuilder matchingTasks = new StringBuilder();
+        int count = 0;
+
+        // Iterate through tasks to find matching ones
+        for (int i = 0; i < TaskList.getTaskNum(); i++) {
+            Task task = TaskList.getTask(i);
+            String taskDescription = task.toString();
+
+            // Check if task description contains the keyword
+            if (taskDescription.toLowerCase().contains(keyword)) {
+                count++;
+                matchingTasks.append(count).append(". ").append(task).append("\n");
+            }
+        }
+
+        if (count == 0) {
+            return "     No matching tasks found.";
+        } else {
+            return ui.showMatchingTasks(matchingTasks.toString());
         }
     }
 
