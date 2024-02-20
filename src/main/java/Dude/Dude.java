@@ -10,13 +10,140 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * The Dude class is the entry point of the application that manages tasks.
  * It is responsible for initializing the system, loading existing tasks from a file,
  * and processing user commands.
  */
-public class Dude {
+public class Dude extends Application {
+    public Dude() {
+        System.out.println("yes");
+        // ...
+    }
+
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    @Override
+    public void start(Stage stage) {
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDudeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList tasks;
@@ -166,6 +293,8 @@ abstract class Task {
      */
     @Override
     public abstract String toString();
+
+    public abstract String toFileString();
 }
 
 
@@ -193,6 +322,12 @@ class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
+    }
+
+    @Override
+    public String toFileString() {
+        return "T|" + (isDone ? "1" : "0") + "|" + description;
+
     }
 }
 
@@ -229,6 +364,13 @@ class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         String formattedDate = by.format(formatter);
         return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + formattedDate + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String byDate = by.format(formatter);
+        return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + byDate;
     }
 }
 
@@ -271,6 +413,14 @@ class Event extends Task {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + formattedStart + " to: " + formattedEnd
                 + ")";
     }
+
+    @Override
+    public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String startDate = start.format(formatter);
+        String endDate = end.format(formatter);
+        return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + startDate + "|" + endDate;
+    }
 }
 
 /**
@@ -291,7 +441,7 @@ class TaskStorage {
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME));
         for (Task task : tasks) {
-            String taskString = taskToFileString(task);
+            String taskString = task.toFileString();
             if (!taskString.isEmpty()) {
                 bufferedWriter.write(taskString);
                 bufferedWriter.newLine();
@@ -320,28 +470,8 @@ class TaskStorage {
         return tasks;
     }
 
-    /**
-     * Converts a Task object into a string format for file storage.
-     * The format includes task type, completion status, description, and dates if applicable.
-     *
-     * @param task The Task object to be converted.
-     * @return A string representation of the Task object.
-     */
-    private static String taskToFileString(Task task) {
-        StringBuilder sb = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (task instanceof ToDo) {
-            sb.append("T|").append(task.isDone ? "1" : "0").append("|").append(task.description);
-        } else if (task instanceof Deadline deadline) {
-            String byDate = deadline.by.format(formatter);
-            sb.append("D|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(byDate);
-        } else if (task instanceof Event event) {
-            String startDate = event.start.format(formatter);
-            String endDate = event.end.format(formatter);
-            sb.append("E|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(startDate).append("|").append(endDate);
-        }
-        return sb.toString();
-    }
+
+
 
     /**
      * Converts a string representation of a task back into a Task object.
