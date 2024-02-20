@@ -14,20 +14,20 @@ public class Deadline extends Task {
     /**
      * The deadline of the Deadline object to be created.
      */
-    protected LocalDate by;
+    protected LocalDate deadline;
 
     /**
      * A constructor for a Deadline object.
-     * Used when 'by' is given as a String.
+     * Used when 'deadline' is given as a String.
      *
      * @param description The description of the Deadline object to be created.
      *                    Handled by the super constructor in the Task class.
-     * @param by The deadline of the Deadline object, when given as a String object.
+     * @param deadline The deadline of the Deadline object, when given as a String object.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadline) {
         super(description);
         try {
-            this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+            this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("d/MM/yyyy"));
         } catch (DateTimeParseException ex) {
             System.out.println(ex);
         }
@@ -35,15 +35,15 @@ public class Deadline extends Task {
 
     /**
      * A constructor for a Deadline object.
-     * used when 'by' is given as a LocalDate.
+     * used when 'deadline' is given as a LocalDate.
      *
      * @param description The description of the Deadline object to be created.
      *                    Handled by the super constructor in the Task class.
-     * @param by The deadline of the Deadline object, when given as a LocalDate object.
+     * @param deadline The deadline of the Deadline object, when given as a LocalDate object.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
-        this.by = by;
+        this.deadline = deadline;
     }
 
 
@@ -53,6 +53,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

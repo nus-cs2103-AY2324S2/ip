@@ -61,48 +61,48 @@ public class Parser {
 
             // Calling the method based on what the user input is.
             switch (command) {
-                case "help":
-                    ui.printHelpList(commands);
-                    break;
+            case "help":
+                ui.printHelpList(commands);
+                break;
 
-                case "deadline":
-                    TaskList.deadline(scan);
-                    break;
+            case "deadline":
+                TaskList.deadline(scan);
+                break;
 
-                case "todo":
-                    TaskList.todo(scan);
-                    break;
+            case "todo":
+                TaskList.todo(scan);
+                break;
 
-                case "event":
-                    TaskList.event(scan);
-                    break;
+            case "event":
+                TaskList.event(scan);
+                break;
 
-                case "list":
-                    TaskList.list();
-                    break;
+            case "list":
+                TaskList.list();
+                break;
 
-                case "mark":
-                    TaskList.mark(scan);
-                    break;
+            case "mark":
+                TaskList.mark(scan);
+                break;
 
-                case "unmark":
-                    TaskList.unmark(scan);
-                    break;
+            case "unmark":
+                TaskList.unmark(scan);
+                break;
 
-                case "delete":
-                    TaskList.delete(scan);
-                    break;
+            case "delete":
+                TaskList.delete(scan);
+                break;
 
-                case "bye":
-                    try {
-                        Storage.save("list.txt");
-                    } catch (IOException ex) {
-                        ui.printErrorMessage(ex);
-                    }
-                    ui.printByeMessage(scan);
+            case "bye":
+                try {
+                    Storage.save("list.txt");
+                } catch (IOException ex) {
+                    ui.printErrorMessage(ex);
+                }
+                ui.printByeMessage(scan);
 
-                default:
-                    break;
+            default:
+                break;
             }
         }
     }
