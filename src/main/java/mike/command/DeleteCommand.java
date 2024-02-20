@@ -1,6 +1,7 @@
 package mike.command;
 
 import mike.MikeException;
+import mike.Storage;
 import mike.TaskList;
 import mike.task.Task;
 
@@ -20,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         int taskIndex = taskNumber - 1;
 
         if (taskList.isEmpty()) {

@@ -1,9 +1,6 @@
 package mike.command;
 
-import mike.ListView;
-import mike.ListViewType;
-import mike.MikeException;
-import mike.TaskList;
+import mike.*;
 
 /**
  * Lists the tasks containing a keyword.
@@ -23,9 +20,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         ListView listView = new ListView(ListViewType.DESCRIPTION, keyword, isFuzzySearchOn);
-        return new ListCommand(listView).execute(taskList);
+        return new ListCommand(listView).execute(taskList, storage);
     }
 
     @Override

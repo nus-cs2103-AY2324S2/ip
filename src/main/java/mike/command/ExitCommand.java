@@ -1,5 +1,6 @@
 package mike.command;
 
+import mike.Storage;
 import mike.TaskList;
 
 /**
@@ -9,7 +10,7 @@ import mike.TaskList;
 public class ExitCommand extends Command {
 
     @Override
-    public String execute(TaskList taskList) {
+    public String execute(TaskList taskList, Storage storage) {
         return response();
     }
 

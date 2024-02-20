@@ -1,6 +1,7 @@
 package mike.command;
 
 import mike.MikeException;
+import mike.Storage;
 import mike.TaskList;
 import mike.task.Event;
 import mike.task.Task;
@@ -26,7 +27,7 @@ public class AddEventCommand extends AddCommand {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         Task newTask = new Event(description, startDate, endDate);
         taskList.add(newTask);
         return response(taskList, newTask);

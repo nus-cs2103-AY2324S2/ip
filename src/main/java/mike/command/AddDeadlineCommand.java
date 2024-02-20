@@ -1,6 +1,7 @@
 package mike.command;
 
 import mike.MikeException;
+import mike.Storage;
 import mike.TaskList;
 import mike.task.Deadline;
 import mike.task.Task;
@@ -23,7 +24,7 @@ public class AddDeadlineCommand extends AddCommand {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         Task newTask = new Deadline(description, deadline);
         taskList.add(newTask);
         return response(taskList, newTask);

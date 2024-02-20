@@ -2,6 +2,7 @@ package mike.command;
 
 import mike.ListView;
 import mike.MikeException;
+import mike.Storage;
 import mike.TaskList;
 
 /**
@@ -20,7 +21,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         if (taskList.isEmpty()) {
             throw new MikeException("You have no more tasks Sulley...");
         }

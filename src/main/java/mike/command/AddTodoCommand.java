@@ -1,6 +1,7 @@
 package mike.command;
 
 import mike.MikeException;
+import mike.Storage;
 import mike.TaskList;
 import mike.task.Task;
 import mike.task.Todo;
@@ -20,7 +21,7 @@ public class AddTodoCommand extends AddCommand {
     }
 
     @Override
-    public String execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList, Storage storage) throws MikeException {
         Task newTask = new Todo(description);
         taskList.add(newTask);
         return response(taskList, newTask);
