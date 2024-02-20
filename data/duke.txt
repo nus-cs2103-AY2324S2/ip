@@ -1,6 +1,0 @@
-E | true | conference | 2023-01-01 | 2022-01-01
-D | false | shower | 2023-02-02
-D | true | sleep | 2024-02-02
-T | false | test
-D | false | test | 2024-01-01
-E | false | test | 2024-01-01 | 2024-02-02

@@ -30,6 +30,7 @@ public class Duke {
         try {
             Command c = Parser.parseToCommand(input);
             output = c.execute(tasks, ui);
+            storage.save(tasks);
         } catch (DukeException ex) {
             output = ex.getMessage();
         }
