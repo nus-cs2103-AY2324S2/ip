@@ -268,7 +268,7 @@ class CommandParser {
     private void consumeParameter(String parameterName, String commandUsage) throws MikeException {
         consume(TokenType.FORWARD_DASH, commandUsage);
         consume(TokenType.PARAM, commandUsage);
-        if (!getHasParameterName("from")) {
+        if (!getHasParameterName(parameterName)) {
             throw createError(commandUsage);
         }
     }
