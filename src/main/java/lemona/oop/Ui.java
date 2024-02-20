@@ -14,6 +14,8 @@ public class Ui {
 
     /**
      * Displays an error message when there's an issue loading tasks from a file.
+     *
+     * @return the string message to be printed.
      */
     public String showLoadingError() {
         return "Sorry, I think I haven't had enough vitamin C."
@@ -21,6 +23,11 @@ public class Ui {
                 + "\nI will need to go have some LEMONA.";
     }
 
+    /**
+     * Displays an error message when there's an issue with dateTime format of the input.
+     *
+     * @return the string message to be printed.
+     */
     public String showDateTimeParsingError() {
         return "I think you haven't had enough vitamin C."
                 + "\nYour time format should be :"

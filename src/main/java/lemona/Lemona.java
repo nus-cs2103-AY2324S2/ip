@@ -11,9 +11,6 @@ import lemona.oop.Parser;
 import lemona.oop.Storage;
 import lemona.oop.TaskList;
 
-import javafx.scene.image.Image;
-
-
 /**
  * The main class representing the Lemona task manager application.
  * Lemona allows users to manage their tasks by adding, listing, marking, and deleting tasks.
