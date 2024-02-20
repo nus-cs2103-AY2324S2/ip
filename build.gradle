@@ -48,11 +48,22 @@ test {
 }
 
 application {
-    mainClass.set("tony.Tony")
+    mainClass.set("tony.Launcher")
 }
 
 shadowJar {
     archiveFileName = 'tony.jar'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'tony.Launcher'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 run{

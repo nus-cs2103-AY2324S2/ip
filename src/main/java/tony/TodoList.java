@@ -196,7 +196,7 @@ public class TodoList {
             list.remove(index - 1);
             String deleteString = "_______________________\n"
                     + "Deleted item: \n" + task + "\n"
-                    + "Now you have " + list.size() + " tony.tasks left in the list.\n"
+                    + "Now you have " + list.size() + " tasks left in the list.\n"
                     + "_______________________\n";
             return deleteString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -211,7 +211,7 @@ public class TodoList {
      */
     public String print() {
         return "_______________________\n"
-                + "Here are the tony.tasks in your list: \n"
+                + "Here are the tasks in your list: \n"
                 + list.stream()
                         .map(Task::toString)
                         .collect(Collectors.joining("\n"))

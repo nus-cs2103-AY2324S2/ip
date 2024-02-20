@@ -1,5 +1,7 @@
 package tony.frontend;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import tony.Tony;
 import tony.Ui;
 
@@ -57,6 +60,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTonyDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response == this.goodbye) {
+            PauseTransition exit = new PauseTransition(Duration.seconds(1));
+            exit.setOnFinished(event -> {
+                Platform.exit();
+            });
+            exit.play();
+        }
     }
 
     /**
@@ -69,4 +79,8 @@ public class MainWindow extends AnchorPane {
         String response = this.tony.run(input);
         return response;
     }
+
+    private String goodbye = "_______________________\n"
+            + "See ya later dawg!\n"
+            + "_______________________\n";
 }
