@@ -53,7 +53,6 @@ public class AddTaskCommand extends Command {
             }
             newTask = new Deadline(parts[0], parts[1], false, LocalDateTime.now());
         } else {
-            // EVENT
             String[] parts = description.split(" /from ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new ZackException("Looks like your event command is missing something. "
@@ -67,7 +66,6 @@ public class AddTaskCommand extends Command {
             newTask = new Event(parts[0], times[0], times[1], false, LocalDateTime.now());
         }
 
-        // Check for duplicates
         for (Task task : tasks.getAllTasks()) {
             if (task.equals(newTask)) {
                 throw new ZackException("This task already exists in your list and won't be re-added!");
