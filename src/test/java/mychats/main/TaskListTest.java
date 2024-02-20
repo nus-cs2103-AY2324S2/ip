@@ -1,13 +1,12 @@
-package duke.main;
+package mychats.main;
 import java.util.ArrayList;
 
-import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.Todo;
+import mychats.exception.MyChatsException;
+import mychats.task.Task;
+import mychats.task.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
-    //test add, getSize, get, deleteTask
 
     @Test
     void add() {
@@ -50,7 +49,7 @@ public class TaskListTest {
     }
 
     @Test
-    void delete() throws DukeException {
+    void delete() throws MyChatsException {
         ArrayList<Task> tasks = new ArrayList<>();
         TaskList list = new TaskList(tasks);
         assertEquals(0, list.getSize(), "getSize() passed");

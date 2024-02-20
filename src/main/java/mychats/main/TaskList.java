@@ -1,6 +1,6 @@
-package duke.main;
-import duke.exception.DukeException;
-import duke.task.Task;
+package mychats.main;
+import mychats.exception.MyChatsException;
+import mychats.task.Task;
 
 import java.util.ArrayList;
 
@@ -79,10 +79,10 @@ public class TaskList {
      * Deletes a task from the TaskList based on the given zero-indexed task number.
      *
      * @param item The zero-indexed task number to be deleted.
-     * @throws DukeException If asked to delete a task with one-indexed task number
+     * @throws MyChatsException If asked to delete a task with one-indexed task number
      * of 0 or if one-indexed task number is greater than the size of the task list.
      */
-     public void deleteTask(int item) throws DukeException {
+     public void deleteTask(int item) throws MyChatsException {
         boolean isWithinLowerLimit = item >= 0;
         boolean isWithinUpperLimit = item < tasks.size();
         assert tasks.get(item) != null : "Task to delete cannot be null";
@@ -90,18 +90,18 @@ public class TaskList {
             tasks.remove(item);
         } else {
             int oneItem = item + 1;
-            throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
+            throw new MyChatsException("Error! Task number '" + oneItem + "' does not exist.");
         }
     }
 
     /**
      * Removes the most recently added task from the TaskList.
      *
-     * @throws DukeException If the task list is empty.
+     * @throws MyChatsException If the task list is empty.
      */
-    public void undoRecentTask() throws DukeException {
+    public void undoRecentTask() throws MyChatsException {
         if (tasks.size() == 0) {
-            throw new DukeException("Error! There are no tasks in the list to undo.");
+            throw new MyChatsException("Error! There are no tasks in the list to undo.");
         } else {
             int lastIndex = tasks.size() - 1;
             tasks.remove(lastIndex);

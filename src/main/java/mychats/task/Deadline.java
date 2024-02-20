@@ -1,4 +1,4 @@
-package duke.task;
+package mychats.task;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;

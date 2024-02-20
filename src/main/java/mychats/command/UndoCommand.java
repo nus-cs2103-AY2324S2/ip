@@ -1,8 +1,8 @@
-package duke.command;
-import duke.exception.DukeException;
-import duke.main.Storage;
-import duke.main.TaskList;
-import duke.main.Ui;
+package mychats.command;
+import mychats.exception.MyChatsException;
+import mychats.main.Storage;
+import mychats.main.TaskList;
+import mychats.main.Ui;
 
 /**
  * Represents a command to undo the most recent command.
@@ -15,10 +15,10 @@ public class UndoCommand extends Command {
      * @param tasks TaskList that contains the task list.
      * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
-     * @throws DukeException If the task list is empty.
+     * @throws MyChatsException If the task list is empty.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
         tasks.undoRecentTask();
         ui.displayListAfterUndo(tasks.getTasks());
         storage.saveList(tasks.getTasks());

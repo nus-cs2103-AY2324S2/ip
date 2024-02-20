@@ -1,4 +1,4 @@
-package duke.main;
+package mychats.main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,17 +25,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private MyChats myChats;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaMyChats.png"));
+    private Image myChatsImage = new Image(this.getClass().getResourceAsStream("/images/DaMyChats.png"));
 
     /**
      * Displays a greeting message when the MainWindow is initialised.
      */
     private void sayHi() {
         String greetingMessage = "Hello! I'm MyChats\n" + "What can I do for you?";
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getMyChatsDialog(greetingMessage, myChatsImage));
     }
 
     /**
@@ -48,12 +48,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Duke object for the MainWindow controller.
+     * Sets the MyChats object for the MainWindow controller.
      *
-     * @param d Duke object to be set.
+     * @param d MyChats object to be set.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setMyChats(MyChats d) {
+        myChats = d;
     }
 
     /**
@@ -64,10 +64,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = myChats.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getMyChatsDialog(response, myChatsImage)
         );
         userInput.clear();
     }

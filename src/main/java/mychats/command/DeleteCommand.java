@@ -1,9 +1,9 @@
-package duke.command;
-import duke.exception.DukeException;
-import duke.main.Storage;
-import duke.main.TaskList;
-import duke.main.Ui;
-import duke.task.Task;
+package mychats.command;
+import mychats.exception.MyChatsException;
+import mychats.main.Storage;
+import mychats.main.TaskList;
+import mychats.main.Ui;
+import mychats.task.Task;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -29,16 +29,16 @@ public class DeleteCommand extends Command {
      * @param tasks TaskList that contains the task list.
      * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
-     * @throws DukeException If asked to delete a task with task number 0
+     * @throws MyChatsException If asked to delete a task with task number 0
      * or task number greater than the size of the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MyChatsException {
         int taskNumber = zeroItem + 1;
         boolean isOutsideLowerLimit = taskNumber < 1;
         boolean isOutsideUpperLimit = taskNumber > tasks.getSize();
         if (isOutsideLowerLimit || isOutsideUpperLimit) {
-            throw new DukeException("Error! Task number '" + taskNumber + "' does not exist.");
+            throw new MyChatsException("Error! Task number '" + taskNumber + "' does not exist.");
         }
         Task description = tasks.get(zeroItem);
         tasks.deleteTask(zeroItem);

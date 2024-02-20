@@ -1,4 +1,4 @@
-package duke.task;
+package mychats.task;
 
 /**
  * Represents a task with a description and without a date or time attached to it.

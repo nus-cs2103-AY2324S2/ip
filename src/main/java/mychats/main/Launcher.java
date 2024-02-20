@@ -1,4 +1,4 @@
-package duke.main;
+package mychats.main;
 
 import javafx.application.Application;
 

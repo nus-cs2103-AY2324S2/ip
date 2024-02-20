@@ -1,7 +1,7 @@
-package duke.command;
-import duke.main.Storage;
-import duke.main.TaskList;
-import duke.main.Ui;
+package mychats.command;
+import mychats.main.Storage;
+import mychats.main.TaskList;
+import mychats.main.Ui;
 
 /**
  * Represents a command to find tasks containing a given word.

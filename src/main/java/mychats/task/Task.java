@@ -1,4 +1,4 @@
-package duke.task;
+package mychats.task;
 
 /**
  * Represents a task with a description and completion status.
@@ -60,7 +60,7 @@ public class Task {
      * @return Formatted string for writing to a file.
      */
     public String toFileString() {
-        return String.format("duke.task.Task | %d | %s", isDone ? 1 : 0, description);
+        return String.format("mychats.task.Task | %d | %s", isDone ? 1 : 0, description);
     }
 }
 

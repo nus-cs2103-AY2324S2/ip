@@ -1,4 +1,4 @@
-package duke.main;
+package mychats.main;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for MyChats using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private MyChats myChats = new MyChats();
 
     /**
      * Starts the application by loading the main window.
@@ -27,7 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setMyChats(myChats);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

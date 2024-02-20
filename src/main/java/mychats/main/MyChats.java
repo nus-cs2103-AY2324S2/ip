@@ -1,15 +1,15 @@
-package duke.main;
-import duke.command.Command;
-import duke.exception.DukeException;
+package mychats.main;
+import mychats.command.Command;
+import mychats.exception.MyChatsException;
 
 /**
  * Represents the main class for the chat application.
  */
-public class Duke {
+public class MyChats {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String filePath = "data/duke.txt";
+    private static final String filePath = "data/mychats.txt";
     private boolean isExit = false;
 
     /**
@@ -25,21 +25,21 @@ public class Duke {
             c.execute(tasks, ui, storage);
             isExit = c.isExit();
             return ui.getAnswer();
-        } catch (DukeException e) {
+        } catch (MyChatsException e) {
             return e.getMessage();
         }
     }
 
     /**
-     * Constructs a Duke object.
+     * Constructs a MyChats object.
      * Initialises the storage, user interface and task list.
      */
-    Duke() {
+    MyChats() {
         storage = new Storage(filePath);
         ui = new Ui();
         try {
             tasks = new TaskList(storage.loadList());
-        } catch (DukeException e) {
+        } catch (MyChatsException e) {
             System.out.println(e.getMessage());
             tasks = new TaskList();
         }

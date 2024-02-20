@@ -1,8 +1,8 @@
-package duke.main;
+package mychats.main;
 
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Task;
+import mychats.task.Event;
+import mychats.task.Deadline;
+import mychats.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

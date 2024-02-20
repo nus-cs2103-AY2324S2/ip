@@ -1,4 +1,4 @@
-package duke.main;
+package mychats.main;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -90,7 +90,7 @@ public class DialogBox extends HBox {
      * @param img Image to be displayed for dialog.
      * @return DialogBox representing dialog.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getMyChatsDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -1,16 +1,16 @@
-package duke.exception;
+package mychats.exception;
 
 /**
- * Represents exceptions specific to duke and inherits from the Exception class.
+ * Represents exceptions specific to mychats and inherits from the Exception class.
  */
-public class DukeException extends Exception {
+public class MyChatsException extends Exception {
 
     /**
-     * Constructs a DukeException with the given error message.
+     * Constructs a MyChatsException with the given error message.
      *
      * @param message Error message for the exception.
      */
-    public DukeException(String message) {
+    public MyChatsException(String message) {
         super(message);
     }
 }

@@ -1,8 +1,8 @@
-package duke.command;
+package mychats.command;
 
-import duke.main.Storage;
-import duke.main.TaskList;
-import duke.main.Ui;
+import mychats.main.Storage;
+import mychats.main.TaskList;
+import mychats.main.Ui;
 
 import java.time.LocalDate;
 

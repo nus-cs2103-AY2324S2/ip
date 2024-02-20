@@ -1,15 +1,15 @@
-package duke.main;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ViewCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnMarkCommand;
+package mychats.main;
+import mychats.command.DeadlineCommand;
+import mychats.command.DeleteCommand;
+import mychats.command.EventCommand;
+import mychats.command.ExitCommand;
+import mychats.command.ListCommand;
+import mychats.command.MarkCommand;
+import mychats.command.ViewCommand;
+import mychats.command.ToDoCommand;
+import mychats.command.UnMarkCommand;
 
-import duke.exception.DukeException;
+import mychats.exception.MyChatsException;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParserTest {
 
     @Test
-    void parserTest() throws DukeException  {
+    void parserTest() throws MyChatsException {
         assertTrue(Parser.parse("deadline return book /by 2019-10-15 1800") instanceof DeadlineCommand, "deadline parser passed");
         assertTrue(Parser.parse("delete 50") instanceof DeleteCommand, "delete parser passed");
         assertTrue(Parser.parse("event write essay /from 2019-10-15 1800 /to 2019-10-17 2000") instanceof EventCommand, "event parser passed");
