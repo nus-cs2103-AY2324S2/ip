@@ -50,4 +50,8 @@ public class Deadline extends Task {
     public String getType() {
         return type.toString();
     }
+
+    public void setDueDate(LocalDateTime date) {
+        this.dueDate = date;
+    }
 }

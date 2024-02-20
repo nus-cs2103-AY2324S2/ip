@@ -70,6 +70,10 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
+
+    public void updateDescription(String input) {
+        this.description = input;
+    }
 }
 
 

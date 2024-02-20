@@ -57,6 +57,8 @@ public class Tony {
                     return handleDeleteCommand(input);
                 case "find":
                     return handleFindCommand(input);
+                case "update":
+                    return handleUpdateCommand(input);
                 default:
                     throw new IllegalArgumentException("Invalid command: " + command);
                 }
@@ -113,6 +115,11 @@ public class Tony {
     private String handleFindCommand(String input) {
         String description = parser.parseDescription(input);
         return list.find(description);
+    }
+
+    private String handleUpdateCommand(String input) {
+        String[] updateParts = parser.parseUpdate(input);
+        return list.update(updateParts);
     }
 
 }

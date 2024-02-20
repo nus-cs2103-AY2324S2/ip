@@ -53,4 +53,12 @@ public class Event extends Task {
     public String getType() {
         return type.toString();
     }
+
+    public void setFromDate(LocalDateTime date) {
+        this.from = date;
+    }
+
+    public void setToDate(LocalDateTime date) {
+        this.to = date;
+    }
 }

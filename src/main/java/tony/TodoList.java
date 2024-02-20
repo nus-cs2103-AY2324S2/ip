@@ -1,10 +1,14 @@
 package tony;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import tony.exceptions.BadDateException;
 import tony.exceptions.InvalidTaskException;
+import tony.tasks.Deadline;
+import tony.tasks.Event;
 import tony.tasks.Task;
 import tony.tasks.TaskType;
 
@@ -13,6 +17,8 @@ import tony.tasks.TaskType;
  */
 public class TodoList {
     private List<Task> list = new ArrayList<>();
+
+    private Parser parser;
 
     /**
      * Adds a task to the task list.
@@ -50,6 +56,108 @@ public class TodoList {
             return markString;
         }
     }
+
+    /**
+     * Updates the description, dueDate, fromDate, or toDate of the task depending on the command.
+     *
+     * @param parts The input representing the task to update.
+     * @return A message indicating the success or failure of the update operation.
+     */
+    public String update(String[] parts) {
+        try {
+            int index = Integer.parseInt(parts[0]);
+
+            if (parts.length == 2) {
+                return updateDescription(index, parts[1]);
+            } else if (parts.length == 3) {
+                return updateDate(index, parts[1], parts[2]);
+            }
+        } catch (NumberFormatException e) {
+            return "_______________________\n"
+                    + "Invalid index provided."
+                    + "_______________________\n";
+        }
+        return "_______________________\n"
+                + "Invalid input for 'update' command."
+                + "_______________________\n";
+    }
+
+    /**
+     * Updates the description of the task at the specified index.
+     *
+     * @param index       The index of the task to update.
+     * @param description The new description for the task.
+     * @return A message indicating the success or failure of the description update operation.
+     */
+    private String updateDescription(int index, String description) {
+        try {
+            list.get(index - 1).updateDescription(description);
+            return "_______________________\n"
+                    + "Updated description of item " + index + " successfully."
+                    + "_______________________\n";
+        } catch (IndexOutOfBoundsException e) {
+            return handleInvalidIndex();
+        }
+    }
+
+    /**
+     * Updates the dueDate, fromDate, or toDate of the task at the specified index.
+     *
+     * @param index The index of the task to update.
+     * @param field The field to update (dueDate, fromDate, or toDate).
+     * @param date  The new date value.
+     * @return A message indicating the success or failure of the date update operation.
+     */
+    private String updateDate(int index, String field, String date) {
+        try {
+            LocalDateTime parsedDate = parser.parseDate(date);
+            Task task = list.get(index - 1);
+            if (task instanceof Deadline && field.equals("by")) {
+                Deadline deadline = (Deadline) task;
+                deadline.setDueDate(parsedDate);
+                return "_______________________\n"
+                        + "Updated due date of item " + index + " successfully."
+                        + "_______________________\n";
+            } else if (task instanceof Event && (field.equals("from") || field.equals("to"))) {
+                Event event = (Event) task;
+                if (field.equals("from")) {
+                    event.setFromDate(parsedDate);
+                    return "_______________________\n"
+                            + "Updated from date of item " + index + " successfully."
+                            + "_______________________\n";
+                } else {
+                    event.setToDate(parsedDate);
+                    return "_______________________\n"
+                            + "Updated to date of item " + index + " successfully."
+                            + "_______________________\n";
+                }
+            } else {
+                return "_______________________\n"
+                        + "Cannot update date for this type of task."
+                        + "_______________________\n";
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return handleInvalidIndex();
+        } catch (BadDateException e) {
+            return "_______________________\n"
+                    + "Invalid date input."
+                    + "_______________________\n";
+        }
+    }
+
+    /**
+     * Handles the case where an invalid index is provided.
+     *
+     * @return A message indicating that an invalid index was provided.
+     */
+    private String handleInvalidIndex() {
+        return "_______________________\n"
+                + "Invalid index provided."
+                + "_______________________\n";
+    }
+
+
+
 
     /**
      * Unmarks a previously marked task as undone based on the provided input.
@@ -97,12 +205,12 @@ public class TodoList {
      * Prints the list of tasks.
      */
     public String print() {
-        return "_______________________\n" +
-                "Here are the tony.tasks in your list: \n" +
-                list.stream()
+        return "_______________________\n"
+                + "Here are the tony.tasks in your list: \n"
+                + list.stream()
                         .map(Task::toString)
-                        .collect(Collectors.joining("\n")) +
-                "\n_______________________\n";
+                        .collect(Collectors.joining("\n"))
+                + "\n_______________________\n";
     }
 
     /**
@@ -201,6 +309,8 @@ public class TodoList {
         findString.append("_______________________\n");
         return findString.toString();
     }
+
+
 
 
     public int size() {

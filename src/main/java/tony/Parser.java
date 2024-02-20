@@ -47,6 +47,29 @@ public class Parser {
     }
 
     /**
+     * Parses the update command string
+     *
+     * @param input The user input string.
+     * @return An array containing parsed update details
+     */
+    public String[] parseUpdate(String input) {
+        String[] words = input.split(" ");
+        String[] result = new String[3];
+
+        if (words[2].equals("description")) {
+            String description = String.join(" ", Arrays.copyOfRange(words, 2, words.length));
+            result[0] = words[1];
+            result[1] = description;
+        } else if (words[2].equals("from") || words[2].equals("to") || words[2].equals("by")) {
+            String date = words[3];
+            result[0] = words[1];
+            result[1] = words[2];
+            result[2] = date;
+        }
+        return result;
+    }
+
+    /**
      * Parses a date string and returns a LocalDateTime object.
      *
      * @param date The date string in the format "yyyy-MM-ddTHH:mm".
