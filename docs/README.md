@@ -39,7 +39,7 @@ Format: `list`
 Add a new todo task to the list, and it will be stored in a txt file.
 Format: `todo DESCRIPTION`
 
-▶️### Adding a new deadline task: `deadline`
+###▶️ Adding a new deadline task: `deadline`
 Add a new deadline task to the list, and it will be stored in a txt file.
 Format: `deadline DESCRIPTION /by yyyy-MM-dd HH:mm`
 
