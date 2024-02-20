@@ -35,31 +35,40 @@ public class Parser {
         String primaryCommand = inputStringSplits[0].toLowerCase();
         String outputResponse;
         switch (primaryCommand) {
+        case "b":
         case "bye":
             this.isExit = true;
             outputResponse = this.processByeCommand();
             break;
+        case "l":
         case "list":
             outputResponse = this.processListCommand();
             break;
+        case "m":
         case "mark":
             outputResponse = this.processMarkCommand(inputStringSplits);
             break;
+        case "unm":
         case "unmark":
             outputResponse = this.processUnmarkCommand(inputStringSplits);
             break;
+        case "del":
         case "delete":
             outputResponse = this.processDeleteCommand(inputStringSplits);
             break;
+        case "f":
         case "find":
             outputResponse = this.processFindCommand(inputStringSplits);
             break;
+        case "t":
         case "todo":
             outputResponse = this.processTodoCommand(inputStringSplits);
             break;
+        case "dead":
         case "deadline":
             outputResponse = this.processDeadlineCommand(fullCommand);
             break;
+        case "e":
         case "event":
             outputResponse = this.processEventCommand(fullCommand);
             break;
