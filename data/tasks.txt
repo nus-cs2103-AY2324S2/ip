@@ -1,3 +1,1 @@
-T,true,minecraft speedrun
-T,false,myhomework
-T,false,something
+T,true,homework,2024-02-20

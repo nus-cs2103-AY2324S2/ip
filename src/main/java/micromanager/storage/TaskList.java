@@ -68,14 +68,29 @@ public class TaskList {
      * @param index The index of the task to remove.
      * @return The removed task.
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws DukeException {
+        boolean isOutOfBounds = index < 0 || index > taskList.size() - 1;
+        if (isOutOfBounds) {
+            throw new DukeException("OOPS!!! Invalid index provided.");
+        }
         Task target = this.taskList.get(index);
         this.taskList.remove(index);
 
         return target;
     }
 
-    public void update(int index, Task newTask) {
+    /**
+     * Updates the task at the specified index in the task list with the provided new task.
+     *
+     * @param index   The index of the task to update.
+     * @param newTask The new task to replace the existing one.
+     * @throws DukeException If the index is invalid.
+     */
+    public void update(int index, Task newTask) throws DukeException {
+        boolean isOutOfBounds = index < 0 || index > taskList.size() - 1;
+        if (isOutOfBounds) {
+            throw new DukeException("OOPS!!! Invalid index provided.");
+        }
         this.taskList.set(index, newTask);
     }
 
