@@ -60,6 +60,18 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
+        initializeStage(stage);
+        setupSceneAndComponents();
+        configureStage(stage);
+        addInputHandlers();
+    }
+
+    /**
+     * Initializes the stage with the main window scene.
+     *
+     * @param stage The primary stage for this application.
+     */
+    private void initializeStage(Stage stage) {
         Duke duke = new Duke();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
@@ -71,9 +83,12 @@ public class Duke extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Step 1. Setting up required components
+    }
 
-        //The container for the content of the chat to scroll.
+    /**
+     * Sets up the scene and its components including the scroll pane, dialog container, user input, and send button.
+     */
+    private void setupSceneAndComponents() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -83,67 +98,65 @@ public class Duke extends Application {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         scene = new Scene(mainLayout);
+    }
 
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
+    /**
+     * Configures the stage with title, size, and layout preferences.
+     *
+     * @param stage The primary stage to be configured.
+     */
+    private void configureStage(Stage stage) {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
+        AnchorPane mainLayout = (AnchorPane) scene.getRoot();
         mainLayout.setPrefSize(400.0, 600.0);
+        configureScrollPane();
+        configureInputAndButton();
 
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Configures the scroll pane and dialog container for proper layout and behavior.
+     */
+    private void configureScrollPane() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
 
+    /**
+     * Configures the user input and send button, including their positions and sizes.
+     */
+    private void configureInputAndButton() {
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
+        AnchorPane mainLayout = (AnchorPane) scene.getRoot();
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
+    /**
+     * Adds event handlers for the send button and user input field to handle user interactions.
+     */
+    private void addInputHandlers() {
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
@@ -157,7 +170,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
