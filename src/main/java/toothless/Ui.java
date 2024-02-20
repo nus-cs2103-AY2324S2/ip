@@ -22,16 +22,10 @@ public class Ui {
         return greetingString;
     }
 
-    /**
-     * Displays the exit message to the user.
-     */
     public String showFarewell() {
         return exitString;
     }
 
-    /**
-     * Displays a loading message indicating that previous tasks are being loaded from the file.
-     */
     public String showLoadingTasks() {
         return "Loading previous human kept tasks...\n";
     }

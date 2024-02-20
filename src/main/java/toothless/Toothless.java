@@ -11,9 +11,6 @@ public class Toothless {
     private Ui ui;
     private boolean isExit = false;
 
-    /**
-     * Construct a chatbot with a file storage at a predetermined file path.
-     */
     public Toothless() {
         ui = new Ui();
         storage = new Storage("./data/toothless.txt");
@@ -46,7 +43,10 @@ public class Toothless {
     }
 
     /**
-     * Start the application and query the user to input commands.
+     * Gets the response from the chatbot based on the user input.
+     * @param input The user input.
+     * @return The response from the chatbot.
+     * @throws ToothlessException If the input is invalid.
      */
     public String getResponse(String input) throws ToothlessException{
         Command command = Parser.parseCommand(input);

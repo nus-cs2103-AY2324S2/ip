@@ -56,22 +56,27 @@ public class Storage {
     }
 
     private Task parseTask(String[] storedTask) throws ToothlessException {
-        String taskType = storedTask[0];
-        String description = storedTask[2];
-        boolean isDone = storedTask[1].equals("1");
-        switch (taskType) {
-        case "T":
-            return new Todo(description, isDone);
-        case "D":
-            String date = storedTask[3];
-            return new Deadline(description, date, isDone);
-        case "E":
-            String startDate = storedTask[3];
-            String endDate = storedTask[4];
-            return new Event(description, startDate, endDate, isDone);
-        default:
-            throw new ToothlessException("File corrupted O_O. Try again later.");
+        try {
+            String taskType = storedTask[0];
+            String description = storedTask[2];
+            boolean isDone = storedTask[1].equals("1");
+            switch (taskType) {
+                case "T":
+                    return new Todo(description, isDone);
+                case "D":
+                    String date = storedTask[3];
+                    return new Deadline(description, date, isDone);
+                case "E":
+                    String startDate = storedTask[3];
+                    String endDate = storedTask[4];
+                    return new Event(description, startDate, endDate, isDone);
+                default:
+                    throw new ToothlessException("File corrupted O_O.\nTry again later.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ToothlessException("File corrupted O_O.\nTry again later.");
         }
+
     }
 
     /**

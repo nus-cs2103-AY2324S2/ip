@@ -11,7 +11,7 @@ import toothless.tasks.Event;
  * Represents a command to add an event task to the task list.
  * The detail provided includes the event description and its start and end dates.
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     private String detail;
 
     /**
@@ -54,7 +54,6 @@ public class EventCommand extends Command{
 
         String startDate = detail.substring(0, date2Index - 1);
         String endDate = detail.substring(date2Index + 4);
-
         Task t = new Event(description, startDate, endDate);
         taskList.addTask(t);
 

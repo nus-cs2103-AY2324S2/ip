@@ -1,3 +1,6 @@
+// @@author hjuntan-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with modifications
+
 package toothless;
 
 import javafx.animation.PauseTransition;
@@ -52,6 +55,7 @@ public class MainWindow extends AnchorPane {
 
     public void startUp(){
         dialogContainer.getChildren().addAll(
+                DialogBox.getToothlessDialog(toothless.loadingTasks(), toothlessImage),
                 DialogBox.getToothlessDialog(toothless.load(), toothlessImage),
                 DialogBox.getToothlessDialog(toothless.greet(), toothlessImage)
         );
@@ -89,3 +93,5 @@ public class MainWindow extends AnchorPane {
         }
     }
 }
+
+// @@ author

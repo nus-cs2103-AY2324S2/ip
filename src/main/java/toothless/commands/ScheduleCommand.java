@@ -10,14 +10,22 @@ import toothless.tasks.Deadline;
 import toothless.tasks.Event;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ScheduleCommand extends Command{
+public class ScheduleCommand extends Command {
 
+    /**
+     * Executes the command to list all tasks in the task list. If the list is empty, it throws an exception
+     * to inform the user that there are no tasks to display.
+     * @param ui The user interface to interact with.
+     * @param taskList The task list whose tasks are to be displayed.
+     * @param storage The storage system, not directly used by this command.
+     * @return false to indicate the application should continue running.
+     * @throws ToothlessException If the task list is empty.
+     */
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (taskList.size() == 0) {
@@ -74,7 +82,7 @@ public class ScheduleCommand extends Command{
         String response = "";
         for (int i = 0; i < keys.length; i++) {
             LocalDate key = keys[i];
-            if (key.equals(LocalDateTime.MAX)) {
+            if (key.equals(LocalDate.MAX)) {
                 response += "Tasks without a date:\n";
             } else {
                 response += "Tasks on " + dateToString(key) + ":\n";

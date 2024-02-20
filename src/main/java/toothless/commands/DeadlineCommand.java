@@ -11,7 +11,7 @@ import toothless.tasks.Deadline;
  * Represents a command to add a deadline task to the task list.
  * The detail provided includes the task description and its deadline.
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     private String detail;
 
     /**

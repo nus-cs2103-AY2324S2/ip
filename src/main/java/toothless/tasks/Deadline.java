@@ -27,10 +27,10 @@ public class Deadline extends Task {
      * @param date The end date of the deadline in a parsable datetime format.
      * @param isDone The deadline's completion status.
      */
-    public Deadline(String description, String date, boolean isDone) {
+    public Deadline(String description, String date, boolean isDone) throws ToothlessException {
         super.description = description;
         super.isDone = isDone;
-        this.date = LocalDateTime.parse(date);
+        this.date = parseDateTime(date);
     }
 
     @Override

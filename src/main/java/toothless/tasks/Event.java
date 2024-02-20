@@ -42,8 +42,8 @@ public class Event extends Task {
     public Event(String description, String startDate, String endDate, boolean isDone) throws ToothlessException {
         super.description = description;
         super.isDone = isDone;
-        LocalDateTime start = LocalDateTime.parse(startDate);
-        LocalDateTime end = LocalDateTime.parse(endDate);
+        LocalDateTime start = parseDateTime(startDate);
+        LocalDateTime end = parseDateTime(endDate);
         if (start.isAfter(end)) {
             throw new ToothlessException("End date is earlier :/");
         }

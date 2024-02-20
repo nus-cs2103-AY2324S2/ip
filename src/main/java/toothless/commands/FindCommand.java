@@ -11,7 +11,7 @@ import toothless.tasks.Task;
  * Represents a command to find and display tasks in the task list that match a given keyword.
  * The detail is used to search through task descriptions to find matches.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String keyword;
 
     /**

@@ -1,3 +1,6 @@
+// @@author Ragnapop-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with modifications
+
 package toothless;
 
 import java.io.IOException;
@@ -89,3 +92,5 @@ public class DialogBox extends HBox {
         return db;
     }
 }
+
+// @@ author
