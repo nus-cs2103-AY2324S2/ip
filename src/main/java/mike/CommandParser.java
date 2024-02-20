@@ -2,8 +2,17 @@ package mike;
 
 import java.util.List;
 
-import mike.command.*;
-
+import mike.command.AddDeadlineCommand;
+import mike.command.AddEventCommand;
+import mike.command.AddTodoCommand;
+import mike.command.ArchiveCommand;
+import mike.command.Command;
+import mike.command.DeleteCommand;
+import mike.command.ExitCommand;
+import mike.command.FindCommand;
+import mike.command.ListCommand;
+import mike.command.MarkCommand;
+import mike.command.UnmarkCommand;
 /**
  * CommandParser is the class responsible for parsing the command input and generating {@link Command} objects,
  * @author ningc

@@ -91,7 +91,7 @@ public class ListView {
         // https://en.wikipedia.org/wiki/Bitap_algorithm
         char[] result = null;
         int patternLength = pattern.length();
-        long[] R;
+        long[] r;
         long[] patternMask = new long[Character.MAX_VALUE + 1];
 
         char[] t = text.toCharArray();
@@ -104,9 +104,9 @@ public class ListView {
             return null;
         }
 
-        R = new long[k + 1];
+        r = new long[k + 1];
         for (int i = 0; i <= k; ++i) {
-            R[i] = ~1;
+            r[i] = ~1;
         }
 
         for (int i = 0; i <= Character.MAX_VALUE; ++i) {
@@ -117,19 +117,19 @@ public class ListView {
         }
 
         for (int i = 0; i < text.length(); ++i) {
-            long oldRd = R[0];
+            long oldRd = r[0];
 
-            R[0] |= patternMask[t[i]];
-            R[0] <<= 1;
+            r[0] |= patternMask[t[i]];
+            r[0] <<= 1;
 
             for (int d = 1; d <= k; ++d) {
-                long tmp = R[d];
+                long tmp = r[d];
 
-                R[d] = (oldRd & (R[d] | patternMask[t[i]])) << 1;
+                r[d] = (oldRd & (r[d] | patternMask[t[i]])) << 1;
                 oldRd = tmp;
             }
 
-            if (0 == (R[k] & (1L << patternLength))) {
+            if (0 == (r[k] & (1L << patternLength))) {
                 result = text.substring(i - patternLength + 1, i + 1).toCharArray();
                 break;
             }
