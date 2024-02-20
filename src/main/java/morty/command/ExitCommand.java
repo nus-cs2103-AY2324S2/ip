@@ -2,6 +2,11 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import morty.Response;
 
 /**
@@ -22,13 +27,22 @@ public class ExitCommand extends Command {
   /**
    * Executes the ExitCommand.
    *
-   * @param tasks   The list of tasks.
-   * @param ui      The user interface.
+   * @param tasks The list of tasks.
+   * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the ExitCommand.
    */
   @Override
   public String execute(TaskList tasks, Response ui, Storage storage) {
+    // Delay for 2 seconds before exiting the program
+    new Timer().schedule(
+        new TimerTask() {
+          @Override
+          public void run() {
+            Platform.exit();
+          }
+        },
+        1000);
     return ui.showGoodbye();
   }
 }

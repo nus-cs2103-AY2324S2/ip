@@ -17,8 +17,7 @@ import javafx.scene.layout.HBox;
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent
- * the speaker's face and a label
- * containing text from the speaker.
+ * the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -26,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the given text and image.
+     *
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -51,10 +56,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox with the user's text and image.
+     *
+     * @param text The user's text.
+     * @param img The user's image.
+     * @return The DialogBox with the user's text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox with Morty's text and image.
+     *
+     * @param text Morty's text.
+     * @param img Morty's image.
+     * @return The DialogBox with Morty's text and image.
+     */
     public static DialogBox getMortyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

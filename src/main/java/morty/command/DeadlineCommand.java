@@ -26,8 +26,8 @@ public class DeadlineCommand extends Command {
   /**
    * Executes the DeadlineCommand.
    *
-   * @param tasks   The list of tasks.
-   * @param ui      The user interface.
+   * @param tasks The list of tasks.
+   * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the DeadlineCommand.
    */

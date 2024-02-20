@@ -5,7 +5,7 @@ import java.util.Scanner;
 import morty.task.Task;
 
 /**
- * A class that deals with the user interface.
+ * A class that handles Morty's responses to the user.
  */
 public class Response {
 
@@ -65,7 +65,7 @@ public class Response {
   }
 
   /**
-   * Shows the matching task list.
+   * Shows the task added message.
    *
    * @param task The matching task list.
    * @param size The size of the task list.
@@ -78,7 +78,7 @@ public class Response {
   }
 
   /**
-   * Shows the matching task list.
+   * Shows the task marked done message.
    *
    * @param task The matching task list.
    */
@@ -89,7 +89,7 @@ public class Response {
   }
 
   /**
-   * Shows the matching task list.
+   * Shows the task removed message.
    *
    * @param task The matching task list.
    * @param size The size of the matching task list.

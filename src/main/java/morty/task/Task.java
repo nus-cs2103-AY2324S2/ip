@@ -26,7 +26,7 @@ public abstract class Task {
    * Initializes the task with a unique ID, the specified title and completion
    * status.
    *
-   * @param title  The title of the task.
+   * @param title The title of the task.
    * @param isDone The completion status of the task.
    */
   public Task(String title, boolean isDone) {

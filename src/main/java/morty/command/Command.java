@@ -32,8 +32,8 @@ public abstract class Command {
   /**
    * Executes the command.
    *
-   * @param tasks   The list of tasks.
-   * @param ui      The user interface.
+   * @param tasks The list of tasks.
+   * @param ui The user interface.
    * @param storage The storage.
    * @return The response after executing the command.
    * @throws MortyException If an error occurs during execution.

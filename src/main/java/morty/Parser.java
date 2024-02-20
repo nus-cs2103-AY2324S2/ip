@@ -25,23 +25,24 @@ public class Parser {
   public static Command parse(String input) {
     assert input != null : "Input should not be null";
     String[] tokens = input.split(" ", 2);
-    if (tokens[0].equals("bye")) {
+    switch (tokens[0]) {
+    case "bye":
       return new ExitCommand(tokens);
-    } else if (tokens[0].equals("list")) {
+    case "list":
       return new ListCommand(tokens);
-    } else if (tokens[0].equals("done")) {
+    case "done":
       return new DoneCommand(tokens);
-    } else if (tokens[0].equals("delete")) {
+    case "delete":
       return new DeleteCommand(tokens);
-    } else if (tokens[0].equals("todo")) {
+    case "todo":
       return new TodoCommand(tokens);
-    } else if (tokens[0].equals("deadline")) {
+    case "deadline":
       return new DeadlineCommand(tokens);
-    } else if (tokens[0].equals("event")) {
+    case "event":
       return new EventCommand(tokens);
-    } else if (tokens[0].equals("find")) {
+    case "find":
       return new FindCommand(tokens);
-    } else {
+    default:
       return new InvalidCommand(tokens);
     }
   }
