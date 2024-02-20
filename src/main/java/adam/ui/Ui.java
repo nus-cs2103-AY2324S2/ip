@@ -2,17 +2,17 @@ package adam.ui;
 
 import java.util.Scanner;
 
+//CHECKSTYLE.OFF: MissingJavadocType
+//CHECKSTYLE.OFF: MissingJavadocMethod
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
     public Ui() {
     }
     public String showWelcome() {
-        return "Hello! I'm Adam\n" +
-                "What can I do for you?";
+        return "Hello! I'm Adam\n"
+                + "What can I do for you?";
     }
-    public String readCommand() {
-        return scanner.nextLine();
-    }
+
     public String showResult(String... lines) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String line : lines) {
@@ -28,3 +28,5 @@ public class Ui {
         return errorMessage;
     }
 }
+//CHECKSTYLE.ON: MissingJavadocType
+//CHECKSTYLE.ON: MissingJavadocMethod

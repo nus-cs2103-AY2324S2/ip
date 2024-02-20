@@ -38,7 +38,7 @@ public class Parser {
         case "todo":
         case "td":
             // Splits the command from the description
-            splitCommandParts = fullCommand.split(" ",2);
+            splitCommandParts = fullCommand.split(" ", 2);
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Description of a todo cannot be empty.");
             } else {
@@ -46,7 +46,7 @@ public class Parser {
             }
         case "deadline":
         case "dl":
-            splitCommandParts = fullCommand.split(" ",2);
+            splitCommandParts = fullCommand.split(" ", 2);
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Description of a deadline cannot be empty.");
             }
@@ -60,7 +60,7 @@ public class Parser {
             return new AddCommand("deadline", splitDescParts[0], splitDescParts[1]);
         case "event":
         case "ev":
-            splitCommandParts = fullCommand.split(" ",2);
+            splitCommandParts = fullCommand.split(" ", 2);
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Description of a event cannot be empty.");
             }

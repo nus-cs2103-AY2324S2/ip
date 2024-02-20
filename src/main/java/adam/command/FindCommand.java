@@ -1,12 +1,13 @@
 package adam.command;
 
+import java.util.ArrayList;
+
 import adam.AdamException;
 import adam.Storage;
 import adam.task.TaskList;
 import adam.ui.Ui;
 
-import java.util.ArrayList;
-
+//CHECKSTYLE.OFF: MissingJavadocType
 public class FindCommand extends Command {
     private String keyword;
     public FindCommand(String keyword) {
@@ -32,3 +33,4 @@ public class FindCommand extends Command {
         return false;
     }
 }
+//CHECKSTYLE.ON: MissingJavadocType

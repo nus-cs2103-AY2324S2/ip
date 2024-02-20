@@ -10,7 +10,7 @@ import adam.ui.Ui;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    int taskNumber;
+    private int taskNumber;
 
     /**
      * Returns a command that contains the index of the task to delete.

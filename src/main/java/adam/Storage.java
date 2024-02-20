@@ -1,16 +1,16 @@
 package adam;
 
-import adam.task.Deadline;
-import adam.task.Event;
-import adam.task.Task;
-import adam.task.TaskList;
-import adam.task.Todo;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import adam.task.Deadline;
+import adam.task.Event;
+import adam.task.Task;
+import adam.task.TaskList;
+import adam.task.Todo;
 
 /**
  * Loads and saves the list of tasks to a file.
@@ -45,20 +45,20 @@ public class Storage {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 // Splits the line into details of the task
-                String[] taskSymbols = line.split("," );
+                String[] taskSymbols = line.split(",");
                 Task t;
                 switch (taskSymbols[0]) {
-                    case "T":
-                        t = new Todo(taskSymbols[2]);
-                        break;
-                    case "D":
-                        t = new Deadline(taskSymbols[2], taskSymbols[3]);
-                        break;
-                    case "E":
-                        t = new Event(taskSymbols[2], taskSymbols[3], taskSymbols[4]);
-                        break;
-                    default:
-                        throw new AdamException("Unknown task type in storage");
+                case "T":
+                    t = new Todo(taskSymbols[2]);
+                    break;
+                case "D":
+                    t = new Deadline(taskSymbols[2], taskSymbols[3]);
+                    break;
+                case "E":
+                    t = new Event(taskSymbols[2], taskSymbols[3], taskSymbols[4]);
+                    break;
+                default:
+                    throw new AdamException("Unknown task type in storage");
                 }
                 if (taskSymbols[1].equals("1")) {
                     t.mark();
@@ -76,12 +76,12 @@ public class Storage {
     /**
      * Saves the current list of tasks to the storage file.
      *
-     * @param tasklist The list of tasks to save.
+     * @param taskList The list of tasks to save.
      * @throws AdamException If the file cannot be saved to.
      */
-    public void save(TaskList tasklist) throws AdamException {
+    public void save(TaskList taskList) throws AdamException {
         try {
-            ArrayList<Task> tasks = tasklist.getTasks();
+            ArrayList<Task> tasks = taskList.getTasks();
 
             File file = new File(filepath);
             if (!file.exists()) {

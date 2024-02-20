@@ -1,13 +1,13 @@
 package adam.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class DeadlineTest {
     @Test
-    public void testDeadlineCreatedSuccessfully(){
+    public void testDeadlineCreatedSuccessfully() {
         try {
             Deadline d = new Deadline("description", "2001-10-10");
         } catch (Exception e) {
@@ -15,7 +15,7 @@ public class DeadlineTest {
         }
     }
     @Test
-    public void testDeadlineInvalidDate(){
+    public void testDeadlineInvalidDate() {
         try {
             Deadline d = new Deadline("description", "not a date");
             fail();
@@ -37,7 +37,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testToStringSuccessful(){
+    public void testToStringSuccessful() {
         try {
             Deadline d = new Deadline("description", "2001-10-10");
             assertEquals("[D][ ] description (by: 10 Oct 2001)", d.toString());

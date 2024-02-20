@@ -31,6 +31,7 @@ public class Main extends Application {
         }
     }
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public static void exit(boolean isExit) {
         if (isExit) {
             try {
@@ -41,4 +42,5 @@ public class Main extends Application {
             }
         }
     }
+    //CHECKSTYLE.ON: MissingJavadocMethod
 }
