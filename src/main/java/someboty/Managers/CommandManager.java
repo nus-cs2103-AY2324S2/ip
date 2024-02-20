@@ -45,6 +45,11 @@ public class CommandManager {
      */
     public String parse(String input) throws TerminateException{
         String command = input.split(" ")[0];
+
+        // DO. NOT. JUDGE.
+        if (input.trim().toLowerCase().equals("good job")) {
+            return "Thank you for praising Izuna.\nNin Nin!";
+        }
         
         try {
             switch (command) {
@@ -61,6 +66,10 @@ public class CommandManager {
 
             case "dateFormats":
                 return DateManager.PrintDateFormats();
+
+            case "save":
+                taskManager.update();
+                return "Izuna has successfully saved the task list!";
 
             case "find":
                 return findTasks(getDescription(input));
@@ -87,8 +96,8 @@ public class CommandManager {
                 return addTask('E', getDescription(input));
 
             default:
-                return "Command not recognized.\n"
-                    + "Type 'help' to get the list of valid commands.";
+                return "Izuna does not understand your command.\n"
+                     + "Type 'help' to get the list of valid commands.";
             }
 
         } catch (InputException e) {
@@ -118,7 +127,7 @@ public class CommandManager {
         String description = "";
 
         if (listOfStrings.length <= 1) {
-            throw new InputException("Task description is not recognized.");
+            throw new InputException("Izuna does not recognize the task description.");
         }
         
         // Join the split words together.
@@ -144,15 +153,15 @@ public class CommandManager {
 
         } catch(NumberFormatException e) {
             throw new InputException(
-                "Unable to determine which task to mark or unmark.\n"
-                + "Please use the format: 'mark TASK_NUMBER' or 'unmark TASK_NUMBER'"
+                "Izuna is unable to determine which task to mark or unmark.\n"
+                + "Please follow the format: 'mark TASK_NUMBER' or 'unmark TASK_NUMBER'"
                 );
         }
 
         Task task = this.taskManager.setTaskStatus(index, isCompleted);
         return isCompleted
-                ? "Uppzz lah so hardworking!\n " + task
-                : "O...k... as you wish I guess...!\n " + task;
+                ? "As expected of master, you made quick work of it!\n " + task
+                : "Huh, there's more to it?\n " + task;
     }
 
     /**
@@ -169,20 +178,20 @@ public class CommandManager {
 
         } catch(NumberFormatException e) {
             throw new InputException(
-                "Unable to determine which task to delete.\n"
-                + "Please use the format: 'mark TASK_NUMBER' or 'unmark TASK_NUMBER'"
+                "Izuna is unable to determine which task master wants to delete.\n"
+                + "Please follow the format: 'mark TASK_NUMBER' or 'unmark TASK_NUMBER'"
                 );
         }
 
         Task deletedTask = this.taskManager.deleteTask(index);
-        return "Noted. I've removed this task:\n"
+        return "As master has ordered, Izuna has removed this task:\n"
             + String.format("  %s\n", deletedTask)
             + String.format("Now you have %d tasks in the list.", this.taskManager.getListSize());
     }
 
     private String clearTaskList() {
         this.taskManager.clear();
-        return "Huh. Your list is magically gone!";
+        return "Fufu, Izuna is glad that master can bring her out to the beach again!";
     }
 
     /**
@@ -214,7 +223,7 @@ public class CommandManager {
         }
 
         int index = 1;
-        String response = "Here are the matching tasks I could find:";
+        String response = "Here are the matching tasks Izuna could find:";
 
         for (Task task : taskList) {
             response += String.format("\n%d %s", index, task);

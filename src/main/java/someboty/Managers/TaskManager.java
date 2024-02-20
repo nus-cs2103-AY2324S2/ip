@@ -45,10 +45,10 @@ public class TaskManager {
      */
     protected String printListTasks() {
         if (taskList.size() == 0) {    // special message for empty list
-            return "Wow! You have no recorded task! Peek laziness here.";
+            return "Master seems to have nothing going on now...";
         }
 
-        String response = "Here are the tasks:\n";
+        String response = "Izuna has found these tasks:\n";
 
         int index = 0;
         for (Task task : taskList) {
@@ -74,7 +74,7 @@ public class TaskManager {
             return this.taskList.get(index);
 
          } catch (IndexOutOfBoundsException e) {
-            throw new InputException("Bruh, there ain't no task " + String.valueOf(index + 1));
+            throw new InputException("Apologies master. Izuna couldn't find task " + String.valueOf(index + 1));
         }
     }
 
@@ -91,7 +91,7 @@ public class TaskManager {
             return removedTask;
 
         } catch (IndexOutOfBoundsException e) {
-            throw new InputException("Bruh, there ain't no task " + String.valueOf(index + 1));
+            throw new InputException("Apologies master. Izuna couldn't find task " + String.valueOf(index + 1));
         }
     }
 
