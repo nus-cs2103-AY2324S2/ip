@@ -1,24 +1,25 @@
 package youdon;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
     // no save file, add first task
-    public void testValidDeadline(){
+    public void testValidDeadline() {
         // delete save file
         File fileToDelete = new File("./data/save.txt");
         fileToDelete.delete();
 
         // set input in input stream
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("deadline return book /by 2/12/2019 1800".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(
+                "deadline return book /by 2/12/2019 1800".getBytes());
         System.setIn(inputStream);
 
         // capture output in output stream
