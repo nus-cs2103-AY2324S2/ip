@@ -1,8 +1,10 @@
-package Panna;
+package panna;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TaskListTest {
 
@@ -10,7 +12,7 @@ public class TaskListTest {
     public void addTest() throws PannaException {
         TaskList tasks = new TaskList();
         tasks.add(new Task("Task1"));
-        assertEquals("Task1",tasks.get(0).taskName);
+        assertEquals("Task1", tasks.get(0).taskName);
     }
 
     @Test
@@ -30,6 +32,6 @@ public class TaskListTest {
         int size = tasks.size();
         tasks.add(new Task("Test2"));
         int size2 = tasks.size();
-        assertEquals(size+1, size2);
+        assertEquals(size + 1, size2);
     }
 }

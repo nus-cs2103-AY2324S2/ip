@@ -1,4 +1,4 @@
-package Panna;
+package panna;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * String input for the task and 2 LocalDate values which represents the start and end
  * of a task.
  */
-public class Event extends Task{
-    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
+public class Event extends Task {
+    private DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
 
     /**
@@ -29,7 +29,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + getStart().format(df) +  " to " + getEnd().format(df) + ")";
+        return super.toString() + " (from: " + getStart().format(df) + " to " + getEnd().format(df) + ")";
     }
 
 }

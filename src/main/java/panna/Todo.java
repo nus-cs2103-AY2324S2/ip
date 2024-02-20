@@ -1,9 +1,9 @@
-package Panna;
+package panna;
 
 /**
  * Todo class encapsulates all Todo objects
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
 
     /**

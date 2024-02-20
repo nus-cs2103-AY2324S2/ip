@@ -1,4 +1,4 @@
-package Panna;
+package panna;
 
 import java.util.Scanner;
 
@@ -11,13 +11,13 @@ import java.util.Scanner;
  * It comprises of many features of a chatbot, including list, mark, unmark among others!
  */
 public class PannaBot {
+    private static Parser parser;
+    private static String filePath;
+    private static String command = "";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private static Parser parser;
 
-    private static String filePath;
-    private static String command = "";
 
     /**
      * Constructor method
@@ -50,50 +50,24 @@ public class PannaBot {
 
             if (PannaBot.command.equals("list")) {
                 ui.listMessage(taskList);
-            }
-
-
-            else if (PannaBot.command.equals("mark")) {
+            } else if (PannaBot.command.equals("mark")) {
                 ui.mark(taskList);
-            }
-
-            else if (PannaBot.command.equals("unmark")) {
+            } else if (PannaBot.command.equals("unmark")) {
                 ui.unmark(taskList);
-            }
-
-            else if (PannaBot.command.equals("event")) {
+            } else if (PannaBot.command.equals("event")) {
                 ui.eventMessage(taskList, parser);
-            }
-
-            else if (PannaBot.command.equals("todo")) {
+            } else if (PannaBot.command.equals("todo")) {
                 ui.todoMessage(taskList);
-
-            }
-
-            else if (PannaBot.command.equals("deadline")) {
+            } else if (PannaBot.command.equals("deadline")) {
                 ui.deadlineMessage(taskList, parser);
-
-            }
-            else if (PannaBot.command.equals("delete")) {
+            } else if (PannaBot.command.equals("delete")) {
                 ui.deleteMessage(taskList);
-            }
-
-
-            else if (PannaBot.command.equals("find")) {
+            } else if (PannaBot.command.equals("find")) {
                 ui.find(this.taskList);
             }
-
-
-
             storage.write(filePath, taskList);
-
-
-
-
-
             PannaBot.command = s.nextLine();
         }
-
 
         ui.farewellMessage();
 

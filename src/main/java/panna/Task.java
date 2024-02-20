@@ -1,8 +1,6 @@
-package Panna;
+package panna;
 
-import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The main parent class for each of the tasks!
@@ -10,12 +8,13 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     protected String taskName;
     protected boolean isDone;
+    protected char taskType;
     private LocalDate start;
     private LocalDate end;
 
     private LocalDate deadline;
 
-    protected char taskType;
+
 
 
     // we need to use different constructors for the different classes
@@ -80,7 +79,7 @@ public class Task {
      * @return start timing
      */
     public LocalDate getStart() {
-        return tstart;
+        return start;
     }
 
     /**
