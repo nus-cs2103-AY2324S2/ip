@@ -19,6 +19,7 @@ import chipchat.action.Unmark;
 import chipchat.exception.ArgumentException;
 import chipchat.exception.InvalidArgumentException;
 import chipchat.exception.MissingArgumentException;
+import chipchat.task.Task;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
@@ -135,6 +136,12 @@ public class Parser {
                 .collect(Collectors.toList());
     }
 
+    private static void resetArgsMap() {
+        argsMap.clear();
+        argsMap = new EnumMap<>(ArgumentType.class);
+        argsMap.put(ArgumentType.ISDONE, "false");
+    }
+
     private static Action parseFindAction(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
             throw new MissingArgumentException(
@@ -176,19 +183,25 @@ public class Parser {
         boolean isDone = argsMap.get(ArgumentType.ISDONE).equals("true");
         List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
 
+        AddTask addTaskAction = null;
         switch(command) {
         case TODO:
-            return AddTask.addTodo(description, isDone, tags);
+            addTaskAction = AddTask.addTodo(description, isDone, tags);
+            break;
         case DEADLINE:
             LocalDate dueBy = parseDate(argsMap.get(ArgumentType.BY));
-            return AddTask.addDeadline(description, isDone, dueBy, tags);
+            addTaskAction = AddTask.addDeadline(description, isDone, dueBy, tags);
+            break;
         case EVENT:
             LocalDate dateFrom = parseDate(argsMap.get(ArgumentType.FROM));
             LocalDate dateTo = parseDate(argsMap.get(ArgumentType.TO));
-            return AddTask.addEvent(description, isDone, dateFrom, dateTo, tags);
+            addTaskAction = AddTask.addEvent(description, isDone, dateFrom, dateTo, tags);
+            break;
         default:
             throw new ArgumentException("Reached default branch of parseTask() due to unrecognized command type");
         }
+        resetArgsMap();
+        return addTaskAction;
     }
 
     /**

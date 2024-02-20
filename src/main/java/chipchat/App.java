@@ -6,6 +6,7 @@ import chipchat.parser.Parser;
 import chipchat.storage.Storage;
 import chipchat.task.TaskList;
 import chipchat.ui.Ui;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -16,11 +17,13 @@ public class App {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private final Stage stage;
 
     /**
      * Constructs the App. Retrieves saved data from storage at initialization.
      */
-    public App() {
+    public App(Stage stage) {
+        this.stage = stage;
         this.ui = new Ui();
         this.storage = new Storage();
 
@@ -45,6 +48,10 @@ public class App {
         return ui.getOutput();
     }
 
+    private void closeApp() {
+        stage.close();
+    }
+
     /**
      * Runs the main program through a Read-Eval-Print loop.
      */
@@ -53,6 +60,9 @@ public class App {
             ui.showLine();
             Action action = Parser.parseAction(userInput);
             action.run(tasks, ui, storage);
+            if (action.isExit()) {
+                closeApp();
+            }
         } catch (ChipchatException exc) {
             ui.showErrMsg(exc);
         } finally {
