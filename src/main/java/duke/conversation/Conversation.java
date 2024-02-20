@@ -29,7 +29,7 @@ public class Conversation {
         addDialogue("hello", "Greetings, Earthling! What adventures await us today?");
 
         addDialogue("hey", "Hey! Ready to conquer some tasks? 💪");
-        addDialogue("hey", "Yo! What's crackin'?");
+        addDialogue("hey", "Yo! What's up?");
 
         addDialogue("how are you", "Running at optimal efficiency! Thanks for checking in. 🤖");
         addDialogue("how are you", "I'm fantastic, thanks for asking! How about yourself?");

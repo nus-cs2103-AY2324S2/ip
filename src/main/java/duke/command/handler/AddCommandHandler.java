@@ -7,7 +7,7 @@ import duke.task.TaskDisplay;
 import java.util.Arrays;
 
 public class AddCommandHandler extends CommandHandler {
-    private TaskDisplay taskDisplay;
+    private final TaskDisplay taskDisplay;
 
     public AddCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);

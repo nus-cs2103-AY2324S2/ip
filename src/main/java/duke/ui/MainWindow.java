@@ -1,7 +1,5 @@
 package duke.ui;
 
-import com.vdurmont.emoji.EmojiParser;
-
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,7 +58,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = EmojiParser.parseToUnicode(duke.getResponse(input));
+        String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 UserDialogBox.getUserDialog(input, userImage),
                 DukeDialogBox.getDukeDialog(response, dukeImage)
