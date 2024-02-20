@@ -44,7 +44,7 @@ public class Task {
     }
 
     /**
-     * Check if the task description contains the keyword regardless of Upper/Lowercase.
+     * Checks if the task description contains the keyword regardless of Upper/Lowercase.
      * @param keyword the keyword to be searched.
      * @return boolean whether the description contains.
      */

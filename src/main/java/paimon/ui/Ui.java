@@ -50,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Print error messages.
+     * Prints error messages.
      * @param errorMessage String error messages generated from Exceptions, etc...
      */
     public String showError(String errorMessage) {
@@ -58,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Read the command input from console.
+     * Reads the command input from console.
      * @return String command in string form to be sent for parsing and executing.
      */
     public String readCommand() {
@@ -70,7 +70,7 @@ public class Ui {
     }
 
     /**
-     * Print ChatBot logo and greeting message.
+     * Prints ChatBot logo and greeting message.
      */
     public String showWelcome() {
         String outputString = LOGO;
@@ -79,7 +79,7 @@ public class Ui {
     }
 
     /**
-     * Close the initiated scanner and print farewell message.
+     * Closes the initiated scanner and print farewell message.
      */
     public String showFarewell() {
         this.scanner.close();
@@ -87,7 +87,7 @@ public class Ui {
     }
 
     /**
-     * Print the numbered full list of task in TaskList.
+     * Prints the numbered full list of task in TaskList.
      * @param taskList TaskList to be displayed.
      */
     public String showTaskList(TaskList taskList) {
@@ -101,7 +101,7 @@ public class Ui {
     }
 
     /**
-     * Print success status when adding a task into TaskList.
+     * Prints success status when adding a task into TaskList.
      * @param task Task to be added.
      */
     public String showAddedTask(Task task) {
@@ -109,14 +109,14 @@ public class Ui {
     }
 
     /**
-     * Print the number of tasks inside the TaskList.
+     * Prints the number of tasks inside the TaskList.
      * @param taskList TaskList to be printed.
      */
     public String showTaskListStatus(TaskList taskList) {
         return String.format("Now you have %d tasks in the list.\n", taskList.size());
     }
     /**
-     * Print success status when marking a task as Done status in TaskList.
+     * Prints success status when marking a task as Done status in TaskList.
      * @param task Task to be marked as Done.
      */
     public String showMarkedTask(Task task) {
@@ -124,7 +124,7 @@ public class Ui {
                 + task.toString() + "\n");
     }
     /**
-     * Print success status when unmarking a task into Undone status in TaskList.
+     * Prints success status when unmarking a task into Undone status in TaskList.
      * @param task Task to be marked as Undone.
      */
     public String showUnmarkedTask(Task task) {
@@ -132,7 +132,7 @@ public class Ui {
                 + task.toString() + "\n");
     }
     /**
-     * Print success status when deleting a task from TaskList.
+     * Prints success status when deleting a task from TaskList.
      * @param task Task to be deleted.
      */
     public String showDeletedTask(Task task) {
@@ -142,7 +142,7 @@ public class Ui {
 
 
     /**
-     * Print the list of task containing a certain keyword.
+     * Prints the list of task containing a certain keyword.
      * @param taskListSearchResult List of Task to be printed.
      */
     public String showFindResult(List<Task> taskListSearchResult) {
@@ -159,7 +159,7 @@ public class Ui {
     }
 
     /**
-     * Show Date Loading Error.
+     * Shows Data Loading Error.
      */
     public String showLoadingError() {
         return ("Loading data from file error.\n");

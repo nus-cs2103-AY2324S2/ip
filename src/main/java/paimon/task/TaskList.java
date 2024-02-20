@@ -18,7 +18,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add task to List of Task.
+     * Adds task to List of Task.
      * @param task Task to be added.
      */
     public void addTask(Task task) {
@@ -36,7 +36,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add a ToDo to List of Task.
+     * Adds a ToDo to List of Task.
      * @param description String name of task.
      * @param isDone Status of the task (Done or Undone).
      * @return Task that was added successfully.
@@ -48,7 +48,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add a ToDo to List of Task.
+     * Adds a ToDo to List of Task.
      * @param parameters String that contain all necessary fields to create a ToDo for adding.
      * @return Task that was added successfully.
      * @throws ChatBotParameterException when parameters String lack information to create a ToDo.
@@ -60,7 +60,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add a Deadline to List of Task.
+     * Adds a Deadline to List of Task.
      * @param description String name of deadline.
      * @param by String represents DateTime the deadline need to be done by.
      * @param isDone Status of the task (Done or Undone).
@@ -76,7 +76,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add a Deadline to List of Task.
+     * Adds a Deadline to List of Task.
      * @param parameters String that contain all necessary fields to create a Deadline for adding.
      * @return Task that was added successfully.
      * @throws ChatBotParameterException when parameters String lack information to create a Deadline.
@@ -89,7 +89,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add an Event to List of Task.
+     * Adds an Event to List of Task.
      * @param parameters String that contain all necessary fields to create a Event for adding.
      * @return Task that was added successfully.
      * @throws ChatBotParameterException when parameters String lack information to create an Event.
@@ -101,7 +101,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add an Event to List of Task.
+     * Adds an Event to List of Task.
      * @param description String name of event.
      * @param from String when the event starts.
      * @param to String when the event ends.
@@ -123,7 +123,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Mark a task inside TaskList to be Done.
+     * Marks a task inside TaskList to be Done.
      * @param parameters String that contain task number to be marked.
      * @return Task that was marked successfully.
      * @throws ChatBotParameterException when task number out of bound or attempting to mark a Done Task.
@@ -154,7 +154,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Mark a task inside TaskList to be Undone
+     * Marks a task inside TaskList to be Undone.
      * @param parameters String that contain task number to be unmarked.
      * @return Task that was unmarked successfully.
      * @throws ChatBotParameterException when task number out of bound or attempting to mark an Undone Task.
@@ -172,7 +172,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Delete a task inside TaskList.
+     * Deletes a task inside TaskList.
      * @param parameters String that contain task number to be deleted.
      * @return Task that was deleted successfully.
      * @throws ChatBotParameterException when task number out of bound.
@@ -192,7 +192,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * retrieve a sub List containing all task that contains keyword in its description.
+     * Retrieves a sub List containing all task that contains keyword in its description.
      * @param keyword String queries to be searched.
      * @return List of Task of which description contains the keyword.
      * @throws ChatBotParameterException when keyword is empty or only whitespaces.

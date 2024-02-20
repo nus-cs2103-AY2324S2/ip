@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Signal the ChatBot to exit
+     * Signals the ChatBot to exit.
      * @return true
      */
     @Override

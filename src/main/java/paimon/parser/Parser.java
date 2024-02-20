@@ -11,8 +11,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private static final String DEFAULT_SAVE_FILE_NAME = "tasks";
     /**
-     * Convert a TaskString (i.e. String-formatted Task) from local saves.
-     * into array of parameters to create a task.
+     * Converts a TaskString (i.e. String-formatted Task) from local saves into array of parameters to create a task.
      * @param taskString String the String parse from a line in local saves.
      * @return String[] Parameter Array.
      */
@@ -21,7 +20,7 @@ public class Parser {
     }
 
     /**
-     * Convert command String into a Command object.
+     * Converts command String into a Command object.
      * @param command String the command String read from UI.
      * @return Command appropriate Command object to be executed.
      * @throws ChatBotCommandException when command is not available or command String is empty.
@@ -77,7 +76,7 @@ public class Parser {
     }
 
     /**
-     * Parse parameters String for ToDo.
+     * Parses parameters String for ToDo.
      * @param parameters String the String containing information to create a ToDo.
      * @return String[] Parameter Array.
      * @throws ChatBotParameterException when parameters String is empty.
@@ -91,7 +90,7 @@ public class Parser {
     }
 
     /**
-     * Parse parameters String for Deadline.
+     * Parses parameters String for Deadline.
      * @param parameters String the String containing information to create a Deadline.
      * @return String[] Parameter Array.
      * @throws ChatBotParameterException when parameters String is empty or length 1.
@@ -110,7 +109,7 @@ public class Parser {
     }
 
     /**
-     * Parse parameters String for Event.
+     * Parses parameters String for Event.
      * @param parameters String the String containing information to create an Event.
      * @return String[] Parameter Array.
      * @throws ChatBotParameterException when parameters String is empty or length < 3.
@@ -129,7 +128,7 @@ public class Parser {
     }
 
     /**
-     * Parse DateTime String (with pattern of ISO 8601 or "d/M/yyyy Hmm") into LocalDateTime object.
+     * Parses DateTime String (with pattern of ISO 8601 or "d/M/yyyy Hmm") into LocalDateTime object.
      * @param dateTime String the DateTime String.
      * @return LocalDateTime LocalDateTime object.
      * @throws ChatBotParameterException String is in wrong format.
@@ -148,7 +147,7 @@ public class Parser {
     }
 
     /**
-     * Convert String parameter into int for certain commands.
+     * Converts String parameter into int for certain commands.
      * @param parameters String String parameter.
      * @return int value from the String.
      * @throws ChatBotParameterException when parameters is empty or cannot be converted into int.
