@@ -53,7 +53,7 @@ public class TaskList {
      * @return The string message to be printed.
      */
     public String mark(int index) {
-        String str = "";
+        String str;
         try {
             if (tasks.size() < index) {
                 throw new OutOfIndexException();
@@ -79,7 +79,7 @@ public class TaskList {
      * @return The string message to be printed.
      */
     public String unmark(int index) {
-        String str = "";
+        String str;
         try {
             if (tasks.size() < index) {
                 throw new OutOfIndexException();
@@ -105,7 +105,7 @@ public class TaskList {
      * @return The string message to be printed.
      */
     public String delete(int index) {
-        String str = "";
+        String str;
         try {
             if (tasks.size() < index || index < 1) {
                 throw new OutOfIndexException();
@@ -153,6 +153,7 @@ public class TaskList {
     public String find(String keyword) {
         StringBuilder matchingTasks = new StringBuilder();
         matchingTasks.append("These are the result of finding the keyword:");
+        assert tasks.size() >= 1 : "There needs to be a task to search!";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
                 matchingTasks.append("\n" + (i + 1) + ". " + tasks.get(i).print());

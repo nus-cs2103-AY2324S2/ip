@@ -1,8 +1,6 @@
 package lemona.command;
 
 import lemona.oop.TaskList;
-import lemona.oop.Ui;
-import lemona.oop.Storage;
 
 /**
  * An abstract Command class to handle different commands.
