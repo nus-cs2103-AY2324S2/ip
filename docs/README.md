@@ -32,10 +32,10 @@ The command line supports the following functions:
     - To-dos - tasks with no attached dates
     - Deadline - tasks with an attached deadline
     - Event - tasks with a start time and end time
-- [**Listing** of current tasks](#listing-of-tasks)
-- [**Marking** (and unmarking) tasks as complete](#marking-of-tasks-as-complete)
-- [**Deleting** of existing tasks](#deleting-of-existing-tasks)
-- [**Searching** for tasks by its description](#searching-by-description)
+- [**Listing** of current tasks](#listing-of-tasks-list)
+- [**Marking** (and unmarking) tasks as complete](#marking-of-tasks-as-complete-mark)
+  - [**Deleting** of existing tasks](#deleting-of-existing-tasks-delete)
+- [**Searching** for tasks by its description](#searching-by-description-find)
 - [**Storing of tasks** for subsequent runs of Kokbot](#storing-of-tasks)
 
 ### Usage of command keywords:  
