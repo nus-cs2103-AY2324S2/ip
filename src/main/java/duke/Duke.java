@@ -38,7 +38,7 @@ public class Duke {
      * Given a user input string, invokes the command parser and returns the output in the UI.
      */
     String getResponse(String input) {
-        // Create a StringBuilder to hold the output
+        // Create a StringBuilder to hold output
         StringBuilder outputBuilder = new StringBuilder();
 
         // Create a PrintStream that writes to the StringBuilder

@@ -22,12 +22,13 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Window.fxml"));
             AnchorPane anchoringPane = fxmlLoader.load();
 
+            Scene scene = new Scene(anchoringPane);
+            stage.setScene(scene);
+
             // Set controller data
             MainDisplay controller = fxmlLoader.<MainDisplay>getController();
             controller.setDuke(duke);
 
-            Scene scene = new Scene(anchoringPane);
-            stage.setScene(scene);
             stage.setTitle("Hari");
             stage.show();
 
