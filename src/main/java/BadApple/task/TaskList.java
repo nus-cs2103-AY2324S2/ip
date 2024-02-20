@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>(); // Globally accessible Tasks in memory.
+
     public static String listTasks(BufferedReader bufferedReader) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         while (bufferedReader.ready()) {
@@ -27,13 +28,5 @@ public class TaskList {
             }
         }
         return stringBuilder.toString();
-    }
-
-    public static void filterTasks(String filter) {
-        for (Task t : tasks) {
-            if (t.brief().toLowerCase().contains(filter.toLowerCase())) {
-                System.out.println(t);
-            }
-        }
     }
 }

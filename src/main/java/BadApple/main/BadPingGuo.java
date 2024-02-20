@@ -34,52 +34,6 @@ public class BadPingGuo extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/Sunny.jpeg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/MARI.png"));
 
-//    public static void main(String[] args) {
-//        Ui.showWelcome();
-//        Scanner sc = new Scanner(System.in);
-//
-//        try {
-//            File file = new File(FILENAME);
-//            FileReader fc = new FileReader(file);
-//            BufferedReader reader = new BufferedReader(fc);
-//
-//            Tracker.suppressMessages = true;
-//            Storage.loadSave(file);
-//            Tracker.suppressMessages = false;
-//
-//            TaskList.listTasks(reader);
-//            System.out.println("Waiting for something to happen?");
-//
-//            // self note: update the file everytime an operation is complete.
-//            // Delete the old file, for loop all the tasks into new file. Rename it to old file name.
-//            while(true) {
-//                String request = sc.nextLine();
-//                if (request.equalsIgnoreCase("bye")) break;
-//                Parser.ProcessQuery(request);
-//            }
-//
-//            System.out.println("--------------------------------");
-//            System.out.println("Everything is going to be okay.");
-//
-//            fc.close();
-//            reader.close();
-//
-//        } catch (FileNotFoundException e) {
-//            System.out.println("You've been living here for as long as... wait, no headspace detected?");
-//            System.out.println("Would you like to enter White Space? \n" +
-//                    "Only 'yes' will create the required files" );
-//            String askToCreateFile = sc.nextLine();
-//            if (askToCreateFile.equalsIgnoreCase("yes")) {
-//                makeFile();
-//            }
-//        } catch (IOException e) {
-//            System.out.println("unable to process file");
-//        } catch (BadAppleException be) {
-//            System.out.println(be.toString());
-//        }
-//
-//    }
-
     public static boolean makeFile() {
         try {
             File f1 = new File("src/main/data");
