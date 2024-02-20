@@ -29,7 +29,7 @@ import jerome.tasklist.Priority;
 public class Parser {
 
     /**
-     * Used for initial separation of command word and args.
+     * Represents Regex used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 

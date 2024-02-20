@@ -67,7 +67,7 @@ public class SetPriorityCommand extends Command {
     /**
      * Represents command to delete a task from the task list.
      *
-     * @param targetIndex the index of the task to be deleted
+     * @param targetIndex the index of the task to be deleted.
      */
     public SetPriorityCommand(int targetIndex, Priority priority) {
         this.targetIndex = targetIndex;
@@ -84,7 +84,6 @@ public class SetPriorityCommand extends Command {
         try {
             Task task = dataStorage.getTask(targetIndex);
             task.setPriority(this.priority);
-            // TODO: Carefully consider if we want to expose this rebuild storage method
             dataStorage.rebuildStorage();
             return new CommandResult(String.format(MESSAGE_SUCCESS, task, dataStorage.getTaskCount()));
         } catch (IndexOutOfBoundsException iobe) {

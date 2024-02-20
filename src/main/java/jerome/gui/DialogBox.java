@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- * DialogBox controlled using FXML.
+ * Represents the DialogBox controlled using FXML.
  * Represents dialog box consisting of ImageView to represent the
  * speaker's face and a label containing text from the speaker.
  * @@author se-edu

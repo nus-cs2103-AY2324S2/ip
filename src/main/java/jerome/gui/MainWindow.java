@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import jerome.JeromeGpt;
 
 /**
- * Controller for MainWindow.
+ * Represents the Controller for MainWindow.
  * Provides the layout for the other controls.
  * @@author se-edu
  * Reuse from https://se-education.org/guides/tutorials/javaFx.html

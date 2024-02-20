@@ -26,7 +26,7 @@ public class FindCommand extends Command {
     private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "\t %d. %s";
 
     /**
-     * The target index stores the search term provided by the user.
+     * Represents the target index stores the search term provided by the user.
      */
     private String searchString;
 

@@ -11,7 +11,7 @@ public class Deadline extends Task {
     private DateTimeHandler by;
 
     /**
-     * Creates a Deadline task with the given description, deadline, and status.
+     * Creates the Deadline task with the given description, deadline, and status.
      *
      * @param description the name of the deadline task.
      * @param by          the deadline of the task in the format "yyyy-MM-dd".

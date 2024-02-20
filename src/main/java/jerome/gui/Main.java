@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import jerome.JeromeGpt;
 
 /**
- * A GUI for Duke using FXML.
+ * Represents the GUI for Duke using FXML.
  * @@author se-edu
  * Reuse from https://se-education.org/guides/tutorials/javaFx.html
  * with minor modifications to cater for differences in
@@ -21,7 +21,7 @@ public class Main extends Application {
     private JeromeGpt jeromeGpt = new JeromeGpt();
 
     /**
-     * Setups the primary stage, loading the FXML file for the main window,
+     * Configures the primary stage, loading the FXML file for the main window,
      * initializing UI and dataStorage, main window with the JeromeGpt instance.
      *
      * @param stage to be displayed.
