@@ -108,13 +108,6 @@ public class Response {
   }
 
   /**
-   * Shows the error message archiving tasks.
-   */
-  public String showErrorArchivingTasks() {
-    return "An error occurred while archiving tasks.";
-  }
-
-  /**
    * Shows the invalid delete message.
    */
   public String showInvalidDelete() {
@@ -161,5 +154,12 @@ public class Response {
    */
   public String showInvalidCommand() {
     return "Invalid command.";
+  }
+
+  /**
+   * Shows the error message.
+   */
+  public String showErrorMessage(String message) {
+    return message;
   }
 }
