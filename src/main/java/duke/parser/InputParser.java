@@ -56,7 +56,6 @@ public class InputParser {
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
-
         Task t = tasks.markTask(taskNum);
         return TextTemplate.MARK_TASK + "\n" + t.toString();
     }

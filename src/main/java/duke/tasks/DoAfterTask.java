@@ -91,7 +91,9 @@ public class DoAfterTask extends Task {
      * Gets the status of the beforeTask.
      */
     public void markAsDone() throws InvalidMarkException {
-        if (this.beforeTask.isDone() || this.beforeTaskStatus == BeforeTaskStatus.INVALID) {
+        if (this.beforeTaskStatus == BeforeTaskStatus.INVALID) {
+            super.markAsDone();
+        } else if (this.beforeTask.isDone()) {
             super.markAsDone();
         } else {
             throw new InvalidMarkException("OOPS!!! DoAfter Task: " + this.getDesc()
