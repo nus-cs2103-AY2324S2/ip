@@ -91,6 +91,13 @@ public class Parser {
         return this.cursor < this.strs.length;
     }
 
+    /**
+     * Asserts that the next token read is the same as the passed string. consumes the token.
+     *
+     * @param expected The what the next token read is expected to be
+     *
+     * @throws DukeOptionParsingException If the end of input is reached or !expected.equals(actual)
+     */
     public void assertNext(String expected) throws DukeOptionParsingException {
         String actual = this.next();
 
