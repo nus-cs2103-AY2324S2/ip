@@ -20,6 +20,11 @@ public class CommandParser {
     private final Map<String, CommandHandler> commandMap;
     private final Set<String> defaultCommands;
 
+    /**
+     * Constructs a CommandParser.
+     *
+     * @param username the username
+     */
     public CommandParser(String username) {
         this.taskManager = new TaskManager(username);
         this.conversation = new Conversation(username);
@@ -31,6 +36,12 @@ public class CommandParser {
         defineDefaultCommands();
     }
 
+    /**
+     * Parses the input command.
+     *
+     * @param input the input command
+     * @return the response to the input command
+     */
     public String parseInput(String input) {
         input = input.trim().toLowerCase();
 
@@ -111,6 +122,7 @@ public class CommandParser {
     private boolean isDefaultCommand(String commandName) {
         return defaultCommands.contains(commandName.toLowerCase());
     }
+
     private String handleDefineCommand(String defineInput) {
         String[] parts = defineInput.split("=");
         if (parts.length != 2) {
@@ -130,6 +142,11 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Lists all available commands.
+     *
+     * @return a string containing all available commands
+     */
     public String listAllCommands() {
         StringBuilder commandsList = new StringBuilder("Here are all the magical spells... I mean commands you can use: 🪄\n");
         for (Map.Entry<String, CommandHandler> entry : commandMap.entrySet()) {
@@ -140,6 +157,12 @@ public class CommandParser {
         return commandsList.toString();
     }
 
+    /**
+     * Defines a new command with a shortcut.
+     *
+     * @param shortcut the shortcut for the new command
+     * @param handler the handler for the new command
+     */
     public void define(String shortcut, CommandHandler handler) {
         if (commandMap.containsKey(shortcut)) {
             System.out.println("Switcheroo! 🔄 Replacing the spell... erm, command for shortcut: " + shortcut);

@@ -7,14 +7,34 @@ import duke.task.TaskManager;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Handles the finding of tasks matching a keyword.
+ *
+ * This command handler searches for tasks in the task manager that match a specified keyword.
+ * It displays the list of matching tasks to the user.
+ *
+ * Usage: find <keyword>
+ */
 public class FindCommandHandler extends CommandHandler {
     private final TaskDisplay taskDisplay;
 
+    /**
+     * Constructs a FindCommandHandler.
+     *
+     * @param taskManager the task manager
+     * @param taskDisplay the task display
+     */
     public FindCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
 
+    /**
+     * Handles the user's input for finding tasks matching a keyword.
+     *
+     * @param userMessage the user's input message
+     * @return a message indicating the result of the search
+     */
     @Override
     public String handle(String[] userMessage) {
 
@@ -35,6 +55,11 @@ public class FindCommandHandler extends CommandHandler {
                 taskDisplay.displayFindTaskList(matchingTasks);
     }
 
+    /**
+     * Retrieves the description of the command handler.
+     *
+     * @return the description of the command handler
+     */
     @Override
     public String getDescription() {
         return "Finds tasks matching a keyword. Usage: find <keyword>";

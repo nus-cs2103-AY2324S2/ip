@@ -3,14 +3,33 @@ package duke.command.handler;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
 
+/**
+ * Handles marking a task as complete.
+ *
+ * This command handler marks a specified task as complete in the task manager.
+ *
+ * Usage: m <task number>
+ */
 public class MarkCommandHandler extends CommandHandler {
     private final TaskDisplay taskDisplay;
 
+    /**
+     * Constructs a MarkCommandHandler.
+     *
+     * @param taskManager the task manager
+     * @param taskDisplay the task display
+     */
     public MarkCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
 
+    /**
+     * Handles the user's input for marking a task as complete.
+     *
+     * @param userMessage the user's input message
+     * @return a message indicating the result of marking the task as complete
+     */
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
@@ -29,6 +48,12 @@ public class MarkCommandHandler extends CommandHandler {
                 "Feels good, doesn't it? Here's a high five! ✋\n" +
                 taskDisplay.displayMarkTask(taskManager.getTasks(), taskIndex);
     }
+
+    /**
+     * Retrieves the description of the command handler.
+     *
+     * @return the description of the command handler
+     */
     @Override
     public String getDescription() {
         return "Marks a task as complete. Usage: m <task number>";

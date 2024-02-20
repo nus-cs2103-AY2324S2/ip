@@ -1,17 +1,37 @@
 package duke.command.handler;
 
 import duke.task.TaskManager;
-import duke.task.TaskDisplay; // Make sure to have TaskDisplay imported or implemented accordingly
+import duke.task.TaskDisplay;
 import duke.task.Task;
 
+/**
+ * Handles the deletion of a task.
+ *
+ * This command handler deletes a task from the task manager based on the user's input.
+ * It validates the user's input to ensure a valid task number is provided for deletion.
+ *
+ * Usage: del <task number>
+ */
 public class DeleteCommandHandler extends CommandHandler {
     private final TaskDisplay taskDisplay;
 
+    /**
+     * Constructs a DeleteCommandHandler.
+     *
+     * @param taskManager the task manager
+     * @param taskDisplay the task display
+     */
     public DeleteCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
 
+    /**
+     * Handles the user's input for deleting a task.
+     *
+     * @param userMessage the user's input message
+     * @return a message indicating the result of the deletion
+     */
     @Override
     public String handle(String[] userMessage) {
         if (userMessage.length < 2 || !isNumeric(userMessage[1])) {
@@ -35,6 +55,11 @@ public class DeleteCommandHandler extends CommandHandler {
         }
     }
 
+    /**
+     * Retrieves the description of the command handler.
+     *
+     * @return the description of the command handler
+     */
     @Override
     public String getDescription() {
         return "Deletes a task. Usage: del <task number>";

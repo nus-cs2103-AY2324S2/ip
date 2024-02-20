@@ -6,14 +6,34 @@ import duke.task.TaskDisplay;
 
 import java.util.Arrays;
 
+/**
+ * Handles the addition of a new task.
+ *
+ * This command handler adds a new task to the task manager based on the user's input.
+ * It determines the type of task (todo, event, deadline) and adds it accordingly.
+ *
+ * Usage: <command> [description]
+ */
 public class AddCommandHandler extends CommandHandler {
     private final TaskDisplay taskDisplay;
 
+    /**
+     * Constructs an AddCommandHandler.
+     *
+     * @param taskManager the task manager
+     * @param taskDisplay the task display
+     */
     public AddCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
         this.taskDisplay = taskDisplay;
     }
 
+    /**
+     * Handles the user's input for adding a new task.
+     *
+     * @param userMessage the user's input message
+     * @return a message indicating the result of the addition
+     */
     @Override
     public String handle(String[] userMessage) {
 
@@ -36,6 +56,12 @@ public class AddCommandHandler extends CommandHandler {
         }
     }
 
+    /**
+     * Determines the type of task based on the user's input.
+     *
+     * @param command the user's input command
+     * @return the type of task (todo, event, deadline)
+     */
     private TaskType determineTaskType(String command) {
         switch (command.toLowerCase()) {
             case "t":
@@ -52,6 +78,11 @@ public class AddCommandHandler extends CommandHandler {
         }
     }
 
+    /**
+     * Retrieves the description of the command handler.
+     *
+     * @return the description of the command handler
+     */
     @Override
     public String getDescription() {
         return "Adds a new task. Usage: <command> [description]";
