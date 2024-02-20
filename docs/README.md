@@ -113,7 +113,8 @@ Expected output:
 4. mark [task number] : Mark a task as completed.
 5. unmark [task number] : Unmark a completed task.
 6. delete [task number] : Deletes a task from the list.
-7. list : Displays all tasks in your to-do list.
+7. find [keyword] : Displays all tasks in your to-do list that contain the keyword.
+8. list : Displays all tasks in your to-do list.
 ```
 
 
