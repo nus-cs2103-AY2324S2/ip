@@ -28,15 +28,6 @@ public class Ui {
     }
 
     /**
-     * Shows divider for neater user interface.
-     *
-     * @return String message of a divider.
-     */
-    public String showDivider() {
-        return DIVIDER + "\n";
-    }
-
-    /**
      * Shows loading error message when there is an error loading tasks from storage.
      *
      * @return String message for error loading tasks.

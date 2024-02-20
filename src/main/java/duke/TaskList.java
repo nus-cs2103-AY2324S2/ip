@@ -108,7 +108,7 @@ public class TaskList {
         int index = 1;
         for (Task task : this.myList) {
             if (task.toString().contains(text)) {
-                matchingTasks = matchingTasks + "\t" + index + ". " + task.toString() + "\n";
+                matchingTasks = matchingTasks + "\t" + index + ". " + task + "\n";
                 index++;
             }
         }
