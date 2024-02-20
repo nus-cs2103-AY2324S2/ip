@@ -1,18 +1,18 @@
-package Duke;
+package Shirmin;
 
 /**
- * Represents the main class of the Duke application.
+ * Represents the main class of the Shirmin application.
  * <p>
- * This class is responsible for initializing and running the Duke application.
+ * This class is responsible for initializing and running the Shirmin application.
  * It integrates various classes in an OOP structure - Storage, TaskList, Parser, and Ui.
  */
 public class Shirmin {
     private final TaskList taskList;
 
     /**
-     * Initializes a new Duke application.
+     * Initializes a new Shirmin application.
      * <p>
-     * This constructor initializes the Ui, Parser, Storage, and TaskList components of the Duke application.
+     * This constructor initializes the Ui, Parser, Storage, and TaskList components of the Shirmin application.
      */
     public Shirmin() {
         Parser parser = new Parser();
@@ -21,9 +21,9 @@ public class Shirmin {
     }
 
     /**
-     * The entry point of the Duke application.
+     * The entry point of the Shirmin application.
      * <p>
-     * This main method initializes a new Duke instance and starts its execution.
+     * This main method initializes a new Shirmin instance and starts its execution.
      *
      */
     public String runCommand(String command) {

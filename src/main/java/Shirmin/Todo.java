@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 
 /**
  * Represents a basic task without any additional date/time.

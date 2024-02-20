@@ -1,11 +1,11 @@
-package Duke;
+package Shirmin;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Handles storage operations for Duke application tasks.
+ * Handles storage operations for Shirmin application tasks.
  * <p>
  * Responsible for saving tasks to a file and reading tasks from a file.
  * It interacts with the Ui component for error reporting and the Parser component for parsing tasks.
@@ -31,7 +31,7 @@ public class Storage {
      */
     public void saveTaskToFile(Task task) {
         try {
-            FileWriter fileWriter = new FileWriter("./data/duke.txt", true);
+            FileWriter fileWriter = new FileWriter("./data/Shirmin.txt", true);
 
             String taskLine = parser.formatTaskForFile(task);
 
@@ -52,7 +52,7 @@ public class Storage {
      */
     public void saveAllTasksToFile(ArrayList<Task> taskList) {
         try {
-            FileWriter fileWriter = new FileWriter("./data/duke.txt", false);
+            FileWriter fileWriter = new FileWriter("./data/Shirmin.txt", false);
             for (Task task : taskList) {
                 String taskLine = parser.formatTaskForFile(task);
                 fileWriter.write(taskLine + "\n");

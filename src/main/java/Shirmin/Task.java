@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 
 public class Task {
     protected final String description;

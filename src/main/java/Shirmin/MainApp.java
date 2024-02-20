@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -110,10 +110,10 @@ public class MainApp extends Application{
     }
     private void sayGoodbye() {
         Label goodbyeText = new Label("Goodbye! See you again!");
-        ImageView dukeImageView = new ImageView(min);
-        dukeImageView.setFitHeight(imageSize);
-        dukeImageView.setFitWidth(imageSize);
-        DialogBox goodbyeBox = new DialogBox(goodbyeText, dukeImageView);
+        ImageView ShirminImageView = new ImageView(min);
+        ShirminImageView.setFitHeight(imageSize);
+        ShirminImageView.setFitWidth(imageSize);
+        DialogBox goodbyeBox = new DialogBox(goodbyeText, ShirminImageView);
         dialogContainer.getChildren().add(goodbyeBox);
 
         Platform.runLater(() -> {

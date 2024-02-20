@@ -47,7 +47,7 @@ dependencies {
 //}
 
 application {
-    mainClass.set('Duke.Launcher')
+    mainClass.set('Launcher')
 
 }
 
@@ -55,7 +55,7 @@ shadowJar {
     archiveBaseName = "Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = 'Duke.Launcher'
+    mainClassName = 'Shirmin.Launcher'
     archiveFileName = 'Launcher.jar'
 }
 

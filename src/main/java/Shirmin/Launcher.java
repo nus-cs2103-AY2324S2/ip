@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 import javafx.application.Application;
 
 /**

@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +35,9 @@ public class TaskList {
         File directory = new File("./data");
         assert directory.exists() || directory.mkdirs() : "Failed to create directory";
 
-        File file = new File(directory, "duke.txt");
+        File file = new File(directory, "Shirmin.txt");
         try {
-            assert file.createNewFile() : "Failed to create duke.txt file";
+            assert file.createNewFile() : "Failed to create Shirmin.txt file";
 
             file.createNewFile();
             Scanner fileScanner = new Scanner(file);

@@ -1,4 +1,4 @@
-package Duke;
+package Shirmin;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
