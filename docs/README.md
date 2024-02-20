@@ -1,6 +1,6 @@
 # shirmin User Guide
 
-shirmin is a simple todo list app that allows you to add, delete, manipulate and find your tasks! <br>
+shirmin is a todo list app that allows you to add, delete, manipulate and find your tasks! <br>
 ![shirmin](Ui.png)
 
 # Commands: 
@@ -17,13 +17,13 @@ Format for guide:
 
 ## Adding tasks
 
-#### todo <br> 
+#### todo 
     Adds an uncompleted todo task to the list 
     Format: "todo <todo name>" 
     Example: "todo do work" 
     Expected output: Added: [T][] do work 
 
-#### deadline <br> 
+#### deadline 
     Adds an uncompleted deadline task to the list 
     Format: "deadline <deadline name> /by <YYYY-MM-DD HHMM> (
     Example: "deadline return book /by 2019-10-15 1800" 
@@ -36,6 +36,7 @@ Format for guide:
     Expected output: Added: [E][] work (from: Oct 15 2019 18:00 to Oct 15 2019 23:00)
 
 ## Viewing tasks
+
 #### list 
     Displays all current tasks
     Format: "list"
@@ -43,6 +44,7 @@ Format for guide:
     Expected output (Example): 
     "1. [T][] task 1
      2. [T][] task 2"
+
 
 #### find
     Displays current tasks with search term
@@ -55,6 +57,7 @@ Format for guide:
 
 
 ## Manipulating tasks
+
 #### mark
     Marks a single task to indicate it is complete
     Format: "mark <task number>"
@@ -68,14 +71,17 @@ Format for guide:
     Example: "unmark 1"
     Expected output (Example):
     "Marked as not done: [T][] task 1"
+
+
 #### delete
     Deletes a single task from the list
     Format: "delete <task number>"
-Example: "delete 1" <br>
-Expected output (Example):
+    Example: "delete 1" <br>
+    Expected output (Example):
     "Deleted task: [T][] task 1"
 
 ## Exiting App
+
 #### bye
     Exits app
     Format: "bye"
