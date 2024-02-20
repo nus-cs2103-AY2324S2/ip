@@ -100,7 +100,7 @@ public class TaskList {
             tasks.remove(index - 1);
             this.storage.save(tasks);
             return "Noted. I've removed this task:\n\t" + task.toString()
-                + "Now you have " + tasks.size() + " tasks in the list.";
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
     }
 
@@ -129,7 +129,7 @@ public class TaskList {
         stringBuilder.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(searchKeyword)) {
-                stringBuilder.append("\t" + (i + 1) + "." + tasks.get(i).toString());
+                stringBuilder.append("\n\t" + (i + 1) + "." + tasks.get(i).toString());
             }
         }
         return stringBuilder.toString();
