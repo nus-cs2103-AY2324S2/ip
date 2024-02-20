@@ -12,15 +12,17 @@
          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #C1E3ED;
-         -fx-background-radius: 5;" text="Label" wrapText="true">
+         -fx-background-radius: 10;" text="Label" wrapText="true">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
             <font>
-                <Font name="Courier New" size="13.0" />
-            </font></Label>
+                <Font name="Arial" size="13.0" />
+            </font>
+        </Label>
         <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="13.0" />
-        <ImageView fx:id="displayPicture" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">            <image>
+        <ImageView fx:id="displayPicture" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+            <image>
                 <Image url="@../images/DaUser.png" />
             </image>
         </ImageView>
