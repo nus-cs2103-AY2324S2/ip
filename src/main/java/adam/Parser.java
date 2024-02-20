@@ -9,8 +9,6 @@ import adam.command.ListCommand;
 import adam.command.MarkCommand;
 import adam.command.UnmarkCommand;
 
-import java.lang.management.ThreadMXBean;
-
 /**
  * Parses the user input and creates the commands requested by the user.
  */

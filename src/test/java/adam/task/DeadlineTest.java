@@ -20,19 +20,19 @@ public class DeadlineTest {
             Deadline d = new Deadline("description", "not a date");
             fail();
         } catch (Exception e) {
-            assertEquals("ERROR: Invalid date or date format", e.getMessage());
+            assertEquals("ERROR: Invalid date or date format, date format is yyyy-mm-dd", e.getMessage());
         }
         try {
             Deadline d = new Deadline("description", "10 Jan 2001");
             fail();
         } catch (Exception e) {
-            assertEquals("ERROR: Invalid date or date format", e.getMessage());
+            assertEquals("ERROR: Invalid date or date format, date format is yyyy-mm-dd", e.getMessage());
         }
         try {
             Deadline d = new Deadline("description", "2001/01/10");
             fail();
         } catch (Exception e) {
-            assertEquals("ERROR: Invalid date or date format", e.getMessage());
+            assertEquals("ERROR: Invalid date or date format, date format is yyyy-mm-dd", e.getMessage());
         }
     }
 
