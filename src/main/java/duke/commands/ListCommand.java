@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to list down all the tasks.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Constructs a new ExitCommand object.

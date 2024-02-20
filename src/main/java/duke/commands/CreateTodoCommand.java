@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to create an todo task.
  */
-public class CreateTodoCommand extends Command{
+public class CreateTodoCommand extends Command {
     private String description;
 
     /**

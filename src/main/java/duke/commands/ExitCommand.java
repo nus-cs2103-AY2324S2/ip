@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * Represents a command to exit the program.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Constructs a new ExitCommand object.

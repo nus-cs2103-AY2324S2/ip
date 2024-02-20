@@ -12,7 +12,7 @@ public class ToDo extends Task {
      *
      * @param description The description of the todo task.
      */
-    public ToDo (String description) {
+    public ToDo(String description) {
         super(description);
     }
 
@@ -22,7 +22,7 @@ public class ToDo extends Task {
      * @param description The description of the todo task.
      * @param status      The completion status of the todo task.
      */
-    public ToDo (String description, Boolean status) {
+    public ToDo(String description, Boolean status) {
         super(description, status);
     }
 

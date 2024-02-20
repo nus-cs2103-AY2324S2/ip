@@ -68,20 +68,4 @@ public class Ui {
     public String showGoodbye() {
         return "Bye. Hope to see you again soon!";
     }
-
-    /**
-     * Displays an error message for loading error.
-     */
-    public void showLoadingError() {
-        System.err.println("There is loading error");
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param errorMsg The error message to display.
-     */
-    public void showError(String errorMsg) {
-        System.err.println(errorMsg);
-    }
 }

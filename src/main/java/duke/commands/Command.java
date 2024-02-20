@@ -1,7 +1,7 @@
 package duke.commands;
 
-import duke.ui.Ui;
 import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command to be executed by Duke.

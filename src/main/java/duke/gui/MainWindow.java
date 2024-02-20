@@ -2,7 +2,6 @@ package duke.gui;
 
 import duke.Duke;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,6 +39,9 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    /**
+     * Displays welcome message.
+     */
     public void showWelcomeMessage() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.showWelcome(), cicadaImage));
     }
