@@ -56,7 +56,7 @@ public class Parser {
                 TaskList taskList = YODA_UI.getTaskList();
                 return YODA_UI.saveTasks(taskList);
             case DELETE:
-                performTaskOperation(parts, YODA_UI::deleteTask);
+                return performTaskOperation(parts, YODA_UI::deleteTask);
             case FIND:
                 if (parts.length > 1) {
                     return YODA_UI.findTasks(parts[1]);
