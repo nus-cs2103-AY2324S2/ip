@@ -105,7 +105,6 @@ public class Ui {
         int numOfTasks = taskList.getListSize();
 
         String message = LINE_BREAK
-                + "\n"
                 + "Your directive has been duly noted. The task has been successfully expunged "
                 + "from our records. Should there be any further matters requiring attention or if "
                 + "new tasks arise, do not hesitate to relay them, and they shall be handled with utmost "

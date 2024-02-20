@@ -1,1 +1,2 @@
-T | 0 | eat
+E | 1 | floor party | 1900 20/02/2024 | 2200 20/02/2024
+T | 0 | get instructions from marcus
