@@ -1,6 +1,10 @@
 package chingu;
 
-import chingu.task.*;
+import chingu.task.Event;
+import chingu.task.ToDo;
+import chingu.task.Deadline;
+import chingu.task.Task;
+import chingu.task.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
