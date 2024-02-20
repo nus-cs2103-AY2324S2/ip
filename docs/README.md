@@ -29,7 +29,7 @@ transforming task management into a seamless part of your day.
 
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest zack.jar from [here]()
+2. Download the latest zack.jar from [here](https://github.com/zhuuyicheng/ip/releases/tag/A-Release)
 3. Copy the file to the folder you want to use as the _home folder_ for Zack.
 4. Double-click on the jar file to launch the application. A GUI similar to the screenshot above should 
 appear in a few seconds.
