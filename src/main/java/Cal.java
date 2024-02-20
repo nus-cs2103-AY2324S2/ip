@@ -76,49 +76,55 @@ public class Cal {
     public static void run() {
         Scanner sc = new Scanner(System.in);
         while(true) {
-            String input = sc.nextLine().stripLeading();
-            String[] tokens = input.split(" ");
-            String command = tokens[0].toLowerCase();
-            
-            String description = "";
+            try {
+                String input = sc.nextLine();
+                String[] tokens = input.split(" ");
+                String command = tokens[0].toLowerCase();
+                
+                String description = "";
 
-            System.out.println(line);
-            switch(command) {
-                case "bye":
-                    sc.close();
-                    return;
-                case "list":
-                    list();
-                    break;
-                case "mark":
-                    mark(Integer.parseInt(tokens[1]));
-                    break;
-                case "unmark":
-                    unmark(Integer.parseInt(tokens[1]));
-                    break;
-                case "todo":
-                    description = input.substring(5);
-                    add(description);
-                    break;
-                case "deadline":
-                    int byIndex = input.indexOf("/by");
-                    description = input.substring(9, byIndex).strip();
-                    String by = input.substring(byIndex + 4).strip();
-                    add(description, by);
-                    break;
-                case "event":
-                    int fromIndex = input.indexOf("/from");
-                    int toIndex = input.indexOf("/to");
-                    description = input.substring(6, fromIndex).strip();
-                    String startDate = input.substring(fromIndex + 5, toIndex).strip();
-                    String endDate = input.substring(toIndex + 3).strip();
-                    add(description, startDate, endDate);
-                    break;
-                default:
-                    System.out.println("Command not recognised.");
-                    break;
+                System.out.println(line);
+                switch(command) {
+                    case "bye":
+                        sc.close();
+                        return;
+                    case "list":
+                        list();
+                        break;
+                    case "mark":
+                        mark(Integer.parseInt(tokens[1]));
+                        break;
+                    case "unmark":
+                        unmark(Integer.parseInt(tokens[1]));
+                        break;
+                    case "todo":
+                        description = input.substring(5);
+                        add(description);
+                        break;
+                    case "deadline":
+                        int byIndex = input.indexOf("/by");
+                        description = input.substring(9, byIndex).strip();
+                        String by = input.substring(byIndex + 4).strip();
+                        add(description, by);
+                        break;
+                    case "event":
+                        int fromIndex = input.indexOf("/from");
+                        int toIndex = input.indexOf("/to");
+                        description = input.substring(6, fromIndex).strip();
+                        String startDate = input.substring(fromIndex + 5, toIndex).strip();
+                        String endDate = input.substring(toIndex + 3).strip();
+                        add(description, startDate, endDate);
+                        break;
+                    default:
+                        System.out.println("Command not recognised.");
+                        break;
+                }
+                System.out.println(line);
+            } catch(Exception e) {
+                System.err.println(e);
+                break;
             }
-            System.out.println(line);
+            
         }
     }
 
