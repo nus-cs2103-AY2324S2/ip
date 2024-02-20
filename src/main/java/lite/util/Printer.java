@@ -69,4 +69,8 @@ public class Printer {
     public static String printDuplicateFound() {
         return "This task is already in your Task List.";
     }
+
+    public static String printGreetings() {
+        return "Hi this is Lite! How can I help you?";
+    }
 }

@@ -1,7 +1,5 @@
 # Lite User Guide
 
-![](https://github.com/Ryan-Reno/ip/blob/master/docs/Ui.png)
-
 Lite is a user-friendly chatbot, especially designed towards
 forgetful students to keep track of their ToDos, Events, and Deadlines.
 Lite will be able to keep track the dates and status of completion of tasks,
