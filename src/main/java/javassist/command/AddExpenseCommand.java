@@ -35,34 +35,21 @@ public class AddExpenseCommand implements Command {
         } catch (NumberFormatException e) {
             throw new JavAssistException("Amount is in invalid format.");
         }
-        switch (expense[0].trim().toUpperCase().substring(4)) {
-        case "FOOD":
-            list.setFood(amount + list.getFood());
-            break;
-        case "GROCERY":
-            list.setGrocery(amount + list.getGrocery());
-            break;
-        case "BOOKS":
-            list.setBooks(amount + list.getBooks());
-            break;
-        case "TRANSPORT":
-            list.setTransport(amount + list.getTransport());
-            break;
-        case "CLOTHES":
-            list.setClothes(amount + list.getClothes());
-            break;
-        case "ENTERTAINMENT":
-            list.setEntertainment(amount + list.getEntertainment());
-            break;
-        case "OTHER":
-            list.setOther(amount + list.getOther());
-            break;
-        default:
+
+        ExpenseList.ExpenseCategory category = parseExpenseCategory(expense[0]);
+        list.addExpense(category, amount);
+        storage.writeExpensesToFile(list);
+        return ui.showAddedExpense(list);
+    }
+
+    private ExpenseList.ExpenseCategory parseExpenseCategory(String categoryString) throws JavAssistException {
+        String category = categoryString.trim().toUpperCase().substring(4).trim();
+        try {
+            return ExpenseList.ExpenseCategory.valueOf(category);
+        } catch (IllegalArgumentException e) {
             throw new JavAssistException("Invalid category. "
                     + "Try: food, grocery, transport, books, clothes, entertainment, others");
         }
-        storage.writeExpensesToFile(list);
-        return ui.showAddedExpense(list);
     }
 
     @Override
