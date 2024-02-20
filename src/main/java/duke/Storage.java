@@ -30,7 +30,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 throw new DukeException();
             } catch (DukeException e) {
-                throw new DukeException("Something went wrong " + e);
+                throw new DukeException("Something went wrong in creating the file.");
             }
         } else {
             assert file.exists() : "File should exist";
