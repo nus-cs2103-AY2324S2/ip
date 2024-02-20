@@ -1,6 +1,17 @@
 package panna;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.Scanner;
+
 
 
 // to add: tag for A-Classes
@@ -8,28 +19,47 @@ import java.util.Scanner;
 
 /**
  * PannaBot is the main interface which runs the bot.
- * It comprises of many features of a chatbot, including list, mark, unmark among others!
+ * It comprises many features of a chatbot, including list, mark, unmark among others!
  */
-public class PannaBot {
+public class PannaBot extends Application {
     private static Parser parser;
-    private static String filePath;
     private static String command = "";
+
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+
+    private Image panna = new Image(this.getClass().getResourceAsStream("/images/panna.jpg"));
+
+    private Scene scene;
+
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    private String filePath = "panna.txt";
 
-    /**
-     * Constructor method
-     * @param filePath
-     */
-    public PannaBot(String filePath) {
-        this.filePath = filePath;
+
+
+    public PannaBot() {
+
         this.storage = new Storage();
         this.ui = new Ui();
         this.parser = new Parser("yyyy-MM-dd");
         this.taskList = new TaskList();
 
+    }
+
+    private void handleUserInput() throws PannaException {
+        Label userText = new Label(userInput.getText());
+        Label bugText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getBugDialog(bugText, new ImageView(panna))
+        );
+        userInput.clear();
     }
 
 
@@ -39,48 +69,144 @@ public class PannaBot {
      * @throws PannaException
      */
 
-    public void run() throws PannaException {
-        storage.read(filePath, taskList);
-        ui.launchMessage();
-        Scanner s = new Scanner(System.in);
-
-        PannaBot.command = s.nextLine();
-
-        while (!PannaBot.command.equals("bye")) {
-
-            if (PannaBot.command.equals("list")) {
-                ui.listMessage(taskList);
-            } else if (PannaBot.command.equals("mark")) {
-                ui.mark(taskList);
-            } else if (PannaBot.command.equals("unmark")) {
-                ui.unmark(taskList);
-            } else if (PannaBot.command.equals("event")) {
-                ui.eventMessage(taskList, parser);
-            } else if (PannaBot.command.equals("todo")) {
-                ui.todoMessage(taskList);
-            } else if (PannaBot.command.equals("deadline")) {
-                ui.deadlineMessage(taskList, parser);
-            } else if (PannaBot.command.equals("delete")) {
-                ui.deleteMessage(taskList);
-            } else if (PannaBot.command.equals("find")) {
-                ui.find(this.taskList);
+    private String getResponse(String input) throws PannaException {
+        System.out.println(input);
+        if (input.equals("list")) {
+            return ui.listMessage(taskList);
+        } else if (input.startsWith("mark")) {
+            String[] words = input.split(" ", 2);
+            try {
+                int i = Integer.parseInt(words[1]);
+                ui.mark(taskList, i);
+                return ui.markDone(taskList, i);
+            } catch (Exception e) {
+                return "I dont understand you!";
             }
-            storage.write(filePath, taskList);
-            PannaBot.command = s.nextLine();
-        }
+        } else if (input.startsWith("unmark")) {
+            String[] words = input.split(" ", 2);
+            try {
+                int i = Integer.parseInt(words[1]);
+                ui.unmark(taskList, i);
+                return ui.unmarkDone(taskList, i);
+            } catch (Exception e) {
+                return "I dont understand you!";
+            }
+        } else if (input.startsWith("event")) {
+            String[] words = input.split(" ", 4);
 
-        ui.farewellMessage();
+            return ui.event(taskList, words[1], parser.parse(words[2]), parser.parse(words[3]));
+
+        } else if (input.startsWith("todo")) {
+            String[] words = input.split(" ", 2);
+            return ui.todo(taskList, words[1]);
+
+        } else if (input.startsWith("deadline")) {
+            String[] words = input.split(" ", 3);
+            return ui.deadline(taskList, words[1], parser.parse(words[2]));
+
+        } else if (input.startsWith("delete")) {
+            String[] words = input.split(" ", 2);
+            try {
+                int i = Integer.parseInt(words[1]);
+                return ui.delete(taskList, i);
+            } catch (Exception e) {
+                return "Enter a valid integer!";
+            }
+
+        } else if (input.startsWith("find")) {
+            String[] words = input.split(" ", 2);
+            return ui.find(taskList, words[1]);
+
+        } else {
+            return "I dont understand you!";
+        }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        Scene scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        stage.setTitle("PannaBot");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            try {
+                handleUserInput();
+            } catch (PannaException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        userInput.setOnAction((event) -> {
+            try {
+                handleUserInput();
+            } catch (PannaException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
 
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
 
-    /**
-     * Runs the function each time main is called.
-     * @param args
-     * @throws PannaException
-     */
-    public static void main(String[] args) throws PannaException {
-        PannaBot bot = new PannaBot("./panna.txt");
-        bot.run();
+        return textToAdd;
     }
 }
+
+
+
+
