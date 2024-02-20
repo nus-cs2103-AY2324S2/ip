@@ -32,7 +32,6 @@ import javafx.scene.image.ImageView;
  * @since 2024-01-28
  */
 public class ByteTalker extends Application {
-    //testing
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
