@@ -21,6 +21,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Lai");
             assert stage.getScene() != null : "Stage failed to set the scene";
 
             fxmlLoader.<MainWindow>getController().setLai(lai);

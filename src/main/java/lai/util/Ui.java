@@ -84,4 +84,14 @@ public class Ui {
     public static String printNumberFormatException(NumberFormatException e) {
         return "Error occurred: Numbers only, please.";
     }
+
+    /**
+     * Prints a user-friendly message when a IndexOutOfBoundsException occurs.
+     *
+     * @param e The IndexOutOfBoundsException that was caught.
+     * @return Message informing the user that the index is invalid
+     */
+    public static String printIndexOutOfBoundsException(IndexOutOfBoundsException e) {
+        return "Error occurred: The index you provided was invalid, use `list` to view which tasks exist again.";
+    }
 }
