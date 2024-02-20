@@ -108,32 +108,30 @@ public class CommandParser {
         }
     }
 
-
     private boolean isDefaultCommand(String commandName) {
         return defaultCommands.contains(commandName.toLowerCase());
     }
-
     private String handleDefineCommand(String defineInput) {
         String[] parts = defineInput.split("=");
         if (parts.length != 2) {
-            return "Invalid define command format. Please use 'define shortcut=command'.";
+            return "Oops! 🙈 The format seems off. Try 'define shortcut=command'.";
         }
         String shortcut = parts[0].trim();
         String command = parts[1].trim();
 
         if (isDefaultCommand(shortcut)) {
-            return "Cannot define shortcut for default command '" + command + "'.";
+            return "Nice try! 😜 But '" + command + "' is already a default command. Pick something unique!";
         }
 
         if (mapNewCommand(shortcut, command)) {
-            return "Shortcut '" + shortcut + "' defined successfully for command '" + command + "'.";
+            return "Woohoo! 🎉 Shortcut '" + shortcut + "' is all set up for '" + command + "'.";
         } else {
-            return "Failed to define shortcut. The shortcut or command might already exist or be a default command.";
+            return "Uh-oh! 😕 Looks like that shortcut/command combo is already taken or it's a default command.";
         }
     }
 
     public String listAllCommands() {
-        StringBuilder commandsList = new StringBuilder("Available Commands:\n");
+        StringBuilder commandsList = new StringBuilder("Here are all the magical spells... I mean commands you can use: 🪄\n");
         for (Map.Entry<String, CommandHandler> entry : commandMap.entrySet()) {
             String command = entry.getKey();
             String description = entry.getValue().getDescription();
@@ -144,13 +142,14 @@ public class CommandParser {
 
     public void define(String shortcut, CommandHandler handler) {
         if (commandMap.containsKey(shortcut)) {
-            System.out.println("Replacing existing command for shortcut: " + shortcut);
+            System.out.println("Switcheroo! 🔄 Replacing the spell... erm, command for shortcut: " + shortcut);
         }
         commandMap.put(shortcut, handler);
     }
 
     private String handleDeleteAllCommand() {
         taskManager.deleteAllTasks();
-        return "Okay, noted. I've removed all tasks from the list.\n";
+        return "All clear! 🧹✨ I've removed every single task from the list.\n";
     }
+
 }

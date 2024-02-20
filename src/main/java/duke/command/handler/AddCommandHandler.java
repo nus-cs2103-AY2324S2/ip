@@ -7,7 +7,7 @@ import duke.task.TaskDisplay;
 import java.util.Arrays;
 
 public class AddCommandHandler extends CommandHandler {
-    private TaskDisplay taskDisplay;
+    private final TaskDisplay taskDisplay;
 
     public AddCommandHandler(TaskManager taskManager, TaskDisplay taskDisplay) {
         super(taskManager);
@@ -18,21 +18,21 @@ public class AddCommandHandler extends CommandHandler {
     public String handle(String[] userMessage) {
 
         String taskDescription = String.join(" ", Arrays.copyOfRange(userMessage, 1, userMessage.length)).trim();
-
         TaskType type = determineTaskType(userMessage[0]);
 
         if (type == null) {
-            return "I don't remember this task type.";
+            return "Hmm, this task type seems alien to me 🚀. Could you double-check?";
         } else if (taskDescription.isEmpty()) {
-            return "Hi, I think you missed the description.\nNo worries, try again!";
+            return "Whoops! Looks like the task description got lost in space 🌌. Try beaming it down again, will ya?";
         }
 
         int taskIndex = taskManager.addTask(taskDescription, type);
         if (taskIndex >= 0) {
-            return taskDisplay.displayAddTask(taskManager.getTasks(), taskIndex);
+            return "Yay! Your task is on the board 📋. Here's what you told me to remember:\n" +
+                    taskDisplay.displayAddTask(taskManager.getTasks(), taskIndex) +
+                    "\nKeep rocking! 🎸";
         } else {
-            return "Sorry, I think the task could not be added" +
-                    "\ndue to some error.";
+            return "Uh-oh, encountered a bit of a hiccup trying to add that task 🤯. Let's give it another shot?";
         }
     }
 

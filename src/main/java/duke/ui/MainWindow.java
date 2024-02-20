@@ -1,23 +1,16 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.ui.DialogBox;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -46,9 +39,18 @@ public class MainWindow extends AnchorPane {
     }
 
     private void printDefaultMessage() {
-        String defaultMessage = "Hi there! I'm Sophia :)\n" +
-                "I'm your AI Assistant and I'm here\n" +
-                "to help you with anything.";
+        // Array of welcome messages
+        String[] welcomeMessages = {
+                "Hey there! I'm Sophia 😊\nReady to get things done today?",
+                "Good day! Sophia at your service. 🌟\nHow can I assist you?",
+                "Hello! 🎉 I'm Sophia, your friendly AI sidekick!\nLet's tackle your to-do list together.",
+                "Hi! I'm Sophia, your digital helper. 🤖\nTell me, what's on the agenda today?",
+                "Yo! Sophia here. 😎\nReady to crush some tasks? Let's dive in!"
+        };
+
+        Random rand = new Random();
+        String defaultMessage = welcomeMessages[rand.nextInt(welcomeMessages.length)];
+
         dialogContainer.getChildren().add(DukeDialogBox.getDukeDialog(defaultMessage, dukeImage));
     }
 

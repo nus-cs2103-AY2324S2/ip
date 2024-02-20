@@ -12,7 +12,7 @@
         <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
             <Label fx:id="dialog" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Label" HBox.hgrow="ALWAYS">
                 <font>
-                    <Font name="Lato" size="14.0" />
+                    <Font name="Segoe UI Emoji" size="15.0" />
                 </font>
                 <HBox.margin>
                     <Insets bottom="10.0" left="4.0" right="4.0" top="10.0" />

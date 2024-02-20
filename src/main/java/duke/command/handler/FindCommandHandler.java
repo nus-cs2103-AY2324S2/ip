@@ -19,20 +19,20 @@ public class FindCommandHandler extends CommandHandler {
     public String handle(String[] userMessage) {
 
         if (userMessage.length < 2) {
-            return "Hey, you missed the keyword. It's okay! " +
-                    "\nTry this: f <keyword>";
+            return "Oopsie-daisy! 🌼 Looks like you forgot to tell me what you're looking for. No worries! " +
+                    "Let's try that again with this magic formula: f <keyword> 🧙‍♂️✨";
         }
 
         String keyword = String.join(" ", Arrays.copyOfRange(userMessage, 1, userMessage.length));
-
         List<Task> matchingTasks = taskManager.findTask(keyword);
 
         if (matchingTasks.isEmpty()) {
-            return "Sorry, there's no tasks that matches that keyword." +
-                    "\nHow about you try something else!";
+            return "Hmm, my crystal ball 🔮 shows no tasks matching that description. " +
+                    "Maybe try a different keyword? I'm sure we'll find something! 🕵️‍♂️";
         }
 
-        return taskDisplay.displayFindTaskList(matchingTasks);
+        return "Eureka! 🎉 I found some tasks that might be what you're looking for:\n" +
+                taskDisplay.displayFindTaskList(matchingTasks);
     }
 
     @Override
