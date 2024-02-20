@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="3000" style="-fx-background-color: GRAY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="dialog" alignment="CENTER_RIGHT" contentDisplay="TOP" style="-fx-background-color: WHITE;" text="longggggggggggLabel" textAlignment="RIGHT" textFill="#e4c2f5" wrapText="true" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>

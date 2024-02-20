@@ -1,23 +1,18 @@
 package rick;
 
-import javafx.beans.binding.When;
+import java.util.Scanner;
+
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import rick.logic.Executer;
 import rick.logic.Parser;
 import rick.logic.RickException;
-import rick.ui.DialogBox;
 import rick.ui.Ui;
 import rick.util.Storage;
 import rick.util.TaskList;
 
-import java.util.Scanner;
+
+
+
 
 
 /**
@@ -50,7 +45,7 @@ public class Rick {
      * @return a string representing the response of the chatbot
      */
     @FXML
-    public String getResponse(String input) throws RickException {
+    public String getResponse(String input) {
         Parser parser = new Parser(input);
         try {
             Executer executer = new Executer(this.tasks, this.storage);
