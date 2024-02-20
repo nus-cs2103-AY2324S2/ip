@@ -101,6 +101,20 @@ public class Response {
   }
 
   /**
+   * Shows tasks archived message.
+   */
+  public String showTasksArchived() {
+    return "All tasks have been archived.";
+  }
+
+  /**
+   * Shows the error message archiving tasks.
+   */
+  public String showErrorArchivingTasks() {
+    return "An error occurred while archiving tasks.";
+  }
+
+  /**
    * Shows the invalid delete message.
    */
   public String showInvalidDelete() {
