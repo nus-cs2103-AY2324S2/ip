@@ -40,7 +40,7 @@ test {
 }
 
 application {
-    mainClass.set("linus.Main")
+    mainClass.set("linus.Launcher")
 }
 
 shadowJar {
