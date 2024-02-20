@@ -54,20 +54,18 @@ public class Duke {
     }
 
     /**
-     * Shows the welcome message.
-     * @return the welcome message string.
+     * Displays welcome message to user when first load.
      */
     public String showWelcome() {
+        assert ui != null : "Ui object should not be null";
         return ui.showWelcome();
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets output responses for input.
      */
     public String getResponse(String input) {
-        String fullCommand = input;
-        Command c = Parser.parse(fullCommand);
+        Command c = Parser.parse(input);
         return c.execute(ui, tasks);
     }
 
