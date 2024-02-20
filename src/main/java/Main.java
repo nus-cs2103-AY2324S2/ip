@@ -22,6 +22,7 @@ public class Main extends Application {
         try {
             window = stage;
             window.setTitle(STAGE_TITLE);
+            window.setResizable(false);
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             assert fxmlLoader != null : "fxmlLoader is null";
