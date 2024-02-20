@@ -47,7 +47,7 @@ public class Task {
     /**
      * Returns the string format of the task for writing to the save file.
      *
-     * @return the string format of the task.
+     * @return The string format of the task.
      */
     public String toFileString() {
         return (isDone ? "1" : "0") + "," + description;
@@ -56,7 +56,7 @@ public class Task {
     /**
      * Returns the string format of the task for printing to the ui.
      *
-     * @return the string format of the task.
+     * @return The string format of the task.
      */
     @Override
     public String toString() {

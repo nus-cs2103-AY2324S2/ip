@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlineTest {
     @Test
-    public void testDeadline(){
+    public void testDeadlineCreatedSuccessfully(){
         try {
             Deadline d = new Deadline("description", "2001-10-10");
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testToFileString(){
+    public void testToStringSuccessful(){
         try {
             Deadline d = new Deadline("description", "2001-10-10");
             assertEquals("[D][ ] description (by: 10 Oct 2001)", d.toString());

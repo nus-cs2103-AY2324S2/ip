@@ -30,7 +30,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toFileString() {
@@ -38,7 +40,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toString() {

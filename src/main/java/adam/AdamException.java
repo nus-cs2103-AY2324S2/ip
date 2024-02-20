@@ -14,7 +14,9 @@ public class AdamException extends Exception {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The error message describing the program's exception.
      */
     @Override
     public String getMessage() {

@@ -1,18 +1,22 @@
 package adam.task;
 
 /**
- * @inheritDoc
+ * {@inheritDoc}
  */
 public class Todo extends Task {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @param description The description of the task.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toFileString() {
@@ -20,7 +24,9 @@ public class Todo extends Task {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toString() {

@@ -38,10 +38,10 @@ public class TaskList {
     }
 
     /**
-     * Delets a task from the list of tasks.
+     * Deletes a task from the list of tasks.
      *
      * @param taskNumber The index of the task to delete.
-     * @return The task deleted.
+     * @return The String format of the task deleted.
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String delete(int taskNumber) throws AdamException {
@@ -58,7 +58,7 @@ public class TaskList {
      * Marks a task in the list as done.
      *
      * @param taskNumber The index of the task to mark as done.
-     * @return The task marked as done.
+     * @return The string format of the task marked as done.
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String mark(int taskNumber) throws AdamException {
@@ -76,7 +76,7 @@ public class TaskList {
      * Marks a task in the list as not done.
      *
      * @param taskNumber The index of the task to mark as not done.
-     * @return The task marked as not done.
+     * @return The String format of the task marked as not done.
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String unmark(int taskNumber) throws AdamException {
@@ -90,7 +90,7 @@ public class TaskList {
         return t.toString();
     }
 
-    public ArrayList<String> find(String keyword) throws AdamException {
+    public ArrayList<String> find(String keyword) {
         ArrayList<String> found = new ArrayList<>();
         for (Task t : tasks) {
             if (t.canFind(keyword)) {

@@ -1,7 +1,7 @@
 package adam.task;
 
 /**
- * @inheritDoc
+ * {@inheritDoc}
  * An event additionally has two dates for the start and end of the event.
  */
 public class Event extends Task {
@@ -22,7 +22,9 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toFileString() {
@@ -30,7 +32,9 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return The string format of the task.
      */
     @Override
     public String toString() {
