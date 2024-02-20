@@ -22,8 +22,10 @@ public class CommandProcessor {
     private final HistoryManager historyManager;
 
     /**
-     * @param storage placeholder
-     * @param historyManager placeholder
+     * Constructs a new CommandProcessor object with the specified storage and historyManager.
+     *
+     * @param storage        The storage system for managing tasks.
+     * @param historyManager The history manager for maintaining command history.
      */
     public CommandProcessor(Storage storage, HistoryManager historyManager) {
         this.storage = storage;

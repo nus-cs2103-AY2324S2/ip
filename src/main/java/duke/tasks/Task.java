@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * The `Task` abstract class serves as the base class for various types of tasks in the Duke application.
+ * It has to be serializable so that it can be cloned easily.
  */
 public abstract class Task implements Serializable {
     private static final long serialVersionUID = 1L;

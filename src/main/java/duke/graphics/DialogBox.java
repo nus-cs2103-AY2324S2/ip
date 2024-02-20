@@ -18,7 +18,6 @@ import javafx.scene.text.Text;
 
 
 /**
- * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
@@ -49,7 +48,8 @@ public class DialogBox extends VBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box such that the ImageView is on the left and text on the right,
+     * to display HAL9000's dialogue.
      */
     private void flip() {
         HBox hBox = (HBox) this.getChildren().get(0);

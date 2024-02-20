@@ -1,7 +1,5 @@
 package duke.logic;
 
-import java.util.Scanner;
-
 import duke.command.Command;
 import duke.command.CommandProcessor;
 import duke.exceptions.HalException;
@@ -11,22 +9,21 @@ import duke.storage.Storage;
 import javafx.application.Platform;
 
 /**
- * The `UserInterface` class handles user interactions and serves as the main interface for the Duke application.
+ * The `Logic` class handles user interactions and serves as the main logical interface
+ * for the HAL9000 application.
  */
 public class Logic {
     private static final String DATA_FILE_DIRECTORY = "./data/";
     private static final String SAVE_FILE_NAME = "savefile.txt";
-    private Scanner scan;
     private CommandProcessor cmd;
     private boolean isStartUpSuccess = false;
 
     /**
-     * Initializes a new `UserInterface` object, sets up a scanner for user input,
+     * Initializes a new `Logic` object, sets up a scanner for user input,
      * and attempts to start the Duke application.
      */
     public Logic() {
         try {
-            scan = new Scanner(System.in);
             Storage storage = new Storage(DATA_FILE_DIRECTORY, SAVE_FILE_NAME);
             State startState = storage.getCurrState(Command.BYE);
             HistoryManager historyManager = new HistoryManager(startState);
@@ -38,38 +35,42 @@ public class Logic {
     }
 
     /**
-     * Displays a farewell message to the user in CLI.
+     * Displays a farewell message to the user in CLI. Exits and closes the application.
      */
-    public void exit() {
+    public String exit() {
         String exit = "Bye! See ya soon";
         System.out.println(exit);
-        scan.close();
         cmd.close();
+        Platform.exit();
+        return "";
     }
 
     /**
      * Displays a message indicating a startup failure to the user.
      */
-    public void startUpFailure() {
+    public String startUpFailure() {
         System.out.println("Hi, you failed to start up properly! Sorry, bye!");
+        return "Hi, you failed to start up properly! Sorry, please close the application";
     }
 
     public String greet() {
         return "Hi Dave, I'm HAL9000. What can I do for you today?";
     }
 
+    /**
+     * Processes and returns the response from the HAL9000 application to be displayed by the GUI
+     * @param input The input string
+     * @return A response from HAL9000
+     */
     public String getResponse(String input) {
         if (!isStartUpSuccess) {
-            startUpFailure();
-            return "Hi, you failed to start up properly! Sorry, please close the application";
+            return startUpFailure();
         }
 
         try {
             Command command = Command.processCommand(input);
             if (command.isExit()) {
-                exit();
-                Platform.exit();
-                return "";
+                return exit();
             } else {
                 return cmd.processData(command, input);
             }

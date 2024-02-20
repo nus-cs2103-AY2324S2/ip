@@ -3,7 +3,7 @@ package duke.command;
 import duke.exceptions.InputException;
 
 /**
- * Enumeration of commands that can be executed in the Duke application.
+ * Enumeration of commands that can be executed in the HAL9000 application.
  */
 public enum Command {
     BYE {

@@ -6,6 +6,7 @@ import duke.codec.TimeProcessor;
 /**
  * The `Event` class represents a task with a specific event duration.
  * It extends the `Task` class and inherits its properties and methods.
+ * It has to be serializable so that it can be cloned easily.
  */
 public class Event extends Task {
     private static final long serialVersionUID = 3L;

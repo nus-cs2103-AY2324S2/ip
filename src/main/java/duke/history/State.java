@@ -1,44 +1,53 @@
 package duke.history;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import duke.command.Command;
 import duke.tasks.Task;
 
-
 /**
- * placeholder
+ * The `State` class represents a snapshot of the HAL9000 application's state at a specific point in time.
+ * It contains information about the executed command and the list of tasks at that time.
  */
-public class State implements Serializable {
-    private static final long serialVersionUID = 5L;
+public class State {
     private final Command command;
     private final ArrayList<Task> taskList;
 
     /**
-     * @param cmd placeholder
-     * @param list placeholder
+     * Constructs a new State object with the given command and task list.
+     *
+     * @param cmd  The command executed to reach this state.
+     * @param list The list of tasks at this state.
      */
     public State(Command cmd, ArrayList<Task> list) {
         command = cmd;
         taskList = list;
     }
-    private void writeObject(ObjectOutputStream out) throws IOException, ClassNotFoundException {
-        out.defaultWriteObject();
-    }
+
+    /**
+     * Gets the list of tasks at this state.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    /**
+     * Gets the command executed to reach this state.
+     *
+     * @return The command.
+     */
     public Command getCommand() {
         return command;
     }
+
+    /**
+     * Checks if this state should be ignored in the command history.
+     *
+     * @return true if the state should be ignored, false otherwise.
+     */
     public boolean isIgnoredHistory() {
         return command.isIgnoredHistory();
-    }
-    @Override
-    public String toString() {
-        return String.format("%s, %s", command, taskList);
     }
 }

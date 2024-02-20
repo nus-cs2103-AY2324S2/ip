@@ -3,6 +3,7 @@ package duke.tasks;
 /**
  * The `Todo` class represents a task without a specific deadline or time range.
  * It extends the `Task` class and inherits its properties and methods.
+ * It has to be serializable so that it can be cloned easily.
  */
 public class Todo extends Task {
     private static final long serialVersionUID = 2L;

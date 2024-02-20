@@ -8,155 +8,161 @@ with a CLI.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Adds a deadline task to your task list.
 
-// Give examples of usage
+Format: `deadline NAME /by BY-TIME`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `deadline Math Homework /by 12-12-2021`
 
 ```
-expected output
+Got it. I've added this task: 
+[D] [ ] Math Homework by: 12-12-2021 00:00
+Now you have 1 tasks in list.
 ```
 
 ## Adding Events
 
-// Describe the action and its outcome.
+Adds a event task to your task list.
 
-// Give examples of usage
+Format: `event NAME /from FROM-TIME /to TO-TIME`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `event Chemistry Homework /from 12-12-2021 /to 13-12-2021`
 
 ```
-expected output
+Got it. I've added this task: 
+[E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
+Now you have 2 tasks in list.
 ```
-
 
 ## Adding Todos
 
-// Describe the action and its outcome.
+Adds a todo task to your task list.
 
-// Give examples of usage
+Format: `todo NAME`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `todo Geography Homework`
 
 ```
-expected output
+Got it. I've added this task: 
+[T] [ ] Geography Homework
+Now you have 3 tasks in list.
 ```
 
 ## Deleting Tasks
 
-// Describe the action and its outcome.
+Deletes a task from your task list.
 
-// Give examples of usage
+Format: `delete INDEX`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `delete 1`
 
 ```
-expected output
+I have deleted this:
+[D] [ ] Math Homework by: 12-12-2021 00:00
 ```
 
 ## Marking Tasks
 
-// Describe the action and its outcome.
+Marks a task on your task list.
 
-// Give examples of usage
+Format: `mark INDEX`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `mark 1`
 
 ```
-expected output
+I have marked this:
+[E] [X] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 ```
 
 ## Unmarking Tasks
 
-// Describe the action and its outcome.
+Unmarks a task on your task list.
 
-// Give examples of usage
+Format: `unmark INDEX`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `unmark 1`
 
 ```
-expected output
+I have unmarked this:
+[E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 ```
 ## Listing Tasks
 
-// Describe the action and its outcome.
+Lists all tasks in your task list.
 
-// Give examples of usage
+Format: `list`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `list`
 
 ```
-expected output
+1. [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
+2. [T] [ ] Geography Homework
 ```
 
 ## Searching Tasks
 
-// Describe the action and its outcome.
+Finds a task in your task list.
 
-// Give examples of usage
+Format: `find KEYWORD`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `find Geography`
 
 ```
-expected output
+Here are your matching search results:
+1. [T] [ ] Geography Homework
 ```
 
 
 ## Undoing Commands
 
-// Describe the action and its outcome.
+Undoes the most recent command.
 
-// Give examples of usage
+Format: `undo`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `undo`
 
 ```
-expected output
+Your UNMARK command was undone!
+This is your current list:
+1. [E] [X] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
+2. [T] [ ] Geography Homework
 ```
 
 ## Redoing Commands
 
-// Describe the action and its outcome.
+Redoes the most recent command.
 
-// Give examples of usage
+Format: `redo`
 
-Example: `deadline My Homework /by 12-12-2021`
-
-// A description of the expected outcome goes here
+Example: `redo`
 
 ```
-expected output
+Your UNMARK command was redone!
+This is your current list:
+1. [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
+2. [T] [ ] Geography Homework
 ```
 
 ## Exiting the Application
+Exits and closes the application.
 
-// Describe the action and its outcome.
+Format: `bye`
 
-// Give examples of usage
+Example: `bye`
 
-Example: `deadline My Homework /by 12-12-2021`
+--- 
+## Command summary
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
+| **Action**              | **Format**                                 |
+|-------------------------|--------------------------------------------|
+| Adding Deadlines        | `deadline NAME /by BY-TIME`                |
+| Adding Events           | `event NAME /from START-TIME /to END-TIME` |
+| Adding Todos            | `todo NAME`                                |
+| Deleting Tasks          | `list`                                     |
+| Marking Tasks           | `mark INDEX`                               |
+| Unmarking Tasks         | `unmark INDEX`                             |
+| Listing Tasks           | `delete INDEX`                             |
+| Searching tasks         | `find KEYWORD`                             |
+| Undoing Commands        | `undo`                                     |
+| Redoing Commands        | `redo`                                     |
+| Exiting the Application | `bye`                                      |
