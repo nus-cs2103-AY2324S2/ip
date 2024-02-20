@@ -45,10 +45,6 @@ Format: `event DESCRIPTION /from FROM /to TO`
 - The FROM and TO is the start and end time of the event.
 - FROM and TO can be any String e.g "tmr", "weekend" with no specific datetime format.
 
-
-| :information_source:        |  DateTime format will be supported in future releases.    |
-|---------------|:------------------------|
-
 Examples:
 
 - `event sleep /from today /to tmr` adds a new event task with the description "sleep" and duration from "today" to "tmr" to the task list.
@@ -119,6 +115,7 @@ Format: `find KEYWORD`
 - Finds tasks in the task list that contain the specified KEYWORD.
 - The search is case-insensitive, so it will match both uppercase and lowercase letters.
 - The search is performed on the task description.
+- The `find` command only searches for tasks based on their description. It does not search for tasks based on their task type or additional details.
 
 Examples:
 
@@ -126,8 +123,6 @@ Examples:
 - `find meeting` finds all tasks in the task list that contain the keyword "meeting" in their description.
 
 
-| :memo:        | The `find` command only searches for tasks based on their description. It does not search for tasks based on their task type or additional details.     |
-|---------------|:------------------------|
 
 ### Archiving Tasks into local saves : `archive`
 
@@ -172,10 +167,9 @@ Examples:
 
 - `load 1` loads the archived task list from archive 1 in the local storage.
 
-
-| :warning: WARNING          |
-|:---------------------------|
-| Loading an archived task list will replace the current task list. Make sure to save your current task list before loading an archive if you want to keep it.   |
+Warning: 
+- Loading an archived task list will replace the current task list. 
+- Make sure to save your current task list before loading an archive if you want to keep it.
 
 
 
@@ -185,9 +179,9 @@ Examples:
 Ends the program and save the current task list to local storages.
 
 Format: `bye`
-| :warning: WARNING          |
-|:---------------------------|
-| Close programme without saying goodbye will not save your current tasklist for next usage!     |
+
+Warning:
+- Close programme without saying goodbye will not save your current task list for next usage!
 
 Examples:
 
