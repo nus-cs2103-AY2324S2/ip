@@ -1,7 +1,7 @@
 # JeromeGPT 
 👋 Welcome to JeromeGPT
 
-// Product screenshot goes here
+![JeromeGPT Image](https://jerome-j.github.io/ip/Ui.png)
 
 ## Product Introduction
 JeromeGPT is a newbie software designed to aid you with the management of your daily tasks!
