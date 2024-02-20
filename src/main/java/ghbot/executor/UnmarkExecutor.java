@@ -18,7 +18,8 @@ public class UnmarkExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that the task has been unmarked.
+     * Returns a string to let user know that the task has been unmarked.
+     * @return A string to let user know that the task has been unmarked.
      */
     @Override
     public String execute() {

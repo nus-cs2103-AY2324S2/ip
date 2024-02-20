@@ -18,7 +18,8 @@ public class MarkExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that the selected task is marked.
+     * Returns a string to let user know that the selected task is marked.
+     * @return A string to let user know that the selected task is marked.
      */
     @Override
     public String execute() {

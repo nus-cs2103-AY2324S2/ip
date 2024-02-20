@@ -41,7 +41,7 @@ public class Task {
 
     /**
      * Returns a string description for the item in the list for file operation.
-     * @return A string.
+     * @return A string that describes the item in the list for file operation.
      */
     public String toFile() {
         return "| " + (isDone ? "1" : "0") + " | " + this.description.trim();
@@ -49,7 +49,7 @@ public class Task {
 
     /**
      * Returns a string description of a task.
-     * @return A string that describe the task.
+     * @return A string that describes the task.
      */
     @Override
     public String toString() {

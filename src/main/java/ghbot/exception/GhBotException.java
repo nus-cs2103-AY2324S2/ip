@@ -6,7 +6,7 @@ package ghbot.exception;
 public class GhBotException extends Exception {
     /**
      * DukeException Constructor.
-     * @param errorMessage A error message.
+     * @param errorMessage An error message.
      */
     public GhBotException(String errorMessage) {
         super(errorMessage);

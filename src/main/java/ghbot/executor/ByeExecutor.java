@@ -14,7 +14,8 @@ public class ByeExecutor extends Executor {
     }
 
     /**
-     * Prints goodbye message to user.
+     * Returns a goodbye message to user.
+     * @return A string containing a goodbye message.
      */
     @Override
     public String execute() {

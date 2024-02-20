@@ -6,6 +6,7 @@ package ghbot.executor;
  */
 public class ListExecutor extends Executor {
     private String executeStr;
+
     /**
      * ListExecutor Constructor.
      */
@@ -14,7 +15,8 @@ public class ListExecutor extends Executor {
     }
 
     /**
-     * Prints all the saved tasks.
+     * Returns all the saved tasks.
+     * @return A string containing all the saved tasks.
      */
     @Override
     public String execute() {

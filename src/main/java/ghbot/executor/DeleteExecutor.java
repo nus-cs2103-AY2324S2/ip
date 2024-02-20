@@ -18,7 +18,8 @@ public class DeleteExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that the task has been removed.
+     * Returns a string to let user know that the task has been removed.
+     * @return A string to let user know that the task has been removed.
      */
     @Override
     public String execute() {

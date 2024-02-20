@@ -21,24 +21,25 @@ public class FindExecutor extends Executor {
     }
 
     /**
-     * Prints all the tasks that matches the description.
+     * Returns all the tasks that matches the description.
+     * @return A string containing all the tasks that matches the description.
      */
     @Override
     public String execute() {
-        List<String> matchedLst = new ArrayList<>();
+        List<String> matchedList = new ArrayList<>();
         for (int i = 0; i < this.taskList.taskSize(); i++) {
             String[] words = this.taskList.getTask(i).toString().split(" ");
             for (int j = 0; j < words.length; j++) {
                 if (words[j].toLowerCase().startsWith(this.description)) {
-                    matchedLst.add(this.taskList.getTask(i).toString());
+                    matchedList.add(this.taskList.getTask(i).toString());
                     break;
                 }
             }
         }
-        if (matchedLst.size() > 0) {
+        if (matchedList.size() > 0) {
             this.executeStr = "Here are the list of tasks that matches the keyword:";
-            for (int i = 0; i < matchedLst.size(); i++) {
-                this.executeStr = this.executeStr + "\n" + (i + 1) + "." + matchedLst.get(i);
+            for (int i = 0; i < matchedList.size(); i++) {
+                this.executeStr = this.executeStr + "\n" + (i + 1) + "." + matchedList.get(i);
             }
             return this.executeStr;
         } else {
