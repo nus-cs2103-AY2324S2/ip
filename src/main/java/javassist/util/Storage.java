@@ -140,7 +140,12 @@ public class Storage {
         } else if (cols.length == 4) {
             t = new Deadline(description, cols[3]);
         } else if (cols.length == 5) {
-            t = new Event(description, cols[3], cols[4]);
+            try {
+                t = new Event(description, cols[3], cols[4]);
+            } catch (JavAssistException e) {
+                // skip this task
+                e.getMessage();
+            }
         }
         if (cols[1].equals("1")) {
             t.markAsDone();

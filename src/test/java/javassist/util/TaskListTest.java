@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import javassist.exception.JavAssistException;
 import javassist.task.Event;
 import javassist.task.Task;
 import javassist.task.Todo;
@@ -28,7 +29,12 @@ public class TaskListTest {
         ArrayList<Task> arr = new ArrayList<>();
         TaskList list = new TaskList();
         Todo t = new Todo("read");
-        Event e = new Event("meeting", "20-12-2023 13:00", "20-12-2023 20:00");
+        Event e = null;
+        try {
+            e = new Event("meeting", "20-12-2023 13:00", "20-12-2023 20:00");
+        } catch (JavAssistException ex) {
+            fail();
+        }
         arr.add(t);
         arr.add(e);
         list.add(t);

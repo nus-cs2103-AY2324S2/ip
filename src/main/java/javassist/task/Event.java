@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import javassist.exception.JavAssistException;
+
 /**
  * Represents an Event.
  */
@@ -18,10 +20,9 @@ public class Event extends Task {
      * @param start Start date of event.
      * @param end End date of event.
      */
-    public Event(String task, String start, String end) {
+    public Event(String task, String start, String end) throws JavAssistException {
         super(task);
-        this.start = setDate(start);
-        this.end = setDate(end);
+        setStartAndEnd(start, end);
     }
 
     /**
@@ -41,6 +42,14 @@ public class Event extends Task {
                     e.getParsedString(), e.getErrorIndex());
         }
         return date;
+    }
+
+    private void setStartAndEnd(String start, String end) throws JavAssistException {
+        if (setDate(start).isAfter(setDate(end))) {
+            throw new JavAssistException("Start date/time should be earlier than end date/time.");
+        }
+        this.start = setDate(start);
+        this.end = setDate(end);
     }
 
     /**
