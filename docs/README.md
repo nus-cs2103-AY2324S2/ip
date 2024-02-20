@@ -2,7 +2,7 @@
 
 ![Product Screenshot](Ui.png)
 
-# Features
+# Task Features
 
 ## Adding deadlines
 
@@ -33,12 +33,12 @@ Format:
 
 `unmark <index>`: Marks task as not completed.
 
-Example as demonstrated in the picture above.
+Example as demonstrated in the picture [above](#miku-user-guide).
 
 
 ## Delete task
 
-// Delete task off the TaskList.
+Delete task off the TaskList.
 
 Format:
 
@@ -53,3 +53,29 @@ Find tasks matching the specified keyword.
 Format:
 
 `find <keyword>`: Find tasks that matches with its name.
+
+# Loan Features
+
+## Track given loan
+
+Adds a given loan to the loan record.
+
+Format:
+
+`lend <loan details> /amount <amount lent>`: Tracks a loan given to a specified party.
+
+## Track taken loan
+
+Adds a taken loan to the loan record.
+
+Format:
+
+`owe <loan details> /amount <amount taken>`: Tracks a loan taken from a specified party.
+
+## Mark loan as returned
+
+Marks loan as returned, either from or to the party attached to the loan.
+
+Format:
+
+`paid <loan index>`: Mark loan as returned.
