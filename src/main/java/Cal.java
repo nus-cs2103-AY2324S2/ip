@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.Task; 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo; 
 
 public class Cal {
     static String line = "____________________________________________________________";
@@ -14,96 +17,114 @@ public class Cal {
         //         + "| | | | | | | |/ / _ \\\n"
         //         + "| |_| | |_| |   <  __/\n"
         //         + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(line);
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
         //System.out.println(logo);
-        System.out.println(line);
     }
     
     public static void exit() {
-        System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
-    }
-
-    public static void echo(String input) { 
-        System.out.println(line);
-        System.out.println(input);
-        System.out.println(line);
     }
 
     public static void list() {
-        System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            String str = String.format("%d. [%s] %s", i + 1, t.getStatusIcon(), t.getDescription());
+            String str = String.format("%d. %s", i + 1, t);
             System.out.println(str);
         }
-        System.out.println(line);
     }
 
-    public static String add(String input) {
-        Task t = new Task(input);
+    public static void add(String description) {
+        Task t = new Todo(description);
         tasks.add(t);
-        return String.format("added: %s", t.getDescription());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+    }
+
+    public static void add(String description, String by) {
+        Task t = new Deadline(description, by);
+        tasks.add(t);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+    }
+
+    public static void add(String description, String startDate, String endDate) {
+        Task t = new Event(description, startDate, endDate);
+        tasks.add(t);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
     public static void mark(int taskNum) {
         Task t = tasks.get(taskNum - 1);
-        System.out.println(line);
         t.setStatus();
         System.out.println("Nice! I've marked this task as done:");
-        String str = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
-        System.out.println(str);
-        System.out.println(line);
+        System.out.println(t);
     }
 
     public static void unmark(int taskNum) {
         Task t = tasks.get(taskNum - 1);
-        t.setStatus();
-        System.out.println(line);
+        t.setStatus();  
         System.out.println("OK, I've marked this task as not done yet:");
-        String str = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
-        System.out.println(str);
-        System.out.println(line);
+        System.out.println(t);
     }
 
-    public static void main(String[] args) {
-        greet();
-
+    public static void run() {
         Scanner sc = new Scanner(System.in);
         while(true) {
             String input = sc.nextLine().stripLeading();
             String[] tokens = input.split(" ");
-            String command = tokens[0];
+            String command = tokens[0].toLowerCase();
+            
+            String description = "";
 
-            if (command.equalsIgnoreCase("bye")) {
-                break;
-            } else if (command.equalsIgnoreCase("list")){
-                list();
-            } else if (command.equalsIgnoreCase("mark")) {
-                int taskNum = Integer.parseInt(tokens[1]);
-                if (taskNum < 1 || taskNum > tasks.size()) {
-                    System.out.println("Couldn't find task. Try again?");
-                    continue;
-                }
-                mark(taskNum);
-            } else if (command.equalsIgnoreCase("unmark")) {
-                int taskNum = Integer.parseInt(tokens[1]);
-                if (taskNum < 1 || taskNum > tasks.size()) {
-                    System.out.println("Couldn't find task. Try again?");
-                    continue;
-                }
-                unmark(taskNum);
-            } else {
-                input = add(input); 
-                echo(input);
+            System.out.println(line);
+            switch(command) {
+                case "bye":
+                    sc.close();
+                    return;
+                case "list":
+                    list();
+                    break;
+                case "mark":
+                    mark(Integer.parseInt(tokens[1]));
+                    break;
+                case "unmark":
+                    unmark(Integer.parseInt(tokens[1]));
+                    break;
+                case "todo":
+                    description = input.substring(5);
+                    add(description);
+                    break;
+                case "deadline":
+                    int byIndex = input.indexOf("/by");
+                    description = input.substring(9, byIndex).strip();
+                    String by = input.substring(byIndex + 4).strip();
+                    add(description, by);
+                    break;
+                case "event":
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
+                    description = input.substring(6, fromIndex).strip();
+                    String startDate = input.substring(fromIndex + 5, toIndex).strip();
+                    String endDate = input.substring(toIndex + 3).strip();
+                    add(description, startDate, endDate);
+                    break;
+                default:
+                    System.out.println("Command not recognised.");
+                    break;
             }
+            System.out.println(line);
         }
-        sc.close();
-        
+    }
+
+    public static void main(String[] args) {
+        greet();
+        run();
         exit();
     }
 }
