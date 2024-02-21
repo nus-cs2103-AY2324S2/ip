@@ -7,6 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+//@@author: Jeffry Lum
+//All code in this file is reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
+
 public class DialogBox extends HBox {
     private TextArea text;
     private ImageView displayPicture;

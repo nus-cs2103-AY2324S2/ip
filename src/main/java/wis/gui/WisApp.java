@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
 
+//@@author: Jeffry Lum
+//All code in this file is reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
 
 public class WisApp extends Application {
     private ScrollPane scrollPane;  // contained in scene

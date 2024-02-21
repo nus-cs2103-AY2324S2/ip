@@ -29,6 +29,3 @@ expected output
 
 
 ## Acknowledgement
-Code in wis.gui package is adapted from JavaFX tutorial @SE-EDU/guides
-Link: https://se-education.org/guides/tutorials/javaFx.html
-
