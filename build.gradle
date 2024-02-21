@@ -4,6 +4,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+application {
+    mainClass.set("duke.Launcher")
+}
+
 repositories {
     mavenCentral()
 }
@@ -42,12 +46,8 @@ test {
     }
 }
 
-application {
-    mainClass.set("seedu.duke.Duke")
-}
-
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "peanut"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
