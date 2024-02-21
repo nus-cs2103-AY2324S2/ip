@@ -4,14 +4,10 @@ import duke.storage.Storage;
 import duke.parser.Parser;
 import duke.ui.Ui;
 import duke.tasklist.TaskList;
-import duke.task.Task;
 import duke.exception.DukeException;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
-import javafx.application.Platform;
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
 
 /**
  * Represents the main logic of the Duke application, a personal assistant chatbot designed to help users manage tasks.
@@ -135,20 +131,13 @@ public class Duke {
                 break;
             case BYE:
                 response = duke.ui.bye();
-                PauseTransition delay = new PauseTransition(Duration.seconds(2));
-                delay.setOnFinished(event -> {
-                    Platform.exit();
-                    System.exit(0);
-                });
-                delay.play();
+                command.byeResponse();
                 break;
             default:
                  response = "Can't understand your instruction. Try typing help";
             }
-        } catch (DukeException e) {
+        } catch (DukeException | IOException e) {
             response = e.getMessage();
-        } catch (IOException e) {
-            response = "Error accessing storage file: " + e.getMessage();
         }
         assert response != null : "Response cannot be null";
         return response;
