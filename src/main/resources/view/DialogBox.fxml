@@ -13,11 +13,9 @@
                 <Insets right="10" bottom="10" left="10"/>
             </HBox.margin>
          </Label>
-        <StackPane fx:id="imageContainer">
-            <ImageView fx:id="pictureDisplayer" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-        </StackPane>
+        <ImageView fx:id="pictureDisplayer" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="15.0" right="5.0" top="15.0" />
     </padding>
 </fx:root>

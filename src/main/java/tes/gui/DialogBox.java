@@ -14,8 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * An example of a custom control using FXML.
@@ -45,16 +45,11 @@ public class DialogBox extends HBox {
         pictureDisplayer.setImage(img);
         pictureDisplayer.setClip(clipToCircle(pictureDisplayer));
 
-        imageContainer.getChildren().add(0, addCircularBorder(pictureDisplayer));
 
         if (isUser) {
-            dialog.setStyle("-fx-background-color: #a1f1ff; "
-                    + "-fx-background-radius: 15; "
-                    + "-fx-padding: 10;");
+            setStyleForUserDialogue();
         } else {
-            dialog.setStyle("-fx-background-color: #E7E7E7; "
-                    + "-fx-background-radius: 15; "
-                    + "-fx-padding: 10;");
+            setStyleForTesDialogue();
         }
     }
 
@@ -86,14 +81,17 @@ public class DialogBox extends HBox {
         return clip;
     }
 
-    public static Circle addCircularBorder(ImageView imageView) {
-        double radius = imageView.getFitHeight() / 2;
-        Circle border = new Circle(radius, radius, radius);
-        border.setStroke(Color.BLACK);
-        border.setStrokeWidth(2);
-        border.setFill(Color.TRANSPARENT);
-        border.setCenterX(imageView.getLayoutX() + radius);
-        border.setCenterY(imageView.getLayoutY() + radius);
-        return border;
+    public void setStyleForUserDialogue() {
+        dialog.setStyle("-fx-background-color: #a1f1ff; "
+                + "-fx-background-radius: 15; "
+                + "-fx-padding: 10;");
+        dialog.setFont(new Font("Lucida Sans Unicode", 13));
+    }
+
+    public void setStyleForTesDialogue() {
+        dialog.setStyle("-fx-background-color: #E7E7E7; "
+                + "-fx-background-radius: 15; "
+                + "-fx-padding: 10;");
+        dialog.setFont(new Font("Lucida Sans Typewriter", 13));
     }
 }
