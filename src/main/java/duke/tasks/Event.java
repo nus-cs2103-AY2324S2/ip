@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.command.DukeException;
 import duke.handlers.TimeHandler;
 
 /**
@@ -21,12 +22,10 @@ public class Event extends Task {
      * @param from          Date and time the event starts.
      * @param to            Time the event ends.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalTime to) {
         super(description);
-
-        TimeHandler th = new TimeHandler();
-        this.from = th.parseDateTime(from);
-        this.to = th.parseTime(to);
+        this.from = from;
+        this.to = to;
     }
 
 
@@ -42,9 +41,13 @@ public class Event extends Task {
         super(description);
         super.updateIsDone(done);
 
-        TimeHandler th = new TimeHandler();
-        this.from = th.parseDateTime(from);
-        this.to = th.parseTime(to);
+        try {
+            TimeHandler th = new TimeHandler();
+            this.from = th.parseDateTime(from);
+            this.to = th.parseTime(to);
+        } catch (DukeException de) {
+            // Since reading in from file, will not have error
+        }
     }
 
     public LocalDate getFromDate() {

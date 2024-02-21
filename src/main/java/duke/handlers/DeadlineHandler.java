@@ -1,6 +1,7 @@
 package duke.handlers;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import duke.command.DukeException;
 import duke.command.Storage;
@@ -55,8 +56,15 @@ public class DeadlineHandler {
         if (d.length < 2) {
             throw new DukeException("To survive is to procrastinate death, when is this due?");
         }
+        LocalDateTime by;
+        try {
+            TimeHandler th = new TimeHandler();
+            by = th.parseDateTime(d[1].strip());
+        } catch (DukeException de) {
+            return ui.printErrorMessage(de.getErrorMessage());
+        }
 
-        Task task = taskList.addDeadline(d[0].strip(), d[1].strip());
+        Task task = taskList.addDeadline(d[0].strip(), by);
         try {
             storage.addNewTask(task);
         } catch (IOException e) {

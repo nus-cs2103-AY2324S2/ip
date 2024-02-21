@@ -1,6 +1,8 @@
 package duke.command;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import duke.tasks.Deadline;
@@ -87,7 +89,7 @@ public class TaskList {
      * @param by        Date and time task has to be completed by.
      * @return task     New Deadline task.
      */
-    public Task addDeadline(String name, String by) {
+    public Task addDeadline(String name, LocalDateTime by) {
         Task task = new Deadline(name, by);
         tasks.add(task);
 
@@ -102,7 +104,7 @@ public class TaskList {
      * @param to        Time the event ends.
      * @return task     New Deadline task.
      */
-    public Task addEvent(String name, String from, String to) {
+    public Task addEvent(String name, LocalDateTime from, LocalTime to) {
         Task task = new Event(name, from, to);
         tasks.add(task);
 
