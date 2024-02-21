@@ -45,7 +45,7 @@ public class Ui {
     public String printAddTask(Task task, int tasksLeft) {
         String str = "Got it. I've added this task:\n";
         str += task.toString();
-        str += "Now you have " + tasksLeft + " tasks in the list.\n";
+        str += "\nNow you have " + tasksLeft + " tasks in the list.\n";
         return str;
     }
 
@@ -58,7 +58,7 @@ public class Ui {
     public String printDeleteTask(Task task, int tasksLeft) {
         String str = "Noted. I've removed this task:\n";
         str += task.toString();
-        str += "Now you have " + tasksLeft + " tasks in the list.";
+        str += "\nNow you have " + tasksLeft + " tasks in the list.";
         return str;
     }
 

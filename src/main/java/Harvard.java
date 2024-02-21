@@ -38,6 +38,10 @@ public class Harvard {
     public String getResponse(String input) {
         Parser parser = new Parser(storage, tasks, ui);
 
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
+
         try {
             return parser.parse(input);
         } catch (HarvardException e) {
