@@ -5,7 +5,6 @@ import maltese.action.Action;
 import maltese.action.ChangeFilePath;
 import maltese.action.Delete;
 import maltese.action.Farewell;
-import maltese.action.Guide;
 import maltese.action.Help;
 import maltese.action.Mark;
 import maltese.action.Match;
@@ -43,8 +42,6 @@ public class Parser {
                 return Farewell.parse(taskList);
             case "help":
                 return Help.parse();
-            case "guide":
-                return Guide.parse(storage);
             case "change":
                 return ChangeFilePath.parse(command, storage);
             case "list":

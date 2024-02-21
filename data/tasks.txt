@@ -1,3 +1,4 @@
 T|O|buy water
-D|O|hrer|2020-02-02
-T|O|jrjjr
+D|X|hrer|2020-02-02
+T|X|jrjjr
+T|O|drink water
