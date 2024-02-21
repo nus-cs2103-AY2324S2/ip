@@ -6,23 +6,52 @@ public class Task {
     private boolean marked;
     private String item;
 
+    /**
+     * Constructor for Task object
+     * 
+     * @param item   The item that describes what the task is about, i.e. what needs
+     *               to be done
+     * @param marked A boolean that indicates whether this task is marked as done or
+     *               not.
+     * @return Nothing, it is a constructor.
+     */
     public Task(String item, boolean marked) {
         this.item = item;
         this.marked = marked;
     }
 
+    /**
+     * An instance method that marks the task object as done.
+     * 
+     * @return Nothing, it is a void method.
+     */
     public void mark() {
         this.marked = true;
     }
 
+    /**
+     * An instance method that marks the task object as not done.
+     * 
+     * @return Nothing, it is a void method.
+     */
     public void unmark() {
         this.marked = false;
     }
 
+    /**
+     * An instance method that returns whether the task object is done.
+     * 
+     * @return A boolean, true if task is marked done, false otherwise.
+     */
     public boolean isMarked() {
         return this.marked;
     }
 
+    /**
+     * An instance method that returns the item of the task, i.e. its description.
+     * 
+     * @return A string, which is the item of the task.
+     */
     public String getItem() {
         return this.item;
     }
@@ -31,6 +60,14 @@ public class Task {
         return this.item;
     }
 
+    /**
+     * A static method that returns a Task object created using a given task
+     * description.
+     * 
+     * @param taskDescription A string that provides information about the task.
+     * @return A task object, either a todo, a deadline, or an event object, with
+     *         all its properties set as per the description given.
+     */
     public static Task parseTask(String taskDescription) {
         String[] info = taskDescription.split(" | ");
 

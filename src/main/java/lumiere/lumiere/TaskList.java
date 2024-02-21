@@ -9,16 +9,35 @@ import java.time.format.DateTimeParseException;
 public class TaskList {
     List<Task> list = new ArrayList<>();
 
+    /**
+     * An instance method that adds the given task to the TaskList.
+     * 
+     * @param task The task to be added to TaskList.
+     * @return Nothing, this is a void method.
+     */
     public void loadTask(Task task) {
         this.list.add(task);
     }
 
+    /**
+     * An instance method that prints the TaskList, task by task.
+     * 
+     * @return Nothing, this is a void method.
+     */
     public void printList() {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(Integer.toString(i + 1) + "." + list.get(i).stringify());
         }
     }
 
+    /**
+     * An instance method that executes a command input by user.
+     * 
+     * @param command The string that user input into the program.
+     * @param storage A storage object that represents local storage of the tasks.
+     * @return Nothing, this is a void method.
+     * @throws IOException If saveTasksToFile method throws an exception.
+     */
     public void addTask(String command, Storage storage) throws IOException {
         if (command.contains("unmark")) {
             System.out.println("OK, I've marked this task as not done yet:");
