@@ -1,12 +1,10 @@
 package shon;
 
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import shon.exception.ParameterException;
-
 import shon.task.Deadline;
 import shon.task.Event;
 import shon.task.Task;
@@ -133,7 +131,7 @@ public class TaskList {
      * @param idx The index of the task to be marked as done.
      * @return An array of String representing the results of the command.
      * @throws ParameterException If the index given is larger than the number of tasks in the list, or if
-     * the index is a non-positive number.
+     *     the index is a non-positive number.
      */
     public String[] mark(int idx) throws ParameterException {
         if (idx > this.tasks.size() || idx < 1) {
@@ -150,7 +148,7 @@ public class TaskList {
      * @param idx The index of the task to be marked as not done.
      * @return An array of String representing the results of the command.
      * @throws ParameterException If the index given is larger than the number of tasks in the list, or if
-     * the index is a non-positive number.
+     *     the index is a non-positive number.
      */
     public String[] unmark(int idx) throws ParameterException {
         if (idx > this.tasks.size() || idx < 1) {
@@ -167,7 +165,7 @@ public class TaskList {
      * @param idx The index of the task to be deleted.
      * @return An array of String representing the results of the command.
      * @throws ParameterException If the list is empty, if the index given is larger than the number of tasks in the
-     * list, or if the index is a non-positive number.
+     *     list, or if the index is a non-positive number.
      */
     public String[] deleteTask(int idx) throws ParameterException {
         if (this.tasks.size() == 0) {

@@ -10,7 +10,6 @@ import shon.command.FindCommand;
 import shon.command.ListCommand;
 import shon.command.MarkCommand;
 import shon.command.UnmarkCommand;
-
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
 
@@ -82,7 +81,7 @@ public class Parser {
      * @param input User's input.
      * @return Index required for the action.
      * @throws ParameterException If no index is entered, multiple indexes are entered, or the value entered
-     * is not a number.
+     *     is not a number.
      */
     private static int getIdx(String input) throws ParameterException {
         String[] parameters = input.split(" ");
@@ -141,7 +140,7 @@ public class Parser {
      * @param input User's input.
      * @return The by parameter as a String.
      * @throws ParameterException If the input is a deadline command but <code>"/by"</code> is not found in the input,
-     * or if the given <code>/by</code> datetime is empty.
+     *     or if the given <code>/by</code> datetime is empty.
      */
     private static String getBy(String input) throws ParameterException {
         if (!input.contains("/by")) {
@@ -160,9 +159,9 @@ public class Parser {
      * @param input User's input
      * @return The from parameter as a String.
      * @throws ParameterException If the input is an event command but <code>"/from"</code> is not found in the input,
-     * or if the given <code>/from</code> datetime is empty.
+     *     or if the given <code>/from</code> datetime is empty.
      */
-    private static String getFrom(String input)  throws ParameterException {
+    private static String getFrom(String input) throws ParameterException {
         if (!input.contains("/from")) {
             throw new ParameterException("Please indicate from date/time after \"/from\".");
         }
@@ -191,7 +190,7 @@ public class Parser {
      * @param input User's input.
      * @return The to parameter as a String.
      * @throws ParameterException If the input is an event command but <code>"/to"</code> is not found in the input,
-     * or if the given <code>/to</code> datetime is empty.
+     *     or if the given <code>/to</code> datetime is empty.
      */
     private static String getTo(String input) throws ParameterException {
         if (!input.contains("/to")) {

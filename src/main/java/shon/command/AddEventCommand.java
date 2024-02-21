@@ -3,12 +3,11 @@ package shon.command;
 import java.time.format.DateTimeParseException;
 
 import shon.TaskList;
-import shon.Ui;
 
 /**
  * Represents a command to add an <code>Event</code> task.
  */
-public class AddEventCommand extends AddTaskCommand{
+public class AddEventCommand extends AddTaskCommand {
     private String from;
     private String to;
 

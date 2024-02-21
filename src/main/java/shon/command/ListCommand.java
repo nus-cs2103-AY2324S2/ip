@@ -1,7 +1,6 @@
 package shon.command;
 
 import shon.TaskList;
-import shon.Ui;
 
 /**
  * Represents a command to list the tasks in the <code>TaskList</code>.

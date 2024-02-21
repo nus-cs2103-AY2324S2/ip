@@ -1,7 +1,6 @@
 package shon.command;
 
 import shon.TaskList;
-import shon.Ui;
 
 /**
  * Represents a command to add a <code>Todo</code> task.

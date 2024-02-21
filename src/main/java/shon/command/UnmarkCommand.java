@@ -1,9 +1,7 @@
 package shon.command;
 
-import shon.exception.ParameterException;
-
 import shon.TaskList;
-import shon.Ui;
+import shon.exception.ParameterException;
 
 /**
  * Represents a command to mark a specific task in the <code>TaskList</code> as not done.
@@ -25,7 +23,6 @@ public class UnmarkCommand extends Command {
      * outputs the result of the command.
      *
      * @param tasks The <code>TaskList</code> containing the task to be marked as not done.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      * @throws ParameterException If the given index is invalid.
      */
     @Override
