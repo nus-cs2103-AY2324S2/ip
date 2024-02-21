@@ -30,6 +30,11 @@ public class Deadline extends Task {
         return super.toString() + " (By: " + getDeadline().format(df) + ")";
     }
 
+    /**
+     * Checks whether two deadlines are equal
+     * @param o
+     * @return boolean representing equality
+     */
     @Override
     public boolean equals(Object o) {
         if (o.getClass() != this.getClass()) {

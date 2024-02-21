@@ -23,10 +23,21 @@ public class TaskList {
         return i + 1;
     }
 
+    /**
+     * Helper method intended to build the string from printList
+     * @param i
+     * @param t
+     * @return String concatenated by the index and the toString of the task.
+     */
     public String indexTaskConcat(int i, Task t) {
         String output = i + ". " + t;
         return output;
     }
+
+    /**
+     * Displays the list in an organized manner
+     * @return String representation of list.
+     */
     public String printList() {
         String s = "";
         for (int i = 0; i < tasks.size(); i++) {

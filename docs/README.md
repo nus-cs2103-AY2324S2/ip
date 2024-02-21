@@ -16,9 +16,9 @@ We just simply use the respective keywords along with their arguments and PannaB
 
 The syntax of each command is as follows: 
 
-a) `todo name_of_todo`\
-b) `deadline name_of_deadline deadline(in YYYY-MM-DD)`\
-c) `Event name_of_event start(in YYYY-MM-DD) end(in YYYY-MM-DD)`
+a) `todo NAME`\
+b) `deadline NAME DEADLINE(in YYYY-MM-DD)`\
+c) `Event NAME START(in YYYY-MM-DD) END(in YYYY-MM-DD)`
 
 Examples:
 * `todo finish homework`
@@ -45,8 +45,8 @@ Through these functions, you can mark or unmark your various tasks as done, and 
 
 The syntax of the following commands are: 
 
-`mark label`\
-`unmark label`
+`mark LABEL`\
+`unmark LABEL`
 
 Here, label is an integer which represents which position of the list the item we want to mark is in
 
@@ -81,7 +81,7 @@ I take back my cookie :[  Me <- [o] <- you
 
 You can delete a task in your list using this command. The syntax is as follows:
 
-`delete label`
+`delete LABEL`
 
 label is an integer which represents which position in the list the item is.
 
@@ -103,7 +103,7 @@ You can search for tasks with matching patterns to the one you provide it with!
 
 The syntax of the `find` command is
 
-`find Substring`
+`find SUBSTRING`
 
 Substring is the text that you want to search for in the tasks!
 
@@ -124,7 +124,7 @@ It takes in the old task name and replaces it with the new task name!
 
 The syntax is: 
 
-`Update oldTask newTask`
+`Update OLDTASK NEWTASK`
 
 For instance, it can be used like
 

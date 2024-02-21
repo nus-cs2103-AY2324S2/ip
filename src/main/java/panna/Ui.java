@@ -32,6 +32,14 @@ public class Ui {
         return intro + output;
     }
 
+    /**
+     * Returns the message when a task is finished that the bot replies with
+     * @param tasks
+     * @param label
+     * @return String message
+     * @throws PannaException
+     */
+
     public String markDone(TaskList tasks, int label) throws PannaException {
         String output = "----------------------------------------------------------\n"
                 + "Congratulations on getting done with the task \n"
@@ -42,6 +50,13 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Returns the message the bot replies with when a task is unmarked.
+     * @param tasks
+     * @param label
+     * @return String message
+     * @throws PannaException
+     */
     public String unmarkDone(TaskList tasks, int label) throws PannaException {
         String output = "----------------------------------------------------------\n"
                 + "Awwwww Man we were doing so well!\nI've marked this task as undone: \n"
@@ -51,9 +66,11 @@ public class Ui {
                 + "----------------------------------------------------------";
         return output;
     }
+
     /**
-     * Displays message and marks the relevant task.
+     * Marks the task at position label in the tasklist as done.
      * @param tasks
+     * @param label
      * @throws PannaException
      */
     public void mark(TaskList tasks, int label) throws PannaException {
@@ -69,8 +86,9 @@ public class Ui {
     }
 
     /**
-     * Displays message and unmarks the relevant task.
+     * Unmarks the task in position label in the taskList.
      * @param tasks
+     * @param label
      * @throws PannaException
      */
 
@@ -89,8 +107,10 @@ public class Ui {
     }
 
     /**
-     * Deletes the relevant task and displays a message.
+     * Deletes the task in position label and returns the String
      * @param tasks
+     * @param label
+     * @return String output from a delete operation.
      * @throws PannaException
      */
 
@@ -114,8 +134,10 @@ public class Ui {
     }
 
     /**
-     * Displays a message corresponding to a new Todo task.
+     * Initializes a todo and returns the String confirmation
      * @param tasks
+     * @param input
+     * @return string confirmation.
      * @throws PannaException
      */
     public String todo(TaskList tasks, String input) throws PannaException {
@@ -133,9 +155,11 @@ public class Ui {
     }
 
     /**
-     * Displays the message corresponding to a new deadline task.
+     * Initializes a deadline and returns a string confirmation.
      * @param tasks
-     * @param p
+     * @param input
+     * @param dl
+     * @return string confirmation.
      * @throws PannaException
      */
 
@@ -158,15 +182,13 @@ public class Ui {
     }
 
     /**
-     * Adds event and returns String output
+     * updates the task with name taskn to changedName.
      * @param tasks
-     * @param event
-     * @param st
-     * @param end
-     * @return
+     * @param taskn
+     * @param changedName
+     * @return String output after updating.
      * @throws PannaException
      */
-
     public String update(TaskList tasks, String taskn, String changedName) throws PannaException {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).taskName.equals(taskn)) {
@@ -178,6 +200,16 @@ public class Ui {
 
         return "Please check the list before making me do work for no reason ;(";
     }
+
+    /**
+     * Initializes an event and returns the String confirmation.
+     * @param tasks
+     * @param event
+     * @param st
+     * @param end
+     * @return string confirmation
+     * @throws PannaException
+     */
     public String event(TaskList tasks, String event, LocalDate st, LocalDate end) throws PannaException {
         try {
             if (st.isAfter(end)) {
@@ -198,8 +230,10 @@ public class Ui {
     }
 
     /**
-     * finds the task with the substring provided
+     * Finds the tasks in the tasklist with substring k
      * @param tasks
+     * @param k
+     * @return collection of tasks.
      * @throws PannaException
      */
     public String find(TaskList tasks, String k) throws PannaException {

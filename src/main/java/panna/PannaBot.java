@@ -39,7 +39,9 @@ public class PannaBot extends Application {
     private String filePath = "panna.txt";
 
 
-
+    /**
+     * Constructor to initialize all the elements.
+     */
     public PannaBot() {
 
         this.storage = new Storage();
@@ -48,6 +50,11 @@ public class PannaBot extends Application {
         this.taskList = new TaskList();
 
     }
+
+    /**
+     * This considers the user input and retrieves the response of the bot and displays them.
+     * @throws PannaException
+     */
 
     private void handleUserInput() throws PannaException {
         Label userText = new Label(userInput.getText());
@@ -63,8 +70,9 @@ public class PannaBot extends Application {
 
 
     /**
-     * The run method begins the launch of the bot by accumulating all the methods from the
-     * various files and running them!
+     * Gets the response of the bot based on the human prompt.
+     * @param input
+     * @return String representing bot response.
      * @throws PannaException
      */
 
@@ -136,6 +144,13 @@ public class PannaBot extends Application {
         }
     }
 
+    /**
+     * Initializes the javafx scenes.
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         //The container for the content of the chat to scroll.
@@ -216,6 +231,11 @@ public class PannaBot extends Application {
 
     }
 
+    /**
+     * Returns the label based on the text provided to it.
+     * @param text
+     * @return
+     */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);

@@ -32,6 +32,11 @@ public class Event extends Task {
         return super.toString() + " (from: " + getStart().format(df) + " to " + getEnd().format(df) + ")";
     }
 
+    /**
+     * Checks whether two events are equal
+     * @param o
+     * @return boolean suggesting equality.
+     */
     @Override
     public boolean equals(Object o) {
         if (o.getClass() != this.getClass()) {

@@ -66,6 +66,10 @@ public class Task {
         taskType = 'E';
     }
 
+    /**
+     * Method intended to just change task name for the update functionality.
+     * @param taskName
+     */
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -127,6 +131,11 @@ public class Task {
         return "[" + taskType + "] [" + getStatusIcon() + "] " + taskName;
     }
 
+    /**
+     * Checks whether two tasks are equal.
+     * @param o
+     * @return boolean representing whether tasks are equal.
+     */
     @Override
     public boolean equals(Object o) {
         Task t = (Task) o; // Okay since we are only going to be dealing with Tasks.

@@ -8,11 +8,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
+
+/**
+ * Class which encapsulates the behaviour of the dialogbox
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+
+    /**
+     * Constructor to set up the formatting of the elements of the dialogBox.
+     * @param l
+     * @param iv
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
@@ -26,6 +36,10 @@ public class DialogBox extends HBox {
     }
 
 
+    /**
+     * Flips the screen!
+     */
+
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -33,9 +47,23 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns the dialog box from the perspective of the user.
+     * @param l
+     * @param iv
+     * @return
+     */
+
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
+
+    /**
+     * Returns the dialog box from the perspective of the bot.
+     * @param l
+     * @param iv
+     * @return
+     */
 
     public static DialogBox getPannaDialog(Label l, ImageView iv) {
         DialogBox dialog = new DialogBox(l, iv);
