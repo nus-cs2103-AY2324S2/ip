@@ -1,9 +1,11 @@
-package rochinoop;
+package rochinBot;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -244,13 +246,14 @@ public class RochinOOP {
             try {
                 File file = new File(filePath);
                 if (file.exists()) {
-                    Scanner scanner = new Scanner(file);
-                    while (scanner.hasNextLine()) {
-                        lines.add(scanner.nextLine());
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        lines.add(line);
                     }
-                    scanner.close();
+                    reader.close();
                 }
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 throw new RochinException("Error loading tasks from file.");
             }
             return lines;
@@ -477,8 +480,17 @@ public class RochinOOP {
         public void processDeadlineCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("deadline".length()).trim();
-                DeadlineTask ddlTask = new DeadlineTask(descriptionWithDate, "by");
-                tasks.addTask(ddlTask.createTask(descriptionWithDate));
+                // Splitting the description and deadline by "/by"
+                String[] parts = descriptionWithDate.split("/by");
+                if (parts.length != 2) {
+                    throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
+                }
+                String description = parts[0].trim();
+                String deadline = parts[1].trim();
+                // Parse the deadline string to LocalDateTime
+                LocalDateTime deadlineDateTime = DateAndTime.parseDateTime(deadline);
+                DeadlineTask ddlTask = new DeadlineTask(description, deadlineDateTime);
+                tasks.addTask(ddlTask);
                 ui.showTaskAddedMessage(tasks.getAllTasks());
             } catch (RochinException e) {
                 ui.showError(e.getMessage());
@@ -494,8 +506,23 @@ public class RochinOOP {
         public void processEventCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("event".length()).trim();
-                EventTask eventTask = new EventTask(descriptionWithDate, "from", "to");
-                tasks.addTask(eventTask.createTask(descriptionWithDate));
+                // Splitting the description, starting datetime, and ending datetime by "/from" and "/to"
+                String[] parts = descriptionWithDate.split("/from");
+                if (parts.length != 2) {
+                    throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
+                }
+                String description = parts[0].trim();
+                String[] dateTimeParts = parts[1].split("/to");
+                if (dateTimeParts.length != 2) {
+                    throw new RochinException("OOPS!!! Please provide both starting and ending date/time for the event.");
+                }
+                String fromDateTime = dateTimeParts[0].trim();
+                String toDateTime = dateTimeParts[1].trim();
+                // Parse the starting and ending date/time strings to LocalDateTime
+                LocalDateTime fromDateTimeObject = DateAndTime.parseDateTime(fromDateTime);
+                LocalDateTime toDateTimeObject = DateAndTime.parseDateTime(toDateTime);
+                EventTask eventTask = new EventTask(description, fromDateTimeObject, toDateTimeObject);
+                tasks.addTask(eventTask);
                 ui.showTaskAddedMessage(tasks.getAllTasks());
             } catch (RochinException e) {
                 ui.showError(e.getMessage());
@@ -641,12 +668,18 @@ public class RochinOOP {
          * @return new task
          */
         public Task createTaskFromFileString(String fileLine) throws RochinException {
-            String[] parts = fileLine.split("\\s*\\|\\s*");
+            String[] parts = fileLine.split("\\s* \\| \\s*");
             if (parts.length >= 3) {
                 boolean isDone = Integer.parseInt(parts[1]) == 1;
                 String description = parts[2];
+                LocalDateTime dateTime = null;
+                if (parts.length > 3) {
+                    String dateTimeString = parts[3];
+                    dateTime = DateAndTime.parseDateTime(dateTimeString); // Assuming storage is accessible here
+                }
                 // Extract additional details based on task type (Todo, Deadline, Event)
                 String additionalDetails = parts.length > 3 ? parts[3] : null;
+
                 if (parts[0].equals("T")) {
                     TodoTask todoTask = new TodoTask(description);
                     if (isDone) {
@@ -654,15 +687,16 @@ public class RochinOOP {
                     }
                     return todoTask;
                 } else if (parts[0].equals("D")) {
-                    DeadlineTask deadlineTask = new DeadlineTask(description, additionalDetails);
+                    DeadlineTask deadlineTask = new DeadlineTask(description, dateTime);
                     if (isDone) {
                         deadlineTask.markAsDone();
                     }
                     return deadlineTask;
                 } else if (parts[0].equals("E")) {
-                    description = parts[2] + parts[3];
-                    EventTask eventTask = new EventTask(description,"from", "to");
-                    eventTask.createTask(description);
+                    // Extract 'from' and 'to' datetime parameters
+                    LocalDateTime fromDateTime = DateAndTime.parseDateTime(parts[3]);
+                    LocalDateTime toDateTime = DateAndTime.parseDateTime(parts[4]);
+                    EventTask eventTask = new EventTask(description, fromDateTime, toDateTime);
                     if (isDone) {
                         eventTask.markAsDone();
                     }
@@ -736,25 +770,26 @@ public class RochinOOP {
      */
     class DeadlineTask extends Task {
 
-        protected String by;
+        protected LocalDateTime byDateTime;
 
-        public DeadlineTask(String description, String by) {
+        public DeadlineTask(String description, LocalDateTime byDateTime) {
             super(description);
-            this.by = by;
+            this.byDateTime = byDateTime;
         }
 
         /**
          * Return a new deadline task.
          *
-         * @param descriptionWithDate description with date.
+         * @param descriptionWithDateTime description with date.
          * @return A new deadline task.
          */
-        public DeadlineTask createTask(String descriptionWithDate) throws RochinException {
-            String[] parts = descriptionWithDate.split("/by");
+        public DeadlineTask createTask(String descriptionWithDateTime) throws RochinException {
+            String[] parts = descriptionWithDateTime.split("/by");
             if (parts.length == 2) {
                 String description = parts[0].trim();
-                String by = parts[1].trim();
-                return new DeadlineTask(description, by);
+                String dateTimeString = parts[1].trim();
+                LocalDateTime byDateTime = DateAndTime.parseDateTime(dateTimeString);
+                return new DeadlineTask(description, byDateTime);
             } else {
                 throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
             }
@@ -777,7 +812,7 @@ public class RochinOOP {
          */
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
         }
     }
 
@@ -786,37 +821,39 @@ public class RochinOOP {
      */
     class EventTask extends Task {
 
-        protected String from;
-        protected String to;
+        protected LocalDateTime fromDateTime;
+        protected LocalDateTime toDateTime;
 
         /**
          * Constructs an EventTask with a description, starting, and ending date/time.
          *
          * @param description The description of the event task.
-         * @param from        The starting date/time of the event.
-         * @param to          The ending date/time of the event.
+         * @param fromDateTime        The starting date/time of the event.
+         * @param toDateTime          The ending date/time of the event.
          */
-        public EventTask(String description, String from, String to) {
+        public EventTask(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
             super(description);
-            this.from = from;
-            this.to = to;
+            this.fromDateTime = fromDateTime;
+            this.toDateTime = toDateTime;
         }
 
         /**
          * Return a new event task.
          *
-         * @param descriptionWithDate description with date.
+         * @param descriptionWithDateTime description with date.
          * @return A new event task.
          */
-        public EventTask createTask(String descriptionWithDate) throws RochinException {
-            String[] parts = descriptionWithDate.split("/from");
+        public EventTask createTask(String descriptionWithDateTime) throws RochinException {
+            String[] parts = descriptionWithDateTime.split("/from");
             if (parts.length == 2) {
                 String description = parts[0].trim();
-                String[] dateRange = parts[1].split("/to");
-                if (dateRange.length == 2) {
-                    String from = dateRange[0].trim();
-                    String to = dateRange[1].trim();
-                    return new EventTask(description, from, to);
+                String[] dateTimeRange = parts[1].split("/to");
+                if (dateTimeRange.length == 2) {
+                    String fromDateTimeString = dateTimeRange[0].trim();
+                    String toDateTimeString = dateTimeRange[1].trim();
+                    LocalDateTime fromDateTime = DateAndTime.parseDateTime(fromDateTimeString);
+                    LocalDateTime toDateTime = DateAndTime.parseDateTime(toDateTimeString);
+                    return new EventTask(description, fromDateTime, toDateTime);
                 }
             }
             throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
@@ -839,22 +876,8 @@ public class RochinOOP {
          */
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-        }
-    }
-
-    /**
-     * Represents exceptions specific to Rochin.
-     */
-    static class RochinException extends Exception {
-
-        /**
-         * Constructs an exception with the specified error message.
-         *
-         * @param message The error message.
-         */
-        public RochinException(String message) {
-            super(message);
+            return "[E]" + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
+                    " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
         }
     }
 }

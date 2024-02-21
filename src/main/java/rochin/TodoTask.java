@@ -1,6 +1,10 @@
 package rochin;
 
-public class TodoTask extends Task {
+/**
+ * Represent a Todo task.
+ */
+class TodoTask extends Task {
+
     public TodoTask(String description) {
         super(description);
     }
@@ -24,4 +28,10 @@ public class TodoTask extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s", getTaskType(), isDone ? 1 : 0, description);
+    }
 }
+

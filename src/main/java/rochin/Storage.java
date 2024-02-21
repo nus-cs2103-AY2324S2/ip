@@ -3,8 +3,12 @@ package rochin;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+/**
+ * The Storage class handles loading and saving tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
@@ -27,14 +31,13 @@ public class Storage {
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(filePath);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    lines.add(scanner.nextLine());
-                }
-                scanner.close();
+            //if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RochinException("Error loading tasks from file.");
         }
         return lines;

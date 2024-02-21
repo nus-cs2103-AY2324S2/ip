@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import rochin.DialogBox;
 
 
 public class RochinGUI extends Application {
@@ -22,8 +23,8 @@ public class RochinGUI extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/Donald.png"));
-    private Image rochin = new Image(this.getClass().getResourceAsStream("/images/Daisy.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Donald.jpg"));
+    private Image rochin = new Image(this.getClass().getResourceAsStream("/images/Daisy.jpg"));
 
     public static void main(String[] args) {
         // ...
