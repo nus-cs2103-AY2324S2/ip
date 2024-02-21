@@ -30,7 +30,8 @@ public class TaskList {
      *
      * @param s  string containing information of the task.
      * @param ct command type.
-     * @throws FtException
+     * @return a string that the task is added.
+     * @throws FtException if no description is provided.
      */
     public String addTask(String s, CommandTypes ct) throws FtException {
         Task task;
@@ -86,7 +87,8 @@ public class TaskList {
      * Mark the task as done, based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws FtException
+     * @return string that the task is marked.
+     * @throws FtException if invalid index is provided.
      */
     public String mark(String s) throws FtException {
         int i = Parser.parseNumber(s);
@@ -103,7 +105,8 @@ public class TaskList {
      * Unmarks the task based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws FtException
+     * @return string that the task is unmarked.
+     * @throws FtException if invalid index is provide.
      */
     public String unmark(String s) throws FtException {
         int i = Parser.parseNumber(s);
@@ -120,7 +123,8 @@ public class TaskList {
      * Deletes the task based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws FtException
+     * @return string that the task is deleted.
+     * @throws FtException if invalid index is provided.
      */
     public String deleteTask(String s) throws FtException {
         int i = Parser.parseNumber(s);

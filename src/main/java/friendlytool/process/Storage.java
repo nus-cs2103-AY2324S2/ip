@@ -20,7 +20,7 @@ public class Storage {
      * Loads Tasks to the list from the saved file. If not exists, create a new file in the directory.
      *
      * @param myList lists that will receive tasks.
-     * @throws FtException
+     * @throws FtException if file is corrupted or missing
      */
     public static void loadTask(TaskList myList) throws FtException {
         try {
@@ -62,7 +62,7 @@ public class Storage {
      * Updates the save file based on the given list.
      *
      * @param list given list with tasks.
-     * @throws FtException
+     * @throws FtException if file is not updated
      */
     public static void updateTask(TaskList list) throws FtException {
         try {

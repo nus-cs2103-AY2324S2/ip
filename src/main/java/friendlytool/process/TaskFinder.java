@@ -12,7 +12,8 @@ public class TaskFinder {
      *
      * @param tasks given task
      * @param input keyword
-     * @throws FtException
+     * @return found task
+     * @throws FtException if keyword is not found
      */
     public static String findTask(TaskList tasks, String input) throws FtException {
         int counter = 0;

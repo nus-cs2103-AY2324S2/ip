@@ -119,7 +119,7 @@ public class Parser {
      *
      * @param s user input.
      * @return index for finding tasks.
-     * @throws FtException
+     * @throws FtException if no index is provided
      */
     public static int parseNumber(String s) throws FtException {
         StringTokenizer st = new StringTokenizer(s);
@@ -145,7 +145,7 @@ public class Parser {
      *
      * @param s user input
      * @return keyword that user provided
-     * @throws FtException
+     * @throws FtException if the number of words is incorrect
      */
     public static String parseKeyword(String s) throws FtException {
         String[] strings = s.split(" ");

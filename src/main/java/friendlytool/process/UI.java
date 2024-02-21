@@ -10,6 +10,7 @@ public class UI {
     private static StringBuilder sb = new StringBuilder();
 
     /**
+     * Provides a response to user's input
      * @return Provides a cumulated response,
      */
     public static String getResponse() {
@@ -18,7 +19,8 @@ public class UI {
         return response;
     }
     /**
-     * Prints a welcome message.
+     * Provides a welcome message.
+     * @return welcome message.
      */
     public static String getInitMsg() {
         sb.append("    ____________________________________________________________\n")
@@ -30,6 +32,7 @@ public class UI {
 
     /**
      * Provides a bye message.
+     * @return bye message.
      */
     public static String getByeMsg() {
         sb.append("    ____________________________________________________________\n")
@@ -43,6 +46,7 @@ public class UI {
      *
      * @param task task updated.
      * @param size number of elements in the list.
+     * @return string that the task is updated.
      */
     public static String getUpdateTaskMsg(Task task, int size) {
         sb.append("    ____________________________________________________________\n")
@@ -57,7 +61,7 @@ public class UI {
      * Provides a string that a task is marked as done.
      *
      * @param task task given.
-     * @return string that task is marked
+     * @return string that task is marked.
      */
     public static String getMarkMsg(Task task) {
         sb.append("    ____________________________________________________________\n")
@@ -83,10 +87,11 @@ public class UI {
     }
 
     /**
-     * Print that the task is deleted.
+     * Provides a string that the task is deleted.
      *
      * @param task task deleted.
      * @param size number of elements in the list.
+     * @return string that the task is deleted.
      */
     public static String getDeleteMsg(String task, int size) {
         sb.append("    ____________________________________________________________\n")
@@ -98,7 +103,7 @@ public class UI {
     }
 
     /**
-     * Prints whether the save data is created or not.
+     * Provides a string whether the save data is created or not.
      *
      * @param isSuccessful save data creation is successful or not
      */
@@ -116,7 +121,7 @@ public class UI {
 
 
     /**
-     * Provides string of the whole list with index.
+     * Prints the whole list with index.
      *
      * @param list list to be printed.
      * @return string of list
@@ -160,7 +165,7 @@ public class UI {
     }
 
     /**
-     * @param e
+     * @param e error given
      * @return error message
      */
     public static String getErrorMsg(FtException e) {
