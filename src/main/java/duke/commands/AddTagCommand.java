@@ -1,12 +1,13 @@
 package duke.commands;
 
-import duke.storage.Storage;
-import duke.tasks.Task;
-import duke.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.ui.Ui;
 
 public class AddTagCommand extends Command {
 

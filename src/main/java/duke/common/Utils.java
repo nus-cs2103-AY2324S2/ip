@@ -72,7 +72,7 @@ public class Utils {
      * @return The method is returning a formatted string representation of the given LocalDateTime
      *         object.
      */
-    public static String formatInput(LocalDateTime dateTime) {
+    public static String inputFormat(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(FORMAT));
     }
 
