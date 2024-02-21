@@ -2,6 +2,7 @@ package signal.util;
 
 
 //import signal.DukeException;
+import signal.DukeException;
 import signal.task.*;
 import signal.util.Storage;
 
@@ -32,6 +33,20 @@ public class Ui {
     }
 
     /**
+     * Converts an ArrayList to a String.
+     *
+     * @param list An ArrayList of strings to convert.
+     * @return The converted String.
+     */
+    public String listToString(ArrayList<String> list) {
+        String result = "";
+        for (String s : list) {
+            result += s + "\n";
+        }
+        return result;
+    }
+
+    /**
      * Gets the next user input.
      *
      * @return The string input.
@@ -44,31 +59,37 @@ public class Ui {
      * Prints the opening message of the Signal chatbot.
      */
     public String intro() {
-        System.out.println("Hello! My name is\n" + LOGO);
-        System.out.println("How can I help?");
-        System.out.println("Enter 'help' to see the list of commands available :D");
-        System.out.println(DIV);
-
         ArrayList<String> response = new ArrayList<>();
         response.add("Hello! My name is\n" + LOGO);
         response.add("How can I help?");
         response.add(("Enter 'help' to see the list of commands available :D"));
-        return listToString(response);
-
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;
     }
 
     /**
      * Prints the closing message of the Signal chatbot.
      */
-    public void leave() {
-        signalSays("Bye! Hope you come back soon :D");
+    public String leave() {
+        String reply = "Bye! Hope you come back soon :D";
+        signalSays(reply);
+        return reply;
     }
 
     /**
      * Prints a reponse to an empty input.
      */
-    public void emptyInput() {
-        signalSays("Brevity is the soul of wit, but you have to tell me something still!");
+    public String emptyInput() {
+        String reply = "Brevity is the soul of wit, but you have to tell me something still!";
+        signalSays(reply);
+        return reply;
+    }
+
+    public String unknownInput() {
+        String reply = "Sorry, I don't know what you're talking about. Enter 'help' to see what commands you can use!";
+        signalSays(reply);
+        return reply;
     }
 
     /**
@@ -127,31 +148,24 @@ public class Ui {
         return -1;
     }
 
-    /**
-     * Converts an ArrayList to a String.
-     *
-     * @param list An ArrayList of strings to convert.
-     * @return The converted String.
-     */
-    public String listToString(ArrayList<String> list) {
-        String result = "";
-        for (String s : list) {
-            result += s + "\n";
-        }
-        return result;
-    }
+
 
     /**
      * Save the new task added to the file and print a response to the user.
      *
      * @param task The task added.
      */
-    public void taskAdded(Task task) {
-        int size = taskList.size();
-        signalSays("Got it! I've added this task to your list: \n"
-                + "  " + task.toString() + "\n"
-                + "Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
+    public String taskAdded(Task task) {
         storeFiles.writeTasks(taskList);
+
+        int size = taskList.size();
+        ArrayList<String> response = new ArrayList<String>();
+        response.add("Got it! I've added this task to your list:");
+        response.add("  " + task.toString());
+        response.add("Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;
     }
 
     /**
@@ -159,15 +173,15 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public void commandToDo(String[] inputParts) {
+    public String commandToDo(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-            signalSays("Looks like you haven't entered a task description!");
-//            throw new DukeException("Looks like you haven't entered a task description!");
+//            signalSays("Looks like you haven't entered a task description!");
+            throw new DukeException("Looks like you haven't entered a task description!");
         } else {
             String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
             Task task = new ToDo(description);
             taskList.add(task);
-            taskAdded(task);
+            return taskAdded(task);
         }
 
     }
@@ -177,20 +191,20 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public void commandDeadline(String[] inputParts) {
+    public String commandDeadline(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-            signalSays("Looks like you haven't entered a task description!");
-//            throw new DukeException("Looks like you haven't entered a task description!");
+//            signalSays("Looks like you haven't entered a task description!");
+            throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/by")) {
-            signalSays("Looks like you haven't added a deadline!");
-//            throw new DukeException("Looks like you haven't added a deadline!");
+//            signalSays("Looks like you haven't added a deadline!");
+            throw new DukeException("Looks like you haven't added a deadline!");
         }
         int byIndex = finder("/by", inputParts);
         String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, byIndex));
         String by = String.join(" ", Arrays.copyOfRange(inputParts, byIndex + 1, inputParts.length));
         Task task = new Deadline(description, by);
         taskList.add(task);
-        taskAdded(task);
+        return taskAdded(task);
     }
 
     /**
@@ -198,19 +212,19 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public void commandEvent(String[] inputParts) {
+    public String commandEvent(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-            signalSays("Looks like you haven't entered a task description!");
-//            throw new DukeException("Looks like you haven't entered a task description!");
+//            signalSays("Looks like you haven't entered a task description!");
+            throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/from") && !Arrays.asList(inputParts).contains("/to")){
-            signalSays("Please tell me the event timeframe!");
-//            throw new DukeException("Please tell me the event timeframe!");
+//            signalSays("Please tell me the event timeframe!");
+            throw new DukeException("Please tell me the event timeframe!");
         } else if (!Arrays.asList(inputParts).contains("/from")){
-            signalSays("Please tell me when the event starts.");
-//            throw new DukeException("Please tell me when the event starts.");
+//            signalSays("Please tell me when the event starts.");
+            throw new DukeException("Please tell me when the event starts.");
         } else if (!Arrays.asList(inputParts).contains("/to")){
-            signalSays("Please tell me when the event ends.");
-//            throw new DukeException("Please tell me when the event ends.");
+//            signalSays("Please tell me when the event ends.");
+            throw new DukeException("Please tell me when the event ends.");
         }
 
         int fromIndex = finder("/from", inputParts);
@@ -220,25 +234,27 @@ public class Ui {
         String end = String.join(" ", Arrays.copyOfRange(inputParts, toIndex + 1, inputParts.length));
         Task task = new Event(description, start, end);
         taskList.add(task);
-        taskAdded(task);
+        return taskAdded(task);
     }
 
     /**
      * Prints the list of inputs collected from the user.
      *
      */
-    public void commandList() {
+    public String commandList() throws DukeException {
+        String reply = "";
         if (taskList.size() == 0) {
-            signalSays("Oops, looks like you haven't added any tasks!");
+            reply = "Oops, looks like you haven't added any tasks!";
+            throw new DukeException(reply);
         } else {
             ArrayList<String> response = new ArrayList<>();
             response.add("Here is your tasklist!");
             for (Task i : taskList) {
                 response.add(taskList.indexOf(i) + 1 + ". " + i.toString());
             }
-            signalSays(listToString(response));
+            reply = listToString(response);
         }
-
+        return reply;
     }
 
 
@@ -247,14 +263,16 @@ public class Ui {
      *
      * @param current The task to mark.
      */
-    public void commandMark(Task current) {
+    public String commandMark(Task current) {
         current.markDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is already done! Yay!\n"
                 : "Nice! I've marked this task as done:\n");
         response.add("  " + current.toString());
-        signalSays(listToString(response));
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;
     }
 
     /**
@@ -262,9 +280,9 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public void markTask(String[] inputParts) {
+    public String markTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        commandMark(taskList.get(index -1));
+        return commandMark(taskList.get(index -1));
     }
 
     /**
@@ -272,24 +290,25 @@ public class Ui {
      *
      * @param current The task to unmark.
      */
-    public void commandUnmark(Task current) {
+    public String commandUnmark(Task current) {
         current.markUnDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is not yet done! Yay!\n"
                 : "OK, I've marked this task as undone:\n");
         response.add("  " + current.toString());
-        signalSays(listToString(response));
-    }
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;    }
 
     /**
      * Calls the commandUnark method.
      *
      * @param inputParts The string array of the user input.
      */
-    public void unMarkTask(String[] inputParts) {
+    public String unMarkTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        commandUnmark(taskList.get(index - 1));
+        return commandUnmark(taskList.get(index - 1));
     }
 
 
@@ -299,28 +318,33 @@ public class Ui {
      *
      * @param x The index of the task to be deleted.
      */
-    public void commandDelete(int x) {
+    public String commandDelete(int x) throws DukeException {
         Task current = taskList.get(x);
         int initialSize = taskList.size();
+        ArrayList<String> response = new ArrayList<>();
+
         if (initialSize == 0) {
-            signalSays("Looks like there's nothing here to remove. Better get on those tasks!");
-//            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
+            response.add("Looks like there's nothing here to remove. Better get on those tasks!");
+            throw new DukeException(listToString(response));
         }
         if (x > initialSize) {
-            signalSays("I'd say shoot for the stars but in this case there are only "
+            response.add("I'd say shoot for the stars but in this case there are only "
                     + initialSize + (initialSize == 1 ? " item" : " items") + " in this list");
-//            throw new DukeException("I'd say shoot for the stars but in this case there are only "
-//                    + initialSize + (initialSize == 1 ? " item" : " items") + " in this list");
+            throw new DukeException(listToString(response));
+
         } else {
-            ArrayList<String> response = new ArrayList<>();
             taskList.remove(x);
             response.add("Noted, I've deleted this task from your list:");
             response.add("  " + current.toString());
             response.add("Now you have " + (initialSize - 1)
                     + (initialSize - 1 == 1 ? " task" : " tasks") + " in the list.");
             storeFiles.writeTasks(taskList);
-            signalSays(listToString(response));
+
         }
+
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;
     }
 
 
@@ -336,47 +360,56 @@ public class Ui {
         return result;
     }
 
-    public void commandFind(String[] inputParts) {
+    public String commandFind(String[] inputParts) {
         String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
         ArrayList<String> response = new ArrayList<String>();
         response.add("Sure, here are the tasks containing '" + toFind + "':");
         response.addAll(find(toFind));
-        signalSays(listToString(response));
+        String reply = listToString(response);
+        signalSays(reply);
+        return reply;
     }
 
     /**
      * Response to user input 'blah'
      */
-    public void commandBlah() {
-        signalSays("All words are made up, but this one seems more nonsensical than usual. Try something else!");
-//        throw new DukeException("All words are made up, but this one seems more nonsensical than usual. Try something else!");
+    public String commandBlah() {
+        String reply = "All words are made up, but this one seems more nonsensical than usual. Try something else!";
+        signalSays(reply);
+        return reply;
     }
 
     /**
      * Response to user input 'something else'
      */
-    public void commandSomethingelse() {
-        signalSays("Haha, very funny. Nice try my guy!");
-//        throw new DukeException("Haha, very funny. Nice try my guy!");
+    public String commandSomethingelse() {
+        String reply = "Haha, very funny. Nice try my guy!";
+        signalSays(reply);
+        return reply;
     }
 
     /**
      * Prints a user guide.
      */
-    public void commandHelp() {
-        signalSays("Note:\n" +
-                "The round brackets indicate you can enter any text, square brackets indicate you should enter a number, without the brackets. \n" +
-                "\nCREATING TASKS: \n" +
-                "* todo () -- creates a To Do task, which has no deadline. \n" +
-                "* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'. \n" +
-                "* event () \\from () \\to () -- creates an Event task, indicate its start and end after '\\from' and '\\to'. \n" +
-                "Note: dates are formatted as yyyy-mm-dd. time is formatted as \n" +
-                "\nCOMMANDS: \n" +
-                "* list -- prints a numbered list of the tasks created, in input order.\n" +
-                "* mark [] -- marks the task at index [] as completed. \n" +
-                "* unmark [] -- marks the task at index [] as uncompleted. \n" +
-                "* delete [] -- removes the task at index [] from the list.\n" +
-                "* bye -- exits the program.");
+    public String commandHelp() {
+        ArrayList<String> response = new ArrayList<String>();
+        response.add("Note:");
+        response.add("The round brackets indicate you can enter any text, square brackets indicate you should enter a number, without the brackets.");
+        response.add("\nCREATING TASKS:");
+        response.add("* todo () -- creates a To Do task, which has no deadline. ");
+        response.add("* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'.");
+        response.add("* event () \\from () \\to () -- creates an Event task, indicate its start and end after '\\from' and '\\to'.");
+        response.add("Note: dates are formatted as yyyy-mm-dd. time is formatted as ");
+        response.add("\nCOMMANDS: ");
+        response.add("* list -- prints a numbered list of the tasks created, in input order.");
+        response.add("* mark [] -- marks the task at index [] as completed. ");
+        response.add("* unmark [] -- marks the task at index [] as uncompleted. ");
+        response.add("* delete [] -- removes the task at index [] from the list.");
+        response.add("* bye -- exits the program.");
+        String reply = listToString(response);
+
+        signalSays(reply);
+        return reply;
     }
 
     /**

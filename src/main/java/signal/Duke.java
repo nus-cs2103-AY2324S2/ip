@@ -35,23 +35,7 @@ public class Duke {
     public Duke() {
 
     }
-
-
-    public static void main(String[] args) {
-        ui.intro();
-
-
-        while(true) {
-            String userInput = ui.scan();
-
-            if (userInput.equals("bye")) {
-                // Exit program
-                break;
-            }
-            parser.read(userInput);
-        }
-        ui.leave();
-    }
+    
 
 
     /**
@@ -59,8 +43,8 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        parser.read(input);
-        return "Signal heard: " + input;
+        return parser.parse(input);
+//        return "Signal heard: " + input;
     }
 
     public String getIntro() {

@@ -1,7 +1,10 @@
 package signal.util;
 
 //import signal.DukeException;
+import signal.Duke;
+import signal.DukeException;
 import signal.task.Task;
+import signal.task.TaskException;
 
 import java.util.ArrayList;
 
@@ -25,47 +28,60 @@ public class Parser {
         this.ui = ui;
     }
 
+    public String parse(String userInput) {
+        try {
+            return read(userInput);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * Reads the input from the user and implement the corresponding method.
      *
      * @param userInput The string of input.
      */
-    public void read(String userInput) {
+    public String read(String userInput) throws DukeException {
         String[] inputParts = userInput.split(" ");
-        if (userInput.equals("")) {
+        String reply = "";
+        if (userInput.equals("bye")) {
+            // show goodbye message
+            reply = ui.leave();
+        } else if (userInput.equals("")) {
             // input is blank
-            ui.emptyInput();
+            reply = ui.emptyInput();
         } else if (userInput.startsWith("mark")) {
             // mark item as done
-            ui.markTask(inputParts);
+            reply = ui.markTask(inputParts);
         } else if (ui.isPermutationMatch(inputParts[0], "mark")) {
-            markTypo(inputParts);
+            reply = markTypo(inputParts);
         } else if (userInput.startsWith("unmark")) {
             // mark item as undone
-            ui.unMarkTask(inputParts);
+            reply = ui.unMarkTask(inputParts);
         } else if (ui.isPermutationMatch(inputParts[0], "unmark")) {
-            unmarkTypo(inputParts);
+            reply = unmarkTypo(inputParts);
         } else if (userInput.equals("list")) {
             // show list of tasks
-            ui.commandList();
+            reply = ui.commandList();
         } else if (ui.isPermutationMatch(userInput, "list")) {
             // check if user made a typo of 'list'
             listTypo(userInput);
         } else if (userInput.startsWith("delete")) {
             // remove a task
-            listDelete(inputParts);
+            reply = listDelete(inputParts);
         } else if (userInput.startsWith("find")) {
             // find a keyword
-            ui.commandFind(inputParts);
+            reply = ui.commandFind(inputParts);
         } else if (ui.isPermutationMatch(inputParts[0], "find")) {
-            findTypo(inputParts);
+            reply = findTypo(inputParts);
         } else if (userInput.equals("help")) {
             // show help message
-            ui.commandHelp();
+            reply = ui.commandHelp();
         } else {
             // create a new task or other commands
-            taskCommands(userInput);
+            reply = taskCommands(userInput);
         }
+        return reply;
     }
 
     /**
@@ -73,12 +89,15 @@ public class Parser {
      *
      * @param inputParts The string array of input.
      */
-    public void markTypo(String[] inputParts) {
+    public String markTypo(String[] inputParts) {
+        String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "mark")) {
-            ui.markTask(inputParts);
+            reply = ui.markTask(inputParts);
         } else {
-            ui.signalSays("What else can I help you with?");
+            reply = "What else can I help you with?";
+            ui.signalSays(reply);
         }
+        return reply;
     }
 
     /**
@@ -86,12 +105,15 @@ public class Parser {
      *
      * @param inputParts The string array of input.
      */
-    public void unmarkTypo(String[] inputParts) {
+    public String unmarkTypo(String[] inputParts) {
+        String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "unmark")) {
-            ui.unMarkTask(inputParts);
+            reply = ui.unMarkTask(inputParts);
         } else {
-            ui.signalSays("What else can I help you with?");
+            reply = "What else can I help you with?";
+            ui.signalSays(reply);
         }
+        return reply;
     }
 
     /**
@@ -99,20 +121,31 @@ public class Parser {
      *
      * @param userInput The string of input.
      */
-    public void listTypo(String userInput) {
-        if (ui.checkCommandTypo(userInput, "list")) {
-            ui.commandList();
-        } else {
-            ui.signalSays("What else can I help you with?");
+    public String listTypo(String userInput) {
+        String reply = "";
+        try {
+            if (ui.checkCommandTypo(userInput, "list")) {
+                reply = ui.commandList();
+            } else {
+                reply = "What else can I help you with?";
+                ui.signalSays(reply);
+            }
+        } catch (DukeException e) {
+            reply = e.getMessage();
         }
+
+        return reply;
     }
 
-    public void findTypo(String[] inputParts) {
+    public String findTypo(String[] inputParts) {
+        String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "find")) {
-            ui.commandFind(inputParts);
+            reply = ui.commandFind(inputParts);
         } else {
-            ui.signalSays("What else can I help you with?");
+            reply ="What else can I help you with?";
+            ui.signalSays(reply);
         }
+        return reply;
     }
 
     /**
@@ -120,9 +153,15 @@ public class Parser {
      *
      * @param inputParts The string array of input.
      */
-    public void listDelete(String[] inputParts) {
+    public String listDelete(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
-        ui.commandDelete(index - 1);
+        String reply = "";
+        try {
+            reply = ui.commandDelete(index - 1);
+        } catch (DukeException e) {
+            reply = e.getMessage();
+        }
+        return reply;
     }
 
     /**
@@ -130,21 +169,27 @@ public class Parser {
      *
      * @param userInput The string of input.
      */
-    public void taskCommands(String userInput) {
+    public String taskCommands(String userInput) {
         // create tasks
         String[] inputParts = userInput.split(" ");
-        if (userInput.startsWith("todo")) {
-            // Create a ToDo task
-            ui.commandToDo(inputParts);
-        } else if (userInput.startsWith("deadline")) {
-            // Create a Deadline task
-            ui.commandDeadline(inputParts);
-        } else if (userInput.startsWith("event")) {
-            // Create an Event task
-            ui.commandEvent(inputParts);
-        } else {
-            otherInputs(userInput);
+        String reply = "";
+        try {
+            if (userInput.startsWith("todo")) {
+                // Create a ToDo task
+                reply = ui.commandToDo(inputParts);
+            } else if (userInput.startsWith("deadline")) {
+                // Create a Deadline task
+                reply = ui.commandDeadline(inputParts);
+            } else if (userInput.startsWith("event")) {
+                // Create an Event task
+                reply = ui.commandEvent(inputParts);
+            } else {
+                reply = otherInputs(userInput);
+            }
+        } catch (DukeException e) {
+            reply = e.getMessage();
         }
+        return reply;
 
     }
 
@@ -153,24 +198,16 @@ public class Parser {
      *
      * @param userInput The string of input.
      */
-    public void otherInputs(String userInput) {
+    public String otherInputs(String userInput) {
+        String reply = "";
         if (userInput.equals("blah")) {
-            ui.commandBlah();
-//            try {
-//                ui.commandBlah();
-//            } catch (DukeException e) {
-//                ui.signalSays(e.getMessage());
-//            }
+            reply = ui.commandBlah();
         } else if (userInput.equals("something else")) {
-            ui.commandSomethingelse();
-//            try {
-//                ui.commandSomethingelse();
-//            } catch (DukeException e) {
-//                ui.signalSays(e.getMessage());
-//            }
+            reply = ui.commandSomethingelse();
         } else {
-            ui.signalSays("Sorry, I don't know what you're talking about. " +
-                    "Enter 'help' to see what commands you can use!");
+            reply = ui.unknownInput();
         }
+        return reply;
+
     }
 }
