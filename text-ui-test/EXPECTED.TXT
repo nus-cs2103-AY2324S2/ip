@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+______________________________________
+Hello! I'm drew.Drew
+What can I do for you?
+______________________________________
+______________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 task(s) in the list.
+______________________________________
+______________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+Now you have 1 task(s) in the list.
+______________________________________
+______________________________________
+Got it. I've added this task:
+[D][ ] return book  (by: Sunday)
+Now you have 2 task(s) in the list.
+______________________________________
+______________________________________
+Got it. I've added this task:
+[E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+Now you have 3 task(s) in the list.
+______________________________________
+______________________________________
+Well done! I have marked this task as done:
+[T][X] borrow book
+______________________________________
+______________________________________
+Well done! I have marked this task as done:
+[D][X] return book  (by: Sunday)
+______________________________________
+______________________________________
+Ok. I have marked this task as not done yet:
+[D][ ] return book  (by: Sunday)
+______________________________________
+______________________________________
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book  (by: Sunday)
+3. [E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+Now you have 3 task(s) in the list.
+______________________________________
