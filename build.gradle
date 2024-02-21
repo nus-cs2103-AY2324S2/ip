@@ -53,10 +53,8 @@ application {
 
 shadowJar {
     archiveBaseName = 'skyler'
-    archiveFileName = 'skyler.jar'
-    archiveVersion = ''
-    archiveClassifier = ''
     archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
 java {
@@ -66,6 +64,5 @@ java {
 
 run{
     standardInput = System.in
-    enableAssertions = true
 }
 
