@@ -52,6 +52,13 @@ shadowJar {
     archiveFileName = 'eueu.jar'
 }
 
+//shadowJar {
+//    mergeServiceFiles()
+//    manifest {
+//        attributes 'Main-Class': 'eueu.Eueu'
+//    }
+//}
+
 run{
     standardInput = System.in
 }
