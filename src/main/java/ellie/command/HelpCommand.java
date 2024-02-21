@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
      * @param tasklist The TaskList to be operated on by the command.
      */
     public String runAndReturnResponse(TaskList tasklist) {
-        String response = NEW_LINE;
+        String response = "";
         response += "Here's a list of supported commands so far: " + NEW_LINE + NEW_LINE
                 + " <help>" + NEW_LINE
                 + " <list>" + NEW_LINE

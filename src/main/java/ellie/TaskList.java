@@ -85,7 +85,7 @@ public class TaskList {
     public String listTasks() {
         String noTasksResponse = "No items in list!" + NEW_LINE;
 
-        String response = NEW_LINE;
+        String response = "";
 
         if (taskArrayList.isEmpty()) {
             response += noTasksResponse;
@@ -120,7 +120,7 @@ public class TaskList {
         final String invalidIndexResponse = "Sorry!" + NEW_LINE
                                             + "There doesn't seem to be enough tasks for there to be a task "
                                                 + index + "!" + NEW_LINE;
-        String response = NEW_LINE;
+        String response = "";
 
         if (index > taskArrayList.size()) {
             response += invalidIndexResponse;
@@ -143,7 +143,7 @@ public class TaskList {
      * @param index The index of the task to be unmarked as done.
      */
     public String unmarkTaskIndex(int index) {
-        String response = NEW_LINE;
+        String response = "";
 
         if (index > taskArrayList.size()) {
             response += "Sorry!" + NEW_LINE
@@ -167,7 +167,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public String deleteTaskIndex(int index) {
-        String response = NEW_LINE;
+        String response = "";
 
         if (index > taskArrayList.size()) {
             response += "Sorry!" + NEW_LINE
