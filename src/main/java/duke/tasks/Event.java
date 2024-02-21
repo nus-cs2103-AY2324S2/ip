@@ -3,9 +3,8 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.List;
+
+import duke.handlers.TimeHandler;
 
 /**
  * Event task template.
@@ -23,8 +22,10 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = parseDateTime(from);
-        this.to = parseTime(to);
+
+        TimeHandler th = new TimeHandler();
+        this.from = th.parseDateTime(from);
+        this.to = th.parseTime(to);
     }
 
 
@@ -39,8 +40,10 @@ public class Event extends Task {
     public Event(String description, boolean done, String from, String to) {
         super(description);
         super.updateIsDone(done);
-        this.from = parseDateTime(from);
-        this.to = parseTime(to);
+
+        TimeHandler th = new TimeHandler();
+        this.from = th.parseDateTime(from);
+        this.to = th.parseTime(to);
     }
 
     /**
@@ -59,25 +62,5 @@ public class Event extends Task {
                 + this.description + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("hh:mm a")) + ")";
-    }
-
-    /**
-     * Parse and convert string to LocalTime object.
-     *
-     * @param time      String containing time.
-     * @return time     LocalTime object.
-     */
-    private LocalTime parseTime(String time) {
-        List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
-
-        for (String t : timeCombinations) {
-            try {
-                return LocalTime.parse(time, DateTimeFormatter.ofPattern(t));
-            } catch (DateTimeParseException dt) {
-                // ...
-            }
-        }
-
-        return null;
     }
 }

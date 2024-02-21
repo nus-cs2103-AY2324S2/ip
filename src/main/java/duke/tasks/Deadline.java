@@ -3,6 +3,8 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.handlers.TimeHandler;
+
 /**
  * Deadline task template.
  */
@@ -17,7 +19,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = parseDateTime(by);
+
+        TimeHandler th = new TimeHandler();
+        this.by = th.parseDateTime(by);
     }
 
     /**
@@ -30,7 +34,9 @@ public class Deadline extends Task {
     public Deadline(String description, boolean done, String by) {
         super(description);
         super.updateIsDone(done);
-        this.by = parseDateTime(by);
+
+        TimeHandler th = new TimeHandler();
+        this.by = th.parseDateTime(by);
     }
 
     /**
