@@ -4,3 +4,5 @@ T|0|cdd
 T|0|/abc /abc /abc
 D|0|/abc |2022-02-02
 D|0|/aaa |2022-02-01
+T|1|abc
+E|1|home work finish |2021-02-02|2021-02-04

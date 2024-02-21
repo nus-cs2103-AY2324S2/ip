@@ -1,3 +1,8 @@
 T|1|eat
 T|0|abc
 T|1|abc
+T|0|read book
+E|0|read book |2022-02-02|2024-01-01
+T|0|tidy
+T|0|a
+T|0|read

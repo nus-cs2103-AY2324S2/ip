@@ -30,7 +30,7 @@ public class Parser {
      * @throws InvalidNumberException If the number in the command is not a number.
      */
     public void parse(String userInput) throws InvalidKeyException, EmptyBodyException,
-            WrongFormatException, InvalidNumberException, DateTimeParseException {
+            WrongFormatException, InvalidNumberException, DateTimeParseException, InvalidDateTimeException {
         String[] userInputSplit = userInput.split(" ");
         // verify that the user input is valid
         String checkInputMsg = checkSpecialCharacter(userInputSplit);
@@ -65,6 +65,11 @@ public class Parser {
                 inputDetail = userInput.substring(6, userInput.indexOf("/from"));
                 from = formatDate(userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1));
                 to = formatDate(userInput.substring(userInput.indexOf("/to") + 4));
+                if (from.isAfter(to)) {
+                    throw new InvalidDateTimeException("The start date should be before the end date");
+                }
+            } catch (InvalidDateTimeException e) {
+                throw e;
             } catch (Exception e) {
                 throw new WrongFormatException("\"event content /from yyyy-mm-dd /to yyyy-mm-dd\"");
             }

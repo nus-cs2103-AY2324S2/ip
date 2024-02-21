@@ -102,7 +102,7 @@ public class UI {
      * Displays exit message.
      */
     public String onExit() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!" + "(The window will be closed automatically in 3 seconds)";
     }
 
     /**

@@ -50,7 +50,8 @@ public class Duke {
         String response = "";
         do {
             response = getResponse(ui.getUserInput());
-        } while (!Objects.equals(response, "Bye. Hope to see you again soon!"));
+        } while (!Objects.equals(response, "Bye. Hope to see you again soon!"
+            + "(The window will be closed automatically in 3 seconds)"));
     }
 
     public static void main(String[] args) {
@@ -83,9 +84,7 @@ public class Duke {
             case EVENT:
                 Task task = tasks.addTask(parser.getInputDetail(),
                     parser.getFrom(), parser.getTo(), parser.getCurrentKey());
-                System.out.println("success");
                 storage.writeTasksToFile(tasks);
-                System.out.println("fail");
                 response = ui.onAddSuccess(task, tasks.getNumOfTasks());
                 break;
             case LIST:
