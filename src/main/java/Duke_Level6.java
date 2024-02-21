@@ -36,7 +36,7 @@ public class Duke_Level6 {
                 try {
                     deleteTask(Integer.parseInt(tokens[1]));
                 } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e ){
-                    System.out.println("Sorry, you need to input a integer index");
+                    System.out.println("Sorry, you need to input a valid integer index");
                 }
                 break;
             case "bye":
@@ -44,18 +44,18 @@ public class Duke_Level6 {
             case "list":
                 listTasks();
                 break;
-            case "done":
+            case "mark": // Added case for marking task as done
                 try {
                     int index = Integer.parseInt(tokens[1]);
-                    markTaskAsDone(index);
+                    markTask(index);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid command format.");
                 }
                 break;
-            case "undone":
+            case "unmark": // Added case for marking task as undone
                 try {
                     int index = Integer.parseInt(tokens[1]);
-                    markTaskAsUndone(index);
+                    unmarkTask(index);
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid command format.");
                 }
@@ -89,7 +89,7 @@ public class Duke_Level6 {
                 break;
             case "event":
                 if (tokens.length == 1 || tokens[1].isEmpty()) {
-                    System.out.println("OOPS!!! The description of a event cannot be empty.");
+                    System.out.println("OOPS!!! The description of an event cannot be empty.");
                 }
                 else {
                     try {
@@ -109,6 +109,7 @@ public class Duke_Level6 {
                 break;
         }
     }
+
 
 
 
