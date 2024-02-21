@@ -1,7 +1,7 @@
 package jivox;
 
 
-import jivox.exception.JivoxException;
+import jivox.exception.JivoxUnknownCommandException;
 
 /**
  * Parser handles parsing of user input.
@@ -13,14 +13,14 @@ public class Parser {
      *
      * @param rawInput The raw input from the user.
      * @return The command parsed from the input.
-     * @throws JivoxException If command is invalid.
+     * @throws JivoxUnknownCommandException If command is invalid.
      */
-    public Commands parseCommand(String rawInput) throws JivoxException {
+    public Commands parseCommand(String rawInput) throws JivoxUnknownCommandException {
         String[] input = rawInput.split(" ", 2);
         try {
             return Commands.valueOf(input[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new JivoxException("Opps! I can't understand your Input, Please try again");
+            throw new JivoxUnknownCommandException(input[0]);
         }
     }
 

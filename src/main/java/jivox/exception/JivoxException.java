@@ -1,12 +1,17 @@
 package jivox.exception;
 
 /**
- * JivoxException is a special exception
- * particularly for the bot Jivox and to report
- * invalid scenerios that bot can't handle
+ * Abstract representation of all duke exceptions.
  */
-public class JivoxException extends Exception {
-    public JivoxException(String message) {
-        super(message);
+public abstract class JivoxException extends Exception {
+
+    /**
+     * Obtain the string representation of the exception.
+     *
+     * @return string representation of the exception
+     */
+    @Override
+    public String toString() {
+        return String.format("(╥﹏╥) Oops!");
     }
 }

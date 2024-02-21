@@ -4,8 +4,15 @@ package jivox;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import jivox.exception.JivoxDuplicateTaskException;
 import jivox.exception.JivoxException;
+import jivox.exception.JivoxInvalidDateException;
+import jivox.exception.JivoxInvalidDateRangeException;
+import jivox.exception.JivoxMissingArgumentException;
+import jivox.exception.JivoxNoTaskFoundException;
+import jivox.exception.JivoxUnknownCommandException;
 import jivox.task.Deadline;
 import jivox.task.Event;
 import jivox.task.Tag;
@@ -43,11 +50,11 @@ public class Jivox {
      * Marks the task at the given index as completed.
      *
      * @param i The index of the task to mark.
-     * @throws JivoxException If index is invalid.
+     * @throws JivoxNoTaskFoundException If index is invalid.
      */
-    private String mark(int i) throws JivoxException {
+    private String mark(int i) throws JivoxNoTaskFoundException {
         if (i > this.tasks.getLength() || i < 0) {
-            throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
+            throw new JivoxNoTaskFoundException(i);
         }
         assert i > 0;
         Task t = this.tasks.getTask(i - 1);
@@ -59,11 +66,11 @@ public class Jivox {
      * Unmarks the task at the given index as completed.
      *
      * @param i The index of the task to unmark.
-     * @throws JivoxException If index is invalid.
+     * @throws JivoxNoTaskFoundException If index is invalid.
      */
-    private String unmark(int i) throws JivoxException {
+    private String unmark(int i) throws JivoxNoTaskFoundException {
         if (i > this.tasks.getLength() || i < 0) {
-            throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
+            throw new JivoxNoTaskFoundException(i);
         }
         assert i > 0;
         Task t = this.tasks.getTask(i - 1);
@@ -71,33 +78,40 @@ public class Jivox {
         return this.ui.showUnmark(t);
     }
 
-    private void addEvent(String content) throws JivoxException {
+    private void addEvent(String content) throws JivoxMissingArgumentException,
+            JivoxInvalidDateRangeException, JivoxDuplicateTaskException, JivoxInvalidDateException {
         String[] first = this.parser.split(content, " /from ");
         if (first.length == 1) {
-            throw new JivoxException("No time interval (from) received  for the event , Please try again!");
+            throw new JivoxMissingArgumentException();
         }
         assert first.length > 1;
         String[] second = this.parser.split(first[1], " /to ", 2);
         if (second.length == 1) {
-            throw new JivoxException("No time interval received (to) for the event , Please try again!");
+            throw new JivoxMissingArgumentException();
         }
-        LocalDateTime from = LocalDateTime.parse(second[0], formatter);
-        LocalDateTime to = LocalDateTime.parse(second[1], formatter);
+        LocalDateTime from;
+        LocalDateTime to;
+        try {
+            from = LocalDateTime.parse(second[0], formatter);
+            to = LocalDateTime.parse(second[1], formatter);
+        } catch (DateTimeParseException e) {
+            throw new JivoxInvalidDateException();
+        }
         if (to.isBefore(from)) {
-            throw new JivoxException("Invalid event ! To is before From");
+            throw new JivoxInvalidDateRangeException();
         }
         Event task = new Event(first[0].trim(), from, to);
         if (this.checkDuplicateTask(task)) {
-            throw new JivoxException("Duplicate Event, Task already exists!");
+            throw new JivoxDuplicateTaskException();
         } else {
             this.tasks.add(task);
         }
     }
 
-    private void addTodo(String content) throws JivoxException {
+    private void addTodo(String content) throws JivoxDuplicateTaskException {
         Todo task = new Todo(content);
         if (this.checkDuplicateTask(task)) {
-            throw new JivoxException("Duplicate Todo , Task already exists!");
+            throw new JivoxDuplicateTaskException();
         } else {
             this.tasks.add(task);
         }
@@ -110,19 +124,25 @@ public class Jivox {
         try {
             this.dbHandler.save(this.tasks);
         } catch (JivoxException e) {
-            this.ui.showException(e);
+            this.ui.showException(e.toString());
         }
     }
 
-    private void addDeadline(String content) throws JivoxException {
+    private void addDeadline(String content) throws JivoxMissingArgumentException,
+            JivoxDuplicateTaskException, JivoxInvalidDateException {
         String[] in = this.parser.split(content, " /by ", 2);
         if (in.length == 1) {
-            throw new JivoxException("Oooops! Please provide a deadline");
+            throw new JivoxMissingArgumentException();
         }
-        LocalDateTime deadline = LocalDateTime.parse(in[1], formatter);
+        LocalDateTime deadline;
+        try {
+            deadline = LocalDateTime.parse(in[1], formatter);
+        } catch (DateTimeParseException e) {
+            throw new JivoxInvalidDateException();
+        }
         Deadline task = new Deadline(in[0].trim(), deadline);
         if (this.checkDuplicateTask(task)) {
-            throw new JivoxException("Duplicate Deadline Task , Task already exists !");
+            throw new JivoxDuplicateTaskException();
         } else {
             this.tasks.add(task);
         }
@@ -143,9 +163,14 @@ public class Jivox {
      *
      * @param type        The type of task (todo, deadline, event).
      * @param description The task description.
-     * @throws JivoxException If unable to add the task.
+     * @throws JivoxUnknownCommandException Unable to recognise the Command.
+     * @throws JivoxMissingArgumentException If missing any arguement
+     * @throws JivoxInvalidDateException If the date entered is not correct format
+     * @throws JivoxInvalidDateRangeException If the range of date is not correct
      */
-    public String add(String type, String description) throws JivoxException {
+    public String add(String type, String description) throws JivoxUnknownCommandException,
+            JivoxDuplicateTaskException, JivoxMissingArgumentException,
+            JivoxInvalidDateRangeException, JivoxInvalidDateException {
         switch (type) {
         case "todo":
             addTodo(description);
@@ -157,7 +182,7 @@ public class Jivox {
             addEvent(description);
             break;
         default:
-            throw new JivoxException("Can't identify the Task type!");
+            throw new JivoxUnknownCommandException(type);
         }
         return this.ui.showAdd(this.tasks.getTask(this.tasks.getLength() - 1), this.tasks.getLength());
     }
@@ -166,11 +191,11 @@ public class Jivox {
      * Deletes the task at the given index.
      *
      * @param i The index of the task to delete.
-     * @throws JivoxException If index is invalid.
+     * @throws JivoxNoTaskFoundException If index is invalid.
      */
-    public String delete(int i) throws JivoxException {
+    public String delete(int i) throws JivoxNoTaskFoundException {
         if (i > this.tasks.getLength() || i < 0) {
-            throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
+            throw new JivoxNoTaskFoundException(i);
         }
         Task t = this.tasks.getTask(i - 1);
         this.tasks.delete(i - 1);
@@ -220,54 +245,57 @@ public class Jivox {
                 this.dbHandler.save(this.tasks);
                 return this.ui.exit();
             case DEADLINE:
+                if (input.length == 1) {
+                    throw new JivoxMissingArgumentException();
+                }
                 return this.add("deadline", input[1]);
             case EVENT:
                 if (input.length == 1) {
-                    throw new JivoxException("Ooops! Please provide a description!");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.add("event", input[1]);
             case TODO:
                 if (input.length == 1) {
-                    throw new JivoxException("Ooops! Please provide a description!");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.add("todo", input[1]);
             case MARK:
                 if (input.length == 1) {
-                    throw new JivoxException("Please, provide a task number to mark");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.mark(Integer.parseInt(input[1]));
             case UNMARK:
                 if (input.length == 1) {
-                    throw new JivoxException("Please, provide a task number to mark");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.unmark(Integer.parseInt(input[1]));
             case DELETE:
                 if (input.length == 1) {
-                    throw new JivoxException("Please, provide a task number to delete");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.delete(Integer.parseInt(input[1]));
             case LIST:
                 return this.ui.showTasks(this.tasks);
             case SHOW:
                 if (input.length == 1) {
-                    throw new JivoxException("Please Provide a Date to show Tasks!");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.show(input[1]);
             case FIND:
                 if (input.length == 1) {
-                    throw new JivoxException("Please Provide a Keyword for find!");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.find(input[1]);
             case TAG:
                 if (input.length == 0) {
-                    throw new JivoxException("Please provide a valid Tag Command!");
+                    throw new JivoxMissingArgumentException();
                 }
                 return this.tag(input[1]);
             default:
-                throw new JivoxException("Sorry ! , I can't Understand your Command");
+                throw new JivoxMissingArgumentException();
             }
         } catch (JivoxException e) {
-            return this.ui.showException(e);
+            return this.ui.showException(e.toString());
         }
     }
 
