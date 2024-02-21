@@ -1,4 +1,4 @@
-package duke.tasks;
+package pookie.tasks;
 
 /**
  * Task class is an abstract class that is the parent class of all tasks.

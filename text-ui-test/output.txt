@@ -1,10 +1,10 @@
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] borrow book
-     Now you have 5 duke.tasks in the list.
+     Now you have 5 pookie.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the duke.tasks in your list:
+     Here are the pookie.tasks in your list:
      1.[T][X] read book
      2.[D][ ] return book (by: June 6th)
      3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
@@ -14,10 +14,10 @@
     ____________________________________________________________
          Got it. I've added this task:
            [D][ ] return book (by: Sunday)
-         Now you have 6 duke.tasks in the list.
+         Now you have 6 pookie.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 7 duke.tasks in the list.
+     Now you have 7 pookie.tasks in the list.
     ____________________________________________________________

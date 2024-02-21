@@ -1,4 +1,4 @@
-package duke.tasks;
+package pookie.tasks;
 
 /**
  * Represents a todo task.

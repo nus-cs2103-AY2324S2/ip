@@ -1,15 +1,15 @@
-package duke;
+package pookie;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.ToDo;
+import pookie.tasks.Deadline;
+import pookie.tasks.Event;
+import pookie.tasks.Task;
+import pookie.tasks.TaskList;
+import pookie.tasks.ToDo;
 
 /**
  * Represents the storage of the task list.
@@ -18,7 +18,7 @@ public class Storage {
     /**
      * The file path of the file to be written to.
      */
-    public static final String FILE_PATH = "./data/duke.Duke.txt";
+    public static final String FILE_PATH = "./data/pookie.Pookie.txt";
 
     /**
      * Constructor for the storage of the task list.
@@ -30,9 +30,9 @@ public class Storage {
      * Loads the contents of the file into the task list.
      *
      * @param list The task list to be loaded into.
-     * @throws DukeException If there is a problem with reading the file.
+     * @throws PookieException If there is a problem with reading the file.
      */
-    public static void loadFileContents(TaskList list) throws DukeException {
+    public static void loadFileContents(TaskList list) throws PookieException {
         File f = new File(FILE_PATH);
         assert list != null : "Task list should not be null";
         try {
@@ -42,16 +42,16 @@ public class Storage {
                         String s = scanner.nextLine();
                         try {
                             loadLine(s, list);
-                        } catch (DukeException e) {
+                        } catch (PookieException e) {
                             System.out.println(e.getMessage());
                         }
                     }
                 }
             } else {
-                throw new DukeException("eh walao i cant find the file sia where u put");
+                throw new PookieException("eh walao i cant find the file sia where u put");
             }
         } catch (IOException e) {
-            throw new DukeException("omg i cant read");
+            throw new PookieException("omg i cant read");
         }
     }
 
@@ -60,9 +60,9 @@ public class Storage {
      *
      * @param original The original line from the file.
      * @param list     The task list to be loaded into.
-     * @throws DukeException If there is a problem with loading the line.
+     * @throws PookieException If there is a problem with loading the line.
      */
-    public static void loadLine(String original, TaskList list) throws DukeException {
+    public static void loadLine(String original, TaskList list) throws PookieException {
         assert list != null : "Task list should not be null";
         String[] inputParts = original.split("\\s+");
 
@@ -70,7 +70,7 @@ public class Storage {
             case ("todo"):
                 String description = original.replace("todo", "");
                 if (description.isEmpty()) {
-                    throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+                    throw new PookieException("oi todo what. todo WHATTTTTT!!!!!!!!");
                 }
                 Task task = new ToDo(description);
                 list.addTask(task);
@@ -90,16 +90,16 @@ public class Storage {
                 list.deleteTask(inputInt);
                 break;
             default:
-                throw new DukeException("harh what u talking sia walao");
+                throw new PookieException("harh what u talking sia walao");
         }
     }
 
     /**
      * Writes current task list into specified file.
      *
-     * @throws DukeException If there is a problem with writing into file.
+     * @throws PookieException If there is a problem with writing into file.
      */
-    public static void writeToFile(TaskList list) throws DukeException {
+    public static void writeToFile(TaskList list) throws PookieException {
         assert list != null : "Task list should not be null";
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -108,7 +108,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("omg i cant write sia :( too bad lol");
+            throw new PookieException("omg i cant write sia :( too bad lol");
         }
     }
 

@@ -1,4 +1,4 @@
-package duke;
+package pookie;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -14,12 +14,12 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import duke.tasks.TaskList;
+import pookie.tasks.TaskList;
 
 /**
- * Represents a chat bot to keep track of user's duke.tasks.
+ * Represents a chat bot to keep track of user's pookie tasks.
  */
-public class Duke extends Application {
+public class Pookie extends Application {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -35,7 +35,7 @@ public class Duke extends Application {
     private Parser parser = new Parser();
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/IMG_1297.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/IMG_1296.jpg"));
+    private Image pookie = new Image(this.getClass().getResourceAsStream("/images/IMG_1296.jpg"));
 
     @Override
     public void start(Stage stage) {
@@ -58,7 +58,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Pookie");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -88,7 +88,7 @@ public class Duke extends Application {
 
         //Show intro
         Label intro = new Label(parser.showIntro());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(intro, new ImageView(duke)));
+        dialogContainer.getChildren().add(DialogBox.getPookieDialog(intro, new ImageView(pookie)));
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -103,7 +103,7 @@ public class Duke extends Application {
 
     /**
      * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Pookie's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -111,10 +111,10 @@ public class Duke extends Application {
         String input = userInput.getText();
         String ans = getResponse(input);
         Label userText = new Label(input);
-        Label dukeText = new Label(ans);
+        Label pookieText = new Label(ans);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getPookieDialog(pookieText, new ImageView(pookie))
         );
         userInput.clear();
     }
@@ -129,7 +129,7 @@ public class Duke extends Application {
         }
         try {
             return parser.processLine(input, list);
-        } catch (DukeException e) {
+        } catch (PookieException e) {
             return parser.showLoadingError(e.getMessage());
         }
     }
@@ -137,10 +137,10 @@ public class Duke extends Application {
     /**
      * Constructor for the chat bot.
      */
-    public Duke() {
+    public Pookie() {
         try {
             Storage.loadFileContents(list);
-        } catch (DukeException e) {
+        } catch (PookieException e) {
             parser.showLoadingError(e.getMessage());
         }
     }

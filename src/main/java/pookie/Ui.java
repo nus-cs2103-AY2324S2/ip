@@ -1,11 +1,11 @@
-package duke;
+package pookie;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import pookie.tasks.Task;
+import pookie.tasks.TaskList;
 
 /**
  * Represents the user interface of the application.
@@ -61,9 +61,9 @@ public class Ui {
     }
 
     /**
-     * Shows the list of duke tasks to the user.
+     * Shows the list of pookie tasks to the user.
      *
-     * @param list The list of duke tasks to be shown.
+     * @param list The list of pookie tasks to be shown.
      */
     public void showList(TaskList list) {
         String message = "Here are the tasks in your list";
@@ -81,7 +81,7 @@ public class Ui {
      */
     public void deleteMessage(int i, TaskList list) {
         String m1 = "I remove this one alrdy: \n";
-        String m2 = "\n Now you have " + (list.getSize() - 1) + " duke.tasks in the list.\n";
+        String m2 = "\n Now you have " + (list.getSize() - 1) + " tasks in the list.\n";
         showToUser(DIVIDER, m1, list.getTask(i - 1).toString(), m2, DIVIDER);
     }
 
@@ -92,7 +92,7 @@ public class Ui {
      */
     public void addMessage(Task task, TaskList list) {
         String m1 = " Got it. I've added this task:\n";
-        String m2 = "\n Now you have " + (list.getSize()) + " duke.tasks in the list.\n";
+        String m2 = "\n Now you have " + (list.getSize()) + " tasks in the list.\n";
         showToUser(DIVIDER, m1, task.toString(), m2, DIVIDER);
     }
 

@@ -6,22 +6,22 @@ ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] read book
- Now you have 1 duke.tasks in the list.
+ Now you have 1 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [D][ ] return book (by: June 6th)
- Now you have 2 duke.tasks in the list.
+ Now you have 2 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
- Now you have 3 duke.tasks in the list.
+ Now you have 3 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] join sports club
- Now you have 4 duke.tasks in the list.
+ Now you have 4 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Nice! I've marked this task as done:
@@ -36,10 +36,10 @@ ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] borrow book
- Now you have 5 duke.tasks in the list.
+ Now you have 5 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Here are the duke.tasks in your list:
+ Here are the pookie.tasks in your list:
  1. [T][X] read book
  2. [D][ ] return book (by: June 6th)
  3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
@@ -49,12 +49,12 @@ ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [D][ ] return book (by: Sunday)
- Now you have 6 duke.tasks in the list.
+ Now you have 6 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
    [E][ ] project meeting (from: Mon 2pm to: 4pm)
- Now you have 7 duke.tasks in the list.
+ Now you have 7 pookie.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
         wow so ur gg to leave me...

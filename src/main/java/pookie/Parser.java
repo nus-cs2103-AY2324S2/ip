@@ -1,10 +1,10 @@
-package duke;
+package pookie;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.ToDo;
+import pookie.tasks.Deadline;
+import pookie.tasks.Event;
+import pookie.tasks.Task;
+import pookie.tasks.TaskList;
+import pookie.tasks.ToDo;
 
 /**
  * Represents a parser that parses the user input.
@@ -25,9 +25,9 @@ public class Parser {
      * Processes the user input.
      * @param original The original user input.
      * @param list The list of tasks.
-     * @throws DukeException If the user input is invalid.
+     * @throws PookieException If the user input is invalid.
      */
-    public String processLine(String original, TaskList list) throws DukeException {
+    public String processLine(String original, TaskList list) throws PookieException {
         String[] inputParts = original.split("\\s+");
 
         String command = inputParts[0];
@@ -42,7 +42,7 @@ public class Parser {
                 return list.showList();
             case "todo":
                 if (details.isEmpty()) {
-                    throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+                    throw new PookieException("oi todo what. todo WHATTTTTT!!!!!!!!");
                 }
                 return list.addTask(new ToDo(details));
             case "deadline":
@@ -62,7 +62,7 @@ public class Parser {
                 Storage.writeToFile(list);
                 return showOutro();
             default:
-                throw new DukeException("harh what u talking sia walao");
+                throw new PookieException("harh what u talking sia walao");
         }
     }
 

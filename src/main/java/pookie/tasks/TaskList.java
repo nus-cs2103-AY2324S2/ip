@@ -1,25 +1,25 @@
-package duke.tasks;
+package pookie.tasks;
 
 import java.util.ArrayList;
 
 /**
- * Represents a list of duke tasks.
+ * Represents a list of pookie tasks.
  */
 public class TaskList {
 
     /**
-     * The list of duke tasks.
+     * The list of pookie tasks.
      */
     private ArrayList<Task> list = new ArrayList<>();
 
     /**
-     * Constructor for the list of duke tasks.
+     * Constructor for the list of pookie tasks.
      */
     public TaskList() {
     }
 
     /**
-     * Adds a task to the list of duke tasks.
+     * Adds a task to the list of pookie tasks.
      * @param task The task to be added.
      */
     public String addTask(Task task) {
@@ -30,20 +30,20 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list of duke tasks.
+     * Deletes a task from the list of pookie tasks.
      * @param index The index of the task to be deleted.
      */
     public String deleteTask(int index) {
 
         list.remove(index - 1);
         String m1 = "I remove this one alrdy: \n";
-        String m2 = "\n Now you have " + (this.getSize() - 1) + " duke.tasks in the list.\n";
+        String m2 = "\n Now you have " + (this.getSize() - 1) + " pookie.tasks in the list.\n";
         return m1 + this.getTask(index - 1).toString() + m2;
     }
 
     /**
-     * Returns the size of the list of duke tasks.
-     * @return The size of the list of duke tasks.
+     * Returns the size of the list of pookie tasks.
+     * @return The size of the list of pookie tasks.
      */
     public int getSize() {
         return list.size();
@@ -59,9 +59,9 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of duke tasks.
+     * Returns the list of pookie tasks.
      * @param search The search string to find tasks.
-     * @return The list of duke tasks.
+     * @return The list of pookie tasks.
      */
     public TaskList findTasks(String search) {
         TaskList found = new TaskList();
@@ -100,7 +100,7 @@ public class TaskList {
     }
 
     /**
-     * Shows the list of duke tasks to the user..
+     * Shows the list of pookie tasks to the user..
      */
     public String showList() {
         String message = "Here are the tasks in your list";
