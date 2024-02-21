@@ -32,6 +32,7 @@ public class Storage {
         }
     }
     private LocalDateTime parseTime(String[] endTimeParts) {
+        assert endTimeParts.length == 4 : "Invalid endTimeParts array length";
         int endDay = Integer.parseInt(endTimeParts[0].trim());
         int endMonth = Integer.parseInt(endTimeParts[1].trim());
         int endYear = Integer.parseInt(endTimeParts[2].trim());
