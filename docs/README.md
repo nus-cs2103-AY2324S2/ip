@@ -1,8 +1,7 @@
 # OAK-Dex User Guide
 
-// Product screenshot goes here
+![Ui.png](Ui.png)
 
-// Product intro goes here
 Welcome to OAK-Dex!
 
 Have you ever forgotten tasks that you had to do? Missed the submission deadline for your assignment? Misremembered the date of an Event you were looking forward to and missed it?
@@ -17,10 +16,6 @@ This section introduces how **you** can work with Oak-Dex!
 
 Note that 'Tasks' refer to Todos, Events and Deadlines.
 
-## Startup
-
-On Startup
-
 ## Adding Tasks
 
 ### Todos
@@ -34,7 +29,7 @@ Syntax: `todo <name>`
 Input: `todo CS2103 Week 6 Quiz`
 
 ```
-expected output
+Added new Todo: CS2103 Week 6 Quiz
 ```
 
 ### Events
@@ -47,12 +42,12 @@ Note that the formats for Date and Time are:
 - `YYYY-MM-DD`: `from-date` and `to-date`
 - `HH:mm`: `from-time` and `to-time`
 
-Example: `event lecture /from 2024-12-01 10:00 /to 2024-12-01 @ 12:00`
+Example: `event lecture /from 2024-12-01 @ 10:00 /to 2024-12-01 @ 12:00`
 
 Adds a new Event Item, called 'Lecture' which occurs from 10am (`10:00`) to 12pm (`12:00`) on 1st December 2024 (`2024-12-01`).
 
 ```
-expected output
+Added new Event: lecture occuring from 2024-12-01 @ 10:00 to 2024-12-01 @ 12:00
 ```
 
 ### Deadlines
@@ -71,7 +66,7 @@ Example: `deadline CS2103 Assignment /by 2024-02-23 @ 23:59`
 Adds a new Deadline Item, called 'CS2103 Assignment', which is due by 23rd February 2024 (`2024-03-23`), 2359 (`23:59`)
 
 ```
-expected output
+Added new Deadline: CS2103 Assignment with Due Date: 2024-02-23 @ 23:59
 ```
 ## Listing Tasks
 
@@ -81,7 +76,9 @@ Syntax: `list`
 
 Example Output:
 ```
-expected output
+1. [T][ ] CS2103 Week 6 Quiz
+2. [E][ ] lecture (from: 01 12 2024 @ 1000 to: 01 12 2024 @ 1200)
+3. [D][ ] CS2103 Assignment (by: 23 02 2024 @ 2359)
 ```
 
 ## Deleting Tasks
@@ -97,7 +94,9 @@ Example: `delete 1`
 Deletes the Task with the `taskId` 1. 
 
 ```
-expected output
+Are you giving up? Or is this task no longer needed?
+Hmmmm.. I've deleted Task 1 for now.
+But, I'll be watching you.
 ```
 
 ## Marking Tasks
@@ -113,7 +112,7 @@ Example: `mark 1`
 Marks the Task with the `taskId` 1 as completed
 
 ```
-expected output
+Ok! I've marked Task 1 as completed!
 ```
 
 ## Unmarking Tasks
@@ -129,7 +128,9 @@ Example: `unmark 1`
 Unmarks the Task with the `taskId` 1 as completed, that is, removing the completed mark from the Task
 
 ```
-expected output
+Hmmm, were you teasing me?
+Well, I've marked Task 1 as uncompleted,
+But don't do this again, you hear me?
 ```
 
 ## Reminders
@@ -139,5 +140,6 @@ Lists all Events / Deadline Tasks for which the `to-datetime` and the `by-dateti
 Syntax: `reminder`
 
 ```
-expected output
+[E][ ] lecture (from: 01 12 2024 @ 1000 to: 01 12 2024 @ 1200)
+[D][ ] CS2103 Assignment (by: 23 02 2024 @ 2359)
 ```
