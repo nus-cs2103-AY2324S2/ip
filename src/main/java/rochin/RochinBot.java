@@ -2,11 +2,16 @@ package rochin;
 
 import java.util.Scanner;
 
+
+/**
+ * Main class representing the RochinBot application.
+ */
 public class RochinBot {
+
     private static final String FILE_PATH = "./data/rochin.txt";
     private final Ui ui;
     private final Storage storage;
-    private TaskList tasks;
+    private final TaskList tasks;
 
     public RochinBot() {
         ui = new Ui();
@@ -15,7 +20,7 @@ public class RochinBot {
     }
 
     /**
-     * Method to start the RochinOOP application.
+     * Method to start the RochinBot application.
      */
     public void run() {
         ui.showWelcomeMessage();
@@ -26,11 +31,11 @@ public class RochinBot {
     }
 
     /**
-     * Main method to launch the RochinOOP application.
+     * Main method to launch the RochinBot application.
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) throws RochinException {
+    public static void main(String[] args) {
         new RochinBot().run();
     }
 
@@ -43,7 +48,6 @@ public class RochinBot {
         while (true) {
             ui.showCommandPrompt();
             String userInput = scanner.nextLine();
-            assert !userInput.isEmpty() : "OOPS!!! Input cannot be empty";
             CommandProcessor commandProcessor = new CommandProcessor(userInput);
 
             if (commandProcessor.isExitCommand()) {
@@ -77,4 +81,6 @@ public class RochinBot {
             ui.showSavingError();
         }
     }
+
 }
+

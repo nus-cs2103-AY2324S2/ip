@@ -2,7 +2,11 @@ package rochin;
 
 import java.util.List;
 
+/**
+ * A class representing the user interactions.
+ */
 public class Ui {
+
     /**
      * Display the welcome message.
      */

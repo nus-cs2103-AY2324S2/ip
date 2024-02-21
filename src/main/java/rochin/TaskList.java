@@ -3,6 +3,9 @@ package rochin;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent a list of tasks.
+ */
 public class TaskList {
     private final List<Task> tasks;
 

@@ -1,37 +1,46 @@
 package rochin;
 
-public class EventTask extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Represent an Event task.
+ */
+class EventTask extends Task {
+
+    protected LocalDateTime fromDateTime;
+    protected LocalDateTime toDateTime;
 
     /**
      * Constructs an EventTask with a description, starting, and ending date/time.
      *
      * @param description The description of the event task.
-     * @param from        The starting date/time of the event.
-     * @param to          The ending date/time of the event.
+     * @param fromDateTime        The starting date/time of the event.
+     * @param toDateTime          The ending date/time of the event.
      */
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
 
     /**
      * Return a new event task.
      *
-     * @param descriptionWithDate description with date.
+     * @param descriptionWithDateTime description with date.
      * @return A new event task.
      */
-    public EventTask createTask(String descriptionWithDate) throws RochinException {
-        String[] parts = descriptionWithDate.split("/from");
+    public EventTask createTask(String descriptionWithDateTime) throws RochinException {
+        String[] parts = descriptionWithDateTime.split("/from");
         if (parts.length == 2) {
             String description = parts[0].trim();
-            String[] dateRange = parts[1].split("/to");
-            if (dateRange.length == 2) {
-                String from = dateRange[0].trim();
-                String to = dateRange[1].trim();
-                return new EventTask(description, from, to);
+            String[] dateTimeRange = parts[1].split("/to");
+            if (dateTimeRange.length == 2) {
+                String fromDateTimeString = dateTimeRange[0].trim();
+                String toDateTimeString = dateTimeRange[1].trim();
+                LocalDateTime fromDateTime = DateAndTime.parseDateTime(fromDateTimeString);
+                LocalDateTime toDateTime = DateAndTime.parseDateTime(toDateTimeString);
+                return new EventTask(description, fromDateTime, toDateTime);
             }
         }
         throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
@@ -54,6 +63,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
+                " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
