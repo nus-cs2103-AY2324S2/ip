@@ -30,6 +30,10 @@ public class TaskList {
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
     public String markTask(String[] splitMessage, Storage storage, Ui ui) {
+        assert tasks != null;
+        assert splitMessage != null;
+        assert ui != null;
+
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
             this.tasks.get(index).setStatus(true);
@@ -49,6 +53,11 @@ public class TaskList {
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
     public String unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
+        assert tasks != null;
+        assert splitMessage != null;
+        assert ui != null;
+        assert storage != null;
+
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
             this.tasks.get(index).setStatus(false);
@@ -69,6 +78,7 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
+
     public String addTask(String[] messageContainer, Storage storage, Ui ui) {
         try {
             Task task = determineTask(messageContainer);
@@ -114,6 +124,9 @@ public class TaskList {
      * @return Todo object that contains the task content specified by user.
      */
     public Todo addTodo(String[] splitMessage) {
+        assert tasks != null;
+        assert splitMessage != null;
+
         Todo task = null;
         try {
             ArrayList<String> parsedTodoInputs = Parser.parseTodoInput(splitMessage);
@@ -133,6 +146,9 @@ public class TaskList {
      * @return Deadline object that contains the task content and deadline of the task specified by the user.
      */
     public Deadline addDeadline(String[] splitMessage) {
+        assert tasks != null;
+        assert splitMessage != null;
+
         Deadline task = null;
         try {
             ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineInput(splitMessage);
@@ -152,6 +168,9 @@ public class TaskList {
      * @return Event object that contains the event information, from when and until when specified by the user.
      */
     public Event addEvent(String[] splitMessage) {
+        assert tasks != null;
+        assert splitMessage != null;
+
         Event task = null;
         try {
             ArrayList<String> parsedEventInput = Parser.parseEventInput(splitMessage);
@@ -171,6 +190,11 @@ public class TaskList {
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
     public String deleteTask(int position, Storage storage, Ui ui) {
+        assert tasks != null;
+        assert position >= 0;
+        assert ui != null;
+        assert storage != null;
+
         Task task = this.tasks.get(position - 1);
         try {
             this.tasks.remove(position - 1);
@@ -189,6 +213,10 @@ public class TaskList {
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
     public String findTask(String[] splitMessage, Ui ui) {
+        assert tasks != null;
+        assert splitMessage != null;
+        assert ui != null;
+
         if (splitMessage.length != 2) {
             return "Please use the correct format";
         }

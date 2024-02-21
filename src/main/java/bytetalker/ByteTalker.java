@@ -174,14 +174,4 @@ public class ByteTalker extends Application {
         );
         userInput.clear();
     }
-
-    /**
-     * This is the main method which starts the chatbot by running run method.
-     * @param args Unused.
-     */
-    /*
-    public static void main(String[] args) {
-        new ByteTalker("./data/bytetalker.ByteTalker.txt").run();
-    }
-     */
 }
