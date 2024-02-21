@@ -2,7 +2,32 @@
 
 ![Screenshot of product](Ui.png)
 
-// Product intro goes here
+# Drew, **_The_** chat-bot of all time.
+> "He who does not remember his tasks, will not do them." - Sun Tzu
+
+Do you want to be:
+- [ ] Productive
+- [ ] Up to date
+- [ ] Great
+
+If you answered **YES** to all the above, then Drew is **_The_** buddy for you!
+
+All you need to do to achieve greatness is:
+1. Download the code from [here](https://github.com/cocoanautz/ip).
+2. Run the jar file with `java -jar drew.jar` _Java 11 required_
+3. Key in your tasks.
+
+Features include:
+- Cool pal to talk to 😎
+- No nonsense. Only do what you need to do. 💯
+
+Look at how cool this response in the `executeCommand` method is:
+``` java
+int firstBackslashIndex = input.indexOf("/by");
+if (firstBackslashIndex == -1) {
+    throw new IllegalArgumentException("Incorrect input. Ensure that date begins with /by");
+}
+```
 
 ## Adding todos
 
