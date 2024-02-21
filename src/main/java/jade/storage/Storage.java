@@ -119,7 +119,7 @@ public class Storage {
                     Parser.parseDate(dates[1], "MMM d yyyy"),
                     Parser.parseTime(times[0]),
                     Parser.parseTime(times[1]),
-                    RecurringTask.lookUpTable.get(task[5]), isDone));
+                    RecurringTask.LOOK_UP_TABLE.get(task[5]), isDone));
             break;
         default:
             break;
