@@ -1,7 +1,53 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+┌────────────────────────────────────────────────────────────────────┐
+│ Echo, the chatbot. Version 0.0.0.                                  │
+│ Using Java 1.8.0_392.                                              │
+└────────────────────────────────────────────────────────────────────┘
+>>> clear
+Cleared all tasks!
+>>> todo
+The description of a todo cannot be empty.
+>>> abc
+Unknown command: abc
+>>> find book
+>>> todo borrow book
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 task in the list.
+>>> find book
+1. [T][ ] borrow book
+>>> deadline return book /by 2024-01-01T00:00:00
+Got it. I've added this task:
+[D][ ] return book (by: Jan 01 2024 00:00:00)
+Now you have 2 tasks in the list.
+>>> event project meeting /from 2024-01-02T01:00:00 /to 2024-01-02T02:00:00
+Got it. I've added this task:
+[E][ ] project meeting (from: Jan 02 2024 01:00:00 to: Jan 02 2024 02:00:00)
+Now you have 3 tasks in the list.
+>>> list
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Jan 01 2024 00:00:00)
+3. [E][ ] project meeting (from: Jan 02 2024 01:00:00 to: Jan 02 2024 02:00:00)
+>>> mark 1
+Nice! I've marked this task as done:
+[T][X] borrow book
+>>> list
+1. [T][X] borrow book
+2. [D][ ] return book (by: Jan 01 2024 00:00:00)
+3. [E][ ] project meeting (from: Jan 02 2024 01:00:00 to: Jan 02 2024 02:00:00)
+>>> unmark 1
+OK, I've unmarked this task as not done yet:
+[T][ ] borrow book
+>>> list
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Jan 01 2024 00:00:00)
+3. [E][ ] project meeting (from: Jan 02 2024 01:00:00 to: Jan 02 2024 02:00:00)
+>>> delete 1
+Noted. I've removed this task:
+[T][ ] borrow book
+Now you have 2 tasks in the list.
+>>> delete 0
+The task number must be positive.
+>>> delete x
+The task number must be an integer.
+>>> bye
+Bye. Hope to see you again soon!
