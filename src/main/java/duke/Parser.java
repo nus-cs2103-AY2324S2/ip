@@ -25,6 +25,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public int parseMark(String order, int totalnum) throws DukeException {
+        assert order != null : "Order should not be null";
         try { 
             String[] actions = order.split(" "); 
             int markNum = Integer.parseInt(actions[1]);
@@ -48,6 +49,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public int parseDelete(String order, int totalnum) throws DukeException{
+        assert order != null : "Order should not be null";
         try {
             String[] actions = order.split(" ");
             int deleteNum = Integer.parseInt(actions[1]);
@@ -72,6 +74,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public int parseUnmark(String order, int totalnum) throws DukeException {
+        assert order != null : "Order should not be null";
         try { 
             String[] actions = order.split(" "); 
             int unmarkNum = Integer.parseInt(actions[1]);
@@ -86,19 +89,20 @@ public class Parser {
         }
     }
 
-        public String parseFind(String order) throws DukeException {
-            try { 
-                String[] actions = order.split(" "); 
-                String word = actions[1];
-                if (actions[1].isEmpty()) {
-                    throw new IndexOutOfBoundsException();
-                } else {
-                    return word;
-                }
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("write in valid/correct format: find + [keyword]");
+    public String parseFind(String order) throws DukeException {
+        assert order != null : "Order should not be null";
+        try { 
+            String[] actions = order.split(" "); 
+            String word = actions[1];
+            if (actions[1].isEmpty()) {
+                throw new IndexOutOfBoundsException();
+            } else {
+                return word;
             }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("write in valid/correct format: find + [keyword]");
         }
+    }
 
     /**
      * Parses the todo command from the user.
@@ -108,6 +112,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public Todo parseTodo(String order) throws DukeException {
+        assert order != null : "Order should not be null";
         try {
             String t = order.substring(4).trim();
             if (t.isEmpty()) {
@@ -129,6 +134,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public Deadline parseDeadline(String order) throws DukeException {
+        assert order != null : "Order should not be null";
         try {
             int byIndex = order.indexOf("/by");
             String t = order.substring(9, byIndex - 1);
@@ -155,6 +161,7 @@ public class Parser {
      * @throws DukeException If the command format is invalid and tell how to fix.
      */
     public Event parseEvent(String order) throws DukeException {
+        assert order != null : "Order should not be null";
         try {
             int fromIndex = order.indexOf("/from");
             int toIndex = order.indexOf("/to");
