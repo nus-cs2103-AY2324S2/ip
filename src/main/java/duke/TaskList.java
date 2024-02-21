@@ -18,7 +18,6 @@ import java.util.Scanner;
 public class TaskList {
     protected ArrayList<Task> tasks;
     protected Storage storage;
-
     private String reply;
 
     public TaskList(Storage storage) {
@@ -26,6 +25,13 @@ public class TaskList {
         this.storage = storage;
     }
 
+    /**
+     * Constructs a TaskList object and fills the list with tasks from the file.
+     * @param f The file that contains the list of tasks.
+     * @param storage The storage object that handles the file.
+     * @throws FileNotFoundException If the file is not found.
+     * @throws DukeException If the file is not in the correct format.
+     */
     public TaskList(File f, Storage storage) throws FileNotFoundException, DukeException {
         this.tasks = new ArrayList<>();
         this.storage = storage;
