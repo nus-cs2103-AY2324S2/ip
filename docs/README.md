@@ -112,6 +112,7 @@ Nice! I've marked this task as done
 [T][X] watch lecture 15
 ```
 Where the `[X]` signifies that the task has been marked.
+### Unmarking tasks:
 Similarly to Unmark a task type: `unmark <Task index number>`
 
 For example:
@@ -136,7 +137,7 @@ Haro should reply with something like:
 ```
 Noted I've removed this task
 [D][] submit proposal (by: today)
-You now have 3 tasks in the list
+You now have 2 tasks in the list
 ```
 and your deletion should be reflected when you call the `list` command.
 
