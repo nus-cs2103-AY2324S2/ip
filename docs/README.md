@@ -3,11 +3,11 @@
 ## Features 
 ## This are the features available in Maltese
 ### Add a new Todo task 
-> **Usage:**
+**Usage:**
    ```
     todo <description>
    ```
-> **Example:**
+**Example:**
    ```
     todo drink coffee
    ```
@@ -22,11 +22,11 @@
     Now you have 5 tasks in the list.
     ```
 ### Add a new Deadline task 
-> **Usage:**
+**Usage:**
    ```
     deadline <description> /by <due date>
    ```
-> **Example:**
+**Example:**
    ```
     deadline buy cake /by 2024-10-20
    ```
@@ -41,11 +41,11 @@
     Now you have 6 tasks in the list.
     ```
 ### Add a new Event task 
-> **Usage:**
+**Usage:**
    ```
     event <description> /from <start date> /to <end date>
    ```
-> **Example:**
+**Example:**
    ```
     event attend career talk /from 2024-09-09 /to 2024-10-09
    ```
@@ -60,29 +60,29 @@
     Now you have 7 tasks in the list.
     ```
 ### View all tasks 
-> **Usage:**
+**Usage:**
    ```
     list
    ```
-> **Example:**
+**Example:**
    ```
     list
    ```
   - The expected output will be
     
-   ```
+    ```
     Here are the tasks in your list:
     1. [T][0] drink coffee
     2. [D][0] buy cake (by: 20 OCTOBER 2024)
     3. [E][0] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
-   ```
+    ```
     
 ### Mark task(s) as done
-> **Usage:**
+**Usage:**
    ```
     mark <indice(s)>
    ```
-> **Example:**
+**Example:**
    ```
     mark 2 3
    ```
@@ -94,11 +94,11 @@
     3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
 ### Unmark task(s) as undone
-> **Usage:**
+**Usage:**
    ```
     unmark <indice(s)>
    ```
-> **Example**
+**Example**
    ```
     unmark 2
    ```
@@ -110,11 +110,11 @@
     3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
 ### Delete task(s)
-> **Usage:**
+**Usage:**
    ```
     delete <indice(s)>
    ```
-> **Example:**
+**Example:**
    ```
     delete 2 1
    ```
@@ -126,11 +126,11 @@
     Now you have 1 task left in the list.
     ```
 ### Find task(s) containing the keyword
-> **Usage:**
+**Usage:**
    ```
     find <keyword>
    ```
-> **Example:**
+**Example:**
    ```
     find coffee
    ```
@@ -145,11 +145,11 @@
     No matching tasks found.
     ```
 ### Change directory of tasklist
-> **Usage:**
+**Usage:**
    ```
     change <file path>
    ```
-> **Example:**
+**Example:**
    ```
     change ./data/sample.txt
    ```
@@ -158,7 +158,7 @@
     Changing file path to ./data/sample.txt
     ```
 ### Exit the application
-> **Usage:**
+**Usage:**
    ```
     bye
    ```
