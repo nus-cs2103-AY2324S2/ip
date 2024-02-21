@@ -1,4 +1,8 @@
-package duke.command;
+package duke.handlers;
+
+import duke.command.DukeException;
+import duke.command.TaskList;
+import duke.command.Ui;
 
 /**
  * Handles inputs related to find tasks.
@@ -14,14 +18,14 @@ public class FindHandler {
     /**
      * Finds tasks that partially/fully contain input string.
      *
-     * @param input         String to find.
+     * @param find         String to find.
      * @param taskList      Instance of TaskList class.
      * @param ui            Instance of Ui class.
      * @return String   List of string of tasks that match or partially match find condition.
      */
-    public String findTask(String input, TaskList taskList, Ui ui) {
+    public String findTask(String find, TaskList taskList, Ui ui) {
         try {
-            return find(input, taskList, ui);
+            return find(find, taskList, ui);
         } catch (DukeException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
@@ -30,17 +34,17 @@ public class FindHandler {
     /**
      * Parses and calls relevant methods to find task that matches input.
      *
-     * @param input         String to find.
+     * @param find         String to find.
      * @param taskList      Instance of TaskList class.
      * @param ui            Instance of Ui class.
      * @return String           List of string of tasks that match or partially match find condition.
      * @throws DukeException    Thrown if there are missing or invalid inputs.
      */
-    private String find(String input, TaskList taskList, Ui ui) throws DukeException {
-        if (input.matches("")) {
+    private String find(String find, TaskList taskList, Ui ui) throws DukeException {
+        if (find.matches("")) {
             throw new DukeException("Invalid input, missing search term");
         }
 
-        return ui.printFindTask(taskList.findMatchingTasks(input.strip()));
+        return ui.printFindTask(taskList.findMatchingTasks(find.strip()));
     }
 }

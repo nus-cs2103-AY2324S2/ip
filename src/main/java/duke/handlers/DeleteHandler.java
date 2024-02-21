@@ -1,22 +1,26 @@
-package duke.command;
+package duke.handlers;
 
 import java.io.IOException;
 
+import duke.command.DukeException;
+import duke.command.Storage;
+import duke.command.TaskList;
+import duke.command.Ui;
 import duke.tasks.Task;
 
 /**
- * Handles inputs related to event tasks.
+ * Handles inputs related to delete tasks.
  */
-public class EventHandler {
+public class DeleteHandler {
 
     /**
      * EventHandler constructor.
      */
-    public EventHandler() {
+    public DeleteHandler() {
     }
 
     /**
-     * Adds new event task.
+     * Deletes task from list.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -24,16 +28,16 @@ public class EventHandler {
      * @param ui            Instance of Ui class.
      * @return String           Indicates if task was successfully completed.
      */
-    public String addEvent(String input, Storage storage, TaskList taskList, Ui ui) {
+    public String deleteTask(String input, Storage storage, TaskList taskList, Ui ui) {
         try {
-            return event(input, storage, taskList, ui);
+            return delete(input, storage, taskList, ui);
         } catch (DukeException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
     }
 
     /**
-     * Parses and calls relevant methods to add new event and update storage.
+     * Parses and calls relevant methods to add new todo and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -42,24 +46,23 @@ public class EventHandler {
      * @return String           Indicates if task was successfully completed.
      * @throws DukeException    Thrown if there are missing inputs or inputs are out of bounds.
      */
-    private String event(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException {
+    private String delete(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException {
         if (input.matches("")) {
-            throw new DukeException("This event is the highlight of the social \"calen-darling.\""
-                    + "\r\nGot all the details?");
+            throw new DukeException("Missing the target with your input, what to remove?");
         }
 
-        String[] event = input.split("/to | /from");
-        if (event.length < 3) {
-            throw new DukeException("This event is the highlight of the social \"calen-darling.\""
-                    + "\r\nGot all the details?");
+        int index = Integer.parseInt(input.strip());
+        int numOfTasks = taskList.getNumOfTasks();
+        if (((index - 1) < 0) || (index > numOfTasks)) {
+            throw new DukeException("Index out of bounds.");
         }
 
-        Task task = taskList.addEvent(event[0].strip(), event[1].strip(), event[2].strip());
+        Task task = taskList.deleteTask(index - 1);
         try {
-            storage.addNewTask(task);
+            storage.deleteTask(index - 1, numOfTasks);
         } catch (IOException e) {
             return ui.printErrorMessage(e.getMessage());
         }
-        return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
+        return ui.printDeleteTask(task.toString(), taskList.getNumOfTasks());
     }
 }

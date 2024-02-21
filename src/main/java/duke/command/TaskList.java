@@ -1,5 +1,6 @@
 package duke.command;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.tasks.Deadline;
@@ -136,6 +137,48 @@ public class TaskList {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * Retrieves all event tasks in list on specific date.
+     * @return events    String representation of events on specific date.
+     */
+    public String findAllEventOnDate(LocalDate date) {
+        StringBuilder results = new StringBuilder();
+        for (Task x : tasks) {
+            if (!(x instanceof Event)) {
+                continue;
+            }
+
+            LocalDate from = ((Event) x).getFromDate();
+            if (from.isEqual(date)) {
+                results.append(x);
+                results.append("\n");
+            }
+        }
+
+        return results.toString();
+    }
+
+    /**
+     * Retrieves all deadline tasks in list on specific date.
+     * @return deadlines    String representation of deadlines on specific date.
+     */
+    public String findAllDeadlineOnDate(LocalDate date) {
+        StringBuilder results = new StringBuilder();
+        for (Task x : tasks) {
+            if (!(x instanceof Deadline)) {
+                continue;
+            }
+
+            LocalDate from = ((Deadline) x).getByDate();
+            if (from.isEqual(date)) {
+                results.append(x);
+                results.append("\n");
+            }
+        }
+
+        return results.toString();
     }
 
     /**

@@ -1,22 +1,26 @@
-package duke.command;
+package duke.handlers;
 
 import java.io.IOException;
 
+import duke.command.DukeException;
+import duke.command.Storage;
+import duke.command.TaskList;
+import duke.command.Ui;
 import duke.tasks.Task;
 
 /**
- * Handles inputs related to unmark task.
+ * Handles inputs related to ToDo tasks.
  */
-public class UnmarkHandler {
+public class ToDoHandler {
 
     /**
-     * UnmarkHandler constructor.
+     * ToDoHandler constructor.
      */
-    public UnmarkHandler() {
+    public ToDoHandler() {
     }
 
     /**
-     * Unmarks specific task index.
+     * Adds new todo task.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -24,16 +28,16 @@ public class UnmarkHandler {
      * @param ui            Instance of Ui class.
      * @return String   Indicates if task was successfully completed.
      */
-    public String unmarkTask(String input, Storage storage, TaskList taskList, Ui ui) {
+    public String addToDo(String input, Storage storage, TaskList taskList, Ui ui) {
         try {
-            return unmark(input, storage, taskList, ui);
+            return toDo(input, storage, taskList, ui);
         } catch (DukeException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
     }
 
     /**
-     * Parses and calls relevant methods to unmark task and update storage.
+     * Parses and calls relevant methods to add new todo and update storage.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -42,23 +46,17 @@ public class UnmarkHandler {
      * @return String           Indicates if task was successfully completed.
      * @throws DukeException    Thrown if there are missing inputs or inputs are out of bounds.
      */
-    private String unmark(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException {
+    private String toDo(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException {
         if (input.matches("")) {
-            throw new DukeException("Missing index, what to unmark?");
+            throw new DukeException("Need to check my eyesight, nothing to do.");
         }
 
-        int index = Integer.parseInt(input.strip());
-        int numOfTasks = taskList.getNumOfTasks();
-        if (((index - 1) < 0) || (index > numOfTasks)) {
-            throw new DukeException("Index out of bounds, no task found.");
-        }
-
-        Task t = taskList.unmarkTask(index - 1);
+        Task task = taskList.addTodo(input.strip());
         try {
-            storage.updateTask(t, index, numOfTasks);
+            storage.addNewTask(task);
         } catch (IOException e) {
             return ui.printErrorMessage(e.getMessage());
         }
-        return ui.printUnmarkTask(t.toString());
+        return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
     }
 }
