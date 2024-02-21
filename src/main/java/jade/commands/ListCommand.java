@@ -71,7 +71,7 @@ public class ListCommand extends Command {
     }
     private String handleListWithoutDate(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
-        sb.append(RESULT_MSG_FORMATTED);
+        sb.append(String.format(RESULT_MSG_FORMATTED, ""));
         IntStream.range(1, taskList.size() + 1).forEach(x ->
                 sb.append(String.format(LIST_INDEX_FORMATTED, x, taskList.get(x - 1))));
         return sb.toString();
