@@ -156,6 +156,8 @@ public class Ui {
      * @param task The task added.
      */
     public String taskAdded(Task task) {
+        assert task != null : "Task added cannot be null!";
+
         storeFiles.writeTasks(taskList);
 
         int size = taskList.size();
@@ -193,10 +195,8 @@ public class Ui {
      */
     public String commandDeadline(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-//            signalSays("Looks like you haven't entered a task description!");
             throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/by")) {
-//            signalSays("Looks like you haven't added a deadline!");
             throw new DukeException("Looks like you haven't added a deadline!");
         }
         int byIndex = finder("/by", inputParts);
@@ -214,16 +214,12 @@ public class Ui {
      */
     public String commandEvent(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-//            signalSays("Looks like you haven't entered a task description!");
             throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/from") && !Arrays.asList(inputParts).contains("/to")){
-//            signalSays("Please tell me the event timeframe!");
             throw new DukeException("Please tell me the event timeframe!");
         } else if (!Arrays.asList(inputParts).contains("/from")){
-//            signalSays("Please tell me when the event starts.");
             throw new DukeException("Please tell me when the event starts.");
         } else if (!Arrays.asList(inputParts).contains("/to")){
-//            signalSays("Please tell me when the event ends.");
             throw new DukeException("Please tell me when the event ends.");
         }
 
@@ -243,6 +239,7 @@ public class Ui {
      */
     public String commandList() throws DukeException {
         String reply = "";
+
         if (taskList.size() == 0) {
             reply = "Oops, looks like you haven't added any tasks!";
             throw new DukeException(reply);
@@ -254,6 +251,7 @@ public class Ui {
             }
             reply = listToString(response);
         }
+        signalSays(reply);
         return reply;
     }
 
@@ -299,7 +297,8 @@ public class Ui {
         response.add("  " + current.toString());
         String reply = listToString(response);
         signalSays(reply);
-        return reply;    }
+        return reply;
+    }
 
     /**
      * Calls the commandUnark method.

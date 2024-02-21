@@ -81,6 +81,7 @@ public class Parser {
             // create a new task or other commands
             reply = taskCommands(userInput);
         }
+        assert reply.length() != 0 : "Reply can't be empty!";
         return reply;
     }
 
