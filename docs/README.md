@@ -16,7 +16,7 @@ the benefits of a **Graphical User Interface (GUI)**. Todos, deadlines and event
 6. Refer to the Features below for details of each command.
 
 ## Features
-> [!NOTE]
+> [!NOTE]  
 > Words in UPPER_CASE are the parameters to be supplied by the user.
 > e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo eat dinner`.
 
