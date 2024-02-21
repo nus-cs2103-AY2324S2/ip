@@ -1,6 +1,8 @@
 package duke.handlers;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import duke.command.DukeException;
 import duke.command.Storage;
@@ -58,7 +60,21 @@ public class EventHandler {
                     + "\r\nGot all the details?");
         }
 
-        Task task = taskList.addEvent(event[0].strip(), event[1].strip(), event[2].strip());
+        LocalDateTime from;
+        LocalTime to;
+        try {
+            TimeHandler th = new TimeHandler();
+            from = th.parseDateTime(event[1].strip());
+            to = th.parseTime(event[2].strip());
+        } catch (DukeException de) {
+            return ui.printErrorMessage(de.getErrorMessage());
+        }
+
+        if (from.toLocalTime().isAfter(to)) {
+            throw new DukeException("Is this even an event? Invalid start and end time");
+        }
+
+        Task task = taskList.addEvent(event[0].strip(), from, to);
         try {
             storage.addNewTask(task);
         } catch (IOException e) {

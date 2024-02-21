@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.command.DukeException;
 import duke.handlers.TimeHandler;
 
 /**
@@ -18,11 +19,9 @@ public class Deadline extends Task {
      * @param description   Task name or description of task.
      * @param by            Date and time task has to be completed by.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
-
-        TimeHandler th = new TimeHandler();
-        this.by = th.parseDateTime(by);
+        this.by = by;
     }
 
     /**
@@ -36,8 +35,12 @@ public class Deadline extends Task {
         super(description);
         super.updateIsDone(done);
 
-        TimeHandler th = new TimeHandler();
-        this.by = th.parseDateTime(by);
+        try {
+            TimeHandler th = new TimeHandler();
+            this.by = th.parseDateTime(by);
+        } catch (DukeException de) {
+            // Since reading from file, not errors will be reported.
+        }
     }
 
     public LocalDate getByDate() {

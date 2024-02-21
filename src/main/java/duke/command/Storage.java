@@ -128,8 +128,11 @@ public class Storage {
         bw.close();
         br.close();
 
-        assert oldFile.delete();
-        assert temp.renameTo(new File(filePath));
+        oldFile.delete();
+        temp.renameTo(new File(filePath));
+
+        assert !oldFile.exists();
+        assert file.exists();
     }
 
     /**
@@ -156,19 +159,25 @@ public class Storage {
             String currentLine = br.readLine();
 
             if (i == (index - 1)) {
-                bw.write(updated + System.lineSeparator());
-            } else if (i != numOfTasks - 1) {
-                bw.write(currentLine + System.lineSeparator());
+                bw.write(updated);
             } else {
                 bw.write(currentLine);
             }
+
+            if (i == numOfTasks - 1) {
+                continue;
+            }
+            bw.write(System.lineSeparator());
         }
 
         bw.close();
         br.close();
 
-        assert oldFile.delete();
-        assert temp.renameTo(new File("./data/duke.txt"));
+        oldFile.delete();
+        temp.renameTo(new File("./data/duke.txt"));
+
+        assert !oldFile.exists();
+        assert file.exists();
     }
 
     /**
