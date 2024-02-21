@@ -106,7 +106,7 @@ public class Parser {
         }
     }
     public String handleHelp() {
-        return ui.getHelp();
+        return ui.getHelp1();
     }
 
     /**

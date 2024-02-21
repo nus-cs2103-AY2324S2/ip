@@ -24,20 +24,29 @@ public class Ui {
     /**
      * Returns the list of available commands
      */
-    public String getHelp() {
-        return "Help:\n" + getCommands();
+    public String getHelp1() {
+        return "Here's a list of commands (1):\n" + getCommands1();
     }
 
-    public String getCommands() {
-        return "LIST - Display task list\n"
-                + "TODO <TASK NAME> - Add a Todo\n"
-                + "DEADLINE <TASK NAME> /by <DD/MM/YYYY> - Add a Deadline\n"
-                + "EVENT <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY> - Add an Event\n"
-                + "MARK DONE <INDEX> - Mark a task as done\n"
-                + "MARK UNDONE <INDEX> - Mark a task as undone\n"
-                + "DELETE <INDEX> - Delete a task\n"
-                + "FIND <KEYWORD> - Find a keyword\n"
-                + "BYE - Exit";
+    public String getHelp2() {
+        return "More commands (2):\n" + getCommands2();
+    }
+
+    public String getCommands1() {
+        return "(Dates are in dd/mm/yyyy format)\n"
+                + "\tlist: Display task list\n"
+                + "\ttodo <task>: Add a Todo\n"
+                + "\tdeadline <task> /by <date>: Add a Deadline\n";
+    }
+
+    public String getCommands2() {
+        return "(Dates are in dd/mm/yyyy format)\n"
+                + "\tevent <task> /from <date> /to <date>: Add an Event\n"
+                + "\tmark done <index>: Mark a task as done\n"
+                + "\tmark undone <index>: Mark a task as undone\n"
+                + "\tdelete <index>: Delete a task\n"
+                + "\tfind <keyword>: Find a keyword\n"
+                + "\tbye: Exit";
     }
 
     /**
