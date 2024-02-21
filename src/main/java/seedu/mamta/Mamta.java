@@ -14,11 +14,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 
-//Commit message:Released a updated JAR file with External Libs
+
 /**
- * Main class for the Mamta task manager application.
+ * Main class for the Mamta task manager application with UPDATED readme.
  */
 public class Mamta extends Application  {
     private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
