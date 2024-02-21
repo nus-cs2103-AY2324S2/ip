@@ -92,6 +92,8 @@ public class Ui {
                 + "How to use:\n"
                 + "Luke is a simple task list manager. You (the person on the right) can interact with Luke (the\n"
                 + "person on the left) through commands to manage your tasks.\n"
+                + "If this is your first time using this app, sample data has already been loaded for you. Feel free\n"
+                + "to experiment with them and delete them if not in use.\n"
                 + "Your tasks are automatically saved to the save file. Warning: do not edit the save file directly,\n"
                 + "or the save file may be corrupted! In this case, you may possibly lose all your saved tasks!\n"
                 + "\n"

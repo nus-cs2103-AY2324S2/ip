@@ -36,6 +36,12 @@ public class Storage {
                 f.getParentFile().mkdirs();
             }
             f.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            String sampleData = "1.[T][X] eat\n"
+                    + "2.[D][ ] homework (by: 02 Feb 2024 23:59)\n"
+                    + "3.[E][ ] study (from: 02 Feb 2024 08:00 to: 02 Feb 2024 12:00)";
+            writer.write(sampleData);
+            writer.close();
         }
         assert f.exists();
     }
