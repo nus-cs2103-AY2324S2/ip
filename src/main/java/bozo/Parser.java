@@ -18,15 +18,17 @@ public class Parser {
 
         if (input.equals("bye")) {
             return handleByeCommand();
-        } else if (input.equals("list")) {
+        } else if (input.equals("list") || input.equals("l")) {
             return handleListCommand(list);
-        } else if (input.startsWith("mark")) {
+        } else if (input.equals("help") || input.equals("h")) {
+            return handleHelpCommand();
+        } else if (input.startsWith("mark") || input.startsWith("m")) {
             return handleMarkCommand(input, list);
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("find") || input.startsWith("f")) {
             return handleFindCommand(input, list);
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark") || input.startsWith("u")) {
             return handleUnmarkCommand(input, list);
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete") || input.startsWith("del")) {
             return handleDeleteCommand(input, list);
         } else if (input.startsWith("todo") || input.startsWith("t")) {
             return handleTodoCommand(input, list);
@@ -216,6 +218,23 @@ public class Parser {
             output.append("  " + e).append("\n");
             output.append("Now you have " + list.getSize() + " tasks in the list.");
         }
+        Ui.showLine();
+        return output.toString();
+    }
+
+    private String handleHelpCommand() {
+        StringBuilder output = new StringBuilder();
+        Ui.showLine();
+        output.append("Here are the commands you can use:\n");
+        output.append("1. list (or l): Lists all tasks.\n");
+        output.append("2. todo (or t) <description>: Adds a todo task.\n");
+        output.append("3. deadline (or d) <description> /by <deadline>: Adds a deadline task.\n");
+        output.append("4. event (or e) <description> /from <start time> /to <end time>: Adds an event task.\n");
+        output.append("5. delete (or del) <task number>: Deletes the specified task.\n");
+        output.append("6. find (or f) <keyword>: Finds tasks containing the specified keyword.\n");
+        output.append("7. mark (or m) <task number>: Marks the specified task as done.\n");
+        output.append("8. unmark (or u) <task number>: Marks the specified task as not done.\n");
+        output.append("9. bye: Exits the program.\n");
         Ui.showLine();
         return output.toString();
     }

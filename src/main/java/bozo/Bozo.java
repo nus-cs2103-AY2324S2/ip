@@ -2,8 +2,6 @@ package bozo;
 
 import java.util.Scanner;
 
-import javafx.application.Platform;
-
 /**
  * The Bozo class is the main class for the Bozo chatbot.
  * It contains the main method and the run method.
@@ -68,7 +66,6 @@ public class Bozo {
             String output = parser.parseCommand(input, taskList);
             if (output.equals("Bye. Hope to see you again soon!")) {
                 storage.saveList(taskList);
-                Platform.exit();
             }
             return output;
         } catch (BozoException e) {

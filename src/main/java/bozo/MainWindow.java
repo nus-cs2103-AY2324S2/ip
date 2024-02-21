@@ -1,5 +1,7 @@
 package bozo;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -25,9 +29,14 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image bozoImage = new Image(this.getClass().getResourceAsStream("/images/DaBozo.png"));
 
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        dialogContainer.setSpacing(5);
     }
 
     public void setBozo(Bozo b) {
@@ -56,6 +65,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBozoDialog(response, bozoImage)
         );
         userInput.clear();
+
+        if (input.equals("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        }
     }
 }
 

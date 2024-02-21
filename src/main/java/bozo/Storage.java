@@ -88,6 +88,8 @@ public class Storage {
         case "E":
             task = createEventTask(i, s, parts[3], parts[4]);
             break;
+        default:
+            break;
         }
         return task;
     }
