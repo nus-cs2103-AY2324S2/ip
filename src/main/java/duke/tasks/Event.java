@@ -28,9 +28,16 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         int statusValue = this.getStatus() ? 1 : 0;
+        StringBuilder sb = new StringBuilder();
 
-        return String.format("event~%d~%s~%s~%s", statusValue, this.description,
-                Utils.inputFormat(this.from), Utils.inputFormat(this.to));
+        sb.append(String.format("event~%d~%s~%s~%s", statusValue, this.description,
+                Utils.inputFormat(this.from), Utils.inputFormat(this.to)));
+
+        for (String tag : this.getTags()) {
+            sb.append("~").append(tag);
+        }
+
+        return sb.toString();
     }
 
     /**

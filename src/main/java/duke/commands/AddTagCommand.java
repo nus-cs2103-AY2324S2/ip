@@ -1,8 +1,9 @@
 package duke.commands;
 
+import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 public class AddTagCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> tasks, String[] input) throws CommandException {
+    public void execute(ArrayList<Task> tasks, String[] input) throws CommandException, IOException {
         // TODO change checker later
         Pattern pattern = Pattern.compile("(\\d+)\\s+(#[\\w\\d]+\\s*)+");
 
@@ -36,5 +37,7 @@ public class AddTagCommand extends Command {
 
         tasks.get(index).addTags(tagDetails);
         super.commandResponse = Ui.printOutput("I have added the tags:", tasks.get(index).toString());
+
+        Storage.writeToStorage(tasks);
     }
 }

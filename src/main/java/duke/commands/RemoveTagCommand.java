@@ -1,16 +1,16 @@
 package duke.commands;
 
+import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RemoveTagCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> tasks, String[] input) throws CommandException {
-        // TODO change checker later
+    public void execute(ArrayList<Task> tasks, String[] input) throws CommandException, IOException {
         Pattern pattern = Pattern.compile("(\\d+)\\s+(#[\\w\\d]+\\s*)+");
 
         if (input.length < 2) {
@@ -34,8 +34,10 @@ public class RemoveTagCommand extends Command {
         }
 
         tasks.get(index).removeTags(tagDetails);
-        super.commandResponse = Ui.printOutput("Okay the tags are now removed. " +
-                        "\nYour task looks like this now:",
+        super.commandResponse = Ui.printOutput(
+                "Okay the tags are now removed. " + "\nYour task looks like this now:",
                 tasks.get(index).toString());
+
+        Storage.writeToStorage(tasks);
     }
 }
