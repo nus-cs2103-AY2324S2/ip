@@ -42,8 +42,8 @@ public class Chatteroo {
         try {
             Command c = Parser.parseInput(input);
             response = c.execute(tasks, ui, storage);
-        } catch (Exception e) {
-                System.out.println(e.getMessage());
+        } catch (ChatterooException e) {
+                return ui.showErrorResponse(e);
         }
         storage.saveTasks(tasks);
         return response;

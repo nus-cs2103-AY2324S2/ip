@@ -1,5 +1,6 @@
 package seedu.chatteroo.storage;
 
+import seedu.chatteroo.ChatterooException;
 import seedu.chatteroo.parser.Parser;
 import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.TaskList;
@@ -41,7 +42,7 @@ public class Storage {
      * @return The list of tasks.
      * @throws IOException If an I/O error occurs.
      */
-    public ArrayList<Task> loadTasks() throws Exception {
+    public ArrayList<Task> loadTasks() throws ChatterooException {
         ArrayList<Task> listStore = new ArrayList<>();
         try {
             if (listFile.exists() && listFile.length() > 0) {
@@ -56,7 +57,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("ChatterOOHNOO! Chatteroo can't create a new file!");
         } catch (Exception e) {
-            throw new Exception("ChatterOOHNOO! Chatteroo couldn't retrieve your tasks :-(");
+            throw new ChatterooException("ChatterOOHNOO! Chatteroo couldn't retrieve your tasks :-(");
         }
         return listStore;
     }
