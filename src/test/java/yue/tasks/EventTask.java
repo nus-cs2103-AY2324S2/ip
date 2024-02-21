@@ -46,7 +46,6 @@ public class EventTask extends Task {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
-
         try {
             check = 1;
             dateTime = LocalDateTime.parse(time, formatter1);
@@ -81,7 +80,7 @@ public class EventTask extends Task {
      * @param dateTime The LocalDateTime object representing the date and time.
      * @return The formatted string representing the date and time.
      */
-    public String formatDateTime(LocalDateTime dateTime) {
+    String formatDateTime(LocalDateTime dateTime) {
         assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
         if (check == 1 || check == 2) {

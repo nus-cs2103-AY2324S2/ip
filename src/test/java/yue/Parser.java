@@ -184,7 +184,6 @@ public class Parser {
                     +" The correct format of input should be: \n deadline <description> /by <deadline>\n"
                     +"the time format should be: dd/mm/yyyy or yyyy-mm-dd.");
         }
-
         String[] details = parts[1].split("/by", 2);
         if (details.length < 2) {
             throw new YueException("OOPS!!! The deadline of a deadline task cannot be empty.\n"
@@ -207,20 +206,15 @@ public class Parser {
         String task = null;
         String from = null;
         String to = null;
-
+        String correctFormat = " The correct format of input should be:\n event <description> /from <start time> /to <end time>\n"
+                +"The time format should be: dd/mm/yyyy HH:mm or yyyy-mm-dd or dd/mm/yyyy";
         if (parts.length < 2) {
-            throw new YueException("OOPS!!! The description of an event task cannot be empty.\n"
-                    +" The correct format of input should be:\n event <description> /from <start time> /to <end time>\n"
-                    +"The time format should be: dd/mm/yyyy HH:mm or yyyy-mm-dd or dd/mm/yyyy");
+            throw new YueException("OOPS!!! The description of an event task cannot be empty.\n" + correctFormat);
         }
-
         String[] split = parts[1].split("/from", 2);
         if (split.length < 2) {
-            throw new YueException("OOPS!!! The time of an event task cannot be empty.\n"
-                    +" The correct format of input should be:\n event <description> /from <start time> /to <end time>\n"
-                    +"The time format should be: dd/mm/yyyy HH:mm or yyyy-mm-dd or dd/mm/yyyy");
+            throw new YueException("OOPS!!! The time of an event task cannot be empty.\n" + correctFormat);
         }
-
         if (split.length == 2) {
             task = split[0];
             String[] details = split[1].split("/to", 2);
@@ -228,12 +222,9 @@ public class Parser {
                 from = details[0].trim();
                 to = details[1].trim();
             } else {
-                throw new YueException("OOPS!!! The end time of an event task cannot be empty.\n"
-                        +" The correct format of input should be:\n event <description> /from <start time> /to <end time>\n"
-                        +"The time format should be: dd/mm/yyyy HH:mm or yyyy-mm-dd or dd/mm/yyyy");
+                throw new YueException("OOPS!!! The end time of an event task cannot be empty.\n" + correctFormat);
             }
         }
         return new EventCommand(task, from, to);
     }
 }
-
