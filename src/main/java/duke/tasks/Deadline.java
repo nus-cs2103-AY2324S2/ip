@@ -28,18 +28,18 @@ public class Deadline extends Task {
      *
      * @return String By date of the deadline.
      */
-    public String dateInWords() {
-        String dayWeek = dueDate.getDayOfWeek().toString();
-        int dayMonth = dueDate.getDayOfMonth();
+    public String getDueDate() {
+        int dayNumber = dueDate.getDayOfMonth();
         String month = dueDate.getMonth().toString();
         int year = dueDate.getYear();
-        return dayWeek + " " + dayMonth + " " + month + " " + year;
+        String day = dueDate.getDayOfWeek().toString();
+        return String.format("%d %s %d %s", dayNumber, month, year, day);
     }
 
     @Override
     public String toString() {
         String str = String.format(
-                super.toString() + " (%s)", this.dateInWords());
+                super.toString() + " (%s)", this.getDueDate());
         return str;
     }
 }

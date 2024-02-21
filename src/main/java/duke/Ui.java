@@ -131,7 +131,7 @@ public class Ui {
                         + "  [%s][%s] %s\n"
                         + "____________________________________________________________\n",
                 taskToBeMarked.getTaskType(), taskToBeMarked.getStatusIcon(),
-                taskToBeMarked.getDescription());
+                taskToBeMarked.toString());
         System.out.println(message);
         return message;
     }
@@ -150,7 +150,7 @@ public class Ui {
                         + "  [%s][%s] %s\n"
                         + "____________________________________________________________\n",
                 taskToBeUnmarked.getTaskType(), taskToBeUnmarked.getStatusIcon(),
-                taskToBeUnmarked.getDescription());
+                taskToBeUnmarked.toString());
         System.out.println(message);
         return message;
     }

@@ -59,12 +59,12 @@ public class Task implements Serializable {
      *
      * @return Character Type of the task.
      */
-    public Character getTaskType(){
+    public Character getTaskType() {
         return this.taskType;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.description;
     }
 }

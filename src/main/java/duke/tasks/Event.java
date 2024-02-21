@@ -32,12 +32,12 @@ public class Event extends Task {
      *
      * @return String From date of the event.
      */
-    public String fromDateInWords() {
-        String dayWeek = from.getDayOfWeek().toString();
-        int dayMonth = from.getDayOfMonth();
+    public String getFromDate() {
+        int dayNumber = from.getDayOfMonth();
         String month = from.getMonth().toString();
         int year = from.getYear();
-        return dayWeek + " " + dayMonth + " " + month + " " +year;
+        String day = from.getDayOfWeek().toString();
+        return String.format("%d %s %d %s", dayNumber, month, year, day);
     }
 
     /**
@@ -45,18 +45,18 @@ public class Event extends Task {
      *
      * @return String To date of the event.
      */
-    public String toDateInWords() {
-        String dayWeek = to.getDayOfWeek().toString();
-        int dayMonth = to.getDayOfMonth();
+    public String getToDate() {
+        int dayNumber = to.getDayOfMonth();
         String month = to.getMonth().toString();
         int year = to.getYear();
-        return dayWeek + " " + dayMonth + " " + month + " " + year;
+        String day = to.getDayOfWeek().toString();
+        return String.format("%d %s %d %s", dayNumber, month, year, day);
     }
 
     @Override
     public String toString() {
         String str = String.format(
-                super.toString() + " (from %s to %s)", this.fromDateInWords(), this.toDateInWords());
+                super.toString() + " (from %s to %s)", this.getFromDate(), this.getToDate());
         return str;
     }
 }
