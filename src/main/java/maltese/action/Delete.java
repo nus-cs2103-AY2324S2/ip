@@ -79,7 +79,7 @@ public class Delete implements Action {
      * @return A string representing the response message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         StringBuilder response = new StringBuilder("Noted. I've removed the following tasks:\n");
         for (Task deletedTask : deletedTasks) {
             response.append(deletedTask.toString()).append("\n");

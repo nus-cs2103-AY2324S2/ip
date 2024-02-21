@@ -81,7 +81,7 @@ public class Maltese extends Application {
             Action response = Parser.parseCommand(command, taskList, storage);
             if (response != null) {
                 storage.writeToFile(taskList);
-                return response.response();
+                return response.getResponse();
             } else {
                 // Handle the case where response is null
                 return "Error: Unexpected null response";

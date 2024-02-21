@@ -51,7 +51,7 @@ public class Match implements Action {
      * @return A string with all the tasks with that matches keyword
      */
     @Override
-    public String response() {
+    public String getResponse() {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             assert task != null : "Task in TaskList cannot be null";

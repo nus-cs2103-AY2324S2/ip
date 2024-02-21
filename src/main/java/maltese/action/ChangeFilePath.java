@@ -47,7 +47,7 @@ public class ChangeFilePath implements Action {
 
 
     @Override
-    public String response() {
+    public String getResponse() {
         if (isGuide) {
             return "I loaded some sample data! Type 'list' to see the sample data";
         }

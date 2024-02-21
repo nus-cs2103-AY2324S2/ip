@@ -67,7 +67,7 @@ public class Mark implements Action {
      * @return A string representing the response message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         StringBuilder response = new StringBuilder("Nice! I've marked the following tasks as done:\n");
         for (int index : indices) {
             Task markedTask = tasks.get(index);

@@ -15,7 +15,7 @@ public interface Action {
      *
      * @return A string representing the response of the action.
      */
-    String response();
+    String getResponse();
 
     /**
      * Parses an array of strings representing indices into an array of integers.

@@ -24,7 +24,7 @@ public class Guide implements Action {
      * @return A string representing the help message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         return "I loaded some sample data! Type 'list' to see the sample data";
     }
 

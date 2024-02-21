@@ -26,7 +26,7 @@ public class Echo implements Action {
      * @return A string representing the response message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         return word;
     }
 }

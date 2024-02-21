@@ -77,7 +77,7 @@ public class ParserTest {
     }
 
     @Test
-    void test_parseCommand_invalidCommands() {
+    void test_parseCommand_exceptionThrown() {
         TaskList taskList = new TaskList();
         Storage storage = new Storage("./data/test.txt");
 

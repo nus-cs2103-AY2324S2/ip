@@ -12,7 +12,7 @@ public class Farewell implements Action {
      * @return A string representing the farewell message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         System.exit(0);
         return " Bye. Hope to see you again soon!";
     }

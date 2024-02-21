@@ -201,7 +201,7 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
      *
      * @return A string representing the response message.
      */
-    public String response() {
+    public String getResponse() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");

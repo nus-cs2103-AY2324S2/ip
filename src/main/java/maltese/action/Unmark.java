@@ -70,7 +70,7 @@ public class Unmark implements Action {
      * @return A string representing the response message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         StringBuilder response = new StringBuilder("OK, I've marked this task as not done yet:\n");
         for (int index : indices) {
             Task markedTask = tasks.get(index);

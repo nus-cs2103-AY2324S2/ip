@@ -53,7 +53,7 @@ public class Help implements Action {
      * @return A string representing the help message.
      */
     @Override
-    public String response() {
+    public String getResponse() {
         return HELP_CONTENT;
     }
 }
