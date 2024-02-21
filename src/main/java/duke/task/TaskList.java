@@ -1,18 +1,18 @@
 package duke.task;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.IllegalDateFormatException;
-import duke.exceptions.SemanticException;
-import duke.exceptions.SyntaxException;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.time.LocalDate;
-import duke.task.Event;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.IllegalDateFormatException;
+import duke.exceptions.SemanticException;
+import duke.exceptions.SyntaxException;
+
+
 
 /**
  * Manages all the operations of tasks on the list.
@@ -73,7 +73,7 @@ public class TaskList {
             if (event.length != 3) {
                 throw new SyntaxException("Please check the command syntax");
             }
-            return new Event(event[0],LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+            return new Event(event[0], LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
                     LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
         } catch (DateTimeParseException e) {
             throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
@@ -88,6 +88,16 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Deletes a task from the task list based on the specified index.
+     *
+     * @param str       The input string containing the index of the task to be deleted.
+     * @param taskList  The task list from which the task will be removed.
+     * @return          The task that was removed from the list.
+     * @throws SyntaxException   If the input string does not contain exactly one index number after the delete command.
+     * @throws SemanticException  If the specified index is out of bounds.
+     */
     public Task deleteTask(String str, TaskList taskList) throws SyntaxException, SemanticException {
         try {
 
@@ -148,6 +158,13 @@ public class TaskList {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
+
+    /**
+     * Finds tasks in the task list that contain the specified keyword.
+     *
+     * @param command The keyword to search for in the task descriptions.
+     * @return An ArrayList of tasks that contain the specified keyword in their descriptions.
+     */
     public ArrayList<Task> find(String command) {
         ArrayList<Task> searchedTasks = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
@@ -158,9 +175,17 @@ public class TaskList {
         return searchedTasks;
     }
 
+
+    /**
+     * Checks the schedule for tasks on a specific date.
+     *
+     * @param cmd The date to search for in the format "yyyy-MM-dd".
+     * @return    An ArrayList of tasks scheduled on the specified date.
+     * @throws IllegalDateFormatException If the provided date format is invalid.
+     */
     public ArrayList<Task> checkSchedule(String cmd) {
         ArrayList<Task> searchTaskOnSpecificDate = new ArrayList<>();
-        try{
+        try {
             LocalDate target = LocalDate.parse(cmd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             for (int i = 0; i < listOfTasks.size(); i++) {
                 Task task = listOfTasks.get(i);

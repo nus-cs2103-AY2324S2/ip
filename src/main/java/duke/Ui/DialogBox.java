@@ -25,7 +25,8 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 /**
- * Custom control using FXML. This control represents a dialog box with an ImageView for the speaker's face and a label with text.
+ * Custom control using FXML. This control represents a dialog box with an ImageView for the speaker's face
+ * and a label with text.
  */
 public class DialogBox extends HBox {
 
