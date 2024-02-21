@@ -27,14 +27,14 @@ public class Storage {
 
     /**
      * Returns a String of tasks to be written to the hard-coded file.
-     * @param tl
+     * @param tl TaskList
      * @return String listItems
      */
     public String storeList(TaskList tl) {
         StringBuilder listItems = new StringBuilder();
         for (int j = 0; j < tl.size(); j++) {
             if (j > 0) {
-                listItems.append(System.getProperty("line.separator")); // Add newline before each task except the first one
+                listItems.append(System.lineSeparator()); // Add newline before each task except the first one
             }
             String task = tl.get(j).simpleToString();
             listItems.append(task);
@@ -77,7 +77,7 @@ public class Storage {
             br = new BufferedReader(new FileReader(file));
             String s;
             while ((s = br.readLine()) != null) {
-                sb.append(System.getProperty("line.separator"));
+                sb.append(System.lineSeparator());
                 sb.append(s);
             }
         } catch (FileNotFoundException e) {

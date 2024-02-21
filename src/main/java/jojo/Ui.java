@@ -28,7 +28,7 @@ public class Ui {
     public String breakLines() {
         StringBuilder sb = new StringBuilder();
         sb.append("-----------------------------------------------------------------------");
-        sb.append(System.getProperty("line.separator"));
+        sb.append(System.lineSeparator());
         sb.append("-----------------------------------------------------------------------");
         return sb.toString();
     }
@@ -41,7 +41,7 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:");
         for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             String task = j + 1 + ". " + tl.get(j);
             sb.append(task);
         }
@@ -60,7 +60,7 @@ public class Ui {
             int taskNum = Parser.parseMark(cmd);
             tl.setDone(taskNum);
             sb.append("Nice! I've marked this task as done:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(tl.taskToString(taskNum));
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
@@ -80,7 +80,7 @@ public class Ui {
             int taskNum = Parser.parseUnmark(cmd);
             tl.setUndone(taskNum);
             sb.append("OK, I've marked this task as not done yet:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(tl.taskToString(taskNum));
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
@@ -99,9 +99,9 @@ public class Ui {
         try {
             int taskNum = Parser.parseDelete(cmd);
             sb.append("Noted. I've removed this task:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(tl.taskToString(taskNum));
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             tl.deleteTask(taskNum);
             sb.append("Now you have ");
             sb.append(tl.size());
@@ -127,9 +127,9 @@ public class Ui {
             Task t = new ToDo(test);
             tl.addTask(t); // add task to list
             sb.append("Got it. I've added this task:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(t);
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append("Now you have ");
             sb.append(tl.size());
             sb.append(" tasks in the list.");
@@ -152,9 +152,9 @@ public class Ui {
             Task t = new Deadline(Parser.parseDeadlineDesc(test), Parser.parseDeadlineBy(test));
             tl.addTask(t); // add task to list
             sb.append("Got it. I've added this task:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(t);
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append("Now you have ");
             sb.append(tl.size());
             sb.append(" tasks in the list.");
@@ -178,9 +178,9 @@ public class Ui {
             Task t = new Event(ans[0], ans[1], ans[2]);
             tl.addTask(t); // add task to list
             sb.append("Got it. I've added this task:");
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append(t);
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
             sb.append("Now you have ");
             sb.append(tl.size());
             sb.append(" tasks in the list.");
@@ -205,7 +205,7 @@ public class Ui {
             for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
                 String taskDesc = tl.get(j).description.toLowerCase();
                 if (taskDesc.contains(test.toLowerCase())) {
-                    sb.append(System.getProperty("line.separator"));
+                    sb.append(System.lineSeparator());
                     sb.append(i);
                     sb.append(". ");
                     sb.append(tl.get(j));

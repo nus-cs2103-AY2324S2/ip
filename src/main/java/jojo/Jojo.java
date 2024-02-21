@@ -33,7 +33,7 @@ public class Jojo {
             System.out.println(ui.breakLines());
             Scanner sc = new Scanner(System.in);
             String cmd = sc.nextLine();
-            while (!cmd.equals("bye")) {
+            while (!cmd.strip().equals("bye")) {
                 try {
                     getResponse(cmd);
                 } catch(JojoException e){
@@ -76,9 +76,9 @@ public class Jojo {
     public String getStartingMsg() throws JojoException {
         StringBuilder msg = new StringBuilder();
         msg.append(ui.showWelcomeMessage());
-        msg.append(System.getProperty("line.separator"));
+        msg.append(System.lineSeparator());
         msg.append(storage.printList());
-        msg.append(System.getProperty("line.separator"));
+        msg.append(System.lineSeparator());
         msg.append(ui.showStartingQn());
         return msg.toString();
     }
