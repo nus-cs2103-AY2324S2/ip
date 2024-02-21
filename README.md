@@ -2,7 +2,7 @@
 
 ## User Guide
 
-![User Guide](https://reflectiveobsidian.github.io/ip/)
+[User Guide](https://reflectiveobsidian.github.io/ip/)
 
 ## Setting up in Intellij
 
