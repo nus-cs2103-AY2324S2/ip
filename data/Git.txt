@@ -1,0 +1,23 @@
+1. Create and Switch to the Branch:
+git checkout -b *branch name*
+
+2. Make the necessary change. During this process, commit your changes regularly.
+git add .
+git commit -m "Commit message"
+git push origin *branch name*
+
+
+3. Switch to Master Branch:
+git checkout master
+
+4. Merge new branch to Master with a Merge Commit:
+git merge --no-ff *branch name* -m "Merge branch-Level-8 for Level 8 implementation"
+This will create a merge commit even if it's a fast-forward merge.
+
+5. Tag the Merge Commit:
+git tag *branch name*
+
+6. git push
+git push origin master
+git push origin *branch name*
+git push origin --tags
