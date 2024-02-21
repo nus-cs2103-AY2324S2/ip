@@ -35,7 +35,7 @@ test {
 }
 
 application {
-    mainClass.set("arona.Arona")
+    mainClass.set("arona.Launcher")
 }
 
 shadowJar {
