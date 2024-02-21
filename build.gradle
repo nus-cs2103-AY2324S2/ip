@@ -9,6 +9,11 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "19"
+    modules = [ 'javafx.controls', 'javafx.fxml']
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -44,13 +49,21 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClassName = "Launcher"
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Pororo"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Launcher'
+        )
+    }
 }
 
 run{
