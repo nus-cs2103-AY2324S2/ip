@@ -1,10 +1,11 @@
 package duke;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import javafx.util.Pair;
 
 /**
  * Handles the list of tasks and related methods.
@@ -14,8 +15,8 @@ public class TaskList {
     /**
      * The ArrayList that stores the task objects.
      */
-    private ArrayList<Task> tasks;
-    private Duke duke;
+    private final ArrayList<Task> tasks;
+    private final Duke duke;
 
     /**
      * Creates the task list as an ArrayList of tasks.
@@ -80,20 +81,21 @@ public class TaskList {
      * @return true if the addition was successful, false otherwise
      */
     public boolean addToDo(String[] words, boolean announce, boolean isDone) {
-        boolean successful = false;
+        boolean successful = true;
         int length = words.length;
         int wordsIndex = 1;
+        String name = null;
 
-        if (length < 2) {
-            duke.output("The name cannot be empty!");
-        } else {
-            StringBuilder nameBuilder = new StringBuilder();
-            while(wordsIndex < length) {
-                nameBuilder.append(" ").append(words[wordsIndex]);
-                wordsIndex++;
-            }
-            String name = nameBuilder.substring(1);
-            successful = true;
+        try {
+            Pair<StringBuilder, Integer> namePair = parameterBuilder(words, wordsIndex, "");
+            StringBuilder nameBuilder = namePair.getKey();
+            name = nameBuilder.substring(1);
+        } catch (InputMismatchException e) {
+            successful = false;
+            duke.output(Help.getTodoHelp());
+        }
+
+        if (successful) {
             Task task = new ToDo(name, isDone);
             tasks.add(task);
 
@@ -113,45 +115,42 @@ public class TaskList {
      * @return true if the addition was successful, false otherwise
      */
     public boolean addDeadline(String[] words, boolean announce, boolean isDone) {
-        boolean successful = false;
+        boolean successful = true;
         int length = words.length;
         int wordsIndex = 1;
+        String name = null;
+        LocalDateTime deadline = null;
 
-        if (length < 2) {
+        try {
+            Pair<StringBuilder, Integer> namePair = parameterBuilder(words, wordsIndex, "/by");
+            StringBuilder nameBuilder = namePair.getKey();
+            wordsIndex = namePair.getValue();
+            name = nameBuilder.substring(1);
+        } catch (InputMismatchException e) {
+            successful = false;
             duke.output("The name cannot be empty!");
-        } else {
-            StringBuilder nameBuilder = new StringBuilder();
-            while(wordsIndex < length) {
-                if (words[wordsIndex].equals("/by")) {
-                    wordsIndex++;
-                    break;
-                } else {
-                    nameBuilder.append(" ").append(words[wordsIndex]);
-                    wordsIndex++;
-                }
-            }
-            String name = nameBuilder.substring(1);
+            duke.output(Help.getDeadlineHelp());
+        }
 
-            if (wordsIndex >= length) {
+        if (successful) {
+            try {
+                Pair<StringBuilder, Integer> deadlinePair = parameterBuilder(words, wordsIndex, "");
+                StringBuilder deadlineBuilder = deadlinePair.getKey();
+                deadline = dateBuilder(announce, deadlineBuilder);
+            } catch (InputMismatchException e) {
+                successful = false;
                 duke.output("The deadline cannot be empty!");
-            } else {
-                StringBuilder deadlineBuilder = new StringBuilder();
-                while (wordsIndex < length) {
-                    deadlineBuilder.append(" ").append(words[wordsIndex]);
-                    wordsIndex++;
-                }
+            } catch (DateTimeParseException d) {
+                successful = false;
+                duke.output("Invalid Deadline format!");
+            }
+        }
 
-                LocalDateTime deadline = dateBuilder(announce, deadlineBuilder);
-
-                if(deadline != null) {
-                    successful = true;
-                    Task task = new Deadline(name, deadline, isDone);
-                    tasks.add(task);
-
-                    if(announce) {
-                        announceAddition(task);
-                    }
-                }
+        if (successful) {
+            Task task = new Deadline(name, deadline, isDone);
+            tasks.add(task);
+            if (announce) {
+                announceAddition(task);
             }
         }
         return successful;
@@ -166,77 +165,109 @@ public class TaskList {
      * @return true if the addition was successful, false otherwise
      */
     public boolean addEvent(String[] words, boolean announce, boolean isDone) {
-        boolean successful = false;
-        int length = words.length;
+        boolean successful = true;
         int wordsIndex = 1;
+        String name = null;
+        LocalDateTime startDate = null;
+        LocalDateTime endDate = null;
 
-        if (length < 2) {
+        try {
+            Pair<StringBuilder, Integer> namePair = parameterBuilder(words, wordsIndex, "/from");
+            StringBuilder nameBuilder = namePair.getKey();
+            wordsIndex = namePair.getValue();
+            name = nameBuilder.substring(1);
+        } catch (InputMismatchException e) {
+            successful = false;
             duke.output("The name cannot be empty!");
-        } else {
-            StringBuilder nameBuilder = new StringBuilder();
-            while(wordsIndex < length) {
-                if (words[wordsIndex].equals("/from")) {
-                    wordsIndex++;
-                    break;
-                } else {
-                    nameBuilder.append(" ").append(words[wordsIndex]);
-                    wordsIndex++;
-                }
-            }
-            String name = nameBuilder.substring(1);
+            duke.output(Help.getEventHelp());
+        }
 
-            if (wordsIndex >= length) {
+        if (successful) {
+            try {
+                Pair<StringBuilder, Integer> startDatePair = parameterBuilder(words, wordsIndex, "/to");
+                StringBuilder startDateBuilder = startDatePair.getKey();
+                wordsIndex = startDatePair.getValue();
+                startDate = dateBuilder(announce, startDateBuilder);
+            } catch (InputMismatchException e) {
+                successful = false;
                 duke.output("The start date cannot be empty!");
-            } else {
-                StringBuilder startDateBuilder = new StringBuilder();
-                while (wordsIndex < length) {
-                    if (words[wordsIndex].equals("/to")) {
-                        wordsIndex++;
-                        break;
-                    } else {
-                        startDateBuilder.append(" ").append(words[wordsIndex]);
-                        wordsIndex++;
-                    }
-                }
+            } catch (DateTimeParseException d) {
+                successful = false;
+                duke.output("Invalid Start Date format!");
+            }
+        }
 
-                LocalDateTime startDate = dateBuilder(announce, startDateBuilder);
+        if (successful) {
+            try {
+                Pair<StringBuilder, Integer> endDatePair = parameterBuilder(words, wordsIndex, "");
+                StringBuilder endDateBuilder = endDatePair.getKey();
+                endDate = dateBuilder(announce, endDateBuilder);
+            } catch (InputMismatchException e) {
+                successful = false;
+                duke.output("The end date cannot be empty!");
+            } catch (DateTimeParseException d) {
+                successful = false;
+                duke.output("Invalid End Date format!");
+            }
+        }
 
-                if (wordsIndex >= length) {
-                    duke.output("The end date cannot be empty!");
-                } else {
-                    StringBuilder endDateBuilder = new StringBuilder();
-                    while (wordsIndex < length) {
-                        endDateBuilder.append(" ").append(words[wordsIndex]);
-                        wordsIndex++;
-                    }
-
-                    LocalDateTime endDate = dateBuilder(announce, endDateBuilder);
-
-
-                    if (startDate != null && endDate != null) {
-                        successful = true;
-                        Task task = new Event(name, startDate, endDate, isDone);
-                        tasks.add(task);
-
-                        if(announce) {
-                            announceAddition(task);
-                        }
-                    }
-                }
+        if (successful) {
+            Task task = new Event(name, startDate, endDate, isDone);
+            tasks.add(task);
+            if(announce) {
+                announceAddition(task);
             }
         }
         return successful;
     }
 
-    private LocalDateTime dateBuilder(boolean announce, StringBuilder dateBuilder) {
-        LocalDateTime date = null;
-        if(announce) {
-            try {
-                date = LocalDateTime.parse(dateBuilder.substring(1),
-                        DateTimeFormatter.ofPattern("d/M/yy H:mm"));
-            } catch (DateTimeParseException error) {
-                duke.output("Invalid Date format!");
+    /**
+     * Creates a string of words for each parameter, given the request
+     *
+     * @param words the request sent by the user
+     * @param wordsIndex where the request has been read up to
+     * @param delimiter the delimiter to stop adding new words
+     * @return a pair containing the StringBuilder representation of the parameter,
+     * and the wordIndex.
+     * @throws InputMismatchException if the output contains no words
+     */
+    private Pair<StringBuilder, Integer> parameterBuilder(String[] words,
+                                                          int wordsIndex,
+                                                          String delimiter) throws InputMismatchException {
+        int no_of_words = 0;
+        StringBuilder parameterBuild = null;
+
+        if (wordsIndex < words.length) {
+            parameterBuild = new StringBuilder();
+            while (wordsIndex < words.length) {
+                if (words[wordsIndex].equals(delimiter) && !delimiter.equals("")) {
+                    wordsIndex++;
+                    break;
+                } else {
+                    parameterBuild.append(" ").append(words[wordsIndex]);
+                    wordsIndex++;
+                    no_of_words++;
+                }
             }
+        }
+        if (no_of_words < 1) {
+            throw new InputMismatchException();
+        }
+        return new Pair<>(parameterBuild, wordsIndex);
+    }
+
+    /**
+     * Creates a LocalDateTime object from a StringBuilder
+     *
+     * @param isFromChatting Whether the request is from the chat
+     * @param dateBuilder the StringBuilder representation of the date
+     * @return the LocalDateTime representation of the date
+     */
+    private LocalDateTime dateBuilder(boolean isFromChatting, StringBuilder dateBuilder) {
+        LocalDateTime date = null;
+        if(isFromChatting) {
+            date = LocalDateTime.parse(dateBuilder.substring(1),
+                        DateTimeFormatter.ofPattern("d/M/yy H:mm"));
         } else {
             date = LocalDateTime.parse(dateBuilder.substring(1));
         }
@@ -340,6 +371,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for the deadline tasks and events occurring today
+     *
+     * @return the list of deadline tasks and events occurring today
+     */
     public String searchDate() {
         return searchDate(LocalDate.now());
     }
