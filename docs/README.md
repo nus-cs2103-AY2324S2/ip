@@ -45,6 +45,7 @@ JeromeGPT is a newbie software designed to aid you with the management of your d
 Simply enter the `list` command to list down all the tasks that you have created! 
 They are listed in the order that you initially created them in!
 - **Expected Output**:
+
 ```
 	 1. [D][ ] eventName [Priority: MEDIUM] (by: Jan 01 2020)
 	 2. [T][ ] this is a task that I need to complete! [Priority: MEDIUM]
@@ -96,7 +97,7 @@ There are 3 different priority levels available: HIGH, MEDIUM, LOW.
     [T][ ] this is a task that I need to complete! [Priority: LOW]
 ```
 
-The respective change will be reflected in the `list` command.
+- **The respective change will be reflected in the `list` command.**
 ```
 	 1. [D][ ] eventName [Priority: MEDIUM] (by: Jan 01 2020)
 	 2. [T][ ] this is a task that I need to complete! [Priority: LOW]
