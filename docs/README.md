@@ -1,6 +1,6 @@
 # Zoe User Guide
 
-![Zoe Ui](https://github.com/Arixeyeion/ip/blob/master/docs/Ui.png)
+!(https://github.com/Arixeyeion/ip/blob/master/docs/Ui.png)
 
 Hey you! Yes you! Do you need to manage tasks? Well I can do it for you!
 
