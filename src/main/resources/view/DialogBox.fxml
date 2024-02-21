@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: aliceblue; -fx-border-color: powderblue; -fx-border-width: 2; -fx-border-radius: 10;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+        <Text fx:id="dialog" text="Label &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ">
+         <HBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </HBox.margin>
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font></Text>
+        <ImageView fx:id="displayPicture" fitHeight="60.5" fitWidth="60.5" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow />
          </effect></ImageView>
@@ -17,4 +24,7 @@
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </fx:root>

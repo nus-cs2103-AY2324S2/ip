@@ -7,15 +7,6 @@ package ellie;
 public class Ui {
 
     static final String HORIZONTAL_LINE = "____________________________________________________";
-    static final String LOGO_ELLIE =
-            " _______   ___       ___       ___  _______          \n"
-                    + "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n"
-                    + "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n"
-                    + " \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\_|/__      \n"
-                    + "  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\_|\\ \\     \n"
-                    + "   \\ \\_______\\ \\_______\\ \\_______\\ \\__\\ \\_______\\    \n"
-                    + "    \\|_______|\\|_______|\\|_______|\\|__|\\|_______|    \n";
-
 
     /**
      * Constructs a Ui object.
@@ -29,9 +20,10 @@ public class Ui {
      */
     public static String showHelloMessage() {
         String helloMessage = "";
-        helloMessage += "Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!\n";
-        helloMessage += LOGO_ELLIE + "\n" + HORIZONTAL_LINE + "\n";
-        helloMessage += "What can I do for you? Type 'help' to see available commands! \n";
+        helloMessage += "Hello! I'm Ellie, your CS2103T chat bot! \n";
+        helloMessage += "I help by tracking your tasks!\n";
+        helloMessage += "What can I do for you? \n \n";
+        helloMessage += "Type 'help' to see available commands! \n";
         return helloMessage;
     }
 
