@@ -10,9 +10,8 @@ import tommy.task.TaskList;
  * Represents the command to delete a task from the taskList.
  */
 public class DeleteCommand extends Command {
-
-    private int positionToDelete;
     private static final String indexOutOfRangeWarning = "The index is out of range >.<";
+    private int positionToDelete;
 
     /**
      * Constructor for a delete task command,
@@ -27,7 +26,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
-        assert positionToDelete <= taskList.getSize() && positionToDelete > 0 : "The position to delete should be within the size of the taskLis.";
+        assert positionToDelete <= taskList.getSize() && positionToDelete > 0
+                : "The position to delete should be within the size of the taskList.";
 
         try {
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);

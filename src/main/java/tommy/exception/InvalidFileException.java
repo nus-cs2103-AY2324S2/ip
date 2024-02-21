@@ -19,6 +19,6 @@ public class InvalidFileException extends TommyException {
     public String getErrorMessage() {
         String invalidFilePrefix = "File error: ";
 
-        return  invalidFilePrefix+ getMessage();
+        return invalidFilePrefix + getMessage();
     }
 }

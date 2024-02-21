@@ -3,13 +3,14 @@ package tommy.command;
 import tommy.Storage;
 import tommy.Ui;
 import tommy.exception.InvalidArgumentException;
-import tommy.task.*;
+import tommy.task.Task;
+import tommy.task.TaskList;
+import tommy.task.Todo;
 
 /**
  * Represents the command to add a Todo task to the taskList.
  */
 public class AddTodoCommand extends Command {
-
     private String description;
 
     /**
