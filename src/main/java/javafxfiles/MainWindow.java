@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     private static final int TIME_TO_EXIT_SECONDS = 1;
-    private static final String MSG_WHEN_BOOT = "This is javafxFiles.Steven!\nHow can I advise?\njavafxFiles.Steven's advice: Don't know what "
+    private static final String MSG_WHEN_BOOT = "This is Steven!\nHow can I advise?\nSteven's advice: Don't know what "
             + "commands I understand? Use \"help\"!";
     @FXML
     private ScrollPane scrollPane;
