@@ -36,10 +36,14 @@ public class TimeString {
                                   "d-M-yyyy",
                                   "d/M/yyyy",
                                   "dd/MM/yyyy",
-                                  "d MMM",
-                                  "d MMMM",
-                                  "dd MMM",
-                                  "dd MMMM"};
+                                  "d MMM yyyy",
+                                  "d MMMM yyyy",
+                                  "dd MMM yyyy",
+                                  "dd MMMM yyyy",
+                                  "MMM d yyyy",
+                                  "MMMM d yyyy",
+                                  "MMM dd yyyy",
+                                  "MMMM dd yyyy"};
         for (String format : formats) {
             try {
                 this.date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
@@ -70,5 +74,18 @@ public class TimeString {
         }
         TimeString that = (TimeString) o;
         return Objects.equals(dateString, that.dateString) && Objects.equals(date, that.date);
+    }
+
+    /**
+     * Compares whether the date in the TimeString is equal to the date passed in as parameter.
+     *
+     * @param date The date to be compared with.
+     * @return True, if both `this.date` and `date` or they are not-null and are equal. False otherwise.
+     */
+    public boolean timeEquals(LocalDate date) {
+        if (this.date == null) {
+            return date == null;
+        }
+        return this.date.equals(date);
     }
 }
