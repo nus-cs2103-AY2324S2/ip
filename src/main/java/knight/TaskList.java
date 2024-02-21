@@ -119,6 +119,30 @@ public class TaskList {
             } else {
                 Ui.speak("Behold, the tasks that match thy keyword:\n" + output);
             }
+        } else if (commandType == Command.UPDATE) {
+            String[] params = message.split(" ");
+            int index = Integer.parseInt(params[1]) - 1;
+            Task task;
+            try {
+                task = tasks.get(index);
+            } catch (IndexOutOfBoundsException e) {
+                Ui.speak("I regret to inform thee, Your Excellency, "
+                        + "that thou lackest a task bearing this index in thy list.");
+                return;
+            }
+            String oldTaskMessage = task.toString();
+            String updateMessage = message.substring(8 + params[1].length());
+            try {
+                task.update(updateMessage);
+            } catch (NonstandardCommandException e) {
+                Ui.speak(e.getMessage());
+                return;
+            } catch (DateTimeParseException e) {
+                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                        + "yyyy-mm-dd");
+                return;
+            }
+            Ui.speak("Thy task hath been updated.\n   " + oldTaskMessage + "\n-->" + task);
         }
     }
 
@@ -213,6 +237,27 @@ public class TaskList {
             } else {
                 return "Behold, the tasks that match thy keyword:\n" + output;
             }
+        } else if (commandType == Command.UPDATE) {
+            String[] params = message.split(" ");
+            int index = Integer.parseInt(params[1]) - 1;
+            Task task;
+            try {
+                task = tasks.get(index);
+            } catch (IndexOutOfBoundsException e) {
+                return "I regret to inform thee, Your Excellency, "
+                        + "that thou lackest a task bearing this index in thy list.";
+            }
+            String oldTaskMessage = task.toString();
+            String updateMessage = message.substring(8 + params[1].length());
+            try {
+                task.update(updateMessage);
+            } catch (NonstandardCommandException e) {
+                return e.getMessage();
+            } catch (DateTimeParseException e) {
+                return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                        + "yyyy-mm-dd";
+            }
+            return "Thy task hath been updated.\n   " + oldTaskMessage + "\n-->" + task;
         }
         return "Thou hast reached a place previously deemed unreachable. How didst thou arrive here?";
     }

@@ -32,6 +32,7 @@ public abstract class Task {
      * @return The command representation of the task.
      */
     abstract String getCommand();
+    abstract void update(String updateMessage);
 
     /**
      * Checks if the task's name contains the keyword.

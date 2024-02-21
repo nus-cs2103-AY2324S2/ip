@@ -31,4 +31,17 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + startTime.format(Task.DATE_FORMATTER)
                 + " to: " + endTime.format(Task.DATE_FORMATTER) + ")";
     }
+
+    @Override
+    void update(String updateMessage) {
+        String[] splitMessage = updateMessage.split(" ");
+        if (splitMessage.length != 5) {
+            throw new NonstandardCommandException(
+                    "Thou shouldst specify the new name, start time and end time of the event in the format:\n"
+                            + "update [index] [new name] /from [new start time] /to [new end time])");
+        }
+        this.name = splitMessage[0];
+        this.startTime = LocalDate.parse(splitMessage[2]);
+        this.endTime = LocalDate.parse(splitMessage[4]);
+    }
 }

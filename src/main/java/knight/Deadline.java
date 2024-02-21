@@ -27,4 +27,16 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + time.format(Task.DATE_FORMATTER) + ")";
     }
+
+    @Override
+    void update(String updateMessage) {
+        String[] splitMessage = updateMessage.split(" ");
+        if (splitMessage.length != 3) {
+            throw new NonstandardCommandException(
+                    "Thou shouldst specify the new name and time of the deadline in the format:\n"
+                            + "update [index] [new name] /by [new time]");
+        }
+        this.name = splitMessage[0];
+        this.time = LocalDate.parse(splitMessage[2]);
+    }
 }

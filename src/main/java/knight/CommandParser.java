@@ -32,6 +32,8 @@ public class CommandParser {
             return Command.EVENT;
         } else if (s.matches("find \\S.*")) {
             return Command.FIND;
+        } else if (s.matches("update [1-9]\\d* \\S.*")) {
+            return Command.UPDATE;
         } else {
             handleNonstandardCommand(s);
             return null;
@@ -77,6 +79,13 @@ public class CommandParser {
             throw new NonstandardCommandException(
                     "Thou shouldst forge an event task such as so:\n"
                             + "event [description] /from [start time] /to [end time]");
+        } else if (s.startsWith("update")) {
+            throw new NonstandardCommandException(
+                    "Thou shouldst specify the index of the task thou wishest to update, "
+                            + "followed by the format of creation command without keyword."
+                            + "For example, to update a deadline, use:\n"
+                            + "update [index] [new name] /by [new time]");
+
         } else {
             throw new NonstandardCommandException(
                     "I beg thine pardon, but I am clueless of the meaning of your utterance.");

@@ -13,7 +13,8 @@ public enum Command {
     EVENT,
     DEADLINE,
     SAVE,
-    FIND;
+    FIND,
+    UPDATE;
 
     /**
      * Decide if the command is a task initialisation command.
