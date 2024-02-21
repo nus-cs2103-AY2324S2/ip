@@ -52,9 +52,11 @@ public class MainWindow extends AnchorPane {
         assert eggy != null : "Eggy should not be null";
         assert dialogContainer != null : "Dialog container should not be null";
         if (eggy.getInitExceptionMessage() != null) {
-            dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(eggy.getInitExceptionMessage(), eggyImage));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getEggyDialog(eggy.getInitExceptionMessage(), eggyImage, true)
+            );
         }
-        dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(eggy.getWelcomeMessage(), eggyImage));
+        dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(eggy.getWelcomeMessage(), eggyImage, false));
     }
 
     /**
@@ -71,9 +73,13 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
         PauseTransition pause = new PauseTransition(Duration.seconds(0.4));
-        pause.setOnFinished(event ->
-                dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(response, eggyImage))
-        );
+        pause.setOnFinished(event -> {
+            if (response.startsWith("EGGIES!!!")) {
+                dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(response, eggyImage, true));
+            } else {
+                dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(response, eggyImage, false));
+            }
+        });
         pause.play();
         userInput.clear();
 
