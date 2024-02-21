@@ -77,9 +77,9 @@ public class Jojo {
     public String getStartingMsg() throws JojoException {
         StringBuilder msg = new StringBuilder();
         msg.append(ui.showWelcomeMessage());
-        msg.append(System.getProperty("line.separator"));
+        msg.append(System.lineSeparator());
         msg.append(storage.printList());
-        msg.append(System.getProperty("line.separator"));
+        msg.append(System.lineSeparator());
         msg.append(ui.showStartingQn());
         return msg.toString();
     }
