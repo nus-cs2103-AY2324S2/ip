@@ -32,50 +32,50 @@ public class Parser {
      * @param input The user input command to parse.
      * @throws DukeException If the command execution encounters any errors.
      */
-    public void parse(String input) throws DukeException {
+    public String parse(String input) throws DukeException {
 
         if ("bye".equals(input)) {
-            handleExit();
+            return handleExit();
         } else if ("list".equals(input)) {
-            handleList();
+            return handleList();
         } else if (input.startsWith("delete ")) {
-            handleDelete(input);
+            return handleDelete(input);
         } else if (input.startsWith("mark ")) {
             try {
-                handleMark(input);
+                return handleMark(input);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                return e.getMessage();
             }
         } else if (input.startsWith("unmark ")) {
             try {
-                handleUnmark(input);
+                return handleUnmark(input);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                return e.getMessage();
             }
         } else if (input.startsWith("todo")) {
             if (input.length() <= 5) {
-                System.out.println("That's not a valid todo!");
+                return"That's not a valid todo!";
             } else {
                 String description = input.substring(5).trim();
                 if (description.isEmpty()) {
-                    System.out.println("That's not a valid todo!");
+                    return"That's not a valid todo!";
                 } else {
-                    handleAdd(new ToDo(description));
+                    return handleAdd(new ToDo(description));
                 }
             }
         } else if (input.startsWith("deadline")) {
             if (input.length() <= 9) {
-                System.out.println("That's not a valid Deadline!");
+                return "That's not a valid Deadline!";
             } else {
                 String[] parts = input.substring(9).split(" /by ");
                 if (parts.length == 2) {
                     try {
-                        handleAdd(new Deadline(parts[0], parts[1]));
+                        return handleAdd(new Deadline(parts[0], parts[1]));
                     } catch (DukeException e) {
-                        System.out.println(e.getMessage());
+                        return e.getMessage();
                     }
                 } else {
-                    System.out.println("That's not a valid Deadline!");
+                    return "That's not a valid Deadline!";
                 }
             }
         } else if (input.startsWith("event")) {
@@ -87,82 +87,82 @@ public class Parser {
                 String startTime = input.substring(fromIndex + 7, toIndex).trim();
                 String endTime = input.substring(toIndex + 5).trim();
                 if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-                    System.out.println("The description, start time, and end time of an event cannot be empty.");
+                    return "The description, start time, and end time of an event cannot be empty.";
                 } else {
                     try {
-                        handleAdd(new Event(description, startTime, endTime));
+                        return handleAdd(new Event(description, startTime, endTime));
                     } catch (DukeException e) {
-                        System.out.println(e.getMessage());
+                        return e.getMessage();
                     }
                 }
             } else {
-                System.out.println("That's not a valid Event!");
+                return "That's not a valid Event!";
             }
         } else if (input.startsWith("find ")){
             String keyword = input.substring(5).trim();
-            handleFind(keyword);
+            return handleFind(keyword);
         } else {
-            System.out.println("That's not a valid task!\n");
+            return "That's not a valid task!\n";
         }
     }
 
-    private void handleFind(String keyword) {
+    private String handleFind(String keyword) {
         ArrayList<Task> matchingTasks = tasks.find(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
-    private void handleExit() {
-        ui.showGoodbye();
-        System.exit(0);
+    private String handleExit() {
+        return ui.showGoodbye();
+        //System.exit(0);
     }
 
-    private void handleList() {
-        ui.showTasks(tasks);
+    private String handleList() {
+        return ui.showTasks(tasks);
     }
 
-    private void handleMark(String input) throws DukeException {
+    private String handleMark(String input) throws DukeException {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.getTask(taskIndex);
             task.markAsDone();
-            ui.showTask("Nice! I've marked this task as done: " + task);
             storage.save(tasks);
+            return ui.showTask("Nice! I've marked this task as done: " + task);
         } else {
             throw new DukeException("Task does not exist.");
         }
     }
 
-    private void handleUnmark(String input) throws DukeException {
+    private String handleUnmark(String input) throws DukeException {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.getTask(taskIndex);
             task.markAsNotDone();
-            ui.showTask("OK, I've marked this task as not done yet: " + task);
             storage.save(tasks);
+            return ui.showTask("OK, I've marked this task as not done yet: " + task);
         } else {
             throw new DukeException("Task does not exist.");
         }
     }
 
-    private void handleAdd(Task task) throws DukeException {
+    private String handleAdd(Task task) throws DukeException {
         try {
             tasks.addTask(task);
-            ui.showAddedTask(task.toString(), tasks.size());
             storage.save(tasks);
+            return ui.showAddedTask(task.toString(), tasks.size());
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
-    private void handleDelete(String input) {
+    private String handleDelete(String input) {
         try {
             int index = Integer.parseInt(input.substring(7).trim()) - 1;
             Task task = tasks.deleteTask(index);
-            ui.showRemovedTask(task.toString(), tasks.size());
             storage.save(tasks);
+            return ui.showRemovedTask(task.toString(), tasks.size());
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Task does not exist.");
+            return ui.showError("Task does not exist.");
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

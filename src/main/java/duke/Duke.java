@@ -12,10 +12,9 @@ public class Duke {
 
     /**
      * Constructs a new Duke object.
-     *
-     * @param filePath The file path where tasks are saved and loaded from.
      */
-    public Duke(String filePath) {
+    public Duke() {
+        String filePath = "./data/duke.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -44,13 +43,23 @@ public class Duke {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            assert !input.isEmpty() : "Input cannot be empty.";
+            Parser parser = new Parser(tasks, ui, storage);
+            return parser.parse(input);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * The main entry point for the Duke application.
      *
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke().run();
     }
 }
 

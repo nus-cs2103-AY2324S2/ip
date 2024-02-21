@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * Represents the user interface for the Duke application.
- * This class handles all user interactions.
+ * This class handles all user interactions by returning strings to be printed.
  *
  * @author Qin Boan
  */
@@ -29,79 +29,86 @@ public class Ui {
     }
 
     /**
-     * Shows the welcome message to the user.
-     */
-    public void showWelcome() {
-        System.out.println("Hello! I'm BBJSOBB");
-        System.out.println("What can I do for you?");
-    }
-
-    /**
-     * Shows an error message to the user.
+     * Returns the welcome message.
      *
-     * @param message The error message to be displayed.
+     * @return The welcome message string.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showWelcome() {
+        return "Vanthanemmmmmmmmm! I'm BernardBot\nWhat can I do for you?";
     }
 
     /**
-     * Shows a loading error message.
+     * Returns an error message.
+     *
+     * @param message The error message to be returned.
+     * @return The error message string.
      */
-    public void showLoadingError() {
-        showError("Could not load tasks from file.");
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
-     * Displays a task to the user.
+     * Returns the loading error message.
+     *
+     * @return The loading error message string.
+     */
+    public String showLoadingError() {
+        return showError("Could not load tasks from file.");
+    }
+
+    /**
+     * Returns the string representation of a task.
      *
      * @param task The task to be displayed.
+     * @return The task string.
      */
-    public void showTask(String task) {
-        System.out.println(task);
+    public String showTask(String task) {
+        return task;
     }
 
     /**
-     * Shows a message indicating that a task has been added.
+     * Returns a message indicating that a task has been added.
      *
      * @param task The task that has been added.
      * @param taskCount The total number of tasks after adding.
+     * @return The task added message string.
      */
-    public void showAddedTask(String task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showAddedTask(String task, int taskCount) {
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Shows a message indicating that a task has been removed.
+     * Returns a message indicating that a task has been removed.
      *
      * @param task The task that has been removed.
      * @param taskCount The total number of tasks after removal.
+     * @return The task removed message string.
      */
-    public void showRemovedTask(String task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showRemovedTask(String task, int taskCount) {
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Displays all tasks in the task list.
+     * Returns a string representation of all tasks in the task list.
      *
      * @param tasks The TaskList containing tasks to be displayed.
+     * @return The task list string.
      */
-    public void showTasks(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            sb.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**
-     * Shows the exit message to the user.
+     * Returns the exit message.
+     *
+     * @return The exit message string.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -112,19 +119,20 @@ public class Ui {
     }
 
     /**
-     * Displays a list of tasks to the user. If the list is empty, a message indicating
-     * no matching tasks is shown. Otherwise, all matching tasks are displayed.
+     * Returns a string representation of a list of matching tasks.
      *
-     * @param tasks The ArrayList of tasks to be displayed.
+     * @param tasks The ArrayList of tasks that match the search criteria.
+     * @return The matching tasks list string.
      */
-    public void showMatchingTasks(ArrayList<Task> tasks) {
+    public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks in your list.");
+            return "No matching tasks in your list.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 }
