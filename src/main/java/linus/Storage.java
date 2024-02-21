@@ -7,11 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with loading and saving tasks.
+ */
 public class Storage {
     // Adapted from @HusseinSafwan02 and AI
     private static final String FILE_PATH = "./data/linus.txt";
     private static final String DIRECTORY_PATH = "./data";
 
+    /**
+     * Loads tasks from stored data file.
+     *
+     * @return List of tasks loaded from data file.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -39,6 +47,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to stored data file.
+     *
+     * @param tasks Tasks to be stored.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File directory = new File(DIRECTORY_PATH);
@@ -59,6 +72,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts tasks to the format required to be stored into data.
+     *
+     * @param task Task to be converted.
+     * @return String representation of the converted Task within data file.
+     */
     public String taskToFileString(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();

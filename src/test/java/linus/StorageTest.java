@@ -6,8 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Tests the Storage class.
+ */
 public class StorageTest {
     // testing the taskToFileString method in Storage.java
+
+    /**
+     * Tests whether taskToFileString method correctly converts Todo Task into File String.
+     */
     @Test
     public void testTaskToFileStringTodo() {
         Storage storage = new Storage();
@@ -19,6 +26,9 @@ public class StorageTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    /**
+     * Tests whether taskToFileString method correctly converts Deadline Task into File String.
+     */
     @Test
     public void testTaskToFileStringDeadline() {
         Storage storage = new Storage();
@@ -32,6 +42,9 @@ public class StorageTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    /**
+     * Tests whether taskToFileString method correctly converts Event Task into File String.
+     */
     @Test
     public void testTaskToFileStringEvent() {
         Storage storage = new Storage();
@@ -45,6 +58,9 @@ public class StorageTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    /**
+     * Tests whether taskToFileString method correctly throws exception for invalid task input.
+     */
     // Adapted from AI
     @Test
     public void testTaskToFileStringWrongTask() {
