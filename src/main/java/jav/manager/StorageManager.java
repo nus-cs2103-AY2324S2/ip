@@ -110,7 +110,7 @@ public class StorageManager {
     }
 
     /**
-     * Update whether a specific task is marked or not.
+     * Updates whether a specific task is marked or not.
      *
      * @param index the index of the task.
      * @param shouldMark whether the task should be marked.
@@ -168,7 +168,7 @@ public class StorageManager {
     }
 
     /**
-     * Load the saved data into the storage.
+     * Loads the saved data into the storage.
      */
     public void load(String savedData) {
         if (savedData.equals("")) {

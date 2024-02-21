@@ -58,7 +58,7 @@ public class Jav extends Application {
     }
 
     /**
-     * Forcefully shuts down the program.
+     * Shuts down the program forcefully.
      */
     public void shutdown() {
         Platform.exit();
