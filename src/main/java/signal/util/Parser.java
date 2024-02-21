@@ -81,6 +81,7 @@ public class Parser {
             // create a new task or other commands
             reply = taskCommands(userInput);
         }
+        ui.signalSays(reply);
         assert reply.length() != 0 : "Reply can't be empty!";
         return reply;
     }
@@ -96,7 +97,6 @@ public class Parser {
             reply = ui.markTask(inputParts);
         } else {
             reply = "What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }
@@ -112,7 +112,6 @@ public class Parser {
             reply = ui.unMarkTask(inputParts);
         } else {
             reply = "What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }
@@ -129,7 +128,6 @@ public class Parser {
                 reply = ui.commandList();
             } else {
                 reply = "What else can I help you with?";
-                ui.signalSays(reply);
             }
         } catch (DukeException e) {
             reply = e.getMessage();
@@ -138,13 +136,16 @@ public class Parser {
         return reply;
     }
 
-    public String findTypo(String[] inputParts) {
+    public String findTypo(String[] inputParts) throws DukeException {
         String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "find")) {
-            reply = ui.commandFind(inputParts);
+            try {
+                reply = ui.commandFind(inputParts);
+            } catch (DukeException e) {
+                reply = e.getMessage();
+            }
         } else {
             reply ="What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }
@@ -205,6 +206,8 @@ public class Parser {
             reply = ui.commandBlah();
         } else if (userInput.equals("something else")) {
             reply = ui.commandSomethingelse();
+        } else if (userInput.equals("hi")) {
+            reply = ui.commandHi();
         } else {
             reply = ui.unknownInput();
         }
