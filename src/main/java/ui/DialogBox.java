@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Controller for ui.DialogBox. Provides the layout for the dialog boxes.
@@ -34,6 +35,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        displayPicture.setClip(new Circle(40, 40, 40));
         displayPicture.setImage(img);
     }
 
@@ -55,7 +57,9 @@ public class DialogBox extends HBox {
      * @return User dialog box.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox userDb = new DialogBox(text, img);
+        userDb.setStyle("-box-color: #258553");
+        return userDb;
     }
 
     /**
@@ -66,8 +70,9 @@ public class DialogBox extends HBox {
      * @return Buddy dialog box.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        DialogBox buddyDb = new DialogBox(text, img);
+        buddyDb.flip();
+        buddyDb.setStyle("-box-color: #333abd");
+        return buddyDb;
     }
 }
