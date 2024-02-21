@@ -143,7 +143,7 @@ public class Cal {
                         break;
                     case "deadline":
                         int byIndex = input.indexOf("/by");
-                        String by = "";
+                        String by;
 
                         try {
                             description = input.substring(9, byIndex).strip();
@@ -158,8 +158,8 @@ public class Cal {
                     case "event":
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
-                        String startDate = "";
-                        String endDate = "";
+                        String startDate;
+                        String endDate;
 
                         try {
                             description = input.substring(6, fromIndex).strip();

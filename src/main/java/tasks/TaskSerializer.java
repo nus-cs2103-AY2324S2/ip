@@ -5,6 +5,8 @@ import java.util.List;
 public class TaskSerializer {
     private final static String DELIMITER = ", ";
 
+    // List<Task> --> .txt
+    // localDateTime --> String in 12/02/2023 1800 format
     public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         for (Task t : tasks) {
@@ -19,14 +21,14 @@ public class TaskSerializer {
                 taskFields[0] = "D";
                 taskFields[1] = deadline.getStatus() ? "1" : "0";
                 taskFields[2] = deadline.getDescription();
-                taskFields[4] = deadline.getDueDate();
+                taskFields[4] = deadline.getDueDate().format(Task.INPUT_DATE_FORMAT);
             } else if (t instanceof Event) {
                 Event event = (Event) t;
                 taskFields[0] = "E";
                 taskFields[1] = event.getStatus() ? "1" : "0";
                 taskFields[2] = event.getDescription();
-                taskFields[3] = event.getStartDate();
-                taskFields[4] = event.getEndDate();
+                taskFields[3] = event.getStartDate().format(Task.INPUT_DATE_FORMAT);
+                taskFields[4] = event.getEndDate().format(Task.INPUT_DATE_FORMAT);
             } else {
                 throw new RuntimeException("Unable to cast Task class into any of its subclasses.");
             }
@@ -37,6 +39,7 @@ public class TaskSerializer {
         return sb.toString();
     }
 
+    // .txt --> List<Task>
     public static Task parseText(String text) {
         String[] fields = text.split(DELIMITER);
         String taskType = fields[0];
