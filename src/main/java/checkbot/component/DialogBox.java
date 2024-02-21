@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -62,7 +63,8 @@ public class DialogBox extends HBox {
     public static DialogBox getCheckbotDialog(Label label, ImageView imageView) {
         DialogBox db = new DialogBox(label, imageView);
         db.flip();
-        db.setBackground(Background.fill(Color.color(0.85, 0.85, 0.85)));
+        db.setBackground(new Background(new BackgroundFill(
+                Color.color(0.85, 0.85, 0.85), null, null)));
         return db;
     }
 

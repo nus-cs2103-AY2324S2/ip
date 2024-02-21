@@ -44,13 +44,14 @@ test {
 }
 
 application {
-    mainClass.set("checkbot.Checkbot")
+    mainClass.set("checkbot.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "checkbot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = "checkbot.Launcher"
 }
 
 run {
