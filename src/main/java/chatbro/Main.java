@@ -17,6 +17,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null; // fxmlLoader.load() is successful
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("ChatBro");

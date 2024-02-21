@@ -189,6 +189,12 @@ public enum Command {
                 return Ui.formatErrorMessage("find <keyword>");
             }
         }
+    },
+    PROTEIN {
+        @Override
+        public String execute(String userInput) {
+            return "Woah a lot of protein sir!";
+        }
     };
     public String execute(String userInput) {
         // Empty method - to be overridden by each command

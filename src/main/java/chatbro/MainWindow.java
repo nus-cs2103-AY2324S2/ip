@@ -31,6 +31,8 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert chatBroImage != null;
+        assert userImage != null;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.getChildren().addAll(

@@ -20,18 +20,18 @@ public class Ui {
                 + "(Tasks *will not be saved* if you exit the program without 'bye')\n"
                 + "3. mark <task number> (marks a task as done)\n"
                 + "4. unmark <task number> (marks a task as undone)\n"
-                + "5. delete <task number> (delete a task from your list)\n"
+                + "5. delete <task number> (delete task from your list)\n\n"
                 + "You may add tasks to your list using:\n"
                 + "6. todo <description>\n"
                 + "7. deadline <description> /by <deadline time>\n"
                 + "8. event <description> /from <start time> /to <end time>\n"
                 + "Deadline and start/end times must follow the format:\n"
-                + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)\n"
+                + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)\n\n"
                 + "Find tasks using:\n"
                 + "9. find <keyword> (finds tasks containing keyword in the description)";
     }
     public static String byeMessage() {
-        return "I have saved your tasks. Hasta la vista bro!";
+        return "I have saved your tasks.\nHasta la vista bro!";
     }
 
     public static String formatErrorMessage(String format) {
