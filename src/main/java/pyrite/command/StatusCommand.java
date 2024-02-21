@@ -28,7 +28,7 @@ public class StatusCommand extends Command {
     @Override
     public String execute(TaskList tasks, StateFile file) {
         if (!tasks.isValidId(this.id)) {
-            return "pyrite.task.Task to mark/unmark does not exist.";
+            return "Task to mark/unmark does not exist.";
         }
         tasks.setStatus(this.id, this.targetStatus);
         String saveResult = file.saveState(tasks);
