@@ -53,3 +53,5 @@ Unmark an item as uncompleted `unmark 3`
 
 ### Getting help
 - If you are unsure of all the commands, type: `help`
+> [!NOTE]
+> Note that data you have entered inside the program will be automatically saved upon exit.
