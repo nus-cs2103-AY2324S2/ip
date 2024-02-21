@@ -10,7 +10,7 @@ public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
     /**
-     * Assigns a given ArrayList into it's field.
+     * Assigns a given ArrayList into the taskList field.
      * @param taskList the ArrayList of tasks in which we want to store in our TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
@@ -19,7 +19,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at index i.
-     * @param 'i' the index of the task we want to retrieve
+     * @param i the index of the task we want to retrieve
      * @return the task at index i of the task list
      */
     public Task get(int i) {
@@ -72,7 +72,7 @@ public class TaskList {
      */
     public String find(String word) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks matching " + "\"" + word + "\"...\n");
+        sb.append("Here are the tasks matching " + "\"").append(word).append("\"...\n");
         int count = 1;
         for (Task task : this.taskList) {
             if (task.find(word)) {
