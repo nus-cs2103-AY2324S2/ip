@@ -22,10 +22,13 @@ public class Storage {
      *
      * @param taskList The TaskList object to be initialized with tasks from the save file.
      */
+    private static String directory = System.getProperty("user.dir");
+    private static String saveFile = "saveFile.txt";
+
+    private static File file = new File(directory, saveFile);
+
     public static void start(TaskList taskList) {
         try {
-            File file = new File("./src/main/java/duke/storage/savefile.txt");
-
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Parser parser = new Parser();
@@ -53,7 +56,7 @@ public class Storage {
      */
     public static void save(String input) {
         try {
-            FileWriter fw = new FileWriter("./src/main/java/duke/storage/savefile.txt");
+            FileWriter fw = new FileWriter(file);
             fw.write(input);
             fw.close();
         } catch (IOException e) {
