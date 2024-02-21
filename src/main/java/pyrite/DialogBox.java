@@ -25,7 +25,12 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private Shape profileCircle;
-
+    /**
+     * Constructs a DialogBox.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -50,13 +55,39 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox formatted for the user.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox formatted for Pyrite.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return
+     */
     public static DialogBox getPyriteDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+    /**
+     * Returns a DialogBox formatted for Pyrite when an error occurs.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return
+     */
+    public static DialogBox getPyriteErrorDialog(String text, Image img) {
+        var db = getPyriteDialog(text, img);
+        db.setStyle("-fx-background-color: #FF9999;");
         return db;
     }
 }
