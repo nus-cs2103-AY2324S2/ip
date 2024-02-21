@@ -3,9 +3,9 @@ package tasklist;
 import java.util.List;
 
 import exceptions.TaylorException;
-import helper.CheckValid;
-import helper.IterateList;
-import helper.WordsSplit;
+import taskhelper.CheckValid;
+import taskhelper.IterateList;
+import taskhelper.WordsSplit;
 import tasks.Task;
 import ui.Ui;
 

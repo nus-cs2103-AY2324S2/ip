@@ -1,4 +1,4 @@
-package helper;
+package taskhelper;
 
 /**
  * Class to split words

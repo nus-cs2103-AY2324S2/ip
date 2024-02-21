@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -19,6 +20,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Taylor taylor;
+    private Container container;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Neuvillette.png"));
     private Image tayImage = new Image(this.getClass().getResourceAsStream("/images/Wriothesley.png"));
@@ -39,7 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = taylor.getResponse(input);
+        String response = container.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getTaylorDialog(response, tayImage)

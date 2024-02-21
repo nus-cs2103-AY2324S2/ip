@@ -4,7 +4,7 @@ import java.util.List;
 
 import exceptions.TaylorException;
 import filestorage.Storage;
-import helper.WordsSplit;
+import taskhelper.WordsSplit;
 import tasklist.DeleteTask;
 import tasklist.FindTask;
 import tasklist.InsertTask;
