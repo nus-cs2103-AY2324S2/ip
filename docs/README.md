@@ -13,7 +13,7 @@ reminder chatbot is happy to help you!
 - [X] Mark and unmark your tasks as you complete them!
 
 # Set Up
-1. Download the file from [here](https://github.com/whelan-low/ip/releases/tag/A-Release)
+1. Download the JAR file from [here](https://github.com/whelan-low/ip/releases/tag/A-Release). (The file name is Greg v0.2.jar)
 2. Preferably, set up a folder to put the JAR file inside
 3. Ensure you have `Java 11` installed
 4. Run the JAR file, and let Greg do the rest!
