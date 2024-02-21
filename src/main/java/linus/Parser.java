@@ -2,7 +2,16 @@ package linus;
 
 import java.time.LocalDate;
 
+/**
+ * Parses String.
+ */
 public class Parser {
+    /**
+     * Parses each input String line from stored data and returns relevant tasks.
+     *
+     * @param line String line to be parsed into a Task.
+     * @return Task object taken from stored data.
+     */
     public static Task parseTask(String line) {
         String[] splitParts = line.split(" \\| ");
         String taskType = splitParts[0];

@@ -5,7 +5,15 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Main class for running Linus chatbot.
+ */
 public class Linus {
+    /**
+     * Carries out the main execution of the app.
+     *
+     * @param args Group of arguments taken.
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
