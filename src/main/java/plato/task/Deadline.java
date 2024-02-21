@@ -1,10 +1,10 @@
-package duke.task;
+package plato.task;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import duke.parser.DateHandler;
-import duke.storage.SaveType;
+import plato.parser.DateHandler;
+import plato.storage.SaveType;
 
 /**
  * Deadline task to keep track of a task with one deadline.

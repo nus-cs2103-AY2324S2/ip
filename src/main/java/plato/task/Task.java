@@ -1,6 +1,6 @@
-package duke.task;
+package plato.task;
 
-import duke.storage.SaveType;
+import plato.storage.SaveType;
 
 /**
  * Basic class of a Task.

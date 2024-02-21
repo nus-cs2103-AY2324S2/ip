@@ -1,4 +1,4 @@
-package duke.task;
+package plato.task;
 
 /**
  * Actions that are relateed to Querying the task.

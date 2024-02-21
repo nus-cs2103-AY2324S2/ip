@@ -1,4 +1,4 @@
-package duke.storage;
+package plato.storage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import duke.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskManager;
-import duke.task.Todo;
+import plato.PlatoException;
+import plato.task.Deadline;
+import plato.task.Event;
+import plato.task.Task;
+import plato.task.TaskManager;
+import plato.task.Todo;
 
 /**
  * Storage to handle saving and loading.
@@ -34,15 +34,15 @@ public class Storage {
      * Loads from the given file path or creates it if it does not exist.
      *
      * @return A TaskManager that contains task from the filepath if any.
-     * @throws DukeException Unable to load file.
+     * @throws PlatoException Unable to load file.
      */
-    public TaskManager loadFile() throws DukeException {
+    public TaskManager loadFile() throws PlatoException {
         TaskManager manager = new TaskManager();
         File directory = new File("data");
         if (!directory.exists()) {
             boolean created = directory.mkdir();
             if (!created) {
-                throw new DukeException("directoryError");
+                throw new PlatoException("directoryError");
             }
         }
         assert filePath.contains(".txt") : "Loading invalid storage format";
@@ -53,13 +53,13 @@ public class Storage {
                 loadTasksFromFile(new File(filePath), manager);
             }
         } catch (IOException e) {
-            throw new DukeException("loadError");
+            throw new PlatoException("loadError");
         }
 
         return manager;
     }
 
-    private void loadTasksFromFile(File file, TaskManager manager) throws IOException, DukeException {
+    private void loadTasksFromFile(File file, TaskManager manager) throws IOException, PlatoException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String next;
 
@@ -72,7 +72,7 @@ public class Storage {
 
     }
 
-    private Task determineTask(String task) throws DukeException {
+    private Task determineTask(String task) throws PlatoException {
         String[] data = task.split("\\|");
         String type = data[0];
         String[] information = Arrays.copyOfRange(data, 1, data.length);
@@ -89,14 +89,14 @@ public class Storage {
             item = createLoadedTask(SaveType.TODO, information);
             break;
         default:
-            throw new DukeException("loadError");
+            throw new PlatoException("loadError");
         }
 
         return item;
 
     }
 
-    private static Task createLoadedTask(SaveType type, String... values) throws DukeException {
+    private static Task createLoadedTask(SaveType type, String... values) throws PlatoException {
 
         Task item;
         switch (type) {
@@ -123,7 +123,7 @@ public class Storage {
             item = new Todo(values[1]);
             break;
         default:
-            throw new DukeException("loadError");
+            throw new PlatoException("loadError");
         }
         if (values[0].equals("x")) {
             item.markAsDone();

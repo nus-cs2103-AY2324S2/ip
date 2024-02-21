@@ -1,14 +1,14 @@
-package duke.parser;
+package plato.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.DukeException;
-import duke.task.Actions;
-import duke.task.Manage;
-import duke.task.Query;
-import duke.task.TaskManager;
-import duke.ui.Ui;
+import plato.PlatoException;
+import plato.task.Actions;
+import plato.task.Manage;
+import plato.task.Query;
+import plato.task.TaskManager;
+import plato.ui.Ui;
 
 /**
  * Parser class to make sense of the input commands and decides the actions to give.
@@ -28,10 +28,10 @@ public class Parser {
      * @param command A string command to indicate what to do.
      * @param manager A TaskManager to perform actions on.
      * @return A String to output to the Ui for the actions from the parsed input
-     * @throws DukeException Invalid state in the command.
+     * @throws PlatoException Invalid state in the command.
      */
 
-    public static String[] parse(String command, TaskManager manager) throws DukeException {
+    public static String[] parse(String command, TaskManager manager) throws PlatoException {
         Matcher manageMatch = PATTERN_MANAGE.matcher(command);
         Matcher actionMatch = PATTERN_ACTIONS.matcher(command);
         Matcher queryMatch = PATTERN_QUERY.matcher(command);
@@ -54,13 +54,13 @@ public class Parser {
             Query act = Query.valueOf(queryMatch.group(1).toUpperCase());
             return manager.queryTasks(act, queryMatch.group(2).trim());
         } else {
-            throw new DukeException("invalid");
+            throw new PlatoException("invalid");
         }
     }
 
 
     /**
-     * @return Whether duke should close the chat-bot.
+     * @return Whether plato should close the chat-bot.
      */
     public static boolean isExit() {
         return isDead;

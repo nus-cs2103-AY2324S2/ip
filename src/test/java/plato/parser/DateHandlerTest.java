@@ -1,4 +1,4 @@
-package duke.parser;
+package plato.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,12 +7,12 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import duke.DukeException;
+import plato.PlatoException;
 
 public class DateHandlerTest {
 
     @Test
-    public void check_date_success() throws DukeException {
+    public void check_date_success() throws PlatoException {
         assertEquals(LocalDate.of(2023, 4, 12), DateHandler.checkDate("12-04-23").orElse(LocalDate.of(1999, 1, 1)));
     }
 

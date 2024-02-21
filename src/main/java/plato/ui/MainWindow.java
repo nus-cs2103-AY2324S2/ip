@@ -1,6 +1,5 @@
-package duke.ui;
+package plato.ui;
 
-import duke.Duke;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import plato.Plato;
 
 /**
  * Main controller for the Main window of the chat application.
@@ -28,15 +28,16 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private Duke duke;
+    private Plato duke;
 
     /**
      * Initialises preprocessing required before the gui comes out.
      */
     @FXML
     public void initialize() {
-        duke = new Duke(PATH_SAVE, SAVE_FREQUENCY);
+        duke = new Plato(PATH_SAVE, SAVE_FREQUENCY);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        printDukeMessage(Ui.saySmartStuff());
         printDukeMessage(Ui.sayWelcome());
 
     }
@@ -53,9 +54,8 @@ public class MainWindow extends AnchorPane {
         if (response.matches("((?i)clear)")) {
             dialogContainer.getChildren().clear();
         } else {
-            dialogContainer.getChildren()
-                           .addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(response,
-                                                                                                      dukeImage));
+            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
+                                                 DialogBox.getDukeDialog(response, dukeImage));
         }
 
         userInput.clear();

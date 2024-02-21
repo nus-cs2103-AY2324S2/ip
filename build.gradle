@@ -49,12 +49,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
-    //mainClass = "java.duke.Duke"
+    mainClass.set("plato.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "plato"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

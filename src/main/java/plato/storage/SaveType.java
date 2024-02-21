@@ -1,4 +1,4 @@
-package duke.storage;
+package plato.storage;
 
 /**
  * Types of content in the save format.

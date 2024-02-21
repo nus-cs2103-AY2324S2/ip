@@ -1,4 +1,4 @@
-package duke.task;
+package plato.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import duke.DukeException;
-import duke.parser.DateHandler;
-import duke.storage.SaveType;
+import plato.PlatoException;
+import plato.parser.DateHandler;
+import plato.storage.SaveType;
 
 /**
  * Manager class to manage and keep track of all the actions being performed on the task.
@@ -29,7 +29,7 @@ public class TaskManager {
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
     private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
 
-    private static final String RESPONSE_EMPTY = "Your list is empty!!!!Add something! ";
+    private static final String RESPONSE_EMPTY = "You have no tasks!!!! Add something to do peasant!! ";
     private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
     private final ArrayList<Task> items;
     private boolean hasChanged = false;
@@ -57,9 +57,9 @@ public class TaskManager {
      * @param options     A valid Action to perform.
      * @param instruction A string value of the commands.
      * @return A String array of the values to output to the Ui.
-     * @throws DukeException Invalid processing of the items.
+     * @throws PlatoException Invalid processing of the items.
      */
-    public String[] addTask(Actions options, String instruction) throws DukeException {
+    public String[] addTask(Actions options, String instruction) throws PlatoException {
 
         Task item = getTask(options, instruction);
         hasChanged = true;
@@ -74,7 +74,7 @@ public class TaskManager {
 
     }
 
-    private static Task getTask(Actions options, String instruction) throws DukeException {
+    private static Task getTask(Actions options, String instruction) throws PlatoException {
         assert options != null : "Invalid action operation";
         Task item;
         String description;
@@ -85,14 +85,14 @@ public class TaskManager {
         switch (options) {
         case TODO:
             if (instruction.isBlank()) {
-                throw new DukeException("description");
+                throw new PlatoException("description");
             }
             item = new Todo(instruction);
             break;
         case DEADLINE:
             Matcher deadlineMatch = deadlineFormat.matcher(instruction);
             if (!deadlineMatch.find()) {
-                throw new DukeException("datelineError");
+                throw new PlatoException("datelineError");
             }
             description = deadlineMatch.group("description");
             by = deadlineMatch.group("by").trim();
@@ -102,7 +102,7 @@ public class TaskManager {
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
             if (!eventMatch.find()) {
-                throw new DukeException("eventError");
+                throw new PlatoException("eventError");
             }
             description = eventMatch.group("description");
             by = eventMatch.group("by").trim();
@@ -111,7 +111,7 @@ public class TaskManager {
             item = constructEvent(by, from, description);
             break;
         default:
-            throw new DukeException("invalidError");
+            throw new PlatoException("invalidError");
         }
         return item;
     }
@@ -125,31 +125,31 @@ public class TaskManager {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
-    private static void checkDeadlineValid(String description, String by) throws DukeException {
+    private static void checkDeadlineValid(String description, String by) throws PlatoException {
         if (description.isBlank()) {
-            throw new DukeException("descriptionError");
+            throw new PlatoException("descriptionError");
         } else if (by.isBlank()) {
-            throw new DukeException("byEmptyError");
+            throw new PlatoException("byEmptyError");
         }
     }
 
-    private static Task constructDeadline(String by, String description) throws DukeException {
+    private static Task constructDeadline(String by, String description) throws PlatoException {
         Optional<LocalDate> testDate = DateHandler.checkDate(by);
         return testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, getTimeFromString(by))))
                        .orElseGet(() -> new Deadline(description, by));
     }
 
-    private static void checkEventValid(String from, String by, String description) throws DukeException {
+    private static void checkEventValid(String from, String by, String description) throws PlatoException {
         if (from.isBlank()) {
-            throw new DukeException("fromEmptyError");
+            throw new PlatoException("fromEmptyError");
         } else if (by.isBlank()) {
-            throw new DukeException("byEmptyError");
+            throw new PlatoException("byEmptyError");
         } else if (description.isBlank()) {
-            throw new DukeException("descriptionError");
+            throw new PlatoException("descriptionError");
         }
     }
 
-    private static Task constructEvent(String by, String from, String description) throws DukeException {
+    private static Task constructEvent(String by, String from, String description) throws PlatoException {
 
         Optional<LocalDate> testByDate = DateHandler.checkDate(by);
         Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
@@ -176,9 +176,9 @@ public class TaskManager {
      * @param act         A valid action.
      * @param instruction A command to indicate what to do based on the action.
      * @return A String array of the outputs to be return to the Ui.
-     * @throws DukeException Invalid processing of the items.
+     * @throws PlatoException Invalid processing of the items.
      */
-    public String[] manageTask(Manage act, String instruction) throws DukeException {
+    public String[] manageTask(Manage act, String instruction) throws PlatoException {
         assert act != null : "Invalid manage operation";
         int id = getId(instruction);
         Task item = items.get(id);
@@ -187,21 +187,21 @@ public class TaskManager {
         return buildManageResponse(act, response, item);
     }
 
-    private int getId(String instruction) throws DukeException {
+    private int getId(String instruction) throws PlatoException {
         if (items.isEmpty()) {
-            throw new DukeException("empty");
+            throw new PlatoException("empty");
         }
         if (instruction.isBlank()) {
-            throw new DukeException("number");
+            throw new PlatoException("number");
         }
         int id = Integer.parseInt(instruction) - 1; //Index 0 based
         if (id < 0 || id >= items.size()) {
-            throw new DukeException("outOfRange");
+            throw new PlatoException("outOfRange");
         }
         return id;
     }
 
-    private String decideManageAction(Manage act, Task item, int id) throws DukeException {
+    private String decideManageAction(Manage act, Task item, int id) throws PlatoException {
         String response = "";
         switch (act) {
         case UNMARK:
@@ -217,12 +217,12 @@ public class TaskManager {
             items.remove(id);
             break;
         default:
-            throw new DukeException("manageError");
+            throw new PlatoException("manageError");
         }
         return response;
     }
 
-    private String[] buildManageResponse(Manage act, String response, Task item) throws DukeException {
+    private String[] buildManageResponse(Manage act, String response, Task item) throws PlatoException {
         String[] ret;
         switch (act) {
         case MARK:
@@ -239,7 +239,7 @@ public class TaskManager {
             ret[2] = numOfTask();
             break;
         default:
-            throw new DukeException("invalidError");
+            throw new PlatoException("invalidError");
         }
         return ret;
     }
@@ -251,9 +251,9 @@ public class TaskManager {
      * @param act         a valid query action
      * @param instruction query parameters to find
      * @return A String array of values to return to the Ui to print.
-     * @throws DukeException Invalid query of tasks.
+     * @throws PlatoException Invalid query of tasks.
      */
-    public String[] queryTasks(Query act, String instruction) throws DukeException {
+    public String[] queryTasks(Query act, String instruction) throws PlatoException {
 
         String[] ret;
         switch (act) {
@@ -264,14 +264,14 @@ public class TaskManager {
             ret = viewByDate(instruction);
             break;
         default:
-            throw new DukeException("queryError");
+            throw new PlatoException("queryError");
         }
         return ret;
 
     }
 
     /**
-     * Find the task in the current list.
+     * Finds the task in the current list.
      *
      * @param search The keywords to search.
      * @return A list of items containing the search results.
@@ -296,10 +296,10 @@ public class TaskManager {
      *
      * @param date the date to query.
      * @return A string array of the task to print to the Ui.
-     * @throws DukeException throws invalid query error.
+     * @throws PlatoException throws invalid query error.
      */
-    public String[] viewByDate(String date) throws DukeException {
-        LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
+    public String[] viewByDate(String date) throws PlatoException {
+        LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new PlatoException("dateError"));
         System.out.println(inputDate);
         List<String> foundDates =
                 items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate)).map(Task::toString)
@@ -363,7 +363,7 @@ public class TaskManager {
         }
 
         List<String> print = iterateWithIndex((items.stream().map(Task::toString).collect(Collectors.toList())));
-        print.add(0, RESPONSE_VIEW_DATES);
+        print.add(0, RESPONSE_LISTING);
 
         return print.toArray(String[]::new);
     }
