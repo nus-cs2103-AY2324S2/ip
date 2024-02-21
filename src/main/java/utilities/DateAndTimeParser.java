@@ -3,6 +3,7 @@ package utilities;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import exceptions.WilliamException;
 
@@ -10,11 +11,12 @@ import exceptions.WilliamException;
  * Deals with formatting dates and times
  */
 public class DateAndTimeParser {
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Checks whether the input matches the date and time format
-     * 
+     *
      * @param input The date and time of the task
      * @throws WilliamException If the format of the date and time is wrong
      */
@@ -31,7 +33,7 @@ public class DateAndTimeParser {
 
     /**
      * Checks whether the '/from' date is before the '/to' date
-     * 
+     *
      * @param fromDate The input date '/from'
      * @param toDate   The input date '/to'
      * @throws WilliamException If the '/from' date is not before the '/to' date
@@ -41,7 +43,12 @@ public class DateAndTimeParser {
         LocalDateTime fromDateFormatted = LocalDateTime.parse(fromDate, INPUT_FORMAT);
         LocalDateTime toDateFormatted = LocalDateTime.parse(toDate, INPUT_FORMAT);
 
-        if (!fromDateFormatted.isBefore(toDateFormatted)) {
+        if (fromDateFormatted.isEqual(toDateFormatted)) {
+            throw new WilliamException(
+                    "The '/from' date and time cannot be equal to '/to' date and time. Please try again!");
+        }
+
+        if (fromDateFormatted.isBefore(toDateFormatted) == false) {
             throw new WilliamException(
                     "The '/from' date and time should be before '/to' date and time. Please try again!");
         }
@@ -52,7 +59,7 @@ public class DateAndTimeParser {
 
     /**
      * Returns a String date that is converted to LocalDateTime date
-     * 
+     *
      * @param date Date in String
      * @return Date in LocalDateTime
      */

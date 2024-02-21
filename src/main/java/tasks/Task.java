@@ -24,8 +24,12 @@ public class Task {
         this.priority = priority;
     }
 
-    public void toggleMarkStatus() {
-        this.isDone ^= true;
+    public boolean toggleMarkStatus(boolean isMark) {
+        if (this.isDone == isMark) {
+            return false;
+        }
+        this.isDone = isMark;
+        return true;
     }
 
     public String getStatusIcon() {

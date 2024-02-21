@@ -144,14 +144,15 @@ public class Parser {
     private String handleMarkAndUnmark(String additionalInformation, boolean isMark)
             throws WilliamException {
         AdditionalInfoParser.checkAdditionalDetailEmpty(additionalInformation);
-        String output;
-        if (isMark == true) {
-            output = "Nice! I've marked this task as done.";
-        } else {
-            output = "OK, I've marked this task as not done yet.";
+        boolean isMarkChanged = this.taskList.markAndUnmark(additionalInformation, isMark);
+        if (isMarkChanged == false) {
+            return "It has already been marked " + (isMark ? "done" : "not done") + ".";
         }
-        this.taskList.markAndUnmark(additionalInformation);
-        return output;
+        if (isMark) {
+            return "Nice! I've marked this task as done.";
+        } else {
+            return "OK, I've marked this task as not done yet.";
+        }
     }
 
     /**
@@ -173,6 +174,7 @@ public class Parser {
      */
     private String handleBye() throws IOException {
         this.storage.writeToFile(this.taskList.getTasks());
+        System.exit(0);
         return "Bye. Hope to see you again soon!";
     }
 

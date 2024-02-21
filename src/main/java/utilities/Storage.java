@@ -21,8 +21,11 @@ import tasks.Todo;
  */
 public class Storage {
     private String filePath;
-    private final String MATCHING_PATTERN =
-            "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
+
+    // MATCHING_PATTERN has been improved by AI, the previous pattern
+    // cannot be detected when given a wrong format
+    private final String MATCHING_PATTERN = "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|"
+            + "\\s*([^|]+?)\\s*\\|\\s*([^|]+?)\\s*\\|\\s*([^|]+?)\\s*\\|\\s*([^|\\s]+?)\\s*$";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -45,8 +48,7 @@ public class Storage {
         while (sc.hasNext()) {
             Matcher matcher = pattern.matcher(sc.nextLine());
             if (matcher.matches() == false) {
-                throw new WilliamException(
-                        "The lists is not in the expected format OR The pattern is wrong!");
+                throw new WilliamException("The lists is not in the expected format OR The pattern is wrong!");
             }
             String type = matcher.group(1);
             boolean isDone = Integer.parseInt(matcher.group(2)) == 1;
@@ -80,11 +82,11 @@ public class Storage {
             break;
         case "E":
             tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
-                   DateAndTimeParser.convertStringToDate(secondPart), isDone, priority));
+                 DateAndTimeParser.convertStringToDate(secondPart), isDone, priority));
             break;
         case "D":
             tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
-                   isDone, priority));
+                 isDone, priority));
             break;
         default:
             break;

@@ -32,21 +32,19 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public void markAndUnmark(String input) {
+    public boolean markAndUnmark(String input, boolean isMark) {
+        boolean status = true;
         int idOfItem = Integer.parseInt(input);
         int actualId = idOfItem - 1;
         if (actualId >= 0 && actualId < tasks.size()) {
             Task task = tasks.get(actualId);
-            task.toggleMarkStatus();
+            status = task.toggleMarkStatus(isMark);
         }
+        return status;
     }
 
     @Override
     public List<Task> getTasks() {
         return this.tasks;
-    }
-
-    public int getSize() {
-        return this.tasks.size();
     }
 }
