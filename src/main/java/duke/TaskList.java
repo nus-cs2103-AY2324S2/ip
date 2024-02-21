@@ -1,8 +1,8 @@
 package duke;
 
-import org.apache.commons.text.similarity.LevenshteinDistance;
-
 import java.util.ArrayList;
+
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 /**
  * Represents a list that keeps track of tasks.
@@ -103,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a new TaskList of tasks that match the keyword.
+     * Returns a new TaskList of tasks that are similar to the keyword.
      *
      * @param keyword Keyword to find.
      * @return New TaskList of matching tasks.
