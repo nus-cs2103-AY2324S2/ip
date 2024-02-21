@@ -42,9 +42,9 @@ public class Ui {
      * @return The success notification for adding a to-do task as a single string.
      */
     public String displayToDoTaskAdditionNotification(String taskDetails, int taskCount) {
-        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -56,9 +56,9 @@ public class Ui {
      * @return The success notification for adding a deadline task as a single string.
      */
     public String displayDeadlineTaskAdditionNotification(String taskDetails, int taskCount) {
-        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -70,9 +70,9 @@ public class Ui {
      * @return The success notification for adding an event task as a single string.
      */
     public String displayEventTaskAdditionNotification(String taskDetails, int taskCount) {
-        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -84,7 +84,7 @@ public class Ui {
      * @return The success notification for marking a task as completed as a single string.
      */
     public String displayMarkTaskCompleteNotification(String taskDetails) {
-        return String.format("Nice! I've marked this task as done:%n    %s", taskDetails);
+        return String.format("Marked Task:%n    %s", taskDetails);
 
     }
 
@@ -96,7 +96,7 @@ public class Ui {
      * @return The success notification for marking a task as incomplete as a single string.
      */
     public String displayMarkTaskIncompleteNotification(String taskDetails) {
-        return String.format("OK, I've marked this task as not done yet:%n    %s", taskDetails);
+        return String.format("Unmarked Task:%n    %s", taskDetails);
     }
 
     /**
@@ -107,9 +107,9 @@ public class Ui {
      * @return The success notification for removing a task as a single string.
      */
     public String displayDeleteTaskNotification(String taskDetails, int taskCount) {
-        String confirmationMessage = "Noted. I've removed this task:\n";
+        String confirmationMessage = "Removed Task:\n";
         confirmationMessage += "    " + taskDetails + "\n";
-        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -121,7 +121,7 @@ public class Ui {
      * @return The list of user tasks as a single string.
      */
     public String printUserTasks(ArrayList<String> taskDetailsList) {
-        StringBuilder taskList = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder taskList = new StringBuilder("Pending Tasks:\n");
         for (int i = 0; i < taskDetailsList.size(); i++) {
             taskList.append("    ").append(i + 1).append(". ").append(taskDetailsList.get(i)).append("\n");
         }
