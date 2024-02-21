@@ -15,7 +15,7 @@
                     AnchorPane.rightAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0"
                         fitToWidth="true">
             <content>
-                <VBox fx:id="dialogContainer" minHeight="552.0" prefWidth="388.0" style="-fx-background-color: #575757;"
+                <VBox fx:id="dialogContainer" minHeight="552.0" prefWidth="388.0" style="-fx-background-color: #b49577;"
                       VBox.vgrow="ALWAYS" AnchorPane.rightAnchor="1.0"/>
             </content>
         </ScrollPane>

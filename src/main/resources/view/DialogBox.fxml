@@ -9,7 +9,7 @@
 <fx:root alignment="TOP_RIGHT" maxHeight="Infinity" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
             <Label fx:id="dialog" text="Label" wrapText="true" VBox.vgrow="ALWAYS"
-                   style="-fx-background-radius: 7.5;-fx-background-color: #908d96;-fx-font-family: Verdana; -fx-font-size: 12px">
+                   style="-fx-background-radius: 7.5;-fx-background-color: #e0cab8;-fx-font-family: Verdana; -fx-font-size: 12px">
                 <padding>
                     <Insets bottom="3.0" left="7.0" right="7.0" top="3.0"/>
                 </padding>
