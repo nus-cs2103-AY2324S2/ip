@@ -1,3 +1,2 @@
-[T][X] read a book
-[T][ ] new
-[D][ ] random  (by: Feb 10 2019)
+[T][X] new
+[T][ ] hi

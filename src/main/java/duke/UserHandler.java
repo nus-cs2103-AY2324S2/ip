@@ -22,6 +22,7 @@ public class UserHandler {
 
         assert input != null : "Empty message";
 
+
         if (input.matches("bye")) {
             return "That's it, it's ova";
 
@@ -33,7 +34,7 @@ public class UserHandler {
 
         } else if (input.toLowerCase().matches("\\bmark\\b.*")) {
 
-            String r =  taskList.markTask(input);
+            String r = taskList.markTask(input);
 
             try {
                 storage.write("data/duke.txt", taskList.getList());
@@ -47,7 +48,7 @@ public class UserHandler {
         } else if (input.toLowerCase().matches("\\bunmark\\b.*")) {
 
 
-            String r =  taskList.unmarkTask(input);
+            String r = taskList.unmarkTask(input);
             try {
                 storage.write("data/duke.txt", taskList.getList());
             } catch (IOException e) {
@@ -126,10 +127,7 @@ public class UserHandler {
             }
 
             return r;
-        }
-
-
-         else if (input.toLowerCase().matches("\\bfind\\b.*")) {
+        } else if (input.toLowerCase().matches("\\bfind\\b.*")) {
 
             return taskList.findTask(input);
 
@@ -140,5 +138,6 @@ public class UserHandler {
         }
         return "Unable to process or understand command.";
     }
-    }
+
+}
 
