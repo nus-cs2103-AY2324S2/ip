@@ -1,5 +1,7 @@
 package seedu.chatteroo.tasks;
 
+import seedu.chatteroo.ChatterooException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
@@ -18,15 +20,16 @@ public class Event extends Task {
      * @param to The end time of the task.
      * @throws DateTimeException If the date and time is not in the correct format.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws ChatterooException {
         super(description, "E");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             this.from = LocalDateTime.parse(from.trim(), dateFormat);
             this.to = LocalDateTime.parse(to.trim(), dateFormat);
         } catch (DateTimeException e) {
-            System.out.println("Please enter a valid date and time in the format yyyy-mm-dd HHmm!\n" +
-                    "For example, 2024-01-31 1800");
+            throw new ChatterooException("Please enter a valid date and time in the format:\n"
+                    + "YYYY-MM-DD HHmm!\n"
+                    + "For example, 2024-01-31 1800");
         }
     }
     //Overridden toString method to print type of task, description and time

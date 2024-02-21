@@ -1,5 +1,6 @@
 package seedu.chatteroo.parser;
 
+import seedu.chatteroo.ChatterooException;
 import seedu.chatteroo.commands.*;
 
 import seedu.chatteroo.tasks.Task;
@@ -23,7 +24,7 @@ public class Parser {
      * @return The corresponding command.
      * @throws Exception If the input is invalid.
      */
-    public static Command parseInput(String input) throws Exception {
+    public static Command parseInput(String input) throws ChatterooException {
         assert input != null : "Input should not be null";
 
         String[] inputArr = input.split(" ");
@@ -35,54 +36,86 @@ public class Parser {
         case "DONE":
             return new DoneCommand();
         case "MARK":
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A mark command's task number cannot be empty!");
+            }
             int taskNum = Integer.parseInt(inputArr[1]);
             return new MarkCommand(taskNum);
         case "UNMARK":
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A unmark command's task number cannot be empty!");
+            }
             taskNum = Integer.parseInt(inputArr[1]);
             return new UnmarkCommand(taskNum);
         case "DELETE":
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A delete command's task number cannot be empty!");
+            }
             taskNum = Integer.parseInt(inputArr[1]);
             return new DeleteCommand(taskNum);
         case "FIND":
-            if (input.length() < 5) {
-                throw new Exception("ChatterOOHNOO! A find's description cannot be empty!");
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A find's description cannot be empty!");
             }
             String keyword = input.substring(5);
             return new FindCommand(keyword);
         case "TODO":
-            if (input.length() < 5) {
-                throw new Exception("ChatterOOHNOO! A todOO's description cannot be empty!");
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A todOO's description cannot be empty!");
             }
-            input = input.substring(5);
-            Task newTodo = new ToDo(input);
-            return new AddCommand(newTodo);
+            input = inputArr[1];
+            return Parser.parseTodo(input);
         case "DEADLINE":
-            if (input.length() < 10) {
-                throw new Exception("ChatterOOHNOO! A deadline's description cannot be empty!");
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! A deadline's description cannot be empty!");
             }
-            String[] deadlineInputArr = input.substring(9).split("/by");
-            input = deadlineInputArr[0];
-            String by = deadlineInputArr[1];
-            Task newDeadline = new Deadline(input, by);
-            return new AddCommand(newDeadline);
+            return Parser.parseDeadline(input);
         case "EVENT":
-            if (input.length() < 7) {
-                throw new Exception("ChatterOOHNOO! An event's description cannot be empty!");
+            if (inputArr.length < 2) {
+                throw new ChatterooException("ChatterOOHNOO! An event's description cannot be empty!");
             }
-            input = input.substring(6);
-            String[] eventInputArr = input.split("/from");
-            input = eventInputArr[0];
-            String[] timeArr = eventInputArr[1].split("/to");
-            String from = timeArr[0];
-            String to = timeArr[1];
-            Task newEvent = new Event(input, from, to);
-            return new AddCommand(newEvent);
+            return Parser.parseEvent(input);
         case "BYE":
             return new ExitCommand();
         default:
-            throw new Exception("ChatterOOHNOO! I'm sorry, but Chatteroo don't know what that means :-(");
+            throw new ChatterooException("ChatterOOHNOO! I'm sorry, but Chatteroo don't know what that means :-(");
         }
     }
+
+    public static Command parseTodo(String input) {
+        Task newTodo = new ToDo(input);
+        return new AddCommand(newTodo);
+    }
+
+    public static Command parseDeadline(String input) throws ChatterooException {
+        String[] deadlineInputArr = input.substring(9).split("/by");
+        if (deadlineInputArr.length < 2) {
+            throw new ChatterooException("ChatterOOHNOO! A deadline's date and time cannot be empty!");
+        }
+        String description = deadlineInputArr[0];
+        String by = deadlineInputArr[1];
+        Task newDeadline = new Deadline(description, by);
+        return new AddCommand(newDeadline);
+    }
+
+    public static Command parseEvent(String input) throws ChatterooException {
+        input = input.substring(6);
+        String[] eventInputArr = input.split("/from");
+        if (eventInputArr.length < 2) {
+            throw new ChatterooException("ChatterOOHNOO! An event's date and time cannot be empty!");
+        }
+
+        input = eventInputArr[0];
+        String[] timeArr = eventInputArr[1].split("/to");
+        if (timeArr.length < 2) {
+            throw new ChatterooException("ChatterOOHNOO! An event's date and time cannot be empty!");
+        }
+        String from = timeArr[0];
+        String to = timeArr[1];
+        Task newEvent = new Event(input, from, to);
+        return new AddCommand(newEvent);
+    }
+
 
     /**
      * Parses the task from the file and returns the corresponding task.
@@ -107,7 +140,7 @@ public class Parser {
             String to = inputArr[4];
             newTask = new Event(taskDescription, from, to);
         } else {
-            throw new Exception("ChatterOOHNOO! Chatteroo couldn't retrieve your tasks :-(");
+            throw new ChatterooException("ChatterOOHNOO! Chatteroo couldn't retrieve your tasks :-(");
         }
 
         assert newTask != null : "Task should not be null";
@@ -116,7 +149,4 @@ public class Parser {
         }
         return newTask;
     }
-
-
-
 }

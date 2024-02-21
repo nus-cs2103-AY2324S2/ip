@@ -1,7 +1,7 @@
 package seedu.chatteroo.ui;
 
+import seedu.chatteroo.ChatterooException;
 import seedu.chatteroo.tasks.Task;
-
 
 /**
  * Represents the user interface of the Chatteroo ChatBot program.
@@ -93,6 +93,10 @@ public class Ui {
 
     public String showClearDoneTaskResponse() {
         return "I've removed all the tasks that are done from the list.\n";
+    }
+
+    public String showErrorResponse(ChatterooException e) {
+        return e.getMessage();
     }
 
 }
