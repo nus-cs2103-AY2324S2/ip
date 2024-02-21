@@ -1,6 +1,6 @@
-# Doye task manager
-## welcome to Doye task manager
-### Doye will help your task managing skill
+# Doby task manager
+## welcome to Doby task manager
+### Doby will help your task managing skill
 
 **Do you ...**
 - want to manage tasks?
