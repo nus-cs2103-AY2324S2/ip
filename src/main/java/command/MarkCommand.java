@@ -61,8 +61,6 @@ public class MarkCommand extends Command {
             stringBuilder.append("Nice! I've marked this task as done:\n");
             stringBuilder.append(tasks.getTasks().get(choiceMark - 1).toString() + "\n");
 
-            ui.printAnyStatement("Nice! I've marked this task as done:");
-            ui.printAnyStatement(tasks.getTasks().get(choiceMark - 1).toString());
             return stringBuilder.toString();
 
         } else {

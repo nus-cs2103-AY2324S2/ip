@@ -22,7 +22,6 @@ public class OtherCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
-        ui.printInvalidFeature();
         return "I'm sorry, I do not understand that.\n";
     }
 }

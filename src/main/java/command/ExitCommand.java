@@ -24,8 +24,6 @@ public class ExitCommand extends Command {
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         super.confirmExit();
-
-        ui.printByeStatement();
         System.exit(0);
         return "Bye. Hope to see you again soon!";
     }

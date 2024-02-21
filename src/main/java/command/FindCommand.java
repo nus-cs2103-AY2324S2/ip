@@ -45,19 +45,16 @@ public class FindCommand extends Command {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the matching tasks in your list:\n");
-        ui.printAnyStatement("Here are the matching tasks in your list:");
 
         int index = 1;
 
         for (Task task : tasks.getTasks()) {
             if (task.getDescription().contains(splitInput[1].trim())) {
-                ui.printAnyStatement((index++) + "." + task.toString());
                 stringBuilder.append((index++) + "." + task.toString() + "\n");
             }
         }
 
         if (index == 1) {
-            ui.printAnyStatement("There is no such task.");
             stringBuilder.append("There is no such task.\n");
         }
         return stringBuilder.toString();

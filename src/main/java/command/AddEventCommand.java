@@ -89,9 +89,6 @@ public class AddEventCommand extends Command {
         stringBuilder.append(newEvent.toString() + "\n");
         stringBuilder.append("Now you have " + tasks.getTasks().size() + " tasks in the list.\n");
 
-        ui.printAnyStatement("Got it. I've added this task:");
-        ui.printAnyStatement(newEvent.toString());
-        ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");
         return stringBuilder.toString();
     }
 }

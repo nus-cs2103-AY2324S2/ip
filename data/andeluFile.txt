@@ -2,3 +2,5 @@ T | 0 | read book | DEFAULT
 E | 0 | project meeting | 2024-02-20T00:00 | 2024-02-20T23:59 | HIGH
 D | 1 | CS2103 iP | 2024-02-20T23:59 | HIGH
 E | 0 | meeting | 2024-02-20T00:00 | 2024-02-20T23:59 | HIGH
+D | 0 | submit code | 2024-02-23T23:59 | DEFAULT
+E | 0 | testing phase | 2024-02-21T00:00 | 2024-02-23T23:59 | DEFAULT

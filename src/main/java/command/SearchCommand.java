@@ -52,7 +52,6 @@ public class SearchCommand extends Command {
 
         LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() + "T00:00");
 
-        ui.printAnyStatement("Here are the tasks on " + input + ":");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks on " + input + ":\n");
 
@@ -60,20 +59,17 @@ public class SearchCommand extends Command {
         for (Task i : tasks.getTasks()) {
             if (i instanceof Deadline) {
                 if (((Deadline) i).getBy().toLocalDate().isEqual(dateInput.toLocalDate())) {
-                    ui.printAnyStatement((index++) + "." + i.toString());
                     stringBuilder.append((index++) + "." + i.toString() + "\n");
                 }
 
             } else if (i instanceof Event) {
                 if (((Event) i).getStart().toLocalDate().isEqual(dateInput.toLocalDate())) {
-                    ui.printAnyStatement((index++) + "." + i.toString());
                     stringBuilder.append((index++) + "." + i.toString() + "\n");
                 }
             }
         }
 
         if (index == 1) {
-            ui.printAnyStatement("There are no task on this date");
             stringBuilder.append("There are no task on this date\n");
         }
         return stringBuilder.toString();

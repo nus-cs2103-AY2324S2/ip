@@ -82,10 +82,6 @@ public class AddToDoCommand extends Command {
         stringBuilder.append(newToDo.toString() + "\n");
         stringBuilder.append("Now you have " + tasks.getTasks().size() + " tasks in the list.\n");
 
-        ui.printAnyStatement("Got it. I've added this task:");
-        ui.printAnyStatement(newToDo.toString());
-        ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");
-
         return stringBuilder.toString();
     }
 }

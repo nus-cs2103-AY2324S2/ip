@@ -56,8 +56,6 @@ public class UnmarkCommand extends Command {
         if (choiceUnmark <= tasks.getTasks().size() && choiceUnmark > 0) {
             tasks.unmarkTask(choiceUnmark - 1);
             storage.writeArrayListToFile(tasks.getTasks(), true);
-            ui.printAnyStatement("OK, I've marked this task as not done yet:");
-            ui.printAnyStatement(tasks.getTasks().get(choiceUnmark - 1).toString());
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("OK, I've marked this task as not done yet:\n");

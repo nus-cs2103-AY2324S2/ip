@@ -61,9 +61,6 @@ public class DeleteCommand extends Command {
             stringBuilder.append("Noted, I've removed this task:\n");
             stringBuilder.append(deletedTask.toString() + "\n");
             stringBuilder.append("Now you have " + tasks.getTasks().size() + " tasks in the list.\n");
-            ui.printAnyStatement("Noted, I've removed this task:");
-            ui.printAnyStatement(deletedTask.toString());
-            ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");
             return stringBuilder.toString();
 
         } else {
