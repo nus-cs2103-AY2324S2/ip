@@ -1,19 +1,20 @@
-package duke;
+package riri;
 
 import java.io.IOException;
 
 /**
- * Return appropriate Duke response for each user input.
+ * Return appropriate Riri response for each user input.
  */
 public class CommandHandler {
     private final String exitMessage = "Press the cross on your console";
     private final String badCommandMessage = "I am unable to process and understand your command";
     private final String waitingMessage = "I am here to help with your task list";
     /**
-     * This method handles the logic for chatting with the user
-     * @param taskList the task list that stores all the tasks created by the user
+     * Handles the logic for interacting with the user through chat input.
+     * @param input The user's input to process and respond to.
+     * @param taskList The task list that stores all the tasks created by the user.
+     * @return A string representing the response or action taken based on the user's input.
      */
-
     public String chat(String input, TaskList taskList) throws RiriException, IOException {
 
         if (input.matches("bye")) {

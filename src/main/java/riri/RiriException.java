@@ -1,4 +1,4 @@
-package duke;
+package riri;
 /**
  * Custom exception for errors in the chatbot.
  */

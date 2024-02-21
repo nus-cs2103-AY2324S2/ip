@@ -1,4 +1,4 @@
-package duke;
+package riri;
 
 import java.time.LocalDate;
 /**

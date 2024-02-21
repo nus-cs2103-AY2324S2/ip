@@ -1,4 +1,4 @@
-package duke;
+package riri;
 /**
  * This class models the Todo objects in the task list. This class extends from the parent Task class
  */

@@ -48,14 +48,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("riri.Riri")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "riri"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'riri.jar'
 }
 
 run{

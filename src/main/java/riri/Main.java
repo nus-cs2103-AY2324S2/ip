@@ -1,4 +1,4 @@
-package duke;
+package riri;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Start the GUI for Duke using FXML.
+ * Start the GUI for Riri using FXML.
  */
 public class Main extends Application {
-    private Duke duke = new Duke();
+    private final Riri riri = new Riri();
 
     @Override
     public void start(Stage stage) {
@@ -22,8 +22,10 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(getClass().getResource("/style/dialogBoxStyle.css").toExternalForm());
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setRiri(riri);
             stage.show();
+            fxmlLoader.<MainWindow>getController().welcome();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

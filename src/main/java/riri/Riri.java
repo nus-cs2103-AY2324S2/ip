@@ -1,19 +1,19 @@
-package duke;
+package riri;
 
 import java.io.IOException;
 
 /**
  * This class holds the main logic for the chatbot.
  */
-public class Duke {
+public class Riri {
     private CommandHandler commandHandler;
     private TaskList tasks;
     private Storage storage;
 
     /**
-     * Constructs the Duke object.
+     * Constructs the Riri object.
      */
-    public Duke() {
+    public Riri() {
         commandHandler = new CommandHandler();
         storage = new Storage();
         try {
@@ -24,7 +24,18 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Introduce the chatbot to the user.
+     */
+    public String welcome() {
+        return "Hi my name is Riri! I am here to help you with your task list :)";
+    }
+    /**
+     * Returns the exit response to the user.
+     */
+    public String endingResponse() {
+        return "Bye! I will store your messages and turn off.";
+    }
     /**
      * Returns responses to user input.
      * @param input user input
