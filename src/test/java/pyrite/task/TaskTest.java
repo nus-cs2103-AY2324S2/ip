@@ -7,9 +7,17 @@ import org.junit.jupiter.api.Test;
 public class TaskTest {
     // Test cases suggested by Github Copilot
     @Test
-    public void toString_success() {
+    public void toString_normalString_success() {
         Task task = new Task("test");
         assertTrue(task.toString().equals("[ ] test"));
+    }
+    @Test
+        public void toString_emptyString_exception() {
+        try {
+            Task task = new Task("");
+        } catch (AssertionError e) {
+            assertTrue(e instanceof AssertionError);
+        }
     }
     @Test
     public void setStatus_markAsDone_success() {

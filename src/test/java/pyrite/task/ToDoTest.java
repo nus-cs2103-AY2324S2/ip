@@ -12,11 +12,6 @@ public class ToDoTest {
         assertEquals("[T][ ] test", todo.toString());
     }
     @Test
-    public void toString_emptyString_success() {
-        ToDo todo = new ToDo("");
-        assertEquals("[T][ ] ", todo.toString());
-    }
-    @Test
     public void toString_stringWithSpaces_success() {
         ToDo todo = new ToDo("test test");
         assertEquals("[T][ ] test test", todo.toString());
