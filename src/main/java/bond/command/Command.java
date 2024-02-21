@@ -27,6 +27,7 @@ public abstract class Command {
             add("bye");
             add("delete");
             add("find");
+            add("update");
         }
     };
 

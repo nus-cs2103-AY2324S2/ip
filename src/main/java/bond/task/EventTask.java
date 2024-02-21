@@ -31,26 +31,47 @@ public class EventTask extends Task {
      */
     public EventTask(String name, String start, String end) throws BondException {
         super(name);
+        setStartDatetime(start);
+        setEndDatetime(end);
+    }
 
+    public void setStartDatetime(String start) throws BondException {
         String[] startDateTime = start.split(" ");
-        String[] endDateTime = end.split(" ");
 
-        if (startDateTime.length != 2 || endDateTime.length != 2) {
+        if (startDateTime.length != 2) {
             BondException.raiseException("event", "INVALID_DATETIME_FORMAT");
         }
 
         try {
             this.startDate = LocalDate.parse(startDateTime[0]);
+        } catch (java.time.format.DateTimeParseException e) {
+            BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
+        }
+
+        if (!Parser.isValidTiming(startDateTime[1])) {
+            BondException.raiseException("event", "INVALID_TIME_FORMAT");
+        }
+
+        this.startTiming = Parser.changeTimeFormat(startDateTime[1]);
+    }
+
+    public void setEndDatetime(String end) throws BondException {
+        String[] endDateTime = end.split(" ");
+
+        if (endDateTime.length != 2) {
+            BondException.raiseException("event", "INVALID_DATETIME_FORMAT");
+        }
+
+        try {
             this.endDate = LocalDate.parse(endDateTime[0]);
         } catch (java.time.format.DateTimeParseException e) {
             BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
         }
 
-        if (!Parser.isValidTiming(startDateTime[1]) || !Parser.isValidTiming(endDateTime[1])) {
+        if (!Parser.isValidTiming(endDateTime[1])) {
             BondException.raiseException("event", "INVALID_TIME_FORMAT");
         }
 
-        this.startTiming = Parser.changeTimeFormat(startDateTime[1]);
         this.endTiming = Parser.changeTimeFormat(endDateTime[1]);
     }
 

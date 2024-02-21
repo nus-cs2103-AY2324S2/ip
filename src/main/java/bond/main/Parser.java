@@ -2,6 +2,7 @@ package bond.main;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import bond.command.AddDeadlineCommand;
 import bond.command.AddEventCommand;
@@ -14,6 +15,7 @@ import bond.command.InvalidCommand;
 import bond.command.ListCommand;
 import bond.command.MarkCommand;
 import bond.command.UnmarkCommand;
+import bond.command.UpdateCommand;
 
 
 /**
@@ -90,7 +92,18 @@ public abstract class Parser {
      * @return True if the input is a number, false otherwise.
      */
     public static boolean isNumber(String input) {
-        char[] digits = input.toCharArray();
+        char[] digits;
+
+        if (input.startsWith("-")) {
+            digits = input.substring(1).toCharArray();
+        } else {
+            digits = input.toCharArray();
+        }
+
+        if (digits.length == 0) {
+            return false;
+        }
+
         boolean isNumber = true;
 
         for (char c : digits) {
@@ -172,6 +185,7 @@ public abstract class Parser {
             boolean validMinute = Parser.inBounds(minutes, minMinute, maxMinute);
 
             return validHour && validMinute;
+
         } else if (Parser.isAmPmFormat(timing)) {
 
             String time = timing.toLowerCase().replace("am", "");
@@ -244,7 +258,8 @@ public abstract class Parser {
      */
     private static AddTodoCommand parseTodo(String[] components) throws BondException {
 
-        String taskName = "";
+        String taskName;
+        StringBuilder builder = new StringBuilder();
 
         // No valid task name specified for a todo task
         if (components.length == 1) {
@@ -252,12 +267,17 @@ public abstract class Parser {
         }
 
         for (int i = 1; i < components.length; i++) {
-            taskName += components[i] + " ";
+            builder.append(components[i]);
+            builder.append(" ");
         }
+
+        taskName = builder.toString().trim();
 
         assert !taskName.isEmpty() : "Task name should not be empty";
 
-        taskName = taskName.trim();
+        if (Parser.isNumber(taskName)) {
+            BondException.raiseException("todo", "INVALID_DESCRIPTION");
+        }
 
         return new AddTodoCommand(taskName);
     }
@@ -279,17 +299,27 @@ public abstract class Parser {
             BondException.raiseException("deadline", "EMPTY_DESCRIPTION");
         }
 
-        String taskName;
-        String deadline;
+        String taskName = "";
+        String deadline = "";
 
-        taskName = Arrays.stream(components).skip(1).takeWhile(s -> !s.equals("/by"))
-                .reduce((s1, s2) -> s1 + " " + s2).get();
+        try {
 
-        deadline = Arrays.stream(components).dropWhile(s -> !s.equals("/by"))
-                .skip(1).reduce((s1, s2) -> s1 + " " + s2).get();
+            taskName = Arrays.stream(components).skip(1).takeWhile(s -> !s.equals("/by"))
+                    .reduce((s1, s2) -> s1 + " " + s2).get();
+
+            deadline = Arrays.stream(components).dropWhile(s -> !s.equals("/by"))
+                    .skip(1).reduce((s1, s2) -> s1 + " " + s2).get();
+
+        } catch (NoSuchElementException e) {
+            BondException.raiseException("deadline", "INSUFFICIENT_DETAILS");
+        }
 
         assert !taskName.isEmpty() : "Task name should not be empty";
         assert !deadline.isEmpty() : "Deadline should not be empty";
+
+        if (Parser.isNumber(taskName)) {
+            BondException.raiseException("deadline", "INVALID_DESCRIPTION");
+        }
 
         return new AddDeadlineCommand(taskName, deadline);
     }
@@ -311,22 +341,32 @@ public abstract class Parser {
             BondException.raiseException("event", "EMPTY_DESCRIPTION");
         }
 
-        String taskName;
-        String start;
-        String end;
+        String taskName = "";
+        String start = "";
+        String end = "";
 
-        taskName = Arrays.stream(components).skip(1).takeWhile(s -> !s.equals("/from"))
-                .reduce((s1, s2) -> s1 + " " + s2).get();
+        try {
 
-        start = Arrays.stream(components).dropWhile(s -> !s.equals("/from")).skip(1)
-                .takeWhile(s -> !s.equals("/to")).reduce((s1, s2) -> s1 + " " + s2).get();
+            taskName = Arrays.stream(components).skip(1).takeWhile(s -> !s.equals("/from"))
+                    .reduce((s1, s2) -> s1 + " " + s2).get();
 
-        end = Arrays.stream(components).dropWhile(s -> !s.equals("/to"))
-                .skip(1).reduce((s1, s2) -> s1 + " " + s2).get();
+            start = Arrays.stream(components).dropWhile(s -> !s.equals("/from")).skip(1)
+                    .takeWhile(s -> !s.equals("/to")).reduce((s1, s2) -> s1 + " " + s2).get();
+
+            end = Arrays.stream(components).dropWhile(s -> !s.equals("/to"))
+                    .skip(1).reduce((s1, s2) -> s1 + " " + s2).get();
+
+        } catch (NoSuchElementException e) {
+            BondException.raiseException("event", "INSUFFICIENT_DETAILS");
+        }
 
         assert !taskName.isEmpty() : "Task name should not be empty";
         assert !start.isEmpty() : "Start date should not be empty";
         assert !end.isEmpty() : "End date should not be empty";
+
+        if (Parser.isNumber(taskName)) {
+            BondException.raiseException("event", "INVALID_DESCRIPTION");
+        }
 
         return new AddEventCommand(taskName, start, end);
     }
@@ -463,6 +503,38 @@ public abstract class Parser {
     }
 
 
+    /**
+     * Parses the user input for an update command and creates the appropriate
+     * Command object.
+     *
+     * @param components The components of the user input to be parsed.
+     * @return The Command object that is created based on the user input.
+     * @throws BondException The exception that is raised if the user input is
+     *                       invalid.
+     */
+    private static UpdateCommand parseUpdate(String[] components) throws BondException {
+        if (components.length == 1) {
+            BondException.raiseException("update", "MISSING_INDEX");
+        } else if (!Parser.isNumber(components[1])) {
+            BondException.raiseException("update", "INVALID_INDEX");
+        } else if (components.length == 2) {
+            BondException.raiseException("update", "EMPTY_DESCRIPTION");
+        }
+
+        int index = Integer.parseInt(components[1]) - 1;
+        String updateInfo = "";
+
+        try {
+            updateInfo = Arrays.stream(components).skip(2).reduce((s1, s2) -> s1 + " " + s2).get();
+        } catch (NoSuchElementException e) {
+            BondException.raiseException("update", "INSUFFICIENT_DETAILS");
+        }
+
+        assert !updateInfo.isEmpty() : "Update info should not be empty";
+
+        return new UpdateCommand(index, updateInfo);
+    }
+
 
     /**
      * Parses the user input and creates the appropriate Command object.
@@ -504,6 +576,8 @@ public abstract class Parser {
             return parseDelete(components);
         case "find":
             return parseFind(components);
+        case "update":
+            return parseUpdate(components);
         default:
             assert false : "Program execution should not reach here.";
             return new InvalidCommand();

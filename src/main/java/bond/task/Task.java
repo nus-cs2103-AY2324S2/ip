@@ -29,6 +29,10 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return String.format(" [%s] %s", this.isCompleted ? "X" : " ", this.name.trim());

@@ -3,6 +3,9 @@ package bond.task;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import bond.main.BondException;
+import bond.main.Parser;
+
 /**
  * Stores and provides operations for the list of tasks in the Bond task
  * management program.
@@ -56,7 +59,11 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in the task names.
      */
-    public TaskList findTasks(String keyword) {
+    public TaskList findTasks(String keyword) throws BondException {
+        if (Parser.isNumber(keyword)) {
+            BondException.raiseException("find", "INVALID_KEYWORD");
+        }
+
         ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task task : this.tasks) {
