@@ -52,7 +52,6 @@ public class Main extends Application {
      * Allows the application to terminate after a 'bye' command is processed.
      */
     protected static void exitApplication() {
-
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         // Delay for 2 second
