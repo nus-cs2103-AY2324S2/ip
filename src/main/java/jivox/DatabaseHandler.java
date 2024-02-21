@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import jivox.exception.DataHandlerException;
+import jivox.exception.JivoxDatabaseException;
 import jivox.task.Deadline;
 import jivox.task.Event;
 import jivox.task.Tag;
@@ -38,9 +38,9 @@ public class DatabaseHandler {
     /**
      * Creates the database file if it doesn't exist.
      *
-     * @throws DataHandlerException If there is an error creating the file.
+     * @throws JivoxDatabaseException If there is an error creating the file.
      */
-    public void create() throws DataHandlerException {
+    public void create() throws JivoxDatabaseException {
         Path path = Paths.get(db.getPath());
         try {
             if (Files.notExists(path.getParent())) {
@@ -50,7 +50,7 @@ public class DatabaseHandler {
                 Files.createFile(path);
             }
         } catch (IOException e) {
-            throw new DataHandlerException(e.getMessage());
+            throw new JivoxDatabaseException();
         }
     }
 
@@ -58,9 +58,9 @@ public class DatabaseHandler {
      * Saves the given task list to the database.
      *
      * @param tasks The task list to save.
-     * @throws DataHandlerException If there is an error writing to the file.
+     * @throws JivoxDatabaseException If there is an error writing to the file.
      */
-    public void save(TaskList tasks) throws DataHandlerException {
+    public void save(TaskList tasks) throws JivoxDatabaseException {
         assert tasks != null;
         try {
             if (!db.exists()) {
@@ -74,7 +74,7 @@ public class DatabaseHandler {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DataHandlerException(e.getMessage());
+            throw new JivoxDatabaseException();
         }
     }
 

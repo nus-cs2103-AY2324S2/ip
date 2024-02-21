@@ -156,9 +156,9 @@ public class Ui {
     /**
      * Prints an exception message.
      *
-     * @param e The exception to print.
+     * @param message The message to print.
      */
-    public String showException(Exception e) {
-        return e.getMessage();
+    public String showException(String message) {
+        return message;
     }
 }

@@ -1,10 +1,6 @@
 package jivox.exception;
 
-/**
- * Abstract representation of all duke exceptions.
- */
-public abstract class JivoxException extends Exception {
-
+public class JivoxInvalidDateRangeException extends JivoxException {
     /**
      * Obtain the string representation of the exception.
      *
@@ -12,6 +8,6 @@ public abstract class JivoxException extends Exception {
      */
     @Override
     public String toString() {
-        return String.format("(╥﹏╥) Oops!");
+        return String.format("%s End time must be after the start time!", super.toString());
     }
 }
