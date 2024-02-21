@@ -153,7 +153,6 @@ public class DataStorage {
         String[] splitTask = line.split(" \\| ");
         int length = splitTask.length;
 
-        // TODO: Handle a dirty input.
         if (line.startsWith("T")) {
             return this.getTodoTaskFromDatabase(length, splitTask);
         } else if (line.startsWith("D")) {
@@ -231,7 +230,6 @@ public class DataStorage {
      *
      */
     public void rebuildStorage() {
-        // TODO: might not be a very good idea to rebuild the entire database.
         for (int i = 0; i < this.taskCount; i++) {
             // i != 0 means that refresh the whole file.
             addTaskToTextFile(tasksList.get(i).toStorageString(), i != 0);

@@ -16,7 +16,7 @@ public class Command {
 
     /**
      * Executes the command and returns the result.
-     * TODO: Code referenced from: https://github.com/se-edu/addressbook-level2
+     * Code referenced from: https://github.com/se-edu/addressbook-level2
      */
     public CommandResult execute() {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
