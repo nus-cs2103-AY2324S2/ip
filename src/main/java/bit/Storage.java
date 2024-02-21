@@ -35,12 +35,12 @@ public class Storage {
                 myFile.getParentFile().mkdirs();
                 myFile.createNewFile();
             }
+            assert myFile.exists() : "The file couldn't be created!";
             return true;
         } catch (IOException e) {
             System.out.println(e);
             return false;
         }
-
     }
 
     /**
@@ -48,13 +48,13 @@ public class Storage {
      * @param list list of tasks to be loaded
      */
     public void loadFile(Tasklist list) {
-
+        assert file.exists() : "The file being loaded from doesn't exist!";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String next;
             while ((next = br.readLine()) != null) {
                 String[] parts = next.split("/");
                 if (parts.length == 1) {
-                    return;
+                    assert false : "Save file is corrupted";
                 }
                 if (parts[0].equals("T")) {
                     loadTask(list, parts);
@@ -65,6 +65,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
+            assert false : e.toString();
             System.out.println("Errorrrr...");
         }
     }
@@ -96,7 +97,7 @@ public class Storage {
      * @param tasklist the tasks to be stored.
      */
     public void saveAll(Tasklist tasklist) {
-
+        assert file.exists() : "File being saved to does not exist!";
         for (int i = 0; i < tasklist.getSize(); i++) {
             Task t = tasklist.getTask(i);
             if (t instanceof Todo) {
