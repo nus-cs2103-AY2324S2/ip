@@ -51,6 +51,37 @@ public class Event extends Task {
             throw new BadAppleException("Usage: event TaskName /from time1 /to time2");
         }
     }
+    /**
+     * Creates a Command when a Task parsed from WHITESPACE is of
+     * the Event type.
+     * @param args Processed List of arguments
+     * @return A generic Command which will be processed to add an Event when executed.
+     */
+    public static Command parseEventFromReader(ArrayList<String> args) {
+        if (args.size() < 8 || !(args.contains("(from:") && args.contains("to:"))) {
+            throw new BadAppleException("Event in wrong format" +
+                    "should be <no.> 'event' <status> <description> " +
+                    "'(from: ' <fromValue> 'to: ' <toValue>");
+        }
+        StringBuilder taskName = new StringBuilder();
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+
+        int fromSeparator = args.indexOf("(from:");
+        for (int i = 3; i < fromSeparator; i++) {
+            taskName.append(args.get(i)).append(" ");
+        }
+        int toSeparator = args.indexOf("to:");
+        for (int i = fromSeparator + 1; i < toSeparator; i++) {
+            from.append(args.get(i)).append(" ");
+        }
+        for (int i = toSeparator + 1; i < args.size() - 1; i++) {
+            to.append(args.get(i)).append(" ");
+        }
+        String query = "event " + taskName + "/from " + from + "/to " + to;
+
+        return new Command("event", query);
+    }
 
     // in case anyone tries to throw an un-formatted string, the program still runs
     public static Event extractDetails(String s) {

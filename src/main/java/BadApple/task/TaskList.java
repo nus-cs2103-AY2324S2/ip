@@ -16,7 +16,6 @@ public class TaskList {
         while (bufferedReader.ready()) {
             stringBuilder.append(bufferedReader.readLine()).append("\n");
         }
-        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 
@@ -26,7 +25,11 @@ public class TaskList {
      * @return list of tasks in String form
      */
     public static String listTasks() {
-        if (tasks == null) return "TASK LIST IS NULL";
+
+        if (tasks.isEmpty()) {
+            return "Hey there's nothing to do, join me for a picnic?";
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         int index = 1;
         for (Task task : tasks) {

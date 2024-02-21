@@ -3,8 +3,6 @@ package BadApple.task;
 import BadApple.main.BadAppleException;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -39,88 +37,33 @@ public class Storage {
         // check the file to see what tasks are already available.
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
-        StringBuilder stringBuilder = new StringBuilder();
         int taskIndex = 1;
         while (bufferedReader.ready()) {
             String line = bufferedReader.readLine();
+            Command c;
             // deconstruct the line:
             ArrayList<String> args = new ArrayList<>(Arrays.asList(line.split(" ")));
 
-            String command = "";
-            String query = "";
-            StringBuilder taskName;
+            String command;
             boolean status = args.get(2).equals("[X]");
-
-            if (!(args.size() < 2)) {
-                command = args.get(1);
-            } else {
-                return;
-            }
+            command = args.get(1);
 
             switch (command.toLowerCase()) {
                 case "todo":
-                    // the fourth token should be the task name for this command.
-                    if (args.size() < 4) {
-                        throw new BadAppleException("Todo Task in wrong format, " +
-                                "should be <number> todo <status> <taskName>");
-                    }
-                    taskName = new StringBuilder();
-                    for (int i = 3; i < args.size(); i++) {
-                        taskName.append(args.get(i));
-                    }
-
-                    query = "todo " + taskName;
+                    c = Todo.parseTodoFromFile(args);
                     break;
-
                 case "deadline":
-                    if (args.size() < 6 || !args.contains("(by:")) {
-                        throw new BadAppleException("Deadline in wrong format" +
-                                "should be <number> 'deadline' <status> <description> '(by: ' <ByValue>");
-                    }
-                    taskName = new StringBuilder();
-                    StringBuilder by = new StringBuilder();
-                    int separator = args.indexOf("(by:");
-                    for (int i = 3; i < separator; i++) {
-                        taskName.append(args.get(i)).append(" ");
-                    }
-                    for (int i = separator + 1; i < args.size() - 1; i++) {
-                        by.append(args.get(i)).append(" ");
-                    }
-                    by.deleteCharAt(by.length() - 1);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu");
-                    LocalDate byValue = LocalDate.parse(by, formatter);
-                    query = "deadline " + taskName + "/by " + byValue;
+                    c = Deadline.parseDeadlineFromReader(args);
                     break;
                 case "event":
-                    if (args.size() < 8 || !(args.contains("(from:") && args.contains("to:"))) {
-                        throw new BadAppleException("Event in wrong format" +
-                                "should be <no.> 'event' <status> <description> " +
-                                "'(from: ' <fromValue> 'to: ' <toValue>");
-                    }
-                    taskName = new StringBuilder();
-                    StringBuilder from = new StringBuilder();
-                    StringBuilder to = new StringBuilder();
-                    int fromSeparator = args.indexOf("(from:");
-                    for (int i = 3; i < fromSeparator; i++) {
-                        taskName.append(args.get(i)).append(" ");
-                    }
-                    int toSeparator = args.indexOf("to:");
-                    for (int i = fromSeparator + 1; i < toSeparator; i++) {
-                        from.append(args.get(i)).append(" ");
-                    }
-                    for (int i = toSeparator + 1; i < args.size() - 1; i++) {
-                        to.append(args.get(i)).append(" ");
-                    }
-                    query = "event " + taskName + "/from " + from + "/to " + to;
+                    c = Event.parseEventFromReader(args);
                     break;
-
                 default:
                     System.out.println("unrecognizable command detected");
                     throw new BadAppleException("The sun shined brighter when your files weren't corrupted");
             }
 
-            // upon reconstructing the command, execute it.
-            Parser.ProcessQuery(query);
+            c.execute();
             if (status) {
                 // if this task is already complete, mark it.
                 Parser.ProcessQuery("mark " + taskIndex);
