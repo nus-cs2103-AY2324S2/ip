@@ -54,7 +54,7 @@ public class Storage {
             while ((next = br.readLine()) != null) {
                 String[] parts = next.split("/");
                 if (parts.length == 1) {
-                    return;
+                    assert false : "Save file is corrupted";
                 }
                 System.out.println(parts[0]);
                 System.out.println(parts[1]);
@@ -79,6 +79,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
+            assert false : e.toString();
             System.out.println("Errorrrr...");
         }
     }
