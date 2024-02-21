@@ -5,7 +5,7 @@
 Plaudern is a task management application that allows users to record their upcoming tasks and update tasks' states. 
 It is designed to be simple and easy to use, and is in the form of an interactive chatbot which makes the communication more interesting.
 
-## Quick Start
+## Quick Start :rocket:
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest `plaudern.jar` from [here](https://github.com/Ella-e/ip/releases).
@@ -13,7 +13,7 @@ It is designed to be simple and easy to use, and is in the form of an interactiv
 4. Run the file using the command `java -jar plaudern.jar` in the terminal.
 
 
-## Features
+## Features :sparkles:
 
 ### Adding a todo task: `todo <task description>`
 Todo tasks are tasks without date to finish or start.<br>
@@ -141,7 +141,7 @@ The data will be loaded from the txt file in the hard disk when the application 
 >[!CAUTION]
 > DO NOT CHANGE THE DATA FILE MANUALLY: If the format of data in the data file is invalid, Plaudern will not be able to load the data and will require the user to delete the data file manually.
 
-## Additional notes about commands
+## Additional notes about commands :pencil:
 - Usage of the special character `|` is strictly prohibited in the command.
 - Commands are **case-insensitive**.
 - Words in `<angle brackets>` are the parameters to be supplied by the user.
