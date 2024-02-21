@@ -90,3 +90,8 @@ Format: `edit TASK_NUMBER [/task TASK] [/by DATETIME] [/from DATETIME] [/to DATE
 Examples:
 * `edit 1 /task Club Practice`
 * `edit 3 /by 25/04/2024 1630`
+
+### Exit the program: `bye`
+Exits Buddy and saves task list into an editable text file
+
+Format: `bye`
