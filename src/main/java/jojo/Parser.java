@@ -3,6 +3,7 @@ package jojo;
 import exceptions.JojoException;
 import exceptions.JojoUnknownTaskException;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -75,7 +76,7 @@ public class Parser {
      * @return String desc
      */
     public static String parseToDoOrFind(String cmd) {
-        return cmd.substring(4).strip();
+        return cmd.substring(4).stripTrailing();
     }
 
     /**
@@ -112,16 +113,21 @@ public class Parser {
      * @param cmd String
      * @return String[]
      */
-    public static String[] parseEvent(String cmd) {
+    public static String[] parseEvent(String cmd) throws JojoException {
         String s = cmd.substring(6);
         String[] ans = new String[3];
-        String[] splitStr = s.split(" /from ");
-        assert splitStr.length == 2: "length of array splitStr should be 2";
-        String[] splitStr2 = splitStr[1].split(" /to ");
-        assert splitStr2.length == 2: "length of array splitStr2 should be 2";
-        ans[0] = splitStr[0].strip();
-        ans[1] = splitStr2[0].strip();
-        ans[2] = splitStr2[1].strip();
+        try {
+            String[] splitStr = s.split(" /from ");
+            assert splitStr.length == 2: "length of array splitStr should be 2";
+            String[] splitStr2 = splitStr[1].split(" /to ");
+            assert splitStr2.length == 2: "length of array splitStr2 should be 2";
+            ans[0] = splitStr[0].strip();
+            ans[1] = splitStr2[0].strip();
+            ans[2] = splitStr2[1].strip();
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new JojoException("Oops, seems like the event's format is invalid. You may follow this e.g.: event " +
+                    "concert /from Mon 2pm /to 3pm");
+        }
         return ans;
     }
 
@@ -130,15 +136,23 @@ public class Parser {
      * @param cmd String
      * @return LocalDateTime
      */
-    public static LocalDateTime parseDeadlineBy(String cmd) {
-        String[] splitStr = cmd.split(" /by ");
-        assert splitStr.length == 2: "length of array splitStr should be 2";
-        String unformattedBy = splitStr[1].strip();
-        String reformattedBy = unformattedBy.replace("/", "-");
-        String[] splitDateTime = reformattedBy.split(" ");
-        assert splitDateTime.length == 2: "length of array splitDateTime should be 2";
-        String formattedTime = splitDateTime[1].strip().replaceAll("(\\d{2})(\\d{2})", "$1:$2");
-        String formattedDeadline = splitDateTime[0].strip() + " " + formattedTime;
-        return LocalDateTime.parse(formattedDeadline, DateTimeFormatter.ofPattern("d-M-uuuu HH:mm"));
+    public static LocalDateTime parseDeadlineBy(String cmd) throws JojoException {
+        try {
+            String[] splitStr = cmd.split(" /by ");
+            assert splitStr.length == 2: "length of array splitStr should be 2";
+            String unformattedBy = splitStr[1].strip();
+            String reformattedBy = unformattedBy.replace("/", "-");
+            String[] splitDateTime = reformattedBy.split(" ");
+            assert splitDateTime.length == 2: "length of array splitDateTime should be 2";
+            String formattedTime = splitDateTime[1].strip().replaceAll("(\\d{2})(\\d{2})", "$1:$2");
+            String formattedDeadline = splitDateTime[0].strip() + " " + formattedTime;
+            return LocalDateTime.parse(formattedDeadline, DateTimeFormatter.ofPattern("d-M-uuuu HH:mm"));
+        } catch (DateTimeException ex) {
+            throw new JojoException("Oops, seems like the date and time format is invalid. Please follow the " +
+                    "following format: dd/mm/YYYY 2359");
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new JojoException("Oops, seems like the deadline's format is invalid. You may follow this e.g.: " +
+                    "deadline return book /by 2/12/2019 1800");
+        }
     }
 }
