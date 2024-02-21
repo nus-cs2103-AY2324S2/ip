@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import jade.commands.AddCommand;
@@ -99,7 +100,7 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTime, String pattern) throws JadeException {
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern)
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern, Locale.UK)
                     .withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeException e) {
             throw new JadeException(INVALID_DATETIME_MSG);
@@ -129,7 +130,7 @@ public class Parser {
      */
     public static LocalTime parseTime(String time) throws JadeException {
         try {
-            return LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm a"));
+            return LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm a", Locale.UK));
         } catch (DateTimeException e) {
             throw new JadeException(INVALID_TIME_MSG);
         }

@@ -3,6 +3,7 @@ package jade.data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import jade.exception.JadeException;
 
@@ -42,7 +43,7 @@ public class Event extends Task {
      * Returns a formatted string of the LocalDateTime object.
      */
     public String dateTimeFormatter(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a"));
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a", Locale.UK));
     }
 
     /**

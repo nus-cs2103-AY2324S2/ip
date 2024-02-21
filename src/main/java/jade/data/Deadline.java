@@ -3,6 +3,7 @@ package jade.data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * The <code>Deadline</code> object represents a user task with a deadline date.
@@ -31,7 +32,7 @@ public class Deadline extends Task {
      * Returns a formatted string of the deadline date.
      */
     public String dateTimeFormatter() {
-        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a"));
+        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a", Locale.UK));
     }
 
     /**
