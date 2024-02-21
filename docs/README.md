@@ -1,6 +1,6 @@
 # Lai User Guide
 
-![Screenshot of the user interface for Lai](../docs/Ui.png)
+![Screenshot of the user interface for Lai](https://casaarlai.github.io/ip/Ui.png)
 
 _A rather **cynical** personality that helps you keep track of your life._
 > Write it down. Written goals have a way of transforming wishes into wants; cant's into cans; dreams into plans; and plans into reality. Don't just think it - ink it! – Michael Korda [(source)](https://www.azquotes.com/quote/856710)
