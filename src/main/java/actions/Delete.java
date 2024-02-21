@@ -24,8 +24,7 @@ public class Delete implements Action {
         try {
             String index = splitCommand[1];
             this.index = Integer.parseInt(index);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new DukeException("Please enter a number as your index");
         }
     }
