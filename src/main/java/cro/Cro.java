@@ -112,10 +112,12 @@ public class Cro extends Application {
 
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label croText = new Label(getResponse(userInput.getText()));
+        assert userText.getText() != null;
+        assert croText.getText() != null;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getCroDialog(dukeText, new ImageView(cro))
+                DialogBox.getCroDialog(croText, new ImageView(cro))
         );
         userInput.clear();
     }
