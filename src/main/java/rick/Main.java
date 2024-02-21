@@ -26,6 +26,7 @@ public class Main extends Application {
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
             loader.<MainController>getController().setRick(rick);
+            loader.<MainController>getController().setvBox();
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

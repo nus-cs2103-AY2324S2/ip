@@ -39,11 +39,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box such that the ImageView is on the right and text on the left, and the styling of the dialog
+     * box follows user's style.
      */
     private void flip() {
         setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         setAlignment(Pos.TOP_RIGHT);
+        dialog.setStyle("-fx-background-color: #326eab;-fx-text-fill: white;");
     }
 
     /**
@@ -66,6 +68,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getRickDialog(String text, Image img) {
         DialogBox rick = new DialogBox(text, img);
+        rick.dialog.setStyle("-fx-background-color: #fefefe;-fx-text-fill: black;");
         return rick;
     }
 }

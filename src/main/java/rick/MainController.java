@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import rick.ui.DialogBox;
 
@@ -55,5 +56,11 @@ public class MainController {
      */
     public void setRick(Rick rick) {
         this.rick = rick;
+    }
+    /**
+     * Sets background of vBox empty.
+     */
+    public void setvBox() {
+        vBox.setBackground(Background.EMPTY);
     }
 }

@@ -1,6 +1,5 @@
 package rick.logic;
 
-import rick.Rick;
 import rick.logic.command.ByeCommand;
 import rick.logic.command.Command;
 import rick.logic.command.DeadlineCommand;

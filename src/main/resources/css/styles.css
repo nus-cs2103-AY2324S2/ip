@@ -1,0 +1,14 @@
+/* Style for the user's dialog bubble */
+.bubble {
+    -fx-background-radius: 15; /* rounded corners */
+    -fx-padding: 10px; /* padding around the text */
+}
+
+/* Style for  background */
+.bg-image {
+    -fx-background-image: url("/images/background.png");
+    -fx-background-attachment: fixed;
+    -fx-background-position: bottom;
+    -fx-background-repeat: repeat;
+    -fx-background-size: 100% auto;
+}

@@ -55,4 +55,12 @@ public class Rick {
                     + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.";
         }
     }
+
+    /**
+     * A main method that says hello.
+     * @param args input.
+     */
+    public static void main(String[] args) {
+        Ui.hello();
+    }
 }

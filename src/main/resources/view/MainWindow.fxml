@@ -12,9 +12,9 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="47.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
          <children>
-            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="381.0" prefWidth="596.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="381.0" prefWidth="596.0" styleClass="mainbg" stylesheets="@../css/styles.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="vBox" alignment="TOP_CENTER" style="-fx-background-color: MEDIUMPURPLE;" fillWidth="true"/>
+                  <VBox fx:id="vBox" alignment="TOP_CENTER" fillWidth="true" styleClass="bg-image" stylesheets="@../css/styles.css" />
                </content>
                <VBox.margin>
                   <Insets />
