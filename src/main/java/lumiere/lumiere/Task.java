@@ -72,30 +72,42 @@ public class Task {
         String[] info = taskDescription.split(" | ");
 
         if (taskDescription.startsWith("T")) {
-            boolean marked;
-            if (info[2].equals("true"))
-                marked = true;
-            else
-                marked = false;
-            Todo task = new Todo(info[4], marked);
-            return task;
+            return createTodo(info);
         } else if (taskDescription.startsWith("D")) {
-            boolean marked;
-            if (info[2].equals("true"))
-                marked = true;
-            else
-                marked = false;
-
-            Deadline task = new Deadline(info[4], marked, LocalDate.parse(info[6]), info[6]);
-            return task;
+            return createDeadline(info);
         } else {
-            boolean marked;
-            if (info[2].equals("true"))
-                marked = true;
-            else
-                marked = false;
-            Event task = new Event(info[4], marked, info[6], info[8]);
-            return task;
+            return createEvent(info);
         }
+    }
+
+    public static Todo createTodo(String[] info) {
+        boolean marked;
+        if (info[2].equals("true"))
+            marked = true;
+        else
+            marked = false;
+        Todo task = new Todo(info[4], marked);
+        return task;
+    }
+
+    public static Deadline createDeadline(String[] info) {
+        boolean marked;
+        if (info[2].equals("true"))
+            marked = true;
+        else
+            marked = false;
+
+        Deadline task = new Deadline(info[4], marked, LocalDate.parse(info[6]), info[6]);
+        return task;
+    }
+
+    public static Event createEvent(String[] info) {
+        boolean marked;
+        if (info[2].equals("true"))
+            marked = true;
+        else
+            marked = false;
+        Event task = new Event(info[4], marked, info[6], info[8]);
+        return task;
     }
 }
