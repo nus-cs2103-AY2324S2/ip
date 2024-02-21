@@ -30,7 +30,7 @@ public class Deadline extends Task {
     /**
      * Returns a formatted string of the deadline date.
      */
-    public String dateFormatter() {
+    public String dateTimeFormatter() {
         return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a"));
     }
 
@@ -45,7 +45,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), dateFormatter());
+        return String.format("[D]%s (by: %s)", super.toString(), dateTimeFormatter());
     }
 
     /**
@@ -54,6 +54,6 @@ public class Deadline extends Task {
      */
     @Override
     public String taskFormatter() {
-        return String.format("D | %s | %s | %s\n", statusFormatter(), description, dateFormatter());
+        return String.format("D | %s | %s | %s\n", statusFormatter(), description, dateTimeFormatter());
     }
 }

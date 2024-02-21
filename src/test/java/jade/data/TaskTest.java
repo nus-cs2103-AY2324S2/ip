@@ -1,6 +1,8 @@
 package jade.data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,5 +25,10 @@ public class TaskTest {
     public void testStringConversion() {
         assertEquals("[ ] read a book", new Task("read a book").toString());
         assertEquals("[X] read two books", new Task("read two books", true).toString());
+    }
+    @Test
+    public void containsKeyword() {
+        assertTrue(new Task("read a book").containsKeyword("read"));
+        assertFalse(new Task("read a book").containsKeyword("study"));
     }
 }

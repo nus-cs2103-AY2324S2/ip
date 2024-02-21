@@ -145,7 +145,6 @@ public class RecurringTask extends Task {
                 })
                 .collect(Collectors.toList());
         return new TaskList<>(recurTasks);
-
     }
 
     /**
