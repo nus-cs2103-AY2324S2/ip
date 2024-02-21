@@ -21,14 +21,14 @@ import pyrite.task.ToDo;
  * Parses user input and returns a Command.
  */
 public class Parser {
-    public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty. "
+    private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty. "
             + "Add the description after the command.";
-    public static final String INVALID_DATETIME_FORMAT_ERROR_MESSAGE = "Use yyyy-mm-ddThh:mm.";
-    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "Unknown command. "
+    private static final String INVALID_DATETIME_FORMAT_ERROR_MESSAGE = "Use yyyy-mm-ddThh:mm.";
+    private static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "Unknown command. "
             + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
             + " 'bye'";
-    public static final String IMPOSSIBLE_DATES_ERROR_MESSAGE = "Start date cannot be after end date.";
-    public static final String INVALID_ID_ERROR_MESSAGE = "Provide a valid id to mark/un-mark.";
+    private static final String IMPOSSIBLE_DATES_ERROR_MESSAGE = "Start date cannot be after end date.";
+    private static final String INVALID_ID_ERROR_MESSAGE = "Provide a valid id to mark/un-mark.";
     private static int parseID(String[] parameters) {
         int id;
         try {
