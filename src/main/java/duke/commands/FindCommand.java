@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
 
-        if (input.length < 2) {
+        if (!isValidCommandLength(input)) {
             throw new CommandException(
                     "Please specify the keyword. (Format: find <keyword>)");
         }

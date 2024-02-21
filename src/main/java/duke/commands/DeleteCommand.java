@@ -22,11 +22,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        if (input.length < 2) {
+        if (!isValidCommandLength(input)) {
             throw new CommandException(
                     "Please specify which task to delete. (format: delete <task no.>)");
         }
-        if (Integer.parseInt(input[1]) > tasks.size()) {
+        if (Integer.parseInt(input[1]) > tasks.size() || Integer.parseInt(input[1]) < 0) {
             throw new CommandException("The tasks you indicated does not exist");
         }
 

@@ -23,19 +23,19 @@ public class MarkCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        if (input.length < 2) {
+        if (!isValidCommandLength(input)) {
             throw new CommandException(
-                    "Please specify which task. (format: mark/unmark <task no.>)");
+                    "Please specify which task. (format: mark <task no.>)");
         }
 
         if (!Utils.isInteger(input[1])) {
-            throw new CommandException("Task number not found! (format: mark/unmark <task no.>)");
+            throw new CommandException("Task number not found! (format: mark <task no.>)");
         }
 
         int index = Integer.parseInt(input[1]) - 1;
 
         // check if index is within bounds
-        if (index >= tasks.size()) {
+        if (index >= tasks.size() || index < 0) {
             throw new CommandException("Task not found!");
         }
         // check if there's no change in status

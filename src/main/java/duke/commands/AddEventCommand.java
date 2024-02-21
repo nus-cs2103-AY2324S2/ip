@@ -33,25 +33,14 @@ public class AddEventCommand extends Command {
                 "([^/]+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4}"
                         + "\\s+\\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
 
-        Pattern regex = Pattern.compile(pattern);
-
-        // check if it doesn't follow the format of event <some string> /from <somestring> /to <some string>
-        if (input.length < 2) {
-            throw new CommandException(
-                    "Please enter the event details! (format: event <your task>"
-                            + " /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
-        }
-
-        Matcher matcher = regex.matcher(input[1]);
-
-        if (!matcher.matches()) {
+        if(!isValidCommand(pattern, input)) {
             throw new CommandException(
                     "Wrong format! (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
         }
 
         String[] eventDetails = input[1].split("/from|/to");
 
-        if (!Utils.isValidDateTime(eventDetails[1], eventDetails[2])) {
+        if (!Utils.isValidDateTimeFormat(eventDetails[1], eventDetails[2])) {
             throw new CommandException(
                     "Datetime is in the wrong format. (format: event <your task>"
                             + " /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
@@ -64,7 +53,7 @@ public class AddEventCommand extends Command {
 
         Storage.writeToStorage(eventTask);
 
-        super.commandResponse = Ui.printOutput("Got it. I've added this task:" + eventTask.toString(),
+        super.commandResponse = Ui.printOutput("Got it. I've added this task:\n" + eventTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 

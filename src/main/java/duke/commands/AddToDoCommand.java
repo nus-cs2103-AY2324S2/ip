@@ -25,7 +25,7 @@ public class AddToDoCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        if (input.length < 2) {
+        if (!isValidCommandLength(input)) {
             throw new CommandException(
                     "Please add the task description. (format: todo <task description>)");
         }
