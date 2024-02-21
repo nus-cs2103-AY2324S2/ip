@@ -26,7 +26,6 @@ public class GrumbleBug extends Application {
     private TaskList taskList;
     private static Parser parserForInput;
     private final int NUM_PARAMS_FOR_MARK = 2;
-    private final int NUM_PARAMS_FOR_UNMARK = 2;
     private final int NUM_PARAMS_FOR_FIND = 2;
     private final int NUM_PARAMS_FOR_TODO = 2;
     private final int NUM_PARAMS_FOR_DEADLINE = 3;
@@ -263,7 +262,6 @@ public class GrumbleBug extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
     }
 
     private Label getDialogLabel(String text) {
