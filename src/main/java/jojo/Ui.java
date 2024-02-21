@@ -192,7 +192,7 @@ public class Ui {
     }
 
     /**
-     * Returns a list of task(s) that matches the keyword partially or fully.
+     * Returns a list of task(s) that matches the keyword partially or fully, and is case-insensitive.
      * @param tl TaskList
      * @param cmd String 
      * @throws JojoException when find is invalid
