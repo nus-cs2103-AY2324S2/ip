@@ -1,12 +1,7 @@
-T | 0 | Second Todo
+T | 1 | Second Todo
 D | 0 | First Deadline | Feb 22 2024, 23:59
 D | 0 | Second Deadline | Feb 23 2024, 23:59
 E | 0 | First Event | Feb 22 2024, 23:59 | Feb 23 2024, 23:59
 E | 0 | Second Event | Feb 23 2024, 23:59 | Feb 24 2024, 23:59
 DA | 0 | First DoAfter | 2 | -2
 DA | 0 | Third DoAfter | 1 | Feb 24 2024, 23:59
-DA | 0 | 1 | 1 | Mar 12 2024, 12:33
-DA | 0 | 2 | 2 | 0 | T | 0 | Second Todo
-DA | 0 | 3 | 2 | 7 | DA | 0 | 1 | 1 | Mar 12 2024, 12:33
-DA | 0 | 4 | 2 | 9 | DA | 0 | 3 | 2 | 7 | DA | 0 | 1 | 1 | Mar 12 2024, 12:33
-DA | 0 | 5 | 2 | 10 | DA | 0 | 4 | 2 | 9 | DA | 0 | 3 | 2 | 7 | DA | 0 | 1 | 1 | Mar 12 2024, 12:33
