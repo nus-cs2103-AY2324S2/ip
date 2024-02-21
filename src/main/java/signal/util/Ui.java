@@ -345,12 +345,25 @@ public class Ui {
         return result;
     }
 
-    public String commandFind(String[] inputParts) {
+    public String commandFind(String[] inputParts) throws DukeException {
         String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
+        if (toFind.length() == 0) {
+            throw new DukeException("I don't know what you're looking for!");
+        }
         ArrayList<String> response = new ArrayList<String>();
-        response.add("Sure, here are the tasks containing '" + toFind + "':");
-        response.addAll(find(toFind));
+        ArrayList<String> found = find(toFind);
+        if (found.size() == 0) {
+            response.add("Looks like there's noting here. Try another keyword!");
+        } else {
+            response.add("Sure, here are the tasks containing '" + toFind + "':");
+            response.addAll(find(toFind));
+        }
         String reply = listToString(response);
+        return reply;
+    }
+
+    public String commandHi() {
+        String reply = "Hi! Enter 'help' to view the available commands!";
         return reply;
     }
 

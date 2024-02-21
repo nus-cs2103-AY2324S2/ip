@@ -136,10 +136,14 @@ public class Parser {
         return reply;
     }
 
-    public String findTypo(String[] inputParts) {
+    public String findTypo(String[] inputParts) throws DukeException {
         String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "find")) {
-            reply = ui.commandFind(inputParts);
+            try {
+                reply = ui.commandFind(inputParts);
+            } catch (DukeException e) {
+                reply = e.getMessage();
+            }
         } else {
             reply ="What else can I help you with?";
         }
@@ -202,6 +206,8 @@ public class Parser {
             reply = ui.commandBlah();
         } else if (userInput.equals("something else")) {
             reply = ui.commandSomethingelse();
+        } else if (userInput.equals("hi")) {
+            reply = ui.commandHi();
         } else {
             reply = ui.unknownInput();
         }
