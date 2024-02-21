@@ -13,6 +13,8 @@ public class EventCommand extends Command {
     private static final String NO_NAME = "you didn't specify a name for your event";
     private static final String NO_FROM = "you failed to specify an start date using '/from'";
     private static final String NO_TO = "you failed to specify an end date using '/to'";
+    private static final String DATE_PARSE_EXC_MSG = "Couldn't parse the start/end date %s/%s";
+    private static final String SUCCESS_MSG = "Ok, I've added a new event...\n  %s";
 
     @Override
     public void run(Parser parser, Duke duke) throws DukeException {
@@ -46,11 +48,10 @@ public class EventCommand extends Command {
         try {
             t = new Event(name, from, to);
         } catch (DateTimeParseException e) {
-            throw new DukeException(String.format
-                    ("Couldn't parse the start/end date %s/%s", from, to));
+            throw new DukeException(String.format(DATE_PARSE_EXC_MSG, from, to));
         }
 
-        duke.getUi().print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
+        duke.getUi().print(String.format(SUCCESS_MSG, t.describe()));
         duke.getTasks().add(t);
         duke.getStorage().writeTasks(duke.getTasks());
     }

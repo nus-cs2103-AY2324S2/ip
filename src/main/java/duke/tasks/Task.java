@@ -7,6 +7,10 @@ import java.util.Scanner;
 import duke.DukeException;
 
 public abstract class Task {
+    private static final String UNEXPECTED_TYPE_MSG = "unexpected type string %s";
+    private static final String UNEXPECTED_DONE_MSG = "unexpected done string %s";
+    private static final String MISSING_FIELD_MSG = "expected a type identifier, but none was given";
+
     protected final String name;
     protected boolean isDone;
 
@@ -61,7 +65,7 @@ public abstract class Task {
                 t = new Event(nameStr, sc.next(), sc.next());
                 break;
             default:
-                throw new DukeException(String.format("unexpected type string %s", typeStr));
+                throw new DukeException(String.format(UNEXPECTED_TYPE_MSG, typeStr));
             }
 
             switch (doneStr) {
@@ -72,12 +76,12 @@ public abstract class Task {
                 t.isDone = false;
                 break;
             default:
-                throw new DukeException(String.format("unexpected done string %s", doneStr));
+                throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
             }
 
             return t;
         } catch (NoSuchElementException e) {
-            throw new DukeException("expected a type identifier, but none was given");
+            throw new DukeException(MISSING_FIELD_MSG);
         }
     }
 }
