@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 
 import drew.command.Command;
+import drew.exceptions.UnknownCommandException;
 import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.ui.Parser;
@@ -48,10 +49,12 @@ public class Drew {
      * @return Response from executing the command.
      */
     public String getResponse(String input) {
-        Command command = parser.checkCommandId(input);
+        Command command = parser.getCommand(input);
         String reply;
         try {
             reply = command.execute(tasks, storage);
+        } catch (NumberFormatException e) {
+            reply = "Please enter a valid number.";
         } catch (IllegalArgumentException e) {
             reply = e.getMessage();
         }

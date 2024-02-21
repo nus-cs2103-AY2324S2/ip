@@ -46,9 +46,6 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
-    public Task get(int i) {
-        return tasks.get(i);
-    }
 
     /**
      * Lists all deadlines that are due today or after today.

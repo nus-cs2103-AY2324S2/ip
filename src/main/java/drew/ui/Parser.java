@@ -27,7 +27,7 @@ public class Parser {
      * @throws InsufficientArgumentsException Command is supplied with too little arguments.
      * @throws IllegalArgumentException Command is supplied with the wrong arguments.
      */
-    public Command checkCommandId(String input) throws UnknownCommandException,
+    public Command getCommand(String input) throws UnknownCommandException,
             InsufficientArgumentsException, IllegalArgumentException {
 
         int inputLength = input.length();

@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Drew using FXML.
  */
 public class Main extends Application {
 
@@ -17,6 +17,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         AnchorPane ap = new MainWindow(drew);
         Scene scene = new Scene(ap);
+        stage.setTitle("Drew");
         stage.setScene(scene);
         stage.show();
     }

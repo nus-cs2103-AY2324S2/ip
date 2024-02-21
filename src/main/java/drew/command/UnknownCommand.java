@@ -1,5 +1,6 @@
 package drew.command;
 
+import drew.exceptions.UnknownCommandException;
 import drew.storage.Storage;
 import drew.storage.TaskList;
 
@@ -22,6 +23,6 @@ public class UnknownCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
-        return "Unknown command";
+        throw new UnknownCommandException("Unknown command.");
     }
 }

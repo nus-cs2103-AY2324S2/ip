@@ -21,7 +21,7 @@ public class FindCommand extends Command {
         int listLength = ls.size();
 
         String search = input.substring(4).trim();
-        reply = "Here are the matching tasks in your list:i\n";
+        reply = "Here are the matching tasks in your list:\n";
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < listLength; i++) {
             Task task = ls.get(i);

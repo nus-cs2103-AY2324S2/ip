@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
             throw new IllegalArgumentException("This task does not exist!");
         }
 
-        reply = "Ok. I have deleted this task :\n"
+        reply = "Ok. I have deleted this task:\n"
                 + ls.get(taskIndex - 1).toStatusString() + "\n";
         ls.remove(taskIndex - 1);
         listLength--;
