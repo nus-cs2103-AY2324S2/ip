@@ -124,10 +124,16 @@ public class Ui {
             errorResponse = "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
             break;
         case "dateOutOfRangeError":
-            errorResponse = "Ooops!!! Yoo Your date numbers ain't right";
+            errorResponse = "Ooops!!! Yoo your date numbers ain't right";
             break;
         case "directoryError":
             errorResponse = "Error Creating directory!!!";
+            break;
+        case "timeFormatError":
+            errorResponse = "Your time format ain't right!";
+            break;
+        case "timeError":
+            errorResponse = "Oppps!!!! Your time ain't right";
             break;
         case "invalidError":
             errorResponse = "OOPS!!! I'm sorry, incorrect command or input";

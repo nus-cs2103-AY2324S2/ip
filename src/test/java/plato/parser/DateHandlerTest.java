@@ -17,7 +17,7 @@ public class DateHandlerTest {
     }
 
     @Test
-    public void checkTime_success() {
+    public void checkTime_success() throws PlatoException {
         assertEquals(LocalTime.of(18, 0), DateHandler.checkTime("1800 12-04-23").orElse(LocalTime.of(0, 0)));
     }
 }

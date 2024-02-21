@@ -29,7 +29,7 @@ public class TaskManager {
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
     private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
 
-    private static final String RESPONSE_EMPTY = "You have no tasks!!!! Add something to do peasant!! ";
+    private static final String RESPONSE_EMPTY = "You have no tasks!!!! Add something to do you peasant!! ";
     private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
     private final ArrayList<Task> items;
     private boolean hasChanged = false;
@@ -135,7 +135,8 @@ public class TaskManager {
 
     private static Task constructDeadline(String by, String description) throws PlatoException {
         Optional<LocalDate> testDate = DateHandler.checkDate(by);
-        return testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, getTimeFromString(by))))
+        LocalTime testTime = getTimeFromString(by);
+        return testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, testTime)))
                        .orElseGet(() -> new Deadline(description, by));
     }
 
@@ -153,12 +154,13 @@ public class TaskManager {
 
         Optional<LocalDate> testByDate = DateHandler.checkDate(by);
         Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
-
+        LocalTime testTimeBy = getTimeFromString(by);
+        LocalTime testTimeFrom = getTimeFromString(from);
         Optional<LocalDateTime> combineByDate =
-                testByDate.flatMap(byDate -> Optional.of(LocalDateTime.of(byDate, getTimeFromString(by))));
+            testByDate.flatMap(byDate -> Optional.of(LocalDateTime.of(byDate, testTimeBy)));
 
         Optional<LocalDateTime> combineFromDate =
-                testFromDate.flatMap(fromDate -> Optional.of(LocalDateTime.of(fromDate, getTimeFromString(from))));
+            testFromDate.flatMap(fromDate -> Optional.of(LocalDateTime.of(fromDate, testTimeFrom)));
 
         return combineByDate.flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
                                                                                                          fromDate,
@@ -166,7 +168,7 @@ public class TaskManager {
                             .orElseGet(() -> new Event(description, from, by));
     }
 
-    private static LocalTime getTimeFromString(String time) {
+    private static LocalTime getTimeFromString(String time) throws PlatoException {
         return DateHandler.checkTime(time).orElse(TIME_DEFAULT);
     }
 
@@ -277,8 +279,8 @@ public class TaskManager {
      * @return A list of items containing the search results.
      */
     public String[] findTask(String search) {
-        List<String> foundTask = items.stream().map(Task::toString).filter(string -> string.contains(search))
-                                      .collect(Collectors.toList());
+        List<String> foundTask =
+            items.stream().map(Task::toString).filter(string -> string.contains(search)).collect(Collectors.toList());
 
         if (!foundTask.isEmpty()) {
             List<String> print = iterateWithIndex(foundTask);
@@ -302,8 +304,8 @@ public class TaskManager {
         LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new PlatoException("dateError"));
         System.out.println(inputDate);
         List<String> foundDates =
-                items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate)).map(Task::toString)
-                     .collect(Collectors.toList());
+            items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate)).map(Task::toString)
+                 .collect(Collectors.toList());
 
         if (!foundDates.isEmpty()) {
             List<String> print = iterateWithIndex(foundDates);
