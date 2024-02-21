@@ -8,7 +8,6 @@ import tommy.task.TaskList;
  * Represents the command to find task with matching keyword.
  */
 public class FindCommand extends Command {
-
     private String keyword;
 
     /**

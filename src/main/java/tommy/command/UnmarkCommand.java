@@ -9,9 +9,8 @@ import tommy.task.TaskList;
  * Represents the command to mark a task in the taskList.
  */
 public class UnmarkCommand extends Command {
-
-    private int positionToUnmark;
     private static final String indexOutOfRangeWarning = "The index is out of range >.<";
+    private int positionToUnmark;
 
     /**
      * Constructor for an unmark task command,
@@ -26,7 +25,8 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
-        assert positionToUnmark <= taskList.getSize() && positionToUnmark > 0 : "The position to unmark should be within the size of the taskLis.";
+        assert positionToUnmark <= taskList.getSize() && positionToUnmark > 0
+                : "The position to unmark should be within the size of the taskList.";
         try {
             taskList.unmarkTask(positionToUnmark);
             Storage.save(taskList);

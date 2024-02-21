@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
@@ -42,6 +43,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        if (text.contains("Error: ")) {
+            dialog.setTextFill(Color.RED);
+        }
         displayPicture.setImage(img);
         textBackground.setFill(Paint.valueOf(textBackgroundColor));
         textBackground.widthProperty().bind(dialog.widthProperty());

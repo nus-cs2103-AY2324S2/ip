@@ -68,6 +68,7 @@ public class Ui {
 
             accumulator.append(counter + descOfTask + System.lineSeparator());
         }
+        accumulator.append(System.lineSeparator());
 
         return accumulator.toString();
     }
@@ -84,7 +85,7 @@ public class Ui {
         String deletedTaskConfirmation = "Noted. I've removed this task:\n  ";
         String taskListSummary = "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
-        String descToDisplay =  deletedTaskConfirmation + descOfTaskToDelete + taskListSummary;
+        String descToDisplay = deletedTaskConfirmation + descOfTaskToDelete + taskListSummary;
 
         return descToDisplay;
     }
@@ -139,7 +140,7 @@ public class Ui {
         String descOfNewTask = task.toString();
         String taskListSummary = "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
-        String descToDisplay =  newTaskConfirmation + descOfNewTask + taskListSummary;
+        String descToDisplay = newTaskConfirmation + descOfNewTask + taskListSummary;
 
         return descToDisplay;
     }
@@ -169,6 +170,7 @@ public class Ui {
                 assert counter <= taskList.getSize() : "Number of matched tasks must be a subset of taskList";
             }
         }
+        accumulator.append(System.lineSeparator());
 
         return accumulator.toString();
     }

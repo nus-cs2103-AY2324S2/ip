@@ -8,11 +8,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21"
+         xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <StackPane>
             <Rectangle fx:id="textBackground" arcHeight="20" arcWidth="20"/>
-            <Label fx:id="dialog" graphicTextGap="20.0" prefWidth="238.0" text="Label" textFill="#726363" wrapText="false">
+            <Label fx:id="dialog" graphicTextGap="20.0" prefWidth="238.0" text="Label" textFill="#726363"
+                   wrapText="true" textOverrun="CLIP">
              <font>
                 <Font name="Helvetica Neue Bold" size="12.0" />
              </font>
