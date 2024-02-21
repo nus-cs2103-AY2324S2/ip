@@ -1,3 +1,2 @@
-D|0|update|3/12/2019 1900
-D|0|testing deadline|2/2/2012 0800
-E|0|testing event|2/2/2012 0900|3/3/2013 1000
+E|0|CS2103T Tutorial|22/2/2024 1600|22/2/2024 1700
+D|0|Submit CS2103T iP|24/2/2024 2359

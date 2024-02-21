@@ -16,5 +16,6 @@ class ParserTest {
         assertEquals(Mona.Command.LIST, parser.getCurrentCommand(new String[]{"list"}));
         assertEquals(Mona.Command.UNMARK, parser.getCurrentCommand(new String[]{"unmark"}));
         assertEquals(Mona.Command.MARK, parser.getCurrentCommand(new String[]{"mark"}));
+        assertEquals(Mona.Command.UPDATE, parser.getCurrentCommand(new String[]{"update"}));
     }
 }
