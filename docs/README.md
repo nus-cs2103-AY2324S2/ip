@@ -1,30 +1,58 @@
-# Cookie User Guide
+# Cookie User Guide 
 
-// Update the title above to match the actual product name
+## Add todo, deadline and event tasks (optional tagging)
+Easily keep track of your Todos, Deadlines and Events!
 
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Here is how to create your tasks (tagging is optional): 
+1. Todo: `todo <todoName> #<tagName>`
 ```
-expected output
+todo 2103 quiz #quiz
+```
+2. Deadline: `deadline <deadlineName> /by <YYYY-MM-DD>`
+```
+deadline complete PS2 /by 2023-03-03 
+```
+3. Event: `event <eventName> /from <YYYY-MM-DD> <time> /to <YYYY-MM-DD> <time>`
+```
+event movie /from 2023-03-03 6pm /to 2023-03-03 8pm
+```
+## View complete task list
+
+Easily view your complete task list with the list command.
+```
+list 
 ```
 
-## Feature ABC
+## Delete tasks
 
-// Feature details
+Easily delete tasks from your task list once completed.
 
+`delete <taskIndex>`
+```
+delete 1 
+```
 
-## Feature XYZ
+## Mark tasks as complete
 
-// Feature details
+Easily mark tasks once you have completed them.
+
+`mark <taskIndex>` 
+```
+mark 1 
+```
+
+## Search by keyword
+See a complete list of tasks containing a specific keyword.
+
+`find <keyword>`
+```
+find tutorial 
+```
+
+## Display by tag
+Display tasks of a particular tag.
+
+`display tagged #<tagName>`
+```
+display tagged #quiz 
+```
