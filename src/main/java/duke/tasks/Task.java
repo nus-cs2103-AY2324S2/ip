@@ -17,31 +17,51 @@ public abstract class Task {
     public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static final DateTimeFormatter OUTPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm a, M-dd-yyyy");
 
+    /**
+     * Task constructor method. Initialises name.
+     * @param name The name of the task.
+     */
     public Task(String name) {
+        assert name != null : "name cannot be null";
+        assert !name.contains("\n") : "name cannot contain newline characters";
         this.name = name;
         this.isDone = false;
     }
 
+    /** Marks this task as done. */
     public void mark() {
         this.isDone = true;
     }
+
+    /** Marks this task as not done. */
     public void unmark() {
         this.isDone = false;
     }
 
+    /** Returns true if the name of this task contains the given string. */
     public final boolean nameContains(String str) {
         return this.name.contains(str);
     }
 
+    /**
+     * Returns a string describing details of this task. Intended for printing to console.
+     * @return a string containing details of this task.
+     */
     public String describe() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 
+    /**
+     * Returns a string representation containing all details required to reconstruct this part of the task. Intended
+     * for writing to storage.
+     * @return a String that shows the name and done status of the task.
+     */
     public String toStorageString() {
         return String.format("%s,%s", this.name, this.isDone ? "T" : "F");
     }
 
     public static Task fromStorageString(String str) throws DukeException {
+        assert str != null : "str cannot be null";
         Scanner sc = new Scanner(str);
         String typeStr;
         String nameStr;

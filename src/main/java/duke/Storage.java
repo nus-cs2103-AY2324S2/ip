@@ -14,6 +14,7 @@ public class Storage {
     private final String path;
 
     public Storage(String path) {
+        assert path != null : "path cannot be null";
         this.path = path;
     }
 
@@ -45,6 +46,7 @@ public class Storage {
     }
 
     public void writeTasks(TaskList tasks) throws DukeException {
+        assert tasks != null : "tasks cannot be null";
         PrintWriter pw = null;
         File f = new File(path);
         String toWrite = tasks.toStorageString();

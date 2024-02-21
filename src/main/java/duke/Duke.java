@@ -32,6 +32,8 @@ public class Duke extends Application {
     }
 
     public void processInput(String input) {
+        assert(input != null);
+        assert(!input.contains("\n"));
         Parser parser = new Parser(input);
         try {
             this.commands.get(parser.next()).run(parser, this);

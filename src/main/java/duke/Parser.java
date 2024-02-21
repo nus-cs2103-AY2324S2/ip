@@ -17,6 +17,7 @@ public class Parser {
      * @param str The input string.
      */
     public Parser(String str) {
+        assert str != null : "input string cannot be null";
         this.strs = str.split(" ");
     }
 
@@ -41,11 +42,12 @@ public class Parser {
     public String rest() throws DukeOptionParsingException {
         if (!this.hasNext()) {
             throw new DukeOptionParsingException("command ended when an argument was expected");
-        } else {
-            return Stream.iterate(this.cursor, i -> i < this.strs.length, i -> i + 1)
-                    .map(i -> this.strs[i])
-                    .collect(Collectors.joining(" "));
         }
+        String collected = Stream.iterate(this.cursor, i -> i < this.strs.length, i -> i + 1)
+                .map(i -> this.strs[i])
+                .collect(Collectors.joining(" "));
+        assert(!this.hasNext());
+        return collected;
     }
 
     /**
@@ -57,9 +59,8 @@ public class Parser {
     public String peek() throws DukeOptionParsingException {
         if (!this.hasNext()) {
             throw new DukeOptionParsingException("command ended when an argument was expected");
-        } else {
-            return this.strs[this.cursor];
         }
+        return this.strs[this.cursor];
     }
 
     /**
@@ -79,6 +80,7 @@ public class Parser {
             }
             name.append(this.next());
         }
+        assert(! this.hasNext() || this.peek().startsWith("/"));
         return name.toString();
     }
 
@@ -99,6 +101,7 @@ public class Parser {
      * @throws DukeOptionParsingException If the end of input is reached or !expected.equals(actual)
      */
     public void assertNext(String expected) throws DukeOptionParsingException {
+        assert(expected != null);
         String actual = this.next();
 
         if (!actual.equals(expected)) {

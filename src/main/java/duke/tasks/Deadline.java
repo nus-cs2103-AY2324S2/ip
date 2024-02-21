@@ -17,6 +17,8 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String by) throws DateTimeParseException {
         super(name);
+        assert by != null : "by cannot be null";
+        assert !by.contains("\n") : "by cannot contain newline characters";
         this.by = LocalDateTime.parse(by, Task.INPUT_TIME_FORMATTER);
     }
 
