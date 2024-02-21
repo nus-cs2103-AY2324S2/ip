@@ -218,8 +218,9 @@ public class Parser {
     private static <T extends Enum<T>> T findInEnum(Class<T> enumClass, String userKeyword) {
         T[] enumElements = enumClass.getEnumConstants();
         assert enumElements != null;
+        assert !userKeyword.isEmpty();
         for (T element : enumElements) {
-            if (element.toString().contains(userKeyword)) {
+            if (element.toString().startsWith(userKeyword)) {
                 return element;
             }
         }
