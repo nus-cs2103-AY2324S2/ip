@@ -31,6 +31,11 @@ public class Ui {
         return showToUser("Bye. Hope to see you again soon! >v<");
     }
 
+    public String showHelp() {
+        return showToUser("You can choose the following commands:",
+                "bye", "list", "undo", "mark", "unmark", "todo", "deadline", "event", "delete", "find");
+    }
+
     public String showList(TaskList taskList) {
         String output = "Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {

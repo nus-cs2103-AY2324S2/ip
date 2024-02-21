@@ -31,6 +31,7 @@ public class Storage {
 
     /**
      * Save the data to the storage file.
+     *
      * @param task the task should be stored.
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
@@ -45,6 +46,7 @@ public class Storage {
 
     /**
      * Loads the data from this storage file, and then returns it.
+     *
      * @return creates the directory and data.txt then returns an empty if the file does not exist.
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */

@@ -29,6 +29,8 @@ public class Parser {
         switch (mainCommand) {
         case "bye":
             return new ByeCommand();
+        case "help":
+            return new HelpCommand();
         case "list":
             return new ListCommand();
         case "undo":
