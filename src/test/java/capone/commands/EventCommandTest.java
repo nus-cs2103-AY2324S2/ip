@@ -46,7 +46,8 @@ public class EventCommandTest {
             eventCommand.execute(this.taskList, this.ui, this.storage);
         });
 
-        String expectedMsg = "Please enter a description!\nUsage: event [description] /from [date] /to [date]";
+        String expectedMsg = "Please enter a description!\nUsage: event [description] "
+                + "/from [date] [time] /to [date] [time]";
         assertEquals(expectedMsg, exception.getMessage());
     }
 
@@ -63,7 +64,7 @@ public class EventCommandTest {
         });
 
         String expectedMsg = "Please enter a start and end date!\n"
-                + "Usage: event [description] /from [date] /to [date]";
+                + "Usage: event [description] /from [date] [time] /to [date] [time]";
         assertEquals(expectedMsg, exception.getMessage());
     }
 
@@ -81,7 +82,7 @@ public class EventCommandTest {
         });
 
         String expectedMsg = "Start date must be before end date!\n"
-                + "Usage: event [description] /from [date] /to [date]";
+                + "Usage: event [description] /from [date] [time] /to [date] [time]";
         assertEquals(expectedMsg, exception.getMessage());
     }
 

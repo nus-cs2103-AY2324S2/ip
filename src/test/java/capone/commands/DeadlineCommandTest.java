@@ -45,7 +45,7 @@ public class DeadlineCommandTest {
             deadlineCommand.execute(this.taskList, this.ui, this.storage);
         });
 
-        String expectedMsg = "Insufficient arguments!\nUsage: deadline [description] /by [date]";
+        String expectedMsg = "Insufficient arguments!\nUsage: deadline [description] /by [date] [time]";
         assertEquals(expectedMsg, exception.getMessage());
     }
 
@@ -62,7 +62,7 @@ public class DeadlineCommandTest {
         });
 
         String expectedMsg = "Please enter a date for this deadline task!\n"
-                + "Usage: deadline [description] /by [date]";
+                + "Usage: deadline [description] /by [date] [time]";
         assertEquals(expectedMsg, exception.getMessage());
     }
 
