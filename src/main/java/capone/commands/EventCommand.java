@@ -9,6 +9,7 @@ import capone.TaskList;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
+import capone.exceptions.InvalidDatePairException;
 import capone.tasks.Event;
 import capone.ui.Ui;
 
@@ -85,6 +86,10 @@ public class EventCommand extends Command {
 
         LocalDateTime fromDateTime = Parser.parseDateTime(fromNdx + 1, toNdx, inputList);
         LocalDateTime toDateTime = Parser.parseDateTime(toNdx + 1, inputList.size(), inputList);
+        if (!Parser.isVaildDatePair(fromDateTime, toDateTime)) {
+            throw new InvalidDatePairException("Start date must be before end date!\n"
+                    + EventCommand.USAGE_STRING);
+        }
 
         assert (fromDateTime != null) && (toDateTime != null) : "/from and /to DateTime should not be null";
 

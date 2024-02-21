@@ -7,7 +7,6 @@ package capone.exceptions;
  * @author Tay Rui-Jie
  */
 public class InsufficientArgumentException extends CaponeException {
-
     /**
      * Constructs a new InsufficientArgumentException with the specified error message.
      *

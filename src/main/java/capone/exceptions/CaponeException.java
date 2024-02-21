@@ -7,7 +7,6 @@ package capone.exceptions;
  * @author Tay Rui-Jie
  */
 public abstract class CaponeException extends Exception {
-
     /**
      * Constructs a new CaponeException with the specified error message.
      *

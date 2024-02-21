@@ -23,7 +23,7 @@ import capone.commands.TodoCommand;
 import capone.commands.UnmarkCommand;
 import capone.commands.UpdateCommand;
 import capone.exceptions.CaponeException;
-import capone.exceptions.InvalidDateException;
+import capone.exceptions.InvalidDateFormatException;
 import capone.exceptions.InvalidTimeException;
 
 /**
@@ -117,6 +117,18 @@ public class Parser {
     }
 
     /**
+     * Checks if the given LocalDateTime pair is valid.
+     * (i.e. the starting date and time has to be before the ending date and time).
+     *
+     * @param startDateTime The starting date (and time).
+     * @param endDateTime The ending date (and time).
+     * @return True if startDateTime is before endDateTime, false otherwise.
+     */
+    public static boolean isVaildDatePair(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return (startDateTime.isBefore(endDateTime));
+    }
+
+    /**
      * Processes the date and time components and returns a LocalDateTime object.
      *
      * @param date The LocalDate object representing the date.
@@ -141,14 +153,14 @@ public class Parser {
      *
      * @param date The input string representing the date.
      * @return LocalDate object parsed from the input.
-     * @throws InvalidDateException If the input string is not a valid date.
+     * @throws InvalidDateFormatException If the input string is not a valid date.
      */
-    public static LocalDate parseDate(String date) throws InvalidDateException {
+    public static LocalDate parseDate(String date) throws InvalidDateFormatException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             return LocalDate.parse(date, dateFormatter);
         } catch (DateTimeException e) {
-            throw new InvalidDateException("Oops! You have entered an invalid date. Please try again.");
+            throw new InvalidDateFormatException("Oops! You have entered an invalid date. Please try again.");
         }
     }
 
@@ -175,7 +187,7 @@ public class Parser {
      * @param endNdx Ending index of the string to be parsed.
      * @param inputList List of strings to be parsed.
      * @return LocalDateTime object parsed from the input.
-     * @throws InvalidDateException If the input string is not a valid Date or Time.
+     * @throws InvalidDateFormatException If the input string is not a valid Date or Time.
      */
     public static LocalDateTime parseDateTime(int startNdx, int endNdx, ArrayList<String> inputList)
             throws CaponeException {
@@ -189,7 +201,7 @@ public class Parser {
             } else if (Parser.isTimeFormat(inputList.get(i))) {
                 time = Parser.parseTime(inputList.get(i));
             } else {
-                throw new InvalidDateException("Oops! You have entered an invalid date. Please try again.");
+                throw new InvalidDateFormatException("Oops! You have entered an invalid date. Please try again.");
             }
         }
 

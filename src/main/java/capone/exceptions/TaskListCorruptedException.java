@@ -7,7 +7,6 @@ package capone.exceptions;
  * @author Tay Rui-Jie
  */
 public class TaskListCorruptedException extends CaponeException {
-
     /**
      * Constructs a new TaskListCorruptedException with the specified error message.
      *

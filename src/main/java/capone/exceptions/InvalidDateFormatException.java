@@ -6,14 +6,13 @@ package capone.exceptions;
  *
  * @author Tay Rui-Jie
  */
-public class InvalidDateException extends CaponeException {
-
+public class InvalidDateFormatException extends CaponeException {
     /**
      * Constructs a new InvalidDateException with the specified error message.
      *
      * @param errorMessage The error message associated with the invalid date exception.
      */
-    public InvalidDateException(String errorMessage) {
+    public InvalidDateFormatException(String errorMessage) {
         super(errorMessage);
     }
 }

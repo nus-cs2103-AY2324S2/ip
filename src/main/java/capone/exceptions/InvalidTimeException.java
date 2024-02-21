@@ -7,7 +7,6 @@ package capone.exceptions;
  * @author Tay Rui-Jie
  */
 public class InvalidTimeException extends CaponeException {
-
     /**
      * Constructs a new InvalidTimeException with the specified error message.
      *
