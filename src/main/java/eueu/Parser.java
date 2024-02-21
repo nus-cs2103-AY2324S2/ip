@@ -61,6 +61,7 @@ private TaskList tasklist;
             res = tasklist.clearList();
         } else if (command.equals("bye")) {
             res = EXIT_MESSAGE;
+            System.exit(0);
         } else if (command.startsWith("mark")) {
             try {
                 String str = command.substring(5);
