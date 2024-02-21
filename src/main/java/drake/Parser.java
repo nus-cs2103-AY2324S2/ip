@@ -3,8 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-
 
 /**
  * Handles parsing of user input into various components such as commands, task indices, descriptions, and deadlines.
@@ -19,13 +17,17 @@ public class Parser {
      * @return A String array with three elements: the event title, the start time, and the end time.
      * @throws IllegalArgumentException If the input does not contain valid 'from' and 'to' times for the event.
      */
-    public static int parseTaskIndex(String input) throws NumberFormatException {
+    public static int parseTaskIndex(String input) throws Exception {
         assert input != null && input.contains(" ") : "Invalid input format for parsing task index.";
         String[] words = input.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalArgumentException("No task index provided.");
         }
-        return Integer.parseInt(words[1]) - 1; // Subtract 1 to convert to zero-based index
+        try {
+            return Integer.parseInt(words[1]) - 1; // Subtract 1 to convert to zero-based index
+        } catch (Exception e) {
+            throw new Exception("Enter a valid integer to select task!");
+        }
     }
 
     /**
@@ -53,12 +55,11 @@ public class Parser {
     public static Object[] parseDeadline(String input) throws Exception {
         assert input != null && input.contains(" /by ") : "Input must contain '/by' to specify the deadline.";
         String[] parts = input.split(" /by ");
-        if (parts.length < 2) {
-            throw new IllegalArgumentException("Deadline time not provided.");
+        if (parts.length == 1) {
+            throw new IllegalArgumentException("Looks like you didn't input the 'by' sub-command. "
+                    + "This isn't allowed!");
         }
-        if (!parts[0].split(" ")[0].equals("deadline")) {
-            throw new Exception("Looks like you spelt deadline wrong. Please try again!");
-        }
+
         String description = parts[0].substring(parts[0].indexOf(' ') + 1).trim();
         LocalDate date;
         LocalDateTime by;
@@ -78,21 +79,44 @@ public class Parser {
      * @return A String array where the first element is the event title,
      *     the second element is the start time, and the third element is the end time.
      */
-    public static String[] parseEvent(String input) {
-        assert input != null && input.length() > 5 : "Event parsing requires non-null input with sufficient length.";
+    public static Object[] parseEvent(String input) throws Exception {
+        if (input.trim().equals("event")) {
+            throw new IllegalArgumentException("Looks like you left the description of the event empty. "
+                    + "This isn't allowed!");
+        }
         String[] parts = input.substring(6).split("/");
+
+        if (parts.length != 3) {
+            throw new Exception("Please add both 'from' and 'to' sub-commands!");
+        }
+
         String title = parts[0];
-        String from = "";
-        String to = "";
+        LocalDateTime fromDate = null;
+        LocalDateTime toDate = null;
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].split(" ")[0].equals("from")) {
-                from = parts[i].substring(5);
-            }
-            if (parts[i].split(" ")[0].equals("to")) {
-                to = parts[i].substring(3);
+                try {
+                    LocalDate fromD = LocalDate.parse(parts[i].substring(5).trim(),
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println(fromD);
+                    fromDate = fromD.atStartOfDay();
+                    System.out.println(fromDate);
+                } catch (DateTimeParseException e) {
+                    throw new Exception("From Date is of the wrong format! Make sure it is of form 'yyyy-mm-dd'.");
+                }
+            } else if (parts[i].split(" ")[0].equals("to")) {
+                try {
+                    toDate = LocalDate.parse(parts[i].substring(3).trim(),
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+                } catch (DateTimeParseException e) {
+                    throw new Exception("To Date is of the wrong format! Make sure it is of form 'yyyy-mm-dd'.");
+                }
+            } else {
+                throw new Exception("Invalid or incomplete sub-command. "
+                        + "Include both 'from' and 'to' sub-commands only!");
             }
         }
-        return new String[]{title, from, to};
+        return new Object[]{title, fromDate, toDate};
     }
 
     /**
@@ -112,17 +136,24 @@ public class Parser {
         return parts[1].trim();
     }
 
-    public static String[] parseContactAdd(String input) {
+    /**
+     * Parses the name and description from the user input.
+     *
+     * @param input The user input string that contains the contact details.
+     * @return The name and description as string's in a string array.
+     * @throws IllegalArgumentException If the name or description is missing or empty.
+     */
+    public static String[] parseContactAdd(String input) throws IllegalArgumentException {
         assert input != null && input.contains(" ") : "Invalid input format for parsing.";
-        String[] parts = input.split(" ", 3); // Split into at most 3 parts: command, name, and the rest as description
+        String[] parts = input.split(" ", 3);
 
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("Looks like you left the name of the contact empty. This isn't allowed!");
+            throw new IllegalArgumentException("Looks like you left the name of the contact empty."
+                    + "This isn't allowed!");
         }
 
         String name = parts[1].trim();
-        String description = parts.length > 2 ? parts[2].trim() : ""; // Use the rest as description if exists, else empty
-
+        String description = parts.length > 2 ? parts[2].trim() : "";
         return new String[]{name, description};
     }
 

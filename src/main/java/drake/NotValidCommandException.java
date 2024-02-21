@@ -5,8 +5,8 @@ package drake;
  * in the Drake application. It serves as a specific signal that a user has attempted
  * to input a command that the application does not recognize or cannot process.
  */
-public class NotValidCommand extends Exception {
-    public NotValidCommand(String message) {
+public class NotValidCommandException extends Exception {
+    public NotValidCommandException(String message) {
         super(message);
     }
 }

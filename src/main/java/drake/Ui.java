@@ -9,7 +9,7 @@ import drake.task.TaskList;
  * Handles UI operations for the chatbot.
  */
 public class Ui {
-    private static final String DASHED_LINE = "____________________________________________________________\n";
+    private static final String DASHED_LINE = "___________________________\n";
     /**
      * Returns a welcome message to the user.
      */
@@ -69,7 +69,7 @@ public class Ui {
      * @param task The task that has been marked.
      */
     public String showMarkTask(Task task) {
-        return DASHED_LINE + "Cool. I now declare this task marked as, done:\n" + task + "\n" + DASHED_LINE;
+        return DASHED_LINE + "Cool. Declaring this task as marked:\n" + task + "\n" + DASHED_LINE;
     }
     /**
      * Returns a message confirming that a task has been marked as not done.
