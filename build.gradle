@@ -42,10 +42,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Pew")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
+    archiveFileName = 'pew.jar'
     archiveBaseName = "pew"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
