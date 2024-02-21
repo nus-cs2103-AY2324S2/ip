@@ -1,19 +1,19 @@
-package duke;
+package plato;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.task.TaskManager;
-import duke.ui.Ui;
+import plato.parser.Parser;
+import plato.storage.Storage;
+import plato.task.TaskManager;
+import plato.ui.Ui;
 
 
 /**
- * Duke Chatbot to prompt the user on what task would they like to keep track of
+ * Chatbot to prompt the user on what task would they like to keep track of
  */
 
-public class Duke {
+public class Plato {
 
     private static boolean isExit;
     private final Storage storage;
@@ -25,14 +25,14 @@ public class Duke {
      * @param filePath      string path from root where the user wants to store their task.
      * @param saveFrequency input in milliseconds to indicate the frequency of autosave.
      */
-    public Duke(String filePath, int saveFrequency) {
+    public Plato(String filePath, int saveFrequency) {
 
         Timer saveTimer = new Timer();
         isExit = false;
         storage = new Storage(filePath);
         try {
             manager = storage.loadFile();
-        } catch (DukeException e) {
+        } catch (PlatoException e) {
             System.out.println(e.getMessage());
             manager = new TaskManager();
         }
@@ -53,7 +53,7 @@ public class Duke {
             response = Ui.convertToString(Parser.parse(input, manager));
             isExit = Parser.isExit();
 
-        } catch (DukeException e) {
+        } catch (PlatoException e) {
             response = Ui.handleError(e.getMessage());
         }
         return response;

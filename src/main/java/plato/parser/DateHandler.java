@@ -1,4 +1,4 @@
-package duke.parser;
+package plato.parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.DukeException;
+import plato.PlatoException;
 
 /**
  * Handles parsing and identifying DateTime in String Commands
@@ -26,9 +26,9 @@ public class DateHandler {
      *
      * @param testDate String to test.
      * @return An Optional that contains the LocalDate if it exists.
-     * @throws DukeException Invalid Date format .
+     * @throws PlatoException Invalid Date format .
      */
-    public static Optional<LocalDate> checkDate(String testDate) throws DukeException {
+    public static Optional<LocalDate> checkDate(String testDate) throws PlatoException {
         Matcher match = PATTERN_DATE.matcher(testDate);
         if (!match.find()) {
             return Optional.empty();
@@ -40,14 +40,14 @@ public class DateHandler {
 
 
         if (y.length() == 3) {
-            throw new DukeException("dateError");
+            throw new PlatoException("dateError");
         } else if (y.length() == 2) {
             y = "20" + y;
         }
         int date = Integer.parseInt(d);
         int month = Integer.parseInt(m);
         if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
-            throw new DukeException("dateOutOfRangeError");
+            throw new PlatoException("dateOutOfRangeError");
         }
         int year = Integer.parseInt(y);
         LocalDate convert = LocalDate.of(year, month, date);

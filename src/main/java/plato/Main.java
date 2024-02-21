@@ -1,4 +1,4 @@
-package duke;
+package plato;
 
 
 import java.io.IOException;

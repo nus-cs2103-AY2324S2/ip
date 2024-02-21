@@ -1,6 +1,6 @@
-package duke.ui;
+package plato.ui;
 
-import duke.Duke;
+import plato.Plato;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,15 +28,16 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private Duke duke;
+    private Plato duke;
 
     /**
      * Initialises preprocessing required before the gui comes out.
      */
     @FXML
     public void initialize() {
-        duke = new Duke(PATH_SAVE, SAVE_FREQUENCY);
+        duke = new Plato(PATH_SAVE, SAVE_FREQUENCY);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        printDukeMessage(Ui.saySmartStuff());
         printDukeMessage(Ui.sayWelcome());
 
     }

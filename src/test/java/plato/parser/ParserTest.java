@@ -1,4 +1,4 @@
-package duke.parser;
+package plato.parser;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -6,18 +6,18 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
-import duke.DukeException;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.TaskManager;
-import duke.task.Todo;
+import plato.PlatoException;
+import plato.task.Deadline;
+import plato.task.Task;
+import plato.task.TaskManager;
+import plato.task.Todo;
 
 
 class ParserTest {
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
 
     @Test
-    public void parse_todo() throws DukeException {
+    public void parse_todo() throws PlatoException {
         TaskManager assertManager = new TaskManager();
         Task testItem = new Todo("Haha");
         assertManager.addItem(testItem);
@@ -30,7 +30,7 @@ class ParserTest {
     }
 
     @Test
-    public void parse_deadline() throws DukeException {
+    public void parse_deadline() throws PlatoException {
         TaskManager assertManager = new TaskManager();
         Task testItem = new Deadline("math test ", LocalDateTime.of(2023, 4, 12, 18, 0));
         assertManager.addItem(testItem);

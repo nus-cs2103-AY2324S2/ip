@@ -1,4 +1,4 @@
-package duke.task;
+package plato.task;
 
 /**
  * Enum of all the possible actions in the chatbot.

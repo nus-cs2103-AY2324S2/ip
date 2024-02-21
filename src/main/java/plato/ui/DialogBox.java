@@ -1,4 +1,4 @@
-package duke.ui;
+package plato.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -38,7 +37,6 @@ public class DialogBox extends HBox {
             System.out.println(e.getMessage());
         }
         dialog.setText(text);
-        dialog.setPadding(new Insets(0, 20, 0, 0));
         displayPicture.setImage(img);
         //Custom clipped borders inspired from:
         // https://stackoverflow.com/questions/20489908/border-radius-and-shadow-on-imageview
@@ -47,12 +45,10 @@ public class DialogBox extends HBox {
         clip.setArcHeight(200);
         displayPicture.setClip(clip);
 
-        // snapshot the rounded image.
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
         WritableImage image = displayPicture.snapshot(parameters, null);
 
-        // remove the rounding clip so that our effect can show through.
         displayPicture.setClip(null);
         displayPicture.setImage(image);
     }
@@ -71,7 +67,6 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        dialog.setPadding(new Insets(0, 0, 0, 20));
         setAlignment(Pos.TOP_LEFT);
     }
 }
