@@ -31,8 +31,9 @@ class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
 
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
@@ -41,24 +42,28 @@ class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            result.append("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            result.append("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+                result.append("\n ").append(i + 1).append(".").append(matchingTasks.get(i));
             }
         }
+
+        return result.toString();
     }
+
 
     /**
      * Adds a TodoTask to the list with the specified description.
      * @param taskDescription Description of the TodoTask.
      */
-    public void addTodoTask(String taskDescription) {
+    public String addTodoTask(String taskDescription) {
         if (taskDescription.isEmpty()) {
-            System.out.println("Do nothing?");
+            return "Task description is empty.";
         } else {
-            addTask(new TodoTask(taskDescription));
+            TodoTask newTask = new TodoTask(taskDescription);
+            return addTask(newTask);
         }
     }
 
@@ -66,20 +71,18 @@ class TaskList {
      * Adds a DeadlineTask to the list with the specified details.
      * @param taskDetails Details of the DeadlineTask.
      */
-    public void addDeadlineTask(String taskDetails) {
+    public String addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
 
         if (details.length != 2) {
-            System.out.println("Invalid deadline task format.");
-            return;
+            return "Invalid deadline task format.";
         }
 
         String description = details[0].trim();
         String dateTime = details[1].trim();
 
         if (description.isEmpty()) {
-            System.out.println("No deadline?");
-            return;
+            return "No deadline specified.";
         }
 
         try {
@@ -87,86 +90,91 @@ class TaskList {
             String date = dateTimeParts[0];
             String time = dateTimeParts[1];
 
-            addTask(new DeadlineTask(description, date, time));
+            DeadlineTask newTask = new DeadlineTask(description, date, time);
+            return addTask(newTask);
+
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
+            return "Invalid date or time format. Please use yyyy-MM-dd HHmm.";
         }
     }
+
 
     /**
      * Adds an EventTask to the list with the specified details.
      *
      * @param taskDetails Details of the EventTask.
      */
-    public void addEventTask(String taskDetails) {
+    public String addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
 
         if (details.length != 2) {
-            System.out.println("Invalid event task format.");
-            return;
+            return "Invalid event task format.";
         }
 
         String description = details[0].trim();
         String[] timeDetails = details[1].split(" /to ");
 
         if (description.isEmpty()) {
-            System.out.println("No event?");
-            return;
+            return "No event specified.";
         }
 
         if (timeDetails.length != 2) {
-            System.out.println("Invalid event task format.");
-            return;
+            return "Invalid event task format.";
         }
 
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
-            addTask(new EventTask(description, fromDateTime, toDateTime));
+            EventTask newTask = new EventTask(description, fromDateTime, toDateTime);
+            return addTask(newTask);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
+            return "Invalid date or time format. Please use yyyy-MM-dd HHmm.";
         }
     }
+
 
     /**
      * Adds a task to the list and prints a confirmation message.
      * @param task Task to be added to the list.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-        saveTasks(); // Save tasks after adding
+        String result = "Got it. I've added this task:\n   " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
+        saveTasks();
+        return result;
     }
 
     /**
      * Lists all the tasks in the list.
      */
-    public void listTasks() {
+    public String listTasks() {
+        StringBuilder result = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            System.out.println(" No tasks added yet.");
+            result.append("No tasks added yet.");
         } else {
-            System.out.println(" Here are the tasks in your list:");
+            result.append("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                result.append("\n ").append(i + 1).append(".").append(tasks.get(i));
             }
         }
+
+        return result.toString();
     }
 
     /**
      * Marks a task at the specified index as done.
      * @param taskIndex Index of the task to be marked as done.
      */
-    public void markTaskDone(int taskIndex) {
+    public String markTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
-            tasks.get(taskIndex - 1).markAsDone();
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks.get(taskIndex - 1));
+            Task task = tasks.get(taskIndex - 1);
+            task.markAsDone();
             saveTasks();
+            return "Nice! I've marked this task as done:\n   " + task;
         } else {
-            System.out.println(" Invalid task index.");
+            return "Invalid task index.";
         }
     }
 
@@ -174,14 +182,14 @@ class TaskList {
      * Unmarks a task at the specified index as not done.
      * @param taskIndex Index of the task to be unmarked.
      */
-    public void unmarkTaskDone(int taskIndex) {
+    public String unmarkTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
-            tasks.get(taskIndex - 1).unmarkAsDone();
-            System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks.get(taskIndex - 1));
+            Task task = tasks.get(taskIndex - 1);
+            task.unmarkAsDone();
             saveTasks();
+            return "OK, I've marked this task as not done yet:\n   " + task;
         } else {
-            System.out.println(" Invalid task index.");
+            return "Invalid task index.";
         }
     }
 
@@ -189,15 +197,13 @@ class TaskList {
      * Deletes a task at the specified index from the list.
      * @param taskIndex Index of the task to be deleted.
      */
-    public void deleteTask(int taskIndex) {
+    public String deleteTask(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             Task removedTask = tasks.remove(taskIndex - 1);
-            System.out.println(" Task removed:");
-            System.out.println("   " + removedTask);
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             saveTasks();
+            return "Task removed:\n   " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
         } else {
-            System.out.println(" Invalid task index.");
+            return "Invalid task index.";
         }
     }
 
@@ -205,10 +211,12 @@ class TaskList {
      * Checks and lists tasks on a specific date.
      * @param dateString Date in string format (yyyy-MM-dd) to check tasks.
      */
-    public void checkTasksOnDate(String dateString) {
+    public String checkTasksOnDate(String dateString) {
+        StringBuilder result = new StringBuilder();
+
         try {
             LocalDateTime targetDate = LocalDateTime.parse(dateString + " 0000",
-                                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             List<Task> tasksOnDate = new ArrayList<>();
 
             for (Task task : tasks) {
@@ -227,27 +235,37 @@ class TaskList {
             }
 
             if (tasksOnDate.isEmpty()) {
-                System.out.println("No tasks on " + targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                result.append("No tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             } else {
-                System.out.println("Tasks on " + targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ":");
+                result.append("Tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).append(":");
                 for (int i = 0; i < tasksOnDate.size(); i++) {
-                    System.out.println(" " + (i + 1) + "." + tasksOnDate.get(i));
+                    result.append("\n ").append(i + 1).append(".").append(tasksOnDate.get(i));
                 }
             }
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            result.append("Invalid date format. Please use yyyy-MM-dd.");
         }
+
+        return result.toString();
     }
 
     private boolean isValidIndex(int index) {
         return index >= 1 && index <= tasks.size();
     }
 
-    private void saveTasks() {
+    private String saveTasks() {
         try {
             storage.save(tasks);
+            return "";
         } catch (DukeException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
+            return "Error saving tasks to file: " + e.getMessage();
         }
+    }
+
+    /**
+     * Displays an exit message to the user.
+     */
+    public String exit() {
+        return "Goodbye.";
     }
 }

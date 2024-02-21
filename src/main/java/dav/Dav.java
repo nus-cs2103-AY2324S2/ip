@@ -26,27 +26,7 @@ public class Dav {
         }
     }
 
-    /**
-     * Main method to run the Dav application.
-     */
-    public void run() {
-        ui.greetUser();
-
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-
-        do {
-            userInput = ui.getUserInput(scanner);
-            Parser.parseUserInput(userInput, tasks, ui, storage);
-        } while (!userInput.equalsIgnoreCase("bye"));
-
-        ui.exit();
-    }
-
-    /**
-     * Main method to start the Dav application.
-     * @param args Command line arguments (not used).
-     */public static void main(String[] args) {
-        new Dav().run();
+    public String getResponse(String input) {
+        return Parser.parseUserInput(input, tasks, ui, storage);
     }
 }
