@@ -30,7 +30,7 @@ import kbot.exceptions.InvalidInputException;
  */
 public class KBot extends Application {
     /** Image used to represent user. */
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/aaron.jpg"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/aaron.png"));
 
     /** Image used to represent chatbot. */
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/halim.png"));
