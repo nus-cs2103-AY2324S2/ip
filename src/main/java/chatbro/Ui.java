@@ -24,10 +24,12 @@ public class Ui {
                 + "6. todo <description>\n"
                 + "7. deadline <description> /by <deadline time>\n"
                 + "8. event <description> /from <start time> /to <end time>\n"
-                + "Deadline and start/end times must follow the format:\n"
+                + "9. interval <description> /from <starting time of interval deadline> /to "
+                + "<ending time of interval deadline>\n\n"
+                + "Deadline time and start/end times must follow the format:\n"
                 + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)\n\n"
                 + "Find tasks using:\n"
-                + "9. find <keyword> (finds tasks containing keyword in the description)";
+                + "10. find <keyword> (finds tasks containing keyword in the description)";
     }
     public static String byeMessage() {
         return "I have saved your tasks.\nHasta la vista bro!";
@@ -66,5 +68,18 @@ public class Ui {
             sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n");
         }
         return sb.toString();
+    }
+    public static String dueByInterval() { // returns String "(due by interval: " in bold and italics
+        return " (\uD835\uDC85\uD835\uDC96\uD835\uDC86 \uD835\uDC83\uD835\uDC9A"
+            + " \uD835\uDC8A\uD835\uDC8F\uD835\uDC95\uD835\uDC86\uD835\uDC93\uD835\uDC97\uD835\uDC82\uD835\uDC8D: ";
+    }
+    public static String to() { // Returns String " to: " in bold and italics
+        return " \uD835\uDC95\uD835\uDC90: ";
+    }
+    public static String from() { // Returns String " (from: " in bold and italics
+        return " (\uD835\uDC87\uD835\uDC93\uD835\uDC90\uD835\uDC8E: ";
+    }
+    public static String by() { // Returns String " (by: " in bold and italics
+        return " (\uD835\uDC83\uD835\uDC9A: ";
     }
 }

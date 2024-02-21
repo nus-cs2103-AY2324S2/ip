@@ -28,6 +28,8 @@ public class Parser {
             return Command.ADD_DEADLINE.execute(input);
         case "event":
             return Command.ADD_EVENT.execute(input);
+        case "interval":
+            return Command.ADD_INTERVAL_DEADLINE.execute(input);
         case "help":
             return Command.HELP.execute(input);
         case "find":

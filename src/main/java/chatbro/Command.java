@@ -173,6 +173,43 @@ public enum Command {
             }
         }
     },
+    ADD_INTERVAL_DEADLINE {
+        @Override
+        public String execute(String userInput) {
+            String[] intervalFromSplit = userInput.split(" /from ");
+            try {
+                String intervalName = intervalFromSplit[0].substring(9); // 9 is the length of "interval "
+                String[] intervalToSplit = intervalFromSplit[1].split(" /to ");
+                String startTime = intervalToSplit[0];
+                String endTime = intervalToSplit[1];
+                if (intervalName.trim().isEmpty()) { // Empty task description (whitespace)
+                    return "Hey bro, task description cannot be empty.";
+                }
+                if (startTime.trim().isEmpty()) { // Empty start time (whitespace)
+                    return "Hey bro, the start time cannot be empty.";
+                }
+                if (endTime.trim().isEmpty()) { // Empty end time (whitespace)
+                    return "Hey bro, the end time cannot be empty.";
+                }
+                try {
+                    Task interval = new IntervalDeadline(intervalName,
+                            DateTimeUtility.parseDateTime(startTime),
+                            DateTimeUtility.parseDateTime(endTime));
+                    String addTaskOutput = TaskManager.addTask(interval);
+                    if (addTaskOutput.isEmpty()) {
+                        return Ui.addMessage(interval);
+                    } else {
+                        return addTaskOutput;
+                    }
+                } catch (InvalidDateTimeException e) {
+                    return e.getMessage();
+                }
+            } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                return Ui.formatErrorMessage(
+                    "interval <task description> /from <start time of interval> /to <end time of interval>");
+            }
+        }
+    },
     HELP {
         @Override
         public String execute(String userInput) {
@@ -199,7 +236,7 @@ public enum Command {
 
     /**
      * Template method to execute command, to be overridden by each command accordingly.
-     * @param userInput
+     * @param userInput User input.
      * @return Empty string by default (to be overridden by each command)
      */
     public String execute(String userInput) {

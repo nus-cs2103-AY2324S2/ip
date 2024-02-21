@@ -46,6 +46,7 @@ public class Database {
      */
     public static Task parseTask(String taskString) throws WrongFileFormatException {
         try {
+            assert taskString != null;
             String[] splitString = taskString.split(";;");
             for (String s : splitString) {
                 if (s.isEmpty()) { // if any information is missing
@@ -75,6 +76,10 @@ public class Database {
                 String start = splitString[3];
                 String end = splitString[4];
                 return new Event(description, start, end, isDone);
+            case "I":
+                String startInterval = splitString[3];
+                String endInterval = splitString[4];
+                return new IntervalDeadline(description, startInterval, endInterval, isDone);
             default:
                 throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
                         + "Please delete the file and restart the program.");

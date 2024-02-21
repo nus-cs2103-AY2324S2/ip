@@ -17,6 +17,7 @@ public class ToDo extends Task {
         super(description, isDone);
         type = "T";
     }
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
