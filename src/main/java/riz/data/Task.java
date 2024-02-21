@@ -9,12 +9,12 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
     private String task;
-    private boolean completed;
+    private boolean isCompleted;
 
     public Task(String task) {
         assert task != null : "Task description cannot be null";
         this.task = task;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -22,14 +22,14 @@ public abstract class Task {
      */
 
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * To mark the task as uncompleted
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return " | X | " + this.task;
         } else {
             return " |   | " + this.task;

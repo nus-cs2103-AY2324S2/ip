@@ -77,14 +77,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleDeadlineButton() {
         userInput.requestFocus();
-        userInput.setText("deadline /by ");
+        userInput.setText("deadline  /by ");
         userInput.positionCaret(9);
     }
 
     @FXML
     private void handleEventButton() {
         userInput.requestFocus();
-        userInput.setText("event /from /to");
+        userInput.setText("event  /from /to");
         userInput.positionCaret(6);
     }
 

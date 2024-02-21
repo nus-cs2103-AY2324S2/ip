@@ -142,12 +142,12 @@ public class Riz extends Application{
         String dotted = "-----------------------------------";
         //greetings
         Ui.printGreetings();
-        boolean running = true;
+        boolean isRunning = true;
 
-        while (running) {
+        while (isRunning) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
-                running = false;
+                isRunning = false;
                 Ui.printGoodbye();
             } else {
                 Parser.parse(this.taskList, this.storage, input);
