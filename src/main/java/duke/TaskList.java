@@ -131,4 +131,10 @@ public class TaskList {
 
         return "Here are the matching tasks in your list";
     }
+
+    public String help() {
+        return "Commands:" + "\n" + "list" + "\n" + "todo TASKNAME" +
+                "\n" + "deadline TASKNAME /by DD/MM/YYYY" + "\n" + "event TASKNAME /from DAY TIME/to DAY TIME" +"\n" +
+                "mark TASKNUMBER" + "\n" + "unmark TASKNUMBER" + "\n" + "delete TASKNUMBER";
+    }
 }

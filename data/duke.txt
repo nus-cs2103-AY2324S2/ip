@@ -1,2 +1,3 @@
 [T][X] new
 [T][ ] hi
+[E][ ] new  (from: sun 2pm  to: mon 3pm)

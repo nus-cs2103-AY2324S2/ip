@@ -11,7 +11,5 @@ public class Ui {
         return "Hello! I'm tars" + "\n" + "What can I do for you?";
     }
 
-    public void taskAdded() {
 
-    }
 }

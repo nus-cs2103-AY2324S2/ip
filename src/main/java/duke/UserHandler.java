@@ -130,7 +130,9 @@ public class UserHandler {
         } else if (input.toLowerCase().matches("\\bfind\\b.*")) {
 
             return taskList.findTask(input);
+        } else if(input.toLowerCase().matches("\\bhelp\\b.*")) {
 
+        return taskList.help();
 
         } else if (input.trim().isEmpty()) {
 
