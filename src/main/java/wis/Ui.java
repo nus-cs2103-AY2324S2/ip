@@ -58,7 +58,7 @@ public class Ui {
         case DELETE:
             return delete(words, tasks);
         case LIST:
-            return Printer.printActionAttach(Action.LIST, tasks);
+            return Printer.getMessageActionAttach(Action.LIST, tasks);
         case FIND:
             return find(words, tasks);
         case UNDO:
@@ -86,7 +86,7 @@ public class Ui {
             Todo todo = new Todo(InputParser.parseTodo(input));
             tasks.add(todo);
             cacheInput(input, Action.ADD_TODO);
-            return Printer.printActionAttach(Action.ADD_TODO, todo, tasks);
+            return Printer.getMessageActionAttach(Action.ADD_TODO, todo, tasks);
         } catch (InputMismatchException e) {
             return WisException.handleActionException(Action.ADD_TODO);
         }
@@ -99,7 +99,7 @@ public class Ui {
                     InputParser.parseDateTime(parsedString[1]));
             tasks.add(deadline);
             cacheInput(input, Action.ADD_DEADLINE);
-            return Printer.printActionAttach(Action.ADD_DEADLINE, deadline, tasks);
+            return Printer.getMessageActionAttach(Action.ADD_DEADLINE, deadline, tasks);
         } catch (InputMismatchException e) {
             return WisException.handleActionException(Action.ADD_DEADLINE);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
@@ -115,7 +115,7 @@ public class Ui {
                     InputParser.parseDateTime(parsedString[2]));
             tasks.add(event);
             cacheInput(input, Action.ADD_EVENT);
-            return Printer.printActionAttach(Action.ADD_EVENT, event, tasks);
+            return Printer.getMessageActionAttach(Action.ADD_EVENT, event, tasks);
         } catch (InputMismatchException e) {
             return WisException.handleActionException(Action.ADD_EVENT);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
@@ -128,7 +128,7 @@ public class Ui {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setDone();
             cacheInput(input, Action.MARK);
-            return Printer.printActionAttach(Action.MARK, task);
+            return Printer.getMessageActionAttach(Action.MARK, task);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return WisException.handleActionException(Action.MARK);
         }
@@ -139,7 +139,7 @@ public class Ui {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setUndone();
             cacheInput(input, Action.UNMARK);
-            return Printer.printActionAttach(Action.UNMARK, task);
+            return Printer.getMessageActionAttach(Action.UNMARK, task);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return WisException.handleActionException(Action.UNMARK);
         }
@@ -149,7 +149,7 @@ public class Ui {
         try {
             this.lastDeletedTask = tasks.remove(Integer.parseInt(words[1]) - 1);
             cacheInput(input, Action.DELETE);
-            return Printer.printActionAttach(Action.DELETE, lastDeletedTask, tasks);
+            return Printer.getMessageActionAttach(Action.DELETE, lastDeletedTask, tasks);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return WisException.handleActionException(Action.DELETE);
         }
@@ -158,7 +158,7 @@ public class Ui {
     private String find(String[] words, TaskList tasks) {
         try {
             ArrayList<Pair<Integer, Task>> matchingTasks = tasks.find(words[1]);
-            return Printer.printActionAttach(Action.FIND, matchingTasks);
+            return Printer.getMessageActionAttach(Action.FIND, matchingTasks);
         } catch (IndexOutOfBoundsException e) {
             return WisException.handleActionException(Action.FIND);
         }

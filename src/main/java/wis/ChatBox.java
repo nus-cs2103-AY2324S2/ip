@@ -25,11 +25,14 @@ public class ChatBox {
     public String launch() {
         try {
             this.tasks = new TaskList(Storage.loadTasks());
-            Printer.printActionAttach(Action.GREET);
             return "";
         } catch (IOException | InputMismatchException e) {
             return WisException.handleLoadFileException();
         }
+    }
+
+    public String getWelcomeMessage() {
+        return Printer.getMessageActionAttach(Action.GREET);
     }
 
     public String getResponse(String string) {

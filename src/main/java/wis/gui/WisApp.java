@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
+import wis.ChatBox;
 
 //@@author: Jeffry Lum
 //All code in this file is reused from https://se-education.org/guides/tutorials/javaFx.html
@@ -29,7 +30,7 @@ public class WisApp extends Application {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image wisImage = new Image(this.getClass().getResourceAsStream("/images/Wis.png"));
 
-    Bridge bridge = new Bridge();
+    Bridge bridge = new Bridge(this);
 
     public WisApp() {
 
@@ -127,12 +128,20 @@ public class WisApp extends Application {
             return;
         }
 
-        TextArea dukeText = new TextArea(response);
+        TextArea wisText = new TextArea(response);
 
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(userImage)),
-                new DialogBox(dukeText, new ImageView(wisImage))
+                new DialogBox(wisText, new ImageView(wisImage))
         );
         userInput.clear();
+    }
+
+    public void displayWelcomeMessage(ChatBox chatbox) {
+        TextArea wisText = new TextArea(chatbox.getWelcomeMessage());
+
+        dialogContainer.getChildren().addAll(
+                new DialogBox(wisText, new ImageView(wisImage))
+        );
     }
 }

@@ -12,9 +12,10 @@ import wis.ChatBox;
  */
 public class Bridge {
     private ChatBox chatBox = new ChatBox();
+    private WisApp wisApp;
 
-    public Bridge() {
-
+    public Bridge(WisApp wisApp) {
+        this.wisApp = wisApp;
     }
 
     /**
@@ -32,6 +33,8 @@ public class Bridge {
             TextArea errorText = new TextArea(message);
             dialogContainer.getChildren().addAll(
                     new DialogBox(errorText, new ImageView(wisImage)));
+        } else {
+            wisApp.displayWelcomeMessage(chatBox);
         }
     }
 
