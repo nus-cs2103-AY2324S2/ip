@@ -37,7 +37,7 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        String response = "";
+        String response;
         try {
             Command c = Parser.parse(input);
             response = c.execute(tasks, ui, storage);

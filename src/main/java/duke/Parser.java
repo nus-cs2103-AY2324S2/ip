@@ -1,5 +1,17 @@
 package duke;
 
+import static duke.DukeException.BYE_ERROR;
+import static duke.DukeException.DEADLINE_ERROR;
+import static duke.DukeException.DELETE_ERROR;
+import static duke.DukeException.EMPTY_ERROR;
+import static duke.DukeException.EVENT_ERROR;
+import static duke.DukeException.FIND_ERROR;
+import static duke.DukeException.LIST_ERROR;
+import static duke.DukeException.MARK_ERROR;
+import static duke.DukeException.TODO_ERROR;
+import static duke.DukeException.UNKNOWN_ERROR;
+import static duke.DukeException.UNMARK_ERROR;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
@@ -23,48 +35,48 @@ public class Parser {
      * @throws IllegalArgumentException If the user input does not match any command, or any syntax error exists.
      */
     public static Command parse(String fullCommand) throws DukeException {
-        String[] splitedTask = fullCommand.split(" ");
-        TaskType taskType = TaskType.UNKNOWN;
+        String[] splitTask = fullCommand.split(" ");
+        TaskType taskType;
 
         // Empty command handler
         try {
-            taskType = TaskType.valueOf(splitedTask[0].toUpperCase());
+            taskType = TaskType.valueOf(splitTask[0].toUpperCase());
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Sorry, we are not sync enough to communicate through empty command.");
+            throw new DukeException(EMPTY_ERROR);
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Syntax error, unknown command.");
+            throw new DukeException(UNKNOWN_ERROR);
         }
 
         switch (taskType) {
         case BYE: {
-            return handleTaskBye(splitedTask);
+            return handleTaskBye(splitTask);
         }
         case LIST: {
-            return handleTaskList(splitedTask);
+            return handleTaskList(splitTask);
         }
         case MARK: {
-            return handleTaskMark(splitedTask);
+            return handleTaskMark(splitTask);
         }
         case UNMARK: {
-            return handleTaskUnmark(splitedTask);
+            return handleTaskUnmark(splitTask);
         }
         case TODO: {
-            return handleTaskTodo(fullCommand, splitedTask);
+            return handleTaskTodo(fullCommand, splitTask);
         }
         case DEADLINE: {
-            return handleTaskDeadline(fullCommand, splitedTask);
+            return handleTaskDeadline(fullCommand, splitTask);
         }
         case EVENT: {
-            return handleTaskEvent(fullCommand, splitedTask);
+            return handleTaskEvent(fullCommand, splitTask);
         }
         case DELETE: {
-            return handleTaskDelete(splitedTask);
+            return handleTaskDelete(splitTask);
         }
         case FIND: {
-            return handleTaskFind(fullCommand, splitedTask);
+            return handleTaskFind(fullCommand, splitTask);
         }
         default: {
-            throw new DukeException("Syntax error, unknown command.");
+            throw new DukeException(UNKNOWN_ERROR);
         }
         }
     }
@@ -80,7 +92,7 @@ public class Parser {
     public static Command handleTaskBye(String[] splitedTask) throws DukeException {
         // Incorrect command syntax handler
         if (splitedTask.length > 1) {
-            throw new DukeException("Syntax of bye: bye");
+            throw new DukeException(BYE_ERROR);
         }
         return new ExitCommand();
     }
@@ -96,7 +108,7 @@ public class Parser {
     public static Command handleTaskList(String[] splitedTask) throws DukeException {
         // Incorrect command syntax handler
         if (splitedTask.length > 1) {
-            throw new DukeException("Syntax of list: list");
+            throw new DukeException(LIST_ERROR);
         }
         return new ListCommand();
     }
@@ -113,16 +125,14 @@ public class Parser {
 
         // Incorrect command syntax handler
         if (splitedTask.length != 2) {
-            throw new DukeException("Syntax of mark: mark {index of task (integer)}\n"
-                    + "E.g. mark 1");
+            throw new DukeException(MARK_ERROR);
         }
 
-        int index = 0;
+        int index;
         try {
             index = Integer.parseInt(splitedTask[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Syntax of mark: mark {index of task (integer)}\n"
-                    + "E.g. mark 1");
+            throw new DukeException(MARK_ERROR);
         }
 
         return new EditCommand(true, index);
@@ -140,15 +150,13 @@ public class Parser {
 
         // Incorrect command syntax handler
         if (splitedTask.length != 2) {
-            throw new DukeException("Syntax of unmark: unmark {index of task (integer)}\n"
-                    + "E.g. unmark 1");
+            throw new DukeException(UNMARK_ERROR);
         }
-        int index = 0;
+        int index;
         try {
             index = Integer.parseInt(splitedTask[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Syntax of unmark: unmark {index of task (integer)}\n"
-                    + "E.g. unmark 1");
+            throw new DukeException(UNMARK_ERROR);
         }
 
         return new EditCommand(false, index);
@@ -159,16 +167,15 @@ public class Parser {
      * If any syntax error exists, throw exception.
      *
      * @param task User input.
-     * @param splitedTask Splited texts of the user input.
+     * @param splitTask Splited texts of the user input.
      * @return A command object to be executed.
      * @throws IllegalArgumentException If any syntax error exists.
      */
-    public static Command handleTaskTodo(String task, String[] splitedTask) throws DukeException {
+    public static Command handleTaskTodo(String task, String[] splitTask) throws DukeException {
 
         // Incorrect command syntax handler
-        if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of todo: todo {task description}\n"
-                    + "E.g. todo say hi to neighbour");
+        if (splitTask.length == 1) {
+            throw new DukeException(TODO_ERROR);
         }
 
         return new AddCommand(task);
@@ -187,9 +194,7 @@ public class Parser {
 
         // Incorrect syntax: No content, no deadline
         if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of deadline: deadline {task description} "
-                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. deadline breakfast /by 2022-12-31 15:00");
+            throw new DukeException(DEADLINE_ERROR);
         }
 
         // Remove the "deadline " keyword
@@ -200,9 +205,7 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to content and deadline
         if (splitedBy.length != 2) {
-            throw new DukeException("Syntax of deadline: deadline {task description} "
-                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. deadline breakfast /by 2022-12-31 15:00");
+            throw new DukeException(DEADLINE_ERROR);
         }
 
         // Get content and deadline
@@ -211,17 +214,13 @@ public class Parser {
 
         // Verify content and deadline (cannot be blank)
         if (content.isBlank() || deadline.isBlank()) {
-            throw new DukeException("Syntax of deadline: deadline {task description} "
-                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. deadline breakfast /by 2022-12-31 15:00");
+            throw new DukeException(DEADLINE_ERROR);
         }
 
         // Verify deadline (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedDateTime = deadline.split(" ");
         if (splitedDateTime.length > 2) {
-            throw new DukeException("Syntax of deadline: deadline {task description} "
-                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. deadline breakfast /by 2022-12-31 15:00");
+            throw new DukeException(DEADLINE_ERROR);
         }
 
         return new AddCommand(splitedDateTime, deadline, content);
@@ -240,10 +239,7 @@ public class Parser {
 
         // Incorrect syntax: No content, no from, no to
         if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         // Remove the "event " keyword
@@ -254,10 +250,7 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to content, from and to
         if (splitedFrom.length != 2) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         // Get content, from and to
@@ -269,10 +262,7 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to from and to
         if (splitedTo.length != 2) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         // Get from and to
@@ -281,28 +271,19 @@ public class Parser {
 
         // Verify content, from, and to (cannot be blank)
         if (content.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         // Verify from (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedFromDateTime = from.split(" ");
         if (splitedFromDateTime.length > 2) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         // Verify to (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedToDateTime = to.split(" ");
         if (splitedToDateTime.length > 2) {
-            throw new DukeException("Syntax of event: event {task description} "
-                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                    + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                    + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+            throw new DukeException(EVENT_ERROR);
         }
 
         return new AddCommand(splitedFromDateTime, splitedToDateTime, from, to, content);
@@ -312,23 +293,21 @@ public class Parser {
      * Returns a `DeleteCommand` after parsing user input.
      * If any syntax error exists, throw exception.
      *
-     * @param splitedTask Splited texts of the user input.
+     * @param splitTask Splited texts of the user input.
      * @return A command object to be executed.
      * @throws IllegalArgumentException If any syntax error exists.
      */
-    public static Command handleTaskDelete(String[] splitedTask) throws DukeException {
+    public static Command handleTaskDelete(String[] splitTask) throws DukeException {
 
         // Incorrect command syntax handler
-        if (splitedTask.length != 2) {
-            throw new DukeException("Syntax of delete: delete {index of task (integer)}\n"
-                    + "E.g. delete 1");
+        if (splitTask.length != 2) {
+            throw new DukeException(DELETE_ERROR);
         }
-        int index = 0;
+        int index;
         try {
-            index = Integer.parseInt(splitedTask[1]) - 1;
+            index = Integer.parseInt(splitTask[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Syntax of delete: delete {index of task (integer)}\n"
-                    + "E.g. delete 1");
+            throw new DukeException(DELETE_ERROR);
         }
 
         return new DeleteCommand(index);
@@ -338,15 +317,14 @@ public class Parser {
      * Returns a `FindCommand` after parsing user input.
      * If any syntax error exists, throw exception.
      *
-     * @param splitedTask Splited texts of the user input.
+     * @param splitTask Splited texts of the user input.
      * @return A command object to be executed.
      * @throws IllegalArgumentException If any syntax error exists.
      */
-    public static Command handleTaskFind(String task, String[] splitedTask) throws DukeException {
+    public static Command handleTaskFind(String task, String[] splitTask) throws DukeException {
         // Incorrect command syntax handler
-        if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of find: find {keyword}\n"
-                    + "E.g. find book");
+        if (splitTask.length == 1) {
+            throw new DukeException(FIND_ERROR);
         }
 
         return new FindCommand(task);
