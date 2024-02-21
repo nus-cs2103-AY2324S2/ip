@@ -18,6 +18,11 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         setExit(true);
+        try {
+            storage.save(taskList);
+        } catch (DukeException e) {
+            ui.showMessage("Unable to save :(");
+        }
         return "";
     }
 }

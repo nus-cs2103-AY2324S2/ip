@@ -61,6 +61,7 @@ public class Duke {
     public void run() {
         ui.greet();
         boolean isRunning = true;
+        System.out.println("isRunning");
         while (isRunning) {
             try {
                 String fullCommand = ui.readCommand();
@@ -68,6 +69,7 @@ public class Duke {
                 Command command = parser.parse(fullCommand);
                 command.execute(taskList, ui, storage);
                 if (command.isExit()) {
+                    System.out.println("saving tasklist");
                     storage.save(taskList);
                     ui.exit();
                     isRunning = false;

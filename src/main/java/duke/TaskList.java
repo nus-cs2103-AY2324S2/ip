@@ -1,5 +1,7 @@
 package duke;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 import java.util.ArrayList;
 
 /**
@@ -107,10 +109,11 @@ public class TaskList {
      * @return New TaskList of matching tasks.
      */
     public TaskList find(String keyword) {
+        LevenshteinDistance ld = new LevenshteinDistance();
         TaskList filteredList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
-            if (currTask.getDescription().contains(keyword)) {
+            if (ld.apply(currTask.getDescription(), keyword) < 3) {
                 filteredList.taskList.add(currTask);
             }
         }
