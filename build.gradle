@@ -52,6 +52,7 @@ application {
 }
 
 shadowJar {
+    archiveBaseName = "numerator"
     archiveFileName = "numerator.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
