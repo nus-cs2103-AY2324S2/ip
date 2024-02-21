@@ -37,7 +37,7 @@ public class FindExecutor extends Executor {
             }
         }
         if (matchedList.size() > 0) {
-            this.executeStr = "Here are the list of tasks that matches the keyword:";
+            this.executeStr = "Here are the list of tasks that matches with your description:";
             for (int i = 0; i < matchedList.size(); i++) {
                 this.executeStr = this.executeStr + "\n" + (i + 1) + "." + matchedList.get(i);
             }

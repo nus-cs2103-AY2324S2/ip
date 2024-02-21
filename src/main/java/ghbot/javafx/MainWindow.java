@@ -72,7 +72,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * ExitProgramTask Class.
-     * An inner class to exit the program after 1.5sec.
+     * An inner class to exit the program after 1.5sec to show the goodbye message.
      */
     private static class ExitProgramTask extends TimerTask {
         @Override
