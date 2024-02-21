@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -29,7 +28,6 @@ public class FindCommand extends Command {
      * @param tasks Existing tasks.
      * @param ui The Ui of the program.
      * @param storage The storage of the program.
-     * @throws DukeException For any error.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

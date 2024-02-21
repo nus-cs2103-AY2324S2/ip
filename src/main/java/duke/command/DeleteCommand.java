@@ -1,5 +1,8 @@
 package duke.command;
 
+import static duke.DukeException.NON_POSITIVE_INDEX_ERROR;
+import static duke.DukeException.SMALL_INDEX_ERROR;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
@@ -35,9 +38,9 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         // Index out of bound handler
         if (index >= tasks.getItems().size()) {
-            throw new DukeException("The index of task cannot be larger than number of task.");
+            throw new DukeException(SMALL_INDEX_ERROR);
         } else if (index < 0) {
-            throw new DukeException("The index of task must be positive integer.");
+            throw new DukeException(NON_POSITIVE_INDEX_ERROR);
         }
 
         String response = ui.delete(tasks.getItem(index), tasks);
