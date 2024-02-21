@@ -42,14 +42,13 @@ public class TaskList {
     public String showList() {
         String str = "";
         if (taskList.isEmpty()) {
-            str = str + "There are currently no tasks in your list";
-        } else {
-            str = str + "Here are the tasks in your list:\n";
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                String temp = (i + 1) + "." + t.toString();
-                str = str + temp + "\n";
-            }
+            return "There are currently no tasks in your list";
+        }
+        str = str + "Here are the tasks in your list:\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            String temp = (i + 1) + "." + t.toString();
+            str = str + temp + "\n";
         }
         return str;
     }
@@ -65,17 +64,16 @@ public class TaskList {
         String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            str = str + "Task does not exist";
-        } else {
-            Task t = taskList.get(position);
-            if (t.getStatusIcon().equals(" ")) {
-                str = str + "Nice! I've marked this task as done:\n";
-            } else {
-                str = str + "This task is already done\n";
-            }
-            t.markAsDone();
-            str = str + "  " + t.toString();
+            return "Task does not exist";
         }
+        Task t = taskList.get(position);
+        if (t.getStatusIcon().equals(" ")) {
+            str = str + "Nice! I've marked this task as done:\n";
+        } else {
+            str = str + "This task is already done\n";
+        }
+        t.markAsDone();
+        str = str + "  " + t.toString();
         return str;
     }
 
@@ -90,17 +88,16 @@ public class TaskList {
         String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            str = str + "Task does not exist";
-        } else {
-            Task t = taskList.get(position);
-            if (t.getStatusIcon().equals("X")) {
-                str = str + "OK, I've marked this task as not done yet:\n";
-            } else {
-                str = str + "This task is not done yet\n";
-            }
-            t.markAsUndone();
-            str = str + "  " + t.toString();
+            return "Task does not exist";
         }
+        Task t = taskList.get(position);
+        if (t.getStatusIcon().equals("X")) {
+            str = str + "OK, I've marked this task as not done yet:\n";
+        } else {
+            str = str + "This task is not done yet\n";
+        }
+        t.markAsUndone();
+        str = str + "  " + t.toString();
         return str;
     }
 
@@ -111,10 +108,9 @@ public class TaskList {
      */
     public String todo(Todo t) {
         taskList.add(t);
-        String str = "Got it. I've added this task:\n"
+        return "Got it. I've added this task:\n"
                 + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        return str;
     }
 
     /**
@@ -149,18 +145,15 @@ public class TaskList {
      *                 to be deleted.
      */
     public String delete(int position) {
-        String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            str = str + "Task does not exist";
-        } else {
-            Task t = taskList.get(position);
-            taskList.remove(t);
-            str = str + "Noted. I've removed this task:\n"
-                    + t.toString()
-                    + "\nNow you have " + taskList.size() + " tasks in the list.";
+            return "Task does not exist";
         }
-        return str;
+        Task t = taskList.get(position);
+        taskList.remove(t);
+        return "Noted. I've removed this task:\n"
+                + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -171,19 +164,18 @@ public class TaskList {
 
         if (taskList.isEmpty()) {
             str = str + "There are currently no tasks in your list";
-        } else {
-            //System.out.println("keyword:" + keyword + "end");
-            str = str + "Here are the matching tasks in your list:\n";
-            int index = 1;
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                String description = t.getDescription();
-                if (description.contains(keyword)) {
-                    str = str + index + "." + t.toString() + "\n";
-                    index += 1;
-                }
+        }
+        str = str + "Here are the matching tasks in your list:\n";
+        int index = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            String description = t.getDescription();
+            if (description.contains(keyword)) {
+                str = str + index + "." + t.toString() + "\n";
+                index += 1;
             }
         }
+
         return str;
     }
 
@@ -191,17 +183,14 @@ public class TaskList {
      * To update a specific task
      */
     public String update(String newDescription, int position) {
-        String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            str = str + "Task does not exist";
-        } else {
-            Task t = taskList.get(position);
-            t.updateDescription(newDescription);
-            str = str + "I have updated the description\n"
-                    + t.toString();
+            return "Task does not exist";
         }
-        return str;
+        Task t = taskList.get(position);
+        t.updateDescription(newDescription);
+        return "I have updated the description\n"
+                + t.toString();
     }
 
     /**
