@@ -4,7 +4,7 @@ Welcome to TaskYapper by [Justin Tan](https://www.linkedin.com/in/tan-wee-kian-j
 
 The ultimate task management tool that helps you keep track of your todos, deadlines, and events with ease! 🚀🚀🚀
 
-![Representative Screenshot for TaskYapper](/docs/Ui.png)
+![Representative Screenshot for TaskYapper](https://github.com/jyztintan/ip/blob/master/docs/Ui.png)
 
 ## TaskYapper Features
 
