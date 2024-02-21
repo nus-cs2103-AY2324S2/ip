@@ -21,7 +21,7 @@ public class DeadlineCommand extends Command {
     /**
      * Constant string that provides information to the user on how to use the command.
      */
-    private static final String USAGE_STRING = "Usage: deadline [description] /by [date]";
+    private static final String USAGE_STRING = "Usage: deadline [description] /by [date] [time]";
 
     /** List containing input parameters for DeadlineCommand. */
     private final ArrayList<String> inputList;

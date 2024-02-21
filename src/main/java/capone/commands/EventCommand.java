@@ -23,7 +23,7 @@ public class EventCommand extends Command {
     /**
      * Constant string that provides information to the user on how to use the command.
      */
-    private static final String USAGE_STRING = "Usage: event [description] /from [date] /to [date]";
+    private static final String USAGE_STRING = "Usage: event [description] /from [date] /to [date] [time]";
 
     /** List containing input parameters for EventCommand. */
     private final ArrayList<String> inputList;
