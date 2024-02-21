@@ -1,5 +1,6 @@
 package commands;
 
+import irwyn.tasks.Task;
 import irwyn.tasks.TaskList;
 import misc.StorageManager;
 import misc.Ui;
@@ -48,5 +49,17 @@ public abstract class Command {
      */
     public boolean isExit() {
         return this.isExit;
+    }
+
+    /**
+     * Checks if a task is a duplicate.
+     *
+     * @param task The task to check.
+     * @param taskList The list of tasks to check against.
+     * @return true if the task is a duplicate, false otherwise.
+     */
+    public boolean isDuplicate(Task task, TaskList taskList) {
+        return taskList.getTasks().stream().anyMatch(existingTask ->
+                existingTask.getDescription().equals(task.getDescription()));
     }
 }
