@@ -5,7 +5,6 @@ package yue.tasks;
  */
 public abstract class Task {
     String task;
-
     public boolean isMarked;
 
 

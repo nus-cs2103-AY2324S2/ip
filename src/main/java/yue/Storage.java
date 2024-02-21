@@ -35,7 +35,6 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
-
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
                 boolean created = file.createNewFile();
@@ -45,27 +44,20 @@ public class Storage {
                 // Now that the file is created, return an empty list of tasks
                 return tasks;
             }
-
-            // Check if the file exists
             if (!file.exists()) {
                 // If the file doesn't exist, create a new one
                 boolean created = file.createNewFile();
                 if (!created) {
                     throw new YueException("Failed to create a new file: " + filePath);
                 }
-                // Now that the file is created, return an empty list of tasks
                 return tasks;
             }
-
             Scanner scanner = new Scanner(file);
-
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-                // Assert that each line has at least 3 parts (task type, status, description)
                 assert parts.length >= 3 : "Invalid task format: " + line;
                 Task task;
-
                 switch (parts[0]) {
                     case "T":
                         task = new TodoTask(parts[2]);
@@ -88,7 +80,6 @@ public class Storage {
         } catch (IOException e) {
             throw new YueException("Error loading tasks from file: " + e.getMessage());
         }
-
         return tasks;
     }
 
@@ -100,7 +91,6 @@ public class Storage {
      * @throws YueException If there is an error saving tasks to the file.
      */
     public void save(List<Task> tasks) throws YueException {
-
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 String taskType;
@@ -113,7 +103,6 @@ public class Storage {
                 } else {
                     continue;
                 }
-
                 writer.write(String.format("%s | %d | %s", taskType, task.isMarked ? 1 : 0, task.getTask()));
                 if (task instanceof DeadlineTask) {
                     writer.write(" | " + ((DeadlineTask) task).getDateTime());
@@ -123,7 +112,6 @@ public class Storage {
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
-
             throw new YueException("Error saving tasks to file: " + e.getMessage());
         }
     }

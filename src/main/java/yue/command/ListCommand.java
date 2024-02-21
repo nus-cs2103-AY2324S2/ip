@@ -33,9 +33,6 @@ public class ListCommand extends Command {
     }
 
 
-
-
-
     /**
      * Checks if the command is an exit command.
      *

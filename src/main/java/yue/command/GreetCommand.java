@@ -5,7 +5,7 @@ import yue.tasks.TaskList;
 
 public class GreetCommand extends Command{
     /**
-     * Executes the ExitCommand, showing a goodbye message.
+     * Executes the ExitCommand, showing a greeting message.
      *
      * @param tasks   The list of tasks (not used).
      * @param storage The storage handler (not used).

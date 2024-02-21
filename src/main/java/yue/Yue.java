@@ -5,17 +5,13 @@ import yue.tasks.TaskList;
 import java.util.ArrayList;
 
 public class Yue {
-
-
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
 
-
     public Yue() {
         String filePath = "./data/botYue.txt";
         storage = new Storage(filePath);
-
         try {
             tasks = new TaskList(storage.load());
         } catch (YueException e) {

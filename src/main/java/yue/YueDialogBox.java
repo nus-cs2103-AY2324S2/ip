@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 
-
 public class YueDialogBox extends HBox {
     @FXML
     private Label dialog;

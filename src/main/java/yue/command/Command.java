@@ -6,7 +6,7 @@ import yue.tasks.TaskList;
 
 
 /**
- * Represents a command to be executed by Duke.
+ * Represents a command to be executed by Yue.
  */
 public abstract class Command {
 

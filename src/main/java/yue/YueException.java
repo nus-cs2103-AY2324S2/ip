@@ -1,12 +1,12 @@
 package yue;
 
 /**
- * Represents exceptions specific to the Duke chatbot application.
+ * Represents exceptions specific to the Yue chatbot application.
  */
 public class YueException extends Exception {
 
     /**
-     * Constructs a DukeException with the specified error message.
+     * Constructs a YueException with the specified error message.
      *
      * @param message The error message.
      */

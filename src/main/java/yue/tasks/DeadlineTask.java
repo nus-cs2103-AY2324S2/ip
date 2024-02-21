@@ -42,35 +42,28 @@ public class DeadlineTask extends Task {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
-
         try {
             dateFormatCheck = 1;
             dateTime = LocalDateTime.parse(time, formatter1);
-
         } catch (DateTimeParseException e1) {
             try {
                 dateFormatCheck = 2;
                 dateTime = LocalDateTime.parse(time, formatter2);
-
             } catch (DateTimeParseException e2) {
                 try {
                     dateFormatCheck = 3;
                     LocalDate date = LocalDate.parse(time, formatter3);
                     dateTime = date.atStartOfDay();
-
                 } catch (DateTimeParseException e3) {
                     try {
                         dateFormatCheck = 4;
                         LocalDate date = LocalDate.parse(time, formatter4);
                         dateTime = date.atStartOfDay();
-
                     } catch (DateTimeParseException e4) {
                         throw new DateTimeParseException("Unable to parse date/time as the time might be missing or in a wrong format "
                                 + time, time, 0, e2);
                     }
-
                 }
-
             }
         }
         assert dateTime != null : "Parsed LocalDateTime object cannot be null";
@@ -106,8 +99,6 @@ public class DeadlineTask extends Task {
     public String getDateTime() {
         return formatDateTime(deadline);
     }
-
-
 
     @Override
     public String toString() {

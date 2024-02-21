@@ -14,10 +14,10 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an UnmarkCommand object with the given task index.
      *
-     * @param TASK_INDEX The index of the task to mark as not done.
+     * @param taskIndex The index of the task to mark as not done.
      */
-    public UnmarkCommand(int TASK_INDEX) {
-        this.index = TASK_INDEX;
+    public UnmarkCommand(int taskIndex) {
+        this.index = taskIndex;
     }
 
 
@@ -37,13 +37,10 @@ public class UnmarkCommand extends Command {
         if (index < 1 || index > tasks.size()) {
             throw new YueException("OOPS!!! The index is out of range.");
         }
-
         Task task = tasks.get(index - 1);
         task.markNotDone();
         String unmarkedMessage = "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n";
-
         storage.save(tasks.getAllTasks());
-
         return unmarkedMessage;
     }
 

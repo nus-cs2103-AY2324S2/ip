@@ -24,19 +24,16 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the find command, searching for tasks containing the keyword.
-     * Displays the matching tasks in the UI.
+     * Executes the find command, searching for tasks containing the keyword and generate a list.
      *
      * @param tasks   The list of tasks to search within.
      * @param storage The storage for saving tasks.
      */
 
-
     @Override
     public String execute(TaskList tasks, Storage storage) {
         assert tasks != null : "TaskList cannot be null";
         assert storage != null : "Storage cannot be null";
-
         List<Task> matchingTasks = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks.getAllTasks()) {
@@ -45,7 +42,6 @@ public class FindCommand extends Command {
                 sb.append(task.toString()).append(System.lineSeparator());
             }
         }
-
         if (sb.length() >= 1) {
             String matchingTasksString = "Here are the matching tasks in your list:\n"
                     + sb.toString() + "\n";

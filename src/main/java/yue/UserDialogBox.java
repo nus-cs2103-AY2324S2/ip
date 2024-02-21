@@ -23,11 +23,9 @@ public class UserDialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }
-
     public static UserDialogBox getDialog(String text, Image img) {
         return new UserDialogBox(text, img);
     }

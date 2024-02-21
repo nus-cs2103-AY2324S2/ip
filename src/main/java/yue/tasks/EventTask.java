@@ -46,7 +46,6 @@ public class EventTask extends Task {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
-
         try {
             check = 1;
             dateTime = LocalDateTime.parse(time, formatter1);

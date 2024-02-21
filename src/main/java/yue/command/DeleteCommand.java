@@ -15,11 +15,11 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand object with the given task index.
      *
-     * @param TASK_INDEX The index of the task to be deleted.
+     * @param taskIndex The index of the task to be deleted.
      */
-    public DeleteCommand(int TASK_INDEX) {
-        assert TASK_INDEX > 0 : "Task index must be greater than 0";
-        this.index = TASK_INDEX;
+    public DeleteCommand(int taskIndex) {
+        assert taskIndex > 0 : "Task index must be greater than 0";
+        this.index = taskIndex;
     }
 
 

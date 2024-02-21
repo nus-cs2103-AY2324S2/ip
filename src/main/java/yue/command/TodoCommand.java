@@ -41,11 +41,8 @@ public class TodoCommand extends Command {
         Task task = new TodoTask(description);
         tasks.addTask(task);
         int count = tasks.size();
-
         String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
                 "    Now you have " + count + " tasks in the list.\n";
-
-
         storage.save(tasks.getAllTasks());
 
         return addedMessage;

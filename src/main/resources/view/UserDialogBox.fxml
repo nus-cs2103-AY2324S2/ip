@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.layout.Region?>
 
-
+<!-- Solution below adapted from https://github.com/getsquared/ip/blob/master/src/main/resources/view/UserDialogBox.fxml -->
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #F9D3B1; -fx-text-fill: #050300; -fx-font-size: 14.0;
@@ -30,3 +30,4 @@
         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
     </padding>
 </fx:root>
+
