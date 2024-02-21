@@ -10,12 +10,13 @@ your tasks much faster.
 Adds a todo to the list with a priority ranging from 0 to 5.
 If no priority is specified, a default value of 3 is given.
 
-Format: `todo <task> [/priority <value>]`
+Format: `todo <task details> [/priority <value>]`
 
 Example:
 
 - `todo return book`
 -  `todo return pencil /priority 5`
+-  `todo graduate /priority 0`
 
 ## Adding deadlines: `deadline`
 
@@ -23,7 +24,7 @@ Adds a deadline to the list with a priority ranging from 0 to 5.
 If no priority is specified, a default value of 3 is given. **An end date
 and time must be specified in the format of YYYY-MM-DD HHmm**
 
-Format: `deadline <task> /by <YYYY-MM-DD HHmm> [/priority <value>]`
+Format: `deadline <task details> /by <YYYY-MM-DD HHmm> [/priority <value>]`
 
 Example: 
 
@@ -37,7 +38,7 @@ If no priority is specified, a default value of 3 is given. **A start date
 and time must be specified in the format of YYYY-MM-DD HHmm. An end date and time
 must also be specified in the same format**
 
-Format: `event holiday /from <YYYY-MM-DD HHmm> /to <YYYY-MM-DD HHmm> [/priority <value>] `
+Format: `event <task details> /from <YYYY-MM-DD HHmm> /to <YYYY-MM-DD HHmm> [/priority <value>] `
 
 Example:
 
@@ -65,28 +66,36 @@ Format: `list`
 
 ## Marking tasks: "mark"
 
-Marks a task as completed or unmark it.
+Marks a task as completed.
 
 Format: `mark <task index>`
 
 - The index must refer to an index number shown in the displayed task list.
-- If a task is unmarked initially, after the command, the task would be marked.
-- If a task is marked initially, after the command, the task would be unmarked.
 
 Example:
 
+- `mark 3` would mark task 
+
+## Unmarking tasks: "unmark"                                                               
+                                                                                       
+UnMarks a task as incomplete.                                                
+                                                                                       
+Format: `unmark <task index>`                                                           
+                                                                                       
+- The index must refer to an index number shown in the displayed task list.                    
+                                                                                       
+Example:                                                                               
+                                                                                       
 - `mark 3` would mark task 3
 
 ## List tasks on a specific day: `tasks_on`
-
 Shows all the events and deadlines that fall on that day. **Events would be displayed
 as long as given date falls in between the start and end date, inclusive.**
 
-Format: `tasks_on <YYYY-MM-DD>`
+Format: `tasks_on <YYYY-MM-DD>`  
 
 Example:
-
-- `tasks_on 2024-02-02` would show all the events and deadlines on that day.
+- `tasks_on 2024-02-02` would show all the events and deadlines on that day.      
 
 ## Finding task with keyword: `find`
 
@@ -120,4 +129,4 @@ Format: `bye`
 ## Saving the data
 
 Atlas automatically save the data in the hard disk automatically after every command.
-There is no need to save manually.
+There is **no need to save manually.**
