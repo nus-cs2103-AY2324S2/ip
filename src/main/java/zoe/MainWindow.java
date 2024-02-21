@@ -1,5 +1,8 @@
 package zoe;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,6 +39,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Zoe's reply and then appends them to
      * the dialog container. Clears the user input after processing.
+     * Thrown exception is to allow for pausing the bot for 2 seconds so that it can say bye to the user
      */
     @FXML
     private void handleUserInput() {
@@ -45,10 +49,32 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getZoeDialog(response, zoeImage)
         );
+
         userInput.clear();
 
-        if (input.equals("bye")) {
+        if (response.equals(new Ui().saysBye())) {
+            pauseAndStop();
+        }
+    }
+
+    /**
+     * Pauses the app for 1 second then closes so that it can display the bye message
+     */
+    private void pauseAndStop() {
+        Timer timer = new Timer();
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+        timer.schedule(new stopApp(), 500);
+    }
+
+    /**
+     * Helps the pauseAndStop function by providing the stopping functionality
+     */
+    private class stopApp extends TimerTask {
+        @Override
+        public void run() {
             Platform.exit();
+            System.exit(0);
         }
     }
 }

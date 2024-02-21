@@ -10,9 +10,11 @@ public class Parser {
     public TaskList tl;
     protected Ui ui;
 
+    private Saver s;
     public Parser(TaskList tl) {
         this.tl = tl;
         this.ui = new Ui();
+        this.s = new Saver(this.tl.getTasks());
     }
     public String process(String command) {
         if (command.contains("_")) {
@@ -72,16 +74,19 @@ public class Parser {
             case "todo":
                 ToDo td = new ToDo(commandDescription);
                 tl.add(td);
+                s.saveTo("./data/");
                 return ui.addedTask(td, tl.getSize());
 
             case "deadline":
                 Deadline dl = new Deadline(commandDescription);
                 tl.add(dl);
+                s.saveTo("./data/");
                 return ui.addedTask(dl, tl.getSize());
 
             case "event":
                 Event e = new Event(commandDescription);
                 tl.add(e);
+                s.saveTo("./data/");
                 return ui.addedTask(e, tl.getSize());
 
             case "find":
