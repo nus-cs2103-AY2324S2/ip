@@ -40,7 +40,7 @@ public abstract class AddCommand extends Command {
      * @return The response message representing a successful execution of command.
      * @throws BondException If an error occurs during the execution of the command.
      */
-    public String addAndStore(TaskList tasks, Ui ui, Storage storage, Task task)
+    protected String addAndStore(TaskList tasks, Ui ui, Storage storage, Task task)
             throws BondException {
         tasks.addTask(task);
         String response = ui.taskAdded(task, tasks);

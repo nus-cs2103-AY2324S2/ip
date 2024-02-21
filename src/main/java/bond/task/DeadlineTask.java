@@ -27,7 +27,10 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String name, String deadline) throws BondException {
         super(name);
+        setDeadline(deadline);
+    }
 
+    public void setDeadline(String deadline) throws BondException {
         String[] dateTime = deadline.split(" ");
 
         // A timing is also required for the deadline task.

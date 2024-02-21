@@ -49,6 +49,19 @@ public class Ui {
                 newTask.toString(), taskList.numberOfTasks());
     }
 
+
+    /**
+     * Shows the message when a task is updated.
+     *
+     * @param currentTaskDetails The details of the task before it is updated.
+     * @param updatedTask        The task after it is updated.
+     */
+    public String taskUpdated(String currentTaskDetails, Task updatedTask) {
+        return String.format(
+                "Got it. The task:\n      %s\nhas been modified to\n      %s",
+                currentTaskDetails, updatedTask.toString());
+    }
+
     /**
      * Shows the message when a task is deleted.
      *

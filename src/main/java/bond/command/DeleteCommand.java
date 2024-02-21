@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         if (tasks.noTasks()) {
             BondException.raiseException("delete", "EMPTY_LIST");
-        } else if (this.index >= tasks.numberOfTasks()) {
+        } else if (this.index < 0 || this.index >= tasks.numberOfTasks()) {
             BondException.raiseException("delete", "INVALID_INDEX");
         }
         Task removedTask = tasks.getTask(index);

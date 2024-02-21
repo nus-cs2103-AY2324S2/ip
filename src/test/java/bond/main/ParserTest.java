@@ -37,7 +37,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("Are you for REAL??? No info for a todo", e.getMessage());
+            assertEquals("Are you for REAL??? No info for a TODO", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -52,7 +52,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("Are you for REAL??? No info for a deadline", e.getMessage());
+            assertEquals("Are you for REAL??? No info for a DEADLINE", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -67,7 +67,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("Are you for REAL??? No info for a event", e.getMessage());
+            assertEquals("Are you for REAL??? No info for a EVENT", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -82,7 +82,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("I see, you are SO EXTRA and saying list needs MORE!!!", e.getMessage());
+            assertEquals("I see, you are SO EXTRA and saying LIST needs MORE!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -97,7 +97,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me an INDEX to mark a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me an INDEX to MARK a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -112,7 +112,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me a PROPER INDEX to mark a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me a PROPER INDEX to MARK a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -127,7 +127,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me an INDEX to unmark a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me an INDEX to UNMARK a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -142,7 +142,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me a PROPER INDEX to unmark a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me a PROPER INDEX to UNMARK a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -157,7 +157,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("I see, you are SO EXTRA and saying bye needs MORE!!!", e.getMessage());
+            assertEquals("I see, you are SO EXTRA and saying BYE needs MORE!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -172,7 +172,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me an INDEX to delete a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me an INDEX to DELETE a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -187,7 +187,7 @@ public class ParserTest {
             Parser.parse(testUserCommand);
             assert false;
         } catch (BondException e) {
-            assertEquals("WHY did you not give me a PROPER INDEX to delete a task!!!", e.getMessage());
+            assertEquals("WHY did you not give me a PROPER INDEX to DELETE a task!!!", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
