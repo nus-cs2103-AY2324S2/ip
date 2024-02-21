@@ -39,7 +39,7 @@ public class Parser {
         try {
             id = Integer.parseInt(parameters[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Provide a valid id to mark/unmark.");
+            throw new PyriteException("Provide a valid id to mark/unmark.");
         }
         return id;
     }

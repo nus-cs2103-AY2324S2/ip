@@ -1,11 +1,11 @@
 package pyrite;
 
 /**
- * Exception class for Duke.
+ * Exception class for Pyrite.
  */
-public class DukeException extends UnsupportedOperationException {
+public class PyriteException extends UnsupportedOperationException {
     private String error;
-    public DukeException(String error) {
+    public PyriteException(String error) {
         this.error = error;
     }
     @Override
