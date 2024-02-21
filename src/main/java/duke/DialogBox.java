@@ -10,10 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -26,7 +27,10 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private static final String[] beeStyleClasses = {"bee-dialog-background"};
+    private static final String[] userStyleClasses = {"user-dialog-background"};
+
+    private DialogBox(String text, Image img, String... styleClass) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -38,14 +42,15 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.getStyleClass().addAll(styleClass);
+        dialog.setPrefWidth(285);
 
-        // Calculate the height of the text and adjust the VBox height accordingly
-        Text dummyText = new Text(text);
-        dummyText.setWrappingWidth(dialog.getPrefWidth());
-        double textHeight = dummyText.getBoundsInLocal().getHeight();
-        dialog.setMinHeight(textHeight + 50);
-        dialog.setMaxHeight(textHeight + 50);
-        dialog.setPrefHeight(textHeight + 50);
+        // format the image
+        displayPicture.setFitHeight(75);
+        displayPicture.setFitWidth(75);
+        displayPicture.setClip(null);
+        displayPicture.setEffect(new DropShadow(10, Color.BLACK));
+
     }
 
     /**
@@ -62,14 +67,14 @@ public class DialogBox extends HBox {
      * User's dialog box, show the image and user input
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, userStyleClasses);
     }
 
     /**
      * Bee's dialog box, show the image and user input
      */
     public static DialogBox getBeeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, beeStyleClasses);
         db.flip();
         return db;
     }
