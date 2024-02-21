@@ -1,13 +1,13 @@
-package duke.kbot;
-
-import duke.actions.ParseTags;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+package kbot.main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import kbot.actions.ParseTags;
+import kbot.tasks.Deadline;
+import kbot.tasks.Event;
+import kbot.tasks.Task;
+import kbot.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,26 +91,26 @@ public class TaskFileManager {
         assert instruction != null && instruction.length() > 0 : "File may be corrupted: Task type is not found!";
         Task t = null;
         switch (instruction) {
-        case "T": {
-            t = loadToDo(parameter);
-            break;
-        }
-        case "D": {
-            try {
-                t = loadDeadline(parameter);
-            } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+            case "T": {
+                t = loadToDo(parameter);
+                break;
             }
-            break;
-        }
-        case "E": {
-            try {
-                t = loadEvent(parameter);
-            } catch (DateTimeParseException f) {
-                System.out.println(f.getMessage());
+            case "D": {
+                try {
+                    t = loadDeadline(parameter);
+                } catch (DateTimeParseException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             }
-            break;
-        }
+            case "E": {
+                try {
+                    t = loadEvent(parameter);
+                } catch (DateTimeParseException f) {
+                    System.out.println(f.getMessage());
+                }
+                break;
+            }
         }
         return t;
     }

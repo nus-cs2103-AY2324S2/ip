@@ -1,4 +1,4 @@
-package duke.kbot;
+package kbot.main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

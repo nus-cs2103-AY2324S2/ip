@@ -1,4 +1,4 @@
-package duke.tasks;
+package kbot.tasks;
 
 import java.util.ArrayList;
 

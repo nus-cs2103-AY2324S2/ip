@@ -1,4 +1,4 @@
-package duke.actions;
+package kbot.actions;
 
 import java.util.ArrayList;
 

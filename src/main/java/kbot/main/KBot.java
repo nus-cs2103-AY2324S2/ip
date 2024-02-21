@@ -1,8 +1,4 @@
-package duke.kbot;
-
-import duke.actions.Command;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.InvalidInputException;
+package kbot.main;
 
 import java.io.IOException;
 
@@ -21,6 +17,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import kbot.actions.Command;
+import kbot.exceptions.InvalidCommandException;
+import kbot.exceptions.InvalidInputException;
 
 /**
  * Encapsulate a chatbot names kaipybara that takes in input from the user and

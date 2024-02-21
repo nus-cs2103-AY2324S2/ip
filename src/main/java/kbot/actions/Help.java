@@ -1,4 +1,4 @@
-package duke.actions;
+package kbot.actions;
 
 /**
  * A help command that gives the user a list of all possible commands and how to
@@ -20,7 +20,8 @@ public class Help extends Command {
             "delete <int:index>: deletes task at index. (Example: delete 1)\n" +
             "\nADD TASK\n" +
             "todo <String:name>: adds a todo task with its name. (Example: todo homework)\n" +
-            "deadline <String:name> /by <date>: adds a deadline task with name and date in d-M-yy format. (Example: deadline homework /by 19-2-24)" +
+            "deadline <String:name> /by <date>: adds a deadline task with name and date in d-M-yy format. (Example: deadline homework /by 19-2-24)"
+            +
             "event <String:name> /from <date> /to <date>: adds an event task with name and date in d-M-yy format. (Example: event career fair /from 20-2-24 /to 22-2-24)";
 
     /**
@@ -29,8 +30,8 @@ public class Help extends Command {
     public Help() {
     }
 
-    /** 
-     * Executes by returning all commands. 
+    /**
+     * Executes by returning all commands.
      * 
      * @return The String with all commands and parameters required.
      */

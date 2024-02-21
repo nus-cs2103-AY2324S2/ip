@@ -1,4 +1,4 @@
-package duke.tasks;
+package kbot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,10 +38,10 @@ public class Deadline extends Task {
     /**
      * Constuctor used when we are loading from storage.
      * 
-     * @param name      A String value that states the name of the Task.
-     * @param endDate   LocalDate of when the deadline is.
+     * @param name        A String value that states the name of the Task.
+     * @param endDate     LocalDate of when the deadline is.
      * @param isCompleted Boolean of whether Task is completed.
-     * @param tags      A list of tags to identify the task.
+     * @param tags        A list of tags to identify the task.
      */
     public Deadline(String name, LocalDate endDate, boolean IsCompleted, ArrayList<String> tags) {
         super(name, TYPE, IsCompleted, tags);
@@ -66,7 +66,8 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToStorageFormat() {
-        return super.convertToStorageFormat() + " | " + this.endDate.format(STORAGE_FORMAT) + " | " + super.tagsToStorageFormat();
+        return super.convertToStorageFormat() + " | " + this.endDate.format(STORAGE_FORMAT) + " | "
+                + super.tagsToStorageFormat();
     }
 
     /**

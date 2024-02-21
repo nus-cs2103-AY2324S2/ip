@@ -1,11 +1,11 @@
-package duke.actions;
+package kbot.actions;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import duke.kbot.TaskFileManager;
-import duke.kbot.TaskManager;
-import duke.tasks.Task;
+import kbot.main.TaskFileManager;
+import kbot.main.TaskManager;
+import kbot.tasks.Task;
 
 /**
  * A delete command that deletes a Task from the task list.

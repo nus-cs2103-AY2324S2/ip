@@ -1,4 +1,4 @@
-package duke.actions;
+package kbot.actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import duke.exceptions.InvalidInputException;
-import duke.kbot.TaskFileManager;
-import duke.kbot.TaskManager;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import kbot.exceptions.InvalidInputException;
+import kbot.main.TaskFileManager;
+import kbot.main.TaskManager;
+import kbot.tasks.Deadline;
+import kbot.tasks.Event;
+import kbot.tasks.Task;
+import kbot.tasks.ToDo;
 
 /**
  * An add task command that adds a task onto the tasks array.
@@ -65,29 +65,29 @@ public class AddTask extends Command {
 
         // create Command based on instruction
         switch (instruction) {
-        case "todo":
-            t = new ToDo(parametersWithoutTags, tagsList);
-            break;
-        case "deadline": {
-            try {
-                t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
-            } catch (DateTimeParseException e) {
-                return ("Error while parsing date: Format should be d-M-yy.");
-            } catch (InvalidInputException e) {
-                return e.getMessage();
+            case "todo":
+                t = new ToDo(parametersWithoutTags, tagsList);
+                break;
+            case "deadline": {
+                try {
+                    t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
+                } catch (DateTimeParseException e) {
+                    return ("Error while parsing date: Format should be d-M-yy.");
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
+                }
+                break;
             }
-            break;
-        }
-        case "event": {
-            try {
-                t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
-            } catch (DateTimeParseException e) {
-                return ("Error while parsing date: Format should be d-M-yy.");
-            } catch (InvalidInputException e) {
-                return e.getMessage();
+            case "event": {
+                try {
+                    t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
+                } catch (DateTimeParseException e) {
+                    return ("Error while parsing date: Format should be d-M-yy.");
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
+                }
+                break;
             }
-            break;
-        }
         }
         if (t != null) {
             TaskManager.getTasks().add(t);

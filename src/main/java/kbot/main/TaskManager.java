@@ -1,11 +1,11 @@
-package duke.kbot;
+package kbot.main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.ArrayList;
 
-import duke.tasks.Task;
+import kbot.tasks.Task;
 
 /**
  * Manages all communications between the bot simulation and the database of

@@ -1,4 +1,4 @@
-package duke.exceptions;
+package kbot.exceptions;
 
 /**
  * Encapsulates exception where command is not valid.

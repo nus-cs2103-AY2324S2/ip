@@ -1,8 +1,8 @@
-package duke.actions;
+package kbot.actions;
 
 import java.lang.StringBuilder;
 
-import duke.kbot.TaskManager;
+import kbot.main.TaskManager;
 
 /**
  * A list command that gives the user a list of all Tasks in the array.

@@ -1,4 +1,4 @@
-package duke.exceptions;
+package kbot.exceptions;
 
 /**
  * Exception class for all errors or warning generated within the KBot program.

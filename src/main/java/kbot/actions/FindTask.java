@@ -1,9 +1,9 @@
-package duke.actions;
+package kbot.actions;
 
 import java.util.ArrayList;
 
-import duke.kbot.TaskManager;
-import duke.tasks.Task;
+import kbot.main.TaskManager;
+import kbot.tasks.Task;
 
 /**
  * An find key command that finds you tasks that contains the key.

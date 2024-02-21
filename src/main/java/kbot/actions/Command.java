@@ -1,10 +1,10 @@
-package duke.actions;
+package kbot.actions;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.InvalidInputException;
+import kbot.exceptions.InvalidCommandException;
+import kbot.exceptions.InvalidInputException;
 
 /**
  * A command abstract class is the parent of all types of commands.
