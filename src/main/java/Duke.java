@@ -10,7 +10,6 @@ public class Duke {
     }
 
     /**
-     * Main method to execute the Duke application.
      * Initializes the Duke application with an instance of the Haro class
      *
      * @param args Command-line arguments (not used in this application).

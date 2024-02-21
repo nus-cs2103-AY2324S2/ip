@@ -82,64 +82,17 @@ public class Storage {
                     // Empty file or invalid file
                     break;
                 } else if (actionType == "todo") {
-                    try {
-                        if (storageArgs.length < 3) {
-                            throw new Exception("Invalid save list");
-                        }
-                        int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean isMarked = (markedInt == 0) ? false : true;
-                        ToDo todoTask = new ToDo(storageArgs[2].trim(), isMarked);
-                        resultTasks.add(todoTask);
-                        continue;
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        resultTasks = new ArrayList<Task>();
-                        break;
-                    }
+                    resultTasks.add(loadTodoTask(storageArgs));
                 } else if (actionType == "deadline") {
-                    try {
-                        if (storageArgs.length < 4) {
-                            throw new Exception("Invalid save list");
-                        }
-
-                        int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean isMarked = (markedInt == 0) ? false : true;
-                        String taskName = storageArgs[2].trim();
-                        String dueDate = storageArgs[3].trim();
-                        Deadline deadlineTask = new Deadline(taskName, dueDate, isMarked);
-                        resultTasks.add(deadlineTask);
-                        continue;
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        resultTasks = new ArrayList<Task>();
-                        break;
-                    }
+                    resultTasks.add(loadDeadlineTask(storageArgs));
                 } else if (actionType == "event") {
-                    try {
-                        if (storageArgs.length < 5) {
-                            throw new Exception("Invalid save list");
-                        }
-
-                        int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean isMarked = (markedInt == 0) ? false : true;
-
-                        String taskName = storageArgs[2].trim();
-                        String start = storageArgs[3].trim();
-                        String end = storageArgs[4].trim();
-                        Event eventTask = new Event(taskName, start, end, isMarked);
-                        resultTasks.add(eventTask);
-                        continue;
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        resultTasks = new ArrayList<Task>();
-                        break;
-                    }
+                    resultTasks.add(loadEventTask(storageArgs));
                 }
             }
         } catch (Exception e) {
-            // File does not exist, we return empty taskList
+            // File does not exist, or is invalid, we return empty taskList
+            System.out.println(e.getMessage());
+            resultTasks = new ArrayList<Task>();
             return resultTasks;
         } finally {
             return resultTasks;
@@ -169,6 +122,39 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    private Task loadTodoTask(String[] storageArgs) throws Exception {
+        if (storageArgs.length < 3) {
+            throw new Exception("Invalid save list");
+        }
+        int markedInt = Integer.valueOf(storageArgs[1].trim());
+        boolean isMarked = (markedInt == 0) ? false : true;
+        ToDo todoTask = new ToDo(storageArgs[2].trim(), isMarked);
+        return todoTask;
+    }
+    private Task loadDeadlineTask(String[] storageArgs) throws Exception {
+        if (storageArgs.length < 4) {
+            throw new Exception("Invalid save list");
+        }
+        int markedInt = Integer.valueOf(storageArgs[1].trim());
+        boolean isMarked = (markedInt == 0) ? false : true;
+        String taskName = storageArgs[2].trim();
+        String dueDate = storageArgs[3].trim();
+        Deadline deadlineTask = new Deadline(taskName, dueDate, isMarked);
+        return deadlineTask;
+    }
+    private Task loadEventTask(String[] storageArgs) throws Exception {
+        if (storageArgs.length < 5) {
+            throw new Exception("Invalid save list");
+        }
+        int markedInt = Integer.valueOf(storageArgs[1].trim());
+        boolean isMarked = (markedInt == 0) ? false : true;
+
+        String taskName = storageArgs[2].trim();
+        String start = storageArgs[3].trim();
+        String end = storageArgs[4].trim();
+        Event eventTask = new Event(taskName, start, end, isMarked);
+        return eventTask;
     }
 }
 
