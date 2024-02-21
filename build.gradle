@@ -48,7 +48,7 @@ application {
 mainClassName = 'duke.Launcher'
 
 shadowJar {
-    archiveFileName = "Greg.jar"
+    archiveFileName = "Greg v0.2.jar"
 }
 
 run{
