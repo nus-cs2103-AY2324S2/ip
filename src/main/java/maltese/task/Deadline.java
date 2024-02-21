@@ -5,12 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import maltese.action.Echo;
 import maltese.action.TaskList;
-import maltese.exception.MalteseException;
-import maltese.exception.DuplicateTaskException;
-import maltese.exception.EmptyDescriptionException;
-import maltese.exception.WrongDateFormatException;
-
-
+import maltese.exception.*;
 
 
 /**
@@ -71,6 +66,10 @@ public class Deadline extends Task {
      * @throws MalteseException If the command is invalid or if there are errors in parsing or adding the task.
      */
     public static Echo parse(String command, TaskList taskList) throws MalteseException {
+        if (!command.contains("/by")) {
+            throw new InvalidDeadlineFormatException();
+        }
+
         String[] words = command.split(" ");
         if (words.length > 1) {
             try {
