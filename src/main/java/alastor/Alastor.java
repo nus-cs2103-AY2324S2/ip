@@ -21,7 +21,6 @@ public class Alastor {
         try {
             tasks = new TaskList(storage.load());
         } catch (AlastorException e) {
-            //ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }

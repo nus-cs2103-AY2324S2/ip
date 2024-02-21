@@ -19,36 +19,11 @@ public class Ui {
     }
 
     /**
-     * Shows the line.
-     */
-    public void showLine() {
-        System.out.print("_________________________________________________________________________________________\n");
-    }
-
-    /**
      * Shows the greeting message.
      */
     public String showGreet() {
         return "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
                 + "What desires or inquiries do you bring to my infernal realm?\n";
-    }
-
-    /**
-     * Reads the command from the user.
-     *
-     * @return The command from the user.
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Shows the error message.
-     *
-     * @param message The error message.
-     */
-    public String showError(String message) {
-        return message + "\n";
     }
 
     /**
