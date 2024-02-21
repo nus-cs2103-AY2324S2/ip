@@ -104,6 +104,23 @@ public class Database {
     }
 
     /**
+     * Used to change the corresponding data line in the file after updating its status.
+     *
+     * @param index The index of the changed task.
+     * @param status The new status string.
+     */
+    public void changeLine(int index, String status) {
+        ArrayList<String> data = readFile();
+        String removedTask = data.remove(index - 1);
+        removedTask = removedTask.split("\\|")[0];
+        data.add(removedTask + status);
+        clearFile();
+        for (String i : data) {
+            writeFile(i);
+        }
+    }
+
+    /**
      * Clears the content of the text file.
      */
     public void clearFile() {

@@ -16,8 +16,8 @@ public class Event extends Task {
      *
      * @param description The raw user input.
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, String status) {
+        super(description, status);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }

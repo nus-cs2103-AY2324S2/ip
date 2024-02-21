@@ -71,23 +71,26 @@ public class Duke {
      */
     public String addingTask(String command, String description) throws Exception {
         assert description != null : "Description should not be empty";
+        if (description.split("\\|").length == 1) {
+            description += "|False";
+        }
         Parser parser = new Parser();
         switch (command) {
         case "t":
         case "todo":
             String[] parsedTodo = parser.todoParser(description);
             database.writeFile(description);
-            return taskList.addTask(new Todo(parsedTodo[0]));
+            return taskList.addTask(new Todo(parsedTodo[0], parsedTodo[1]));
         case "d":
         case "deadline":
             String[] parsedDeadline = parser.deadlineParser(description);
             database.writeFile(description);
-            return taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+            return taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1], parsedDeadline[2]));
         case "e":
         case "event":
             String[] parsedEvent = parser.eventParser(description);
             database.writeFile(description);
-            return taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+            return taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2], parsedEvent[3]));
         default:
             throw new IllegalArgumentException("Please enter a valid command.");
         }

@@ -50,6 +50,7 @@ public class TaskList {
     public String setDone(int index) {
         Task curr = this.get(index);
         curr.isDone = true;
+        database.changeLine(index, "|true");
         return ui.setDoneMessage(curr);
     }
 
@@ -61,6 +62,7 @@ public class TaskList {
     public String setNotDone(int index) {
         Task curr = this.get(index);
         curr.isDone = false;
+        database.changeLine(index, "|false");
         return ui.setNotDoneMessage(curr);
     }
 

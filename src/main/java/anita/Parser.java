@@ -1,5 +1,7 @@
 package anita;
 
+import java.util.Arrays;
+
 /**
  * The Parser class handles all methods used to parse user commands.
  */
@@ -60,16 +62,18 @@ public class Parser {
      * @return A String[] containing parts of the user input to be used for instantiation.
      */
     public String[] todoParser(String description) {
-        String[] tokens = description.split(" ");
-        String[] res = new String[1];
+        String[] tokens = description.split("\\|", 2);
+        String[] tokens1 = tokens[0].split(" ");
+        String[] res = new String[2];
         String taskName = "";
-        if (tokens.length == 1) {
+        if (tokens1.length == 1) {
             throw new ArrayIndexOutOfBoundsException("The description of a todo cannot be empty.");
         }
         for (int i = 1; i < tokens.length; i++) {
-            taskName += tokens[i] + " ";
+            taskName += tokens1[i] + " ";
         }
         res[0] = taskName;
+        res[1] = tokens[1];
         return res;
     }
     /**
@@ -79,9 +83,10 @@ public class Parser {
      * @return A String[] containing parts of the user input to be used for instantiation.
      */
     public String[] deadlineParser(String description) {
-        String[] tokens = description.split("/", 2);
-        String[] tokens2 = tokens[0].split(" ", 2);
-        String[] res = new String[2];
+        String[] tokens = description.split("\\|", 2);
+        String[] tokens1 = tokens[0].split("/", 2);
+        String[] tokens2 = tokens1[0].split(" ", 2);
+        String[] res = new String[3];
         String taskName = "";
         if (tokens2.length == 1) {
             throw new ArrayIndexOutOfBoundsException("The description of a deadline cannot be empty.");
@@ -90,7 +95,8 @@ public class Parser {
             taskName += tokens2[i] + " ";
         }
         res[0] = taskName;
-        res[1] = tokens[1].split(" ")[1];
+        res[1] = tokens1[1].split(" ")[1];
+        res[2] = tokens[1];
         return res;
     }
 
@@ -101,9 +107,10 @@ public class Parser {
      * @return A String[] containing parts of the user input to be used for instantiation.
      */
     public String[] eventParser(String description) {
-        String[] tokens = description.split("/", 3);
-        String[] tokens2 = tokens[0].split(" ", 2);
-        String[] res = new String[2];
+        String[] tokens = description.split("\\|", 2);
+        String[] tokens1 = tokens[0].split("/", 3);
+        String[] tokens2 = tokens1[0].split(" ", 2);
+        String[] res = new String[4];
         String taskName = "";
 
         if (tokens2.length == 1) {
@@ -113,8 +120,9 @@ public class Parser {
             taskName += tokens2[i] + " ";
         }
         res[0] = taskName;
-        res[1] = tokens[1].split(" ")[1];
-        res[2] = tokens[2].split(" ")[1];
+        res[1] = tokens1[1].split(" ")[1];
+        res[2] = tokens1[2].split(" ")[1];
+        res[3] = tokens[1];
         return res;
     }
 }

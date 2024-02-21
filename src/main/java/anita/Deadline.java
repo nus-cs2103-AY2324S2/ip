@@ -16,8 +16,8 @@ public class Deadline extends Task {
      *
      * @param description The raw user input.
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, String status) {
+        super(description, status);
         this.by = LocalDate.parse(by);
     }
 
