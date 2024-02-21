@@ -31,13 +31,11 @@ public class Storage {
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(filePath);
-            if (file.exists()) {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    lines.add(line);
-                }
-                reader.close();
+            //if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
             }
         } catch (IOException e) {
             throw new RochinException("Error loading tasks from file.");

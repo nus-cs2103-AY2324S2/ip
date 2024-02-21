@@ -52,5 +52,10 @@ class DeadlineTask extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s | %s", getTaskType(), isDone ? 1 : 0, description, DateAndTime.printDate(byDateTime));
+    }
 }
 

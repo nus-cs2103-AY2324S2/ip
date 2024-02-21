@@ -66,4 +66,10 @@ class EventTask extends Task {
         return "[E]" + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
                 " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s | %s to %s", getTaskType(), isDone ? 1 : 0, description,
+                DateAndTime.printDate(fromDateTime), DateAndTime.printDate(toDateTime));
+    }
 }

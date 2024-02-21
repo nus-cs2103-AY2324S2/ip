@@ -59,43 +59,50 @@ class Task {
      * @param fileLine data from the file.
      * @return new task
      */
-    public Task createTaskFromFileString(String fileLine) throws RochinException {
+    public static Task createTaskFromFileString(String fileLine) throws RochinException {
         String[] parts = fileLine.split("\\s* \\| \\s*");
         if (parts.length >= 3) {
-            boolean isDone = Integer.parseInt(parts[1]) == 1;
-            String description = parts[2];
+            boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
+            String description = parts[2].trim();
             LocalDateTime dateTime = null;
             if (parts.length > 3) {
                 String dateTimeString = parts[3];
-                dateTime = DateAndTime.parseDateTime(dateTimeString); // Assuming storage is accessible here
+                dateTime = DateAndTime.parseDateTime(dateTimeString);
             }
             // Extract additional details based on task type (Todo, Deadline, Event)
-            String additionalDetails = parts.length > 3 ? parts[3] : null;
-
-            if (parts[0].equals("T")) {
+            if (parts[0].trim().equals("T")) {
                 TodoTask todoTask = new TodoTask(description);
                 if (isDone) {
                     todoTask.markAsDone();
                 }
                 return todoTask;
-            } else if (parts[0].equals("D")) {
+            } else if (parts[0].trim().equals("D")) {
                 DeadlineTask deadlineTask = new DeadlineTask(description, dateTime);
                 if (isDone) {
                     deadlineTask.markAsDone();
                 }
                 return deadlineTask;
-            } else if (parts[0].equals("E")) {
+            } else if (parts[0].trim().equals("E")) {
                 // Extract 'from' and 'to' datetime parameters
-                LocalDateTime fromDateTime = DateAndTime.parseDateTime(parts[3]);
-                LocalDateTime toDateTime = DateAndTime.parseDateTime(parts[4]);
-                EventTask eventTask = new EventTask(description, fromDateTime, toDateTime);
-                if (isDone) {
-                    eventTask.markAsDone();
+                String[] eventTimes = parts[3].trim().split(" to ");
+                if (eventTimes.length == 2) {
+                    LocalDateTime fromDateTime = DateAndTime.parseDateTime(eventTimes[0]);
+                    LocalDateTime toDateTime = DateAndTime.parseDateTime(eventTimes[1]);
+                    EventTask eventTask = new EventTask(description, fromDateTime, toDateTime);
+                    if (isDone) {
+                        eventTask.markAsDone();
+                    }
+                    return eventTask;
+                } else {
+                    throw new RochinException("Invalid format for event task: " + description);
                 }
-                return eventTask;
+            } else {
+                throw new RochinException("Unknown task type: " + parts[0]);
             }
+        } else {
+            throw new RochinException("Invalid task format: " + fileLine);
         }
-        return null;
+
     }
 
     /**
