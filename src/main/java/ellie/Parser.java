@@ -100,8 +100,9 @@ public class Parser {
             try {
                 throw new UnknownInputException("Command Unknown or Missing");
             } catch (UnknownInputException e) {
-                return new InvalidCommand("Sorry! Not sure what you're referring to (╥_╥) \n"
-                                            + "Type 'help' to view the list of supported commands!\n");
+                return new InvalidCommand("Sorry! Not sure what you're referring to \n"
+                                            + "Are you too stressed? \n"
+                                                + "Type 'help' to view the list of supported commands!\n");
             }
         }
 
