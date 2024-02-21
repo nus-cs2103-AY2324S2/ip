@@ -77,52 +77,52 @@ public class Parser {
      * @param cro The chatbot that the Parser is parsing from.
      * @return True if continuing to accept input, else False.
      */
-    public boolean handleInput(Cro cro) {
-        String inText = scanner.nextLine();
-        List<String> splitStr = new ArrayList<>(Arrays.asList(inText.trim().split("\\s+")));
+    public String handleInput(Cro cro, String input) {
+        String output = "Unknown command. Please try again";
+        List<String> splitStr = new ArrayList<>(Arrays.asList(input.trim().split("\\s+")));
         String command = splitStr.remove(0);
         try {
             switch (command) {
             case "bye":
-                System.out.println("-----------------------------------");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("-----------------------------------");
-                return false;
+                output = "-----------------------------------\n" +
+                        "Bye. Hope to see you again soon!\n" +
+                        "-----------------------------------";
+                break;
             case "list":
-                cro.taskList.displayTasks();
+                output = cro.taskList.displayTasks();
                 break;
             case "mark":
-                cro.taskList.markTaskAsDone(splitStr);
+                output = cro.taskList.markTaskAsDone(splitStr);
                 break;
             case "unmark":
-                cro.taskList.markTaskAsUndone(splitStr);
+                output = cro.taskList.markTaskAsUndone(splitStr);
                 break;
             case "todo": {
                 List<String> res = new ArrayList<>(Arrays.asList("T", "0"));
                 res.addAll(splitStr);
-                cro.taskList.addToDo(res);
+                output = cro.taskList.addToDo(res);
                 break;
             }
             case "deadline": {
                 List<String> res = new ArrayList<>(Arrays.asList("D", "0"));
                 splitStr = convertDateDeadline(splitStr);
                 res.addAll(splitStr);
-                cro.taskList.addDeadline(res);
+                output = cro.taskList.addDeadline(res);
                 break;
             }
             case "event": {
                 List<String> res = new ArrayList<>(Arrays.asList("E", "0"));
                 splitStr = convertDateEvent(splitStr);
                 res.addAll(splitStr);
-                cro.taskList.addEvent(res);
+                output = cro.taskList.addEvent(res);
                 break;
             }
             case "find": {
-                cro.taskList.findKeyword(splitStr);
+                output = cro.taskList.findKeyword(splitStr);
                 break;
             }
             case "delete":
-                cro.taskList.deleteEvent(splitStr);
+                output = cro.taskList.deleteEvent(splitStr);
                 break;
             default:
                 throw new CroException("Unknown command. Please try again.");
@@ -130,6 +130,6 @@ public class Parser {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return true;
+        return output;
     }
 }

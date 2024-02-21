@@ -25,13 +25,15 @@ public class TaskList {
      * upon successful addition of the task into taskList.
      * @param newTask
      */
-    public void addToTaskList(Task newTask) {
+    public String addToTaskList(Task newTask) {
+        String output = "";
         taskList.add(newTask);
         if (!isLoading) {
-            System.out.println("-----------------------------------");
-            System.out.println("added: " + newTask);
-            System.out.println("-----------------------------------");
+            output += "-----------------------------------\n";
+            output += "added: " + newTask + "\n";
+            output += "-----------------------------------";
         }
+        return output;
     }
 
     /**
@@ -39,9 +41,9 @@ public class TaskList {
      * @param splitStr List that describes a new ToDo task.
      * @throws CroException If description of the task is empty.
      */
-    public void addToDo(List<String> splitStr) throws CroException {
+    public String addToDo(List<String> splitStr) throws CroException {
         ToDo newToDo = new ToDo(splitStr);
-        addToTaskList(newToDo);
+        return addToTaskList(newToDo);
     }
 
     /**
@@ -49,10 +51,10 @@ public class TaskList {
      * @param splitStr List that describes a new Deadline task.
      * @throws CroException If any specifications of the deadline is missing.
      */
-    public void addDeadline(List<String> splitStr) throws CroException {
+    public String addDeadline(List<String> splitStr) throws CroException {
 
         Deadline newDeadline = new Deadline(splitStr);
-        addToTaskList(newDeadline);
+        return addToTaskList(newDeadline);
     }
 
     /**
@@ -60,38 +62,39 @@ public class TaskList {
      * @param splitStr List that describes a new Event task.
      * @throws CroException If any specifications of the event is missing.
      */
-    public void addEvent(List<String> splitStr) throws CroException {
+    public String addEvent(List<String> splitStr) throws CroException {
         Event newEvent = new Event(splitStr);
-        addToTaskList(newEvent);
+        return addToTaskList(newEvent);
     }
 
     /**
      * Returns nothing. Displays all the current tasks in the tasklist.
      */
-    public void displayTasks() {
+    public String displayTasks() {
+        String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            String output = String.format("%d. %s", i+1, taskList.get(i));
-            System.out.println(output);
+            output += String.format("%d. %s\n", i+1, taskList.get(i));
         }
-        System.out.printf("Now you have %d tasks in the list%n", taskList.size());
+        output += String.format("Now you have %d tasks in the list%n", taskList.size());
+        return output;
     }
 
     /**
      * Returns nothing. Displays all the current tasks specified in the taskList.
      * @param taskList A list of tasks that is to be displayed.
      */
-    private void displayTasks(List<Task> taskList) {
-        System.out.println("-----------------------------------");
+    private String displayTasks(List<Task> taskList) {
+        String output = "-----------------------------------\n";
         if (taskList.size() == 0) {
-            System.out.println("There are no matching tasks in your list.");
+            output += "There are no matching tasks in your list.\n";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            output += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                String output = String.format("%d. %s", i + 1, taskList.get(i));
-                System.out.println(output);
+                output += String.format("%d. %s\n", i + 1, taskList.get(i));
             }
         }
-        System.out.println("-----------------------------------");
+        output += "-----------------------------------";
+        return output;
     }
 
     /**
@@ -99,7 +102,8 @@ public class TaskList {
      * @param splitStr Input list that specifies which task to mark as done.
      * @throws CroException If index out of range or index not an integer.
      */
-    public void markTaskAsDone(List<String> splitStr) throws CroException {
+    public String markTaskAsDone(List<String> splitStr) throws CroException {
+        String output = "";
         int taskNo;
         try {
             taskNo = Integer.parseInt(splitStr.get(0));
@@ -110,11 +114,12 @@ public class TaskList {
             throw new CroException("Task not found!");
         } else {
             taskList.get(taskNo - 1).setDone();
-            System.out.println("-----------------------------------");
-            System.out.println("Nice! I've marked this task as done!");
-            System.out.println(taskList.get(taskNo - 1));
-            System.out.println("-----------------------------------");
+            output += "-----------------------------------\n";
+            output += "Nice! I've marked this task as done!\n";
+            output += taskList.get(taskNo - 1) + "\n";
+            output += "-----------------------------------";
         }
+        return output;
     }
 
     /**
@@ -122,7 +127,8 @@ public class TaskList {
      * @param splitStr Input list that specifies which task to mark as undone.
      * @throws CroException If index out of range or index not an integer.
      */
-    public void markTaskAsUndone(List<String> splitStr) throws CroException {
+    public String markTaskAsUndone(List<String> splitStr) throws CroException {
+        String output = "";
         int taskNo;
         try {
             taskNo = Integer.parseInt(splitStr.get(0));
@@ -133,11 +139,12 @@ public class TaskList {
             throw new CroException("Task not found!");
         } else {
             taskList.get(taskNo - 1).setUndone();
-            System.out.println("-----------------------------------");
-            System.out.println("OK, I've marked this task as not done yet.");
-            System.out.println(taskList.get(taskNo - 1));
-            System.out.println("-----------------------------------");
+            output += "-----------------------------------\n";
+            output += "OK, I've marked this task as not done yet.\n";
+            output += taskList.get(taskNo - 1) + "\n";
+            output += "-----------------------------------";
         }
+        return output;
     }
 
     /**
@@ -145,7 +152,8 @@ public class TaskList {
      * @param splitStr Input list that specifies which task to delete.
      * @throws CroException If index out of range or index not an integer.
      */
-    public void deleteEvent(List<String> splitStr) throws CroException {
+    public String deleteEvent(List<String> splitStr) throws CroException {
+        String output = "";
         int taskNo;
         try {
             taskNo = Integer.parseInt(splitStr.get(0));
@@ -156,19 +164,20 @@ public class TaskList {
             throw new CroException("Task not found!");
         } else {
             Task removedTask = taskList.remove(taskNo - 1);
-            System.out.println("-----------------------------------");
-            System.out.println("OK, I've removed this task.");
-            System.out.println(removedTask);
-            System.out.printf("Now you have %d tasks in the list%n", taskList.size());
-            System.out.println("-----------------------------------");
+            output += "-----------------------------------\n";
+            output += "OK, I've removed this task.\n";
+            output += removedTask + "\n";
+            output += String.format("Now you have %d tasks in the list.\n", taskList.size());
+            output += "-----------------------------------";
         }
+        return output;
     }
 
     /**
      * Returns nothing. Displays all tasks that contain the keyword specified.
      * @param splitStr A list specifying the keyword to search.
      */
-    public void findKeyword(List<String> splitStr) {
+    public String findKeyword(List<String> splitStr) {
         String searchString = String.join(" ", splitStr);
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : taskList) {
@@ -176,6 +185,6 @@ public class TaskList {
                 foundTasks.add(task);
             }
         }
-        displayTasks(foundTasks);
+        return displayTasks(foundTasks);
     }
 }

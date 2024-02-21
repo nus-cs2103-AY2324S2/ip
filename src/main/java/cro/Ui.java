@@ -20,7 +20,8 @@ public class Ui {
         myCro = cro;
     }
 
-    public boolean isReading() {
-        return parser.handleInput(myCro);
+
+    public String readInput(String input) {
+        return parser.handleInput(myCro, input);
     }
 }
