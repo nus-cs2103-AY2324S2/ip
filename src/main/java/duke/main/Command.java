@@ -6,6 +6,10 @@ import duke.parser.Parser;
 import duke.ui.Ui;
 import duke.tasklist.TaskList;
 import duke.task.Task;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 import java.io.IOException;
 
 /**
@@ -166,5 +170,14 @@ public class Command {
     
     public String getHelpResponse(Ui ui) {
         return ui.help();
+    }
+    
+    public void byeResponse() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        delay.play();
     }
 }
