@@ -104,19 +104,19 @@ public class Storage {
             taskList.add(new Todo(task[2], isDone));
             break;
         case "D":
-            taskList.add(new Deadline(task[2], Parser.parseDateTime(task[3], "MMM d yyyy hh:mm a"), isDone));
+            taskList.add(new Deadline(task[2], Parser.parseDateTime(task[3], "MMM d uuuu hh:mm a"), isDone));
             break;
         case "E":
             String[] dateTimes = task[3].split(" - ");
-            taskList.add(new Event(task[2], Parser.parseDateTime(dateTimes[0], "MMM d yyyy hh:mm a"),
-                    Parser.parseDateTime(dateTimes[1], "MMM d yyyy hh:mm a"), isDone));
+            taskList.add(new Event(task[2], Parser.parseDateTime(dateTimes[0], "MMM d uuuu hh:mm a"),
+                    Parser.parseDateTime(dateTimes[1], "MMM d uuuu hh:mm a"), isDone));
             break;
         case "RT":
             String[] dates = task[3].split(" - ");
             String[] times = task[4].split(" - ");
             taskList.add(new RecurringTask(task[2],
-                    Parser.parseDate(dates[0], "MMM d yyyy"),
-                    Parser.parseDate(dates[1], "MMM d yyyy"),
+                    Parser.parseDate(dates[0], "MMM d uuuu"),
+                    Parser.parseDate(dates[1], "MMM d uuuu"),
                     Parser.parseTime(times[0]),
                     Parser.parseTime(times[1]),
                     RecurringTask.LOOK_UP_TABLE.get(task[5]), isDone));

@@ -152,7 +152,7 @@ public class RecurringTask extends Task {
      * Returns a formatted string of the LocalDate object.
      */
     public String dateFormatter(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("MMM d uuuu"));
     }
     /**
      * Returns a formatted string of the LocalTime object.
