@@ -12,6 +12,8 @@ public abstract class Command {
         this.input = input;
     }
 
-
     public abstract void execute(ActivityList list) throws CommandException;
+
+    @Override
+    public abstract String toString();
 }

@@ -2,6 +2,7 @@ package Duke.Commands;
 
 import Duke.Activities.Activity;
 import Duke.Activities.ActivityList;
+import Duke.Converstion.Dialog;
 import Duke.Exception.CommandException;
 
 public class MarkActivity extends Command {
@@ -20,5 +21,11 @@ public class MarkActivity extends Command {
         } else {
             list.mark(index);
         }
+    }
+    public String toString() {
+        String output = Dialog.printLine();
+        output += "Nice! I've marked this task as done: " + NAME + ".\n";
+        output += Dialog.printLine();
+        return output;
     }
 }

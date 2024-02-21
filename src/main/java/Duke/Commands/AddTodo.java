@@ -3,6 +3,7 @@ package Duke.Commands;
 import Duke.Activities.Activity;
 import Duke.Activities.ActivityList;
 import Duke.Activities.Todo;
+import Duke.Converstion.Dialog;
 import Duke.Exception.CommandException;
 
 import java.util.ArrayList;
@@ -27,9 +28,17 @@ public class AddTodo extends Command implements AddActivity {
     @Override
     public void execute(ActivityList list) throws CommandException {
         if (NAME.isEmpty()) {
-            throw new CommandException("The description of a todo cannot be empty.");
+            throw new CommandException("The activity name of a todo cannot be empty.");
         } else {
             addToList(list);
         }
+    }
+
+    @Override
+    public String toString() {
+        String output = Dialog.printLine();
+        output += "Got it. I've added this task: " + NAME + ".\n";
+        output += Dialog.printLine();
+        return output;
     }
 }

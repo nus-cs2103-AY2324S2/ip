@@ -1,10 +1,11 @@
 package Duke.phrase;
 
-import Duke.Activities.Activity;
 import Duke.Commands.*;
+import Duke.Commands.Unknow;
+import Duke.Exception.CommandException;
 
 public class phrase {
-    public static Command phraseCommand(String input) {
+    public static Command phraseCommand(String input) throws CommandException {
         String firstWord = input.split(" ")[0];
         int trimIndex = firstWord.length();
         String remainingWord = input.substring(trimIndex).trim();
@@ -27,8 +28,9 @@ public class phrase {
                 return new DeleteActivity(remainingWord);
             case "bye":
                 return new Terminate(remainingWord);
+            default:
+                return new Unknow("I'm sorry, but I don't know what that means");
         }
-        return null;
     }
 
 }

@@ -1,22 +1,23 @@
 package Duke.Commands;
 
 import Duke.Activities.ActivityList;
-import Duke.Converstion.Dialog;
 import Duke.Exception.CommandException;
 
-import java.util.List;
+public class Unknow extends Command{
+    private final String ERROR_MESSAGE;
 
-public class Terminate extends Command {
-    public Terminate(String input) {
-        super(input);
+    public Unknow(String errorMessage) {
+        super(errorMessage);
+        ERROR_MESSAGE = errorMessage;
     }
 
     @Override
     public void execute(ActivityList list) throws CommandException {
+
     }
 
     @Override
     public String toString() {
-        return Dialog.fairwellUser();
+        return ERROR_MESSAGE;
     }
 }

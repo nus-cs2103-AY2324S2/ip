@@ -1,6 +1,7 @@
 package Duke.Commands;
 
 import Duke.Activities.ActivityList;
+import Duke.Converstion.Dialog;
 import Duke.Exception.CommandException;
 
 
@@ -20,5 +21,12 @@ public class UnmarkActivity extends Command {
         } else {
             list.unmark(index);
         }
+    }
+
+    public String toString() {
+        String output = Dialog.printLine();
+        output += "I've unmarked this task as not done: " + NAME + ".\n";
+        output += Dialog.printLine();
+        return output;
     }
 }

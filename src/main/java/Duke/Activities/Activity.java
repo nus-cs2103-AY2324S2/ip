@@ -47,7 +47,7 @@ public abstract class Activity {
     }
 
     public String getState() {
-        return isMarked ? "[√]" : "[X]";
+        return isMarked ? "[X]" : "[ ]";
     }
 
     public boolean checkName(String input) {

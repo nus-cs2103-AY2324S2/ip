@@ -28,6 +28,10 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
+application {
+    mainClass.set("Duke.duke")
+}
+
 test {
     useJUnitPlatform()
 
@@ -43,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke.main.Duke")
+    mainClass.set('Duke.duke.Duke');
 }
 
 shadowJar {

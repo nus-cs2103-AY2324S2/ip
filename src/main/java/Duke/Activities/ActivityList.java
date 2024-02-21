@@ -44,22 +44,31 @@ public class ActivityList {
         return activity;
     }
 
-    public void mark(int index) {
-        activities.get(index).mark();
-        localList.write(toStorageList());
+    public void mark(int index) throws CommandException {
+        boolean isMark = activities.get(index).mark();
+        if (isMark) {
+            localList.write(toStorageList());
+        } else {
+            throw new CommandException("activity already marked");
+        }
     }
 
-    public void unmark(int index) {
-        activities.get(index).unmark();
+    public void unmark(int index) throws CommandException {
+        boolean isMark = activities.get(index).unmark();
         localList.write(toStorageList());
+        if (isMark) {
+            localList.write(toStorageList());
+        } else {
+            throw new CommandException("activity already marked");
+        }
     }
 
     public void delete(int index) throws CommandException {
         try {
-            activities.remove(index);
+            activities.remove(index - 1);
             localList.write(toStorageList());
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("try to delete a none existing activity");
+            throw new CommandException("activity not found at index: " + index);
         }
     }
 

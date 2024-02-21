@@ -2,6 +2,7 @@ package Duke.Commands;
 
 import Duke.Activities.Activity;
 import Duke.Activities.ActivityList;
+import Duke.Converstion.Dialog;
 import Duke.Exception.CommandException;
 
 import javax.print.attribute.standard.MediaSize;
@@ -15,14 +16,14 @@ public class AddEvent extends Command implements AddActivity{
     private final String NAME;
     private final LocalDate STARTDATE;
     private final LocalDate ENDDATE;
-    public AddEvent(String input) {
+    public AddEvent(String input) throws CommandException {
         super(input);
         String[] phrased = phrases(input);
         NAME = phrased[0];
         STARTDATE = DateFormat.format(phrased[1]);
         ENDDATE = DateFormat.format(phrased[2]);
     }
-    public String[] phrases(String input) {
+    public String[] phrases(String input) throws CommandException {
         String patternRegex = "^[^/]+ /from \\d{4}-\\d{1,2}-\\d{1,2} /to \\d{4}-\\d{1,2}-\\d{1,2}$";
         Pattern pattern = Pattern.compile(patternRegex);
         Matcher matcher = pattern.matcher(input);
@@ -34,8 +35,9 @@ public class AddEvent extends Command implements AddActivity{
             String fromDate = dateStr[0];
             String toDate = dateStr[1];
             return new String[]{name, fromDate, toDate};
+        } else {
+            throw new CommandException("The input has to be in prompt: \nname /from yyyy-mm-dd /to yyyy-mm-dd");
         }
-        return null;
     }
 
     @Override
@@ -45,18 +47,18 @@ public class AddEvent extends Command implements AddActivity{
 
     @Override
     public void execute(ActivityList list) throws CommandException {
-        String patternRegex = "^[^/]+ /from \\d{4}-\\d{1,2}-\\d{1,2} /to \\d{4}-\\d{1,2}-\\d{1,2}$";
-        Pattern pattern = Pattern.compile(patternRegex);
-        Matcher matcher = pattern.matcher(input);
-
-        if (!matcher.matches()) {
-            throw new CommandException("The input has to be in prompt name /from yyyy-mm-dd /to yyyy-mm-dd");
+        if (DateFormat.compareDate(STARTDATE, ENDDATE)) {
+            addToList(list);
         } else {
-            if (DateFormat.compareDate(STARTDATE, ENDDATE)) {
-                addToList(list);
-            } else {
-                throw new CommandException("Start date is after end date");
-            }
+            throw new CommandException("Start date is after end date");
         }
+    }
+
+    @Override
+    public String toString() {
+        String output = Dialog.printLine();
+        output += "Got it. I've added this task: " + NAME + ".\n";
+        output += Dialog.printLine();
+        return output;
     }
 }
