@@ -21,7 +21,7 @@ public class ByeCommand extends Command {
 
     @Override
     public String handle() {
-        return this.ui.getExitMessage();
+        return Ui.getExitMessage();
     }
 
     @Override

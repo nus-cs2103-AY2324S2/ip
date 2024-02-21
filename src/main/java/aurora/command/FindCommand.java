@@ -39,23 +39,37 @@ public class FindCommand extends Command {
 
     @Override
     public String handle() throws AuroraException {
-        String message = "Command not executed.";
+        validateCommand();
+        String keyword = this.splitCommands[1].toLowerCase();
+        searchForTasks(keyword);
+        String message = this.ui.getFoundListString(this.foundList);
+        assert !message.equals("Command not executed.") : "Find command not executed.";
+        return message;
+    }
+
+    /**
+     * Helper method to validate the input.
+     *
+     * @throws AuroraException If the input format is incorrect.
+     */
+    private void validateCommand() throws AuroraException {
         if (this.splitCommands.length != 2) {
             throw new AuroraException(AuroraException.INVALID_FIND_FORMAT);
-        } else {
-            String keyword = this.splitCommands[1].toLowerCase();
-            ArrayList<Task> tasks = this.taskList.getTaskList();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                String description = task.getDescription().toLowerCase();
-                if (description.contains(keyword)) {
-                    this.foundList.add(task);
-                }
-            }
-            message = this.ui.getFoundListString(this.foundList);
         }
-        assert !(message.equals("Command not executed.")) : "Find command not executed.";
-        return message;
+    }
+
+    /**
+     * Helper method to perform the search.
+     *
+     * @param keyword Keyword to search for.
+     */
+    private void searchForTasks(String keyword) {
+        ArrayList<Task> tasks = this.taskList.getTaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                this.foundList.add(task);
+            }
+        }
     }
 
 }

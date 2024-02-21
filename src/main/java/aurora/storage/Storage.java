@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import aurora.objects.Deadline;
@@ -45,23 +44,34 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws IOException, AuroraException {
         File file = new File(filePath);
-        ArrayList<Task> taskList = new ArrayList<>();
-
-        if (file.exists()) {
-            List<String> fileLines = Files.readAllLines(file.toPath());
-            for (String line : fileLines) {
-                try {
-                    Task task = fileLinesToTask(line);
-                    if (task != null) {
-                        taskList.add(task);
-                    }
-                } catch (AuroraException e) {
-                    throw new AuroraException("Corrupted line in data file: " + line);
-                }
-            }
+        if (!file.exists()) {
+            return new ArrayList<>();
         }
 
+        ArrayList<Task> taskList = new ArrayList<>();
+        List<String> fileLines = Files.readAllLines(file.toPath());
+
+        for (String line : fileLines) {
+            Task task = processLine(line);
+            if (task != null) {
+                taskList.add(task);
+            }
+        }
         return setTasksForDoAfters(taskList);
+    }
+
+    /**
+     * Helper function for processing each line.
+     *
+     * @param fileLine File Line to be processed
+     * @return processed file line
+     */
+    private Task processLine(String fileLine) throws AuroraException {
+        try {
+            return fileLinesToTask(fileLine);
+        } catch (AuroraException e) {
+            throw new AuroraException("Corrupted line in data file: " + fileLine);
+        }
     }
 
     /**
@@ -71,18 +81,21 @@ public class Storage {
      * @return populated taskList
      */
     public ArrayList<Task> setTasksForDoAfters(ArrayList<Task> taskList) {
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            if (task instanceof DoAfter) {
-                int prevTaskNumber = ((DoAfter) task).getTaskNumber();
-                if (prevTaskNumber != -1 && prevTaskNumber != -2) {
-                    Task prevTask = taskList.get(prevTaskNumber);
-                    ((DoAfter) task).setTask(prevTask);
-                } else {
-                    ((DoAfter) task).setTask(null);
-                    ((DoAfter) task).setAssociatedTask(true);
-                }
+        for (Task task : taskList) {
+            if (!(task instanceof DoAfter)) {
+                continue;
             }
+
+            DoAfter doAfterTask = (DoAfter) task;
+            int prevTaskNumber = doAfterTask.getTaskNumber();
+            if (prevTaskNumber == -1 || prevTaskNumber == -2) {
+                doAfterTask.setTask(null);
+                doAfterTask.setHasNoAssociatedTask(true);
+                continue;
+            }
+
+            Task prevTask = taskList.get(prevTaskNumber);
+            doAfterTask.setTask(prevTask);
         }
         return taskList;
     }

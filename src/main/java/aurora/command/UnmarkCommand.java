@@ -35,28 +35,55 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String handle() throws AuroraException {
-        String message = "Command not executed.";
+        int taskIndex = validateAndParseTaskIndexForUnmark();
+        String message = unmarkTaskAndSave(taskIndex);
+        assert !message.equals("Command not executed.") : "Unmark command not executed.";
+        return message;
+    }
+
+    /**
+     * Helper function to validate the command input.
+     *
+     * @return TaskIndex of task to unmark.
+     * @throws AuroraException If the command format was incorrect.
+     */
+    private int validateAndParseTaskIndexForUnmark() throws AuroraException {
         if (this.splitCommands.length != 2) {
             throw new AuroraException(AuroraException.INVALID_UNMARK_FORMAT);
-            // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new AuroraException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) <= 0) {
-            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
-            throw new AuroraException("Please enter an integer representing a task within the list.");
-        } else if (!this.taskList.getTaskList().get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new AuroraException("Task already unmarked.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            message = this.taskList.unmarkTaskGui(taskIndex - 1);
         }
+        if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
+            throw new AuroraException("Please enter an integer as the second input.");
+        }
+
+        int taskIndex = Integer.parseInt(this.splitCommands[1]);
+        if (taskIndex <= 0) {
+            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
+        }
+        if (taskIndex > this.taskList.getTaskList().size()) {
+            throw new AuroraException("Please enter an integer representing a task within the list.");
+        }
+        if (!this.taskList.getTaskList().get(taskIndex - 1).getStatus()) {
+            throw new AuroraException("Task already unmarked.");
+        }
+
+        return taskIndex;
+    }
+
+    /**
+     * Helper function to unmark task and save tasklist to file.
+     *
+     * @param taskIndex Task to be unmark.
+     * @return Alert message that task has been unmarked and saved.
+     * @throws AuroraException If saving was unsuccessful.
+     */
+    private String unmarkTaskAndSave(int taskIndex) throws AuroraException {
+        String message;
         try {
+            message = this.taskList.unmarkTaskGui(taskIndex - 1);
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message = "Unable to save edits: " + exception.getMessage();
+            message = "I'm unable to save edits: " + exception.getMessage();
         }
-        assert !(message.equals("Command not executed.")) : "Unmark command not executed.";
         return message;
     }
 

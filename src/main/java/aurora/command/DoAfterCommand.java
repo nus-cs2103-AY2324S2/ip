@@ -45,7 +45,18 @@ public class DoAfterCommand extends Command {
 
     @Override
     public String handle() throws AuroraException {
-        String message = "Command not executed.";
+        String[] splitDescriptionsAndAft = parseAndValidateInput();
+        String message = processDoAfter(splitDescriptionsAndAft);
+        saveDoAfterTasks();
+        return message;
+    }
+
+    /**
+     * Helper method to validate the command input.
+     * @return String array containing the description of the DoAfter and the time or task it is associated with.
+     * @throws AuroraException If the command is of invalid format.
+     */
+    private String[] parseAndValidateInput() throws AuroraException {
         String[] descriptionAndAftSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndAftSplit.length < 2) {
             throw new AuroraException(AuroraException.INVALID_DOAFTER_FORMAT);
@@ -55,32 +66,50 @@ public class DoAfterCommand extends Command {
         if (splitDescriptionsAndAft.length < 2) {
             throw new AuroraException(AuroraException.INVALID_DOAFTER_FORMAT);
         }
+        return splitDescriptionsAndAft;
+    }
+
+    /**
+     * Helper method that decides how the doAfter command is processed.
+     *
+     * @param splitDescriptionsAndAft String array containing the description of the DoAfter and the time
+     *                                or task it is associated with.
+     * @return String alert regarding the creation of the DoAfter.
+     * @throws AuroraException If the command is of invalid format.
+     */
+    private String processDoAfter(String[] splitDescriptionsAndAft) throws AuroraException {
+        // Solution adapted from https://www.baeldung.com/java-check-string-number
         if (splitDescriptionsAndAft[1].matches("-?\\d+(\\.\\d+)?")) {
-            message = handleCaseTask(splitDescriptionsAndAft);
-        } else {
-            try {
-                message = handleCaseTime(splitDescriptionsAndAft);
-            } catch (DateTimeParseException e) {
-                throw new AuroraException(AuroraException.INVALID_DOAFTER_FORMAT);
-            }
+            return handleCaseTask(splitDescriptionsAndAft);
         }
 
         try {
+            return handleCaseTime(splitDescriptionsAndAft);
+        } catch (DateTimeParseException e) {
+            throw new AuroraException(AuroraException.INVALID_DOAFTER_FORMAT);
+        }
+    }
+
+    /**
+     * Helper method to save the newly created DoAfter to the file.
+     *
+     * @throws AuroraException If the saving is unsuccessful.
+     */
+    private void saveDoAfterTasks() throws AuroraException {
+        try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message = "Unable to save doAfter to file: " + exception.getMessage();
-            return message;
+            throw new AuroraException("I'm unable to save doAfter to file: " + exception.getMessage());
         }
-
-        return message;
     }
 
     /**
      * Method to handle tha case where the doAfter needs to be done after a date and time.
      *
-     * @param splitDescriptionsAndTime
+     * @param splitDescriptionsAndTime String array containing the description and the String representation of the
+     *                                 time the doAfter is associated with.
      * @return Response to command.
-     * @throws AuroraException If there is an error.
+     * @throws DateTimeParseException If there is an error with handling the time.
      */
     public String handleCaseTime(String[] splitDescriptionsAndTime) throws DateTimeParseException {
         String message = "";
@@ -95,7 +124,8 @@ public class DoAfterCommand extends Command {
     /**
      * Method to handle tha case where the doAfter needs to be done after a task.
      *
-     * @param splitDescriptionsAndTask
+     * @param splitDescriptionsAndTask String array containing the description and the String representation of the
+     *                                 task the doAfter is associated with.
      * @return Response to command.
      * @throws AuroraException If there is an error.
      */

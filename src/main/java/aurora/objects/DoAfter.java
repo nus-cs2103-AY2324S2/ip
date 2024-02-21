@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The DoAfter class represents a doAfter task, a task that needs to be completed after a certain time or a certain
- * period.
+ * The DoAfter class represents a doAfter task, a task that needs to be completed after a certain time
+ * or a certain period.
  */
 public class DoAfter extends Task {
 
@@ -20,8 +20,8 @@ public class DoAfter extends Task {
     private Task task;
 
     /**
-     * The index of the task that is associated with this doAfter. Default set to -1. Deleted tasks from tasklist set
-     * to -2.
+     * The index of the task that is associated with this doAfter. Default set to -1. Deleted tasks
+     * from taskList set to -2.
      */
     private int taskNumber = -1;
 
@@ -129,7 +129,7 @@ public class DoAfter extends Task {
      *
      * @param hasNoAssociatedTask True if the DoAfter has an associated task, false otherwise.
      */
-    public void setAssociatedTask(boolean hasNoAssociatedTask) {
+    public void setHasNoAssociatedTask(boolean hasNoAssociatedTask) {
         this.hasNoAssociatedTask = hasNoAssociatedTask;
     }
 
@@ -137,33 +137,46 @@ public class DoAfter extends Task {
     public String toFileString() {
         String isDone = this.getStatus() ? "1" : "0";
         String description = super.toFileString();
-        String afterString = "";
-        if (this.typeOfDoAfter() == 1) {
-            afterString = dateToString();
-        } else {
-            if (hasNoAssociatedTask) {
-                afterString = Integer.toString(this.taskNumber);
-            } else {
-                afterString = Integer.toString(this.taskNumber) + " | " + this.task.toFileString();
-            }
-        }
+        String afterString = getAfterFileString();
+
         return TASK_TYPE_FOR_FILE + " | " + isDone + " | " + description +
                 " | " + this.typeOfDoAfter() + " | " + afterString;
     }
 
+    /**
+     * Helper method to get the string representing another associated task or date.
+     *
+     * @return The String representation of the date or other task associated with the doAfter task.
+     */
+    private String getAfterFileString() {
+        if (this.typeOfDoAfter() == 1) {
+            return dateToString();
+        }
+        if (hasNoAssociatedTask) {
+            return Integer.toString(this.taskNumber);
+        }
+        return Integer.toString(this.taskNumber) + " | " + this.task.toFileString();
+    }
+
     @Override
     public String toString() {
-        String afterString = "";
-        if (this.typeOfDoAfter() == 1) {
-            afterString = dateToString();
-        } else {
-            if (hasNoAssociatedTask || this.task == null) {
-                afterString = "Task associated with this DoAfter has been deleted from the list!";
-            } else {
-                afterString = this.task.toString();
-            }
-        }
+        String afterString = getAfterString();
         return TASK_TYPE + super.toString() + " (after: " + afterString + ")";
+    }
+
+    /**
+     * Helper method to get the string representing another associated task or date.
+     *
+     * @return The String representation of the date or other task associated with the doAfter task.
+     */
+    private String getAfterString() {
+        if (this.typeOfDoAfter() == 1) {
+            return dateToString();
+        }
+        if (hasNoAssociatedTask || this.task == null) {
+            return "I've deleted the task associated from with this doAfter from the list previously!";
+        }
+        return this.task.toString();
     }
 
 }

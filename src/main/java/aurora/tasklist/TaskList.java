@@ -113,23 +113,39 @@ public class TaskList {
      * @return A string confirming the task has been deleted.
      */
     public String deleteTaskGui(int taskIndex) throws AuroraException {
-        String taskString = this.taskList.get(taskIndex).toString();
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task task = this.taskList.get(i);
-            if (task instanceof DoAfter) {
-                DoAfter currDoAfter = (DoAfter) task;
-                if (currDoAfter.typeOfDoAfter() == 2 && currDoAfter.getTaskNumber() != -2) {
-                    if (currDoAfter.getTask().equals(this.taskList.get(taskIndex))) {
-                        currDoAfter.setTaskNumberAfterDelete("delete");
-                    } else if (taskIndex < currDoAfter.getTaskNumber()) {
-                        currDoAfter.setTaskNumberAfterDelete("affected");
-                    }
-                }
+        Task deletedTask = this.taskList.get(taskIndex);
+        String taskString = deletedTask.toString();
+            for (Task task : this.taskList) {
+                updateDoAfterTasks(task, deletedTask, taskIndex);
             }
-        }
+
         this.taskList.remove(taskIndex);
-        return DELETE_TASK + taskString +
-                NUMBER_OF_TASKS + this.taskList.size();
+        return DELETE_TASK + taskString + NUMBER_OF_TASKS + this.taskList.size();
+    }
+
+    /**
+     * Helper method to update DoAfters after a task is deleted.
+     *
+     * @param task Task to possibly updated.
+     * @param deletedTask Task deleted.
+     * @param deletedTaskIndex Index of deleted task.
+     * @throws AuroraException If the deletedTask is not de-referenced successfully.
+     */
+    private void updateDoAfterTasks(Task task, Task deletedTask, int deletedTaskIndex) throws AuroraException {
+        if (!(task instanceof DoAfter)) {
+            return;
+        }
+
+        DoAfter doAfter = (DoAfter) task;
+        if (doAfter.typeOfDoAfter() != 2 || doAfter.getTaskNumber() == -2) {
+            return;
+        }
+
+        if (doAfter.getTask().equals(deletedTask)) {
+            doAfter.setTaskNumberAfterDelete("delete");
+        } else if (deletedTaskIndex < doAfter.getTaskNumber()) {
+            doAfter.setTaskNumberAfterDelete("affected");
+        }
     }
 
     /**

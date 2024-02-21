@@ -46,34 +46,73 @@ public class EventCommand extends Command {
     public String handle() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
-        if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
-        }
+        validateFormatFirst(descriptionAndDateSplit);
+
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] descriptionSplit = Parser.splitAtFirstFrom(descriptionAndDate);
-        if (descriptionSplit.length != 2) {
-            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
-        }
+        validateFormatSecond(descriptionSplit);
+
         String startEnd = descriptionSplit[1];
         String[] startEndSplit = Parser.splitAtFirstTo(startEnd);
-        if (startEndSplit.length != 2) {
+        validateFormatSecond(startEndSplit);
+
+        LocalDateTime startDate = parseDate(startEndSplit[0].trim());
+        LocalDateTime endDate = parseDate(startEndSplit[1].trim());
+
+        this.taskList.addEvent(descriptionSplit[0], startDate, endDate);
+        message = this.ui.getEchoAddTaskString(this.taskList);
+
+        saveTasks();
+        return message;
+    }
+
+    /**
+     * First helper function to validate input format.
+     * @param parts String array containing the full command.
+     * @throws AuroraException If an invalid input is detected.
+     */
+    private void validateFormatFirst(String[] parts) throws AuroraException {
+        if (parts.length < 2) {
             throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
-        } else {
-            try {
-                this.taskList.addEvent(descriptionSplit[0], Parser.parseDate(startEndSplit[0].trim()),
-                        Parser.parseDate(startEndSplit[1].trim()));
-                message = this.ui.getEchoAddTaskString(this.taskList);
-            } catch (DateTimeParseException e) {
-                throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
-            }
         }
+    }
+
+    /**
+     * First helper function to validate input format.
+     * @param parts String array containing the full command.
+     * @throws AuroraException If an invalid input is detected.
+     */
+    private void validateFormatSecond(String[] parts) throws AuroraException {
+        if (parts.length != 2) {
+            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
+        }
+    }
+
+    /**
+     * Helper function to parse the dates.
+     * @param dateString String representation of the dates.
+     * @return LocalDateTime object
+     * @throws AuroraException If the format of the date is incorrect.
+     */
+    private LocalDateTime parseDate(String dateString) throws AuroraException {
+        try {
+            return Parser.parseDate(dateString);
+        } catch (DateTimeParseException e) {
+            throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
+        }
+    }
+
+    /**
+     * Helper method to save tasks.
+     * @throws AuroraException If the taskList was not saved successfully.
+     */
+    private void saveTasks() throws AuroraException {
         try {
             storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message = "Unable to save event to file: " + exception.getMessage();
+            throw new AuroraException("I'm unable to save event to file: " + exception.getMessage());
         }
-        assert !(message.equals("Command not executed.")) : "Event command not executed.";
-        return message;
     }
+
 
 }

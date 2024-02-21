@@ -36,26 +36,58 @@ public class DeleteCommand extends Command {
     @Override
     public String handle() throws AuroraException {
         String message = "Command not executed.";
+        validateDeleteCommand();
+
+        int taskIndex = Integer.parseInt(splitCommands[1]);
+        message = deleteTask(taskIndex);
+
+        saveTasks();
+        assert !message.equals("Command not executed.") : "Delete command not executed.";
+        return message;
+    }
+
+    /**
+     * Helper method that validates the input.
+     * @throws AuroraException If the inputs are invalid.
+     */
+    private void validateDeleteCommand() throws AuroraException {
         if (this.splitCommands.length != 2) {
             throw new AuroraException(AuroraException.INVALID_DELETE_FORMAT);
-            // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new AuroraException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) <= 0) {
-            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
-            throw new AuroraException("Please enter an integer representing a task within the list.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            message = this.taskList.deleteTaskGui(taskIndex - 1);
         }
+        if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
+            throw new AuroraException("Please enter an integer as the second input.");
+        }
+        int taskNumber = Integer.parseInt(this.splitCommands[1]);
+        if (taskNumber <= 0) {
+            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
+        }
+        if (taskNumber > this.taskList.getTaskList().size()) {
+            throw new AuroraException("Please enter an integer representing a task within the list.");
+        }
+    }
+
+    /**
+     * Helper method that performs the deletion.
+     *
+     * @param taskIndex Index of task to be deleted
+     * @return String that alerts the user that the task has been deleted.
+     * @throws AuroraException If there is an error with deleting the task.
+     */
+    private String deleteTask(int taskIndex) throws AuroraException {
+        return this.taskList.deleteTaskGui(taskIndex - 1);
+    }
+
+    /**
+     * Helper method to save the task.
+     *
+     * @throws AuroraException If the taskList was not saved successfully.
+     */
+    private void saveTasks() throws AuroraException {
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message = "Unable to save edits: " + exception.getMessage();
+            throw new AuroraException("Unable to save edits: " + exception.getMessage());
         }
-        assert !(message.equals("Command not executed.")) : "Delete command not executed.";
-        return message;
     }
 
 }

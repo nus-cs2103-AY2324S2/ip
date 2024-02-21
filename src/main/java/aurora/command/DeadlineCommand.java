@@ -44,34 +44,75 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String handle() throws AuroraException {
-        String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
+        validateCommandFormat(descriptionAndDateSplit);
+
+        String descriptionAndDate = descriptionAndDateSplit[1];
+        String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
+        validateDeadlineFormat(splitVariables);
+
+        String description = splitVariables[0];
+        String dateString = splitVariables[1];
+        LocalDateTime dateLdt = parseDate(dateString);
+
+        this.taskList.addDeadline(description, dateLdt);
+        String message = this.ui.getEchoAddTaskString(this.taskList);
+
+        saveTasks();
+        return message;
+    }
+
+    /**
+     * Helper method for the validation of the input format.
+     *
+     * @param descriptionAndDateSplit String array containing the full command.
+     * @throws AuroraException If the input format is invalid.
+     */
+    private void validateCommandFormat(String[] descriptionAndDateSplit) throws AuroraException {
         if (descriptionAndDateSplit.length < 2) {
             throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
         }
-        String descriptionAndDate = descriptionAndDateSplit[1];
-        String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
+    }
+
+    /**
+     * Helper method for the validation of the input format.
+     *
+     * @param splitVariables String array containing the description and the date of the deadline.
+     * @throws AuroraException If the input format is invalid.
+     */
+    private void validateDeadlineFormat(String[] splitVariables) throws AuroraException {
         if (splitVariables.length < 2) {
             throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
-        } else {
-            String description = splitVariables[0];
-            String dateString = splitVariables[1];
-            try {
-                LocalDateTime dateLdt = Parser.parseDate(dateString.trim());
-                this.taskList.addDeadline(description, dateLdt);
-                message = this.ui.getEchoAddTaskString(this.taskList);
-            } catch (DateTimeParseException e) {
-                throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
-            }
         }
+    }
+
+    /**
+     * Helper method to parse the date
+     *
+     * @param dateString String representation of the date of the deadline.
+     * @return LocalDateTime object corresponding to the String representation.
+     * @throws AuroraException If the date is of incorrect format.
+     */
+    private LocalDateTime parseDate(String dateString) throws AuroraException {
+        try {
+            return Parser.parseDate(dateString.trim());
+        } catch (DateTimeParseException e) {
+            throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
+        }
+    }
+
+    /**
+     * Helper method to save the task.
+     *
+     * @throws AuroraException if the task was not successfully saved.
+     */
+    private void saveTasks() throws AuroraException {
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message = "Unable to save deadline to file: " + exception.getMessage();
-            return message;
+            throw new AuroraException("I'm unable to save deadline to file: " + exception.getMessage());
         }
-        assert !(message.equals("Command not executed.")) : "Deadline command not executed.";
-        return message;
     }
+
 
 }

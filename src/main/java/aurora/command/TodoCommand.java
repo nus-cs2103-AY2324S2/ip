@@ -42,21 +42,49 @@ public class TodoCommand extends Command {
 
     @Override
     public String handle() throws AuroraException {
-        String message = "Command not executed.";
+        String description = parseDescription();
+        String message = addTodoAndReturnMessage(description);
+        saveTasks();
+        assert !message.equals("Command not executed.") : "Todo command not executed.";
+        return message;
+    }
+
+    /**
+     * Helper function to parse the description.
+     *
+     * @return Description of the Todo.
+     * @throws AuroraException if the input format of the command was incorrect.
+     */
+    private String parseDescription() throws AuroraException {
         String[] descriptionSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionSplit.length < 2) {
             throw new AuroraException(AuroraException.INVALID_TODO_FORMAT);
-        } else {
-            this.taskList.addTodo(descriptionSplit[1]);
-            message = this.ui.getEchoAddTaskString(this.taskList);
         }
+        return descriptionSplit[1];
+    }
+
+    /**
+     * Helper method to add the ToDo to the taskList and obtaining the alert message.
+     *
+     * @param description Description of the Todo,
+     * @return The Alert message that the Todo has been added.
+     */
+    private String addTodoAndReturnMessage(String description) {
+        this.taskList.addTodo(description);
+        return this.ui.getEchoAddTaskString(this.taskList);
+    }
+
+    /**
+     * Helper method to save the taskList to the storage file.
+     *
+     * @throws AuroraException If the taskList could not be saved successfully.
+     */
+    private void saveTasks() throws AuroraException {
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            message =  "Unable to save todo to file: " + exception.getMessage();
+            throw new AuroraException("I'm unable to save todo to file: " + exception.getMessage());
         }
-        assert !(message.equals("Command not executed.")) : "Todo command not executed.";
-        return message;
     }
 
 }
