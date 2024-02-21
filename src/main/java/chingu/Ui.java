@@ -16,7 +16,7 @@ public class Ui {
     private static final String LOADING_ERROR = "Your tasks are loaded wrongly " +
             "- Please check your list.txt again, my friend!";
 
-    private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:";
+    private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:\n";
 
     public static final String BYE = "Hope to see you again soon!";
 
@@ -52,7 +52,7 @@ public class Ui {
     }
 
     public String announceFinding() {
-        return "Here are the matching tasks in your list:";
+        return "Here are the matching tasks in your list:\n";
     }
 
     public String markedDone(Task task) {

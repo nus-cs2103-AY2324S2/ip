@@ -15,8 +15,7 @@ public class FindCommand extends Command{
         this.count = 1;
     }
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.announceFinding();
-        String Response = "";
+        String Response = ui.announceFinding();
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task_now = tasks.getTask(i);
             String counter = count + ". ";

@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     private String description;
 
-    public final String ACKNOWLEDGEMENT = "Got it. I've added this task:\n";
+    public final String ACKNOWLEDGEMENT = "Got it, my friend! I've added this task:\n";
 
 
     public AddCommand(String taskType, String description) {

@@ -10,8 +10,7 @@ public class ListCommand extends Command {
     }
 
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.announceListing();
-        String Response = "";
+        String Response = ui.announceListing();
         for (int i = 0; i < tasks.getSize(); i++) {
             int n = i + 1;
             Response = Response + n + ". " + tasks.getTask(i).toString() + "\n";
