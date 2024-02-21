@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 
 /**
@@ -37,6 +38,7 @@ public class DialogBox extends HBox {
         }
         dialog.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/RelaxedTypingMonoJP-Medium.ttf"), 13));
         dialog.setText(text);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
     }
 

@@ -136,7 +136,7 @@ public class Parser {
             default:
                 throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (Exception e) {
             throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
         }
     }
