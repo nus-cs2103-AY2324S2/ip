@@ -61,7 +61,7 @@ public class Duke {
     }
 
     /**
-     * The main method for the Duke chatbot application, to launch in CLI.
+     * Launches the Duke chatbot application in CLI.
      *
      * @param args Command-line arguments.
      */
