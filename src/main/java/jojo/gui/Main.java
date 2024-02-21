@@ -14,7 +14,7 @@ import java.io.IOException;
  * A GUI for Jojo using FXML.
  */
 public class Main extends Application {
-    private Jojo jojo = new Jojo("jojo.txt");
+    private final Jojo jojo = new Jojo("jojo.txt");
 
     @Override
     public void start(Stage stage) throws JojoException {

@@ -64,7 +64,8 @@ public class Ui {
             sb.append(tl.taskToString(taskNum));
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-            throw new JojoException("Hmm...seems like the task to mark does not exist. To mark a task, input the keyword followed by the task's no. in the list. E.g.: mark 3");
+            throw new JojoException("Hmm...seems like the task to mark does not exist. To mark a task, input the " +
+                    "keyword followed by the task's no. in the list. E.g.: mark 3");
         }
     }
 
@@ -84,7 +85,8 @@ public class Ui {
             sb.append(tl.taskToString(taskNum));
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-            throw new JojoException("Hmm...seems like the task to unmark does not exist. To unmark a task, input the keyword followed by the task's no. in the list. E.g.: unmark 3");
+            throw new JojoException("Hmm...seems like the task to unmark does not exist. To unmark a task, input the " +
+                    "keyword followed by the task's no. in the list. E.g.: unmark 3");
         }
     }
 
@@ -107,7 +109,8 @@ public class Ui {
             sb.append(tl.size());
             sb.append(" tasks in the list.");
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-            throw new JojoException("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");
+            throw new JojoException("Hmm...seems like the task to delete does not exist. To delete a task, input the " +
+                    "keyword followed by the task's no. in the list. E.g.: delete 3");
         }
         return sb.toString();
     }
