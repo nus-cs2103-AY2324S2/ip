@@ -1,6 +1,6 @@
 package gronk;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -9,9 +9,8 @@ import java.time.format.DateTimeParseException;
  * Subclass of Task, with a deadline involved.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
-    private LocalDateTime time;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private LocalDate time;
 
     /**
      * Constructor for Deadline object.
@@ -19,13 +18,9 @@ public class Deadline extends Task {
      * @param s Integer representing completion status.
      * @param t String representing deadline of Task.
      */
-    public Deadline(String d, int s, String t) {
+    public Deadline(String d, int s, LocalDate t) {
         super(d, s);
-        try {
-            this.time = LocalDateTime.parse(t, INPUTFORMAT);
-        } catch (DateTimeParseException e) {
-            System.out.println("Please input the time in yyyy-MM-dd HH:mm format.");
-        }
+        this.time = t;
     }
 
     /**
@@ -38,16 +33,16 @@ public class Deadline extends Task {
      */
     public static Deadline createDeadline(String description, int status, String time) {
         try {
-            LocalDateTime deadline = LocalDateTime.parse(time, INPUTFORMAT);
-            return new Deadline(description, status, time);
+            LocalDate deadline = LocalDate.parse(time, DATE_FORMAT);
+            return new Deadline(description, status, deadline);
         } catch (DateTimeParseException e) {
+            System.out.println("\tError, please input the time in dd/MM/yyyy format.");
             return null;
-            //System.out.println("\tError, please input the time in yyyy-MM-dd HH:mm format.");
         }
     }
 
     public String getTime() {
-        return this.time.format(OUTPUTFORMAT);
+        return this.time.format(DATE_FORMAT);
     }
 
     @Override
@@ -63,7 +58,7 @@ public class Deadline extends Task {
     public String saveFormat() {
         return Integer.toString(this.getStatus())
                 + "," + this.getDesc()
-                + "," + this.time.format(INPUTFORMAT);
+                + "," + this.time.format(DATE_FORMAT);
     }
 
     @Override

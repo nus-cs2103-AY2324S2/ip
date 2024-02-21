@@ -1,4 +1,4 @@
-package gronk;
+package exception.gronk;
 
 /**
  * WrongTimeFormatException class.
@@ -7,15 +7,15 @@ package gronk;
  * class object in the wrong format. It prompts the
  * user with the correct format.
  */
-public class WrongTimeFormatException extends Exception {
-    public WrongTimeFormatException() {}
+public class WrongDateFormatException extends Exception {
+    public WrongDateFormatException() {}
 
-    public WrongTimeFormatException(String m) {
+    public WrongDateFormatException(String m) {
         super(m);
     }
 
     @Override
     public String toString() {
-        return "\tError, please input the time in yyyy-MM-dd HH:mm format.";
+        return "\tError, please input the time in DD/MM/YYYY format.";
     }
 }

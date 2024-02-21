@@ -5,6 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * TempMain class.
+ * Playing with javafx.
+ */
 public class TempMain extends Application {
 
     public TempMain() {

@@ -91,7 +91,7 @@ public class Storage {
                     message[2]
             ));
         } else if (messageType == 4) {
-            this.taskList.addTask(new Event(
+            this.taskList.addTask(Event.createEvent(
                     message[1],
                     Integer.parseInt(message[0]),
                     message[2],

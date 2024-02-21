@@ -2,8 +2,7 @@ package gronk;
 
 /**
  * UserInterface class.
- * Helper class that provides text formatting for
- * output messages.
+ * Helper class that provides text formatting for output messages.
  */
 public class UserInterface {
     /**
@@ -71,7 +70,7 @@ public class UserInterface {
             return message.substring(0, message.length() - 1);
         } catch (EmptyListException e) {
             printMessage(e.toString());
+            return "";
         }
-        return "";
     }
 }

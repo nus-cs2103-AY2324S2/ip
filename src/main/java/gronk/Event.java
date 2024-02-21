@@ -1,6 +1,6 @@
 package gronk;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -10,10 +10,9 @@ import java.time.format.DateTimeParseException;
  * for completion of the task.
  */
 public class Event extends Task {
-    private static final DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private LocalDate startTime;
+    private LocalDate endTime;
 
     /**
      * Constructor for Event object.
@@ -22,10 +21,10 @@ public class Event extends Task {
      * @param st String representing start time of Task.
      * @param et String representing end time of Task.
      */
-    public Event(String d, int s, String st, String et) {
+    public Event(String d, int s, LocalDate st, LocalDate et) {
         super(d, s);
-        this.startTime = LocalDateTime.parse(st, INPUTFORMAT);
-        this.endTime = LocalDateTime.parse(et, INPUTFORMAT);
+        this.startTime = st;
+        this.endTime = et;
     }
 
     /**
@@ -39,9 +38,11 @@ public class Event extends Task {
      */
     public static Event createEvent(String description, int status, String start, String end) {
         try {
-            LocalDateTime starttime = LocalDateTime.parse(start, INPUTFORMAT);
-            LocalDateTime endtime = LocalDateTime.parse(end, INPUTFORMAT);
-            return new Event(description, status, start, end);
+            System.out.println(start);
+            System.out.println(end);
+            LocalDate startTime = LocalDate.parse(start, DATE_FORMAT);
+            LocalDate endTime = LocalDate.parse(end, DATE_FORMAT);
+            return new Event(description, status, startTime, endTime);
         } catch (DateTimeParseException e) {
             return null;
         }
@@ -54,11 +55,11 @@ public class Event extends Task {
     }
 
     public String getStartTime() {
-        return this.startTime.format(OUTPUTFORMAT);
+        return this.startTime.format(DATE_FORMAT);
     }
 
     public String getEndTime() {
-        return this.endTime.format(OUTPUTFORMAT);
+        return this.endTime.format(DATE_FORMAT);
     }
 
 
@@ -75,16 +76,16 @@ public class Event extends Task {
     public String saveFormat() {
         return Integer.toString(this.getStatus())
                 + "," + this.getDesc()
-                + "," + this.startTime.format(INPUTFORMAT)
-                + "," + this.endTime.format(INPUTFORMAT);
+                + "," + this.startTime.format(DATE_FORMAT)
+                + "," + this.endTime.format(DATE_FORMAT);
     }
 
     @Override
     public String toString() {
         if (this.getStatus() == 0) {
-            return "[D] [ ] " + this.getDesc() + " (from:" + this.getStartTime() + ", to:" + this.getEndTime() + ")";
+            return "[E] [ ] " + this.getDesc() + " (during: " + this.getStartTime() + "-" + this.getEndTime() + ")";
         } else {
-            return "[D] [X] " + this.getDesc() + " (from:" + this.getStartTime() + ", to:" + this.getEndTime() + ")";
+            return "[E] [X] " + this.getDesc() + " (during: " + this.getStartTime() + "-" + this.getEndTime() + ")";
         }
     }
 }
