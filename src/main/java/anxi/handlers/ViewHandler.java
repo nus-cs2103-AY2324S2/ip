@@ -1,11 +1,11 @@
-package duke.handlers;
+package anxi.handlers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import duke.command.DukeException;
-import duke.command.TaskList;
-import duke.command.Ui;
+import anxi.command.AnxiException;
+import anxi.command.TaskList;
+import anxi.command.Ui;
 
 /**
  * Handles commands related to viewing of tasks on specific date.
@@ -27,7 +27,7 @@ public class ViewHandler {
     public String viewSchedule(String date, TaskList taskList, Ui ui) {
         try {
             return viewOnDate(date, taskList, ui);
-        } catch (DukeException de) {
+        } catch (AnxiException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
     }
@@ -38,11 +38,11 @@ public class ViewHandler {
      * @param taskList      Instance of TaskList
      * @param ui            Instance of Ui
      * @return tasks        String of all tasks that fall on specific date.
-     * @throws DukeException    Thrown if there is an invalid date.
+     * @throws AnxiException    Thrown if there is an invalid date.
      */
-    private String viewOnDate(String date, TaskList taskList, Ui ui) throws DukeException {
+    private String viewOnDate(String date, TaskList taskList, Ui ui) throws AnxiException {
         if (date.isEmpty()) {
-            throw new DukeException("No date honey, try again.");
+            throw new AnxiException("No date honey, try again.");
         }
 
         TimeHandler th = new TimeHandler();
@@ -52,7 +52,7 @@ public class ViewHandler {
         String deadlines = taskList.findAllDeadlineOnDate(find);
 
         if (events.isEmpty() && deadlines.isEmpty()) {
-            throw new DukeException("Nothing on "
+            throw new AnxiException("Nothing on "
                     + find.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         }
 

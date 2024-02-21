@@ -1,4 +1,4 @@
-package duke.command;
+package anxi.command;
 
 /**
  * Handles interaction with user.

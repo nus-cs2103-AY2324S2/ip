@@ -1,4 +1,4 @@
-package duke.display;
+package anxi.display;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Anxi duke = new Anxi();
 
     @Override
     public void start(Stage stage) {

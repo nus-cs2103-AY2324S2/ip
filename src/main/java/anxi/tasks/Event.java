@@ -1,12 +1,12 @@
-package duke.tasks;
+package anxi.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.command.DukeException;
-import duke.handlers.TimeHandler;
+import anxi.command.AnxiException;
+import anxi.handlers.TimeHandler;
 
 /**
  * Event task template.
@@ -45,7 +45,7 @@ public class Event extends Task {
             TimeHandler th = new TimeHandler();
             this.from = th.parseDateTime(from);
             this.to = th.parseTime(to);
-        } catch (DukeException de) {
+        } catch (AnxiException de) {
             // Since reading in from file, will not have error
         }
     }

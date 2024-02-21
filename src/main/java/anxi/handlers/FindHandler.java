@@ -1,8 +1,8 @@
-package duke.handlers;
+package anxi.handlers;
 
-import duke.command.DukeException;
-import duke.command.TaskList;
-import duke.command.Ui;
+import anxi.command.AnxiException;
+import anxi.command.TaskList;
+import anxi.command.Ui;
 
 /**
  * Handles inputs related to find tasks.
@@ -26,7 +26,7 @@ public class FindHandler {
     public String findTask(String find, TaskList taskList, Ui ui) {
         try {
             return find(find, taskList, ui);
-        } catch (DukeException de) {
+        } catch (AnxiException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
     }
@@ -38,11 +38,11 @@ public class FindHandler {
      * @param taskList      Instance of TaskList class.
      * @param ui            Instance of Ui class.
      * @return String           List of string of tasks that match or partially match find condition.
-     * @throws DukeException    Thrown if there are missing or invalid inputs.
+     * @throws AnxiException    Thrown if there are missing or invalid inputs.
      */
-    private String find(String find, TaskList taskList, Ui ui) throws DukeException {
+    private String find(String find, TaskList taskList, Ui ui) throws AnxiException {
         if (find.matches("")) {
-            throw new DukeException("Invalid input, missing search term");
+            throw new AnxiException("Invalid input, missing search term");
         }
 
         String result = taskList.findMatchingTasks(find.strip());

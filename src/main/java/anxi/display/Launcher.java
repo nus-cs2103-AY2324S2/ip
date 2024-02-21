@@ -1,4 +1,4 @@
-package duke.display;
+package anxi.display;
 
 import javafx.application.Application;
 

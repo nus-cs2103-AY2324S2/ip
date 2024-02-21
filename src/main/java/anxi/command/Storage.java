@@ -1,4 +1,4 @@
-package duke.command;
+package anxi.command;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import anxi.tasks.Deadline;
+import anxi.tasks.Event;
+import anxi.tasks.Task;
+import anxi.tasks.ToDo;
 
 /**
  * Loads tasks from the file and saves tasks in file.
