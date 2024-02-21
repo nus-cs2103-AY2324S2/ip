@@ -56,8 +56,6 @@ public class StorageManager {
             e.printStackTrace();
         }
 
-        System.out.println(tasks.size());
-
         return tasks;
     }
 }

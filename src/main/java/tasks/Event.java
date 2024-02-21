@@ -1,27 +1,29 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     
-    protected String startDate;
-    protected String endDate;
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
 
     public Event(String description, String startDate, String endDate) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = LocalDateTime.parse(startDate, INPUT_DATE_FORMAT);
+        this.endDate = LocalDateTime.parse(endDate, INPUT_DATE_FORMAT);
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.startDate, this.endDate);
+                super.toString(), this.startDate.format(Task.OUTPUT_DATE_FORMAT), this.endDate.format(Task.OUTPUT_DATE_FORMAT));
     }
 }
