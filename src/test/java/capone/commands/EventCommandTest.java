@@ -39,8 +39,8 @@ public class EventCommandTest {
      */
     @Test
     public void execute_noDescription_throwsInsufficientArgumentException() {
-        Command eventCommand = new EventCommand(Parser.splitInput("event /from 2023-12-12 1800 "
-                + "/from 2023-12-12 1900"));
+        Command eventCommand = new EventCommand(Parser.splitInput("event /from 2023-12-11 1800 "
+                + "/to 2023-12-12 1900"));
 
         InsufficientArgumentException exception = assertThrows(InsufficientArgumentException.class, () -> {
             eventCommand.execute(this.taskList, this.ui, this.storage);
