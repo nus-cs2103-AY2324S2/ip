@@ -27,6 +27,10 @@ public class MamtaException {
         return new MamtaException("Na manega! You entered an invalid task type. Sorry!");
     }
 
+    public static MamtaException genericError() {
+        return new MamtaException("Sharam toh aa nahi raha hain! This message means something is wrong with your code!");
+    }
+
     /**
      * Returns a MamtaException object for an incomplete task description.
      * @return A MamtaException object for an incomplete task description.
