@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private Eggy eggy;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private final Image eggyImage = new Image(this.getClass().getResourceAsStream("/images/DaEggy.jpg"));
 
     /**
