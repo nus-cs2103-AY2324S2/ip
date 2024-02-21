@@ -75,7 +75,7 @@ public class TaskList {
         assert(index > 0);
         this.taskList.remove(index - 1);
         storage.writeToFile(this.toString());
-        return "Deleted task no. " + index + "You have " + this.len() + " tasks left";
+        return "Deleted task no. " + index + "You have " + this.len() + " tasks left. \n";
     }
     /**
      * Returns the size of the task list.
