@@ -1,0 +1,8 @@
+.message {
+    -fx-padding: 5;
+    -fx-text-alignment: left;
+    -fx-background-color: firebrick;
+    -fx-text-fill: white;
+    -fx-label-padding: 5;
+    -fx-background-radius: 20;
+}
