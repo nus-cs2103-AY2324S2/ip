@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import jade.exception.JadeException;
+
 /**
  * The <code>RecurringTask</code> object represents a user task within a time range,
  * and repeats in certain frequency.
@@ -25,7 +27,7 @@ public class RecurringTask extends Task {
         Monthly,
     }
     /** For converting letter into the TaskFreq it represents */
-    public static final Map<String, TaskFreq> lookUpTable = Arrays.stream(TaskFreq.values())
+    public static final Map<String, TaskFreq> LOOK_UP_TABLE = Arrays.stream(TaskFreq.values())
             .collect(Collectors.toMap(
                     freq -> freq.toString().substring(0, 1),
                     freq -> freq));
@@ -45,8 +47,11 @@ public class RecurringTask extends Task {
      * start time, end time, and the task frequency.
      */
     public RecurringTask(String description, LocalDate startDate, LocalDate endDate,
-                         LocalTime startTime, LocalTime endTime, TaskFreq taskFreq) {
+                         LocalTime startTime, LocalTime endTime, TaskFreq taskFreq) throws JadeException {
         super(description);
+        if (endDate.isBefore(startDate)) {
+            throw new JadeException(Event.DATE_UNEXPECTED_ERROR);
+        }
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
@@ -59,8 +64,11 @@ public class RecurringTask extends Task {
      * start time, end time, the task frequency, and the completion status.
      */
     public RecurringTask(String description, LocalDate startDate, LocalDate endDate, LocalTime startTime,
-                         LocalTime endTime, TaskFreq taskFreq, boolean isDone) {
+                         LocalTime endTime, TaskFreq taskFreq, boolean isDone) throws JadeException {
         super(description, isDone);
+        if (endDate.isBefore(startDate)) {
+            throw new JadeException(Event.DATE_UNEXPECTED_ERROR);
+        }
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
@@ -95,8 +103,14 @@ public class RecurringTask extends Task {
                                           LocalTime startTime, LocalTime endTime) {
         List<Event> recurTasks = Stream.iterate(startDate, date -> date.plusDays(1))
                 .limit(ChronoUnit.DAYS.between(startDate, endDate))
-                .map(x -> new Event(description, combineDateTime(x, startTime),
-                        combineDateTime(x, endTime)))
+                .map(x -> {
+                    try {
+                        return new Event(description, combineDateTime(x, startTime),
+                                combineDateTime(x, endTime));
+                    } catch (JadeException e) {
+                        return null;
+                    }
+                })
                 .collect(Collectors.toList());
         return new TaskList<>(recurTasks);
     }
@@ -105,8 +119,14 @@ public class RecurringTask extends Task {
                                            LocalTime startTime, LocalTime endTime) {
         List<Event> recurTasks = Stream.iterate(startDate, date -> date.plusWeeks(1))
                 .limit(ChronoUnit.WEEKS.between(startDate, endDate))
-                .map(x -> new Event(description, combineDateTime(x, startTime),
-                        combineDateTime(x, endTime)))
+                .map(x -> {
+                    try {
+                        return new Event(description, combineDateTime(x, startTime),
+                                combineDateTime(x, endTime));
+                    } catch (JadeException e) {
+                        return null;
+                    }
+                })
                 .collect(Collectors.toList());
         return new TaskList<>(recurTasks);
     }
@@ -115,8 +135,14 @@ public class RecurringTask extends Task {
                                             LocalTime startTime, LocalTime endTime) {
         List<Event> recurTasks = Stream.iterate(startDate, date -> date.plusMonths(1))
                 .limit(ChronoUnit.MONTHS.between(startDate, endDate))
-                .map(x -> new Event(description, combineDateTime(x, startTime),
-                        combineDateTime(x, endTime)))
+                .map(x -> {
+                    try {
+                        return new Event(description, combineDateTime(x, startTime),
+                                combineDateTime(x, endTime));
+                    } catch (JadeException e) {
+                        return null;
+                    }
+                })
                 .collect(Collectors.toList());
         return new TaskList<>(recurTasks);
 
@@ -126,7 +152,7 @@ public class RecurringTask extends Task {
      * Returns a formatted string of the LocalDate object.
      */
     public String dateFormatter(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("MMM d uuuu"));
     }
     /**
      * Returns a formatted string of the LocalTime object.

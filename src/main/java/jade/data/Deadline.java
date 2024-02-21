@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * Returns a formatted string of the deadline date.
      */
     public String dateFormatter() {
-        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a"));
     }
 
     /**

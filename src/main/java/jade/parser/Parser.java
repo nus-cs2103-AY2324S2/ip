@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -28,12 +29,13 @@ import jade.exception.JadeException;
  * The <code>Parser</code> object to parse command line input from user.
  */
 public class Parser {
-    private static final String INVALID_FREQUENCY_MSG = "Please enter a valid frequency of tasks!";
-    private static final String INVALID_NUMBER_MSG = "Please input a valid number!";
-    private static final String INVALID_DATE_MSG = "Your date format is invalid!";
-    private static final String INVALID_TIME_MSG = "Your time format is invalid!";
-    private static final String EMPTY_DESCRIPTION_MSG = "Your task description cannot be empty!";
-    private static final String LONG_CMD_MSG = "Your command has an invalid end part!";
+    private static final String INVALID_FREQUENCY_MSG = "Please enter a valid frequency of tasks.";
+    private static final String INVALID_NUMBER_MSG = "Please input a valid number.";
+    private static final String INVALID_DATETIME_MSG = "Your date time format is invalid.";
+    private static final String INVALID_DATE_MSG = "Your date format is invalid.";
+    private static final String INVALID_TIME_MSG = "Your time format is invalid.";
+    private static final String EMPTY_DESCRIPTION_MSG = "Your task description cannot be empty.";
+    private static final String INVALID_CMD_LENGTH = "This command length is incorrect, please check help page again";
     private static final String ILLEGAL_ARG_MSG = "Illegal Argument.";
 
     /**
@@ -62,26 +64,30 @@ public class Parser {
      * if empty then throws an exception.
      *
      * @param commands Array of commands.
-     * @param length   The expected length of the command array.
+     * @param keyword The first keyword after task description.
      * @throws JadeException If the command length is less than expected length.
      */
-    private static void checkEmptyDescription(int length, String... commands) throws JadeException {
-        if (commands.length < length) {
+    private static void checkEmptyDescription(String[] commands, String keyword) throws JadeException {
+        if (keyword.isEmpty()) {
+            if (commands.length <= 1) {
+                throw new JadeException(EMPTY_DESCRIPTION_MSG);
+            }
+        }
+        if (Arrays.asList(commands).indexOf(keyword) <= 1) {
             throw new JadeException(EMPTY_DESCRIPTION_MSG);
         }
     }
-
     /**
-     * Checks when the first string in command is valid,
-     * but has invalid strings after the first one.
+     * Checks whether the length is correct for fixed-length command.
      * E.g. bye lah will be considered invalid.
      *
+     * @param length The expected length of the command.
      * @param commands Array of commands.
      * @throws JadeException If the command length is less than expected length.
      */
-    private static void checkLongCommand(String... commands) throws JadeException {
-        if (commands.length > 1) {
-            throw new JadeException(LONG_CMD_MSG);
+    private static void checkCommandLength(int length, String[] commands) throws JadeException {
+        if (commands.length != length) {
+            throw new JadeException(INVALID_CMD_LENGTH);
         }
     }
     /**
@@ -93,9 +99,10 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTime, String pattern) throws JadeException {
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern));
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern)
+                    .withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeException e) {
-            throw new JadeException(INVALID_DATE_MSG);
+            throw new JadeException(INVALID_DATETIME_MSG);
         }
     }
 
@@ -107,7 +114,8 @@ public class Parser {
      */
     public static LocalDate parseDate(String date, String pattern) throws JadeException {
         try {
-            return LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern));
+            return LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern)
+                    .withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeException e) {
             throw new JadeException(INVALID_DATE_MSG);
         }
@@ -185,7 +193,7 @@ public class Parser {
      * Returns an AddCommand when the first parsed string is todo.
      */
     private static AddCommand parseTodo(String[] commands) throws JadeException {
-        checkEmptyDescription(2, commands);
+        checkEmptyDescription(commands, "");
         return new AddCommand(new Todo(concatStringWithTextBound(commands, "", "")));
     }
 
@@ -193,19 +201,19 @@ public class Parser {
      * Returns an AddCommand when the first parsed string is deadline.
      */
     private static AddCommand parseDeadline(String[] commands) throws JadeException {
-        checkEmptyDescription(5, commands);
+        checkEmptyDescription(commands, "/by");
         return new AddCommand(new Deadline(concatStringWithTextBound(commands, "", "/by"),
-                parseDateTime(concatStringWithTextBound(commands, "/by", ""), "yyyy-MM-dd hh:mm a")));
+                parseDateTime(concatStringWithTextBound(commands, "/by", ""), "uuuu-MM-dd hh:mm a")));
     }
 
     /**
      * Returns an AddCommand when the first parsed string is event.
      */
     private static AddCommand parseEvent(String[] commands) throws JadeException {
-        checkEmptyDescription(8, commands);
+        checkEmptyDescription(commands, "/from");
         return new AddCommand(new Event(concatStringWithTextBound(commands, "", "/from"),
-                parseDateTime(concatStringWithTextBound(commands, "/from", "/to"), "yyyy-MM-dd hh:mm a"),
-                parseDateTime(concatStringWithTextBound(commands, "/to", ""), "yyyy-MM-dd hh:mm a")));
+                parseDateTime(concatStringWithTextBound(commands, "/from", "/to"), "uuuu-MM-dd hh:mm a"),
+                parseDateTime(concatStringWithTextBound(commands, "/to", ""), "uuuu-MM-dd hh:mm a")));
     }
 
     /**
@@ -213,10 +221,10 @@ public class Parser {
      */
     private static AddCommand parseRecur(String[] commands) throws JadeException {
         try {
-            checkEmptyDescription(8, commands);
+            checkEmptyDescription(commands, "/dfrom");
             return new AddCommand(new RecurringTask(concatStringWithTextBound(commands, "", "/dfrom"),
-                    parseDate(concatStringWithTextBound(commands, "/dfrom", "/dto"), "yyyy-MM-dd"),
-                    parseDate(concatStringWithTextBound(commands, "/dto", "/tfrom"), "yyyy-MM-dd"),
+                    parseDate(concatStringWithTextBound(commands, "/dfrom", "/dto"), "uuuu-MM-dd"),
+                    parseDate(concatStringWithTextBound(commands, "/dto", "/tfrom"), "uuuu-MM-dd"),
                     parseTime(concatStringWithTextBound(commands, "/tfrom", "/tto")),
                     parseTime(concatStringWithTextBound(commands, "/tto", "/freq")),
                     RecurringTask.TaskFreq.valueOf(commands[commands.length - 1])));
@@ -229,7 +237,7 @@ public class Parser {
      */
     private static ListCommand parseList(String[] commands) throws JadeException {
         if (commands.length != 1) {
-            return new ListCommand(parseDate(concatStringWithTextBound(commands, "", ""), "yyyy-MM-dd"));
+            return new ListCommand(parseDate(concatStringWithTextBound(commands, "", ""), "uuuu-MM-dd"));
         }
         return new ListCommand();
     }
@@ -237,42 +245,42 @@ public class Parser {
      * Returns a MarkCommand when the first parsed string is mark.
      */
     private static MarkCommand parseMark(String[] commands) throws JadeException {
-        checkEmptyDescription(2, commands);
+        checkCommandLength(2, commands);
         return new MarkCommand(parseInt(commands[1]));
     }
     /**
      * Returns an UnmarkCommand when the first parsed string is unmark.
      */
     private static UnmarkCommand parseUnmark(String[] commands) throws JadeException {
-        checkEmptyDescription(2, commands);
+        checkCommandLength(2, commands);
         return new UnmarkCommand(parseInt(commands[1]));
     }
     /**
      * Returns a DeleteCommand when the first parsed string is delete.
      */
     private static DeleteCommand parseDelete(String[] commands) throws JadeException {
-        checkEmptyDescription(2, commands);
+        checkCommandLength(2, commands);
         return new DeleteCommand(parseInt(commands[1]));
     }
     /**
      * Returns a FindCommand when the first parsed string is find.
      */
     private static FindCommand parseFind(String[] commands) throws JadeException {
-        checkEmptyDescription(2, commands);
+        checkCommandLength(2, commands);
         return new FindCommand(concatStringWithTextBound(commands, "", ""));
     }
     /**
      * Returns an ExitCommand when the first parsed string is bye.
      */
     private static ExitCommand parseBye(String[] commands) throws JadeException {
-        checkLongCommand(commands);
+        checkCommandLength(1, commands);
         return new ExitCommand();
     }
     /**
      * Returns an ExitCommand when the first parsed string is help.
      */
     private static HelpCommand parseHelp(String[] commands) throws JadeException {
-        checkLongCommand(commands);
+        checkCommandLength(1, commands);
         return new HelpCommand();
     }
     /**

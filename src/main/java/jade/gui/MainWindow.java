@@ -10,8 +10,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -56,7 +54,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jade.getResponse(input);
-        var ud =  UserDialogBox.getDialog(input, userImage);
+        var ud = UserDialogBox.getDialog(input, userImage);
         var jd = JadeDialogBox.getDialog(response, jadeImage);
         dialogContainer.getChildren().addAll(ud, jd);
         actOnExit();

@@ -4,18 +4,25 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import jade.exception.JadeException;
+
 /**
  * The <code>Event</code> object represents a user task with a start dateTime and an end dateTime.
  */
 public class Event extends Task {
+    public static final String DATE_UNEXPECTED_ERROR = "Your date range is invalid, "
+            + "please reenter a valid start and end date.";
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
 
     /**
      * Class constructor specifying the event description, start dateTime, and end dateTime.
      */
-    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) throws JadeException {
         super(description);
+        if (endDateTime.isBefore(startDateTime)) {
+            throw new JadeException(DATE_UNEXPECTED_ERROR);
+        }
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
@@ -35,7 +42,7 @@ public class Event extends Task {
      * Returns a formatted string of the LocalDateTime object.
      */
     public String dateTimeFormatter(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d uuuu hh:mm a"));
     }
 
     /**
