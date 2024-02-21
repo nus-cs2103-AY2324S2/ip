@@ -6,7 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="osiris.MainWindow">
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
     <children>
         <TextField fx:id="userInput" layoutX="10.0" layoutY="733.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="360.0" AnchorPane.bottomAnchor="11.0" />
         <Button fx:id="sendButton" layoutX="385.0" layoutY="733.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
