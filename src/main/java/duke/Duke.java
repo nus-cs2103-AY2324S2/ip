@@ -76,8 +76,8 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String response = inputParser.processCommand(input, this.taskList);
+            this.storage.saveData(this.taskList);
             if (response.equals("exit")) {
-                this.storage.saveData(this.taskList);
                 System.exit(0);
             }
             return response;
