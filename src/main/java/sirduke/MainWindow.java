@@ -36,6 +36,14 @@ public class MainWindow extends AnchorPane {
 
     public void setSirDuke(SirDuke d) {
         duke = d;
+        welcomeMsg();
+    }
+    @FXML
+    public void welcomeMsg() {
+        Label welcome = new Label(duke.welcome());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcome, new ImageView(dukeImage))
+        );
     }
 
     String getResponse(String input) {

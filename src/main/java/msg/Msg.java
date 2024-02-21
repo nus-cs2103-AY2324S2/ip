@@ -17,7 +17,7 @@ public class Msg {
      */
     public Msg(String text) {
         // by default msg will have divider
-        this.text = text + "\n" + Msg.DIVIDER + "\n";
+        this.text = text + "\n";
     }
 
     /**

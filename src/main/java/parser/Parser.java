@@ -29,6 +29,7 @@ public class Parser {
 
     /**
      * Takes Command Input and returns a command object with the relevant execute code
+     *
      * @param cmdInput
      * @return a command object
      * @throws InvalidCmd For when command is not recognised
@@ -99,6 +100,7 @@ public class Parser {
 
     /**
      * Parses through cmdInput and returns valid parameters an event constructor would accept
+     *
      * @param cmdInput
      * @return
      * @throws EventEmptyException
@@ -121,6 +123,7 @@ public class Parser {
 
     /**
      * Parses through cmdInput and returns valid parameters a deadline constructor would accept
+     *
      * @param cmdInput
      * @return
      * @throws DeadlineEmptyException
@@ -141,6 +144,7 @@ public class Parser {
 
     /**
      * Takes String of the correct data format and returns task object. Used for loading tasks
+     *
      * @param dataFormat one line of data in data/sirDuke.txt
      * @return
      * @throws InvalidDataFormat that particular line of data is of the incorrect format

@@ -40,7 +40,7 @@ public class Ui {
     public String welcome() {
         StdMsgs.LOGO.print();
         StdMsgs.WELCOME.print();
-        return StdMsgs.LOGO + "\n" + StdMsgs.WELCOME;
+        return StdMsgs.WELCOME.toString();
     }
     public String ArchivedResponse() {
         return "All your contacts have been archived. You can view them in archive/archived.txt";

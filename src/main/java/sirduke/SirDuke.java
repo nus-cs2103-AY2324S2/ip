@@ -40,7 +40,6 @@ public class SirDuke{
      * @return
      */
     public String runForGUI(String userInput) {
-        ui.welcome();
         Boolean isBye = false;
         String response = "";
         assert storage != null : "Storage should be initialised!";
@@ -59,6 +58,9 @@ public class SirDuke{
         return response;
     }
 
+    public String welcome() {
+        return ui.welcome();
+    }
     public void run() {
         ui.welcome();
         Boolean isBye = false;
