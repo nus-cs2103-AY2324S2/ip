@@ -11,6 +11,7 @@ import duke.command.EventCommand;
 import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.HelpCommand;
+import duke.command.HelloCommand;
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 
@@ -24,7 +25,7 @@ import java.util.Scanner;
 public class Parser {
     /* Enum of all possible command types. */
     enum Commands {
-        bye, list, mark, unmark, todo, deadline, event, delete, find, help
+        bye, list, mark, unmark, todo, deadline, event, delete, find, help, hello
     }
 
     /**
@@ -97,7 +98,11 @@ public class Parser {
             case help:
                 cmd = new HelpCommand();
                 break;
+            case hello:
+                cmd = new HelloCommand();
+                break;
             }
+
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException();
         }
