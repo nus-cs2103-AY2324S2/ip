@@ -1,7 +1,4 @@
-# User Guide
-
-## Structure
-src
+# Maltese User Guide
 
 ## Features 
 ## This are the features available in Maltese
