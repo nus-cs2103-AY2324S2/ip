@@ -49,19 +49,4 @@ public class DeleteCommand extends Command {
                     + tasks.getTaskSize() + "." + "\n");
         }
     }
-
-    /**
-     * Checks if the DeleteCommand is an exit command.
-     *
-     * @return false, as the DeleteCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

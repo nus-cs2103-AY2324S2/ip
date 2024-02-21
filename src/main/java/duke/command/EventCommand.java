@@ -44,19 +44,4 @@ public class EventCommand extends Command {
         storage.saveTask(tasks);
         return ui.showAddMsg(event, tasks.getTaskSize());
     }
-
-    /**
-     * Checks if the EventCommand is an exit command.
-     *
-     * @return false, as the EventCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

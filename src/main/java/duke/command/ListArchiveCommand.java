@@ -21,17 +21,4 @@ public class ListArchiveCommand extends Command {
                           Storage storage, Storage archived) throws DukeException {
         return ui.showList() + archiveTasks.list();
     }
-
-    /**
-     * Checks if the command is an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return true;
-    }
 }

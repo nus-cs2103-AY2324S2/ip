@@ -48,19 +48,4 @@ public class UnmarkCommand extends Command {
                     + tasks.getTaskSize() + ".");
         }
     }
-
-    /**
-     * Checks if the UnmarkCommand is an exit command.
-     *
-     * @return false, as the UnmarkCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

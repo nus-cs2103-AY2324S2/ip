@@ -44,19 +44,4 @@ public class DeadlineCommand extends Command {
         storage.saveTask(tasks);
         return ui.showAddMsg(deadline, tasks.getTaskSize());
     }
-
-    /**
-     * Checks if the DeadlineCommand is an exit command.
-     *
-     * @return false, as the DeadlineCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

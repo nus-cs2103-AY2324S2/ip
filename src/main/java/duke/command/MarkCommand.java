@@ -47,19 +47,4 @@ public class MarkCommand extends Command {
                     + tasks.getTaskSize() + ".");
         }
     }
-
-    /**
-     * Checks if the MarkCommand is an exit command.
-     *
-     * @return false, as the MarkCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

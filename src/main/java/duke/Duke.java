@@ -3,7 +3,6 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Archive;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -47,7 +46,8 @@ public class Duke {
         try {
             response += ui.showLine();
             Command c = Parser.parse(userInput);
-            response += c.execute(tasks, archiveTasks, ui, storageForTask, storageForArchivedTask);
+            response += c.execute(tasks, archiveTasks, ui, storageForTask,
+                    storageForArchivedTask);
         } catch (DukeException e) {
             response += ui.showError(e.getMessage());
         } finally {

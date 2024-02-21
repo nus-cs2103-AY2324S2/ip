@@ -27,19 +27,4 @@ public class HelpCommand extends Command {
                           Storage storage, Storage archived) throws DukeException {
         return ui.showHelpMsg();
     }
-
-    /**
-     * Checks if the HelpCommand is an exit command.
-     *
-     * @return false, as the HelpCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

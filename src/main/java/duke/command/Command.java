@@ -23,11 +23,4 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
                                    Storage storage, Storage archived) throws DukeException;
-
-    /**
-     * Checks if the command is an exit command.
-     */
-    public abstract boolean isExit();
-
-    public abstract boolean isArchive();
 }

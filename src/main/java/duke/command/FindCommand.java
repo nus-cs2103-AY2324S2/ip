@@ -41,19 +41,4 @@ public class FindCommand extends Command {
             throw new DukeException("Keyword is not found.");
         }
     }
-
-    /**
-     * Checks if the FindCommand is an exit command.
-     *
-     * @return false, as the FindCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

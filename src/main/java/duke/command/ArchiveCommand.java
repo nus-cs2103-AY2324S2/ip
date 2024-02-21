@@ -41,19 +41,4 @@ public class ArchiveCommand extends Command {
                     + tasks.getTaskSize() + "." + "\n");
         }
     }
-
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return false, as the ArchiveCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }

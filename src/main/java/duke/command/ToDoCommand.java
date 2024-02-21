@@ -42,19 +42,4 @@ public class ToDoCommand extends Command {
         storage.saveTask(tasks);
         return ui.showAddMsg(toDo, tasks.getTaskSize());
     }
-
-    /**
-     * Checks if the ToDoCommand is an exit command.
-     *
-     * @return false, as the ToDoCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public boolean isArchive() {
-        return false;
-    }
 }
