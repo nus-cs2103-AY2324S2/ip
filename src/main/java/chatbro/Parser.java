@@ -10,6 +10,7 @@ public class Parser {
      * Parses the user input and executes the appropriate command.
      */
     public static String parseCommand(String input) {
+        assert input != null;
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
         case "bye":
@@ -32,6 +33,8 @@ public class Parser {
             return Command.HELP.execute(input);
         case "find":
             return Command.FIND.execute(input);
+        case "protein":
+            return Command.PROTEIN.execute(input);
         default:
             return "Sorry bro, I don't understand that command.";
         }
