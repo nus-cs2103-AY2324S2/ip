@@ -25,7 +25,7 @@
 
 **2. Adding Tasks**
 
-**Important! - Dates are to be formatted as yyyy-mm-dd**
+
 
 * **deadline NAME /by BY-DATE**: 
     * Description: Adds a deadline task with a specific due date.
@@ -54,6 +54,8 @@
       [T][] Call Dentist
       Now you have 1 tasks in the list.
       ```
+
+* **Important! - Dates are to be formatted as yyyy-mm-dd**
 
 
 **3. Modifying Tasks**
