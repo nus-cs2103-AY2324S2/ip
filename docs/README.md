@@ -86,7 +86,7 @@
     * Example Output:
       ```
       Here are the tasks in your list:
-      1. [D][] Task (by: Mar 14 2023)
+      1. [D][] Task (by: Feb 20 2024)
       2. [E][] Study session (from: Feb 15 2024 to: Feb 28 2024)
       3. [T][] Call dentist
       ```
