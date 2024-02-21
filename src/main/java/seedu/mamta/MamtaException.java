@@ -27,10 +27,14 @@ public class MamtaException {
         return new MamtaException("Na manega! You entered an invalid task type. Sorry!");
     }
 
-    public static MamtaException genericError() {
-        return new MamtaException("Sharam toh aa nahi raha hain! This message means something is wrong with your code!");
+    public static MamtaException UiError() {
+        return new MamtaException("Sharam toh aa nahi raha hain! Error Loading UI.");
     }
 
+    public static MamtaException commandFormatError()
+    {
+        return new MamtaException("KAISE? Your command format is invalid please re enter!");
+    }
     /**
      * Returns a MamtaException object for an incomplete task description.
      * @return A MamtaException object for an incomplete task description.

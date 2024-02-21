@@ -34,8 +34,7 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            System.out.print("error in db");
-            e.printStackTrace();
+            System.out.println(MamtaException.UiError());
         }
 
         dialog.setText(text);

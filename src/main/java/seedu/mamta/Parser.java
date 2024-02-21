@@ -19,6 +19,10 @@ public class Parser {
 
         //in the case user wants to mark/unmark , export this into a helper later
         switch (TaskCommand) {
+        case "":
+        case " ":
+            System.out.println(MamtaException.commandFormatError());
+            return MamtaException.commandFormatError().toString();
         case "find":
             StringBuilder searchQuery = new StringBuilder();
             for (int i = 1; i < splitOutput.length; i++) {
