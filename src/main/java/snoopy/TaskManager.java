@@ -1,5 +1,6 @@
 package snoopy;
 
+import exceptions.BadDateException;
 import exceptions.DukeException;
 import exceptions.TaskNotExistException;
 import model.Deadline;
@@ -20,7 +21,18 @@ public class TaskManager {
      * @return true if the delete command is valid, false otherwise
      */
     public static boolean isValidDeleteCommand(String[] inputArguments) {
-        return inputArguments.length <= 1;
+        return inputArguments.length == 2;
+    }
+
+    public static boolean isValidDeadlineCommand(String[] inputArguments) {
+        try {
+            String arguments[] = inputArguments[1].split(" /by ");
+            String description = arguments[0];
+            String date = arguments[1];
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -29,7 +41,18 @@ public class TaskManager {
      * @return true if the event command is valid, false otherwise
      */
     private static boolean isValidEventCommand(String[] inputArguments) {
-        return inputArguments.length == 4;
+        try {
+            // attempt extraction of parameters
+            String getDesc[] = inputArguments[1].split(" /from ");
+            String desc = getDesc[0];
+            String getDates[] = getDesc[1].split(" /to ");
+            String getDateAndTag[] = getDates[1].split(" /tag ");
+            String from = getDates[0];
+            String to = getDateAndTag[0];
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -55,12 +78,8 @@ public class TaskManager {
            return e1.getMessage();
         }
         if (isVerbose) {
-            System.out.println("Okay! I've fed this task to Woodstock, bye bye!:");
-            System.out.println(task.toString());
-            System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
-        System.out.println("Reached here");
         return ("Okay! I've fed this task to Woodstock, bye bye!:" + "\n" + task.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
     }
 
@@ -74,11 +93,8 @@ public class TaskManager {
      * @return the string output
      */
     public static String processEvent(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (isValidEventCommand(inputArguments)) {
-            throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
-        }
-        if (isVerbose) {
-            System.out.println("Got it. Added this task:");
+        if (!isValidEventCommand(inputArguments)) {
+            throw new DukeException(" Insufficient parameters! \nMake sure to add a from and to date after the description with /from and /to too!");
         }
         // extraction of parameters
         String getDesc[] = inputArguments[1].split(" /from ");
@@ -104,8 +120,6 @@ public class TaskManager {
         }
 
         if (isVerbose) {
-            System.out.println(event.toString());
-            System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
 
@@ -122,32 +136,27 @@ public class TaskManager {
      * @return the string output
      */
     public static String processDeadline(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose, Storage storage) {
-        if (inputArguments.length == 1) {
-            throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
-        }
-        if (isVerbose) {
-            System.out.println("Got it. Added this task:");
+        if (!isValidDeadlineCommand(inputArguments)) {
+            throw new DukeException(" Nuh uh! Insufificent parameters!\nMake sure to add a deadline after the description with /by too!");
         }
         String arguments[] = inputArguments[1].split(" /by ");
         String description = arguments[0];
         String byAndTag[] = arguments[1].split(" /tag ");
-        String by = byAndTag[0];
-        String tag = byAndTag[1];
 
         Deadline deadline;
         try {
+            String by = byAndTag[0];
             if (byAndTag.length > 1) {
+                String tag = byAndTag[1];
                 deadline = new Deadline(description, by, tag);
             } else {
                 deadline = new Deadline(description, by);
             }
         } catch (Exception e) {
-            return e.getMessage();
+            return "Bad date! Please use the format YYYY-MM-DD or YYYY/MM/DD or DD-MM-YYYY or DD/MM/YYYY e.g. 2024-12-14";
         }
         todos.add(deadline);
         if (isVerbose) {
-            System.out.println(deadline.toString());
-            System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
         return ("Ah deadlines. Added this task:" + "\n" + deadline.toString() + "\n" + ("Now you have " + todos.size() + " tasks in the list."));
@@ -166,11 +175,7 @@ public class TaskManager {
         if (inputArguments.length == 1) {
             throw new DukeException(" Nuh uh! The description of a todo cannot be empty.");
         }
-        if (isVerbose) {
-            System.out.println("Got it. Added this task:");
-        }
         String arguments[] = inputArguments[1].split(" /tag ");
-        System.out.println("arguments:" + Arrays.toString(arguments));
         Todo todo;
         if (arguments.length > 1) { // if there are tags
             todo = new Todo(arguments[0], arguments[1]);
@@ -179,8 +184,6 @@ public class TaskManager {
         }
         todos.add(todo);
         if (isVerbose) {
-            System.out.println(todo.toString());
-            System.out.println("Now you have " + todos.size() + " tasks in the list.");
             storage.updateRecords(todos);
         }
         return ("Ooo happening! Added this task:\n" + todo.toString() + "\n" + "Now you have " + todos.size() + " tasks in the list.");
@@ -201,8 +204,6 @@ public class TaskManager {
         Task currTask = todos.get(index);
         currTask.markAsDone();
         if (isVerbose) {
-            System.out.print(" Mark task as done:\n");
-            System.out.println(" " + currTask.toString());
             storage.updateRecords(todos);
         }
         return (" Great job! I've marked this as done:\n" + " " + currTask.toString());
@@ -217,14 +218,10 @@ public class TaskManager {
      * @return the string output
      */
     public static String processList(String[] inputArguments, String UserInput, TaskList todos, Boolean isVerbose) {
-        if (isVerbose) {
-            System.out.println(" Here are the tasks in your list:");
-        }
         String tasksString = "";
         for (int i = 0; i < todos.size(); i++) {
             Task currTask = todos.get(i);
             if (isVerbose) {
-                System.out.println((i + 1) + ". " + currTask.toString());
                 tasksString += ((i + 1) + ". " + currTask.toString() + "\n");
             }
         }
@@ -236,15 +233,10 @@ public class TaskManager {
         Task currTask = todos.get(index);
         // mark task as undone
         index = Integer.valueOf(inputArguments[1]) - 1;
-        if (isVerbose) {
-            System.out.print(" OK, I've marked this task as not done yet:\n");
-        }
-
         currTask = todos.get(index);
         currTask.markAsUndone();
 
         if (isVerbose) {
-            System.out.println(" " + currTask.toString());
             storage.updateRecords(todos);
         }
         return (" OK, I've marked this task as not done yet:\n" + " " + currTask.toString());
@@ -260,13 +252,10 @@ public class TaskManager {
             }
         }
         if (matchingTasks.size() > 0) {
-            System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
                 matchingTasksString += ((i + 1) + ". " + matchingTasks.get(i).toString() + "\n");
             }
         } else {
-            System.out.println(" Sorry no tasks found matching that word :<");
             return (" Sorry no tasks found matching that word :<");
         }
         return (" Here are the matching tasks:\n" + matchingTasksString);

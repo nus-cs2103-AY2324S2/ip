@@ -34,12 +34,4 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * Main entry point for the application.
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        String storagePath = "./data/snoopy.txt"; //"./src/main/java/data/snoopy.txt"
-        new Snoopy(storagePath).run();
-    }
 }

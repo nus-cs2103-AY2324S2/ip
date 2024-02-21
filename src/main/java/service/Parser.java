@@ -17,7 +17,6 @@ public class Parser {
             s = scanner.nextLine(); // Use the same Scanner object
             return s;
         } catch (NoSuchElementException e) {
-            System.out.println("No input found. Exiting.");
             return null;
         }
     }

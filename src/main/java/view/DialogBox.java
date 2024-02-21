@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -23,6 +24,8 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private static final int PADDING = 10;
+
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -33,8 +36,13 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        dialog.setPadding(new Insets(PADDING));
+        dialog.setWrapText(true);
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        this.setPadding(new Insets(PADDING));
+
     }
 
     /**

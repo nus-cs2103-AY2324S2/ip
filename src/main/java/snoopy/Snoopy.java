@@ -1,4 +1,5 @@
 package snoopy;
+import exceptions.DukeException;
 import service.Parser;
 import service.Storage;
 import service.TaskList;
@@ -41,7 +42,6 @@ public class Snoopy {
      * @throws RuntimeException
      */
     public static String processCommand(String userInput, TaskList todos, Boolean isVerbose) throws RuntimeException {
-        System.out.println("USERINPUT: " + userInput);
         String maybeCommand;
         String arr[];
         try {
@@ -54,56 +54,44 @@ public class Snoopy {
         }
 
         Command command = Command.fromString(maybeCommand);
+        assert(command != null);
 
-        switch (command) {
-        case FIND:
-            return TaskManager.processFind(arr, userInput, todos, isVerbose);
-        case BYE:
-            return (ui.formalities("farewell"));
-        case LIST:
-            return TaskManager.processList(arr, userInput, todos, isVerbose);
-        case MARK:
-            return TaskManager.processMark(arr, userInput, todos, isVerbose, storage);
-        case UNMARK:
-            return TaskManager.processUnmark(arr, userInput, todos, isVerbose, storage);
-        case TODO:
-            return TaskManager.processTodo(arr, userInput, todos, isVerbose, storage);
-        case DEADLINE:
-            return TaskManager.processDeadline(arr, userInput, todos, isVerbose, storage);
-        case EVENT:
-            return TaskManager.processEvent(arr, userInput, todos, isVerbose, storage);
-        case DELETE:
-            return TaskManager.processDelete(arr, userInput, todos, isVerbose, storage);
-        default:
-            System.out.println("Uh ah I don't understand ya ");
-            return "Uh ah I don't understand ya ";
+        try {
+            switch (command) {
+            case FIND:
+                return TaskManager.processFind(arr, userInput, todos, isVerbose);
+            case BYE:
+                return (ui.formalities("farewell"));
+            case LIST:
+                return TaskManager.processList(arr, userInput, todos, isVerbose);
+            case MARK:
+                return TaskManager.processMark(arr, userInput, todos, isVerbose, storage);
+            case UNMARK:
+                return TaskManager.processUnmark(arr, userInput, todos, isVerbose, storage);
+            case TODO:
+                return TaskManager.processTodo(arr, userInput, todos, isVerbose, storage);
+            case DEADLINE:
+                return TaskManager.processDeadline(arr, userInput, todos, isVerbose, storage);
+            case EVENT:
+                return TaskManager.processEvent(arr, userInput, todos, isVerbose, storage);
+            case DELETE:
+                return TaskManager.processDelete(arr, userInput, todos, isVerbose, storage);
+            default:
+                return "Uh ah I don't understand ya ";
+            }
+        } catch (Exception e) {
+            return e.getMessage();
         }
+
     }
 
     /**
      * Constructor of Snoopy
-     * @param filePath file storage location to save and retrieve list of tasks
-     */
-    public Snoopy(String filePath) {
-        ui = new UI();
-        taskList = new TaskList();
-        storage = new Storage(filePath);
-    }
-
-    /**
-     * Constructor of Snoopy without parameters
      */
     public Snoopy() {
-       new Snoopy("./src/main/java/data/snoopy.txt");
-    }
-
-
-    /**
-     * The main entry point of the program, running all its processes.
-     */
-    public void run() {
-        //do something
-        ui.formalities("greet");
+        ui = new UI();
+        taskList = new TaskList();
+        storage = new Storage();
 
         //Load existing information
         try {
@@ -112,6 +100,15 @@ public class Snoopy {
             e.getMessage();
             taskList = null;
         }
+    }
+
+    /**
+     * The main entry point of the program, running all its processes.
+     */
+    public void run() {
+
+        ui.formalities("greet");
+
         while (true) {
             //Parsing user input.
            String command = new Parser().parse();
@@ -120,12 +117,12 @@ public class Snoopy {
             try {
                 processCommand(command, taskList, true);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                throw new DukeException(e.getMessage());
             }
         }
     }
 
     public static void main(String[] args) {
-        new Snoopy("./data/duke.txt").run();
+        new Snoopy().run();
     }
 }

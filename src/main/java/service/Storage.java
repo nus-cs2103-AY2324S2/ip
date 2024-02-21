@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Storage {
 
-    String filePath;
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    static final String FILE_PATH = "./data/snoopy.txt";
+    public Storage() {
+
     }
 
     private static boolean isCorrupt(File file) throws FileNotFoundException {
@@ -40,7 +40,6 @@ public class Storage {
             scanner.close();
             return false;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return true;
         }
     }
@@ -81,6 +80,8 @@ public class Storage {
     }
 
     private static boolean createFile(File file) throws Exception {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
         boolean fileIsCreated = file.createNewFile(); //May throw IOException
         if (fileIsCreated) {
             return true;
@@ -92,23 +93,20 @@ public class Storage {
     private void openStoredFile(TaskList taskList) throws Exception {
 
         //See if file already exists then parse it
-        File file = new File(this.filePath);
+        File file = new File(FILE_PATH);
 
         try {
             if (!file.exists()) { //Create if don't exist
                 createFile(file);
             } else if (isCorrupt(file)) { //file does exist
                 //file corrupt
-                System.out.println("File Corrupt! Creating new file");
                 createFile(file);
             } else {
                 //parse current info and return.
-                System.out.println("Found file! Parsing...");
                 parseTodoFile(file, taskList);
             }
         } catch (Exception e) {
-            System.out.println("Oh no!");
-            System.out.println(e.getMessage());
+            throw new DukeException("open file failed");
         }
     }
 
@@ -126,18 +124,22 @@ public class Storage {
      * @param taskList most updated version of the tasklist.
      * @throws RuntimeException
      */
-    public void updateRecords(TaskList taskList) throws RuntimeException { //TODO: to continue, need to add delete task fn, mark, unmark, list
-        assert(this.filePath != null);
+    public void updateRecords(TaskList taskList) throws RuntimeException {
+        assert(FILE_PATH != null);
         assert(taskList != null);
-        File file = new File(this.filePath);
-        if (taskList.size() == 0) {
-            return;
-        }
-        try (FileWriter writer = new FileWriter(file)) { // true for append mode
+
+        try {
+            File file = new File(FILE_PATH);
+
+            if (taskList.size() == 0) {
+                return;
+            }
+            FileWriter writer = new FileWriter(FILE_PATH);
             writer.write(taskList.get(0).fileSavingString());
             for (int i = 1; i < taskList.size(); i++) {
                 writer.write("\n" + taskList.get(i).fileSavingString());
             }
+            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
