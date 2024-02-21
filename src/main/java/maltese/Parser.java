@@ -1,5 +1,6 @@
 package maltese;
 
+import java.io.IOException;
 
 import maltese.action.Action;
 import maltese.action.ChangeFilePath;
@@ -16,7 +17,6 @@ import maltese.task.Deadline;
 import maltese.task.Event;
 import maltese.task.ToDo;
 
-import java.io.IOException;
 
 /**
  * Parses user commands and performs corresponding actions in the maltese application.
@@ -28,7 +28,8 @@ public class Parser {
     /**
      * Parses user commands and performs corresponding actions in the maltese application.
      */
-    public static Action parseCommand(String command, TaskList taskList, Storage storage) throws MalteseException, IOException {
+    public static Action parseCommand(
+            String command, TaskList taskList, Storage storage) throws MalteseException, IOException {
         try {
             String[] words = command.split(" ");
 

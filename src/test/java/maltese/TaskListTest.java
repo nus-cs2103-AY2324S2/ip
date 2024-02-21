@@ -1,15 +1,15 @@
 package maltese;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import maltese.action.TaskList;
 import maltese.task.Task;
 import maltese.task.ToDo;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TaskListTest {

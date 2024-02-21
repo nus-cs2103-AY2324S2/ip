@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 import maltese.action.Action;
 import maltese.action.Delete;
 import maltese.action.Echo;
@@ -12,8 +14,6 @@ import maltese.action.Help;
 import maltese.action.Mark;
 import maltese.action.TaskList;
 import maltese.action.Unmark;
-import org.junit.jupiter.api.Test;
-
 import maltese.exception.EmptyDescriptionException;
 import maltese.exception.NoIndexException;
 import maltese.exception.UnknownCommandException;
@@ -55,8 +55,8 @@ public class ParserTest {
             assertTrue(action instanceof Echo);
 
             // Test "event" command
-            action = Parser.parseCommand("event Task description /from 2024-02-03 /to 2024-02-04"
-                    , taskList, storage);
+            action = Parser.parseCommand("event Task description /from 2024-02-03 /to 2024-02-04",
+                    taskList, storage);
             assertTrue(action instanceof Echo);
 
             // Test "mark" command

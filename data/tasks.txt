@@ -1,2 +1,3 @@
-T|O|buy water
-T|O|drink water
+T|X|buy water
+T|X|drink water
+T|X|swallow water

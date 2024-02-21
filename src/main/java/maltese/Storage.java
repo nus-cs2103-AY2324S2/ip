@@ -52,27 +52,21 @@ public class Storage {
         return tasks;
     }
 
-    public TaskList loadFromFile(String filePath) throws FileNotFoundException {
-        TaskList tasks = new TaskList();
-        File currentFile = new File(filePath);
-        try (Scanner scanner = new Scanner(currentFile)) {
-            while (scanner.hasNext()) {
-                String taskLine = scanner.nextLine();
-                Task task = parseTask(taskLine);
-                tasks.addTask(task);
-            }
-        } catch (FileNotFoundException e) {
-            handleFileNotFound();
-            throw e;
-        }
-
-        return tasks;
-    }
-
+    /**
+     * Changes the current file path to the specified file path.
+     *
+     * @param filePath The new file path.
+     */
     public void changeFile(String filePath) {
         this.taskFile = new File(filePath);
     }
 
+    /**
+     * Parses a task from a string representation.
+     *
+     * @param taskLine The string representation of the task.
+     * @return The parsed Task object.
+     */
     private Task parseTask(String taskLine) {
         String[] token = taskLine.split("\\|");
         String taskType = token[0];
@@ -142,6 +136,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Handles the situation when the file is not found.
+     * Creates the file if it doesn't exist.
+     */
     private void handleFileNotFound() {
         System.err.println("File not found: " + this.taskFile.getAbsolutePath());
         System.err.println("Creating the file...");
@@ -158,11 +156,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if a file exists at the specified path.
+     *
+     * @param filePath The path to the file.
+     * @return true if the file exists, false otherwise.
+     */
     public boolean fileExists(String filePath) {
         File file = new File(filePath);
         return file.exists();
     }
 
+    /**
+     * Creates a new file at the specified path.
+     *
+     * @param filePath The path to the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public void createFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (file.getParentFile() != null && !file.getParentFile().exists()) {
@@ -172,5 +182,4 @@ public class Storage {
         // Create the file
         file.createNewFile();
     }
-
 }

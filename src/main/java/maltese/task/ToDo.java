@@ -2,9 +2,9 @@ package maltese.task;
 
 import maltese.action.Echo;
 import maltese.action.TaskList;
-import maltese.exception.MalteseException;
 import maltese.exception.DuplicateTaskException;
 import maltese.exception.EmptyDescriptionException;
+import maltese.exception.MalteseException;
 
 /**
  * Represents a task of type ToDo in the maltese application.
