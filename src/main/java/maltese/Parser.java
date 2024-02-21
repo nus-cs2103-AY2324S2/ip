@@ -1,22 +1,29 @@
 package maltese;
 
 
-import maltese.action.*;
+import maltese.action.Action;
+import maltese.action.ChangeFilePath;
+import maltese.action.Delete;
+import maltese.action.Farewell;
+import maltese.action.Guide;
+import maltese.action.Help;
+import maltese.action.Mark;
+import maltese.action.Match;
+import maltese.action.TaskList;
+import maltese.action.Unmark;
 import maltese.exception.MalteseException;
 import maltese.exception.UnknownCommandException;
 import maltese.task.Deadline;
 import maltese.task.Event;
 import maltese.task.ToDo;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.FileSystemNotFoundException;
 
 /**
  * Parses user commands and performs corresponding actions in the maltese application.
  */
 
-public class CommandParser {
+public class Parser {
 
 
     /**

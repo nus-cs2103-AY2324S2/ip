@@ -16,7 +16,7 @@ import maltese.exception.WrongDateOrderingException;
 
 
 
-public class CommandParserTest {
+public class ParserTest {
 
     @Test
     void test_parseCommand_validCommands() {
@@ -25,40 +25,40 @@ public class CommandParserTest {
 
         try {
             // Test "bye" command
-            action = CommandParser.parseCommand("bye", taskList);
+            action = Parser.parseCommand("bye", taskList);
             assertTrue(action instanceof Farewell);
 
             // Test "list" command
-            action = CommandParser.parseCommand("list", taskList);
+            action = Parser.parseCommand("list", taskList);
             assertTrue(action instanceof TaskList);
 
 
             // Test "todo" command
-            action = CommandParser.parseCommand("todo Task description", taskList);
+            action = Parser.parseCommand("todo Task description", taskList);
             assertTrue(action instanceof Echo);
 
             // Test "delete" command
-            action = CommandParser.parseCommand("delete 1", taskList);
+            action = Parser.parseCommand("delete 1", taskList);
             assertTrue(action instanceof Delete);
 
             // Test "deadline" command
-            action = CommandParser.parseCommand("deadline Task description /by 2024-02-03", taskList);
+            action = Parser.parseCommand("deadline Task description /by 2024-02-03", taskList);
             assertTrue(action instanceof Echo);
 
             // Test "event" command
-            action = CommandParser.parseCommand("event Task description /from 2024-02-03 /to 2024-02-04", taskList);
+            action = Parser.parseCommand("event Task description /from 2024-02-03 /to 2024-02-04", taskList);
             assertTrue(action instanceof Echo);
 
             // Test "mark" command
-            action = CommandParser.parseCommand("mark 1", taskList);
+            action = Parser.parseCommand("mark 1", taskList);
             assertTrue(action instanceof Mark);
 
             // Test "unmark" command
-            action = CommandParser.parseCommand("unmark 1", taskList);
+            action = Parser.parseCommand("unmark 1", taskList);
             assertTrue(action instanceof Unmark);
 
             // Test "help" command
-            action = CommandParser.parseCommand("help", taskList);
+            action = Parser.parseCommand("help", taskList);
             assertTrue(action instanceof Help);
 
         } catch (Exception e) {
@@ -71,19 +71,19 @@ public class CommandParserTest {
         TaskList taskList = new TaskList();
 
         assertThrows(UnknownCommandException.class, () ->
-                CommandParser.parseCommand("invalidCommand", taskList));
+                Parser.parseCommand("invalidCommand", taskList));
 
         assertThrows(NoIndexException.class, () ->
-                CommandParser.parseCommand("mark", taskList));
+                Parser.parseCommand("mark", taskList));
 
         assertThrows(EmptyDescriptionException.class, () ->
-                CommandParser.parseCommand("todo", taskList));
+                Parser.parseCommand("todo", taskList));
 
         assertThrows(WrongDateFormatException.class, () ->
-                CommandParser.parseCommand("deadline Task description /by invalidDate", taskList));
+                Parser.parseCommand("deadline Task description /by invalidDate", taskList));
 
         assertThrows(WrongDateOrderingException.class, () ->
-                CommandParser.parseCommand("event Task description /from 2024-02-04 /to 2024-02-03", taskList));
+                Parser.parseCommand("event Task description /from 2024-02-04 /to 2024-02-03", taskList));
     }
 }
 
