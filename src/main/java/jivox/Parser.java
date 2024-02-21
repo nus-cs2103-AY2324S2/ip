@@ -1,12 +1,19 @@
 package jivox;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import jivox.exception.JivoxInvalidDateException;
 import jivox.exception.JivoxUnknownCommandException;
 
 /**
  * Parser handles parsing of user input.
  */
 public class Parser {
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
     /**
      * Parses the command from the raw user input.
@@ -55,5 +62,33 @@ public class Parser {
     public String[] split(String input, String reg, int limit) {
         return input.split(reg, limit);
     }
+
+    /**
+     * Parse the Date and Time
+     * @param input The input to parse.
+     * @return The DateTime from the input
+     */
+    public LocalDateTime parseDateTime(String input) throws JivoxInvalidDateException {
+        try {
+            return LocalDateTime.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new JivoxInvalidDateException();
+        }
+    }
+
+    /**
+     * Parse the Date
+     *
+     * @param input The input to parse.
+     * @return The date from the input
+     */
+    public LocalDate parseDate(String input) throws JivoxInvalidDateException {
+        try {
+            return LocalDate.parse(input, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new JivoxInvalidDateException();
+        }
+    }
+
 
 }

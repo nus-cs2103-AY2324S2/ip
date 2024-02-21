@@ -3,8 +3,6 @@ package jivox;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import jivox.exception.JivoxDuplicateTaskException;
 import jivox.exception.JivoxException;
@@ -32,7 +30,7 @@ public class Jivox {
     private final Parser parser;
     private boolean isRunning = true;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
+
 
     /**
      * Creates a new Jivox instance with the given file path.
@@ -89,18 +87,14 @@ public class Jivox {
         if (second.length == 1) {
             throw new JivoxMissingArgumentException();
         }
-        LocalDateTime from;
-        LocalDateTime to;
-        try {
-            from = LocalDateTime.parse(second[0], formatter);
-            to = LocalDateTime.parse(second[1], formatter);
-        } catch (DateTimeParseException e) {
-            throw new JivoxInvalidDateException();
-        }
+        LocalDateTime from = parser.parseDateTime(second[0]);
+        LocalDateTime to = parser.parseDateTime(second[1]);
+
         if (to.isBefore(from)) {
             throw new JivoxInvalidDateRangeException();
         }
         Event task = new Event(first[0].trim(), from, to);
+
         if (this.checkDuplicateTask(task)) {
             throw new JivoxDuplicateTaskException();
         } else {
@@ -134,12 +128,7 @@ public class Jivox {
         if (in.length == 1) {
             throw new JivoxMissingArgumentException();
         }
-        LocalDateTime deadline;
-        try {
-            deadline = LocalDateTime.parse(in[1], formatter);
-        } catch (DateTimeParseException e) {
-            throw new JivoxInvalidDateException();
-        }
+        LocalDateTime deadline = parser.parseDateTime(in[1]);
         Deadline task = new Deadline(in[0].trim(), deadline);
         if (this.checkDuplicateTask(task)) {
             throw new JivoxDuplicateTaskException();
@@ -207,9 +196,9 @@ public class Jivox {
      *
      * @param input The date to show tasks for.
      */
-    public String show(String input) {
+    public String handleShow(String input) throws JivoxInvalidDateException {
         String[] split = this.parser.split(input, "/on ");
-        LocalDate time = LocalDate.parse(split[1].replaceFirst(" ", ""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        LocalDate time = parser.parseDate(split[1].replaceFirst(" ", ""));
         return this.ui.showDeadline(this.tasks, time);
     }
 
@@ -231,73 +220,54 @@ public class Jivox {
         return this.ui.showTag(t, in[1]);
     }
 
-
+    /**
+     * Given input from the user generates the response
+     *
+     * @param rawInput the input from user
+     */
     public String getResponse(String rawInput) {
-        Commands type;
-        String[] input;
         try {
-            type = parser.parseCommand(rawInput);
-            input = parser.parseInput(rawInput);
-            switch (type) {
-            case BYE:
-                this.isRunning = false;
-                this.ui.close();
-                this.dbHandler.save(this.tasks);
-                return this.ui.exit();
-            case DEADLINE:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.add("deadline", input[1]);
-            case EVENT:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.add("event", input[1]);
-            case TODO:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.add("todo", input[1]);
-            case MARK:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.mark(Integer.parseInt(input[1]));
-            case UNMARK:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.unmark(Integer.parseInt(input[1]));
-            case DELETE:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.delete(Integer.parseInt(input[1]));
-            case LIST:
-                return this.ui.showTasks(this.tasks);
-            case SHOW:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.show(input[1]);
-            case FIND:
-                if (input.length == 1) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.find(input[1]);
-            case TAG:
-                if (input.length == 0) {
-                    throw new JivoxMissingArgumentException();
-                }
-                return this.tag(input[1]);
-            default:
-                throw new JivoxMissingArgumentException();
-            }
+            Commands type = parser.parseCommand(rawInput);
+            String[] input = parser.parseInput(rawInput);
+
+            return handleCommand(type, input);
         } catch (JivoxException e) {
             return this.ui.showException(e.toString());
         }
     }
+
+    private String handleCommand(Commands type, String[] input) throws JivoxException {
+        switch (type) {
+        case BYE:
+            isRunning = false;
+            ui.close();
+            dbHandler.save(tasks);
+            return ui.exit();
+        case DEADLINE:
+            return add("deadline", input[1]);
+        case EVENT:
+            return add("event", input[1]);
+        case TODO:
+            return add("todo", input[1]);
+        case MARK:
+            return mark(Integer.parseInt(input[1]));
+        case UNMARK:
+            return unmark(Integer.parseInt(input[1]));
+        case DELETE:
+            return delete(Integer.parseInt(input[1]));
+        case LIST:
+            return ui.showTasks(tasks);
+        case SHOW:
+            return handleShow(input[1]);
+        case FIND:
+            return find(input[1]);
+        case TAG:
+            return tag(input[1]);
+        default:
+            throw new JivoxMissingArgumentException();
+        }
+    }
+
 
     /**
      * Starts the application.

@@ -47,7 +47,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("jivox.Main")
+    mainClassName = "jivox.Launcher"
 }
 
 jar {
@@ -60,6 +60,7 @@ jar {
 
 shadowJar {
     archiveFileName = 'jivox.jar'
+    archiveClassifier = null
 }
 
 run{
