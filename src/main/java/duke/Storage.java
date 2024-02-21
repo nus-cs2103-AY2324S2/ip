@@ -61,15 +61,11 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 String[] loadInput = line.split("\\|");
                 String type = loadInput[0].trim();
-                String isDone = loadInput[1].trim();
 
                 Task task;
                 switch (type) {
                 case "T":
-                    task = new Todo(loadInput[2].trim());
-                    if ("1".equals(isDone)) {
-                        task.markAsDone();
-                    }
+                    task = createTodoTask(loadInput);
                     break;
                 case "D":
                     task = createDeadlineTask(loadInput);
@@ -86,25 +82,45 @@ public class Storage {
         return this.tasks;
     }
 
-    private Task createDeadlineTask(String[] loadInput) throws DukeException {
+    private Task createTodoTask(String[] loadInput) {
+        String isDone = loadInput[1].trim();
         String taskString = loadInput[2].trim();
-        String byString = loadInput[3].trim();
+        Task task = new Todo(taskString);
+
+        if ("1".equals(isDone)) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private Task createDeadlineTask(String[] loadInput) throws DukeException {
+        String isDone = loadInput[1].trim();
+        String isRecurring = loadInput[2].trim();
+        String taskString = loadInput[3].trim();
+        String byString = loadInput[4].trim();
 
         validateDateTimeFormat(byString);
 
         LocalDateTime dateTime = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         Task task = new Deadline(taskString, dateTime);
 
-        if ("1".equals(loadInput[1].trim())) {
+        if ("1".equals(isDone)) {
             task.markAsDone();
+        }
+
+        if ("1".equals(isRecurring)) {
+            RecurringTask recurringTask = (RecurringTask) task;
+            recurringTask.makeRecur();
         }
         return task;
     }
 
     private Task createEventTask(String[] loadInput) throws DukeException {
-        String taskString = loadInput[2].trim();
-        String fromString = loadInput[3].trim();
-        String toString = loadInput[4].trim();
+        String isDone = loadInput[1].trim();
+        String isRecurring = loadInput[2].trim();
+        String taskString = loadInput[3].trim();
+        String fromString = loadInput[4].trim();
+        String toString = loadInput[5].trim();
 
         validateDateTimeFormat(fromString);
         validateDateTimeFormat(toString);
@@ -113,8 +129,13 @@ public class Storage {
         LocalDateTime dateTimeTo = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         Task task = new Event(taskString, dateTimeFrom, dateTimeTo);
 
-        if ("1".equals(loadInput[1].trim())) {
+        if ("1".equals(isDone)) {
             task.markAsDone();
+        }
+
+        if ("1".equals(isRecurring)) {
+            RecurringTask recurringTask = (RecurringTask) task;
+            recurringTask.makeRecur();
         }
         return task;
     }

@@ -62,8 +62,8 @@ Example:
 
 ```
 Got it. I've added this task:
-[D][ ] read book (by: Feb 21 2024 6:00PM)
-Now you have 7 tasks in the list.
+[D][ ][ ] read book (by: Feb 21 2024 6:00PM)
+Now you have 6 tasks in the list.
 ```
 
 ## Adding events
@@ -77,7 +77,7 @@ Example:
 
 ```
 Got it. I've added this task:
-[D][ ] read book (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
+[E][ ][ ] read book (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
 Now you have 7 tasks in the list.
 ```
 
@@ -92,7 +92,7 @@ Example:
 
 ```
 Noted. I've removed this task:
-[E][ ] read book (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
+[E][R][ ] read book (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
 Now you have 6 tasks in the list.
 ```
 
@@ -107,7 +107,8 @@ Example:
 
 ```
 Here are the tasks in your list:
-1. [D][ ] Read a book (by: May 10 2023 6:00PM)
+1. [D][R][ ] Read a book (by: May 10 2023 6:00PM)
+2. [D][R][X] Borrow a book (by: May 15 2023 6:00PM)
 ```
 
 ## Make a task recurrable
@@ -121,7 +122,7 @@ Example:
 
 ```
 Nice! I've made this task recur:
-[E][ ] do assignment (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
+[E][R][ ] do assignment (from: Feb 21 2024 6:00PM to: Feb 21 2024 9:00PM)
 ```
 
 ## Close the chatbot
@@ -132,6 +133,25 @@ Format: ```bye```
 Bye. Hope to see you again soon!
 ```
 
+## Load
+
+Data saved from previous session is loaded automatically
+
 ## Saving the data
 
 Task list data are saved in the hard disk automatically
+
+### Command summary
+
+| Action                                 | Format                                       |
+|----------------------------------------|----------------------------------------------|
+| Show list of tasks                     | `list`                                       |
+| Mark a task as done                    | `mark INDEX`                                 |
+| Add a todo task                        | `todo TASK_DESCRIPTION`                      |
+| Add a deadline task                    | `deadline TASK_DESCRIPTION /by DATE_TIME`   |
+| Add an event task                      | `event TASK_DESCRIPTION /from DATE_TIME /to DATE_TIME` |
+| Delete a task                          | `delete INDEX`                               |
+| Find list of tasks with keyword        | `find KEYWORD`                               |
+| Make a deadline or event task recurrable| `recur INDEX`                                |
+| Close the chatbot                       | `bye`                                        |
+

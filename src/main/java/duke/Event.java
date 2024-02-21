@@ -27,6 +27,15 @@ public class Event extends Task implements RecurringTask {
     }
 
     /**
+     * Gets the string representation of the recurring status for this task.
+     *
+     * @return A string indicating whether the task is recurring or not.
+     */
+    public String getRecurring() {
+        return isRecurring ? "[R]" : "[ ]";
+    }
+
+    /**
      * Returns a string representation of the Event task,
      * including its status icon, description, start, and end date-time.
      *
@@ -37,7 +46,8 @@ public class Event extends Task implements RecurringTask {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mma");
         String startDateTime = this.start.format(customFormatter);
         String endDateTime = this.end.format(customFormatter);
-        return "[E]" + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
+        return "[E]" + this.getRecurring() + super.toString() + " (from: " + startDateTime
+                + " to: " + endDateTime + ")";
     }
 
     /**
@@ -51,16 +61,26 @@ public class Event extends Task implements RecurringTask {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String startDateTime = this.start.format(customFormatter);
         String endDateTime = this.end.format(customFormatter);
-        return "E | " + (super.isDone ? "1" : "0") + " | " + super.description
+        return "E | " + (this.isRecurring ? "1" : "0") + " | " + (super.isDone ? "1" : "0") + " | " + super.description
                 + " | " + startDateTime + " | " + endDateTime;
     }
 
+    /**
+     * Makes the task recurring and returns a string representation.
+     *
+     * @return A string indicating the task has been marked as recurring.
+     */
     @Override
     public String makeRecur() {
         this.isRecurring = true;
         return this.toString();
     }
 
+    /**
+     * Gets the end date and time for the task.
+     *
+     * @return The end date and time for the task.
+     */
     @Override
     public LocalDateTime getEndDateTime() {
         return this.end;

@@ -24,6 +24,15 @@ public class Deadline extends Task implements RecurringTask {
     }
 
     /**
+     * Gets the string representation of the recurring status for this task.
+     *
+     * @return A string indicating whether the task is recurring or not.
+     */
+    public String getRecurring() {
+        return isRecurring ? "[R]" : "[ ]";
+    }
+
+    /**
      * Returns a string representation of the Deadline task,
      * including its status icon, description, and deadline.
      *
@@ -33,7 +42,7 @@ public class Deadline extends Task implements RecurringTask {
     public String toString() {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mma");
         String dateTimeBy = this.by.format(customFormatter);
-        return "[D]" + super.toString() + " (by: " + dateTimeBy + ")";
+        return "[D]" + this.getRecurring() + super.toString() + " (by: " + dateTimeBy + ")";
     }
 
     /**
@@ -46,15 +55,26 @@ public class Deadline extends Task implements RecurringTask {
     public String toSave() {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String dateTimeBy = this.by.format(customFormatter);
-        return "D | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + dateTimeBy;
+        return "D | " + (this.isRecurring ? "1" : "0") + " | " + (super.isDone ? "1" : "0") + " | "
+                + super.description + " | " + dateTimeBy;
     }
 
+    /**
+     * Makes the task recurring and returns a string representation.
+     *
+     * @return A string indicating the task has been marked as recurring.
+     */
     @Override
     public String makeRecur() {
         this.isRecurring = true;
         return this.toString();
     }
 
+    /**
+     * Gets the end date and time for the task.
+     *
+     * @return The end date and time for the task.
+     */
     @Override
     public LocalDateTime getEndDateTime() {
         return this.by;
