@@ -38,6 +38,19 @@ public class DateAndTimeParserTest {
     }
 
     /**
+     * Tests the acceptDateAndTime method with the wrong input, exception thrown
+     */
+    @Test
+    public void acceptDateAndTime_invalidDateTime_exceptionThrown() {
+        try {
+            DateAndTimeParser.acceptDateAndTime("30/02/2024 1200");
+            fail();
+        } catch (WilliamException e) {
+            assertEquals("The date and time format is invalid. Please try again!", e.getMessage());
+        }
+    }
+
+    /**
      * Tests the checkWhetherToAndFromValid method with the correct input, no exception thrown
      */
     @Test
@@ -57,6 +70,21 @@ public class DateAndTimeParserTest {
         } catch (WilliamException e) {
             assertEquals(
                     "The '/from' date and time should be before '/to' date and time. Please try again!",
+                    e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the checkWhetherToAndFromValid method with the wrong input, exception thrown
+     */
+    @Test
+    public void checkWhetherToAndFromValid_fromDateEqualToDate_exceptionThrown() {
+        try {
+            DateAndTimeParser.checkWhetherToAndFromValid("12/12/2023 1800", "12/12/2023 1800");
+            fail();
+        } catch (WilliamException e) {
+            assertEquals(
+                    "The '/from' date and time cannot be equal to '/to' date and time. Please try again!",
                     e.getMessage());
         }
     }

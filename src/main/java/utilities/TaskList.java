@@ -124,17 +124,18 @@ public class TaskList {
         return sb.toString();
     }
 
-
-    /**
-     * Unmarks/marks the task based on the ID
+    /***
+     * Marks/Un-marks the task as done
      *
-     * @param input The ID of the task
+     * @param input ID of the task
+     * @param isMark True or False
+     * @return Whether has it been successfully mark/un-mark
      */
-    public void markAndUnmark(String input) {
+    public boolean markAndUnmark(String input, boolean isMark) {
         int idOfItem = Integer.parseInt(input);
         int actualId = idOfItem - 1;
-        this.tasks.get(actualId).toggleMarkStatus();
-        System.out.println(this.tasks.get(actualId).toString() + "\n");
+        boolean isMarkChanged = this.tasks.get(actualId).toggleMarkStatus(isMark);
+        return isMarkChanged;
     }
 
     /**

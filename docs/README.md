@@ -129,12 +129,16 @@ William's data are saved in the hard disk automatically after any command that c
 William's data is saved automatically as a `.txt` file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update data directly by editing that data file.
 
 ### Caution
-If your changes to the data file make its format invalid, William will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file make its format invalid (e.g. adding a new field), William will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it. 
 <br>
+
+However, if your changes to the data file interfere with the syntax (e.g. changing the `DATE` format, or adding a new `PRIORITY_LEVEL`), William will not detect this and it will lead to errors when using the application (This feature could be added in during a new version).
+<br>
+
 Furthermore, certain edits can cause William to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## FAQ
-Q: How do I transfer my data to another Computer?
+Q: How do I transfer my data to another Computer?<br>
 A: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous William home folder.
 
 ## Command Summary

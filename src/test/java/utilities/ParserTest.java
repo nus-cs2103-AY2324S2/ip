@@ -101,8 +101,6 @@ public class ParserTest {
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 
-
-
     /**
      * Tests the parseCommands method for delete switch case, check whether a task has been deleted
      * successfully
@@ -132,7 +130,7 @@ public class ParserTest {
     }
 
     /**
-     * Tests the parseCommands method for mark switch case, check whether a task has been marked
+     * Tests the parseCommands method for mark switch case, check whether a task has been unmarked
      * successfully
      */
     @Test
@@ -141,7 +139,24 @@ public class ParserTest {
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1
-        parser.parseCommands(Commands.MARK, "1");
+        parser.parseCommands(Commands.UNMARK, "1");
         assertEquals(" ", taskListStub.getTasks().get(0).getStatusIcon());
+    }
+
+    /**
+     * Tests the parseCommands method for priority switch case for the incorrect input
+     */
+    @Test
+    public void parseCommands_incorrectPriorityCommand_doesNotAddTask() {
+        Todo todo = new Todo("Test Task Added To File", true, "HIGH");
+        taskListStub.addTask(todo);
+
+        // Since there is only one task, the ID of the task is 1
+        parser.parseCommands(Commands.PRIORITY, "");
+        parser.parseCommands(Commands.PRIORITY, "/id 1");
+        parser.parseCommands(Commands.PRIORITY, "/id 1 /priority ");
+        parser.parseCommands(Commands.PRIORITY, "/id 2 /priority high");
+        parser.parseCommands(Commands.PRIORITY, "/id 1 /priority wrongInput");
+        assertEquals("HIGH", taskListStub.getTasks().get(0).getPriority());
     }
 }
