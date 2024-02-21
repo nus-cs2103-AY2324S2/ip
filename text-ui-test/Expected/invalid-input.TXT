@@ -1,0 +1,33 @@
+Hello from
+ ______     ______     __  __
+/\  __ \   /\  __ \   /\ \/ /
+\ \ \/\ \  \ \  __ \  \ \  _-.
+ \ \_____\  \ \_\ \_\  \ \_\ \_\
+  \/_____/   \/_/\/_/   \/_/\/_/
+
+----------------------------------------------
+Welcome! I'm Professor oak
+What can I do for you?
+Invalid Command: test received.
+Only the following commands are accepted:
+[BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT]
+No Due Date for Deadline detected. Please provide a Due Date by using '/by'
+No To Datetime for Event detected. Please provide a To Datetime by using '/to'
+No From Datetime for Event detected. Please provide a From Datetime by using '/from'
+----------------------------------------------
+Added new Todo: test
+----------------------------------------------
+----------------------------------------------
+Added new Deadline: something with Due Date: 4pm
+----------------------------------------------
+----------------------------------------------
+Added new Event: meeting occurring from 2pm to 4pm
+----------------------------------------------
+----------------------------------------------
+1. [T][ ] test
+2. [D][ ] something (by: 4pm)
+3. [E][ ] meeting (from: 2pm to: 4pm)
+----------------------------------------------
+----------------------------------------------
+Goodbye! Hope to see you again!
+----------------------------------------------

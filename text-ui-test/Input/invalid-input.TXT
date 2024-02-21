@@ -1,0 +1,9 @@
+test
+deadline at 4pm
+event meeting /from 2pm to 4pm
+event meeting 2pm /to 4pm
+todo test
+deadline something /by 4pm
+event meeting /from 2pm /to 4pm
+list
+bye

@@ -1,3 +1,5 @@
+**.class
+
 # IDEA files
 /.idea/
 /out/
@@ -6,7 +8,7 @@
 # Gradle build files
 /.gradle/
 /build/
-src/main/resources/docs/
+src/main/Oak.resources/docs/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
