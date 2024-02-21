@@ -3,7 +3,7 @@
 ## Welcome to Unim!
 Unim is your friendly chatbot designed to assist you with task management. Whether you're a student, professional, or just someone who likes to stay organized, Unim is here to make your life easier. Below is a simple guide to help you make the most out of Unim's features.
 
-![Unim Chat Interface](/docs/Ui.png)
+![Unim Chat Interface](Ui.png)
 
 ## Getting Started
 
