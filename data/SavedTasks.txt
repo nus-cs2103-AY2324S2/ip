@@ -1,5 +1,5 @@
 todo_read book_0
-todo_read book2_0
-todo_read book 3_0
-todo_read book 4_0
+event_CS2103 tutorial /from 3pm/to 4pm_0
+deadline_ip soft deadline/by 2024-02-23_0
+deadline_finish reading book/by 2024-03-01_0
 EOF

@@ -1,8 +1,6 @@
-# Duke User Guide
+# Zoe User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
+![Zoe Ui](https://github.com/Arixeyeion/ip/blob/master/docs/Ui.png)
 
 // Product intro goes here
 
