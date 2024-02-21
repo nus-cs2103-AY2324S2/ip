@@ -42,7 +42,8 @@ Format for guide:
     Format: "list"
     Example: "list"
     Expected output (Example): 
-    "1. [T][] task 1
+    "Here is your task list:
+     1. [T][] task 1
      2. [T][] task 2"
 
 
