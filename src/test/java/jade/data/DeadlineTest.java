@@ -29,7 +29,7 @@ public class DeadlineTest {
 
     @Test
     public void testStringConversion() {
-        assertEquals("[D][ ] read a book (by: Jan 11 2024 11:00 pm)", new Deadline("read a book",
+        assertEquals("[D][ ] read a book (by: Nov 1 2024 11:00 pm)", new Deadline("read a book",
                 LocalDateTime.parse("2024-11-01 11:00 pm",
                         DateTimeFormatter.ofPattern("uuuu-MM-dd hh:mm a"))).toString());
         assertEquals("[D][X] read two books (by: Jan 1 2024 01:00 pm)", new Deadline("read two books",
