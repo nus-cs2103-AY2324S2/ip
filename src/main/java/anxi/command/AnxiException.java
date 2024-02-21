@@ -1,9 +1,9 @@
-package duke.command;
+package anxi.command;
 
 /**
  * Duke error handling class.
  */
-public class DukeException extends Exception {
+public class AnxiException extends Exception {
     private String errorMessage;
 
     /**
@@ -11,7 +11,7 @@ public class DukeException extends Exception {
      *
      * @param errorMessage  Indicates why exception was thrown.
      */
-    public DukeException(String errorMessage) {
+    public AnxiException(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

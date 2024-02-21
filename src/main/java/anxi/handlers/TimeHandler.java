@@ -1,4 +1,4 @@
-package duke.handlers;
+package anxi.handlers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.command.DukeException;
+import anxi.command.AnxiException;
 
 /**
  * TimeHandler deals with the conversion of string to LocalDate or related formats.
@@ -25,9 +25,9 @@ public class TimeHandler {
      *
      * @param dateTime String containing date and time.
      * @return dateTime     LocalDateTime object.
-     * @exception DukeException     Throws when input is not a valid date and time.
+     * @exception AnxiException     Throws when input is not a valid date and time.
      */
-    public LocalDateTime parseDateTime(String dateTime) throws DukeException {
+    public LocalDateTime parseDateTime(String dateTime) throws AnxiException {
         List<String> separators = Arrays.asList("-", "/");
         List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
         List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
@@ -45,7 +45,7 @@ public class TimeHandler {
             }
         }
 
-        throw new DukeException("Invalid date or time... well hard to help you here\n"
+        throw new AnxiException("Invalid date or time... well hard to help you here\n"
                 + "Forward slashes or hyphens and the 24hr clock");
     }
 
@@ -54,9 +54,9 @@ public class TimeHandler {
      *
      * @param time      String containing time.
      * @return time     LocalTime object.
-     * @exception DukeException     Throws when input is not a valid time.
+     * @exception AnxiException     Throws when input is not a valid time.
      */
-    public LocalTime parseTime(String time) throws DukeException {
+    public LocalTime parseTime(String time) throws AnxiException {
         List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
 
         for (String t : timeCombinations) {
@@ -67,16 +67,16 @@ public class TimeHandler {
             }
         }
 
-        throw new DukeException("Invalid time.... try again\nSimplest is the 24hr clock");
+        throw new AnxiException("Invalid time.... try again\nSimplest is the 24hr clock");
     }
 
     /**
      * Parses and converts string to LocalDate object.
      * @param date      String containing date.
      * @return date     LocalDate object.
-     * @exception DukeException     Throws when input is not a valid date.
+     * @exception AnxiException     Throws when input is not a valid date.
      * */
-    public LocalDate parseDate(String date) throws DukeException {
+    public LocalDate parseDate(String date) throws AnxiException {
         List<String> separators = Arrays.asList("-", "/");
         List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
 
@@ -91,6 +91,6 @@ public class TimeHandler {
             }
         }
 
-        throw new DukeException("Wrong date input... try again\n Psst.. only hyphens and forward slashes");
+        throw new AnxiException("Wrong date input... try again\n Psst.. only hyphens and forward slashes");
     }
 }

@@ -1,13 +1,13 @@
-package duke.handlers;
+package anxi.handlers;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import duke.command.DukeException;
-import duke.command.Storage;
-import duke.command.TaskList;
-import duke.command.Ui;
-import duke.tasks.Task;
+import anxi.command.AnxiException;
+import anxi.command.Storage;
+import anxi.command.TaskList;
+import anxi.command.Ui;
+import anxi.tasks.Task;
 
 /**
  * Handles inputs related to Deadline tasks.
@@ -32,7 +32,7 @@ public class DeadlineHandler {
     public String addDeadline(String input, Storage storage, TaskList taskList, Ui ui) {
         try {
             return deadline(input, storage, taskList, ui);
-        } catch (DukeException de) {
+        } catch (AnxiException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
     }
@@ -45,22 +45,22 @@ public class DeadlineHandler {
      * @param taskList      Instance of TaskList class.
      * @param ui            Instance of Ui class.
      * @return String           Indicates if task was successfully completed.
-     * @throws DukeException    Thrown if there are missing inputs or inputs are out of bounds.
+     * @throws AnxiException    Thrown if there are missing inputs or inputs are out of bounds.
      */
-    public String deadline(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException {
+    public String deadline(String input, Storage storage, TaskList taskList, Ui ui) throws AnxiException {
         if (input.matches("")) {
-            throw new DukeException("Invalid input/syntax. What is due?");
+            throw new AnxiException("Invalid input/syntax. What is due?");
         }
 
         String[] d = input.split("/by");
         if (d.length < 2) {
-            throw new DukeException("To survive is to procrastinate death, when is this due?");
+            throw new AnxiException("To survive is to procrastinate death, when is this due?");
         }
         LocalDateTime by;
         try {
             TimeHandler th = new TimeHandler();
             by = th.parseDateTime(d[1].strip());
-        } catch (DukeException de) {
+        } catch (AnxiException de) {
             return ui.printErrorMessage(de.getErrorMessage());
         }
 

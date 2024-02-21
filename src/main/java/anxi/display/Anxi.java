@@ -1,14 +1,14 @@
-package duke.display;
+package anxi.display;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import duke.command.DukeException;
-import duke.command.Parser;
-import duke.command.Storage;
-import duke.command.TaskList;
-import duke.command.Ui;
+import anxi.command.AnxiException;
+import anxi.command.Parser;
+import anxi.command.Storage;
+import anxi.command.TaskList;
+import anxi.command.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 /**
  * Handles Anxi taskbot operations.
  */
-public class Duke extends Application {
+public class Anxi extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -39,9 +39,9 @@ public class Duke extends Application {
     /**
      * Duke constructor.
      */
-    public Duke() {
+    public Anxi() {
         ui = new Ui();
-        storage = new Storage("data/duke.txt");
+        storage = new Storage("data/anxi.txt");
 
         try {
             taskList = new TaskList(storage.loadTasks());
@@ -68,7 +68,7 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input, the other containing Duke's reply.
      * Clears the user input after processing.
      */
-    private void handleUserInput() throws DukeException, IOException {
+    private void handleUserInput() throws AnxiException, IOException {
         String input = userInput.getText();
         String response = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
@@ -130,7 +130,7 @@ public class Duke extends Application {
                 handleUserInput();
             } catch (IOException e) {
                 System.out.println();
-            } catch (DukeException de) {
+            } catch (AnxiException de) {
                 System.out.println();
             }
         });
@@ -140,7 +140,7 @@ public class Duke extends Application {
                 handleUserInput();
             } catch (IOException e) {
                 System.out.println();
-            } catch (DukeException d) {
+            } catch (AnxiException d) {
                 System.out.println();
             }
         });
