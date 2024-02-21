@@ -20,9 +20,12 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            MainWindow mainWindow = fxmlLoader.getController();
+            RochinBot rochin = new RochinBot();
+            mainWindow.setRochin(rochin);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(rochin);
+            stage.setTitle("RochinBot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
