@@ -104,10 +104,9 @@ public enum Command {
                 int index = Integer.valueOf(arr[1]);
                 Task target = tasks.get(index - 1);
                 tasks.remove(index - 1);
-                System.out.println(target);
                 int n = tasks.size();
                 Storage.write(tasks);
-                String str = String.format("Task have been removed.\nYou now have %d tasks.", n);
+                String str = String.format("%s\nTask have been removed.\nYou now have %d tasks.", target, n);
                 return str;
             } catch (NumberFormatException e) {
                 throw new DukeException("Please provide an integer for the index.");
