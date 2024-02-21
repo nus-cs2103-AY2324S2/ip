@@ -13,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -23,9 +26,11 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private ImageView pictureDisplayer;
+    @FXML
+    private StackPane imageContainer;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,7 +42,20 @@ public class DialogBox extends HBox {
 
         dialog.setWrapText(true);
         dialog.setText(text);
-        displayPicture.setImage(img);
+        pictureDisplayer.setImage(img);
+        pictureDisplayer.setClip(clipToCircle(pictureDisplayer));
+
+        imageContainer.getChildren().add(0, addCircularBorder(pictureDisplayer));
+
+        if (isUser) {
+            dialog.setStyle("-fx-background-color: #a1f1ff; "
+                    + "-fx-background-radius: 15; "
+                    + "-fx-padding: 10;");
+        } else {
+            dialog.setStyle("-fx-background-color: #E7E7E7; "
+                    + "-fx-background-radius: 15; "
+                    + "-fx-padding: 10;");
+        }
     }
 
     /**
@@ -51,12 +69,31 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     public static DialogBox getTesDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img, false);
         db.flip();
         return db;
+    }
+
+    public Circle clipToCircle(ImageView imageView) {
+        Circle clip = new Circle();
+        clip.setCenterX(imageView.getFitWidth() / 2);
+        clip.setCenterY(imageView.getFitHeight() / 2);
+        clip.setRadius(imageView.getFitWidth() / 2);
+        return clip;
+    }
+
+    public static Circle addCircularBorder(ImageView imageView) {
+        double radius = imageView.getFitHeight() / 2;
+        Circle border = new Circle(radius, radius, radius);
+        border.setStroke(Color.BLACK);
+        border.setStrokeWidth(2);
+        border.setFill(Color.TRANSPARENT);
+        border.setCenterX(imageView.getLayoutX() + radius);
+        border.setCenterY(imageView.getLayoutY() + radius);
+        return border;
     }
 }
