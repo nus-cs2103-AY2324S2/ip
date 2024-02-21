@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
  */
 public class EventTest {
     // Test cases suggested by Github Copilot
+    /**
+     * Test case for toString method.
+     */
     @Test
     public void toString_success() {
         Event event = new Event(

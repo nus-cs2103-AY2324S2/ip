@@ -9,11 +9,17 @@ import org.junit.jupiter.api.Test;
  */
 public class TaskTest {
     // Test cases suggested by Github Copilot
+    /**
+     * Test case for toString method with normal string.
+     */
     @Test
     public void toString_normalString_success() {
         Task task = new Task("test");
         assertTrue(task.toString().equals("[ ] test"));
     }
+    /**
+     * Test case for toString method with empty string.
+     */
     @Test
         public void toString_emptyString_exception() {
         try {
@@ -22,12 +28,18 @@ public class TaskTest {
             assertTrue(e instanceof AssertionError);
         }
     }
+    /**
+     * Test case for setStatus method to mark as done.
+     */
     @Test
     public void setStatus_markAsDone_success() {
         Task task = new Task("test");
         task.setStatus(Task.Status.DONE);
         assertTrue(task.toString().equals("[X] test"));
     }
+    /**
+     * Test case for setStatus method to mark as not done.
+     */
     @Test
     public void setStatus_markAsNotDone_success() {
         Task task = new Task("test");
@@ -35,12 +47,18 @@ public class TaskTest {
         task.setStatus(Task.Status.NOT_DONE);
         assertTrue(task.toString().equals("[ ] test"));
     }
+    /**
+     * Test case for getStatusIcon method to mark as done.
+     */
     @Test
     public void getStatusIcon_markAsDone_success() {
         Task task = new Task("test");
         task.setStatus(Task.Status.DONE);
         assertTrue(task.getStatusIcon().equals("X"));
     }
+    /**
+     * Test case for getStatusIcon method to mark as not done.
+     */
     @Test
     public void getStatusIcon_markAsNotDone_success() {
         Task task = new Task("test");
@@ -48,6 +66,9 @@ public class TaskTest {
         task.setStatus(Task.Status.NOT_DONE);
         assertTrue(task.getStatusIcon().equals(" "));
     }
+    /**
+     * Test case for getDescription method.
+     */
     @Test
     public void getDescription_success() {
         Task task = new Task("test");
