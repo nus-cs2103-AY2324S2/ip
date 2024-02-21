@@ -123,6 +123,7 @@ public class Ui {
      * Alerts user in the event they keyed in an underscore, ensures that data corruption is not done by bot
      */
     public String noDescription(){
-        return "The task you are trying to create lacks a description, refer to the website for formatting info :D";
+        return "The task you are trying to create " +
+                "or find lacks a description, refer to the website for formatting info :D";
     }
 }
