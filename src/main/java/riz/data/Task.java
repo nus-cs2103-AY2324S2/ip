@@ -12,6 +12,7 @@ public abstract class Task {
     private boolean completed;
 
     public Task(String task) {
+        assert task != null : "Task description cannot be null";
         this.task = task;
         this.completed = false;
     }
@@ -38,6 +39,7 @@ public abstract class Task {
      * in the task description. True if found, false otherwise.
      */
     public boolean find(String word) {
+        assert word != null : "Search word cannot be null";
         return this.task.contains(word);
     }
 

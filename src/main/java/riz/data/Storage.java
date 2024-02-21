@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class Storage {
     private String filePath;
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -79,6 +80,7 @@ public class Storage {
      * @param tasks ArrayList<Task> taken from the TaskList containing all current tasks.
      */
     public void writeToFile(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
         try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : tasks) {
                 fw.write(task.toString() + System.lineSeparator());
@@ -94,6 +96,7 @@ public class Storage {
     public String printFromFile() {
         StringBuilder sb = new StringBuilder();
         File file = new File(this.filePath);
+        assert file.exists() : "File does not exist";
         try (Scanner scanner = new Scanner(file)) {
             int count = 1;
             while (scanner.hasNext()) {

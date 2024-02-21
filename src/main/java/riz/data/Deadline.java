@@ -11,6 +11,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
     public Deadline (String deadline, String by) {
         super(deadline);
+        assert by != null : "Deadline /by date/time cannot be null";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         this.by = LocalDateTime.parse(by.trim(), inputFormatter);
     }
