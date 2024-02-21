@@ -26,12 +26,23 @@ public class Pyrite {
         return NAME;
     }
 
-    private String executeCommands(String ... commandStrings) {
+    private String executeCommands(String ... commandStrings) throws PyriteException {
         String response = "";
         for (int i = 0; i < commandStrings.length; i++) {
-            response += executeCommand(commandStrings[i]);
+            try {
+                response += executeCommand(commandStrings[i]);
+            } catch (PyriteException e) {
+                response += e.toString();
+                response += "\n\nThere are "
+                        + (commandStrings.length - i - 1)
+                        + " more commands that were not executed:";
+                for (int j = i + 1; j < commandStrings.length; j++) {
+                    response += "\n" + commandStrings[j];
+                }
+                throw new PyriteException(response);
+            }
             if (i != commandStrings.length - 1) {
-                response += "\n";
+                response += "\n\n";
             }
         }
         return response;

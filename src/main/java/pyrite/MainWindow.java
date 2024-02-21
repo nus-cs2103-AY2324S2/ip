@@ -45,11 +45,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = pyrite.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPyriteDialog(response, pyriteImage)
-        );
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        DialogBox responseDialog;
+        try {
+            responseDialog = DialogBox.getPyriteDialog(pyrite.getResponse(input), pyriteImage);
+        } catch (PyriteException e) {
+            responseDialog = DialogBox.getPyriteErrorDialog(e.toString(), pyriteImage);
+        }
+        dialogContainer.getChildren().addAll(responseDialog);
         userInput.clear();
     }
 }
