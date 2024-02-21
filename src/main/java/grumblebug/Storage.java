@@ -8,12 +8,14 @@ import java.util.Scanner;
 
 /**
  * This class is deprecated since GUI is introduced.
- * Class represents the object used to deal with storage into and out of the local file.
+ * Class represents the object used to deal with storage into and out of the
+ * local file.
  */
 public class Storage {
 
     /**
      * Load any previously stored task data into the current taskList.
+     * 
      * @param filePath The path to the storage file.
      * @param taskList The taskList to store this data into.
      */
@@ -46,6 +48,7 @@ public class Storage {
                 }
                 taskList.add(t);
             }
+            s.close();
         } catch (IOException e) {
             System.out.println("An IO error occurred with the data file.");
             e.printStackTrace();
@@ -54,6 +57,7 @@ public class Storage {
 
     /**
      * Write newly acquired task data into the storage.
+     * 
      * @param filePath The path to the storage to write into.
      * @param taskList The taskList of tasks to add.
      * @throws IOException

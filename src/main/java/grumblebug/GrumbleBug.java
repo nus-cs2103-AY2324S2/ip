@@ -24,7 +24,7 @@ public class GrumbleBug extends Application {
     private Image grumbleBugImage = new Image(this.getClass().getResourceAsStream("/images/nailong.jpg"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/smiley.jpg"));
     private TaskList taskList;
-    private static Parser parserForInput;
+    private Parser parserForInput;
     private final int NUM_PARAMS_FOR_MARK = 2;
     private final int NUM_PARAMS_FOR_FIND = 2;
     private final int NUM_PARAMS_FOR_TODO = 2;
@@ -97,6 +97,7 @@ public class GrumbleBug extends Application {
      * @return A confirmation message of the successful action.
      */
     private String processTodoInput(String input) {
+        System.out.println("HEY THERE");
         String[] words = input.split(" ", NUM_PARAMS_FOR_TODO);
         assert words.length <= NUM_PARAMS_FOR_TODO;
         taskList.addToDo(words[1]);

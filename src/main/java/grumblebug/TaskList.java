@@ -10,12 +10,15 @@ public class TaskList {
     TaskList() {
         this.list = new ArrayList<>();
     }
+
     public ArrayList<Task> getList() {
         return this.list;
     }
+
     public void add(Task task) {
         this.list.add(task);
     }
+
     public int size() {
         return this.list.size();
     }
@@ -23,7 +26,7 @@ public class TaskList {
     public String getTasks() {
         StringBuilder builder = new StringBuilder("Okay, here... \n");
         for (int i = 1; i <= this.size(); i++) {
-            builder.append(this.get(i).getFullStatus() + "\n");
+            builder.append(i + this.get(i).getFullStatus() + "\n");
         }
         return builder.toString();
     }
@@ -70,7 +73,6 @@ public class TaskList {
             if (anyMatches) {
                 matchesBuilder.append(i + this.get(i).getFullStatus() + "\n");
             }
-            assert matchesBuilder.length() <= this.size();
         }
         return matchesBuilder.toString();
     }
