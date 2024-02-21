@@ -1,30 +1,72 @@
-# Duke User Guide
+```
+    //    //  //  //==\\  //      //  //||    //||   //
+   //____//  //  //  //  //      //  // ||   // ||  //
+  //----//  //  //=\\   //  //  //  //==||  //  || //
+ //    //  //  //   \\ //==//==//  //   || //   ||//
+```
+ 
+ #HIRWAN
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+ ##Commands
 
 ```
-expected output
+list
 ```
 
-## Feature ABC
+```
+todo [description]
+```
 
-// Feature details
+```
+deadline [description] /by [date in format dd/mm/yyyy HHmm]
+```
+
+```
+event [description] /from  [date in format dd/mm/yyyy HHmm] /to  [date in format dd/mm/yyyy HHmm]
+```
+
+```
+period [description] /between  [date in format dd/mm/yyyy HHmm] /and  [date in format dd/mm/yyyy HHmm]
+```
+
+```
+mark [index of task to mark]
+```
+
+```
+unmark [index of task to unmark]
+```
+
+```
+delete [index of task to delete]
+```
+
+```
+find
+```
+
+```
+bye
+```
 
 
-## Feature XYZ
 
-// Feature details
+- a
+- bullet
+- list
+
+1. a 
+2. numbered 
+3. list
+```ruby
+a fenced code block (with syntax highlighting)
+```
+- [x] a 
+- [ ] task 
+- [ ] list
+
+an emoji 🐒 
+> a blockquote
+[a hyperlink](https://pages.github.com/)
+`inline code`
+some text formatting: **bold**, _italic_, ~~strikethrough~~ etc.
