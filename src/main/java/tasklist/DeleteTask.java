@@ -23,7 +23,6 @@ public class DeleteTask {
 
     /**
      * Execute Deleting tasks
-     *
      * @param input    : User input
      * @param taskList List of tasks list
      * @throws TaylorException Invalid user command
