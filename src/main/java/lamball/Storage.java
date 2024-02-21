@@ -46,8 +46,8 @@ public class Storage {
         File savedList = new File(filePath + defaultFileName);
 
         try {
-            returnVal += createFile(savedList, "list");
-            returnVal += createFile(savedMemo, "memo");
+            returnVal += createFile(savedList, "Task List");
+            returnVal += createFile(savedMemo, "Memo List");
 
             initializeListFromText(savedList, lamb);
             initializeMemo(savedMemo, lamb);
@@ -66,7 +66,7 @@ public class Storage {
         String returnVal = "";
 
         if (fle.createNewFile()) {
-            String message = name + "created successfully at: " + fle.getAbsolutePath();
+            String message = name + " created successfully at: " + fle.getAbsolutePath();
             System.out.println(message);
             returnVal += message + "\n";
         } else {
