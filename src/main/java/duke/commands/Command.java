@@ -64,15 +64,13 @@ public abstract class Command {
     public static String getStartDate(String input) throws DukeException {
         int startIndex = input.indexOf("/from") + 6;
         int endIndex = input.indexOf("/to");
-
+        // When indexOf("/from") returns -1.
         if (startIndex == input.length() || startIndex == 5) {
             throw new DukeException("Please use the keyword /from for your event! >.<");
         } else if (startIndex > input.length()) {
             throw new DukeException("Please enter a start date for your event! >.<");
         } else if (endIndex == -1) {
             throw new DukeException("Please use the keyword /to for your event! >.<");
-        } else if (startIndex > endIndex) {
-            throw new DukeException("Please enter an end date for your event! >.<");
         }
         return input.substring(startIndex, endIndex);
     }

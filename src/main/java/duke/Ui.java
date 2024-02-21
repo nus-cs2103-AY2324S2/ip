@@ -33,10 +33,8 @@ public class Ui {
      */
     public static String sayHello() {
         String greetMessage = String.format(
-                "____________________________________________________________\n"
-                        + " Hello! I'm Corgi!\n"
-                        + " What can I do for you?\n"
-                        + "____________________________________________________________\n");
+                        " Hello! I'm Corgi!\n"
+                        + " What can I do for you?\n");
         System.out.println(greetMessage);
         return greetMessage;
     }
@@ -47,9 +45,7 @@ public class Ui {
      * @return String Message for goodbye.
      */
     public String sayGoodbye() {
-        String exitMessage = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+        String exitMessage = "Bye. Hope to see you again soon!\n";
         System.out.println(exitMessage);
         return exitMessage;
     }
@@ -62,12 +58,9 @@ public class Ui {
      * @return String Message for add task.
      */
     public String printAddMessage(int sizeOfTaskList, Task addedTask) {
-        String message = String.format(
-                "____________________________________________________________\n"
-                        + " Got it. I've added this task:\n"
+        String message = String.format( " Got it. I've added this task:\n"
                         + "  [%s][%s] %s\n"
-                        + " Now you have %d tasks in the list.\n"
-                        + "____________________________________________________________\n",
+                        + " Now you have %d tasks in the list.\n",
                 addedTask.getTaskType(), addedTask.getStatusIcon(),
                 addedTask.toString(), sizeOfTaskList);
         System.out.println(message);
@@ -82,12 +75,9 @@ public class Ui {
      * @return String Message for delete task.
      */
     public String printDeleteMessage(int sizeOfTaskList, Task deletedTask) {
-        String deleteMessage = String.format(
-                "____________________________________________________________\n"
-                        + " Noted. I've removed this task:\n"
+        String deleteMessage = String.format(" Noted. I've removed this task:\n"
                         + "  [%s][%s] %s\n"
-                        + " Now you have %d tasks in the list.\n"
-                        + "____________________________________________________________\n",
+                        + " Now you have %d tasks in the list.\n",
                 deletedTask.getTaskType(), deletedTask.getStatusIcon(),
                 deletedTask.toString(), sizeOfTaskList);
         System.out.println(deleteMessage);
@@ -101,10 +91,8 @@ public class Ui {
      * @return String Message containing list of tasks.
      */
     public String printList(TaskList taskList) {
-        String message = "____________________________________________________________\n"
-                + " Here are the tasks in your list:\n";
-        System.out.println("____________________________________________________________\n"
-                + " Here are the tasks in your list:\n");
+        String message = " Here are the tasks in your list:\n";
+        System.out.println(" Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             String currentTask = String.format("%d.[%s][%s] %s\n",
                     i + 1, taskList.getTask(i).getTaskType(),
@@ -112,8 +100,6 @@ public class Ui {
             System.out.println(currentTask);
             message += currentTask;
         }
-        message += "____________________________________________________________\n";
-        System.out.println("____________________________________________________________\n");
         return message;
     }
 
@@ -126,10 +112,8 @@ public class Ui {
      */
     public String printMarkDoneMessage(Task taskToBeMarked, int taskNumber) {
         String message = String.format(
-                "____________________________________________________________\n"
-                        + " Nice! I've marked this task as done:\n"
-                        + "  [%s][%s] %s\n"
-                        + "____________________________________________________________\n",
+                " Nice! I've marked this task as done:\n"
+                        + "  [%s][%s] %s\n",
                 taskToBeMarked.getTaskType(), taskToBeMarked.getStatusIcon(),
                 taskToBeMarked.toString());
         System.out.println(message);
@@ -145,10 +129,8 @@ public class Ui {
      */
     public String printMarkUndoneMessage(Task taskToBeUnmarked, int taskNumber) {
         String message = String.format(
-                "____________________________________________________________\n"
-                        + " OK, I've marked this task as not done yet:\n"
-                        + "  [%s][%s] %s\n"
-                        + "____________________________________________________________\n",
+                " OK, I've marked this task as not done yet:\n"
+                        + "  [%s][%s] %s\n",
                 taskToBeUnmarked.getTaskType(), taskToBeUnmarked.getStatusIcon(),
                 taskToBeUnmarked.toString());
         System.out.println(message);
@@ -165,7 +147,7 @@ public class Ui {
         String errorMessage = "____________________________________________________________\n"
                 + message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
-        return errorMessage;
+        return message;
     }
 
     /**
@@ -178,7 +160,7 @@ public class Ui {
         String errorMessage = "____________________________________________________________\n"
                 + message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
-        return errorMessage;
+        return message;
     }
 
     /**
@@ -189,10 +171,8 @@ public class Ui {
      * @return String Message containing found tasks.
      */
     public String printFoundTasks(TaskList taskList, String keyWord) {
-        String message = "____________________________________________________________\n"
-                + " Here are the matching tasks in your list:\n";
-        System.out.println("____________________________________________________________\n"
-                + " Here are the matching tasks in your list:\n");
+        String message = " Here are the matching tasks in your list:\n";
+        System.out.println(" Here are the matching tasks in your list:\n");
         int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             if (!taskList.getTask(i).getDescription().contains(keyWord)) {
@@ -205,8 +185,6 @@ public class Ui {
             message += currentTask;
             count++;
         }
-        message += "____________________________________________________________\n";
-        System.out.println("____________________________________________________________\n");
         return message;
     }
 
@@ -217,10 +195,8 @@ public class Ui {
      * @return String Message containing upcoming deadline.
      */
     public String printReminder(TaskList taskList) {
-        String message = "____________________________________________________________\n"
-                + " Please be reminded that you have upcoming deadlines:\n";
-        System.out.println("____________________________________________________________\n"
-                + " Please be reminded that you have upcoming deadlines:\n");
+        String message = " Please be reminded that you have upcoming deadlines:\n";
+        System.out.println(" Please be reminded that you have upcoming deadlines:\n");
         int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.getTask(i).getTaskType() == 'D') {
@@ -232,8 +208,6 @@ public class Ui {
                 count++;
             }
         }
-        message += "____________________________________________________________\n";
-        System.out.println("____________________________________________________________\n");
         return message;
     }
 
