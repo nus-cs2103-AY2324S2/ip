@@ -1,5 +1,6 @@
 package rick.logic;
 
+import rick.Rick;
 import rick.logic.command.ByeCommand;
 import rick.logic.command.Command;
 import rick.logic.command.DeadlineCommand;
@@ -24,7 +25,11 @@ public class Parser {
      * Constructor for parser.
      * @param userInput a string from user input
      */
-    public Parser(String userInput) {
+    public Parser(String userInput) throws RickException {
+        if (userInput == null || userInput.isEmpty() || userInput.isBlank()) {
+            throw new RickException("Input cannot be empty!");
+        }
+        assert userInput != null && !userInput.isEmpty();
         if (userInput.contains(" ")) {
             String[] splited = userInput.split("\\s+", 2);
             this.type = splited[0];
@@ -39,6 +44,7 @@ public class Parser {
      * @return the parsed string
      */
     public Command parse() throws RickException {
+        assert this.type != null;
         switch (this.type) {
         case ("bye"):
             return new ByeCommand();
