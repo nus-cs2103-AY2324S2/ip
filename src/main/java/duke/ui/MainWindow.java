@@ -18,8 +18,8 @@ public class MainWindow extends AnchorPane {
 
     private static final int SAVE_FREQUENCY = 2000;
     private static final String PATH_SAVE = "data/tasks.txt";
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
