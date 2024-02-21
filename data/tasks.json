@@ -1,1 +1,1 @@
-[{"taskType":"todo","description":"Buy groceries","status":false}]
+[{"taskType":"todo","description":"Buy groceries","status":false},{"taskType":"deadline","description":"Submit CS2040 lab","deadline":"Feb 22 2024 23:59","status":true},{"fromDate":"Feb 23 2024 19:00","taskType":"event","toDate":"Feb 23 2024 21:00","description":"Band practice","status":false}]
