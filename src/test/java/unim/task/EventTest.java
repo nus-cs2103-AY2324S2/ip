@@ -1,17 +1,20 @@
 package unim.task;
-import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class EventTest {
     @Test
     public void testToStringWithLocalDateRange() {
-        LocalDate startDate = LocalDate.parse("02/18/2024", DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        LocalDate endDate = LocalDate.parse("02/18/2024", DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDateTime startDate = LocalDateTime.parse("02/18/2024 1200",
+                DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"));
+        LocalDateTime endDate = LocalDateTime.parse("02/18/2024 1330",
+                DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"));
         Event event = new Event("team workshop", startDate, endDate);
-        assertEquals("[ ] [E] team workshop (from: Feb 18 2024 to: Feb 18 2024)", event.toString());
+        assertEquals("[ ] [E] team workshop (from: Feb 18 2024 1200 to: Feb 18 2024 1330)", event.toString());
     }
 }

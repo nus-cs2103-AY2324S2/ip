@@ -1,6 +1,6 @@
 package unim.application;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -59,13 +59,13 @@ public class Parser {
             } else {
                 return Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
-        } else if (parsedInput[0].equalsIgnoreCase("event")) {
+        } else if (parsedInput[0].toLowerCase().startsWith("event")) {
             if (isEventInput(input)) {
                 return handleEvents(input, taskList);
             } else {
                 return Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
-        } else if (parsedInput[0].equalsIgnoreCase("delete")) {
+        } else if (parsedInput[0].toLowerCase().startsWith("delete")) {
             return handleRemove(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("find")) {
             return findItems(input, taskList);
@@ -145,7 +145,8 @@ public class Parser {
             }
 
             if (isValidDate(date)) {
-                LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                LocalDateTime d1 = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                System.out.println(d1);
                 Deadline deadline = new Deadline(description, d1);
                 taskList.addTask(deadline);
                 Storage.saveTasks(taskList.getTaskList());
@@ -185,8 +186,8 @@ public class Parser {
                 }
 
                 if (isValidDate(fromDate) && isValidDate(toDate)) {
-                    LocalDate d1 = LocalDate.parse(fromDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
-                    LocalDate d2 = LocalDate.parse(toDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                    LocalDateTime d1 = LocalDateTime.parse(fromDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                    LocalDateTime d2 = LocalDateTime.parse(toDate, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
                     Event event = new Event(description, d1, d2);
                     taskList.addTask(event);
                     Storage.saveTasks(taskList.getTaskList());
@@ -280,8 +281,11 @@ public class Parser {
      * @return True if the input format is valid, false otherwise.
      */
     private static boolean isDeadlineInput(String input) {
-        String[] splitParts = input.substring(9).split("/by", 2);
-        return splitParts.length > 1;
+        if (input.length() >= 9) {
+            String[] splitParts = input.substring(9).split("/by", 2);
+            return splitParts.length > 1;
+        }
+        return false;
     }
 
     /**
@@ -299,8 +303,11 @@ public class Parser {
      * @return True if the input format is valid, false otherwise.
      */
     private static boolean isEventInput(String input) {
-        String[] splitParts = input.substring(6).split("/from", 2);
-        return splitParts.length > 1;
+        if (input.length() >= 6) {
+            String[] splitParts = input.substring(6).split("/from", 2);
+            return splitParts.length > 1;
+        }
+        return false;
     }
 
     /**
@@ -311,11 +318,11 @@ public class Parser {
      */
     private static boolean isValidDate(String input) {
         try {
-            LocalDate.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+            LocalDateTime.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
             return true;
         } catch (DateTimeParseException e1) {
             try {
-                LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 return true;
             } catch (DateTimeParseException e2) {
                 return false;

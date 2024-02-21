@@ -44,7 +44,6 @@ test {
 
 application {
     mainClass.set("unim.application.Duke")
-    mainClassName = 'unim.application.Main'
 }
 
 shadowJar {
@@ -52,6 +51,7 @@ shadowJar {
     archiveFileName = 'unim.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = 'unim.application.Launcher'
 }
 
 run{

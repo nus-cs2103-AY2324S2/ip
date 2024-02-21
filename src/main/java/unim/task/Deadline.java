@@ -1,5 +1,5 @@
 package unim.task;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private String byDate;
-    private LocalDate d1;
+    private LocalDateTime d1;
 
     /**
      * Creates a Deadlines task with a description and a deadline specified as a String.
@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param d1          The deadline of the task as a LocalDate.
      */
-    public Deadline(String description, LocalDate d1) {
+    public Deadline(String description, LocalDateTime d1) {
         super(description);
         this.d1 = d1;
     }
@@ -36,7 +36,7 @@ public class Deadline extends Task {
     public String toString() {
         if (d1 != null) {
             return super.getStatusIcon() + "[D] " + getDescription()
-                    + " (by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                    + " (by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
         }
         return super.getStatusIcon() + "[D] " + getDescription() + " (by: " + byDate + ")";
     }
