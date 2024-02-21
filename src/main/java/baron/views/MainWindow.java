@@ -1,8 +1,9 @@
-package baron;
+package baron.views;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import baron.Baron;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

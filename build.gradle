@@ -47,10 +47,8 @@ test {
     }
 }
 
-mainClassName = "baron.Launcher"
-
 application {
-    mainClass.set("baron.Launcher")
+    mainClass.set("baron.Main")
 }
 
 shadowJar {
@@ -61,6 +59,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

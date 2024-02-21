@@ -1,8 +1,9 @@
-package baron;
+package baron.views;
 
 import java.io.IOException;
 import java.util.Collections;
 
+import baron.Baron;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

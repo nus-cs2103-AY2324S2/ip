@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import baron.views.MainWindow;
 
 /**
  * Main entry point for the application. Launches a GUI which the user can chat with Baron.
