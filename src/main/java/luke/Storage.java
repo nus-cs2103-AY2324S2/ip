@@ -165,7 +165,7 @@ public class Storage {
      * @throws IOException As it writes to a file.
      */
     public void clearData() throws IOException {
-        // assert false; // disable this before running ListTest or StorageTest
+        assert false; // disable this before running ListTest or StorageTest
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write("");
         writer.close();

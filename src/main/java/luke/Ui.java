@@ -42,8 +42,8 @@ public class Ui {
         assert taskList != null;
         return LINE
                 + "Here are the tasks in your list:\n"
-                + taskList.toString()
-                + "\n" + LINE;
+                + taskList.toString() + "\n"
+                + LINE;
     }
 
     public String displayTaskMarked(Task task) {

@@ -56,10 +56,11 @@ public class ListTest {
         taskList.addTask(new ToDo("eat"), storage, ui);
         taskList.addTask(new ToDo("eat"), storage, ui);
         taskList.addTask(new ToDo("eat"), storage, ui);
-        taskList.markTask(1, storage, ui);
-        String expected = "1.[T][ ] eat\n"
-                + "2.[T][X] eat\n"
-                + "3.[T][ ] eat";
+        taskList.markTask(0, storage, ui);
+        taskList.markTask(2, storage, ui);
+        String expected = "1.[T][X] eat\n"
+                + "2.[T][ ] eat\n"
+                + "3.[T][X] eat";
         assertEquals(expected, taskList.toString());
     }
 
@@ -70,8 +71,10 @@ public class ListTest {
         taskList.addTask(new ToDo("eat"), storage, ui);
         taskList.addTask(new ToDo("eat"), storage, ui);
         taskList.addTask(new ToDo("eat"), storage, ui);
-        taskList.markTask(1, storage, ui);
-        taskList.unmarkTask(1, storage, ui);
+        taskList.markTask(0, storage, ui);
+        taskList.unmarkTask(0, storage, ui);
+        taskList.markTask(2, storage, ui);
+        taskList.unmarkTask(2, storage, ui);
         String expected = "1.[T][ ] eat\n"
                 + "2.[T][ ] eat\n"
                 + "3.[T][ ] eat";
@@ -87,6 +90,32 @@ public class ListTest {
         taskList.addTask(new ToDo("study"), storage, ui);
         taskList.deleteTask(1, storage, ui);
         String expected = "1.[T][ ] eat\n"
+                + "2.[T][ ] study";
+        assertEquals(expected, taskList.toString());
+    }
+
+    @Test
+    public void testDeleteTask2() throws IOException {
+        List taskList = new List(new ArrayList<>());
+        storage.clearData();
+        taskList.addTask(new ToDo("eat"), storage, ui);
+        taskList.addTask(new ToDo("sleep"), storage, ui);
+        taskList.addTask(new ToDo("study"), storage, ui);
+        taskList.deleteTask(2, storage, ui);
+        String expected = "1.[T][ ] eat\n"
+                + "2.[T][ ] sleep";
+        assertEquals(expected, taskList.toString());
+    }
+
+    @Test
+    public void testDeleteTask3() throws IOException {
+        List taskList = new List(new ArrayList<>());
+        storage.clearData();
+        taskList.addTask(new ToDo("eat"), storage, ui);
+        taskList.addTask(new ToDo("sleep"), storage, ui);
+        taskList.addTask(new ToDo("study"), storage, ui);
+        taskList.deleteTask(0, storage, ui);
+        String expected = "1.[T][ ] sleep\n"
                 + "2.[T][ ] study";
         assertEquals(expected, taskList.toString());
     }

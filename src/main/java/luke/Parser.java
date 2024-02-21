@@ -93,14 +93,14 @@ public class Parser {
                     || input.equals("lISt") || input.equals("lIsT") || input.equals("liST") || input.equals("LISt")
                     || input.equals("LIsT") || input.equals("LiST") || input.equals("lIST") || input.equals("LIST");
             return ui.displayTasks(taskList);
-            case "help":
-                // does not use taskList, but still abstracted in this method due to how similar the syntax of these
-                // commands are
-                assert input.equals("help") || input.equals("Help") || input.equals("hElp") || input.equals("heLp")
-                        || input.equals("helP") || input.equals("HElp") || input.equals("HeLp") || input.equals("HelP")
-                        || input.equals("hELp") || input.equals("hElP") || input.equals("heLP") || input.equals("HELp")
-                        || input.equals("HElP") || input.equals("HeLP") || input.equals("hELP") || input.equals("HELP");
-                return ui.displayHelp();
+        case "help":
+            // does not use taskList, but still abstracted in this method due to how similar the syntax of these
+            // commands are
+            assert input.equals("help") || input.equals("Help") || input.equals("hElp") || input.equals("heLp")
+                    || input.equals("helP") || input.equals("HElp") || input.equals("HeLp") || input.equals("HelP")
+                    || input.equals("hELp") || input.equals("hElP") || input.equals("heLP") || input.equals("HELp")
+                    || input.equals("HElP") || input.equals("HeLP") || input.equals("hELP") || input.equals("HELP");
+            return ui.displayHelp();
         default:
             return new UnknownCommandException().toString();
         }
@@ -127,7 +127,7 @@ public class Parser {
             return new InvalidSyntaxException(command).toString();
         }
         int taskNum = Integer.parseInt(input.split(" ")[1]);
-        if (!taskList.isValidTaskNum(taskNum)) {
+        if (!taskList.isValidTaskNum(taskNum - 1)) {
             return new TaskNotFoundException(taskList).toString();
         }
         switch (command) {

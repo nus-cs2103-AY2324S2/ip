@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("kitchensink.Launcher")
+    mainClass.set("luke.Launcher")
 }
 
 shadowJar {
