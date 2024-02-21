@@ -170,17 +170,17 @@ class Task {
     @Override
     public String toString() {
         switch (type) {
-            case TODO:
-                return "[T]" + getStatusIcon() + " " + description;
-            case DEADLINE:
-                String formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                return "[D]" + getStatusIcon() + " " + description + " (by: " + formattedDeadline + ")";
-            case EVENT:
-                String formattedStart = startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                String formattedEnd = endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                return "[E]" + getStatusIcon() + " " + description + " (from: " + formattedStart + " to: " + formattedEnd + ")";
-            default:
-                return ""; // Other types
+        case TODO:
+            return "[T]" + getStatusIcon() + " " + description;
+        case DEADLINE:
+            String formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return "[D]" + getStatusIcon() + " " + description + " (by: " + formattedDeadline + ")";
+        case EVENT:
+            String formattedStart = startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            String formattedEnd = endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return "[E]" + getStatusIcon() + " " + description + " (from: " + formattedStart + " to: " + formattedEnd + ")";
+        default:
+            return "";
         }
     }
 }

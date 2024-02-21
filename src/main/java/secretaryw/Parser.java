@@ -3,6 +3,7 @@ package secretaryw;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -42,34 +43,31 @@ public class Parser {
         }
 
         switch (command[0]) {
-                case "bye":
-                    closeScanner();
-                    System.exit(0);
-                    break;
-                case "help":
-                    return ui.showHelpMessage();
-                case "list":
-                    return ui.showTasks(taskList.getTasks());
-                case "mark":
-                    return markTaskAsDone(command[1]);
-                case "unmark":
-                    return markTaskAsUndone(command[1]);
-                case "delete":
-                    return deleteTask(command[1]);
-                case "find":
-                    String keyword = command[1];
-                    ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
-                    return ui.showMatchingTasks(matchingTasks);
-                case "todo":
-                    return addTodoTask(command[1]);
-                case "deadline":
-                    return addDeadlineTask(command[1]);
-                case "event":
-                    return addEventTask(command[1]);
-                default:
-                    return ui.showMessage("I'm sorry, but I don't know what that means :-(");
-            }
-
+        case "bye":
+            closeScanner();
+            System.exit(0);
+            break;
+        case "help":
+            return ui.showHelpMessage();
+        case "list":
+            return ui.showTasks(taskList.getTasks());
+        case "mark":
+            return markTaskAsDone(command[1]);
+        case "unmark":
+            return markTaskAsUndone(command[1]);
+        case "delete":
+            return deleteTask(command[1]);
+        case "find":
+            return findTask(command[1]);
+        case "todo":
+            return addTodoTask(command[1]);
+        case "deadline":
+            return addDeadlineTask(command[1]);
+        case "event":
+            return addEventTask(command[1]);
+        default:
+            return ui.showMessage("I'm sorry, but I don't know what that means :-(");
+        }
         return "";
     }
 
@@ -141,12 +139,12 @@ public class Parser {
         assert (argument != null);
         String[] parts = argument.split("/by");
         if (parts.length != 2) {
-            return "Wrong format. Please retype according to /help";
+            return "Wrong format. Please retype according to help";
         }
         String description = parts[0].trim();
         String by = parts[1].trim();
         if (checkDeadline(by)) {
-            return ui.showMessage("Wrong date format. Please use dd/mm/yyyy");
+            return ui.showMessage("Wrong date format. Please use d/mm/yyyy");
         }
         taskList.addTask(new Task(TaskType.DEADLINE, description, by));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
@@ -161,20 +159,25 @@ public class Parser {
         assert (argument != null);
         String[] parts = argument.split("/from");
         if (parts.length != 2) {
-            return ui.showMessage("Wrong format. Please retype according to /help");
+            return ui.showMessage("Wrong format. Please retype according to help");
         }
         String description = parts[0].trim();
         String[] time = parts[1].split("/to");
         if (time.length != 2) {
-            return ui.showMessage("Wrong format. Please retype according to /help");
+            return ui.showMessage("Wrong format. Please retype according to help");
         }
         String from = time[0].trim();
         String to = time[1].trim();
         if (checkEvent(from, to)) {
-            ui.showMessage("Wrong format. Please use dd/mm/yyyy");
+            ui.showMessage("Wrong format. Please use d/mm/yyyy");
         }
         taskList.addTask(new Task(TaskType.EVENT, description, from, to));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
+    }
+
+    private String findTask(String argument) {
+        ArrayList<Task> matchingTasks = taskList.findTasks(argument);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
     /**
@@ -199,10 +202,10 @@ public class Parser {
         try {
             LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
         } catch (DateTimeParseException e) {
-            return false;
+            return true;
             //return "Wrong date format. Please use dd/mm/yyyy";
         }
-        return true;
+        return false;
     }
 
     /**
@@ -218,14 +221,15 @@ public class Parser {
             LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
             LocalDate.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy"));
         } catch (DateTimeParseException e) {
-            return false;
+            return true;
             //return "Wrong date format. Please use dd/mm/yyyy";
         }
-        return true;
+        return false;
     }
 
     private boolean checkCommand(String[] command) {
-        List<String> commands = Arrays.asList("bye", "list", "todo", "deadline", "event", "find", "mark", "unmark", "delete", "list", "help");
+        List<String> commands = Arrays.asList("bye", "list", "todo", "deadline", "event", "find", "mark", "unmark",
+                "delete", "list", "help");
         if (commands.contains(command[0])) {
             return false;
         } else {

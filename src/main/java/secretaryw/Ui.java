@@ -69,7 +69,6 @@ public class Ui {
                     "event [descr]/from [date]/to [date]\n" +
                     "->adds todo, deadline & event tasks\n" +
                     "mark [i]->ticks task, unmark [i]->unticks task\n" +
-                    "delete [i]->remove task, find [descr]-> find task";
-
+                    "delete [i]->remove task, find [descr]-> find task\n" + LINE;
     }
 }
