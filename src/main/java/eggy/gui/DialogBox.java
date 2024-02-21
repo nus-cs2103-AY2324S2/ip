@@ -32,8 +32,9 @@ public class DialogBox extends HBox {
      *
      * @param text The text to be displayed.
      * @param img The image of the speaker.
+     * @param isException Whether the text is an exception message.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isException) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -46,6 +47,11 @@ public class DialogBox extends HBox {
         setSpacing(5);
         dialog.setText(text);
         dialog.setFont(Font.font("Arial", 14));
+        if (isException) {
+            dialog.setStyle("-fx-background-color: #ff3b2f");
+        } else {
+            dialog.setStyle("-fx-background-color: #007ade");
+        }
         displayPicture.setImage(img);
         setHgrow(dialog, Priority.ALWAYS);
         setHgrow(displayPicture, Priority.ALWAYS);
@@ -70,7 +76,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         assert img != null : "User image should not be null";
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, false);
     }
 
     /**
@@ -78,11 +84,12 @@ public class DialogBox extends HBox {
      *
      * @param text The text to be displayed.
      * @param img The image of Eggy.
+     * @param isException Whether the text is an exception message.
      * @return The dialog box for Eggy.
      */
-    public static DialogBox getEggyDialog(String text, Image img) {
+    public static DialogBox getEggyDialog(String text, Image img, boolean isException) {
         assert img != null : "Eggy image should not be null";
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, isException);
         db.flip();
         return db;
     }
