@@ -73,7 +73,7 @@ public class Parser {
             return vh.viewSchedule(command[1], taskList, ui);
 
         default:
-            return ui.printUnknownCommandError(command[0]);
+            return ui.printUnknownCommandError(input);
         }
     }
 }

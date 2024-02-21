@@ -38,7 +38,7 @@ public class TaskList {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); ++i) {
             stringBuilder.append(i + 1);
-            stringBuilder.append(".");
+            stringBuilder.append(". ");
             stringBuilder.append(tasks.get(i).toString());
             stringBuilder.append("\n");
         }

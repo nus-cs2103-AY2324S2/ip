@@ -1,5 +1,9 @@
 package duke.display;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import duke.command.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,8 +40,18 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates the welcome message to be printed.
+     */
+    public void welcomeMessage() {
+        Ui ui = new Ui();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(ui.printWelcomeMessage(), dukeImage)
+        );
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input, the other containing Duke's reply.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -48,5 +62,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (response.contains("Bye")) {
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    System.exit(0);
+                }
+            }, 1000);
+        }
     }
 }

@@ -4,8 +4,6 @@ package duke.command;
  * Handles interaction with user.
  */
 public class Ui {
-    private final String Line = "------------------------------------------------------------";
-
     /**
      * Ui constructor.
      */
@@ -17,11 +15,11 @@ public class Ui {
      * @return welcomeMessage   Welcome message to be printed.
      */
     public String printWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "                           _      _\n"
+                + "      _        _    _    \\ \\  / /    _\n"
+                + "    /   \\     |  \\|  |     \\ \\/ /    | |\n"
+                + "  /  ()  \\    |      |    / /\\ \\     | |\n"
+                + "/__/ \\__\\  |_|\\__|  /_/  \\_\\   |_|\n";
         String name = "Anxi";
         StringBuilder stringBuilder = new StringBuilder(logo);
         stringBuilder.append("\nHello! I'm ");
@@ -49,7 +47,7 @@ public class Ui {
      * Prints a line.
      */
     public void printLine() {
-        System.out.println(Line);
+        System.out.println("------------------------------------------------------------");
     }
 
     /**
@@ -57,7 +55,7 @@ public class Ui {
      * @return taskList     Consolidated task list.
      */
     public String printTaskList(String tasks) {
-        StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder stringBuilder = new StringBuilder("\nHere are the tasks in your list:\n\n");
         stringBuilder.append(tasks);
         return stringBuilder.toString();
     }
@@ -69,8 +67,9 @@ public class Ui {
      * @return markedTask   Information of successfully marked task.
      */
     public String printMarkTask(String taskString) {
-        StringBuilder stringBuilder = new StringBuilder("Nice! I've marked this task as done:\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nNice! I've marked this task as done:\n ");
         stringBuilder.append(taskString);
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 
@@ -81,8 +80,9 @@ public class Ui {
      * @return unmarkedTask     Information of successfully unmarked task.
      */
     public String printUnmarkTask(String taskString) {
-        StringBuilder stringBuilder = new StringBuilder("OK, I've marked this task as not done yet:\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nOK, I've marked this task as not done yet:\n ");
         stringBuilder.append(taskString);
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 
@@ -94,11 +94,11 @@ public class Ui {
      * @return addedTask    The newly added task and number of tasks in task list.
      */
     public String printAddTask(String taskString, int numOfTasks) {
-        StringBuilder stringBuilder = new StringBuilder("Got it. I've added this task:\r\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nGot it. I've added this task:\r\n ");
         stringBuilder.append(taskString);
         stringBuilder.append("\nNow you have ");
         stringBuilder.append(numOfTasks);
-        stringBuilder.append(" tasks in the list.");
+        stringBuilder.append(" tasks in the list.\n");
         return stringBuilder.toString();
     }
 
@@ -110,11 +110,11 @@ public class Ui {
      * @return deletedTask  The deleted task and number of tasks left in task list.
      */
     public String printDeleteTask(String taskString, int numOfTasks) {
-        StringBuilder stringBuilder = new StringBuilder("Noted. I've removed this task:\r\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nNoted. I've removed this task:\r\n ");
         stringBuilder.append(taskString);
         stringBuilder.append("\nNow you have ");
         stringBuilder.append(numOfTasks);
-        stringBuilder.append(" tasks in the list.");
+        stringBuilder.append(" tasks in the list.\n");
         return stringBuilder.toString();
     }
 
@@ -123,7 +123,7 @@ public class Ui {
      * @return findTask     All tasks that contain/match input string.
      */
     public String printFindTask(String tasks) {
-        StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder stringBuilder = new StringBuilder("\nHere are the matching tasks in your list:\n");
         stringBuilder.append(tasks);
         return stringBuilder.toString();
     }
@@ -159,7 +159,7 @@ public class Ui {
      * @return tasks        String of all tasks that fall on specific date.
      */
     public String printTasksOnDay(String date, String events, String deadlines) {
-        return "Events on " + date + ":\n" + events
+        return "\nEvents on " + date + ":\n" + events
                 + "\nDeadlines on " + date + ":\n" + deadlines;
     }
 }

@@ -4,20 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" style="-fx-padding: 0 10 0 10; -fx-background-color: BLANCHEDALMOND; -fx-background-insets: EMPTY; -fx-background-radius: 10;" text="Label" wrapText="true">
+        <Label fx:id="dialog" style="-fx-padding: 0 10 0 10; -fx-background-color: BLANCHEDALMOND; -fx-background-insets: EMPTY; -fx-background-radius: 10;" wrapText="true">
          <HBox.margin>
             <Insets left="5.0" right="5.0" />
          </HBox.margin>
          <padding>
             <Insets left="5.0" right="5.0" />
-         </padding></Label>
-        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+         </padding>
+         <graphic>
+            <Text fx:id="dialogText" strokeWidth="0.0" text="Text" />
+         </graphic>
+      </Label>
+        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
 
-</fx:root>
+      </fx:root>
