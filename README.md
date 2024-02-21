@@ -3,8 +3,13 @@
 Welcome to BotYue, your personal task manager! BotYue is a command-line application designed to help you keep track of your tasks efficiently.
 Whether it's deadlines, events, or simple to-dos, BotYue has got you covered.
 
-![GUI window](docs/Ui.png)
+![GUI window](Ui.png)
 
+## Quick Start
+1. Ensure you have Java11 or above installed in your computer.
+2. Download the `yue.jar` from from [here](https://github.com/MaYuehan/ip/releases).
+3. Copy the file to the folder that you wish to use as the home folder.
+4. In terminal, run the file by using command `java -jar yue.jar`
 
 ## Key Features
 - [x] Adding different types of tasks into the list
@@ -22,7 +27,7 @@ Whether it's deadlines, events, or simple to-dos, BotYue has got you covered.
 ### 1. Adding Todos
 To add a todo task, use the following __command format__:
 
-`todo <description>`
+### `todo <description>`
 
 Replace `<description>` with the description of your deadline task.
 
@@ -40,7 +45,7 @@ Now you have 1 tasks in the list.
 ### 2. Adding Deadlines
 To add a deadline task, use the following __command format__:
 
-`deadline <description> /by <deadline>`
+### `deadline <description> /by <deadline>`
 
 Replace `<description>` with the description of your deadline task and `<deadline>` with the deadline date and time.
 
@@ -60,7 +65,7 @@ Now you have 2 tasks in the list.
 ### 3. Adding Events
 To add an event, use the following __command format__:
 
-`event <description> /from <start time> /to <end time>`
+### `event <description> /from <start time> /to <end time>`
 
 Replace `<description>` with the description of your deadline task,
 replace `<start time>` and `<end time>` with the date and time.
@@ -83,7 +88,7 @@ Now you have 3 tasks in the list.
 ### 1. Listing all tasks
 Command format:
 
-`list`
+### `list`
 
 __Example__:
 
@@ -100,7 +105,7 @@ Here are the tasks in your list:
 ### 2. Delete Task
 __Command format__:
 
-`delete <task index>`
+### `delete <task index>`
 
 __Example__:
 
@@ -116,7 +121,7 @@ Now you have 2 tasks in the list.
 ### 3. Mark Task as Done
 __Command format__:
 
-`mark <task index>`
+### `mark <task index>`
 
 __Example__:
 
@@ -131,7 +136,7 @@ Nice! I've marked this task as done:
 ### 4. Mark Task as Not Done
 __Command format__:
 
-`unmark <task index>`
+### `unmark <task index>`
 
 __Example__:
 
@@ -146,7 +151,7 @@ OK, I've marked this task as not done yet:
 ### 5. Detect and Remove Duplicates
 __Command format__:
 
-`detect`
+### `detect`
 
 __Example__:
 
@@ -169,7 +174,7 @@ BotYue can help you find the tasks that contains the keyword you provided.
 
 __Command format__:
 
-`find <keyword>`
+### `find <keyword>`
 
 __Example__:
 
@@ -191,7 +196,7 @@ There is no task matching the word: return
 ## Greet and Exit
 ### Greeting
 To start communicating with BotYue, user can type a command:
-`hi`
+### `hi`
 
 Then, BotYue will response:
 ```
@@ -200,7 +205,7 @@ How can I help you?
 ```
 ### Exiting
 To end the conversation, input the command:
-`bye`
+### `bye`
 
 Then, BotYue will end the conversation:
 ```
@@ -235,7 +240,6 @@ When the user attempts to perform an action (e.g., mark, unmark, delete)
 on a task with an __invalid index__, BotYue throws the following error:
 
 `OOPS!!! Please enter a valid task index to [action].`
-
 
 When the user attempts to perform an action (e.g., mark, unmark, delete)
 on a task with an __index out of range__, BotYue throws the following error:
