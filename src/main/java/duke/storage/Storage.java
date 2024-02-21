@@ -43,6 +43,10 @@ public class Storage {
         } else {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
+
+            assert file.getParentFile().exists() : "Parent folder of data.txt, resources,"
+                    + " should always exist after calling init()";
+
             return new ArrayList<>();
         }
     }
@@ -167,6 +171,8 @@ public class Storage {
      * @param task The parameter `task` is of type `Task`, which is an object representing a task.
      */
     public static void writeToStorage(Task task) throws IOException {
+        assert task != null : "Task being written to storage should never be null";
+
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
 

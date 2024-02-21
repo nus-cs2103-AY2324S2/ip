@@ -29,11 +29,12 @@ public class DeleteCommand extends Command {
         if (Integer.parseInt(input[1]) > tasks.size()) {
             throw new CommandException("The tasks you indicated does not exist");
         }
-        tasks.remove(Integer.parseInt(input[1]) - 1);
 
         super.commandResponse = Ui.printOutput("Noted. I've removed this task: ",
                 tasks.get(Integer.parseInt(input[1]) - 1).toString(),
-                "Now you have " + tasks.size() + " tasks in the list.");
+                "Now you have " + (tasks.size() - 1) + " tasks in the list.");
+
+        tasks.remove(Integer.parseInt(input[1]) - 1);
 
         Storage.writeToStorage(tasks);
     }

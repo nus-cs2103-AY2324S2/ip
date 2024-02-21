@@ -28,6 +28,8 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         int statusValue = this.getStatus() ? 1 : 0;
+        assert statusValue == 0 || statusValue == 1 : "Status value must be equal to 0 or 1";
+        
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("event~%d~%s~%s~%s", statusValue, this.description,
