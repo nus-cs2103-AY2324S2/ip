@@ -5,6 +5,8 @@ plugins {
     id 'checkstyle'
 }
 
+mainClassName = 'youdon.Launcher'
+
 repositories {
     mavenCentral()
 }
@@ -49,6 +51,7 @@ application {
 
 shadowJar {
     archiveBaseName = "youdon"
+    archiveFileName = 'youdon.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

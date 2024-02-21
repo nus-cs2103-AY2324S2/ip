@@ -42,6 +42,8 @@ public class Youdon {
 
     protected String getResponse(String input) {
 
+        assert !input.isEmpty();
+
         // try-catch block for exceptions
         try {
             YoudonException.EmptyDescException.detectMissingDesc(input);

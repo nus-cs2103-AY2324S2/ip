@@ -43,6 +43,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert !input.isEmpty();
         String response = youdon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),
