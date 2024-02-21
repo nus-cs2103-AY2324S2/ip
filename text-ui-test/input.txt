@@ -9,6 +9,8 @@ list
 unmark 1
 deadline return book /by Sunday
 mark 2
+find
+find party
 triage 2 LOW
 list
 event party /FROM Monday 2pm /to 4pm

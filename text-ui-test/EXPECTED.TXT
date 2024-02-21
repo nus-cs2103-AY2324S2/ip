@@ -49,6 +49,13 @@
 	 [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
+	 If you would like to list everything, please use the list command.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 2. [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
 	 Noted, the priority of this task has been modified:
 	  [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
