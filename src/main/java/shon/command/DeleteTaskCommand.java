@@ -1,9 +1,7 @@
 package shon.command;
 
-import shon.exception.ParameterException;
-
 import shon.TaskList;
-import shon.Ui;
+import shon.exception.ParameterException;
 
 /**
  * Represents a command to delete a task.

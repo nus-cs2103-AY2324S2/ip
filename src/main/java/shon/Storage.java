@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.Scanner;
 
 /**
@@ -24,7 +23,7 @@ public class Storage {
      *
      * @param filepath The filepath to the file storing the user's todo list.
      * @throws Error If an IO error occurred while trying to create the new data file. Suggests potential errors in
-     * creating the relevant parent directories, or bug in storage initialisation.
+     *     creating the relevant parent directories, or bug in storage initialisation.
      */
     public Storage(String filepath) {
         try {
@@ -43,7 +42,7 @@ public class Storage {
      *
      * @return <code>TaskList</code> loaded with the tasks and data from the existing data.
      * @throws Error If the data file is not found. Suggests that data file does not exist and
-     * potential errors in storage initialisation.
+     *     potential errors in storage initialisation.
      */
     public TaskList loadList() {
         try {
@@ -62,6 +61,8 @@ public class Storage {
                 case E:
                     addEvent(data, list);
                     break;
+                default:
+                    System.out.println("Storage is in wrong format.");
                 }
             }
             return list;
@@ -72,21 +73,27 @@ public class Storage {
 
     private void addTodo(String data, TaskList list) {
         String[] d = data.split(" \\| ", 3);
-        String isDoneStatus = d[1], description = d[2];
+        String isDoneStatus = d[1];
+        String description = d[2];
         boolean isDone = isDoneStatus.equals("1");
         list.addTodo(description, isDone);
     }
 
     private void addDeadline(String data, TaskList list) {
         String[] d = data.split(" \\| ", 4);
-        String isDoneStatus = d[1], description = d[2], by = d[3];
+        String isDoneStatus = d[1];
+        String description = d[2];
+        String by = d[3];
         boolean isDone = isDoneStatus.equals("1");
         list.addDeadline(description, by, isDone);
     }
 
     private void addEvent(String data, TaskList list) {
         String[] d = data.split(" \\| ", 5);
-        String isDoneStatus = d[1], description = d[2], from = d[3], to = d[4];
+        String isDoneStatus = d[1];
+        String description = d[2];
+        String from = d[3];
+        String to = d[4];
         boolean isDone = isDoneStatus.equals("1");
         list.addEvent(description, from, to, isDone);
     }

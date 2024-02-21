@@ -1,7 +1,6 @@
 package shon.command;
 
 import shon.TaskList;
-import shon.Ui;
 
 /**
  * Represents a find command to show tasks with description containing keyword.

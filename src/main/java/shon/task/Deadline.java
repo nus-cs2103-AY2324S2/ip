@@ -8,12 +8,12 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task in the <code>TaskList</code>.
  */
 public class Deadline extends Task {
-    /** The by datetime of the task */
-    private LocalDateTime by;
     /** The formatter for reading/storing the by datetime */
     private static DateTimeFormatter ioFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     /** The formatter for displaying the by datetime */
     private static DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd LLL yyyy HHmm");
+    /** The by datetime of the task */
+    private LocalDateTime by;
 
     /**
      * Creates a new Deadline with the given description, by datetime, and completion status.
