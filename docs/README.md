@@ -13,14 +13,17 @@ reminder chatbot is happy to help you!
 - [X] Mark and unmark your tasks as you complete them!
 
 # Commands Available
+
 ### Legend:
 
-(optional_parameter)
+- (optional_parameter)
 
-<compulsory_parameter>
+- <compulsory_parameter>
 
 ## Adding tasks
+
 ## todo
+
 Creates a Todo task that has a `name` field only.
 
 Syntax: `todo <name>` or `t <name>`
@@ -35,7 +38,9 @@ Alright. Adding this task
 [T][ ] work on project
 You now have 3 task(s)
 ```
+
 ## deadline
+
 Creates a Deadline task that has a `name` field and a `deadline` field.
 
 Syntax: `deadline <name> /by <deadline>` or `d <name> /by <deadline>`
@@ -52,7 +57,9 @@ Alright. Adding this task
 [D][ ] practice piano (by: 22 Feb 2024 10:00)
 You now have 4 task(s)
 ```
+
 ## event
+
 Creates an Event task that has a `name` field, a `startDate` field, and an `endDate` field.
 
 Syntax: `event <name> /from <startDate> /to <endDate>` or `e <name> /from <startDate> /to <endDate>`
@@ -70,13 +77,16 @@ Alright. Adding this task
 to: 24 Feb 2024 11:00)
 You now have 5 task(s)
 ```
+
 ## Removing tasks
+
 ## clear
 Clears the entire task list
 
 Syntax: `clear`
 
 ## delete
+
 Deletes the task with the specified index from the task list
 
 Syntax: `delete <index>`
@@ -91,8 +101,11 @@ Alright. Removing this task
 [T][X] work
 You have 2 task(s) left
 ```
+
 ## Listing and searching
+
 ## find
+
 Returns all the tasks that match the search query
 
 Syntax: `find <search_query>`
@@ -106,7 +119,9 @@ Expected Output:
 1: [D][ ] study (by: 21 Feb 24 14:00)
 2: [D][ ] study CS2103T (by 22 Feb 24 10:00)
 ```
+
 ## list
+
 Returns the list of items in your task list
 
 Syntax: `list`
@@ -117,7 +132,9 @@ Expected Output:
 2: [D][ ] study (by: 21 Feb 24 14:00)
 3: [D][ ] study CS2103T (by 22 Feb 24 10:00)
 ```
+
 ## schedule
+
 Returns all the events and deadline tasks that fall on the date specified.
 
 If no date is specified, defaults to today.
@@ -134,7 +151,9 @@ Searching for tasks on 2024-02-22:
 1: [D][ ] study CS2103T (by: 22 Feb 2024 10:00)
 2: [D][ ] practice piano (by: 22 Feb 2024 10:00)
 ```
-## Marking and unmarking
+
+## Marking and un-marking
+
 ## mark
 Marks a task with the specified index as done
 
@@ -151,6 +170,7 @@ Good job! You have completed this task:
 ```
 
 ## unmark
+
 Marks a task with the specified index as not completed
 
 Syntax: `unmark <index>`
@@ -164,8 +184,11 @@ Expected Output:
 Alright. This task has been unmarked
 [T][ ] work
 ```
+
 ## Miscellaneous
+
 ## help
+
 Provides the help for the command specified.
 
 If command not specified, returns the guide for the command 'help'
@@ -184,6 +207,7 @@ startDate and endDate to be specified in the format d/M/YY HH:mm (e.g. 21/2/24 1
 
 - Note: For commands that require at least 1 compulsory parameter, giving no parameters brings up the help page for that command
   (e.g. `todo` and `event` do the same thing as `help todo` and `help event` respectively)
+
 ## bye
 Quits the program
 
