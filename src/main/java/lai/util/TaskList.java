@@ -30,12 +30,38 @@ public class TaskList implements Iterable<Task> {
      * @param newTask The task to be added.
      * @param storage The storage utility to update the tasks file.
      * @return The updated list of tasks.
+     * @throws LaiException If the new task is a duplicate of an existing task
      */
-    public TaskList add(Task newTask, Storage storage) {
+    public TaskList add(Task newTask, Storage storage) throws LaiException {
+        if (checkDuplicate(newTask)) {
+            throw new LaiException("Task already exists! If you would still like to add it, name it differently so " +
+                    "you won't be confused.");
+        }
+
         this.tasks.add(newTask);
         storage.updateTasksFile(this);
 
         return this;
+    }
+
+    /**
+     * Checks if the specified task already exists in the list based on its description.
+     * This method iterates through all tasks in the list and compares their descriptions
+     * with the description of the given task. As long as a task with the same description is found,
+     * it is considered a duplicate.
+     *
+     * @param newTask The task to be checked for duplication.
+     * @return {@code true} if a duplicate task is found in the list; {@code false} otherwise.
+     */
+    public boolean checkDuplicate(Task newTask) {
+        for (Task task : this.tasks) {
+            if (task.getDescription().equals(newTask.getDescription())) {
+                // Duplicate task found
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
