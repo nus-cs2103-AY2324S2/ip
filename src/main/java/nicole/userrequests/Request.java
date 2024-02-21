@@ -64,7 +64,7 @@ public class Request {
             return "I'm your task/deadline/event manager! I'm down with these requests,\n"
                     + "1. todo [task]\n"
                     + "2. deadline [task] by YYYY-MM-DD\n"
-                    + "3. event [description] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n"
+                    + "3. event [description] from YYYY-MM-DD at HH:MM:SS to YYYY-MM-DD at HH:MM:SS\n"
                     + "4. list\n"
                     + "5. mark [tasknumber]\n"
                     + "6. unmark [tasknumber]\n"

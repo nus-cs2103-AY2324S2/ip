@@ -1,4 +1,4 @@
-# Nicole [Mark 2] User Guide
+# Nicole [Mark 0.2] User Guide
 
 <img src="Ui.png" width="350">
 
@@ -45,7 +45,7 @@ To know what basic commands Nicole can help you with,
 simply type-in `help` and you should see 
 something like this:
 
-![help.png](helpSS.png)
+![helpSS.png](helpSS.png)
 
 Take note that when typing the actual commands, 
 you should omit any square braces ([ ]) pictured above. 
