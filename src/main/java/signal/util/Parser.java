@@ -81,6 +81,8 @@ public class Parser {
             // create a new task or other commands
             reply = taskCommands(userInput);
         }
+
+        ui.signalSays(reply);
         return reply;
     }
 
@@ -95,7 +97,6 @@ public class Parser {
             reply = ui.markTask(inputParts);
         } else {
             reply = "What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }
@@ -111,7 +112,6 @@ public class Parser {
             reply = ui.unMarkTask(inputParts);
         } else {
             reply = "What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }
@@ -128,7 +128,6 @@ public class Parser {
                 reply = ui.commandList();
             } else {
                 reply = "What else can I help you with?";
-                ui.signalSays(reply);
             }
         } catch (DukeException e) {
             reply = e.getMessage();
@@ -143,7 +142,6 @@ public class Parser {
             reply = ui.commandFind(inputParts);
         } else {
             reply ="What else can I help you with?";
-            ui.signalSays(reply);
         }
         return reply;
     }

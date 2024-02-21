@@ -64,7 +64,6 @@ public class Ui {
         response.add("How can I help?");
         response.add(("Enter 'help' to see the list of commands available :D"));
         String reply = listToString(response);
-        signalSays(reply);
         return reply;
     }
 
@@ -73,7 +72,6 @@ public class Ui {
      */
     public String leave() {
         String reply = "Bye! Hope you come back soon :D";
-        signalSays(reply);
         return reply;
     }
 
@@ -82,13 +80,11 @@ public class Ui {
      */
     public String emptyInput() {
         String reply = "Brevity is the soul of wit, but you have to tell me something still!";
-        signalSays(reply);
         return reply;
     }
 
     public String unknownInput() {
         String reply = "Sorry, I don't know what you're talking about. Enter 'help' to see what commands you can use!";
-        signalSays(reply);
         return reply;
     }
 
@@ -164,7 +160,6 @@ public class Ui {
         response.add("  " + task.toString());
         response.add("Now you have " + size + (size == 1 ? " task" : " tasks") + " in the list.");
         String reply = listToString(response);
-        signalSays(reply);
         return reply;
     }
 
@@ -175,7 +170,6 @@ public class Ui {
      */
     public String commandToDo(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-//            signalSays("Looks like you haven't entered a task description!");
             throw new DukeException("Looks like you haven't entered a task description!");
         } else {
             String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
@@ -193,10 +187,8 @@ public class Ui {
      */
     public String commandDeadline(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-//            signalSays("Looks like you haven't entered a task description!");
             throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/by")) {
-//            signalSays("Looks like you haven't added a deadline!");
             throw new DukeException("Looks like you haven't added a deadline!");
         }
         int byIndex = finder("/by", inputParts);
@@ -214,16 +206,12 @@ public class Ui {
      */
     public String commandEvent(String[] inputParts) throws DukeException {
         if (inputParts.length < 2) {
-//            signalSays("Looks like you haven't entered a task description!");
             throw new DukeException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/from") && !Arrays.asList(inputParts).contains("/to")){
-//            signalSays("Please tell me the event timeframe!");
             throw new DukeException("Please tell me the event timeframe!");
         } else if (!Arrays.asList(inputParts).contains("/from")){
-//            signalSays("Please tell me when the event starts.");
             throw new DukeException("Please tell me when the event starts.");
         } else if (!Arrays.asList(inputParts).contains("/to")){
-//            signalSays("Please tell me when the event ends.");
             throw new DukeException("Please tell me when the event ends.");
         }
 
@@ -271,7 +259,6 @@ public class Ui {
                 : "Nice! I've marked this task as done:\n");
         response.add("  " + current.toString());
         String reply = listToString(response);
-        signalSays(reply);
         return reply;
     }
 
@@ -298,7 +285,6 @@ public class Ui {
                 : "OK, I've marked this task as undone:\n");
         response.add("  " + current.toString());
         String reply = listToString(response);
-        signalSays(reply);
         return reply;    }
 
     /**
@@ -343,7 +329,6 @@ public class Ui {
         }
 
         String reply = listToString(response);
-        signalSays(reply);
         return reply;
     }
 
@@ -366,7 +351,6 @@ public class Ui {
         response.add("Sure, here are the tasks containing '" + toFind + "':");
         response.addAll(find(toFind));
         String reply = listToString(response);
-        signalSays(reply);
         return reply;
     }
 
@@ -375,7 +359,6 @@ public class Ui {
      */
     public String commandBlah() {
         String reply = "All words are made up, but this one seems more nonsensical than usual. Try something else!";
-        signalSays(reply);
         return reply;
     }
 
@@ -384,7 +367,6 @@ public class Ui {
      */
     public String commandSomethingelse() {
         String reply = "Haha, very funny. Nice try my guy!";
-        signalSays(reply);
         return reply;
     }
 
@@ -408,7 +390,6 @@ public class Ui {
         response.add("* bye -- exits the program.");
         String reply = listToString(response);
 
-        signalSays(reply);
         return reply;
     }
 
