@@ -28,6 +28,7 @@ public class TaskList {
      * @param task task to be added
      */
     public String addTask(String task) {
+
         TaskType taskType = getTaskType(task);
 
         switch (taskType) {
@@ -41,6 +42,13 @@ public class TaskList {
             return "Sorry, that's not a command. Enter 'help' for instructions.";
         }
     }
+
+    /**
+     * Detects if the task being added already exists in the taskList
+     *
+     * @param task
+     * @return
+     */
 
     /**
      * Adds todoTask to taskList

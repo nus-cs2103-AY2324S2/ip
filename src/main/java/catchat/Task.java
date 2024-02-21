@@ -47,9 +47,11 @@ public class Task {
     public boolean isDone() {
         return this.isDone;
     }
+
     protected String getTaskType() {
         return "";
     }
+
     public String getTaskStatus() {
         return this.isDone ? "done" : "not done";
     }
