@@ -12,6 +12,7 @@ import java.util.Scanner;
  * local file.
  */
 public class Storage {
+    private String filePath = "./tasks.txt";
 
     /**
      * Load any previously stored task data into the current taskList.
@@ -19,7 +20,7 @@ public class Storage {
      * @param filePath The path to the storage file.
      * @param taskList The taskList to store this data into.
      */
-    public void loadFromFile(String filePath, TaskList taskList) {
+    public void loadFromFile(TaskList taskList) {
         Parser parserForStorage = new Parser("yyyy-MM-dd");
         try {
             File f = new File(filePath);
@@ -34,11 +35,11 @@ public class Storage {
                 if (task.equals("T")) {
                     t = new Task(done, desc);
                 } else if (task.equals("D")) {
-                    LocalDate deadline = parserForStorage.parse(s.nextLine());
+                    LocalDate deadline = parserForStorage.parseDate(s.nextLine());
                     t = new Task(done, desc, deadline);
                 } else if (task.equals("E")) {
-                    LocalDate startDate = parserForStorage.parse(s.nextLine());
-                    LocalDate endDate = parserForStorage.parse(s.nextLine());
+                    LocalDate startDate = parserForStorage.parseDate(s.nextLine());
+                    LocalDate endDate = parserForStorage.parseDate(s.nextLine());
                     t = new Task(done, desc, startDate, endDate);
                 } else {
                     t = null;
@@ -62,7 +63,7 @@ public class Storage {
      * @param taskList The taskList of tasks to add.
      * @throws IOException
      */
-    public String writeToFile(String filePath, TaskList taskList) {
+    public String writeToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 1; i <= taskList.size(); i++) {

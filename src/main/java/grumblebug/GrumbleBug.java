@@ -24,20 +24,19 @@ public class GrumbleBug extends Application {
     private TaskList taskList;
     private Parser parser;
     private Storage storage;
-    private final int NUM_PARAMS_FOR_MARK = 2;
-    private final int NUM_PARAMS_FOR_FIND = 2;
-    private final int NUM_PARAMS_FOR_TODO = 2;
-    private final int NUM_PARAMS_FOR_DEADLINE = 3;
-    private final int NUM_PARAMS_FOR_EVENT = 4;
-    private final int NUM_PARAMS_FOR_DELETE = 2;
 
-    private final String filePath = "./tasks.txt";
+    public static final int NUM_PARAMS_FOR_MARK = 2;
+    public static final int NUM_PARAMS_FOR_FIND = 2;
+    public static final int NUM_PARAMS_FOR_TODO = 2;
+    public static final int NUM_PARAMS_FOR_DEADLINE = 3;
+    public static final int NUM_PARAMS_FOR_EVENT = 4;
+    public static final int NUM_PARAMS_FOR_DELETE = 2;
 
     public GrumbleBug() {
         this.taskList = new TaskList();
         this.parser = new Parser("yyyy-MM-dd");
         this.storage = new Storage();
-        this.storage.loadFromFile(filePath, taskList);
+        this.storage.loadFromFile(taskList);
     }
 
     /**
@@ -66,27 +65,7 @@ public class GrumbleBug extends Application {
      * @return GrumbleBug's response back to the user.
      */
     private String getResponse(String input) {
-        if (input.equals("list")) { // show the list!
-            return taskList.getTasks();
-        } else if (input.equals("save")) {
-            return storage.writeToFile(filePath, taskList);
-        } else if (input.startsWith("mark")) {
-            return parser.processMarkTaskInput(input, true, NUM_PARAMS_FOR_MARK, taskList);
-        } else if (input.startsWith("unmark")) {
-            return parser.processMarkTaskInput(input, false, NUM_PARAMS_FOR_MARK, taskList);
-        } else if (input.startsWith("find")) {
-            return parser.processFindTasksInput(input, NUM_PARAMS_FOR_FIND, taskList);
-        } else if (input.startsWith("todo")) { // add to list
-            return parser.processTodoInput(input, NUM_PARAMS_FOR_TODO, taskList);
-        } else if (input.startsWith("deadline")) { // add to list
-            return parser.processDeadlineInput(input, NUM_PARAMS_FOR_DEADLINE, taskList);
-        } else if (input.startsWith("event")) { // add to list
-            return parser.processEventInput(input, NUM_PARAMS_FOR_EVENT, taskList);
-        } else if (input.startsWith("delete")) {
-            return parser.processDeleteInput(input, NUM_PARAMS_FOR_DELETE, taskList);
-        } else {
-            return "I don't understand what you just said, stupid...";
-        }
+        return parser.parse(input, taskList, storage);
     }
 
     /**

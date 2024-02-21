@@ -10,7 +10,7 @@ public class ParserTest {
     public void correctFormatting() {
         String format = "dd MMM yyyy";
         Parser p = new Parser(format);
-        LocalDate ld = p.parse("26 Aug 2023");
+        LocalDate ld = p.parseDate("26 Aug 2023");
         String actual = ld.toString();
         String expected = "2023-08-26";
         assertEquals(actual, expected);

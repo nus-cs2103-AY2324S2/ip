@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Parser object is used to parse reasonable date formats flexibly
+ * Parser object is used to make sense of the user inputs.
+ * For example, it can help to parse reasonable date formats flexibly
  * into LocalDate objects, from user and for storage into data file.
  */
 public class Parser {
@@ -23,8 +24,35 @@ public class Parser {
      * @param dt the String date input.
      * @return the LocalDate with the parsed time stored.
      */
-    public LocalDate parse(String dt) {
+    public LocalDate parseDate(String dt) {
         return LocalDate.parse(dt, this.formatter);
+    }
+
+    public String parse(String input, TaskList taskList, Storage storage) {
+        if (input.equals("list")) { // show the list!
+            return taskList.getTasks();
+        } else if (input.equals("bye")) {
+            System.exit(0);
+            return "";
+        } else if (input.equals("save")) {
+            return storage.writeToFile(taskList);
+        } else if (input.startsWith("mark")) {
+            return processMarkTaskInput(input, true, GrumbleBug.NUM_PARAMS_FOR_MARK, taskList);
+        } else if (input.startsWith("unmark")) {
+            return processMarkTaskInput(input, false, GrumbleBug.NUM_PARAMS_FOR_MARK, taskList);
+        } else if (input.startsWith("find")) {
+            return processFindTasksInput(input, GrumbleBug.NUM_PARAMS_FOR_FIND, taskList);
+        } else if (input.startsWith("todo")) { // add to list
+            return processTodoInput(input, GrumbleBug.NUM_PARAMS_FOR_TODO, taskList);
+        } else if (input.startsWith("deadline")) { // add to list
+            return processDeadlineInput(input, GrumbleBug.NUM_PARAMS_FOR_DEADLINE, taskList);
+        } else if (input.startsWith("event")) { // add to list
+            return processEventInput(input, GrumbleBug.NUM_PARAMS_FOR_EVENT, taskList);
+        } else if (input.startsWith("delete")) {
+            return processDeleteInput(input, GrumbleBug.NUM_PARAMS_FOR_DELETE, taskList);
+        } else {
+            return "I don't understand what you just said, stupid...";
+        }
     }
 
     /**
@@ -90,7 +118,7 @@ public class Parser {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
         try {
-            taskList.addDeadline(words[1], this.parse(words[2]));
+            taskList.addDeadline(words[1], this.parseDate(words[2]));
             return "k";
         } catch (DateTimeParseException e) {
             return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
@@ -109,7 +137,7 @@ public class Parser {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
         try {
-            taskList.addEvent(words[1], this.parse(words[2]), this.parse(words[3]));
+            taskList.addEvent(words[1], this.parseDate(words[2]), this.parseDate(words[3]));
             return "k";
         } catch (DateTimeParseException e) {
             return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
