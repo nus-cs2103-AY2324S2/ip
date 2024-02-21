@@ -80,14 +80,19 @@ public class PannaBot extends Application {
         System.out.println(input);
         input = input.trim().toLowerCase();
         if (input.equals("list")) {
-            return ui.listMessage(taskList);
+            String message = ui.listMessage(taskList);
+            return message;
         } else if (input.startsWith("mark")) {
             String[] words = input.split(" ", 2);
             assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
+
+
                 ui.mark(taskList, i);
-                return ui.markDone(taskList, i);
+                String markMessage = ui.markDone(taskList, i);
+                storage.write("panna.txt", taskList);
+                return markMessage;
             } catch (Exception e) {
                 return "I dont understand you!";
             }
@@ -96,8 +101,11 @@ public class PannaBot extends Application {
             assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
+
                 ui.unmark(taskList, i);
-                return ui.unmarkDone(taskList, i);
+                String unmarkMessage = ui.unmarkDone(taskList, i);
+                storage.write("panna.txt", taskList);
+                return unmarkMessage;
             } catch (Exception e) {
                 return "I dont understand you!";
             }
@@ -105,24 +113,32 @@ public class PannaBot extends Application {
             String[] words = input.split(" ", 4);
             assert words.length <= 4;
 
-            return ui.event(taskList, words[1], parser.parse(words[2]), parser.parse(words[3]));
+            String newEvent = ui.event(taskList, words[1], parser.parse(words[2]), parser.parse(words[3]));
+            storage.write("panna.txt", taskList);
+            return newEvent;
 
         } else if (input.startsWith("todo")) {
             String[] words = input.split(" ", 2);
             assert words.length <= 2;
-            return ui.todo(taskList, words[1]);
+            String newToDo = ui.todo(taskList, words[1]);
+            storage.write("panna.txt", taskList);
+            return newToDo;
 
         } else if (input.startsWith("deadline")) {
             String[] words = input.split(" ", 3);
             assert words.length <= 3;
-            return ui.deadline(taskList, words[1], parser.parse(words[2]));
+            String newDeadline = ui.deadline(taskList, words[1], parser.parse(words[2]));
+            storage.write("panna.txt", taskList);
+            return newDeadline;
 
         } else if (input.startsWith("delete")) {
             String[] words = input.split(" ", 2);
             assert words.length <= 2;
             try {
                 int i = Integer.parseInt(words[1]);
-                return ui.delete(taskList, i);
+                String deleteMessage = ui.delete(taskList, i);
+                storage.write("panna.txt", taskList);
+                return deleteMessage;
             } catch (Exception e) {
                 return "Enter a valid integer!";
             }
@@ -134,11 +150,15 @@ public class PannaBot extends Application {
             }
             System.out.println(words.length);
 
-            return ui.find(taskList, words[1]);
+            String findMessage = ui.find(taskList, words[1]);
+            storage.write("panna.txt", taskList);
+            return findMessage;
 
         } else if (input.startsWith("update")) {
             String[] words = input.split(" ", 3);
-            return ui.update(taskList, words[1], words[2]);
+            String updateMessage = ui.update(taskList, words[1], words[2]);
+            storage.write("panna.txt", taskList);
+            return updateMessage;
         } else {
             return "I dont understand you!";
         }
@@ -152,7 +172,9 @@ public class PannaBot extends Application {
      * primary stages.
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws PannaException {
+
+        storage.read("panna.txt", taskList);
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
