@@ -206,7 +206,7 @@ public class ParserTest {
     @Test
     public void createDeadline_missingDescription_exceptionThrown() {
         Exception thrown = assertThrows(MissingParametersException.class, () ->
-                Validator.validateTodoCommand("todo")
+                Validator.validateDeadlineCommand("deadline")
         );
 
         String expectedMessage = ErrorMessages.MISSING_TASK_DESCRIPTION;
@@ -216,9 +216,33 @@ public class ParserTest {
     }
 
     @Test
-    public void createEvent_wrongDateFormat_exceptionThrown() {
+    public void createDeadline_missingDueDate_exceptionThrown() {
+        Exception thrown = assertThrows(MissingParametersException.class, () ->
+                Validator.validateDeadlineCommand("deadline Assignment")
+        );
+
+        String expectedMessage = ErrorMessages.MISSING_DUE_DATE;
+        String actualMessage = thrown.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void createDeadline_extraFromToDate_exceptionThrown() {
+        Exception thrown = assertThrows(IncorrectParametersException.class, () ->
+                Validator.validateDeadlineCommand("deadline Assignment /from 2024-10-10 /to 2024-10-11")
+        );
+
+        String expectedMessage = ErrorMessages.FROM_TO_DATE_NOT_NEEDED;
+        String actualMessage = thrown.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void createDeadline_wrongDateFormat_exceptionThrown() {
         Exception thrown = assertThrows(ParseDateException.class, () ->
-            Validator.validateEventCommand("event Sleep /from 14/09/2011 /to 15/4/2022")
+                Validator.validateDeadlineCommand("deadline Sleep /by 14/09/2011")
         );
 
         String expectedMessage = ErrorMessages.INCORRECT_DATE_FORMAT;
@@ -228,9 +252,33 @@ public class ParserTest {
     }
 
     @Test
+    public void createEvent_missingDescription_exceptionThrown() {
+        Exception thrown = assertThrows(MissingParametersException.class, () ->
+                Validator.validateEventCommand("deadline")
+        );
+
+        String expectedMessage = ErrorMessages.MISSING_TASK_DESCRIPTION;
+        String actualMessage = thrown.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
     public void createEvent_missingFromDate_exceptionThrown() {
         Exception thrown = assertThrows(MissingParametersException.class, () ->
-                Validator.validateEventCommand("event Sleep /from 14/09/2011")
+                Validator.validateEventCommand("event Assignment /to 2024-10-10")
+        );
+
+        String expectedMessage = ErrorMessages.MISSING_FROM_DATE;
+        String actualMessage = thrown.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void createEvent_missingToDate_exceptionThrown() {
+        Exception thrown = assertThrows(MissingParametersException.class, () ->
+                Validator.validateEventCommand("event Assignment /from 2024-10-10")
         );
 
         String expectedMessage = ErrorMessages.MISSING_TO_DATE;
@@ -240,12 +288,24 @@ public class ParserTest {
     }
 
     @Test
-    public void createEvent_missingToDate_exceptionThrown() {
-        Exception thrown = assertThrows(MissingParametersException.class, () ->
-                Validator.validateEventCommand("event Sleep /to 14/09/2011")
+    public void createEvent_extraDueDate_exceptionThrown() {
+        Exception thrown = assertThrows(IncorrectParametersException.class, () ->
+                Validator.validateEventCommand("event Assignment /by 2024-10-10 /to 2024-10-10")
         );
 
-        String expectedMessage = ErrorMessages.MISSING_FROM_DATE;
+        String expectedMessage = ErrorMessages.DUE_DATE_NOT_NEEDED;
+        String actualMessage = thrown.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void launchHelpMenu_tooManyParameters_exceptionThrown() {
+        Exception thrown = assertThrows(CommandNotFoundException.class, () ->
+                Validator.validateHelpCommand("help me")
+        );
+
+        String expectedMessage = ErrorMessages.COMMAND_NOT_FOUND;
         String actualMessage = thrown.getMessage();
 
         assertEquals(actualMessage, expectedMessage);
