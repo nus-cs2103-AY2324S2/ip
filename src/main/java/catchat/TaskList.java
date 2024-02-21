@@ -28,6 +28,9 @@ public class TaskList {
      * @param task task to be added
      */
     public String addTask(String task) {
+        if (taskExists(task)) {
+            return "This task already exists!";
+        }
 
         TaskType taskType = getTaskType(task);
 
@@ -49,6 +52,14 @@ public class TaskList {
      * @param task
      * @return
      */
+    public boolean taskExists(String task) {
+        for (Task t : this.taskList) {
+            if (t.toString().equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Adds todoTask to taskList
@@ -131,15 +142,14 @@ public class TaskList {
      */
     public String deleteTask(int index) {
         try {
-            this.taskList.remove(index);
+            Task removedTask = this.taskList.remove(index);
             storage.saveTaskListToFile();
             return "Noted. I've removed this task:\n"
-                    + "[ " + this.taskList.get(index) + " ]\n"
+                    + "[ " + removedTask + " ]\n"
                     + "There are " + this.taskList.size() + " tasks in your list.";
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            ui.printInvalidTaskIndex();
+            return ui.printInvalidTaskIndex();
         }
-        return "";
     }
 
     /**
