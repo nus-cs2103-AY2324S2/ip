@@ -29,7 +29,7 @@ public class TaskManager {
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
     private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
 
-    private static final String RESPONSE_EMPTY = "You have no tasks!!!! Add something to do peasant!! ";
+    private static final String RESPONSE_EMPTY = "You have no tasks!!!! Add something to do you peasant!! ";
     private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
     private final ArrayList<Task> items;
     private boolean hasChanged = false;
