@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * Represents a task of type Todo,
+ * with task description, completion status and task type as available details.
+ */
 public class TodoTask extends Task {
     /**
      * Constructor for tasks.TodoTask object.

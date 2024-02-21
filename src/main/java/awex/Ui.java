@@ -2,6 +2,9 @@ package awex;
 
 import tasks.Task;
 
+/**
+ * Represents an object providing all possible UI responses to the user.
+ */
 public class Ui {
     public void greeting() {
         System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");
