@@ -15,7 +15,7 @@ public class AddDeadlineCommand extends Command {
      * @param deadline    The end date of the deadline.
      */
     public AddDeadlineCommand(String description, LocalDate deadline) {
-        super(description, CommandType.ADD);
+        super(description);
         this.deadline = deadline;
     }
 

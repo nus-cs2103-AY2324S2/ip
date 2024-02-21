@@ -10,7 +10,7 @@ public class AddTodoCommand extends Command {
      * @param description The description of the todo task.
      */
     public AddTodoCommand(String description) {
-        super(description, CommandType.ADD);
+        super(description);
     }
 
     /**
