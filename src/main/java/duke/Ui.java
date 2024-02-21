@@ -61,6 +61,18 @@ public class Ui {
     }
 
     /**
+     * Prints a feedback on the change of task description.
+     *
+     * @param task Task that have add tag.
+     */
+    public String tag(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Alright, this is the current tasks description:\n");
+        sb.append(task.getDescriptionStatus() + "\n");
+        return sb.toString();
+    }
+
+    /**
      * Prints a feedback on the add of task.
      *
      * @param task Task to be added.

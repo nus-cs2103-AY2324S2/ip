@@ -77,6 +77,15 @@ public class TaskList {
     }
 
     /**
+     * Marks a specific task in the task list as not done.
+     *
+     * @param index The index of the task in the task list.
+     */
+    public void addTag(int index, String tag) {
+        tasks.get(index).addTag(tag);
+    }
+
+    /**
      * Deletes a specific task in the task list.
      *
      * @param index The index of the task in the task list.

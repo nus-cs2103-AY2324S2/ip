@@ -25,6 +25,8 @@ public class DukeException extends Exception {
             + "E.g. delete 1";
     public static final String FIND_ERROR = "Syntax of find: find {keyword}\n"
             + "E.g. find book";
+    public static final String TAG_ERROR = "Syntax of tag: tag {index of task (integer)} {tag (string without space)}\n"
+            + "E.g. tag 1 urgent";
 
 
 

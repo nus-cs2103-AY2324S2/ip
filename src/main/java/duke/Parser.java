@@ -8,17 +8,12 @@ import static duke.DukeException.EVENT_ERROR;
 import static duke.DukeException.FIND_ERROR;
 import static duke.DukeException.LIST_ERROR;
 import static duke.DukeException.MARK_ERROR;
+import static duke.DukeException.TAG_ERROR;
 import static duke.DukeException.TODO_ERROR;
 import static duke.DukeException.UNKNOWN_ERROR;
 import static duke.DukeException.UNMARK_ERROR;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.EditCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 
 /**
  * The `Parser` class represents a tool to make sense of user input.
@@ -74,6 +69,9 @@ public class Parser {
         }
         case FIND: {
             return handleTaskFind(fullCommand, splitTask);
+        }
+        case TAG: {
+            return handleTaskTag(splitTask);
         }
         default: {
             throw new DukeException(UNKNOWN_ERROR);
@@ -328,5 +326,30 @@ public class Parser {
         }
 
         return new FindCommand(task);
+    }
+
+    /**
+     * Returns a `TagCommand` about tagging after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
+    public static Command handleTaskTag(String[] splitTask) throws DukeException {
+
+        // Incorrect command syntax handler
+        if (splitTask.length != 3) {
+            throw new DukeException(TAG_ERROR);
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(splitTask[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(TAG_ERROR);
+        }
+
+        return new TagCommand(index, splitTask[2]);
     }
 }

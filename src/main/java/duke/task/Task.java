@@ -73,4 +73,14 @@ public class Task {
     public void unmarkDone() {
         isDone = false;
     }
+
+    /**
+     * Change the task description.
+     */
+    public void addTag(String tag) {
+        StringBuilder sb = new StringBuilder(this.description);
+        sb.append(" #");
+        sb.append(tag);
+        this.description = sb.toString();
+    }
 }
