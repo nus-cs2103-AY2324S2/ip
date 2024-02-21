@@ -3,7 +3,7 @@
 Taro is a task management application that helps you keep track of different tasks. It is a desktop application that is 
 designed to be used via a GUI. If you can type fast, Taro can help you manage your tasks faster than other apps.
 
-![Taro](/Ui.png.png)
+![Taro](/Ui.png)
 
 ## Viewing help: `help`
 Shows a message that contains all the commands that Taro can understand.
