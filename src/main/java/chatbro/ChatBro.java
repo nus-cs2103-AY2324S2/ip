@@ -5,7 +5,10 @@ package chatbro;
  */
 public class ChatBro {
     private TaskManager tm;
-
+    /**
+     * Constructor for ChatBro class. Initializes a TaskManager and loads tasks from file.
+     * @throws WrongFileFormatException If the file format is wrong.
+     */
     public ChatBro() throws WrongFileFormatException {
         tm = new TaskManager();
         String savedTasks = Database.readFromFile();

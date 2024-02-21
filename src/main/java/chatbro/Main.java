@@ -1,5 +1,7 @@
 package chatbro;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,8 +10,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * The GUI for ChatBro using FXML.
+ */
 public class Main extends Application {
     private ChatBro chatBro;
     @Override

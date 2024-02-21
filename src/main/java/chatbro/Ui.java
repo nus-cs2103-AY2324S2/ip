@@ -1,5 +1,4 @@
 package chatbro;
-import java.lang.StringBuilder;
 
 /**
  * Represents the user interface of ChatBro.
@@ -54,13 +53,17 @@ public class Ui {
     public static String unmarkMessage(Task task) {
         return "Got it bro! I've marked this task as undone:\n" + task.toString();
     }
+    /**
+     * Returns a message containing the list of tasks.
+     * @return Message containing the list of tasks.
+     */
     public static String listMessage() {
         StringBuilder sb = new StringBuilder("Here are the tasks in your list bro:\n");
         for (int i = 1; i <= 100; i++) {
             if (TaskManager.getList().get(i) == null) {
                 break;
             }
-           sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n");
+            sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n");
         }
         return sb.toString();
     }

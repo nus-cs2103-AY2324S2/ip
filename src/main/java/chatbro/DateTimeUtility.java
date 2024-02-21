@@ -8,6 +8,13 @@ import java.time.format.DateTimeParseException;
  * Utility class with method for parsing user input into a valid date and time format.
  */
 public class DateTimeUtility {
+    /**
+     * Parses the user input into a valid date and time format.
+     *
+     * @param input User's input date and time.
+     * @return Valid date and time format.
+     * @throws InvalidDateTimeException If the input is not in a valid date and time format.
+     */
     public static String parseDateTime(String input) throws InvalidDateTimeException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");

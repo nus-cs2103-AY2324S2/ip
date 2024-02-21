@@ -49,7 +49,8 @@ public class Database {
             String[] splitString = taskString.split(";;");
             for (String s : splitString) {
                 if (s.isEmpty()) { // if any information is missing
-                    throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
+                    throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
+                           + "Please delete the file and restart the program.");
                 }
             }
             String type = splitString[0];
@@ -61,7 +62,8 @@ public class Database {
             } else if (status.equals(" ")) {
                 isDone = false;
             } else {
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
+                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
+                        + "Please delete the file and restart the program.");
             }
             switch (type) {
             case "T":
@@ -74,10 +76,12 @@ public class Database {
                 String end = splitString[4];
                 return new Event(description, start, end, isDone);
             default:
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
+                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
+                        + "Please delete the file and restart the program.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
+            throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
+                    + "Please delete the file and restart the program.");
         }
     }
 }

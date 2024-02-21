@@ -196,6 +196,12 @@ public enum Command {
             return "Woah a lot of protein sir!";
         }
     };
+
+    /**
+     * Template method to execute command, to be overridden by each command accordingly.
+     * @param userInput
+     * @return Empty string by default (to be overridden by each command)
+     */
     public String execute(String userInput) {
         // Empty method - to be overridden by each command
         return "";
