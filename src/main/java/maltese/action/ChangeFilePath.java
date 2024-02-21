@@ -5,7 +5,6 @@ import maltese.exception.InvalidFilePathException;
 import maltese.exception.MalteseException;
 import maltese.exception.NoFilePathException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ChangeFilePath implements Action {
@@ -16,6 +15,7 @@ public class ChangeFilePath implements Action {
 
     public ChangeFilePath(String filePath, Storage storage, boolean isGuide) throws IOException {
         this.filePath = filePath;
+        assert filePath.length() > 0 : "File path cannot be empty";
         if (!storage.fileExists(filePath)) {
             // If the file doesn't exist, create it
             storage.createFile(filePath);
@@ -53,6 +53,5 @@ public class ChangeFilePath implements Action {
         }
         return "Changing file path to " + filePath + "\n";
     }
-
 
 }

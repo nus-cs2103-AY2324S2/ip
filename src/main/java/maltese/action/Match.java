@@ -21,6 +21,8 @@ public class Match implements Action {
      * @param taskList The TaskList to search for matching tasks.
      */
     public Match(String keyword, TaskList taskList) {
+        assert keyword != null : "Keyword cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         this.keyword = keyword.toLowerCase(); // Convert keyword to lowercase
         this.taskList = taskList;
     }
