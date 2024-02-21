@@ -49,6 +49,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        // Request layout to update the VBox's layout
+        dialogContainer.requestLayout();
+
+        // Scroll to the bottom of the ScrollPane
+        // scrollPane.setVvalue(1.0);
     }
 }
 

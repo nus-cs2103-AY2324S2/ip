@@ -1,0 +1,33 @@
+/* Define dark background color for the TextField */
+#userInput {
+    -fx-background-color: #444444; /* Slightly lighter grey */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-prompt-text-fill: #aaaaaa; /* Lighter grey for placeholder text */
+}
+
+/* Define dark background color for the Button */
+#sendButton {
+    -fx-background-color: #555555; /* Even lighter grey */
+    -fx-text-fill: #ffffff; /* White text */
+}
+
+/* Define dark background color for the ScrollPane */
+#scrollPane {
+    -fx-background-color: #333333; /* Dark grey */
+}
+
+/* Define dark background color for the VBox */
+#dialogContainer {
+    background-color: #333333; /* Dark grey */
+    -fx-background-color: #333333; /* Dark grey */
+}
+
+/* Optional: Add a hover effect for the button */
+#sendButton:hover {
+    -fx-background-color: #777777; /* Even darker grey */
+}
+
+/* Optional: Add a pressed effect for the button */
+#sendButton:pressed {
+    -fx-background-color: #666666; /* Darker grey */
+}

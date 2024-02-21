@@ -36,9 +36,7 @@ public class Parser {
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);
                 return new DeleteCommand(target);
             }
-            String argString = userInput.trim().split(" ", 2).length > 1
-                    ? userInput.trim().split(" ", 2)[1].trim()
-                    : "";
+            String argString = userInput.trim().split(" ", 2)[1].trim();
             if(commandWord.equals("find")) {
                 return new FindCommand(argString);
             }
