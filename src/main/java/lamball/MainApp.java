@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lamball.ui.CommandTextField;
 import lamball.ui.DialogBox;
@@ -16,9 +17,7 @@ import lamball.ui.ScrollableList;
  * MainApp to launch GUI.
  */
 public class MainApp extends Application {
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
+    private Image lamballImg = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
     private ScrollableList scrollList;
     private Scene scene;
     private Lamball lamb;
@@ -44,7 +43,7 @@ public class MainApp extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Lamball");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
@@ -55,8 +54,8 @@ public class MainApp extends Application {
 
         scrollList.addToList(
                 DialogBox.getLamballDialog(
-                        new Label(initialDisplayText),
-                        new ImageView(duke))
+                        new Text(initialDisplayText),
+                        new ImageView(lamballImg), 400)
         );
 
     }

@@ -1,4 +1,4 @@
-package lamball;
+package lamball.ui;
 
 /**
  * A class that primarily responsible for chatbot responses.
@@ -7,10 +7,10 @@ package lamball;
  */
 
 public class Ui {
-    private static final String TAB_SPACES = "    ";
+    private static final String TAB_SPACES = "";
     private static final String WELCOME_MESSAGE =
-            "     Hello! I'm Lamball, your helpful sheep!\n"
-                    + "     Whaaat can I do for you?\n";
+            "Hello! I'm Lamball, your helpful sheep!\n\n"
+                    + "Whaaat can I do for you?\n";
 
     private static final String GOODBYE_MESSAGE =
         "     See you again!\n";

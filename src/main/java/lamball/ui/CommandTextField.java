@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import lamball.Lamball;
 
 /**
@@ -16,7 +17,7 @@ import lamball.Lamball;
 public class CommandTextField extends HBox {
     private static final String EXIT_TEXT = "     See you again!\n";
     private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
+    private Image lamballImg = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
 
     private TextField userInput;
     private Button sendButton;
@@ -56,11 +57,11 @@ public class CommandTextField extends HBox {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label lamballText = new Label(lamb.getResponse(userInput.getText()));
+        Text userText = new Text(userInput.getText());
+        Text lamballText = new Text(lamb.getResponse(userInput.getText()));
         chatOutputLocation.addToList(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getLamballDialog(lamballText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user), 400),
+                DialogBox.getLamballDialog(lamballText, new ImageView(lamballImg), 400)
         );
 
         if (lamballText.getText() == EXIT_TEXT) {
@@ -69,8 +70,4 @@ public class CommandTextField extends HBox {
         userInput.clear();
     }
 
-    private void adjustUserInputWidth(double width) {
-        double newWidth = width - sendButton.getWidth(); // Adjust for the sendButton width
-        userInput.setPrefWidth(newWidth);
-    }
 }
