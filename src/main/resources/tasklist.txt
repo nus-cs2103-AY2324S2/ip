@@ -1,9 +1,0 @@
-T|0|test
-E|0|lecture|2024-12-12T08:00|2024-11-11T10:00
-E|0|lecture|2022-12-12T08:00|2022-11-11T10:00
-D|0|return book|2023-12-22T13:00
-D|0|return book|2024-12-22T13:00
-T|0|something
-T|0|testing
-T|0|test
-T|0|something

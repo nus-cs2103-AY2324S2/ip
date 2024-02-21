@@ -50,7 +50,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
     }
 
     public static DialogBox getOakDialog(String text, Image img) {
