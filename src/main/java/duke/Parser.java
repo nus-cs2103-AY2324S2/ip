@@ -60,7 +60,7 @@ public class Parser {
             String keyword = userInput.substring("find".length()).trim();
             return taskList.findTask(keyword);
         } else {
-            throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new ChatbotException("I'm sorry, but I don't know what that means :-(");
         }
     }
 

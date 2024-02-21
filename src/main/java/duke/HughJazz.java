@@ -60,6 +60,9 @@ public class HughJazz{
      * @return A response string resulting from processing the input.
      */
     public String getResponse(String input) {
+        assert taskList != null : "TaskList is not initialized.";
+        assert storage != null : "Storage is not initialized.";
+
         try {
             return Parser.parse(input, taskList, storage);
         } catch (DateTimeParseException e) {

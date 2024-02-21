@@ -61,6 +61,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput(ActionEvent event) {
+        assert duke != null : "Duke application logic handler must be initialized";
+        assert dialogContainer != null : "Dialog container must be initialized";
+
         String input = userInput.getText();
         if ("bye".equals(input.trim().toLowerCase())) {
             // Get the stage from the event source

@@ -36,6 +36,7 @@ public class TaskList {
      * @param storage The storage handler to save tasks after adding the new task.
      */
     public String addTask(Task newTask, Storage storage) {
+        assert tasks != null : "Task list must not be null";
         tasks.add(newTask);
         try {
             storage.saveTasks(tasks);
@@ -54,6 +55,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String deleteTask(int taskNumber, Storage storage) throws ChatbotException {
+        assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException("Unknown task number. Please try again");
         }
@@ -76,6 +78,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
+        assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException("Unknown task number. Please try again");
         }
@@ -115,7 +118,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getDescription().contains(keyword)) {
-                finalString += (i + 1) + "." + task;
+                finalString += (i + 1) + "." + task + "\n";
                 matchCount++;
             }
         }
