@@ -1,9 +1,8 @@
 package venus;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {
@@ -19,8 +18,8 @@ public class ParserTest {
     @Test
     public void findDeadlineContentTest2() {
         String[] test = {"bye bye", "21380-100-01"};
-        DukeException dukeException = assertThrows(DukeException.class,
-                () -> Parser.findDeadlineContent("deadline 2 /by dl /by "));
+        DukeException dukeException =
+                assertThrows(DukeException.class, () -> Parser.findDeadlineContent("deadline 2 /by dl /by "));
         assertEquals(dukeException.getMessage(),
                 "Incorrect, choose a specific deadline only please");
     }
@@ -44,18 +43,17 @@ public class ParserTest {
     }
 
     @Test
-    public void findfindType(){
-        DukeException e = assertThrows(DukeException.class,
-                () -> Parser.findDeadlineContent("ee something"));
+    public void findfindType() {
+        DukeException e = assertThrows(DukeException.class, () -> Parser.findDeadlineContent("ee something"));
     }
 
     @Test
-    public void findfindType2(){
+    public void findfindType2() {
         assertEquals(TaskList.Types.EVENT, Parser.findType("event deadline deadline"));
     }
 
     @Test
-    public void findfindType3(){
+    public void findfindType3() {
         assertEquals(TaskList.Types.EVENT, Parser.findType("event deadlinetodo"));
     }
 }

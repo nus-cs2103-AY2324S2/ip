@@ -123,9 +123,9 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            Ui.formatResponse("File is not found! " + e.getMessage());
+            OldUi.formatResponse("File is not found! " + e.getMessage());
         } catch (DateTimeParseException e) {
-            Ui.formatResponse("Invalid date time input or format, please try again");
+            OldUi.formatResponse("Invalid date time input or format, please try again");
         }
     }
 

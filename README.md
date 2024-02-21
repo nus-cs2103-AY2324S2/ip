@@ -9,7 +9,7 @@ Venus allows you to do so more more, for example,
 - track your event time
 - store or load your events ~~easily~~ super easily!
 
-And, it's _free_! Yes, **free**! :v:
+And, it's ~~paid~~ _free_! Yes, **free**! :v:
 
 To start,
 1. You have to [download](https://github.com/peterXGD/ip) it.
@@ -25,6 +25,7 @@ Features:
 - [ ] Save and load tasks whenever you start the program
 - [ ] Add delight to the experience when all tasks are complete :tada:
 
+###
 If you are a java programmer, here is the program `main` method:
 
 ```java
