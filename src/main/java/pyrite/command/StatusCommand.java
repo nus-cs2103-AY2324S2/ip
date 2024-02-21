@@ -32,12 +32,12 @@ public class StatusCommand extends Command {
         }
         tasks.setStatus(this.id, this.targetStatus);
         String saveResult = file.saveState(tasks);
-        if (targetStatus == Task.Status.DONE) {
+        if (targetStatus == Task.Status.Done) {
             return "Nice! I've marked this task as done:\n"
                     + "\t"
                     + tasks.toString(this.id)
                     + saveResult;
-        } else if (targetStatus == Task.Status.NOT_DONE) {
+        } else if (targetStatus == Task.Status.NotDone) {
             return "OK, I've marked this task as not done yet:\n"
                     + "\t"
                     + tasks.toString(this.id)

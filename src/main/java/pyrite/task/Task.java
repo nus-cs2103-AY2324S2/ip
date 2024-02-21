@@ -10,8 +10,8 @@ public class Task implements Serializable {
      * Enum to represent the status of a task.
      */
     public enum Status {
-        DONE,
-        NOT_DONE
+        Done,
+        NotDone
     }
     protected String description;
     protected Status status;
@@ -24,7 +24,7 @@ public class Task implements Serializable {
     public Task(String description) {
         assert description != "" : "Description cannot be empty.";
         this.description = description;
-        this.status = Status.NOT_DONE;
+        this.status = Status.NotDone;
     }
     /**
      * Returns the status icon of the task.
@@ -32,7 +32,7 @@ public class Task implements Serializable {
      * @return Status icon of the task.
      */
     public String getStatusIcon() {
-        return (status == Status.DONE ? "X" : " "); // mark done task with X
+        return (status == Status.Done ? "X" : " "); // mark done task with X
     }
     /**
      * Returns the description of the task.

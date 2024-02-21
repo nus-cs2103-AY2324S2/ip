@@ -31,7 +31,7 @@ public class ToDoTest {
     @Test
     public void toString_markedAsDone_success() {
         ToDo todo = new ToDo("test");
-        todo.setStatus(Task.Status.DONE);
+        todo.setStatus(Task.Status.Done);
         assertEquals("[T][X] test", todo.toString());
     }
 }

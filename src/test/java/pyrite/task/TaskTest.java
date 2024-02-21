@@ -34,7 +34,7 @@ public class TaskTest {
     @Test
     public void setStatus_markAsDone_success() {
         Task task = new Task("test");
-        task.setStatus(Task.Status.DONE);
+        task.setStatus(Task.Status.Done);
         assertTrue(task.toString().equals("[X] test"));
     }
     /**
@@ -43,8 +43,8 @@ public class TaskTest {
     @Test
     public void setStatus_markAsNotDone_success() {
         Task task = new Task("test");
-        task.setStatus(Task.Status.DONE);
-        task.setStatus(Task.Status.NOT_DONE);
+        task.setStatus(Task.Status.Done);
+        task.setStatus(Task.Status.NotDone);
         assertTrue(task.toString().equals("[ ] test"));
     }
     /**
@@ -53,7 +53,7 @@ public class TaskTest {
     @Test
     public void getStatusIcon_markAsDone_success() {
         Task task = new Task("test");
-        task.setStatus(Task.Status.DONE);
+        task.setStatus(Task.Status.Done);
         assertTrue(task.getStatusIcon().equals("X"));
     }
     /**
@@ -62,8 +62,8 @@ public class TaskTest {
     @Test
     public void getStatusIcon_markAsNotDone_success() {
         Task task = new Task("test");
-        task.setStatus(Task.Status.DONE);
-        task.setStatus(Task.Status.NOT_DONE);
+        task.setStatus(Task.Status.Done);
+        task.setStatus(Task.Status.NotDone);
         assertTrue(task.getStatusIcon().equals(" "));
     }
     /**

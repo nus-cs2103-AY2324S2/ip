@@ -78,7 +78,7 @@ public class TaskListTest {
     public void setStatus_validId_success() {
         TaskList tasks = new TaskList();
         tasks.add(new ToDo("test"));
-        tasks.setStatus(0, Task.Status.DONE);
+        tasks.setStatus(0, Task.Status.Done);
         assertEquals("[T][X] test", tasks.toString(0));
     }
     /**
@@ -89,7 +89,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         tasks.add(new ToDo("test"));
         try {
-            tasks.setStatus(1, Task.Status.DONE);
+            tasks.setStatus(1, Task.Status.Done);
         } catch (IndexOutOfBoundsException e) {
             assertEquals("Index 1 out of bounds for length 1", e.getMessage());
         }

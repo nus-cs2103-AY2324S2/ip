@@ -109,10 +109,10 @@ public class Parser {
             return new ListCommand();
         case "mark":
             int id = parseID(parameters);
-            return new StatusCommand(id, Task.Status.DONE);
+            return new StatusCommand(id, Task.Status.Done);
         case "unmark":
             id = parseID(parameters);
-            return new StatusCommand(id, Task.Status.NOT_DONE);
+            return new StatusCommand(id, Task.Status.NotDone);
         case "delete":
             id = parseID(parameters);
             return new DeleteCommand(id);
