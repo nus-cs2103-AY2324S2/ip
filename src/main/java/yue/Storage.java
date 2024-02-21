@@ -35,8 +35,28 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
-            // Assert that the file exists before attempting to load tasks from it
-            assert file.exists() : "File does not exist: " + filePath;
+
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+                boolean created = file.createNewFile();
+                if (!created) {
+                    throw new YueException("Failed to create a new file: " + filePath);
+                }
+                // Now that the file is created, return an empty list of tasks
+                return tasks;
+            }
+
+            // Check if the file exists
+            if (!file.exists()) {
+                // If the file doesn't exist, create a new one
+                boolean created = file.createNewFile();
+                if (!created) {
+                    throw new YueException("Failed to create a new file: " + filePath);
+                }
+                // Now that the file is created, return an empty list of tasks
+                return tasks;
+            }
+
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
