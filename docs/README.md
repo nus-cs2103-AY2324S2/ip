@@ -150,5 +150,5 @@ The data will be loaded from the txt file in the hard disk when the application 
 - `mark` and `unmark` commands can be done multiple times on the same task without causing any error.
 
 >[!WARNING]
-> No preceding space is allowed in the command. For example, ` todo read book` is invalid.
-> No preceding space is allowed before the date in the command. For example, `deadline submit report /by  2023-03-10` is invalid.
+> - No preceding space is allowed in the command. For example, ` todo read book` is invalid.
+> - No preceding space is allowed before the date in the command. For example, `deadline submit report /by  2023-03-10` is invalid.
