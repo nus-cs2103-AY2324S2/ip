@@ -102,7 +102,7 @@ Noted, I've marked this task as not done yet:
 ```
 
 ### 6. Find tasks
-Find a specific task according to the keyword you entered. 
+Find a specific task according to the keyword you have entered. 
 
 Example: `find piano`
 
