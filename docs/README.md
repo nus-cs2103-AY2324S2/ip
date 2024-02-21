@@ -1,5 +1,7 @@
 # Hari-Bot User Guide
 
+<img src="./Ui.png" width="300">
+
 Countless tasks, cant keep track! Let Hari do it for you! 
 What's more, it's text input-based and easy-to-use!  
 

@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+
 /**
  * Controller for MainDisplay.
  */
@@ -32,6 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren();
     }
 
     public void setDuke(Duke dukes) {
@@ -50,6 +52,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
     }
 }
