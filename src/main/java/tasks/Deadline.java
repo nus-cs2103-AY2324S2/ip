@@ -13,14 +13,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public LocalDateTime getBy() {
-        return this.by;
-    }
-
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy | HHmm");
-        return "[D]" + super.toString() + "(by: " + by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     @Override

@@ -9,6 +9,7 @@ import tasks.Todo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Parser {
@@ -49,9 +50,13 @@ public class Parser {
 
 
 
-    private static LocalDateTime parseDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return LocalDateTime.parse(dateString, formatter);
+    private static LocalDateTime parseDate(String dateString) throws DukeException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Error Parsing!");
+        }
 
     }
 
@@ -62,7 +67,7 @@ public class Parser {
         return textUi.showTaskAdded(todoTask, tasks.getTaskListLength());
     }
 
-    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) {
+    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
         String descriptionAndBy = tokens[1].trim();
         String deadlineDescription = descriptionAndBy.split(" /by ")[0].trim();
         String when = descriptionAndBy.split(" /by ")[1].trim();
@@ -72,7 +77,7 @@ public class Parser {
         return textUi.showTaskAdded(deadlineTask, tasks.getTaskListLength());
     }
 
-    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) {
+    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
         String descriptionAndStartAndEnd = tokens[1].trim();
         String[] parts = descriptionAndStartAndEnd.split(" /from | /to ");
         String eventDescription = parts[0].trim();
@@ -83,21 +88,21 @@ public class Parser {
         return textUi.showTaskAdded(eventTask, tasks.getTaskListLength());
     }
 
-    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) {
+    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToUnMark = tasks.getTask(index);
         tasks.getTask(index).markNotDone();
         return textUi.showMarkedOrUnmarkMessage(taskToUnMark);
     }
 
-    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) {
+    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToMark = tasks.getTask(index);
         taskToMark.markDone();
         return textUi.showMarkedOrUnmarkMessage(taskToMark);
     }
 
-    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) {
+    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);

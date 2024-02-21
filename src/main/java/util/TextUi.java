@@ -1,5 +1,6 @@
 package util;
 
+import exceptions.DukeException;
 import tasks.Task;
 import util.TaskList;
 
@@ -35,7 +36,7 @@ public class TextUi {
                 DIVIDER_DOUBLE;
     }
 
-    public String showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) throws DukeException {
         String taskMessage = " Here are the tasks in your list:\n";
         String message = DIVIDER_DOUBLE + taskMessage;
         String result = "";
