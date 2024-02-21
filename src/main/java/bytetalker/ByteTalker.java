@@ -69,33 +69,6 @@ public class ByteTalker extends Application {
         }
     }
 
-    /**
-     * Runs the chatbot and allows user input. User input is processed with other methods.
-     */
-    public void run() {
-        ui.showWelcome();
-        while (!isExit) {
-            String userInputString = ui.storeUserInput();
-            String[] splitMessages = Parser.parse(userInputString);
-            if (userInputString.equals("bye")) {
-                break;
-            } else if (userInputString.equals("list")) {
-                this.ui.returnList(this.tasks.getTasks());
-            } else if (splitMessages[0].equals("mark")) {
-                this.tasks.markTask(splitMessages, storage, ui);
-            } else if (splitMessages[0].equals("unmark")) {
-                this.tasks.unmarkTask(splitMessages, storage, ui);
-            } else if (splitMessages[0].equals("delete")) {
-                this.tasks.deleteTask(Integer.parseInt(splitMessages[1]), storage, ui);
-            } else if (splitMessages[0].equals("find")) {
-                this.tasks.findTask(splitMessages, ui);
-            } else {
-                this.tasks.addTask(splitMessages, storage, ui);
-            }
-        }
-        ui.showBye();
-    }
-
     private String getResponse(String input) {
         String[] splitMessages = Parser.parse(input);
         if (input.equals("bye")) {
@@ -112,7 +85,7 @@ public class ByteTalker extends Application {
         } else if (splitMessages[0].equals("find")) {
             return this.tasks.findTask(splitMessages, ui);
         } else {
-            return this.tasks.addTask(splitMessages, storage, ui);
+            return this.tasks.determineTask(splitMessages, storage, ui);
         }
     }
 

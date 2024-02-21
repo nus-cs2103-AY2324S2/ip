@@ -31,24 +31,32 @@ public class Storage {
     public void setupDirectoryAndFile() {
         try {
             Path directoryPath = filePath.getParent();
-            boolean directoryExists = Files.exists(directoryPath);
-            boolean fileExists = Files.exists(filePath);
+            boolean hasDirectory = Files.exists(directoryPath);
+            boolean hasFile = Files.exists(filePath);
 
-            if (!directoryExists) {
-                Files.createDirectory(directoryPath);
-                System.out.println("Directory does not exist; hence, created");
-            } else {
-                System.out.println("Directory exists");
-            }
+            createDirectory(hasDirectory, directoryPath);
 
-            if (!fileExists) {
-                Files.createFile(filePath);
-                System.out.println("File does not exist; hence, created");
-            } else {
-                System.out.println("File exists");
-            }
+            createFile(hasFile);
         } catch (IOException e) {
             System.out.println("Failed to create a new file");
+        }
+    }
+
+    public void createDirectory(boolean hasDirectory, Path directoryPath) throws IOException {
+        if (!hasDirectory) {
+            Files.createDirectory(directoryPath);
+            System.out.println("Directory does not exist; hence, created");
+        } else {
+            System.out.println("Directory exists");
+        }
+    }
+
+    public void createFile(boolean hasFile) throws IOException {
+        if (!hasFile) {
+            Files.createFile(filePath);
+            System.out.println("File does not exist; hence, created");
+        } else {
+            System.out.println("File exists");
         }
     }
 

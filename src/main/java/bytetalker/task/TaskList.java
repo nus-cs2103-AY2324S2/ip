@@ -69,7 +69,7 @@ public class TaskList {
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public String addTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String determineTask(String[] splitMessage, Storage storage, Ui ui) {
         try {
             Task task = null;
             boolean isTodo = splitMessage[0].equals("todo");
@@ -85,13 +85,7 @@ public class TaskList {
                 throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
             }
             try {
-                if (task != null) {
-                    this.tasks.add(task);
-                    storage.storeTasks(this.tasks);
-                    return ui.showAddTaskMsg(task, this.tasks.size());
-                } else {
-                    return "No task added";
-                }
+                return addTask(task, storage, ui);
             } catch (IOException e) {
                 this.tasks.remove(this.tasks.size() - 1);
                 return ui.showStoreTaskErrorMessage();
@@ -99,6 +93,16 @@ public class TaskList {
         } catch (ByteTalkerException.UnsupportedTaskException ex) {
             String errorUnsupportedMessage = ex.getMessage() + ". Please only enter the supported types of task.";
             return errorUnsupportedMessage;
+        }
+    }
+
+    public String addTask(Task task, Storage storage, Ui ui) throws IOException {
+        if (task != null) {
+            this.tasks.add(task);
+            storage.storeTasks(this.tasks);
+            return ui.showAddTaskMsg(task, this.tasks.size());
+        } else {
+            return "No task added";
         }
     }
 
