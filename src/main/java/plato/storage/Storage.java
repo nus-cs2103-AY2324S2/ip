@@ -45,7 +45,10 @@ public class Storage {
                 throw new PlatoException("directoryError");
             }
         }
-        assert filePath.contains(".txt") : "Loading invalid storage format";
+        if (!filePath.contains("txt") || !filePath.contains("data")) {
+            throw new PlatoException("loadError");
+        }
+
         File storage = new File(filePath);
         try {
             if (!storage.createNewFile()) {
@@ -60,6 +63,9 @@ public class Storage {
     }
 
     private void loadTasksFromFile(File file, TaskManager manager) throws IOException, PlatoException {
+
+        assert filePath.contains(".txt") : "Loading invalid storage format";
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String next;
 
