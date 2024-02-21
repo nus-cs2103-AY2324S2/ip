@@ -49,13 +49,13 @@ public class RochinBot {
         while (true) {
             ui.showCommandPrompt();
             String userInput = scanner.nextLine();
-            CommandProcessor commandProcessor = new CommandProcessor(userInput);
+            CommandProcessor commandProcessor = new CommandProcessor();
 
-            if (commandProcessor.isExitCommand()) {
+            if (commandProcessor.isExitCommand(userInput)) {
                 break;
             }
 
-            commandProcessor.process(tasks, ui);
+            commandProcessor.process(userInput, tasks, ui);
         }
 
         scanner.close();
@@ -81,6 +81,22 @@ public class RochinBot {
         } catch (RochinException e) {
             ui.showSavingError();
         }
+    }
+
+    /**
+     * Retrieves a response based on the provided input string.
+     * @param input The input string to be processed.
+     * @return The response generated based on the input.
+     * @throws RochinException If there is an error in parsing or executing the command.
+     */
+    String getResponse(String input) throws RochinException {
+        try {
+            CommandProcessor.process(input, tasks, ui);
+            storage.save(tasks.convertTasksToStrings());
+        } catch (RochinException e) {
+            ui.showError(e.getMessage());
+        }
+        return ui.getTextOutput();
     }
 
 }

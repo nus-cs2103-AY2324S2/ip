@@ -1,4 +1,4 @@
-package rochin;
+package rochinBot;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -116,11 +116,12 @@ public class RochinGUI extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(rochin))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getRochinDialog(dukeText, new ImageView(rochin))
         );
         userInput.clear();
     }
+
 
     /**
      * You should have your own function to generate a response to user input.

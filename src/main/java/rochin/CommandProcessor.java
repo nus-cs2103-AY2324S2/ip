@@ -7,17 +7,7 @@ import java.util.List;
  * Represent a command processor for handling user commands related to tasks.
  */
 public class CommandProcessor {
-    private final String command;
-    private boolean isExitCommand;
-
-    /**
-     * Construct a CommandProcessor with the given command.
-     *
-     * @param command The command to be processed.
-     */
-    public CommandProcessor(String command) {
-        this.command = command;
-    }
+    private static boolean isExitCommand;
 
     /**
      * Process the command based on its operation.
@@ -25,9 +15,9 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void process(TaskList tasks, Ui ui) {
+    public static void process(String input, TaskList tasks, Ui ui) {
         if (!isExitCommand) {
-            String[] splitCommand = command.split("\\s+");
+            String[] splitCommand = input.split("\\s+");
             String operation = splitCommand[0].toLowerCase();
 
             switch (operation) {
@@ -35,25 +25,25 @@ public class CommandProcessor {
                     ui.showTaskList(tasks.getAllTasks());
                     break;
                 case "todo":
-                    processTodoCommand(tasks, ui);
+                    processTodoCommand(input, tasks, ui);
                     break;
                 case "deadline":
-                    processDeadlineCommand(tasks, ui);
+                    processDeadlineCommand(input, tasks, ui);
                     break;
                 case "event":
-                    processEventCommand(tasks, ui);
+                    processEventCommand(input, tasks, ui);
                     break;
                 case "delete":
-                    processDeleteCommand(tasks, ui);
+                    processDeleteCommand(input, tasks, ui);
                     break;
                 case "mark":
-                    processMarkCommand(tasks, ui);
+                    processMarkCommand(input, tasks, ui);
                     break;
                 case "unmark":
-                    processUnmarkCommand(tasks, ui);
+                    processUnmarkCommand(input, tasks, ui);
                     break;
                 case "find":
-                    processFindCommand(tasks, ui);
+                    processFindCommand(input, tasks, ui);
                     break;
                 default:
                     ui.showUnknownCommandError();
@@ -67,9 +57,9 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processTodoCommand(TaskList tasks, Ui ui) {
+    public static void processTodoCommand(String input,TaskList tasks, Ui ui) {
         try {
-            String description = command.substring("todo".length()).trim();
+            String description = input.substring("todo".length()).trim();
             if (description.isEmpty()) {
                 throw new RochinException("OOPS!!! The description of a todo cannot be empty.");
             }
@@ -86,9 +76,9 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processDeadlineCommand(TaskList tasks, Ui ui) {
+    public static void processDeadlineCommand(String input,TaskList tasks, Ui ui) {
         try {
-            String descriptionWithDate = command.substring("deadline".length()).trim();
+            String descriptionWithDate = input.substring("deadline".length()).trim();
             // Splitting the description and deadline by "/by"
             String[] parts = descriptionWithDate.split("/by");
             if (parts.length != 2) {
@@ -112,9 +102,9 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processEventCommand(TaskList tasks, Ui ui) {
+    public static void processEventCommand(String input,TaskList tasks, Ui ui) {
         try {
-            String descriptionWithDate = command.substring("event".length()).trim();
+            String descriptionWithDate = input.substring("event".length()).trim();
             // Splitting the description, starting datetime, and ending datetime by "/from" and "/to"
             String[] parts = descriptionWithDate.split("/from");
             if (parts.length != 2) {
@@ -144,8 +134,8 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processDeleteCommand(TaskList tasks, Ui ui) {
-        int taskIndex = getTaskIndex();
+    public static void processDeleteCommand(String input, TaskList tasks, Ui ui) {
+        int taskIndex = getTaskIndex(input);
         tasks.deleteTask(taskIndex);
         ui.showTaskDeletedMessage(tasks.getAllTasks());
     }
@@ -156,8 +146,8 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processMarkCommand(TaskList tasks, Ui ui) {
-        int taskIndex = getTaskIndex();
+    public static void processMarkCommand(String input,TaskList tasks, Ui ui) {
+        int taskIndex = getTaskIndex(input);
         tasks.markTaskAsDone(taskIndex);
         ui.showTaskMarkedAsDoneMessage(tasks.getAllTasks());
     }
@@ -168,8 +158,8 @@ public class CommandProcessor {
      * @param tasks The TaskList to be modified.
      * @param ui    The user interface for displaying messages.
      */
-    public void processUnmarkCommand(TaskList tasks, Ui ui) {
-        int taskIndex = getTaskIndex();
+    public static void processUnmarkCommand(String input,TaskList tasks, Ui ui) {
+        int taskIndex = getTaskIndex(input);
         tasks.unmarkTaskAsDone(taskIndex);
         ui.showTaskUnmarkedAsDoneMessage(tasks.getAllTasks());
     }
@@ -179,9 +169,9 @@ public class CommandProcessor {
      *
      * @return The index of the task.
      */
-    public int getTaskIndex() {
+    public static int getTaskIndex(String input) {
         try {
-            String[] splitCommand = command.split("\\s+");
+            String[] splitCommand = input.split("\\s+");
             return Integer.parseInt(splitCommand[1]);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             Ui.showInvalidCommandError();
@@ -195,9 +185,9 @@ public class CommandProcessor {
      * @param tasks The TaskList containing all tasks.
      * @param ui    The Ui for displaying user interface messages.
      */
-    public void processFindCommand(TaskList tasks, Ui ui) {
+    public static void processFindCommand(String input,TaskList tasks, Ui ui) {
         try {
-            String keyword = command.substring("find".length()).trim();
+            String keyword = input.substring("find".length()).trim();
             if (keyword.isEmpty()) {
                 throw new RochinException("OOPS!!! Please provide a keyword to search for.");
             }
@@ -213,8 +203,8 @@ public class CommandProcessor {
      *
      * @return True if the command is an exit command, false otherwise.
      */
-    public boolean isExitCommand() {
-        isExitCommand = command.equalsIgnoreCase("bye");
+    public boolean isExitCommand(String input) {
+        isExitCommand = input.equalsIgnoreCase("bye");
         return isExitCommand;
     }
 }

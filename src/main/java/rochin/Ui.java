@@ -133,4 +133,8 @@ public class Ui {
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("____________________________________________________________");
     }
+
+    public String getTextOutput() {
+        return "";
+    }
 }
