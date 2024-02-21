@@ -1,3 +1,4 @@
 T | done | thisnew
 T | not done | task
 T | not done | newnew
+T | not done | nic
