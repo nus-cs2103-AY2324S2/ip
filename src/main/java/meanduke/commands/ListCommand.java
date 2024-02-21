@@ -20,6 +20,10 @@ public class ListCommand extends Command {
 
     @Override
     public String execute() {
-        return this.taskList.toString();
+        String listString = this.taskList.toString();
+        if (listString.isEmpty()) {
+            return "Dude... your task list is empty. Stop procrastinating and add some tasks meow...";
+        }
+        return listString;
     }
 }
