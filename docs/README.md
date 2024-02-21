@@ -8,7 +8,7 @@ I am a **command line application**,
 crafted to assist thee in the meticulous tracking of thy tasks, deadlines, and noble events.
 Fear not, for I am fashioned to be as simple as the swing of a sword, intuitive in nature.
 
-![A screenshot of the basic Knight interface](/docs/Ui.png)
+![A screenshot of the basic Knight interface](Ui.png)
 
 ## Features
 1. Add tasks (`todo`, `deadline`, `event`)
@@ -43,5 +43,5 @@ At thy service, Your Excellency, is thy
 ┓┏┓  •  ┓  
 ┃┫ ┏┓┓┏┓┣┓╋
 ┛┗┛┛┗┗┗┫┛┗┗
-          ┛
+       ┛
    ```
