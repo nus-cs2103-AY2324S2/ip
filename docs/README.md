@@ -1,8 +1,5 @@
 # Mona User Guide
-
-// Product screenshot goes here
-
-// Product intro goes here
+![Picture of Mona UI](/docs/Ui.png)
 
 ## Adding Tasks
 
@@ -86,7 +83,7 @@ Expected Outcome: Mona lists all tasks in her list with descriptions containing 
 
 ## Update Tasks
 Updates the details of a task 
->[!NOTE]
+> [!NOTE]
 > This feature only updates details of the task with the task type remaining unchanged.
 
 Format: `update INDEX /new NEW_DETAILS`
