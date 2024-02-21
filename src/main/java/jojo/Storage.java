@@ -22,6 +22,7 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
+        assert !filePath.isEmpty(): "filePath should not be empty";
         this.filePath = filePath;
     }
 
@@ -113,6 +114,7 @@ public class Storage {
             String s;
             while ((s = br.readLine()) != null) {
                 String[] splitStr = s.split(" \\| ");
+                assert splitStr.length <= 4 : "Invalid task format";
                 Task task;
                 switch(splitStr[0].strip()) {
                 case "T":
