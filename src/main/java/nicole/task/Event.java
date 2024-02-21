@@ -66,6 +66,11 @@ public class Event extends Task {
             throw new NicoleException("Erm, the 'to' datetime can't be before 'from' right...");
         }
 
+        if (deadlineFromDateTimeLocalDate.isBefore(LocalDateTime.now())
+            || deadlineToDateTimeLocalDate.isBefore(LocalDateTime.now())) {
+            throw new NicoleException("Erm, the event can't before now right...");
+        }
+
         deadlineFromDateReformattedString = ""
                 + deadlineFromDateTimeLocalDate.getDayOfMonth() + " "
                 + deadlineFromDateTimeLocalDate.getMonth().toString() + " "

@@ -33,7 +33,7 @@ Skip to the basic guide if you need a little more help :hearts:
    - Double-click the `jar` file to launch Nicole. A window like the one shown below should open
    - Fire away!
 
-![initialWindow.png](initialWindowSS.png)
+![initialWindow.png](NicoleScreenshots/initialWindowSS.png)
 
 Take note that when using Nicole, a `tasks.txt` file will
 appear in your computer. This file will simply 
@@ -45,7 +45,7 @@ To know what basic commands Nicole can help you with,
 simply type-in `help` and you should see 
 something like this:
 
-![helpSS.png](helpSS.png)
+![helpSS.png](NicoleScreenshots/helpSS.png)
 
 Take note that when typing the actual commands, 
 you should omit any square braces ([ ]) pictured above. 
@@ -81,11 +81,11 @@ tasknumbers.
 For example, if you wish to delete a `todo`, you
 could `list`:
 
-![list.png](listSS.png)
+![list.png](NicoleScreenshots/listSS.png)
 
 and then accordingly `delete 1` to see a confirmation:
 
-![delete.png](deleteSS.png)
+![delete.png](NicoleScreenshots/deleteSS.png)
 
 In this particular case since `borrow book` was the only
 item, no items remained after deleting it.
@@ -102,10 +102,10 @@ for events are strict!
 Potential triggers for errors :warning:
 - For events specifically:
   - Adding events that overlap one another in any way
-  - Specifying a `to...at` datetime for events that precedes the
-    `from...at` datetime (for example, `event meeting from 2010-01-01...`)
+  - Specifying a `to...at` datetime that precedes the
+    `from...at` datetime. For example, `event meeting from 2024-02-21 at 18:00:00 to 2024-02-21 at 15:00:00`)
 - For both events and deadlines: 
-  - Specifying date(time)s that precede the current date(time)
+  - Specifying date(times) that precede the current date(time). For example, `event meeting from 2010-01-01...`
 
 Nicole will indicate to you very clearly if you made 
 any of the above errors and also guide you 
@@ -120,7 +120,10 @@ peruse your current items first.
 `sort by date` will rearrange your list
 of items from earliest to latest as per their date(time) like so:
 
-![sort.png](sortByDateSS.png)
+![beforeSortingSS.png](NicoleScreenshots/beforeSortingSS.png)
+
+
+![afterSortingSS.png](NicoleScreenshots/afterSortingSS.png)
 
 where events are sorted per their  `from` datetime. If an event's 
 `from` date matches the date of a deadline, the event will
