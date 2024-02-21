@@ -15,14 +15,14 @@ Getting started with Aurora is as easy as 1, 2 and 3:
 3. Double click to launch the application!
 
 Once you've launched the application, expect to be greeted by your new companion:
-![Getting Started](../screenshots/Getting%20started.png)
+![Getting Started](Getting%20started.png)
 
 From here, you can try typing in a command and pressing enter to execute it, below are 2 sample commands you can try:
 1. ```todo``` My First Task (Adds a new Todo to your task list named "My First Task".)
 2. ```list``` (Displays your task list.)
 
 You should be able to see this on the application:
-![Getting Started 2](../screenshots/Getting%20started%202.png)
+![Getting Started 2](Getting%20started%202.png)
 
 ## Features
 Now that you've gotten the first taste of using the application, here are the full features and commands of Aurora, 
@@ -45,7 +45,7 @@ Examples:
 
 You should be able to see the following outputs: 
 
-![Todo and list](../screenshots/Todo%20and%20list.png)
+![Todo and list](Todo%20and%20list.png)
 
 ### Add a Deadline: ```deadline```
 The ```deadline``` command allows you to add a "Deadline" task to your task list, along with a date you wish to 
@@ -59,7 +59,7 @@ Example: ```deadline``` Submit CS2103T iP /by 25/02/2024 2359
 
 You should be able to see the following output:
 
-![Deadline](../screenshots/Deadline.png)
+![Deadline](Deadline.png)
 
 ### Add an Event: ```event```
 The ```event``` command allows you to add an "Event" task with a description, start datetime and end datetime to 
@@ -72,7 +72,7 @@ Date and time format:  ```dd/MM/yyyy HHmm```
 Example: ```event``` Birthday party /from 25/02/2024 1735 /to 25/02/2024 2045
 
 You should be able to see the following output:
-![Event](../screenshots/Event.png)
+![Event](Event.png)
 
 ### Add a DoAfter: ```doafter```
 The ```doafter``` command allows you to add a "DoAfter" task with a description and either a datetime you would like 
@@ -89,7 +89,7 @@ Example:
    task list.)
 
 Here are the outputs that you should see:
-![DoAfter](../screenshots/DoAfter.png)
+![DoAfter](DoAfter.png)
 
 ### Mark a task as "done": ```mark```
 The ```mark``` command allows you to mark a specific task in your task list as done.
@@ -106,7 +106,7 @@ Input format: ```unmark {Index of the task in the task list you wish to mark as 
 Example: ```unmark``` 1 (Marks the first task in the task list as not done.)
 
 Entering ```mark``` 1 and then ```unmark 1``` should produce the following outputs:
-![MarkAndUnmark](../screenshots/MarkAndUnMark.png)
+![MarkAndUnmark](MarkAndUnMark.png)
 
 ### Find tasks by keyword: ```find```
 Ever wanted to search for specific tasks? Use the ```find``` command to find the sub-list of tasks that contain a 
@@ -117,7 +117,7 @@ Input format: ```find {Keyword}```
 Example: ```find``` CS2103T
 
 You should be able to see the following output:
-![Find](../screenshots/Find.png)
+![Find](Find.png)
 
 ### Deleting a task: ```delete```
 To delete a task from the task list, use the ```delete``` command followed by the index of the task you wish to delete.
@@ -127,7 +127,7 @@ Input format: ```delete {Index of task to be deleted}```
 Example: ```delete``` 3 (Deletes the 3rd task on the task list)
 
 You should be able to see the following output:
-![Delete](../screenshots/Delete.png)
+![Delete](Delete.png)
 
 ### Ending your current session with Aurora: ```bye```
 Say goodbye to Aurora with the ```bye``` command, upon which Aurora will print a farewell message for you and 
@@ -162,18 +162,3 @@ Aurora into, and you will be able to access the same task list.
 
 **A**. Aurora will express that she doesn't understand what you are referring to and provide a list of valid 
 commands for you to use.
-
-## Command summary
-| Command                    | Format                                                    | Example                                  |
-|----------------------------|-----------------------------------------------------------|------------------------------------------|
-| ```list```                 | -                                                         | ```list```                               |
-| ```bye```                  | -                                                         | ```bye```                                |
-| ```mark```                 | ```mark {Index of task}```                                | ```mark 1```                             |
-| ```unmark```               | ```unmark {Index of task}```                              | ```unmark 1```                           |
-| ```find```                 | ```find {Keyword}```                                      | ```find book```                          |
-| ```delete```               | ```delete {Index of task}```                              | ```delete 3```                           |
-| ```todo```                 | ```todo {Task Description}```                             | ```todo dance```                         |
-| ```deadline```             | ```deadline {Task Description} /by {Deadline datetime}``` | ```deadline drink /by 25/02/2024 1933``` |
-| ```event```                | ```event {Task Description} /from {Start datetime} /to {End datetime}```| ```event party /from 25/02/2024 1933 /to 25/02/2024 2055```|
-| ```doAfter```(Datetime)    | ```doafter {Task Description} /after {datetime}```| ```doafter return book /after 25/02/2024 2000```|
-| ```doAfter``` (Other task) | ```doafter {Task Description} /after {Index of other task}```|```doafter /after 3```|
