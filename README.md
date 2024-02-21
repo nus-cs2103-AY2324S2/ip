@@ -1,6 +1,4 @@
-# pyrite.Duke project template
-
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+# Pyrite
 
 ## Setting up in Intellij
 
@@ -13,12 +11,6 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/pyrite.Duke.java` file, right-click it, and choose `Run pyrite.Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+3. After that, locate the `src/main/java/pyrite/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+
+![image](https://github.com/ReflectiveObsidian/ip/assets/122241304/fa06d384-7d8c-4adc-8473-d5c08fe5197e)
