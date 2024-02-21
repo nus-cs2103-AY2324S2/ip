@@ -1,5 +1,9 @@
 # Pyrite
 
+## User Guide
+
+![User Guide](https://reflectiveobsidian.github.io/ip/)
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
