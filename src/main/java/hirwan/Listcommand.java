@@ -9,8 +9,10 @@ public class Listcommand extends Command {
     }
     public String getMessage() {
         String output = "";
+        int j = 1;
         for (String i : this.tasks.getList()) {
-            output += i + "\n";
+            output += j + i + "\n";
+            j++;
         }
         return output;
     }

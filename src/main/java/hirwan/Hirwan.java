@@ -82,7 +82,7 @@ public class Hirwan {
                 deletecommand.updateData();
             } else if (input == 10) {
                 List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
-                Hirwan.printSearchResults(indexes, tasks.getList());
+                output = Hirwan.displaySeachResults(indexes, tasks.getList());
 //            } else if (input == 11) {
 //                Undocommand undocommand = new Undocommand(tasks, previousTasks);
 //                undocommand.undo();
@@ -150,5 +150,17 @@ public class Hirwan {
                 Ui.output((index + 1) + tasks.get(index));
             }
         }
+    }
+
+    public static String displaySeachResults(List<Integer> indexes, List<String> tasks) {
+        String output = "Here are the results of your search in the tasklist:\n";
+        if (indexes.size() == 0) {
+            Ui.output("There are no matching tasks with the search word!");
+        } else {
+            for (int index : indexes) {
+                output = output + ((index + 1) + tasks.get(index));
+            }
+        }
+        return output;
     }
 }
