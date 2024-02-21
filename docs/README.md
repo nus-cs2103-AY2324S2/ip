@@ -5,8 +5,6 @@
 Buddy is an **app for managing your tasks, optimized for use via a Command Line Interface** (CLI). If you need help
 remembering all the things you need to do, **_Buddy will be your friend!_**
 
----
-
 ## Quick Start
 1. Ensure you have `Java 11` or above installed in you computer.
 2. Download the latest version of Buddy
@@ -15,9 +13,7 @@ remembering all the things you need to do, **_Buddy will be your friend!_**
 use `java -jar buddy.jar` to run the application.
 5. Type a command into the text field at the bottom of the GUI and press Enter or
 the Send button to execute it.
-6. Refer to the [Features](#features) below for details of each command.
-
----
+6. Refer to the Features below for details of each command.
 
 ## Features
 
