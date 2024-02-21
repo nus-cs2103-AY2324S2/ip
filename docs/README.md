@@ -1,4 +1,4 @@
-# Maltese User Guide
+# Maltese User Guide 🐕
 
 ## Features 
 ## This are the features available in Maltese
