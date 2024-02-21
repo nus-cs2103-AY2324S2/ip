@@ -69,6 +69,7 @@ Format: `mark INDEX`
 
 Example: `mark 1`
 
+Successful Response:
 ```
 I have marked this:
 [E] [X] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
@@ -82,6 +83,7 @@ Format: `unmark INDEX`
 
 Example: `unmark 1`
 
+Successful Response:
 ```
 I have unmarked this:
 [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
@@ -94,6 +96,7 @@ Format: `list`
 
 Example: `list`
 
+Successful Response:
 ```
 1. [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 2. [T] [ ] Geography Homework
@@ -107,6 +110,7 @@ Format: `find KEYWORD`
 
 Example: `find Geography`
 
+Successful Response:
 ```
 Here are your matching search results:
 1. [T] [ ] Geography Homework
@@ -121,6 +125,7 @@ Format: `undo`
 
 Example: `undo`
 
+Successful Response:
 ```
 Your UNMARK command was undone!
 This is your current list:
@@ -136,6 +141,7 @@ Format: `redo`
 
 Example: `redo`
 
+Successful Response:
 ```
 Your UNMARK command was redone!
 This is your current list:
@@ -149,6 +155,15 @@ Exits and closes the application.
 Format: `bye`
 
 Example: `bye`
+
+
+## Notes
+
+- ### Unrecognised commands
+  - If an unrecognised command was inputted, the response would be
+  `You inputted an unrecognizable command` In that scenario, just try again with a correct input.
+
+
 
 --- 
 ## Command summary
