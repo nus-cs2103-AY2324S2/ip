@@ -21,6 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         this.primaryStage = stage;
+        this.primaryStage.setTitle("Tes");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -40,7 +41,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Stage helpStage = new Stage();
-            helpStage.setTitle("Help - User Guide");
+            helpStage.setTitle("Help - A Simple Guide");
             helpStage.initModality(Modality.WINDOW_MODAL);
             helpStage.initOwner(primaryStage);
             Scene helpScene = new Scene(ap);
