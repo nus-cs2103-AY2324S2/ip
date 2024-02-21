@@ -19,7 +19,7 @@ public class Event extends Task {
     protected LocalDateTime fromDateTime = null;
 
     /**
-     * Legacy version which create an event task  with only string.
+     * Creates an event task with string values.
      *
      * @param description Name of the task.
      * @param from        The from date of the task.

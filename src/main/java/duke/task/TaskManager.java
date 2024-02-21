@@ -246,7 +246,7 @@ public class TaskManager {
 
 
     /**
-     * Query the task with the corresponding query action.
+     * Querys the task with the corresponding query action.
      *
      * @param act         a valid query action
      * @param instruction query parameters to find
