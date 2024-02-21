@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Atlas atlas;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.PNG"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.PNG"));
 
     /**
      * Starts up the Gui for the chatbot and show a greeting message.

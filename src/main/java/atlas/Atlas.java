@@ -25,38 +25,6 @@ public class Atlas {
         storage.load();
     }
 
-    /**
-     * The entry point of the application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Atlas atlas = new Atlas();
-        atlas.run();
-    }
-
-    /**
-     * Starts the application loop, greets user, loads existing tasks, accepting user commands and
-     * executing them until the exit command is given. Finally, saves the tasks before exiting.
-     */
-    public void run() {
-        ui.showGreeting();
-        storage.load();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                Command cmd = Parser.parse(input, tasks, ui, storage);
-                cmd.execute();
-            } catch (AtlasException e) {
-                ui.showError(e.getMessage());
-            } catch (DateTimeParseException e) {
-                ui.showError("Date format should be: YYYY-MM-DD HHmm");
-            }
-        }
-    }
-
 
     /**
      * Takes an input from user and returns the appropriate response.

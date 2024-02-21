@@ -4,6 +4,7 @@ import atlas.command.*;
 import atlas.exception.AtlasException;
 import atlas.exception.InvalidDeadlineFormatException;
 import atlas.exception.InvalidEventFormatException;
+import atlas.exception.InvalidPriorityException;
 import atlas.task.Deadline;
 import atlas.task.Event;
 import atlas.task.Task;
@@ -43,6 +44,9 @@ public class Parser {
                 priority = Integer.parseInt(details.split(" /priority ")[1]);
                 details = details.split(" /priority ")[0];
             }
+        }
+        if (!checkPriorityRange(priority)) {
+            throw new InvalidPriorityException("Invalid Priority Range(0 to 5)");
         }
         switch (command) {
         case "bye":
@@ -200,5 +204,9 @@ public class Parser {
             todo.toggle();
         }
         return todo;
+    }
+
+    private static boolean checkPriorityRange(int priority) {
+        return priority >= 0 && priority <= 5;
     }
 }
