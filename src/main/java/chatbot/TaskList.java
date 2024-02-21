@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -272,6 +273,55 @@ public class TaskList {
         }
         return result;
     }
+
+    private void sort(Comparator<Task> comparator) {
+        taskList.sort(comparator);
+    }
+
+    /**
+     * Gets the urgent tasks from the task list.
+     * @return The list of urgent tasks.
+     */
+    public TaskList getUrgentTasks() {
+        TaskList result = new TaskList();
+        TaskList todos = new TaskList(); // Initialize a new TaskList for todos
+        TaskList sortedTasks = new TaskList();
+        // Separate tasks into their respective lists and add todos directly to result
+        for (Task task : taskList) {
+            if (task.isDone()) {
+                continue;
+            }
+            if (task instanceof Deadline) {
+                sortedTasks.addTask(task);
+            } else if (task instanceof Event) {
+                sortedTasks.addTask(task);
+            } else if (task instanceof ToDo) {
+                todos.addTask(task);
+            }
+        }
+        // Sort the deadlines and events within sortedTasks
+        sortDeadlinesAndEvents(sortedTasks);
+        // Add sorted tasks and todos back to the result after sorted tasks
+        sortedTasks.forEach(result::addTask);
+        todos.forEach(result::addTask);
+        return result;
+    }
+
+    private void sortDeadlinesAndEvents(TaskList taskList) {
+        taskList.sort((t1, t2) -> {
+            if (t1 instanceof Deadline && t2 instanceof Deadline) {
+                return ((Deadline) t1).getBy().compareTo(((Deadline) t2).getBy());
+            } else if (t1 instanceof Deadline && t2 instanceof Event) {
+                return -1; // Deadline comes before Event
+            } else if (t1 instanceof Event && t2 instanceof Deadline) {
+                return 1; // Event comes after Deadline
+            } else if (t1 instanceof Event && t2 instanceof Event) {
+                return ((Event) t1).getStartTime().compareTo(((Event) t2).getStartTime());
+            }
+            return 0; // For any other type of tasks, maintain their order
+        });
+    }
+
 
     @Override
     public String toString() {

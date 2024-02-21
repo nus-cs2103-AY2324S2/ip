@@ -44,6 +44,8 @@ public class Alfred {
                 return bye();
             case "list":
                 return tasks.toString();
+            case "urgent":
+                return tasks.getUrgentTasks().toString();
             default:
                 if (input.startsWith("unmark")) {
                     int idx = parser.parseIndex(parser.parseDescription(input));
