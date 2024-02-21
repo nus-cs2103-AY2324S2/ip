@@ -9,7 +9,6 @@ import duke.task.Event;
 import duke.exception.LoadStorageException;
 import duke.exception.SaveStorageException;
 
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,7 +37,7 @@ public class Storage {
     public ArrayList<Task> load() throws LoadStorageException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
-            Path absolutePath = Paths.get(this.relativeFilePath).toAbsolutePath();
+            Path absolutePath = Paths.get(this.relativeFilePath);
 
             // Create the file if it doesn't exist
             if (!Files.exists(absolutePath)) {

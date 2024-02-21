@@ -1,6 +1,17 @@
 package duke.util;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ByeCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.DeadlineCommand;
+import duke.command.DefaultCommand;
+import duke.command.EventCommand;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.HelloCommand;
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 
@@ -14,7 +25,7 @@ import java.util.Scanner;
 public class Parser {
     /* Enum of all possible command types. */
     enum Commands {
-        bye, list, mark, unmark, todo, deadline, event, delete, find
+        bye, list, mark, unmark, todo, deadline, event, delete, find, help, hello
     }
 
     /**
@@ -84,7 +95,14 @@ public class Parser {
             case find:
                 cmd = new FindCommand(commandList);
                 break;
+            case help:
+                cmd = new HelpCommand();
+                break;
+            case hello:
+                cmd = new HelloCommand();
+                break;
             }
+
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException();
         }
