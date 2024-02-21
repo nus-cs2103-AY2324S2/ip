@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import lamball.exception.LamballParseException;
+import lamball.exception.StorageException;
 import lamball.memo.Memo;
 
 /**
@@ -45,29 +46,8 @@ public class Storage {
         File savedList = new File(filePath + defaultFileName);
 
         try {
-            // List file creation
-            if (savedList.createNewFile()) {
-                String message = "List created successfully at: " + savedList.getAbsolutePath();
-                System.out.println(message);
-                returnVal += message + "\n";
-            } else {
-                assert savedList.exists() : "There should be a list.txt";
-                String message = "Seems like I haave helped you before, so no new list is needed!";
-                System.out.println(message);
-                returnVal += message + "\n\n";
-            }
-
-            // Memo file creation
-            if (savedMemo.createNewFile()) {
-                String message = "Memo created successfully at: " + savedMemo.getAbsolutePath();
-                System.out.println(message);
-                returnVal += message + "\n";
-            } else {
-                assert savedMemo.exists() : "There should be a memo.txt";
-                String message = "Seems like you have saved memos!";
-                System.out.println(message);
-                returnVal += message + "\n\n";
-            }
+            returnVal += createFile(savedList, "list");
+            returnVal += createFile(savedMemo, "memo");
 
             initializeListFromText(savedList, lamb);
             initializeMemo(savedMemo, lamb);
@@ -82,13 +62,31 @@ public class Storage {
         return returnVal;
     }
 
+    private static String createFile(File fle, String name) throws IOException {
+        String returnVal = "";
+
+        if (fle.createNewFile()) {
+            String message = name + "created successfully at: " + fle.getAbsolutePath();
+            System.out.println(message);
+            returnVal += message + "\n";
+        } else {
+            assert fle.exists() : "There should be a " + name + ".txt";
+            String message = "Seems like you haaave a saved" + name + ", baa!";
+            System.out.println(message);
+            returnVal += message + "\n\n";
+        }
+
+        return returnVal;
+    }
+
     private static void initializeMemo(File savedMemo, Lamball lamb) throws FileNotFoundException {
 
         assert savedMemo.exists() : "Memo file should exist.";
         System.out.println(savedMemo.exists());
-        System.out.println("asdasdasd");
+
         Scanner scannr = new Scanner(savedMemo);
         System.out.println("Initializing memo...");
+
         while (scannr.hasNext()) {
             try {
                 String currLine = scannr.nextLine();
@@ -152,7 +150,7 @@ public class Storage {
      * @param toWrite Replacement line.
      * @param index Index of line to replace.
      */
-    public static void replaceLine(String toWrite, int index) {
+    public static void replaceLine(String toWrite, int index) throws StorageException {
         try {
             // Read all lines from the file
             Path path = Paths.get(filePath + defaultFileName);
@@ -165,10 +163,8 @@ public class Storage {
 
                 // Write the modified content back to the file
                 Files.write(path, lines);
-
-                // System.out.println("Line " + index + " replaced successfully.");
             } else {
-                // System.err.println("aaaaaaa");
+                throw new StorageException("Invalid Index!");
             }
         } catch (IOException e) {
             e.printStackTrace();

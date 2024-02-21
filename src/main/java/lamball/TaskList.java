@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import lamball.exception.DuplicateEntryException;
 import lamball.exception.InvalidDateException;
+import lamball.exception.StorageException;
 import lamball.task.Deadline;
 import lamball.task.Event;
 import lamball.task.Task;
@@ -55,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Default list printing operation.
+     * Prints full list of tasks.
      *
      * @return Boolean to continue keeping the bot running.
      */
@@ -75,7 +76,11 @@ public class TaskList {
         temp.mark();
         updateLastDoneTask("I have maaarked the task as done:\n" + "    " + temp.toString());
         if (!isInit) {
-            Storage.replaceLine("1 | " + temp.command(), idx);
+            try {
+                Storage.replaceLine("1 | " + temp.command(), idx);
+            } catch (StorageException e) {
+                updateLastDoneTask(e.getMessage());
+            }
         }
         return true;
     }
@@ -90,7 +95,11 @@ public class TaskList {
         Task temp = tasks.get(idx);
         temp.unMark();
         updateLastDoneTask("I have maaarked the task as undone:\n" + "    " + temp.toString());
-        Storage.replaceLine("0 | " + temp.command(), idx);
+        try {
+            Storage.replaceLine("0 | " + temp.command(), idx);
+        } catch (StorageException e) {
+            updateLastDoneTask(e.getMessage());
+        }
         return true;
     }
 

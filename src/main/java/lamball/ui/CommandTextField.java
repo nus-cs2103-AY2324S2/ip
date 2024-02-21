@@ -3,7 +3,6 @@ package lamball.ui;
 import static javafx.application.Platform.exit;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,11 +50,6 @@ public class CommandTextField extends HBox {
         this.getChildren().addAll(userInput, sendButton);
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         Text userText = new Text(userInput.getText());
         Text lamballText = new Text(lamb.getResponse(userInput.getText()));

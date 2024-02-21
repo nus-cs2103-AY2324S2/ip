@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,8 +14,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-
 /**
  * Class for Dialog box - usable for both user input and chatbot response.
  */
@@ -31,8 +28,8 @@ public class DialogBox extends HBox {
     /**
      * Private constructor for dialogbox.
      *
-     * @param t
-     * @param iv
+     * @param t Text component.
+     * @param iv Image component.
      */
     private DialogBox(Text t, ImageView iv, Number windowWidth) {
         this.windowWidth = windowWidth;

@@ -2,7 +2,6 @@ package lamball;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -43,11 +42,11 @@ public class MainApp extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Lamball");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        // mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(400.0, 600.0);
 
         AnchorPane.setTopAnchor(scrollList, 1.0);
         AnchorPane.setBottomAnchor(sender, 1.0);

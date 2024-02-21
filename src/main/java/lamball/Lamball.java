@@ -1,6 +1,5 @@
 package lamball;
 
-import javafx.scene.image.Image;
 import lamball.command.Command;
 import lamball.exception.LamballParseException;
 import lamball.memo.Memo;
@@ -15,8 +14,6 @@ import lamball.ui.Ui;
  */
 public class Lamball {
     private static final String USER_PROMPT = "    You:";
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
     private TaskList tasks;
     private MemoList memos;
     private Ui ui;
@@ -43,7 +40,7 @@ public class Lamball {
     }
 
     /**
-     * Parse for initial list of commands
+     * Parses initial list of commands
      *
      * @param msg Command to parse.
      * @throws LamballParseException if invalid command is provided.
@@ -52,9 +49,6 @@ public class Lamball {
         Command parsed = Parser.parse(msg, tasks, memos, true);
         parsed.run();
     }
-
-
-
 
 
     /**
