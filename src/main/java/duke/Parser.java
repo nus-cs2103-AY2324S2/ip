@@ -32,6 +32,16 @@ public class Parser {
         case "list":
             command = new ListCommand();
             break;
+        case "view_schedule":
+            if (parts.size() == 1) {
+                throw new DukeException("Please add date!");
+            }
+            String dateString = parts.get(1);
+            if (dateString == null) {
+                throw new DukeException("Mamma-mia provide-o ur date-o!");
+            }
+            command = new ViewScheduleCommand(LocalDate.parse(dateString));
+            break;
         case "mark":
             command = new MarkCommand(Integer.parseInt(parts.get(1)));
             break;
