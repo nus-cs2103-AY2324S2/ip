@@ -19,8 +19,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * {@inheritDoc}
      * Runs the InvalidCommand and returns the error message.
+     * {@inheritDoc}
      *
      * @param tasklist The TaskList to be operated on by the command. This parameter is not used in this method.
      * @return The error message associated with this command.
@@ -30,8 +30,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * {@inheritDoc}
      * Checks whether this InvalidCommand is equal to another object.
+     * {@inheritDoc}
      *
      * @param obj The object to compare with this InvalidCommand.
      * @return {@code true} if the objects are equal, {@code false} otherwise.

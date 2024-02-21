@@ -17,8 +17,8 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * {@inheritDoc}
      * Displays a list of supported commands.
+     * {@inheritDoc}
      *
      * @param tasklist The TaskList to be operated on by the command.
      */
