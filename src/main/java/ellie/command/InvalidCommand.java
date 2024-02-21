@@ -51,7 +51,7 @@ public class InvalidCommand extends Command {
             return other.errorMessage != null;
         }
 
-        if (this.errorMessage != other.errorMessage) {
+        if (!this.errorMessage.equals(other.errorMessage)) {
             return false;
         }
 

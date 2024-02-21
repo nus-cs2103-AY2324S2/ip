@@ -74,6 +74,7 @@ public class Parser {
 
         String stringBody = inputArray[1];
 
+        // parse commands with arguments
         switch (type) {
         case MARK:
             return parseMarkCommand(stringBody);
