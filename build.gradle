@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("fredricksen.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Fredricksen.jar"
+    archiveBaseName = "FredricksenV2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

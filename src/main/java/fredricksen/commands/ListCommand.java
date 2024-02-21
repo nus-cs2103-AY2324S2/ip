@@ -36,9 +36,4 @@ public class ListCommand extends Command {
         }
         return sb.toString();
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof ListCommand;
-    }
 }

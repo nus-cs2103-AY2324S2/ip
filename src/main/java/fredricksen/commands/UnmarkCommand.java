@@ -54,9 +54,4 @@ public class UnmarkCommand extends Command {
             return "Set all current tasks as uncompleted";
         }
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof UnmarkCommand;
-    }
 }
