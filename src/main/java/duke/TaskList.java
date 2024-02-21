@@ -129,8 +129,8 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1]) - 1;
-        if (no > list.size()){
-            return "invalid input.";
+        if (no >= list.size()){
+            return "This is an invalid input, Bingus does not remember that many tasks!.";
         }
         list.get(no).markAsDone();
         System.out.println("Nice! I've marked this task as done:\n");
@@ -149,8 +149,8 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1]) - 1;
-        if (no > list.size()){
-            return "invalid input.";
+        if (no >= list.size()){
+            return "This is an invalid input, Bingus does not remember that many tasks!.";
         }
         list.get(no).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:\n");
