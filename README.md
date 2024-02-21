@@ -1,24 +1,29 @@
-# Duke project template
+# PannaBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "The greatest bot of all time, probably" - Ajay Arvind [Source](https://www.youtube.com/watch?v=hhuEsj93Q1U)
 
-## Setting up in Intellij
+PannaBot provides the following functionality for **you**
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+* GUI Interfacing
+* Maintaining _Todo_, _Deadlines_, and _Events_
+* Having a joyful exuberant ~~Mildly irritating~~ personality,
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+
+**To set it up, all you have to do is:**
+
+1. Clone the github repo using the following command on git bash
+   ```
+   git clone [link of repository]
+   git branch -a
+   ```
+2. Open the project in an IDE of your choice, ideally IntelliJ
+> [!IMPORTANT]
+> Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+3. After that, locate the `src/main/java/Launcher.java` file, right-click it, and choose `Run Launcher.main()`
+
+The PannaBot Guarantee<sup>TM</sup>
+- [x] Have fun :+1:
+- [x] Responsive good UI
+- [ ] Random lag spikes
+
