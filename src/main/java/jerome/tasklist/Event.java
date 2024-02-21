@@ -41,6 +41,7 @@ public class Event extends Task {
         super(description, isDone);
         this.startTime = new DateTimeHandler(startTime);
         this.endTime = new DateTimeHandler(endTime);
+        super.setPriority(priority);
     }
 
     /**
