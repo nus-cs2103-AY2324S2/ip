@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
      * @param index The index of the task to be marked.
      */
     public MarkCommand(int index) {
-        super("", CommandType.MARK);
+        super("A");
         this.index = index;
     }
 

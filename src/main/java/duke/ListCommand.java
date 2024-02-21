@@ -8,7 +8,7 @@ public class ListCommand extends Command {
      * Constructor for the list command.
      */
     public ListCommand() {
-        super("", null);
+        super("");
     }
 
     /**

@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
-        super("", CommandType.DELETE);
+        super("");
         this.index = index;
     }
 
