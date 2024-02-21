@@ -32,6 +32,7 @@ public class Parser {
     public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "Unknown command. "
             + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
             + " 'bye'";
+    public static final String START_DATE_AFTER_END_ERROR_MESSAGE = "Start date cannot be after end date.";
 
     private static int parseID(String[] parameters) {
         int id;
@@ -170,6 +171,10 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     return new UnknownCommand(commandString,
                             INVALID_DATETIME_FORMAT_ERROR_MESSAGE);
+                }
+                if (start.isAfter(end)) {
+                    return new UnknownCommand(commandString,
+                            START_DATE_AFTER_END_ERROR_MESSAGE);
                 }
                 return new AddCommand(new Event(description, start, end));
             default:
