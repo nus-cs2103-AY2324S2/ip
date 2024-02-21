@@ -67,11 +67,13 @@ public class MainWindow extends AnchorPane {
             String helpMessage = "Welcome! I'm FICIN.\nWhat can I do for you?\n"
                     + "\nHere are the available commands:\n"
                     + "  - help: show commands\n"
-                    + "  - find: Find tasks\n"
                     + "  - list: List all tasks\n"
-                    + "  - todo <description>: Add a todo task\n"
-                    + "  - deadline <description> /by <date/time>: Add a deadline task\n"
-                    + "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
+                    + "  - find <word>: Find tasks\n"
+                    + "  - todo <task>: Add a todo task\n"
+                    + "  - deadline <task> /by <date>: Add a deadline task\n"
+                    + "  - event <task> /from <date> /to <date>: Add an event task\n"
+                    + "     - date can be written by YYYY/MM/dd or YYYY/MM/dd HHmm\n"
+                    + "     - today & tomorrow can be used for date";
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(helpMessage, dukeImage)
             );
