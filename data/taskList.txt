@@ -1,6 +1,4 @@
-T |   | read book
-D | X | return book | 2024-01-05 1700
-E | X | project meeting | 2024-01-10 1400 | 2024-01-10 1700
-T | X | join sports club
-D |   | do milestone 1 | 2023-11-25 1800
+T | X | read book
+D |   | return book | 2024-01-05 1700
+T |   | join sports club
 E |   | CS2103T project meeting | 2024-02-01 1700 | 2024-02-01 1900

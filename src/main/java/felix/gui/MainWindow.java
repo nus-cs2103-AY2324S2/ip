@@ -1,6 +1,8 @@
 package felix.gui;
 
 import felix.Felix;
+import felix.utils.Ui;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -30,9 +32,16 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image felixImage = new Image(this.getClass().getResourceAsStream("/images/felix.jpg"));
 
+    /**
+     * Initialises the app with a display introductory message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String introductionMessage = new Ui().getIntroduction();
+        dialogContainer.getChildren().add(
+                DialogBox.getFelixDialog(introductionMessage, felixImage)
+        );
     }
 
     public void setFelix(Felix felix) {
@@ -49,7 +58,7 @@ public class MainWindow extends AnchorPane {
         String response = felix.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, felixImage)
+                DialogBox.getFelixDialog(response, felixImage)
         );
         userInput.clear();
         if (input.equals("bye")) {

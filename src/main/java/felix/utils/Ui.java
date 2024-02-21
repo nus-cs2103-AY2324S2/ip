@@ -8,7 +8,7 @@ import felix.task.Task;
  * Class representing abstraction for user interface
  */
 public class Ui {
-    private static final int LINE_LENGTH = 60;
+    private static final int LINE_LENGTH = 55;
     private static final String BOT_NAME = "Felix";
     private static final String LOGO = "___________    .__  .__        \n"
             + "\\_   _____/___ |  | |__|__  ___\n"
