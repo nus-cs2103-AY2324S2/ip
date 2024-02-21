@@ -2,6 +2,7 @@ package duke;
 
 import duke.control.DialogBox;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,7 @@ import java.util.Scanner;
  * unless no such directory exists, where it is added to the root.
  */
 public class Duke extends Application {
+    public static Duke instance;
     private final Storage storage;
     private final ItemList itemList;
     private final UI ui;
@@ -101,6 +103,9 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(this.ui.getLogo()), new ImageView(duke)));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(this.ui.getGreet()), new ImageView(duke)));
+
         sendButton.setOnMouseClicked((event) -> handleUserInput());
 
         userInput.setOnAction((event) -> handleUserInput());
@@ -120,6 +125,11 @@ public class Duke extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
+
+        if (userInput.getText().equals("bye")) {
+            Platform.exit();
+        }
+
         userInput.clear();
     }
 
@@ -129,12 +139,10 @@ public class Duke extends Application {
      */
     private String getResponse(String input) {
         // to abstract out UI stuff using fxml
-        Duke elias = new Duke();
-        elias.parser = new Parser(elias.itemList);
         String out = "";
         if (!input.equals("bye")) {
             try {
-                out = elias.parser.parse(input);
+                out = this.parser.parse(input);
                 return out;
             } catch (CustomExceptions.UnrecognizedCommandException e) {
                 return "Sorry I do not recognize this command: " + input;
@@ -142,35 +150,9 @@ public class Duke extends Application {
                 return e.getMessage();
             }
         } else {
-            elias.storage.writeToFile(elias.itemList);
-            return elias.ui.getBye();
+            this.storage.writeToFile(this.itemList);
+            return this.ui.getBye();
         }
     }
 
-
-    public static void main(String[] args) {
-        Duke elias = new Duke();
-        System.out.println(elias.ui.getLogo());
-        System.out.println(elias.ui.format(elias.ui.getGreet()));
-        elias.parser = new Parser(elias.itemList);
-        Scanner sc = new Scanner(System.in);
-        String command = sc.nextLine();
-
-        while (!command.equals("bye")) {
-            try {
-                String out = elias.parser.parse(command);
-                if (!(out == null)) {
-                    System.out.println(elias.ui.format(out));
-                }
-            } catch (CustomExceptions.UnrecognizedCommandException e) {
-                System.out.println(elias.ui.format("Sorry I do not recognize this command: " + command));
-            } catch (CustomExceptions e) {
-                System.out.println(elias.ui.format(e.getMessage()));
-            }
-            command = sc.nextLine();
-        }
-
-        elias.storage.writeToFile(elias.itemList);
-        System.out.println(elias.ui.format(elias.ui.getBye()));
-    }
 }
