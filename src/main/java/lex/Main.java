@@ -8,7 +8,7 @@ import javafx.application.Application;
 public class Main {
 
     /**
-     * The main method.
+     * The main method that launches the application.
      *
      * @param args The command line arguments.
      */

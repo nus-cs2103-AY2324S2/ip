@@ -30,14 +30,14 @@ ____________________________________________________________
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
-Nice! I've marked this lex.tasks as done:
+Nice! I've marked this tasks as done:
 [T][X] borrow book
 ____________________________________________________________
 1. [T][X] borrow book
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
-OK, I've marked this lex.tasks as not done yet:
+OK, I've marked this tasks as not done yet:
 [T][ ] borrow book
 ____________________________________________________________
 1. [T][ ] borrow book

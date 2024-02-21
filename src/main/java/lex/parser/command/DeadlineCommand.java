@@ -38,7 +38,7 @@ public class DeadlineCommand implements Command {
 
         ui.print("Got it. I've added this task:");
         ui.print("  " + tasks.get(tasks.size() - 1));
-        ui.print("Now you have " + tasks.size() + " lex.tasks in the list.");
+        ui.print("Now you have " + tasks.size() + " tasks in the list.");
 
         return false;
     }

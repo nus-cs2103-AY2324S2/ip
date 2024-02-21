@@ -48,6 +48,8 @@ public class Lex extends Application {
 
     /**
      * Runs the Lex chatbot.
+     *
+     * @param input The input to be processed.
      */
     public String run(String input) {
         assert input != null : "Input should not be null";

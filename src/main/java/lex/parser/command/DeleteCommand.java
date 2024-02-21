@@ -32,7 +32,7 @@ public class DeleteCommand implements Command {
 
         ui.print("Noted. I've removed this task:");
         ui.print("  " + removedTask);
-        ui.print("Now you have " + tasks.size() + " lex.tasks in the list.");
+        ui.print("Now you have " + tasks.size() + " tasks in the list.");
 
         return false;
     }
