@@ -41,8 +41,12 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTask(Task task) throws DukeException {
+        if (tasks.contains(task)) {
+            throw new DukeException("Task already exists in the list.\n");
+        } else {
+            tasks.add(task);
+        }
     }
 
     /**

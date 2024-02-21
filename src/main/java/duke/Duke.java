@@ -86,7 +86,7 @@ public class Duke {
             try {
                 Task task = parser.parseTodo(input);
                 tasks.addTask(task);
-                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                response = ui.addedMessage(task) + "\n" +ui.totalTask(tasks.getSize());
                 storage.save(tasks.getTasks());
             } catch (DukeException e) {
                 response = e.getMessage();
@@ -95,7 +95,7 @@ public class Duke {
             try {
                 Task task = parser.parseDeadline(input);
                 tasks.addTask(task);
-                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                response = ui.addedMessage(task) + "\n" + ui.totalTask(tasks.getSize());
                 storage.save(tasks.getTasks());
             } catch (DukeException e) {
                 response = e.getMessage();
@@ -104,7 +104,7 @@ public class Duke {
             try {
                 Task task = parser.parseEvent(input);
                 tasks.addTask(task);
-                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                response = ui.addedMessage(task) + "\n" + ui.totalTask(tasks.getSize());
                 storage.save(tasks.getTasks());
             } catch (DukeException e) {
                 response = e.getMessage();

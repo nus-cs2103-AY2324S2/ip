@@ -7,8 +7,6 @@ import java.io.Serializable;
  * The Task class contains methods for managing task descriptions and completion status.
  * Each task can be marked as done or undone, and its status can be retrieved.
  * 
- * Ensure method and class header comments adhere to the format specified in the coding standard, 
- * particularly focusing on the phrasing of the overview statement.
  */
 public class Task implements Serializable{
     protected String description;
@@ -54,5 +52,17 @@ public class Task implements Serializable{
      */
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task other = (Task) obj;
+        return this.description.equals(other.description);
     }
 }
