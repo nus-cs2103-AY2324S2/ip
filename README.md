@@ -130,12 +130,12 @@ Quit talking to Taylor
 
 Format: `bye`
 
-### FAQ
+## FAQ
 **Q.** Can I adjust the dimension of the Taylor application?
 **A.** Unfortunately, Taylor v1.0 does not support such function yet. 
 Do look forward to Taylor v2.0 Era :smile:
 
-### Command summary
+## Command summary
 | Action              | Format                                                              |
 |---------------------|---------------------------------------------------------------------|
 | Insert: `todo`      | `todo <DESCRIPTION>`                                                |
