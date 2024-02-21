@@ -15,8 +15,15 @@ public class TodoTest {
     @Test
     public void saveFormatTest(){
         Task t = new Todo("Eat bread");
+        String str = t.saveFormat();
+        assertEquals("T|0|Eat bread", str);
+    }
+
+    @Test
+    public void markDoneTest(){
+        Task t = new Todo("Do stuff");
         t.markAsDone();
         String str = t.saveFormat();
-        assertEquals("T|1|Eat bread", str);
+        assertEquals("T|1|Do stuff", str);
     }
 }
