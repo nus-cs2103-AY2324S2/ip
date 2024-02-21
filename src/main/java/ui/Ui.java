@@ -30,10 +30,21 @@ public class Ui {
                 + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
     }
 
+    /**
+     * No result found
+     * @param response StringBuilder to append
+     * @return Appended StringBuilder
+     */
     public static StringBuilder emptyResult(StringBuilder response) {
         return response.append("No task found\n");
     }
 
+    /**
+     * Print out tasks in the list
+     * @param response StringBuilder to append
+     * @param result list of tasks queried
+     * @return Appended StringBuilder
+     */
     public static StringBuilder appendResponse(StringBuilder response, List<Task> result) {
         int index = 1;
         for (Task tsk : result) {
@@ -42,10 +53,21 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Header reply
+     * @param response StringBuilder to append
+     * @return Appended StringBuilder
+     */
     public static StringBuilder listingStart(StringBuilder response) {
         return response.append("Here are the tasks in your list: \n");
     }
 
+    /**
+     * List out the tasks, separated by type of tasks
+     * @param taskList lists of tasks lists
+     * @param response StringBuilder to append
+     * @return Appended StringBuilder
+     */
     public static StringBuilder listTasks(List<List<Task>> taskList, StringBuilder response) {
         for (int i = 0; i < taskList.size(); i++) {
             List<Task> currList = taskList.get(i);
@@ -71,6 +93,14 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Response output for marking tasks
+     * @param response StringBuilder to append
+     * @param listToEdit tasks list to be edited
+     * @param noToEdit index of the task to be edited
+     * @param action mark/unmark
+     * @return Appended StringBuilder
+     */
     public static StringBuilder markTask(StringBuilder response, List<Task> listToEdit, int noToEdit, String action) {
         if (action.equals("MARK")) {
             listToEdit.get(noToEdit).markIt();
@@ -86,6 +116,13 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Response output for deleting tasks
+     * @param response StringBuilder to append
+     * @param listToEdit tasks list to be edited
+     * @param noToEdit index of the task to be edited
+     * @return Appended StringBuilder
+     */
     public static StringBuilder deleteTask(StringBuilder response, List<Task> listToEdit, int noToEdit) {
         int idx = noToEdit - 1;
         Task taskRemoved = listToEdit.get(idx);
@@ -95,6 +132,13 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Response output for adding tasks
+     * @param response StringBuilder to append
+     * @param lst tasks list to be edited
+     * @param tsk tasks to be inserted into the list
+     * @return Appended StringBuilder
+     */
     public static StringBuilder addTask(StringBuilder response, List<Task> lst, Task tsk) {
         lst.add(tsk);
         response.append(tsk).append("\n");

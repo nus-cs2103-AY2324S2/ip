@@ -1,11 +1,10 @@
 package tasklist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
 import helper.CheckValid;
-import helper.TaskEditor;
+import helper.IterateList;
 import helper.WordsSplit;
 import tasks.Task;
 import ui.Ui;
@@ -26,8 +25,8 @@ public class DeleteTask {
      * Execute Deleting tasks
      *
      * @param input    : User input
-     * @param taskList
-     * @throws TaylorException
+     * @param taskList List of tasks list
+     * @throws TaylorException Invalid user command
      */
     // delete event 1
     public static String execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
@@ -42,8 +41,7 @@ public class DeleteTask {
             int idxToGetTaskNo = 2;
             int noToDelete = Integer.parseInt(wordPartition[idxToGetTaskNo]);
 
-            List<Task> listToEdit = new ArrayList<>();
-            listToEdit = TaskEditor.listEdit(taskList, taskType, listToEdit);
+            List<Task> listToEdit = IterateList.retrieveList(taskList, taskType);
             CheckValid.checkValidNum(noToDelete, listToEdit);
 
             Ui.deleteTask(response, listToEdit, noToDelete);

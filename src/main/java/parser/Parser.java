@@ -4,6 +4,7 @@ import java.util.List;
 
 import exceptions.TaylorException;
 import filestorage.Storage;
+import helper.WordsSplit;
 import tasklist.DeleteTask;
 import tasklist.FindTask;
 import tasklist.InsertTask;
@@ -12,7 +13,6 @@ import tasklist.MarkTask;
 import tasklist.SearchTask;
 import tasks.Task;
 import ui.Ui;
-import helper.WordsSplit;
 
 /**
  * Deals with making sense of the suer command

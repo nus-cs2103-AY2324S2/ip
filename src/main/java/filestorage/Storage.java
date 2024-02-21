@@ -25,15 +25,14 @@ public class Storage {
 
     /**
      * Read File from Hard Disk
-     * @param taskList get the empty Action ArrayList
+     *
      * @return Action ArrayList from Hard Disk or the empty ArrayList if not present
      * @throws Exception Wrong file location, no data in the file, or content in wrong format
      */
-    public static List<List<Task>> inputFromFile(List<List<Task>> taskList) throws TaylorException {
+    public static List<List<Task>> inputFromFile() throws TaylorException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
-            taskList = (List<List<Task>>) ois.readObject();
-            return taskList;
+            return (List<List<Task>>) ois.readObject();
         } catch (FileNotFoundException e) {
             throw new TaylorException("File not found\n" + System.getProperty("user.dir"));
         } catch (IOException | ClassNotFoundException e) {

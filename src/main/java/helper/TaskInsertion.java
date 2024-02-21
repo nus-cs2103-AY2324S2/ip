@@ -12,15 +12,18 @@ import tasks.Task;
 import tasks.Todo;
 import ui.Ui;
 
+/**
+ * To insert task into the list
+ */
 public class TaskInsertion {
     private TaskInsertion() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Add todo
+     * Add todo task
      * @param content : what to do?
-     * @param taskList
+     * @param taskList list of todo tasks
      */
     public static String todoTask(String content, List<Task> taskList) {
         StringBuilder response = new StringBuilder();
@@ -32,10 +35,10 @@ public class TaskInsertion {
     }
 
     /**
-     * Add deadline
+     * Add Deadline task
      * @param content : what to do? by when?
-     * @param taskList
-     * @throws TaylorException
+     * @param taskList list of deadline task
+     * @throws TaylorException invalid user input
      */
     public static String deadlineTask(String content, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
@@ -45,8 +48,6 @@ public class TaskInsertion {
             int timeIdx = 1;
             String action = WordsSplit.getWord(deadlineWordPartition, actionIdx);
             String time = WordsSplit.getWord(deadlineWordPartition, timeIdx);
-
-            CheckValid.checkField(action, time);
 
             Deadline dl = new Deadline(action, dateConversion(time.trim()));
             Ui.addTask(response, taskList, dl);
@@ -61,8 +62,8 @@ public class TaskInsertion {
     /**
      * Add event
      * @param content : what to do? From when to when?
-     * @param taskList
-     * @throws TaylorException
+     * @param taskList list of events task
+     * @throws TaylorException Invalid user input
      */
     public static String eventTask(String content, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
@@ -73,8 +74,6 @@ public class TaskInsertion {
             int timeIdx = 1;
             String action = WordsSplit.getWord(eventWordPartition, actionIdx);
             String time = WordsSplit.getWord(eventWordPartition, timeIdx);
-
-            CheckValid.checkField(action, time);
 
             try {
                 String[] timePartition = WordsSplit.separateWords(time, "/to", false);

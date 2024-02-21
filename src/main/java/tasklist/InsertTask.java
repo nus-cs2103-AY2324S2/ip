@@ -26,8 +26,8 @@ public class InsertTask {
     /**
      * Execute inserting the tasks
      * @param input User input
-     * @param taskList
-     * @throws TaylorException
+     * @param taskList List containing the different list of tasks
+     * @throws TaylorException empty description field / invalid task type input
      */
     public static String execInsertTask(String input, List<List<Task>> taskList) throws TaylorException {
         String response;
@@ -45,13 +45,9 @@ public class InsertTask {
             throw new TaylorException("The description of the task is empty.");
         }
 
-        int deadlineListIdx = 0;
-        int eventListIdx = 1;
-        int todoListIdx = 2;
-
-        List<Task> deadlineList = IterateList.retrieveList(taskList, deadlineListIdx);
-        List<Task> eventList = IterateList.retrieveList(taskList, eventListIdx);
-        List<Task> todoList = IterateList.retrieveList(taskList, todoListIdx);
+        List<Task> deadlineList = IterateList.retrieveList(taskList, "DEADLINE");
+        List<Task> eventList = IterateList.retrieveList(taskList, "EVENT");
+        List<Task> todoList = IterateList.retrieveList(taskList, "TODO");
 
         switch (type) {
         case TODO:

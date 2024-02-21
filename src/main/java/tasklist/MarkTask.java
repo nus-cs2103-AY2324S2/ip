@@ -1,11 +1,10 @@
 package tasklist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
 import helper.CheckValid;
-import helper.TaskEditor;
+import helper.IterateList;
 import helper.WordsSplit;
 import tasks.Task;
 import ui.Ui;
@@ -25,7 +24,8 @@ public class MarkTask {
     /**
      * Execute marking/unmarking
      * @param input : to mark or unmark and which one?
-     * @param taskList
+     * @param taskList List containing Todo, Deadline and Event
+     *                 list of task
      */
     public static String execMarkTask(String input, List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
@@ -41,8 +41,7 @@ public class MarkTask {
             int idxToGetTaskNo = 2;
             int retrieverNum = Integer.parseInt(WordsSplit.getWord(wordPartition, idxToGetTaskNo)) - 1;
 
-            List<Task> listToEdit = new ArrayList<>();
-            TaskEditor.listEdit(taskList, taskType, listToEdit);
+            List<Task> listToEdit = IterateList.retrieveList(taskList, taskType);
             CheckValid.checkValidNum(retrieverNum, listToEdit);
 
             Ui.markTask(response, listToEdit, retrieverNum, action);

@@ -44,13 +44,11 @@ public class SearchTask {
             } else {
                 Ui.appendResponse(response, output);
             }
-
         } catch (TaylorException err) {
             throw new TaylorException(err.getMessage());
         } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
         }
-
         return response.toString();
     }
 }
