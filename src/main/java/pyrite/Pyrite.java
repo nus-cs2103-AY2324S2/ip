@@ -28,8 +28,11 @@ public class Pyrite {
 
     private String executeCommands(String ... commandStrings) {
         String response = "";
-        for (String commandString : commandStrings) {
-            response += "\n" + executeCommand(commandString);
+        for (int i = 0; i < commandStrings.length; i++) {
+            response += executeCommand(commandStrings[i]);
+            if (i != commandStrings.length - 1) {
+                response += "\n";
+            }
         }
         return response;
     }
