@@ -11,14 +11,14 @@ import seedu.banter.utilities.DateTime;
  */
 public class Deadline extends Task {
     private static final String DEADLINE_ICON = "D";
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructs a new Deadline object that should be unmarked and in the future.
-     * @param description
-     * @param by
+     * @param description The description of the Deadline task.
+     * @param by The due date of the Deadline task.
      */
-    public Deadline(String description, LocalDateTime by) { // default access modifier
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
         Assertions.assertDateTimeIsInTheFuture(by);
@@ -27,11 +27,11 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new Deadline object without restrictions on done status and datetime.
-     * @param description
-     * @param isDone
-     * @param by
+     * @param description The description of the Deadline task.
+     * @param isDone The done status of the Deadline task.
+     * @param by The due date of the Deadline task.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) { // default access modifier
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -58,7 +58,7 @@ public class Deadline extends Task {
      * Returns the due date of a Deadline task.
      * @return Due date of a Deadline task.
      */
-    public LocalDateTime getDueDate() {
+    public LocalDateTime getDueDateTime() {
         return by;
     }
 

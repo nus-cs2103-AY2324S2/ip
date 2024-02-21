@@ -1,5 +1,6 @@
 package seedu.banter.errors;
 
+
 /**
  * Represents an error that occurs when the user uses an invalid command.
  */

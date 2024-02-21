@@ -2,6 +2,7 @@ package seedu.banter.errors;
 
 import seedu.banter.ui.Ui;
 
+
 /**
  * Represents a collection of errors that can occur in the application.
  */

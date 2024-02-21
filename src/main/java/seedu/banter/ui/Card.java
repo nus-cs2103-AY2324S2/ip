@@ -6,13 +6,10 @@ package seedu.banter.ui;
  */
 public class Card {
     private String message;
-    private String smallSpace = "    ";
-    private String bigSpace = "     ";
-    private String line = "____________________________________________________________";
 
     /**
      * Constructs a new Card object.
-     * @param message
+     * @param message The message to be printed on the card.
      */
     public Card(String message) {
         this.message = message;
@@ -22,6 +19,7 @@ public class Card {
     private void indentMessageBody() {
         String[] lines = message.split("\n");
         for (int i = 0; i < lines.length; i++) {
+            String bigSpace = "     ";
             lines[i] = bigSpace + lines[i];
         }
         message = String.join("\n", lines);
@@ -31,6 +29,8 @@ public class Card {
      * Prints the card to the user.
      */
     public void print() {
+        String smallSpace = "    ";
+        String line = "____________________________________________________________";
         System.out.println(smallSpace + line);
         System.out.println(message);
         System.out.println(smallSpace + line);

@@ -1,10 +1,7 @@
 package seedu.banter.tasks;
 
-
-import seedu.banter.utilities.DateTime;
-
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 /**
  * Represents a task of type Todo in a task list.
@@ -17,9 +14,8 @@ public class Todo extends Task {
      * Constructs a Todo task that should be unmarked.
      *
      * @param description The description of the Todo task.
-     * @param description
      */
-    public Todo(String description) { // default access modifier
+    public Todo(String description) {
         super(description);
         Assertions.assertTaskIsUnmarked(this);
     }
@@ -30,7 +26,7 @@ public class Todo extends Task {
      * @param description The description of the Todo task.
      * @param isDone The done status of the Todo task.
      */
-    public Todo(String description, boolean isDone) { // default access modifier
+    public Todo(String description, boolean isDone) {
         super(description, isDone);
     }
 

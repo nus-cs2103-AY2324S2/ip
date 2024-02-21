@@ -2,7 +2,6 @@ package seedu.banter.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -11,11 +10,12 @@ import seedu.banter.errors.InvalidBanterUsageError;
 import seedu.banter.errors.InvalidTaskNumberUsageError;
 import seedu.banter.ui.Ui;
 
+
 /**
  * Represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a new TaskList object.
@@ -108,10 +108,14 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
+        if (taskList.size() == 0) {
+            return Ui.EMPTY_LIST;
+        }
+
         this.sortByDateTime();
         StringBuilder sb = new StringBuilder("Here are the banter.tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            sb.append("\n" + (i + 1) + ". " + taskList.get(i));
+            sb.append("\n").append(i + 1).append(". ").append(taskList.get(i));
         }
         return sb.toString();
     }
@@ -168,7 +172,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Returns the string representation of the list of tasks in TaskList that contain the keyword.
-     * @param keyword
+     * @param keyword Keywords to be checked.
      * @return String representation of the list of tasks in TaskList that contain the keyword.
      */
     public String findTasks(String ...keyword) {
@@ -185,7 +189,7 @@ public class TaskList implements Iterable<Task> {
             return "No matching tasks found.";
         }
         for (int i = 0; i < result.taskList.size(); i++) {
-            sb.append("\n" + (i + 1) + ". " + result.taskList.get(i));
+            sb.append("\n").append(i + 1).append(". ").append(result.taskList.get(i));
         }
         return sb.toString();
     }
@@ -194,11 +198,6 @@ public class TaskList implements Iterable<Task> {
      * Sorts the TaskList by datetime.
      */
     public void sortByDateTime() {
-        Collections.sort(taskList, new Comparator<Task>() {
-            @Override
-            public int compare(Task task1, Task task2) {
-                return task1.getDateTimePriority().compareTo(task2.getDateTimePriority());
-            }
-        });
+        taskList.sort(Comparator.comparing(Task::getDateTimePriority));
     }
 }

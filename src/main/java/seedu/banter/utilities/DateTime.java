@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
 /**
  * Represents a date time utility class.
  */
@@ -13,7 +14,7 @@ public class DateTime {
 
     /**
      * Parses a string into a LocalDateTime object.
-     * @param str
+     * @param str String to be parsed
      * @return LocalDateTime object
      */
     public static LocalDateTime getDateTimeFromUserInput(String str) {
@@ -37,11 +38,26 @@ public class DateTime {
 
     /**
      * Converts a LocalDateTime object into a string for display to the user.
-     * @param dateTime
+     * @param dateTime LocalDateTime object
      * @return String representation of the LocalDateTime object
      */
     public static String displayDateTimeToUser(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(USER_DISPLAY_FORMAT);
         return dateTime.format(formatter);
+    }
+
+    /**
+     * Returns the string representation of accepted date time formats for user input.
+     * @return String representation of accepted date time formats for user input.
+     */
+    public static String getAcceptedDateTimeFormats() {
+        StringBuilder acceptedFormats = new StringBuilder();
+        for (String format : USER_INPUT_FORMATS) {
+            if (acceptedFormats.length() > 0) {
+                acceptedFormats.append(", ");
+            }
+            acceptedFormats.append(format);
+        }
+        return acceptedFormats.toString();
     }
 }

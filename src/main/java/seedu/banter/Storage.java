@@ -39,7 +39,7 @@ public class Storage {
                 String[] tokens = task.split(" \\| ");
                 String taskType = tokens[0];
                 String status = tokens[1];
-                boolean isDone = status.equals(Task.IS_DONE);
+                boolean isDone = status.equals(Task.IS_DONE_ICON);
                 String description = tokens[2];
                 switch (taskType) {
                 case TODO_REPRESENTATION:
@@ -94,7 +94,7 @@ public class Storage {
     private String toStorageFormat(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {
-            sb.append(toStorageFormat(task) + "\n");
+            sb.append(toStorageFormat(task)).append("\n");
         }
         return sb.toString();
     }
@@ -103,10 +103,11 @@ public class Storage {
         String statusDescription = task.getStatus() + " | " + task.getDescription();
         if (task instanceof Deadline) {
             return DEADLINE_REPRESENTATION + " | " + statusDescription + " | "
-                    + toStorageFormat(((Deadline) task).getDueDate());
+                    + toStorageFormat(((Deadline) task).getDueDateTime());
         } else if (task instanceof Event) {
             return EVENT_REPRESENTATION + " | " + statusDescription + " | "
-                    + toStorageFormat(((Event) task).getStartDateTime()) + " | " + toStorageFormat(((Event) task).getEndDateTime());
+                    + toStorageFormat(((Event) task).getStartDateTime()) + " | " + toStorageFormat(((Event) task)
+                    .getEndDateTime());
         } else {
             return TODO_REPRESENTATION + " | " + statusDescription;
         }

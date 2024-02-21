@@ -11,16 +11,16 @@ import seedu.banter.utilities.DateTime;
  */
 public class Event extends Task {
     private static final String EVENT_ICON = "E";
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs a new Event object that should be unmarked and in the future.
-     * @param description
-     * @param from
-     * @param to
+     * @param description The description of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) { // default access modifier
+    Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -31,12 +31,12 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event object without restrictions on done status and datetime.
-     * @param description
-     * @param isDone
-     * @param from
-     * @param to
+     * @param description The description of the Event task.
+     * @param isDone The done status of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
      */
-    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) { // default access modifier
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;

@@ -2,6 +2,7 @@ package seedu.banter;
 
 import javafx.application.Application;
 
+
 /**
  * Represents the Banter program.
  */

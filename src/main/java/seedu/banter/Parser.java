@@ -7,7 +7,6 @@ import seedu.banter.errors.Errors;
 import seedu.banter.errors.InvalidBanterUsageError;
 import seedu.banter.tasks.TaskList;
 import seedu.banter.ui.Card;
-import seedu.banter.ui.Ui;
 import seedu.banter.utilities.DateTime;
 
 
@@ -35,18 +34,6 @@ public class Parser {
     }
 
     // Methods
-    /**
-     * Prints the greeting message.
-     */
-    public void printGreetMessage() {
-        System.out.println(Ui.BANTER_LOGO);
-        Ui.GREET_MESSAGE.print();
-    }
-
-    private void printExitMessage() {
-        Ui.EXIT_MESSAGE.print();
-    }
-
     /**
      * Responds to user input until the user exits the app, then print exit message.
      */
@@ -202,8 +189,8 @@ public class Parser {
 
     /**
      * Finds tasks that contain the keyword(s) in the input.
-     * @param input
-     * @throws InvalidBanterUsageError
+     * @param input User input.
+     * @throws InvalidBanterUsageError If the keyword(s) is missing.
      */
     private String parseFind(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);

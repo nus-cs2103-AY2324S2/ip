@@ -1,5 +1,6 @@
 package seedu.banter.enums;
 
+
 /**
  * Represents the different types of commands that can be executed.
  */
