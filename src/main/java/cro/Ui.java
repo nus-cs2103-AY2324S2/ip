@@ -15,7 +15,6 @@ public class Ui {
     private Cro myCro;
 
     public Ui(Cro cro) {
-        System.out.println(welcomeMessage);
         parser = new Parser();
         myCro = cro;
     }

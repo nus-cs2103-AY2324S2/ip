@@ -99,6 +99,15 @@ public class Cro extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        //Add welcome message
+        Label welcomeMessage = new Label("-----------------------------------\n"
+                + "Hello! I'm Cro!\n"
+                + "What can I do for you?\n"
+                + "-----------------------------------\n");
+        dialogContainer.getChildren().add(
+                DialogBox.getCroDialog(welcomeMessage, new ImageView(cro)));
+
     }
 
     private void handleUserInput() {
