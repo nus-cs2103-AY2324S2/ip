@@ -17,16 +17,16 @@ import duke.responses.Responses;
  */
 public class Storage {
 
-    /**
-     * Initializes the storage by loading tasks from a save file into the provided TaskList.
-     *
-     * @param taskList The TaskList object to be initialized with tasks from the save file.
-     */
     private static String directory = System.getProperty("user.dir");
     private static String saveFile = "saveFile.txt";
 
     private static File file = new File(directory, saveFile);
 
+    /**
+     * Initializes the storage by loading tasks from a save file into the provided TaskList.
+     *
+     * @param taskList The TaskList object to be initialized with tasks from the save file.
+     */
     public static void start(TaskList taskList) {
         try {
             Scanner scanner = new Scanner(file);
