@@ -61,4 +61,15 @@ public class Ui {
             return result.toString();
         }
     }
+
+    public String showHelpMessage() {
+        return LINE + "Commands Supported:\n " +
+                    "bye->exit chatbot, list->show tasks\n" +
+                    "todo [descr], deadline [descr]/by [date]\n" +
+                    "event [descr]/from [date]/to [date]\n" +
+                    "->adds todo, deadline & event tasks\n" +
+                    "mark [i]->ticks task, unmark [i]->unticks task\n" +
+                    "delete [i]->remove task, find [descr]-> find task";
+
+    }
 }

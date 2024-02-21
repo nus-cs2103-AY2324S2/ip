@@ -36,7 +36,8 @@ public class Parser {
         if (checkCommand(command)) {
             return ui.showMessage("Invalid Command");
         }
-        if (!Objects.equals(command[0], "bye") && !Objects.equals(command[0], "list") && command.length == 1) {
+        if (!Objects.equals(command[0], "bye") && !Objects.equals(command[0], "list")
+                && !Objects.equals(command[0], "help") && (command.length == 1)) {
             return ui.showMessage("Index or Description cannot be empty");
         }
 
@@ -45,6 +46,8 @@ public class Parser {
                     closeScanner();
                     System.exit(0);
                     break;
+                case "help":
+                    return ui.showHelpMessage();
                 case "list":
                     return ui.showTasks(taskList.getTasks());
                 case "mark":
@@ -222,7 +225,7 @@ public class Parser {
     }
 
     private boolean checkCommand(String[] command) {
-        List<String> commands = Arrays.asList("bye", "list", "todo", "deadline", "event", "find", "mark", "unmark", "delete");
+        List<String> commands = Arrays.asList("bye", "list", "todo", "deadline", "event", "find", "mark", "unmark", "delete", "list", "help");
         if (commands.contains(command[0])) {
             return false;
         } else {
