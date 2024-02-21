@@ -1,9 +1,8 @@
 package tasklist;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 
 public class DeleteTaskTest {
     @Test
@@ -13,6 +12,6 @@ public class DeleteTaskTest {
 
     @Test
     public void anotherDummyTest() {
-        assertEquals(4,4);
+        assertEquals(4, 4);
     }
 }
