@@ -19,7 +19,7 @@ public class TaskList {
      * @param f file object with saved tasks
      */
     public TaskList(File f) throws IOException {
-        this.tasks = new LinkedList<Task>();
+        this.tasks = new LinkedList<>();
         if (!f.createNewFile()) {
             Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
@@ -40,7 +40,7 @@ public class TaskList {
     }
 
     public LinkedList<Task> find(String str) {
-        LinkedList<Task> list = new LinkedList();
+        LinkedList<Task> list = new LinkedList<>();
         int len = this.tasks.size();
         for (int i = 0; i < len; i++) {
             Task t = this.tasks.get(i);
