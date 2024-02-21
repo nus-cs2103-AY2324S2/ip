@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     private MyChats myChats;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaMyChats.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image myChatsImage = new Image(this.getClass().getResourceAsStream("/images/DaMyChats.png"));
 
     /**

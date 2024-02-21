@@ -42,13 +42,14 @@ test {
 }
 
 application {
-    mainClass.set("mychats.main.Main")
+    mainClass.set("mychats.main.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "mychats"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = "mychats.main.Launcher"
 }
 
 run{
