@@ -13,13 +13,13 @@ import rick.tasks.ToDo;
  * List to store the items that the user creates.
  */
 public class TaskList {
-    private ArrayList<Task> items;
+    private ArrayList<Task> tasks;
 
     /**
      * Creates a new instance of TaskList.
      */
     public TaskList() {
-        this.items = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class TaskList {
      * @param list an ArrayList to be transformed into a TaskList.
      */
     public TaskList(ArrayList<Task> list) {
-        this.items = list;
+        this.tasks = list;
     }
 
     /**
@@ -36,8 +36,8 @@ public class TaskList {
      */
     public String list() {
         StringBuilder string = new StringBuilder();
-        for (int i = 0; i < items.size(); i++) {
-            string.append((i + 1) + ". " + items.get(i) + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            string.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
         return string.toString();
     }
@@ -50,7 +50,7 @@ public class TaskList {
     public Task addToList(String name) throws RickException {
         try {
             ToDo newTodo = new ToDo(name, "[ ]");
-            this.items.add(newTodo);
+            this.tasks.add(newTodo);
             return newTodo;
         } catch (RickException e) {
             throw e;
@@ -65,7 +65,7 @@ public class TaskList {
     public Task addToList(String name, String deadline) throws RickException {
         try {
             Deadline newDeadline = new Deadline(name, "[ ]", deadline);
-            this.items.add(newDeadline);
+            this.tasks.add(newDeadline);
             return newDeadline;
         } catch (RickException e) {
             throw e;
@@ -80,7 +80,13 @@ public class TaskList {
     public Task addToList(String name, String from, String to) throws RickException {
         try {
             Event newEvent = new Event(name, "[ ]", from, to);
-            this.items.add(newEvent);
+            for (Task task : this.tasks) {
+                if (task instanceof Event) {
+                    assert (task instanceof Event);
+                    Event.checkClash(newEvent, (Event) task);
+                }
+            }
+            this.tasks.add(newEvent);
             return newEvent;
         } catch (RickException e) {
             throw e;
@@ -94,10 +100,10 @@ public class TaskList {
      * @throws RickException if the index is out of range.
      */
     public Task mark(int index) throws RickException {
-        if (index >= this.items.size()) {
+        if (index >= this.tasks.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Task task = this.items.get(index);
+            Task task = this.tasks.get(index);
             task.mark();
             return task;
         }
@@ -110,10 +116,10 @@ public class TaskList {
      * @throws RickException if the index is out of range.
      */
     public Task unmark(int index) throws RickException {
-        if (index >= this.items.size()) {
+        if (index >= this.tasks.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Task task = this.items.get(index);
+            Task task = this.tasks.get(index);
             task.unmark();
             return task;
         }
@@ -127,7 +133,7 @@ public class TaskList {
      */
     public Task delete(int index) throws RickException {
         try {
-            Task task = this.items.remove(index);
+            Task task = this.tasks.remove(index);
             return task;
         } catch (Exception e) {
             throw new RickException("Your index is wrong :(");
@@ -143,10 +149,10 @@ public class TaskList {
         StringBuilder results = new StringBuilder();
         boolean isFound = false;
         int counter = 0;
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).toString().contains(arg)) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).toString().contains(arg)) {
                 counter++;
-                results.append(counter + ". " + this.items.get(i) + "\n");
+                results.append(counter + ". " + this.tasks.get(i) + "\n");
                 isFound = true;
             }
         }
@@ -157,6 +163,6 @@ public class TaskList {
         }
     }
     public int getSize() {
-        return this.items.size();
+        return this.tasks.size();
     }
 }

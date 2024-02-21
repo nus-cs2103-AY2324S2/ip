@@ -50,6 +50,27 @@ public class Event implements Task {
     }
 
     /**
+     * Checks if two events conflict with each other.
+     * @param event1 the event to be checked.
+     * @param event2 another event to be checked.
+     * @throws RickException if two event clashes
+     */
+    public static void checkClash(Event event1, Event event2) throws RickException {
+        Event earlyEvent;
+        Event lateEvent;
+        if (event1.from.isBefore(event2.from)) {
+            earlyEvent = event1;
+            lateEvent = event2;
+        } else {
+            earlyEvent = event2;
+            lateEvent = event1;
+        }
+        if (lateEvent.from.isBefore(earlyEvent.to)) {
+            throw new RickException("Event " + earlyEvent.name + " clashes with " + lateEvent.name);
+        }
+    }
+
+    /**
      * Returns the string representation for the Event item that is understandable for the user.
      * @return a user-friendly string representation for the item.
      */
