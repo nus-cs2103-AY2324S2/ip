@@ -47,6 +47,18 @@ public class TaskList {
         }
     }
 
+    private void checkIfAlreadyMarked(int index) throws AtlasException {
+        if (tasks.get(index).getStatusIcon().equals("X")) {
+            throw new AtlasException("Task is already marked as completed!");
+        }
+    }
+
+    private void checkIfAlreadyUnmarked(int index) throws AtlasException {
+        if (tasks.get(index).getStatusIcon().equals(" ")) {
+            throw new AtlasException("Task is already unmarked!");
+        }
+    }
+
     /**
      * Marks a task as done by index.
      *
@@ -55,6 +67,7 @@ public class TaskList {
      */
     public void markTask(int i) throws AtlasException {
         checkBounds(i);
+        checkIfAlreadyMarked(i);
         tasks.get(i).toggle();
     }
 
@@ -66,6 +79,7 @@ public class TaskList {
      */
     public void unmarkTask(int i) throws AtlasException {
         checkBounds(i);
+        checkIfAlreadyUnmarked(i);
         tasks.get(i).toggle();
     }
 
