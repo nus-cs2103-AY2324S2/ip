@@ -51,7 +51,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'TaskFlow.jar'
 }
 
 run{
