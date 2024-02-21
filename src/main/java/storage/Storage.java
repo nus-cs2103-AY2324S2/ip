@@ -1,6 +1,6 @@
 package storage;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -44,7 +44,7 @@ public class Storage {
         }
     }
 
-    public TaskList readFile() throws DukeException {
+    public TaskList readFile() throws HowieException {
         if (!Files.exists(path)) {
             return new TaskList();
         }
@@ -74,7 +74,7 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("I/O error detected...");
+            throw new HowieException("I/O error detected...");
         }
     }
 
@@ -102,13 +102,13 @@ public class Storage {
         }
     }
 
-    public static class InvalidFileException extends DukeException {
+    public static class InvalidFileException extends HowieException {
         public InvalidFileException(String message) {
             super(message);
         }
     }
 
-    public static class InvalidFormatException extends DukeException {
+    public static class InvalidFormatException extends HowieException {
         public InvalidFormatException(String message) {
             super(message);
         }

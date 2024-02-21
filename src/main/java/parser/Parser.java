@@ -13,7 +13,7 @@ import commands.MarkCommand;
 import commands.TodoCommand;
 import commands.UnmarkCommand;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 
 import ui.Ui;
 
@@ -23,7 +23,7 @@ public class Parser {
      * @param input An array of strings split by spaces.
      * @return Command
      */
-    public Command parseCommand(String[] input) throws DukeException {
+    public Command parseCommand(String[] input) throws HowieException {
 
         StringBuilder name;
         StringBuilder current;
@@ -38,12 +38,12 @@ public class Parser {
             return new ByeCommand();
         case MarkCommand.COMMAND:
             if (isInputLengthTwo) {
-                throw new DukeException("Invalid arguments detected! Please enter a index.");
+                throw new HowieException("Invalid arguments detected! Please enter a index.");
             }
             return new MarkCommand(Integer.parseInt(input[1]));
         case UnmarkCommand.COMMAND:
             if (isInputLengthTwo) {
-                throw new DukeException("Invalid arguments detected! Please enter a index.");
+                throw new HowieException("Invalid arguments detected! Please enter a index.");
             }
             return new UnmarkCommand(Integer.parseInt(input[1]));
         case TodoCommand.COMMAND:
@@ -106,12 +106,12 @@ public class Parser {
             }
         case DeleteCommand.COMMAND:
             if (isInputLengthTwo) {
-                throw new DukeException("Invalid arguments detected! Hint: delete [index]");
+                throw new HowieException("Invalid arguments detected! Hint: delete [index]");
             }
             return new DeleteCommand(Integer.parseInt(input[1]));
         case FindCommand.COMMAND:
             if (isInputLengthTwo) {
-                throw new DukeException("Invalid arguments detected! Please enter a valid keyword! " +
+                throw new HowieException("Invalid arguments detected! Please enter a valid keyword! " +
                         "For example: find book");
             }
             return new FindCommand(input[1]);

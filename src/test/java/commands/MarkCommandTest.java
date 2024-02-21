@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MarkCommandTest {
 
     @Test
-    public void markCommand_validIndex_successful() throws DukeException, IOException {
+    public void markCommand_validIndex_successful() throws HowieException, IOException {
         Ui ui = new Ui();
         TaskList taskLs = new TaskList();
         taskLs.add(new Task("do chores"));
@@ -49,7 +49,7 @@ public class MarkCommandTest {
         } catch (IndexOutOfBoundsException e) {
             assertEquals("Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!",
                     e.getMessage());
-        } catch (DukeException e) {
+        } catch (HowieException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,7 +1,7 @@
 package gui;
 
 import commands.Command;
-import exceptions.DukeException;
+import exceptions.HowieException;
 import howie.Howie;
 
 import javafx.fxml.FXML;
@@ -34,16 +34,16 @@ public class MainWindow extends AnchorPane {
     private Howie howie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ernie.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bert.png"));
+    private Image howieImage = new Image(this.getClass().getResourceAsStream("/images/bert.png"));
 
-    public MainWindow() throws DukeException {
+    public MainWindow() throws HowieException {
     }
 
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog("Hello! How can I help you today?", dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getHowieDialog("Hello. I'm Howie! How can I help you today?", howieImage));
     }
 
     public void setHowie(Howie h) {
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
     TaskList taskList = storage.readFile();
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Howie's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -68,12 +68,12 @@ public class MainWindow extends AnchorPane {
             String response =  command.executeCommand();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog("Me: " + input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getHowieDialog(response, howieImage)
             );
-        } catch (DukeException e) {
+        } catch (HowieException e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog("Me: " + input, userImage),
-                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
+                    DialogBox.getHowieDialog(e.getMessage(), howieImage)
             );
         } finally {
             if (input.equals("bye")) {

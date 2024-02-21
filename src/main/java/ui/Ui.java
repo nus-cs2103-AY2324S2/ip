@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import task.Task;
 
 import java.io.BufferedReader;
@@ -99,16 +99,16 @@ public class Ui {
     /**
      * Prints a message when a blank task has been entered.
      */
-    public static void emptyTaskMessage() throws DukeException {
+    public static void emptyTaskMessage() throws HowieException {
         Ui.printVLine();
-        throw new DukeException("Hey! You've just entered an unnamed task... Try to give a description/name of your task :)");
+        throw new HowieException("Hey! You've just entered an unnamed task... Try to give a description/name of your task :)");
     }
 
     /**
      * Prints a message when an invalid format has been entered.
      */
-    public static void invalidFormat() throws DukeException {
+    public static void invalidFormat() throws HowieException {
         Ui.printVLine();
-        throw new DukeException("I see you've entered an invalid format. Type 'help' if you're unsure :)");
+        throw new HowieException("I see you've entered an invalid format. Type 'help' if you're unsure :)");
     }
 }

@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class FindComandTest {
     }
 
     @Test
-    public void findCommand_textInput_showsCorrectResult() throws DukeException, IOException {
+    public void findCommand_textInput_showsCorrectResult() throws HowieException, IOException {
         TaskList tasks = new TaskList();
         tasks.add(new Deadline("return book", "tomorrow"));
         tasks.add(new Task("read book"));

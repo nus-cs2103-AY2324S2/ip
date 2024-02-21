@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
 import task.Task;
@@ -21,7 +21,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void todoCommand_validInput_successful() throws DukeException {
+    public void todoCommand_validInput_successful() throws HowieException {
         Ui ui = new Ui();
         Storage storage = new Storage();
         TaskList taskLs = storage.readFile();
@@ -39,7 +39,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void todoCommand_invalidInput_throwsException() throws DukeException {
+    public void todoCommand_invalidInput_throwsException() throws HowieException {
         try {
             Ui ui = new Ui();
             Storage storage = new Storage();
@@ -49,7 +49,7 @@ public class TodoCommandTest {
             TodoCommand command = new TodoCommand(input);
             command.setData(taskLs);
             command.executeCommand();
-        } catch (DukeException e) {
+        } catch (HowieException e) {
             assertEquals("Hey! You've just entered an unnamed task... Try to give a description/name of your task :)",
                     e.getMessage());
         }

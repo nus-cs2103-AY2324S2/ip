@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import storage.Storage;
 
 import ui.Ui;
@@ -15,7 +15,7 @@ public class ByeCommand extends  Command {
     public static final String COMMAND = "bye";
 
     @Override
-    public String executeCommand() throws IOException, DukeException {
+    public String executeCommand() throws IOException, HowieException {
         Storage storage = new Storage();
         storage.saveFile(taskList);
 

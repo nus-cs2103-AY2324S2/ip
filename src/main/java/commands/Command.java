@@ -1,6 +1,6 @@
 package commands;
 
-import exceptions.DukeException;
+import exceptions.HowieException;
 import tasklists.TaskList;
 
 import java.io.IOException;
@@ -14,11 +14,11 @@ public class Command {
     /**
      * Excutes the command.
      *
-     * @throws DukeException Throws an exception when calling execute() on this command.
+     * @throws HowieException Throws an exception when calling execute() on this command.
      * @throws IOException Throws an exception when I/O error is caught.
      */
-    public String executeCommand() throws DukeException, IOException {
-        throw new DukeException("Invalid call of execute()");
+    public String executeCommand() throws HowieException, IOException {
+        throw new HowieException("Invalid call of execute()");
     };
 
     public void setData(TaskList tasks) {

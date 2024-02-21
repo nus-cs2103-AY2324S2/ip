@@ -45,6 +45,7 @@ test {
 
 application {
     mainClass.set("howie.Howie")
+//    mainClass.set("Launcher")
 }
 
 shadowJar {

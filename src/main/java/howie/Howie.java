@@ -1,7 +1,7 @@
 package howie;
 
 import commands.Command;
-import exceptions.DukeException;
+import exceptions.HowieException;
 import parser.Parser;
 import storage.Storage;
 import tasklists.TaskList;
@@ -19,10 +19,11 @@ public class Howie {
     public Howie() {
 
     }
+
     /**
      * Initialises the program.
      * @param args Input arguments.
-     * @throws Exception Throws DukeException and IOException when invalid commands are entered
+     * @throws Exception Throws HowieException and IOException when invalid commands are entered
      * or input exception occurs.
      */
     public static void main(String[] args) throws Exception {
@@ -33,14 +34,14 @@ public class Howie {
             String[] input = ui.getUserCommand();
             try {
                 parseAndExecute(input, taskList);
-            } catch (DukeException e) {
+            } catch (HowieException e) {
                 System.out.println(e.getMessage());
                 Ui.printVLine();
             }
         }
     }
 
-    private static void parseAndExecute(String[] input, TaskList taskList) throws DukeException, IOException {
+    private static void parseAndExecute(String[] input, TaskList taskList) throws HowieException, IOException {
         Command command = new Parser().parseCommand(input);
         command.setData(taskList);
         command.executeCommand();
