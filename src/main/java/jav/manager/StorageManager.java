@@ -66,18 +66,56 @@ public class StorageManager {
     }
 
     /**
-     * Stores an unmarked task in the storage.
+     * Stores an unmarked task in the back of the storage.
      *
      * @param param the information about the task.
      * @param type the type of task.
+     * @throws InvalidParamException if the task has issues being stored.
      */
-    public void store(String param, StorageType type) {
+    public void store(String param, StorageType type) throws InvalidParamException {
         store(param, type, false);
     }
 
 
     /**
-     * Stores a task in the storage.
+     * Stores a task in the storage at a specified index.
+     *
+     * @param param the information about the task.
+     * @param type the type of task.
+     * @param shouldMark whether the task should be marked.
+     * @param index the index to store the task in.
+     * @throws InvalidParamException if the task has issues being stored.
+     */
+    public void store(String param, StorageType type, boolean shouldMark, int index) throws InvalidParamException {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+
+        Task task;
+        try {
+            switch (type) {
+            case TODO:
+                task = new ToDo(param, shouldMark);
+                break;
+            case DEADLINE:
+                task = new Deadline(param, shouldMark);
+                break;
+            case EVENT:
+                task = new Event(param, shouldMark);
+                break;
+            default:
+                assert false : "Unexpected task type " + type;
+                task = new Task(param, shouldMark);
+                break;
+            }
+            tasks.add(index, task);
+        } catch (InvalidParamException e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Stores a task in the back of the storage.
      *
      * @param param the information about the task.
      * @param type the type of task.
@@ -100,7 +138,7 @@ public class StorageManager {
             case EVENT:
                 task = new Event(param, shouldMark);
                 break;
-                default:
+            default:
                 assert false : "Unexpected task type " + type;
                 task = new Task(param, shouldMark);
                 break;
@@ -123,12 +161,16 @@ public class StorageManager {
             return false;
         }
 
-        if (tasks.size() >= index + 1) {
-            tasks.get(index).updateMark(shouldMark);
-            return true;
-        } else {
+        if (tasks.size() < index + 1) {
             return false;
         }
+
+        if (tasks.get(index).isMarked() == shouldMark) {
+            return false;
+        }
+
+        tasks.get(index).updateMark(shouldMark);
+        return true;
     }
 
     /**
@@ -151,6 +193,40 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Deletes the latest added task.
+     *
+     * @return whether the specified task exists or not.
+     */
+    public boolean deleteLatestTask() {
+        if (tasks == null) {
+            return false;
+        }
+
+        if (tasks.size() >= 1) {
+            tasks.remove(tasks.size() - 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the task at the specified index.
+     *
+     * @return the desired task.
+     */
+    public Task getTask(int index) {
+        if (tasks == null) {
+            return null;
+        }
+
+        if (tasks.size() >= index + 1) {
+            return tasks.get(index);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Returns the data of the entire storage in a file ready format.
@@ -171,6 +247,8 @@ public class StorageManager {
 
     /**
      * Loads the saved data into the storage.
+     * 
+     * @param savedData the data to load into the storage.
      */
     public void load(String savedData) {
         if (savedData.equals("")) {
@@ -184,7 +262,7 @@ public class StorageManager {
             String type = tokens[0].substring(5);
             tokens = tokens[1].split(",param=");
             String isMarked = tokens[0];
-            String param = tokens[1];
+            String param = (tokens.length == 1) ? "" : tokens[1];
             store(param, stringToStorageType(type), (isMarked.equals("T") ? true : false));
         }
     }
@@ -196,11 +274,11 @@ public class StorageManager {
      * @return the converted storage type.
      */
     private StorageType stringToStorageType(String typeStr) {
-        if (typeStr.equals("Event")) {
+        if (typeStr.equals(StorageType.EVENT.toString())) {
             return StorageType.EVENT;
-        } else if (typeStr.equals("Deadline")) {
+        } else if (typeStr.equals(StorageType.DEADLINE.toString())) {
             return StorageType.DEADLINE;
-        } else if (typeStr.equals("Todo")) {
+        } else if (typeStr.equals(StorageType.TODO.toString())) {
             return StorageType.TODO;
         } else {
             assert false : "Unexpected task type " + typeStr;

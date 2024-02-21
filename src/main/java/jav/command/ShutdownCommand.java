@@ -9,4 +9,9 @@ public class ShutdownCommand extends Command {
     public String execute() {
         return "SHUTDOWN";
     }
+
+    @Override
+    public String undo() throws Exception {
+        return null;
+    }
 }

@@ -24,23 +24,23 @@ public class UpdateTaskMarkCommand extends TaskCommand {
     }
 
     @Override
-    public String execute() throws InvalidParamException {        
+    public String execute() throws InvalidParamException {
         // Check if given an integer
         int index = 0;
         try {
             index = Integer.parseInt(param);
         } catch (NumberFormatException e) {
-            throw new InvalidParamException("Cannot mark/unmark task, given param is not num", null);   
+            throw new InvalidParamException("Cannot update task, given param is not num", null);
         }
 
         // Check if given a -ve index
         if (index < 1) {
-            throw new InvalidParamException("Cannot mark/unmark task, given num is -ve", null);
+            throw new InvalidParamException("Cannot update, given num is -ve", null);
         }
 
         // Check if given an index bigger than size of list
         if (!StorageManager.getInstance().updateTask(index - 1, shouldMark)) {
-            throw new InvalidParamException("Cannot mark/unmark task, given num is out of scope", null);
+            throw new InvalidParamException("Cannot update, given num is out of scope/no need update", null);
         }
 
         // Update the task mark based on the parameters
@@ -49,5 +49,12 @@ public class UpdateTaskMarkCommand extends TaskCommand {
         } else {
             return UiManager.getInstance().printUnmarkingTask();
         }
+    }
+
+    @Override
+    public String undo() throws Exception {
+        StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, !shouldMark);
+
+        return UiManager.getInstance().printUndo();
     }
 }

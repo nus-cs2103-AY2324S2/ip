@@ -3,6 +3,7 @@ package jav;
 import jav.command.Command;
 import jav.exception.InvalidCommandException;
 import jav.exception.InvalidParamException;
+import jav.manager.CommandHistoryManager;
 import jav.manager.ParserManager;
 import jav.manager.UiManager;
 import javafx.application.Application;
@@ -41,6 +42,7 @@ public class Jav extends Application {
             // Parse and execute command
             Command c = ParserManager.getInstance().checkCommand(cmd, param);
             output = c.execute();
+            CommandHistoryManager.getInstance().pushCommandToHistory(c);
 
             // Check if recieved exit command
             if (output == "SHUTDOWN") {

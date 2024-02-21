@@ -48,6 +48,7 @@ public class UiManager {
     /**
      * Prints the custom message upon an echo request.
      *
+     * @param input the user's input.
      * @return String of the given input.
      */
     public String echo(String input) {
@@ -118,6 +119,16 @@ public class UiManager {
     public String printInvalidParameters() {
         String msg = "It appears the parameters might be doing a little dance of confusion!\n"
                    + "Could you please check the parameters and give them another whirl?";
+        return msg;
+    }
+
+    /**
+     * Prints the custom message upon undoing.
+     *
+     * @return String response upon completing undo request.
+     */
+    public String printUndo() {
+        String msg = "Yep, between you and me, that never happened.";
         return msg;
     }
 

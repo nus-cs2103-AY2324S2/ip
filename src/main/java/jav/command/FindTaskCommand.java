@@ -26,4 +26,9 @@ public class FindTaskCommand extends TaskCommand {
             throw new InvalidParamException("Cannot find task", null);
         }
     }
+
+    @Override
+    public String undo() {
+        return null;
+    }
 }

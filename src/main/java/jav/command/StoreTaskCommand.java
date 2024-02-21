@@ -38,4 +38,12 @@ public class StoreTaskCommand extends TaskCommand {
             throw ipe;
         }
     }
+
+    @Override
+    public String undo() throws Exception {
+        StorageManager.getInstance().deleteLatestTask();
+        FileManager.getInstance().saveStorageData(StorageManager.getInstance().getFileFormat());
+
+        return UiManager.getInstance().printUndo();
+    }
 }

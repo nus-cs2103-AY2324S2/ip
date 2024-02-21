@@ -6,11 +6,12 @@ import jav.command.FindTaskCommand;
 import jav.command.ListTasksCommand;
 import jav.command.ShutdownCommand;
 import jav.command.StoreTaskCommand;
+import jav.command.UndoCommand;
 import jav.command.UpdateTaskMarkCommand;
 import jav.exception.InvalidCommandException;
 
 /**
-* StorageManager manages and stores tasks into a storage.
+* ParserManager handles parsing logic of commands.
 */
 public class ParserManager {
     // Singleton pattern but lazy loaded from wiki https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
@@ -49,6 +50,8 @@ public class ParserManager {
             return new UpdateTaskMarkCommand(false, param);
         } else if (cmd.equals("find") || cmd.equals("f")) {
             return new FindTaskCommand(param);
+        } else if (cmd.equals("undo") || cmd.equals("un")) {
+            return new UndoCommand();
         } else {
             throw new InvalidCommandException("Unknown command", null);
         }

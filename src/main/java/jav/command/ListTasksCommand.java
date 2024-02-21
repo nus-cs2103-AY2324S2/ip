@@ -12,4 +12,9 @@ public class ListTasksCommand extends TaskCommand {
     public String execute() throws InvalidParamException {
         return UiManager.getInstance().printStorage(StorageManager.getInstance().printStoredTasks());
     }
+
+    @Override
+    public String undo() throws Exception {
+        return null;
+    }
 }

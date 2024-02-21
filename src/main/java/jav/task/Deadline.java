@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.format.DateTimeParseException;
 
 import jav.exception.InvalidParamException;
+import jav.manager.StorageManager;
 
 /**
 * Deadline is a task that also consists of a due date.
@@ -22,7 +23,7 @@ public class Deadline extends Task {
      * @return a new Deadline.
      */
     public Deadline() {
-        type = "Deadline";
+        type = StorageManager.StorageType.DEADLINE;
         description = "deadline";
         dueDate = LocalDate.now();
         isMarked = false;
@@ -43,7 +44,7 @@ public class Deadline extends Task {
         }
 
         // Set the deadline values
-        type = "Deadline";
+        type = StorageManager.StorageType.DEADLINE;
         description = params.substring(0, params.indexOf(" /by "));
         dueText = params.substring(params.indexOf(" /by ") + 5);
         try {

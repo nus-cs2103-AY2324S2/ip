@@ -1,13 +1,14 @@
 package jav.task;
 
 import jav.exception.InvalidParamException;
+import jav.manager.StorageManager;
 
 /**
 * A task consists of a description and whether it is marked as done or not.
 */
 public class Task {
     /** The type of task. */
-    protected String type;
+    protected StorageManager.StorageType type;
 
     /** Description of task. */
     protected String description;
@@ -17,11 +18,11 @@ public class Task {
 
     /**
      * Constructs a new Task.
-     *
+     * 
      * @return a new Task.
      */
     public Task() {
-        type = "Task";
+        type = StorageManager.StorageType.TASK;
         description = "task";
         isMarked = false;
     }
@@ -35,7 +36,7 @@ public class Task {
      * @throws InvalidParamException if the parameters are invalid.
      */
     public Task(String params, boolean isMarked) throws InvalidParamException {
-        type = "Task";
+        type = StorageManager.StorageType.TASK;
         description = params;
         this.isMarked = isMarked;
     }
@@ -44,7 +45,7 @@ public class Task {
         return description;
     }
 
-    public String getType() {
+    public StorageManager.StorageType getType() {
         return type;
     }
 
@@ -54,6 +55,8 @@ public class Task {
 
     /**
      * Updates whether the task is marked or not.
+     * 
+     * @param isMarked whether the task is marked.
      */
     public void updateMark(boolean isMarked) {
         this.isMarked = isMarked;

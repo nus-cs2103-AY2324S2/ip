@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import jav.exception.InvalidParamException;
+import jav.manager.StorageManager;
 
 /**
 * Event is a task that also consists of a start and end date.
@@ -27,7 +28,7 @@ public class Event extends Task {
      * @return a new Event.
      */
     public Event() {
-        type = "Event";
+        type = StorageManager.StorageType.EVENT;
         description = "event";
         startText = "(NOW)";
         endText = "(NOW)";
@@ -57,7 +58,7 @@ public class Event extends Task {
         if (end < start) {
             throw new InvalidParamException("Invalid param for event", null);
         }
-        type = "Event";
+        type = StorageManager.StorageType.EVENT;
         description = params.substring(0, start);
         String n = params.substring(start + 7);
 
