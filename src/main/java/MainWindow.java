@@ -55,18 +55,16 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, cropImage(userImage, imageRadius)),
                     DialogBox.getDukeDialog(response, cropImage(dukeImage, imageRadius))
             );
-            userInput.clear();
-            haro.saveList();
         } catch (Exception e) {
             response = e.getMessage();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, cropImage(userImage, imageRadius)),
                     DialogBox.getDukeErrorDialog(response, cropImage(dukeImage, imageRadius))
             );
+        } finally {
             userInput.clear();
             haro.saveList();
         }
-
     }
 
     private Image cropImage(Image image, double radius) {
