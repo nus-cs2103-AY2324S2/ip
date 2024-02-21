@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,6 +28,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
 
     /**
      * Adds a task to the task list.

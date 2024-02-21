@@ -25,13 +25,16 @@ public class FindCommand extends Command {
     /**
      * Executes the find command, searching for tasks with the specified keyword.
      *
-     * @param tasks   The list of tasks to search.
-     * @param ui      The user interface for displaying messages.
-     * @param storage The storage for saving tasks to a file.
+     * @param tasks         The list of tasks to search.
+     * @param archiveTasks  The list of archive tasks.
+     * @param ui            The user interface for displaying messages.
+     * @param storage       The storage for saving tasks to a file.
+     * @param archived      The storage to save the archived tasks to a file.
      * @throws DukeException If the keyword is not found in the list of tasks.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
+                          Storage storage, Storage archived) throws DukeException {
         if (!tasks.findTasksByKeyword(keyword).isEmpty()) {
             return ui.showFindMsg(tasks.findTasksByKeyword(keyword));
         } else {
@@ -46,6 +49,11 @@ public class FindCommand extends Command {
      */
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isArchive() {
         return false;
     }
 }

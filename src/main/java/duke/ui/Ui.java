@@ -142,4 +142,18 @@ public class Ui {
         }
         return s;
     }
+
+    public String showArchiveMsg(Task task, int index) {
+        return "This task has been archived successfully!\n"
+                + task.toString() + "\n"
+                + String.format("Now you have %d tasks in the archive list.\n", index)
+                + "\n";
+    }
+
+    public String showUnarchiveMsg(Task task, int index) {
+        return "This task has been unarchived successfully!\n"
+                + task.toString() + "\n"
+                + String.format("Now you have %d tasks in the archive list.\n", (index - 1))
+                + "\n";
+    }
 }
