@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     @Test
-    public void testThrowsDookException() {
+    public void testParseThrowsDookException() {
         boolean isThrown = false;
         try {
             Parser.parse("laklflaelflal");
@@ -18,6 +18,18 @@ public class ParserTest {
         isThrown = false;
         try {
             Parser.parse("E | yes | a ");
+        } catch (DookException e) {
+            isThrown = true;
+        }
+        assertTrue(isThrown);
+        try {
+            Parser.parse("A | X | by: 2024-12-24 2359");
+        } catch (DookException e) {
+            isThrown = true;
+        }
+        assertTrue(isThrown);
+        try {
+            Parser.parse(" ");
         } catch (DookException e) {
             isThrown = true;
         }
