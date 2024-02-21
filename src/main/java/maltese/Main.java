@@ -25,6 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setmaltese(maltese);
+            stage.setTitle("MALTESE");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

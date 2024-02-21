@@ -20,7 +20,8 @@ public class WrongDateFormatException extends MalteseException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "the 'date' format is wrong.";
+        return super.getMessage() + "the 'date' format is wrong. Make sure its in the format "
+                + "YYYY-MM-DD";
     }
 }
 

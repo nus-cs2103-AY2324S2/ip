@@ -15,6 +15,7 @@ import maltese.task.Task;
  */
 public class Delete implements Action {
     private static final int DELETE_START_INDEX = 7;
+
     private int[] indices;
     private List<Task> deletedTasks;
     private TaskList tasks;

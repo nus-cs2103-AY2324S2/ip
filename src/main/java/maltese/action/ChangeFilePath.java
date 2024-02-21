@@ -1,20 +1,24 @@
 package maltese.action;
 
+import java.io.IOException;
+
 import maltese.Storage;
 import maltese.exception.InvalidFilePathException;
 import maltese.exception.MalteseException;
 import maltese.exception.NoFilePathException;
 
-import java.io.IOException;
 
 public class ChangeFilePath implements Action {
     private String filePath;
     public TaskList tasks;
 
+    private static final String FILE_PATH_EMPTY_MESSAGE = "File path cannot be empty";
+    private static final String CHANGE_FILE_PATH_RESPONSE = "Changing file path to ";
+
 
     public ChangeFilePath(String filePath, Storage storage) throws IOException {
         this.filePath = filePath;
-        assert filePath.length() > 0 : "File path cannot be empty";
+        assert filePath.length() > 0 : FILE_PATH_EMPTY_MESSAGE;
         if (!storage.fileExists(filePath)) {
             // If the file doesn't exist, create it
             storage.createFile(filePath);
@@ -41,7 +45,7 @@ public class ChangeFilePath implements Action {
 
     @Override
     public String getResponse() {
-        return "Changing file path to " + filePath + "\n";
+        return CHANGE_FILE_PATH_RESPONSE + filePath + "\n";
     }
 
 }
