@@ -152,6 +152,8 @@ public class Ui {
      * @param task The task added.
      */
     public String taskAdded(Task task) {
+        assert task != null : "Task added cannot be null!";
+
         storeFiles.writeTasks(taskList);
 
         int size = taskList.size();
@@ -231,6 +233,7 @@ public class Ui {
      */
     public String commandList() throws DukeException {
         String reply = "";
+
         if (taskList.size() == 0) {
             reply = "Oops, looks like you haven't added any tasks!";
             throw new DukeException(reply);
@@ -242,6 +245,7 @@ public class Ui {
             }
             reply = listToString(response);
         }
+        signalSays(reply);
         return reply;
     }
 
@@ -285,7 +289,11 @@ public class Ui {
                 : "OK, I've marked this task as undone:\n");
         response.add("  " + current.toString());
         String reply = listToString(response);
-        return reply;    }
+
+        signalSays(reply);
+        return reply;
+    }
+
 
     /**
      * Calls the commandUnark method.
