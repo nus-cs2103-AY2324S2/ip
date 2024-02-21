@@ -32,7 +32,7 @@ public class ParserTest {
         Exception exception = assertThrows(DukeException.class, () -> {
             Ui.checkCmd(list, command);
         });
-        String expectedMessage = " Sorry, the date of a deadline cannot be empty :(";
+        String expectedMessage = " Sorry buddy, the date of a deadline cannot be empty :(";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }

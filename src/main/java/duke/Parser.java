@@ -110,7 +110,7 @@ public class Parser {
         int startIdxOfDesc = cmd.indexOf(" ") + 1;
         String[] deadlineArr = cmd.substring(startIdxOfDesc).split(" /by ");
         if (deadlineArr.length == 1) {
-            throw new DukeException(" Sorry buddy, the date of a deadline cannot be empty :(\n%s");
+            throw new DukeException(" Sorry buddy, the date of a deadline cannot be empty :(");
         }
         LocalDate by;
         try {
@@ -132,7 +132,7 @@ public class Parser {
      */
     public static String addEvent(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry buddy, the description and start and end dates of an event cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the description and start/end dates of an event cannot be empty :(");
         }
         int startIdxOfDesc = cmd.indexOf(" ") + 1;
         String[] eventFromArr = cmd.substring(startIdxOfDesc).split(" /from ");
