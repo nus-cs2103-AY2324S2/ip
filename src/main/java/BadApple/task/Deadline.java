@@ -52,6 +52,34 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * Creates a Command when a Task parsed from WHITESPACE is of
+     * the Deadline type.
+     * @param args Processed List of arguments
+     * @return A generic Command which will be processed to add a Deadline when executed.
+     */
+    public static Command parseDeadlineFromReader(ArrayList<String> args) {
+        if (args.size() < 6 || !args.contains("(by:")) {
+            throw new BadAppleException("Deadline in wrong format" +
+                    "should be <number> 'deadline' <status> <description> '(by: ' <ByValue>");
+        }
+        StringBuilder taskName = new StringBuilder();
+        StringBuilder by = new StringBuilder();
+        int separator = args.indexOf("(by:");
+        for (int i = 3; i < separator; i++) {
+            taskName.append(args.get(i)).append(" ");
+        }
+        for (int i = separator + 1; i < args.size() - 1; i++) {
+            by.append(args.get(i)).append(" ");
+        }
+        by.deleteCharAt(by.length() - 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu");
+        LocalDate byValue = LocalDate.parse(by, formatter);
+        String query = "deadline " + taskName + "/by " + byValue;
+
+        return new Command("deadline", query);
+    }
+
     // in case anyone tries to throw an un-formatted string, the program still runs
     public static Deadline extractDetails(String s) {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));

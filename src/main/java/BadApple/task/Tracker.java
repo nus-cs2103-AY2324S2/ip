@@ -5,7 +5,7 @@ import java.util.Random;
 import static java.lang.Integer.parseInt;
 
 public class Tracker {
-    public static boolean suppressMessages = false;
+    public static boolean isSuppressingMsgs = false;
     /**
      * When a user adds a task, a response of PrependMessages + task is rendered
      * To add a message: Write the enum and then place a prepend and append message in brackets

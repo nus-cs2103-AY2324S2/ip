@@ -14,7 +14,8 @@ public class Messenger {
         DEFAULT("Added: ", ""),
         SUSPENSE("Are you sure you want to: ", " Mewo looks at you, frightened"),
         HAPPY("I'm sure you can ", " I'll always be By Your Side"),
-        DEMEANING("Don't tell me you can't ", " don't disappoint me");
+        DEMEANING("Don't tell me you can't ", " don't disappoint me"),
+        UNKNOWN_CMD("I didn't quite catch that", "if you need help on what to say, type !help");
         private final String prepend;
         private final String append;
         private static final Random RNG = new Random();
@@ -23,10 +24,10 @@ public class Messenger {
             this.append = append;
         }
 
-        private static String getPrepend(CustomMessages msg) {
+        public static String getPrepend(CustomMessages msg) {
             return msg.prepend;
         }
-        private static String getAppend(CustomMessages msg) {
+        public static String getAppend(CustomMessages msg) {
             return msg.append;
         }
 

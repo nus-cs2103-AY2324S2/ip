@@ -16,7 +16,26 @@ public class TaskList {
         while (bufferedReader.ready()) {
             stringBuilder.append(bufferedReader.readLine()).append("\n");
         }
-        System.out.println(stringBuilder);
+        return stringBuilder.toString();
+    }
+
+    /**
+     * This method will use the locally stored runtime tasklist
+     * and list all the Tasks during this run.
+     * @return list of tasks in String form
+     */
+    public static String listTasks() {
+
+        if (tasks.isEmpty()) {
+            return "Hey there's nothing to do, join me for a picnic?";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int index = 1;
+        for (Task task : tasks) {
+            stringBuilder.append(index).append(". ").append(task.toString()).append("\n");
+            index++;
+        }
         return stringBuilder.toString();
     }
 
@@ -28,5 +47,64 @@ public class TaskList {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * Directly interacts with the tasklist to indicate task completion.
+     * SIDE EFFECTS: marks the task specified.
+     * @param b mark as done or not. true for done, false for not done
+     * @param index of the task in the taskList.
+     * @return A string that indicates to the user a task has been marked
+     */
+    public static String markTask(boolean b, int index) {
+        Task t = tasks.get(index);
+        return t.mark(b, index);
+    }
+
+    /**
+     * Gives the user an indication that a task has been marked.
+     * SIDE EFFECTS: marks the task specified.
+     * @param b mark as done or not. true for done, false for not done
+     * @param index the number of the task to delete.
+     * @return A string that indicates to the user a task has been marked
+     */
+    public static String markTask(boolean b, String index) {
+        int actualIndex = Integer.parseInt(index) - 1;
+        return markTask(b, actualIndex);
+    }
+
+    public static String addTask(Task task) {
+        String reply = "";
+        TaskList.tasks.add(task);
+        if (!Tracker.isSuppressingMsgs) {
+            reply = Tracker.CustomMessages.randomMsg(task) + "\n" + task;
+            System.out.println(reply);
+        }
+        return reply;
+    }
+
+    public static String addTask(String command, String query) {
+        switch (command.toLowerCase()) {
+            case "todo":
+                return addTask(Todo.extractDetails(query));
+            case "deadline":
+                return addTask(Deadline.extractDetails(query));
+            case "event":
+                return addTask(Event.extractDetails(query));
+            default:
+                return "FAILED TO ADD TASK.";
+        }
+    }
+
+    public static String removeTask(int i) {
+        String reply = "Kel has nuked " + TaskList.tasks.remove(i).brief() + "\n"
+                + "You now have " + TaskList.tasks.size() + " tasks in your list";
+        System.out.println(reply);
+        return reply;
+    }
+
+    public static String removeTask(String index) {
+        int actualIndex = Integer.parseInt(index) - 1;
+        return removeTask(actualIndex);
     }
 }
