@@ -41,46 +41,14 @@ public class Parser {
         } else if (input.equals("list")) {
             return "list";
         } else if (input.contains("mark ")) {
-            String[] parts = input.split(" ");
-            try {
-                int i = Integer.parseInt(parts[1]);
-                if (parts[0].equals("mark")) {
-                    index = i;
-                    return "mark";
-                } else if (parts[0].equals("unmark")) {
-                    index = i;
-                    return "unmark";
-                } else {
-                    return "add";
-                }
-
-            } catch (NumberFormatException e) {
-                return "add";
-            }
-
+            return parseForMark(input);
         } else if (input.startsWith("delete")) {
-            try {
-                String[] strings = input.split(" ", 2);
-                int i = Integer.parseInt(strings[1]);
-                index = i;
-                return "delete";
-            } catch (NumberFormatException x) {
-                ui.handleErrorMessage("Not a number");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.handleErrorMessage("forget");
-            }
+            return parseForDelete(input);
         } else if (input.startsWith("find ")) {
-            if (input.trim().equals("find")) {
-                ui.handleErrorMessage("forget");
-            } else {
-                String[] parts = input.split(" ", 2);
-                word = parts[1];
-                return "find";
-            }
+            return parseForFind(input);
         } else {
             return "add";
         }
-        return "";
     }
 
     /**
@@ -89,5 +57,48 @@ public class Parser {
      */
     public String getWord() {
         return word;
+    }
+
+    private String parseForMark(String input) {
+        String[] parts = input.split(" ");
+        try {
+            int i = Integer.parseInt(parts[1]);
+            if (parts[0].equals("mark")) {
+                index = i;
+                return "mark";
+            } else if (parts[0].equals("unmark")) {
+                index = i;
+                return "unmark";
+            } else {
+                return "add";
+            }
+
+        } catch (NumberFormatException e) {
+            return "add";
+        }
+    }
+
+    private String parseForDelete(String input) {
+        try {
+            String[] strings = input.split(" ", 2);
+            int i = Integer.parseInt(strings[1]);
+            index = i;
+            return "delete";
+        } catch (NumberFormatException x) {
+            ui.handleErrorMessage("Not a number");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.handleErrorMessage("forget");
+        }
+        return "add";
+    }
+    private String parseForFind(String input) {
+        if (input.trim().equals("find")) {
+            ui.handleErrorMessage("forget");
+        } else {
+            String[] parts = input.split(" ", 2);
+            word = parts[1];
+            return "find";
+        }
+        return "add";
     }
 }
