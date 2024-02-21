@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
     // Images for user and Duke (bot) avatars
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(
+    private final Image ficinImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     /**
@@ -73,13 +73,13 @@ public class MainWindow extends AnchorPane {
                     + "  - deadline <description> /by <date/time>: Add a deadline task\n"
                     + "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(helpMessage, dukeImage)
+                    DialogBox.getDukeDialog(helpMessage, ficinImage)
             );
         } else {
             // Display a welcome message from Duke when the application starts
             String greeting = "Welcome! I'm FICIN.\nWhat can I do for you?";
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(greeting, dukeImage)
+                    DialogBox.getDukeDialog(greeting, ficinImage)
             );
         }
     }
@@ -108,7 +108,7 @@ public class MainWindow extends AnchorPane {
         // Display user and Duke dialogue boxes
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, ficinImage)
         );
 
         // Clear user input after processing
