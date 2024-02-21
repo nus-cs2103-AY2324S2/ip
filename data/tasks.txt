@@ -1,3 +1,3 @@
-T|X|buy water
-T|X|drink water
-T|X|swallow water
+T|O|buy cake
+E|X|celebrate|2024-12-12|2024-12-13
+D|X|drink coffee|2024-01-01
