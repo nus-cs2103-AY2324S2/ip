@@ -212,9 +212,12 @@ public class Jivox {
      *
      * @param input The date to show tasks for.
      */
-    public String tag(String input) {
+    public String tag(String input) throws JivoxNoTaskFoundException {
         String[] in = parser.parseInput(input);
         int taskNum = Integer.parseInt(in[0]) - 1;
+        if(taskNum >= this.tasks.getLength() || taskNum < 0){
+            throw new JivoxNoTaskFoundException(taskNum + 1);
+        }
         Task t = this.tasks.getTask(taskNum);
         t.setTag(new Tag(in[1]));
         return this.ui.showTag(t, in[1]);
@@ -229,34 +232,40 @@ public class Jivox {
         try {
             Commands type = parser.parseCommand(rawInput);
             String[] input = parser.parseInput(rawInput);
-
             return handleCommand(type, input);
         } catch (JivoxException e) {
             return this.ui.showException(e.toString());
         }
     }
 
+    private void validateInput(Commands type, String[] input) throws JivoxMissingArgumentException {
+        if(type != Commands.LIST && type != Commands.BYE && input.length == 1) {
+            throw new JivoxMissingArgumentException();
+        }
+    }
+
     private String handleCommand(Commands type, String[] input) throws JivoxException {
+        validateInput(type,input);
         switch (type) {
         case BYE:
             isRunning = false;
-            ui.close();
+            this.ui.close();
             dbHandler.save(tasks);
             return ui.exit();
         case DEADLINE:
-            return add("deadline", input[1]);
+            return this.add("deadline", input[1]);
         case EVENT:
-            return add("event", input[1]);
+            return this.add("event", input[1]);
         case TODO:
-            return add("todo", input[1]);
+            return this.add("todo", input[1]);
         case MARK:
-            return mark(Integer.parseInt(input[1]));
+            return this.mark(Integer.parseInt(input[1]));
         case UNMARK:
-            return unmark(Integer.parseInt(input[1]));
+            return this.unmark(Integer.parseInt(input[1]));
         case DELETE:
-            return delete(Integer.parseInt(input[1]));
+            return this.delete(Integer.parseInt(input[1]));
         case LIST:
-            return ui.showTasks(tasks);
+            return this.ui.showTasks(tasks);
         case SHOW:
             return handleShow(input[1]);
         case FIND:
@@ -264,7 +273,7 @@ public class Jivox {
         case TAG:
             return tag(input[1]);
         default:
-            throw new JivoxMissingArgumentException();
+            throw new JivoxUnknownCommandException(type.toString());
         }
     }
 
