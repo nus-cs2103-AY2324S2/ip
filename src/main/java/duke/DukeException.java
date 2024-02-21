@@ -5,6 +5,33 @@ package duke;
  */
 public class DukeException extends Exception {
 
+    public static final String BYE_ERROR = "Syntax of bye: bye";
+    public static final String LIST_ERROR = "Syntax of list: list";
+    public static final String TODO_ERROR = "Syntax of todo: todo {task description} \n"
+            + "E.g. todo breakfast";
+    public static final String DEADLINE_ERROR = "Syntax of deadline: deadline {task description} "
+            + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            + "E.g. deadline breakfast /by 2022-12-31 15:00";
+    public static final String EVENT_ERROR = "Syntax of event: deadline {task description} "
+            + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            + "E.g. event exam /from 2022-12-31 15:00 /to 17:00";
+    public static final String UNKNOWN_ERROR = "Unknown command.";
+    public static final String MARK_ERROR = "Syntax of mark: mark {index of task (integer)}\n"
+            + "E.g. mark 1";
+    public static final String UNMARK_ERROR = "Syntax of unmark: unmark {index of task (integer)}\n"
+            + "E.g. unmark 1";
+    public static final String DELETE_ERROR = "Syntax of delete: delete {index of task (integer)}\n"
+            + "E.g. delete 1";
+    public static final String FIND_ERROR = "Syntax of find: find {keyword}\n"
+            + "E.g. find book";
+
+
+
+    public static final String EMPTY_ERROR = "Sorry, we are not sync enough to communicate through empty command.";
+    public static final String SMALL_INDEX_ERROR = "The index of task cannot be larger than number of task.";
+    public static final String NON_POSITIVE_INDEX_ERROR = "The index of task must be positive integer.";
+
     /**
      * Empty constructor of a `DukeException` object.
      */

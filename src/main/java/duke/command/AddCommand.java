@@ -1,5 +1,10 @@
 package duke.command;
 
+import static duke.DukeException.DEADLINE_ERROR;
+import static duke.DukeException.EVENT_ERROR;
+import static duke.DukeException.TODO_ERROR;
+import static duke.DukeException.UNKNOWN_ERROR;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +19,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-
 /**
  * The `AddCommand` class represents a command that adds task to the task list.
  * It provides methods to adds task to the task list, and to decide whether the program should continue.
@@ -22,15 +26,20 @@ import duke.task.Todo;
  */
 public class AddCommand extends Command {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+
     private final TaskType type;
     private String task;
-    private String[] splitedDateTime;
+    private String[] splitDateTime;
     private String deadline;
     private String content;
-    private String[] splitedFromDateTime;
-    private String[] splitedToDateTime;
+    private String[] splitFromDateTime;
+    private String[] splitToDateTime;
     private String from;
     private String to;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     /**
      * Creates a command that creates `Todo` task when executed.
@@ -45,13 +54,13 @@ public class AddCommand extends Command {
     /**
      * Creates a command that creates `Deadline` task when executed.
      *
-     * @param splitedDateTime The splited date (and time) of the deadline.
+     * @param splitDateTime The splited date (and time) of the deadline.
      * @param deadline The full date (and time) of the deadline.
      * @param content The description of task.
      */
-    public AddCommand(String[] splitedDateTime, String deadline, String content) {
+    public AddCommand(String[] splitDateTime, String deadline, String content) {
         this.type = TaskType.DEADLINE;
-        this.splitedDateTime = splitedDateTime;
+        this.splitDateTime = splitDateTime;
         this.deadline = deadline;
         this.content = content;
     }
@@ -67,8 +76,8 @@ public class AddCommand extends Command {
      */
     public AddCommand(String[] splitFromDateTime, String[] splitToDateTime, String from, String to, String content) {
         this.type = TaskType.EVENT;
-        this.splitedFromDateTime = splitFromDateTime;
-        this.splitedToDateTime = splitToDateTime;
+        this.splitFromDateTime = splitFromDateTime;
+        this.splitToDateTime = splitToDateTime;
         this.from = from;
         this.to = to;
         this.content = content;
@@ -84,36 +93,36 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String response = "";
+        String response;
 
         switch (type) {
         case TODO: {
-            Task newTask = new Todo(task.substring(5));
-            tasks.add(newTask);
-            response = ui.add(newTask, tasks);
+            try {
+                Task newTask = new Todo(task.substring(5));
+                tasks.add(newTask);
+                response = ui.add(newTask, tasks);
+            } catch (Exception e) {
+                throw new DukeException(TODO_ERROR);
+            }
             break;
+
         }
 
         case DEADLINE: {
             // Create deadline task
             try {
-                if (splitedDateTime.length == 2) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
-                    Task newTask = new Deadline(content, parsedDateTime);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
+                Task newTask;
+                if (splitDateTime.length == 2) {
+                    LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, dateTimeFormatter);
+                    newTask = new Deadline(content, parsedDateTime);
                 } else {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate parsedDate = LocalDate.parse(deadline, formatter);
-                    Task newTask = new Deadline(content, parsedDate);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
+                    LocalDate parsedDate = LocalDate.parse(deadline, dateFormatter);
+                    newTask = new Deadline(content, parsedDate);
                 }
+                tasks.add(newTask);
+                response = ui.add(newTask, tasks);
             } catch (Exception e) {
-                throw new DukeException("Syntax of deadline: deadline {task description} "
-                        + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                        + "E.g. deadline breakfast /by 2022-12-31 15:00");
+                throw new DukeException(DEADLINE_ERROR);
             }
             break;
         }
@@ -121,50 +130,37 @@ public class AddCommand extends Command {
         case EVENT: {
             // Create event task
             try {
-                if (splitedFromDateTime.length == 2 && splitedToDateTime.length == 2) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
-                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
-                    Task newTask = new Event(content, parsedFromDateTime, parsedToDateTime);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
-                } else if (splitedFromDateTime.length == 2 && splitedToDateTime.length == 1) {
-                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
-                    LocalDate parsedToDate = LocalDate.parse(to, formatter2);
-                    Task newTask = new Event(content, parsedFromDateTime, parsedToDate);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
-                } else if (splitedFromDateTime.length == 1 && splitedToDateTime.length == 2) {
-                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
-                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
-                    Task newTask = new Event(content, parsedFromDate, parsedToDateTime);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
+                Task newTask;
+                if (splitFromDateTime.length == 2 && splitToDateTime.length == 2) {
+                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
+                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, dateTimeFormatter);
+                    newTask = new Event(content, parsedFromDateTime, parsedToDateTime);
+                } else if (splitFromDateTime.length == 2 && splitToDateTime.length == 1) {
+                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
+                    LocalDate parsedToDate = LocalDate.parse(to, dateFormatter);
+                    newTask = new Event(content, parsedFromDateTime, parsedToDate);
+                } else if (splitFromDateTime.length == 1 && splitToDateTime.length == 2) {
+                    LocalDate parsedFromDate = LocalDate.parse(from, dateFormatter);
+                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, dateTimeFormatter);
+                    newTask = new Event(content, parsedFromDate, parsedToDateTime);
                 } else {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate parsedFromDate = LocalDate.parse(from, formatter);
-                    LocalDate parsedToDate = LocalDate.parse(to, formatter);
-                    Task newTask = new Event(content, parsedFromDate, parsedToDate);
-                    tasks.add(newTask);
-                    response = ui.add(newTask, tasks);
+                    LocalDate parsedFromDate = LocalDate.parse(from, dateFormatter);
+                    LocalDate parsedToDate = LocalDate.parse(to, dateFormatter);
+                    newTask = new Event(content, parsedFromDate, parsedToDate);
                 }
+                tasks.add(newTask);
+                response = ui.add(newTask, tasks);
             } catch (Exception e) {
-                throw new DukeException("Syntax of event: deadline {task description} "
-                        + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
-                        + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                        + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
+                throw new DukeException(EVENT_ERROR);
             }
             break;
         }
 
         default: {
-            throw new DukeException("Unknown command.");
+            throw new DukeException(UNKNOWN_ERROR);
         }
         }
+
         storage.saveChanges(tasks);
         return response;
     }

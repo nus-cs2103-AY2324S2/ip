@@ -1,5 +1,7 @@
 package duke;
 
+import static duke.DukeException.EVENT_ERROR;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,6 +26,10 @@ import duke.task.Todo;
  */
 public class Storage {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private final String filePath;
 
     /**
@@ -107,13 +113,11 @@ public class Storage {
                         // Date and time
                         try {
                             if (splitedDateTime.length == 2) {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
+                                LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, dateTimeFormatter);
                                 Task newTask = new Deadline(content, isDone, parsedDateTime);
                                 items.add(newTask);
                             } else {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDate parsedDate = LocalDate.parse(deadline, formatter);
+                                LocalDate parsedDate = LocalDate.parse(deadline, dateFormatter);
                                 Task newTask = new Deadline(content, isDone, parsedDate);
                                 items.add(newTask);
                             }
@@ -134,35 +138,27 @@ public class Storage {
 
                         // Date and time
                         try {
+                            Task newTask;
                             if (splitedFrom.length == 2 && splitedTo.length == 2) {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
-                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
-                                Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
-                                items.add(newTask);
+                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
+                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, dateTimeFormatter);
+                                newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
                             } else if (splitedFrom.length == 2 && splitedTo.length == 1) {
-                                DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatterDateTime);
-                                LocalDate parsedToDate = LocalDate.parse(to, formatterDate);
-                                Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
-                                items.add(newTask);
+                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
+                                LocalDate parsedToDate = LocalDate.parse(to, dateFormatter);
+                                newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
                             } else if (splitedFrom.length == 1 && splitedTo.length == 2) {
-                                DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDate parsedFromDate = LocalDate.parse(from, formatterDate);
-                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatterDateTime);
-                                Task newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
-                                items.add(newTask);
+                                LocalDate parsedFromDate = LocalDate.parse(from, dateFormatter);
+                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, dateTimeFormatter);
+                                newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
                             } else {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDate parsedFromDate = LocalDate.parse(from, formatter);
-                                LocalDate parsedToDate = LocalDate.parse(to, formatter);
-                                Task newTask = new Event(content, isDone, parsedFromDate, parsedToDate);
-                                items.add(newTask);
+                                LocalDate parsedFromDate = LocalDate.parse(from, dateFormatter);
+                                LocalDate parsedToDate = LocalDate.parse(to, dateFormatter);
+                                newTask = new Event(content, isDone, parsedFromDate, parsedToDate);
                             }
+                            items.add(newTask);
                         } catch (Exception e) {
-                            throw new DukeException("event");
+                            throw new DukeException(EVENT_ERROR);
                         }
                         break;
                     }
