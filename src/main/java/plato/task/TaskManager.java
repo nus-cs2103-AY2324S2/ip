@@ -271,7 +271,7 @@ public class TaskManager {
     }
 
     /**
-     * Find the task in the current list.
+     * Finds the task in the current list.
      *
      * @param search The keywords to search.
      * @return A list of items containing the search results.

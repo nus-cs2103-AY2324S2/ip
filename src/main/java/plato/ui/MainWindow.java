@@ -1,6 +1,5 @@
 package plato.ui;
 
-import plato.Plato;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import plato.Plato;
 
 /**
  * Main controller for the Main window of the chat application.
@@ -54,9 +54,8 @@ public class MainWindow extends AnchorPane {
         if (response.matches("((?i)clear)")) {
             dialogContainer.getChildren().clear();
         } else {
-            dialogContainer.getChildren()
-                           .addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(response,
-                                                                                                      dukeImage));
+            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
+                                                 DialogBox.getDukeDialog(response, dukeImage));
         }
 
         userInput.clear();

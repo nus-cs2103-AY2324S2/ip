@@ -14,24 +14,24 @@ public class Ui {
     private static final String SECOND = " What do you seek?";
     private static final String[] GREET = new String[]{FIRST, SECOND};
 
-    private static final String[] CHEESY_LINES =
-            {"In the realm where shadows dance upon the walls of perception, truth emerges, veiled in the enigma of "
-             + "existence.",
-                    "In the labyrinth of the mind, where ideals clash and philosophies intertwine, enlightenment "
-                    + "awaits those who dare to seek.",
-                    "Beneath the canopy of stars, amidst the eternal dance of ideas, lies the essence of our quest "
-                    + "for understanding.",
-                    "Like a philosopher's stone, the depths of wisdom hold the power to transform even the darkest of"
-                    + " doubts into the brightest of truths.",
-                    "In the symphony of thought, the dialectic of reason and passion orchestrates the melody of our "
-                    + "journey through the boundless cosmos."};
+    private static final String[] CHEESY_LINES = {
+        "In the realm where shadows dance upon the walls of perception, truth emerges, veiled in the enigma of "
+            + "existence.",
+        "In the labyrinth of the mind, where ideals clash and philosophies intertwine, enlightenment awaits those"
+            + " who dare to seek.",
+        "Beneath the canopy of stars, amidst the eternal dance of ideas, lies the essence of our quest for "
+            + "understanding.",
+        "Like a philosopher's stone, the depths of wisdom hold the power to transform even the darkest of doubts "
+            + "into the brightest of truths.",
+        "In the symphony of thought, the dialectic of reason and passion orchestrates the melody of our journey "
+            + "through the boundless cosmos."};
 
     private Ui() {
 
     }
 
     /**
-     * Display the opening line of the chatbot,based on its personality.
+     * Displays the opening line of the chatbot,based on its personality.
      *
      * @return A string to display to the UI.
      */
@@ -53,7 +53,7 @@ public class Ui {
     }
 
     /**
-     * Make the ui say goodbye.
+     * Makes the ui say goodbye.
      *
      * @return returns the by message.
      */
