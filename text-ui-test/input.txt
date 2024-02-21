@@ -1,0 +1,40 @@
+todo borrow book
+list
+deadline return book /by 2024-01-25 14:00
+event project meeting /from 2024-02-14 /to 2024-02-18
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 3
+unmark 2
+unmark 1
+list
+delete 1
+list
+nonexistentcommand
+todo
+deadline
+deadline /by
+deadline return book /by
+deadline /by 4pm
+deadline return book /by 4pm
+event
+event /from
+event /to
+event /from /to
+event project meeting /from /to
+event project meeting /from Mon 2pm /to
+event project meeting /from /to 4pm
+event /from Mon 2pm /to 4pm
+mark
+mark 999
+mark test
+unmark
+unmark 999
+unmark test
+delete
+delete 999
+delete test
+bye
