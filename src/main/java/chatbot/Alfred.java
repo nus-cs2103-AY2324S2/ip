@@ -63,7 +63,7 @@ public class Alfred {
                     TaskList dateList = tasks.findByDate(parser.parseDateTime(date));
                     return dateList.toString();
                 } else {
-                    return tasks.addFromInput(input);
+                    return tasks.addTaskFromInput(input);
                 }
             }
         } catch (AlfredException e) {

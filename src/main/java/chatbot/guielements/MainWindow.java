@@ -52,17 +52,37 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = alfred.getResponse(input);
+        String input = getUserInput();
+        String response = getResponse(input);
+        checkForExit(response);
+        displayDialog(input, response);
+        clearUserInput();
+    }
+
+    private String getUserInput() {
+        return userInput.getText();
+    }
+
+    private String getResponse(String input) {
+        return alfred.getResponse(input);
+    }
+
+    private void checkForExit(String response) {
         if (response.equals("Bye. Hope to see you again soon!")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
         }
+    }
+
+    private void displayDialog(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAlfredDialog(response, alfredImage)
         );
+    }
+
+    private void clearUserInput() {
         userInput.clear();
     }
 }
