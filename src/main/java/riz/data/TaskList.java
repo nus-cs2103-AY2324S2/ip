@@ -81,6 +81,7 @@ public class TaskList {
                 count++;
             }
         }
+        sb.append("\n\n");
         return sb.toString();
     }
 
