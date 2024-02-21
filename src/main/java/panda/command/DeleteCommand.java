@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
         assert tlist != null;
-        if(idx >= tlist.size()) {
+        if(idx > tlist.size() || idx <= 0) {
             throw new OutOfBoundsException();
         }
         String tString = tlist.getTaskString(idx);
