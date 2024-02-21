@@ -44,7 +44,7 @@ public class Ui {
     public String displayToDoTaskAdditionNotification(String taskDetails, int taskCount) {
         String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
+        confirmationMessage += String.format("Current Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -58,7 +58,7 @@ public class Ui {
     public String displayDeadlineTaskAdditionNotification(String taskDetails, int taskCount) {
         String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
+        confirmationMessage += String.format("Current Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -72,7 +72,7 @@ public class Ui {
     public String displayEventTaskAdditionNotification(String taskDetails, int taskCount) {
         String confirmationMessage = String.format("Task Added:%n");
         confirmationMessage += String.format("    %s%n", taskDetails);
-        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
+        confirmationMessage += String.format("Current Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
@@ -109,7 +109,7 @@ public class Ui {
     public String displayDeleteTaskNotification(String taskDetails, int taskCount) {
         String confirmationMessage = "Removed Task:\n";
         confirmationMessage += "    " + taskDetails + "\n";
-        confirmationMessage += String.format("Curren Tack Count: %d%n", taskCount);
+        confirmationMessage += String.format("Current Tack Count: %d%n", taskCount);
         return confirmationMessage;
     }
 
