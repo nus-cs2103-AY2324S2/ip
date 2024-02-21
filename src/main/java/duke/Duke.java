@@ -3,7 +3,6 @@ package duke;
 import duke.command.Command;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Duke {
     private Storage storage;
@@ -17,7 +16,7 @@ public class Duke {
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load(), storage);
-        } catch (DukeException | FileNotFoundException e) {
+        } catch (TaroException | FileNotFoundException e) {
             tasks = new TaskList(storage);
         }
     }
@@ -31,7 +30,7 @@ public class Duke {
         try {
             Command command = new Parser().parse(input);
             return command.execute(tasks, storage);
-        } catch (DukeException e) {
+        } catch (TaroException e) {
             return e.getMessage();
         }
     }

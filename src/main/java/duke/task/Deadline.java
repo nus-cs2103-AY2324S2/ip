@@ -1,13 +1,5 @@
 package duke.task;
 
-import duke.Duke;
-import duke.DukeException;
-import duke.task.Task;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a deadline task.
  * A <code>Deadline</code> object corresponds to a deadline task represented by a description, a status and a deadline

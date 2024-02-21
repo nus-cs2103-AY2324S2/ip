@@ -22,15 +22,15 @@ public class Storage {
      * Loads the file.
      *
      * @return The file.
-     * @throws DukeException If an error occurs while creating the file.
+     * @throws TaroException If an error occurs while creating the file.
      */
-    public File load() throws DukeException {
+    public File load() throws TaroException {
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
-                throw new DukeException();
-            } catch (DukeException e) {
-                throw new DukeException("Something went wrong in creating the file.");
+                throw new TaroException();
+            } catch (TaroException e) {
+                throw new TaroException("Something went wrong in creating the file.");
             }
         } else {
             assert file.exists() : "File should exist";

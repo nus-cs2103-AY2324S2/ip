@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeException;
+import duke.TaroException;
 import duke.Storage;
 import duke.TaskList;
 
@@ -14,7 +14,7 @@ public abstract class Command {
      * Executes the command and returns the result.
      * @param tasks the list of tasks
      * @param storage the storage object
-     * @throws DukeException if there is an error writing to the file
+     * @throws TaroException if there is an error writing to the file
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws TaroException;
 }

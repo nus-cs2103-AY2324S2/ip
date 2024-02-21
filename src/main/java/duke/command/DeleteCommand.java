@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeException;
+import duke.TaroException;
 import duke.Storage;
 import duke.TaskList;
 
@@ -20,14 +20,14 @@ public class DeleteCommand extends Command {
      * @return A string that determines whether the task has been deleted successfully
      * @throws IOException if there is an error writing to the file
      */
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws TaroException {
         String[] words = input.split("\\s+");
         try {
             int index = Integer.parseInt(words[1]);
             String reply = tasks.deleteTask(index);
             return reply;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a integer after the command 'delete'");
+            throw new TaroException("Please enter a integer after the command 'delete'");
         }
     }
 }

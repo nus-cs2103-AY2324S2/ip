@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeException;
+import duke.TaroException;
 import duke.Storage;
 import duke.TaskList;
 
@@ -11,7 +11,7 @@ public class MarkCommand extends Command {
         this.input = input;
     }
 
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws TaroException {
         String[] words = input.split("\\s+");
         try {
             int index = Integer.parseInt(words[1]);

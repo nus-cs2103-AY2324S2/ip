@@ -30,9 +30,9 @@ public class TaskList {
      * @param f The file that contains the list of tasks.
      * @param storage The storage object that handles the file.
      * @throws FileNotFoundException If the file is not found.
-     * @throws DukeException If the file is not in the correct format.
+     * @throws TaroException If the file is not in the correct format.
      */
-    public TaskList(File f, Storage storage) throws FileNotFoundException, DukeException {
+    public TaskList(File f, Storage storage) throws FileNotFoundException, TaroException {
         this.tasks = new ArrayList<>();
         this.storage = storage;
         Scanner sc = new Scanner(f);
@@ -150,9 +150,9 @@ public class TaskList {
      * Deletes a task from the list.
      * @param index The index of the task to be deleted.
      * @return A string that indicates if the task has been deleted successfully.
-     * @throws DukeException If the index is out of range.
+     * @throws TaroException If the index is out of range.
      */
-    public String deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws TaroException {
         try {
             int arraySize = tasks.size();
             reply = "Ok. I'll be removing this task:\n "
@@ -164,7 +164,7 @@ public class TaskList {
             storage.removeFromFile(index);
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
-            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
+            throw new TaroException("Please enter index ranging from 1 to " + tasks.size());
         }
     }
 
@@ -172,9 +172,9 @@ public class TaskList {
      * Marks a task as done.
      * @param index The index of the task to be marked as done.
      * @return A string that indicates if the task has been marked as done successfully.
-     * @throws DukeException If the index is out of range.
+     * @throws TaroException If the index is out of range.
      */
-    public String markTask(int index) throws DukeException {
+    public String markTask(int index) throws TaroException {
         try {
             tasks.get(index - 1).markAsDone();
             storage.editLineInFile(index, 1);
@@ -182,7 +182,7 @@ public class TaskList {
                     + tasks.get(index - 1).toString();
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
-            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
+            throw new TaroException("Please enter index ranging from 1 to " + tasks.size());
         }
     }
 
@@ -190,9 +190,9 @@ public class TaskList {
      * Marks a task as undone.
      * @param index The index of the task to be marked as undone.
      * @return A string that indicates if the task has been marked as undone successfully.
-     * @throws DukeException If the index is out of range.
+     * @throws TaroException If the index is out of range.
      */
-    public String unmarkTask(int index) throws DukeException {
+    public String unmarkTask(int index) throws TaroException {
         try {
             tasks.get(index - 1).markAsUndone();
             storage.editLineInFile(index, 0);
@@ -200,7 +200,7 @@ public class TaskList {
                     + tasks.get(index - 1).toString();
             return reply;
         } catch (IndexOutOfBoundsException | IOException e) {
-            throw new DukeException("Please enter index ranging from 1 to " + tasks.size());
+            throw new TaroException("Please enter index ranging from 1 to " + tasks.size());
         }
     }
 

@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeException;
+import duke.TaroException;
 import duke.Storage;
 import duke.TaskList;
 
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @param storage the storage object
      * @return A string that determines whether the task has been unmarked successfully
      */
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws TaroException {
         String[] words = input.split("\\s+");
         try {
             int index = Integer.parseInt(words[1]);
