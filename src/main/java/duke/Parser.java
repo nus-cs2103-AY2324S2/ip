@@ -53,56 +53,72 @@ public class Parser {
                 return e.getMessage();
             }
         } else if (input.startsWith("todo")) {
-            if (input.length() <= 5) {
-                return"That's not a valid todo!";
-            } else {
-                String description = input.substring(5).trim();
-                if (description.isEmpty()) {
-                    return"That's not a valid todo!";
-                } else {
-                    return handleAdd(new ToDo(description));
-                }
-            }
+            return handleToDo(input);
         } else if (input.startsWith("deadline")) {
-            if (input.length() <= 9) {
-                return "That's not a valid Deadline!";
-            } else {
-                String[] parts = input.substring(9).split(" /by ");
-                if (parts.length == 2) {
-                    try {
-                        return handleAdd(new Deadline(parts[0], parts[1]));
-                    } catch (DukeException e) {
-                        return e.getMessage();
-                    }
-                } else {
-                    return "That's not a valid Deadline!";
-                }
-            }
+            return handleDeadline(input);
         } else if (input.startsWith("event")) {
-            int fromIndex = input.indexOf(" /from");
-            int toIndex = input.indexOf(" /to");
-            if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex &&
-                    fromIndex >= 6 && toIndex >= fromIndex + 7 && input.length() >= toIndex + 5) {
-                String description = input.substring(6, fromIndex).trim();
-                String startTime = input.substring(fromIndex + 7, toIndex).trim();
-                String endTime = input.substring(toIndex + 5).trim();
-                if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-                    return "The description, start time, and end time of an event cannot be empty.";
-                } else {
-                    try {
-                        return handleAdd(new Event(description, startTime, endTime));
-                    } catch (DukeException e) {
-                        return e.getMessage();
-                    }
-                }
-            } else {
-                return "That's not a valid Event!";
-            }
+            return handleEvent(input);
         } else if (input.startsWith("find ")){
             String keyword = input.substring(5).trim();
             return handleFind(keyword);
         } else {
             return "That's not a valid task!\n";
+        }
+    }
+
+    private String handleToDo(String input) {
+        if (input.length() <= 5) {
+            return"That's not a valid todo!";
+        } else {
+            String description = input.substring(5).trim();
+            if (description.isEmpty()) {
+                return"That's not a valid todo!";
+            } else {
+                try {
+                    return handleAdd(new ToDo(description));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
+            }
+        }
+    }
+
+    private String handleDeadline(String input) {
+        if (input.length() <= 9) {
+            return "That's not a valid Deadline!";
+        } else {
+            String[] parts = input.substring(9).split(" /by ");
+            if (parts.length == 2) {
+                try {
+                    return handleAdd(new Deadline(parts[0], parts[1]));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
+            } else {
+                return "That's not a valid Deadline!";
+            }
+        }
+    }
+
+    private String handleEvent(String input) {
+        int fromIndex = input.indexOf(" /from");
+        int toIndex = input.indexOf(" /to");
+        if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex &&
+                fromIndex >= 6 && toIndex >= fromIndex + 7 && input.length() >= toIndex + 5) {
+            String description = input.substring(6, fromIndex).trim();
+            String startTime = input.substring(fromIndex + 7, toIndex).trim();
+            String endTime = input.substring(toIndex + 5).trim();
+            if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                return "The description, start time, and end time of an event cannot be empty.";
+            } else {
+                try {
+                    return handleAdd(new Event(description, startTime, endTime));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
+            }
+        } else {
+            return "That's not a valid Event!";
         }
     }
 
