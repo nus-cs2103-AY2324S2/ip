@@ -17,8 +17,8 @@ public class Ui {
      */
     public String greet() {
         String introduction = "  ______________________________________\n"
-                + "   Hello! I'm Mona\n"
-                + "   What can I do for you?\n"
+                + "   YEAAAARM! I'm Mona\n"
+                + "   How can I help you?\n"
                 + "  ______________________________________\n";
         return introduction;
     }
@@ -28,7 +28,8 @@ public class Ui {
      */
     public String sayBye() {
         String farewell = "  ______________________________________\n"
-                + "   Bye. Hope to see you again soon!\n"
+                + "   YEAAAARM! Good job today!\n"
+                + "   See you soon!\n"
                 + "  ______________________________________\n";
         return farewell;
     }
@@ -42,9 +43,9 @@ public class Ui {
     public String showListAfterQuantityChange(Task task, int numTasks, boolean hasIncreased) {
         String action = hasIncreased ? "added" : "removed";
         String response = "  ______________________________________\n"
-                + "     Noted. I've " + action + " this task: \n"
+                + "     YEAAAAARM! I've " + action + " this task: \n"
                 + "     " + task + "\n"
-                + "     Now you have " + numTasks + " tasks in the list.\n"
+                + "     Only " + numTasks + " tasks remain!\n"
                 + "  ______________________________________\n";
         return response;
     }
@@ -56,7 +57,7 @@ public class Ui {
     public String showListAfterProgressChange(Task task) {
         String status = task.isDone ? "done" : "not done";
         String response = "  ______________________________________\n"
-                + "     Got it! I've marked this task as " + status + ":\n"
+                + "     YEAAAARM! I've marked this task as " + status + ":\n"
                 + "     " + task + "\n"
                 + "  ______________________________________\n";
         return response;
@@ -68,7 +69,7 @@ public class Ui {
      */
     public String showListAfterUpdate(Task task) {
         String response = "  ______________________________________\n"
-                + "     Got it! I've updated this task:\n"
+                + "     YEAAAARM! I've updated this task:\n"
                 + "     " + task + "\n"
                 + "  ______________________________________\n";
         return response;

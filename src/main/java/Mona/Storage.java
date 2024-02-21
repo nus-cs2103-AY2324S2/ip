@@ -11,14 +11,15 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * This class contains the logic for interacting with the data logs
+ * The Storage class handles reading and writing tasks to a file.
  */
 public class Storage {
     private String filePath;
 
     /**
-     * Constructor for Storage
-     * @param filePath location for the logs to be written to
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -34,8 +35,9 @@ public class Storage {
     }
 
     /**
-     * Method for adding the tasks stored in the logs to Mona's task list
-     * @param currentTasks Mona's task list for tasks stored in the logs to be added to
+     * Reads tasks from the file and adds them to the provided list.
+     *
+     * @param currentTasks The list where tasks will be stored after reading from the file.
      */
     public void readLog(List<Task> currentTasks) {
         try {
@@ -53,9 +55,10 @@ public class Storage {
     }
 
     /**
-     * Method for translating the tasks stored in the logs into their corresponding Tasks
-     * @param logEntry the task stored in the log
-     * @return the corresponding task instance
+     * Parses a log entry and creates a corresponding Task object.
+     *
+     * @param logEntry The log entry to parse.
+     * @return The Task object parsed from the log entry.
      */
     public Task parseLogEntry(String[] logEntry) {
         String description = logEntry[2];
@@ -79,8 +82,9 @@ public class Storage {
     }
 
     /**
-     * Method for updating the logs when the task list is modified while Mona is running
-     * @param currentTasks Mona's task list which the user can directly interact with
+     * Writes tasks from the provided list to the file.
+     *
+     * @param currentTasks The list of tasks to write to the file.
      */
     public void writeToFile(List<Task> currentTasks) {
         File log = new File(this.filePath);

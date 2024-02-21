@@ -12,16 +12,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Mona mona = new Mona();
-
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Mona");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(mona);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
