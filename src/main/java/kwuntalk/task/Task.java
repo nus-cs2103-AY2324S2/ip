@@ -20,7 +20,7 @@ public abstract class Task {
 
 
     /**
-     * Mark the task as done or not done yet.
+     * Marks the task as done or not done yet.
      *
      * @param command Mark command or Unmark command.
      */
@@ -30,7 +30,7 @@ public abstract class Task {
 
 
     /**
-     * Current status of the task.
+     * Returns current status of the task.
      *
      * @return True of task is marked as done.
      */
@@ -50,7 +50,7 @@ public abstract class Task {
 
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
      * @return String representation of the task
      */
@@ -62,7 +62,7 @@ public abstract class Task {
 
 
     /**
-     * Getter to retrieve the task's description.
+     * Gets the task's description.
      *
      * @return Description of task.
      */

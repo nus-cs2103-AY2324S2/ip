@@ -11,11 +11,11 @@ import kwuntalk.task.Task;
 
 public class KwunTalk {
 
+    private static final String FILE_PATH = "./data/kwuntalk.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private boolean isExit = false;
-    private static final String FILE_PATH = "./data/kwuntalk.txt";
 
     /**
      * Constructor for KwunTalk.

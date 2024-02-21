@@ -1,9 +1,9 @@
 package kwuntalk;
 
+import java.util.Scanner;
+
 import kwuntalk.exception.KwunTalkException;
 import kwuntalk.task.Task;
-
-import java.util.Scanner;
 
 
 /**

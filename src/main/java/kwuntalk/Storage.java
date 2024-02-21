@@ -1,11 +1,5 @@
 package kwuntalk;
 
-import kwuntalk.exception.TasksFileException;
-import kwuntalk.task.Deadline;
-import kwuntalk.task.Event;
-import kwuntalk.task.Task;
-import kwuntalk.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import kwuntalk.exception.TasksFileException;
+import kwuntalk.task.Deadline;
+import kwuntalk.task.Event;
+import kwuntalk.task.Task;
+import kwuntalk.task.Todo;
 
 
 /**
@@ -38,21 +38,17 @@ public class Storage {
 
         Task task = null;
 
-        switch (fields[0]) {
-        case "T":
+        if (fields[0].equals("T")) {
             task = new Todo(fields[2]);
-            break;
 
-        case "D":
+        } else if (fields[0].equals("D")) {
             LocalDateTime dueDateTime = LocalDateTime.parse(fields[3]);
             task = new Deadline(fields[2], dueDateTime);
-            break;
 
-        case "E":
+        } else if (fields[0].equals("E")) {
             LocalDateTime fromDateTime = LocalDateTime.parse(fields[3]);
             LocalDateTime toDateTime = LocalDateTime.parse(fields[4]);
             task = new Event(fields[2], fromDateTime, toDateTime);
-            break;
         }
 
         assert task != null : "Task should never be null";

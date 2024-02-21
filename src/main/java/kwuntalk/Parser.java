@@ -1,6 +1,15 @@
 package kwuntalk;
 
-import kwuntalk.command.*;
+import kwuntalk.command.AddDeadlineCommand;
+import kwuntalk.command.AddEventCommand;
+import kwuntalk.command.AddTodoCommand;
+import kwuntalk.command.ByeCommand;
+import kwuntalk.command.Command;
+import kwuntalk.command.DeleteCommand;
+import kwuntalk.command.FindCommand;
+import kwuntalk.command.ListCommand;
+import kwuntalk.command.MarkCommand;
+import kwuntalk.command.UnmarkCommand;
 import kwuntalk.exception.InvalidArgumentException;
 import kwuntalk.exception.InvalidCommandException;
 
@@ -15,7 +24,7 @@ public class Parser {
 
 
     /**
-     * Parse user's input based on the command and returns the command.
+     * Parses user's input based on the command and returns the command.
      *
      * @param input User input from System.in.
      * @return Command in the user input.

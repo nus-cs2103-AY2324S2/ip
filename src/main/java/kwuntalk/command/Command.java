@@ -1,9 +1,9 @@
 package kwuntalk.command;
 
-import kwuntalk.exception.KwunTalkException;
 import kwuntalk.Storage;
 import kwuntalk.TaskList;
 import kwuntalk.Ui;
+import kwuntalk.exception.KwunTalkException;
 
 
 /**
@@ -12,7 +12,7 @@ import kwuntalk.Ui;
 public abstract class Command {
 
     /**
-     * Abstract method of the execution of command and generation of the response.
+     * Executes the command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.

@@ -1,13 +1,15 @@
 package kwuntalk;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import kwuntalk.exception.DuplicateTaskException;
 import kwuntalk.task.Task;
 import kwuntalk.task.Todo;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
     @Test
@@ -48,6 +50,7 @@ public class TaskListTest {
         try {
             testTasks.add(test);
         } catch (DuplicateTaskException ignored) {
+            // left empty cause error will not occur
         }
 
         assertEquals(test, testTasks.get(1));
