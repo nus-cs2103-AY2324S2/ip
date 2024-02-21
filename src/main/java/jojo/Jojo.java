@@ -64,6 +64,7 @@ public class Jojo {
      */
     public String getResponse(String input) throws JojoException {
         String response = Parser.parse(input, ui, tasks);
+        assert response.length() > 0: "response should not be empty";
         System.out.println(response);
         return response;
     }

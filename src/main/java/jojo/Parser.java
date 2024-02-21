@@ -95,6 +95,7 @@ public class Parser {
      */
     public static String parseDeadlineDesc(String cmd) {
         String[] splitStr = cmd.split(" /by ");
+        assert splitStr.length == 2: "length of array splitStr should be 2";
         return splitStr[0].strip();
     }
 
@@ -117,7 +118,9 @@ public class Parser {
         String[] ans = new String[3];
         try {
             String[] splitStr = s.split(" /from ");
+            assert splitStr.length == 2: "length of array splitStr should be 2";
             String[] splitStr2 = splitStr[1].split(" /to ");
+            assert splitStr2.length == 2: "length of array splitStr2 should be 2";
             ans[0] = splitStr[0].strip();
             ans[1] = splitStr2[0].strip();
             ans[2] = splitStr2[1].strip();
@@ -136,9 +139,11 @@ public class Parser {
     public static LocalDateTime parseDeadlineBy(String cmd) throws JojoException {
         try {
             String[] splitStr = cmd.split(" /by ");
+            assert splitStr.length == 2: "length of array splitStr should be 2";
             String unformattedBy = splitStr[1].strip();
             String reformattedBy = unformattedBy.replace("/", "-");
             String[] splitDateTime = reformattedBy.split(" ");
+            assert splitDateTime.length == 2: "length of array splitDateTime should be 2";
             String formattedTime = splitDateTime[1].strip().replaceAll("(\\d{2})(\\d{2})", "$1:$2");
             String formattedDeadline = splitDateTime[0].strip() + " " + formattedTime;
             return LocalDateTime.parse(formattedDeadline, DateTimeFormatter.ofPattern("d-M-uuuu HH:mm"));
@@ -149,6 +154,5 @@ public class Parser {
             throw new JojoException("Oops, seems like the deadline's format is invalid. You may follow this e.g.: " +
                     "deadline return book /by 2/12/2019 1800");
         }
-
     }
 }
