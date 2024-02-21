@@ -13,9 +13,8 @@
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="43.0" prefHeight="515.0" prefWidth="500.0" style="-fx-background-color: #343540; -fx-border-color: transparent;" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="518.0" prefWidth="486.0" style="-fx-background-color: #171616;">
-                    <children>
 
-                    </children></VBox>
+                </VBox>
             </content>
         </ScrollPane>
         <Label alignment="CENTER" layoutY="-1.0" prefHeight="45.0" prefWidth="500.0" style="-fx-background-color: #171616;" text="FICIN #1" textAlignment="CENTER" textFill="WHITE">

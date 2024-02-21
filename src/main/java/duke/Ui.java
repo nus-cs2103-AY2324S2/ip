@@ -48,7 +48,7 @@ public class Ui {
      * Displays a goodbye message when the user exits the application.
      */
     public void showGoodbye() {
-        System.out.println(" \nBye. Hope to see you again soon!");
+        System.out.println(" \nBye! See you again!");
     }
 
     /**
@@ -57,7 +57,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        System.out.println(" OOPS!!! " + message);
+        System.out.println(" OH NO! " + message);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Ui {
      * @param numberOfTasks  The total number of tasks after adding.
      */
     public void showTaskAdded(Task task, int numberOfTasks) {
-        System.out.println(" Got it. I've added this task:");
+        System.out.println(" Sure. I have added this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + numberOfTasks + " tasks in the list.");
     }
@@ -78,7 +78,7 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void showTaskDone(Task task) {
-        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" Great! I have marked the task as done:");
         System.out.println("   " + task);
     }
 
@@ -88,7 +88,7 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void showTaskUndone(Task task) {
-        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println(" Sure, I have marked this task as not done yet:");
         System.out.println("   " + task);
     }
 
@@ -99,7 +99,7 @@ public class Ui {
      * @param numberOfTasks  The total number of tasks after deletion.
      */
     public void showTaskDeleted(Task task, int numberOfTasks) {
-        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" Got it. I have removed this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + numberOfTasks + " tasks in the list.");
     }
@@ -110,7 +110,7 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public void showTasks(List<Task> tasks) {
-        System.out.println(" Here are the tasks in your list:");
+        System.out.println(" Here is the list of tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
@@ -121,7 +121,7 @@ public class Ui {
      * This method shows a line separator, a notification message, and another line separator.
      */
     public void showNoTask() {
-        System.out.println(" There is no result found");
+        System.out.println(" No task found");
     }
 
     /**
@@ -137,10 +137,12 @@ public class Ui {
     public void showHelp() {
         System.out.println("Here are the available commands:");
         System.out.println("  - help: show commands");
-        System.out.println("  - find: Find tasks");
         System.out.println("  - list: List all tasks");
-        System.out.println("  - todo <description>: Add a todo task");
-        System.out.println("  - deadline <description> /by <date/time>: Add a deadline task");
-        System.out.println("  - event <description> /from <start date/time> /to <end date/time>: Add an event task");
+        System.out.println("  - find <word>: Find tasks");
+        System.out.println("  - todo <task>: Add a todo task");
+        System.out.println("  - deadline <task> /by <date>: Add a deadline task");
+        System.out.println("  - event <task> /from <date> /to <date>: Add an event task");
+        System.out.println("    - date can be done by YYYY/MM/dd or YYYY/MM/dd HHmm ");
+        System.out.println("    - today & tomorrow can be used for date");
     }
 }

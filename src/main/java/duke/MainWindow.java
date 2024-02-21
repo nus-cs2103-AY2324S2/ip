@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
     // Images for user and Duke (bot) avatars
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(
+    private final Image ficinImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     /**
@@ -67,19 +67,21 @@ public class MainWindow extends AnchorPane {
             String helpMessage = "Welcome! I'm FICIN.\nWhat can I do for you?\n"
                     + "\nHere are the available commands:\n"
                     + "  - help: show commands\n"
-                    + "  - find: Find tasks\n"
                     + "  - list: List all tasks\n"
-                    + "  - todo <description>: Add a todo task\n"
-                    + "  - deadline <description> /by <date/time>: Add a deadline task\n"
-                    + "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
+                    + "  - find <word>: Find tasks\n"
+                    + "  - todo <task>: Add a todo task\n"
+                    + "  - deadline <task> /by <date>: Add a deadline task\n"
+                    + "  - event <task> /from <date> /to <date>: Add an event task\n"
+                    + "     - date can be written by YYYY/MM/dd or YYYY/MM/dd HHmm\n"
+                    + "     - today & tomorrow can be used for date";
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(helpMessage, dukeImage)
+                    DialogBox.getDukeDialog(helpMessage, ficinImage)
             );
         } else {
             // Display a welcome message from Duke when the application starts
             String greeting = "Welcome! I'm FICIN.\nWhat can I do for you?";
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(greeting, dukeImage)
+                    DialogBox.getDukeDialog(greeting, ficinImage)
             );
         }
     }
@@ -108,7 +110,7 @@ public class MainWindow extends AnchorPane {
         // Display user and Duke dialogue boxes
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, ficinImage)
         );
 
         // Clear user input after processing
