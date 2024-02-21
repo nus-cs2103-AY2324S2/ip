@@ -2,7 +2,7 @@
 
 **Preview**
 
-![Screenshot of tyroe chatbot ui](/Users/jmsandiegoo/Documents/projects/ip/docs/Ui.png)
+![Screenshot of tyroe chatbot ui](./Ui.png)
 
 **About**
 
