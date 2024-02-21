@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = arona.getResponse(input);
-        if (input.toLowerCase().equals("bye")) {
+        if (response.equals(Arona.exitArona())) {
             stage.close();
         }
         dialogContainer.getChildren().addAll(
