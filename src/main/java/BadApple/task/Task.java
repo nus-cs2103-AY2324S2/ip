@@ -24,7 +24,7 @@ public class Task {
                 System.out.println(reply);
             }
             this.isComplete = b;
-            if (!Tracker.suppressMessages) {
+            if (!Tracker.isSuppressingMsgs) {
                 reply = "I've " + MARK + " task " + (taskIndex+1) + "\n" + this;
                 System.out.println(reply);
             }

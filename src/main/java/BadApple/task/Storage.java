@@ -29,23 +29,6 @@ public class Storage {
         bufferedWriter.close();
     }
 
-    public static String addTask(Task task) {
-        String reply = "";
-        TaskList.tasks.add(task);
-        if (!Tracker.suppressMessages) {
-            reply = Tracker.CustomMessages.randomMsg(task) + "\n" + task;
-            System.out.println(reply);
-        }
-        return reply;
-    }
-
-    public static String removeTask(int i) {
-        String reply = "Kel has nuked " + TaskList.tasks.remove(i).brief() + "\n"
-                + "You now have " + TaskList.tasks.size() + " tasks in your list";
-        System.out.println(reply);
-        return reply;
-    }
-
     /**
      * given a File and its contents, add it into the Tracker's taskList
      * @param file the file to read from

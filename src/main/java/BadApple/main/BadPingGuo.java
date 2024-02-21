@@ -1,5 +1,6 @@
 package BadApple.main;
 
+import BadApple.task.Command;
 import BadApple.task.Parser;
 import BadApple.uiElements.DialogBox;
 
@@ -31,11 +32,16 @@ public class BadPingGuo {
      * Replace this stub with your completed method.
      */
     protected String getResponse(String input){
+        String reply;
         try {
-            return Parser.ProcessQuery(input);
+            Command c = Parser.ProcessQuery(input);
+            reply = c.execute();
         } catch (IOException e) {
             return "FAILED";
+        } catch (BadAppleException b) {
+            return b.toString();
         }
+        return reply;
     }
 
 }
