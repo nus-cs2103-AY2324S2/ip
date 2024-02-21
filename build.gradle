@@ -28,13 +28,12 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("awex.Awex")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "awex"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
