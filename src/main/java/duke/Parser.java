@@ -1,16 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -22,7 +12,8 @@ import duke.exception.DukeException;
 public class Parser {
 
     private enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, HELP
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ARCHIVE,
+        UNARCHIVE, HELP
     }
 
     /**
@@ -43,7 +34,7 @@ public class Parser {
             case BYE:
                 return new ExitCommand();
             case LIST:
-                return new ListCommand();
+                return parseListCommand(inputs);
             case HELP:
                 return new HelpCommand();
             case DELETE:
@@ -60,6 +51,10 @@ public class Parser {
                 return parseEventCommand(inputs);
             case FIND:
                 return parseFindCommand(inputs);
+            case ARCHIVE:
+                return parseArchiveCommand(inputs);
+            case UNARCHIVE:
+                return parseUnarchiveCommand(inputs);
             default:
                 return null;
             }
@@ -217,5 +212,37 @@ public class Parser {
                     + "Please enter 'help' command to find out more.\n");
         }
         return new FindCommand(inputs[1]);
+    }
+
+    public static Command parseArchiveCommand(String[] inputs) throws DukeException {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Index of tasks to be archived cannot be left blank";
+            throw new DukeException("Please indicate the index of task you want to archive.\n"
+                    + "Please enter 'help' command to find out more.\n");
+        }
+        int index = Integer.parseInt(inputs[1]);
+        return new ArchiveCommand(index);
+    }
+
+    public static Command parseUnarchiveCommand(String[] inputs) throws DukeException {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Index of tasks to be archived cannot be left blank";
+            throw new DukeException("Please indicate the index of task you want to archive.\n"
+                    + "Please enter 'help' command to find out more.\n");
+        }
+        int index = Integer.parseInt(inputs[1]);
+        return new UnarchiveCommand(index);
+    }
+
+    public static Command parseListCommand(String[] inputs) throws DukeException {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
+            return new ListCommand();
+        } else if (inputs[1].equals("archive")) {
+            return new ListArchiveCommand();
+        } else {
+            throw new DukeException("Invalid command. Please try again.\n");
+        }
     }
 }

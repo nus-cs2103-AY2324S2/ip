@@ -2,35 +2,25 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-/**
- * A class that inherits from Command class.
- * Represents a command to mark a task as done.
- */
-public class MarkCommand extends Command {
+public class UnarchiveCommand extends Command {
 
     private int index;
 
-    /**
-     * Constructs a MarkCommand with the specified index of the task to be marked as done.
-     *
-     * @param index The index of the tasks to be marked as done.
-     */
-    public MarkCommand(int index) {
+    public UnarchiveCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Executes the MarkCommand by marking the specified task as done in the TaskList.
-     * Shows a message indicating the task has been marked as done.
-     * Saves the changes to the file.
+     * Executes the command based on the given parameters.
      *
      * @param tasks         The TaskList that holds the list of tasks.
      * @param archiveTasks  The list of archived tasks.
      * @param ui            The Ui to interact with the user.
-     * @param storage       The Storage to save the tasks to a file.
+     * @param storage       The Storage to save tasks to a file.
      * @param archived      The storage to save the archived tasks to a file.
      * @throws DukeException If there is an error while executing the command.
      */
@@ -38,20 +28,23 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
                           Storage storage, Storage archived) throws DukeException {
         if (this.index <= tasks.getTaskSize() && this.index > 0) {
-            tasks.mark(this.index);
+            Task taskToUnarchive = archiveTasks.getTasks().get(index - 1);
+            tasks.add(taskToUnarchive);
+            String s = ui.showUnarchiveMsg(archiveTasks.getTasks().get(this.index - 1),
+                    archiveTasks.getTaskSize());
+            archiveTasks.delete(this.index);
             storage.saveTask(tasks);
-            return ui.showMarkMsg(tasks.getTasks().get(this.index - 1));
+            archived.saveTask(archiveTasks);
+            return s;
         } else {
-            throw new DukeException("Invalid index. "
+            throw new DukeException("Invalid index. \n"
                     + "Please provide a valid index within the range 1 to "
-                    + tasks.getTaskSize() + ".");
+                    + archiveTasks.getTaskSize() + "." + "\n");
         }
     }
 
     /**
-     * Checks if the MarkCommand is an exit command.
-     *
-     * @return false, as the MarkCommand is not an exit command.
+     * Checks if the command is an exit command.
      */
     @Override
     public boolean isExit() {
@@ -60,6 +53,6 @@ public class MarkCommand extends Command {
 
     @Override
     public boolean isArchive() {
-        return false;
+        return true;
     }
 }

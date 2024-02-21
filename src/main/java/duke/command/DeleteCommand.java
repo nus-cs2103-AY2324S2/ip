@@ -23,21 +23,25 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the DeleteCommand by removing the task at the specified index from the TaskList,
-     * displaying a deletion message, and saving the updated TaskList to storage.
+     * Executes the DeleteCommand by removing the task at the specified index from the
+     * TaskList, displaying a deletion message, and saving the updated TaskList to storage.
      * Saves the changes into the file.
      *
-     * @param tasks   The TaskList that holds the list of tasks.
-     * @param ui      The Ui to interact with the user.
-     * @param storage The Storage to save the tasks to a file.
+     * @param tasks         The list of tasks.
+     * @param archiveTasks  The list of archive tasks.
+     * @param ui            The Ui to interact with the user.
+     * @param storage       The Storage to save the tasks to a file.
+     * @param archived      The storage to save the archived tasks to a file.
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
+                          Storage storage, Storage archived) throws DukeException {
         if (this.index <= tasks.getTaskSize() && this.index > 0) {
-            String s = ui.showDeleteMsg(tasks.getTasks().get(this.index - 1), tasks.getTaskSize());
+            String s = ui.showDeleteMsg(tasks.getTasks().get(this.index - 1),
+                    tasks.getTaskSize());
             tasks.delete(this.index);
-            storage.save(tasks);
+            storage.saveTask(tasks);
             return s;
         } else {
             throw new DukeException("Invalid index. \n"
@@ -53,6 +57,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isArchive() {
         return false;
     }
 }

@@ -14,15 +14,20 @@ public abstract class Command {
     /**
      * Executes the command based on the given parameters.
      *
-     * @param tasks   The TaskList that holds the list of tasks.
-     * @param ui      The Ui to interact with the user.
-     * @param storage The Storage to save or load tasks from/to a file.
+     * @param tasks         The list of tasks.
+     * @param archiveTasks  The list of archive tasks.
+     * @param ui            The Ui to interact with the user.
+     * @param storage       The Storage to save tasks to a file.
+     * @param archived      The storage to save the archived tasks to a file.
      * @throws DukeException If there is an error while executing the command.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
+                                   Storage storage, Storage archived) throws DukeException;
 
     /**
      * Checks if the command is an exit command.
      */
     public abstract boolean isExit();
+
+    public abstract boolean isArchive();
 }

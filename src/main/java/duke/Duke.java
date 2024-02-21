@@ -3,6 +3,7 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.Archive;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -12,8 +13,11 @@ import duke.ui.Ui;
 public class Duke {
 
     private static final String FILE_PATH = "./data/duke.txt";
-    private Storage storage;
+    private static final String ARCHIVED_FILE_PATH = "./data/archive.txt";
+    private Storage storageForTask;
+    private Storage storageForArchivedTask;
     private TaskList tasks;
+    private TaskList archiveTasks;
     private Ui ui;
 
     /**
@@ -21,9 +25,11 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storageForTask = new Storage(FILE_PATH);
+        storageForArchivedTask = new Storage(ARCHIVED_FILE_PATH);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storageForTask.load());
+            archiveTasks = new TaskList(storageForArchivedTask.load());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
@@ -41,7 +47,7 @@ public class Duke {
         try {
             response += ui.showLine();
             Command c = Parser.parse(userInput);
-            response += c.execute(tasks, ui, storage);
+            response += c.execute(tasks, archiveTasks, ui, storageForTask, storageForArchivedTask);
         } catch (DukeException e) {
             response += ui.showError(e.getMessage());
         } finally {
