@@ -1,9 +1,9 @@
-package duke;
+package julia;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import julia.task.Deadline;
+import julia.task.Event;
+import julia.task.Task;
+import julia.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,30 +76,30 @@ public class Storage {
 
         Task task;
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    throw new IOException("Invalid deadline format. Skipping line.");
-                }
-                String by = parts[3];
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                if (parts.length < 4) {
-                    throw new IOException("Invalid event format. Skipping line.");
-                }
-                String[] eventParts = parts[3].split(" from ");
-                if (eventParts.length < 2) {
-                    throw new IOException("Invalid event format. Skipping line.");
-                }
-                String start = eventParts[0];
-                String end = eventParts[1];
-                task = new Event(description, start, end);
-                break;
-            default:
-                throw new IOException("Invalid task type in file. Skipping line.");
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            if (parts.length < 4) {
+                throw new IOException("Invalid deadline format. Skipping line.");
+            }
+            String by = parts[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (parts.length < 4) {
+                throw new IOException("Invalid event format. Skipping line.");
+            }
+            String[] eventParts = parts[3].split(" from ");
+            if (eventParts.length < 2) {
+                throw new IOException("Invalid event format. Skipping line.");
+            }
+            String start = eventParts[0];
+            String end = eventParts[1];
+            task = new Event(description, start, end);
+            break;
+        default:
+            throw new IOException("Invalid task type in file. Skipping line.");
         }
 
         if (isDone) {

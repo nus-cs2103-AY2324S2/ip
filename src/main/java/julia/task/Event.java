@@ -1,4 +1,4 @@
-package duke.task;
+package julia.task;
 
 /**
  * Represents an Event task in the task list.

@@ -1,6 +1,6 @@
-package duke;
-import duke.task.Task;
-import duke.task.Todo;
+package julia;
+import julia.task.Task;
+import julia.task.Todo;
 
 
 import java.io.ByteArrayOutputStream;

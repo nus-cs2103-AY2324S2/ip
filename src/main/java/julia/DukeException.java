@@ -1,4 +1,4 @@
-package duke;
+package julia;
 // DukeExceptions.java
 
 /**

@@ -1,4 +1,4 @@
-package duke;
+package julia;
 
 
 
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * Duke is a task management application that allows users to manage their tasks.
  * It provides a command-line interface and a JavaFX GUI for users to interact with their task list.
  */
-public class Duke extends Application {
+public class Julia extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
 
     private final Ui ui;
@@ -23,7 +23,7 @@ public class Duke extends Application {
      *
      * @param filePath The file path for loading and saving tasks.
      */
-    public Duke(String filePath) {
+    public Julia(String filePath) {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {

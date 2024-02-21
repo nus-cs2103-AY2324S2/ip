@@ -1,8 +1,8 @@
-package duke;
+package julia;
 
 import java.util.ArrayList;
 
-import duke.task.Task;
+import julia.task.Task;
 
 
 

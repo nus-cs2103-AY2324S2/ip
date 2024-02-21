@@ -1,7 +1,7 @@
-package duke;
+package julia;
 import java.util.Scanner;
 
-import duke.task.Task;
+import julia.task.Task;
 
 
 

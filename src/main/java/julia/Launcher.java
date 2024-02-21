@@ -1,4 +1,4 @@
-package duke;
+package julia;
 import javafx.application.Application;
 
 /**
