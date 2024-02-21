@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Exception class for Taylor ChatBot
+ * Exception class for Taylor ChatBot.
  */
 public class TaylorException extends RuntimeException {
     public TaylorException(String message) {

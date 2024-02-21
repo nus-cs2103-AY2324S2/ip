@@ -12,20 +12,20 @@ import exceptions.TaylorException;
 import tasks.Task;
 
 /**
- * To read data from and save data into Hard Disk
+ * Reads data from and save data into Hard Disk.
  */
 public class Storage {
     /**
-     * No constructor of class needed
+     * No constructor of class needed.
      */
     private Storage() {
         assert false : "Execution should never reach this point!";
     }
 
     /**
-     * Read File from Hard Disk
+     * Reads File from Hard Disk.
      *
-     * @return Action ArrayList from Hard Disk or the empty ArrayList if not present
+     * @return List of Task Lists from Hard Disk or the empty List if nothing is present
      * @throws Exception Wrong file location, no data in the file, or content in wrong format
      */
     public static List<List<Task>> inputFromFile() throws TaylorException {
@@ -33,7 +33,7 @@ public class Storage {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
             return (List<List<Task>>) ois.readObject();
         } catch (FileNotFoundException e) {
-            throw new TaylorException("File not found\n" + System.getProperty("user.dir"));
+            throw new TaylorException("\n" + "File not found\n" + System.getProperty("user.dir"));
         } catch (IOException | ClassNotFoundException e) {
             throw new TaylorException("No past data");
         } catch (ClassCastException e) {
@@ -42,16 +42,17 @@ public class Storage {
     }
 
     /**
-     * Save the Actions in Hard Disk
-     * @param taskList get the Action Array List and save in Hard Disk
-     * @throws Exception file to save the Actions is not available
+     * Saves the Tasks in Hard Disk.
+     *
+     * @param taskList get the List of Tasks Lists and save in Hard Disk
+     * @throws Exception file to save the List of Tasks Lists is not available
      */
     public static String outputToFile(List<List <Task>> taskList) throws Exception {
         StringBuilder response = new StringBuilder();
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
             oos.writeObject(taskList);
-            response.append("File saved successfully.\n").append("Exiting the ChatBot in 3 seconds");
+            response.append("For in the end, it's not goodbye.\n").append("But just a 'see you again'");
         } catch (FileNotFoundException e) {
             response.append("File not found\n").append("Please create file in ").append(System.getProperty("user.dir"));
         }

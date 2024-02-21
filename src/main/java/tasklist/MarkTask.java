@@ -10,18 +10,19 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * Mark/Unmark task as done
+ * Mark/Unmark task.
  */
 public class MarkTask {
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private MarkTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Execute marking/unmarking
+     * Executes marking/unmarking.
+     *
      * @param input : to mark or unmark and which one?
      * @param taskList List containing Todo, Deadline and Event
      *                 list of task
@@ -45,7 +46,11 @@ public class MarkTask {
 
             Ui.markTask(response, listToEdit, retrieverNum, action);
         } catch (Exception err) {
-            throw new TaylorException("Please ensure the following format: MARK/UNMARK <TaskType> <TaskNumber>");
+            throw new TaylorException("\n"
+                            + "In the depths of twilight's hue,\n"
+                            + "I'm lost in thoughts of me and you.\n"
+                            + "==============================\n"
+                            + "Please ensure the following format: MARK/UNMARK <TaskType> <TaskNumber>");
         }
         return response.toString();
     }

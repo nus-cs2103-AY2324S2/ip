@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Create task for Deadline
+ * Creates task for Deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor
+     * Constructor for Deadline task.
+     *
      * @param description task to be taken
      * @param by time
      */
@@ -20,6 +21,8 @@ public class Deadline extends Task {
     }
 
     /**
+     * Gets the due date of the task.
+     *
      * @return Date of the deadline
      */
     public LocalDateTime getBy() {
@@ -27,7 +30,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return task output
+     * Overrides the output of deadline tasks.
      */
     @Override
     public String toString() {
@@ -35,6 +38,12 @@ public class Deadline extends Task {
                 + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma")) + ")";
     }
 
+    /**
+     * Overrides the comparison to sort deadline list based on due date.
+     *
+     * @param task the object to be compared.
+     * @return
+     */
     @Override
     public int compareTo(Task task) {
         Deadline event = (Deadline) task;

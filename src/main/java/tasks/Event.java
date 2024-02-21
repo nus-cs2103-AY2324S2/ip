@@ -4,14 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Action for creating an Event
+ * Creates an Event task.
  */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * Constructor for Actions1.Event class
+     * Constructor for Event class.
+     *
      * @param description action to be made
      * @param from Starting Time
      * @param to Ending Time
@@ -23,21 +24,21 @@ public class Event extends Task {
     }
 
     /**
-     * @return get event starting date
+     * Gets the event start date.
      */
     public LocalDateTime getFrom() {
         return this.from;
     }
 
     /**
-     * @return get event ending date
+     * Gets the event end date.
      */
     public LocalDateTime getTo() {
         return this.to;
     }
 
     /**
-     * @return task output
+     * Overrides the output of Event tasks.
      */
     @Override
     public String toString() {
@@ -48,9 +49,10 @@ public class Event extends Task {
     }
 
     /**
-     * Sort based on from timing
+     * Sorts based on from timing
      * if same, sort based on to timing
-     * if same, sort alphabetically
+     * if same, sort alphabetically.
+     *
      * @param task the object to be compared.
      * @return result of the comparison
      */

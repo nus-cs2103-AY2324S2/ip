@@ -12,17 +12,18 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * To search tasks based on Date and Time
+ * Searches for tasks based on Date and Time.
  */
 public class SearchTask {
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private SearchTask() {
         throw new AssertionError("Constructor is not allowed");
     }
     /**
-     * Search Task in ArrayList based on Date and Time
+     * Searches Task in List based on Date and Time.
+     *
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
@@ -46,7 +47,11 @@ public class SearchTask {
         } catch (TaylorException err) {
             throw new TaylorException(err.getMessage());
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new TaylorException("Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
+            throw new TaylorException("\n"
+                    + "In the stillness of this empty room,\n"
+                    + "I'm left to wander in the gloom\n"
+                    + "==============================\n"
+                    + "Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
         }
         return response.toString();
     }

@@ -19,7 +19,7 @@ import parser.Parser;
 import tasks.Task;
 
 /**
- * Container for the content of the chat
+ * Container for the content of the chat.
  */
 public class Container {
     private List<List<Task>> tasksList;
@@ -33,7 +33,7 @@ public class Container {
     private Image tayswift = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
 
     /**
-     * Initialise the container class
+     * Initialises the container class.
      */
     public Container() {
         this.tasksList = new ArrayList<>();
@@ -47,7 +47,8 @@ public class Container {
     }
 
     /**
-     * Set up container for the content of the chat to scroll
+     * Set-up container for the content of the chat to scroll.
+     *
      * @param stage
      */
     public void setUp(Stage stage) {
@@ -63,7 +64,8 @@ public class Container {
     }
 
     /**
-     * Format the window to look as expected
+     * Formats the window to look as expected.
+     *
      * @param stage
      */
     public void formatWindow(Stage stage) {
@@ -97,7 +99,8 @@ public class Container {
     }
 
     /**
-     * Add functionality to handle user input
+     * Adds functionality to handle user input.
+     *
      * @param stage
      */
     public void handleInput(Stage stage) {
@@ -132,6 +135,7 @@ public class Container {
 
     /**
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -143,8 +147,10 @@ public class Container {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and
+     * the other containing Duke's reply and then appends them to
+     * the dialog container.
+     * Clears the user input after processing.
      */
     private void handleUserInput(Stage stage) {
         String userText = userInput.getText();
@@ -163,7 +169,7 @@ public class Container {
     }
 
     /**
-     * Generate a response to user input
+     * Generates a response to user input.
      */
     public String getResponse(String input) {
         return Parser.executeCommand(input, tasksList);

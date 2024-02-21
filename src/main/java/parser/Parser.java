@@ -15,24 +15,25 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * Deals with making sense of the suer command
+ * Deals with making sense of the suer command.
  */
 public class Parser {
     /**
-     * enums for different Commands
+     * enums for different Commands.
      */
     enum Commands {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, FIND, INVALID
     }
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private Parser() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Execute User Input command
+     * Executes the respective actions based on User Input.
+     *
      * @param input User Input
      * @param tasksList List of Tasks
      */
@@ -43,7 +44,6 @@ public class Parser {
         String actionCalled = WordsSplit.getWord(userInputSplit, 0);
         Commands cmd = getCommands(actionCalled);
 
-        // Switch between different calls
         switch (cmd) {
         case BYE:
             try {
@@ -102,7 +102,8 @@ public class Parser {
     }
 
     /**
-     * Create enums for the different Commands
+     * Creates enums for the different Commands.
+     *
      * @param action User Input to select the different action to be taken
      * @return return Enums for that command
      */

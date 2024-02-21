@@ -9,21 +9,22 @@ import taskhelper.WordsSplit;
 import tasks.Task;
 
 /**
- * To add Task into the ArrayList
+ * Adds Task into the ArrayList.
  */
 public class InsertTask {
     enum Type {
         TODO, DEADLINE, EVENT
     }
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private InsertTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Execute inserting the tasks
+     * Executes tasks insertion.
+     *
      * @param input User input
      * @param taskList List containing the different list of tasks
      * @throws TaylorException empty description field / invalid task type input
@@ -41,7 +42,11 @@ public class InsertTask {
             int actionsIdx = 0;
             type = Type.valueOf(WordsSplit.getWord(wordPartition, actionsIdx).toUpperCase());
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new TaylorException("The description of the task is empty.");
+            throw new TaylorException("\n"
+                    + "For in the void, there's room to grow,\n"
+                    + "And from the ashes, new beginnings will sow\n"
+                    + "==============================\n"
+                    + "The description of the task is empty.");
         }
 
         List<Task> deadlineList = IterateList.retrieveList(taskList, "DEADLINE");
@@ -59,7 +64,11 @@ public class InsertTask {
             response = TaskInsertion.eventTask(content, eventList);
             break;
         default:
-            throw new TaylorException("Invalid Task Type");
+            throw new TaylorException("\n"
+                    + "Letters dance in the moon's soft glow,\n"
+                    + "A language lost, I long to know.\n"
+                    + "==============================\n"
+                    + "Invalid Task Type");
         }
 
         return response;

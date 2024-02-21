@@ -2,7 +2,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Main class to execute Taylor ChatBot
+ * Main class to execute Taylor ChatBot.
  */
 public class Taylor extends Application {
     public static void main(String[] args) {

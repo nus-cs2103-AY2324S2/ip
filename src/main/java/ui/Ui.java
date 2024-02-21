@@ -7,7 +7,7 @@ import exceptions.TaylorException;
 import tasks.Task;
 
 /**
- * Deals with interactions with the user
+ * Deals with interactions with the user.
  */
 public class Ui {
     private Ui() {
@@ -15,7 +15,8 @@ public class Ui {
     }
 
     /**
-     * Print out the error message
+     * Prints out the error message.
+     *
      * @param err Error thrown from ChatBot
      */
     public static String printError(Exception err) {
@@ -23,24 +24,34 @@ public class Ui {
     }
 
     /**
-     * Print warning for invalid commands from Users
+     * Prints warning for invalid commands from Users
      */
     public static String invalidCommand() {
-        return ("Invalid input. ChatBot can only handle "
-                + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
+        return ("I'm lost in the whispers of the wind.\n"
+                + "Trying to decode the words you send.\n"
+                + "Tangled up in the branches of doubt,\n"
+                + "I'm left wondering what it's all about. \n"
+                + "==============================\n"
+                + "(Taylor can only handle:\n"
+                + "'todo', 'deadline', 'event', 'delete', 'find', 'mark', 'search' tasks)");
     }
 
     /**
-     * No result found
+     * Edits responses to show 'No result found'.
+     *
      * @param response StringBuilder to append
      * @return Appended StringBuilder
      */
     public static StringBuilder emptyResult(StringBuilder response) {
-        return response.append("No task found\n");
+        return response.append("In the quiet of the morning dew,\n")
+                .append("Silent whispers in the rain.\n")
+                .append("==============================\n")
+                .append("No task found\n");
     }
 
     /**
-     * Print out tasks in the list
+     * Prints out tasks in the list.
+     *
      * @param response StringBuilder to append
      * @param result list of tasks queried
      * @return Appended StringBuilder
@@ -54,16 +65,19 @@ public class Ui {
     }
 
     /**
-     * Header reply
+     * Edits response for 'Header' reply.
+     *
      * @param response StringBuilder to append
      * @return Appended StringBuilder
      */
     public static StringBuilder listingStart(StringBuilder response) {
-        return response.append("Here are the tasks in your list: \n");
+        return response.append("The memories we shared, the dream we wove,\n")
+                .append("Now scattered like petals, lost in the grove.\n");
     }
 
     /**
-     * List out the tasks, separated by type of tasks
+     * Lists out the tasks, separated by type of tasks.
+     *
      * @param taskList lists of tasks lists
      * @param response StringBuilder to append
      * @return Appended StringBuilder
@@ -94,7 +108,8 @@ public class Ui {
     }
 
     /**
-     * Response output for marking tasks
+     * Edits response output for marking tasks.
+     *
      * @param response StringBuilder to append
      * @param listToEdit tasks list to be edited
      * @param noToEdit index of the task to be edited
@@ -104,20 +119,27 @@ public class Ui {
     public static StringBuilder markTask(StringBuilder response, List<Task> listToEdit, int noToEdit, String action) {
         if (action.equals("MARK")) {
             listToEdit.get(noToEdit).markIt();
-            response.append("Nice! I've marked this task as done:\n");
+            response.append("In the constellation of dreams, I've made my mark:\n");
             response.append(listToEdit.get(noToEdit));
         } else if (action.equals("UNMARK")) {
             listToEdit.get(noToEdit).unMark();
-            response.append("OK, I've marked this task as not done yet:\n");
+            response.append("In the pages of my mind, I trace.\n")
+                    .append("The paths where memories once embraced.\n")
+                    .append("But now they're scattered\n")
+                    .append("Unmarked trails, lost in the dark\n");
             response.append(listToEdit.get(noToEdit));
         } else {
-            throw new TaylorException("Invalid command -  Only use mark/unmark");
+            throw new TaylorException("In the silence of the midnight air, \n "
+                    + "I search for words, but they're not here.\n"
+                    + "==============================\n"
+                    + "Please only use mark/unmark");
         }
         return response;
     }
 
     /**
-     * Response output for deleting tasks
+     * Edits response output for deleting tasks.
+     *
      * @param response StringBuilder to append
      * @param listToEdit tasks list to be edited
      * @param noToEdit index of the task to be edited
@@ -127,13 +149,14 @@ public class Ui {
         int idx = noToEdit - 1;
         Task taskRemoved = listToEdit.get(idx);
         listToEdit.remove(idx);
-        response.append("Noted. I've removed this tasks:\n");
+        response.append("With every stroke, a memory fades:\n");
         response.append(taskRemoved).append("\n");
         return response;
     }
 
     /**
-     * Response output for adding tasks
+     * Edits response output for adding tasks.
+     *
      * @param response StringBuilder to append
      * @param lst tasks list to be edited
      * @param tsk tasks to be inserted into the list
@@ -141,8 +164,8 @@ public class Ui {
      */
     public static StringBuilder addTask(StringBuilder response, List<Task> lst, Task tsk) {
         lst.add(tsk);
+        response.append("With gentle hands, I've added you,\n").append("To the story of skies so blue.\n");
         response.append(tsk).append("\n");
-        response.append("Got it. I've added this task:\n");
         response.append("Now you have ").append(lst.size()).append(" tasks in the list.").append("\n");
         return response;
     }

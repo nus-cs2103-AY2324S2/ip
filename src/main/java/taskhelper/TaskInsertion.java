@@ -13,7 +13,7 @@ import tasks.Todo;
 import ui.Ui;
 
 /**
- * To insert task into the list
+ * Inserts task into the list.
  */
 public class TaskInsertion {
     private TaskInsertion() {
@@ -21,21 +21,31 @@ public class TaskInsertion {
     }
 
     /**
-     * Add todo task
+     * Adds todo task.
+     *
      * @param content : what to do?
      * @param taskList list of todo tasks
      */
     public static String todoTask(String content, List<Task> taskList) {
         StringBuilder response = new StringBuilder();
 
-        Todo task = new Todo(content);
-        Ui.addTask(response, taskList, task);
-
+        try {
+            String[] todoWordPartition = WordsSplit.separateWords(content, " ", true);
+            Todo task = new Todo(todoWordPartition[1]);
+            Ui.addTask(response, taskList, task);
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new TaylorException("\n"
+                    + "In the shadows of the night I roam,\n"
+                    + "I find myself in silence steep\n"
+                    + "==============================\n"
+                + "Please type in the following format: deadline <action> /by <time>");
+        }
         return response.toString();
     }
 
     /**
-     * Add Deadline task
+     * Adds Deadline task.
+     *
      * @param content : what to do? by when?
      * @param taskList list of deadline task
      * @throws TaylorException invalid user input
@@ -53,14 +63,18 @@ public class TaskInsertion {
             Ui.addTask(response, taskList, dl);
 
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new TaylorException("Invalid format. "
+            throw new TaylorException("\n"
+                    + "Through the words may falter, unsure,\n"
+                    + "In the silence, I'll endure.\n"
+                    + "==============================\n"
                     + "Please type in the following format: deadline <action> /by <time>");
         }
         return response.toString();
     }
 
     /**
-     * Add event
+     * Adds event task.
+     *
      * @param content : what to do? From when to when?
      * @param taskList list of events task
      * @throws TaylorException Invalid user input
@@ -85,24 +99,33 @@ public class TaskInsertion {
                 LocalDateTime formattedFromTime = dateConversion(fromTime.trim());
                 LocalDateTime formattedToTime = dateConversion(toTime.trim());
 
+                System.out.println(formattedFromTime);
+                System.out.println(formattedToTime);
                 CheckValid.checkTime(formattedFromTime, formattedToTime);
 
                 Event eve = new Event(action, formattedFromTime, formattedToTime);
                 Ui.addTask(response, taskList, eve);
 
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new TaylorException("Invalid format. Please type in the following format: "
+                throw new TaylorException("\n"
+                        + "Whispers of meaning, just out of reach,\n"
+                        + "Like a melody that I cannot teach.\n"
+                        + "Invalid format. Please type in the following format: "
                         + "event <action> /from <time> /to <time>");
             }
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new TaylorException("Invalid format. Please type in the following format: "
+            throw new TaylorException("\n"
+                    + "I'll listen close to the quiet refrain,\n"
+                    + "For in the emptiness, there's so much to gain.\n"
+                    + "Invalid format. Please type in the following format: "
                     + "event <action> /from <time> /to <time>");
         }
         return response.toString();
     }
 
     /**
-     * Convert input String for Date/Time to correct format
+     * Converts input String for Date/Time to correct format.
+     *
      * @param inputDate User input for Date/Time to be searched
      * @return Correct format for Date/Time
      * @throws TaylorException if Date/Time is invalid
@@ -114,7 +137,11 @@ public class TaskInsertion {
 
             return LocalDateTime.parse(inputDate, formatter);
         } catch (Exception e) {
-            throw new TaylorException("Please include <time> as: YYYY-MM-DD HHmm");
+            throw new TaylorException("\n"
+                    + "For in the stillnes, I'll find my way,\n"
+                    + "Through the darkness, to the light of day.\n"
+                    + "==============================\n"
+                    + "Please include <time> as: YYYY-MM-DD HHmm");
         }
     }
 }

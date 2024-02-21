@@ -6,18 +6,19 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * To list all the task
+ * To list all the task.
  */
 public class ListTask {
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private ListTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * List out all the tasks
+     * Lists out all the tasks.
+     *
      * @param taskList List of tasks
      */
     public static String execListTask(List<List<Task>> taskList) {

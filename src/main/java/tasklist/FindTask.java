@@ -10,19 +10,20 @@ import ui.Ui;
 
 
 /**
- * Find a task by searching for a keyword
+ * Finds a task by searching for a keyword.
  */
 public class FindTask {
     private static final int KEYWORD = 1;
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private FindTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Execute finder using keyword
+     * Executes finder using keyword.
+     *
      * @param input User input
      * @param taskList ArrayList of Tasks
      */
@@ -31,7 +32,11 @@ public class FindTask {
         String[] wordPartition = WordsSplit.separateWords(input, " ", true);
         boolean isKeywordEmpty = WordsSplit.getWord(wordPartition, KEYWORD).trim().isBlank();
         if (isKeywordEmpty) {
-            throw new TaylorException("The description of the task is empty.");
+            throw new TaylorException("\n"
+                    + "For in the void, there's room to grow,\n"
+                    + "And from the ashes, new beginnings will sow\n"
+                    + "==============================\n"
+                    + "The description of the task is empty.");
         }
 
         String keyword = WordsSplit.getWord(wordPartition, KEYWORD);

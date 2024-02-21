@@ -1,7 +1,7 @@
 package taskhelper;
 
 /**
- * Class to split words
+ * Splits strings.
  */
 public class WordsSplit {
     private WordsSplit() {
@@ -9,7 +9,8 @@ public class WordsSplit {
     }
 
     /**
-     * To retrieve the action to be taken and the content separately
+     * Retrieves the action to be taken and the content separately.
+     *
      * @param input Command
      * @param splitType split based on which word
      * @param isOnlyFirst do we need to only split the first word?
@@ -21,7 +22,8 @@ public class WordsSplit {
     }
 
     /**
-     * Get the action to be taken
+     * Gets the action to be taken.
+     *
      * @param input Array of String
      * @param idx index of the array to retrieve
      * @return String in the index of the array

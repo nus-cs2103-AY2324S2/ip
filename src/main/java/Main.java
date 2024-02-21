@@ -11,6 +11,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /**
+     * Instantiates Taylor ChatBot class
+     */
     private Taylor taylor = new Taylor();
 
     @Override

@@ -1,11 +1,12 @@
 package tasks;
 
 /**
- * Create Task for Todo
+ * Creates Task for Todo.
  */
 public class Todo extends Task {
     /**
-     * Constructor
+     * Constructor for Todo task.
+     *
      * @param description action to be made
      */
     public Todo(String description) {
@@ -13,6 +14,8 @@ public class Todo extends Task {
     }
 
     /**
+     * Overrides toString to print the todo task.
+     *
      * @return task output
      */
     @Override

@@ -10,7 +10,7 @@ import tasks.Event;
 import tasks.Task;
 
 /**
- * Class to iterate through the list
+ * Iterates through the list.
  */
 public class IterateList {
     private IterateList() {
@@ -18,7 +18,8 @@ public class IterateList {
     }
 
     /**
-     * Check database for any Task which contains the keyword
+     * Checks database for any Task which contains the keyword.
+     *
      * @param taskList list of tasks lists
      * @param keyword queried String
      * @return List of task which contains the keyword
@@ -31,7 +32,8 @@ public class IterateList {
     }
 
     /**
-     * Search for tasks which contain the queried date & time
+     * Searches for tasks which contain the queried date & time.
+     *
      * @param taskList list of tasks lists
      * @param searchDate queried date and time
      * @param output List of task which contains the queried
@@ -58,7 +60,8 @@ public class IterateList {
     }
 
     /**
-     * Return the required type of Task List (Todo, Event, Deadline)
+     * Returns the required type of Task List (Todo, Event, Deadline).
+     *
      * @param taskList list of tasks lists
      * @param taskType type of tasks needed
      * @return Task List queried

@@ -10,23 +10,23 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * To delete a task
+ * Deletes a task.
  */
 public class DeleteTask {
     /**
-     * No constructor needed
+     * No constructor needed.
      */
     private DeleteTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
     /**
-     * Execute Deleting tasks
+     * Executes tasks deletion.
+     *
      * @param input    : User input
      * @param taskList List of tasks list
      * @throws TaylorException Invalid user command
      */
-    // delete event 1
     public static String execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = WordsSplit.separateWords(input, " ", false);
@@ -45,7 +45,11 @@ public class DeleteTask {
             Ui.deleteTask(response, listToEdit, noToDelete);
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {
-            throw new TaylorException("Please ensure the following format: DELETE <TaskType> <TaskNumber>");
+            throw new TaylorException("\n"
+                    + "In the depths of twilight's hue,\n"
+                    + "I'm lost in thoughts of me and you.\n"
+                    + "==============================\n"
+                    + "Please ensure the following format: DELETE <TaskType> <TaskNumber>");
         }
         return response.toString();
     }
