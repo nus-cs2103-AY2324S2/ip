@@ -25,7 +25,6 @@ public class Farewell implements Action {
      */
 
     public static Farewell parse(TaskList taskList) {
-        taskList.goodBye();
         return new Farewell();
     }
 

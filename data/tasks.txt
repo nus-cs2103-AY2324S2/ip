@@ -1,4 +1,2 @@
 T|O|buy water
-D|X|hrer|2020-02-02
-T|X|jrjjr
 T|O|drink water

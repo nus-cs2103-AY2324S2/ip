@@ -9,11 +9,11 @@ public class Help implements Action {
      * The content of the help message.
      */
     public static final String HELP_CONTENT = "Here are the available commands!\n"
-            + "Add a new todo task\n"
+            + "Add a todo task\n"
             + " - todo <description>\n"
-            + "Add a new deadline task\n"
+            + "Add a deadline task\n"
             + " - deadline <description> /by <due date>\n"
-            + "Add a new event task\n"
+            + "Add a event task\n"
             + " - event <description> /from <start> /to <end>\n"
             + "View all tasks\n"
             + " - list\n"
@@ -25,6 +25,8 @@ public class Help implements Action {
             + " - delete <indice(s)>\n"
             + "Find task(s) containing the keyword\n"
             + " - find <keyword>\n"
+            + "Change filepath\n"
+            + " - change <filepath>\n"
             + "Exit the application\n"
             + " - bye\n";
 

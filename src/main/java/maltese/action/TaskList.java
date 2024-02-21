@@ -54,8 +54,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
      */
     public Task deleteTask(int index) {
         if (index >= 0 && index < tasks.size()) {
-            System.out.println("Noted. I've removed this task:\n" + tasks.get(index).toString()
-                    + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
             return tasks.remove(index);
         } else {
             return null;
@@ -69,9 +67,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
      */
     public void addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + this.size() + " tasks in the list.");
     }
 
     /**
@@ -83,8 +78,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         if (validateIndex(index)) {
             Task taskToMark = tasks.get(index);
             taskToMark.mark();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(taskToMark);
         }
     }
 
@@ -97,21 +90,9 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         if (validateIndex(index)) {
             Task taskToUnmark = tasks.get(index);
             taskToUnmark.unmark();
-            System.out.println("OK, I've marked this task as not done yet:" + taskToUnmark.toString());
-            System.out.println(taskToUnmark);
         }
     }
 
-    /**
-     * Displays all tasks in the list.
-     */
-    public void displayTasks() {
-        System.out.print("");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("  " + (i + 1) + ". " + tasks.get(i));
-        }
-    }
 
     /**
      * Validates the given index.
@@ -123,16 +104,8 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         if (index >= 0 && index < tasks.size()) {
             return true;
         } else {
-            //System.out.println("Invalid task index. Please provide a valid index.");
             return false;
         }
-    }
-
-    /**
-     * Prints a goodbye message.
-     */
-    public void goodBye() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -143,15 +116,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
-            }
-        }
-
-        if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
-        } else {
-            System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println("  " + (i + 1) + ". " + matchingTasks.get(i));
             }
         }
     }

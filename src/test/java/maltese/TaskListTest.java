@@ -66,21 +66,6 @@ public class TaskListTest {
         assertEquals(2, testList.size());
     }
 
-    @Test
-    void test_displayTasks() {
-        TaskList testList = new TaskList();
-        Task itemOne = new ToDo("item 1");
-        Task itemTwo = new ToDo("item 2");
-        testList.addTask(itemOne);
-        testList.addTask(itemTwo);
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        testList.displayTasks();
-
-        assertEquals("Here are the tasks in your list:\n  1. " + itemOne.toString() + "\n  2. " + itemTwo.toString() + "\n", outContent.toString());
-    }
 
     @Test
     void test_markTask() {
