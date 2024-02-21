@@ -42,6 +42,8 @@ public class MainApp extends Application{
         shirmin = new Shirmin();
     }
 
+
+
     /**
      * Starts the application, setting up the graphical user interface.
      *
@@ -49,6 +51,7 @@ public class MainApp extends Application{
      */
     @Override
     public void start(Stage stage) {
+        // function is long because encapsulating functions like anchorPane don't make sense imo
         Label helloWorld = new Label("Hello World!");
         Scene scene = new Scene(helloWorld);
 

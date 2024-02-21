@@ -28,9 +28,8 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
-            // System.err.println("Error parsing event dates: " + from + " and " + to + ". Please use the format 'yyyy-MM-dd HHmm'.");
-            this.from = null; // Set to null in case of parsing error
-            this.to = null;   // Set to null in case of parsing error
+            this.from = null;
+            this.to = null;
         }
     }
 

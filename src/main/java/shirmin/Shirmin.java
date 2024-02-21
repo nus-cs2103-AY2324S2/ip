@@ -24,7 +24,6 @@ public class Shirmin {
      * The entry point of the Shirmin application.
      * <p>
      * This main method initializes a new Shirmin instance and starts its execution.
-     *
      */
     public String runCommand(String command) {
         // run a single command in TaskList

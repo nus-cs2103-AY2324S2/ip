@@ -55,6 +55,8 @@ public class TaskList {
     }
 
     public String runCommand(String input) {
+        // long function but I've already encapsulated the add task logic and the length is due to the number of
+        // cases so i feel that the length is reasonable here
         String[] commandParts = input.split(" ", 2);
         CommandType commandType = CommandType.getCommandType(commandParts[0]);
         String response;
@@ -184,15 +186,15 @@ public class TaskList {
     private String findTasksByKeyword(String keyword) {
         assert keyword != null : "Keyword should not be null";
         StringBuilder foundTasksBuilder = new StringBuilder();
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTasksBuilder.append(i + 1).append(". ").append(task).append("\n");
-                found = true;
+                isFound = true;
             }
         }
-        if (found) {
+        if (isFound) {
             return "Here are the matching tasks in your list:\n" + foundTasksBuilder;
         } else {
             return "No tasks found matching: " + keyword;

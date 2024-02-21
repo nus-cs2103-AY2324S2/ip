@@ -48,15 +48,14 @@ test {
 }
 
 application {
-    mainClass.set('Launcher')
-
+    mainClass.set('shirmin.Launcher')
 }
 
 shadowJar {
     archiveBaseName = "Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = 'Shirmin.Launcher'
+    mainClassName = 'shirmin.Launcher'
     archiveFileName = 'Launcher.jar'
 }
 
