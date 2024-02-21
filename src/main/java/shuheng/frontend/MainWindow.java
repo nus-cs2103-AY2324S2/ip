@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private boolean isExit = false;
 
-    private ShuHeng duke;
+    private ShuHeng shuheng;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
@@ -40,14 +40,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String dukeText = duke.sayHi();
+        String shuhengText = shuheng.sayHi();
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(dukeText, dukeImage)
+            DialogBox.getShuhengDialog(shuhengText, dukeImage)
         );
     }
 
-    public void setDuke(ShuHeng d) {
-        duke = d;
+    public void setShuheng(ShuHeng d) {
+        shuheng = d;
     }
 
     /**
@@ -60,11 +60,11 @@ public class MainWindow extends AnchorPane {
         String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, userImage),
-            DialogBox.getDukeDialog(dukeText, dukeImage)
+            DialogBox.getShuhengDialog(dukeText, dukeImage)
         );
         try {
             isExit =
-              this.duke.getParser().getCommand(userInput.getText().split(" ")).equals(Ui.Command.BYE);
+              this.shuheng.getParser().getCommand(userInput.getText().split(" ")).equals(Ui.Command.BYE);
         } catch (InvalidTaskException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private String getResponse(String input) {
-        String response = this.duke.getUi().run(input);
+        String response = this.shuheng.getUi().run(input);
         return response;
     }
 }

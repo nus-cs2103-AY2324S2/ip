@@ -63,12 +63,12 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Gets dialog box for duke's perspective.
+     * Gets dialog box for shuheng's perspective.
      * @param l The string.
      * @param iv The image to add.
      * @return A dialog box for duke.
      */
-    public static DialogBox getDukeDialog(String l, Image iv) {
+    public static DialogBox getShuhengDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

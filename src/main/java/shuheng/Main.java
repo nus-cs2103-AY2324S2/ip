@@ -13,7 +13,7 @@ import shuheng.frontend.MainWindow;
  * This class represents a bridge between duke and the javaFX GUI.
  */
 public class Main extends Application {
-    private ShuHeng duke = new ShuHeng();
+    private ShuHeng shuheng = new ShuHeng();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setShuheng(shuheng);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
