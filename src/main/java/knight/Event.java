@@ -34,14 +34,14 @@ public class Event extends Task {
 
     @Override
     void update(String updateMessage) {
-        String[] splitMessage = updateMessage.split(" ");
-        if (splitMessage.length != 5) {
+        String[] params = updateMessage.split(" /from | /to ");
+        if (params.length != 3) {
             throw new NonstandardCommandException(
                     "Thou shouldst specify the new name, start time and end time of the event in the format:\n"
-                            + "update [index] [new name] /from [new start time] /to [new end time])");
+                            + "update [index] [new name] /from [new start time] /to [new end time]");
         }
-        this.name = splitMessage[0];
-        this.startTime = LocalDate.parse(splitMessage[2]);
-        this.endTime = LocalDate.parse(splitMessage[4]);
+        this.name = params[0];
+        this.startTime = LocalDate.parse(params[1]);
+        this.endTime = LocalDate.parse(params[2]);
     }
 }

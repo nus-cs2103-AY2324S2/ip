@@ -30,13 +30,13 @@ public class Deadline extends Task {
 
     @Override
     void update(String updateMessage) {
-        String[] splitMessage = updateMessage.split(" ");
-        if (splitMessage.length != 3) {
+        String[] params = updateMessage.split(" /by ");
+        if (params.length != 2) {
             throw new NonstandardCommandException(
                     "Thou shouldst specify the new name and time of the deadline in the format:\n"
                             + "update [index] [new name] /by [new time]");
         }
-        this.name = splitMessage[0];
-        this.time = LocalDate.parse(splitMessage[2]);
+        this.name = params[0];
+        this.time = LocalDate.parse(params[1]);
     }
 }
