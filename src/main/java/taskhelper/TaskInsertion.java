@@ -26,12 +26,11 @@ public class TaskInsertion {
      * @param content : what to do?
      * @param taskList list of todo tasks
      */
-    public static String todoTask(String content, List<Task> taskList) {
+    public static StringBuilder todoTask(String content, List<Task> taskList) {
         StringBuilder response = new StringBuilder();
 
         try {
-            String[] todoWordPartition = WordsSplit.separateWords(content, " ", true);
-            Todo task = new Todo(todoWordPartition[1]);
+            Todo task = new Todo(content);
             Ui.addTask(response, taskList, task);
         } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("\n"
@@ -40,7 +39,7 @@ public class TaskInsertion {
                     + "==============================\n"
                 + "Please type in the following format: deadline <action> /by <time>");
         }
-        return response.toString();
+        return response;
     }
 
     /**
@@ -50,7 +49,7 @@ public class TaskInsertion {
      * @param taskList list of deadline task
      * @throws TaylorException invalid user input
      */
-    public static String deadlineTask(String content, List<Task> taskList) throws TaylorException {
+    public static StringBuilder deadlineTask(String content, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
             String[] deadlineWordPartition = WordsSplit.separateWords(content, "/by", false);
@@ -69,7 +68,7 @@ public class TaskInsertion {
                     + "==============================\n"
                     + "Please type in the following format: deadline <action> /by <time>");
         }
-        return response.toString();
+        return response;
     }
 
     /**
@@ -79,7 +78,7 @@ public class TaskInsertion {
      * @param taskList list of events task
      * @throws TaylorException Invalid user input
      */
-    public static String eventTask(String content, List<Task> taskList) throws TaylorException {
+    public static StringBuilder eventTask(String content, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
             // Separate the action and the 2 times
@@ -120,7 +119,7 @@ public class TaskInsertion {
                     + "Invalid format. Please type in the following format: "
                     + "event <action> /from <time> /to <time>");
         }
-        return response.toString();
+        return response;
     }
 
     /**

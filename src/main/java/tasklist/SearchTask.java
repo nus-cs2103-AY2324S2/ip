@@ -27,7 +27,7 @@ public class SearchTask {
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static String execSearchTask(String input, List<List<Task>> taskList) throws TaylorException {
+    public static StringBuilder execSearchTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
             String[] wordPartition = WordsSplit.separateWords(input, " ", true);
@@ -53,6 +53,6 @@ public class SearchTask {
                     + "==============================\n"
                     + "Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
         }
-        return response.toString();
+        return response;
     }
 }

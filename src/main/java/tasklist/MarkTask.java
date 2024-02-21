@@ -27,7 +27,7 @@ public class MarkTask {
      * @param taskList List containing Todo, Deadline and Event
      *                 list of task
      */
-    public static String execMarkTask(String input, List<List<Task>> taskList) {
+    public static StringBuilder execMarkTask(String input, List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = WordsSplit.separateWords(input, " ", false);
         int idxToGetType = 0;
@@ -52,6 +52,6 @@ public class MarkTask {
                             + "==============================\n"
                             + "Please ensure the following format: MARK/UNMARK <TaskType> <TaskNumber>");
         }
-        return response.toString();
+        return response;
     }
 }

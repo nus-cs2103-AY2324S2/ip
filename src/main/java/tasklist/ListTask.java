@@ -21,7 +21,7 @@ public class ListTask {
      *
      * @param taskList List of tasks
      */
-    public static String execListTask(List<List<Task>> taskList) {
+    public static StringBuilder execListTask(List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
         Ui.listingStart(response);
         if (taskList.isEmpty()) {
@@ -29,7 +29,7 @@ public class ListTask {
         } else {
             Ui.listTasks(taskList, response);
         }
-        return response.toString();
+        return response;
     }
 
 }

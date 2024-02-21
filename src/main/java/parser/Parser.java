@@ -38,7 +38,7 @@ public class Parser {
      * @param tasksList List of Tasks
      */
     public static String executeCommand(String input, List<List<Task>> tasksList) {
-        String response = null;
+        StringBuilder response = new StringBuilder();
 
         String[] userInputSplit = WordsSplit.separateWords(input, " ", true);
         String actionCalled = WordsSplit.getWord(userInputSplit, 0);
@@ -48,6 +48,7 @@ public class Parser {
         case BYE:
             try {
                 response = Storage.outputToFile(tasksList);
+                response.append("For in the end, it's not goodbye.\n").append("But just a 'see you again'");
             } catch (Exception err) {
                 response = Ui.printError(err);
             }
@@ -59,7 +60,8 @@ public class Parser {
         case UNMARK:
             try {
                 response = MarkTask.execMarkTask(input, tasksList);
-            } catch (TaylorException err) {
+                Storage.outputToFile(tasksList);
+            } catch (Exception err) {
                 response = Ui.printError(err);
             }
 
@@ -69,28 +71,32 @@ public class Parser {
         case EVENT:
             try {
                 response = InsertTask.execInsertTask(input, tasksList);
-            } catch (TaylorException err) {
+                Storage.outputToFile(tasksList);
+            } catch (Exception err) {
                 response = Ui.printError(err);
             }
             break;
         case DELETE:
             try {
                 response = DeleteTask.execDeleteTask(input, tasksList);
-            } catch (TaylorException err) {
+                Storage.outputToFile(tasksList);
+            } catch (Exception err) {
                 response = Ui.printError(err);
             }
             break;
         case SEARCH:
             try {
                 response = SearchTask.execSearchTask(input, tasksList);
-            } catch (TaylorException err) {
+                Storage.outputToFile(tasksList);
+            } catch (Exception err) {
                 response = Ui.printError(err);
             }
             break;
         case FIND:
             try {
                 response = FindTask.exec(input, tasksList);
-            } catch (TaylorException err) {
+                Storage.outputToFile(tasksList);
+            } catch (Exception err) {
                 response = Ui.printError(err);
             }
             break;
@@ -98,7 +104,7 @@ public class Parser {
             response = Ui.invalidCommand();
             break;
         }
-        return response;
+        return response.toString();
     }
 
     /**

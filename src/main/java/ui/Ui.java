@@ -19,21 +19,25 @@ public class Ui {
      *
      * @param err Error thrown from ChatBot
      */
-    public static String printError(Exception err) {
-        return ("Error: " + err);
+    public static StringBuilder printError(Exception err) {
+        StringBuilder response = new StringBuilder();
+        response.append("Error: ").append(err);
+        return response;
     }
 
     /**
      * Prints warning for invalid commands from Users
      */
-    public static String invalidCommand() {
-        return ("I'm lost in the whispers of the wind.\n"
-                + "Trying to decode the words you send.\n"
-                + "Tangled up in the branches of doubt,\n"
-                + "I'm left wondering what it's all about. \n"
-                + "==============================\n"
-                + "(Taylor can only handle:\n"
-                + "'todo', 'deadline', 'event', 'delete', 'find', 'mark', 'search' tasks)");
+    public static StringBuilder invalidCommand() {
+        StringBuilder response = new StringBuilder();
+        response.append("I'm lost in the whispers of the wind.\n")
+                .append("Trying to decode the words you send.\n")
+                .append("Tangled up in the branches of doubt,\n")
+                .append("I'm left wondering what it's all about. \n")
+                .append("==============================\n")
+                .append("(Taylor can only handle:\n")
+                .append("'todo', 'deadline', 'event', 'delete', 'find', 'mark', 'search' tasks)");
+        return response;
     }
 
     /**

@@ -29,8 +29,8 @@ public class InsertTask {
      * @param taskList List containing the different list of tasks
      * @throws TaylorException empty description field / invalid task type input
      */
-    public static String execInsertTask(String input, List<List<Task>> taskList) throws TaylorException {
-        String response;
+    public static StringBuilder execInsertTask(String input, List<List<Task>> taskList) throws TaylorException {
+        StringBuilder response = new StringBuilder();
         String[] wordPartition = WordsSplit.separateWords(input, " ", true);
 
         String content;

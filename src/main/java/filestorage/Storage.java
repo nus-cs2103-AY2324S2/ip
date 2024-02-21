@@ -26,7 +26,7 @@ public class Storage {
      * Reads File from Hard Disk.
      *
      * @return List of Task Lists from Hard Disk or the empty List if nothing is present
-     * @throws Exception Wrong file location, no data in the file, or content in wrong format
+     * @throws TaylorException Wrong file location, no data in the file, or content in wrong format
      */
     public static List<List<Task>> inputFromFile() throws TaylorException {
         try {
@@ -47,15 +47,14 @@ public class Storage {
      * @param taskList get the List of Tasks Lists and save in Hard Disk
      * @throws Exception file to save the List of Tasks Lists is not available
      */
-    public static String outputToFile(List<List <Task>> taskList) throws Exception {
+    public static StringBuilder outputToFile(List<List <Task>> taskList) throws Exception {
         StringBuilder response = new StringBuilder();
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
             oos.writeObject(taskList);
-            response.append("For in the end, it's not goodbye.\n").append("But just a 'see you again'");
         } catch (FileNotFoundException e) {
             response.append("File not found\n").append("Please create file in ").append(System.getProperty("user.dir"));
         }
-        return response.toString();
+        return response;
     }
 }

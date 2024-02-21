@@ -27,7 +27,7 @@ public class FindTask {
      * @param input User input
      * @param taskList ArrayList of Tasks
      */
-    public static String exec(String input, List<List<Task>> taskList) {
+    public static StringBuilder exec(String input, List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = WordsSplit.separateWords(input, " ", true);
         boolean isKeywordEmpty = WordsSplit.getWord(wordPartition, KEYWORD).trim().isBlank();
@@ -47,6 +47,6 @@ public class FindTask {
         } else {
             Ui.appendResponse(response, result);
         }
-        return response.toString();
+        return response;
     }
 }

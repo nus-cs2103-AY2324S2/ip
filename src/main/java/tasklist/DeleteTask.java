@@ -27,7 +27,7 @@ public class DeleteTask {
      * @param taskList List of tasks list
      * @throws TaylorException Invalid user command
      */
-    public static String execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
+    public static StringBuilder execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = WordsSplit.separateWords(input, " ", false);
         try {
@@ -51,6 +51,6 @@ public class DeleteTask {
                     + "==============================\n"
                     + "Please ensure the following format: DELETE <TaskType> <TaskNumber>");
         }
-        return response.toString();
+        return response;
     }
 }
