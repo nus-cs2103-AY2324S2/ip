@@ -62,6 +62,8 @@ Command: `deadline <description> /by <deadline datetime>`, where datetime format
 
 Example: `deadline Leave mine /by 2024-01-01T05:00`
 
+A deadline will be added to the list.
+
 ### Add Event
 
 Events are tasks with a start and end time.
@@ -70,18 +72,47 @@ Command: `event <description> /from <start datetime> /to <end datetime>`, where 
 
 Example: `event Sell ores /from 2024-01-01T08:00 /to 2024-01-01T20:00`
 
+An event will be added to the list.
+
 ### Find tasks
+
+Filter tasks by partially matching characters.
 
 Command: `find <search term>`
 
 Example: `find mining`
 
+All the tasks where their text representations partially match the search term will be listed.
+
 ### Mark task as not done
+
+Remove the 'X' mark from a Task.
 
 Command: `unmark <index>`
 
 Example: `unmark 1`
 
+Subsequently the task will be treated as not done.
+
+### Enter multiple commands per input
+
+Chain multiple commands together to increase efficiency.
+
+Command: `<command 1>; <command 2>; ...`
+
+Example: `delete 1; delete 2; delete 3`
+
+Responses to each command will be shown, separated by a blank line.
+If an error occurs while executing multiple commands, the remaining unexecuted commands will be shown at the bottom of the response.
+
 ### Exit Pyrite
 
+Close Pyrite.
+
 Command: `bye`
+
+The Pyrite window will close.
+
+### Error highlighting
+
+If an error occurs during the execution of the commands, the error message will be displayed, and the dialog box will be coloured red.
