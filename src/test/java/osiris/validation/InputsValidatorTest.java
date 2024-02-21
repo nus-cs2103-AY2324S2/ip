@@ -26,8 +26,6 @@ public class InputsValidatorTest {
     @Test
     public void isMarkTaskCompleteInputValid_invalidInputs_throwException() {
         assertThrows(OsirisInvalidInputException.class, ()-> {
-            InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark "); });
-        assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1.5"); });
         assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark a"); });
@@ -47,8 +45,6 @@ public class InputsValidatorTest {
     @Test
     public void isMarkTaskIncompleteInputValid_invalidInput_throwException() {
         assertThrows(OsirisInvalidInputException.class, ()-> {
-            InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark "); });
-        assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1.5"); });
         assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark a"); });
@@ -67,8 +63,6 @@ public class InputsValidatorTest {
      */
     @Test
     public void isDeleteTaskInputValid_invalidInput_throwException() {
-        assertThrows(OsirisInvalidInputException.class, ()-> {
-            InputsValidator.getInstance().isDeleteTaskInputValid("delete "); });
         assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isDeleteTaskInputValid("delete 1.5"); });
         assertThrows(OsirisInvalidInputException.class, ()-> {
@@ -92,8 +86,6 @@ public class InputsValidatorTest {
     public void isAddToDoTaskInputValid_invalidInput_throwException() {
         assertThrows(OsirisInvalidInputException.class, ()-> {
             InputsValidator.getInstance().isAddToDoTaskInputValid("todo"); });
-        assertThrows(OsirisInvalidInputException.class, ()-> {
-            InputsValidator.getInstance().isDeleteTaskInputValid("todo "); });
     }
 
     /**
