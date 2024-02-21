@@ -13,5 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
+#Ignore saved files from chatbot
+/data_1
+/data
+
+/text-ui-test/EXPECTED.TXT
 text-ui-test/EXPECTED-UNIX.TXT

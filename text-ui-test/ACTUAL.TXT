@@ -1,0 +1,43 @@
+logo
+Ad astra abyssosque, welcome to Paimon's house!
+Please use the correct commands.
+Got it. I've added this task:
+ [T][ ] Hello World
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+ [D][ ] Goodbye World (by: tmr)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+ [E][ ] Hello and Goodbye World (from: now to: next year)
+Now you have 3 tasks in the list.
+Here are the list of your task in the list: 
+1. [T][ ] Hello World
+2. [D][ ] Goodbye World (by: tmr)
+3. [E][ ] Hello and Goodbye World (from: now to: next year)
+Nice! I've marked this task as done:
+[T][X] Hello World
+This task is already marked done!
+ OK, I've marked this task as not done yet:
+[T][ ] Hello World
+This task is already marked as undone!
+Nice! I've marked this task as done:
+[T][X] Hello World
+Nice! I've marked this task as done:
+[D][X] Goodbye World (by: tmr)
+Here are the list of your task in the list: 
+1. [T][X] Hello World
+2. [D][X] Goodbye World (by: tmr)
+3. [E][ ] Hello and Goodbye World (from: now to: next year)
+ OK, I've marked this task as not done yet:
+[D][ ] Goodbye World (by: tmr)
+Here are the list of your task in the list: 
+1. [T][X] Hello World
+2. [D][ ] Goodbye World (by: tmr)
+3. [E][ ] Hello and Goodbye World (from: now to: next year)
+Nice! I've marked this task as done:
+[E][X] Hello and Goodbye World (from: now to: next year)
+Here are the list of your task in the list: 
+1. [T][X] Hello World
+2. [D][ ] Goodbye World (by: tmr)
+3. [E][X] Hello and Goodbye World (from: now to: next year)
+Safe travels, and take care!
