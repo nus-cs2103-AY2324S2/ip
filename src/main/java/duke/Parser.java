@@ -43,10 +43,10 @@ public class Parser {
             assert position != -1 && position + 1 < userInput.length() : "Invalid position";
             String dateStr = userInput.substring(position + 1);
             // Validate the date format
-            if (!isValidDateFormat(dateStr)) {
+            if (isValidDateFormat(dateStr)) {
                 throw new DukeException("Please write the date in the format dd/mm/yyyy");
             }
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
             return ui.showDeadlinesEventsOnDate(TaskList.getTasks(), TaskList.getTaskNum(), dateToCheck);
         case "find":
@@ -162,7 +162,7 @@ public class Parser {
             String taskStrBy = userInput.substring(posBy + 4);
 
             // Validate the date format
-            if (!isValidDateFormat(taskStrBy)) {
+            if (isValidDateFormat(taskStrBy)) {
                 throw new DukeException("Please write the date in the format dd/mm/yyyy");
             }
 
@@ -186,7 +186,7 @@ public class Parser {
         String regexPattern = "\\d{2}/\\d{2}/\\d{4}";
 
         // Check if the date string matches the regex pattern
-        return dateString.matches(regexPattern);
+        return !dateString.matches(regexPattern);
     }
 
     /**
