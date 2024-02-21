@@ -2,8 +2,6 @@
 
 Numerator is a task list, todo list, and event list all in one.
 
-## Table of Contents
-
 ## About
 
 Numerator is named after for the top half of a vulgar fraction, the number on top of the line, so you can stay on top of
