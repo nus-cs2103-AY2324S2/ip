@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * Custom control using FXML.
@@ -24,6 +25,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Text dialogText;
 
     /**
      * DialogBox constructor.
@@ -40,8 +43,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+        dialogText.setText(text);
         displayPicture.setImage(img);
+        setAlignment(Pos.TOP_RIGHT);
     }
 
     /**
