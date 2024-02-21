@@ -17,13 +17,13 @@ public class UnmarkCommandTest {
         UnmarkCommand unmarkCommand = new UnmarkCommand();
         ArrayList<Task> tasks = new ArrayList<>();
         Task task = new Task("Sample task");
-        task.setStatus(true);
+        task.setMarked(true);
         tasks.add(task);
 
         String[] input = {"unmark", "1"};
 
         assertDoesNotThrow(() -> unmarkCommand.execute(tasks, input));
-        assertFalse(task.getStatus());
+        assertFalse(task.getIsMarked());
     }
 
     @Test

@@ -37,11 +37,11 @@ public class UnmarkCommand extends Command {
             throw new CommandException("Task not found!");
         }
         // check if there's no change in status
-        if (!tasks.get(index).getStatus()) {
+        if (!tasks.get(index).getIsMarked()) {
             throw new CommandException(
                     "The task you're unmarking was not marked to begin with... I'm not changing anything.");
         } else {
-            tasks.get(index).setStatus(false);
+            tasks.get(index).setMarked(false);
             super.commandResponse = Ui.printOutput("OK, I've marked this task as not done yet: ",
                     tasks.get(index).toString());
         }

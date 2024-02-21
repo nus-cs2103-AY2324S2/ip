@@ -39,11 +39,11 @@ public class MarkCommand extends Command {
             throw new CommandException("Task not found!");
         }
         // check if there's no change in status
-        if (tasks.get(index).getStatus()) {
+        if (tasks.get(index).getIsMarked()) {
             throw new CommandException(
                     "The task was already marked as done. I'm not changing anything.");
         } else {
-            tasks.get(index).setStatus(true);
+            tasks.get(index).setMarked(true);
             super.commandResponse = Ui.printOutput(
                     "Nice! I've marked this task as done:", tasks.get(index).toString());
         }

@@ -22,7 +22,7 @@ public class MarkCommandTest {
         String[] input = { "mark", "1" };
 
         assertDoesNotThrow(() -> markCommand.execute(tasks, input));
-        assertTrue(task.getStatus());
+        assertTrue(task.getIsMarked());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class MarkCommandTest {
         MarkCommand markCommand = new MarkCommand();
         ArrayList<Task> tasks = new ArrayList<>();
         Task task = new Task("Sample task");
-        task.setStatus(true);
+        task.setMarked(true);
         tasks.add(task);
 
         String[] input = { "mark", "1" };

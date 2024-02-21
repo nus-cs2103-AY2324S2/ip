@@ -10,7 +10,7 @@ import java.util.HashSet;
 public class Task {
     protected final String description;
 
-    private boolean status;
+    private boolean isMarked;
 
     private HashSet<String> tags;
 
@@ -19,16 +19,16 @@ public class Task {
         this.tags = new HashSet<>();
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setMarked(boolean status) {
+        this.isMarked = status;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-    public boolean getStatus() {
-        return this.status;
+    public boolean getIsMarked() {
+        return this.isMarked;
     }
 
     public HashSet<String> getTags() {
@@ -75,7 +75,7 @@ public class Task {
     public String toString() {
         String checkBox = "[ ]";
 
-        if (status) {
+        if (isMarked) {
             checkBox = "[X]";
         }
 

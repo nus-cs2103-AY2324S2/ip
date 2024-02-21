@@ -114,7 +114,7 @@ public class Storage {
         }
 
         ToDo todo = new ToDo(input[2]);
-        todo.setStatus(input[1].equals("1"));
+        todo.setMarked(input[1].equals("1"));
       
         if (input.length > 3) {
             todo.addTags(Arrays.copyOfRange(input, 3, input.length));
@@ -133,7 +133,7 @@ public class Storage {
 
         Event event = new Event(input[2], Utils.parseDateTime(input[3]),
                 Utils.parseDateTime(input[4]));
-        event.setStatus(input[1].equals("1"));
+        event.setMarked(input[1].equals("1"));
   
         if (input.length > 5) {
             event.addTags(Arrays.copyOfRange(input, 5, input.length));
@@ -151,7 +151,7 @@ public class Storage {
         }
 
         Deadline deadline = new Deadline(input[2], Utils.parseDateTime(input[3]));
-        deadline.setStatus(input[1].equals("1"));
+        deadline.setMarked(input[1].equals("1"));
   
         if (input.length > 4) {
             deadline.addTags(Arrays.copyOfRange(input, 4, input.length ));
