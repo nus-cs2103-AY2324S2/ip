@@ -150,4 +150,16 @@ public class Ui {
     public String printErrorMessage(String errorMessage) {
         return errorMessage;
     }
+
+    /**
+     * Returns list of tasks on specific day to be printed to GUI.
+     * @param date          Date tasks should be on.
+     * @param events        Events on specific date.
+     * @param deadlines     Deadlines on specific date.
+     * @return tasks        String of all tasks that fall on specific date.
+     */
+    public String printTasksOnDay(String date, String events, String deadlines) {
+        return "Events on " + date + ":\n" + events
+                + "\nDeadlines on " + date + ":\n" + deadlines;
+    }
 }

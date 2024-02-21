@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +45,10 @@ public class Event extends Task {
         TimeHandler th = new TimeHandler();
         this.from = th.parseDateTime(from);
         this.to = th.parseTime(to);
+    }
+
+    public LocalDate getFromDate() {
+        return from.toLocalDate();
     }
 
     /**

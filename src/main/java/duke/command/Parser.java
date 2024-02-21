@@ -1,5 +1,14 @@
 package duke.command;
 
+import duke.handlers.DeadlineHandler;
+import duke.handlers.DeleteHandler;
+import duke.handlers.EventHandler;
+import duke.handlers.FindHandler;
+import duke.handlers.MarkHandler;
+import duke.handlers.ToDoHandler;
+import duke.handlers.UnmarkHandler;
+import duke.handlers.ViewHandler;
+
 /**
  * Handles reading user input and calling the relevant commands.
  */
@@ -58,6 +67,10 @@ public class Parser {
         case "find":
             FindHandler fh = new FindHandler();
             return fh.findTask(command[1], taskList, ui);
+
+        case "view":
+            ViewHandler vh = new ViewHandler();
+            return vh.viewSchedule(command[1], taskList, ui);
 
         default:
             return ui.printUnknownCommandError(command[0]);
