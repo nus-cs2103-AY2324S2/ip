@@ -1,0 +1,3 @@
+ChatGPT:
+- JavaDocs
+- JUnit Testing
