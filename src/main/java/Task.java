@@ -17,6 +17,8 @@ abstract class Task {
 
     public abstract String getTaskType();
 
+    public abstract String toFileString();
+
     @Override
     public String toString() {
         return "[" + getTaskType() + "]" + (isDone ? "[X]" : "[ ]") + " " + description;
