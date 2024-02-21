@@ -35,6 +35,10 @@ public class MainWindow extends AnchorPane {
     private Button findButton;
     @FXML
     private Button clearListButton;
+    @FXML
+    private Button helpButton;
+    @FXML
+    private Button deleteButton;
 
     private Riz riz;
 
@@ -128,5 +132,23 @@ public class MainWindow extends AnchorPane {
         userInput.requestFocus();
         userInput.setText("find ");
         userInput.positionCaret(5);
+    }
+
+    @FXML
+    private void handleHelpButton() {
+        Label userText = new Label("help ");
+        Label RizText = new Label(riz.getResponse("help"));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getRizDialog(RizText, new ImageView(rizImage))
+        );
+        userInput.clear();
+    }
+
+    @FXML
+    private void handleDeleteButton() {
+        userInput.requestFocus();
+        userInput.setText("delete ");
+        userInput.positionCaret(7);
     }
 }

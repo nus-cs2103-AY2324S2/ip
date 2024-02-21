@@ -24,6 +24,10 @@ public class Parser {
         String[] token = input.split(" ", 2);
         String cmd = token[0];
         switch (cmd) {
+            case "help":
+                String helpMessage = getHelp();
+                sb.append(helpMessage);
+                return sb.toString();
             case "clear":
                 clearTasks(taskList, storage, sb);
                 break;
@@ -191,5 +195,27 @@ public class Parser {
             storage.writeToFile(taskList.getTaskList());
             sb.append("added: ").append(task).append("...");
         }
+    }
+
+    private static String getHelp() {
+        String helpMessage = "Hello... here are some tips on how to use the bot...\n"
+                + "You may find it useful to use the buttons provided...\n\n"
+                + "Here is how you should format your tasks to be added...\n"
+                + "Make sure the time is in 24h format...\n\n"
+                + "Todo (No DeadLine): todo <INSERT TASK HERE>\n\n"
+                + "Deadline: deadline <INSET TASK HERE> /by dd/mm/yyyy hhmm\n\n"
+                + "Event: event <INSERT TASK HERE> /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm\n\n\n"
+                + "And here are what the other buttons do...\n\n"
+                + "List: Lists out all the tasks present in the tasklist\n"
+                + "Clear List: Clears the entire tasklist of all tasks\n\n"
+                + "Delete: Deletes the task specified by its numerical index in the list as completed\n"
+                + "Format: Delete <INSERT TASK INDEX HERE>\n\n"
+                + "Mark: Marks the task specified by its numerical index in the list as completed\n"
+                + "Format: mark <INSERT TASK INDEX HERE>\n\n"
+                + "Unmark: Marks the task specified by its numerical index in the list as uncompleted\n"
+                + "Format: unmark <INSERT TASK INDEX HERE>\n\n"
+                + "Find: Returns all task based on what you searched for, even if it only matches partially\n"
+                + "Format: Find <INSERT TASK NAME HERE>\n\n";
+        return helpMessage;
     }
 }

@@ -6,21 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-      <Button fx:id="sendButton" layoutX="324.0" layoutY="958.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="523.0" AnchorPane.bottomAnchor="1.0" />
+      <Button fx:id="sendButton" layoutX="524.0" layoutY="958.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
         <Button fx:id="todoButton" layoutY="917.0" mnemonicParsing="false" onAction="#handleToDoButton" prefHeight="41.0" prefWidth="76.0" text="To-Do" />
       <Button fx:id="deadlineButton" layoutX="76.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleDeadlineButton" prefHeight="41.0" prefWidth="76.0" text="Deadline" />
       <Button fx:id="eventButton" layoutX="152.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleEventButton" prefHeight="41.0" prefWidth="76.0" text="Event" />
       <Button fx:id="listButton" layoutX="228.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleListButton" prefHeight="41.0" prefWidth="76.0" text="List" />
-      <Button fx:id="unmarkButton" layoutX="76.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleUnmarkButton" prefHeight="41.0" prefWidth="76.0" text="Unmark" />
-      <Button fx:id="markButton" layoutY="800.0" mnemonicParsing="false" onAction="#handleMarkButton" prefHeight="41.0" prefWidth="76.0" text="Mark" />
-      <Button fx:id="clearListButton" layoutX="228.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleClearListButton" prefHeight="41.0" prefWidth="76.0" text="Clear List" />
-      <Button fx:id="findButton" layoutX="152.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleFindButton" prefHeight="41.0" prefWidth="76.0" text="Find" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="800.0" prefWidth="400.0" vvalue="1.0">
+      <Button fx:id="unmarkButton" layoutX="76.0" layoutY="876.0" mnemonicParsing="false" onAction="#handleUnmarkButton" prefHeight="41.0" prefWidth="76.0" text="Unmark" />
+      <Button fx:id="markButton" layoutY="876.0" mnemonicParsing="false" onAction="#handleMarkButton" prefHeight="41.0" prefWidth="76.0" text="Mark" />
+      <Button fx:id="clearListButton" layoutX="228.0" layoutY="876.0" mnemonicParsing="false" onAction="#handleClearListButton" prefHeight="41.0" prefWidth="76.0" text="Clear List" />
+      <Button fx:id="findButton" layoutX="152.0" layoutY="876.0" mnemonicParsing="false" onAction="#handleFindButton" prefHeight="41.0" prefWidth="76.0" text="Find" />
+      <Button fx:id="helpButton" layoutX="524.0" layoutY="876.0" mnemonicParsing="false" onAction="#handleHelpButton" prefHeight="41.0" prefWidth="76.0" text="Help" />
+      <Button fx:id="deleteButton" layoutX="524.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="41.0" prefWidth="76.0" text="Delete" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="874.0" prefWidth="600.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" prefHeight="872.0" prefWidth="585.0" />
             </content>
         </ScrollPane>
     </children>
