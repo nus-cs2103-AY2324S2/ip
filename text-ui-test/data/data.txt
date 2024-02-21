@@ -1,9 +1,0 @@
-T|0|Wash laundry
-T|1|Wash laundry
-D|1|CS2108 Homework|2024-02-05
-E|1|CS4231 Lecture|2024-02-07|2024-02-07
-T|1|Wash laundry
-D|0|CS2108 Homework|2024-02-05
-E|0|CS4231 Lecture|2024-02-07|2024-02-07
-T|0|Wash laundry
-D|0|CS2108 Homework|2024-02-05
