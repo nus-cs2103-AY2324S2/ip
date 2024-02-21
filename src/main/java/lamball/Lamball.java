@@ -14,9 +14,6 @@ import lamball.ui.Ui;
  * @author ongzhili
  */
 public class Lamball {
-    private static final String USER_PROMPT = "    You:";
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
     private TaskList tasks;
     private MemoList memos;
     private Ui ui;
