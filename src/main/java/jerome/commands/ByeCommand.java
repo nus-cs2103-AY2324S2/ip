@@ -30,8 +30,8 @@ public class ByeCommand extends Command {
     /**
      * Checks if the given command represents an exit command.
      *
-     * @param command the command to check
-     * @return true if the command is an exit command, false otherwise
+     * @param command the command to check.
+     * @return true if the command is an exit command, false otherwise.
      *
      */
     public static boolean isExit(Command command) {

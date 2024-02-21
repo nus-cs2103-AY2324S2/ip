@@ -30,7 +30,6 @@ public class JeromeGpt {
      * and displaying the welcome message.
      */
     public void start() {
-        // TODO: There could be a try catch here
         this.ui = new Ui();
         this.dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
         ui.showWelcome();
