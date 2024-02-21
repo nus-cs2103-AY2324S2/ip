@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         if (matchingTasks.isEmpty()) {
             ui.showError("No matching results found!");
         } else {
-            ui.listMatchingText(tasks);
+            ui.listMatchingText(matchingTasks);
         }
     }
 
