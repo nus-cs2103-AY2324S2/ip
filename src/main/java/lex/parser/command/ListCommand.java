@@ -23,6 +23,10 @@ public class ListCommand implements Command {
 
     @Override
     public boolean execute() {
+        if (tasks.isEmpty()) {
+            ui.print("No tasks found.");
+        }
+
         for (int i = 0; i < tasks.size(); i++) {
             ui.print((i + 1) + ". " + tasks.get(i));
         }

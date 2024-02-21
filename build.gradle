@@ -51,6 +51,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'lex.jar'
     archiveBaseName = "lex"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

@@ -1,8 +1,7 @@
 # Lex User Guide
 <img src="Ui.png" alt="Ui" style="max-height: 500px;">
 
-Lex is a desktop chat bot for managing tasks, optimized for use via a Command Line Interface (CLI).
-While commands 
+Lex is a desktop chat bot for managing tasks, the chat bot support a variety of commands ands different types of tasks.
 
 ## List
 List all tasks in the list with their respective statuses and types.
@@ -11,7 +10,9 @@ Command: `list`
 
 Example: `list`
 ```
-expected output
+  1. [T][ ] complete assignment
+  2. [D][ ] return book (by: Dec 24 2024)
+  3. [E][X] trip to new york (from: Jun 14 2024 to: Jun 24 2024)
 ```
 
 ## Add todo
@@ -102,11 +103,11 @@ Here are the matching tasks in your list:
 ```
 
 ## Help
-TODO
+Shows the available commands and their respective usage.
 
-Command: `TODO`
+Command: `help`
 
-Example: `TODO`
+Example: `help`
 
 ```
 Here are the available commands:
