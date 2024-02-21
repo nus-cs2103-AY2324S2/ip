@@ -75,7 +75,10 @@ public class TaskList {
 
     public static String addTask(Task task) {
         String reply = "";
+        int before = tasks.size();
         TaskList.tasks.add(task);
+        int after = tasks.size();
+        assert (after == before + 1);
         if (!Tracker.isSuppressingMsgs) {
             reply = Tracker.CustomMessages.randomMsg(task) + "\n" + task;
             System.out.println(reply);
@@ -97,9 +100,12 @@ public class TaskList {
     }
 
     public static String removeTask(int i) {
+        assert (!tasks.isEmpty());
+        int before = tasks.size();
         String reply = "Kel has nuked " + TaskList.tasks.remove(i).brief() + "\n"
                 + "You now have " + TaskList.tasks.size() + " tasks in your list";
-        System.out.println(reply);
+        int after = tasks.size();
+        assert(after < before);
         return reply;
     }
 

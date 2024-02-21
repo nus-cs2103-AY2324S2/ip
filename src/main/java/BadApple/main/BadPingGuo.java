@@ -65,8 +65,11 @@ public class BadPingGuo {
         if (input.equals("yes") && isMakingFile) {
             isMakingFile = false;
             return makeFile();
+        } else if (isMakingFile) {
+            isMakingFile = false;
+            return "you may continue but nothing remains when you leave headspace";
         }
-
+        assert (!isMakingFile);
         try {
             Command c = Parser.ProcessQuery(input);
             reply = c.execute();
