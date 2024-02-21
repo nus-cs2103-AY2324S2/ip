@@ -21,7 +21,6 @@ public class Parser {
     public static void commands(TaskList taskList, String request, boolean reading, boolean isDone, Duke duke) {
         String[] words = request.split(" ", 0);
         int length = words.length;
-        boolean addSuccessful = false;
 
         assert length > 0 : "Command cannot be empty";
 
@@ -90,17 +89,17 @@ public class Parser {
             }
             case "t":
             case "todo": {
-                addSuccessful = taskList.addToDo(words, !reading, isDone);
+                taskList.addToDo(words, !reading, isDone);
                 break;
             }
             case "deadline":
             case "d": {
-                addSuccessful = taskList.addDeadline(words, !reading, isDone);
+                taskList.addDeadline(words, !reading, isDone);
                 break;
             }
             case "e":
             case "event": {
-                addSuccessful = taskList.addEvent(words, !reading, isDone);
+                taskList.addEvent(words, !reading, isDone);
                 break;
             }
             case "clear": {
