@@ -15,7 +15,6 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    Scanner scanner = new Scanner(System.in);
     DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy M d HH mm");
 
     /**
@@ -39,8 +38,11 @@ public class Parser {
         }
         List<String> dateSplitStr = splitStr.subList(byIndex + 1, splitStr.size());
         LocalDateTime time = LocalDateTime.parse(String.join(" ", dateSplitStr), inputFormat);
+
         splitStr.subList(byIndex + 1, splitStr.size()).clear();
+
         splitStr.add(time.toString());
+
         return splitStr;
     }
     /**
