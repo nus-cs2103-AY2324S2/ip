@@ -1,6 +1,0 @@
-T|O|eat cake
-T|O|drink coffee
-T|O|bake cookies
-D|O|return book|2012-08-08
-T|O|borrow book
-T|O|borrow book
