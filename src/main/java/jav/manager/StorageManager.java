@@ -29,7 +29,8 @@ public class StorageManager {
     public enum StorageType {
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        TASK
     }
 
     /**
@@ -99,7 +100,8 @@ public class StorageManager {
             case EVENT:
                 task = new Event(param, shouldMark);
                 break;
-            default:
+                default:
+                assert false : "Unexpected task type " + type;
                 task = new Task(param, shouldMark);
                 break;
             }
@@ -193,13 +195,16 @@ public class StorageManager {
      * @param typeStr string to convert.
      * @return the converted storage type.
      */
-    public StorageType stringToStorageType(String typeStr) {
+    private StorageType stringToStorageType(String typeStr) {
         if (typeStr.equals("Event")) {
             return StorageType.EVENT;
         } else if (typeStr.equals("Deadline")) {
             return StorageType.DEADLINE;
-        } else {
+        } else if (typeStr.equals("Todo")) {
             return StorageType.TODO;
+        } else {
+            assert false : "Unexpected task type " + typeStr;
+            return StorageType.TASK;
         }
     }
 

@@ -71,8 +71,10 @@ public class Deadline extends Task {
                 s += " {" + i + " day left}";
             } else if (i == 0) {
                 s += " {TODAY}";
-            } else {
+            } else if (i < 0) {
                 s += " {ALREADY OVER}";
+            } else {
+                assert false : "Impossible condition";
             }
         }
 
