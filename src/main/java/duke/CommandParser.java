@@ -1,7 +1,7 @@
 package duke;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Processes user input according to available bot commands.
@@ -24,39 +24,39 @@ public class CommandParser {
         try {
             String cmd = command.split(" ")[0];
             String para = command.substring(cmd.length()).trim();
-            switch (cmd) {
-                case "bye":
-                    System.out.println("Au revoir! Till we meet again!");
-                    return false;
-                case "list":
-                    parseList();
-                    break;
-                case "find":
-                    parseFind(para);
-                    break;
-                case "mark":
-                    parseMark(para);
-                    break;
-                case "unmark":
-                    parseUnmark(para);
-                    break;
-                case "delete":
-                    parseDelete(para);
-                    break;
-                case "todo":
-                    parseTodo(para);
-                    break;
-                case "deadline":
-                    parseDeadline(para);
-                    break;
-                case "event":
-                    parseEvent(para);
-                    break;
-                case "undo":
-                    parseUndo();
-                    break;
-                default:
-                    throw new DukeBotException.UnknownException();
+            switch(cmd) {
+            case "bye":
+                System.out.println("Au revoir! Till we meet again!");
+                return false;
+            case "list":
+                parseList();
+                break;
+            case "find":
+                parseFind(para);
+                break;
+            case "mark":
+                parseMark(para);
+                break;
+            case "unmark":
+                parseUnmark(para);
+                break;
+            case "delete":
+                parseDelete(para);
+                break;
+            case "todo":
+                parseTodo(para);
+                break;
+            case "deadline":
+                parseDeadline(para);
+                break;
+            case "event":
+                parseEvent(para);
+                break;
+            case "undo":
+                parseUndo();
+                break;
+            default:
+                throw new DukeBotException.UnknownException();
             }
         } catch (DukeBotException e) {
             System.out.println(e.getMessage());

@@ -7,8 +7,8 @@ import java.util.List;
  * Contains a list of Task objects and handles operations like getting, updating, and deleting them.
  */
 public class TaskList {
-    public ArrayList<Task> taskList;
-    public ArrayList<Task> prevTaskList; // previous taskList
+    private ArrayList<Task> taskList;
+    private ArrayList<Task> prevTaskList; // previous taskList
     private Task prevTask; // task from previous operation
     private ChangeOperation prevOp; // previous operation
 
@@ -165,6 +165,15 @@ public class TaskList {
     }
 
     /**
+     * Gets a task list.
+     *
+     * @return The tasks in the task list
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    /**
      * Converts the database representation of a task to a Task object.
      * @param dbTask The string representation of the task in the database
      * @return The Task object
@@ -175,18 +184,18 @@ public class TaskList {
         String[] param = dbTask.split(" \\| ");
         String type = param[0];
         switch (type) {
-            case "T": // To do
-                Todo todoTask = Todo.db2Todo(dbTask);
-                return todoTask;
-            case "D": // Deadline
-                DeadlineTask deadlineTask = DeadlineTask.dbToDeadlineTask(dbTask);
-                return deadlineTask;
-            case "E": // Event
-                EventTask eventTask = EventTask.dbToEventTask(dbTask);
-                return eventTask;
-            default:
-                System.out.println("Unrecognized task type");
-                throw new DukeBotException.UnknownException();
+        case "T": // To do
+            Todo todoTask = Todo.db2Todo(dbTask);
+            return todoTask;
+        case "D": // Deadline
+            DeadlineTask deadlineTask = DeadlineTask.dbToDeadlineTask(dbTask);
+            return deadlineTask;
+        case "E": // Event
+            EventTask eventTask = EventTask.dbToEventTask(dbTask);
+            return eventTask;
+        default:
+            System.out.println("Unrecognized task type");
+            throw new DukeBotException.UnknownException();
         }
     }
 

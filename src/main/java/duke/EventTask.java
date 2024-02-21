@@ -87,7 +87,7 @@ public class EventTask extends Task {
      */
     public static String eventTaskToDb(EventTask eventTask) {
         String done = eventTask.isTaskDone ? "1" : "0";
-        String description= eventTask.taskDescription;
+        String description = eventTask.taskDescription;
         String startTime = eventTask.startTime;
         String endTime = eventTask.endTime;
         return "E" + " | " + done + " | " + description + " | " + startTime + " | " + endTime;

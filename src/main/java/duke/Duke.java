@@ -73,7 +73,7 @@ public class Duke {
      */
     private void save() {
         List<String> lines = new ArrayList<>();
-        for (Task task : this.taskList.taskList) {
+        for (Task task : this.taskList.getTaskList()) {
             String stringTask = TaskList.taskToDbString(task);
             lines.add(stringTask);
         }

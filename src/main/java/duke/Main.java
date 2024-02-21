@@ -26,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
 
             // Set controller data
-            MainDisplay controller = fxmlLoader.<MainDisplay>getController();
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
             controller.setDuke(duke);
 
             stage.setTitle("Hari");

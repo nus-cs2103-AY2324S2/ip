@@ -1,11 +1,11 @@
 package duke;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Handles validation and formatting of date strings for input and database.
@@ -14,13 +14,16 @@ import java.time.format.DateTimeParseException;
 public class DateHandler {
 
     // Pattern for matching input dates in the format of "dd/MM/yyyy HHmm"
-    static final Pattern INPUT_DATE_PATTERN = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/(\\d{4}) (\\d{4}$)");
+    static final Pattern INPUT_DATE_PATTERN = Pattern.compile(
+            "^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/(\\d{4}) (\\d{4}$)");
 
     // Formatter for parsing datetime strings in input format to datetime objects
     static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     // Pattern for matching database dates in the format of "dd Month yyyy HH:mm"
-    static final Pattern DATABASE_DATE_PATTERN = Pattern.compile("\\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) \\d{4} \\d{2}:\\d{2}");
+    static final Pattern DATABASE_DATE_PATTERN = Pattern.compile(
+            "\\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) "
+                    + "\\d{4} \\d{2}:\\d{2}");
 
     // Formatter for parsing datetime strings in database format to datetime objects
     static final DateTimeFormatter DATABASE_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
@@ -28,7 +31,7 @@ public class DateHandler {
     /**
      * Checks an input string representing a date in "dd/MM/yyyy HHmm" format.
      *
-     * @param date the date string to validate.
+     * @param dateinput the date string to validate.
      * @return true if the date string matches the expected format.
      */
 
@@ -40,7 +43,7 @@ public class DateHandler {
     /**
      * Checks if a date string matches the database date pattern "dd Month yyyy HH:mm".
      *
-     * @param date the date string to check.
+     * @param dateinput the date string to check.
      * @return true if the date string matches the expected format.
      */
 
@@ -52,7 +55,7 @@ public class DateHandler {
     /**
      * Converts a date string in input format to a LocalDateTime object.
      *
-     * @param date the date string in "dd/MM/yyyy HHmm" format.
+     * @param dateinput the date string in "dd/MM/yyyy HHmm" format.
      * @return a LocalDateTime object representing the parsed date.
      */
 
@@ -68,7 +71,7 @@ public class DateHandler {
     /**
      * Converts a date string in database format to a LocalDateTime object.
      *
-     * @param date the date string in "dd Month yyyy HH:mm" format.
+     * @param dateinput the date string in "dd Month yyyy HH:mm" format.
      * @return a LocalDateTime object representing the parsed date.
      */
 

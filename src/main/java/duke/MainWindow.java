@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controller for MainDisplay.
  */
-public class MainDisplay extends AnchorPane {
+public class MainWindow extends AnchorPane {
     public static final String USERIMGPATH = "/images/user.png";
     public static final String HARIIMGPATH = "/images/hari.png";
 
