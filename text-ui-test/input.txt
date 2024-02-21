@@ -1,0 +1,26 @@
+-h
+todo make cake
+todo
+thisisaninvalidinput
+deadline submit weekly report /by friday 26 Jan 2023
+list
+mark 1
+list
+unmark 1
+event party at home /from saturday, 27 jan 2023 /to 28 jan 2023, sunday
+list
+mark 3
+mark 2
+delete asdf
+delete 333
+list
+unmark 3
+list
+delete 1
+deadline ps1 /by 2024-02-01 2359
+deadline ps2 /by 2024-02-01 9999
+deadline ps1 /by 2069-02-01 2359
+event career fair /from 2024-02-05 1300 /to 2024-02-10 2200
+event career fair /from 2024-02-05 1300 /to thisisnotadate
+event career fair /from 2024-02-05 9999 /to 2024-02-10 2200
+bye
