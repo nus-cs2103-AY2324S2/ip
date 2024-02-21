@@ -46,8 +46,6 @@ test {
 }
 
 application {
-//    mainClass.set("seedu.duke.Duke")
-//    mainClass.set("duke.Duke")
     mainClass.set("gui.Launcher")
 }
 

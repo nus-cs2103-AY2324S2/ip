@@ -26,6 +26,7 @@ public class ExitCommand extends Command {
         super.confirmExit();
 
         ui.printByeStatement();
+        System.exit(0);
         return "Bye. Hope to see you again soon!";
     }
 }
