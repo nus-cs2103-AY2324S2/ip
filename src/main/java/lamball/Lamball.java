@@ -1,6 +1,5 @@
 package lamball;
 
-import javafx.scene.image.Image;
 import lamball.command.Command;
 import lamball.exception.LamballParseException;
 import lamball.memo.Memo;
@@ -40,7 +39,7 @@ public class Lamball {
     }
 
     /**
-     * Parse for initial list of commands
+     * Parses initial list of commands
      *
      * @param msg Command to parse.
      * @throws LamballParseException if invalid command is provided.
@@ -49,9 +48,6 @@ public class Lamball {
         Command parsed = Parser.parse(msg, tasks, memos, true);
         parsed.run();
     }
-
-
-
 
 
     /**
