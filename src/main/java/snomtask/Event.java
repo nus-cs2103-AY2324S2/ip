@@ -7,6 +7,15 @@ package snomtask;
 public class Event extends Task {
     private String start;
     private String end;
+
+    /**
+     * Creates a new instance of Event.
+     * @param name is the name of the Event.
+     * @param start is the start date of the event
+     *              in yyyy--mm--dd.
+     * @param end is the end date of the event
+     *            in yyyy-mm--dd.
+     */
     public Event(String name, String start, String end) {
         super(name);
         this.start = start;

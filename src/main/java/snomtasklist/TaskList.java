@@ -8,6 +8,10 @@ import snomexceptions.InvalidCommandTaskDoneException;
 import snomexceptions.InvalidCommandTaskNotDoneException;
 import snomtask.Task;
 
+/**
+ * TaskList simulates a list to store all the instances of task
+ * that the user has entered.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private int counter;
@@ -49,9 +53,9 @@ public class TaskList {
      * Marks the task at the specified index within the TaskList as done.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
+     * @return a String representing whether the task is successfully added.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the TaskList.
-     * @return a String representing whether the task is successfully added.
      */
     public String markTaskAtIndex(int pos) throws InvalidCommandException {
         try {
@@ -70,9 +74,9 @@ public class TaskList {
      * Unmarks the task at the specified index within the TaskList as undone.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
+     * @return a string representing if the task is successfully unmarked.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the TaskList.
-     * @return a string representing if the task is successfully unmarked.
      */
 
     public String unmarkTaskAtIndex(int pos) throws InvalidCommandException {
@@ -94,9 +98,9 @@ public class TaskList {
      * deletes the task at the specified index within the TaskList.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
+     * @return a string representing if the task is successfully deleted.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the TaskList.
-     * @return a string representing if the task is successfully deleted.
      */
     public String deleteTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
@@ -144,7 +148,7 @@ public class TaskList {
      */
     public String getTasks() {
         StringBuilder lst = new StringBuilder();
-        for (int i = 0; i<counter; i++) {
+        for (int i = 0; i < counter; i++) {
             lst.append(this.taskList.get(i) + "\n");
 
         }
@@ -160,7 +164,7 @@ public class TaskList {
      */
     public String getMatchingTasks(String cmd) {
         ArrayList<Task> foundTasks = new ArrayList<>();
-        for (int i = 0; i<counter; i++) {
+        for (int i = 0; i < counter; i++) {
             if (this.taskList.get(i).isMatch(cmd)) {
                 foundTasks.add(taskList.get(i));
             }

@@ -2,7 +2,11 @@ package snomparser;
 
 
 import inputcommands.Command;
-import snomexceptions.*;
+import snomexceptions.InvalidCommandDuplicateTaskException;
+import snomexceptions.InvalidCommandException;
+import snomexceptions.InvalidCommandIndexException;
+import snomexceptions.InvalidCommandTaskDoneException;
+import snomexceptions.InvalidCommandTaskNotDoneException;
 import snomstorage.TaskStorage;
 import snomtask.Deadline;
 import snomtask.Event;
@@ -95,8 +99,8 @@ public class Parser {
 
     private String addDeadlineToTaskList(TaskList lst, String cmd) throws InvalidCommandDuplicateTaskException {
         String name = cmd.split("/", DEADLINE_TASK_LENGTH)[0];
-        String due_date = cmd.split("/", DEADLINE_TASK_LENGTH)[1];
-        Deadline deadline = new Deadline(name, due_date);
+        String dueDate = cmd.split("/", DEADLINE_TASK_LENGTH)[1];
+        Deadline deadline = new Deadline(name, dueDate);
         if (lst.checkDuplicateTask(deadline)) {
             throw new InvalidCommandDuplicateTaskException();
         } else {
