@@ -1,5 +1,8 @@
 package jivox.exception;
 
+/**
+ * Represents a Jivox exception when the date range are wrong
+ */
 public class JivoxInvalidDateRangeException extends JivoxException {
     /**
      * Obtain the string representation of the exception.

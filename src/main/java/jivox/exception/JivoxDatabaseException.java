@@ -1,7 +1,5 @@
 package jivox.exception;
 
-import jivox.Jivox;
-
 /**
  * Represents a duke exception when the database file can not be created.
  */

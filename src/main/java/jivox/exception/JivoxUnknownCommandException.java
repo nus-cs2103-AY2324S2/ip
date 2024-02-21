@@ -1,7 +1,5 @@
 package jivox.exception;
 
-import jivox.Jivox;
-
 /**
  * Represents a duke exception when an unknown command is provided.
  */

@@ -1,7 +1,8 @@
 package jivox.exception;
 
-import jivox.task.Task;
-
+/**
+ * Represents a Jivox exception when there is a task already in the database
+ */
 public class JivoxDuplicateTaskException extends JivoxException {
 
     /**

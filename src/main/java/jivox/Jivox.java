@@ -6,9 +6,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import jivox.exception.*;
-
-
+import jivox.exception.JivoxDuplicateTaskException;
+import jivox.exception.JivoxException;
+import jivox.exception.JivoxInvalidDateException;
+import jivox.exception.JivoxInvalidDateRangeException;
+import jivox.exception.JivoxMissingArgumentException;
+import jivox.exception.JivoxNoTaskFoundException;
+import jivox.exception.JivoxUnknownCommandException;
 import jivox.task.Deadline;
 import jivox.task.Event;
 import jivox.task.Tag;
@@ -159,8 +163,10 @@ public class Jivox {
      *
      * @param type        The type of task (todo, deadline, event).
      * @param description The task description.
-     * @throws JivoxUnknownCommandException, JivoxDuplicateTaskException,
-     * JivoxMissingArgumentException If unable to add the task.
+     * @throws JivoxUnknownCommandException Unable to recognise the Command.
+     * @throws JivoxMissingArgumentException If missing any arguement
+     * @throws JivoxInvalidDateException If the date entered is not correct format
+     * @throws JivoxInvalidDateRangeException If the range of date is not correct
      */
     public String add(String type, String description) throws JivoxUnknownCommandException,
             JivoxDuplicateTaskException, JivoxMissingArgumentException,
