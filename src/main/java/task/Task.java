@@ -32,6 +32,10 @@ public abstract class Task {
         return this.name;
     }
 
+    /**
+     * Converts a task into the text representation in a .txt file.
+     * @return the text representation.
+     */
     public abstract String fileRepresentation();
 
     public boolean hasSubstring(String target) {

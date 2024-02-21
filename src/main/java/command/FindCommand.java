@@ -2,6 +2,7 @@ package command;
 
 import java.util.ArrayList;
 
+import dook.DookException;
 import dook.Storage;
 import task.Task;
 import task.TaskList;
@@ -14,6 +15,12 @@ public class FindCommand extends Command {
         this.target = target;
     }
 
+    /**
+     * Finds matching tasks from the TaskList, using a given search word.
+     *
+     * @param tasks The bot TaskList.
+     * @param storage The storage interface.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) {
         ArrayList<Task> found = new ArrayList<>();

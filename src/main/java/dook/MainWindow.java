@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
             "　　　 　^＿^　♪\n"
                     + "　　　 ∩・ω・｀）\n"
                     + "　　　 |　　 cﾉ\n"
-                    + "　　 　｜　　 _⊃　　♪\n"
+                    + "　　 　｜　　 _o　　♪\n"
                     + "　　　 し -,"));
 
     private static final String WELCOME_STRING = "Hello from Dook! :D meow";
@@ -69,6 +69,10 @@ public class MainWindow extends AnchorPane {
                             .addAll(DialogBox.getUserDialog(content, userImage)));
         }
     }
+
+    /**
+     * Initialises the dance animation and the greeting by Dook.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
