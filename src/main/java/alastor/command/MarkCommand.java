@@ -33,8 +33,10 @@ public class MarkCommand extends Command {
         Task task = tasks.get(index - 1);
         if (isMark) {
             task.mark();
+            assert (task.getStatusIcon().equals("[X]")) : "Task should be marked";
         } else {
             task.unmark();
+            assert (task.getStatusIcon().equals("[ ]")) : "Task should be unmarked";
         }
         storage.saveRewrite(tasks);
         return ui.showMark(task, this.isMark);
