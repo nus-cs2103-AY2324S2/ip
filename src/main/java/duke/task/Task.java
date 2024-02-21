@@ -38,6 +38,7 @@ public class Task {
         String[] result = new String[2];
         result[0] = this.description;
         result[1] = this.isDone ? "Y" : "N";
+        assert result[1].equals("Y") || result[1].equals("N") : "The isDone will either be 'Y' or 'N'";
         return result;
     }
 
