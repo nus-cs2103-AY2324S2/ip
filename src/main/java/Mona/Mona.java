@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Mona {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    public Ui ui;
     private Scanner sc;
     private Parser parser;
     enum Command {

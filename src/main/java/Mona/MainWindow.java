@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Mona mona;
+    private Mona mona = new Mona();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Russer.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Mona.jpeg"));
@@ -27,6 +27,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String initialText = this.mona.ui.greet();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(initialText, dukeImage));
     }
 
     public void setDuke(Mona mona) {
