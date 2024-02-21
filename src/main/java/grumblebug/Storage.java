@@ -19,11 +19,12 @@ public class Storage {
      * @param filePath The path to the storage file.
      * @param taskList The taskList to store this data into.
      */
-    public static void loadFromFile(String filePath, TaskList taskList) {
-        Parser parserStorage = new Parser("yyyy-MM-dd");
+    public void loadFromFile(String filePath, TaskList taskList) {
+        Parser parserForStorage = new Parser("yyyy-MM-dd");
         try {
             File f = new File(filePath);
             f.createNewFile();
+            System.out.println(27);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String task = s.nextLine();
@@ -33,21 +34,20 @@ public class Storage {
                 if (task.equals("T")) {
                     t = new Task(done, desc);
                 } else if (task.equals("D")) {
-                    String deadline = s.nextLine();
-                    LocalDate d = parserStorage.parse(deadline);
-                    t = new Task(done, desc, d);
+                    LocalDate deadline = parserForStorage.parse(s.nextLine());
+                    t = new Task(done, desc, deadline);
                 } else if (task.equals("E")) {
-                    String start = s.nextLine();
-                    String deadline = s.nextLine();
-                    LocalDate st = parserStorage.parse(start);
-                    LocalDate d = parserStorage.parse(deadline);
-                    t = new Task(done, desc, st, d);
+                    LocalDate startDate = parserForStorage.parse(s.nextLine());
+                    LocalDate endDate = parserForStorage.parse(s.nextLine());
+                    t = new Task(done, desc, startDate, endDate);
                 } else {
                     t = null;
-                    System.out.println("bad formatting in tasks.txt");
+                    System.out.println("Bad formatting in tasks.txt...");
+                    assert false; // If we enter this else branch, it means our writeToFile is broken.
                 }
                 taskList.add(t);
             }
+            System.out.println(50);
             s.close();
         } catch (IOException e) {
             System.out.println("An IO error occurred with the data file.");
@@ -62,10 +62,10 @@ public class Storage {
      * @param taskList The taskList of tasks to add.
      * @throws IOException
      */
-    public void writeToFile(String filePath, TaskList taskList) {
+    public String writeToFile(String filePath, TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < taskList.size(); i++) {
+            for (int i = 1; i <= taskList.size(); i++) {
                 Task t = taskList.get(i);
                 fw.write(t.taskType);
                 fw.write("\n");
@@ -79,8 +79,9 @@ public class Storage {
                 }
             }
             fw.close();
+            return "Saved to file!";
         } catch (IOException e) {
-            System.out.println("Oops, IO Exception when writing to file");
+            return "Oops, IO Exception when writing to file";
         }
     }
 }

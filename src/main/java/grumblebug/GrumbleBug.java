@@ -10,8 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents the overall chatbot object, with text input/output capabilities.
  */
@@ -24,17 +22,22 @@ public class GrumbleBug extends Application {
     private Image grumbleBugImage = new Image(this.getClass().getResourceAsStream("/images/nailong.jpg"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/smiley.jpg"));
     private TaskList taskList;
-    private Parser parserForInput;
+    private Parser parser;
+    private Storage storage;
     private final int NUM_PARAMS_FOR_MARK = 2;
     private final int NUM_PARAMS_FOR_FIND = 2;
     private final int NUM_PARAMS_FOR_TODO = 2;
     private final int NUM_PARAMS_FOR_DEADLINE = 3;
     private final int NUM_PARAMS_FOR_EVENT = 4;
-    public static String filePath = "./tasks.txt";
+    private final int NUM_PARAMS_FOR_DELETE = 2;
+
+    private final String filePath = "./tasks.txt";
 
     public GrumbleBug() {
         this.taskList = new TaskList();
-        this.parserForInput = new Parser("yyyy-MM-dd");
+        this.parser = new Parser("yyyy-MM-dd");
+        this.storage = new Storage();
+        this.storage.loadFromFile(filePath, taskList);
     }
 
     /**
@@ -53,116 +56,6 @@ public class GrumbleBug extends Application {
     }
 
     /**
-     * Parses user input and tells taskList to mark or unmark the corresponding
-     * task,
-     * if the input format is legible.
-     * 
-     * @param input    The user input into the chat.
-     * @param doneness Whether to mark or unmark the task.
-     * @return Confirmation message if successful or a scolding if input format was
-     *         poor.
-     */
-    private String processMarkTaskInput(String input, boolean doneness) {
-        String[] words = input.split(" ", NUM_PARAMS_FOR_MARK);
-        assert words.length <= NUM_PARAMS_FOR_MARK;
-        try {
-            int i = Integer.parseInt(words[1]);
-            if (doneness) {
-                taskList.mark(i);
-            } else {
-                taskList.unmark(i);
-            }
-            return "Ok it's done. What else do you want...";
-        } catch (NumberFormatException e) {
-            return "That was not understood. Silly.";
-        }
-    }
-
-    /**
-     * Parses user input and tells taskList to find the tasks using the keyword.
-     * 
-     * @param input The user input into the chat.
-     * @return The list of matching tasks as found by taskList.
-     */
-    private String processFindTasksInput(String input) {
-        String[] words = input.split(" ", NUM_PARAMS_FOR_FIND);
-        assert words.length <= NUM_PARAMS_FOR_FIND;
-        return taskList.findMatches(words[1]);
-    }
-
-    /**
-     * Parses user input and tells taskList to add the To-do as requested.
-     * 
-     * @param input The user input into the chat.
-     * @return A confirmation message of the successful action.
-     */
-    private String processTodoInput(String input) {
-        System.out.println("HEY THERE");
-        String[] words = input.split(" ", NUM_PARAMS_FOR_TODO);
-        assert words.length <= NUM_PARAMS_FOR_TODO;
-        taskList.addToDo(words[1]);
-        return "k";
-    }
-
-    /**
-     * Parses user input and, if input is in acceptable format,
-     * activates taskList to add the corresponding Deadline as requested.
-     * 
-     * @param input The user input into the chat.
-     * @return A confirmation message of the addition, or a scolding if input is
-     *         improper.
-     */
-    private String processDeadlineInput(String input) {
-        String[] words = input.split(" ", NUM_PARAMS_FOR_DEADLINE);
-        assert words.length <= NUM_PARAMS_FOR_DEADLINE;
-        try {
-            taskList.addDeadline(words[1], parserForInput.parse(words[2]));
-            return "k";
-        } catch (DateTimeParseException e) {
-            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
-        }
-    }
-
-    /**
-     * Parses user input and, if input is in acceptable format,
-     * activates taskList to add the corresponding Event as requested.
-     * 
-     * @param input The user input into the chat.
-     * @return A confirmation message of the addition, or a scolding if input is
-     *         improper.
-     */
-    private String processEventInput(String input) {
-        String[] words = input.split(" ", NUM_PARAMS_FOR_EVENT);
-        assert words.length <= NUM_PARAMS_FOR_EVENT;
-        try {
-            taskList.addEvent(words[1], parserForInput.parse(words[2]), parserForInput.parse(words[3]));
-            return "k";
-        } catch (DateTimeParseException e) {
-            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
-        }
-    }
-
-    /**
-     * Parses user input and, if input is in acceptable format,
-     * activates taskList to delete the corresponding task as requested.
-     * 
-     * @param input The user input into the chat.
-     * @return A confirmation message of deletion, or a scolding if input is
-     *         improper.
-     */
-    private String processDeleteInput(String input) {
-        String[] words = input.split(" ", 2);
-        assert words.length < 3;
-        try {
-            int i = Integer.parseInt(words[1]);
-            taskList.delete(i);
-            return "Ok it's gone. What else do you want...";
-        } catch (NumberFormatException e) {
-            return "That was not understood. Silly.";
-        }
-    }
-
-    /**
      * Overall handler for all kinds of user input to GrumbleBug.
      * Redirects into different helper methods to deal with different cases,
      * each generating a String response to be displayed back to the user.
@@ -175,20 +68,22 @@ public class GrumbleBug extends Application {
     private String getResponse(String input) {
         if (input.equals("list")) { // show the list!
             return taskList.getTasks();
+        } else if (input.equals("save")) {
+            return storage.writeToFile(filePath, taskList);
         } else if (input.startsWith("mark")) {
-            return processMarkTaskInput(input, true);
+            return parser.processMarkTaskInput(input, true, NUM_PARAMS_FOR_MARK, taskList);
         } else if (input.startsWith("unmark")) {
-            return processMarkTaskInput(input, false);
+            return parser.processMarkTaskInput(input, false, NUM_PARAMS_FOR_MARK, taskList);
         } else if (input.startsWith("find")) {
-            return processFindTasksInput(input);
+            return parser.processFindTasksInput(input, NUM_PARAMS_FOR_FIND, taskList);
         } else if (input.startsWith("todo")) { // add to list
-            return processTodoInput(input);
+            return parser.processTodoInput(input, NUM_PARAMS_FOR_TODO, taskList);
         } else if (input.startsWith("deadline")) { // add to list
-            return processDeadlineInput(input);
+            return parser.processDeadlineInput(input, NUM_PARAMS_FOR_DEADLINE, taskList);
         } else if (input.startsWith("event")) { // add to list
-            return processEventInput(input);
+            return parser.processEventInput(input, NUM_PARAMS_FOR_EVENT, taskList);
         } else if (input.startsWith("delete")) {
-            return processDeleteInput(input);
+            return parser.processDeleteInput(input, NUM_PARAMS_FOR_DELETE, taskList);
         } else {
             return "I don't understand what you just said, stupid...";
         }
@@ -266,7 +161,6 @@ public class GrumbleBug extends Application {
     }
 
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
