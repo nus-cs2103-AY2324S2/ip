@@ -55,61 +55,61 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         if (this.myFile.length() == 0) {
             tasks = new ArrayList<>();
-        } else {
-            try {
-                Scanner sc = new Scanner(this.myFile);
-                while (sc.hasNextLine()) {
-                    String text = sc.nextLine();
-                    String[] segmentedText = text.split("\\|");
-
-                    String typeOfTask = segmentedText[0].trim();
-                    assert (typeOfTask.equals("todo") || typeOfTask.equals("deadline")
-                            || typeOfTask.equals("event")) : "Invalid task type when reading in from file";
-
-                    if (typeOfTask.equals("todo")) {
-                        int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
-                        String description = segmentedText[2].trim();
-                        ToDos todo = new ToDos(description);
-                        if (isTaskCompleted == 1) {
-                            todo.markAsDone();
-                        }
-                        tasks.add(todo);
-
-                    } else if (typeOfTask.equals("deadline")) {
-                        int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
-                        String description = segmentedText[2].trim();
-                        String deadlineTime = segmentedText[3].trim();
-
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-                        LocalDateTime parsedDateTime = LocalDateTime.parse(deadlineTime, formatter);
-                        Deadline deadline = new Deadline(description, parsedDateTime);
-                        if (isTaskCompleted == 1) {
-                            deadline.markAsDone();
-                        }
-                        tasks.add(deadline);
-
-                    } else if (segmentedText[0].trim().equals("event")) {
-                        int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
-                        String description = segmentedText[2].trim();
-                        String from = " " + segmentedText[3].trim();
-                        String to = " " + segmentedText[4].trim();
-                        Events event = new Events(description, from, to);
-                        if (isTaskCompleted == 1) {
-                            event.markAsDone();
-                        }
-                        tasks.add(event);
-
-                    } else {
-                        throw new PingMeException("Weird expression found!");
-                    }
-                }
-
-            } catch (FileNotFoundException e) {
-                throw new PingMeException(e.getMessage());
-            }
+            return tasks;
         }
+
+        try {
+            Scanner sc = new Scanner(this.myFile);
+            while (sc.hasNextLine()) {
+                String text = sc.nextLine();
+                String[] segmentedText = text.split("\\|");
+                int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
+                String description = segmentedText[2].trim();
+
+                String typeOfTask = segmentedText[0].trim();
+                assert (typeOfTask.equals("todo") || typeOfTask.equals("deadline")
+                        || typeOfTask.equals("event")) : "Invalid task type when reading in from file";
+
+                if (typeOfTask.equals("todo")) {
+                    ToDos todo = new ToDos(description);
+                    if (isTaskCompleted == 1) {
+                        todo.markAsDone();
+                    }
+                    tasks.add(todo);
+
+                } else if (typeOfTask.equals("deadline")) {
+                    String deadlineTime = segmentedText[3].trim();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+                    LocalDateTime parsedDateTime = LocalDateTime.parse(deadlineTime, formatter);
+                    Deadline deadline = new Deadline(description, parsedDateTime);
+                    if (isTaskCompleted == 1) {
+                        deadline.markAsDone();
+                    }
+                    tasks.add(deadline);
+
+                } else if (segmentedText[0].trim().equals("event")) {
+                    String from = " " + segmentedText[3].trim();
+                    String to = " " + segmentedText[4].trim();
+                    Events event = new Events(description, from, to);
+                    if (isTaskCompleted == 1) {
+                        event.markAsDone();
+                    }
+                    tasks.add(event);
+
+                } else {
+                    throw new PingMeException("Weird expression found!");
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new PingMeException(e.getMessage());
+        }
+
         return tasks;
     }
+
+
 
     /**
      * Updates and writes all the tasks in the tasklist into the local file.
@@ -123,8 +123,8 @@ public class Storage {
             for (Task t : tasks) {
                 int isCompleted = t.hasCompleted();
 
-                assert (t instanceof ToDos || t instanceof Deadline ||
-                        t instanceof Events) : "Invalid task type when writing to file";
+                assert (t instanceof ToDos || t instanceof Deadline
+                        || t instanceof Events) : "Invalid task type when writing to file";
 
                 if (t instanceof ToDos) {
                     String toWrite = ((ToDos) t).updateToDoText(isCompleted);

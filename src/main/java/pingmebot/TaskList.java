@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import org.w3c.dom.events.Event;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
 import pingmebot.task.Task;
@@ -132,7 +131,8 @@ public class TaskList {
      * @param by The finish by timing of the deadline task.
      * @throws PingMeException If the user tries to postpone a todo task.
      */
-    public void postponeTask(int taskNum, String timingStart, String timingEnd, LocalDateTime by) throws PingMeException{
+    public void postponeTask(int taskNum, String timingStart,
+                             String timingEnd, LocalDateTime by) throws PingMeException {
         Task t = tasks.get(taskNum);
 
         if (t instanceof Deadline) {
@@ -143,8 +143,8 @@ public class TaskList {
             e.setEventsFromTiming(timingStart);
             e.setEventsToTiming(timingEnd);
         } else {
-            throw new PingMeException("You can only postpone deadline or " +
-                    "events task!");
+            throw new PingMeException("You can only postpone deadline or "
+                    + "events task!");
         }
     }
 

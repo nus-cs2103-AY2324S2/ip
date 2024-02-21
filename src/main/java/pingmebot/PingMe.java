@@ -1,8 +1,6 @@
 package pingmebot;
 
 import pingmebot.command.Command;
-import pingmebot.command.ExitCommand;
-import pingmebot.command.ListCommand;
 
 /**
  * A simple, interactive task management application.
@@ -48,120 +46,20 @@ public class PingMe {
 
     /**
      * Returns the response back to the user after keying in a certain command through the GUI.
-     *
-     * @param input User's commmand.
+     * @param input User's command.
      * @return The response to the user.
      */
     public String getResponse(String input) {
-        String[] splitInput = input.split(" ");
-        parser = new Parser(input);
+        parser = new Parser(input, tasks.getTaskSize());
         String response = "";
-
-        if (input.equals("bye")) {
-            try {
-                Command c = new ExitCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (input.equals("list")) {
-            try {
-                Command c = new ListCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("mark")) {
-            try {
-                Command c = parser.parseMarkCommand(tasks.getTaskSize());
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("unmark")) {
-            try {
-                Command c = parser.parseUnmarkCommand(tasks.getTaskSize());
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("todo")) {
-            try {
-                Command c = parser.parseToDoCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("deadline")) {
-            try {
-                Command c = parser.parseDeadlineCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("event")) {
-            try {
-                Command c = parser.parseEventsCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("delete")) {
-            try {
-                Command c = parser.parseDeleteCommand(tasks.getTaskSize());
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("find")) {
-            try {
-                Command c = parser.parseFindCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else if (splitInput[0].equals("postpone")) {
-            try {
-                Command c = parser.parsePostponeCommand();
-                c.execute(tasks, storage, ui);
-                response += ui.givesBackResponse();
-            } catch (PingMeException e) {
-                ui.showError(e.getMessage());
-                response += ui.givesBackResponse();
-            }
-
-        } else {
-            ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");
+        try {
+            Command c = parser.parseInput();
+            c.execute(tasks, storage, ui);
+            response += ui.givesBackResponse();
+        } catch (PingMeException e) {
+            ui.showError(e.getMessage());
             response += ui.givesBackResponse();
         }
-
         return response;
     }
 

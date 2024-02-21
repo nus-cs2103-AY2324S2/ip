@@ -22,14 +22,16 @@ public class ParserTest {
     @Test
     public void parseToDoCommandTest() throws PingMeException {
         String command = "todo project";
-        Parser parser = new Parser(command);
+        int arbituaryNumOfTask = 3;
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new AddCommand(new ToDos("project")), parser.parseToDoCommand());
     }
 
     @Test
     public void parseDeadlineCommandTest() throws PingMeException {
         String command = "deadline project /by 05/05/2000 1800";
-        Parser parser = new Parser(command);
+        int arbituaryNumOfTask = 3;
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         String time = "05/05/2000 1800";
         assertEquals(new AddCommand(new Deadline("project", LocalDateTime.parse(time, formatter))),
@@ -39,7 +41,8 @@ public class ParserTest {
     @Test
     public void parseEventsCommandTest() throws PingMeException {
         String command = "event project /from 9am /to 8pm";
-        Parser parser = new Parser(command);
+        int arbituaryNumOfTask = 3;
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new AddCommand(new Events("project", " 9am", " 8pm")),
                 parser.parseEventsCommand());
     }
@@ -48,7 +51,7 @@ public class ParserTest {
     public void parseMarkCommandTest() throws PingMeException {
         String command = "mark 2";
         int arbituaryNumOfTask = 3;
-        Parser parser = new Parser(command);
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new MarkCommand(1),
                 parser.parseMarkCommand(arbituaryNumOfTask));
     }
@@ -57,7 +60,7 @@ public class ParserTest {
     public void parseUnmarkCommandTest() throws PingMeException {
         String command = "unmark 2";
         int arbituaryNumOfTask = 3;
-        Parser parser = new Parser(command);
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new UnmarkCommand(1),
                 parser.parseUnmarkCommand(arbituaryNumOfTask));
     }
@@ -66,7 +69,7 @@ public class ParserTest {
     public void parseDeleteCommandTest() throws PingMeException {
         String command = "delete 2";
         int arbituaryNumOfTask = 3;
-        Parser parser = new Parser(command);
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new DeleteCommand(1),
                 parser.parseDeleteCommand(arbituaryNumOfTask));
     }
@@ -74,7 +77,8 @@ public class ParserTest {
     @Test
     public void parseFindCommandTest() throws PingMeException {
         String command = "find book";
-        Parser parser = new Parser(command);
+        int arbituaryNumOfTask = 3;
+        Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new FindCommand("book"),
                 parser.parseFindCommand());
     }

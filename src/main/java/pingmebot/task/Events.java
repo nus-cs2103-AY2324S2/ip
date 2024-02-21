@@ -1,7 +1,5 @@
 package pingmebot.task;
 
-import java.time.LocalDateTime;
-
 /**
  * A category of task that has a task description, and a start and end date or time to complete the task by.
  */
