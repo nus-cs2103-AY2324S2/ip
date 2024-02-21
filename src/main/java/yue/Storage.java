@@ -41,11 +41,9 @@ public class Storage {
                 if (!created) {
                     throw new YueException("Failed to create a new file: " + filePath);
                 }
-                // Now that the file is created, return an empty list of tasks
                 return tasks;
             }
             if (!file.exists()) {
-                // If the file doesn't exist, create a new one
                 boolean created = file.createNewFile();
                 if (!created) {
                     throw new YueException("Failed to create a new file: " + filePath);
@@ -55,32 +53,36 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                assert parts.length >= 3 : "Invalid task format: " + line;
-                Task task;
-                switch (parts[0]) {
-                    case "T":
-                        task = new TodoTask(parts[2]);
-                        break;
-                    case "D":
-                        task = new DeadlineTaskLoad(parts[2], parts[3]);
-                        break;
-                    case "E":
-                        task = new EventTaskLoad(parts[2], parts[3]);
-                        break;
-                    default:
-                        continue;
-                        }
-                        if (parts[1].equals("1")) {
-                            task.markDone();
-                        }
-                        tasks.add(task);
-                    }
+                parseTaskLine(line, tasks);
+            }
                 scanner.close();
         } catch (IOException e) {
             throw new YueException("Error loading tasks from file: " + e.getMessage());
         }
         return tasks;
+    }
+
+    private void parseTaskLine(String line, List<Task> tasks) throws YueException {
+        String[] parts = line.split(" \\| ");
+        assert parts.length >= 3 : "Invalid task format: " + line;
+        Task task;
+        switch (parts[0]) {
+            case "T":
+                task = new TodoTask(parts[2]);
+                break;
+            case "D":
+                task = new DeadlineTaskLoad(parts[2], parts[3]);
+                break;
+            case "E":
+                task = new EventTaskLoad(parts[2], parts[3]);
+                break;
+            default:
+                return;
+        }
+        if (parts[1].equals("1")) {
+            task.markDone();
+        }
+        tasks.add(task);
     }
 
 
