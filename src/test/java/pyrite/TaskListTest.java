@@ -12,6 +12,7 @@ import pyrite.task.Task;
 import pyrite.task.ToDo;
 
 public class TaskListTest {
+    // Test cases suggested by Github Copilot
     @Test
     public void size_emptyList_success() {
         TaskList tasks = new TaskList();

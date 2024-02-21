@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 public class EventTest {
+    // Test cases suggested by Github Copilot
     @Test
     public void toString_success() {
         Event event = new Event(

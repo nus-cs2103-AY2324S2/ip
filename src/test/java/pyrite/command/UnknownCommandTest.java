@@ -7,6 +7,7 @@ import pyrite.StateFile;
 import pyrite.TaskList;
 
 public class UnknownCommandTest {
+    // Test cases suggested by Github Copilot
     @Test
     public void execute_success() {
         UnknownCommand unknownCommand = new UnknownCommand("test", "test reason");

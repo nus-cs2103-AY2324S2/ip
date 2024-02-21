@@ -14,6 +14,7 @@ import pyrite.command.UnknownCommand;
 
 
 public class ParserTest {
+    // Test cases suggested by Github Copilot
     @Test
     public void parse_bye_success() {
         Command command = Parser.parse("bye");
