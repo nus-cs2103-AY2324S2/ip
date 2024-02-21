@@ -5,7 +5,6 @@ package youdon;
  * Provides methods to interact with the user through the console.
  */
 public class Ui {
-    private static final String DIVIDER_LINE = "----------------------------------------------------------------";
 
     /**
      * Constructs a new instance of the Ui class.
@@ -32,31 +31,23 @@ public class Ui {
     }
 
     public String getMarkMsg(TaskList tasks, int taskNumber) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nicely done! The task has been marked as done:").append("\n");
-        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
-        return sb.toString();
+        return "Nicely done! The task has been marked as done:" + "\n" +
+                "  " + tasks.get(taskNumber - 1).toString() + "\n";
     }
 
     public String getUnmarkMsg(TaskList tasks, int taskNumber) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Okies! The task has been marked as undone:").append("\n");
-        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
-        return sb.toString();
+        return "Okies! The task has been marked as undone:" + "\n" +
+                "  " + tasks.get(taskNumber - 1).toString() + "\n";
     }
 
     public String getDeleteMsg(Task task) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Alright! The task has been deleted:").append("\n");
-        sb.append("  ").append(task.toString()).append("\n");
-        return sb.toString();
+        return "Alright! The task has been deleted:" + "\n" +
+                "  " + task.toString() + "\n";
     }
 
     public String getTaskAddedMsg(TaskList tasks) {
         int index = tasks.size() - 1;
-        StringBuilder sb = new StringBuilder();
-        sb.append("Alright! Task added:\n  ").append(tasks.get(index).toString()).append("\n");
-        sb.append("You now have ").append(tasks.size()).append(" task(s) in the list.").append("\n");
-        return sb.toString();
+        return "Alright! Task added:\n  " + tasks.get(index).toString() + "\n" +
+                "You now have " + tasks.size() + " task(s) in the list." + "\n";
     }
 }
