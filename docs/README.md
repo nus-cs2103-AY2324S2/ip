@@ -1,30 +1,30 @@
-# Duke User Guide
+# SirDuke User Guide
 
-// Update the title above to match the actual product name
+![product screenshot](productScreenshot.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+SirDuke is at your service. With SirDuke you would be able to:
+- Add deadlines
+- Find for tasks by index
+- Add events
+- Archive your tasks
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Add a `deadline` that sets a task that should end by a certain period
 
-// Give examples of usage
+Example: `deadline meet John Wick /by 12-12-1212 12:12`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+You should be able to see...
 
 ```
-expected output
+Got it. I've added this task:
+[D][ ] meet John Wick (by: Dec 12 1212 12:12)
+Now you have 3 tasks in the list.
 ```
 
-## Feature ABC
+## Archive
 
-// Feature details
+Command: `archive` (case-insensitive)
 
-
-## Feature XYZ
-
-// Feature details
+With this command you would **clear** all the tasks in storage (stored in the `data`) and have it copied over to
+another txt file in the `archive` directory
