@@ -1,30 +1,56 @@
-# Duke User Guide
+# Anita MaxWynn User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Ui.](docs/Ui.png)
 
-// Product screenshot goes here
+Anita is a helpful chatbot that can help you remember your tasks so that you can always stay winning!
 
-// Product intro goes here
+## Functionalities
 
-## Adding deadlines
+_1 . Add a **To-do** task._ 
 
-// Describe the action and its outcome.
+Examples:
+* `todo Max-Win-Now`
+* `t Max Win Today`
 
-// Give examples of usage
+_2 . Add a **Deadline** task._ 
 
-Example: `keyword (optional arguments)`
+Examples:
+* `deadline Win Money /by 11/11/2024`
+* `d Get rich /by 11/9/2024`
 
-// A description of the expected outcome goes here
+_3 . Add an **Event** task._ 
 
-```
-expected output
-```
+Examples:
+* `event project meeting /from 2/12/2019 /to 2/12/2019`
+* `e project meeting /from Mon 2/12/2019 /to 2/12/2019`
 
-## Feature ABC
+_4 . **Mark** a task as done. `mark <task index>`_
 
-// Feature details
+Examples:
+* `mark 1`
+
+_5 . **Unmark** a task as not done. `unmark <task index>`_
+
+Examples:
+* `unmark 2`
+
+_6 . **List** out all tasks and their status._ 
+
+* `list`
+
+_7 . **Delete** any tasks from task list._ ` delete <index>`
+
+Examples:
+* `delete 6`
+
+_8 . **Find** a task with a matching sequence_ `find <sequence>`
+
+Examples:
+* `find win`
+* `find money`
+
+_9 . Say **bye** to exit the chatbot application_ 
+* `bye`
 
 
-## Feature XYZ
 
-// Feature details
