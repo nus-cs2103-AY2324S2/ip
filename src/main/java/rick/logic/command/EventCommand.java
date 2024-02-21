@@ -32,10 +32,13 @@ public class EventCommand implements Command {
      */
     private void parse(String input) throws RickException {
         if (input == null || input.isBlank()) {
-            throw new RickException("Task name cannot be empty!");
+            throw new RickException("Whoa, Morty, you want me to record an event, "
+                    + "but you didn't even give me the name of the event? "
+                    + "How am I supposed to do that, Morty? I'm not a mind reader, you know");
         }
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
-            throw new RickException("Tell me the event date/time in this format: "
+            throw new RickException("Alright, Morty, you forgot to tell me the start and end times for the event. "
+                    + "You gotta give me all the info like below, Morty, or I can't help you. Get it together.\n"
                     + "event [title] /from yyyy-mm-ddTHH-MM-SS /to yyyy-mm-ddTHH-MM-SS");
         }
         assert input.length() > (FROM_KEYWORD.length() + TO_KEYWORD.length());
@@ -47,7 +50,9 @@ public class EventCommand implements Command {
         String from = input.substring(fromIndex + fromLen, toIndex);
         String to = input.substring(toIndex + toLen);
         if (name.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new RickException("I need both the name and the start and end time!");
+            throw new RickException("Alright, Morty, you forgot to tell me the start and end times for the event. "
+                    + "You gotta give me all the info like below, Morty, or I can't help you. Get it together.\n"
+                    + "event [title] /from yyyy-mm-ddTHH-MM-SS /to yyyy-mm-ddTHH-MM-SS");
         }
         this.name = name;
         this.from = from;

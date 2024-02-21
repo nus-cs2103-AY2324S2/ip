@@ -16,7 +16,9 @@ public class TodoCommand implements Command {
         if (input != null && !input.isBlank()) {
             this.name = input;
         } else {
-            throw new RickException("Task name cannot be blank!");
+            throw new RickException("Ugh, Morty, you wanna add a task but you don't even know what it is? "
+                    + "Come on, Morty, you're wasting my time here. "
+                    + "Figure out what you want and then come back to me.");
         }
     }
 

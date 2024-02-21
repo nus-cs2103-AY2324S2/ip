@@ -50,9 +50,12 @@ public class Rick {
         } catch (RickException e) {
             return e.getMessage();
         } catch (Exception e) {
-            return "ERROR: Congratulations! "
-                    + "You have input a message that the developer did not expect. "
-                    + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.";
+            return "Aw, jeez, Morty, I did not see that coming. "
+                    + "This is... this is bad. I need a drink. I need several drinks. "
+                    + "This is... this is really, really bad. Pass me the flask, Morty. "
+                    + "I think I'm gonna need it. Oh, and uh, Morty, send me a report at uh, "
+                    + "https://forms.gle/hnnDTA7qYMnhJvQ46, so I can try to fix this mess. "
+                    + "Thanks, Morty. You're... you're a good kid..";
         }
     }
 

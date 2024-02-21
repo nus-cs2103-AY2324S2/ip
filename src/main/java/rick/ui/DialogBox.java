@@ -45,7 +45,7 @@ public class DialogBox extends HBox {
     private void flip() {
         setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         setAlignment(Pos.TOP_RIGHT);
-        dialog.setStyle("-fx-background-color: #326eab;-fx-text-fill: white;");
+        dialog.setStyle("-fx-background-color: #216c7f;-fx-text-fill: white;");
     }
 
     /**

@@ -22,7 +22,13 @@ public class FindCommand implements Command {
      * @return a string containing command type and related information.
      */
     @Override
-    public String[] respond() {
+    public String[] respond() throws RickException {
+        if (this.substring.isEmpty()) {
+            throw new RickException("Morty, I can't believe this, Morty. "
+                    + "You won't even tell me what to look for? "
+                    + "I don't have time for this, Morty. "
+                    + "Just tell me what you need, Morty, and let's get it done!");
+        }
         return new String[]{"F", this.substring};
     }
 }

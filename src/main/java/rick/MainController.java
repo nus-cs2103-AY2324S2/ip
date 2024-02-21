@@ -60,7 +60,10 @@ public class MainController {
     /**
      * Sets background of vBox empty.
      */
-    public void setvBox() {
-        vBox.setBackground(Background.EMPTY);
+    public void greet() {
+        String hello = "Hey, Morty, you're finally here. What do you want? "
+                + "Don't make it a long story, I've got things to do, Morty.";
+        DialogBox helloRick = DialogBox.getRickDialog(hello, rickImage);
+        vBox.getChildren().add(helloRick);
     }
 }

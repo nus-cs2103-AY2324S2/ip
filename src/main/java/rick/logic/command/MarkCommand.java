@@ -31,7 +31,9 @@ public class MarkCommand implements Command {
             Integer.parseInt(input);
             this.index = input;
         } catch (Exception e) {
-            throw new RickException("An integer should follow!");
+            throw new RickException("Come on, Morty, you gotta put in an integer to mark a task. "
+                    + "You can't just type random stuff and expect it to work. "
+                    + "Try again, Morty, and this time, put in a number.");
         }
     }
 

@@ -26,7 +26,10 @@ public class Parser {
      */
     public Parser(String userInput) throws RickException {
         if (userInput == null || userInput.isEmpty() || userInput.isBlank()) {
-            throw new RickException("Input cannot be empty!");
+            throw new RickException("Wh-what's this, Morty? You send me an empty message? "
+                    + "You think this is a joke? I'm not here to play games, Morty. "
+                    + "Get it together and send me a proper message, or "
+                    + "I'll, I'll... I'll turn you into a pickle, Morty!");
         }
         assert userInput != null && !userInput.isEmpty();
         if (userInput.contains(" ")) {
@@ -64,7 +67,9 @@ public class Parser {
         case ("find"):
             return new FindCommand(this.input);
         default:
-            throw new RickException("Wabolabodabda! Can't understand what you're saying!");
+            throw new RickException("Wh-what's that, Morty? You're talking gibberish again. "
+                    + "I can't understand a word you're saying. "
+                    + "Maybe lay off the... the... whatever you're drinking, Morty. Jeez.");
         }
     }
 }

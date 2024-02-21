@@ -10,6 +10,6 @@ public class ByeCommand implements Command {
      */
     @Override
     public String[] respond() {
-        return new String[]{"B", "Bye! See you next time."};
+        return new String[]{"B", "See you later, Morty! burp Remember, don't do anything stupid while I'm gone."};
     }
 }

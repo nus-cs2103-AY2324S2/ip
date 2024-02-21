@@ -31,7 +31,9 @@ public class UnmarkCommand implements Command {
             Integer.parseInt(input);
             this.index = input;
         } catch (Exception e) {
-            throw new RickException("An integer should follow!");
+            throw new RickException("Come on, Morty, you gotta put in an integer to unmark a task. "
+                    + "You can't just type random stuff and expect it to work. "
+                    + "Try again, Morty, and this time, put in a number.");
         }
     }
 

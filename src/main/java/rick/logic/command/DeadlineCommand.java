@@ -32,11 +32,14 @@ public class DeadlineCommand implements Command {
      */
     private void parse(String input) throws RickException {
         if (input == null || input.isBlank()) {
-            throw new RickException("Task name cannot be empty!");
+            throw new RickException("Ugh, Morty, you wanna add a task but you don't even know what it is? "
+                    + "Come on, Morty, you're wasting my time here. "
+                    + "Figure out what you want and then come back to me.");
         }
         if (!input.contains(BY_KEYWORD)) {
-            throw new RickException("Tell me the due date/time in this format: "
-                    + "deadline [title] /by yyyy-mm-ddTHH-MM-SS");
+            throw new RickException("Seriously, Morty? You don't even know when the deadline is? "
+                    + "How am I supposed to help you if you don't give me all the information? "
+                    + "Put it in 'deadline [title] /by yyyy-mm-ddTHH-MM-SS' format, Morty. Get it together. ");
         }
         assert input.contains(BY_KEYWORD);
         int byIndex = input.indexOf(BY_KEYWORD);
@@ -44,12 +47,16 @@ public class DeadlineCommand implements Command {
         String name = input.substring(0, byIndex);
         String deadline = input.substring(byIndex + keywordLength);
         if (name.isBlank() || deadline.isBlank()) {
-            throw new RickException("I need both the name and the deadline!");
+            throw new RickException("Seriously, Morty? You don't even know when the deadline is? "
+                    + "How am I supposed to help you if you don't give me all the information? "
+                    + "Put it in 'deadline [title] /by yyyy-mm-ddTHH-MM-SS' format, Morty. Get it together. ");
         }
         try {
             LocalDateTime.parse(deadline);
         } catch (Exception e) {
-            throw new RickException("Key in the deadline in this format: yyyy-mm-dd or yyyy-mm-ddTHH-MM-SS");
+            throw new RickException("Nice try, Morty, but you messed up the deadline format. "
+                    + "I need it in yyyy-mm-dd, or yyyy-mm-ddTHH-MM-SS, Morty. "
+                    + "Don't make me repeat myself.");
         }
         this.name = name;
         this.deadline = deadline;
