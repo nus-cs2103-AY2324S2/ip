@@ -8,8 +8,8 @@ import ellie.TaskList;
 public class ListCommand extends Command {
 
     /**
-     * {@inheritDoc}
      * Executes the ListCommand and returns a response containing the list of tasks.
+     * {@inheritDoc}
      *
      * @param tasklist The TaskList to be operated on by the command.
      * @return A response containing the list of tasks.

@@ -7,6 +7,14 @@ package ellie;
 public class Ui {
 
     static final String HORIZONTAL_LINE = "____________________________________________________";
+    static final String HELLO_MESSAGE = "Hello! I'm Ellie, your personal chat bot! \n"
+            + "You can call me Stressed Out by a Mountain of Books! \n \n"
+            + "I help by tracking your tasks!\n"
+            + "What can I do for you? \n \n"
+            + "Type 'help' to see available commands! \n";
+
+    static final String GOODBYE_MESSAGE = "\n Bye! Don't be too stressed out!"
+            + "\n" + HORIZONTAL_LINE;
 
     /**
      * Constructs a Ui object.
@@ -19,23 +27,14 @@ public class Ui {
      * Prints a welcome message.
      */
     public static String showHelloMessage() {
-        String helloMessage = "";
-        helloMessage += "Hello! I'm Ellie, your personal chat bot! \n";
-        helloMessage += "You can call me Stressed Out by a Mountain of Books! \n \n";
-        helloMessage += "I help by tracking your tasks!\n";
-        helloMessage += "What can I do for you? \n \n";
-        helloMessage += "Type 'help' to see available commands! \n";
-        return helloMessage;
+        return HELLO_MESSAGE;
     }
 
     /**
      * Prints a farewell message and a horizontal line.
      */
     public static String showGoodbyeMessage() {
-        String goodbyeMessage = "";
-        goodbyeMessage += "\n Bye! Don't be too stressed out!";
-        goodbyeMessage += "\n" + HORIZONTAL_LINE;
-        return goodbyeMessage;
+        return GOODBYE_MESSAGE;
     }
 
 

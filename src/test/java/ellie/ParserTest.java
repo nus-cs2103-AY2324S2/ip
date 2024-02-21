@@ -1,5 +1,6 @@
 package ellie;
 
+import static ellie.Parser.UNKNOWN_COMMAND_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,7 @@ public class ParserTest {
 
     @Test
     public void parse_invalidInput_invalidCommandWithCorrectErrorMessageReturned() {
-        String errorMessage = "Sorry! Not sure what you're referring to (╥_╥) \n"
-                + "Type 'help' to view the list of supported commands!\n";
-        assertEquals(Parser.parse("unknowncommand"), new InvalidCommand(errorMessage));
+        assertEquals(Parser.parse("unknowncommand"), new InvalidCommand(UNKNOWN_COMMAND_MESSAGE));
     }
 
     @Test
