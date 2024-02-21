@@ -93,6 +93,7 @@ public class Ui {
             int i = 1;
             for (Task task : al) {
                 sb.append(i).append(". ").append(task).append("\n");
+                i++;
             }
             return sb.toString();
         }
@@ -159,6 +160,7 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(".").append(tasks.get(i));
+            sb.append("\n");
         }
         return sb.toString();
     }

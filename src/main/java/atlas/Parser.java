@@ -130,8 +130,11 @@ public class Parser {
         return new MarkCommand(tasks, ui, storage, taskIndex);
     }
 
-    private static SetPriorityCommand createSetPriorityCommand(TaskList tasks, Ui ui, Storage storage, String details) {
+    private static SetPriorityCommand createSetPriorityCommand(TaskList tasks, Ui ui, Storage storage, String details) throws AtlasException {
         String[] parts = details.split(" ", 2);
+        if (!checkPriorityRange(Integer.parseInt(parts[1]))) {
+            throw new InvalidPriorityException("Invalid Priority Range(0 to 5)");
+        }
         return new SetPriorityCommand(tasks, ui, storage, Integer.parseInt(parts[0]) - 1, Integer.parseInt(parts[1]));
     }
 
