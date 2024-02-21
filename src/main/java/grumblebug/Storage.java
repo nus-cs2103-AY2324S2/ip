@@ -25,7 +25,6 @@ public class Storage {
         try {
             File f = new File(filePath);
             f.createNewFile();
-            System.out.println(27);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String task = s.nextLine();
@@ -48,7 +47,6 @@ public class Storage {
                 }
                 taskList.add(t);
             }
-            System.out.println(50);
             s.close();
         } catch (IOException e) {
             System.out.println("An IO error occurred with the data file.");
