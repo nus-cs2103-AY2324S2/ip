@@ -31,6 +31,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().initialiseOsiris(chatBot);
 
             Scene scene = new Scene(ap);
+            stage.setTitle("Osiris - Your ChatBot");
             stage.setScene(scene);
             stage.setResizable(false);
 

@@ -53,7 +53,7 @@ application {
 
 shadowJar {
     archiveBaseName = "Osiris"
-    archiveClassifier = "2.1"
+    archiveClassifier = "3.0"
     dependsOn("distZip", "distTar")
 }
 
