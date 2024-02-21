@@ -24,11 +24,9 @@ public class Parser {
      * @return Command
      */
     public Command parseCommand(String[] input) throws HowieException {
-
         StringBuilder name;
         StringBuilder current;
         String s1 = input[0];
-
         boolean isInputLengthTwo = input.length != 2;
 
         switch (s1) {
@@ -37,25 +35,18 @@ public class Parser {
         case ByeCommand.COMMAND:
             return new ByeCommand();
         case MarkCommand.COMMAND:
-            if (isInputLengthTwo) {
-                throw new HowieException("Invalid arguments detected! Please enter a index.");
-            }
-            return new MarkCommand(Integer.parseInt(input[1]));
+            return getMarkCommand(input, isInputLengthTwo);
         case UnmarkCommand.COMMAND:
-            if (isInputLengthTwo) {
-                throw new HowieException("Invalid arguments detected! Please enter a index.");
-            }
-            return new UnmarkCommand(Integer.parseInt(input[1]));
+            return getUnmarkCommand(input, isInputLengthTwo);
         case TodoCommand.COMMAND:
             name = new StringBuilder();
             for (int j = 1; j < input.length; j++) {
                 name.append(input[j]).append(" ");
             }
 
-            if (name.length() == 0) {
-                Ui.emptyTaskMessage();
-            } else {
-                return new TodoCommand(name.toString());
+            TodoCommand todoCommand = getTodoCommand(name);
+            if (todoCommand != null) {
+                return todoCommand;
             }
         case DeadlineCommand.COMMAND:
             name =  new StringBuilder();
@@ -71,12 +62,9 @@ public class Parser {
             }
             by = current;
 
-            if (name.length() == 0) {
-                Ui.emptyTaskMessage();
-            } else if (name.compareTo(by) == 0) {
-                Ui.invalidFormat();
-            } else {
-                return new DeadlineCommand(name.toString(), by.toString());
+            DeadlineCommand deadlineCommand = getDeadlineCommand(name, by);
+            if (deadlineCommand != null) {
+                return deadlineCommand;
             }
         case EventCommand.COMMAND:
             name =  new StringBuilder();
@@ -97,28 +85,78 @@ public class Parser {
                 current.append(input[i]).append(" ");
             }
 
-            if (name.length() == 0) {
-                Ui.emptyTaskMessage();
-            } else if (from.length() == 0 || to.length() == 0) {
-                Ui.invalidFormat();
-            } else {
-                return new EventCommand(name.toString(), from.toString(), to.toString());
+            EventCommand eventCommand = getEventCommand(name, from, to);
+            if (eventCommand != null) {
+                return eventCommand;
             }
         case DeleteCommand.COMMAND:
-            if (isInputLengthTwo) {
-                throw new HowieException("Invalid arguments detected! Hint: delete [index]");
-            }
-            return new DeleteCommand(Integer.parseInt(input[1]));
+            return getDeleteCommand(input, isInputLengthTwo);
         case FindCommand.COMMAND:
-            if (isInputLengthTwo) {
-                throw new HowieException("Invalid arguments detected! Please enter a valid keyword! " +
-                        "For example: find book");
-            }
-            return new FindCommand(input[1]);
+            return getFindCommand(input, isInputLengthTwo);
         case HelpCommand.COMMAND:
             return new HelpCommand();
         default:
             return new InvalidCommand();
         }
+    }
+
+    private static EventCommand getEventCommand(StringBuilder name, StringBuilder from, StringBuilder to) throws HowieException {
+        if (name.length() == 0) {
+            Ui.emptyTaskMessage();
+        } else if (from.length() == 0 || to.length() == 0) {
+            Ui.invalidFormat();
+        } else {
+            return new EventCommand(name.toString(), from.toString(), to.toString());
+        }
+        return null;
+    }
+
+    private static DeadlineCommand getDeadlineCommand(StringBuilder name, StringBuilder by) throws HowieException {
+        if (name.length() == 0) {
+            Ui.emptyTaskMessage();
+        } else if (name.compareTo(by) == 0) {
+            Ui.invalidFormat();
+        } else {
+            return new DeadlineCommand(name.toString(), by.toString());
+        }
+        return null;
+    }
+
+    private static TodoCommand getTodoCommand(StringBuilder name) throws HowieException {
+        if (name.length() == 0) {
+            Ui.emptyTaskMessage();
+        } else {
+            return new TodoCommand(name.toString());
+        }
+        return null;
+    }
+
+    private static FindCommand getFindCommand(String[] input, boolean isInputLengthTwo) throws HowieException {
+        if (isInputLengthTwo) {
+            throw new HowieException("Invalid arguments detected! Please enter a valid keyword! " +
+                    "For example: find book");
+        }
+        return new FindCommand(input[1]);
+    }
+
+    private static DeleteCommand getDeleteCommand(String[] input, boolean isInputLengthTwo) throws HowieException {
+        if (isInputLengthTwo) {
+            throw new HowieException("Invalid arguments detected! Hint: delete [index]");
+        }
+        return new DeleteCommand(Integer.parseInt(input[1]));
+    }
+
+    private static UnmarkCommand getUnmarkCommand(String[] input, boolean isInputLengthTwo) throws HowieException {
+        if (isInputLengthTwo) {
+            throw new HowieException("Invalid arguments detected! Please enter a index.");
+        }
+        return new UnmarkCommand(Integer.parseInt(input[1]));
+    }
+
+    private static MarkCommand getMarkCommand(String[] input, boolean isInputLengthTwo) throws HowieException {
+        if (isInputLengthTwo) {
+            throw new HowieException("Invalid arguments detected! Please enter a index.");
+        }
+        return new MarkCommand(Integer.parseInt(input[1]));
     }
 }
