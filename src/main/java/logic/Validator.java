@@ -188,7 +188,7 @@ public class Validator {
     public static void validateTodoCommand(String command)
             throws MissingParametersException, IncorrectParametersException {
         String todoDescription = command.replaceFirst("(?i)todo", "").trim();
-        if (todoDescription.equals("")) {
+        if (todoDescription.isEmpty()) {
             throw new MissingParametersException(ErrorMessages.MISSING_TASK_DESCRIPTION);
         }
         if (todoDescription.contains("/by")) {
@@ -255,8 +255,11 @@ public class Validator {
             throws MissingParametersException, IncorrectParametersException,
             DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
-        if (!command.contains("/from") || !command.contains("/to")) {
-            throw new MissingParametersException(ErrorMessages.MISSING_FROM_TO_DATE);
+        if (!command.contains("/from")) {
+            throw new MissingParametersException(ErrorMessages.MISSING_FROM_DATE);
+        }
+        else if (!command.contains("/to")) {
+            throw new MissingParametersException(ErrorMessages.MISSING_TO_DATE);
         }
         if (command.contains("/by")) {
             throw new IncorrectParametersException(ErrorMessages.DUE_DATE_NOT_NEEDED);
@@ -276,18 +279,24 @@ public class Validator {
             throw new IncorrectParametersException(ErrorMessages.INCORRECT_PARAMETERS);
         }
 
+        String[] parameters = new String[3];
+        parameters = extractEventParameters(command);
+        String eventDescription = parameters[0];
+        String eventFrom = parameters[1];
+        String eventTo = parameters[2];
+        if (eventDescription.isEmpty()) {
+            throw new MissingParametersException(ErrorMessages.MISSING_TASK_DESCRIPTION);
+        }
+        if (eventFrom.isEmpty()) {
+            System.out.println(ErrorMessages.MISSING_FROM_DATE);
+            throw new MissingParametersException(ErrorMessages.MISSING_FROM_DATE);
+        }
+        else if (eventTo.isEmpty()) {
+            System.out.println(ErrorMessages.MISSING_TO_DATE);
+            throw new MissingParametersException(ErrorMessages.MISSING_TO_DATE);
+        }
+
         try {
-            String[] parameters = new String[3];
-            parameters = extractEventParameters(command);
-            String eventDescription = parameters[0];
-            String eventFrom = parameters[1];
-            String eventTo = parameters[2];
-            if (eventDescription.isEmpty()) {
-                throw new MissingParametersException(ErrorMessages.MISSING_TASK_DESCRIPTION);
-            }
-            if (eventFrom.isEmpty() || eventTo.isEmpty()) {
-                throw new MissingParametersException(ErrorMessages.MISSING_FROM_TO_DATE);
-            }
             LocalDate eventFromDateLocal = LocalDate.parse(eventFrom);
             LocalDate eventToDateLocal = LocalDate.parse(eventTo);
         } catch (DateTimeParseException e) {
