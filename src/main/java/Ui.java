@@ -15,4 +15,5 @@ public class Ui {
         String byeMessage = "Hope you enjoy my help!";
         System.out.println(byeMessage);
     }
+
 }

@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Storage {
     private final String FILE_PATH;
@@ -13,8 +12,8 @@ public class Storage {
     public Storage(String FILE_PATH) {
         this.FILE_PATH = FILE_PATH;
     }
-    public List<Task> load() {
-        List<Task> taskList = new ArrayList<>();
+    public ArrayList<Task> load() {
+        ArrayList<Task> taskList = new ArrayList<>();
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -36,13 +35,12 @@ public class Storage {
 
         return taskList;
     }
-    public void save(List<Task> taskList) {
+    public void save(TaskList tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
 
-            for (Task task : taskList) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
+            for (String item : tasks.getFileStrings()) {
+                writer.write(item + "\n");
             }
 
             writer.close();
