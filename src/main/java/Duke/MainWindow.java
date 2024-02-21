@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Main main;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image birdImage = new Image(this.getClass().getResourceAsStream("/images/DaBird.png"));
 
     @FXML
     public void initialize() {
@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void displayInitialMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(bird.greet(), dukeImage)
+                DialogBox.getDukeDialog(bird.greet(), birdImage)
         );
     }
 
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
         String response = bird.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, birdImage)
         );
         userInput.clear();
 

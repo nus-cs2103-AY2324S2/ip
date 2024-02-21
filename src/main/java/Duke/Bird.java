@@ -38,13 +38,8 @@ public class Bird {
      * Generates a greeting message
      */
     public String greet() {
-        String greeting = " /\\_/\\ \n" +
-                "((@v@)) \n" +
-                "():::() \n" +
-                " VV-VV \n" +
+        return "Hello I'm Bird! \n" +
                 "What can I do for you?";
-
-        return greeting;
     }
 }
 
