@@ -110,7 +110,7 @@ Format: `bye`<br>
 | Mark for completed | `mark INDEX` <br>e.g., `mark 2` <br>The `INDEX` refers to the index number of a task in the list. <br>⚠️: `INDEX` must be positive and not exceed the size of the list. |
 | UnMark for incomplete | `unmark INDEX` <br>e.g., `unmark 2` <br>The `INDEX` refers to the index number of a task in the list.  <br> ⚠️: `INDEX` must be positive and not exceed the size of the list. |
 | Search task based on description | `search DESCRIPTION` <br>e.g., `search book` |
-| Search task based on date | `date yyyy-MM-dd HH:mm` <br>e.g., `date 2024-02-20` |
+| Search task based on date | `date yyyy-MM-dd` <br>e.g., `date 2024-02-20` |
 | Setting priority | `todo DESCRIPTION /priority LEVEL` <br>e.g., `todo join club /priority medium` <br>📝: `DEFAULT` if not stated explicitly <br> Set the priority level for each task. <br> Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`|
 | Exit | `bye` |
 
