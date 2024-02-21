@@ -1,10 +1,11 @@
 package tasks;
 
-import duke.tasks.ToDo;
-
 import org.junit.jupiter.api.Test;
 
+import anxi.tasks.ToDo;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ToDoTest {
     @Test
     public void testSaveFileSyntax() {
