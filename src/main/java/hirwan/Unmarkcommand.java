@@ -3,11 +3,21 @@ package hirwan;
 public class Unmarkcommand extends Command {
     String input;
     Tasklist tasks;
+
+    /**
+     * the unmark command constructor that creates an unmark command instance
+     * @param input the text to be converted into the unmark instruction
+     * @param tasks the tasklist to unmark
+     */
     public Unmarkcommand(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
 
+    /**
+     * the getMessage method that returns the string to print to the user after the unmark command is called
+     * @return the string to be printed to the user
+     */
     public String getMessage() {
         String output = "";
         try {
@@ -24,6 +34,9 @@ public class Unmarkcommand extends Command {
         return output;
     }
 
+    /**
+     * the updateData method which updates the tasks in the external text file everytime a task is unmarked
+     */
     public void updateData() {
         String number = this.input.substring(7);
         int numberInt = Integer.parseInt(number);

@@ -6,10 +6,21 @@ import java.time.format.DateTimeFormatter;
 public class Period extends Task {
     String input;
     Tasklist tasks;
+
+    /**
+     * the period constructor which instantiates an instance of the period class
+     * @param input the string to be converted into the period task
+     * @param tasks the tasklist that gets modified when a new period task is created
+     */
     public Period(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
+
+    /**
+     * the getMessage method that prints the output string to be displayed to the user
+     * @return the string returned after the period task is created
+     */
     @Override
     public String getMessage() {
         try {
@@ -40,6 +51,9 @@ public class Period extends Task {
         }
     }
 
+    /**
+     * the updateData method which updates the data in the external text file
+     */
     @Override
     public void updateData() {
         String delimiterstart = " /between";

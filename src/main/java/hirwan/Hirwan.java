@@ -13,7 +13,9 @@ import javafx.fxml.FXML;
  */
 public class Hirwan {
 
-
+    /**
+     * hirwan class constructor method
+     */
     public Hirwan() {
     }
 
@@ -38,15 +40,16 @@ public class Hirwan {
     public static void main(String[] args) {
     }
 
+    /**
+     * the input parser that takes in the command by the user and parses it to the different command and task classe
+     * @param text the user input to the chatbot
+     * @return the string to be printed to the user as the response of the user input
+     */
     public String parseInput(String text) {
 
 
         String output = new String("");
         Tasklist tasks = new Tasklist(Storage.read());
-//        Tasklist previousTasks = tasks.copyList();
-
-        //undo only for todo, deadline, event, delete, mark, unmark commands
-
         try {
             int input = Parser.translate(text);
 
@@ -83,10 +86,6 @@ public class Hirwan {
             } else if (input == 10) {
                 List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
                 output = Hirwan.displaySeachResults(indexes, tasks.getList());
-//            } else if (input == 11) {
-//                Undocommand undocommand = new Undocommand(tasks, previousTasks);
-//                undocommand.undo();
-//                undocommand.getMessage();
             } else if (input == 12) {
                 Period period = new Period(text, tasks);
                 period.updateData();
@@ -152,6 +151,12 @@ public class Hirwan {
         }
     }
 
+    /**
+     * the display search results method that prints out the result of the find command
+     * @param indexes the indexes of the tasks that were the result of the search
+     * @param tasks the tasklist that contains all the tasks
+     * @return the string of all the tasks from the search results
+     */
     public static String displaySeachResults(List<Integer> indexes, List<String> tasks) {
         String output = "Here are the results of your search in the tasklist:\n";
         if (indexes.size() == 0) {

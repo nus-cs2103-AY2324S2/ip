@@ -25,6 +25,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * the dialog box constructor
+     * @param text the text to be displayed
+     * @param img the image associated with the displayed text
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -41,18 +46,6 @@ public class DialogBox extends HBox {
 
     private Label text;
 
-    public DialogBox(Label l, ImageView iv) {
-        text = l;
-        displayPicture = iv;
-
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.getChildren().addAll(text, displayPicture);
-    }
-
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -63,11 +56,23 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * the getUserDialog method that returns a dialogbox object
+     * @param text the text to be displayed in the dialog box
+     * @param img the image displayed next t the dialog box
+     * @return the dialog box instance with the given text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * the get Hirwan dialog method which returns the dialog output of the chatbot
+     * @param text the text to be displayed in the dialog box of the chatbot
+     * @param img the image of the chabot
+     * @return the dialogbox of the charbot with the given text and chatbot image
+     */
+    public static DialogBox getHirwanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

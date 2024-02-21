@@ -20,18 +20,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Hirwan duke;
+    private Hirwan hirwan;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/photo_2024-01-20_00-10-13.jpg"));
+    private Image hirwanImage = new Image(this.getClass().getResourceAsStream("/images/photo_2024-01-20_00-10-13.jpg"));
 
+    /**
+     * initialises the mainwindow pane
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Hirwan d) {
-        duke = d;
+    /**
+     * initialises the hirwan object
+     * @param d the hirwan object initialised
+     */
+    public void setHirwan(Hirwan d) {
+        hirwan = d;
     }
 
     /**
@@ -41,14 +48,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = hirwan.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getHirwanDialog(response, hirwanImage)
         );
         userInput.clear();
     }
 
+    /**
+     * prints the greeting message when the bot starts up
+     */
     public void printGreeting() {
         String msg = "I'm\n"
                 + "   //      //  //  //==\\\\  //             //    //||       //||   //\n"
@@ -59,10 +69,6 @@ public class MainWindow extends AnchorPane {
                 + "what can I do for you? \n"
                 + "_________________________________\n";
 
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(msg, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getHirwanDialog(msg, hirwanImage));
     }
 }
-    //    //  //  //==\\  //      //  //||    //||   //
-   //____//  //  //  //  //      //  // ||   // ||  //
-  //----//  //  //=\\   //  //  //  //==||  //  || //
- //    //  //  //   \\ //==//==//  //   || //   ||//

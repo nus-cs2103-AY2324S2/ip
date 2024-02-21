@@ -6,10 +6,21 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     String input;
     Tasklist tasks;
+
+    /**
+     * the event constructor to create an event object
+     * @param input the string input to be translated to the command
+     * @param tasks the task list to be edited
+     */
     public Event(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
+
+    /**
+     * the getMessage method that returns the string to be printed to the user
+     * @return the string to be printed to the user
+     */
     @Override
     public String getMessage() {
         try {
@@ -40,6 +51,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * the updateDate method that updates the data in the external text file when an event task is created
+     */
     @Override
     public void updateData() {
         String delimiterstart = " /from";

@@ -7,11 +7,20 @@ public class Deadline extends Task {
     String input;
     Tasklist tasks;
 
+    /**
+     * deadline constructor to construct a deadline object
+     * @param input the command to be decoded into the task
+     * @param tasks the tasklist of all tasks
+     */
     public Deadline(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
 
+    /**
+     * getMessage method that returns the output of the deadline command
+     * @return the string to be printed to the user
+     */
     @Override
     public String getMessage() {
         try {
@@ -37,6 +46,9 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * the updateData method that updates the data in the external text file
+     */
     @Override
     public void updateData() {
         String delimiter = " /by";

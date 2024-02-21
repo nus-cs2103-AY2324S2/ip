@@ -15,6 +15,13 @@ public class Main extends Application {
 
     private Hirwan duke = new Hirwan();
 
+    /**
+     * the start method that initiates the chatbot
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -22,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setHirwan(duke);
             fxmlLoader.<MainWindow>getController().printGreeting();
             stage.show();
         } catch (IOException e) {

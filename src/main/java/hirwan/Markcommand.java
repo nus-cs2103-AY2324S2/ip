@@ -3,10 +3,19 @@ package hirwan;
 public class Markcommand extends Command {
     String input;
     Tasklist tasks;
+
+    /**
+     * the markCommand constructor that creates an instance of the markCommand class
+     */
     public Markcommand(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
+
+    /**
+     * the getMessage method that returns the string to be printed to the user
+     * @return the String to be printed to the user when the command is called
+     */
     public String getMessage() {
         String output = "";
         try {
@@ -21,6 +30,10 @@ public class Markcommand extends Command {
         }
         return output;
     }
+
+    /**
+     * the update data method which modifies the date in the external text file
+     */
     public void updateData() {
         String number = this.input.substring(5);
         int numberint = Integer.parseInt(number);

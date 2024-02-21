@@ -3,11 +3,21 @@ package hirwan;
 public class Deletecommand extends Command {
     String input;
     Tasklist tasks;
+
+    /**
+     * the deleteCommand constructor that creates a deleteCommand object
+     * @param input the string input to be translated into the delete command
+     * @param tasks the tasklist to be manipulated
+     */
     public Deletecommand(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
 
+    /**
+     * the getMessage method that returns the string to be displayed to the user
+     * @return the string output to be printed to the user
+     */
     public String getMessage() {
         String output = "";
         try {
@@ -23,6 +33,9 @@ public class Deletecommand extends Command {
         return output;
     }
 
+    /**
+     * the update datae method that updates the date in the external text file after the command has executed
+     */
     public void updateData() {
         int numberInt = Integer.parseInt(this.input.substring(7)) - 1;
         this.tasks.delete(numberInt);

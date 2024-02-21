@@ -3,14 +3,21 @@ package hirwan;
 public class Todo extends Task {
     String input;
     Tasklist tasks;
-//    Tasklist previousTasks;
 
+    /**
+     * the todo constructor
+     * @param input
+     * @param tasks
+     */
     public Todo(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
-//        this.previousTasks = previousTasks;
     }
 
+    /**
+     * the getMessage method that returns the output of the command to be printed to the user
+     * @return the output to be printed to the usr
+     */
     @Override
     public String getMessage() {
         try {
@@ -24,10 +31,11 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * updateData method that updates the data in the external text file when a new todo task is created
+     */
     @Override
     public void updateData() {
-//        this.previousTasks.deleteList();
-//        this.previousTasks = this.tasks.copyList();
         this.tasks.add(". " + "[T][ ] " + this.input.substring(5));
         Storage.writeTask(this.tasks.getList());
     }

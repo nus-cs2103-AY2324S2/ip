@@ -24,10 +24,6 @@ class Ui {
         return text;
     }
 
-    public static String input(String input) {
-        return input;
-    }
-
     /**
      * The output method that prints the String desired to the user
      * @param printText The string to be printed and displayed to the user
