@@ -40,7 +40,7 @@ public class NewTaskCommand extends Command {
         tlist.insert(task);
         cacheFile.save(tlist);
         return "Got it. I've added this task:" 
-            + "\n " + tlist.getTaskString(tlist.size() - 1) 
+            + "\n " + tlist.getTaskString(tlist.size()) 
             + "\nNow you have " + tlist.size() + " tasks in the list.";
     }
 

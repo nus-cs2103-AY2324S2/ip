@@ -1,4 +1,7 @@
 package panda.component;
+
+import java.net.URL;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,7 +28,27 @@ public class Storage {
      * @param filePath the path to the file where tasks are stored.
      */
     public Storage(String filePath) {
-        cacheFile = new File(filePath);
+        if (filePath.startsWith("/")) {
+            // The path is a resource path, so get the URL of the resource
+            URL resourceUrl = getClass().getResource(filePath);
+            if (resourceUrl != null) {
+                try {
+                    // Convert the URL to a URI and then to a Path
+                    java.nio.file.Path path = java.nio.file.Paths.get(resourceUrl.toURI());
+                    // Convert the Path to a File
+                    cacheFile = path.toFile();
+                } catch (Exception e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Resource not found: " + filePath);
+            }
+        } else {
+            // The path is a relative path, so use it directly
+            cacheFile = new File(filePath);
+        }
+
         if (!cacheFile.exists()) {
             try {
                 cacheFile.createNewFile();

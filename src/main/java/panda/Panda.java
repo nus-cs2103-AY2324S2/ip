@@ -15,7 +15,7 @@ import panda.exception.PandaException;
 
 public class Panda extends Application {
     private TaskList tlist;
-    private static final String FILEPATH = "./src/main/resources/storage/list.txt";
+    private static final String FILEPATH = "list.txt";
     private Storage cacheFile;
 
     /**
@@ -44,15 +44,6 @@ public class Panda extends Application {
         } catch (PandaException e) {
             return e.getMessage();
         }
-    }
-
-    /**
-     * Creates a new Panda instance and runs it.
-     * 
-     * @param args command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Application.launch(Panda.class);
     }
 
     @Override

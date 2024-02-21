@@ -14,7 +14,7 @@
       "type": "java",
       "name": "Panda",
       "request": "launch",
-      "mainClass": "panda.Panda",
+      "mainClass": "panda.Launcher",
       "projectName": "ip",
       "vmArgs": "--module-path \"D:/jfx/javafx-sdk-21.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
     }
