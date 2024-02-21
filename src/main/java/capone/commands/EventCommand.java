@@ -80,7 +80,7 @@ public class EventCommand extends Command {
         String description = Parser.parseDescription(startingNdxDescription, endingNdxDescription, inputList);
 
         if (description.equalsIgnoreCase("")) {
-            throw new InsufficientArgumentException("Insufficient arguments!\n"
+            throw new InsufficientArgumentException("Please enter a description!\n"
                     + EventCommand.USAGE_STRING);
         }
 

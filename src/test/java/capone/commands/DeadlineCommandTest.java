@@ -3,9 +3,6 @@ package capone.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +22,6 @@ public class DeadlineCommandTest {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
-    private final ByteArrayOutputStream stdoutMsg = new ByteArrayOutputStream();
 
     /**
      * Initializes the components needed for each test.
@@ -35,7 +31,6 @@ public class DeadlineCommandTest {
         this.storage = new Storage("./data/", "test.json");
         this.taskList = new TaskList();
         this.ui = new Ui();
-        System.setOut(new PrintStream(stdoutMsg));
     }
 
     /**
@@ -79,12 +74,12 @@ public class DeadlineCommandTest {
     public void execute_validInput_success() throws CaponeException {
         Command deadlineCommand = new DeadlineCommand(Parser.splitInput("deadline clean room /by 2024-01-31 1800"));
 
-        deadlineCommand.execute(this.taskList, this.ui, this.storage);
+        String actualMsg = deadlineCommand.execute(this.taskList, this.ui, this.storage);
 
         String expectedMsg = String.format("Got it. I've added this task:\n%s\n"
                 + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
 
-        assertEquals(expectedMsg, stdoutMsg.toString());
+        assertEquals(expectedMsg, actualMsg);
 
     }
 }
