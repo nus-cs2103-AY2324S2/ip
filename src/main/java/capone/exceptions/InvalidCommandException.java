@@ -7,7 +7,6 @@ package capone.exceptions;
  * @author Tay Rui-Jie
  */
 public class InvalidCommandException extends CaponeException {
-
     /**
      * Constructs a new InvalidCommandException with the specified error message.
      *

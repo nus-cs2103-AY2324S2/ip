@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import capone.exceptions.InvalidDateException;
+import capone.exceptions.InvalidDateFormatException;
 import capone.exceptions.InvalidTimeException;
 
 /**
@@ -24,7 +24,7 @@ public class ParserTest {
      */
     @Test
     public void parseDate_invalidDate1_throwsInvalidDateException() {
-        assertThrows(InvalidDateException.class, () -> {
+        assertThrows(InvalidDateFormatException.class, () -> {
             Parser.parseDate("this is not a valid date");
         });
     }
@@ -36,7 +36,7 @@ public class ParserTest {
      */
     @Test
     public void parseDate_invalidDate2_throwsInvalidDateException() {
-        assertThrows(InvalidDateException.class, () -> {
+        assertThrows(InvalidDateFormatException.class, () -> {
             Parser.parseDate("2023-2-2");
         });
     }
@@ -45,10 +45,10 @@ public class ParserTest {
      * Tests the behavior of parseDate with a valid date.
      * Expects the parsed LocalDate to match the expected value.
      *
-     * @throws InvalidDateException if the date is invalid (which is not expected in this test).
+     * @throws InvalidDateFormatException if the date is invalid (which is not expected in this test).
      */
     @Test
-    public void parseDate_validDate_success() throws InvalidDateException {
+    public void parseDate_validDate_success() throws InvalidDateFormatException {
         LocalDate expectedDate = LocalDate.of(2001, 9, 26);
         LocalDate actualDate = Parser.parseDate("2001-09-26");
         assertEquals(expectedDate, actualDate);
