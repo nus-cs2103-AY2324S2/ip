@@ -10,11 +10,8 @@ class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void greetUser() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" What's up! I'm Dav");
-        System.out.println(" How may I help you?");
-        System.out.println("____________________________________________________________");
+    public String greetUser() {
+        return "What's up! I'm Dav.\nHow may I help you?";
     }
 
     /**
@@ -27,18 +24,10 @@ class Ui {
     }
 
     /**
-     * Displays an exit message to the user.
-     */
-    public void exit() {
-        System.out.println(" Goodbye. ");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
      * Displays an error message when there is an issue loading tasks from a file.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
+    public String showLoadingError() {
+        return "Error loading tasks from file.";
     }
 }
 

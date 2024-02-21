@@ -12,42 +12,40 @@ class Parser {
      * @param ui Ui object to handle user interface interactions.
      * @param storage Storage object for data storage operations.
      */
-    public static void parseUserInput(String input, TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("____________________________________________________________");
-
+    public static String parseUserInput(String input, TaskList tasks, Ui ui, Storage storage) {
         try {
             if (input.equalsIgnoreCase("list")) {
-                tasks.listTasks();
+                return tasks.listTasks();
             } else if (input.startsWith("mark ")) {
                 int taskIndex = Integer.parseInt(input.substring(5).trim());
-                tasks.markTaskDone(taskIndex);
+                return tasks.markTaskDone(taskIndex);
             } else if (input.startsWith("unmark ")) {
                 int taskIndex = Integer.parseInt(input.substring(7).trim());
-                tasks.unmarkTaskDone(taskIndex);
+                return tasks.unmarkTaskDone(taskIndex);
             } else if (input.startsWith("todo")) {
-                tasks.addTodoTask(input.substring(4).trim());
+                return tasks.addTodoTask(input.substring(4).trim());
             } else if (input.startsWith("deadline")) {
-                tasks.addDeadlineTask(input.substring(8).trim());
+                return tasks.addDeadlineTask(input.substring(8).trim());
             } else if (input.startsWith("event")) {
-                tasks.addEventTask(input.substring(5).trim());
+                return tasks.addEventTask(input.substring(5).trim());
             } else if (input.startsWith("check ")) {
                 String dateString = input.substring(6).trim();
-                tasks.checkTasksOnDate(dateString);
+                return tasks.checkTasksOnDate(dateString);
             } else if (input.startsWith("delete")) {
                 int taskIndex = Integer.parseInt(input.substring(6).trim());
-                tasks.deleteTask(taskIndex);
+                return tasks.deleteTask(taskIndex);
             } else if (input.startsWith("find ")) {
                 String keyword = input.substring(5).trim();
-                tasks.findTasks(keyword);
-            } else if (!input.equalsIgnoreCase("bye")) {
+                return tasks.findTasks(keyword);
+            } else if (input.equalsIgnoreCase("bye")) {
+                return tasks.exit();
+            } else {
                 throw new IllegalArgumentException("Huh? what's that?");
             }
         } catch (NumberFormatException e) {
-            System.out.println("This is not a valid task index.");
+            return "This is not a valid task index.";
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-
-        System.out.println("____________________________________________________________");
     }
 }
