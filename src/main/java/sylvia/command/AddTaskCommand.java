@@ -56,6 +56,8 @@ public abstract class AddTaskCommand extends Command implements Undoable {
         list.addTask(task);
         state.setNormal();
         state.addCommandToHistory(this);
+        assert state.isRedoable() == false
+                : "There should be no redoable commands after a Undoable command is executed.";
         return "Added: " + task + "\nYou now have " + list.size() + " tasks in the list.";
     }
 
