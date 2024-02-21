@@ -1,24 +1,41 @@
-# Duke project template
+# Nicky: Your Personal Chatbot for Task Management
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```text
+  _   _   _          _            
+ | \ | | (_)   ___  | | __  _   _ 
+ |  \| | | |  / __| | |/ / | | | |
+ | |\  | | | | (__  |   <  | |_| |
+ |_| \_| |_|  \___| |_|\_\  \__, |
+                            |___/ 
+```
+
+Nicky is a versatile chatbot designed to help you manage your daily tasks efficiently. Built with JavaFX, Nicky offers a friendly interface to organize your todos, events, and deadlines, ensuring that you stay on top of your schedule.
+
+## Key Features
+- **Task Management**: Add, delete, and mark tasks as completed with ease.
+- **Supports Various Task Types**: Manage todos, deadlines, and events to cover all aspects of your schedule.
+- **JavaFX Integration**: Enjoy a modern and intuitive graphical user interface for interacting with Nicky.
+- **Data Persistence**: Never lose track of your tasks with automatic saving and loading from a file.
 
 ## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Prerequisites
+- JDK 11.
+- The latest version of Intellij IDEA.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Installation Instructions
+1. Open Intellij IDEA. If you have another project open, go to `File` > `Close Project`.
+2. Click `Open` on the welcome screen or `File` > `Open` if you have another project open.
+3. Navigate to and select the Nicky project directory, then click `OK`.
+4. Accept any default prompts to ensure the project is set up correctly.
+5. Configure the project to use **JDK 11** as your project SDK, following the instructions [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).
+
+### Running Nicky
+- **From Intellij**: Navigate to `src/main/java/nicky/Launcher.java`, right-click, and select `Run Launcher.main()`.
+- **Using the JAR File**: Download the `Nicky.jar` from the project's `releases` section. Run it using the command `java -jar Nicky.jar` in your terminal or command prompt.
+
+## Changelog
+- Initial release featuring basic task management capabilities and data storage for persistence.
+
+## Feedback and Contributions
+Your feedback is invaluable to us. If you have suggestions or would like to contribute to the Nicky project, please feel free to share your thoughts or submit a pull request on our GitHub repository. Together, we can make Nicky even better!
