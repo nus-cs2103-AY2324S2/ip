@@ -18,6 +18,9 @@ public class Storage {
         this.file = new File(path);
     }
 
+    //@@ author wongkj12
+    //Reused from https://github.com/nus-cs2103-AY2324S2/ip/pull/304/files#diff-7e0fcf59f125ccd0b9a294025d16cfb23694ba4d992fd8cc5b67568032b274cc
+    //with minor modifications
     /**
      * Loads the file.
      *
@@ -37,6 +40,7 @@ public class Storage {
             return file;
         }
     }
+    //@@ author
 
     /**
      * Adds a task to the file.
