@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import javafx.application.Platform;
+
 /**
  * Parser object is used to make sense of the user inputs.
  * For example, it can help to parse reasonable date formats flexibly
@@ -32,7 +34,7 @@ public class Parser {
         if (input.equals("list")) { // show the list!
             return taskList.getTasks();
         } else if (input.equals("bye")) {
-            System.exit(0);
+            Platform.exit();
             return "";
         } else if (input.equals("save")) {
             return storage.writeToFile(taskList);
