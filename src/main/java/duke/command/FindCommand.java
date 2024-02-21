@@ -28,8 +28,9 @@ public class FindCommand extends Command {
 
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
+            int index = i + 1;
             if (currentTask.getDescription().contains(commandList[1])) {
-                response += "\n" + i + 1 + "." + currentTask;
+                response += "\n" + index + "." + currentTask;
             }
         }
 
