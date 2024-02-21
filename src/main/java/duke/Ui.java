@@ -31,7 +31,7 @@ public class Ui {
      *
      * @return String Message for saying hello.
      */
-    public String sayHello() {
+    public static String sayHello() {
         String greetMessage = String.format(
                 "____________________________________________________________\n"
                         + " Hello! I'm Corgi!\n"

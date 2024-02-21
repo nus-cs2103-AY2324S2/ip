@@ -1,5 +1,6 @@
 package duke.components;
 
+import duke.Ui;
 import duke.main.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,8 +29,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/corgi.jpg"));
 
+    /**
+     * Components to be initialised when MainWindow is created.
+     */
     @FXML
     public void initialize() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.sayHello(), dukeImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
