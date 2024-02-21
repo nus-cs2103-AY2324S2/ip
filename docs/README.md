@@ -8,7 +8,11 @@ Unim is your friendly chatbot designed to assist you with task management. Wheth
 ## Getting Started
 
 ### 1. **Welcome Message**
-Upon starting Unim, you'll receive a warm welcome message. This is your cue to start interacting with the chatbot.
+Upon starting Unim, you'll receive a warm welcome message as seen below. This is your cue to start interacting with the chatbot.
+````
+Hey there, welcome back to Unim!
+What's on your mind today?
+````
 
 ## Basic Commands
 ### 1. Adding Tasks:
@@ -22,12 +26,12 @@ For Example:
 
 You should be able to see the following output:
 ````
-Your to-do: eat lunch is on the list! You're gonna nail it :)
+Your to-do: [ ][T] eat lunch is on the list! You're gonna nail it :)
 Just 1 tasks in your list now.
 ````
 
 To add a Deadline task:
-`deadline <task description> /by <due date>
+`deadline <task description> /by <due date (M/d/yyyy HHmm or String)>
 `
 
 For Example:
@@ -37,12 +41,12 @@ For Example:
 You should be able to see the following output:
 ````
 New deadline alert!
-Finish assignment!
+[][D] finish assignment (by: Sunday 10am)!
 Now you have 2 tasks in your list.
 ````
 
 To add an Event task:
-`event <event description> /from <start date> /to <end date>
+`event <event description> /from <start date (M/d/yyyy HHmm)> /to <end date (M/d/yyyy HHmm)>
 `
 
 For Example:
@@ -51,7 +55,7 @@ For Example:
 
 You should be able to see the following output:
 ````
-Ok! team lunch is on the list!
+Ok! [][E] team lunch (from: Feb 18 2024 1200 to: Feb 18 2024 1330) is on the list!
 Now you have 3 tasks in your list.
 ````
 
@@ -63,8 +67,10 @@ To see your task list:
 You should be able to see your list, for example:
 
 ````
-1. [ ][D] finish assignment (by: Sunday 10am)
-2. [ ][T] eat lunch
+Here are your to-dos:
+1. [][D] finish assignment (by: Sunday 10am)
+2. [][T] eat lunch
+3. [][E] team lunch (from: Feb 18 2024 1200 to: Feb 18 2024 1330)
 ````
 
 ### 3. Marking and Unmarking Tasks:
@@ -76,7 +82,7 @@ For Example:
 
 You should be able to see the following output:
 ````
-Boom! [ ][T] eat lunch is marked done.
+Boom! [X][T] eat lunch is marked done.
 You're crushing it!! What's next?
 ````
 
@@ -89,7 +95,7 @@ For Example:
 You should be able to see the following output:
 ````
 Not done yet? Time is ticking!! Try to finish this task soon:
-[ ][T] eat lunch
+[][T] eat lunch
 ````
 
 ### 4. Deleting Tasks:
@@ -102,8 +108,8 @@ For Example:
 You should be able to see the following output:
 ````
 Poof! This task has been removed from your list:
-[ ][T] eat lunch
-Now you have 3 tasks in your list.
+[][T] eat lunch
+Now you have 2 tasks in your list.
 ````
 
 ## Advanced Features 
@@ -118,8 +124,8 @@ You should be able to see the following output:
 ````
 Here are the tasks with lunch in them:
 You're going to nail this!
-[ ][T] eat lunch
-[ ][E] team lunch (from: Feb 18 2024 to: Feb 18 2024)
+1. [][T] eat lunch
+2. [][E] team lunch (from: Feb 18 2024 to: Feb 18 2024)
 ````
 
 ## **Goodbye Message**
