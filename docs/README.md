@@ -26,7 +26,7 @@ todo watch lecture 15
 Haro should reply with the following output:
 ```
 Got it I've added this task:
-[T] [] watch lecture 15
+[T][] watch lecture 15
 You now have 1 task in the list
 ```
 ### Tasks with deadlines
@@ -40,7 +40,7 @@ deadline submit proposal /by today
 Where Haro should reply with:
 ```
 Got it I've added this task:
-[D] [] submit proposal (by: today)
+[D][] submit proposal (by: today)
 You no have 1 task in the list
 ```
 **Using calendar dates**
@@ -55,7 +55,7 @@ deadline submit proposal /by 2024-02-23
 Where Haro should reply with:
 ```
 Got it I've added this task:
-[D] [] submit proposal (by: Feb 23 2024)
+[D][] submit proposal (by: Feb 23 2024)
 You no have 1 task in the list
 ```
 ### Events
@@ -72,7 +72,7 @@ event tutorial /from 2pm /to 3pm
 Haro should answer with:
 ```
 Got it I've added this task:
-[E] [] submit proposal (from: 2pm to: 3pm)
+[E][] submit proposal (from: 2pm to: 3pm)
 You no have 1 task in the list
 ```
 
@@ -91,9 +91,9 @@ The tasklist is currently empty! Add tasks!
 Otherwise Haro will display your task list:
 ```
 Here are the tasks in your list:
-1. [T] watch lecture 15
-2. [D] submit proposal (by: today)
-3. [E] tutorial (from: 2pm to: 3pm)
+1. [T][] watch lecture 15
+2. [D][] submit proposal (by: today)
+3. [E][] tutorial (from: 2pm to: 3pm)
 ```
 
 
@@ -109,9 +109,9 @@ mark 1
 Haro should reply with:
 ```
 Nice! I've marked this task as done
-[T] [X] watch lecture 15
+[T][X] watch lecture 15
 ```
-Where the `[X]` signifies that the task has been marked
+Where the `[X]` signifies that the task has been marked.
 Similarly to Unmark a task type: `unmark <Task index number>`
 
 For example:
@@ -121,6 +121,117 @@ unmark 1
 Haro should reply with:
 ````
 Alright I've marked this task as not done yet
-[T] [] watch lecture 15
+[T][] watch lecture 15
 ````
-## 4. 
+and your unmarking should be reflected when you call the `list` command.
+## 4. Delete tasks
+To delete a task from your list enter the following:
+`delete <Task index number>`
+
+For example:
+````
+delete 2
+````
+Haro should reply with something like:
+```
+Noted I've removed this task
+[D][] submit proposal (by: today)
+You now have 3 tasks in the list
+```
+and your deletion should be reflected when you call the `list` command.
+
+# Advanced features
+## 1. Finding a task
+To find a task in your task list, type in: `find <search word>`
+
+For example: 
+````
+find proposal 
+````
+
+Haro should reply with:
+```
+Here are the matching tasks in your list:
+1. [D][] submit proposal (by: today)
+```
+
+If you receive the following reply:
+```
+Sorry there are no current matches in your list! :(
+```
+It means that there are no matching tasks in your list.
+## 2. Editing a task
+> [!NOTE]
+> Please take note that you can ***only edit 1 attribute per command***.
+### Editing task name
+To edit the task name simply input:
+`edit <Task index number> /task <new task name>`
+
+For instance:
+````
+edit 1 /task watch lecture 14
+````
+Haro should reply with:
+```
+Got it I've edited this task:
+1. [T][] watch lecture 14
+```
+and your changes should be reflected when you call the `list` command.
+### Editing due date
+To edit the due date of a deadline task, simply type in:
+`edit <Task index number> /by <new due date>`
+
+For example:
+````
+edit 2 /by tomorrow
+````
+
+Haro should reply with:
+```
+Got it I've edited this task:
+2. [D][] submit proposal (by: tomorrow)
+```
+and your changes should be reflected when you call the `list` command.
+### Editing start and end date
+**Editing Start date**
+
+To edit the **start** date type in:
+`edit <Task index number> /from <new start date>`
+
+For example:
+````
+edit 3 /from 1pm
+````
+
+Haro should reply with something like:
+```
+Got it I've edited this task:
+3. [E][] tutorial (from: 1pm to: 3pm)
+```
+and your changes should be reflected when you call the `list` command.
+
+***Editing end date***
+
+To edit the **end** date type in:
+`edit <Task index number> /to <new end date>`
+
+For example:
+````
+edit 3 /to 2pm
+````
+
+Haro should reply with something like:
+```
+Got it I've edited this task:
+3. [E][] tutorial (from: 1pm to: 2pm)
+```
+and your changes should be reflected when you call the `list` command.
+
+# Goodbye
+### Saying bye
+To say bye to Haro, type in: `bye`
+
+Haro will bid you farewell with the following message:
+```
+Bye. Hope to see you some time soon!
+```
