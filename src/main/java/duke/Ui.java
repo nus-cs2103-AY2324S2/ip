@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import duke.task.Task;
 
 /**
@@ -32,13 +34,17 @@ public class Ui {
     public String list(TaskList tasks, String keyword) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list: \n");
-        for (int i = 0, j = 0; i < tasks.getItems().size(); i++) {
-            Task nextTask = tasks.getItems().get(i);
-            if (nextTask.getDescriptionStatus().contains(keyword)) {
-                sb.append((j + 1) + ". " + nextTask.getDescriptionStatus() + "\n");
-                j++;
-            }
-        }
+
+        AtomicInteger counter = new AtomicInteger(0);
+
+        tasks.getItems()
+                .stream()
+                .filter(nextTask -> nextTask.getDescriptionStatus().contains(keyword))
+                .forEach(nextTask -> {
+                    int j = counter.getAndIncrement();
+                    sb.append((j + 1) + ". " + nextTask.getDescriptionStatus() + "\n");
+                });
+
         return sb.toString();
     }
 
