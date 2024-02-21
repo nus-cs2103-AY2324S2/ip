@@ -61,6 +61,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'list' command to display the list of tasks.
+     *
+     * @return The response message containing the list of tasks.
+     */
     private String handleListCommand() {
         if (!taskArr.isEmpty()) {
             StringBuilder sb = new StringBuilder();
@@ -74,6 +79,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'delete' command to delete a task from the list.
+     *
+     * @param input The user input containing the task index to delete.
+     * @return The response message indicating the deletion status.
+     */
     private String handleDeleteCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
@@ -86,6 +97,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'mark' command to mark a task as done.
+     *
+     * @param input The user input containing the task index to mark.
+     * @return The response message indicating the marking status.
+     */
     private String handleMarkCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
@@ -98,6 +115,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'unmark' command to unmark a task as not done.
+     *
+     * @param input The user input containing the task index to unmark.
+     * @return The response message indicating the unmarking status.
+     */
     private String handleUnmarkCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
@@ -110,6 +133,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'todo' command to add a Todo task to the list.
+     *
+     * @param input The user input containing the Todo task description and optional notes.
+     * @return The response message indicating the addition status.
+     */
     private String handleTodoCommand(String input) {
         assert input != null : "user input cannot be null";
         if (input.contains(":")) {
@@ -129,6 +158,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Handles the 'deadline' command to add a Deadline task to the list.
+     *
+     * @param input The user input containing the Deadline task description, notes, and timing.
+     * @return The response message indicating the addition status.
+     */
     private String handleDeadlineCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
@@ -154,6 +189,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'event' command to add an Event task to the list.
+     *
+     * @param input The user input containing the Event task description, notes, and timing.
+     * @return The response message indicating the addition status.
+     */
     private String handleEventCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
@@ -178,6 +219,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the 'find' command to search for tasks containing a specific keyword.
+     *
+     * @param input The user input containing the keyword to search for.
+     * @return The response message containing the tasks found with the keyword.
+     */
     private String handleFindCommand(String input) {
         assert input != null : "user input cannot be null";
         try {
