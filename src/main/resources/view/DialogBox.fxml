@@ -12,11 +12,6 @@
             <HBox.margin>
                 <Insets right="10" bottom="10" left="10"/>
             </HBox.margin>
-            <style>
-                -fx-background-color: #e7e7e7;
-                -fx-background-radius: 15;
-                -fx-padding: 10;
-            </style>
          </Label>
         <StackPane fx:id="imageContainer">
             <ImageView fx:id="pictureDisplayer" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
