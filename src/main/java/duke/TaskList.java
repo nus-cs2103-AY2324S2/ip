@@ -37,9 +37,7 @@ public class TaskList {
      */
     public String addTask(Task task) throws IOException {
         taskList.add(task);
-        System.out.println("Writing to file");
         storage.writeToFile(this.toString());
-        System.out.println("Written to file");
         return "Got it. Added: " + task.toString();
     }
 
@@ -73,9 +71,12 @@ public class TaskList {
      */
     public String delete(int index) throws IOException {
         assert(index > 0);
+        if (taskList.size() < index) {
+            return "Cannot delete that";
+        }
         this.taskList.remove(index - 1);
         storage.writeToFile(this.toString());
-        return "Deleted task no. " + index + "You have " + this.len() + " tasks left. \n";
+        return "Deleted task no. " + index + ". You have " + this.len() + " tasks left. \n";
     }
     /**
      * Returns the size of the task list.
@@ -121,8 +122,8 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (int i = 1; i < taskList.size() + 1; i++) {
-            s.append(taskList.get(i - 1).toString()).append("\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            s.append(taskList.get(i).toString()).append("\n");
         }
         return s.toString();
     }
