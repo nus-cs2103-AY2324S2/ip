@@ -11,6 +11,9 @@ import pyrite.task.Event;
 import pyrite.task.Task;
 import pyrite.task.ToDo;
 
+/**
+ * Test cases for TaskList class.
+ */
 public class TaskListTest {
     // Test cases suggested by Github Copilot
     @Test

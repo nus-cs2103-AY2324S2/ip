@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+/**
+ * Test cases for Deadline class.
+ */
 public class DeadlineTest {
     // Test cases suggested by Github Copilot
     @Test

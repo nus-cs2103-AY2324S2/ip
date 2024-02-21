@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test cases for Task class.
+ */
 public class TaskTest {
     // Test cases suggested by Github Copilot
     @Test

@@ -12,7 +12,9 @@ import pyrite.command.ListCommand;
 import pyrite.command.StatusCommand;
 import pyrite.command.UnknownCommand;
 
-
+/**
+ * Test class for Parser.
+ */
 public class ParserTest {
     // Test cases suggested by Github Copilot
     @Test

@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test cases for ToDo class.
+ */
 public class ToDoTest {
     // Test cases suggested by Github Copilot
     @Test

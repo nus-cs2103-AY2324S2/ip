@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import pyrite.StateFile;
 import pyrite.TaskList;
 
+/**
+ * Test cases for UnknownCommand.
+ */
 public class UnknownCommandTest {
     // Test cases suggested by Github Copilot
     @Test

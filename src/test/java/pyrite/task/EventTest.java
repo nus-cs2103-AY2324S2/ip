@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+/**
+ * Test cases for Event class.
+ */
 public class EventTest {
     // Test cases suggested by Github Copilot
     @Test
