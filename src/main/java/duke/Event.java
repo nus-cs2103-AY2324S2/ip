@@ -70,7 +70,7 @@ public class Event extends Task {
         convertedFrom = convertedFrom.plusMinutes(5);
         convertedTo = convertedTo.plusMinutes(5);
         from = convertedFrom.format(accepted);
-        from = convertedTo.format(accepted1);
+        to = convertedTo.format(accepted1);
         return super.snoozeTask();
     }
 }
