@@ -20,6 +20,6 @@ public class ByeCommand extends Command {
     @Override
     public UserCommand execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printByeMessage();
-        return new UserCommand("Exiting the program...");
+        return new UserCommand("Goodbye! See you again.");
     }
 }

@@ -1,5 +1,6 @@
 package edgar;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import commands.UserCommand;
 
 /**
@@ -56,7 +59,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         try {
-            String input = userInput.getText() + " \t"; // Adding space to prevent empty input
+            String input = userInput.getText() + " \t";
+            if (input.trim().equalsIgnoreCase("bye")) {
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(event -> {
+                    Platform.exit();
+                    System.exit(0);
+                });
+                pause.play();
+            }
             UserCommand userCommand = this.edgar.commandResult(input);
             String response = userCommand.getMessageToUser();
             dialogContainer.getChildren().addAll(

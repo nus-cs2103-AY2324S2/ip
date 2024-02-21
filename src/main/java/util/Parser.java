@@ -59,9 +59,9 @@ public class Parser {
      */
     public static Command parseTodo(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
-            if (sections.length <= 1) {
-                return new InvalidCommand("Oops! You have not entered a task.");
+        String[] sections = input.trim().split(" ", 2);
+            if (sections.length < 2) {
+                return new InvalidCommand("Oops! Please enter a task description.");
             }
         String taskDescription = sections[1].trim();
         return new TodoCommand(taskDescription);
@@ -75,7 +75,7 @@ public class Parser {
      */
     public static Command parseMark(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
         }
@@ -94,7 +94,7 @@ public class Parser {
      */
     public static Command parseUnmark(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
         }
@@ -113,7 +113,7 @@ public class Parser {
      */
     public static Command parseDelete(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1 || sections[1].isEmpty()) {
             return new InvalidCommand("Oops! Please enter a task number to delete.");
         }
@@ -132,7 +132,7 @@ public class Parser {
      */
     public static Command parseDeadline(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
         }
@@ -159,7 +159,7 @@ public class Parser {
      */
     public static Command parseEvent(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
         }
@@ -188,7 +188,7 @@ public class Parser {
      */
     public static Command parseFind(String input) {
         assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
-        String[] sections = input.split(" ", 2);
+        String[] sections = input.trim().split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task to find.");
         }
