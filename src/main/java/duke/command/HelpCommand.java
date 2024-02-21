@@ -11,9 +11,9 @@ public class HelpCommand extends Command {
     /* The help cheatsheet todo instruction. */
     public static final String CHEATSHEET_TODO = "todo <description>\nAdds a new todo to the list.\n\n";
     /* The help cheatsheet deadline instruction. */
-    public static final String CHEATSHEET_DEADLINE = "deadline <description> /by<deadline>\nAdds a new deadline to the list.\n\n";
+    public static final String CHEATSHEET_DEADLINE = "deadline <description> /by <deadline>\nAdds a new deadline to the list.\n\n";
     /* The help cheatsheet event instruction. */
-    public static final String CHEATSHEET_EVENT = "event <description> /from<start> /to<end>\nAdds a new event to the list.\n\n";
+    public static final String CHEATSHEET_EVENT = "event <description> /from <start> /to <end>\nAdds a new event to the list.\n\n";
     /* The help cheatsheet delete instruction. */
     public static final String CHEATSHEET_DELETE = "delete <task number>\nDeletes a task from the list.\n\n";
     /* The help cheatsheet mark instruction. */

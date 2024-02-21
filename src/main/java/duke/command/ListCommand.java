@@ -17,7 +17,8 @@ public class ListCommand extends Command {
         String response = RESPONSE;
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
-            response += "\n" + i + 1 + "." + currentTask;
+            int index = i + 1;
+            response += "\n" + index + "." + currentTask;
         }
         return response;
     }
