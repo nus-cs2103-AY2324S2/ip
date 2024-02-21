@@ -30,9 +30,6 @@ public class Storage {
             if (!saveFile.exists()) {
                 saveFile.getParentFile().mkdir();
                 saveFile.createNewFile();
-                System.out.println("Save File created successfully!");
-            } else {
-                System.out.println("Save File already exists!");
             }
         } catch (IOException e) {
             System.out.println("Error!" + e.getMessage());
@@ -46,13 +43,10 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveData(TaskList tasks) throws IOException {
-        try (FileWriter writer = new FileWriter(this.filepath)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                writer.write(task.toString() + "\n");
-            }
-        } catch (IOException e) {
-            System.err.println("Error! " + e.getMessage());
+        FileWriter writer = new FileWriter(this.filepath);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            writer.write(task.toString() + "\n");
         }
     }
 
@@ -112,9 +106,6 @@ public class Storage {
                         tasks.add(new Event(description, startDateTime, endDateTime));
                     }
                 }
-                System.out.println("Save File loaded!");
-            } else {
-                System.out.println("Save File is empty :(");
             }
         } catch (IOException e) {
             System.out.println("Error!" + e.getMessage());
