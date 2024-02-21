@@ -48,11 +48,11 @@ public class Mona {
         case LIST:
             return tasks.displayList();
         case TODO:
-            return handleTodo(parser.getDetails(currCommand, input));
+            return handleTodo(input);
         case DEADLINE:
-            return handleDeadline(parser.getDetails(currCommand, input));
+            return handleDeadline(input);
         case EVENT:
-            return handleEvent(parser.getDetails(currCommand, input));
+            return handleEvent(input);
         case MARK:
             return handleMark(inputArray);
         case UNMARK:
@@ -70,19 +70,37 @@ public class Mona {
         return "";
     }
 
-    public String handleTodo(String[] details) {
+    public String handleTodo(String input) {
+        String[] details = null;
+        try {
+            details = parser.getDetails(Command.TODO, input);
+        } catch (MonaException e) {
+            return ui.showError(e.getMessage());
+        }
         Task newTask = new Todo(details[0]);
         tasks.addTask(newTask);
         return ui.showListAfterQuantityChange(newTask, tasks.getNumberOfTasks(), true);
     }
 
-    public String handleDeadline(String[] details) {
+    public String handleDeadline(String input) {
+        String[] details = null;
+        try {
+            details = parser.getDetails(Command.DEADLINE, input);
+        } catch (MonaException e) {
+            return ui.showError(e.getMessage());
+        }
         Task newTask = new Deadline(details[0], details[1]);
         tasks.addTask(newTask);
         return ui.showListAfterQuantityChange(newTask, tasks.getNumberOfTasks(), true);
     }
 
-    public String handleEvent(String[] details) {
+    public String handleEvent(String input) {
+        String[] details = null;
+        try {
+            details = parser.getDetails(Command.EVENT, input);
+        } catch (MonaException e) {
+            return ui.showError(e.getMessage());
+        }
         Task newTask = new Event(details[0], details[1], details[2]);
         tasks.addTask(newTask);
         return ui.showListAfterQuantityChange(newTask, tasks.getNumberOfTasks(), true);

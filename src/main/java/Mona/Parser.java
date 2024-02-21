@@ -43,28 +43,49 @@ public class Parser {
      * @param input full user input from the command line
      * @return an array containing the details to be used to instantiate tasks
      */
-    public String[] getDetails(Mona.Command command, String input) {
+    public String[] getDetails(Mona.Command command, String input) throws MonaException {
         String[] details = new String[3];
         switch (command) {
         case TODO:
-            details[0] = input.substring(5);
+            getTodoDetails(details, input);
             break;
         case DEADLINE:
-            String rest = input.substring(9);
-            String[] parts = rest.split(" /by ");
-            details[0] = parts[0];
-            details[1] = parts[1];
+            getDeadlineDetails(details, input);
             break;
         case EVENT:
-            String[] subDetails = input.substring(6).split(" /from ");
-            String[] startAndEnd = subDetails[1].split(" /to ");
-            details[0] = subDetails[0];
-            details[1] = startAndEnd[0];
-            details[2] = startAndEnd[1];
+            getEventDetails(details, input);
             break;
         default:
             break;
         }
         return details;
+    }
+
+    private void getTodoDetails(String[] details, String input) throws MonaException {
+        if (input.length() <= 5) {
+            throw new MonaException("NOOOOO! I need details to create a todo :(");
+        }
+        details[0] = input.substring(5);
+    }
+
+    private void getDeadlineDetails(String[] details, String input) throws MonaException {
+        if (input.length() <= 9) {
+            throw new MonaException("NOOOOO! I need details to create a deadline :(");
+        }
+        String rest = input.substring(9);
+        String[] parts = rest.split(" /by ");
+        details[0] = parts[0];
+        details[1] = parts[1];
+    }
+
+    private void getEventDetails(String[] details, String input) throws MonaException {
+        if (input.length() <= 6) {
+            throw new MonaException("NOOOOO! I need details to create an event :(");
+        }
+        String[] subDetails = input.substring(6).split(" /from ");
+        String[] startAndEnd = subDetails[1].split(" /to ");
+        details[0] = subDetails[0];
+        details[1] = startAndEnd[0];
+        details[2] = startAndEnd[1];
     }
 }
