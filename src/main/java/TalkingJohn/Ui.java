@@ -4,19 +4,12 @@ package talkingjohn;
  * Represents the user interface of the TalkingJohn application.
  */
 public class Ui {
-
-    /**
-     * Returns a greeting message when the application starts.
-     */
-    public String greeting() {
-        return "Hello, I am TalkingJohn\nWhat can I do for you?\n";
-    }
-
-    /**
+     /**
      * Returns a goodbye message when the application exits.
      */
     public String goodbye() {
-        return "Bye, hope to see you soon";
+        return "Bye, hope to see you soon!\n" +
+                "Tasks have been saved :)";
     }
 
     /**
@@ -59,7 +52,7 @@ public class Ui {
      * Returns an error message for invalid user input.
      */
     public String invalidInput() {
-        return "HMM? This is an activity planner. Please repeat \uD83E\uDD72";
+        return "HMM? This is an activity planner. Please repeat!";
     }
 
     public String invalidInput(String input) {

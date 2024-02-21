@@ -192,8 +192,12 @@ public class TaskList {
                     i++;
                 }
             }
-            return sb.toString();
-
+            String findTask = sb.toString();
+            if (findTask.isEmpty()) {
+                return "Oops! No such keyword found!";
+            } else {
+                return findTask;
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.invalidFormat();
         }
