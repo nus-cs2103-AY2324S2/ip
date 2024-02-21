@@ -26,7 +26,10 @@ public class Steven {
         this.storage = new Storage();
         this.tasks = new TaskList(storage);
         try {
-            new File("./data").mkdirs();
+            File directory = new File("./data");
+            if (!directory.mkdirs()) {
+                directory.createNewFile();
+            }
             File newFile = new File("./data/Steven.txt");
             if (!newFile.createNewFile()) {
                 tasks.readFile(newFile);
