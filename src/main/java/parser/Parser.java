@@ -52,6 +52,7 @@ public class Parser {
             name =  new StringBuilder();
             StringBuilder by =  new StringBuilder();
             current = name;
+
             for (int i = 1; i < input.length; i++) {
                 if (input[i].equals("/by")) {
                     name = current;
@@ -61,7 +62,6 @@ public class Parser {
                 current.append(input[i]).append(" ");
             }
             by = current;
-
             DeadlineCommand deadlineCommand = getDeadlineCommand(name, by);
             if (deadlineCommand != null) {
                 return deadlineCommand;
@@ -84,7 +84,6 @@ public class Parser {
                 }
                 current.append(input[i]).append(" ");
             }
-
             EventCommand eventCommand = getEventCommand(name, from, to);
             if (eventCommand != null) {
                 return eventCommand;

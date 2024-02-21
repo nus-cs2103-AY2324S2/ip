@@ -35,7 +35,7 @@ public class TodoCommandTest {
         assertEquals(size+1, taskLs.getList().size());
         size = taskLs.getList().size();
         assertEquals("read book", taskLs.get(size-1).getTask());
-        assertEquals(new Task("read book"), taskLs.get(0));
+        assertEquals(new Task("read book"), taskLs.get(size-1));
     }
 
     @Test
