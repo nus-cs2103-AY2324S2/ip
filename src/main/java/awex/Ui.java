@@ -3,16 +3,22 @@ package awex;
 import tasks.Task;
 
 public class Ui {
+    /**
+     * Prints first message when user activates Awex.
+     */
     public void greeting() {
         System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");
     }
 
+    /**
+     * Prints last message after user deactivates Awex.
+     */
     public void farewell() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Prints explainer message after user gives erroneous inputs.
+     * Prints explainer message when user gives erroneous inputs.
      */
     public void allInstructions() {
         System.out.println("Input type must be one of:");
@@ -26,10 +32,16 @@ public class Ui {
         System.out.println("Type 'bye' to exit.");
     }
 
+    /**
+     * Prints error message if list is empty.
+     */
     public void emptyListMessage() {
         System.out.println("List is empty.");
     }
 
+    /**
+     * Prints tasks saved in list and their details.
+     */
     public void showListMessage(TaskList list) {
         System.out.println("Here are the tasks in your list:");
         int len = list.size();
@@ -38,10 +50,16 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints explainer message when user gives erroneous inputs when marking, unmarking or deleting tasks.
+     */
     public void wrongMarkDeleteFormatMessage(String str) {
         System.out.println("Format should be '" + str + " <task number>'");
     }
 
+    /**
+     * Prints explainer message when user provides inaccessible list index.
+     */
     public void wrongIndexMessage(int i, int len) {
         if (i == 0) {
             System.out.println("Pick a value between 1 and " + len + ".");
@@ -50,12 +68,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints notification message when task deleted successfully.
+     */
     public void deleteTaskMessage(int i, TaskList list) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + list.remove(i - 1).showAll());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
+    /**
+     * Prints notification message when task marked/unmarked successfully.
+     */
     public void changeStatusMessage(String str, Task t) {
         if (str.equals("mark")) {
             System.out.println("Nice! I've marked this task as done:");
@@ -65,6 +89,9 @@ public class Ui {
         System.out.println("  " + t.showAll());
     }
 
+    /**
+     * Prints explainer message when user provides erroneous inputs while making tasks.
+     */
     public void failedTaskCreationMessage(String str) {
         if (str.equals("todo")) {
             System.out.println("Format should be 'todo <task>'");
@@ -75,6 +102,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints notification message when task saved successfully.
+     */
     public void newTaskAddedMessage(int i, Task t) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + t.showAll());
