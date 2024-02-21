@@ -135,11 +135,15 @@ src
    ```
     find coffee
    ```
-  - The expected output will be
+  - If there are matching tasks found, the response will be
     ```
     Here are the matching tasks in your list:
     1. [D][0] buy coffee cake (by: 20 OCTOBER 2024)
     2. [T][0] drink coffee
+    ```
+  - Else, the response will be
+    ```
+    No matching tasks found.
     ```
 ### Change directory of tasklist
 > **Usage:**
