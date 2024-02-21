@@ -137,10 +137,12 @@ public class Ui {
     public void showHelp() {
         System.out.println("Here are the available commands:");
         System.out.println("  - help: show commands");
-        System.out.println("  - find: Find tasks");
         System.out.println("  - list: List all tasks");
-        System.out.println("  - todo <description>: Add a todo task");
-        System.out.println("  - deadline <description> /by <date/time>: Add a deadline task");
-        System.out.println("  - event <description> /from <start date/time> /to <end date/time>: Add an event task");
+        System.out.println("  - find <word>: Find tasks");
+        System.out.println("  - todo <task>: Add a todo task");
+        System.out.println("  - deadline <task> /by <date>: Add a deadline task");
+        System.out.println("  - event <task> /from <date> /to <date>: Add an event task");
+        System.out.println("    - date can be done by YYYY/MM/dd or YYYY/MM/dd HHmm ");
+        System.out.println("    - today & tomorrow can be used for date");
     }
 }
