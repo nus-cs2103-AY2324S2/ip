@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Chatteroo chatteroo;
 
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/buffkangaroo.jpg"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cutekangaroo.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/minikangaroo.jpg"));
 
     @FXML
     public void initialize() {
