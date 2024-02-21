@@ -18,6 +18,7 @@ public class Parser {
      * @param input The user input that
      */
     public static String parse(TaskList taskList, Storage storage, String input) {
+        assert input != null && !input.isEmpty() : "Input string cannot be null or empty";
         StringBuilder sb = new StringBuilder();
         String[] token = input.split(" ", 2);
         if (token[0].equals("clear")) {
