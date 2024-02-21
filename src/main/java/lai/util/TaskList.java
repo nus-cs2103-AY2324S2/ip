@@ -30,6 +30,7 @@ public class TaskList implements Iterable<Task> {
      * @param newTask The task to be added.
      * @param storage The storage utility to update the tasks file.
      * @return The updated list of tasks.
+     * @throws LaiException If the new task is a duplicate of an existing task
      */
     public TaskList add(Task newTask, Storage storage) throws LaiException {
         if (checkDuplicate(newTask)) {
