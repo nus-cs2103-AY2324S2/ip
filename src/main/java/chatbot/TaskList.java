@@ -23,6 +23,8 @@ public class TaskList {
         TODO, DEADLINE, EVENT
     }
     private TaskType determineTaskType(String input) throws AlfredException {
+        assert input != null : "Input should not be null";
+        assert !input.isBlank() : "Input should not be blank";
         if (input.startsWith("todo")) {
             return TaskType.TODO;
         } else if (input.startsWith("deadline")) {
@@ -34,6 +36,7 @@ public class TaskList {
         }
     }
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         this.taskList.add(task);
     }
     /**
@@ -42,6 +45,7 @@ public class TaskList {
      * @return The response to the user.
      */
     public String addFromInput(String input) {
+        assert input != null : "Input should not be null";
         try {
             TaskType taskType = determineTaskType(input);
             switch (taskType) {
@@ -63,6 +67,7 @@ public class TaskList {
                 }
                 input = input.substring(9).trim();
                 String[] splitResult = input.split("/by", 2);
+                assert splitResult.length == 2 : "Invalid splitResult array length for Deadline";
                 String description = splitResult[0].trim();
                 String by = null;
                 try {
@@ -185,6 +190,7 @@ public class TaskList {
      * @return A new TaskList containing the results of applying the function to each element.
      */
     public <R extends Task> TaskList map(Function<Task, R> mapper) {
+        assert mapper != null : "Mapper should not be null";
         TaskList result = new TaskList();
         for (Task task : taskList) {
             result.addTask(mapper.apply(task));
@@ -198,6 +204,7 @@ public class TaskList {
      * @param action The action to be performed for each element.
      */
     public void forEach(Consumer<Task> action) {
+        assert action != null : "Action should not be null";
         for (Task task : taskList) {
             action.accept(task);
         }
@@ -227,6 +234,7 @@ public class TaskList {
      * @return The list of tasks found.
      */
     public TaskList findByDate(LocalDateTime dateTime) {
+        assert dateTime != null : "DateTime should not be null";
         TaskList result = new TaskList();
         for (Task task : taskList) {
             if (task instanceof Deadline) {
@@ -250,6 +258,7 @@ public class TaskList {
      * @return The list of tasks found.
      */
     public TaskList findByKeyword(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         TaskList result = new TaskList();
         for (Task task : taskList) {
             if (task.descriptionContains((keyword))) {

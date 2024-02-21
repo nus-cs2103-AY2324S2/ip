@@ -16,6 +16,8 @@ public class Parser {
      * @return The description of the task.
      */
     public String parseDescription(String input) throws AlfredException {
+        assert input != null : "Input should not be null";
+        assert !input.isBlank() : "Input should not be blank";
         if (input.indexOf(" ") == -1) {
             throw new AlfredException("Sorry Master Bruce. Please enter a description.");
         }
@@ -28,6 +30,8 @@ public class Parser {
      * @return The index of the task.
      */
     public int parseIndex(String index) throws AlfredException {
+        assert index != null : "Index should not be null";
+        assert !index.isBlank() : "Index should not be blank";
         int extractedIdx = -1;
         try {
             if (index.isEmpty()) {
@@ -45,6 +49,8 @@ public class Parser {
      * @return The date-time of the task.
      */
     public LocalDateTime parseDateTime(String input) throws AlfredException {
+        assert input != null : "Input should not be null";
+        assert !input.isBlank() : "Input should not be blank";
         if (input.indexOf(" ") == -1) {
             throw new AlfredException("Sorry Master Bruce. Please enter a date and time.");
         }

@@ -32,6 +32,7 @@ public class Storage {
         }
     }
     private LocalDateTime parseTime(String[] endTimeParts) {
+        assert endTimeParts.length == 4 : "Invalid endTimeParts array length";
         int endDay = Integer.parseInt(endTimeParts[0].trim());
         int endMonth = Integer.parseInt(endTimeParts[1].trim());
         int endYear = Integer.parseInt(endTimeParts[2].trim());
@@ -51,6 +52,7 @@ public class Storage {
             String input = sc.nextLine();
             if (input.startsWith("T")) {
                 String[] splitResult = input.split("\\|", 3);
+                assert splitResult.length == 3 : "Invalid splitResult array length for ToDo";
                 int toggle = Integer.parseInt(splitResult[1].trim());
                 String description = splitResult[2].trim();
                 ToDo todo = new ToDo(description);
@@ -60,12 +62,12 @@ public class Storage {
                 taskList.addTask(todo);
             } else if (input.startsWith("D")) {
                 String[] splitResult = input.split("\\|", 4);
+                assert splitResult.length == 4 : "Invalid splitResult array length for Deadline";
                 int toggle = Integer.parseInt(splitResult[1].trim());
                 String description = splitResult[2].trim();
-                // Parsing LocalDateTime directly from splitResult
                 String[] dateParts = splitResult[3].split("\\|");
+                assert dateParts.length == 3 : "Invalid dateParts array length for Deadline";
                 LocalDateTime by = parseTime(dateParts);
-                // Create Deadline object and add it to the list
                 Deadline deadline = new Deadline(description, by);
                 if (toggle == 1) {
                     deadline.toggleDone();
@@ -73,15 +75,13 @@ public class Storage {
                 taskList.addTask(deadline);
             } else if (input.startsWith("E")) {
                 String[] splitResult = input.split("\\|", 4);
+                assert splitResult.length == 4 : "Invalid splitResult array length for Event";
                 int toggle = Integer.parseInt(splitResult[1].trim());
                 String description = splitResult[2].trim();
                 String[] formattedBy = splitResult[3].split("\\|");
-                // Split the formattedBy array into two parts: start and end times
-                int halfLength = formattedBy.length / 2;
-                String[] startTimeParts = Arrays.copyOfRange(formattedBy, 0, halfLength);
-                String[] endTimeParts = Arrays.copyOfRange(formattedBy, halfLength, formattedBy.length);
-                LocalDateTime startTime = parseTime(startTimeParts);
-                LocalDateTime endTime = parseTime(endTimeParts);
+                assert formattedBy.length % 2 == 0 : "Invalid formattedBy array length for Event";
+                LocalDateTime startTime = parseTime(Arrays.copyOfRange(formattedBy, 0, formattedBy.length / 2));
+                LocalDateTime endTime = parseTime(Arrays.copyOfRange(formattedBy, formattedBy.length / 2, formattedBy.length));
                 Event event = new Event(description, startTime, endTime);
                 if (toggle == 1) {
                     event.toggleDone();
