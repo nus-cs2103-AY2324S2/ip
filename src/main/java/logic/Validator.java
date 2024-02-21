@@ -65,9 +65,9 @@ public class Validator {
     }
 
     /**
-     *
-     * @param command
-     * @throws CommandNotFoundException
+     * Takes in 'bye' command as a string and checks if it is valid
+     * @param command Bye command entered by user
+     * @throws CommandNotFoundException if the command contains any parameters
      */
     public static void validateByeCommand(String command) throws CommandNotFoundException {
         // command contains more than the 'bye' word
@@ -76,6 +76,11 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'list' command and checks if it is valid
+     * @param command List command entered by user
+     * @throws CommandNotFoundException if the command contains any parameters
+     */
     public static void validateListCommand(String command) throws CommandNotFoundException {
         // command contains more than the 'list' word
         if (command.split(" ").length > 1) {
@@ -83,6 +88,14 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'mark' command and checks if it is valid
+     * @param command Mark command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @throws IncorrectParametersException if the number of parameters in the command is not 1
+     * @throws IndexOutOfBoundsException if the index provided is an integer but out of range
+     * @throws NumberFormatException if the parameter provided is not an integer
+     */
     public static void validateMarkCommand(String command, TaskList existingTaskList)
             throws IncorrectParametersException, NumberFormatException {
         // command contains more than the 'mark' word and another String
@@ -101,6 +114,14 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in an 'unmark' command and checks if it is valid
+     * @param command Unmark command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @throws IncorrectParametersException if the number of parameters in the command is not 1
+     * @throws IndexOutOfBoundsException if the index provided is an integer but out of range
+     * @throws NumberFormatException if the parameter provided is not an integer
+     */
     public static void validateUnmarkCommand(String command, TaskList existingTaskList)
             throws IncorrectParametersException, NumberFormatException {
         // command contains more than the 'unmark' word and another String
@@ -119,6 +140,14 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'delete' command and checks if it is valid
+     * @param command Delete command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @throws IncorrectParametersException if the number of parameters in the command is not 1
+     * @throws IndexOutOfBoundsException if the index provided is an integer but out of range
+     * @throws NumberFormatException if the parameter provided is not an integer
+     */
     public static void validateDeleteCommand(String command, TaskList existingTaskList)
             throws IncorrectParametersException, NumberFormatException {
         // command contains more than the 'delete' word and another string
@@ -137,6 +166,11 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'delete all' command and checks if it is valid
+     * @param command Mark command entered by user
+     * @throws IncorrectParametersException if the command contains any parameters
+     */
     public static void validateDeleteAllCommand(String command)
             throws IncorrectParametersException {
         // command contains more than the 'delete' and 'all' words
@@ -145,6 +179,12 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'todo' command and checks if it is valid
+     * @param command Todo command entered by user
+     * @throws IncorrectParametersException if the command contains any date parameters
+     * @throws MissingParametersException if the command is missing a task description parameter
+     */
     public static void validateTodoCommand(String command)
             throws MissingParametersException, IncorrectParametersException {
         String todoDescription = command.replaceFirst("(?i)todo", "").trim();
@@ -159,6 +199,14 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'deadline' command and checks if it is valid
+     * @param command Deadline command entered by user
+     * @throws MissingParametersException if the command is missing a description or due date parameter
+     * @throws IncorrectParametersException if the command contains any 'from' or 'to' date parameters
+     * @throws DateTimeParseException if the date parameter provided is not in yyyy-mm-dd format
+     * @throws ParseDateException if the date parameter provided is not in yyyy-mm-dd format
+     */
     public static void validateDeadlineCommand(String command)
             throws MissingParametersException, IncorrectParametersException,
             DateTimeParseException, ParseDateException {
@@ -195,6 +243,14 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in an 'event' command and checks if it is valid
+     * @param command Event command entered by user
+     * @throws MissingParametersException if the command is missing a description, from date, or to date parameter
+     * @throws IncorrectParametersException if the command contains any due date parameter
+     * @throws DateTimeParseException if the date parameter provided is not in yyyy-mm-dd format
+     * @throws ParseDateException if the date parameter provided is not in yyyy-mm-dd format
+     */
     public static void validateEventCommand(String command)
             throws MissingParametersException, IncorrectParametersException,
             DateTimeParseException, ParseDateException {
@@ -239,10 +295,19 @@ public class Validator {
         }
     }
 
+    /**
+     * Takes in a 'find' command and checks if it is valid
+     * @param command Find command entered by user
+     */
     public static void validateFindCommand(String command) {
         // no validation needed
     }
 
+    /**
+     * Takes in a 'help' command and checks if it is valid
+     * @param command Help command entered by user
+     * @throws CommandNotFoundException if the command contains any parameters
+     */
     public static void validateHelpCommand(String command) throws CommandNotFoundException {
         // command contains more than the 'list' word
         if (command.split(" ").length > 1) {

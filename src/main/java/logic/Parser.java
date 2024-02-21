@@ -41,8 +41,9 @@ public class Parser {
      *
      * @param input            Command entered by user
      * @param existingTaskList User's current TaskList object
-     * @return 0 or 1
-     * @throws NumberFormatException     If number cannot be parsed (a non-number is entered)
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     * @throws NumberFormatException If number cannot be parsed (a non-number is entered)
      * @throws IndexOutOfBoundsException If task number does not exist in list
      */
     public static Pair<Integer, String> parseAndExecuteCommand(String input, TaskList existingTaskList) {
@@ -53,7 +54,7 @@ public class Parser {
         try {
             switch (commandType) {
             case "bye":
-                return parseAndExecuteBye(input, existingTaskList);
+                return parseAndExecuteBye(input);
             case "list":
                 return parseAndExecuteList(input, existingTaskList);
             case "mark":
@@ -87,7 +88,13 @@ public class Parser {
         }
     }
 
-    public static Pair<Integer, String> parseAndExecuteBye(String input, TaskList existingTaskList) {
+    /**
+     * Takes in a 'bye' command and executes if valid
+     * @param input Bye command entered by user
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
+    public static Pair<Integer, String> parseAndExecuteBye(String input) {
         String response;
         try {
             validateByeCommand(input);
@@ -99,6 +106,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in a 'list' command and executes if valid
+     * @param input List command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteList(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -110,6 +124,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'mark' command and executes if valid
+     * @param input Mark command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteMark(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -123,6 +144,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in an 'unmark' command and executes if valid
+     * @param input Unmark command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteUnmark(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -136,6 +164,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'delete' command and executes if valid
+     * @param input Delete command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteDelete(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -152,6 +187,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'delete all' command and executes if valid
+     * @param input Delete all command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteDeleteAll(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -165,6 +207,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'todo' command and executes if valid
+     * @param input Todo command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteTodo(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -179,6 +228,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'deadline' command and executes if valid
+     * @param input Deadline command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteDeadline(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -194,6 +250,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'event' command and executes if valid
+     * @param input Event command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteEvent(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -210,6 +273,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'find' command and executes if valid
+     * @param input Find command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteFind(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -222,6 +292,13 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 
+    /**
+     * Takes in a 'help' command and executes if valid
+     * @param input Help command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return Pair containing the continue status of the execution (1 for continue, 0 for terminate)
+     *     and the String response from the execution
+     */
     public static Pair<Integer, String> parseAndExecuteHelp(String input, TaskList existingTaskList) {
         String response = "default response";
         try {
@@ -237,4 +314,3 @@ public class Parser {
         return new Pair<>(CONTINUE_PROGRAM, response);
     }
 }
-

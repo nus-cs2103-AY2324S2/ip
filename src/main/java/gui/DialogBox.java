@@ -38,6 +38,12 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(text, displayPicture);
     }
 
+    /**
+     * Constructor for a DialogBox object containing an image, label and hyperlink
+     * @param l the label in the DialogBox
+     * @param hLink the hyperlink in the DialogBox
+     * @param iv the image in the DialogBox
+     */
     public DialogBox(Label l, Hyperlink hLink, ImageView iv) {
         text = l;
         hyperLink = hLink;

@@ -1,12 +1,16 @@
 package tam;
 
+import static logic.Extractor.extractHelpLink;
+
 import gui.DialogBox;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -17,8 +21,6 @@ import logic.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import static logic.Extractor.extractHelpLink;
 
 /**
  * The tam.Tam class is the main class from which tam.Tam the Task Manager is launched.
@@ -147,8 +149,7 @@ public class Tam extends Application {
                     DialogBox.getUserDialog(userText, new ImageView(userImage)),
                     DialogBox.getTamDialog(tamText, new ImageView(tamImage))
             );
-        }
-        else {
+        } else {
             String link = extractHelpLink(outputResponse);
             outputResponse = outputResponse.replace(link, "");
             tamText = new Label(outputResponse);
