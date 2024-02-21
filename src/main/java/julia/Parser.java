@@ -1,8 +1,8 @@
-package duke;
-import duke.task.Deadline;
-import duke.task.Event;
+package julia;
+import julia.task.Deadline;
+import julia.task.Event;
 
-import duke.task.Todo;
+import julia.task.Todo;
 
 
 

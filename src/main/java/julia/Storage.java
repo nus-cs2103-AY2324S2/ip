@@ -1,9 +1,9 @@
-package duke;
+package julia;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import julia.task.Deadline;
+import julia.task.Event;
+import julia.task.Task;
+import julia.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package duke.task;
+package julia.task;
 
 /**
  * Represents a Todo task in the task list.

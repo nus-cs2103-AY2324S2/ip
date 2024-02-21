@@ -1,4 +1,4 @@
-package duke;
+package julia;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,10 +23,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Julia julia;
 
     private Image userImage = new Image(Objects.requireNonNull(this.getClass()
-            .getResourceAsStream("/images/DaBot.jpeg")));
+            .getResourceAsStream("/images/persona.png")));
     private Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/Pikachu.png")));
 
@@ -35,8 +35,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Julia j) {
+        julia = j;
     }
 
 
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = julia.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
