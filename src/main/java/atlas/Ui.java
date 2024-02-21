@@ -69,12 +69,10 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been deleted and how many remaining tasks in the list.
      *
-     * @param tasks The TaskList from which to retrieve the deleted task.
-     * @param index The index of the deleted task.
+     * @param task The deleted task to be shown.
      */
-    public String showTaskDeleted(TaskList tasks, int index) {
-        ArrayList<Task> al = tasks.getTasks();
-        return ("Got it. I've removed this task:\n  " + al.get(index));
+    public String showTaskDeleted(Task task) {
+        return ("Got it. I've removed this task:\n  " + task);
     }
 
     /**

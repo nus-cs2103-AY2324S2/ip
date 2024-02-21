@@ -34,11 +34,14 @@ public class TaskList {
      * Deletes a task from the task list using index.
      *
      * @param index The index of the task to be deleted.
+     * @return deletedTask The task to be deleted.
      * @throws AtlasException If the index is out of bounds.
      */
-    public void deleteTask(int index) throws AtlasException {
+    public Task deleteTask(int index) throws AtlasException {
         checkBounds(index);
+        Task deletedTask = tasks.get(index);
         tasks.remove(index);
+        return deletedTask;
     }
 
     private void checkBounds(int index) throws AtlasException {

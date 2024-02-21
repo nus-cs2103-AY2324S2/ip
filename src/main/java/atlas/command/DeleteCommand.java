@@ -4,6 +4,7 @@ import atlas.Storage;
 import atlas.TaskList;
 import atlas.Ui;
 import atlas.exception.AtlasException;
+import atlas.task.Task;
 
 /**
  * This command handles the deletion of a task from the task list.
@@ -32,8 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute() throws AtlasException {
-        String str = ui.showTaskDeleted(tasks, taskIndex);
-        tasks.deleteTask(taskIndex);
-        return str;
+        Task deletedTask = tasks.deleteTask(taskIndex);
+        return ui.showTaskDeleted(deletedTask);
     }
 }
