@@ -15,3 +15,16 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# All java build class files
+*.class
+
+#All vim swap files
+*.swp
+
+#Removed save data from the application
+data/duke.txt
+data/*
+
+#Any jar files created
+*.jar
