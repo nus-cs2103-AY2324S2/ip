@@ -168,10 +168,19 @@ public class Command {
         return ui.finding(list, keyword);
     }
     
+    /**
+     * Handles the response for help command.
+     * @param ui The UI component of the application.
+     * @return A response for help command.
+     */
     public String getHelpResponse(Ui ui) {
         return ui.help();
     }
     
+    /**
+     * Closes the application when bye command is triggered, with a pause of 2 seconds
+     * to allow the user to read the response.
+     */
     public void byeResponse() {
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished(event -> {
