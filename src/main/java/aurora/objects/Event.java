@@ -3,22 +3,20 @@ package aurora.objects;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * The event class is a representation of an event task with a start and end date & time.
- */
+/** The event class represents events with a start and end datetime. */
 public class Event extends Task{
 
-    /** Starting time and date of the event. */
+    /** Starting datetime of the event. */
     private LocalDateTime startDate;
 
-    /** Ending time and date of the event. */
+    /** Ending datetime of the event. */
     private LocalDateTime endDate;
 
     private static final String TASK_TYPE_FOR_FILE = "E";
     private static final String TASK_TYPE = "[E]";
 
     /**
-     * Constructor for the Event class.
+     * Constructs an Event object.
      *
      * @param description: Description of the event.
      * @param startDate: Starting date and time of the event.
@@ -30,28 +28,18 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
-    /**
-     * Getter for start date.
-     *
-     * @return The start date of the event.
-     */
     public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    /**
-     * Getter for end date.
-     *
-     * @return The end date of the event.
-     */
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
     /**
-     * Formats the local datetime to string.
+     * Returns a String representation of a LocalDateTime object.
      *
-     * @return Date in String format
+     * @return Returns String representation of a LocalDateTime object.
      */
     private String dateToString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");

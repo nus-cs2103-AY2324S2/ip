@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 import aurora.objects.*;
 
-/**
- * The TaskList class is used to represent the list of tasks used in the application.
- */
+/** The TaskList class represents a list of task objects. */
 public class TaskList {
 
     /** TaskList of tasks */
@@ -19,7 +17,7 @@ public class TaskList {
     private static final String NUMBER_OF_TASKS = "\nNumber of tasks in the list: ";
 
     /**
-     * Constructor for the TaskList class.
+     * Constructs a TaskList object.
      *
      * @param taskList An ArrayList of tasks.
      */
@@ -28,9 +26,9 @@ public class TaskList {
     }
 
     /**
-     * Method to add a ToDo to the taskList.
+     * Adds a Todo object to the task list.
      *
-     * @param description Todo description.
+     * @param description Description of the Todo object.
      */
     public void addTodo(String description) {
         Todo newTask = new Todo(description);
@@ -38,10 +36,10 @@ public class TaskList {
     }
 
     /**
-     * Method to add a Deadline to the taskList.
+     * Adds a Deadline object to the task list.
      *
-     * @param description Deadline description.
-     * @param date Date at which a deadline expires
+     * @param description Description of the Deadline object.
+     * @param date Datetime associated with the Deadline object.
      */
     public void addDeadline(String description, LocalDateTime date) {
         Deadline newTask = new Deadline(description, date);
@@ -49,11 +47,11 @@ public class TaskList {
     }
 
     /**
-     * Method to add an Event to the tasklist.
+     * Adds an Event object to the task list.
      *
-     * @param description Event description.
-     * @param start Start time of event.
-     * @param end End time of event.
+     * @param description Description of the Event object.
+     * @param start Start time associated with the event.
+     * @param end End time associated with the event.
      */
     public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Event newTask = new Event(description, start, end);
@@ -61,10 +59,10 @@ public class TaskList {
     }
 
     /**
-     * Method to add a doAfter (after a date) to the taskList.
+     * Adds a DoAfter object associated with a datetime to the task list.
      *
-     * @param description DoAfter description
-     * @param date Date after which the task should be performed
+     * @param description Description of the DoAfter object.
+     * @param date Datetime associated with the DoAfter object.
      */
     public void addDoAfter(String description, LocalDateTime date) {
         DoAfter newTask = new DoAfter(description, date);
@@ -72,12 +70,12 @@ public class TaskList {
     }
 
     /**
-     * Method to add a doAfter (after a task) to the taskList.
+     * Adds a DoAfter object associated with a task to the task list.
      *
-     * @param description DoAfter description
-     * @param taskNumber Integer representing the task after which this task should be performed
+     * @param description Description of the DoAfter object.
+     * @param taskNumber Index of the task associated with the DoAfter object.
      */
-    public void addDoAfter(String description,int taskNumber) throws AuroraException {
+    public void addDoAfter(String description,int taskNumber) {
         Task previousTask = this.taskList.get(taskNumber);
         DoAfter newTask = new DoAfter(description, taskNumber);
         newTask.setTask(previousTask);
@@ -85,10 +83,11 @@ public class TaskList {
     }
 
     /**
-     * Marks a task in the taskList as done and returns a confirmation message.
+     * Returns a String representing an alert to the user to notify them
+     * that a task in the task list was marked as done.
      *
-     * @param taskIndex Index of the task in the ArrayList.
-     * @return A string confirming the task has been marked as done.
+     * @param taskIndex Index of the task to be marked as done.
+     * @return String alert notifying the user that the task was marked as done.
      */
     public String markTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setDone();
@@ -96,10 +95,11 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task in the taskList and returns a confirmation message.
+     * Returns a String representing an alert to the user to notify them
+     * that a task in the task list was unmarked.
      *
-     * @param taskIndex Index of the task in the ArrayList.
-     * @return A string confirming the task has been unmarked.
+     * @param taskIndex Index of the task to be unmarked.
+     * @return String alert notifying the user that the task was unmarked.
      */
     public String unmarkTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setNotDone();
@@ -107,10 +107,11 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the taskList and returns a confirmation message.
+     * Returns a String representing an alert to the user to notify them
+     * that a task in the task list was deleted.
      *
-     * @param taskIndex Index of the task in the ArrayList.
-     * @return A string confirming the task has been deleted.
+     * @param taskIndex Index of the task to be deleted.
+     * @return String alert notifying the user that the task was deleted.
      */
     public String deleteTaskGui(int taskIndex) throws AuroraException {
         Task deletedTask = this.taskList.get(taskIndex);
@@ -124,9 +125,10 @@ public class TaskList {
     }
 
     /**
-     * Helper method to update DoAfters after a task is deleted.
+     * Updates DoAfters associated with deleted tasks or affected by the deletion of tasks after
+     * the deletion of a task.
      *
-     * @param task Task to possibly updated.
+     * @param task Task to possibly update.
      * @param deletedTask Task deleted.
      * @param deletedTaskIndex Index of deleted task.
      * @throws AuroraException If the deletedTask is not de-referenced successfully.
@@ -148,11 +150,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Getter for the taskList
-     *
-     * @return The taskList stored in the object.
-     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }

@@ -10,9 +10,7 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * The EventCommand class handles the "event" command.
- */
+/** The EventCommand class represents the "event" command. */
 public class EventCommand extends Command {
 
     /** TaskList to interact with. */
@@ -28,7 +26,7 @@ public class EventCommand extends Command {
     private String command;
 
     /**
-     * Constructor for the EventCommand class.
+     * Constructs an EventCommand object.
      *
      * @param taskList TaskList to edit.
      * @param ui Ui to interact with.
@@ -67,9 +65,10 @@ public class EventCommand extends Command {
     }
 
     /**
-     * First helper function to validate input format.
-     * @param parts String array containing the full command.
-     * @throws AuroraException If an invalid input is detected.
+     * Validates the event command input by checking if it contains at least a description.
+     *
+     * @param parts String array containing "event" at index 0 and the other inputs at index 1.
+     * @throws AuroraException If index 1 does not exist.
      */
     private void validateFormatFirst(String[] parts) throws AuroraException {
         if (parts.length < 2) {
@@ -78,9 +77,10 @@ public class EventCommand extends Command {
     }
 
     /**
-     * First helper function to validate input format.
-     * @param parts String array containing the full command.
-     * @throws AuroraException If an invalid input is detected.
+     * Validates the event command input by checking if it contains the correct number of components.
+     *
+     * @param parts String array containing parts of the event command input to validate.
+     * @throws AuroraException If an incorrect number of components is detected in the input.
      */
     private void validateFormatSecond(String[] parts) throws AuroraException {
         if (parts.length != 2) {
@@ -89,10 +89,12 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Helper function to parse the dates.
-     * @param dateString String representation of the dates.
-     * @return LocalDateTime object
-     * @throws AuroraException If the format of the date is incorrect.
+     * Returns a LocalDateTime object after parsing the String representation of
+     * one of the 2 datetime associated with the event.
+     *
+     * @param dateString String representation of the datetime to be parsed.
+     * @return LocalDateTime object representing one of the 2 datetime associated with the event.
+     * @throws AuroraException If the datetime String is of incorrect format.
      */
     private LocalDateTime parseDate(String dateString) throws AuroraException {
         try {
@@ -103,8 +105,9 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Helper method to save tasks.
-     * @throws AuroraException If the taskList was not saved successfully.
+     * Saves the task list containing the new event object created to the storage file.
+     *
+     * @throws AuroraException If an error occurs while saving the task list to the storage file.
      */
     private void saveTasks() throws AuroraException {
         try {

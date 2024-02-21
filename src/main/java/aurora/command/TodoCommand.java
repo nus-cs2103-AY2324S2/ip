@@ -8,9 +8,7 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * The TodoCommand class handles the "todo" command.
- */
+/** The TodoCommand class represents the "todo" command.*/
 public class TodoCommand extends Command {
 
     /** TaskList to interact with. */
@@ -26,7 +24,7 @@ public class TodoCommand extends Command {
     private String command;
 
     /**
-     * Constructor for the TodoCommand class.
+     * Constructs a TodoCommand object.
      *
      * @param taskList TaskList to edit.
      * @param ui Ui to interact with.
@@ -50,10 +48,10 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Helper function to parse the description.
+     * Returns the description of the Todo object to be created.
      *
-     * @return Description of the Todo.
-     * @throws AuroraException if the input format of the command was incorrect.
+     * @return Description of the Todo object to be created.
+     * @throws AuroraException If the input format of the Todo command was incorrect.
      */
     private String parseDescription() throws AuroraException {
         String[] descriptionSplit = Parser.splitAtFirstBlank(this.command);
@@ -64,10 +62,11 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Helper method to add the ToDo to the taskList and obtaining the alert message.
+     * Returns a String alerting the user that the new Todo object has been created and added to the task list.
+     * Adds the new Todo object to the task list.
      *
-     * @param description Description of the Todo,
-     * @return The Alert message that the Todo has been added.
+     * @param description Description of the Todo object created.
+     * @return String alerting the user that the new Todo object has been created and added to the task list.
      */
     private String addTodoAndReturnMessage(String description) {
         this.taskList.addTodo(description);
@@ -75,9 +74,9 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Helper method to save the taskList to the storage file.
+     * Saves the task list containing the new todo object created to the storage file.
      *
-     * @throws AuroraException If the taskList could not be saved successfully.
+     * @throws AuroraException If an error occurs while saving the task list to the storage file.
      */
     private void saveTasks() throws AuroraException {
         try {

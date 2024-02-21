@@ -7,10 +7,7 @@ import aurora.objects.DoAfter;
 import aurora.objects.Task;
 import aurora.tasklist.TaskList;
 
-/**
- * The Ui class is used to represent the user interface, including the scanner of the application.
- */
-@SuppressWarnings("checkstyle:Indentation")
+/** The Ui class is used to represents the user interface of the application. */
 public class Ui {
 
     /** Scanner to be used for inputs. */
@@ -28,14 +25,14 @@ public class Ui {
     private static final String FIND_LIST_STRING = "Here are the matching tasks in your list:\n";
 
     /**
-     * Constructor for the Ui class.
+     * Constructs a Ui object.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Method that returns the command entered.
+     * Returns a String representing the next Command String entered into the scanner.
      *
      * @return Command string entered into the scanner.
      */
@@ -43,18 +40,14 @@ public class Ui {
         return this.scanner.nextLine();
     }
 
-    /**
-     * Method to print the greeting message.
-     */
+    /** Prints the opening message. */
     public void printOpeningMessage() {
         printALine();
         System.out.println(OPENING_MESSAGE);
         printALine();
     }
 
-    /**
-     * Method to print a line for separation.
-     */
+    /** Prints a line for separation. */
     public void printALine() {
         for (int i = 0; i < 100; i++) {
             System.out.print("_");
@@ -63,9 +56,9 @@ public class Ui {
     }
 
     /**
-     * Generates and returns the opening message for the application.
+     * Returns the opening message string.
      *
-     * @return A string containing the opening message.
+     * @return OPENING_MESSAGE.
      */
     public static String getOpeningMessage() {
         return OPENING_MESSAGE;
@@ -73,9 +66,9 @@ public class Ui {
 
 
     /**
-     * Generates and returns the exit message for the application.
+     * Returns the exit message string.
      *
-     * @return A string containing the exit message.
+     * @return EXIT MESSAGE.
      */
     public static String getExitMessage() {
         return EXIT_MESSAGE;
@@ -83,10 +76,10 @@ public class Ui {
 
 
     /**
-     * Generates and returns a string representation of the current task list.
+     * Returns a string representation of the current task list after generating it.
      *
-     * @param taskList An ArrayList of Task objects representing the current tasks.
-     * @return A string representation of the task list.
+     * @param taskList An ArrayList of Task objects representing the current tasks stored in the application.
+     * @return String representation of the current task list
      */
     public String getTaskListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
@@ -99,10 +92,10 @@ public class Ui {
 
 
     /**
-     * Generates and returns a string representation of tasks found based on a search keyword.
+     * Returns a string representation of tasks found based on a search keyword after generating it.
      *
-     * @param taskList An ArrayList of Task objects that match the search criteria.
-     * @return A string representation of the found tasks.
+     * @param taskList An ArrayList of Task objects that match the search keyword.
+     * @return String representation of the arraylist of found tasks.
      */
     public String getFoundListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
@@ -114,7 +107,7 @@ public class Ui {
     }
 
     /**
-     * Generates and returns a string that echoes back the task added to the task list.
+     * Returns a string that echoes back the task added to the task list.
      *
      * @param taskList The TaskList object containing the list of tasks.
      * @return A string echoing the added task and the current number of tasks.

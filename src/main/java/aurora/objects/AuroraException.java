@@ -1,8 +1,6 @@
 package aurora.objects;
 
-/**
- * The DukeException class represents exceptions specific to this application.
- */
+/** The AuroraException class represents exceptions specific to this application. */
 public class AuroraException extends Exception {
 
     /** Message of the exception. */
@@ -56,7 +54,7 @@ public class AuroraException extends Exception {
 
 
     /**
-     * Constructor of the DukeException class.
+     * Constructs an AuroraException object.
      *
      * @param exceptionMessage Message of the exception that describes it.
      */
@@ -65,11 +63,6 @@ public class AuroraException extends Exception {
         this.exceptionMessage = exceptionMessage;
     }
 
-    /**
-     * Getter for the exception message.
-     *
-     * @return Message that describes the exception.
-     */
     public String getExceptionMessage() {
         return this.exceptionMessage;
     }

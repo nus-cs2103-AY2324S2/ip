@@ -2,14 +2,10 @@ package aurora.command;
 
 import aurora.objects.AuroraException;
 
-/**
- * Class that handles an invalid command.
- */
+/** The InvalidCommand Class represents invalid commands. */
 public class InvalidCommand extends Command {
 
-    /**
-     * Constructor for the InvalidCommand class.
-     */
+    /** Constructs an InvalidCommand object. */
     public InvalidCommand() {
 
     }

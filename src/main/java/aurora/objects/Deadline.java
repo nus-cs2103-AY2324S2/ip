@@ -3,9 +3,7 @@ package aurora.objects;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Deadline is a task with a specified date set as the deadline.
- */
+/** The Deadline class represents a task with a specified date set as the deadline. */
 public class Deadline extends Task{
 
     /** Date at which the deadline expires. */
@@ -15,7 +13,7 @@ public class Deadline extends Task{
     private static final String TASK_TYPE = "[D]";
 
     /**
-     * Constructor of deadline
+     * Constructs a Deadline object.
      *
      * @param description: Description of the deadline.
      * @param date: Date at which the deadline expires.
@@ -25,19 +23,14 @@ public class Deadline extends Task{
         this.date = date;
     }
 
-    /**
-     * Getter for date.
-     *
-     * @return The deadline.
-     */
     public LocalDateTime getDate() {
         return this.date;
     }
 
     /**
-     * Formats the local datetime to string.
+     * Returns a String representation of the date LocalDateTime object.
      *
-     * @return Date in String format.
+     * @return Returns String representation of the date LocalDateTime object.
      */
     private String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");

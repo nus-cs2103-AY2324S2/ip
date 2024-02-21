@@ -1,17 +1,15 @@
 package aurora.objects;
 
-/**
- * The Todo class represents the Todo task.
- */
+/** The Todo class represents the Todo task. */
 public class Todo extends Task {
 
     private static final String TASK_TYPE_FOR_FILE = "T";
     private static final String TASK_TYPE = "[T]";
 
     /**
-     * Constructor for the ToDo class.
+     * Constructs a Todo object.
      *
-     * @param description: Description of the ToDo task.
+     * @param description: Description of the Todo object.
      */
     public Todo(String description) {
         super(description);

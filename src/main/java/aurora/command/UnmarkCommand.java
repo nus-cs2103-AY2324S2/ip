@@ -6,9 +6,7 @@ import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 
-/**
- * The UnmarkCommand class handles the "unmark" command.
- */
+/** The UnmarkCommand class represents the "unmark" command.*/
 public class UnmarkCommand extends Command {
 
     /** TaskList to interact with. */
@@ -21,7 +19,7 @@ public class UnmarkCommand extends Command {
     private String[] splitCommands;
 
     /**
-     * Constructor for the UnmarkCommand class.
+     * Constructs an UnmarkCommand object.
      *
      * @param taskList      TaskList to edit.
      * @param storage       Storage to interact with.
@@ -42,10 +40,12 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Helper function to validate the command input.
+     * Returns an integer representing the index of the task to be unmarked.
+     * Validates that the unmark command input format follows the below convention:
+     * unmark {integer within the task list}
      *
-     * @return TaskIndex of task to unmark.
-     * @throws AuroraException If the command format was incorrect.
+     * @return Index of the task to be unmarked.
+     * @throws AuroraException If the unmark command is of incorrect format.
      */
     private int validateAndParseTaskIndexForUnmark() throws AuroraException {
         if (this.splitCommands.length != 2) {
@@ -70,11 +70,13 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Helper function to unmark task and save tasklist to file.
+     * Returns a String that alerts the user that the required task has been unmarked.
+     * Saves the task list to the storage file after unmarking the task.
      *
-     * @param taskIndex Task to be unmark.
-     * @return Alert message that task has been unmarked and saved.
-     * @throws AuroraException If saving was unsuccessful.
+     * @param taskIndex Index of the task to be unmarked.
+     * @return Returns a String that alerts the user that the required task has been unmarked and the task list
+     *         saved to the storage file.
+     * @throws AuroraException If an error occurs during unmarking of the task.
      */
     private String unmarkTaskAndSave(int taskIndex) throws AuroraException {
         String message;

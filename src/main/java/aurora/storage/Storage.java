@@ -18,29 +18,27 @@ import aurora.objects.Task;
 import aurora.objects.Todo;
 import aurora.parser.Parser;
 
-/**
- * Storage is a class that handles file storage and retrieval.
- */
+/** The Storage class represents an object that handles file storage and retrieval. */
 public class Storage {
 
     /** The filepath to store or load data from. */
     private String filePath;
 
     /**
-     * Constructor for the Storage class.
+     * Constructs a Storage object.
      *
-     * @params filePath. filePath to the file to be retrieved and operated on
+     * @param filePath The path to the file to be retrieved and operated on.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Method that returns an ArrayList of tasks after loading the data from the filePath specified.
+     * Returns an ArrayList<Task> created from parsing the contents of the file retrieved.
      *
-     * @return ArrayList of tasks in the file.
+     * @return ArrayList<Task> created from parsing the contents of the file retrieved.
      * @throws IOException If there is no file located at the path.
-     * @throws AuroraException If the file is corrupted.
+     * @throws AuroraException If lines within the file are corrupted.
      */
     public ArrayList<Task> loadTasks() throws IOException, AuroraException {
         File file = new File(filePath);
@@ -61,10 +59,10 @@ public class Storage {
     }
 
     /**
-     * Helper function for processing each line.
+     * Returns Task object obtained from processing one line in a file.
      *
      * @param fileLine File Line to be processed
-     * @return processed file line
+     * @return Task object obtained from processing one line in a file.
      */
     private Task processLine(String fileLine) throws AuroraException {
         try {
@@ -75,10 +73,12 @@ public class Storage {
     }
 
     /**
-     * Helper function for populating to DoAfters with events
+     * Returns the updated ArrayList<Task> after associating the DoAfters with the tasks they are
+     * supposed to be associated with.
      *
-     * @param taskList unpopulated tasklist
-     * @return populated taskList
+     * @param taskList Task list with unassociated DoAfter objects.
+     * @return ArrayList<Task> after associating the DoAfters with the tasks they are
+     *         supposed to be associated with.
      */
     public ArrayList<Task> setTasksForDoAfters(ArrayList<Task> taskList) {
         for (Task task : taskList) {
@@ -101,10 +101,10 @@ public class Storage {
     }
 
     /**
-     * Method that writes an ArrayList of tasks to a filePath.
+     * Saves a task list to the file path specified.
      *
-     * @param taskList TaskList to be written to file.
-     * @throws IOException If there is a problem in saving the file to the specified directory.
+     * @param taskList Task list to be saved.
+     * @throws IOException If there is a problem in saving the file to the file path specified.
      */
     public void saveTasks(ArrayList<Task> taskList) throws IOException, AuroraException {
         File file = new File(filePath);
@@ -120,11 +120,11 @@ public class Storage {
     }
 
     /**
-     * Method that parses a line from the loaded file and returns a task object based on the contents of the line.
+     * Returns a Task based on the contents of a fileLine processed.
      *
-     * @param fileLine Line from file loaded to be parsed.
-     * @return Task parsed from the file line.
-     * @throws AuroraException If the particular line is corrupted.
+     * @param fileLine FileLine to be processed.
+     * @return Task based on the contents of a fileLine processed.
+     * @throws AuroraException If the particular fileLine is corrupted.
      */
     private Task fileLinesToTask(String fileLine) throws AuroraException {
         String[] components = fileLine.split(" \\| ");
@@ -154,12 +154,12 @@ public class Storage {
     }
 
     /**
-     * Convert a fileLine to a todo
+     * Returns a Todo object based on the contents of a fileLine.
      *
-     * @param components Component array of the file line.
-     * @param description Description of the todo
-     * @param isDone status of the todo
-     * @return a todo object
+     * @param components Component array generated from the file line.
+     * @param description Description of the todo.
+     * @param isDone Status of the todo.
+     * @return Todo object based on the contents of a fileLine.
      */
     private Todo fileLineToTodo(String[] components, String description, boolean isDone) throws AuroraException {
         Todo todo = new Todo(description);
@@ -171,12 +171,12 @@ public class Storage {
     }
 
     /**
-     * Cnverts a fileLine to a deadline
+     * Returns a Deadline object based on the contents of a fileLine.
      *
-     * @param components Component array of the file line.
-     * @param description Description of the deadline
-     * @param isDone status of the deadline
-     * @return a deadline object
+     * @param components Component array generated from the file line.
+     * @param description Description of the deadline.
+     * @param isDone Status of the deadline.
+     * @return Deadline object based on the contents of a fileLine.
      */
     private Deadline fileLineToDeadline(String[] components, String description, boolean isDone)
             throws AuroraException {
@@ -195,12 +195,12 @@ public class Storage {
 
 
     /**
-     * Converts a fileLine to an event
+     * Returns an Event object based on the contents of a fileLine.
      *
-     * @param components Component array of the file line.
-     * @param description Description of the event
-     * @param isDone status of the event
-     * @return an event object
+     * @param components Component array generated from the file line.
+     * @param description Description of the event.
+     * @param isDone Status of the event.
+     * @return Event object based on the contents of a fileLine.
      */
     private Event fileLineToEvent(String[] components, String description, boolean isDone) throws AuroraException {
         if (components.length < 5) {
@@ -218,12 +218,12 @@ public class Storage {
     }
 
     /**
-     * Converts a fileLine to a doAfter
+     * Returns a DoAfter object based on the contents of a fileLine.
      *
-     * @param components Component array of the file line.
-     * @param description Description of the doAfter
-     * @param isDone status of the doAfter
-     * @return an doAfter object
+     * @param components Component array generated from the file line.
+     * @param description Description of the doAfter.
+     * @param isDone Status of the doAfter.
+     * @return DoAfter object based on the contents of a fileLine.
      */
     private DoAfter fileLineToDoAfter(String[] components, String description, boolean isDone)
             throws AuroraException {
@@ -248,10 +248,10 @@ public class Storage {
     }
 
     /**
-     *  Converts a task to a fileLine to ba saved into the txt file.
+     * Returns a String representation of a Task to be saved to the storage file.
      *
-     * @param task Task to be converted into a fileLine
-     * @return fileLine in String format
+     * @param task Task to be converted into a String to be saved.
+     * @return String representation of a Task to be saved to the storage file.
      */
     private String taskToFileLine(Task task) {
         if (task instanceof Todo) {

@@ -6,9 +6,7 @@ import aurora.objects.Task;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * The ListCommand class handles the "list" command.
- */
+/** The ListCommand class represents the "list" command.*/
 public class ListCommand extends Command {
 
     /** TaskList to interact with. */
@@ -18,7 +16,7 @@ public class ListCommand extends Command {
     private Ui ui;
 
     /**
-     * Constructor for the ByeCommand class.
+     * Constructs a ListCommand object.
      *
      * @param taskList TaskList to edit.
      * @param ui       Ui to interact with.

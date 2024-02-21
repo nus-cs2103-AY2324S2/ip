@@ -11,33 +11,21 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * Duke is the main class for the application that runs according to the commands given to it by the user.
- */
+/** Aurora is the main class for the backend API of the application. */
 public class Aurora {
-    /**
-     * Ui for the application.
-     */
+    /** Ui of the application. */
     private Ui ui;
 
-    /**
-     * TaskList for the application.
-     */
+    /** TaskList of the application. */
     private TaskList taskList;
 
-    /**
-     * Storage for the application.
-     */
+    /** Storage of the application. */
     private Storage storage;
 
-    /**
-     * Parser for commands.
-     */
+    /** Parser for commands. */
     private Parser parser;
 
-    /**
-     * Constructor for the Aurora class
-     */
+    /** Constructs an Aurora object. */
     public Aurora() {
         this.ui = new Ui();
         this.storage = new Storage("./data/aurora.txt");
@@ -59,22 +47,19 @@ public class Aurora {
         this.parser = new Parser(this.taskList, this.storage, this.ui);
     }
 
+    /** Runs the text-based UI form of the application. */
     public static void main(String[] args) {
         Aurora aurora1 = new Aurora();
         aurora1.exeAurora();
     }
 
-    /**
-     * Method for the execution of the application.
-     */
+    /** Runs the loop for the text-based UI form of the application. */
     public void exeAurora() {
         this.ui.printOpeningMessage();
         executeLoop();
     }
 
-    /**
-     * Execution loop for commands.
-     */
+    /** Parses user commands and executes them for the text-based UI form of the application. */
     public void executeLoop() {
         boolean isBye = false;
         while (!isBye) {
@@ -96,10 +81,11 @@ public class Aurora {
     }
 
     /**
-     * Function to get a response from the program via a Gui
+     * Returns a String representing Aurora's output based on the user's command once the command is executed.
+     * Executes user commands for the GUI version of the application.
      *
-     * @param command String input from the user.
-     * @return String output of Aurora.
+     * @param command Command from the user.
+     * @return String representing Aurora's output based on the user's command once the command is executed.
      */
     public String executeGui(String command) {
         String output = "Failed to get output from Parser.";

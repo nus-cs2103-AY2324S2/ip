@@ -13,47 +13,33 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
- * Controller for the main application window.
+ * The Window class represents a controller for the main application window.
  * Code adapted and reused from: https://se-education.org/guides/tutorials/javaFxPart4.html
  */
 public class Window extends AnchorPane {
 
-    /**
-     * Scrollpane to be used such that users can scroll when giving multiple commands.
-     */
+    /** Scrollpane to be used such that users can scroll when giving multiple commands. */
     @FXML
     private ScrollPane scrollPane;
 
-    /**
-     * Dialog container to encapsulate the dialogboxes.
-     */
+    /** Dialog container to encapsulate the dialogboxes. */
     @FXML
     private VBox dialogContainer;
 
-    /**
-     * Box for user to type in commands.
-     */
+    /** Box for user to type in commands. */
     @FXML
     private TextField userInput;
 
-    /**
-     * User profile image.
-     */
+    /** User profile image. */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Chillet.jpg"));
 
-    /**
-     * Aurora profile image.
-     */
+    /** Aurora profile image. */
     private Image auroraImage = new Image(this.getClass().getResourceAsStream("/images/Aurora.jpg"));
 
-    /**
-     * Aurora API.
-     */
+    /** Aurora API. */
     private Aurora aurora;
 
-    /**
-     * Initializing function for some fields in the object.
-     */
+    /** Initializing function for some fields in the object. */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -61,18 +47,11 @@ public class Window extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getAuroraResponse(greeting, auroraImage));
     }
 
-    /**
-     * Setter for the Aurora backend API.
-     *
-     * @param a
-     */
     public void setAurora(Aurora a) {
         this.aurora = a;
     }
 
-    /**
-     * Method to handle a command and produce an output from the application.
-     */
+    /** Handles a user command and outputs a response from the application. */
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();

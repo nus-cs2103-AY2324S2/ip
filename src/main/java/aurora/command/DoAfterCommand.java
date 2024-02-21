@@ -11,9 +11,7 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * The DoAfterCommand class handles the "doAfter" command:
- */
+/** The DoAfterCommand class represents the "doAfter" command: */
 public class DoAfterCommand extends Command {
 
     /** TaskList to interact with. */
@@ -29,7 +27,7 @@ public class DoAfterCommand extends Command {
     private String command;
 
     /**
-     * Constructor for the DoAfterCommand class.
+     * Constructs a DoAfterCommand object.
      *
      * @param taskList TaskList to edit.
      * @param ui Ui to interact with.
@@ -52,9 +50,13 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Helper method to validate the command input.
-     * @return String array containing the description of the DoAfter and the time or task it is associated with.
-     * @throws AuroraException If the command is of invalid format.
+     * Validates the doAfter command input by checking if it follows the appropriate format.
+     * Returns a String array containing the description at index 0 and either a datetime or
+     * the index of the task to be associated with the new DoAfter object at index 1.
+     *
+     * @return String array containing the description at index 0 and either a datetime or
+     *         the index of the task to be associated with the new DoAfter object at index 1.
+     * @throws AuroraException If the DoAfter command is of an invalid format.
      */
     private String[] parseAndValidateInput() throws AuroraException {
         String[] descriptionAndAftSplit = Parser.splitAtFirstBlank(this.command);
@@ -70,12 +72,12 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Helper method that decides how the doAfter command is processed.
+     * Returns a String alerting the user that the DoAfter object has been created based on the command input.
      *
-     * @param splitDescriptionsAndAft String array containing the description of the DoAfter and the time
-     *                                or task it is associated with.
+     * @param splitDescriptionsAndAft String array containing the description of the DoAfter at index 0 and
+     *                                the datetime or task it is associated with at index 1.
      * @return String alert regarding the creation of the DoAfter.
-     * @throws AuroraException If the command is of invalid format.
+     * @throws AuroraException If the datetime associated with the DoAfter is of invalid format.
      */
     private String processDoAfter(String[] splitDescriptionsAndAft) throws AuroraException {
         // Solution adapted from https://www.baeldung.com/java-check-string-number
@@ -91,9 +93,9 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Helper method to save the newly created DoAfter to the file.
+     * Saves the task list after the new DoAfter task is added to the task list to the storage file.
      *
-     * @throws AuroraException If the saving is unsuccessful.
+     * @throws AuroraException If an error occurs while saving the task list to the storage file.
      */
     private void saveDoAfterTasks() throws AuroraException {
         try {
@@ -104,12 +106,14 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Method to handle tha case where the doAfter needs to be done after a date and time.
+     * Returns a String alerting the user that the DoAfter object with a datetime associated
+     * to it has been created and added to the task list.
      *
-     * @param splitDescriptionsAndTime String array containing the description and the String representation of the
-     *                                 time the doAfter is associated with.
-     * @return Response to command.
-     * @throws DateTimeParseException If there is an error with handling the time.
+     * @param splitDescriptionsAndTime String array containing the description of the DoAfter at index 0 and
+     *                                 the datetime or task it is associated with at index 1.
+     * @return String alerting the user that the DoAfter object with a datetime associated
+     *         to it has been created and added to the task list.
+     * @throws DateTimeParseException If the datetime is of incorrect format.
      */
     public String handleCaseTime(String[] splitDescriptionsAndTime) throws DateTimeParseException {
         String message = "";
@@ -122,12 +126,14 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Method to handle tha case where the doAfter needs to be done after a task.
+     * Returns a String alerting the user that the DoAfter object with another task associated
+     * to it has been created and added to the task list.
      *
-     * @param splitDescriptionsAndTask String array containing the description and the String representation of the
-     *                                 task the doAfter is associated with.
-     * @return Response to command.
-     * @throws AuroraException If there is an error.
+     * @param splitDescriptionsAndTask String array containing the description of the DoAfter at index 0 and
+     *                                 the datetime or task it is associated with at index 1.
+     * @return String alerting the user that the DoAfter object with a datetime associated
+     *         to it has been created and added to the task list.
+     * @throws AuroraException If an error occurs while creating and adding the new DoAfter object to the task list.
      */
     public String handleCaseTask(String[] splitDescriptionsAndTask) throws AuroraException {
         String message = "";

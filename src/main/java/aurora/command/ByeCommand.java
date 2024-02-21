@@ -2,16 +2,14 @@ package aurora.command;
 
 import aurora.ui.Ui;
 
-/**
- * The ByeCommand class handles the "bye" command.
- */
+/** The ByeCommand class represents the "bye" command. */
 public class ByeCommand extends Command {
 
     /** Ui to interact with. */
     private Ui ui;
 
     /**
-     * Constructor for the ByeCommand class.
+     * Constructs a ByeCommand object.
      *
      * @param ui Ui to interact with.
      */
@@ -24,6 +22,11 @@ public class ByeCommand extends Command {
         return Ui.getExitMessage();
     }
 
+    /**
+     * Returns true since all objects of the ByeCommand class are ByeCommands.
+     *
+     * @return True by default.
+     */
     @Override
     public boolean isByeCommand() {
         return true;

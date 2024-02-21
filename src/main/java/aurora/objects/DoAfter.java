@@ -9,14 +9,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DoAfter extends Task {
 
-    /**
-     * The time after which this task needs to be done.
-     */
+    /** The time after which this task needs to be done. */
     private LocalDateTime doAfterTime;
 
-    /**
-     * The task after which this task needs to be done.
-     */
+    /** The task after which this task needs to be done. */
     private Task task;
 
     /**
@@ -30,11 +26,10 @@ public class DoAfter extends Task {
     private boolean hasNoAssociatedTask;
 
     /**
-     * Constructor for a DoAfter task, whereby the task needs to be done after
-     * a certain time.
+     * Constructs a DoAfter task associated with a datetime.
      *
      * @param description Description of the doAfter.
-     * @param doAfterTime date and time associated with this doAfter
+     * @param doAfterTime Datetime associated with the doAfter object.
      */
     public DoAfter(String description, LocalDateTime doAfterTime) {
         super(description);
@@ -42,11 +37,10 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Constructor for a DoAfter task, whereby the task needs to be done after
-     * another task.
+     * Constructs a DoAfter task associated with another task.
      *
      * @param description Description of the doAfter.
-     * @param taskNumber taskNumber representing the task to be associated with this doAfter.
+     * @param taskNumber Index of the other task in the task list associated with the doAfter object.
      */
     public DoAfter(String description, int taskNumber) {
         super(description);
@@ -54,28 +48,18 @@ public class DoAfter extends Task {
         this.hasNoAssociatedTask = false;
     }
 
-    /**
-     * Setter for the task associated with the doAfter.
-     *
-     * @param task Task associated with the doAfter.
-     */
     public void setTask(Task task) {
         this.task = task;
     }
 
-    /**
-     * Getter for the taskNumber
-     *
-     * @return taskNumber associated with the doAfter if it exists, null otherwise
-     */
     public int getTaskNumber() {
         return this.taskNumber;
     }
 
     /**
-     * Formats the local datetime to string.
+     * Returns a String representation of the doAfterTime LocalDateTime object.
      *
-     * @return doAfterTime in String format.
+     * @return Returns String representation of the doAfterTime LocalDateTime object.
      */
     private String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
@@ -83,9 +67,12 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Method to retrieve the type of DoAfter a specific DoAfter instance.
+     * Returns an integer representing the "type" of a specific DoAfter object.
+     * Returns 1 if the DoAfter object is associated with a datetime, 2 if the DoAfter object is associated
+     * with another task.
      *
-     * @return 1 if the DoAfter is for after a specific time, 2 if the DoAfter is for after a specific task.
+     * @return 1 if the DoAfter object is associated with a datetime, 2 if the DoAfter object is associated
+     *         with another task.
      */
     public int typeOfDoAfter() {
         if (this.taskNumber == -1) {
@@ -95,20 +82,16 @@ public class DoAfter extends Task {
         }
     }
 
-    /**
-     * Getter for the task
-     *
-     * @return Task associated with the doAfter.
-     */
     public Task getTask() {
         return this.task;
     }
 
     /**
-     * Set the task number to -2 when the associated task is deleted. Set the task number to 1 less if
+     * Sets the task number to -2 when the associated task is deleted. Set the task number to 1 less if
      * it is affected by the deletion.
      *
-     * @param option delete for deletion of associated task, affected for affected tasks by deletion
+     * @param option "Delete" for deletion of associated task, "affected" for affected tasks by deletion
+     * @throws AuroraException If option != "delete" or "affected".
      */
     public void setTaskNumberAfterDelete(String option) throws AuroraException {
         switch (option) {
@@ -125,7 +108,8 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Setter to determine if a DoAfter task has an associated task.
+     * Sets the hasNoAssociatedTask field to true if the DoAfter object is to be associated with another task.
+     * Sets the hasNoAssociatedTask field to false if the DoAfter object is to be associated with a datetime.
      *
      * @param hasNoAssociatedTask True if the DoAfter has an associated task, false otherwise.
      */
@@ -144,9 +128,11 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Helper method to get the string representing another associated task or date.
+     * Returns the String representation of either the datetime or the other task associated with the
+     * DoAfter object to be saved in the storage file.
      *
-     * @return The String representation of the date or other task associated with the doAfter task.
+     * @return String representation of either the datetime or the other task associated with the
+     *         DoAfter object.
      */
     private String getAfterFileString() {
         if (this.typeOfDoAfter() == 1) {
@@ -165,9 +151,11 @@ public class DoAfter extends Task {
     }
 
     /**
-     * Helper method to get the string representing another associated task or date.
+     * Returns the String representation of either the datetime or the other task associated with the
+     * DoAfter object.
      *
-     * @return The String representation of the date or other task associated with the doAfter task.
+     * @return String representation of either the datetime or the other task associated with the
+     *         DoAfter object.
      */
     private String getAfterString() {
         if (this.typeOfDoAfter() == 1) {

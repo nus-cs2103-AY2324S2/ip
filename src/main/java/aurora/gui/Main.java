@@ -17,19 +17,13 @@ import aurora.Aurora;
  */
 public class Main extends Application {
 
-    /**
-     * Aurora API from within the application.
-     */
+    /** Aurora API from within the application. */
     private Aurora aurora = new Aurora();
 
-    /**
-     * JavaFX scene used to host all graphical outputs.
-     */
+    /** JavaFX scene used to host all graphical outputs. */
     private Scene scene;
 
-    /**
-     * Image imported for icon.
-     */
+    /** Image imported for icon. */
     private Image auroraImage = new Image(this.getClass().getResourceAsStream("/images/Aurora.jpg"));
 
     @Override

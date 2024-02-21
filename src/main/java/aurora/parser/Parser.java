@@ -8,9 +8,7 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * Parser that helps to split the command string into chunks that can then be processed by the application.
- */
+/** The Parser class represents a Parser that helps to interpret user input for the application. */
 public class Parser {
 
     /** TaskList to interact with. */
@@ -24,7 +22,7 @@ public class Parser {
 
 
     /**
-     * Constructor for a Parser.
+     * Constructs a Parser Object.
      *
      * @param taskList TaskList to interact with
      * @param storage Storage to interact with
@@ -37,10 +35,10 @@ public class Parser {
     }
 
     /**
-     * Parses a command and returns an appropriate Command object
+     * Returns a Command object based upon the command input.
      *
-     * @params command Full command in String format
-     * @return An appropriate command object given the command string.
+     * @param command Command input.
+     * @return Command object based upon the command input.
      */
     public Command parseCommand(String command) {
         String[] splitCommands = Parser.splitAtAllBlanks(command);
@@ -73,70 +71,70 @@ public class Parser {
 
 
     /**
-     * Splits a command string at all spaces
+     * Returns a String array obtained by splitting a command string at all spaces.
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string at all spaces
      */
     public static String[] splitAtAllBlanks(String command) {
         return command.split(" ");
     }
 
     /**
-     * Splits a command string into 2 at the first space
+     * Returns a String array obtained by splitting a command string into 2 at the first space.
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string into 2 at the first space.
      */
     public static String[] splitAtFirstBlank(String command) {
         return command.split(" ", 2);
     }
 
     /**
-     * Splits a command string into 2 at the "/by"
+     * Returns a String array obtained by splitting a command string into 2 at the first "/by".
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string into 2 at the first "/by".
      */
     public static String[] splitAtFirstBy(String command) {
         return command.split(" /by ", 2);
     }
 
     /**
-     * Splits a command string into 2 at the "/from"
+     * Returns a String array obtained by splitting a command string into 2 at the first "/from".
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string into 2 at the first "/from".
      */
     public static String[] splitAtFirstFrom(String command) {
         return command.split(" /from ", 2);
     }
 
     /**
-     * Splits a command string into 2 at the "/to"
+     * Returns a String array obtained by splitting a command string into 2 at the first "/to".
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string into 2 at the first "/to".
      */
     public static String[] splitAtFirstTo(String command) {
         return command.split(" /to ", 2);
     }
 
     /**
-     * Splits a command string into 2 at the "/after"
+     * Returns a String array obtained by splitting a command string into 2 at the first "/after".
      *
      * @param command Command string.
-     * @return The string array containing the split command.
+     * @return String array obtained by splitting a command string into 2 at the first "/after".
      */
     public static String[] splitAtFirstAfter(String command) {
         return command.split(" /after ", 2);
     }
 
     /**
-     * Parses a date and time String and returns a LocalDateTime object.
+     * Returns a LocalDateTime Object corresponding to the datetime String.
      *
-     * @param date String representation of a date.
-     * @return LocalDateTime according to the String representation of the date.
+     * @param date String representation of a datetime.
+     * @return LocalDateTime Object corresponding to the datetime String.
      */
     public static LocalDateTime parseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -145,10 +143,10 @@ public class Parser {
     }
 
     /**
-     * Parses a date and time String from storage and returns a LocalDateTime object.
+     * Returns a LocalDateTime Object corresponding to the datetime String from the storage file.
      *
-     * @param date String representation of a date.
-     * @return LocalDateTime according to the String representation of the date.
+     * @param date String representation of a datetime from the storage file.
+     * @return LocalDateTime Object corresponding to the datetime String from the storage file.
      */
     public static LocalDateTime parseDateFromStorage(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");

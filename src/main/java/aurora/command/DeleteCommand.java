@@ -6,9 +6,7 @@ import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 
-/**
- * The DeleteCommand class handles the "unmark" command.
- */
+/** The DeleteCommand class represents the "delete" command. */
 public class DeleteCommand extends Command {
 
     /** TaskList to interact with. */
@@ -21,7 +19,7 @@ public class DeleteCommand extends Command {
     private String[] splitCommands;
 
     /**
-     * Constructor for the UnmarkCommand class.
+     * Constructs a DeleteCommand object.
      *
      * @param taskList      TaskList to edit.
      * @param storage       Storage to interact with.
@@ -47,13 +45,16 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Helper method that validates the input.
-     * @throws AuroraException If the inputs are invalid.
+     * Validates the delete command input by checking if it is following the format:
+     * delete {integer representing the index of the task to be deleted}
+     *
+     * @throws AuroraException If the delete command is invalid.
      */
     private void validateDeleteCommand() throws AuroraException {
         if (this.splitCommands.length != 2) {
             throw new AuroraException(AuroraException.INVALID_DELETE_FORMAT);
         }
+        // Solution adapted from https://www.baeldung.com/java-check-string-number
         if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
             throw new AuroraException("Please enter an integer as the second input.");
         }
@@ -67,26 +68,27 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Helper method that performs the deletion.
+     * Deletes the task specified by the taskIndex from the taskList.
+     * Returns a String that alerts the user that the task specified has been deleted.
      *
-     * @param taskIndex Index of task to be deleted
+     * @param taskIndex Index of task to be deleted.
      * @return String that alerts the user that the task has been deleted.
-     * @throws AuroraException If there is an error with deleting the task.
+     * @throws AuroraException If there is an error while the task is being deleted.
      */
     private String deleteTask(int taskIndex) throws AuroraException {
         return this.taskList.deleteTaskGui(taskIndex - 1);
     }
 
     /**
-     * Helper method to save the task.
+     * Saves the task list after deletion to the storage file.
      *
-     * @throws AuroraException If the taskList was not saved successfully.
+     * @throws AuroraException If an error occurs while saving the task list to the storage file.
      */
     private void saveTasks() throws AuroraException {
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            throw new AuroraException("Unable to save edits: " + exception.getMessage());
+            throw new AuroraException("I'm unable to save deadline to file: " + exception.getMessage());
         }
     }
 

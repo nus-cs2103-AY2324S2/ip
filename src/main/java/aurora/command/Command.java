@@ -2,24 +2,25 @@ package aurora.command;
 
 import aurora.objects.AuroraException;
 
-/**
- * Abstract class used to represent a command after the program parses it.
- */
+/** Abstract class used to represent a command. */
 public class Command {
 
     private static final String PLACEHOLDER = "This is a placeholder and should never be returned.";
 
     /**
-     * Method to indicate if a command is the 'bye' command.
+     * Returns false by default.
      *
-     * @return False if a command is not the 'bye' command, True if it is.
+     * @return If the command is a bye command.
      */
     public boolean isByeCommand() {
         return false;
     };
 
     /**
-     * Method to allow the program to handle a command with GUI integration
+     * Returns a String alerting users of the results of attempted handling of the command.
+     *
+     * @return A String that gives visual confirmation to the user that the command has been handled.
+     * @throws AuroraException If an error occurs while handling a command.
      */
     public String handle() throws AuroraException {
         return PLACEHOLDER;

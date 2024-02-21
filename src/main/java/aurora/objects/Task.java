@@ -1,8 +1,6 @@
 package aurora.objects;
 
-/**
- * The Task class represents the various different tasks in the task list of the application.
- */
+/** The Task class represents the various different tasks in the task list of the application. */
 public class Task {
 
     /** Status denoting if a task is done. */
@@ -15,7 +13,7 @@ public class Task {
     private static final String NOT_DONE_BRACKET = "[ ]";
 
     /**
-     * Constructor for the Task class.
+     * Constructs a Task object.
      *
      * @param description: Description of task.
      */
@@ -24,40 +22,26 @@ public class Task {
         this.description = description;
     }
 
-    /**
-     * Getter for the status of a task.
-     *
-     * @return true if the task is done, false if the task is not done.
-     */
     public boolean getStatus() {
         return this.isDone;
     }
 
-    /**
-     * Set the status of the task to "done".
-     */
     public void setDone() {
         this.isDone = true;
     }
 
-    /**
-     * Set the status of the task to "done".
-     */
     public void setNotDone() {
         this.isDone = false;
     }
 
-    /**
-     * Getter for the description.
-     */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Converts the task object to a fileString that can be saved.
+     * Returns a String representation of the Task object to be saved to the storage file.
      *
-     * @return String representing the task object.
+     * @return String representation of the Task object to be saved to the storage file.
      */
     public String toFileString() {
         return this.description;

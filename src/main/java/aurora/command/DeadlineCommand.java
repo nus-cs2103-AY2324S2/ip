@@ -10,9 +10,7 @@ import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-/**
- * The DeadlineCommand class handles the "deadline" command.
- */
+/** The DeadlineCommand class represents the "deadline" command. */
 public class DeadlineCommand extends Command {
 
     /** TaskList to interact with. */
@@ -28,7 +26,7 @@ public class DeadlineCommand extends Command {
     private String command;
 
     /**
-     * Constructor for the DeadlineCommand class.
+     * Constructs a DeadlineCommand object.
      *
      * @param taskList TaskList to edit.
      * @param ui Ui to interact with.
@@ -63,10 +61,12 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Helper method for the validation of the input format.
+     * Validates if a deadline command is legitimate by checking if a description for the deadline was
+     * given by the user.
      *
-     * @param descriptionAndDateSplit String array containing the full command.
-     * @throws AuroraException If the input format is invalid.
+     * @param descriptionAndDateSplit String array containing "deadline" in the 0th index, and the description
+     *                                along with the date in the 1st index if it exists.
+     * @throws AuroraException If the 1st index does not exist.
      */
     private void validateCommandFormat(String[] descriptionAndDateSplit) throws AuroraException {
         if (descriptionAndDateSplit.length < 2) {
@@ -75,10 +75,12 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Helper method for the validation of the input format.
+     * Validates if a deadline command is legitimate by checking if a description and a datetime
+     * for the deadline was given by the user.
      *
-     * @param splitVariables String array containing the description and the date of the deadline.
-     * @throws AuroraException If the input format is invalid.
+     * @param splitVariables String array containing the description of the deadline in the 0th index, and the
+     *                       datetime in the 1st index if it exists.
+     * @throws AuroraException If the 1st index does not exist.
      */
     private void validateDeadlineFormat(String[] splitVariables) throws AuroraException {
         if (splitVariables.length < 2) {
@@ -87,11 +89,11 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Helper method to parse the date
+     * Returns a LocalDateTime object after parsing the String representation of the datetime of the deadline.
      *
-     * @param dateString String representation of the date of the deadline.
-     * @return LocalDateTime object corresponding to the String representation.
-     * @throws AuroraException If the date is of incorrect format.
+     * @param dateString String representation of the datetime of the deadline.
+     * @return LocalDateTime object representing the datetime of the deadline.
+     * @throws AuroraException If the datetime String is of incorrect format.
      */
     private LocalDateTime parseDate(String dateString) throws AuroraException {
         try {
@@ -102,9 +104,9 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Helper method to save the task.
+     * Saves the task list containing the new deadline object created to the storage file.
      *
-     * @throws AuroraException if the task was not successfully saved.
+     * @throws AuroraException If an error occurs while saving the task list to the storage file.
      */
     private void saveTasks() throws AuroraException {
         try {

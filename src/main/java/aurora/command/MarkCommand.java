@@ -6,9 +6,7 @@ import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 
-/**
- * The MarkCommand class handles the "mark" command.
- */
+/** The MarkCommand class represents the "mark" command. */
 public class MarkCommand extends Command {
 
     /** TaskList to interact with. */
@@ -21,7 +19,7 @@ public class MarkCommand extends Command {
     private String[] splitCommands;
 
     /**
-     * Constructor for the MarkCommand class.
+     * Constructs a MarkCommand object.
      *
      * @param taskList      TaskList to edit.
      * @param storage       Storage to interact with.
@@ -42,10 +40,12 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Helper function to validate the input and parse the taskIndex.
+     * Returns an integer representing the index of the task to be marked as done.
+     * Validates that the Mark command input format follows the below convention:
+     * mark {integer within the task list}
      *
-     * @return taskNumber to be marked
-     * @throws AuroraException If the command is of incorrect format.
+     * @return Index of the task to be marked as done.
+     * @throws AuroraException If the mark command is of incorrect format.
      */
     private int validateInputAndGetTaskIndex() throws AuroraException {
         if (this.splitCommands.length != 2) {
@@ -69,11 +69,13 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Helper method to mark the task and save edits.
+     * Returns a String that alerts the user that the required task has been marked as done.
+     * Saves the task list to the storage file after marking the task as done.
      *
-     * @param taskIndex Task to be marked.
-     * @return String to alert user if it has been marked and saved.
-     * @throws AuroraException If the edit cannot be saved.
+     * @param taskIndex Index of the task to be marked as done.
+     * @return Returns a String that alerts the user that the required task has been marked and the task list
+     *         saved to the storage file.
+     * @throws AuroraException If an error occurs during marking of the task.
      */
     private String markTaskAndSave(int taskIndex) throws AuroraException {
         String message;
