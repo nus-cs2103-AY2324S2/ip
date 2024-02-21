@@ -3,7 +3,6 @@ package youdon;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * The main class that starts the Youdon chatbot application.
@@ -27,17 +26,7 @@ public class Youdon {
      * @param args The command-line arguments passed to the application.
      */
     public static void main(String[] args) {
-        // initialise ui and storage (filepath = "./data/save.txt")
-        Ui ui = new Ui();
-        Storage storage = new Storage("./data/save.txt");
-        TaskList tasks = new TaskList(storage.loadData());
-        Parser parser = new Parser(ui, tasks, storage);
 
-        // chatbot welcome message
-        ui.printWelcomeMsg();
-
-        // parse input
-        parser.parse();
     }
 
     protected String getResponse(String input) {
