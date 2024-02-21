@@ -21,6 +21,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("\uD83D\uDC51 Duchess Task Manager \uD83D\uDC51");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuchess(duchess);
             stage.show();
