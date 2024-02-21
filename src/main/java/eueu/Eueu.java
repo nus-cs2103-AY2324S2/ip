@@ -29,11 +29,9 @@ public class Eueu extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userPic = new Image(this.getClass().getResourceAsStream("/images/DaCHOCO.jpg"));
-    private Image eueu = new Image(this.getClass().getResourceAsStream("/images/DaEUEU.jpg"));
-    public Eueu() {
-
-    }
+    private Image userPic = new Image(this.getClass().getResourceAsStream("/images/daCHOCO.jpg"));
+    private Image eueu = new Image(this.getClass().getResourceAsStream("/images/daEUEU.jpg"));
+    public Eueu() {}
 
     File f = new File("data/EUEU.txt");
     File contFile = new File("data/Contacts.txt");
@@ -118,9 +116,6 @@ public class Eueu extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
-
-
-
 
     }
 

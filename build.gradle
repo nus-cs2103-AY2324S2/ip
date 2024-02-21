@@ -4,8 +4,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = "eueu.Launcher"
+
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
@@ -50,14 +53,9 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = 'eueu.jar'
+
 }
 
-//shadowJar {
-//    mergeServiceFiles()
-//    manifest {
-//        attributes 'Main-Class': 'eueu.Eueu'
-//    }
-//}
 
 run{
     standardInput = System.in

@@ -9,6 +9,7 @@ import eueu.task.Todo;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,8 +19,17 @@ import java.util.Scanner;
 public class Storage {
     private File f;
     static final String FILE_NOT_FOUND = "file not found! try again xx";
+    static final String FILE_ERROR = "error when creating file";
 
     public Storage (File f) {
+        if (!f.exists()) {
+            try {
+                f.getParentFile().mkdir();
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println(FILE_ERROR);
+            }
+        }
         this.f = f;
     }
 
