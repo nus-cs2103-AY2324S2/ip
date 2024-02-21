@@ -87,7 +87,9 @@ public class TodoList {
 
     @Override
     public String toString() {
-        return IntStream.range(0, taskList.size())
+        return taskList.isEmpty()
+                ? "You currently have nothing in your task list!"
+                : IntStream.range(0, taskList.size())
                 .boxed()
                 .reduce("", (
                         acc, index) -> String.format("%s\n%d. %s", acc, index + 1, taskList.get(index)), (
