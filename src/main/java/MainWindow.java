@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Taylor t) {
+    public void setTaylor(Taylor t) {
         taylor = t;
     }
 
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
         String response = taylor.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, tayImage)
+                DialogBox.getTaylorDialog(response, tayImage)
         );
         userInput.clear();
     }

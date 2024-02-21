@@ -28,8 +28,7 @@ public class Parser {
      * No constructor needed
      */
     private Parser() {
-        // throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
     }
 
     /**
@@ -96,7 +95,6 @@ public class Parser {
             }
             break;
         default:
-            // assert false : "Invalid command";
             response = Ui.invalidCommand();
             break;
         }
@@ -104,7 +102,7 @@ public class Parser {
     }
 
     /**
-     * enums for the different Commands
+     * Create enums for the different Commands
      * @param action User Input to select the different action to be taken
      * @return return Enums for that command
      */

@@ -29,8 +29,8 @@ public class Taylor extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image neu = new Image(this.getClass().getResourceAsStream("/images/Neuvillette.png"));
-    private Image wrio = new Image(this.getClass().getResourceAsStream("/images/Wriothesley.png"));
+    private Image taytay = new Image(this.getClass().getResourceAsStream("/images/Taylor.png"));
+    private Image tayswift = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
     public Taylor() {
         //...
     }
@@ -62,7 +62,7 @@ public class Taylor extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Daddies");
+        stage.setTitle("Taylor");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -108,7 +108,7 @@ public class Taylor extends Application {
             initialiseTasksList();
         } catch (Exception e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(e.toString(), wrio)
+                    DialogBox.getTaylorDialog(e.toString(), tayswift)
             );
         }
         sendButton.setOnMouseClicked((event) -> {
@@ -121,13 +121,11 @@ public class Taylor extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
     public Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -135,7 +133,6 @@ public class Taylor extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -143,8 +140,8 @@ public class Taylor extends Application {
         String userText = userInput.getText();
         String tayText = getResponse(userText);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, neu),
-                DialogBox.getDukeDialog(tayText, wrio)
+                DialogBox.getUserDialog(userText, taytay),
+                DialogBox.getTaylorDialog(tayText, tayswift)
         );
         userInput.clear();
 
@@ -156,8 +153,7 @@ public class Taylor extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generate a response to user input
      */
     public String getResponse(String input) {
         return Parser.executeCommand(input, tasksList);
@@ -166,7 +162,7 @@ public class Taylor extends Application {
     private void initialiseTasksList() {
         // Load pre-existing task from Hard Disk
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(getResponse("list"), wrio)
+                DialogBox.getTaylorDialog(getResponse("list"), tayswift)
         );
     }
 }
