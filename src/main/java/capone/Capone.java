@@ -11,6 +11,7 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class Capone {
+    private static final String NAME = "Capone";
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -66,5 +67,14 @@ public class Capone {
      */
     public Ui getUi() {
         return this.ui;
+    }
+
+    /**
+     * Gets the user-facing name of the Capone application.
+     *
+     * @return The user-facing name of the Capone application.
+     */
+    public static String getName() {
+        return Capone.NAME;
     }
 }
