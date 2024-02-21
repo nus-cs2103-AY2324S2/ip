@@ -1,6 +1,8 @@
 package duke.display;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import duke.command.DukeException;
 import duke.command.Parser;
@@ -74,6 +76,14 @@ public class Duke extends Application {
                 DialogBox.getDukeDialog(response, duke)
         );
         userInput.clear();
+
+        if (response.contains("Bye")) {
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    System.exit(0);
+                }
+            }, 1500);
+        }
     }
 
     /**
