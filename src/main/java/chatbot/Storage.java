@@ -51,45 +51,54 @@ public class Storage {
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
             if (input.startsWith("T")) {
-                String[] splitResult = input.split("\\|", 3);
-                assert splitResult.length == 3 : "Invalid splitResult array length for ToDo";
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                ToDo todo = new ToDo(description);
-                if (toggle == 1) {
-                    todo.toggleDone();
-                }
-                taskList.addTask(todo);
+                processTask(input, 1, taskList);
             } else if (input.startsWith("D")) {
-                String[] splitResult = input.split("\\|", 4);
-                assert splitResult.length == 4 : "Invalid splitResult array length for Deadline";
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                String[] dateParts = splitResult[3].split("\\|");
-                assert dateParts.length == 3 : "Invalid dateParts array length for Deadline";
-                LocalDateTime by = parseTime(dateParts);
-                Deadline deadline = new Deadline(description, by);
-                if (toggle == 1) {
-                    deadline.toggleDone();
-                }
-                taskList.addTask(deadline);
+                processDeadline(input, taskList);
             } else if (input.startsWith("E")) {
-                String[] splitResult = input.split("\\|", 4);
-                assert splitResult.length == 4 : "Invalid splitResult array length for Event";
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                String[] formattedBy = splitResult[3].split("\\|");
-                assert formattedBy.length % 2 == 0 : "Invalid formattedBy array length for Event";
-                LocalDateTime startTime = parseTime(Arrays.copyOfRange(formattedBy, 0, formattedBy.length / 2));
-                LocalDateTime endTime = parseTime(Arrays.copyOfRange(formattedBy, formattedBy.length / 2, formattedBy.length));
-                Event event = new Event(description, startTime, endTime);
-                if (toggle == 1) {
-                    event.toggleDone();
-                }
-                taskList.addTask(event);
+                processEvent(input, taskList);
             }
         }
         return taskList;
+    }
+
+    private void processTask(String input, int toggle, TaskList taskList) {
+        String[] splitResult = input.split("\\|", 3);
+        String description = splitResult[2].trim();
+        ToDo todo = new ToDo(description);
+        if (toggle == 1) {
+            todo.toggleDone();
+        }
+        taskList.addTask(todo);
+    }
+
+    private void processDeadline(String input, TaskList taskList) {
+        String[] splitResult = input.split("\\|", 4);
+        int toggle = Integer.parseInt(splitResult[1].trim());
+        String description = splitResult[2].trim();
+        String[] dateParts = splitResult[3].split("\\|");
+        LocalDateTime by = parseTime(dateParts);
+        Deadline deadline = new Deadline(description, by);
+        if (toggle == 1) {
+            deadline.toggleDone();
+        }
+        taskList.addTask(deadline);
+    }
+
+    private void processEvent(String input, TaskList taskList) {
+        String[] splitResult = input.split("\\|", 4);
+        int toggle = Integer.parseInt(splitResult[1].trim());
+        String description = splitResult[2].trim();
+        String[] formattedBy = splitResult[3].split("\\|");
+        int halfLength = formattedBy.length / 2;
+        String[] startTimeParts = Arrays.copyOfRange(formattedBy, 0, halfLength);
+        String[] endTimeParts = Arrays.copyOfRange(formattedBy, halfLength, formattedBy.length);
+        LocalDateTime startTime = parseTime(startTimeParts);
+        LocalDateTime endTime = parseTime(endTimeParts);
+        Event event = new Event(description, startTime, endTime);
+        if (toggle == 1) {
+            event.toggleDone();
+        }
+        taskList.addTask(event);
     }
     /**
      * Updates the data in the file.
@@ -115,57 +124,48 @@ public class Storage {
      */
     public <R extends Task> void addToData(R task, StringBuilder stringBuilder) {
         String taskType = task.getClass().getName();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         switch (taskType) {
         case "chatbot.ToDo":
-            stringBuilder.append("T | ").append(task.isDone() ? 1 : 0).append(" | ")
-                    .append(task.getDescription()).append("\n");
+            appendToDoData((ToDo) task, stringBuilder);
             break;
         case "chatbot.Deadline":
-            Deadline deadline = (Deadline) task;
-            LocalDateTime by = deadline.getBy();
-            // Extract date components
-            int day = by.getDayOfMonth();
-            int month = by.getMonthValue(); // make this double-digit?
-            int year = by.getYear();
-            // Extract time components
-            int hour = by.getHour();
-            int minute = by.getMinute();
-            // Append the components to the StringBuilder
-            stringBuilder.append("D | ").append(task.isDone() ? 1 : 0).append(" | ")
-                    .append(task.getDescription()).append(" | ")
-                    .append(day).append(" | ").append(month).append(" | ").append(year).append(" | ")
-                    .append(String.format("%02d%02d", hour, minute)).append("\n");
+            appendDeadlineData((Deadline) task, stringBuilder);
             break;
         case "chatbot.Event":
-            Event event = (Event) task;
-            LocalDateTime startTime = event.getStartTime();
-            LocalDateTime endTime = event.getEndTime();
-
-            // Extract start time components
-            int startDay = startTime.getDayOfMonth();
-            int startMonth = startTime.getMonthValue();
-            int startYear = startTime.getYear();
-            int startHour = startTime.getHour();
-            int startMinute = startTime.getMinute();
-
-            // Extract end time components
-            int endDay = endTime.getDayOfMonth();
-            int endMonth = endTime.getMonthValue();
-            int endYear = endTime.getYear();
-            int endHour = endTime.getHour();
-            int endMinute = endTime.getMinute();
-            // Append the components to the StringBuilder
-            stringBuilder.append("E | ").append(task.isDone() ? 1 : 0).append(" | ")
-                    .append(task.getDescription()).append(" | ")
-                    .append(startDay).append(" | ").append(startMonth).append(" | ")
-                    .append(startYear).append(" | ")
-                    .append(String.format("%02d%02d", startHour, startMinute)).append(" | ")
-                    .append(endDay).append(" | ").append(endMonth).append(" | ").append(endYear).append(" | ")
-                    .append(String.format("%02d%02d", endHour, endMinute)).append("\n");
+            appendEventData((Event) task, stringBuilder);
             break;
         default:
             break;
         }
     }
+
+    private void appendToDoData(ToDo todo, StringBuilder stringBuilder) {
+        stringBuilder.append("T | ").append(todo.isDone() ? 1 : 0).append(" | ").append(todo.getDescription()).append("\n");
+    }
+
+    private void appendDeadlineData(Deadline deadline, StringBuilder stringBuilder) {
+        LocalDateTime by = deadline.getBy();
+        stringBuilder.append("D | ").append(deadline.isDone() ? 1 : 0).append(" | ")
+                .append(deadline.getDescription()).append(" | ")
+                .append(by.getDayOfMonth()).append(" | ")
+                .append(by.getMonthValue()).append(" | ")
+                .append(by.getYear()).append(" | ")
+                .append(String.format("%02d%02d", by.getHour(), by.getMinute())).append("\n");
+    }
+
+    private void appendEventData(Event event, StringBuilder stringBuilder) {
+        LocalDateTime startTime = event.getStartTime();
+        LocalDateTime endTime = event.getEndTime();
+        stringBuilder.append("E | ").append(event.isDone() ? 1 : 0).append(" | ")
+                .append(event.getDescription()).append(" | ")
+                .append(startTime.getDayOfMonth()).append(" | ")
+                .append(startTime.getMonthValue()).append(" | ")
+                .append(startTime.getYear()).append(" | ")
+                .append(String.format("%02d%02d", startTime.getHour(), startTime.getMinute())).append(" | ")
+                .append(endTime.getDayOfMonth()).append(" | ")
+                .append(endTime.getMonthValue()).append(" | ")
+                .append(endTime.getYear()).append(" | ")
+                .append(String.format("%02d%02d", endTime.getHour(), endTime.getMinute())).append("\n");
+    }
+
 }
