@@ -1,13 +1,13 @@
 package jivox.exception;
 
 /**
- * Represents a duke exception when a task cannot be found in database.
+ * Represents a Jivox exception when a task cannot be found in database.
  */
 public class JivoxNoTaskFoundException extends JivoxException {
     private int taskNum;
 
     /**
-     * Constructor for the DukeNoTaskFoundException.
+     * Constructor for the JivoxNoTaskFoundException.
      *
      * @param taskNum the number of task in the
      */
@@ -16,14 +16,9 @@ public class JivoxNoTaskFoundException extends JivoxException {
     }
 
 
-    /**
-     * Obtain the string representation of the exception.
-     *
-     * @return string representation of the exception
-     */
     @Override
     public String toString() {
-        return String.format("%s I cannot find the task with number %d!",
+        return String.format("%s Unable to find the task with number %d!",
                 super.toString(),
                 this.taskNum
         );

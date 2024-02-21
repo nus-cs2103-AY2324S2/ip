@@ -1,13 +1,13 @@
 package jivox.exception;
 
 /**
- * Represents a duke exception when an unknown command is provided.
+ * Represents a Jivox exception when an unknown command is provided.
  */
 public class JivoxUnknownCommandException extends JivoxException {
     private String command;
 
     /**
-     * Constructor for DukeUnknownCommandException.
+     * Constructor for JivoxUnknownCommandException.
      *
      * @param command the unknown command
      */
@@ -16,11 +16,6 @@ public class JivoxUnknownCommandException extends JivoxException {
     }
 
 
-    /**
-     * Obtain the string representation of the exception.
-     *
-     * @return string representation of the exception
-     */
     @Override
     public String toString() {
         return String.format("%s I am unable to Understand your Command '%s'!",

@@ -5,13 +5,9 @@ package jivox.exception;
  */
 public class JivoxDuplicateTaskException extends JivoxException {
 
-    /**
-     * Obtain the string representation of the exception.
-     *
-     * @return string representation of the exception
-     */
+
     @Override
     public String toString() {
-        return String.format("%s There is a duplicate task in your list!", super.toString());
+        return String.format("%s There is a Duplicate task in your List!", super.toString());
     }
 }

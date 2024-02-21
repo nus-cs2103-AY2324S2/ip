@@ -1,7 +1,7 @@
 package jivox.exception;
 
 /**
- * Represents a duke exception when the database file can not be created.
+ * Represents a Jivox exception when the database file can not be created.
  */
 public class JivoxDatabaseException extends JivoxException {
 
@@ -12,6 +12,6 @@ public class JivoxDatabaseException extends JivoxException {
      */
     @Override
     public String toString() {
-        return String.format("%s Encountered fatal problem with the database!", super.toString());
+        return String.format("%s Unable to Connect with Database!", super.toString());
     }
 }
