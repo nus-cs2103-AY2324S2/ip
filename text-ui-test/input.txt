@@ -1,0 +1,13 @@
+deadline ip /by friday
+list
+mark 1
+todo running
+event meeting /from 9pm /to 10pm
+list
+mark 2
+mark 1
+unmark 2
+list
+mark 3
+list
+bye
