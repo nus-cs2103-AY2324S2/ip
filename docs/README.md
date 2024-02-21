@@ -22,7 +22,7 @@ Here is how it looks!
 **Notes about the command format:**
 
 Words in `<UPPER_CASE>` are the parameters to be supplied by the user.
-e.g. for todo `<TASK>`, `<TASK>` is a parameter which can be used as todo read book.
+e.g. for `todo <TASK>`, `<TASK>` is a parameter which can be used as `todo read book`.
 
 
 ### Listing all tasks: `list`
@@ -61,7 +61,7 @@ Creates a Deadline task.
 
 Format: `deadline <TASK> /by <TIME>`
 
-**WARNING**
+**WARNING:**
 
 `<TIME>` must follow the correct format: `dd/MM/yyyy HHmm`
 
@@ -83,7 +83,7 @@ Creates an Event task.
 
 Format: `event <TASK> /from <TIME> /to <TIME>`
 
-**WARNING**
+**WARNING:**
 
 `<TIME>` must follow the correct format: `dd/MM/yyyy HHmm`
 
@@ -105,7 +105,7 @@ Marks the specified task as done.
 
 Format: `mark <TASK_ID>`
 
-**WARNING**
+**WARNING:**
 
 `<TASK_ID>` must correspond to a task number in the list.
 
@@ -126,7 +126,7 @@ Marks the specified task as undone.
 
 Format: `unmark <TASK_ID>`
 
-**WARNING**
+**WARNING:**
 
 `<TASK_ID>` must correspond to a task number in the list.
 
@@ -147,7 +147,7 @@ Deletes the specified task.
 
 Format: `delete <TASK_ID>`
 
-**WARNING**
+**WARNING:**
 
 `<TASK_ID>` must correspond to a task number in the list.
 
