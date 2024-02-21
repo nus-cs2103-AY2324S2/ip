@@ -1,29 +1,61 @@
-# User Guide
+# Cappy User Guide
 
-## Features 
+![Product screenshot](Ui.png)
 
-### Feature-ABC
+> Hello I'm here to help you manage your tasks! - Cappy
 
-Description of the feature.
+Do you have a **hard time**
+- managing your tasks?
+- dealing with GUI software?
 
-### Feature-XYZ
+If you do Cappy is the _perfect_ companion for you!
+~Forget your current task management software.~
 
-Description of the feature.
+## Setup instructions 🛠️
+1. Download the [jar](https://github.com/Dethada/ip/releases/tag/A-Release)
+2. Make sure java 11 is installed
 
-## Usage
+## Usage 📖
+Run it by double clicking on it. Or run `java -jar Cappy.jar` in the terminal.
 
-### `Keyword` - Describe action
+## Commands
 
-Describe the action and its outcome.
+- Add a Todo Task:
+   - Syntax: `todo <task_description>`
+   Example: `todo Finish math assignment`
 
-Example of usage: 
+- Add a Deadline Task:
+   - Syntax: `deadline <task_description> /by <DateTime>`
+   - DateTime format: YYYY-MM-DD'T'HH:MM
+   Example: `deadline Finish math assignment /by 2024-02-14T14:59`
 
-`keyword (optional arguments)`
+- Add an Event Task:
+   - Syntax: `event <task_description> /from <DateTime> /to <DateTime>`
+   - DateTime format: YYYY-MM-DD'T'HH:MM
+   Example: `event Math Exam /from 2024-02-14T15:00 /to 2024-02-14T17:00`
 
-Expected outcome:
+- List all Tasks:
+   - Command: `list`
 
-Description of the outcome.
+- Delete a Task:
+   - Syntax: `delete <task_id>`
+   Example: `delete 2`
 
-```
-expected output
-```
+- Mark Task as Completed:
+   - Syntax: `mark <task_id>`
+   Example: `mark 1`
+
+- Mark Task as not completed:
+   - Syntax: `unmark <task_id>`
+   Example: `unmark 1`
+
+- Find a Task containing a given keyword:
+   - Syntax: `find <keyword>`
+   Example: `find math`
+
+- Exit Application:
+   - Syntax: `bye`
+
+- Show Help:
+   - Syntax: `help`
+

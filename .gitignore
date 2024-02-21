@@ -3,11 +3,6 @@
 /out/
 /*.iml
 
-# Gradle build files
-/.gradle/
-/build/
-src/main/resources/docs/
-
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -15,3 +10,33 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# edited from https://gist.github.com/dedunumax/54e82214715e35439227
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+##############################
+## Gradle
+##############################
+bin/
+build/
+.gradle
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+src/main/resources/docs/
+.project
+.settings
+
+# Project specific
+cappy.csv
+
