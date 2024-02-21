@@ -39,7 +39,6 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Zoe's reply and then appends them to
      * the dialog container. Clears the user input after processing.
-     * Thrown exception is to allow for pausing the bot for 2 seconds so that it can say bye to the user
      */
     @FXML
     private void handleUserInput() {

@@ -1,5 +1,7 @@
-todo_read book_0
-event_CS2103 tutorial /from 3pm/to 4pm_0
-deadline_ip soft deadline/by 2024-02-23_0
-deadline_finish reading book/by 2024-03-01_0
+todo_read book_1
+event_meeting /from 2pm/to 6pm_1
+deadline_english project/by 2024-03-01 23:58_0
+deadline_math project/by 2024-03-01 23:59_0
+deadline_art project/by 2024-05-03 23:58_0
+deadline_science project/by 2024-05-03 23:59_0
 EOF

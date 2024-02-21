@@ -16,7 +16,6 @@ public class Zoe{
 
     public String getResponse(String input) {
 
-
         if (input.equals("bye")) {
             return ui.saysBye();
         }

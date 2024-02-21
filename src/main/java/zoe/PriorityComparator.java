@@ -6,7 +6,7 @@ public class PriorityComparator implements Comparator<Task>{
     public int compare(Task firstTask, Task secondTask) {
         if ((firstTask instanceof Deadline) && (secondTask instanceof Deadline)) {
 
-            return ((Deadline) firstTask).getDate().isBefore(((Deadline) secondTask).getDate()) ? -1 : 0;
+            return ((Deadline) firstTask).getDateTime().isBefore(((Deadline) secondTask).getDateTime()) ? -1 : 0;
         }
 
         return firstTask.getPriority() - secondTask.getPriority();

@@ -1,6 +1,6 @@
 package zoe;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,16 +8,19 @@ import java.time.format.DateTimeFormatter;
  * Creates a deadline when keyed in the form: deadline XYZ /by yyyy-mm-dd
  */
 public class Deadline extends Task {
+    private static DateTimeFormatter DATE_TIME_PARSER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    private static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
     private static int DESCRIPTION = 0;
     private static int DATE = 1;
-    protected String date;
+    protected String dateTime;
     protected String formattedDate;
     public Deadline(String desc) {
         String[] str = desc.split("/by");
         this.description = str[DESCRIPTION].trim();
-        this.date = str[DATE].trim();
-        LocalDate inputDate = LocalDate.parse(date);
-        this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.dateTime = str[DATE].trim();
+        LocalDateTime inputDate = LocalDateTime.parse(dateTime, DATE_TIME_PARSER);
+        this.formattedDate = inputDate.format(FORMATTER);
         this.type = "D";
         this.isDone = false;
         this.priority = TaskPriority.DEADLINE.getPriority();
@@ -26,9 +29,9 @@ public class Deadline extends Task {
     public Deadline(String desc, String isDoneNumber) {
         String[] str = desc.split("/by");
         this.description = str[DESCRIPTION].trim();
-        this.date = str[DATE].trim();
-        LocalDate inputDate = LocalDate.parse(date);
-        this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.dateTime = str[DATE].trim();
+        LocalDateTime inputDate = LocalDateTime.parse(dateTime, DATE_TIME_PARSER);
+        this.formattedDate = inputDate.format(FORMATTER);
         this.type = "D";
         int doneState = Integer.parseInt(isDoneNumber);
         assert doneState < 2 : "Data file corrupted, invalid state";
@@ -45,13 +48,13 @@ public class Deadline extends Task {
 
     @Override
     public String saveTask() {
-        return String.format("deadline_%s/by %s_%d", description, date, isDoneNumerical());
+        return String.format("deadline_%s/by %s_%d", description, dateTime, isDoneNumerical());
     }
 
     /**
      * Provides date to the comparator to sort deadlines
      */
-    public LocalDate getDate() {
-        return LocalDate.parse(date);
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.parse(dateTime, DATE_TIME_PARSER);
     }
 }
