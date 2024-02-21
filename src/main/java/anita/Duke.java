@@ -30,7 +30,7 @@ public class Duke {
      */
     public String allocateTask(String command, String description) {
         Parser parser = new Parser();
-        String res = ui.line();
+        String res = "";
         try {
             switch (command) {
             case "bye":
@@ -58,7 +58,6 @@ public class Duke {
         } catch (Exception e) {
             return e.getMessage();
         }
-        res += ui.line();
         return res;
     }
 
