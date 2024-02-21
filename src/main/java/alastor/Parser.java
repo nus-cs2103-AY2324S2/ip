@@ -111,6 +111,7 @@ public class Parser {
      * @throws AlastorException If the file input is not in the correct format.
      */
     public static void parseFile(String line, ArrayList<Task> list, int index) throws AlastorException {
+        assert line != null : "Line should not be null";
         ParseType type = ParseType.FILE;
         String[] parameters = line.split("\\| ", 5);
         switch (parameters[0].trim()) {
@@ -136,6 +137,7 @@ public class Parser {
         if (marking.equals("0") || marking.equals("1")) {
             if (marking.equals("1")) {
                 list.get(index).mark();
+                assert (list.get(index).getStatusIcon().equals("[X]")) : "Task should be marked";
             }
         } else {
             throw new AlastorException(type.getErrorMessage()
@@ -151,6 +153,7 @@ public class Parser {
      * @throws AlastorException If the user input is not in the correct format.
      */
     public static Command parseCommand(String command) throws AlastorException {
+        assert command != null : "Command should not be null";
         ParseType type = ParseType.COMMAND;
         String[] parameters = command.trim().split(" ", 2);
         switch (parameters[0]) {
