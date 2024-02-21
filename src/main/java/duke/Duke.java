@@ -116,7 +116,7 @@ public class Duke extends Application {
         );
 
         if (userInput.getText().equals("bye")) {
-            bye();
+            sayBye();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
         } else {
@@ -162,7 +162,7 @@ public class Duke extends Application {
      * Runs the shutdown sequence.
      * Saves then says bye.
      */
-    public void bye() {
+    public void sayBye() {
         Storage.save(taskList);
         String bye = fillerLine() +
                 "    Goodbye! Hope to see you again soon!\n" +

@@ -40,7 +40,7 @@ public class Parser {
             }
             case "find": {
                 if (words.length < 2) {
-                    duke.output("No Search Term Detected!");
+                    duke.output(Help.getFindHelp());
                 } else {
                     StringBuilder searchTerm = new StringBuilder();
                     searchTerm.append(words[1]);
@@ -52,28 +52,40 @@ public class Parser {
                 break;
             }
             case "mark": {
-                int index = Integer.parseInt(words[1]) - 1;
-                if(index > taskList.getSize() - 1 || index < 0) {
-                    duke.output("Invalid index!");
+                if (words.length < 2) {
+                    duke.output(Help.getClearHelp());
                 } else {
-                    String announce = taskList.get(index).mark();
-                    duke.output(announce);
+                    int index = Integer.parseInt(words[1]) - 1;
+                    if (index > taskList.getSize() - 1 || index < 0) {
+                        duke.output("Invalid index!");
+                    } else {
+                        String announce = taskList.get(index).mark();
+                        duke.output(announce);
+                    }
                 }
                 break;
             }
             case "unmark": {
-                int index = Integer.parseInt(words[1]) - 1;
-                if(index > taskList.getSize() - 1 || index < 0) {
-                    duke.output("Invalid index!");
+                if (words.length < 2) {
+                    duke.output(Help.getUnmarkHelp());
                 } else {
-                    String announce = taskList.get(index).unmark();
-                    duke.output(announce);
+                    int index = Integer.parseInt(words[1]) - 1;
+                    if (index > taskList.getSize() - 1 || index < 0) {
+                        duke.output("Invalid index!");
+                    } else {
+                        String announce = taskList.get(index).unmark();
+                        duke.output(announce);
+                    }
                 }
                 break;
             }
             case "delete": {
-                int index = Integer.parseInt(words[1]) - 1;
-                taskList.delete(index);
+                if (words.length < 2) {
+                    duke.output(Help.getDeleteHelp());
+                } else {
+                    int index = Integer.parseInt(words[1]) - 1;
+                    taskList.delete(index);
+                }
                 break;
             }
             case "t":
@@ -95,9 +107,22 @@ public class Parser {
                 taskList.clear();
                 break;
             }
+            case "help": {
+                if (words.length < 2) {
+                    duke.output("help: Returns help for the specified command\n" +
+                            "Syntax: help <command_name>\n" +
+                            "List of commands: bye, list, find, mark, unmark,\n" +
+                            "delete, todo, deadline, event, clear, schedule");
+                } else {
+                    String command = words[1];
+                    duke.output(Help.getHelp(command));
+                }
+                break;
+            }
             case "schedule": {
                 if (words.length < 2) {
                     String activities = taskList.searchDate();
+                    duke.output(activities);
                 } else {
                     LocalDate date = null;
                     try {
