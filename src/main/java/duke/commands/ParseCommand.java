@@ -41,6 +41,10 @@ public class ParseCommand {
             return new DeleteCommand();
         case FIND:
             return new FindCommand();
+        case ADD_TAG:
+            return new AddTagCommand();
+        case REMOVE_TAG:
+            return new RemoveTagCommand();
         default:
             return new Command();
         }
