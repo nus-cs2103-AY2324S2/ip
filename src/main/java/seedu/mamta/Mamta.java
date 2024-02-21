@@ -14,6 +14,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.Node;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -45,10 +48,11 @@ public class Mamta extends Application  {
     private void handleUserInput(TextField userInput, VBox dialogContainer) {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialogs(userText, new ImageView(user)),
-                DialogBox.getMamtaDialog(dukeText, new ImageView(mamta))
-        );
+        List<Node> nodesToAdd = new ArrayList<>();
+        nodesToAdd.add(DialogBox.getUserDialogs(userText, new ImageView(user)));
+        nodesToAdd.add(DialogBox.getMamtaDialog(dukeText, new ImageView(mamta)));
+
+        dialogContainer.getChildren().addAll(nodesToAdd);
         userInput.clear();
     }
 
@@ -145,7 +149,7 @@ public class Mamta extends Application  {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Mamta heard: " + input;
+        return Parser.transformText(input);
     }
 
     public Mamta() {}
