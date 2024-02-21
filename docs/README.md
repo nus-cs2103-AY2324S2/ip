@@ -3,6 +3,14 @@
 Adam is a desktop app for **managing tasks, optimised for use via a Command Line Interface** (CLI) while still having the
 benefits of a Graphical user Interface (GUI).
 
+## Quick Start
+
+1. Ensure you have Java 11 or above installed in your computer.
+2. Download the latest adam.jar from [here](https://github.com/ibnu2651/ip/releases/download/untagged-b8a9594a4e0977d00bb6/adam.jar).
+3. Copy the file to the folder you want to use as the home folder.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar adam.jar` command to
+run the application.
+
 ## Adding todos
 
 Adds a todo task to the list of tasks.
