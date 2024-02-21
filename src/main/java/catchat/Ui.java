@@ -29,15 +29,15 @@ public class Ui {
     }
 
     public String getCommands() {
-        return "Display your list => LIST\n"
-                + "Add a Todo => todo <TASK NAME>\n"
-                + "Add a Deadline => deadline <TASK NAME> /by <DD/MM/YYYY>\n"
-                + "Add a Event => event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>\n"
-                + "Mark Done => mark done <INDEX>\n"
-                + "Mark Undone => mark undone <INDEX>\n"
-                + "Delete a Task => delete <INDEX>\n"
-                + "Find a Task => find <KEYWORD>\n"
-                + "Exit => bye";
+        return "LIST - Display task list\n"
+                + "TODO <TASK NAME> - Add a Todo\n"
+                + "DEADLINE <TASK NAME> /by <DD/MM/YYYY> - Add a Deadline\n"
+                + "EVENT <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY> - Add an Event\n"
+                + "MARK DONE <INDEX> - Mark a task as done\n"
+                + "MARK UNDONE <INDEX> - Mark a task as undone\n"
+                + "DELETE <INDEX> - Delete a task\n"
+                + "FIND <KEYWORD> - Find a keyword\n"
+                + "BYE - Exit";
     }
 
     /**
@@ -53,7 +53,6 @@ public class Ui {
      * @return String user input
      */
     public String getUserInput() {
-        // System.out.println("Enter a task below: ");
         return scanner.nextLine();
     }
 
