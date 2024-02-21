@@ -1,9 +1,9 @@
 package ghbot;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
+import java.time.DateTimeException;
 
-import ghbot.exception.GhBotException;
+import ghbot.exception.UiException;
 import ghbot.executor.ByeExecutor;
 import ghbot.executor.Executor;
 import ghbot.parser.Parser;
@@ -17,7 +17,7 @@ import ghbot.ui.Ui;
  */
 public class GhBot {
     private Storage storage;
-    private TaskList taskLst;
+    private TaskList taskList;
     private Ui ui;
 
     /**
@@ -26,7 +26,7 @@ public class GhBot {
      */
     public GhBot(String filename) {
         this.storage = new Storage(filename);
-        this.taskLst = new TaskList(storage.getInputFromFile());
+        this.taskList = new TaskList(storage.getInputFromFile());
     }
 
     /**
@@ -41,15 +41,15 @@ public class GhBot {
             Executor executor = Parser.parse(subStr);
 
             if (executor instanceof ByeExecutor) {
-                this.storage.writeDataToFile(taskLst.toList());
+                this.storage.writeDataToFile(taskList.toList());
                 return executor.execute();
             }
 
             if (executor != null) {
-                executor.set(this.taskLst);
+                executor.set(this.taskList);
                 return executor.execute();
             }
-        } catch (GhBotException | IOException | DateTimeParseException e) {
+        } catch (UiException | IOException | DateTimeException e) {
             return e.getMessage();
         }
         return "";

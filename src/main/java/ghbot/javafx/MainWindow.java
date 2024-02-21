@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-            DialogBox.getGhBotDialog("Hi, I'm GhBot!\n What can I do for you?", ghBotImage)
+            DialogBox.getGhBotDialog("Hi, I'm GhBot!\nWhat can I do for you?", ghBotImage)
         );
     }
 
