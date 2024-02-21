@@ -10,7 +10,7 @@ import mainfiles.TaskList;
 import mainfiles.UserInput;
 
 /**
- * javafxFiles.Main code for running javafxFiles.Steven
+ * Main code for running Steven.
  */
 public class Steven {
 
@@ -41,22 +41,35 @@ public class Steven {
     }
 
     /**
-     * Driver code for javafxFiles.Steven. It will run the entire program
+     * Driver code for javafxFiles.Steven. It will run the entire program.
      */
     public void run() {
-        boolean exit = false;
-        while (!exit) {
+        boolean canExit = false;
+        while (!canExit) {
             Scanner input = new Scanner(System.in);
             while (input.hasNextLine()) {
                 UserInput command = new UserInput(input.nextLine());
                 String outputString = new Parser(command, this.tasks).processInput();
                 System.out.println(outputString);
-                if (exit) {
+                canExit = checkExit(command);
+                if (canExit) {
                     System.out.print(LINE);
                     break;
                 }
             }
         }
+    }
+
+    /**
+     * Checks if the program can terminate. Note that this is used for CLI variant and not the javafx version.
+     * @param command - the user command that is used
+     * @return - true if "bye" was typed, false otherwise
+     */
+    private boolean checkExit(UserInput command) {
+        if (command.getInputName().equals("bye")) {
+            return true;
+        }
+        return false;
     }
     public static void main(String[] args) {
         new Steven().run();

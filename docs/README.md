@@ -92,10 +92,10 @@ Example: `search the`
 
 Sorts the task list. The order can be specified by the user. Note that this affects the ordering of the list, so be sure to use `list` if you need to check the new indices of the items in the list.
 
-Format: `sort (asc/dec)`
+Format: `sort (asc/des)`
 
 - `asc` is used to sort the list in lexicographical order, ascending, so an event `AA` will be before `AC`, and `AC` will be before `ZZ`.
-- `dec` is used to sort the list in lexicographical order, descending, so an event `AA` will be after `AC`, and `AC` will be after `ZZ`.
+- `des` is used to sort the list in lexicographical order, descending, so an event `AA` will be after `AC`, and `AC` will be after `ZZ`.
 - note that this spelling of "asc" or "dec" must strictly be followed.
 
 Example: `sort asc`
