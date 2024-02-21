@@ -1,4 +1,4 @@
 T |   | some homework
 T | X | more hoemwork
 T |   | even more homework
-D |   | something | by: 2024-12-12 2359
+A |   | something | after: 2024-12-12 2359

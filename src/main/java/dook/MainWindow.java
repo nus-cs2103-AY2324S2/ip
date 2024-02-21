@@ -32,6 +32,10 @@ public class MainWindow extends AnchorPane {
                     + "　　 　｜　　 _⊃　　♪\n"
                     + "　　　 し -,"));
 
+    private static final String WELCOME_STRING = "Hello from Dook! :D meow";
+
+    private static final String PROMPT_STRING = "What can I do for you?? uwu";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -51,6 +55,20 @@ public class MainWindow extends AnchorPane {
             + "|____/ \\___/ \\___/|_|\\_\\     \u3058\u3057_,)ノ\n";
 
     private Timeline danceAnimation;
+
+    private KeyFrame getKeyFrame(double time, boolean isDook, String content) {
+        if (isDook) {
+            return new KeyFrame(Duration.seconds(time),
+                    event -> dialogContainer
+                            .getChildren()
+                            .addAll(DialogBox.getDukeDialog(content, dookImage)));
+        } else {
+            return new KeyFrame(Duration.seconds(time),
+                    event -> dialogContainer
+                            .getChildren()
+                            .addAll(DialogBox.getUserDialog(content, userImage)));
+        }
+    }
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -58,32 +76,15 @@ public class MainWindow extends AnchorPane {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(0);
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(1.5),
-                        event -> dialogContainer
-                                .getChildren()
-                                .addAll(DialogBox
-                                        .getDukeDialog("Hello from Dook! :D meow", dookImage))),
-                new KeyFrame(Duration.seconds(3.0),
-                        event -> dialogContainer
-                                .getChildren()
-                                .addAll(DialogBox
-                                        .getDukeDialog("What can I do for you?? uwu", dookImage)))
-        );
+                getKeyFrame(1.5, true, WELCOME_STRING),
+                getKeyFrame(3.0, true, PROMPT_STRING));
         timeline.play();
         danceAnimation = new Timeline();
         danceAnimation.setCycleCount(0);
         for (int i = 0; i < 16; i++) {
             danceAnimation.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(((float) i + 0.5) / 2.0),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getDukeDialog(DANCE_STRING.get(0), dookImage))),
-                    new KeyFrame(Duration.seconds(((float) i + 1) / 2.0),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getDukeDialog(DANCE_STRING.get(1), dookImage))));
+                    getKeyFrame(((float) i + 0.5) / 2.0, true, DANCE_STRING.get(0)),
+                    getKeyFrame(((float) i + 1) / 2.0, true, DANCE_STRING.get(1)));
         }
     }
 
@@ -102,49 +103,23 @@ public class MainWindow extends AnchorPane {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(0);
         String response = dook.getResponse(input);
-        // TODO: create DookResponse types (animation, text or quit)
         if (input.equals("bye")) {
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(0),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getUserDialog(input, userImage))),
-                    new KeyFrame(Duration.seconds(1.5),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getDukeDialog(response, dookImage))),
+                    getKeyFrame(0, false, input),
+                    getKeyFrame(1.5, true, response),
                     new KeyFrame(Duration.seconds(3),
                             event -> Platform.exit())
             );
         } else if (input.equals("dance")) {
             danceAnimation.play();
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(0),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getUserDialog(input, userImage))),
-                    new KeyFrame(Duration.seconds(8),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getDukeDialog(response, dookImage))));
+                    getKeyFrame(0, false, input),
+                    getKeyFrame(8, true, response));
         } else {
             timeline.setCycleCount(0);
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(0),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getUserDialog(input, userImage))),
-                    new KeyFrame(Duration.seconds(1.5),
-                            event -> dialogContainer
-                                    .getChildren()
-                                    .addAll(DialogBox
-                                            .getDukeDialog(response, dookImage)))
-            );
+                    getKeyFrame(0, false, input),
+                    getKeyFrame(1.5, true, response));
         }
         timeline.play();
     }

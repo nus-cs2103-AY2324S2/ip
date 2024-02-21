@@ -16,17 +16,13 @@ import command.MarkCommand;
 import command.MeowCommand;
 import command.UnmarkCommand;
 
-import task.Deadline;
-import task.Event;
-import task.TaskType;
-import task.Task;
-import task.ToDo;
+import task.*;
 
 public class Parser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final ArrayList<String> TASK_TYPES = new ArrayList<>(Arrays
-            .asList("todo", "deadline", "event"));
+            .asList("todo", "deadline", "event", "doafter"));
 
     /**
      * Parses a given command as a String.
@@ -54,8 +50,12 @@ public class Parser {
                 return new AddCommand(getTask(TaskType.TODO, secondWord));
             case "deadline":
                 return new AddCommand(getTask(TaskType.DEADLINE, secondWord));
-            default:
+            case "doafter":
+                return new AddCommand(getTask(TaskType.DOAFTER, secondWord));
+            case "event":
                 return new AddCommand(getTask(TaskType.EVENT, secondWord));
+            default:
+                throw new DookException("UhOH!!! illegal task type! :(");
             }
         } else if (firstWord.equals("mark")) {
             try {
@@ -128,6 +128,11 @@ public class Parser {
                 LocalDateTime start = LocalDateTime.parse(startAndEnd[0], formatter);
                 LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
                 return new Event(name, start, end);
+            case DOAFTER:
+                details = taskDetails.split(" /after ", 2);
+                name = details[0];
+                LocalDateTime doAfter = LocalDateTime.parse(details[1], formatter);
+                return new DoAfter(name, doAfter);
             default:
                 throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
             }
@@ -162,6 +167,9 @@ public class Parser {
         case "T":
             taskType = TaskType.TODO;
             break;
+        case "A":
+            taskType = TaskType.DOAFTER;
+            break;
         default:
             throw new DookException("Invalid task type at \"" + s + "\".");
         }
@@ -191,8 +199,13 @@ public class Parser {
                 LocalDateTime start = LocalDateTime.parse(startAndEnd[0].split("from: ", 2)[1], formatter);
                 LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
                 return new Event(name, start, end, isDone);
+            case DOAFTER:
+                details = description.split(" \\| ", 2);
+                name = details[0];
+                LocalDateTime doAfter = LocalDateTime.parse(details[1].split("after: ", 2)[1], formatter);
+                return new DoAfter(name, doAfter, isDone);
             default:
-                throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :)");
+                throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :(");
             }
         } catch (Exception e) {
             throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :(");
