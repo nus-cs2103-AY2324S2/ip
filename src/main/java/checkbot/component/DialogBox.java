@@ -39,6 +39,34 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Returns a DialogBox that has labels and profile pictures aligned such that we can
+     * tell that the message came from the user.
+     *
+     * @param label     The Label containing the message from the user.
+     * @param imageView The profile picture of the user.
+     * @return The DialogBox that wraps the whole thing together.
+     */
+    public static DialogBox getUserDialog(Label label, ImageView imageView) {
+        return new DialogBox(label, imageView);
+    }
+
+
+    /**
+     * Returns a DialogBox that has labels and profile pictures aligned such that we can
+     * tell that the message came from Checkbot.
+     *
+     * @param label     The Label containing the message from Checkbot.
+     * @param imageView Checkbot's profile picture.
+     * @return The DialogBox that wraps the whole thing together.
+     */
+    public static DialogBox getCheckbotDialog(Label label, ImageView imageView) {
+        DialogBox db = new DialogBox(label, imageView);
+        db.flip();
+        db.setBackground(Background.fill(Color.color(0.85, 0.85, 0.85)));
+        return db;
+    }
+
+    /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
@@ -46,16 +74,5 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
-    }
-
-    public static DialogBox getUserDialog(Label label, ImageView imageView) {
-        return new DialogBox(label, imageView);
-    }
-
-    public static DialogBox getCheckbotDialog(Label label, ImageView imageView) {
-        DialogBox db = new DialogBox(label, imageView);
-        db.flip();
-        db.setBackground(Background.fill(Color.color(0.85, 0.85, 0.85)));
-        return db;
     }
 }
