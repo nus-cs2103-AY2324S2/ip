@@ -65,7 +65,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             throw new ZackException("Hmm looks like you don't have a storage file yet. Don't worry, just"
-                    + "start adding tasks to the task list and I'll create oen for you!");
+                    + " start adding tasks to the task list and I'll create one for you!");
         }
         return loadedTasks;
     }
