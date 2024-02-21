@@ -12,13 +12,27 @@
 ```
 > Your Best Bot and Friend! 
 
-// Product screenshot goes here
+![Product Image](./Ui.png)
+
+1. [About Me](#about-me)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+    - [Viewing Data](#viewing-data)
+    - [Editing Data](#editing-data)
+    - [Adding Tasks](#adding-tasks)
+    - [Others](#others)
+4. [FAQ](#faq)
+5. [Command Summary](#command-summary)
+
+<a id="about-me"></a>
 
 # About Me
 I am a bot that helps you organise your tasks and boost your productivity so that you can focus on the more important things in life, such as watching your favourite TV show. I can:
 - Able to read your text inputs.
 - Execute commands to help you organise your life.
 - Keep it saved locally once you leave the program.
+
+<a id="quick-start"></a>
 
 ## Quick Start
 All you need to do is to [download](https://github.com/c-wenlong/ip) me and run the `Launcher.java` file! :shit: And your life will become so much __*more organised*__.
@@ -29,7 +43,11 @@ All you need to do is to [download](https://github.com/c-wenlong/ip) me and run 
 
 **Ensure you have Java 11 or above installed in your Computer.**
 
+<a id="features"></a>
+
 ## Features
+
+<a id="viewing-data"></a>
 
 ### Viewing Data
 
@@ -57,6 +75,9 @@ Here are the matching tasks in your list:
 1.[T][X] homework Tags:[]
 ```
 ---
+
+<a id="editing-data"></a>
+
 ### Editing Data
 >#### Mark
 
@@ -90,6 +111,9 @@ OK, I've deleted this task:
 Now you have 2 tasks in this list!
 ```
 ---
+
+<a id="adding-tasks"></a>
+
 ### Adding Tasks
 >#### Todo
 
@@ -140,6 +164,9 @@ Got it. I've added this task:
 Now you have 4 tasks in this list!
 ```
 ---
+
+<a id="others"></a>
+
 ### Others
 >#### Help
 Lists all available commands. 
@@ -171,6 +198,8 @@ Example: `bye`
 
 ---
 
+<a id="faq"></a>
+
 ## Frequently Asked Questions (FAQ)
 
 #### How do I add a task to the list?
@@ -192,6 +221,8 @@ To search for tasks containing a specific keyword, use the `find <keyword>` comm
 To exit the program, simply type `bye` and press Enter.
 
 ---
+
+<a id="command-summary"></a>
 
 ## Command Summary
 

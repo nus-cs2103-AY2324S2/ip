@@ -47,9 +47,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Kaipybara Bot"
     archiveClassifier = null
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'kbot.jar'
     dependsOn("distZip", "distTar")
 }
 
