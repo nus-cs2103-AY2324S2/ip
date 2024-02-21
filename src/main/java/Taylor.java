@@ -104,7 +104,7 @@ public class Taylor extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         try {
-            tasksList = Storage.inputFromFile(tasksList);
+            tasksList = Storage.inputFromFile();
             initialiseTasksList();
         } catch (Exception e) {
             dialogContainer.getChildren().addAll(

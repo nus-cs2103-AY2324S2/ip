@@ -13,8 +13,8 @@ public class Event extends Task {
     /**
      * Constructor for Actions1.Event class
      * @param description action to be made
-     * @param from
-     * @param to
+     * @param from Starting Time
+     * @param to Ending Time
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
-import tasks.Deadline;
-import tasks.Event;
+import helper.IterateList;
+import helper.TaskInsertion;
+import helper.WordsSplit;
 import tasks.Task;
+import ui.Ui;
 
 /**
  * To search tasks based on Date and Time
@@ -27,48 +29,26 @@ public class SearchTask {
      */
     public static String execSearchTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
-        int splitFirstWhitespace = 2;
-        int contentIdx = 1;
         try {
-            String[] wordPartition = input.split(" ", splitFirstWhitespace);
-            String content = wordPartition[contentIdx];
+            String[] wordPartition = WordsSplit.separateWords(input, " ", true);
+            int contentIdx = 1;
+            String content = WordsSplit.getWord(wordPartition, contentIdx);
 
-            LocalDateTime searchDate = InsertTask.dateConversion(content);
+            LocalDateTime searchDate = TaskInsertion.dateConversion(content);
             List<Task> output = new ArrayList<>();
 
-            int deadlineListIdx = 0;
-            int eventListIdx = 1;
-            List<Task> deadlineList = taskList.get(deadlineListIdx);
-            List<Task> eventList = taskList.get(eventListIdx);
-
-            for (Task deadline : deadlineList) {
-                Deadline task = (Deadline) deadline;
-                if (task.getBy().isEqual(searchDate)) {
-                    output.add(task);
-                }
-            }
-
-            for (Task event : eventList) {
-                Event task = (Event) event;
-                if (task.getFrom().isEqual(searchDate) || task.getTo().isEqual(searchDate)) {
-                    output.add(task);
-                }
-            }
+            IterateList.searchList(taskList, searchDate, output);
 
             if (output.isEmpty()) {
-                response.append("No event on this date").append("\n");
+                Ui.emptyResult(response);
             } else {
-                for (Task act : output) {
-                    response.append(act).append("\n");
-                }
+                Ui.appendResponse(response, output);
             }
-
         } catch (TaylorException err) {
             throw new TaylorException(err.getMessage());
         } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
         }
-
         return response.toString();
     }
 }

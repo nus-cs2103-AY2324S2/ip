@@ -1,9 +1,9 @@
 package tasklist;
 
-import java.util.Collections;
 import java.util.List;
 
 import tasks.Task;
+import ui.Ui;
 
 /**
  * To list all the task
@@ -23,38 +23,11 @@ public class ListTask {
      */
     public static String execListTask(List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
-        response.append("Here are the tasks in your list:\n");
-        int pos = 1;
+        Ui.listingStart(response);
         if (taskList.isEmpty()) {
-            response.append("List is empty.");
+            Ui.emptyResult(response);
         } else {
-            int deadlineListIdx = 0;
-            List<Task> deadlineList = taskList.get(deadlineListIdx);
-            response.append("Deadline: ").append("\n");
-            Collections.sort(deadlineList);
-            for (Task task : deadlineList) {
-                response.append(pos++).append(". ").append(task).append("\n");
-            }
-            response.append("___________________________").append("\n");
-
-            int eventListIdx = 1;
-            List<Task> eventList = taskList.get(eventListIdx);
-            response.append("Events: ").append("\n");
-            Collections.sort(eventList);
-            for (Task task : eventList) {
-                response.append(pos++).append(". ").append(task).append("\n");
-            }
-            response.append("___________________________").append("\n");
-
-            int todoListIdx = 2;
-            List<Task> todoList = taskList.get(todoListIdx);
-            response.append("Todo: ").append("\n");
-            Collections.sort(todoList);
-            for (Task task : todoList) {
-                response.append(pos++).append(". ").append(task).append("\n");
-            }
-            response.append("___________________________").append("\n");
-
+            Ui.listTasks(taskList, response);
         }
         return response.toString();
     }
