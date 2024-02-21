@@ -18,6 +18,7 @@ public class ParseCommand {
      * @return Command object based on the input command.
      */
     public static Command parse(String[] input) throws IOException {
+        assert input != null: "input[] should never be null";
 
         CommandsEnum command = CommandsEnum.getCommandEnum(input[0]);
 
@@ -40,9 +41,12 @@ public class ParseCommand {
             return new DeleteCommand();
         case FIND:
             return new FindCommand();
+        case ADD_TAG:
+            return new AddTagCommand();
+        case REMOVE_TAG:
+            return new RemoveTagCommand();
         default:
             return new Command();
         }
-
     }
 }

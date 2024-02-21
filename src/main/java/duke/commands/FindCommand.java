@@ -2,6 +2,7 @@ package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import duke.tasks.Task;
 import duke.ui.Ui;
@@ -25,19 +26,22 @@ public class FindCommand extends Command {
                     "Please specify the keyword. (Format: find <keyword>)");
         }
 
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        HashSet<Task> matchingTasks = new HashSet<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(input[1].trim())) {
+                matchingTasks.add(task);
+            }
+            if (input[1].charAt(0) == '#' && task.getTags().contains(input[1].trim())) {
                 matchingTasks.add(task);
             }
         }
 
         if (!matchingTasks.isEmpty()) {
-            super.commandResponse = Ui.printList(matchingTasks);
+            super.commandResponse = Ui.printList(new ArrayList<>(matchingTasks));
         } else {
             super.commandResponse = Ui.printOutput(String.format(
                     "Hmmm... I can't find any task that corresponds to the keyword '%s'",
-                    input[1].toString()));
+                    input[1]));
         }
     }
 }

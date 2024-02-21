@@ -31,9 +31,18 @@ public class Deadline extends Task {
     @Override
     public String toStorageString() {
         int statusValue = this.getStatus() ? 1 : 0;
+        assert statusValue == 0 || statusValue == 1 : "Status value must be equal to 0 or 1";
+      
+        StringBuilder sb = new StringBuilder();
 
-        return String.format("deadline~%d~%s~%s", statusValue, this.description,
-                Utils.formatInput(this.by));
+        sb.append(String.format("deadline~%d~%s~%s", statusValue, this.description,
+                Utils.inputFormat(this.by)));
+
+        for (String tag : this.getTags()) {
+            sb.append("~").append(tag);
+        }
+
+        return sb.toString();
     }
 
     /**
