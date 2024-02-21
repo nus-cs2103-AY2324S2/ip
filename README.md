@@ -53,5 +53,3 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/seedu.mamta/Mamta.java` file, right-click it, and choose `Run Launcher` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-
-![Screenshot 2024-02-21 at 11.59.52 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fk4%2F5t9w_3t17bx_h1kzys3r8tvh0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_vExG50%2FScreenshot%202024-02-21%20at%2011.59.52%20PM.png)
