@@ -38,9 +38,9 @@ public class TaskList {
 
         String response = "";
 
-        response += "Got it. I've added this task:";
-        response += "    " + element.listTaskString();
-        response += "Now you have " + this.taskQuantity() + " tasks in the list.\n";
+        response += "Got it. I've added this task: " + NEW_LINE;
+        response += "    " + element.listTaskString() + NEW_LINE;
+        response += "Now you have " + this.taskQuantity() + " tasks in the list." + NEW_LINE;
 
         return response;
     }
@@ -52,7 +52,7 @@ public class TaskList {
      */
     public String searchTask(String keyword) {
 
-        String noResponse = "No matching tasks found.\n";
+        String noResponse = "No matching tasks found." + NEW_LINE;
 
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String response = NEW_LINE;
@@ -66,13 +66,12 @@ public class TaskList {
         if (matchingTasks.isEmpty()) {
             response += noResponse;
         } else {
-            response += "Matching tasks: \n";
+            response += "Matching tasks: " + NEW_LINE;
             int index = 0;
             for (Task matchingTask : matchingTasks) {
                 index++;
-                response += "    " + index + "." + matchingTask.listTaskString() + "\n";
+                response += "    " + index + ". " + matchingTask.listTaskString() + NEW_LINE;
             }
-            response += NEW_LINE;
         }
 
         return response;
@@ -84,7 +83,7 @@ public class TaskList {
      * If the list is empty, prints a message indicating that there are no items in the list.
      */
     public String listTasks() {
-        String noTasksResponse = "No items in list!\n";
+        String noTasksResponse = "No items in list!" + NEW_LINE;
 
         String response = NEW_LINE;
 
@@ -94,12 +93,11 @@ public class TaskList {
         }
 
         int index = 0;
-        response += "Here are your tasks!\n";
+        response += "Here are your tasks!" + NEW_LINE;
         for (Task element : taskArrayList) {
             index++;
-            response += "    " + index + "." + element.listTaskString() + NEW_LINE;
+            response += "    " + index + ". " + element.listTaskString() + NEW_LINE;
         }
-        response += NEW_LINE;
         return response;
     }
 
@@ -119,8 +117,9 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public String markTaskIndex(int index) {
-        final String invalidIndexResponse = "Sorry! There doesn't seem to be enough tasks for there to be a task "
-                                            + index + "!\n";
+        final String invalidIndexResponse = "Sorry!" + NEW_LINE
+                                            + "There doesn't seem to be enough tasks for there to be a task "
+                                                + index + "!" + NEW_LINE;
         String response = NEW_LINE;
 
         if (index > taskArrayList.size()) {
@@ -132,7 +131,7 @@ public class TaskList {
         task.markTask();
         saveTasks();
 
-        response += "Nice! I've marked this task as done:";
+        response += "Nice! I've marked this task as done:" + NEW_LINE;
         response += "  " + task.listTaskString() + NEW_LINE;
         return response;
     }
@@ -147,7 +146,9 @@ public class TaskList {
         String response = NEW_LINE;
 
         if (index > taskArrayList.size()) {
-            response += "Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!" + NEW_LINE;
+            response += "Sorry!" + NEW_LINE
+                        + "There doesn't seem to be enough tasks for there to be a task "
+                            + index + "!" + NEW_LINE;
             return response;
         }
 
@@ -169,7 +170,9 @@ public class TaskList {
         String response = NEW_LINE;
 
         if (index > taskArrayList.size()) {
-            response += "Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!" + NEW_LINE;
+            response += "Sorry!" + NEW_LINE
+                        + "There doesn't seem to be enough tasks for there to be a task "
+                            + index + "!" + NEW_LINE;
             return response;
         }
 

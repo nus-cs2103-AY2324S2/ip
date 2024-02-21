@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
      */
     public String runAndReturnResponse(TaskList tasklist) {
         String response = NEW_LINE;
-        response += "Here's a list of supported commands so far: " + NEW_LINE
+        response += "Here's a list of supported commands so far: " + NEW_LINE + NEW_LINE
                 + " <help>" + NEW_LINE
                 + " <list>" + NEW_LINE
                 + " <mark/unmark [int]>" + NEW_LINE

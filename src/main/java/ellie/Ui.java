@@ -10,7 +10,7 @@ public class Ui {
     static final String HELLO_MESSAGE = "Hello! I'm Ellie, your personal chat bot! \n"
             + "You can call me Stressed Out by a Mountain of Books! \n \n"
             + "I help by tracking your tasks!\n"
-            + "What can I do for you? \n \n"
+            + "What can I do for you today? \n \n"
             + "Type 'help' to see available commands! \n";
 
     static final String GOODBYE_MESSAGE = "\n Bye! Don't be too stressed out!"
