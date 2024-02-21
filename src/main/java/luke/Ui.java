@@ -1,6 +1,6 @@
-package kitchensink;
+package luke;
 
-import kitchensink.task.Task;
+import luke.task.Task;
 
 /**
  * In charge of printing statements, to confirm to the user that the action is completed.
@@ -10,7 +10,7 @@ public class Ui {
 
     public String displayWelcome() {
         return LINE
-                + "Hello! I'm KitchenSink!\n"
+                + "Hello! I'm Luke!\n"
                 + "What can I do for you?\n"
                 + LINE;
     }

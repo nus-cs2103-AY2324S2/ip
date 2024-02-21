@@ -1,4 +1,4 @@
-package kitchensink;
+package luke;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import kitchensink.exception.SaveFileCorruptedException;
-import kitchensink.task.Deadline;
-import kitchensink.task.Event;
-import kitchensink.task.Task;
-import kitchensink.task.ToDo;
+import luke.exception.SaveFileCorruptedException;
+import luke.task.Deadline;
+import luke.task.Event;
+import luke.task.Task;
+import luke.task.ToDo;
 
 /**
  * Saves and loads tasks based on a save file specified by a path.

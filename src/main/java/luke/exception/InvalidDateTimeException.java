@@ -1,4 +1,4 @@
-package kitchensink.exception;
+package luke.exception;
 
 /**
  * Thrown when the date given by the user is not in "yyyy-MM-dd HH:mm" format.

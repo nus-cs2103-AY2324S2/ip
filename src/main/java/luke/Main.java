@@ -1,4 +1,4 @@
-package kitchensink;
+package luke;
 
 import java.io.IOException;
 
@@ -7,14 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import kitchensink.exception.SaveFileCorruptedException;
+import luke.exception.SaveFileCorruptedException;
 
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private KitchenSink duke = new KitchenSink();
+    private Luke duke = new Luke();
 
     public Main() throws IOException, SaveFileCorruptedException {
     }

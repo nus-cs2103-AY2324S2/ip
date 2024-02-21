@@ -1,9 +1,9 @@
-package kitchensink;
+package luke;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import kitchensink.task.Task;
+import luke.task.Task;
 
 /**
  * Contains the tasks and manages them with its methods.

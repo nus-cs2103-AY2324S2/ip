@@ -8,16 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import kitchensink.exception.SaveFileCorruptedException;
+import luke.exception.SaveFileCorruptedException;
 import org.junit.jupiter.api.Test;
 
-import kitchensink.List;
-import kitchensink.Parser;
-import kitchensink.Storage;
-import kitchensink.Ui;
-import kitchensink.task.Deadline;
-import kitchensink.task.Event;
-import kitchensink.task.ToDo;
+import luke.List;
+import luke.Parser;
+import luke.Storage;
+import luke.Ui;
+import luke.task.Deadline;
+import luke.task.Event;
+import luke.task.ToDo;
 
 /**
  * Turn off assertions to test.
