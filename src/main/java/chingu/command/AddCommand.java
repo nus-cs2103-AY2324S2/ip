@@ -32,15 +32,13 @@ public class AddCommand extends Command {
             try {
                 return processToDos(description, tasks.tasks);
             } catch (ToDosException e){
-                ui.showError(e.getMessage());
-                return e.getMessage();
+                return ui.showError(e.getMessage());
             }
         } else if (taskType.equals("event")) {
             try {
                 return processEvents(description, tasks.tasks);
             } catch (EventException e){
-                ui.showError(e.getMessage());
-                return e.getMessage();
+                return ui.showError(e.getMessage());
             } catch (DateException e) {
                 throw new RuntimeException(e);
             }
@@ -48,8 +46,7 @@ public class AddCommand extends Command {
             try {
                 return processDeadline(description, tasks.tasks);
             } catch (DeadlineException e){
-                ui.showError(e.getMessage());
-                return e.getMessage();
+                return ui.showError(e.getMessage());
             } catch (DateException e) {
                 throw new RuntimeException(e);
             }
