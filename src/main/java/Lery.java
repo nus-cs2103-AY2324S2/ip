@@ -17,11 +17,6 @@ import lery.Ui;
 
 public class Lery {
 
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image lery = new Image(this.getClass().getResourceAsStream("/images/LeryDog.jpg"));
-
-
     private Storage storage;
     private Ui ui;
     /**

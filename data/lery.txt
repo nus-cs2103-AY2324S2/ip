@@ -1,11 +1,1 @@
-D | X | return book | 2019-09-15
-D | X | read book  | 2021-01-22
-D |   | leave  | 2022-11-11
-D |   | code  | 2024-01-22
-E | X | gaming  | sunday 2pm-3pm
-E |   | cook  | Sunday 2pm-4pm
-E |   | run  | sunday 2pm-3pm
-T |   | run
-T | X | run
-T |   | write
 T |   | run

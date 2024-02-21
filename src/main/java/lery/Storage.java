@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -28,7 +31,8 @@ import lery.task.Todo;
  * It also saves new tasks to the text file when added.
  */
 public class Storage {
-    private final String filename = "./data/lery.txt";
+    private final String filename = "data/lery.txt";
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private TaskList taskList;
@@ -51,14 +55,18 @@ public class Storage {
         try {
             File file = new File(filename);
             if (!file.exists()) {
-                throw new LeryException("Woof! Text file storage does not exist");
+                try {
+                    Files.createDirectories(file.toPath().getParent());
+                    file.createNewFile();
+                } catch (IOException e) {
+                    throw new LeryException("Woof! Error creating text file.");
+                }
             } else {
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
                     String line = s.nextLine();
                     assert line.contains("|") : "Command in text file should contain '|'";
                     String[] splitLine = line.split(" \\| ");
-
                     if (splitLine.length < 3 || splitLine.length > 4) {
                         throw new LeryException("Woof! Textfile not in correct format!" + splitLine.length);
                     }
