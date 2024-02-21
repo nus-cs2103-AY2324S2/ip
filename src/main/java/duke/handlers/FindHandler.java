@@ -45,6 +45,11 @@ public class FindHandler {
             throw new DukeException("Invalid input, missing search term");
         }
 
-        return ui.printFindTask(taskList.findMatchingTasks(find.strip()));
+        String result = taskList.findMatchingTasks(find.strip());
+
+        if (result.isEmpty()) {
+            return "No tasks matching your request";
+        }
+        return ui.printFindTask(result);
     }
 }
