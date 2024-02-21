@@ -215,7 +215,7 @@ public class Jivox {
     public String tag(String input) throws JivoxNoTaskFoundException {
         String[] in = parser.parseInput(input);
         int taskNum = Integer.parseInt(in[0]) - 1;
-        if(taskNum >= this.tasks.getLength() || taskNum < 0){
+        if (taskNum >= this.tasks.getLength() || taskNum < 0) {
             throw new JivoxNoTaskFoundException(taskNum + 1);
         }
         Task t = this.tasks.getTask(taskNum);
@@ -239,13 +239,13 @@ public class Jivox {
     }
 
     private void validateInput(Commands type, String[] input) throws JivoxMissingArgumentException {
-        if(type != Commands.LIST && type != Commands.BYE && input.length == 1) {
+        if (type != Commands.LIST && type != Commands.BYE && input.length == 1) {
             throw new JivoxMissingArgumentException();
         }
     }
 
     private String handleCommand(Commands type, String[] input) throws JivoxException {
-        validateInput(type,input);
+        validateInput(type, input);
         switch (type) {
         case BYE:
             isRunning = false;

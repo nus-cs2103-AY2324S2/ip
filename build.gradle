@@ -47,7 +47,7 @@ checkstyle {
 }
 
 application {
-    mainClassName = "jivox.Launcher"
+    mainClass.set("jivox.Launcher")
 }
 
 jar {
