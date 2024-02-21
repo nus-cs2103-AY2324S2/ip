@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  * @author Tay Rui-Jie
  */
 public class Event extends Task {
-
     /**
      * The start date and time of the event in string format.
      * Used when fromDate is not provided in LocalDateTime format.

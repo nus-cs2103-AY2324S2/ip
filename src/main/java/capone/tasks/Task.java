@@ -7,7 +7,6 @@ package capone.tasks;
  * @author Tay Rui-Jie
  */
 public abstract class Task {
-
     /**
      * Enumeration representing the type of task
      * (TODO, DEADLINE, EVENT).

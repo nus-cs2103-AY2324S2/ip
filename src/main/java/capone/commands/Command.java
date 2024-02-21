@@ -12,7 +12,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public abstract class Command {
-
     /**
      * Executes the command with the specified TaskList, Ui, and Storage.
      *

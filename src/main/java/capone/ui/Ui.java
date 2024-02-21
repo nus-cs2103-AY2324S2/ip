@@ -20,8 +20,8 @@ public class Ui {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
                 + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
                 + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
-        String output = String.format("Woof! I'm\n\n%s\n\nYour very own personal task manager.\n" +
-                "What can I do for you today?\n%n", logo);
+        String output = String.format("Woof! I'm\n\n%s\n\nYour very own personal task manager.\n"
+                + "What can I do for you today?\n%n", logo);
         return output;
     }
 

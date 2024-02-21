@@ -13,7 +13,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class ByeCommand extends Command {
-
     /** Scanner used for handling user input. */
     private final Scanner scanner;
 

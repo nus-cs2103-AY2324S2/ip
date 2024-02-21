@@ -13,10 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 
 /**
- * The DialogBox class represents a custom control using FXML.
+ * Represents a custom control using FXML.
  * This control is used to display a dialog box consisting of an ImageView to
  * represent the user/bot image and a label containing text from the speaker.
  */

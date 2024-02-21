@@ -7,7 +7,6 @@ package capone.tasks;
  * @author Tay Rui-Jie
  */
 public class ToDo extends Task {
-
     /**
      * Constructs a ToDo task with the specified description and completion status.
      *

@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  * @author Tay Rui-Jie
  */
 public class Deadline extends Task {
-
     /**
      * The deadline in string format.
      * Used when deadline is not provided in LocalDateTime format.
