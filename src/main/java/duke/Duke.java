@@ -64,6 +64,7 @@ public class Duke {
                 + "View the task list with List/list, or close the chat with Bye/bye!\n"
                 + "Mark/Unmark a task in the list with mark (number) or unmark (number)\n"
                 + "Delete a task in the list with delete (number)\n"
+                + "Find a task in the list with find (keyword)\n"
                 + "Snooze a task by 5 minutes with snooze (number)\n"
                 + "Records will be remembered if you close me and reopen me!---\n";
     }
