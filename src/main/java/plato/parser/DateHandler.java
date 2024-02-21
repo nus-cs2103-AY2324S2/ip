@@ -16,9 +16,9 @@ import plato.PlatoException;
 public class DateHandler {
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
     private static final Pattern PATTERN_DATE =
-            Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
+        Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
     private static final Pattern TIME_PATTERN =
-            Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
+        Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
@@ -46,7 +46,7 @@ public class DateHandler {
         }
         int date = Integer.parseInt(d);
         int month = Integer.parseInt(m);
-        if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
+        if (!(0 < date && date <= 31) || !(0 < month && month <= 12)) {
             throw new PlatoException("dateOutOfRangeError");
         }
         int year = Integer.parseInt(y);
@@ -60,10 +60,11 @@ public class DateHandler {
      * @param testTime String to test.
      * @return An Optional that contains LocalTime if it exists.
      */
-    public static Optional<LocalTime> checkTime(String testTime) {
+    public static Optional<LocalTime> checkTime(String testTime) throws PlatoException {
 
         Matcher match = TIME_PATTERN.matcher(testTime);
         Matcher am = Pattern.compile("(?i)[ap]m").matcher(testTime);
+
         if (!match.matches()) {
             return Optional.empty();
         }
@@ -72,19 +73,45 @@ public class DateHandler {
         String[] data = time.replaceAll("[ :]", "").split("(?<=\\G\\d{2})");
         int hour = Integer.parseInt(data[0]);
         int minutes = Integer.parseInt(data[1]);
+
+        checkValidTime(hour, minutes);
+        hour = handleTwelveHour(am, hour, match);
+
+        //24-hour time format
+        return Optional.of(LocalTime.of(hour, minutes));
+
+
+    }
+
+    private static void checkValidTime(int hour, int minutes) throws PlatoException {
+        if (hour < 0 || hour > 23) {
+            throw new PlatoException("timeError");
+        }
+        if (minutes < 0 || minutes > 59) {
+            throw new PlatoException("timeError");
+        }
+    }
+
+    private static int handleTwelveHour(Matcher am, int hour, Matcher match) throws PlatoException {
         if (am.find()) {
-            //12-hour time format
+
+            if (hour > 12) {
+                throw new PlatoException("timeError");
+            }
+
             String indicator = match.group("indicator").toLowerCase();
             if (indicator.equals("pm")) {
-                hour += 12;
+                if (hour < 12) {
+                    hour += 12;
+                }
+            } else {
+                //Treat 12am as 24 hour variant
+                if (hour == 12) {
+                    hour = 0;
+                }
             }
-            return Optional.of(LocalTime.of(hour, minutes));
-        } else {
-            //24-hour time format
-            return Optional.of(LocalTime.of(hour, minutes));
         }
-
-
+        return hour;
     }
 
     /**
