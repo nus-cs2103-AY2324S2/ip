@@ -4,6 +4,7 @@ package bit;
  * This class deals with returning strings to user
  */
 public class Ui {
+    private String greetingMessage = "Hi! This is Bit!\nWhat shall we do today?";
     public String greet() {
         return "Hi! This is Bit!\nWhat shall we do today?";
     }
