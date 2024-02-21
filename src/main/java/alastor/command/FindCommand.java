@@ -25,9 +25,4 @@ public class FindCommand extends Command {
         TaskList matchingTasks = tasks.find(keyword);
         return ui.showFind(matchingTasks);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

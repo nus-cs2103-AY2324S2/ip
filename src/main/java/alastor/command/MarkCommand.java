@@ -39,9 +39,4 @@ public class MarkCommand extends Command {
         storage.saveRewrite(tasks);
         return ui.showMark(task, this.isMark);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
