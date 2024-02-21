@@ -1,19 +1,14 @@
-# Tyrone project
+# Tyrone Chatbot
 
-This is a simple chat bot named Tyrone. Given below are instructions on how to use it.
+Introducing Tyrone, your ultimate task management chatbot companion. Say goodbye to scattered to-do lists and missed
+deadlines. With Tyrone by your side, effortlessly organize your tasks, set reminders, and stay on top of your schedule,
+all through simple conversation. Whether you're juggling work projects, personal errands, or a mix of both,
+Tyrone streamlines your productivity, offering personalized assistance tailored to your needs. Experience seamless task
+management like never before with Tyrone.
 
-## Setting up in Intellij
+Tyrone supports three main types of tasks: todo, deadline & event.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Tyrone.java` file, right-click it, and choose `Run Tyrone.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+Take a look at the [user guide](http://jmsandiegoo.github.io/ip/).
    ```
    Hello from
 	████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗
