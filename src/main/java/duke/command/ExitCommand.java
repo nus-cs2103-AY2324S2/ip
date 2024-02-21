@@ -20,9 +20,9 @@ public class ExitCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.store(taskList);
-        ui.showExitMessage();
+        return ui.showExitMessage();
     }
 
     /**

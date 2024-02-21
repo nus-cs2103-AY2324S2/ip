@@ -26,13 +26,12 @@ public class ToDoCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             String task = message.split(" ", 2)[1];
-            taskList.createToDo(task);
+            return taskList.createToDo(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showWrongFormat();
-            ui.showToDoFormat();
+            return ui.showWrongFormat() + "\n" + ui.showToDoFormat();
         }
     }
 

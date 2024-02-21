@@ -27,24 +27,20 @@ public class DeadlineCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             String task = message.split(" ", 2)[1];
             String description = task.split(" /by ", 2)[0];
             String by = task.split(" /by ", 2)[1];
-            LocalDate byDate = null;
+            LocalDate byDate;
             try {
                 byDate = LocalDate.parse(by);
             } catch (DateTimeParseException e) {
-                ui.showWrongFormat();
-                ui.showDateFormat();
+                return ui.showWrongFormat() + "\n" + ui.showDateFormat();
             }
-            if (byDate != null) {
-                taskList.createDeadline(description, byDate);
-            }
+            return taskList.createDeadline(description, byDate);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showWrongFormat();
-            ui.showDeadlineFormat();
+            return ui.showWrongFormat() + "/n" + ui.showDeadlineFormat();
         }
     }
 

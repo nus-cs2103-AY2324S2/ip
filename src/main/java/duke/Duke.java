@@ -1,5 +1,17 @@
 package duke;
 import duke.command.Command;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * The main class of the chatbot.
@@ -8,6 +20,13 @@ public class Duke {
     private final Storage storage;
     private final TaskList taskList;
     private final Ui ui;
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("./data/storedTasks.txt");
+        taskList = new TaskList();
+        storage.load(taskList);
+    }
 
     /**
      * Constructs the class Duke.
@@ -25,15 +44,27 @@ public class Duke {
      * Runs the chatbot.
      */
     public void run() {
-        ui.showWelcomeMessage();
+        System.out.println(ui.showWelcomeMessage());
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
             Command command = Parser.parse(fullCommand);
-            command.execute(taskList, ui, storage);
             isExit = command.isExit();
         }
 
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        Command command = Parser.parse(input);
+        String response = command.execute(taskList, ui, storage);
+        if (command.isExit()) {
+            javafx.application.Platform.exit();
+        };
+        return response;
     }
 
     /**

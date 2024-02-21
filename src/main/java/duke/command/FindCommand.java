@@ -17,7 +17,7 @@ public class FindCommand extends Command {
         this.message = message;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             StringBuilder string = new StringBuilder();
             String keyWord = message.split(" ", 2)[1].toLowerCase();
@@ -26,10 +26,9 @@ public class FindCommand extends Command {
                     string.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
                 }
             }
-            ui.showMatchingTasks(string.toString());
+            return ui.showMatchingTasks(string.toString());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showWrongFormat();
-            ui.showFindFormat();
+            return ui.showWrongFormat() + "\n" + ui.showFindFormat();
         }
     }
     public  boolean isExit() {

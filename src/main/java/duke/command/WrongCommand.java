@@ -21,9 +21,8 @@ public class WrongCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showWrongFormat();
-        ui.showValidCommands();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showWrongFormat() + "\n" + ui.showValidCommands();
     }
 
     /**

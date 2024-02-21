@@ -12,7 +12,7 @@ public class Ui {
      *
      * @return The input from the user.
      */
-    public String readCommand() {
+    public static String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
@@ -20,16 +20,15 @@ public class Ui {
     /**
      * Prints welcome message to the user.
      */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Blob.");
-        System.out.println("What can I do for you?\n");
+    public static String showWelcomeMessage() {
+        return "Hello! I'm Blob.\n" + "What can I do for you?";
     }
 
     /**
      * Prints an error message that tells that the user types in the wrong format.
      */
-    public void showWrongFormat() {
-        System.err.println("Wrong format! :(");
+    public static String showWrongFormat() {
+        return "Wrong format! :(";
     }
 
     /**
@@ -37,118 +36,110 @@ public class Ui {
      *
      * @param tasks The user's TaskList
      */
-    public void showTaskList(TaskList tasks) {
+    public static String showTaskList(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
         System.out.println(tasks);
         System.out.println();
+        return "Here are the tasks in your list:\n" + tasks;
     }
 
     /**
      * Prints an error message that tells that the user forgets to type the task number.
      */
-    public void showForgetTaskNumber() {
-        System.err.println("You forgot to type which task!");
+    public static String showForgetTaskNumber() {
+        return "You forgot to type which task!";
     }
 
     /**
      * Prints the correct format for setting a task as Done.
      */
-    public void showMarkFormat() {
-        System.out.println("Type: 'mark n' to mark the n-th task.");
-        System.out.println("For example type: 'mark 1' to mark the first task.\n");
+    public static String showMarkFormat() {
+        return "Type: 'mark n' to mark the n-th task.\n" +
+                "For example type: 'mark 1' to mark the first task.";
     }
 
     /**
      * Prints the correct format for setting a task as Undone.
      */
-    public void showUnmarkFormat() {
-        System.out.println("Type: 'unmark n' to unmark the n-th task.");
-        System.out.println("For example, type: 'unmark 1' to mark the first task.\n");
+    public static String showUnmarkFormat() {
+        return "Type: 'unmark n' to unmark the n-th task.\n" + "For example, type: 'unmark 1' to mark the first task.";
     }
 
     /**
      * Prints the correct format for deleting a task.
      */
-    public void showDeleteFormat() {
-        System.out.println("Type: 'delete n' to delete the n-th task.");
-        System.out.println("For example type: 'delete 1' to delete the first task.\n");
+    public static String showDeleteFormat() {
+        return "Type: 'delete n' to delete the n-th task.\n" +
+                "For example type: 'delete 1' to delete the first task.";
     }
 
     /**
      * Prints the correct format for typing in a date.
      */
-    public void showDateFormat() {
-        System.out.println("The correct date format is: YYYY-MM-DD\n");
+    public static String showDateFormat() {
+        return "The correct date format is: YYYY-MM-DD";
     }
 
     /**
      * Prints the correct format for creating a ToDo task.
      */
-    public void showToDoFormat() {
-        System.out.println("The correct format is:");
-        System.out.println("todo <description>\n");
+    public static String showToDoFormat() {
+        return "The correct format is:\n" + "todo <description>";
     }
 
     /**
      * Prints the correct format for creating a Deadline Task.
      */
-    public void showDeadlineFormat() {
-        System.out.println("The correct format is:");
-        System.out.println("deadline <description> /by <deadline time>\n");
+    public static String showDeadlineFormat() {
+        return "The correct format is:\n" +
+                "deadline <description> /by <deadline time>";
+    }
+
+
+    /**
+     * Prints the correct format of find command.
+     */
+    public static String showFindFormat() {
+        return "The correct format is:\n" + "find <keyWord>";
     }
 
     /**
-<<<<<<< HEAD
      * Prints the correct format for creating an Event task.
      */
-=======
-     * Prints the correct format of find command.
-     */
-    public void showFindFormat() {
-        System.out.println("The correct format is:");
-        System.out.println("find <keyWord>\n");
-    }
-
->>>>>>> branch-Level-9
-    public void showEventFormat() {
-        System.out.println("The correct format is:");
-        System.out.println("event <description> /from <start time> /to <end time>\n");
+    public static String showEventFormat() {
+        return "The correct format is:\n" +
+                "event <description> /from <start time> /to <end time>";
     }
 
     /**
      * Shows all the valid commands to the user.
      */
-    public void showValidCommands() {
-        System.out.println("You need to use 'todo', 'deadline' or 'event' command to add a task.");
-        System.out.println("You can use 'list' to see all of your tasks.");
-        System.out.println("Use 'mark' or 'unmark' for any of your tasks.\n");
+    public static String showValidCommands() {
+        return "You need to use 'todo', 'deadline' or 'event' command to add a task.\n" +
+                "You can use 'list' to see all of your tasks.\n" +
+                "Use 'mark' or 'unmark' for any of your tasks.";
     }
 
-<<<<<<< HEAD
+
+    public static String showMatchingTasks(String matchingTasks) {
+        return "Here are the matching tasks in your list:\n" + matchingTasks;
+    }
+
     /**
      * Tells the user that a task has been successfully added.
      *
      * @param task The task that has been added to the list.
      * @param taskListSize The size of the list after the task has been added.
      */
-=======
-    public void showMatchingTasks(String matchingTasks) {
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(matchingTasks);
-    }
-
->>>>>>> branch-Level-9
-    public void showCreateTask(Task task, int taskListSize) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskListSize + " tasks in the list.\n");
+    public static String showCreateTask(Task task, int taskListSize) {
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskListSize + " tasks in the list.";
     }
 
     /**
      * Tells the user that the task number they inputted does not exist.
      */
-    public void showNoTaskFound() {
-        System.out.println("You don't have that task!\n");
+    public static String showNoTaskFound() {
+        return "You don't have that task!";
     }
 
     /**
@@ -156,9 +147,8 @@ public class Ui {
      *
      * @param task The task that has been set as Done.
      */
-    public void showMarkTask(Task task) {
-        System.out.println("Nice! I've marked this task done:");
-        System.out.println(task + "\n");
+    public static String showMarkTask(Task task) {
+        return "Nice! I've marked this task done:\n" + task;
     }
 
     /**
@@ -166,9 +156,8 @@ public class Ui {
      *
      * @param task The task that has been set as Undone.
      */
-    public void showUnmarkTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task + "\n");
+    public static String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -177,16 +166,15 @@ public class Ui {
      * @param task The task that has been deleted.
      * @param taskListSize The size of the list after the task has been deleted.
      */
-    public void showDeleteTask(Task task, int taskListSize) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskListSize + " tasks in the list.\n");
+    public static String showDeleteTask(Task task, int taskListSize) {
+        return "Noted. I've removed this task:\n" + task +
+                "Now you have " + taskListSize + " tasks in the list.";
     }
 
     /**
      * Prints the exit message to the user.
      */
-    public void showExitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String showExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 }

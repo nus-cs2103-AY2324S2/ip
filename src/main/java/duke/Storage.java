@@ -70,17 +70,17 @@ public class Storage {
                 String[] taskInfo = currentLine.split("/");
                 switch (taskInfo[0]) {
                     case "T":
-                        tasks.createToDo(taskInfo[2], false);
+                        tasks.createToDo(taskInfo[2]);
                         break;
                     case "D":
-                        tasks.createDeadline(taskInfo[2], LocalDate.parse(taskInfo[3]), false);
+                        tasks.createDeadline(taskInfo[2], LocalDate.parse(taskInfo[3]));
                         break;
                     case "E":
-                        tasks.createEvent(taskInfo[2], LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]), false);
+                        tasks.createEvent(taskInfo[2], LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]));
                         break;
                 }
                 if (taskInfo[1].equals("X")) {
-                    tasks.mark(tasks.size(), false);
+                    tasks.mark(tasks.size());
                 }
 
             }
