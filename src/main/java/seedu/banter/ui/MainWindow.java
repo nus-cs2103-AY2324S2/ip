@@ -1,4 +1,8 @@
-package seedu.banter;
+package seedu.banter.ui;
+
+import seedu.banter.Banter;
+import seedu.banter.ui.DialogBox;
+import seedu.banter.ui.Ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,12 +27,13 @@ public class MainWindow extends AnchorPane {
 
     private Banter banter;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
+    private Image banterImage = new Image(this.getClass().getResourceAsStream("/images/Banter.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getBanterDialog(Ui.GREET_MESSAGE.getString(), banterImage));
     }
 
     public void setBanter(Banter b) {
@@ -36,7 +41,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Banter's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -45,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = banter.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBanterDialog(response, banterImage)
         );
         userInput.clear();
     }

@@ -1,4 +1,4 @@
-package seedu.banter;
+package seedu.banter.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
 
 /**
  * An example of a custom control using FXML.
@@ -50,11 +51,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass();
+        return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getBanterDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass();
         db.flip();
         return db;
     }

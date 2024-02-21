@@ -35,4 +35,12 @@ public class Card {
         System.out.println(message);
         System.out.println(smallSpace + line);
     }
+
+    /**
+     * Returns a string representation of the card.
+     * @return String representation of the card.
+     */
+    public String getString() {
+        return message;
+    }
 }

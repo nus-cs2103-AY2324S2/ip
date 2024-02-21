@@ -1,7 +1,6 @@
 package seedu.banter;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 import seedu.banter.enums.CommandType;
 import seedu.banter.errors.Errors;
@@ -51,55 +50,35 @@ public class Parser {
     /**
      * Responds to user input until the user exits the app, then print exit message.
      */
-    public void respondUntilExit() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            CommandType command = null;
-            String input = scanner.nextLine();
-            try {
-                command = getCommandType(input);
-                switch (command) {
-                case BYE:
-                    printExitMessage();
-                    break;
-                case LIST:
-                    parseList();
-                    break;
-                case MARK:
-                    parseMark(input);
-                    break;
-                case UNMARK:
-                    parseUnmark(input);
-                    break;
-                case TODO:
-                    parseTodo(input);
-                    break;
-                case DEADLINE:
-                    parseDeadline(input);
-                    break;
-                case EVENT:
-                    parseEvent(input);
-                    break;
-                case DELETE:
-                    parseDelete(input);
-                    break;
-                case FIND:
-                    parseFind(input);
-                    break;
-                default:
-                    assert false : "Invalid command type parsed";
-                }
-            } catch (InvalidBanterUsageError e) {
-                Card errorMessage = new Card(e.getMessage());
-                errorMessage.print();
+    public String respondToUser(String input) {
+        try {
+            CommandType command = getCommandType(input);
+            switch (command) {
+            case LIST:
+                return parseList();
+            case MARK:
+                return parseMark(input);
+            case UNMARK:
+                return parseUnmark(input);
+            case TODO:
+                return parseTodo(input);
+            case DEADLINE:
+                return parseDeadline(input);
+            case EVENT:
+                return parseEvent(input);
+            case DELETE:
+                return parseDelete(input);
+            case FIND:
+                return parseFind(input);
+            default:
+                assert false : "Invalid command type parsed";
             }
-
-            if (command == CommandType.BYE) {
-                break;
-            }
+        } catch (InvalidBanterUsageError e) {
+            Card errorMessage = new Card(e.getMessage());
+            return errorMessage.getString();
         }
 
-        scanner.close();
+        return "";
     }
 
     private CommandType getCommandType(String input) throws InvalidBanterUsageError {
@@ -110,12 +89,12 @@ public class Parser {
         }
     }
 
-    private void parseList() {
+    private String parseList() {
         Card taskListMessage = new Card(taskList.toString());
-        taskListMessage.print();
+        return taskListMessage.getString();
     }
 
-    private void parseTodo(String input) throws InvalidBanterUsageError {
+    private String parseTodo(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
         if (words.length == 1) {
             throw Errors.MISSING_TODO_DESCRIPTION_ERROR;
@@ -123,10 +102,10 @@ public class Parser {
         String description = joinWords(words, 1, words.length - 1);
         Card taskAddedMessage = new Card(taskList.addNewTodo(description));
         storage.saveTaskList(taskList);
-        taskAddedMessage.print();
+        return taskAddedMessage.getString();
     }
 
-    private void parseDeadline(String input) throws InvalidBanterUsageError {
+    private String parseDeadline(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
 
         int indexOfDueDate = indexOf(words, DEADLINE_DUE_DATE);
@@ -146,10 +125,10 @@ public class Parser {
 
         Card taskAddedMessage = new Card(taskList.addNewDeadline(description, dueDate));
         storage.saveTaskList(taskList);
-        taskAddedMessage.print();
+        return taskAddedMessage.getString();
     }
 
-    private void parseEvent(String input) throws InvalidBanterUsageError {
+    private String parseEvent(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
 
         int indexOfEnd = indexOf(words, EVENT_END);
@@ -179,10 +158,10 @@ public class Parser {
 
         Card taskAddedMessage = new Card(taskList.addNewEvent(description, start, end));
         storage.saveTaskList(taskList);
-        taskAddedMessage.print();
+        return taskAddedMessage.getString();
     }
 
-    private void parseMark(String input) throws InvalidBanterUsageError {
+    private String parseMark(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
         int taskNumber;
         try {
@@ -192,10 +171,10 @@ public class Parser {
         }
         Card taskDoneMessage = new Card(taskList.markTaskAsDone(taskNumber));
         storage.saveTaskList(taskList);
-        taskDoneMessage.print();
+        return taskDoneMessage.getString();
     }
 
-    private void parseUnmark(String input) throws InvalidBanterUsageError {
+    private String parseUnmark(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
         int taskNumber;
         try {
@@ -205,10 +184,10 @@ public class Parser {
         }
         Card taskUndoneMessage = new Card(taskList.markTaskAsUndone(taskNumber));
         storage.saveTaskList(taskList);
-        taskUndoneMessage.print();
+        return taskUndoneMessage.getString();
     }
 
-    private void parseDelete(String input) throws InvalidBanterUsageError {
+    private String parseDelete(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
         int taskNumber;
         try {
@@ -218,7 +197,7 @@ public class Parser {
         }
         Card taskDeletedMessage = new Card(taskList.deleteTask(taskNumber));
         storage.saveTaskList(taskList);
-        taskDeletedMessage.print();
+        return taskDeletedMessage.getString();
     }
 
     /**
@@ -226,14 +205,14 @@ public class Parser {
      * @param input
      * @throws InvalidBanterUsageError
      */
-    private void parseFind(String input) throws InvalidBanterUsageError {
+    private String parseFind(String input) throws InvalidBanterUsageError {
         String[] words = getWords(input);
         if (words.length == 1) {
             throw Errors.MISSING_KEYWORD_ERROR;
         }
         String keyword = joinWords(words, 1, words.length - 1);
         Card taskFoundMessage = new Card(taskList.findTasks(keyword));
-        taskFoundMessage.print();
+        return taskFoundMessage.getString();
     }
 
 
