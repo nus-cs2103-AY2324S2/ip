@@ -1,1 +1,2 @@
 T | 0 | 5 | buy bread 
+T | 1 | 1 | buy more bread 

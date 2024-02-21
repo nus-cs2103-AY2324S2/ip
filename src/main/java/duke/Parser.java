@@ -3,6 +3,8 @@ package duke;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import javafx.application.Platform;
+
 /**
  * Takes in and processes user input according to the available bot command.
  */
@@ -26,6 +28,7 @@ public class Parser {
             switch (cmd) {
             case "bye":
                 System.out.println("Goodbye!");
+                Platform.exit();
                 return false;
                 // Fallthrough
             case "list":
