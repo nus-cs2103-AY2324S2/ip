@@ -1,0 +1,5 @@
+T | 1 | read book
+T | 1 | attend tutorial
+D | 1 | finish paper | 2023-12-01 1300
+E | 0 | attend meeting | 2024-03-12 1200 to 2024-03-12 1500
+E | 0 | attend interview | 2023-02-22 1200 to 2023-02-22 1300

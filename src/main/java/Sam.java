@@ -1,114 +1,10 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
-public class Duke {
-    private static final String FILE_PATH = "./data/duke.txt";
-    public static void main(String[] args) {
-        List<Task> taskList = loadTasksFromFile();
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hello! I'm Duke101\n"
-                + "What can I do for you?");
-
-        while (true) {
-            String userInput = scanner.nextLine();
-
-            if (userInput.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            }
-            try{
-                processCommand(userInput, taskList);
-                saveTasksToFile(taskList);
-            }catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        scanner.close();
-    }
-
-    private static List<Task> loadTasksFromFile() {
-        List<Task> taskList = new ArrayList<>();
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                Task task = createTaskFromLine(line);
-                if (task != null) {
-                    taskList.add(task);
-                }
-            }
-
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing data file found. Starting with an empty task list.");
-        } catch (IOException e) {
-            System.out.println("Error reading data file. Starting with an empty task list.");
-        }
-
-        return taskList;
-    }
-    private static void saveTasksToFile(List<Task> taskList) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-
-            for (Task task : taskList) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
-            }
-
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file.");
-        }
-    }
-
-    private static Task createTaskFromLine(String line) {
-        String[] parts = line.split(" \\| ");
-
-        if (parts.length < 3) {
-            System.out.println("Skipped invalid line in data file: " + line);
-            return null;
-        }
-
-        String taskType = parts[0];
-        int isDone = Integer.parseInt(parts[1]);
-        String description = parts[2];
-
-        Task task;
-
-        switch (taskType) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                String by = parts.length > 3 ? parts[3] : "";
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                String fromTo = parts.length > 3 ? parts[3] : "";
-                String[] fromToArray = fromTo.split(" to ");
-                String from = fromToArray.length > 0 ? fromToArray[0] : "";
-                String to = fromToArray.length > 1 ? fromToArray[1] : "";
-                task = new Event(description, from, to);
-                break;
-            default:
-                System.out.println("Skipped unknown task type in data file: " + taskType);
-                return null;
-        }
-
-        task.isDone = (isDone == 1);
-        return task;
-    }
+public class Sam {
+    private Ui ui;
+    private Storage storage;
     private static void displayList(List<Task> taskList) {
         System.out.println("____________________________________________________________");
 
@@ -124,7 +20,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private static void processCommand(String userInput, List<Task> taskList) throws Exception {
+    private void processCommand(String userInput, List<Task> taskList) {
         if (userInput.trim().isEmpty()) {
             throw new IllegalArgumentException("Command cannot be empty.");
         }
@@ -165,7 +61,7 @@ public class Duke {
         }
     }
 
-    private static void markTask(String userInput, List<Task> taskList) {
+    public void markTask(String userInput, List<Task> taskList) {
         String[] parts = userInput.split(" ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Please provide a task number.");
@@ -179,7 +75,7 @@ public class Duke {
         System.out.println((taskList.get(taskIndex)));
     }
 
-    private static void unmarkTask(String userInput, List<Task> taskList) {
+    public void unmarkTask(String userInput, List<Task> taskList) {
         String[] parts = userInput.split(" ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Please provide a task number.");
@@ -192,12 +88,12 @@ public class Duke {
         System.out.println("Nice, I've marked this task as undone for you:");
         System.out.println((taskList.get(taskIndex)));
     }
-    private static void addTask(String userInput, List<Task> taskList) throws Exception {
+    public void addTask(String userInput, List<Task> taskList) {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("The description of a task cannot be empty.");
         }
-        String command = parts[0];
+        String command = parts[0].toLowerCase();
         String taskInfo = parts[1];
 
         Task newTask;
@@ -239,7 +135,7 @@ public class Duke {
         System.out.println("  " + newTask);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
-    private static void deleteTask(String userInput, List<Task> taskList) throws Exception{
+    public void deleteTask(String userInput, List<Task> taskList) {
         String[] parts = userInput.split(" ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Please provide the task number to delete.");
@@ -256,5 +152,34 @@ public class Duke {
         System.out.println(" " + removedTask);
         System.out.println("Now you have " + taskList.size() + " task(s) left in the list. ");
         System.out.println("---------------------------");
+    }
+
+    public Sam(String FILE_PATH) {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+    }
+    public void run() {
+        List<Task> taskList = storage.load();
+        ui.greet();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            if (userInput.equals("bye")) {
+                ui.bye();
+                break;
+            }
+            try{
+                processCommand(userInput, taskList);
+                storage.save(taskList);
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        scanner.close();
+    }
+    public static void main(String[] args) {
+        new Sam("./data/Sam.txt").run();
     }
 }
