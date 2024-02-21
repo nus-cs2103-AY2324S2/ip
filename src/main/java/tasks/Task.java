@@ -7,7 +7,7 @@ public class Task {
     protected boolean isDone;
 
     protected DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }

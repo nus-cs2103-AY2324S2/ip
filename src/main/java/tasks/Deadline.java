@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param splitStr List that describes a new Deadline task.
      * @throws CroException If any specifications of the deadline is missing.
      */
-    public Deadline(List<String> splitStr) throws CroException{
+    public Deadline(List<String> splitStr) throws CroException {
         int isDone = Integer.parseInt(splitStr.get(1));
         int byIndex = splitStr.indexOf("/by");
         String description = String.join(" ", splitStr.subList(2, byIndex));

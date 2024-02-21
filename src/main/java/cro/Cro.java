@@ -40,6 +40,7 @@ public class Cro extends Application {
             e.getMessage();
             taskList = new TaskList();
         }
+        
         //Step 1. Setting up required components
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();

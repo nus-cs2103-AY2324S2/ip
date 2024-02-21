@@ -52,7 +52,6 @@ public class TaskList {
      * @throws CroException If any specifications of the deadline is missing.
      */
     public String addDeadline(List<String> splitStr) throws CroException {
-
         Deadline newDeadline = new Deadline(splitStr);
         return addToTaskList(newDeadline);
     }
