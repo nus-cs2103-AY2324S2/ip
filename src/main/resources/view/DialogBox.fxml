@@ -3,15 +3,26 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <Text fx:id="dialog" nodeOrientation="LEFT_TO_RIGHT" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-border-color: fcfcfc; -fx-border-style: solid; -fx-border-width: 1;" text="Text" textAlignment="RIGHT" wrappingWidth="261.13671875">
+      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="89.0" prefWidth="70.0" style="-fx-background-color: #909090; -fx-background-radius: 18; -fx-border-color: #909090; -fx-border-radius: 18;">
+         <children>
+            <Text fx:id="dialog" boundsType="VISUAL" nodeOrientation="LEFT_TO_RIGHT" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-border-color: fcfcfc; -fx-border-style: solid; -fx-border-width: 1;" text="Text" textAlignment="RIGHT" wrappingWidth="253.13671875">
+               <StackPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </StackPane.margin>
+            </Text>
+         </children>
          <HBox.margin>
-            <Insets left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </HBox.margin>
-      </Text>
+         <opaqueInsets>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </opaqueInsets>
+      </StackPane>
     <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
   </children>
   <padding>
