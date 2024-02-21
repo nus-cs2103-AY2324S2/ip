@@ -56,31 +56,39 @@ public class Storage {
                 if (parts.length == 1) {
                     return;
                 }
-                System.out.println(parts[0]);
-                System.out.println(parts[1]);
                 if (parts[0].equals("T")) {
-                    Task t = new Todo(parts[1]);
-                    if (parts[2].equals("M")) {
-                        t.complete();
-                    }
-                    list.addFromStorage(t);
+                    loadTask(list, parts);
                 } else if (parts[0].equals("D")) {
-                    Task d = new Deadline(parts[1], parts[2]);
-                    if (parts[3].equals("M")) {
-                        d.complete();
-                    }
-                    list.addFromStorage(d);
+                    loadDeadline(list, parts);
                 } else if (parts[0].equals("E")) {
-                    Task e = new Event(parts[1], parts[2], parts[3]);
-                    if (parts[4].equals("M")) {
-                        e.complete();
-                    }
-                    list.addFromStorage(e);
+                    loadEvent(list, parts);
                 }
             }
         } catch (IOException e) {
             System.out.println("Errorrrr...");
         }
+    }
+
+    private void loadTask(Tasklist list, String[] parts) {
+        Task t = new Todo(parts[1]);
+        if (parts[2].equals("M")) {
+            t.complete();
+        }
+        list.addFromStorage(t);
+    }
+    private void loadDeadline(Tasklist list, String[] parts) {
+        Task d = new Deadline(parts[1], parts[2]);
+        if (parts[3].equals("M")) {
+            d.complete();
+        }
+        list.addFromStorage(d);
+    }
+    private void loadEvent(Tasklist list, String[] parts) {
+        Task e = new Event(parts[1], parts[2], parts[3]);
+        if (parts[4].equals("M")) {
+            e.complete();
+        }
+        list.addFromStorage(e);
     }
 
     /**
