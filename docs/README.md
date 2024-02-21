@@ -1,10 +1,64 @@
-# Toothless User Guide
+# **Toothless User Guide**
+
+Toothless is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI). It is a chatbot that helps you keep track of your tasks. 
+It is ~~a simple~~ an easy-to-use task manager that is optimized for use via a CLI while still having the benefits of a Graphical User Interface (GUI). 
+
+If you can type fast, Toothless can get your tasks managed faster than traditional GUI apps.
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Notes about the command format](#notes-about-the-command-format)
+  - [Adding todos: `todo`](#adding-todos-todo)
+  - [Adding deadlines: `deadline`](#adding-deadlines-deadline)
+  - [Adding events: `event`](#adding-events-event)
+  - [List out all tasks: `list`](#list-out-all-tasks-list)
+  - [View tasks in the form of a schedule: `schedule`](#view-tasks-in-the-form-of-a-schedule-schedule)
+  - [Find tasks by keyword: `find`](#find-tasks-by-keyword-find)
+  - [Mark a task as done: `mark`](#mark-a-task-as-done-mark)
+  - [Mark a task as not done: `unmark`](#mark-a-task-as-not-done-unmark)
+  - [Delete a task: `delete`](#delete-a-task-delete)
+  - [Goodbye Toothless: `bye`](#goodbye-toothless-bye)
+- [Saving the data](#saving-the-data)
+- [Command summary](#command-summary)
+- [Acknowledgements](#acknowledgements)
+
+## Quick Start
+
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest `toothless.jar` from [here]() to your computer.
+3. Copy the file to the folder you want to use as the home folder for your Toothless.
+4. Open a command terminal and `cd` to the home folder. Then run `java -jar toothless.jar` to start the app.
+5. A GUI similar to the below should appear in a few seconds. Note that the GUI is not interactive and is for illustration purposes only.
 
 ![Screenshot of Toothless application](Ui.png)
 
-Do you have a lot of tasks to keep track of? Toothless is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI). It is a chatbot that helps you keep track of your tasks, deadlines and events. If you can type fast, Toothless can help you keep track of your tasks faster than traditional GUI apps.
+6. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all the tasks in the task list.
 
-## Adding todos: `todo` 
+## Features
+
+### Notes about the command format
+
+> [!TIP]
+> - Words in `<angle_brackets>` are the parameters to be supplied by the user.
+    e.g. in `todo <task description>`, `<task description>` is a parameter which can be used as `todo read book`.
+> - Commands with multiple parameters must be specified in the correct order.
+  e.g. `event <task description> /from <date> /to <date>` must be specified in that exact order.
+> - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
+> - Commands are case-insensitive.
+  e.g. `todo` and `ToDo` are equivalent.
+> - Commands must be mentioned in full.
+  e.g. `t` is not a valid command.
+> - Commands that are not recognized will be ignored.
+  e.g. `blah` is not a valid command.
+> - Commands with invalid parameters will be ignored.
+  e.g. `todo` without a description will be ignored.
+> - Commands use the 24-hour clock format for time.
+  e.g. `22:00` is 10pm.
+> - Commands do not support the use of the `|` character.
+
+
+### Adding todos: `todo`
 
 This command adds a todo task to the task list.
 
@@ -19,7 +73,7 @@ Human has N tasks now.
 ```
 where `N` is the number of tasks currently in the list.
 
-## Adding deadlines: `deadline`
+### Adding deadlines: `deadline`
 
 This command adds a deadline task to the task list.
 
@@ -36,7 +90,7 @@ Human has N tasks now.
 ```
 where `N` is the number of tasks currently in the list.
 
-## Adding events: `event`
+### Adding events: `event`
 
 This command adds an event task to the task list.
 
@@ -53,7 +107,7 @@ Human has N tasks now.
 ```
 where `N` is the number of tasks currently in the list.
 
-## List out all tasks: `list`
+### List out all tasks: `list`
 
 This command lists out all the tasks in the task list.
 
@@ -68,12 +122,11 @@ Here all human tasks:
 3. [E][ ] project meeting (from: Feb 20 2024 22:00 to: Feb 20 2024 23:00)
 ```
 
-## View tasks in the form of a schedule: `schedule`
+### View tasks in the form of a schedule: `schedule`
 
 This command lists out all the tasks in the task list in the form of a schedule.
 
 > Format: `schedule`
->
 
 The tasks are grouped by date.
 
@@ -92,12 +145,11 @@ Tasks without a date:
 1. [T][ ] read book
 ```
 
-## Find tasks by keyword: `find`
+### Find tasks by keyword: `find`
 
 This command finds tasks in the task list that contain the keyword.
 
 > Format: `find <keyword>`
-> 
 
 The keyword is case-sensitive.
 
@@ -110,7 +162,7 @@ Toothless have found these same tasks:
 1. [T][ ] read book
 ```
 
-## Mark a task as done: `mark`
+### Mark a task as done: `mark`
 
 This command marks a task as done.
 
@@ -127,7 +179,7 @@ Toothless marks this task as done:
 [T][X] read book
 ```
 
-## Mark a task as not done: `unmark`
+### Mark a task as not done: `unmark`
 
 This command marks a task as not done.
 
@@ -144,7 +196,7 @@ Toothless marks this task as not done:
 [T][ ] read book
 ```
 
-## Delete a task: `delete`
+### Delete a task: `delete`
 
 This command deletes a task from the task list.
 
@@ -163,7 +215,7 @@ Human has N tasks now.
 ```
 where `N` is the number of tasks currently in the list.
 
-## Goodbye Toothless: `bye`
+### Goodbye Toothless: `bye`
 
 This command exits the application.
 
@@ -177,7 +229,7 @@ Toothless will miss you, human. Toothless will be here when you need Toothless.
 
 ## Saving the data
 
-Toothless data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Toothless data are saved in the hard disk automatically after the `bye` command. There is no need to save manually.
 
 ## Command summary
 
