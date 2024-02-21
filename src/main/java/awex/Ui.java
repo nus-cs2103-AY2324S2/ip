@@ -1,5 +1,6 @@
 package awex;
 
+import java.util.LinkedList;
 import tasks.Task;
 
 public class Ui {
@@ -23,6 +24,7 @@ public class Ui {
         System.out.println("  5. deadline <task> /by <YYYY-MM-DD hh:mm>");
         System.out.println("  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>");
         System.out.println("  7. delete <task number>");
+        System.out.println("  8. find <item>");
         System.out.println("Type 'bye' to exit.");
     }
 
@@ -32,6 +34,21 @@ public class Ui {
 
     public void showListMessage(TaskList list) {
         System.out.println("Here are the tasks in your list:");
+        int len = list.size();
+        for (int i = 1; i <= len; i++) {
+            System.out.println(i + "." + list.get(i - 1).showAll());
+        }
+    }
+
+    /**
+     * Prints
+     *
+     * @param tasks
+     * @param str
+     */
+    public void showFindMessage(TaskList tasks, String str) {
+        System.out.println("Here are the matching tasks in your list:");
+        LinkedList<Task> list = tasks.find(str);
         int len = list.size();
         for (int i = 1; i <= len; i++) {
             System.out.println(i + "." + list.get(i - 1).showAll());

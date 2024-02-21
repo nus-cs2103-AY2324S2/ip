@@ -20,6 +20,14 @@ public class Parser {
                 } else {
                     ui.showListMessage(tasks);
                 }
+            } else if (arr[0].equals("find")) {
+                if (arr.length < 2) {
+                    ui.allInstructions();
+                } else if (tasks.isEmpty()) {
+                    ui.emptyListMessage();
+                } else {
+                    ui.showFindMessage(tasks, arr[1]);
+                }
             } else if (arr[0].equals("mark") || arr[0].equals("unmark") || arr[0].equals("delete")) {
                 String[] array = next.split(" ");
                 if (array.length != 2) {

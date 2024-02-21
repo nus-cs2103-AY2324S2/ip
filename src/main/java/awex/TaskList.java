@@ -8,7 +8,7 @@ import java.util.Scanner;
 import tasks.*;
 
 public class TaskList {
-    private LinkedList<Task> list;
+    private LinkedList<Task> tasks;
 
     /**
      * Constructor for TaskList object
@@ -16,46 +16,58 @@ public class TaskList {
      * @param f file object with saved tasks
      */
     public TaskList(File f) throws IOException {
-        this.list = new LinkedList<Task>();
+        this.tasks = new LinkedList<Task>();
         if (!f.createNewFile()) {
             Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 String[] arr = sc.nextLine().split(" / ");
                 if (arr[0].equals("T")) {
-                    this.list.add(new TodoTask(arr[2], arr[1]));
+                    this.tasks.add(new TodoTask(arr[2], arr[1]));
                 } else if (arr[0].equals("D")) {
-                    this.list.add(new DeadlineTask(arr[2], arr[1], arr[3]));
+                    this.tasks.add(new DeadlineTask(arr[2], arr[1], arr[3]));
                 } else {
-                    this.list.add(new EventTask(arr[2], arr[1], arr[3], arr[4]));
+                    this.tasks.add(new EventTask(arr[2], arr[1], arr[3], arr[4]));
                 }
             }
         }
     }
 
     public void add(Task t) {
-        this.list.add(t);
+        this.tasks.add(t);
+    }
+
+    public LinkedList<Task> find(String str) {
+        LinkedList<Task> list = new LinkedList();
+        int len = this.tasks.size();
+        for (int i = 0; i < len; i++) {
+            Task t = this.tasks.get(i);
+            if (t.isPartOfDesc(str)) {
+                list.add(t);
+            }
+        }
+        return list;
     }
 
     public Task get(int i) {
-        return this.list.get(i);
+        return this.tasks.get(i);
     }
 
     public boolean isEmpty() {
-        return this.list.isEmpty();
+        return this.tasks.isEmpty();
     }
 
     public void listSaver(FileWriter fw) throws IOException {
-        int len = this.list.size();
+        int len = this.tasks.size();
         for (int i = 0; i < len; i++) {
-            fw.write(this.list.get(i).toString() + System.lineSeparator());
+            fw.write(this.tasks.get(i).toString() + System.lineSeparator());
         }
     }
 
     public Task remove(int i) {
-        return this.list.remove(i);
+        return this.tasks.remove(i);
     }
 
     public int size() {
-        return this.list.size();
+        return this.tasks.size();
     }
 }

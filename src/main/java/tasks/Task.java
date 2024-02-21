@@ -46,6 +46,19 @@ public class Task {
     }
 
     /**
+     * Returns boolean result of whether task description contains a given substring
+     *
+     * @param str String to be compared with task description
+     * @return true if String is substring of task description, false otherwise
+     */
+    public boolean isPartOfDesc(String str) {
+        if (this.what.contains(str)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns task details in table row form
      *
      * @return String representation of tasks.Task to be saved into txt file
