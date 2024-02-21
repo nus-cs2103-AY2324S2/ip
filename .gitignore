@@ -16,5 +16,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# duke.Duke Tasks File
+# kwuntalk.KwunTalk Tasks File
 /data/

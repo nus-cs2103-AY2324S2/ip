@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("kwuntalk.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "kwuntalk"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
