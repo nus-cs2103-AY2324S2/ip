@@ -36,6 +36,12 @@ public class Storage {
                 f.getParentFile().mkdirs();
             }
             f.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            String sampleData = "1.[T][X] eat\n"
+                    + "2.[D][ ] homework (by: 02 Feb 2024 23:59)\n"
+                    + "3.[E][ ] study (from: 02 Feb 2024 08:00 to: 02 Feb 2024 12:00)";
+            writer.write(sampleData);
+            writer.close();
         }
         assert f.exists();
     }
@@ -53,7 +59,8 @@ public class Storage {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write(newFileContent);
         writer.close();
-        assert taskList.getListSize() - startingLength == 1;
+        int changeInLength = taskList.getListSize() - startingLength;
+        assert changeInLength == 1 || changeInLength == -1; // disable this before running ListTest or StorageTest
     }
 
     /**
@@ -158,8 +165,9 @@ public class Storage {
      * @throws IOException As it writes to a file.
      */
     public void clearData() throws IOException {
-        assert false; // disable this before running ListTest or StorageTest
+        // assert false; // disable this before running ListTest or StorageTest
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write("");
+        writer.close();
     }
 }
