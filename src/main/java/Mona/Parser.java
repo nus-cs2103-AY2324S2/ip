@@ -1,14 +1,16 @@
 package mona;
 
 /**
- * This class contains all logic for parsing the user input
+ * The Parser class is responsible for parsing user input and extracting relevant details for processing.
  */
 public class Parser {
+
     /**
-     * Method for determining the type of command given by the user
-     * @param input the user input split by the " " delimiter
-     * @return Command enum indicating which of the predefined commands was called
-     * @throws MonaException thrown when an unknown command is encountered
+     * Parses the current command based on the first element of the input array.
+     *
+     * @param input The user input split into an array.
+     * @return The corresponding Command enum indicating the type of command.
+     * @throws MonaException If the command is not recognized by Mona.
      */
     public Mona.Command getCurrentCommand(String[] input) throws MonaException {
         switch (input[0]) {
@@ -38,10 +40,12 @@ public class Parser {
     }
 
     /**
-     * Method for getting the rest of the details following the type of task being added to the list
-     * @param command Command enum indicating which command was called
-     * @param input full user input from the command line
-     * @return an array containing the details to be used to instantiate tasks
+     * Extracts details from the user input based on the command type.
+     *
+     * @param command The Command enum representing the type of command.
+     * @param input   The user input string.
+     * @return An array of strings containing the extracted details.
+     * @throws MonaException If there are insufficient details provided for the command.
      */
     public String[] getDetails(Mona.Command command, String input) throws MonaException {
         String[] details = new String[3];
@@ -61,6 +65,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Extracts details for a todo command.
+     *
+     * @param details The array to store the extracted details.
+     * @param input   The user input string.
+     * @throws MonaException If there are insufficient details provided for the todo command.
+     */
     private void getTodoDetails(String[] details, String input) throws MonaException {
         if (input.length() <= 5) {
             throw new MonaException("NOOOOO! I need details to create a todo :(");
@@ -68,6 +79,13 @@ public class Parser {
         details[0] = input.substring(5);
     }
 
+    /**
+     * Extracts details for a deadline command.
+     *
+     * @param details The array to store the extracted details.
+     * @param input   The user input string.
+     * @throws MonaException If there are insufficient details provided for the deadline command.
+     */
     private void getDeadlineDetails(String[] details, String input) throws MonaException {
         if (input.length() <= 9) {
             throw new MonaException("NOOOOO! I need details to create a deadline :(");
@@ -78,6 +96,13 @@ public class Parser {
         details[1] = parts[1];
     }
 
+    /**
+     * Extracts details for an event command.
+     *
+     * @param details The array to store the extracted details.
+     * @param input   The user input string.
+     * @throws MonaException If there are insufficient details provided for the event command.
+     */
     private void getEventDetails(String[] details, String input) throws MonaException {
         if (input.length() <= 6) {
             throw new MonaException("NOOOOO! I need details to create an event :(");
