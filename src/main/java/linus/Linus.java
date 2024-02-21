@@ -38,6 +38,9 @@ public class Linus {
                     for (int i = 0; i < taskList.getSize(); i++) {
                         ui.showMessage(i + ". " + taskList.getTask(i));
                     }
+                } else if (input.startsWith("find")) {
+                    String keyword = input.substring(5).trim();
+                    ui.findTasks(taskList, keyword);
                 } else if (input.startsWith("mark")) {
                     int indexOfTask = Integer.parseInt(input.substring(5));
                     Task currTask = taskList.getTask(indexOfTask);
