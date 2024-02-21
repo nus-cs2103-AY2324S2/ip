@@ -24,6 +24,9 @@ public class Arona {
     private static final TaskList tasks = new TaskList();
     private static final Parser parser = new Parser();
 
+    private static final String ADDED_TASK_MESSAGE = "I've added this %s, Sensei!";
+    private static final String TASK_COUNT_MESSAGE = "Now, your task list has %d task";
+
     private static String listTasks() {
         return tasks.toString();
     }
@@ -33,9 +36,9 @@ public class Arona {
         tasks.addElements(task);
         assert tasks.getSize() > 0 : "The task list should not be empty";
 
-        return "I've added this task, Sensei!" + "\n"
+        return String.format(ADDED_TASK_MESSAGE, "task") + "\n"
                 + "    " + task + "\n"
-                + "Now, your task list has " + tasks.getSize() + " task"
+                + String.format(TASK_COUNT_MESSAGE, tasks.getSize())
                 + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
@@ -44,9 +47,9 @@ public class Arona {
         tasks.addElements(deadline);
         assert tasks.getSize() > 0 : "The task list should not be empty";
 
-        return "I've added this deadline, Sensei!" + "\n"
+        return String.format(ADDED_TASK_MESSAGE, "deadline") + "\n"
                 + "    " + deadline + "\n"
-                + "Now, your task list has " + tasks.getSize() + " task"
+                + String.format(TASK_COUNT_MESSAGE, tasks.getSize())
                 + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
@@ -55,9 +58,9 @@ public class Arona {
         tasks.addElements(event);
         assert tasks.getSize() > 0 : "The task list should not be empty";
 
-        return "I've added this event, Sensei!" + "\n"
+        return String.format(ADDED_TASK_MESSAGE, "event") + "\n"
                 + "    " + event + "\n"
-                + "Now, your task list has " + tasks.getSize() + " task"
+                + String.format(TASK_COUNT_MESSAGE, tasks.getSize())
                 + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
@@ -66,7 +69,7 @@ public class Arona {
         tasks.deleteElements(id);
         return "I've removed this task, Sensei!" + "\n"
                 + "    " + task + "\n"
-                + "Now, your task list has " + tasks.getSize() + " task"
+                + String.format(TASK_COUNT_MESSAGE, tasks.getSize())
                 + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
@@ -101,7 +104,7 @@ public class Arona {
      * @param commandSplit Arguments of the input.
      * @return Response message to be sent by the bot.
      */
-    private static String processCommand(CommandType commandType, String[] commandSplit)
+    private static String runCommand(CommandType commandType, String[] commandSplit)
             throws AronaException {
         String response = "";
         if (commandType == CommandType.BYE) {
@@ -213,7 +216,7 @@ public class Arona {
             CommandType command = parser.parseInput(userInput);
             String[] inputs = userInput.split(" ", 2);
 
-            response = processCommand(command, inputs);
+            response = runCommand(command, inputs);
             storage.saveTaskListToStorage(tasks);
         } catch (AronaException exception) {
             response = Ui.getLines(exception.getMessage());
@@ -238,7 +241,7 @@ public class Arona {
                 command = scanner.nextLine();
                 CommandType commandType = parser.parseInput(command);
                 String[] inputs = command.split(" ", 2);
-                if (Arona.processCommand(commandType, inputs) == exitArona()) {
+                if (Arona.runCommand(commandType, inputs) == exitArona()) {
                     break;
                 }
                 storage.saveTaskListToStorage(tasks);

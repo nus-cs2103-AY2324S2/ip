@@ -8,13 +8,18 @@ package arona.task;
  */
 public class ToDo extends Task {
     /**
-     * A public constructor for the task.Todo.
+     * A public constructor for the task.ToDo.
      * @param desc - the description of the task
      */
     public ToDo(String desc) {
         super(desc);
     }
 
+    /**
+     * Represent the task into a String format applicable for saving data.
+     * Uses an extra T| to represent a task.ToDo.
+     * @return A data representation of the task.ToDo
+     */
     @Override
     public String toDataFormat() {
         return "T|" + super.toDataFormat();
@@ -22,8 +27,8 @@ public class ToDo extends Task {
 
     /**
      * Represent the task into a String format applicable for printing output.
-     * Uses an extra [T] to represent a task.Todo.
-     * @return A String representation of the task.Todo
+     * Uses an extra [T] to represent a task.ToDo.
+     * @return A String representation of the task.ToDo
      */
     @Override
     public String toString() {

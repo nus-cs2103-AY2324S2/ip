@@ -53,10 +53,10 @@ public class Storage {
     public void loadTaskListFromStorage(TaskList taskList) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File dataFile = new File("./data/data.txt");
-        Scanner istream = new Scanner(dataFile);
+        Scanner inputStream = new Scanner(dataFile);
 
-        while (istream.hasNextLine()) {
-            String[] streamSplit = istream.nextLine().split(Pattern.quote("|"), 2);
+        while (inputStream.hasNextLine()) {
+            String[] streamSplit = inputStream.nextLine().split(Pattern.quote("|"), 2);
             String taskType = streamSplit[0];
             String[] taskArguments = streamSplit[1].split(Pattern.quote("|"), 0);
 
@@ -83,7 +83,7 @@ public class Storage {
             tasks.add(task);
         }
 
-        istream.close();
+        inputStream.close();
         taskList.readTasksFromStorage(tasks);
     }
 
@@ -92,12 +92,12 @@ public class Storage {
      */
     public void saveTaskListToStorage(TaskList taskList) {
         try {
-            FileWriter ostream = new FileWriter("./data/data.txt");
+            FileWriter outputStream = new FileWriter("./data/data.txt");
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                ostream.write(task.toDataFormat() + "\n");
+                outputStream.write(task.toDataFormat() + "\n");
             }
-            ostream.close();
+            outputStream.close();
         } catch (IOException error) {
             Ui.printLines("Sorry, Sensei! I seem to be struggling to save the tasks :(");
         }

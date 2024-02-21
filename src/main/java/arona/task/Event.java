@@ -38,6 +38,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Represent the task into a String format applicable for saving data.
+     * Uses an extra E| to represent a task.Event.
+     * @return A data representation of the task.Event
+     */
     @Override
     public String toDataFormat() {
         return "E|" + super.toDataFormat() + "|" + this.startDate + "|" + this.endDate;

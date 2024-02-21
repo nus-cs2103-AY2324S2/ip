@@ -15,25 +15,30 @@ public class Deadline extends Task {
     /**
      * The due date of the task.
      */
-    protected LocalDate deadlineDate;
+    protected LocalDate dueDate;
 
     /**
      * A public constructor for the task.Deadline.
      * @param desc - the description of the task
-     * @param deadlineDate - the deadline of the task
+     * @param dueDate - the deadline of the task
      */
-    public Deadline(String desc, String deadlineDate) throws AronaInvalidDateException {
+    public Deadline(String desc, String dueDate) throws AronaInvalidDateException {
         super(desc);
         try {
-            this.deadlineDate = LocalDate.parse(deadlineDate);
+            this.dueDate = LocalDate.parse(dueDate);
         } catch (DateTimeParseException e) {
             throw new AronaInvalidDateException("");
         }
     }
 
+    /**
+     * Represent the task into a String format applicable for saving data.
+     * Uses an extra D| to represent a task.Deadline.
+     * @return A data representation of the task.Deadline
+     */
     @Override
     public String toDataFormat() {
-        return "D|" + super.toDataFormat() + "|" + this.deadlineDate;
+        return "D|" + super.toDataFormat() + "|" + this.dueDate;
     }
 
     /**
@@ -44,6 +49,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
