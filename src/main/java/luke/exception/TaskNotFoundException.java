@@ -1,6 +1,6 @@
-package kitchensink.exception;
+package luke.exception;
 
-import kitchensink.List;
+import luke.List;
 
 /**
  * Thrown when the task specified cannot be found in the taskList.

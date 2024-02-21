@@ -1,4 +1,4 @@
-package kitchensink.exception;
+package luke.exception;
 
 /**
  * Thrown when the tasks in save file are in the incorrect format, due to possibly corruption or user editing.

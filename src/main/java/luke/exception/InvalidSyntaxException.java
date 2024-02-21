@@ -1,4 +1,4 @@
-package kitchensink.exception;
+package luke.exception;
 
 /**
  * Thrown when the first word in the user input is valid, but the input is not in the correct format

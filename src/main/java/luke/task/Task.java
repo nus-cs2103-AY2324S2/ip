@@ -1,6 +1,6 @@
-package kitchensink.task;
+package luke.task;
 
-import kitchensink.Ui;
+import luke.Ui;
 
 /**
  * A class that extracts the common attributes of all Tasks, such as ToDo, Deadline and Event.

@@ -1,20 +1,20 @@
-package kitchensink;
+package luke;
 
 import java.io.IOException;
 
-import kitchensink.exception.SaveFileCorruptedException;
+import luke.exception.SaveFileCorruptedException;
 
 /**
  * The entry point of the app.
  */
-public class KitchenSink /* extends Application */ {
+public class Luke /* extends Application */ {
     private Ui ui = new Ui();
     private Parser parser = new Parser();
     private String fileName = "./data/duke.txt";
     private Storage storage = new Storage(fileName);
     private List taskList = new List(storage.loadTasks());
 
-    public KitchenSink() throws IOException, SaveFileCorruptedException {
+    public Luke() throws IOException, SaveFileCorruptedException {
 
     }
 
