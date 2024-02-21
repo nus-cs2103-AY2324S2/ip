@@ -174,7 +174,7 @@ public class Storage {
         br.close();
 
         oldFile.delete();
-        temp.renameTo(new File("./data/duke.txt"));
+        temp.renameTo(new File(filePath));
 
         assert !oldFile.exists();
         assert file.exists();

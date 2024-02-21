@@ -42,7 +42,7 @@ public class FindHandler {
      */
     private String find(String find, TaskList taskList, Ui ui) throws AnxiException {
         if (find.matches("")) {
-            throw new AnxiException("Invalid input, missing search term");
+            throw new AnxiException("Are you searching? Maybe my eyesight's missing.\nNo input.");
         }
 
         String result = taskList.findMatchingTasks(find.strip());

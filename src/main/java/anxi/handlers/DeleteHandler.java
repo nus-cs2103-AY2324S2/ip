@@ -54,7 +54,7 @@ public class DeleteHandler {
         int index = Integer.parseInt(input.strip());
         int numOfTasks = taskList.getNumOfTasks();
         if (((index - 1) < 0) || (index > numOfTasks)) {
-            throw new AnxiException("Index out of bounds.");
+            throw new AnxiException("Index out of bounds, no task found.");
         }
 
         Task task = taskList.deleteTask(index - 1);

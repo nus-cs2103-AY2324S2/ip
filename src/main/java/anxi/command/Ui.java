@@ -55,7 +55,11 @@ public class Ui {
      * @return taskList     Consolidated task list.
      */
     public String printTaskList(String tasks) {
-        StringBuilder stringBuilder = new StringBuilder("\nHere are the tasks in your list:\n\n");
+        if (tasks.isEmpty()) {
+            return "Woo hoo no tasks in list!";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder("\nTasks in your list:\n\n");
         stringBuilder.append(tasks);
         return stringBuilder.toString();
     }
@@ -67,7 +71,7 @@ public class Ui {
      * @return markedTask   Information of successfully marked task.
      */
     public String printMarkTask(String taskString) {
-        StringBuilder stringBuilder = new StringBuilder("\nNice! I've marked this task as done:\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nMarked as done. Good Job!\n ");
         stringBuilder.append(taskString);
         stringBuilder.append("\n");
         return stringBuilder.toString();
@@ -80,7 +84,7 @@ public class Ui {
      * @return unmarkedTask     Information of successfully unmarked task.
      */
     public String printUnmarkTask(String taskString) {
-        StringBuilder stringBuilder = new StringBuilder("\nOK, I've marked this task as not done yet:\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nSuch a disappointment. Unmarked the task.\n ");
         stringBuilder.append(taskString);
         stringBuilder.append("\n");
         return stringBuilder.toString();
@@ -94,11 +98,11 @@ public class Ui {
      * @return addedTask    The newly added task and number of tasks in task list.
      */
     public String printAddTask(String taskString, int numOfTasks) {
-        StringBuilder stringBuilder = new StringBuilder("\nGot it. I've added this task:\r\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nBoo hoo :( added new task.\n ");
         stringBuilder.append(taskString);
-        stringBuilder.append("\nNow you have ");
+        stringBuilder.append("\n");
         stringBuilder.append(numOfTasks);
-        stringBuilder.append(" tasks in the list.\n");
+        stringBuilder.append(" task(s) in the list.\n");
         return stringBuilder.toString();
     }
 
@@ -110,11 +114,11 @@ public class Ui {
      * @return deletedTask  The deleted task and number of tasks left in task list.
      */
     public String printDeleteTask(String taskString, int numOfTasks) {
-        StringBuilder stringBuilder = new StringBuilder("\nNoted. I've removed this task:\r\n ");
+        StringBuilder stringBuilder = new StringBuilder("\nFarewell task! Task removed from list\n ");
         stringBuilder.append(taskString);
-        stringBuilder.append("\nNow you have ");
+        stringBuilder.append("\n");
         stringBuilder.append(numOfTasks);
-        stringBuilder.append(" tasks in the list.\n");
+        stringBuilder.append(" task(s) in the list.\n");
         return stringBuilder.toString();
     }
 
@@ -123,7 +127,7 @@ public class Ui {
      * @return findTask     All tasks that contain/match input string.
      */
     public String printFindTask(String tasks) {
-        StringBuilder stringBuilder = new StringBuilder("\nHere are the matching tasks in your list:\n");
+        StringBuilder stringBuilder = new StringBuilder("\nMatching tasks in list:\n");
         stringBuilder.append(tasks);
         return stringBuilder.toString();
     }
@@ -135,9 +139,9 @@ public class Ui {
      * @return unknownCommandString     Indicates that command entered is not a known command.
      */
     public String printUnknownCommandError(String command) {
-        StringBuilder stringBuilder = new StringBuilder("Are you as clueless about \"");
+        StringBuilder stringBuilder = new StringBuilder("What's \"");
         stringBuilder.append(command);
-        stringBuilder.append("\" as I am?");
+        stringBuilder.append("\"? Invalid request.");
         return stringBuilder.toString();
     }
 
