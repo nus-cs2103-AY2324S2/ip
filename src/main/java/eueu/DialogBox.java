@@ -1,13 +1,13 @@
-package duke;
+package eueu;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
 public class DialogBox extends HBox {
@@ -44,7 +44,7 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getEueuDialog(Label l, ImageView iv) {
         l.setPadding(new Insets(0,10, 10, 10));
         DialogBox db = new DialogBox(l, iv);
         db.flip();

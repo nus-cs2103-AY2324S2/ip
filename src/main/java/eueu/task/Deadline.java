@@ -1,7 +1,7 @@
-package duke.task;
+package eueu.task;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileWriter;
 import java.io.File;
 
 import java.time.LocalDate;
@@ -15,6 +15,8 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task{
 
     private String deadline;
+    static final String FILE_NOT_FOUND = "file not found! try again xx";
+
 
     public Deadline(String deadline, String task) {
         super(task);
@@ -44,7 +46,7 @@ public class Deadline extends Task{
     @Override
     public String add() {
             return this.getCat()+ this.marked() + " "
-                    + this.getTask()
+                    + this.getTask() + " "
                     + this.getDeadline();
 
     }
@@ -57,17 +59,20 @@ public class Deadline extends Task{
      */
     @Override
     public void writeToFile(File filePath) throws IOException {
-        try {
-            FileWriter fw = new FileWriter(filePath.getPath(), true);
-            if (!this.isDone()) {
-                fw.write("D/0/" + this.getTask() + "/" + deadline + "\n");
-            } else {
-                fw.write("D/1/" + this.getTask() + "/" + deadline + "\n");
+            try {
+                FileWriter fw = new FileWriter(filePath.getPath(), true);
+
+                if (!this.isDone()) {
+                    fw.write("D/0/" + this.getTask() + "/" + deadline + "\n");
+                } else {
+                    fw.write("D/1/" + this.getTask() + "/" + deadline + "\n");
+                }
+                fw.close();
+            } catch (IOException e) {
+                System.out.println(FILE_NOT_FOUND);
             }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("file not found! try again xx");
-        }
+
+
     }
 
 }

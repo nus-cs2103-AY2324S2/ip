@@ -1,26 +1,41 @@
-package duke;
+package eueu;
 
-import duke.contacts.Contacts;
+import eueu.contacts.Contacts;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Represents a parser that parses user's String input
- * for managing contact information
+ * Represents a parser that parses user's String input for managing contact information
  * to a command for ContactsList to execute.
  */
 
-//ADD STATIC FINAL FOR MAGIC STRINGS
-    // ADD JAVADOCS
 public class ContactsParser {
 
     private ContactsList contactsList;
-
+    static final String ENTER_CONTACT_INFO = "Enter contact information babez";
+    static final String ENTER_CONTACT_NAME =  "Enter contact name babez";
+    static final String EXIT_MESSAGE = "byeee love uu ttyl ok!";
+    static final String CLEAR_CONTACTS = "Contacts cleared! :)";
+    static final String GROUP_INDEX = "Enter contact index of the people to put in this group babez";
+    static final String GROUP_NAME = "Enter group name babez";
+    static final String NO_GROUP_FOUND = "No such group name found babez";
+    static final String CONTACT_INSTRUCTIONS = "ENTER (CONTACT) INSTRUCTIONS";
     public ContactsParser(ContactsList contactsList) {
         this.contactsList = contactsList;
     }
 
+    /**
+     * Parses user's String input to commands that ContactList executes.
+     * (i.e. -a, -d, ls, group, find group).
+     *
+     * @param command String input from user.
+     * @throws IOException When file cannot be found.
+     * @throws ArrayIndexOutOfBoundsException When user does not specify contact information.
+     * @throws StringIndexOutOfBoundsException When user does not specify the contact name.
+     * @throws NullPointerException When no group is found.
+     * @return ChatBot's reply to user input.
+     */
     public String parsing(String command) throws IOException, ArrayIndexOutOfBoundsException,
             StringIndexOutOfBoundsException, NullPointerException {
         String res = "";
@@ -37,9 +52,9 @@ public class ContactsParser {
                     res = contactsList.addContacts(contact);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                res = "I think you need to enter contact information babez";
+                res = ENTER_CONTACT_INFO;
             } catch (StringIndexOutOfBoundsException e) {
-                res = "I think you need to enter contact name babez";
+                res = ENTER_CONTACT_NAME;
             }
 
         } else if (command.startsWith("-d")) { //delete contact
@@ -47,16 +62,18 @@ public class ContactsParser {
                 String str = command.substring(3);
                 res = contactsList.deleteContact(str);
             } catch (StringIndexOutOfBoundsException e) {
-                res = "I think you need to enter contact name babez";
+                res = ENTER_CONTACT_NAME;
             }
-//        } else if (command.startsWith("pin")) { //pins contact
-//
         } else if (command.startsWith("ls")) {
             res = contactsList.contactls();
+        } else if (command.equals("bye")) {
+            res = EXIT_MESSAGE;
+            contactsList.write();
+            contactsList.clearContacts();
         } else if(command.startsWith("clear ls")) {
             FileWriter fw = new FileWriter("data/Contacts.txt", false);
             fw.close();
-            res = "Contacts cleared! :)";
+            res = CLEAR_CONTACTS;
         } else if (command.startsWith("group")) { //groups contacts by index in contactlist
             try {
                 String str = command.substring(6);
@@ -67,21 +84,21 @@ public class ContactsParser {
                 }
                 res = contactsList.group(arr[0], num);
             } catch (ArrayIndexOutOfBoundsException e) {
-                res = "I think you need to enter contact index of the people to put in this group babez";
+                res = GROUP_INDEX;
             } catch (StringIndexOutOfBoundsException e) {
-                res = "I think you need to enter group name babez";
+                res = GROUP_NAME;
             }
 
         } else if (command.startsWith("find group")) { //finds groups with names
             try {
                 res = contactsList.getGroup(command.substring(11));
             } catch (StringIndexOutOfBoundsException e) {
-                res = "I think you need to enter group name babez";
+                res = GROUP_NAME;
             } catch (NullPointerException e) {
-                res = "No such group name found babez";
+                res = NO_GROUP_FOUND;
             }
         } else {
-            res = "ENTER (CONTACT) INSTRUCTIONS";
+            res = CONTACT_INSTRUCTIONS;
         }
 
         return res;

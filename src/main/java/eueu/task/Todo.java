@@ -1,18 +1,19 @@
-package duke.task;
+package eueu.task;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.io.FileReader;
+import java.io.FileWriter;
+
 /**
  * Represents an Todo task that inherits from Task
  */
 public class Todo extends Task {
+    static final String FILE_NOT_FOUND = "file not found! try again xx";
+
     public Todo(String task) {
         super(task);
     }
+
 
     /**
      * Overrides Task.add() to specify the Todo task to be added.
@@ -41,7 +42,7 @@ public class Todo extends Task {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("file not found! try again bb");
+            System.out.println(FILE_NOT_FOUND);
         }
     }
 

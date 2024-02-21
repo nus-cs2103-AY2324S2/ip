@@ -1,25 +1,24 @@
-package duke;
+package eueu;
 
-import java.io.*;
+import eueu.task.Deadline;
+import eueu.task.Event;
+import eueu.task.Task;
+import eueu.task.Todo;
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 import java.util.ArrayList;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
-// change all task to one tasklist
-
 /**
  * Represents the tasklist and executes the tasks given
- * (i.e. list, write, addTask, mark, unmark, delete).
+ * (i.e. list, write, addTask, mark, unmark, delete, find).
  * Contains an ArrayList<Task> tasklist and Storage s.
  */
 
 public class TaskList {
     private ArrayList<Task> tasklist = new ArrayList<>(); //tasklist needs to copy everything from file at the start
-    // tasklist is not doing that and idk why
     private Storage s;
     static final String FILE_NOT_FOUND = "file not found! try again xx";
     static final String INVALID_TASK_RESPONSE = "ENTER INSTRUCTION";
@@ -53,13 +52,13 @@ public class TaskList {
         for (int i = 0; i < tasklist.size(); i++) {
             tasklist.get(i).writeToFile(s.getFile());
         }
-        clearCurrentList();
+        clearTasklist();
         s.getSavedTasks(tasklist);
     }
 
     /**
-     * Lists all tasks from previous iterations of Duke.run() which are stored in
-     * Storage s as well as current tasks in current iterations of Duke.run().
+     * Lists all tasks from previous iterations of Eueu.run() which are stored in
+     * Storage s as well as current tasks in current iterations of Eueu.run().
      *
      * @return String representation of the list
      */
@@ -83,21 +82,6 @@ public class TaskList {
         return str;
     }
 
-    /**
-     * Lists the current list in current iteration of Duke.run().
-     *
-     * @return String representation of current tasklist
-     */
-//    public String list() {
-//        assert tasklist != null : "TaskList should not be null";
-//
-//        String str = "Here are your tasks: \n";
-//        for (int i = 0; i < tasklist.size(); i++) {
-//            int j = i + 1;
-//            str += "    " + j + ". " + tasklist.get(i).add() + "\n";
-//        }
-//        return str;
-//    }
 
     /**
      * Adds Todo task to tasklist.
@@ -193,7 +177,7 @@ public class TaskList {
         }
         this.clearList();
         this.write();
-        clearCurrentList();
+        clearTasklist();
         s.getSavedTasks(tasklist);
         return str;
     }
@@ -217,9 +201,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             str = INVALID_TASK_UNMARK;
         }
-//        this.clearList();
         this.write();
-//        s.getSavedTasks(tasklist);
         return str;
     }
 
@@ -242,9 +224,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             str = INVALID_TASK_DELETE;
         }
-//        this.clearList();
         this.write();
-//        s.getSavedTasks(tasklist);
         return str;
     }
 
@@ -283,6 +263,12 @@ public class TaskList {
         return ret;
     }
 
+    /**
+     * Clears the contents of the task list file.
+     *
+     * @return A confirmation message indicating that the list has been cleared.
+     * @throws IOException if an I/O error occurs while attempting to clear the file.
+     */
     public String clearList() throws IOException {
         FileWriter fw = new FileWriter(TASKLIST_FILE, false);
         fw.close();
@@ -290,7 +276,12 @@ public class TaskList {
 
     }
 
-    public void clearCurrentList() throws IOException {
+    /**
+     * Clears the tasklist.
+     *
+     * @throws IOException if an I/O error occurs while attempting to clear the task list.
+     */
+    public void clearTasklist() throws IOException {
         tasklist.clear();
     }
 }

@@ -1,8 +1,8 @@
-package duke.task;
+package eueu.task;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +14,8 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private String start;
     private String end;
+    static final String FILE_NOT_FOUND = "file not found! try again xx";
+
 
     public Event(String start, String end, String task) {
         super(task);
@@ -47,7 +49,7 @@ public class Event extends Task {
     @Override
     public String add() {
             return this.getCat() + this.marked() + " "
-                    + this.getTask() + this.getEvent();
+                    + this.getTask() + " " + this.getEvent();
     }
 
     /**
@@ -67,15 +69,7 @@ public class Event extends Task {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("file not found! try again xx");
+            System.out.println(FILE_NOT_FOUND);
         }
     }
-
-//    @Override
-//    public void replace(StringBuffer sb, String edit) {
-//        String s = this.add() + "\n";
-//        int startIndex = sb.indexOf(s);
-//        int endIndex = startIndex + s.length();
-//        sb.replace(startIndex, endIndex, edit + "\n");
-//    }
 }

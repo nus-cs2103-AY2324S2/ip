@@ -1,8 +1,8 @@
-package duke.task;
+package eueu.task;
 
+import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Represents the Task specified by users.
@@ -29,6 +29,12 @@ public abstract class Task {
     public void setNotDone() {
         isDone = false;
     }
+
+    /**
+     * Getter function to check whether the task is marked as done.
+     *
+     * @return true if the task is marked as done, false otherwise.
+     */
 
     public boolean isDone() {
         return isDone;
@@ -117,9 +123,16 @@ public abstract class Task {
         return "";
     }
 
-        public boolean isFound(String str) {
-            return task.contains(str);
-        }
+
+    /**
+     * Checks if the specified string is found within the task.
+     *
+     * @param str The string to search for within the task.
+     * @return true if the specified string is found within the task, false otherwise.
+     */
+    public boolean isFound(String str) {
+        return task.contains(str);
+    }
 
 
 }

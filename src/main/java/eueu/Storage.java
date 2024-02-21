@@ -1,11 +1,10 @@
-package duke;
+package eueu;
 
-import duke.contacts.Contacts;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-
+import eueu.contacts.Contacts;
+import eueu.task.Deadline;
+import eueu.task.Event;
+import eueu.task.Task;
+import eueu.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,30 +22,15 @@ public class Storage {
     public Storage (File f) {
         this.f = f;
     }
-//    public Storage (File f, ArrayList<Task> tasklist) {
-//        this.tasklist = tasklist;
-//        this.f = f;
-//    }
 
     /**
-     * Gets the File content of f.
+     * Retrieves the content of contacts from a file and appends it to a string.
      *
-     * @throws FileNotFoundException When data file doesn't exist.
+     * @param contactList An ArrayList containing Contacts to be appended to the string.
+     * @return A string containing the content retrieved from the file and the content
+     * of the Contact objects in the list.
+     * @throws FileNotFoundException if the file containing contacts is not found.
      */
-    public String getTasksContent() throws FileNotFoundException {
-        String str = "";
-        try {
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                str += "    " + s.nextLine() + "\n";
-            }
-        } catch (FileNotFoundException e) {
-            return "file not found! try again xx";
-        }
-
-        return str;
-    }
-
     public String getContactsContent(ArrayList<Contacts> contactList) throws FileNotFoundException {
         String str = "";
         try {
@@ -73,6 +57,13 @@ public class Storage {
     public File getFile() {
         return f;
     }
+
+    /**
+     * Saves the Tasks content of f to tasklist.
+     *
+     * @param tasklist ArrayList<Task> to save file content of tasks to.
+     * @throws FileNotFoundException When data file doesn't exist.
+     */
 
     public void getSavedTasks(ArrayList<Task> tasklist) throws FileNotFoundException {
         try {
@@ -104,17 +95,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
         }
-//        String str = "Here are your tasks: \n";
-//        for (int i = 0; i < tasklist.size(); i++) {
-//            int j = i + 1;
-//            str += "    " + j + ". " + tasklist.get(i).add() + "\n";
-//        }
-//        return str;
-//        if(tasklist.isEmpty()) {
-//            return "empty";
-//        } else {
-//            return "not empty";
-//        }
     }
 
 }

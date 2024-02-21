@@ -1,10 +1,9 @@
-package duke;
+package eueu;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
+import eueu.task.Deadline;
+import eueu.task.Event;
+import eueu.task.Todo;
 
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -14,17 +13,16 @@ import java.io.IOException;
 
 public class Parser {
 private TaskList tasklist;
-private ContactsList contactsList;
 
-    public Parser(TaskList tasklist, ContactsList contactlist) {
+    public Parser(TaskList tasklist) {
         this.tasklist = tasklist;
-        this.contactsList = contactlist;
     }
+
+    public Parser(){}
 
     static final String WELCOME_MESSAGE = "Hi babyyy! It's your EUEU!! \n"
                                             + "What are you doing today??";
     static final String EXIT_MESSAGE = "byeee love uu ttyl ok!";
-    static final String TASKLIST_FILE = "data/EUEU.txt";
     static final String NON_COMMAND_RESPONSE = "Baby, what are you saying? " +
                                                 "Tell me what your TODOs, DEADLINEs and EVENTs are!";
     static final String INVALID_TASK_RESPONSE = "ENTER TASK";
@@ -38,12 +36,13 @@ private ContactsList contactsList;
 
     /**
      * Parses user's String input to commands that TaskList executes.
-     * (i.e. mark, unmark, delete, find, clear list, list, todo, deadline, event)
+     * (i.e. mark, unmark, delete, find, clear list, list, todo, deadline, event).
      *
      * @param command String input from user.
      * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo).
      * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1).
      * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event.
+     * @throws IOException When file cannot be found.
      * @return ChatBot's reply to user input.
      */
 
@@ -58,14 +57,10 @@ private ContactsList contactsList;
             res = tasklist.list() + "\n";
             res += WELCOME_MESSAGE;
         } else if (command.equals("clear list")) {
-            tasklist.clearCurrentList();
+            tasklist.clearTasklist();
             res = tasklist.clearList();
         } else if (command.equals("bye")) {
             res = EXIT_MESSAGE;
-//            tasklist.write();
-//            tasklist.clearCurrentTasks();
-            contactsList.write();
-            contactsList.clearContacts();
         } else if (command.startsWith("mark")) {
             try {
                 String str = command.substring(5);
@@ -116,7 +111,7 @@ private ContactsList contactsList;
                     }
                 } else if (command.startsWith("event")) {
                     try {
-                        String str = command.substring(6);
+                        String str = command.substring(8);
                         String[] arr = str.split("/");
                         String c = arr[0];
                         String start = arr[1].substring(5);

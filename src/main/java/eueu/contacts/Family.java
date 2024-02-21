@@ -1,4 +1,4 @@
-package duke.contacts;
+package eueu.contacts;
 
 public class Family extends Contacts {
 

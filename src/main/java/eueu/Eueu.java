@@ -1,32 +1,28 @@
-package duke;
+package eueu;
 
-import duke.task.Task;
+import javafx.application.Application;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 
-import javafx.application.Application;
-import javafx.scene.control.Label;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * duke.Main class of the program.
  *
  * @author Tania Tan Shu Qi
  */
-public class Duke extends Application {
+public class Eueu extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -35,7 +31,7 @@ public class Duke extends Application {
     private Scene scene;
     private Image userPic = new Image(this.getClass().getResourceAsStream("/images/DaCHOCO.jpg"));
     private Image eueu = new Image(this.getClass().getResourceAsStream("/images/DaEUEU.jpg"));
-    public Duke() {
+    public Eueu() {
 
     }
 
@@ -56,7 +52,7 @@ public class Duke extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void start(Stage stage) {
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -73,7 +69,7 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
+        stage.setTitle("Eueu");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -89,13 +85,8 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-
-
-//        Label welcomeMessage = new Label ("Hi babyyy! It's your EUEU!! \n"
-//                                                + "What are you doing today??");
-
         Label welcomeMessage = new Label (tasklist.list());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, new ImageView(eueu)));
+        dialogContainer.getChildren().add(DialogBox.getEueuDialog(welcomeMessage, new ImageView(eueu)));
 
 
         userInput.setPrefWidth(325.0);
@@ -133,20 +124,13 @@ public class Duke extends Application {
 
     }
 
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
     private void handleUserInput() throws IOException {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label eueuText = new Label(getResponse(userInput.getText()));
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(userPic)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(eueu))
+                DialogBox.getEueuDialog(eueuText, new ImageView(eueu))
         );
 
         userInput.clear();
@@ -170,7 +154,7 @@ public class Duke extends Application {
                 return "ENTER (CONTACT) INSTRUCTION";
             }
         } else {
-            Parser parse = new Parser(tasklist, contactsList);
+            Parser parse = new Parser(tasklist);
             return parse.parsing(input);
         }
 

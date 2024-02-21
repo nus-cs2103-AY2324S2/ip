@@ -42,14 +42,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("eueu.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "eueu"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'eueu.jar'
 }
 
 run{
