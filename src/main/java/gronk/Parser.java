@@ -3,6 +3,8 @@ package gronk;
 import exception.gronk.UnknownCommandException;
 import exception.gronk.WrongDateFormatException;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -35,8 +37,8 @@ public class Parser {
     private static final Pattern EVENT = Pattern.compile("(?i)event .+ /[fF] " + DATE_REGEX + " /[tT] " + DATE_REGEX);
     private static final Pattern WRONG_EVENT = Pattern.compile("(?i)event .+ /[fF].+/[tT].+");
     private static final Pattern LIST = Pattern.compile("(?i)list");
-    private static final Pattern MARK = Pattern.compile("(?i)mark [1-9][0-9]*");
-    private static final Pattern DELETE = Pattern.compile("(?i)delete [1-9][0-9]*");
+    private static final Pattern MARK = Pattern.compile("(?i)mark ([1-9][0-9]* )*([1-9][0-9]*)");
+    private static final Pattern DELETE = Pattern.compile("(?i)delete ([1-9][0-9]* )*([1-9][0-9]*)");
     private static final Pattern FIND = Pattern.compile("(?i)find .+");
 
     /**
@@ -153,16 +155,59 @@ public class Parser {
     }
 
     /**
-     * Generates a message indicating a task has been marked or unmarked
+     * Takes in a variable number of integers and marks the tasks with those integers as their indexes.
+     * @param indexes
+     * @return Generates a message stating which tasks have been marked.
+     */
+    private static String parseMarkTasks(Integer... indexes) {
+        String returnMessage = "";
+        for (int index: indexes) {
+            returnMessage += Parser.taskList.getTask(index - 1).statusMessage() + "\n";
+            Parser.taskList.getTask(index - 1).flip();
+        }
+        returnMessage = returnMessage.substring(0, returnMessage.lastIndexOf("\n"));
+        return returnMessage;
+    }
+
+    /**
+     * Generates a message indicating a task has been marked or unmarked. Multiple indexes are to be
+     * separated by spaces.
      * @param message
-     * @return Marks or unmarks a task by their index
+     * @return Generates a message stating which tasks have been marked.
      */
     private static String parseMark(String message) {
-        String markedIndex = message.substring(5);
-        int index = Integer.parseInt(markedIndex) - 1;
-        String returnMessage = Parser.taskList.getTask(index).statusMessage();
-        Parser.taskList.getTask(index).flip();
-        return returnMessage;
+        Integer[] indexes = Arrays.stream(message.substring(5).split(" "))
+                .map(Integer::valueOf)
+                .toArray(Integer[]::new);
+        return Parser.parseMarkTasks(indexes);
+    }
+
+    /**
+     * Takes in a variable number of integers and deletes the tasks with those integers as their indexes.
+     * @param indexes
+     * @return Generates a message stating which tasks have been deleted.
+     */
+    private static String parseDeleteTasks(Integer... indexes) {
+        try {
+            String returnMessage = "";
+            int size = Parser.taskList.getSize();
+            if (size == 0) {
+                throw new EmptyListException();
+            }
+            for (int index: indexes) {
+                if (index > size || index <= 0) {
+                    throw new NoSuchElementException();
+                }
+                returnMessage = "\tItem: " + Parser.taskList.getTask(index - 1).getDesc()
+                        + " removed from list." + "\n" + returnMessage;
+                Parser.taskList.deleteTask(index - 1);
+            }
+            returnMessage = returnMessage.substring(0, returnMessage.lastIndexOf("\n"));
+            return returnMessage;
+        } catch (EmptyListException | NoSuchElementException e) {
+            Parser.userInterface.printMessage(e.toString());
+            return "";
+        }
     }
 
     /**
@@ -171,24 +216,11 @@ public class Parser {
      * @return Message indicating a task has been deleted.
      */
     private static String parseDelete(String message) {
-        try {
-            String deletedIndex = message.substring(7);
-            int index = Integer.parseInt(deletedIndex) - 1;
-            int size = Parser.taskList.getSize();
-            if (size == 0) {
-                throw new EmptyListException();
-            } else if (index >= size || index < 0) {
-                throw new NoSuchElementException();
-            } else {
-                String returnMessage = "\tItem: " + Parser.taskList.getTask(index).getDesc()
-                        + " removed from list.";
-                Parser.taskList.deleteTask(index);
-                return returnMessage;
-            }
-        } catch (EmptyListException | NoSuchElementException e) {
-            Parser.userInterface.printMessage(e.toString());
-            return "";
-        }
+        Integer[] indexes = Arrays.stream(message.substring(7).split(" "))
+                .map(Integer::valueOf)
+                .sorted(Comparator.reverseOrder())
+                .toArray(Integer[]::new);
+        return Parser.parseDeleteTasks(indexes);
     }
 
     /**
