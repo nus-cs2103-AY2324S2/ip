@@ -1,6 +1,7 @@
 package rick.ui;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -21,6 +22,7 @@ public class DialogBox extends HBox {
     private Label dialog = new Label();
     @FXML
     private ImageView displayPicture = new ImageView();
+
 
     private DialogBox(String text, Image img) {
         try {
@@ -44,12 +46,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_RIGHT);
     }
 
+    /**
+     * Creates a user dialog
+     * @param text the text in rick dialog
+     * @param img text image
+     * @return A dialog to be displayed
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox user = new DialogBox(text, img);
         user.flip();
         return user;
     }
 
+    /**
+     * Creates a rick dialog
+     * @param text the text in rick dialog
+     * @param img text image
+     * @return A dialog to be displayed
+     */
     public static DialogBox getRickDialog(String text, Image img) {
         DialogBox rick = new DialogBox(text, img);
         return rick;

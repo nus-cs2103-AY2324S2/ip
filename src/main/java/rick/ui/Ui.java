@@ -23,7 +23,7 @@ public class Ui {
     }
 
     /**
-     * Reply a specific string to the user.
+     * Replies a specific string to the user.
      * @param arg the string to be replied.
      */
     public static void reply(String arg) {

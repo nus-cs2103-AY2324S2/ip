@@ -25,6 +25,11 @@ public class DeadlineCommand implements Command {
         }
     }
 
+    /**
+     * Parses an input command using deadline format.
+     * @param input user's input.
+     * @throws RickException when input does not follow format of deadline command.
+     */
     private void parse(String input) throws RickException {
         if (input == null || input.isBlank()) {
             throw new RickException("Task name cannot be empty!");
@@ -49,6 +54,11 @@ public class DeadlineCommand implements Command {
         this.name = name;
         this.deadline = deadline;
     }
+
+    /**
+     * Returns a string array containing important arguments of a deadline command.
+     * @return a string containing command type and related information.
+     */
     @Override
     public String[] respond() {
         return new String[]{"DL", this.name, this.deadline};
