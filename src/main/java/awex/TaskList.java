@@ -39,6 +39,18 @@ public class TaskList {
         this.tasks.add(t);
     }
 
+    public LinkedList<Task> find(String str) {
+        LinkedList<Task> list = new LinkedList();
+        int len = this.tasks.size();
+        for (int i = 0; i < len; i++) {
+            Task t = this.tasks.get(i);
+            if (t.isPartOfDesc(str)) {
+                list.add(t);
+            }
+        }
+        return list;
+    }
+
     public Task get(int i) {
         return this.tasks.get(i);
     }
