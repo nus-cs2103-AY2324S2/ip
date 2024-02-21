@@ -20,7 +20,7 @@ public class Ui {
      */
     public static String showHelloMessage() {
         String helloMessage = "";
-        helloMessage += "Hello! I'm Ellie, your CS2103T chat bot! \n";
+        helloMessage += "Hello! I'm 'Stressed Out by a Mountain of Books' chat bot! \n";
         helloMessage += "I help by tracking your tasks!\n";
         helloMessage += "What can I do for you? \n \n";
         helloMessage += "Type 'help' to see available commands! \n";
@@ -32,7 +32,7 @@ public class Ui {
      */
     public static String showGoodbyeMessage() {
         String goodbyeMessage = "";
-        goodbyeMessage += "\n Bye! Hope to see you again soon!";
+        goodbyeMessage += "\n Bye! Don't be too stressed out!";
         goodbyeMessage += "\n" + HORIZONTAL_LINE;
         return goodbyeMessage;
     }

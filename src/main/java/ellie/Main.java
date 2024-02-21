@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Ellie ellie = new Ellie();
+    private Image appImage = new Image(this.getClass().getResourceAsStream("/images/appImage.png"));
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +24,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
+            stage.getIcons().add(appImage);
+            stage.setTitle("Personal Chatbot");
+
             fxmlLoader.<MainWindow>getController().setEllie(ellie);
             stage.show();
         } catch (IOException e) {
