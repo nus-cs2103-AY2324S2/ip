@@ -159,7 +159,7 @@ Here are the matching tasks in your list:
 
 ### Tagging tasks
 
-Tasks can be tagged with a keyword. The tag must be alphanumeric.
+Tasks can be tagged with a keyword. The tag must be alphanumeric without spaces.
 
 Format: `tag <task number> <tag>`
 
@@ -253,7 +253,7 @@ OK, I've removed the tag important from this task:
 </tr>
 <tr>
 <td><code>tag</code></td>
-<td>Tags a task with a keyword (must be alphanumeric)</td>
+<td>Tags a task with a keyword (must be alphanumeric, no spaces)</td>
 <td><code>tag &lt;task number&gt; &lt;tag&gt;</code></td>
 <td><code>tag 1 important</code></td>
 </tr>
