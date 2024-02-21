@@ -85,11 +85,13 @@ public final class LocalStorage {
      * @return The {@link TaskList} stored in local storage, or a new instance if none exists.
      */
     public static TaskList loadTaskList() {
+        TaskList taskList;
         if (hasCreatedSaveFile()) {
-            return new TaskList();
+            taskList = new TaskList();
+        } else {
+            taskList = readSaveFile();
         }
 
-        TaskList taskList = readSaveFile();
         SaveState.saveCurrentState(taskList.saveState());
         return taskList;
     }
