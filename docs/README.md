@@ -1,30 +1,50 @@
-# Duke User Guide
+# Jerry User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Jerry Chatbot](Ui.png)
 
-// Product screenshot goes here
+Can't remember your chores as a household cat? Not to worry! Your best friend / Enemy Jerry is here to help you!
 
-// Product intro goes here
+
+
+## List
+
+This command will ask the chatbot show all items in your current list.
+
+Example: list
+```
+Here are the tasks in your list:
+1.[T][] catch mouse
+2.[DI[] set mouse trap (by: Feb 25 2024)
+3.[E][X] drink millk (from: Feb 20 2024 08:00 to: Feb 20 2024 10:00)
+4.[D][] buy biscuits (by: Mar 03 2023)
+```
+
+
+## Marking/ Unmarking
+
+This command will ask the chatbot to mark/ unmark a task as done.
+
+Example: mark 1
+
+The first item will be marked with an X.
+```
+Nice! I've marked this task as done:
+[T][X] catch mouse
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Add an event with a deadline, of the format yyyy-MM-dd
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
 
-// A description of the expected outcome goes here
+Example: deadline buy biscuits /by 2023-03-03
+
+Jerry will add the task into the list. This will be the output shown:
 
 ```
-expected output
+Got it. I've added this task:
+[D][] buy biscuits (by: Mar 03 2023)
+Now you have 4 tasks in the list.
 ```
 
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details

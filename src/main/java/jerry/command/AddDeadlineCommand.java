@@ -4,6 +4,8 @@ import jerry.Deadline;
 import jerry.TaskList;
 import jerry.Ui;
 
+import java.time.format.DateTimeParseException;
+
 public class AddDeadlineCommand extends Command {
 
     private final String commandDetails;
@@ -31,6 +33,8 @@ public class AddDeadlineCommand extends Command {
             } else {
                 return ui.showWrong();
             }
+        } catch (DateTimeParseException e) {
+            return ("Invalid date format. Please use yyyy-MM-dd.");
         } catch (CommandFormatException e) {
             return ui.showMessage(e.getMessage());
         }

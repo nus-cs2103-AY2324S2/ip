@@ -18,13 +18,9 @@ public class Deadline extends Task {
      * @param by The deadline date for the task.
      */
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException{
         super(description);
-        try {
-            this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-        }
+        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Override

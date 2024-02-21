@@ -4,6 +4,8 @@ import jerry.Event;
 import jerry.TaskList;
 import jerry.Ui;
 
+import java.time.format.DateTimeParseException;
+
 public class AddEventCommand extends Command {
 
     private final String commandDetails;
@@ -34,6 +36,8 @@ public class AddEventCommand extends Command {
             } else {
                 return ui.showWrong();
             }
+        } catch (DateTimeParseException dateTimeException) {
+            return "Invalid date/time format. Please use yyyy-MM-dd HH:mm.";
         } catch (CommandFormatException e) {
             return ui.showMessage(e.getMessage());
         }

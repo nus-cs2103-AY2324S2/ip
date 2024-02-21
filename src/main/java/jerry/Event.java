@@ -22,15 +22,12 @@ public class Event extends Task {
      * @param to The end time of the event.
      */
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            this.from = LocalDateTime.parse(from, formatter);
-            this.to = LocalDateTime.parse(to, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date/time format. Please use yyyy-MM-dd HH:mm.");
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
+
     }
 
     @Override
