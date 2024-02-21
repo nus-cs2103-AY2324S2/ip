@@ -9,10 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * Represents a custom control using FXML.
@@ -28,7 +28,7 @@ public class DialogBox extends HBox {
 
     /** The label displaying the text in the dialog box. */
     @FXML
-    private Label dialog;
+    private Text dialog;
 
     /** The ImageView displaying the user/bot image in the dialog box. */
     @FXML
