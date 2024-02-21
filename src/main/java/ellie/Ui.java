@@ -16,11 +16,12 @@ public class Ui {
     }
 
     /**
-     * Prints a welcome message, the Ellie logo, and a horizontal line.
+     * Prints a welcome message.
      */
     public static String showHelloMessage() {
         String helloMessage = "";
-        helloMessage += "Hello! I'm 'Stressed Out by a Mountain of Books' chat bot! \n";
+        helloMessage += "Hello! I'm Ellie, your personal chat bot! \n";
+        helloMessage += "You can call me Stressed Out by a Mountain of Books! \n \n";
         helloMessage += "I help by tracking your tasks!\n";
         helloMessage += "What can I do for you? \n \n";
         helloMessage += "Type 'help' to see available commands! \n";

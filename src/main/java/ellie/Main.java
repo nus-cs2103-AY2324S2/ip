@@ -26,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
 
             stage.getIcons().add(appImage);
-            stage.setTitle("Personal Chatbot");
+            stage.setTitle("Personal Chat bot: Ellie");
 
             fxmlLoader.<MainWindow>getController().setEllie(ellie);
             stage.show();

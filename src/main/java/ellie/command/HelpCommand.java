@@ -25,13 +25,13 @@ public class HelpCommand extends Command {
     public String runAndReturnResponse(TaskList tasklist) {
         String response = NEW_LINE;
         response += "Here's a list of supported commands so far: " + NEW_LINE
-                + " help" + NEW_LINE
-                + " list" + NEW_LINE
-                + " mark/unmark [int]" + NEW_LINE
-                + " todo [task]" + NEW_LINE
-                + "deadline [task] /by [date]" + NEW_LINE
-                + " event [task] /from [date] /to [date]" + NEW_LINE
-                + " bye/exit" + NEW_LINE;
+                + " <help>" + NEW_LINE
+                + " <list>" + NEW_LINE
+                + " <mark/unmark [int]>" + NEW_LINE
+                + " <todo [task]>" + NEW_LINE
+                + " <deadline [task] /by [date]>" + NEW_LINE
+                + " <event [task] /from [date] /to [date]>" + NEW_LINE
+                + " <bye/exit>" + NEW_LINE;
         return response;
     }
 }
