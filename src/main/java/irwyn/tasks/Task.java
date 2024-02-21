@@ -104,4 +104,12 @@ public class Task implements Comparable<Task> {
     public int compareTo(Task otherTask) {
         return this.toString().compareTo(otherTask.toString());
     }
+
+    /**
+     * Method to get the description of the task.
+     * @return Description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }
