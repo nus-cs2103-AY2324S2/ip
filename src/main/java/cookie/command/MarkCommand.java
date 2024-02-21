@@ -1,9 +1,9 @@
-package duke.command;
+package cookie.command;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.CookieException;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
  * Represents a command to mark a task as done in the task list.
@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
+    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws CookieException {
         Task[] taskArr = tasks.getTasks();
         int counter = tasks.getCounter();
 
@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
 
             return ui.showMarkTaskDoneMessage(taskArr[taskNum - 1]);
         } else {
-            throw new DukeException("UH OH! Invalid task number, please provide a valid task number!");
+            throw new CookieException("UH OH! Invalid task number, please provide a valid task number!");
         }
     }
 }

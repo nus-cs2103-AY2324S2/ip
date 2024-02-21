@@ -1,4 +1,4 @@
-package duke;
+package cookie;
 
 import javafx.application.Application;
 

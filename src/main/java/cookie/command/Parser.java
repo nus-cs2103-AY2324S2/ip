@@ -1,9 +1,6 @@
-package duke.command;
+package cookie.command;
 
-import duke.DukeException;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.ui.Ui;
+import cookie.CookieException;
 
 import java.time.LocalDate;
 
@@ -18,9 +15,9 @@ public class Parser {
      *
      * @param input The user input command to be parsed.
      * @return A Command object representing the parsed command.
-     * @throws DukeException If the input command is invalid or cannot be parsed.
+     * @throws CookieException If the input command is invalid or cannot be parsed.
      */
-    public static Command parseCommand(String input) throws DukeException {
+    public static Command parseCommand(String input) throws CookieException {
         if (input.trim().equals("bye")) {
             return new ByeCommand("bye");
 
@@ -49,11 +46,11 @@ public class Parser {
             return parseTagCommand(input);
 
         } else {
-            throw new DukeException("UH OH! I don't understand what you mean.. sorry D:");
+            throw new CookieException("UH OH! I don't understand what you mean.. sorry D:");
         }
     }
 
-    private static Command parseTodoCommand(String input) throws DukeException {
+    private static Command parseTodoCommand(String input) throws CookieException {
         String toSplit = input.substring(5).trim();
 
         String[] parts = toSplit.split("#");
@@ -61,7 +58,7 @@ public class Parser {
         String description = parts[0].trim();
 
         if (description.isEmpty()) {
-            throw new DukeException("UH OH! Description for todo cannot be empty!");
+            throw new CookieException("UH OH! Description for todo cannot be empty!");
         }
 
         String tag;
@@ -73,7 +70,7 @@ public class Parser {
 
     }
 
-    private static Command parseDeadlineCommand(String input) throws DukeException {
+    private static Command parseDeadlineCommand(String input) throws CookieException {
         String toSplit = input.substring(9);
         String[] parts = toSplit.split("/by");
 
@@ -84,7 +81,7 @@ public class Parser {
 
         // if there was no task description or deadline specified, throw exception
         if (taskDesc.isEmpty() || deadline.isEmpty()) {
-            throw new DukeException("UH OH! Description and deadline cannot be empty!");
+            throw new CookieException("UH OH! Description and deadline cannot be empty!");
         }
 
         LocalDate by = LocalDate.parse(deadline);
@@ -97,7 +94,7 @@ public class Parser {
         return new DeadlineCommand("deadline", taskDesc, by);
     }
 
-    private static Command parseEventCommand(String input) throws DukeException {
+    private static Command parseEventCommand(String input) throws CookieException {
         String[] descTiming = splitDescTiming(input);
 
         String taskDesc = descTiming[0].trim();
@@ -105,7 +102,7 @@ public class Parser {
 
         // if format the to/from dates were not keyed in properly, throw exception
         if (fromTo.length != 2) {
-            throw new DukeException("UH OH! Invalid format for event task!");
+            throw new CookieException("UH OH! Invalid format for event task!");
         }
 
         String from = fromTo[0].trim();
@@ -113,7 +110,7 @@ public class Parser {
 
         // if there was no task description or to/from dates specified, throw exception
         if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new DukeException("UH OH! Description/start time/end time cannot be empty!");
+            throw new CookieException("UH OH! Description/start time/end time cannot be empty!");
         }
 
         // retrieve date and time for "from"
@@ -130,7 +127,7 @@ public class Parser {
         String toTime = toTimeAndTag[0].trim();
 
         if (toDate.isBefore(fromDate)) {
-            throw new DukeException("UH OH! The to date has to be later than the from date!!");
+            throw new CookieException("UH OH! The to date has to be later than the from date!!");
         }
 
         String tag;
@@ -148,27 +145,27 @@ public class Parser {
         return parts;
     }
 
-    private static Command parseMarkCommand(String input) throws DukeException {
+    private static Command parseMarkCommand(String input) throws CookieException {
         String taskNum = input.substring(5);
         int taskNumber = Integer.parseInt(taskNum);
         assert taskNumber > 0: "Task number has to be greater than 0";
         return new MarkCommand("mark", taskNumber);
     }
 
-    private static Command parseDeleteCommand(String input) throws DukeException {
+    private static Command parseDeleteCommand(String input) throws CookieException {
         String taskNum = input.substring(7);
         int taskNumber = Integer.parseInt(taskNum.trim());
         assert taskNumber > 0: "Task number has to be greater than 0";
         return new DeleteCommand("delete", taskNumber);
     }
 
-    private static Command parseFindCommand(String input) throws DukeException {
+    private static Command parseFindCommand(String input) throws CookieException {
         String kw = input.substring(5);
         String keyword = kw.trim();
         return new FindCommand("find", keyword);
     }
 
-    private static Command parseTagCommand(String input) throws DukeException {
+    private static Command parseTagCommand(String input) throws CookieException {
         String tagWithHash = input.substring(14);
         String tag = (tagWithHash.trim()).substring(1);
         return new DisplayTaggedCommand("find tag", tag);

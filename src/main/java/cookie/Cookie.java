@@ -1,24 +1,24 @@
-package duke;
+package cookie;
 
-import duke.command.Command;
-import duke.command.Parser;
-import duke.command.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.command.Command;
+import cookie.command.Parser;
+import cookie.command.Storage;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
- * Represents the main Duke application class responsible for running the program.
+ * Represents the main Cookie application class responsible for running the program.
  */
-public class Duke {
+public class Cookie {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
     protected boolean isExit = false;
 
     /**
-     * Constructs a Duke object with the specified file path.
+     * Constructs a Cookie object with the specified file path.
      */
-    public Duke() {
+    public Cookie() {
         ui = new Ui();
         storage = new Storage("./tasks.txt");
         tasks = new TaskList();
@@ -35,33 +35,33 @@ public class Duke {
      *
      * @param input The user input to be processed.
      * @return The response message generated based on the user input and command execution.
-     * @throws DukeException If an error occurs during command parsing or execution.
+     * @throws CookieException If an error occurs during command parsing or execution.
      */
-    public String getResponse(String input) throws DukeException {
+    public String getResponse(String input) throws CookieException {
         try {
             Command command = Parser.parseCommand(input);
             isExit = command.isBye();
             return command.executeAndReply(ui, tasks, storage);
-        } catch (DukeException e) {
+        } catch (CookieException e) {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
     }
 
     /**
-     * Runs the Duke application.
+     * Runs the Cookie application.
      */
     public void run() {
         System.out.println(ui.showWelcomeMessage());
     }
 
     /**
-     * The entry point for running the Duke application.
+     * The entry point for running the Cookie application.
      *
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Cookie().run();
     }
 
 }

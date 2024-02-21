@@ -1,10 +1,10 @@
-package duke.command;
+package cookie.command;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
- * Represents a command indicating the termination of the Duke application.
+ * Represents a command indicating the termination of the Cookie application.
  * When executed, it writes tasks to storage and generates a goodbye message.
  */
 public class ByeCommand extends Command {

@@ -1,8 +1,7 @@
-package duke;
+package cookie;
 
 import java.io.IOException;
 
-import duke.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,14 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The entry point for the Duke application GUI using FXML.
+ * The entry point for the Cookie application GUI using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Cookie cookie = new Cookie();
 
     /**
-     * Starts the Duke GUI application.
+     * Starts the Cookie GUI application.
      *
      * @param stage The primary stage for this application.
      */
@@ -28,7 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setCookie(cookie);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

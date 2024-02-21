@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("cookie.Cookie")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "cookie"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

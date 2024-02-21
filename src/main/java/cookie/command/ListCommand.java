@@ -1,9 +1,9 @@
-package duke.command;
+package cookie.command;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.CookieException;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
  * Represents a command to list all tasks in the task list.
@@ -20,11 +20,11 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
+    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws CookieException {
         Task[] taskArr = tasks.getTasks();
         int counter = tasks.getCounter();
         if (counter == 0) {
-            throw new DukeException("UH OH! You have not added any tasks!");
+            throw new CookieException("UH OH! You have not added any tasks!");
         }
         return ui.showTaskList(taskArr, counter);
     }

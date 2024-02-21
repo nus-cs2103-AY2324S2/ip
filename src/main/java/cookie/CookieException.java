@@ -1,17 +1,17 @@
-package duke;
+package cookie;
 
 
 /**
- * Represents a custom exception class for Duke application.
+ * Represents a custom exception class for Cookie application.
  * It extends the Exception class.
  */
-public class DukeException extends Exception {
+public class CookieException extends Exception {
     /**
-     * Constructs a DukeException with the specified detail message.
+     * Constructs a CookieException with the specified detail message.
      *
      * @param message the detail message (which is saved for later retrieval by the Throwable.getMessage() method).
      */
-    public DukeException(String message) {
+    public CookieException(String message) {
         super(message);
     }
 }

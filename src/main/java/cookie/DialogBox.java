@@ -1,21 +1,14 @@
-package duke;
+package cookie;
 
 import java.io.IOException;
-import java.util.Collections;
 
-import duke.MainWindow;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * Represents a custom control using FXML, representing a dialog box.

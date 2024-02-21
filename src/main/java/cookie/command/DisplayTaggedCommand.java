@@ -1,9 +1,9 @@
-package duke.command;
+package cookie.command;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.CookieException;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
  * Represents a command to display tasks tagged with a specific tag.
@@ -26,10 +26,10 @@ public class DisplayTaggedCommand extends Command {
     }
 
     @Override
-    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
+    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws CookieException {
         Task[] taggedTasks = tasks.displayTagged(tag);
         if (taggedTasks[0] == null) {
-            throw new DukeException("UH OH! No tasks of this tag!");
+            throw new CookieException("UH OH! No tasks of this tag!");
         }
         return ui.displayTaggedTasks(taggedTasks, "#" + tag);
     }

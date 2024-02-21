@@ -1,4 +1,4 @@
-package duke;
+package cookie;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,10 +20,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Cookie cookie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/sender.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/cookie.png"));
+    private Image cookieImage = new Image(this.getClass().getResourceAsStream("/images/cookie.png"));
 
     /**
      * Initializes the controller after its root element has been completely processed.
@@ -33,48 +33,48 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getCookieDialog("Heyy! I'm cookie! :) \n" +
-                "What can I do for your today?", dukeImage));
+                "What can I do for your today?", cookieImage));
         scrollPane.setStyle("-fx-background: #cdeaff;");
 
     }
 
     /**
-     * Sets the Duke instance associated with this MainWindow.
+     * Sets the Cookie instance associated with this MainWindow.
      *
-     * @param d The Duke instance to be set.
+     * @param c The Cookie instance to be set.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setCookie(Cookie c) {
+        cookie = c;
     }
 
     /**
-     * Handles user input by processing it and displaying appropriate responses from Duke.
+     * Handles user input by processing it and displaying appropriate responses from Cookie.
      * Clears the user input field after processing.
      *
-     * @throws DukeException If an error occurs during the Duke's response processing.
+     * @throws CookieException If an error occurs during the Cookie's response processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException {
+    private void handleUserInput() throws CookieException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cookie.getResponse(input);
         displayDialogBoxes(input, response);
         userInput.clear();
 
-        if (duke.isExit) {
+        if (cookie.isExit) {
             javafx.application.Platform.exit();
         }
     }
 
     /**
-     * Displays the user input and Duke's response as dialog boxes in the conversation window.
+     * Displays the user input and Cookie's response as dialog boxes in the conversation window.
      *
      * @param input    The user input to be displayed.
-     * @param response The response from Duke to be displayed.
+     * @param response The response from Cookie to be displayed.
      */
     private void displayDialogBoxes(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCookieDialog(response, dukeImage)
+                DialogBox.getCookieDialog(response, cookieImage)
         );
     }
 }

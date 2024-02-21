@@ -1,4 +1,4 @@
-package duke.task;
+package cookie.task;
 
 /**
  * Represents a generic task.

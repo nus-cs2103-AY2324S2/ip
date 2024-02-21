@@ -1,9 +1,9 @@
-package duke.command;
+package cookie.command;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.CookieException;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 /**
  * Represents a command to find tasks containing a specific keyword in the task list.
@@ -24,12 +24,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws DukeException {
+    public String executeAndReply(Ui ui, TaskList tasks, Storage storage) throws CookieException {
         Task[] tasksToPrint = tasks.searchKeyWord(keyword);
         if (tasksToPrint[0] != null) {
             return ui.showTasksContainingKeyword(tasksToPrint, keyword);
         } else {
-            throw new DukeException("UH OH! No tasks containing this keyword!");
+            throw new CookieException("UH OH! No tasks containing this keyword!");
         }
     }
 }

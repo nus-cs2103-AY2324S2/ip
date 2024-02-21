@@ -1,9 +1,9 @@
-package duke.task;
+package cookie.task;
 
 import java.util.Objects;
 
 /**
- * Represents a list of tasks in the Duke application.
+ * Represents a list of tasks in the Cookie application.
  */
 public class TaskList {
     private Task[] tasks;

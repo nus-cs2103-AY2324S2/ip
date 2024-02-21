@@ -1,12 +1,11 @@
-package duke.command;
+package cookie.command;
 
-import duke.task.*;
+import cookie.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**

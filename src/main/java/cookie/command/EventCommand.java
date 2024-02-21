@@ -1,9 +1,9 @@
-package duke.command;
+package cookie.command;
 
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cookie.task.Event;
+import cookie.task.Task;
+import cookie.task.TaskList;
+import cookie.ui.Ui;
 
 import java.time.LocalDate;
 

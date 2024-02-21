@@ -1,8 +1,6 @@
-package duke.ui;
+package cookie.ui;
 
-import duke.task.Task;
-
-import java.util.Scanner;
+import cookie.task.Task;
 
 /**
  * Contains functions that handle the user interface of cookie.

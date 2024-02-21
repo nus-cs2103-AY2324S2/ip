@@ -1,6 +1,4 @@
-package duke.task;
-
-import duke.task.Task;
+package cookie.task;
 
 /**
  * Represents a Todo task.
