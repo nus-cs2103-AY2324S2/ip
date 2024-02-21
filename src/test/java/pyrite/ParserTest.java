@@ -10,7 +10,6 @@ import pyrite.command.DeleteCommand;
 import pyrite.command.ExitCommand;
 import pyrite.command.ListCommand;
 import pyrite.command.StatusCommand;
-import pyrite.command.UnknownCommand;
 
 /**
  * Test class for Parser.
