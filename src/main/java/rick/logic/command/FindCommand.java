@@ -16,6 +16,11 @@ public class FindCommand implements Command {
     public FindCommand(String input) {
         this.substring = input;
     }
+
+    /**
+     * Returns a string array containing important arguments of a bye command.
+     * @return a string containing command type and related information.
+     */
     @Override
     public String[] respond() {
         return new String[]{"F", this.substring};

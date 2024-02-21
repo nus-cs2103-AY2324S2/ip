@@ -21,6 +21,11 @@ public class UnmarkCommand implements Command {
         }
     }
 
+    /**
+     * Parses an input command using deadline format.
+     * @param input user's input.
+     * @throws RickException when input does not follow format of deadline command.
+     */
     private void parse(String input) throws RickException {
         try {
             Integer.parseInt(input);
@@ -29,6 +34,11 @@ public class UnmarkCommand implements Command {
             throw new RickException("An integer should follow!");
         }
     }
+
+    /**
+     * Returns a string array containing important arguments of a bye command.
+     * @return a string containing command type and related information.
+     */
     @Override
     public String[] respond() {
         return new String[]{"U", this.index};

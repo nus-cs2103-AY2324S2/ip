@@ -1,27 +1,12 @@
 package rick;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import rick.logic.RickException;
-import rick.logic.command.Command;
 import rick.ui.DialogBox;
-
-import java.awt.*;
 
 /**
  * A controller for the main window.
@@ -42,11 +27,17 @@ public class MainController {
     @FXML
     private Image rickImage = new Image(Main.class.getResourceAsStream("/images/rick.png"));
 
+    /**
+     * Binds the value of xBox's height to scrollpane's vvalue
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(vBox.heightProperty());
     }
 
+    /**
+     * Shows UI changes after user inputs string.
+     */
     @FXML
     protected void handleUserInput() {
         String input = userInput.getText();
@@ -58,6 +49,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Initializes the Rick instance to be used in the application.
+     * @param rick
+     */
     public void setRick(Rick rick) {
         this.rick = rick;
     }

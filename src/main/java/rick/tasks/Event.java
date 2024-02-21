@@ -13,7 +13,7 @@ public class Event implements Task {
     private String status;
     private LocalDateTime from;
     private LocalDateTime to;
-    private boolean includeTime;
+    private boolean includesTime;
 
     /**
      * Creates a new Event Item instance with specified name, status and date/time.
@@ -36,7 +36,7 @@ public class Event implements Task {
             }
             this.name = name;
             this.status = status;
-            this.includeTime = !(from.length() == 10 && to.length() == 10);
+            this.includesTime = !(from.length() == 10 && to.length() == 10);
             this.from = from.length() == 10
                     ? LocalDateTime.parse(from + "T00:00:00")
                     : LocalDateTime.parse(from);
@@ -55,7 +55,7 @@ public class Event implements Task {
      */
     @Override
     public String toString() {
-        if (this.includeTime) {
+        if (this.includesTime) {
             return "[E]" + this.status + " " + this.name
                     + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss"))
                     + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";

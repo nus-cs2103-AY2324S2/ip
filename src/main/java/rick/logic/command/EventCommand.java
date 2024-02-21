@@ -25,6 +25,11 @@ public class EventCommand implements Command {
         }
     }
 
+    /**
+     * Parses an input command using deadline format.
+     * @param input user's input.
+     * @throws RickException when input does not follow format of deadline command.
+     */
     private void parse(String input) throws RickException {
         if (input == null || input.isBlank()) {
             throw new RickException("Task name cannot be empty!");
@@ -47,6 +52,11 @@ public class EventCommand implements Command {
         this.from = from;
         this.to = to;
     }
+
+    /**
+     * Returns a string array containing important arguments of a bye command.
+     * @return a string containing command type and related information.
+     */
     @Override
     public String[] respond() {
         return new String[]{"E", this.name, this.from, this.to};

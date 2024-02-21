@@ -120,7 +120,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a specified task.
+     * Deletes a specified task.
      * @param index the index of task to be deleted.
      * @return a string representation to tell user that the status has been updated successfully.
      * @throws RickException if the index is out of range.
@@ -135,7 +135,7 @@ public class TaskList {
     }
 
     /**
-     * Find items containing a specific substring.
+     * Finds items containing a specific substring.
      * @param arg the substring to look for.
      * @return list of items which contain the substring.
      */
