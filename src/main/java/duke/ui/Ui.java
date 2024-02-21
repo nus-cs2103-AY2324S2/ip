@@ -8,7 +8,7 @@ package duke.ui;
 public class Ui {
     public static final String MESSAGE_BYE = " Bye. Hope to see you again soon!";
     private static final String INDENT = " ";
-    private static final String FIRST = " Hello! I'm Pluiexo";
+    private static final String FIRST = " Hello! I'm Plato";
     private static final String SECOND = " What can I do for you?";
     private static final String[] GREET = new String[]{FIRST, SECOND};
 
@@ -109,7 +109,7 @@ public class Ui {
             errorResponse = "OOPS!!! I'm sorry, incorrect command or input";
             break;
         default:
-            errorResponse = "invalid application, commence self-destruct >:(";
+            errorResponse = "Invalid application, commence self-destruct >:(";
         }
         return errorResponse;
     }

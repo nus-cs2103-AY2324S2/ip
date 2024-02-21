@@ -246,7 +246,7 @@ public class TaskManager {
 
 
     /**
-     * Query the task with the corresponding query action.
+     * Querys the task with the corresponding query action.
      *
      * @param act         a valid query action
      * @param instruction query parameters to find
@@ -361,12 +361,11 @@ public class TaskManager {
             return new String[]{RESPONSE_EMPTY};
 
         }
-        String[] ret = new String[items.size()];
-        ret[0] = RESPONSE_LISTING;
-        for (int i = 0; i < items.size(); i++) {
-            ret[i] = i + 1 + ". " + items.get(i);
-        }
-        return ret;
+
+        List<String> print = iterateWithIndex((items.stream().map(Task::toString).collect(Collectors.toList())));
+        print.add(0, RESPONSE_VIEW_DATES);
+
+        return print.toArray(String[]::new);
     }
 
     public boolean getUpdate() {

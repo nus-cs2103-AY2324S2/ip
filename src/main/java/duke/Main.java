@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 /**
- * The Main GUI for Duke using FXML.
+ * The Main GUI for Plato using FXML.
  */
 public class Main extends Application {
 
@@ -25,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.getIcons().add(image);
-            stage.setTitle("DaDUKE PRO MAX");
+            stage.setTitle("Plato");
             stage.setResizable(false);
             stage.show();
 
