@@ -2,7 +2,13 @@ package duke;
 import java.io.Serializable;
 
 /**
- * The Task class contains the task with a description and a status.
+ * Represents a task with a description and a completion status.
+ *
+ * The Task class contains methods for managing task descriptions and completion status.
+ * Each task can be marked as done or undone, and its status can be retrieved.
+ * 
+ * Ensure method and class header comments adhere to the format specified in the coding standard, 
+ * particularly focusing on the phrasing of the overview statement.
  */
 public class Task implements Serializable{
     protected String description;
@@ -28,14 +34,14 @@ public class Task implements Serializable{
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as completed by setting the completion status to true.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Unmark the task.
+     * Resets the completion status of the task to incomplete by setting it to false.
      */
     public void markAsUnDone() {
         isDone = false;

@@ -134,12 +134,11 @@ public class Duke {
     }
         
     /**
-     * The entry point(the file path) for the program. 
+     * Specifies the entry point for the program and provides the file path for task data.
      *
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
         new Duke("/Users/leedoye/ip/src/data/duke_tasks.txt").run();
     }
-    
 }
