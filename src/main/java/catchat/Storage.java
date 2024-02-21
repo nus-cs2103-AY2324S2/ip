@@ -73,7 +73,7 @@ public class Storage {
     /**
      * Handles Todo task
      */
-    public void handleTodo() {
+    private void handleTodo() {
         Todo newTodo = new Todo(taskDescription);
         if (taskStatus.equals("done")) {
             newTodo.markDone();
@@ -84,7 +84,7 @@ public class Storage {
     /**
      * Handles Deadline task
      */
-    public void handleDeadline() {
+    private void handleDeadline() {
         String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
         String deadlineDescription = deadlineParts[0];
         String deadlineByDateTime = deadlineParts[1]
@@ -101,7 +101,7 @@ public class Storage {
     /**
      * Handles Event task
      */
-    public void handleEvent() {
+    private void handleEvent() {
         String[] eventParts = taskDescription.split(" \\(from: ", 2);
         String eventDescription = eventParts[0];
 

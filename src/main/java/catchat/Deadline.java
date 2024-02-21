@@ -31,8 +31,13 @@ public class Deadline extends Task {
     }
 
     @Override
-    protected String getTaskType() {
+    protected String getTaskTypeString() {
         return "D";
+    }
+
+    @Override
+    protected TaskType getTaskType() {
+        return TaskType.DEADLINE;
     }
 
     @Override

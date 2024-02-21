@@ -28,13 +28,6 @@ public class TaskList {
      * @param task task to be added
      */
     public String addTask(String task) {
-        String[] taskParts = task.split(" ", 2);
-        String taskDescription = taskParts[1];
-
-        if (containsTask(taskDescription)) {
-            return "This task already exists!";
-        }
-
         TaskType taskType = getTaskType(task);
 
         switch (taskType) {
@@ -47,22 +40,6 @@ public class TaskList {
         default: // UNKNOWN TaskType
             return "Sorry, that's not a command. Enter 'help' for instructions.";
         }
-    }
-
-    /**
-     * Detects if the task being added already exists in the taskList
-     *
-     * @param taskDescription task to be added
-     * @return boolean
-     */
-    public boolean containsTask(String taskDescription) {
-        for (Task task : this.taskList) {
-            if (task.getDescription().equals(taskDescription)) {
-                return true; // Task already exists in the list
-            }
-        }
-        System.out.println(false);
-        return false; // Task does not exist in the list
     }
 
     /**

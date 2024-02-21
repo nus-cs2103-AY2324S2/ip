@@ -12,8 +12,12 @@ public class Todo extends Task {
         super(description);
     }
     @Override
-    protected String getTaskType() {
+    protected String getTaskTypeString() {
         return "T";
+    }
+    @Override
+    protected TaskType getTaskType() {
+        return TaskType.TODO;
     }
 
     @Override

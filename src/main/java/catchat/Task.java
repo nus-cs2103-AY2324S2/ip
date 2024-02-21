@@ -11,17 +11,17 @@ public class Task {
     protected static final DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
     protected static final DateTimeFormatter DATE_FORMAT_3 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
     protected static final DateTimeFormatter DATE_FORMAT_4 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
-    protected String task;
+    protected String description;
     protected boolean isDone;
 
 
     /**
      * Constructor for Task
      *
-     * @param task
+     * @param description
      */
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -48,8 +48,11 @@ public class Task {
         return this.isDone;
     }
 
-    protected String getTaskType() {
+    protected String getTaskTypeString() {
         return "";
+    }
+    protected TaskType getTaskType() {
+        return TaskType.UNKNOWN;
     }
 
     public String getTaskStatus() {
@@ -57,7 +60,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.task;
+        return this.description;
     }
 
     /**
@@ -78,11 +81,12 @@ public class Task {
             }
         }
         // If none of the formats match, you may want to handle this case
-        throw new IllegalArgumentException("Date could not be parsed with any of the provided formats");
+        throw new IllegalArgumentException(
+                "Date could not be parsed with any of the provided formats");
     }
     @Override
     public String toString() {
-        return getTaskType() + " | " + getTaskStatus() + " | " + this.task;
+        return getTaskType() + " | " + getTaskStatus() + " | " + this.description;
     }
 }
 
