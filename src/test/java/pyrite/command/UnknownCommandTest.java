@@ -3,6 +3,7 @@ package pyrite.command;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import pyrite.StateFile;
 import pyrite.TaskList;
 
