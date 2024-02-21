@@ -81,7 +81,7 @@ Example: `delete 1`
 - **Expected Output**:
 
 ```
-	 Noted. I've remvoved this task:
+	 Noted. I've removed this task:
 	 [T][] taskDescription
 	 now you have 2 tasks in the list
 ```
