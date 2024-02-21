@@ -48,13 +48,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = haro.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, cropImage(userImage, imageRadius)),
-                DialogBox.getDukeDialog(response, cropImage(dukeImage, imageRadius))
-        );
-        userInput.clear();
-        haro.saveList();
+        String response = "";
+        try {
+            response = haro.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, cropImage(userImage, imageRadius)),
+                    DialogBox.getDukeDialog(response, cropImage(dukeImage, imageRadius))
+            );
+            userInput.clear();
+            haro.saveList();
+        } catch (Exception e) {
+            response = e.getMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, cropImage(userImage, imageRadius)),
+                    DialogBox.getDukeErrorDialog(response, cropImage(dukeImage, imageRadius))
+            );
+            userInput.clear();
+            haro.saveList();
+        }
+
     }
 
     private Image cropImage(Image image, double radius) {

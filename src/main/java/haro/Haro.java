@@ -56,13 +56,13 @@ public class Haro {
         haroUi.bye();
     }
 
-    public String getResponse(String userInput) {
-        try {
-            Command c = Parser.parseCommand(userInput);
-            return c.execute(taskList, haroUi, haroStorage);
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+    public String getResponse(String userInput) throws Exception {
+//        try {
+        Command c = Parser.parseCommand(userInput);
+        return c.execute(taskList, haroUi, haroStorage);
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
     }
 
     /**
