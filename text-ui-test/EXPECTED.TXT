@@ -1,7 +1,102 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Previous records loaded.
 
+Hello! I'm Balom.
+What can I do for you today?
+
+---Start by entering a todo, deadline or event with the relevant details!
+Todo: todo + task ;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
+View the task list with List/list, or close the chat with Bye/bye!
+Mark/Unmark a task in the list with mark (number) or unmark (number)
+Delete a task in the list with delete (number)
+Records will be remembered if you close me and reopen me!---
+
+Here are the tasks in your list:
+
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
+
+Invalid command. Please ensuredelete/mark/unmark commands
+only contain numbers after the command.
+Please enter a todo, deadline or event with the relevant details!
+Todo: todo + task ;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
+
+Invalid command. Please ensuredelete/mark/unmark commands
+only contain numbers after the command.
+Please enter a todo, deadline or event with the relevant details!
+Todo: todo + task ;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
+
+There are only: 1 task(s) in the list to delete.
+
+Empty task fields where applicable are not allowed.
+
+Empty task fields where applicable are not allowed.
+
+Empty task fields where applicable are not allowed.
+
+Understood. I've added this task:
+ 2.[T][ ] read book
+Now you have 2 task(s) in the list.
+
+Understood. I've added this task:
+ 3.[D][ ] read book  (by:Dec 10 2020 12:30)
+Now you have 3 task(s) in the list.
+
+Understood. I've added this task:
+ 4.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
+Now you have 4 task(s) in the list.
+
+Here are the tasks in your list:
+
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
+2.[T][ ] read book
+3.[D][ ] read book  (by:Dec 10 2020 12:30)
+4.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
+
+Here are the tasks matching your keyword:
+
+1.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
+
+Unfortunately, there are no keywords matching your search.
+
+This task is already unmarked.
+
+Very well. This task is now completed.
+[T][X] read book
+
+This task is already completed.
+
+Very well. This task is now marked as not completed.
+[T][ ] read book
+
+Very well. I have removed this task.
+[T][ ] read book
+Now you have 3 task(s) in the list.
+
+Very well. I have removed this task.
+[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
+Now you have 2 task(s) in the list.
+
+Very well. I have removed this task.
+[D][ ] read book  (by:Dec 10 2020 12:30)
+Now you have 1 task(s) in the list.
+
+Here are the tasks in your list:
+
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
+
+This task is already unmarked.
+
+Please mark a valid task!
+
+Please mark a valid task!
+
+Here are the tasks in your list:
+
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
+
+Bye. Hope to see you again soon!
