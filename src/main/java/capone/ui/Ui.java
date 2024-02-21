@@ -21,7 +21,6 @@ public class Ui {
                 + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
                 + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
         String output = String.format("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
-        System.out.printf(output);
         return output;
     }
 
