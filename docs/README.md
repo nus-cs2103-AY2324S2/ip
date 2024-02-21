@@ -1,6 +1,6 @@
 # Atlas User Guide
 
-![Screenshot of Atlas](Ui.png.png)
+![Screenshot of Atlas](Ui.png)
 
 Atlas is a **chatbot for managing tasks, optimized for use via a Command 
 Line Interface** (CLI). If u can type fast, Atlas can get help you manage
