@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 public class Duke extends Application {
     private ArrayList<Task> tasks = new ArrayList<>();
     private TaskList taskList = new TaskList();
-    Image image = new Image(getClass().getResourceAsStream("/images/warning.png"));
 
     /**
      * Launches the JavaFX application
