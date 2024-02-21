@@ -104,7 +104,8 @@ public class Ui {
                 + "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!\n"
                 + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n"
                 + "9. update [index] [new description] - Updates a task's description. Use this in"
-                + " conjunction with the 'list' command!.\n";
+                + " conjunction with the 'list' command!.\n"
+                + "10. bye - Exits the program.\n";
         return output;
     }
 
