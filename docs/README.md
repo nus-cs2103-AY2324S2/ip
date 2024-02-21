@@ -1,6 +1,6 @@
 # Anita MaxWynn User Guide
 
-![Screenshot of Ui.](docs/Ui.png)
+![Screenshot of Ui.](Ui.png)
 
 Anita is a helpful chatbot that can help you remember your tasks so that you can always stay winning!
 
