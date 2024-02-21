@@ -1,6 +1,6 @@
 # PannaBot User Guide
 
-![Image of UI](ui.png)
+![Image of UI](Ui.png)
 
 PannaBot is the premier chatbot task management system. 
 It uses intuitive GUI systems, along with easy
@@ -144,4 +144,4 @@ Using the `list` command, you can see the changes being reflected.
 
 - [x] Release v2.0 is coming out soon!
 - [x] Upgrades on customization features such as sorting deadlines
-- [ ] Unlimited ice cream supply :sad:
+- [ ] Unlimited ice cream supply :cry:
