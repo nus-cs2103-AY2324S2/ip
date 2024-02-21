@@ -29,50 +29,56 @@ public class Storage {
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(this.filePath);
-         try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(file)) {
             while(scanner.hasNext()) {
                 String[] token = scanner.nextLine().split(" \\| ");
-                if (token[0].equals("T")) {
-                    ToDo todo = new ToDo(token[2]);
-                    if (token[1].equals("X")) {
-                        todo.mark();
-                    }
-                    tasks.add(todo);
-                } else if (token[0].equals("D")) {
-                    LocalDateTime by = LocalDateTime.parse(token[3], DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
-                    Deadline deadline = new Deadline(token[2], by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
-                    if (token[1].equals("X")) {
-                        deadline.mark();
-                    }
-                    tasks.add(deadline);
-                } else {
-                    String[] time = token[3].split(" - ");
-                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                    LocalDateTime from = LocalDateTime.parse(time[0], inputFormatter);
-                    LocalDateTime to = LocalDateTime.parse(time[1], inputFormatter);
-                    Event event = new Event(token[2], from.format(outputFormatter), to.format(outputFormatter));
-                    if (token[1].equals("X")) {
-                        event.mark();
-                    }
-                    tasks.add(event);
-                }
+                tasks = createTaskList(token);
             }
-         } catch (FileNotFoundException e) {
-             File dir = new File("riz/data");
-             if(dir.mkdirs()) {
-                 System.out.println("Directory 'data' created successfully!");
-             }
-             File file2 = new File(dir, "riz.txt");
-             try {
-                 if (file2.createNewFile()) {
-                     System.out.println("File 'riz.txt' created successfully!");
-                 }
-             } catch (IOException ex) {
-                 System.out.println("Error creating file...");
-             }
-         }
-         return tasks;
+        } catch (FileNotFoundException e) {
+            File dir = new File("riz/data");
+            if(dir.mkdirs()) {
+                System.out.println("Directory 'data' created successfully!");
+            }
+            File file2 = new File(dir, "riz.txt");
+            try {
+                if (file2.createNewFile()) {
+                    System.out.println("File 'riz.txt' created successfully!");
+                }
+            } catch (IOException ex) {
+                System.out.println("Error creating file...");
+            }
+        }
+        return tasks;
+    }
+
+    private ArrayList<Task> createTaskList(String[] token) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (token[0].equals("T")) {
+            ToDo todo = new ToDo(token[2]);
+            if (token[1].equals("X")) {
+                todo.mark();
+            }
+            tasks.add(todo);
+        } else if (token[0].equals("D")) {
+            LocalDateTime by = LocalDateTime.parse(token[3], DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+            Deadline deadline = new Deadline(token[2], by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
+            if (token[1].equals("X")) {
+                deadline.mark();
+            }
+            tasks.add(deadline);
+        } else {
+            String[] time = token[3].split(" - ");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            LocalDateTime from = LocalDateTime.parse(time[0], inputFormatter);
+            LocalDateTime to = LocalDateTime.parse(time[1], inputFormatter);
+            Event event = new Event(token[2], from.format(outputFormatter), to.format(outputFormatter));
+            if (token[1].equals("X")) {
+                event.mark();
+            }
+            tasks.add(event);
+        }
+        return tasks;
     }
 
     /**
@@ -127,4 +133,3 @@ public class Storage {
         return i;
     }
 }
-
