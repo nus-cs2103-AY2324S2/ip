@@ -2,6 +2,9 @@ package awex;
 
 import tasks.Task;
 
+/**
+ * Represents an object providing all possible UI responses to the user.
+ */
 public class Ui {
     /**
      * Prints first message when user activates Awex.

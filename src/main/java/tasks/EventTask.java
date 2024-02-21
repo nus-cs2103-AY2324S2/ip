@@ -2,6 +2,11 @@ package tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a task of type Event,
+ * with task description, completion status, task type,
+ * start time and end time as available details.
+ */
 public class EventTask extends Task {
     private LocalDateTime start;
     private LocalDateTime end;

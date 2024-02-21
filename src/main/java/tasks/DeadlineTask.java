@@ -2,6 +2,11 @@ package tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a task of type Deadline,
+ * with task description, completion status, task type,
+ * and deadline as available details.
+ */
 public class DeadlineTask extends Task {
     private LocalDateTime deadline;
 
