@@ -31,6 +31,7 @@ public class Arona {
     private static String addToDo(String str) {
         ToDo task = new ToDo(str);
         tasks.addElements(task);
+        assert tasks.getSize() > 0 : "The task list should not be empty";
 
         return "I've added this task, Sensei!" + "\n"
                 + "    " + task + "\n"
@@ -41,6 +42,8 @@ public class Arona {
     private static String addDeadline(String str, String by) throws AronaInvalidDateException {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
+        assert tasks.getSize() > 0 : "The task list should not be empty";
+
         return "I've added this deadline, Sensei!" + "\n"
                 + "    " + deadline + "\n"
                 + "Now, your task list has " + tasks.getSize() + " task"
@@ -50,6 +53,8 @@ public class Arona {
     private static String addEvent(String str, String start, String end) throws AronaInvalidDateException {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
+        assert tasks.getSize() > 0 : "The task list should not be empty";
+
         return "I've added this event, Sensei!" + "\n"
                 + "    " + event + "\n"
                 + "Now, your task list has " + tasks.getSize() + " task"

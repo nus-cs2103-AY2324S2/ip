@@ -39,6 +39,8 @@ public class Storage {
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             }
+
+            assert dataFile.exists() : "File should exist";
         } catch (IOException error) {
             Ui.printLines("Sorry, Sensei! I seem to be struggling to load the tasks :(");
         }
