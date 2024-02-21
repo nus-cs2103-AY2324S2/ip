@@ -11,17 +11,29 @@ public class Pyrite {
 
     private TaskList tasks = new TaskList();
     private StateFile file = new StateFile();
+    /**
+     * Constructs a Pyrite and loads the state from the file.
+     */
     public Pyrite() {
         this.tasks = file.loadState(this.tasks);
     }
-
+    /**
+     * Gets the response from Pyrite.
+     *
+     * @param input Input from the user.
+     * @return Response from Pyrite.
+     */
     protected String getResponse(String input) {
         // Separate multiple commands by semicolon
         String[] commandStrings = input.split(";");
         String response = executeCommands(commandStrings);
         return response;
     }
-
+    /**
+     * Gets the name of Pyrite.
+     *
+     * @return Name of Pyrite.
+     */
     protected String getName() {
         return NAME;
     }

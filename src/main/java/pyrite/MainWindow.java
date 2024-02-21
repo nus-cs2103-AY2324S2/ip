@@ -24,12 +24,18 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image pyriteImage = new Image(this.getClass().getResourceAsStream("/images/DaPyrite.png"));
-
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-
+    /**
+     * Sets the Pyrite instance.
+     *
+     * @param d The Pyrite instance to set.
+     */
     public void setPyrite(Pyrite d) {
         pyrite = d;
         String greeting = "Hello! I'm " + pyrite.getName() + ", your task-tracking rock.";
@@ -37,7 +43,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPyriteDialog(greeting, pyriteImage)
         );
     }
-
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.

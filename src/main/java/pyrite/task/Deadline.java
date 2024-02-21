@@ -20,7 +20,9 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
+    /**
+     * Generate a string representation of the deadline.
+     */
     @Override
     public String toString() {
         return "[D]"

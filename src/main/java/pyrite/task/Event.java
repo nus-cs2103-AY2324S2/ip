@@ -23,6 +23,9 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
     }
+    /**
+     * Generate a string representation of the event.
+     */
     @Override
     public String toString() {
         return "[E]"

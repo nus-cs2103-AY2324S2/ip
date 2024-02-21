@@ -12,9 +12,13 @@ import javafx.stage.Stage;
  * A GUI for Pyrite using FXML.
  */
 public class Main extends Application {
-
     private Pyrite pyrite = new Pyrite();
 
+    /**
+     * Starts the application.
+     *
+     * @param stage The JavaFX stage.
+     */
     @Override
     public void start(Stage stage) {
         try {
