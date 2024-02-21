@@ -1,6 +1,7 @@
 package harvard;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import harvard.exceptions.HarvardException;
 import harvard.tasks.Deadline;
@@ -114,11 +115,8 @@ public class Parser {
             this.storage.store(this.tasks);
             return this.ui.printAddTask(todoTask, tasks.getSize());
         } catch (HarvardException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(e.getMessage());
-            System.out.println("____________________________________________________________");
+            return "Please enter a task name, with the format: todo task_name";
         }
-        return null;
     }
 
     /**
@@ -128,14 +126,22 @@ public class Parser {
      * @return A message indicating the deadline task that was added.
      */
     public String handleDeadline(String commandLine) {
-        String[] commandItems = commandLine.split(" /by ");
-        String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
-        LocalDate by = LocalDate.parse(commandItems[1]);
+        try {
+            String[] commandItems = commandLine.split(" /by ");
+            assert commandItems.length == 2;
 
-        Deadline deadlineTask = new Deadline(desc, by);
-        this.tasks.add(deadlineTask);
-        this.storage.store(this.tasks);
-        return this.ui.printAddTask(deadlineTask, tasks.getSize());
+            String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
+            LocalDate by = LocalDate.parse(commandItems[1]);
+
+            Deadline deadlineTask = new Deadline(desc, by);
+            this.tasks.add(deadlineTask);
+            this.storage.store(this.tasks);
+            return this.ui.printAddTask(deadlineTask, tasks.getSize());
+        } catch (DateTimeParseException ex) {
+            return "Sorry... Please enter the date using the format YYYY-MM-dd";
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return "Sorry I didn't understand your deadline task... Please use the format: deadline task_name /by date";
+        }
     }
 
     /**
@@ -145,16 +151,23 @@ public class Parser {
      * @return A message indicating the event task that was added.
      */
     public String handleEvent(String commandLine) {
-        String[] commandItems = commandLine.split(" /from ");
-        String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
-        String[] commandItems2 = commandItems[1].split(" /to ");
-        LocalDate from = LocalDate.parse(commandItems2[0]);
-        LocalDate to = LocalDate.parse(commandItems2[1]);
+        try {
+            String[] commandItems = commandLine.split(" /from ");
+            String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
+            String[] commandItems2 = commandItems[1].split(" /to ");
+            LocalDate from = LocalDate.parse(commandItems2[0]);
+            LocalDate to = LocalDate.parse(commandItems2[1]);
 
-        Event eventTask = new Event(desc, from, to);
-        this.tasks.add(eventTask);
-        this.storage.store(this.tasks);
-        return this.ui.printAddTask(eventTask, tasks.getSize());
+            Event eventTask = new Event(desc, from, to);
+            this.tasks.add(eventTask);
+            this.storage.store(this.tasks);
+            return this.ui.printAddTask(eventTask, tasks.getSize());
+        } catch (DateTimeParseException ex) {
+            return "Sorry... Please enter the date using the format YYYY-MM-dd";
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return "Sorry I didn't understand your event task... Please use the format: event task_name "
+                    + "/from date /to date";
+        }
     }
 
     /**
@@ -166,6 +179,10 @@ public class Parser {
      */
     public String handleMarkUnmark(String command, String commandLine) {
         int index = Integer.parseInt(commandLine.split(" ")[1]) - 1;
+
+        if (index >= this.tasks.getSize()) {
+            return "Sorry... I don't know what task this is.";
+        }
 
         if (command.equals("mark")) {
             this.tasks.mark(index);
