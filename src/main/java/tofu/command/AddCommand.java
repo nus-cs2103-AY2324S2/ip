@@ -65,6 +65,17 @@ public class AddCommand implements Command {
         return ui.addMessage(task.toString(), tasks.size());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof AddCommand command) {
+            return commandWord.equals(command.commandWord) && description.equals(command.description);
+        } else {
+            return false;
+        }
+    }
+
     public boolean isExit() {
         return false;
     }

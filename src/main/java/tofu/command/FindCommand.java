@@ -32,6 +32,17 @@ public class FindCommand implements Command {
         return ui.findMessage(foundList.toString());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof FindCommand command) {
+            return keyword.equals(command.keyword);
+        } else {
+            return false;
+        }
+    }
+
     public boolean isExit() {
         return false;
     }

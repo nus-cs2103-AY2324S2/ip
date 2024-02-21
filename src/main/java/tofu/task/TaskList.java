@@ -63,6 +63,24 @@ public class TaskList {
         return out;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof TaskList taskList) {
+            boolean isEqual = true;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (!tasks.get(i).equals(taskList.get(i))) {
+                    isEqual = false;
+                    break;
+                }
+            }
+            return isEqual;
+        } else {
+            return false;
+        }
+    }
+
     public boolean isEmpty() {
         return tasks.isEmpty();
     }

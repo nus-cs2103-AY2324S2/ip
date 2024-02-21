@@ -35,6 +35,17 @@ public class DeleteCommand implements Command {
         return ui.deleteMessage(task.toString(), tasks.size());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof DeleteCommand command) {
+            return index == command.index;
+        } else {
+            return false;
+        }
+    }
+
     public boolean isExit() {
         return false;
     }

@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.trim().equals("")) {
+        if (input.trim().isEmpty()) {
             return;
         }
         String response = tofu.getResponse(input);

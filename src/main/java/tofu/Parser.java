@@ -77,6 +77,7 @@ class Parser {
                     throw new TofuException(Ui.indexError());
                 }
                 command = new MarkCommand(index, false);
+                break;
             case "delete":
                 if (stringComponents.length < 2) {
                     throw new TofuException(Ui.emptyDescriptionError());

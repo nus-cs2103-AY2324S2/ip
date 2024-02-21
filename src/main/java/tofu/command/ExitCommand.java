@@ -10,6 +10,11 @@ public class ExitCommand implements Command {
         return "";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ExitCommand;
+    }
+
     public boolean isExit() {
         return true;
     }

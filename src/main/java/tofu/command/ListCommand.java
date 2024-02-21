@@ -21,6 +21,10 @@ public class ListCommand implements Command {
         return ui.listMessage(tasks.toString());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ListCommand;
+    }
     public boolean isExit() {
         return false;
     }

@@ -43,6 +43,17 @@ public class MarkCommand implements Command {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof MarkCommand command) {
+            return index == command.index && isDone == command.isDone;
+        } else {
+            return false;
+        }
+    }
+
     public boolean isExit() {
         return false;
     }
