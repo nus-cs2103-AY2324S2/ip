@@ -1,0 +1,30 @@
+blah
+mark
+mark 1
+mark 1 2
+unmark
+unmark 1
+unmark 1 2
+delete
+delete 1
+delete 1 2
+todo
+deadline
+deadline hello
+deadline hello /a
+deadline hello /by
+event
+event hello
+event hello /a
+event hello /from /b
+event hello /from /to
+todo SU All Courses
+deadline Eat /by 9pm
+event Exams /from 9am /to 9pm
+list
+mark 1
+list
+unmark 1
+list
+delete 1
+bye
