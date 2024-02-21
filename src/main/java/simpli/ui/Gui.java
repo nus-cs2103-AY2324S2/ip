@@ -15,6 +15,10 @@ import simpli.core.Simpli;
 public class Gui extends Application {
     private Simpli simpli;
 
+    /** Starts running the GUI application.
+     *
+     * @param stage JavaFx stage.
+     */
     @Override
     public void start(Stage stage) {
         simpli = new Simpli();
@@ -38,10 +42,12 @@ public class Gui extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the output from the processed commands.
+     *
+     * @param commandString Command string to be processed.
+     * @return String to be displayed.
      */
-    public String getResponse(String input) {
-        return simpli.processInput(input);
+    public String getResponse(String commandString) {
+        return simpli.processInput(commandString);
     }
 }

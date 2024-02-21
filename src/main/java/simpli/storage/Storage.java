@@ -54,7 +54,7 @@ public class Storage {
     }
 
     /**
-     * Load the tasks from a file in the specified file path into taskList.
+     * Loads the tasks from a file in the specified file path into taskList.
      *
      * @param path String containing the file path.
      * @throws IOException When file is not found.
