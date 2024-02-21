@@ -8,7 +8,7 @@ public abstract class JivoxException extends Exception {
 
     @Override
     public String toString() {
-        return String.format("(╥﹏╥) Oops!");
+        return String.format(" ('-') Oops!");
     }
 }
 
