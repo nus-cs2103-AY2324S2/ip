@@ -32,6 +32,9 @@ public class Snom extends Application {
     private Button sendButton;
     private Scene scene;
 
+    /**
+     * Creates an instance of Snom.
+     */
     public Snom() {
         this.ui = new Ui();
         this.data = new TaskStorage();
@@ -41,6 +44,12 @@ public class Snom extends Application {
     }
 
 
+    /**
+     * Accepts the command entered by the user and converts it
+     *         into a instance of a Command.
+     * @param s is the input of the user represented as a string,
+     * @return a String representing whether the command is valid or not.
+     */
     public String runCommand(String s) {
         try {
             Command c = Command.makeCommand(s);
@@ -48,10 +57,6 @@ public class Snom extends Application {
         } catch (InvalidCommandException e) {
             return e.getMessage();
         }
-    }
-
-    public void greet() {
-        this.ui.greet();
     }
 
 

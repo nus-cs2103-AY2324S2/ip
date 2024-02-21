@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandIndexException;
 import snomtask.Todo;
@@ -14,18 +15,18 @@ import snomtasklist.TaskList;
 
 
 
-public class MarkCommandTest {
+public class DeleteTaskCommandTest {
 
 
     @Test
-    public void markCommandTest1() {
+    public void deleteTaskCommand_blankIndex_exceptionThrown() {
         TaskList lst = TaskList.makeTaskList();
         Throwable t = assertThrows(InvalidCommandIndexException.class, () -> Command.makeCommand("mark ").execute(lst));
         Assertions.assertEquals("Please ensure that the index you entered is valid", t.getMessage());
     }
 
     @Test
-    public void markCommandTest2() {
+    public void deleteTaskCommand_invalidIndexRange_exceptionThrown() {
         TaskList lst = TaskList.makeTaskList();
         Throwable t = assertThrows(InvalidCommandIndexException.class, ()
                 -> Command.makeCommand("mark 2").execute(lst));
@@ -33,10 +34,19 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void markCommandTest3() {
+    public void deleteTaskCommand_invalidIndex_exceptionThrown() {
         TaskList lst = TaskList.makeTaskList();
-        lst.addTask(new Todo("read book"));
-        lst.addTask(new Todo("read book"));
+        Throwable t = assertThrows(InvalidCommandIndexException.class, ()
+                -> Command.makeCommand("mark asdfasfasfd").execute(lst));
+        Assertions.assertEquals("Please ensure that the index you entered is valid", t.getMessage());
+    }
+
+
+    @Test
+    public void deleteTaskCommand_validIndex_correctStringReturned() {
+        TaskList lst = TaskList.makeTaskList();
+        lst.addTask(new Todo("read book1"));
+        lst.addTask(new Todo("read book2"));
         try {
             Assertions.assertEquals(Integer.toString(2), Command.makeCommand("mark 2").execute(lst));
         } catch (InvalidCommandException e) {
@@ -44,5 +54,7 @@ public class MarkCommandTest {
         }
 
     }
+
+
 
 }

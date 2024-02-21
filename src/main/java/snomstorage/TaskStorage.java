@@ -9,9 +9,17 @@ import java.util.Scanner;
 import snomtask.Task;
 import snomtasklist.TaskList;
 
+/**
+ * TaskStorage saves the tasks onto a local directory
+ */
 public class TaskStorage {
 
-
+    /**
+     * Reads the tasks previously entered by the user into TaskList.
+     * If there is no TaskList, create a new directory to save the
+     *         tasks later.
+     * @param lst is the TaskList to save the tasks to.
+     */
     public void readTasks(TaskList lst) {
         File f = new File("data/tasks.txt");
         try {
@@ -24,6 +32,10 @@ public class TaskStorage {
         loadTasks(lst, f);
     }
 
+    /**
+     * Adds the tasks previously entered by the user into TaskList.
+     * @param lst is the TaskList to save the tasks to.
+     */
     public void loadTasks(TaskList lst, File tasks) {
         try {
             Scanner input = new Scanner(tasks);

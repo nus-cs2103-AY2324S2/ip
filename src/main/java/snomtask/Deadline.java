@@ -1,9 +1,18 @@
 package snomtask;
 
+/**
+ * The Deadline task simulates a task that has to be done
+ * by a certain date.
+ */
 public class Deadline extends Task {
 
     private String deadline;
 
+    /**
+     * Creates an instance of Deadline.
+     * @param name is the name of the Deadline.
+     * @param deadline is the due date of the deadline.
+     */
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = deadline;

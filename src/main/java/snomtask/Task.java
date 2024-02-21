@@ -13,6 +13,10 @@ public abstract class Task {
 
     private boolean isDone;
 
+    /**
+     * Creates an instance of Task.
+     * @param name is the name of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -70,8 +74,13 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Converts the String representation of task back into an instance of Task.
+     * @param desc is the String body of the task.
+     * @return a Task that is of type Todo, Event, or Deadline.
+     */
     public static Task convertFromStringToTask(String desc) {
-        String taskType = desc.substring(1,2);
+        String taskType = desc.substring(1, 2);
         Task t;
         String name;
         String processedName;
