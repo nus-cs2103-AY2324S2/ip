@@ -85,7 +85,7 @@ public class ByteTalker extends Application {
         } else if (splitMessages[0].equals("find")) {
             return this.tasks.findTask(splitMessages, ui);
         } else {
-            return this.tasks.determineTask(splitMessages, storage, ui);
+            return this.tasks.addTask(splitMessages, storage, ui);
         }
     }
 
