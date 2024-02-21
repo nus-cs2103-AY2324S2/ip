@@ -177,6 +177,7 @@ public class TaskList {
     public String markTask(int index) throws TaroException {
         try {
             tasks.get(index - 1).markAsDone();
+            assert tasks.get(index - 1).getIsDone() == 1 : "Task should be marked as done";
             storage.editLineInFile(index, 1);
             reply = "This task is marked as done:\n"
                     + tasks.get(index - 1).toString();
@@ -195,6 +196,7 @@ public class TaskList {
     public String unmarkTask(int index) throws TaroException {
         try {
             tasks.get(index - 1).markAsUndone();
+            assert tasks.get(index - 1).getIsDone() == 0 : "Task should be marked as not done";
             storage.editLineInFile(index, 0);
             reply = "This task is marked as not done:\n"
                     + tasks.get(index - 1).toString();
