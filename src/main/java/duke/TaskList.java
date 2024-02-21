@@ -190,7 +190,7 @@ public class TaskList {
     /**
      * To update a specific task
      */
-    public String update(String newDescription, int position) {
+    public String update(int position, String newDescription) {
         String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {

@@ -44,7 +44,7 @@ public class UpdateCommand extends Command {
                 newDescription = newDescription + " " + inputArr[i];
             }
             newDescription = newDescription.trim();
-            String str = taskList.update(newDescription, position);
+            String str = taskList.update(position, newDescription);
             storage.writeTasks(taskList);
             return str;
         }

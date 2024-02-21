@@ -31,8 +31,7 @@ public class Ui {
      * Display the goodbye message
      */
     public static String showGoodbyeMessage() {
-        String str = "Bye. Hope to see you again soon!\n";
-        return str;
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

@@ -20,9 +20,9 @@ public class EventTest {
         LocalDate endDate = LocalDate.of(2022 , 2 , 10);
         LocalTime endTime = LocalTime.of(10, 00);
 
-        Event eventWithCorrectInput = new Event("test deadline description",
+        Event eventWithCorrectInput = new Event("test event description",
                 startDate, startTime, endDate, endTime);
         String tString1 = eventWithCorrectInput.toString();
-        assertEquals("[E][ ] test deadline description (from: 2 Feb 2022 10:00 | to: 10 Feb 2022 10:00)", tString1);
+        assertEquals("[E][ ] test event description (from: 02 Feb 2022 10:00 | to: 10 Feb 2022 10:00)", tString1);
     }
 }
