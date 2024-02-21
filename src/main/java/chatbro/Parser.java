@@ -1,6 +1,5 @@
 package chatbro;
 
-import java.util.Scanner;
 /**
  * Parser class parses user input and executes commands.
  */
