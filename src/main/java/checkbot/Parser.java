@@ -8,6 +8,7 @@ import checkbot.command.ByeCommand;
 import checkbot.command.Command;
 import checkbot.command.DeleteCommand;
 import checkbot.command.FindCommand;
+import checkbot.command.HelpCommand;
 import checkbot.command.ListCommand;
 import checkbot.command.MarkCommand;
 import checkbot.command.UnmarkCommand;
@@ -133,28 +134,31 @@ public class Parser {
      * @throws CheckbotException If the user input is invalid.
      */
     public Command parse(String input) throws CheckbotException {
-        if (input.equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         }
-        if (input.equals("list")) {
+        if (input.equalsIgnoreCase("list")) {
             return new ListCommand();
         }
-        if (input.startsWith("mark ")) {
+        if (input.toLowerCase().startsWith("mark ")) {
             return parseMarkCommand(input);
         }
-        if (input.startsWith("unmark ")) {
+        if (input.toLowerCase().startsWith("unmark ")) {
             return parseUnmarkCommand(input);
         }
-        if (input.startsWith("delete ")) {
+        if (input.toLowerCase().startsWith("delete ")) {
             return parseDeleteCommand(input);
         }
-        if (input.startsWith("todo ")
-                || input.startsWith("deadline ")
-                || input.startsWith("event ")) {
+        if (input.toLowerCase().startsWith("todo ")
+                || input.toLowerCase().startsWith("deadline ")
+                || input.toLowerCase().startsWith("event ")) {
             return parseAddCommand(input);
         }
-        if (input.startsWith("find ")) {
+        if (input.toLowerCase().startsWith("find ")) {
             return parseFindCommand(input);
+        }
+        if (input.equalsIgnoreCase("help")) {
+            return new HelpCommand();
         }
         throw new InvalidCommandException(input);
     }

@@ -1,11 +1,18 @@
 package checkbot;
 
+import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.function.Consumer;
 
 import checkbot.component.DialogBox;
 import checkbot.exception.CheckbotException;
 import checkbot.task.Task;
 import checkbot.task.TodoList;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -222,5 +229,41 @@ public class Ui {
         userInput.clear();
 
         inputHandler.accept(input);
+    }
+
+    /**
+     * Opens the user guide url in the user's browser and displays a message that opens the url when clicked.
+     * If the url cannot be opened, display a different message instead and copies the url into the user's clipboard
+     * on click instead.
+     */
+    public void displayHelp() {
+        final String userGuideUrl = "https://zhekaiii.github.io/ip/";
+        Label label = new Label("Click here to open the user guide in your browser:\n" + userGuideUrl);
+        label.setOnMouseClicked(event -> openWebpage(userGuideUrl, null));
+        label.setCursor(Cursor.HAND);
+
+        openWebpage(userGuideUrl, e -> {
+            label.setText("Looks like I am unable to open the user guide in your browser. "
+                    + "Click here to copy the link to your clipboard instead.\n" + userGuideUrl);
+            label.setOnMouseClicked(event -> Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+                    new StringSelection(userGuideUrl), null));
+        });
+
+        dialogContainer.getChildren().add(
+                DialogBox.getCheckbotDialog(
+                        label,
+                        new ImageView(checkbotAvatar)
+                )
+        );
+    }
+
+    private void openWebpage(String url, Consumer<Exception> exceptionHandler) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (URISyntaxException | IOException e) {
+            if (exceptionHandler != null) {
+                exceptionHandler.accept(e);
+            }
+        }
     }
 }

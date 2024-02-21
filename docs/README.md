@@ -129,6 +129,28 @@ Here are the matching tasks in your list:
 [T] [ ] CS2106 Tutorial
 ```
 
+## Opening the user guide: `help`
+
+Typing `help` will open this page on your browser. You can also click on the message to open this page again. However,
+if that is unsupported by your system, a different message will show and clicking on it will instead copy this link into
+your clipboard.
+
+Example usage: `help`
+
+Example response 1:
+
+```
+Click here to open the user guide in your browser:
+https://zhekaiii.github.io/ip/
+```
+
+Example response 2:
+
+```
+Looks like I am unable to open the user guide in your browser. Click here to copy the link to your clipboard instead.
+https://zhekaiii.github.io/ip/
+```
+
 ## Quitting Checkbot: `bye`
 
 Typing `bye` will just exit the program.
@@ -155,6 +177,7 @@ transfer over `tasks.txt` to your other device.
 | delete   | `delete INDEX`<br/>e.g.`delete 1`                                                            |
 | list     | `list`                                                                                       |
 | find     | `find SUBSTRING`<br/>e.g.`find cs`, `find tutorial`, `find birthday`                         |
+| help     | `help`                                                                                       |
 
 ## Date formatting
 
