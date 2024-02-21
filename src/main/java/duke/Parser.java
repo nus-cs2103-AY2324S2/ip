@@ -25,6 +25,10 @@ public class Parser {
      */
     public static CommandType parseCommand(String userInput) throws DukeException {
         String[] parts = userInput.trim().split("\\s+", 2);
+        if (parts[0].isEmpty()) {
+            throw new DukeException("Command cannot be empty.");
+        }
+
         String commandStr = parts[0].toUpperCase();
 
         try {
