@@ -7,11 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import pingmebot.command.AddCommand;
-import pingmebot.command.DeleteCommand;
-import pingmebot.command.FindCommand;
-import pingmebot.command.MarkCommand;
-import pingmebot.command.UnmarkCommand;
+import pingmebot.command.*;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
 import pingmebot.task.ToDos;
@@ -43,7 +39,7 @@ public class ParserTest {
         String command = "event project /from 9am /to 8pm";
         int arbituaryNumOfTask = 3;
         Parser parser = new Parser(command, arbituaryNumOfTask);
-        assertEquals(new AddCommand(new Events("project", " 9am", " 8pm")),
+        assertEquals(new AddCommand(new Events("project", "9am", "8pm")),
                 parser.parseEventsCommand());
     }
 
@@ -81,6 +77,15 @@ public class ParserTest {
         Parser parser = new Parser(command, arbituaryNumOfTask);
         assertEquals(new FindCommand("book"),
                 parser.parseFindCommand());
+    }
+
+    @Test
+    public void parsePostponeCommandTest() throws PingMeException {
+        String command = "postpone 1 /from 8pm /to 9pm";
+        int arbituaryNumOfTask = 3;
+        Parser parser = new Parser(command, arbituaryNumOfTask);
+        PostponeCommand pc = new PostponeCommand(0, "8pm", "9pm", null);
+        assertEquals(pc, parser.parsePostponeCommand());
     }
 
 }

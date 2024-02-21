@@ -121,13 +121,17 @@ public class Parser {
                     + "Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
         }
 
-        for (int i = 2; i < words.size(); i++) {
+        for (int i = 1; i < words.size(); i++) {
             if (i < index) {
                 description.append(" ").append(words.get(i));
             } else if (i > index) {
                 by.append(" ").append(words.get(i));
             }
         }
+
+        System.out.println("By:" + by.toString());
+        System.out.println("Description:" + description.toString());
+
 
         if (by.toString().isEmpty() || description.toString().isEmpty()) {
             throw new PingMeException("You have missing fields! "
@@ -143,7 +147,7 @@ public class Parser {
             throw new PingMeException("I don't understand your command. "
                     + "Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
         }
-        return new AddCommand(new Deadline(description.toString(), parsedDateTime));
+        return new AddCommand(new Deadline(description.toString().strip(), parsedDateTime));
     }
 
     /**
@@ -165,7 +169,7 @@ public class Parser {
                     + "Try writing: event (task description) /from (date/time) /to (date/time)");
         }
 
-        for (int i = 2; i < words.size(); i++) {
+        for (int i = 1; i < words.size(); i++) {
             if (i < indexOfFrom) {
                 description.append(" ").append(words.get(i));
 
@@ -183,7 +187,8 @@ public class Parser {
                     + "You need a task description, start and end date/time for your task, try again!");
         }
 
-        return new AddCommand(new Events(description.toString(), start.toString(), end.toString()));
+        return new AddCommand(new Events(description.toString().strip(),
+                start.toString().strip(), end.toString().strip()));
     }
 
     /**
@@ -338,7 +343,6 @@ public class Parser {
         }
 
         if (words.size() > 5) {
-            System.out.println("im here");
             for (int i = 2; i < words.size(); i++) {
                 if (i > indexOfFrom && i < indexOfTo) {
                     from.append(words.get(i));
@@ -346,7 +350,8 @@ public class Parser {
                     to.append(words.get(i));
                 }
             }
-            return new PostponeCommand(taskToPostpone - 1, from.toString(), to.toString(), null);
+            return new PostponeCommand(taskToPostpone - 1, from.toString().trim()
+                    , to.toString().trim(), null);
         }
         throw new PingMeException("Try again with your command!");
     }

@@ -5,7 +5,7 @@ import pingmebot.PingMeException;
 import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
-
+import pingmebot.task.Deadline;
 
 
 /**
@@ -49,6 +49,32 @@ public class PostponeCommand extends Command {
         tasks.postponeTask(taskNumber, timingStart, timingEnd, by);
         tasks.updateTaskToStorage(storage);
         ui.postponeTaskText(taskNumber, tasks);
+    }
+
+    /**
+     * Returns a boolean to compare 2 postpone command objects to see if their
+     * task number, timing start, timing end and the by timings fields are the
+     * same.
+     *
+     * @param obj The other postpone command to be compared to.
+     * @return A boolean to see if the other postpone command being compared to
+     *         is the same as that instance of postpone command.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        PostponeCommand pc = (PostponeCommand) obj;
+        return taskNumber == pc.taskNumber
+                && timingStart.equals(pc.timingStart)
+                && timingEnd.equals(pc.timingEnd)
+                && by == pc.by;
     }
 
 
