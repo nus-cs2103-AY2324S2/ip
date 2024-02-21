@@ -1,6 +1,8 @@
 # KwunTalk :robot:
 
-> KwunTalk is a Graphical User Interface (GUI) desktop app that helps you manage your tasks.
+**A Graphical User Interface (GUI) desktop app that helps you manage your tasks.**
+
+Here is how it looks!
 
 ![Screenshot of the KwunTalk Chatbot.](./Ui.png)
 
