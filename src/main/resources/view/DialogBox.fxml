@@ -7,7 +7,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" style="-fx-background-color: orange;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="200.0" text="sdsdasdasda&#10;sdsD&#10;sdfASDFF&#10;asdFASdF&#10;asDFFASDsdSDASD&#10;SDFAFSD&#10;SDSD&#10;SDSD&#10;SDsD" wrapText="true" />
+        <Label fx:id="dialog" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="sdsdasdasda&#10;sdsD&#10;sdfASDFF&#10;asdFASdF&#10;asDFFASDsdSDASD&#10;SDFAFSD&#10;SDSD&#10;SDSD&#10;SDsD" wrapText="true" />
       <Circle fx:id="profileCircle" fill="DODGERBLUE" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" />
     </children>
     <padding>
