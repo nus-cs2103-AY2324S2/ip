@@ -17,23 +17,17 @@ GrumbleBug is an unfriendly chatbot whose purpose is to (begrudgingly) help you 
 
 GrumbleBug accepts three task types: **To-do**, **Deadline** and **Event**.
 
-##
-
 **To-do** is the simplest type with only the task name as a string. The string can contain spaces, don't worry about that.
 
 `todo Dry My Laundry`
 
 GrumbleBug will add a To-do to your task list, with the given name (e.g. `Dry My Laundry`).
 
-##
-
 **Deadline** is similar, but with an extra argument for the deadline date. This is strictly in the yyyy-MM-dd format, and the task name must also not contain spaces — otherwise, GrumbleBug will get mad!
 
 `deadline Homework 2024-02-29`
 
 GrumbleBug will add a Deadline to your task list, with the given name and deadline date.
-
-##
 
 **Event** is the most complicated, with not one but _two_ dates, for start and end of event! Same idea as deadline.
 
