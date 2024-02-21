@@ -60,7 +60,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeErrorDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.dialog.setStyle("-fx-background-color: #ed4337; -fx-text-fill: #eaeaea; -fx-background-radius: 7.5;"
+        db.dialog.setStyle("-fx-background-color: #60645f; -fx-text-fill: #eaeaea; -fx-background-radius: 7.5;"
                 + "-fx-font-family: Verdana; -fx-font-size: 12px");
         return db;
     }
