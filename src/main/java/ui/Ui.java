@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -64,6 +65,11 @@ public class Ui {
     public void loadTasks() {
         try {
             this.storage = new Storage(filePath);
+            File file = new File(filePath);
+            File directory = file.getParentFile();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
             List<Task> tasks = this.storage.loadFromFile();
             this.taskList = new TaskList(tasks);
         } catch (FileNotFoundException e) {
