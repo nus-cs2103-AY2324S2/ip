@@ -61,6 +61,12 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Shuts down the program
+     * Code inspired from coursemate Zhiyang
+     * (https://github.com/alfaloo/ip/blob/master/src/main/java/javafxgui/MainWindow.java)
+     */
+
     private void exit() {
         ScheduledExecutorService exitSchedule = Executors.newSingleThreadScheduledExecutor();
         exitSchedule.schedule(() -> Platform.exit(), TIME_TO_EXIT_SECONDS, TimeUnit.SECONDS);
