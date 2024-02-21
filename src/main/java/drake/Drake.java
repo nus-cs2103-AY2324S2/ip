@@ -9,7 +9,10 @@ import drake.task.Event;
 import drake.task.Task;
 import drake.task.TaskList;
 import drake.task.Todo;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 enum Command {
     BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, ADD_CONTACT, SHOW_CONTACTS;
@@ -52,7 +55,7 @@ public class Drake {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
-    private ArrayList<Contact> contacts;
+    private final ArrayList<Contact> contacts;
 
     /**
      * Constructs a new instance of the Drake application.
@@ -99,16 +102,17 @@ public class Drake {
             case SHOW_CONTACTS:
                 return showContacts();
             default:
-                throw new NotValidCommand("That's not a valid command!");
+                throw new NotValidCommandException("That's not a valid command!");
             }
-        } catch (NotValidCommand | TodoLeftBlank e) {
+        } catch (Exception e) {
             return ui.showError(e.getMessage());
-        } catch (Exception e) { // General exception catch for unforeseen errors
-            return ui.showError("An unexpected error occurred.");
         }
     }
     private String handleBye() {
         storage.saveTasks(tasks.getTasks());
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
         return ui.showGoodbye();
     }
 
@@ -129,16 +133,23 @@ public class Drake {
         return ui.showTaskList(tasks);
     }
 
-    private String handleMark(String input) {
+    private String handleMark(String input) throws Exception {
         int markIndex = Parser.parseTaskIndex(input);
-        assert markIndex >= 0 && markIndex < tasks.size() : "Invalid task index for marking";
+        if (markIndex < 0 && markIndex >= tasks.size()) {
+            throw new Exception("Invalid task index for marking");
+        }
         tasks.markTask(markIndex);
+        storage.saveTasks(tasks.getTasks());
         return ui.showMarkTask(tasks.getTask(markIndex));
     }
 
-    private String handleUnmark(String input) {
+    private String handleUnmark(String input) throws Exception {
         int unmarkIndex = Parser.parseTaskIndex(input);
+        if (unmarkIndex < 0 && unmarkIndex >= tasks.size()) {
+            throw new Exception("Invalid task index for un-marking");
+        }
         tasks.unmarkTask(unmarkIndex);
+        storage.saveTasks(tasks.getTasks());
         return ui.showUnmarkTask(tasks.getTask(unmarkIndex));
     }
 
@@ -146,6 +157,7 @@ public class Drake {
         String todoDescription = Parser.parseDescription(input);
         Todo newTodo = new Todo(todoDescription);
         tasks.addTask(newTodo);
+        storage.saveTasks(tasks.getTasks());
         return ui.showAddTask(newTodo, tasks.size());
     }
 
@@ -155,22 +167,35 @@ public class Drake {
             Deadline newDeadline = new Deadline((String) deadlineDetails[0],
                     (LocalDateTime) deadlineDetails[1]);
             tasks.addTask(newDeadline);
+            storage.saveTasks(tasks.getTasks());
             return ui.showAddTask(newDeadline, tasks.size());
+        } catch (IllegalArgumentException e) {
+            return ui.showError(e.getMessage());
         } catch (Exception e) {
-            return ui.showError("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
+            return ui.showError("Oops, format error! Type in a date in the form yyyy-mm-dd and try again!");
         }
     }
 
     private String handleEvent(String input) {
-        String[] eventDetails = Parser.parseEvent(input);
-        Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-        tasks.addTask(newEvent);
-        return ui.showAddTask(newEvent, tasks.size());
+        try {
+            Object[] eventDetails = Parser.parseEvent(input);
+            Event newEvent = new Event((String) eventDetails[0], (LocalDateTime) eventDetails[1],
+                    (LocalDateTime) eventDetails[2]);
+            tasks.addTask(newEvent);
+            storage.saveTasks(tasks.getTasks());
+            return ui.showAddTask(newEvent, tasks.size());
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
     }
 
-    private String handleDelete(String input) {
+    private String handleDelete(String input) throws Exception {
         int deleteIndex = Parser.parseTaskIndex(input);
+        if (deleteIndex < 0 && deleteIndex >= tasks.size()) {
+            throw new Exception("Invalid task index for deleting");
+        }
         Task deletedTask = tasks.deleteTask(deleteIndex);
+        storage.saveTasks(tasks.getTasks());
         return ui.showDeleteTask(deletedTask, tasks.size());
     }
 
