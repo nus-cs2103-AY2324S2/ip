@@ -9,7 +9,7 @@ public class FindCommand extends Command{
      * @param text The text of the command.
      */
     public FindCommand(String text) {
-        super(text, CommandType.FIND);
+        super(text);
     }
 
     @Override

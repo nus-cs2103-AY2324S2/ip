@@ -16,7 +16,7 @@ public class AddEventCommand extends Command {
      * @param deadline    The end date of the event.
      */
     public AddEventCommand(String description, LocalDate start, LocalDate deadline) {
-        super(description, CommandType.ADD);
+        super(description);
         this.start = start;
         this.deadline = deadline;
     }
