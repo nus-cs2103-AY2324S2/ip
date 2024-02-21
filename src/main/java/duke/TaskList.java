@@ -81,7 +81,7 @@ public class TaskList {
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
       stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "deadline (task) /by dd-mm-yyyy hhmm");
+              "deadline TASK /by DD-MM-YYYY HHMM");
     }
     return stringBuilder.toString();
   }
@@ -111,7 +111,7 @@ public class TaskList {
       stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.");
     } catch (Exception e) {
       stringBuilder.append("[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "event (task) /from dd-mm-yyyy hhmm /to dd-mm-yyyy hhmm");
+              "event TASK /from DD-MM-YYYY HHMM /to DD-MM-YYYY HHMM");
     }
     return stringBuilder.toString();
   }
@@ -129,7 +129,7 @@ public class TaskList {
 
     if (input.substring(4).trim().isEmpty()) {
       return "[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-              "todo (task)";
+              "todo TASK";
     }
     Task t = new Todos(input.substring(4).trim());
     tasks.add(t);
@@ -190,7 +190,7 @@ public class TaskList {
     try {
       if(token.length <= 2) {
         return "[E-ERROR? Oh, good grief... ERROR] Invalid format!\n\n" +
-                "update (index) (task)";
+                "update INDEX TASK";
       }
       Task taskToUpdate = tasks.get(Integer.parseInt(token[1]) - 1);
       if (taskToUpdate instanceof Deadline) {
