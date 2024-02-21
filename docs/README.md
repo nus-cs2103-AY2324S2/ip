@@ -1,6 +1,6 @@
 # Taylor v1.0 User Guide
 
-![Taylor_v1.0.png](product_example.png)
+![Taylor_v1.0.png](Ui.png)
 
 *Taylor* ChatBot is a **desktop app that offers organisational tools including to-do list,
 deadline and event management.** 
