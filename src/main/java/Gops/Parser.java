@@ -67,7 +67,7 @@ public class Parser {
                     throw new GopsException();
                 }
                 int toDoListIndex = Integer.parseInt(userReply.substring(userReply.length() - 1)) - 1;
-                taskList.getTask(toDoListIndex).todoStatus = false;
+                taskList.getTask(toDoListIndex).isDone = false;
                 Storage.writeToHardDisk(taskList, txtFile);
                 return taskList.printTaskAsNotMarked(toDoListIndex);
             } catch (GopsException e) {

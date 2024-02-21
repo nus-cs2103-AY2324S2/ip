@@ -26,7 +26,7 @@ public class TaskList {
      */
     public void addNewTodo(String todoDescription, boolean status) {
         Todo todo = new Todo(todoDescription);
-        todo.todoStatus = status;
+        todo.isDone = status;
         taskList.add(todo);
     }
 
@@ -47,7 +47,7 @@ public class TaskList {
      */
     public void addNewDeadline(String deadlineDescription, String endDate, boolean status) {
         Deadline deadline = new Deadline(deadlineDescription, endDate);
-        deadline.todoStatus = status;
+        deadline.isDone = status;
         taskList.add(deadline);
     }
 
@@ -70,7 +70,7 @@ public class TaskList {
      */
     public void addNewEvent(String eventDescription, String startDate, String endDate, boolean status) {
         Event event = new Event(eventDescription, startDate, endDate);
-        event.todoStatus = status;
+        event.isDone = status;
         taskList.add(event);
     }
 
@@ -148,7 +148,7 @@ public class TaskList {
      * @param status task status
      */
     public void changeTaskStatus(int index, boolean status) {
-        taskList.get(index).todoStatus = status;
+        taskList.get(index).isDone = status;
     }
 
     /**

@@ -73,6 +73,13 @@ public class Gops extends Application {
         mainLayout.getChildren().addAll(scrollPane, input, button);
         scene = new Scene(mainLayout);
         stage.setScene(scene);
+
+        Label welcomeMessage = new Label("Hello I'm Gops. How can I be of assistance");
+        chatBox.getChildren().addAll(
+                ChatBox.getDukeDialog(welcomeMessage, new ImageView(gops))
+        );
+
+
         stage.show();
 
         stage.setTitle("Gops");

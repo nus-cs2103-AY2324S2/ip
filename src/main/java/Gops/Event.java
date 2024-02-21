@@ -1,7 +1,6 @@
 package Gops;
 
 public class Event extends Todo {
-    protected boolean todoStatus = false;
     protected String startBy;
     protected String endBy;
 
@@ -23,7 +22,8 @@ public class Event extends Todo {
      */
     @Override
     public String stringPrinter() {
-        return "E " + "| " + this.doneOrNot() + " | " + itemDescription + " | from: " + startBy + " | to: " + endBy + "";
+        return "E " + "| " + this.doneOrNot() + " | " + itemDescription
+                + " | from: " + startBy + " | to: " + endBy + "";
     }
 
     /**

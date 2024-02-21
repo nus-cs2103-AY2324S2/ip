@@ -2,12 +2,12 @@ package Gops;
 
 public class Todo {
     protected String itemDescription;
-    protected boolean todoStatus = false;
+    protected boolean isDone = false;
     public Todo(String itemDescription) {
         this.itemDescription = itemDescription;
     }
     public String doneOrNot() {
-        if (todoStatus) {
+        if (isDone) {
             return "1";
         } else {
             return "0";
