@@ -41,7 +41,7 @@ public class Ui {
      * Displays a farewell message and that the task list has been saved.
      */
     public String bye() {
-        return "List has been saved!\n" + closingMSg;
+        return closingMSg;
     }
 
     /**

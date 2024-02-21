@@ -56,13 +56,16 @@ public class Haro {
         haroUi.bye();
     }
 
-    public String getResponse(String userInput) {
-        try {
-            Command c = Parser.parseCommand(userInput);
-            return c.execute(taskList, haroUi, haroStorage);
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+    public String getResponse(String userInput) throws Exception {
+        Command c = Parser.parseCommand(userInput);
+        return c.execute(taskList, haroUi, haroStorage);
+    }
+
+    /**
+     * Saves the current list to the save file.
+     */
+    public void saveList() {
+        this.haroStorage.saveToDisk(this.taskList);
     }
 }
 
