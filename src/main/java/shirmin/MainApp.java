@@ -16,7 +16,7 @@ import java.util.Objects;
  * Main application class for the Shirmin Chatbot.
  * Handles the graphical user interface and user interactions.
  */
-public class MainApp extends Application{
+public class MainApp extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -41,7 +41,6 @@ public class MainApp extends Application{
     public void init() throws Exception {
         shirmin = new Shirmin();
     }
-
 
 
     /**
@@ -90,11 +89,13 @@ public class MainApp extends Application{
         AnchorPane.setTopAnchor(scrollPane, anchorPaneOffset);
         AnchorPane.setBottomAnchor(sendButton, anchorPaneOffset);
         AnchorPane.setRightAnchor(sendButton, anchorPaneOffset);
-        AnchorPane.setLeftAnchor(userInput , anchorPaneOffset);
+        AnchorPane.setLeftAnchor(userInput, anchorPaneOffset);
         AnchorPane.setBottomAnchor(userInput, anchorPaneOffset);
 
         sendButton.setOnMouseClicked((event) -> handleUserInput());
         userInput.setOnAction((event) -> handleUserInput());
+
+        addWelcomeMessage();
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
@@ -109,7 +110,7 @@ public class MainApp extends Application{
     /**
      * Handles user input and triggers appropriate actions.
      * Current functions:
-     * LIST 
+     * LIST
      * MARK
      * UNMARK
      * TODO
@@ -152,6 +153,7 @@ public class MainApp extends Application{
 
     /**
      * Handles non-bye inputs, encapsulating the previous logic for handling user inputs.
+     *
      * @param input The user input to handle.
      */
     private void handleOtherInputs(String input) {
@@ -169,6 +171,20 @@ public class MainApp extends Application{
         DialogBox shirminResponseBox = DialogBox.getShirminDialog(shirminText, shirminImageView);
 
         dialogContainer.getChildren().addAll(userInputBox, shirminResponseBox);
+    }
+
+    /**
+     * Displays the welcome message in the chatbot dialog.
+     */
+    private void addWelcomeMessage() {
+        Label welcomeText = new Label("Hello! I'm Shirmin, your favourite chatbot.");
+        ImageView shirminImageView = new ImageView(min);
+        shirminImageView.setFitHeight(imageSize);
+        shirminImageView.setFitWidth(imageSize);
+        DialogBox welcomeBox = DialogBox.getShirminDialog(welcomeText, shirminImageView);
+
+        // Add the welcome message to the dialog container
+        dialogContainer.getChildren().add(welcomeBox);
     }
 }
 

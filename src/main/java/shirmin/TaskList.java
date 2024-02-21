@@ -65,7 +65,7 @@ public class TaskList {
         try {
             switch (commandType) {
             case LIST:
-                StringBuilder listBuilder = new StringBuilder();
+                StringBuilder listBuilder = new StringBuilder("Here is your task list:\n");
                 for (int i = 0; i < taskList.size(); i++) {
                     listBuilder.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
                 }
