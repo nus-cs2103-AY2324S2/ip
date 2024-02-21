@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
 
     public void setPyrite(Pyrite d) {
         pyrite = d;
-        String greeting = "Hello! I'm " + pyrite.getName() + ".";
+        String greeting = "Hello! I'm " + pyrite.getName() + ", your task-tracking rock.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getPyriteDialog(greeting, pyriteImage)
         );

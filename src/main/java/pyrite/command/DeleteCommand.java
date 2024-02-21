@@ -24,12 +24,12 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, StateFile file) {
         if (!tasks.isValidId(this.id)) {
-            return "pyrite.task.Task to delete does not exist.";
+            return "Task to remove does not exist.";
         }
         String taskString = tasks.toString(this.id);
         tasks.remove(this.id);
         String saveResult = file.saveState(tasks);
-        return "Noted. I've removed this task:\n"
+        return "Scratched out the task:\n"
                 + "\t"
                 + taskString
                 + saveResult;
