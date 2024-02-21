@@ -1,10 +1,10 @@
-package duke.tasks;
+package waffles.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Event class represents a task with a specific start and end time in the Duke chatbot application.
+ * The Event class represents a task with a specific start and end time in the waffles chatbot application.
  * It extends the Task class.
  */
 public class Event extends Task {

@@ -1,7 +1,7 @@
-package duke.tasks;
+package waffles.tasks;
 
 /**
- * The ToDo class represents a to-do task in the Duke chatbot application.
+ * The ToDo class represents a to-do task in the waffles chatbot application.
  * It extends the Task class.
  */
 public class ToDo extends Task {

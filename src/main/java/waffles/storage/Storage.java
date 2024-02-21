@@ -1,4 +1,4 @@
-package duke.storage;
+package waffles.storage;
 
 
 import java.io.File;
@@ -7,9 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import duke.exceptions.DukeIoException;
+import waffles.exceptions.WafflesIoException;
 /**
- * The Storage class handles file storage operations for the Duke chatbot application.
+ * The Storage class handles file storage operations for the Waffles chatbot application.
  */
 public class Storage {
 
@@ -19,9 +19,9 @@ public class Storage {
      * Constructs a Storage object with the specified file path.
      *
      * @param path The path to the file.
-     * @throws DukeIoException If an error occurs during file creation.
+     * @throws WafflesIoException If an error occurs during file creation.
      */
-    public Storage(String path) throws DukeIoException {
+    public Storage(String path) throws WafflesIoException {
         this.path = path;
         File f = new File(path);
 
@@ -34,7 +34,7 @@ public class Storage {
             parentPath.mkdirs();
             f.createNewFile();
         } catch (IOException e) {
-            throw new DukeIoException("Error creating file!");
+            throw new WafflesIoException("Error creating file!");
         }
     }
 
@@ -42,7 +42,7 @@ public class Storage {
      * Loads data from the file.
      *
      * @return The data read from the file.
-     * @throws DukeIoException If an error occurs while reading the file.
+     * @throws WafflesIoException If an error occurs while reading the file.
      */
     public String loadFileData() {
         Path p = Paths.get(path);
@@ -50,7 +50,7 @@ public class Storage {
         try {
             return Files.readString(p);
         } catch (IOException e) {
-            throw new DukeIoException("Error locating file");
+            throw new WafflesIoException("Error locating file");
         }
     }
 
@@ -58,7 +58,7 @@ public class Storage {
      * Saves data to the file.
      *
      * @param dataToSave The data to be saved to the file.
-     * @throws DukeIoException If an error occurs while writing to the file.
+     * @throws WafflesIoException If an error occurs while writing to the file.
      */
     public void saveToFile(String dataToSave) {
         Path p = Paths.get(path);
@@ -66,7 +66,7 @@ public class Storage {
         try {
             Files.writeString(p, dataToSave);
         } catch (IOException e) {
-            throw new DukeIoException("Error saving to file");
+            throw new WafflesIoException("Error saving to file");
         }
     }
 }

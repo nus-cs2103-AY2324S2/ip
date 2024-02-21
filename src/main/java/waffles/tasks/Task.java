@@ -1,7 +1,7 @@
-package duke.tasks;
+package waffles.tasks;
 
 /**
- * The Task class represents a generic task in the Duke chatbot application.
+ * The Task class represents a generic task in the waffles chatbot application.
  */
 public abstract class Task {
 

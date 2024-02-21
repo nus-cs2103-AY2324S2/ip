@@ -1,4 +1,4 @@
-package duke.parser;
+package waffles.parser;
 
 /**
  * The Parser class is responsible for parsing user input into commands and arguments.

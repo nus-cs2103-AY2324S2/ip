@@ -1,20 +1,20 @@
-package duke.ui;
+package waffles.ui;
 
 import java.io.IOException;
 
-import duke.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import waffles.Waffles;
 
 /**
- * GUI for Duke chatbot using FXML.
+ * GUI for Waffles chatbot using FXML.
  */
 public class Gui extends Application {
 
-    private final Duke duke = new Duke();
+    private final Waffles waffles = new Waffles();
 
     /**
      * Starts up the GUI.
@@ -29,7 +29,8 @@ public class Gui extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Waffles");
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setWaffles(waffles);
+            fxmlLoader.<MainWindow>getController().setWaffles(waffles);
             fxmlLoader.<MainWindow>getController().greetUser();
             stage.show();
         } catch (IOException e) {

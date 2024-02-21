@@ -1,10 +1,10 @@
-package duke.tasks;
+package waffles.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadline class represents a task with a deadline in the Duke chatbot application.
+ * The Deadline class represents a task with a deadline in the Waffles chatbot application.
  * It extends the Task class.
  */
 public class Deadline extends Task {

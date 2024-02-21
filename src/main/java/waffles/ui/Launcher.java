@@ -1,4 +1,4 @@
-package duke.ui;
+package waffles.ui;
 
 import javafx.application.Application;
 

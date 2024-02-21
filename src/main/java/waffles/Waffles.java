@@ -1,15 +1,14 @@
-package duke;
+package waffles;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeUnknownCommandException;
-import duke.parser.Parser;
-import duke.tasks.TaskList;
-import duke.ui.Launcher;
+import waffles.exceptions.WafflesUnknownCommandException;
+import waffles.parser.Parser;
+import waffles.tasks.TaskList;
+import waffles.ui.Launcher;
 
 /**
- * Duke chatbot.
+ *  Waffles the chatbot.
  */
-public class Duke {
+public class Waffles {
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String UNKNOWN_COMMAND_MESSAGE = "The command '%s' is unknown. Please try again!";
     private static final TaskList taskList = new TaskList("/data/tasks.txt");
@@ -57,7 +56,7 @@ public class Duke {
                 output = taskList.findTask(arguments);
                 break;
             case INVALID:
-                throw new DukeUnknownCommandException(
+                throw new WafflesUnknownCommandException(
                         String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
             default:
                 break;
@@ -78,7 +77,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             return runWaffles(input);
-        } catch (DukeException e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

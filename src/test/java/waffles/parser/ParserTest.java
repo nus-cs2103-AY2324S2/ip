@@ -1,4 +1,4 @@
-package duke.parser;
+package waffles.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

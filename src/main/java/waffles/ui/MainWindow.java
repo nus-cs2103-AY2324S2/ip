@@ -1,8 +1,7 @@
-package duke.ui;
+package waffles.ui;
 
 import java.util.Objects;
 
-import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -10,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
+import waffles.Waffles;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -22,10 +21,10 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    private Duke duke;
+    private Waffles waffles;
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(
+    private final Image wafflesImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/surprised_pikachu.png")));
 
     @FXML
@@ -34,12 +33,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Set the instance of Duke to be used by the GUI.
+     * Set the instance of Waffles to be used by the GUI.
      *
-     * @param d Duke instance to be used by GUI.
+     * @param w Waffles instance to be used by GUI.
      */
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setWaffles(Waffles w) {
+        this.waffles = w;
     }
 
     /**
@@ -47,7 +46,7 @@ public class MainWindow extends AnchorPane {
      */
     public void greetUser() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(duke.greet(), dukeImage)
+                DialogBox.getWafflesDialog(waffles.greet(), wafflesImage)
         );
     }
 
@@ -58,9 +57,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = waffles.getResponse(input);
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        DialogBox dukeDialog = DialogBox.getWafflesDialog(response, wafflesImage);
         userDialog.setMinHeight(Region.USE_PREF_SIZE);
         dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
         dialogContainer.getChildren().addAll(

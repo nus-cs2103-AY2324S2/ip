@@ -1,15 +1,15 @@
-package duke.tasks;
+package waffles.tasks;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import duke.exceptions.DukeDuplicateException;
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeIllegalArgumentException;
-import duke.storage.Storage;
+import waffles.exceptions.WafflesDuplicateException;
+import waffles.exceptions.WafflesException;
+import waffles.exceptions.WafflesIllegalArgumentException;
+import waffles.storage.Storage;
 
 /**
- * The TaskList class represents a list of tasks in the Duke chatbot application.
+ * The TaskList class represents a list of tasks in the Waffles chatbot application.
  */
 public class TaskList {
     private static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:%n%s";
@@ -46,14 +46,14 @@ public class TaskList {
      *
      * @param toDoDescription The description of the ToDo task.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the description is black.
+     * @throws WafflesIllegalArgumentException If the description is black.
      */
     public String addToDoTask(String toDoDescription) {
         if (toDoDescription.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         if (isDuplicate(toDoDescription)) {
-            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
+            throw new WafflesDuplicateException(IS_DUPLICATE_MESSAGE);
         }
         Task toDo = new ToDo(toDoDescription);
         taskList.add(toDo);
@@ -66,14 +66,14 @@ public class TaskList {
      *
      * @param deadlineDescription The description of the Deadline task.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the description is blank.
+     * @throws WafflesIllegalArgumentException If the description is blank.
      */
     public String addDeadlineTask(String deadlineDescription) {
         if (deadlineDescription.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         if (isDuplicate(deadlineDescription)) {
-            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
+            throw new WafflesDuplicateException(IS_DUPLICATE_MESSAGE);
         }
         String[] deadlineArgs = deadlineDescription.split(" /by ");
         Task deadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
@@ -87,14 +87,14 @@ public class TaskList {
      *
      * @param eventDescription The description of the Event task.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the description is blank.
+     * @throws WafflesIllegalArgumentException If the description is blank.
      */
     public String addEventTask(String eventDescription) {
         if (eventDescription.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         if (isDuplicate(eventDescription)) {
-            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
+            throw new WafflesDuplicateException(IS_DUPLICATE_MESSAGE);
         }
         String[] eventArgs = eventDescription.split(" /from ");
         String[] eventTime = eventArgs[1].split(" /to ");
@@ -111,11 +111,11 @@ public class TaskList {
      *
      * @param taskIndex The index of the task in TaskList.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     * @throws WafflesIllegalArgumentException If the taskIndex is missing.
      */
     public String markTask(String taskIndex) {
         if (taskIndex.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsDone();
@@ -128,11 +128,11 @@ public class TaskList {
      *
      * @param taskIndex The index of the task in TaskList.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     * @throws WafflesIllegalArgumentException If the taskIndex is missing.
      */
     public String unmarkTask(String taskIndex) {
         if (taskIndex.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsUndone();
@@ -145,11 +145,11 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted in TaskList.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     * @throws WafflesIllegalArgumentException If the taskIndex is missing.
      */
     public String deleteTask(String taskIndex) {
         if (taskIndex.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task taskToRemove = taskList.get(Integer.parseInt(taskIndex) - 1);
         taskList.remove(Integer.parseInt(taskIndex) - 1);
@@ -162,11 +162,11 @@ public class TaskList {
      *
      * @param keyword Keyword to find in the taskList.
      * @return String with return message.
-     * @throws DukeIllegalArgumentException If the keyword is missing.
+     * @throws WafflesIllegalArgumentException If the keyword is missing.
      */
     public String findTask(String keyword) {
         if (keyword.isBlank()) {
-            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+            throw new WafflesIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         StringBuilder sb = new StringBuilder();
         int count = 1;
@@ -191,7 +191,7 @@ public class TaskList {
 
     /**
      * Syncs the current taskList with the tasks stored in storage.
-     * Method will be called once when starting up Duke.
+     * Method will be called once when starting up Waffles.
      */
 
     private void updateList() {
@@ -219,7 +219,7 @@ public class TaskList {
                 }
 
             }
-        } catch (DukeException e) {
+        } catch (WafflesException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -273,7 +273,7 @@ public class TaskList {
         }
         try {
             taskStorage.saveToFile(sb.toString());
-        } catch (DukeException e) {
+        } catch (WafflesException e) {
             System.out.println(e.getMessage());
         }
     }

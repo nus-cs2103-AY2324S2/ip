@@ -1,4 +1,4 @@
-package duke.tasks;
+package waffles.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +8,7 @@ public class TaskListTest {
 
     @Test
     public void add_taskList_success() {
-        TaskList taskList = new TaskList("src/test/java/duke/tasks/task_list_test.txt");
+        TaskList taskList = new TaskList("src/test/java/waffles/tasks/task_list_test.txt");
 
         taskList.addToDoTask("go to the gym");
         String output = String.format("Here are the tasks in your list:%n%s", "1.[T][ ] go to the gym");
@@ -17,7 +17,7 @@ public class TaskListTest {
 
     @Test
     public void missing_argument_exceptionThrown() {
-        TaskList taskList = new TaskList("src/test/java/duke/tasks/task_list_test.txt");
+        TaskList taskList = new TaskList("src/test/java/waffles/tasks/task_list_test.txt");
 
         try {
             taskList.markTask("");
