@@ -1,6 +1,6 @@
-# Duke project template
+# CatChat User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+_CatChat_ is my attempt at making my personalised version of _Duke_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
