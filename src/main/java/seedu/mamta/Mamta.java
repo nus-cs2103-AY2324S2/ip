@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
 //Commit message:Released a updated JAR file with External Libs
 /**
@@ -22,6 +23,8 @@ import javafx.scene.image.ImageView;
 public class Mamta extends Application  {
     private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
     private final Image mamta = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaMamta.png")));
+
+    private final Image backgroundMamta = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/mamtaBackground.jpeg")));
 
     /**
      * Creates a label with the specified text and adds it to the dialog container.
@@ -63,7 +66,15 @@ public class Mamta extends Application  {
         TextField userInput = new TextField();
         Button sendButton = new Button("Send");
 
+        ImageView backgroundImageView = new ImageView(backgroundMamta);
+
+        backgroundImageView.fitWidthProperty().bind(stage.widthProperty());
+        backgroundImageView.fitHeightProperty().bind(stage.heightProperty());
+
+
         AnchorPane mainLayout = new AnchorPane();
+        mainLayout.setStyle("-fx-background-color: lightblue;");
+
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         Scene scene = new Scene(mainLayout);
@@ -85,7 +96,7 @@ public class Mamta extends Application  {
 
         //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
+        dialogContainer.getChildren().add(0, backgroundImageView);
         userInput.setPrefWidth(325.0);
 
         sendButton.setPrefWidth(55.0);
@@ -126,6 +137,7 @@ public class Mamta extends Application  {
 
         //More code to be added here later
     }
+
 
 
 
