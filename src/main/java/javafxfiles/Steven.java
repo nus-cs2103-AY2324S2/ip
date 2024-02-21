@@ -1,3 +1,5 @@
+package javafxfiles;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,7 +10,7 @@ import mainfiles.TaskList;
 import mainfiles.UserInput;
 
 /**
- * Main code for running Steven
+ * javafxFiles.Main code for running javafxFiles.Steven
  */
 public class Steven {
 
@@ -39,7 +41,7 @@ public class Steven {
     }
 
     /**
-     * Driver code for Steven. It will run the entire program
+     * Driver code for javafxFiles.Steven. It will run the entire program
      */
     public void run() {
         boolean exit = false;

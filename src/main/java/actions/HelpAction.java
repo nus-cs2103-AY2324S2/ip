@@ -7,7 +7,7 @@ import mainfiles.UserInput;
  * an action which displays the list of commands for Steven
  */
 public class HelpAction extends actions.GenericAction {
-    private static final String HELP1 = "The following are UserInputs that I recgonise, "
+    private static final String HELP1 = "The following are User Inputs that I recgonise, "
             + "and their respective formats:\n";
     private static final String HELP2 = "bye - terminates the program\n";
     private static final String HELP3 = "list - provides a list of events that you have added prior\n";
@@ -35,7 +35,7 @@ public class HelpAction extends actions.GenericAction {
      * executes the given task
      * @param userInput What the user inputted
      * @param taskList the current task list
-     * @return the string containing the Steven's response to the task.
+     * @return the string containing the javafxFiles.Steven's response to the task.
      */
     public String execute(UserInput userInput, TaskList taskList) {
         return String.format(HELP1 + HELP2 + HELP3 + HELP4 + HELP5 + HELP6 + HELP7 + HELP8 + HELP9 + HELP10 + HELP11);
