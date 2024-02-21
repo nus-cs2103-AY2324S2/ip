@@ -14,7 +14,7 @@ Format: `todo <task> [/priority <value>]`
 
 Example:
 
-- `todo return book `
+- `todo return book`
 -  `todo return pencil /priority 5`
 
 ## Adding deadlines: `deadline`
