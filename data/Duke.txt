@@ -1,1 +1,2 @@
-0/event/something /2024-02-22T00:00/2024-02-23T23:59
+0/todo/smth
+0/deadline/smth /2024-02-22T23:59

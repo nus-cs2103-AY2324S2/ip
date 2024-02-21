@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+
 /**
  * Represents commands. Eg. Command.DELETE refers to the DELETE command.
  */
@@ -10,9 +12,10 @@ public enum Command {
     HELLO("hello") {
 
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
-            System.out.println("Hello!");
-            System.out.println("What can I do for you?");
+        public String execute(TaskList tasks, String description) throws DukeException {
+            Storage.createFile();
+            String str = "Hello!\nWhat can I do for you?";
+            return str;
         }
     },
     /**
@@ -21,8 +24,11 @@ public enum Command {
     BYE("bye") {
 
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
-            System.out.println("See you soon!");
+        public String execute(TaskList tasks, String description) throws DukeException {
+            String str = "See you soon!";
+            Storage.write(tasks);
+            Platform.exit();
+            return str;
         }
     },
     /**
@@ -30,7 +36,7 @@ public enum Command {
      */
     MARK("mark") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
                 throw new DukeException("Please use the format: mark <index>");
@@ -39,8 +45,9 @@ public enum Command {
                 int index = Integer.valueOf(arr[1]);
                 Task target = tasks.get(index - 1);
                 target.mark();
-                System.out.println("Task have been marked as done.");
-                System.out.println(target);
+                Storage.write(tasks);
+                String str = String.format("Task have been marked as done.\n%s", target);
+                return str;
             } catch (NumberFormatException e) {
                 throw new DukeException("Please provide an integer for the index.");
             }
@@ -53,7 +60,7 @@ public enum Command {
      */
     UNMARK("unmark") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
                 throw new DukeException("Please use the format: unmark <index>");
@@ -62,8 +69,9 @@ public enum Command {
                 int index = Integer.valueOf(arr[1]);
                 Task target = tasks.get(index - 1);
                 target.unmark();
-                System.out.println("Task have been unmarked.");
-                System.out.println(target);
+                Storage.write(tasks);
+                String str = String.format("Task have been unmarked.\n%s", target);
+                return str;
             } catch (NumberFormatException e) {
                 throw new DukeException("Please provide an integer for the index.");
             }
@@ -75,9 +83,9 @@ public enum Command {
      */
     LIST("list") {
         @Override
-        public void execute(TaskList tasks, String description) {
+        public String execute(TaskList tasks, String description) {
 
-            System.out.println(tasks.toString());
+            return tasks.toString();
 
         }
 
@@ -87,7 +95,7 @@ public enum Command {
      */
     DELETE("delete") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
                 throw new DukeException("Please use the format: delete <index>");
@@ -96,10 +104,11 @@ public enum Command {
                 int index = Integer.valueOf(arr[1]);
                 Task target = tasks.get(index - 1);
                 tasks.remove(index - 1);
-                System.out.println("Task have been removed.");
                 System.out.println(target);
                 int n = tasks.size();
-                System.out.println("You now have " + n + " tasks.");
+                Storage.write(tasks);
+                String str = String.format("Task have been removed.\nYou now have %d tasks.", n);
+                return str;
             } catch (NumberFormatException e) {
                 throw new DukeException("Please provide an integer for the index.");
             }
@@ -111,13 +120,15 @@ public enum Command {
      */
     EVENT("event") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
 
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
-            System.out.println("added: " + task);
-            System.out.println("You now have " + n + " tasks.");
+            Storage.clear();
+            Storage.write(tasks);
+            String str = String.format("added: %s\nYou now have %d tasks.", task, n);
+            return str;
         }
 
     },
@@ -126,13 +137,15 @@ public enum Command {
      */
     DEADLINE("deadline") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
 
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
-            System.out.println("added: " + task);
-            System.out.println("You now have " + n + " tasks.");
+            Storage.clear();
+            Storage.write(tasks);
+            String str = String.format("added: %s\nYou now have %d tasks.", task, n);
+            return str;
         }
 
     },
@@ -142,13 +155,15 @@ public enum Command {
     TODO("todo") {
 
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
-            System.out.println("added: " + task);
-            System.out.println("You now have " + n + " tasks.");
+            Storage.clear();
+            Storage.write(tasks);
 
+            String str = String.format("added: %s\nYou now have %d tasks.", task, n);
+            return str;
         }
 
     },
@@ -158,7 +173,7 @@ public enum Command {
     UNKNOWN("unknown") {
 
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             throw new DukeException("I don't know what that means");
         }
 
@@ -168,10 +183,11 @@ public enum Command {
      */
     CLEAR("clear") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             tasks.clear();
             Storage.clear();
-            System.out.println("List cleared.");
+            String str = "List cleared.";
+            return str;
         }
     },
     /**
@@ -179,7 +195,7 @@ public enum Command {
      */
     FIND("find") {
         @Override
-        public void execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws DukeException {
             TaskList found = new TaskList();
             String search = description.split(" ", 2)[1];
             for (int i = 0; i < tasks.size(); i++) {
@@ -189,7 +205,8 @@ public enum Command {
                     continue;
                 }
             }
-            System.out.println(found.toString());
+
+            return found.toString();
         }
     };
 
@@ -207,7 +224,7 @@ public enum Command {
      * @param description Input given by user
      * @throws DukeException If input is invalid
      */
-    public abstract void execute(TaskList tasks, String description) throws DukeException;
+    public abstract String execute(TaskList tasks, String description) throws DukeException;
 
 
 
