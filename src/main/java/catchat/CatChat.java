@@ -211,4 +211,8 @@ public class CatChat extends Application {
     public static void main(String[] args) {
         CatChat mainApp = new CatChat();
     }
+
+    protected String showGreeting() {
+        return ui.showGreeting();
+    }
 }
