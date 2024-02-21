@@ -22,6 +22,8 @@ public class Parser {
         case "bye":
             storage.save(tasks.getAllTasks());
             return textUi.showOutroMessage();
+        case "help":
+            return textUi.showCommands();
         case "list":
             return textUi.showTaskList(tasks);
         case "todo":
@@ -44,6 +46,7 @@ public class Parser {
             }
         }
     }
+
 
 
     private static LocalDateTime parseDate(String dateString) {
