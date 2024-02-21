@@ -1,4 +1,4 @@
-# KwunTalk :robot:
+# KwunTalk User Guide
 
 **A Graphical User Interface (GUI) desktop app that helps you manage your tasks.**
 
@@ -10,8 +10,8 @@ Here is how it looks!
 
 **To start using KwunTalk:**
 
-1. Ensure you have Java `11` or above installed in your Computer.
-2. Go to the [releases](https://github.com/kwuunnn/ip/releases/tag/A-Jar).
+1. Ensure you have Java `11` or above installed in your Computer
+2. Go to the [releases](https://github.com/kwuunnn/ip/releases/tag/A-Release)
 2. Download the `kwuntalk.jar` file
 3. Move the file into an empty folder
 4. Open a command window in that folder
@@ -19,11 +19,10 @@ Here is how it looks!
 
 ## Features
 
-> [!NOTE]
-> Notes about the command format:
->
-> Words in <UPPER_CASE> are the parameters to be supplied by the user.
-> e.g. for todo <TASK>, <TASK> is a parameter which can be used as todo read book.
+**Notes about the command format:**
+
+Words in `<UPPER_CASE>` are the parameters to be supplied by the user.
+e.g. for todo `<TASK>`, `<TASK>` is a parameter which can be used as todo read book.
 
 
 ### Listing all tasks: `list`
@@ -62,9 +61,9 @@ Creates a Deadline task.
 
 Format: `deadline <TASK> /by <TIME>`
 
-> [!WARNING]
-> `<TIME>` must follow the correct format:
-> dd/MM/yyyy HHmm
+**WARNING**
+
+`<TIME>` must follow the correct format: `dd/MM/yyyy HHmm`
 
 Example:
 ```
@@ -84,9 +83,9 @@ Creates an Event task.
 
 Format: `event <TASK> /from <TIME> /to <TIME>`
 
-> [!WARNING]
-> `<TIME>` must follow the correct format:
-> dd/MM/yyyy HHmm
+**WARNING**
+
+`<TIME>` must follow the correct format: `dd/MM/yyyy HHmm`
 
 Example:
 ```
@@ -106,8 +105,9 @@ Marks the specified task as done.
 
 Format: `mark <TASK_ID>`
 
-> [!WARNING]
-> `<TASK_ID>` must correspond to a task number in the list.
+**WARNING**
+
+`<TASK_ID>` must correspond to a task number in the list.
 
 Example:
 ```
@@ -126,8 +126,9 @@ Marks the specified task as undone.
 
 Format: `unmark <TASK_ID>`
 
-> [!WARNING]
-> `<TASK_ID>` must correspond to a task number in the list.
+**WARNING**
+
+`<TASK_ID>` must correspond to a task number in the list.
 
 Example:
 ```
@@ -146,8 +147,9 @@ Deletes the specified task.
 
 Format: `delete <TASK_ID>`
 
-> [!WARNING]
-> `<TASK_ID>` must correspond to a task number in the list.
+**WARNING**
+
+`<TASK_ID>` must correspond to a task number in the list.
 
 Example:
 ```
