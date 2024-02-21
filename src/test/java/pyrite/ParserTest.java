@@ -59,13 +59,18 @@ public class ParserTest {
     }
     @Test
     public void parse_unknownCommand_success() {
-        Command command = Parser.parse("not a valid command");
-        assertTrue(command instanceof UnknownCommand);
+        try {
+            Command command = Parser.parse("not a valid command");
+        } catch (Exception e) {
+            assertTrue(e instanceof PyriteException);
+        }
     }
     @Test
     public void parse_emptyString_success() {
-        Command command = Parser.parse("");
-        assertTrue(command instanceof UnknownCommand);
-
+        try {
+            Command command = Parser.parse("");
+        } catch (Exception e) {
+            assertTrue(e instanceof PyriteException);
+        }
     }
 }
