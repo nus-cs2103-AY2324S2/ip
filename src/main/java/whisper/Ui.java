@@ -121,6 +121,17 @@ public class Ui {
     }
 
     /**
+     * Prints a help message to the user.
+     */
+    public void printHelpMessage() {
+        String helpGuide = "\nCommands available: \n - todo [description]\n - deadline /by[dd/mm/yyyy HH:mm]\n" +
+                " - event /from[dd/mm/yyyy HH:mm] /to[dd/mm/yyyy HH:mm]\n - mark [task number]\n " +
+                "- unmark [task number]\n - delete [task number]\n - list\n - find [keyword]\n " +
+                "- help (to see user guide)\n - bye (to exit program)";
+        responseBuilder.append("Here are some of the guidelines on how to use Whisper!").append(helpGuide);
+    }
+
+    /**
      * Displays the exit message when the application exits.
      */
     public void printExitMessage() {

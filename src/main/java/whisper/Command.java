@@ -306,3 +306,44 @@ class FindCommand implements Command {
         return this.keyword.equalsIgnoreCase(keyword);
     }
 }
+
+/**
+ * The HelpCommand class represents a command to display a help message to the user.
+ */
+class HelpCommand implements Command {
+
+    /**
+     * Executes the help command by displaying a help message to the user.
+     *
+     * @param tasks   The list of tasks (not used in this command).
+     * @param ui      The user interface to display the help message.
+     * @param storage The storage handler (not used in this command).
+     */
+
+    @Override
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+        // Display the help message
+        ui.printHelpMessage();
+    }
+
+    /**
+     * Indicates whether the command should exit the application.
+     *
+     * @return Always returns false as the help command does not exit the application.
+     */
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    /**
+     * Checks if the command matches a given keyword.
+     *
+     * @param keyword The keyword to check for a match.
+     * @return True if the command matches the keyword, false otherwise.
+     */
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return keyword.equalsIgnoreCase("help");
+    }
+}
