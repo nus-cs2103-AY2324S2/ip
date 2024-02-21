@@ -28,6 +28,7 @@ public class ListCommand extends Command {
         if (state.getTasks().isEmpty()) {
             sb.append("No Tasks! Oopsie!");
         }
+        assert sb.length() != 0;
         return sb.toString();
     }
 }
