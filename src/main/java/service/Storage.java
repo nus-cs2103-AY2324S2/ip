@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Storage {
 
-    //private service.TaskList taskList;
     String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;

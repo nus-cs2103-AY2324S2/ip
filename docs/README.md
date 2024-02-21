@@ -5,60 +5,47 @@
 
 Welcome to Snoopy Bot! Snoopy Bot is a desktop app for managing your everyday tasks, optimized for use via a Command Line Interface (CLI)! 
 
-If you are a speed-typger, Snoopy Bot is your best friend!
+If you are a speed-typer, _Snoopy Bot_ is your best friend!
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
+## Key Features
 Example: `deadline return book /by 2021-09-30 1800`
+### 1. Add tasks `todo`, `deadline`, `event`
+### 2. Mark tasks as done/undone `mark`
+### 3. View tasks `list`
+### 4. Find tasks `find`
+### 5. Tags `/tag`
+### 6. Delete tasks `delete`
 
-Example: `list`
+## Command Formats
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Features
-### Adding tasks: 
-- `todo`: a task
-- `deadline`: a task with a deadline
-- `event`: a task with a start and end date and time
-
-### View tasks
-
-
-### Find tasks
-`find`
-
-Can't remember what your exact task is in the long list? Just `find YOUR_KEYWORD`!
-
-### Tags:
-`/tag`
-
-This is an additional parameter for any task. You can tag your task with a keyword to make it easier to find later.
-
-
-## How to use Snoopy Bot
 ### Commands
+#### Adding/Deleting tasks
+- `todo {description}`: Adds a task e.g.`todo return book`
+- `deadline {description} /by {datetime}`: Adds a task with a **deadline** e.g.`deadline return book /by 2021-09-30 1800`
+- `event {description} /from {datetime} /to {datetime}`: Adds a task with a **start** and **end** **date** and **(optional) time** e.g.`event book reading /from 2021-09-30 1400 /to 2021-09-30 1600`
+- (Optional) `/tag {your_tag}`: Tags a task e.g.`/tag important`, appear as task_descirption #important.
+- `delete {Number}`: Deletes a task e.g.`delete 2`
+
+#### Checking/Unchecking tasks
+- `mark {Number}`: Marks a task as done e.g.`mark 2`
+- `unmark {Number}`: Marks a task as not done e.g.`unmark 2`
+
 #### Retrieving tasks
 - `find`: Lists all tasks that contain the keyword
 - `list`: Lists all tasks
-- `mark {Number}`: Marks a task as done e.g.`mark 2`
-- `unmark {Number}`: Marks a task as not done e.g.`unmark 2`
-- `delete {Number}`: Deletes a task e.g.`delete 2`
-- `/tag {Number}`: Tags a task e.g.`/tag important`, appear as task_descirption #important.
 
-#### Creating tasks
-- `todo`: Adds a task e.g.`todo read book`
-- `deadline`: Adds a task with a deadline e.g.`deadline return book /by 2021-09-30 1800`
-- `event`: Adds a task with a start and end date and time e.g.`event project meeting /from 2021-09-30 1400 /to 2021-09-30 1600 /tag fun`
+#### Allowed Datetime formats
+- `YYYY-MM-DD HH:MM`: e.g. `2021-09-30 18:00`
+- `YYYY-MM-DD HHMM`: e.g. `2021-09-30 1800`
+- `YYYY-MM-DD`: e.g. `2021-09-30`
+- `YYYY/MM/DD HH:MM`: e.g. `2021/09/30 18:00`
+- `YYYY/MM/DD HHMM`: e.g. `2021/09/30 1800`
+- `YYYY/MM/DD`: e.g. `2021/09/30`
 
 ## Troubleshooting
 1. Datetime is not recognised: Please use the format `YYYY-MM-DD HHMM` at least for the date and time.
+
+## Glossary
+- `todo`: a task
+- `deadline`: a task with a deadline
+- `event`: a task with a start and end date and time

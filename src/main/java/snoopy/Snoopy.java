@@ -11,8 +11,9 @@ public class Snoopy {
     private static Storage storage;
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response to the user's input command.
+     * @param input user's input command
+     * @return the response to the user's input
      */
     public String getResponse(String input) {
         return processCommand(input, taskList, true);
@@ -98,8 +99,7 @@ public class Snoopy {
 
 
     /**
-     * With a Snoopy object, .run() is the main entry point of the program, running all its processes.
-     *
+     * The main entry point of the program, running all its processes.
      */
     public void run() {
         //do something

@@ -49,7 +49,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Used to obtain the string in the format that the task would be saved in.
+     * Obtains the string in the format that the task would be saved in.
      * @return String representation of the deadline that is savable.
      */
     public String fileSavingString() {
