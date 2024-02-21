@@ -38,6 +38,7 @@ public class EventCommand implements Command {
             throw new RickException("Tell me the event date/time in this format: "
                     + "event [title] /from yyyy-mm-ddTHH-MM-SS /to yyyy-mm-ddTHH-MM-SS");
         }
+        assert input.length() > (FROM_KEYWORD.length() + TO_KEYWORD.length());
         int fromIndex = input.indexOf(FROM_KEYWORD);
         int toIndex = input.indexOf(TO_KEYWORD);
         int fromLen = FROM_KEYWORD.length();

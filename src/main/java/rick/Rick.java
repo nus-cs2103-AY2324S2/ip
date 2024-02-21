@@ -43,8 +43,8 @@ public class Rick {
      */
     @FXML
     public String getResponse(String input) {
-        Parser parser = new Parser(input);
         try {
+            Parser parser = new Parser(input);
             Executer executer = new Executer(this.tasks, this.storage);
             return executer.execute(parser.parse());
         } catch (RickException e) {
