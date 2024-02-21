@@ -1,6 +1,6 @@
 # Alice User Guide
 
-![alt text](https://Benson15912.github.io/ip/Ui.png)
+![alt text](Ui.png)
 
 Alice is a desktop app for managing task lists, optimized for use via a 
 Command Line Interface while still having the benefits of a Graphical User Interface.
