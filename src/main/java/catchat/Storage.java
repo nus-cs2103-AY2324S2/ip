@@ -150,31 +150,4 @@ public class Storage {
             System.out.println("Error creating tasklist: " + e.getMessage());
         }
     }
-
-    public String getDescription(String taskType, String taskDescription) {
-        switch (taskType) {
-        case "T":
-            return getTodoDescription(taskDescription);
-        case "D":
-            return getDeadlineDescription(taskDescription);
-        case "E":
-            return getEventDescription(taskDescription);
-        default:
-            return "Unknown task type";
-        }
-    }
-
-    private String getTodoDescription(String taskDescription) {
-        return taskDescription;
-    }
-
-    private String getDeadlineDescription(String taskDescription) {
-        String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
-        return deadlineParts[0];
-    }
-
-    private String getEventDescription(String taskDescription) {
-        String[] eventParts = taskDescription.split(" \\(from: ", 2);
-        return eventParts[0];
-    }
 }

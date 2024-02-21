@@ -56,6 +56,10 @@ public class Task {
         return this.isDone ? "done" : "not done";
     }
 
+    public String getDescription() {
+        return this.task;
+    }
+
     /**
      * Parse the date string and return a LocalDate object
      *

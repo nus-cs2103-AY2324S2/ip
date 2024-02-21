@@ -28,7 +28,10 @@ public class TaskList {
      * @param task task to be added
      */
     public String addTask(String task) {
-        if (taskExists(task)) {
+        String[] taskParts = task.split(" ", 2);
+        String taskDescription = taskParts[1];
+
+        if (containsTask(taskDescription)) {
             return "This task already exists!";
         }
 
@@ -49,16 +52,17 @@ public class TaskList {
     /**
      * Detects if the task being added already exists in the taskList
      *
-     * @param task
-     * @return
+     * @param taskDescription task to be added
+     * @return boolean
      */
-    public boolean taskExists(String task) {
-        for (Task t : this.taskList) {
-            if (t.toString().equals(task)) {
-                return true;
+    public boolean containsTask(String taskDescription) {
+        for (Task task : this.taskList) {
+            if (task.getDescription().equals(taskDescription)) {
+                return true; // Task already exists in the list
             }
         }
-        return false;
+        System.out.println(false);
+        return false; // Task does not exist in the list
     }
 
     /**
