@@ -1,2 +1,8 @@
-There is 1 task in the list.
-[T][ ] eat dog
+There are 7 tasks in the list.
+[T][X] 2107 assignment
+[E][ ] job fair (from: Feb-22-2024 1400 to: Feb-22-2024 1600)
+[T][ ] apply for internship
+[T][ ] visit grandma
+[T][ ] eat dinner
+[D][ ] homework (by: Feb-25-2024 2359)
+[T][ ] feed cat
