@@ -165,6 +165,9 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1]) - 1;
+        if (no >= list.size()){
+            return "This is an invalid input, Bingus does not remember that many tasks!.";
+        }
         String priority = tokens[2];
         list.get(no).setPriority(priority);
         store.save();
@@ -181,6 +184,9 @@ public class TaskList {
 
         }
         int no = Integer.parseInt(tokens[1])-1;
+        if (no >= list.size()){
+            return "This is an invalid input, Bingus does not remember that many tasks!.";
+        }
         String result = "Noted. I've removed this task:\n";
         result += list.get(no).ToString() + "\n";
         list.remove(no);
