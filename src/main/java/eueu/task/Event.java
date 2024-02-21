@@ -65,7 +65,7 @@ public class Event extends Task {
             if (!this.isDone()) {
                 fw.write("E/0/" + this.getTask() + "/" + start + "/" + end + "\n");
             } else {
-                fw.write("E/0/" + this.getTask() + "/" + start + "/" + end + "\n");
+                fw.write("E/1/" + this.getTask() + "/" + start + "/" + end + "\n");
             }
             fw.close();
         } catch (IOException e) {
