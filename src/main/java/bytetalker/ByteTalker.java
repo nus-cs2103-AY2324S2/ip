@@ -57,22 +57,14 @@ public class ByteTalker extends Application {
         }
     }
 
-    public ByteTalker(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        storage.setupDirectoryAndFile();
-        try {
-            tasks = new TaskList(storage.loadTasks());
-        } catch (FileNotFoundException e) {
-            ui.showFileNotFoundErrorMsg();
-            isExit = true;
-        }
-    }
-
     /**
      * Runs the chatbot and allows user input. User input is processed with other methods.
      */
     public void run() {
+        assert tasks != null;
+        assert storage != null;
+        assert ui != null;
+
         ui.showWelcome();
         while (!isExit) {
             String userInputString = ui.storeUserInput();
@@ -201,14 +193,4 @@ public class ByteTalker extends Application {
         );
         userInput.clear();
     }
-
-    /**
-     * This is the main method which starts the chatbot by running run method.
-     * @param args Unused.
-     */
-    /*
-    public static void main(String[] args) {
-        new ByteTalker("./data/bytetalker.ByteTalker.txt").run();
-    }
-     */
 }

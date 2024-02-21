@@ -29,6 +29,8 @@ public class Storage {
      * msising one.
      */
     public void setupDirectoryAndFile() {
+        assert filePath != null;
+
         try {
             Path directoryPath = filePath.getParent();
             boolean directoryExists = Files.exists(directoryPath);
@@ -59,6 +61,9 @@ public class Storage {
      * @throws IOException If there is no file or directory.
      */
     public void storeTasks(ArrayList<Task> tasks) throws IOException {
+        assert filePath != null;
+        assert tasks != null;
+
         ArrayList<String> tempTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
@@ -87,8 +92,11 @@ public class Storage {
      * @throws FileNotFoundException If there is no file or directory.
      */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
+        assert filePath != null;
+
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath.toString());
+        assert file != null;
         Scanner sc = new Scanner(file);
         int numberOfTasks = 0;
         System.out.println("Loading saved tasks");
