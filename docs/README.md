@@ -1,6 +1,6 @@
 # Harvard Chatbot User Guide
 
-<img src="/Users/chengyu/ip/docs/Ui.png"/>
+<img src="https://officialchengyud.github.io/ip/Ui.png"/>
 
 Welcome to the prestigious Harvard Chatbot User Guide! Here you will learn how to use the amazing chatbot which will 
 help simplify your life from this point onwards...
