@@ -48,7 +48,7 @@ public class Parser {
      * @return int index
      */
     public static int parseMark(String cmd) {
-        return Integer.parseInt(cmd.substring(5)) - 1;
+        return Integer.parseInt(cmd.substring(5).strip()) - 1;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Parser {
      * @return int index
      */
     public static int parseUnmark(String cmd) {
-        return Integer.parseInt(cmd.substring(7)) - 1;
+        return Integer.parseInt(cmd.substring(7).strip()) - 1;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Parser {
      * @return int index
      */
     public static int parseDelete(String cmd) {
-        return Integer.parseInt(cmd.substring(7)) - 1;
+        return Integer.parseInt(cmd.substring(7).strip()) - 1;
     }
 
     /**

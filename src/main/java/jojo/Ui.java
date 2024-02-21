@@ -95,11 +95,9 @@ public class Ui {
      * @throws JojoException when the task is invalid
      */
     public String DeleteToString(TaskList tl, String cmd) throws JojoException {
-        int taskNum = Parser.parseDelete(cmd);
         StringBuilder sb = new StringBuilder();
-        if (taskNum >= tl.size()) {
-            throw new JojoException("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");
-        } else {
+        try {
+            int taskNum = Parser.parseDelete(cmd);
             sb.append("Noted. I've removed this task:");
             sb.append(System.getProperty("line.separator"));
             sb.append(tl.taskToString(taskNum));
@@ -108,6 +106,8 @@ public class Ui {
             sb.append("Now you have ");
             sb.append(tl.size());
             sb.append(" tasks in the list.");
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            throw new JojoException("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");
         }
         return sb.toString();
     }

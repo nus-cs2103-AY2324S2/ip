@@ -34,7 +34,11 @@ public class Jojo {
             Scanner sc = new Scanner(System.in);
             String cmd = sc.nextLine();
             while (!cmd.equals("bye")) {
-                getResponse(cmd);
+                try {
+                    getResponse(cmd);
+                } catch(JojoException e){
+                    System.out.println(e.getMessage());
+                }
                 saveTasks();
                 System.out.println(ui.breakLines());
                 cmd = sc.nextLine();
@@ -79,12 +83,8 @@ public class Jojo {
         return msg.toString();
     }
 
-    public static void main(String[] args) {
-        try {
-            new Jojo("jojo.txt").run();
-        } catch (JojoException e) {
-            System.out.println(e.getMessage());
-        }
+    public static void main(String[] args) throws JojoException{
+        new Jojo("jojo.txt").run();
     }
 }
 
