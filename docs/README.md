@@ -1,6 +1,6 @@
 # Pyrite User Guide
 
-![image](https://github.com/ReflectiveObsidian/ip/blob/master/docs/Ui.png)
+![image](https://raw.githubusercontent.com/ReflectiveObsidian/ip/master/docs/Ui.png)
 
 Pyrite helps you manage your To-Dos, Deadlines and Events.
 
@@ -51,16 +51,6 @@ Example:`delete 1`
 The task with index 1 will no longer appear in the list.
 
 ![image](https://github.com/ReflectiveObsidian/ip/assets/122241304/ae658d39-ab02-4e88-af21-31a4675d8724)
-
-### List your tasks
-
-List all tasks.
-
-Command: `list`
-
-All tasks will be listed in order of their index.
-
-![image](https://github.com/ReflectiveObsidian/ip/assets/122241304/06eb53aa-867d-4a17-bcac-a3ef54ca2948)
 
 ## Other features
 
