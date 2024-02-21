@@ -30,7 +30,7 @@ public class Duke extends Application {
     public static Duke instance;
     private final Storage storage;
     private final ItemList itemList;
-    private final UI ui;
+    public final UI ui;
     private Parser parser;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -103,8 +103,8 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(this.ui.getLogo()), new ImageView(duke)));
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(this.ui.getGreet()), new ImageView(duke)));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(this.ui.getLogo(), duke));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(this.ui.getGreet(), duke));
 
         sendButton.setOnMouseClicked((event) -> handleUserInput());
 
@@ -118,12 +118,12 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    public void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getDukeDialog(dukeText, duke)
         );
 
         if (userInput.getText().equals("bye")) {
@@ -137,7 +137,7 @@ public class Duke extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         // to abstract out UI stuff using fxml
         String out = "";
         if (!input.equals("bye")) {

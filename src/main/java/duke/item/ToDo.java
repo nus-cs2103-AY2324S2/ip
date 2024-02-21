@@ -31,13 +31,13 @@ public class ToDo implements Item, Serializable {
 
     @Override
     public String doneMessage() {
-        return "Nice! I've marked this task as done:\n     "
+        return "Nice! I've marked this task as done:\n"
                 + this.toString();
     }
 
     @Override
     public String undoneMessage() {
-        return "OK, I've marked this task as not done yet:\n     "
+        return "OK, I've marked this task as not done yet:\n"
                 + this.toString();
     }
 
@@ -49,15 +49,15 @@ public class ToDo implements Item, Serializable {
     @Override
     public String addMessage(int num) {
         return "Got it. I've added this task:\n"
-                + "       " + this.toString()
-                + "\n     Now you have " + num + " tasks in the list.";
+                + this.toString()
+                + "\nNow you have " + num + " tasks in the list.";
     }
 
     @Override
     public String removeMessage(int num) {
         return "Noted. I've removed this task:\n"
-                + "       " + this.toString()
-                + "\n     Now you have " + num + " tasks in the list.";
+                + this.toString()
+                + "\nNow you have " + num + " tasks in the list.";
     }
 
     @Override

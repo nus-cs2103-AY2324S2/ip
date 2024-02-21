@@ -8,7 +8,7 @@ package duke;
 public class UI {
 
     private String greet = "Hello! I'm ELIAS\n"
-            + "     What can I do for you?";
+            + "What can I do for you?";
 
     private String logo = "______ _ _\n"
             + "|  ____| (_)\n"

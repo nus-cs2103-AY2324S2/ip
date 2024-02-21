@@ -107,7 +107,7 @@ public class ItemList implements Serializable {
         int index = 1;
         for (Item i : listOfItems) {
             if (i.getName().contains(s)) {
-                out.append(index).append(".").append(i.toString()).append("\n     ");
+                out.append(index).append(".").append(i.toString()).append("\n");
                 index++;
             }
         }
@@ -123,7 +123,7 @@ public class ItemList implements Serializable {
         int c = 0;
         StringBuilder out = new StringBuilder();
         while (c < listOfItems.size()) {
-            out.append(c + 1).append(".").append(listOfItems.get(c).toString()).append("\n     ");
+            out.append(c + 1).append(".").append(listOfItems.get(c).toString()).append("\n");
             c++;
         }
         return out.toString().trim();
