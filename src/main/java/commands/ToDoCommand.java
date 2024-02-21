@@ -13,7 +13,7 @@ import misc.Ui;
  * @version Week-3
  */
 public class ToDoCommand extends Command {
-    private String todoDescription;
+    private final String todoDescription;
 
     /**
      * Constructor for a ToDoCommand object.
@@ -35,7 +35,11 @@ public class ToDoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
         ToDo todo = new ToDo(todoDescription);
-        taskList.addTask(todo);
+        if (!isDuplicate(todo, taskList)) {
+            taskList.addTask(todo);
+        } else {
+            ui.reply("This task already exists in the task list.");
+        }
         storageManager.save(taskList.getTasks());
         ui.reply(todo.replyString(taskList.getTasksSize()));
     }
@@ -52,7 +56,11 @@ public class ToDoCommand extends Command {
     @Override
     public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
         ToDo todo = new ToDo(todoDescription);
-        taskList.addTask(todo);
+        if (!isDuplicate(todo, taskList)) {
+            taskList.addTask(todo);
+        } else {
+            return ui.getReply("This task already exists in the task list.");
+        }
         storageManager.save(taskList.getTasks());
         return ui.getReply(todo.replyString(taskList.getTasksSize()));
     }

@@ -46,7 +46,11 @@ public class DeadlineCommand extends Command {
             String description = this.deadline[0];
             String by = this.deadline[1];
             Deadline deadline = new Deadline(description, by);
-            taskList.addTask(deadline);
+            if (!isDuplicate(deadline, taskList)) {
+                taskList.addTask(deadline);
+            } else {
+                ui.reply("This task already exists in the task list.");
+            }
             storageManager.save(taskList.getTasks());
             ui.reply(deadline.replyString(taskList.getTasksSize()));
         } catch (DateTimeParseException e) {
@@ -69,9 +73,12 @@ public class DeadlineCommand extends Command {
         String description = this.deadline[0];
         String by = this.deadline[1];
         Deadline deadline = new Deadline(description, by);
-        taskList.addTask(deadline);
+        if (!isDuplicate(deadline, taskList)) {
+            taskList.addTask(deadline);
+        } else {
+            return ui.getReply("This task already exists in the task list.");
+        }
         storageManager.save(taskList.getTasks());
         return ui.getReply(deadline.replyString(taskList.getTasksSize()));
     }
 }
-

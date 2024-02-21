@@ -44,7 +44,11 @@ public class EventCommand extends Command {
         String from = fromTo[0];
         String to = fromTo[1];
         Event event = new Event(description, from, to);
-        taskList.addTask(event);
+        if (!isDuplicate(event, taskList)) {
+            taskList.addTask(event);
+        } else {
+            ui.reply("This task already exists in the task list.");
+        }
         storageManager.save(taskList.getTasks());
         ui.reply(event.replyString(taskList.getTasksSize()));
     }
@@ -65,7 +69,11 @@ public class EventCommand extends Command {
         String from = fromTo[0];
         String to = fromTo[1];
         Event event = new Event(description, from, to);
-        taskList.addTask(event);
+        if (!isDuplicate(event, taskList)) {
+            taskList.addTask(event);
+        } else {
+            return ui.getReply("This task already exists in the task list.");
+        }
         storageManager.save(taskList.getTasks());
         return ui.getReply(event.replyString(taskList.getTasksSize()));
     }
