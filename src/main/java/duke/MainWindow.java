@@ -20,14 +20,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox dialogContainer;
     @FXML
-    private TextField textInput;
+    private TextField userInput;
     @FXML
-    private Button enterButton;
+    private Button sendButton;
 
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream(USERIMGPATH));
-
     private Image dukeImage = new Image(this.getClass().getResourceAsStream(HARIIMGPATH));
 
     @FXML
@@ -45,12 +44,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = textInput.getText();
+        String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        textInput.clear();
+        userInput.clear();
     }
 }
