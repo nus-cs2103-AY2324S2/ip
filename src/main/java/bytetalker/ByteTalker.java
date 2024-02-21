@@ -57,35 +57,16 @@ public class ByteTalker extends Application {
         }
     }
 
-    /**
-     * Runs the chatbot and allows user input. User input is processed with other methods.
-     */
-    public void run() {
-        assert tasks != null;
-        assert storage != null;
-        assert ui != null;
-
-        ui.showWelcome();
-        while (!isExit) {
-            String userInputString = ui.storeUserInput();
-            String[] splitMessages = Parser.parse(userInputString);
-            if (userInputString.equals("bye")) {
-                break;
-            } else if (userInputString.equals("list")) {
-                this.ui.returnList(this.tasks.getTasks());
-            } else if (splitMessages[0].equals("mark")) {
-                this.tasks.markTask(splitMessages, storage, ui);
-            } else if (splitMessages[0].equals("unmark")) {
-                this.tasks.unmarkTask(splitMessages, storage, ui);
-            } else if (splitMessages[0].equals("delete")) {
-                this.tasks.deleteTask(Integer.parseInt(splitMessages[1]), storage, ui);
-            } else if (splitMessages[0].equals("find")) {
-                this.tasks.findTask(splitMessages, ui);
-            } else {
-                this.tasks.addTask(splitMessages, storage, ui);
-            }
+    public ByteTalker(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        storage.setupDirectoryAndFile();
+        try {
+            tasks = new TaskList(storage.loadTasks());
+        } catch (FileNotFoundException e) {
+            ui.showFileNotFoundErrorMsg();
+            isExit = true;
         }
-        ui.showBye();
     }
 
     private String getResponse(String input) {

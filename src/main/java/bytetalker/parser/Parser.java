@@ -15,82 +15,108 @@ public class Parser {
         return tempMessages;
     }
 
-    public static ArrayList<String> parseTodoInput(String[] splitMessages) throws ByteTalkerException.TodoUnsupportedFormatException {
+    public static ArrayList<String> parseTodoInput(String[] splitMessages) throws ByteTalkerException.TodoUnsupportedFormatException, ByteTalkerException.TodoNoTaskException {
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
-            if (splitMessages[i].equals("/by") || splitMessages[i].equals("/from") || splitMessages[i].equals("to")) {
-                throw new ByteTalkerException.TodoUnsupportedFormatException("This format is not supported for " +
-                        "Todo");
-            }
+            determineSupportedTodoTask(splitMessages[i]);
             tempMessage += splitMessages[i] + " ";
         }
-        ArrayList<String> resultMessages = new ArrayList<>();
-        tempMessage = tempMessage.strip();
-        resultMessages.add(tempMessage);
-        return resultMessages;
+        ArrayList<String> messageContainer = new ArrayList<>();
+        messageContainer.add(tempMessage.strip());
+        determineTodoTaskContent(messageContainer);
+        return messageContainer;
     }
 
-    public static ArrayList<String> parseDeadlineInput(String[] splitMessages) throws ByteTalkerException.DeadlineUnsupportedFormatException {
+    private static void determineSupportedTodoTask(String message) throws ByteTalkerException.TodoUnsupportedFormatException {
+        if (message.equals("/by") || message.equals("/from") || message.equals("to")) {
+            throw new ByteTalkerException.TodoUnsupportedFormatException("This format is not supported for " +
+                    "Todo");
+        }
+    }
+
+    private static void determineTodoTaskContent(ArrayList<String> parsedTodoInputs) throws ByteTalkerException.TodoNoTaskException {
+        if (parsedTodoInputs.get(0).isEmpty()) {
+            throw new ByteTalkerException.TodoNoTaskException("No Task");
+        }
+    }
+
+    public static ArrayList<String> parseDeadlineInput(String[] splitMessages) throws ByteTalkerException.DeadlineUnsupportedFormatException, ByteTalkerException.DeadlineWrongFormatException {
         ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
-            if (splitMessages[i].equals("/from") || splitMessages[i].equals("/to")) {
-                throw new ByteTalkerException.DeadlineUnsupportedFormatException("This format is not supported for " +
-                        "Deadline");
-            }
+            determineSupportedDeadlineTask(splitMessages[i]);
             boolean isContentFilled = splitMessages[i].equals("/by");
             if (isContentFilled) {
-                tempMessage = tempMessage.strip();
-                messageContainer.add(tempMessage);
+                messageContainer.add(tempMessage.strip());
                 tempMessage = "";
             } else {
                 tempMessage += splitMessages[i] + " ";
             }
         }
         messageContainer.add(tempMessage);
+        determineDeadlineTaskContentAndTime(messageContainer);
         return messageContainer;
+    }
+
+    private static void determineSupportedDeadlineTask(String message) throws ByteTalkerException.DeadlineUnsupportedFormatException {
+        if (message.equals("/from") || message.equals("/to")) {
+            throw new ByteTalkerException.DeadlineUnsupportedFormatException("This format is not supported for " +
+                    "Deadline");
+        }
+    }
+
+    private static void determineDeadlineTaskContentAndTime(ArrayList<String> parsedDeadlineInputs) throws ByteTalkerException.DeadlineWrongFormatException {
+        if (parsedDeadlineInputs.get(0).isEmpty() || parsedDeadlineInputs.size() != 2) {
+            throw new ByteTalkerException.DeadlineWrongFormatException("This is wrong format for deadline");
+        }
     }
 
     public static ArrayList<String> parseEventInput(String[] splitMessages) throws ByteTalkerException.EventWrongFormatException {
         ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
-            if (splitMessages[i].equals("/by")) {
-                throw new ByteTalkerException.EventWrongFormatException("This is the wrong for event");
-            }
+            determineSupportedEventTask(splitMessages[i]);
             boolean isContentFilled = splitMessages[i].equals("/from");
             boolean isFromFilled = splitMessages[i].equals("/to");
             if (isContentFilled) {
-                tempMessage = tempMessage.strip();
-                messageContainer.add(tempMessage);
+                messageContainer.add(tempMessage.strip());
                 tempMessage = "";
             } else if (isFromFilled) {
-                tempMessage = tempMessage.strip();
-                messageContainer.add(tempMessage);
+                messageContainer.add(tempMessage.strip());
                 tempMessage = "";
             } else {
                 tempMessage += splitMessages[i] + " ";
             }
         }
-        tempMessage = tempMessage.strip();
-        messageContainer.add(tempMessage);
+        messageContainer.add(tempMessage.strip());
+        determineEventTaskContentAndTime(messageContainer);
         return messageContainer;
+    }
+
+    private static void determineSupportedEventTask(String message) throws ByteTalkerException.EventWrongFormatException {
+        if (message.equals("/by")) {
+            throw new ByteTalkerException.EventWrongFormatException("This is the wrong for event");
+        }
+    }
+
+    private static void determineEventTaskContentAndTime(ArrayList<String> parsedEventInputs) throws ByteTalkerException.EventWrongFormatException {
+        if (parsedEventInputs.size() != 3 || parsedEventInputs.get(0).isEmpty()
+                || parsedEventInputs.get(1).isEmpty()
+                || parsedEventInputs.get(2).isEmpty()) {
+            throw new ByteTalkerException.EventWrongFormatException("This is wrong format for event");
+        }
     }
 
     public static LocalDateTime parseDateTime(String dateTimeString) {
         String cleanDateTimeString = dateTimeString.strip();
         boolean isTimeExist = cleanDateTimeString.split(" ").length > 1;
         boolean isInputFirstFormat = dateTimeString.split("-").length > 1;
-        DateTimeFormatter inputFormatter;
+
         if (!isTimeExist) {
             cleanDateTimeString += " 2359";
         }
 
-        if (isInputFirstFormat) {
-            inputFormatter = DateTimeFormatter.ofPattern("yyyy-M-d Hmm");
-        } else {
-            inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
-        }
+        DateTimeFormatter inputFormatter = determineDateInputFormat(isInputFirstFormat);
 
         LocalDateTime dateTime = null;
         try {
@@ -99,6 +125,14 @@ public class Parser {
         } catch (DateTimeParseException e) {
             Ui.showDateTimeParseErrorMsg(e);
             return dateTime;
+        }
+    }
+
+    private static DateTimeFormatter determineDateInputFormat(boolean isInputFirstFormat) {
+        if (isInputFirstFormat) {
+            return DateTimeFormatter.ofPattern("yyyy-M-d Hmm");
+        } else {
+            return DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
         }
     }
 }

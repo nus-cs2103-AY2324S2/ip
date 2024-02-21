@@ -74,30 +74,14 @@ public class TaskList {
      * It is a general method that calls individual methods to add todo, deadline and event
      * to the list.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param messageContainer Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public String addTask(String[] splitMessage, Storage storage, Ui ui) {
-        assert tasks != null;
-        assert splitMessage != null;
-        assert ui != null;
-        assert storage != null;
 
+    public String addTask(String[] messageContainer, Storage storage, Ui ui) {
         try {
-            Task task = null;
-            boolean isTodo = splitMessage[0].equals("todo");
-            boolean isDeadline = splitMessage[0].equals("deadline");
-            boolean isEvent = splitMessage[0].equals("event");
-            if (isTodo) {
-                task = addTodo(splitMessage);
-            } else if (isDeadline) {
-                task = addDeadline(splitMessage);
-            } else if (isEvent) {
-                task = addEvent(splitMessage);
-            } else {
-                throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
-            }
+            Task task = determineTask(messageContainer);
             try {
                 if (task != null) {
                     this.tasks.add(task);
@@ -116,6 +100,23 @@ public class TaskList {
         }
     }
 
+    private Task determineTask(String[] messageContainer) throws ByteTalkerException.UnsupportedTaskException {
+        boolean isTodo = messageContainer[0].equals("todo");
+        boolean isDeadline = messageContainer[0].equals("deadline");
+        boolean isEvent = messageContainer[0].equals("event");
+        if (isTodo) {
+            return addTodo(messageContainer);
+        } else if (isDeadline) {
+            return addDeadline(messageContainer);
+        } else if (isEvent) {
+            return addEvent(messageContainer);
+        } else {
+            throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
+        }
+    }
+
+
+
     /**
      * Creates a Todo object based on the user input.
      *
@@ -129,9 +130,6 @@ public class TaskList {
         Todo task = null;
         try {
             ArrayList<String> parsedTodoInputs = Parser.parseTodoInput(splitMessage);
-            if (parsedTodoInputs.get(0).isEmpty()) {
-                throw new ByteTalkerException.TodoNoTaskException("No Task");
-            }
             task = new Todo(parsedTodoInputs.get(0));
         } catch (ByteTalkerException.TodoNoTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
@@ -154,10 +152,6 @@ public class TaskList {
         Deadline task = null;
         try {
             ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineInput(splitMessage);
-            System.out.println(parsedDeadlineInput);
-            if (parsedDeadlineInput.get(0).isEmpty() || parsedDeadlineInput.size() != 2) {
-                throw new ByteTalkerException.DeadlineWrongFormatException("This is wrong format for deadline");
-            }
             task = new Deadline(parsedDeadlineInput.get(0), Parser.parseDateTime(parsedDeadlineInput.get(1)));
         } catch (ByteTalkerException.DeadlineUnsupportedFormatException e) {
             System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
@@ -180,11 +174,6 @@ public class TaskList {
         Event task = null;
         try {
             ArrayList<String> parsedEventInput = Parser.parseEventInput(splitMessage);
-            if (parsedEventInput.size() != 3 || parsedEventInput.get(0).isEmpty()
-                    || parsedEventInput.get(1).isEmpty()
-                    || parsedEventInput.get(2).isEmpty()) {
-                throw new ByteTalkerException.EventWrongFormatException("This is wrong format for event");
-            }
             task = new Event(parsedEventInput.get(0), Parser.parseDateTime(parsedEventInput.get(1)),
                     Parser.parseDateTime(parsedEventInput.get(2)));
         } catch (ByteTalkerException.EventWrongFormatException e) {
