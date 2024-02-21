@@ -57,7 +57,7 @@ public class List {
      * @return Whether is task is valid.
      */
     public boolean isValidTaskNum(int taskNum) {
-        return taskNum > 0 && taskNum <= tasks.size();
+        return taskNum >= 0 && taskNum < tasks.size();
     }
 
     /**
