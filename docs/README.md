@@ -12,6 +12,12 @@ reminder chatbot is happy to help you!
 - [X] Get your tasks for a particular day!
 - [X] Mark and unmark your tasks as you complete them!
 
+# Set Up
+1. Download the file from [here](https://github.com/whelan-low/ip/releases/tag/A-Release)
+2. Preferably, set up a folder to put the JAR file inside
+3. Ensure you have `Java 11` installed
+4. Run the JAR file, and let Greg do the rest!
+
 # Commands Available
 
 ### Legend:
