@@ -28,7 +28,7 @@ public class Ui {
      */
     public String sayBye() {
         String farewell = "  ______________________________________\n"
-                + "   YEAAAARM! Good job on clearing some tasks today!\n"
+                + "   YEAAAARM! Good job today!\n"
                 + "   See you soon!\n"
                 + "  ______________________________________\n";
         return farewell;
