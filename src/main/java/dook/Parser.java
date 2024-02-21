@@ -111,7 +111,7 @@ public class Parser {
         String[] details;
         try {
             if (taskDetails.isBlank()) {
-                throw new DookException(":( Task.Task description cannot be empty!");
+                throw new DookException(":( Task description cannot be empty!");
             }
             switch (taskType) {
             case TODO:
