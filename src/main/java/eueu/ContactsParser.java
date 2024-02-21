@@ -57,7 +57,7 @@ public class ContactsParser {
                 res = ENTER_CONTACT_NAME;
             }
 
-        } else if (command.startsWith("-d")) { //delete contact
+        } else if (command.startsWith("-d")) { // delete contact
             try {
                 String str = command.substring(3);
                 res = contactsList.deleteContact(str);
@@ -74,7 +74,7 @@ public class ContactsParser {
             FileWriter fw = new FileWriter("data/Contacts.txt", false);
             fw.close();
             res = CLEAR_CONTACTS;
-        } else if (command.startsWith("group")) { //groups contacts by index in contactlist
+        } else if (command.startsWith("group")) { 
             try {
                 String str = command.substring(6);
                 String[] arr = str.split("/");
@@ -89,7 +89,7 @@ public class ContactsParser {
                 res = GROUP_NAME;
             }
 
-        } else if (command.startsWith("find group")) { //finds groups with names
+        } else if (command.startsWith("find group")) { 
             try {
                 res = contactsList.getGroup(command.substring(11));
             } catch (StringIndexOutOfBoundsException e) {
