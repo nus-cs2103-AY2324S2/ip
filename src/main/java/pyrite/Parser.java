@@ -25,7 +25,7 @@ public class Parser {
             + "Add the description after the command.";
     private static final String INVALID_DATETIME_FORMAT_ERROR_MESSAGE = "Use yyyy-mm-ddThh:mm.";
     private static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "Unknown command. "
-            + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
+            + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', 'list', 'find',"
             + " 'bye'";
     private static final String IMPOSSIBLE_DATES_ERROR_MESSAGE = "Start date cannot be after end date.";
     private static final String INVALID_ID_ERROR_MESSAGE = "Provide a valid id to mark/un-mark.";
