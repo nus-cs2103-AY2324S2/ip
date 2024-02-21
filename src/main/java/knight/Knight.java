@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 /**
- * The main class of the program.
+ * Represents the main class of the program.
  */
 public class Knight {
     private static TaskList tasks = new TaskList();
@@ -21,7 +21,7 @@ public class Knight {
     }
 
     /**
-     * The command line interface for the program.
+     * Starts the command line interface for the program.
      *
      * @param args The command line arguments.
      */

@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * A dialog box to display the user's input and the knight's response.
+ * Represents a dialog box to display the user's input and the knight's response.
  */
 public class DialogBox extends HBox {
 

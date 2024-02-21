@@ -25,239 +25,49 @@ public class TaskList {
      */
     void executeCommand(Command commandType, String message) {
         if (commandType == Command.LIST) {
-            if (tasks.isEmpty()) {
-                Ui.speak("Your Excellency, thy list remaineth free of tasks at this present moment.");
-            } else {
-                Ui.speak("Behold, the duties thou hast assigned:\n" + this.toString());
-            }
+            Ui.speak(executeListCommand());
         } else if (commandType == Command.SAVE) {
-            Storage.writeToFile(this);
-            Ui.speak("Thy list hath been saved to thy scrolls of history.");
+            Ui.speak(executeSaveCommand());
         } else if (commandType == Command.MARK) {
-            int index = Integer.parseInt(message.substring(5));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.");
-                return;
-            }
-
-            task.mark();
-            Ui.speak("Thy task hath been marked as done.\n" + task);
+            Ui.speak(executeMarkCommand(message));
         } else if (commandType == Command.UNMARK) {
-            int index = Integer.parseInt(message.substring(7));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.");
-                return;
-            }
-
-            task.unmark();
-            Ui.speak("Thy task hath been unmarked.\n" + task);
+            Ui.speak(executeUnmarkCommand(message));
         } else if (commandType == Command.DELETE) {
-            int index = Integer.parseInt(message.substring(7));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency,"
-                        + "that thou lackest a task bearing this index in thy list.");
-                return;
-            }
-
-            tasks.remove(index - 1);
-            Ui.speak("Thy task hath been removed from thy list.\n" + task);
+            Ui.speak(executeDeleteCommand(message));
         } else if (commandType == Command.TODO) {
-            Task task = new ToDo(message.substring(5));
-            tasks.add(task);
-            Ui.speak("Understood. This task hath been added to thy list:\n" + task);
+            Ui.speak(executeTodoCommand(message));
         } else if (commandType == Command.DEADLINE) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Deadline(params[0].substring(9), params[1].substring(3));
-            } catch (DateTimeParseException e) {
-                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd");
-                return;
-            }
-            tasks.add(task);
-            Ui.speak("Understood. This task hath been added to thy list:\n" + task);
+            Ui.speak(executeDeadlineCommand(message));
         } else if (commandType == Command.EVENT) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Event(params[0].substring(6),
-                        params[1].substring(5),
-                        params[2].substring(3));
-            } catch (DateTimeParseException e) {
-                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd");
-                return;
-            }
-            tasks.add(task);
-            Ui.speak("Understood. This task hath been added to thy list:\n" + task);
+            Ui.speak(executeEventCommand(message));
         } else if (commandType == Command.FIND) {
-            String keyword = message.substring(5);
-            String output = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).matches(keyword)) {
-                    output += "\n" + (i + 1) + ". " + tasks.get(i);
-                }
-            }
-            if (output.equals("")) {
-                Ui.speak("I regret to inform thee, Your Excellency, "
-                        + "that no tasks bearing this keyword exist in thy list.");
-            } else {
-                Ui.speak("Behold, the tasks that match thy keyword:\n" + output);
-            }
+            Ui.speak(executeFindCommand(message));
         } else if (commandType == Command.UPDATE) {
-            String[] params = message.split(" ");
-            int index = Integer.parseInt(params[1]) - 1;
-            Task task;
-            try {
-                task = tasks.get(index);
-            } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.");
-                return;
-            }
-            String oldTaskMessage = task.toString();
-            String updateMessage = message.substring(8 + params[1].length());
-            try {
-                task.update(updateMessage);
-            } catch (NonstandardCommandException e) {
-                Ui.speak(e.getMessage());
-                return;
-            } catch (DateTimeParseException e) {
-                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd");
-                return;
-            }
-            Ui.speak("Thy task hath been updated.\n   " + oldTaskMessage + "\n-->" + task);
+            Ui.speak(executeUpdateCommand(message));
         }
     }
 
     String executeCommandReturnString(Command commandType, String message) {
         if (commandType == Command.LIST) {
-            if (tasks.isEmpty()) {
-                return "Your Excellency, thy list remaineth free of tasks at this present moment.";
-            } else {
-                return "Behold, the duties thou hast assigned:\n" + this.toString();
-            }
+            return executeListCommand();
         } else if (commandType == Command.SAVE) {
-            Storage.writeToFile(this);
-            return "Thy list hath been saved to thy scrolls of history.";
+            return executeSaveCommand();
         } else if (commandType == Command.MARK) {
-            int index = Integer.parseInt(message.substring(5));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                return "I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.";
-            }
-
-            task.mark();
-            return "Thy task hath been marked as done.\n" + task;
+            return executeMarkCommand(message);
         } else if (commandType == Command.UNMARK) {
-            int index = Integer.parseInt(message.substring(7));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                return "I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.";
-            }
-
-            task.unmark();
-            return "Thy task hath been unmarked.\n" + task;
+            return executeUnmarkCommand(message);
         } else if (commandType == Command.DELETE) {
-            int index = Integer.parseInt(message.substring(7));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                return "I regret to inform thee, Your Excellency,"
-                        + "that thou lackest a task bearing this index in thy list.";
-            }
-
-            tasks.remove(index - 1);
-            return "Thy task hath been removed from thy list.\n" + task;
+            return executeDeleteCommand(message);
         } else if (commandType == Command.TODO) {
-            Task task = new ToDo(message.substring(5));
-            tasks.add(task);
-            return "Understood. This task hath been added to thy list:\n" + task;
+            return executeTodoCommand(message);
         } else if (commandType == Command.DEADLINE) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Deadline(params[0].substring(9), params[1].substring(3));
-            } catch (DateTimeParseException e) {
-                return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd";
-            }
-            tasks.add(task);
-            return "Understood. This task hath been added to thy list:\n" + task;
+            return executeDeadlineCommand(message);
         } else if (commandType == Command.EVENT) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Event(params[0].substring(6),
-                        params[1].substring(5),
-                        params[2].substring(3));
-            } catch (DateTimeParseException e) {
-                return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd";
-            }
-            tasks.add(task);
-            return "Understood. This task hath been added to thy list:\n" + task;
+            return executeEventCommand(message);
         } else if (commandType == Command.FIND) {
-            String keyword = message.substring(5);
-            String output = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).matches(keyword)) {
-                    output += "\n" + (i + 1) + ". " + tasks.get(i);
-                }
-            }
-            if (output.equals("")) {
-                return "I regret to inform thee, Your Excellency, "
-                        + "that no tasks bearing this keyword exist in thy list.";
-            } else {
-                return "Behold, the tasks that match thy keyword:\n" + output;
-            }
+            return executeFindCommand(message);
         } else if (commandType == Command.UPDATE) {
-            String[] params = message.split(" ");
-            int index = Integer.parseInt(params[1]) - 1;
-            Task task;
-            try {
-                task = tasks.get(index);
-            } catch (IndexOutOfBoundsException e) {
-                return "I regret to inform thee, Your Excellency, "
-                        + "that thou lackest a task bearing this index in thy list.";
-            }
-            String oldTaskMessage = task.toString();
-            String updateMessage = message.substring(8 + params[1].length());
-            try {
-                task.update(updateMessage);
-            } catch (NonstandardCommandException e) {
-                return e.getMessage();
-            } catch (DateTimeParseException e) {
-                return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
-                        + "yyyy-mm-dd";
-            }
-            return "Thy task hath been updated.\n   " + oldTaskMessage + "\n-->" + task;
+            return executeUpdateCommand(message);
         }
         return "Thou hast reached a place previously deemed unreachable. How didst thou arrive here?";
     }
@@ -269,40 +79,149 @@ public class TaskList {
      * @param message     The full command message.
      */
     void executeCommandSilently(Command commandType, String message) {
-        if (commandType == Command.TODO) {
-            Task task = new ToDo(message.substring(5));
-            tasks.add(task);
+        if (commandType == Command.MARK) {
+            executeMarkCommand(message);
+        } else if (commandType == Command.UNMARK) {
+            executeUnmarkCommand(message);
+        } else if (commandType == Command.TODO) {
+            executeTodoCommand(message);
         } else if (commandType == Command.DEADLINE) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Deadline(params[0].substring(9), params[1].substring(3));
-            } catch (DateTimeParseException e) {
-                return;
-            }
-            tasks.add(task);
+            executeDeadlineCommand(message);
         } else if (commandType == Command.EVENT) {
-            String[] params = message.split(" /");
-            Task task;
-            try {
-                task = new Event(params[0].substring(6),
-                        params[1].substring(5),
-                        params[2].substring(3));
-            } catch (DateTimeParseException e) {
-                return;
-            }
-            tasks.add(task);
-        } else if (commandType == Command.MARK) {
-            int index = Integer.parseInt(message.substring(5));
-            Task task;
-
-            try {
-                task = tasks.get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                return;
-            }
-            task.mark();
+            executeEventCommand(message);
         }
+    }
+
+    private String executeListCommand() {
+        if (tasks.isEmpty()) {
+            return "Your Excellency, thy list remaineth free of tasks at this present moment.";
+        } else {
+            return "Behold, the duties thou hast assigned:\n" + this.toString();
+        }
+    }
+
+    private String executeSaveCommand() {
+        Storage.writeToFile(this);
+        return "Thy list hath been saved to thy scrolls of history.";
+    }
+
+    private String executeMarkCommand(String message) {
+        int index = Integer.parseInt(message.substring(5));
+        Task task;
+
+        try {
+            task = tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return "I regret to inform thee, Your Excellency, "
+                    + "that thou lackest a task bearing this index in thy list.";
+        }
+
+        task.mark();
+        return "Thy task hath been marked as done.\n" + task;
+    }
+
+    private String executeUnmarkCommand(String message) {
+        int index = Integer.parseInt(message.substring(7));
+        Task task;
+
+        try {
+            task = tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return "I regret to inform thee, Your Excellency, "
+                    + "that thou lackest a task bearing this index in thy list.";
+        }
+
+        task.unmark();
+        return "Thy task hath been unmarked.\n" + task;
+    }
+
+    private String executeDeleteCommand(String message) {
+        int index = Integer.parseInt(message.substring(7));
+        Task task;
+
+        try {
+            task = tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return "I regret to inform thee, Your Excellency,"
+                    + "that thou lackest a task bearing this index in thy list.";
+        }
+
+        tasks.remove(index - 1);
+        return "Thy task hath been removed from thy list.\n" + task;
+    }
+
+    private String executeTodoCommand(String message) {
+        Task task = new ToDo(message.substring(5));
+        tasks.add(task);
+        return "Understood. This task hath been added to thy list:\n" + task;
+    }
+
+    private String executeDeadlineCommand(String message) {
+        String[] params = message.split(" /");
+        Task task;
+        try {
+            task = new Deadline(params[0].substring(9), params[1].substring(3));
+        } catch (DateTimeParseException e) {
+            return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                    + "yyyy-mm-dd";
+        }
+        tasks.add(task);
+        return "Understood. This task hath been added to thy list:\n" + task;
+    }
+
+    private String executeEventCommand(String message) {
+        String[] params = message.split(" /");
+        Task task;
+        try {
+            task = new Event(params[0].substring(6),
+                    params[1].substring(5),
+                    params[2].substring(3));
+        } catch (DateTimeParseException e) {
+            return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                    + "yyyy-mm-dd";
+        }
+        tasks.add(task);
+        return "Understood. This task hath been added to thy list:\n" + task;
+    }
+
+    private String executeFindCommand(String message) {
+        String keyword = message.substring(5);
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).matches(keyword)) {
+                output.append( + (i + 1) + ". " + tasks.get(i));
+            }
+        }
+        String outputString = output.toString();
+        if (outputString.equals("")) {
+            return "I regret to inform thee, Your Excellency, "
+                    + "that no tasks bearing this keyword exist in thy list.";
+        } else {
+            return "Behold, the tasks that match thy keyword:\n" + outputString;
+        }
+    }
+
+    private String executeUpdateCommand(String message) {
+        String[] params = message.split(" ");
+        int index = Integer.parseInt(params[1]) - 1;
+        Task task;
+        try {
+            task = tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return "I regret to inform thee, Your Excellency, "
+                    + "that thou lackest a task bearing this index in thy list.";
+        }
+        String oldTaskMessage = task.toString();
+        String updateMessage = message.substring(8 + params[1].length());
+        try {
+            task.update(updateMessage);
+        } catch (NonstandardCommandException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                    + "yyyy-mm-dd";
+        }
+        return "Thy task hath been updated.\n   " + oldTaskMessage + "\n-->" + task;
     }
 
     @Override
