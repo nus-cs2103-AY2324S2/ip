@@ -139,9 +139,9 @@ public class Anxi extends Application {
             try {
                 handleUserInput();
             } catch (IOException e) {
-                System.out.println();
-            } catch (AnxiException de) {
-                System.out.println();
+                System.out.println(e.getMessage());
+            } catch (AnxiException a) {
+                System.out.println(a.getErrorMessage());
             }
         });
 
@@ -149,9 +149,9 @@ public class Anxi extends Application {
             try {
                 handleUserInput();
             } catch (IOException e) {
-                System.out.println();
-            } catch (AnxiException d) {
-                System.out.println();
+                System.out.println(e.getMessage());
+            } catch (AnxiException a) {
+                System.out.println(a.getErrorMessage());
             }
         });
     }

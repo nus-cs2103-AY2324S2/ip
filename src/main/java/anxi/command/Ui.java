@@ -1,7 +1,5 @@
 package anxi.command;
 
-import java.util.ArrayList;
-
 /**
  * Handles interaction with user.
  */
@@ -43,13 +41,6 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("File corrupted, unable to load saved tasks \nResetting list.............................");
-    }
-
-    /**
-     * Prints a line.
-     */
-    public void printLine() {
-        System.out.println("------------------------------------------------------------");
     }
 
     /**
@@ -137,7 +128,6 @@ public class Ui {
     /**
      * Returns unknown command message to be printed to GUI.
      *
-     * @param command   Input command string.
      * @return unknownCommandString     Indicates that command entered is not a known command.
      */
     public String printUnknownCommandError() {
