@@ -36,4 +36,11 @@ public class ResponseHandler {
         assert responseString.length() == 0 : "Chatbot cache should be cleared after responding";
         return response;
     }
+
+    /**
+     * Clears the response string.
+     */
+    public static void clearResponse() {
+        responseString.setLength(0);
+    }
 }

@@ -122,10 +122,18 @@ public class TaskList {
         ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
         int i = 1;
         for (Task task: tasks) {
-            if (task.getDescription().contains(keywords)) {
-                ResponseHandler.appendLineToResponse(i + "." + task.getDescription());
+            String simplifiedTask = task.getDescription().toLowerCase();
+            String simplifiedKeywords = keywords.trim().toLowerCase();
+            if (simplifiedTask.contains(simplifiedKeywords)) {
+                ResponseHandler.appendLineToResponse(i + ". " + task.getDescription());
                 i++;
             }
+        }
+        // If no tasks match, return a negative message
+        boolean isNoKeywordMatch = i == 1;
+        if (isNoKeywordMatch) {
+            ResponseHandler.clearResponse();
+            ResponseHandler.appendLineToResponse("There are no matching tasks in your list! *Yawn*");
         }
     }
 
