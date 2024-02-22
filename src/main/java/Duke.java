@@ -1,72 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-class Task {
-    private String taskDescription;
-    private boolean isDone;
-
-    public Task(String taskDescription) {
-        this.taskDescription = taskDescription;
-        this.isDone = false;
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsUndone() {
-        this.isDone = false;
-    }
-
-    public String toString() {
-        return "|" + (isDone ? " 1 " : " 0 ") + "| " + taskDescription;
-    }
-}
-
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "T |" + super.toString();
-    }
-}
-
-class Deadline extends Task {
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString() {
-        return "D |" + super.toString() + " | " + by ;
-    }
-}
-
-class Event extends Task {
-    protected String from;
-    protected String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public String toString() {
-        return "E |" + super.toString() + " | " + from + "-" + to ;
-    }
-}
 
 public class Duke {
     public static void main(String[] args) {
@@ -112,7 +55,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                
+
                 } else if (userInput.startsWith("deadline")) {
                     if (userInput.length() <= 9) {
                         throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
@@ -123,7 +66,7 @@ public class Duke {
                     if (description.isEmpty() || by.isEmpty()) {
                         throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
                     }
-                    tasks.add(new Deadline(description, by));
+                    tasks.add(new Deadline(description, by)); 
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -197,8 +140,9 @@ public class Duke {
 
         scanner.close();
     }
-     // Method to load tasks from file
-     private static void loadTasksFromFile(String fileName, ArrayList<Task> tasks) {
+
+    // Method to load tasks from file
+    private static void loadTasksFromFile(String fileName, ArrayList<Task> tasks) {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
