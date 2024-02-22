@@ -9,6 +9,8 @@ import alastor.task.Task;
  */
 public class Ui {
 
+    protected static boolean dirCreated = false;
+    protected static boolean fileCreated = false;
     protected Scanner sc;
 
     /**
@@ -19,36 +21,20 @@ public class Ui {
     }
 
     /**
-     * Shows the line.
-     */
-    public void showLine() {
-        System.out.print("_________________________________________________________________________________________\n");
-    }
-
-    /**
      * Shows the greeting message.
      */
     public String showGreet() {
-        return "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
+        String temp = "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
                 + "What desires or inquiries do you bring to my infernal realm?\n";
-    }
-
-    /**
-     * Reads the command from the user.
-     *
-     * @return The command from the user.
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Shows the error message.
-     *
-     * @param message The error message.
-     */
-    public String showError(String message) {
-        return message + "\n";
+        if (dirCreated) {
+            temp += "I've created a new directory for your tasks, my dear.\n";
+            dirCreated = false;
+        }
+        if (fileCreated) {
+            temp += "I've created a new file for your tasks, my dear.\n";
+            fileCreated = false;
+        }
+        return temp;
     }
 
     /**

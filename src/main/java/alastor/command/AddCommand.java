@@ -28,9 +28,4 @@ public class AddCommand extends Command {
         storage.saveAdd(task);
         return ui.showAdd(task, tasks);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

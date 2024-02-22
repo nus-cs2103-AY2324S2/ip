@@ -19,11 +19,4 @@ public abstract class Command {
      * @throws AlastorException If an error occurs during execution.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException;
-
-    /**
-     * Returns true if the command is an exit command.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public abstract boolean isExit();
 }

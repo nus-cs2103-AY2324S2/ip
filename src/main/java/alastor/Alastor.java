@@ -21,14 +21,15 @@ public class Alastor {
         try {
             tasks = new TaskList(storage.load());
         } catch (AlastorException e) {
-            //ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from Alastor based on the user input.
+     *
+     * @param input The user input.
+     * @return The response from Alastor.
      */
     protected String getResponse(String input) {
         try {

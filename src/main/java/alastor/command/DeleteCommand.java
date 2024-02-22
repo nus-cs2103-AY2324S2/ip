@@ -32,9 +32,4 @@ public class DeleteCommand extends Command {
         storage.saveRewrite(tasks);
         return ui.showDelete(task);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
