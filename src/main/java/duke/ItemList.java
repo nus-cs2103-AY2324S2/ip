@@ -2,6 +2,8 @@ package duke;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import duke.item.Deadline;
 import duke.item.Event;
@@ -119,6 +121,11 @@ public class ItemList implements Serializable {
         } else {
             return out.toString();
         }
+    }
+
+    public String sort() {
+        Collections.sort(listOfItems, Comparator.comparing(Item::getTimeToSortBy));
+        return "Tasks sorted chronologically:\n" + this.toString();
     }
 
     @Override
