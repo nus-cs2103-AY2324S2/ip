@@ -12,8 +12,6 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
     - Marking a task: Mark
     - Unmarking a task: Unmark
     - Exiting the program: bye
-- FAQ
-- Known issues
 - Command summary
 
 ---
@@ -43,26 +41,87 @@ Some example commands you can try:
 
 ---
 
-## Features
+# Features
 
+## Listing all tasks: `list`
+Shows a list of all tasks in the task list.
+<br>
+![Screenshot of the command "list".](/assets/images/listExample.png)
+<br>
+Format: `list`
 
-// Describe the action and its outcome.
+## Marking a task as done: `mark`
+Mark a task in the list as completed.
+Format: `mark INDEX`
+<br>
+The `INDEX` refers to the index of the task in the list.
 
-// Give examples of usage
+## Unmarking a task: `unmark`
+Unmark a task in the list.
+Format: `unmark INDEX`
+<br>
+The `INDEX` refers to the index of the task in the list.
 
-Example: `keyword (optional arguments)`
+## Adding a new todo task: `todo`
+Adds a new todo task to the list.
+<br>
+Format: `todo DESCRIPTION`
+<br>
+`DESCRIPTION` refers to the task description
 
-// A description of the expected outcome goes here
+## Adding a new deadline task: `deadline`
+Adds a new deadline task to the list.
+<br>
+Format: `deadline DESCRIPTION /by YYYY-MM-DD HHmm`
+`DESCRIPTION` refers to the task description
 
+## Adding a new event task: `event`
+Adds a new event task to the list.
+<br>
+Format: `event DESCRIPTION /from START /to END`
+
+## Deleting a task: `delete`
+Delete an existing task from the list.
+Format: `delete INDEX`
+<br>
+`INDEX` refers to the index in the task list.
+
+## Finding for tasks that contain the keyword: `find`
+Find all tasks with matching keywords.
+<br>
+Format: `find KEYWORD`
+
+## Exiting the program: `bye`
+Exit the program.
+<br>
+Format: `bye`
+
+# Command Summary
+
+---
+
+| Action | Command Format, Examples |
+| --- | --- |
+| List Content | `list` |
+| Add todo | `todo DESCRIPTION` <br> e.g., todo return book |
+| Add deadline | `deadline DESCRIPTION /by yyyy-MM-dd HHmm` <br> e.g., `deadline return book /by 2024-02-21 1900` |
+| Add event | `event DESCRIPTION /from START /to END` <br> e.g., `event meeting /from today 2pm /to 4pm` |
+| Delete task | `delete INDEX` <br> e.g., `delete 1` |
+| Mark task as completed | `mark INDEX` <br> e.g., `mark 1` |
+| Unmark task | `unmark INDEX` <br> e.g., `unmark 1` |
+| Search tasks using keyword | `find KEYWORD` <br> e.g., `find book` |
+| Exit | `bye`|
+
+# Java Developer Guide
+
+---
+
+Entry point for AcademicWeapon Bot (Duke.java):
 ```
-expected output
+public class Launcher {
+
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
