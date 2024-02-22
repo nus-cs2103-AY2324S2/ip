@@ -19,10 +19,16 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Getter method for start.
+     */
     public LocalDateTime getStart() {
         return start;
     }
 
+    /**
+     * Getter method for end.
+     */
     public LocalDateTime getEnd() {
         return end;
     }
