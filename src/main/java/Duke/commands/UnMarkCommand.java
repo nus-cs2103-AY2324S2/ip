@@ -54,7 +54,8 @@ public class UnMarkCommand extends Command {
             throw new InvalidTaskIndexException(currentIdx);
         }
         int taskIdx = Integer.parseInt(unMarkIdx) - 1;
-        if (taskIdx >= currentIdx || taskIdx < 0) {
+        boolean isInvalidIndex = taskIdx >= currentIdx || taskIdx < 0;
+        if (isInvalidIndex) {
             throw new InvalidTaskIndexException(currentIdx);
         }
         Task unMarkedTask = tasks.unMarkTask(taskIdx);

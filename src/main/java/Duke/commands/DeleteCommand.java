@@ -1,6 +1,5 @@
 package duke.commands;
 
-
 import duke.exceptions.DukeException;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.InvalidTaskIndexException;
@@ -10,19 +9,20 @@ import duke.util.TaskList;
 import duke.util.UI;
 
 /**
- * Class to execute Delete Command
+ * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
     private String[] words;
 
     /**
-     * Constructor for DeleteCommand class
-     * @param words words in UserInput to execute the command
+     * Constructs a DeleteCommand object with the specified array of words.
+     * @param words The array of words representing the delete command.
      */
     public DeleteCommand(String[] words) {
         super();
         this.words = words;
     }
+
     /**
      * Checks if a string is numeric.
      *
@@ -41,8 +41,17 @@ public class DeleteCommand extends Command {
         return true;
     }
 
+    /**
+     * Executes the delete command.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage handler.
+     * @return A message indicating the success of the delete operation.
+     * @throws DukeException If an error occurs during the execution of the command.
+     */
     @Override
-    public String executeForString(TaskList tasks, UI ui, Storage s) throws DukeException {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
         boolean isOneWord = words.length == 1;
         if (isOneWord) {
             throw new EmptyDescriptionException("delete");
@@ -53,12 +62,13 @@ public class DeleteCommand extends Command {
             throw new InvalidTaskIndexException(currentIdx);
         }
         int taskIdx = Integer.parseInt(deleteIdx) - 1;
-        if (taskIdx >= currentIdx || taskIdx < 0) {
+        boolean isInvalidIndex = taskIdx >= currentIdx || taskIdx < 0;
+        if (isInvalidIndex) {
             throw new InvalidTaskIndexException(currentIdx);
         }
         currentIdx--;
         Task deletedTask = tasks.delete(taskIdx);
-        s.rewriteFile(tasks.getTasks());
+        storage.rewriteFile(tasks.getTasks());
         return ui.deleteMessage(deletedTask, currentIdx);
     }
 }

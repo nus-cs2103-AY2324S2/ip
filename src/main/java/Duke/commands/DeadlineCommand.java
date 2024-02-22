@@ -9,18 +9,16 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
 
-
-
 /**
  * Represents a command to add a deadline task.
  */
 public class DeadlineCommand extends Command {
     private String[] words;
+
     /**
      * Constructs a DeadlineCommand with the specified array of words.
      * @param words The array of words representing the deadline command.
      */
-
     public DeadlineCommand(String[] words) {
         super();
         this.words = words;

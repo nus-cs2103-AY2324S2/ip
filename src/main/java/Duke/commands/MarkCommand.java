@@ -45,7 +45,8 @@ public class MarkCommand extends Command {
             throw new InvalidTaskIndexException(currentIdx);
         }
         int taskIdx = Integer.parseInt(words[1]) - 1;
-        if (taskIdx >= currentIdx || taskIdx < 0) {
+        boolean hasInvalidIndex = taskIdx >= currentIdx || taskIdx < 0;
+        if (hasInvalidIndex) {
             throw new InvalidTaskIndexException(currentIdx);
         }
         Task markedTask = tasks.markTask(taskIdx);
