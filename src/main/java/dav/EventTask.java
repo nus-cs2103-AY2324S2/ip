@@ -35,21 +35,6 @@ class EventTask extends Task {
         this.toDateTime = parseDateTime(to);
     }
 
-    private LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
-    /**
-     * Converts the task to a string for data storage.
-     * @return Formatted string for data storage.
-     */
-    @Override
-    public String toDataString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description
-                + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
-                + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
     /**
      * Parses task data string and returns an EventTask object.
      * @param data Data string representing the task.
@@ -74,6 +59,28 @@ class EventTask extends Task {
         eventTask.isDone = parts[1].equals("1");
 
         return eventTask;
+    }
+
+    /**
+     * Parses a date-time string and returns a LocalDateTime object.
+     *
+     * @param dateTime The string representing the date and time in "yyyy-MM-dd HHmm" format.
+     * @return A LocalDateTime object representing the parsed date and time,
+     *         or null if parsing is unsuccessful.
+     */
+    private LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    /**
+     * Converts the task to a string for data storage.
+     * @return Formatted string for data storage.
+     */
+    @Override
+    public String toDataString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description
+                + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**

@@ -21,6 +21,38 @@ class DeadlineTask extends Task {
         this.byDateTime = parseDateTime(date, time);
     }
 
+    /**
+     * Parses task data string and returns a DeadlineTask object.
+     * @param data Data string representing the task.
+     * @return DeadlineTask object if parsing is successful, otherwise null.
+     */
+    public static Task parseTask(String data) {
+        String[] parts = data.split(" \\| ");
+
+        if (parts.length != 4) {
+            return null;
+        }
+
+        String[] dateTimeParts = parts[3].split(" ");
+
+        if (dateTimeParts.length != 2) {
+            return null;
+        }
+
+        DeadlineTask deadlineTask = new DeadlineTask(parts[2], dateTimeParts[0], dateTimeParts[1]);
+        deadlineTask.isDone = parts[1].equals("1");
+
+        return deadlineTask;
+    }
+
+    /**
+     * Parses date and time strings and returns a LocalDateTime object.
+     *
+     * @param date The string representing the date in "yyyy-MM-dd" format.
+     * @param time The string representing the time in "HHmm" format.
+     * @return A LocalDateTime object representing the combined date and time,
+     *         or null if parsing is unsuccessful.
+     */
     private LocalDateTime parseDateTime(String date, String time) {
         String dateTimeString = date + " " + time;
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -34,24 +66,6 @@ class DeadlineTask extends Task {
     public String toDataString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
-    /**
-     * Parses task data string and returns a DeadlineTask object.
-     * @param data Data string representing the task.
-     * @return DeadlineTask object if parsing is successful, otherwise null.
-     */
-    public static Task parseTask(String data) {
-        String[] parts = data.split(" \\| ");
-        if (parts.length == 4) {
-            String[] dateTimeParts = parts[3].split(" ");
-            if (dateTimeParts.length == 2) {
-                DeadlineTask deadlineTask = new DeadlineTask(parts[2], dateTimeParts[0], dateTimeParts[1]);
-                deadlineTask.isDone = parts[1].equals("1");
-                return deadlineTask;
-            }
-        }
-        return null;
     }
 
     /**

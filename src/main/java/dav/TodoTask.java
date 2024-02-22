@@ -14,15 +14,6 @@ class TodoTask extends Task {
     }
 
     /**
-     * Converts the todo task to a string for data storage.
-     * @return Formatted string for data storage.
-     */
-    @Override
-    public String toDataString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
-    }
-
-    /**
      * Parses todo task data string and returns a TodoTask object.
      * @param data Data string representing the todo task.
      * @return TodoTask object if parsing is successful, otherwise null.
@@ -35,6 +26,15 @@ class TodoTask extends Task {
             return todoTask;
         }
         return null;
+    }
+
+    /**
+     * Converts the todo task to a string for data storage.
+     * @return Formatted string for data storage.
+     */
+    @Override
+    public String toDataString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     /**

@@ -18,7 +18,7 @@ public class Dav {
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load(), storage);
-        } catch (DukeException e) {
+        } catch (DavException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }

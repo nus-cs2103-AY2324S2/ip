@@ -27,9 +27,9 @@ class Storage {
     /**
      * Loads tasks from the file specified in the constructor.
      * @return List of tasks loaded from the file.
-     * @throws DukeException If there is an error loading tasks from the file.
+     * @throws DavException If there is an error loading tasks from the file.
      */
-    public List<Task> load() throws DukeException {
+    public List<Task> load() throws DavException {
         try {
             List<Task> tasks = new ArrayList<>();
             List<String> lines = Files.readAllLines(Paths.get(filePath));
@@ -43,16 +43,16 @@ class Storage {
 
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("Error loading tasks from file: " + e.getMessage());
+            throw new DavException("Error loading tasks from file: " + e.getMessage());
         }
     }
 
     /**
      * Saves the list of tasks to the file specified in the constructor.
      * @param tasks List of tasks to be saved to the file.
-     * @throws DukeException If there is an error saving tasks to the file.
+     * @throws DavException If there is an error saving tasks to the file.
      */
-    public void save(List<Task> tasks) throws DukeException {
+    public void save(List<Task> tasks) throws DavException {
         try {
             Path filePath = Paths.get(FILE_PATH);
             StringBuilder data = new StringBuilder();
@@ -63,7 +63,7 @@ class Storage {
 
             Files.write(filePath, data.toString().getBytes());
         } catch (IOException e) {
-            throw new DukeException("Error saving tasks to file: " + e.getMessage());
+            throw new DavException("Error saving tasks to file: " + e.getMessage());
         }
     }
 }

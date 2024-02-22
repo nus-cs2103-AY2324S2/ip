@@ -31,6 +31,13 @@ class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Finds tasks containing a specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A formatted string listing matching tasks or a message indicating
+     *         that no matching tasks were found.
+     */
     public String findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         StringBuilder result = new StringBuilder();
@@ -55,8 +62,11 @@ class TaskList {
 
 
     /**
-     * Adds a TodoTask to the list with the specified description.
-     * @param taskDescription Description of the TodoTask.
+     * Adds a new TodoTask with the given description to the task list.
+     *
+     * @param taskDescription The description of the TodoTask to be added.
+     * @return  If the task description is empty, the method returns "Task description is empty."
+     *          Otherwise, it returns the result of adding the task.
      */
     public String addTodoTask(String taskDescription) {
         if (taskDescription.isEmpty()) {
@@ -68,8 +78,12 @@ class TaskList {
     }
 
     /**
-     * Adds a DeadlineTask to the list with the specified details.
-     * @param taskDetails Details of the DeadlineTask.
+     * Adds a new DeadlineTask with the given details to the task list.
+     *
+     * @param taskDetails The details of the DeadlineTask to be added, including
+     *                    the description and the deadline in "yyyy-MM-dd HHmm" format.
+     * @return If the task details are not in the correct format or if there's an issue with the date or
+     *         time parsing, an error message is returned. Otherwise, it returns the result of adding the task.
      */
     public String addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
@@ -98,11 +112,13 @@ class TaskList {
         }
     }
 
-
     /**
-     * Adds an EventTask to the list with the specified details.
+     * Adds a new EventTask with the given details to the task list.
      *
-     * @param taskDetails Details of the EventTask.
+     * @param taskDetails The details of the EventTask to be added, including the description, the start time,
+     *                    and the end time in "yyyy-MM-dd HHmm" format.
+     * @return If the task details are not in the correct format or if there's an issue with the date or time parsing,
+     *         an error message is returned. Otherwise, it returns the result of adding the task.
      */
     public String addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
@@ -123,8 +139,10 @@ class TaskList {
         }
 
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1],
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
             EventTask newTask = new EventTask(description, fromDateTime, toDateTime);
             return addTask(newTask);
@@ -133,20 +151,22 @@ class TaskList {
         }
     }
 
-
     /**
      * Adds a task to the list and prints a confirmation message.
      * @param task Task to be added to the list.
+     * @return Message describing the task added and task list.
      */
     public String addTask(Task task) {
         tasks.add(task);
-        String result = "Got it. I've added this task:\n   " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
+        String result = "Got it. I've added this task:\n   " + task + "\nNow you have " + tasks.size()
+                        + " tasks in the list.";
         saveTasks();
         return result;
     }
 
     /**
      * Lists all the tasks in the list.
+     * @return List of tasks in TaskList.
      */
     public String listTasks() {
         StringBuilder result = new StringBuilder();
@@ -166,6 +186,7 @@ class TaskList {
     /**
      * Marks a task at the specified index as done.
      * @param taskIndex Index of the task to be marked as done.
+     * @return Message describing task marked done or if task index is invalid.
      */
     public String markTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
@@ -181,6 +202,7 @@ class TaskList {
     /**
      * Unmarks a task at the specified index as not done.
      * @param taskIndex Index of the task to be unmarked.
+     * @return Message describing task marked undone or if task index is invalid.
      */
     public String unmarkTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
@@ -196,6 +218,7 @@ class TaskList {
     /**
      * Deletes a task at the specified index from the list.
      * @param taskIndex Index of the task to be deleted.
+     * @return Message describing task deleted or if task index is invalid.
      */
     public String deleteTask(int taskIndex) {
         if (isValidIndex(taskIndex)) {
@@ -210,6 +233,7 @@ class TaskList {
     /**
      * Checks and lists tasks on a specific date.
      * @param dateString Date in string format (yyyy-MM-dd) to check tasks.
+     * @return List of tasks on specific date.
      */
     public String checkTasksOnDate(String dateString) {
         StringBuilder result = new StringBuilder();
@@ -237,7 +261,8 @@ class TaskList {
             if (tasksOnDate.isEmpty()) {
                 result.append("No tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             } else {
-                result.append("Tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).append(":");
+                result.append("Tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .append(":");
                 for (int i = 0; i < tasksOnDate.size(); i++) {
                     result.append("\n ").append(i + 1).append(".").append(tasksOnDate.get(i));
                 }
@@ -257,14 +282,11 @@ class TaskList {
         try {
             storage.save(tasks);
             return "";
-        } catch (DukeException e) {
+        } catch (DavException e) {
             return "Error saving tasks to file: " + e.getMessage();
         }
     }
 
-    /**
-     * Displays an exit message to the user.
-     */
     public String exit() {
         return "Goodbye.";
     }
