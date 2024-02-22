@@ -46,7 +46,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog("Welcome to JeromeGPT!", jeromeGptImage)
         );
 
-
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
     }
 
     /**
