@@ -1,4 +1,4 @@
-package duke;
+package xiaobai;
 
 import javafx.application.Application;
 

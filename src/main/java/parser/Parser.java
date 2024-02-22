@@ -5,8 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import command.Command;
-
-import duke.Duke;
+import xiaobai.XiaoBai;
 
 /**
  * Parses user input to create corresponding Command objects.
@@ -30,25 +29,25 @@ public class Parser {
 
         switch (commandWord) {
             case "todo":
-                return new Command(words, Duke.CommandType.TODO);
+                return new Command(words, XiaoBai.CommandType.TODO);
             case "deadline":
-                return new Command(words, Duke.CommandType.DEADLINE);
+                return new Command(words, XiaoBai.CommandType.DEADLINE);
             case "event":
-                return new Command(words, Duke.CommandType.EVENT);
+                return new Command(words, XiaoBai.CommandType.EVENT);
             case "list":
-                return new Command(words, Duke.CommandType.LIST);
+                return new Command(words, XiaoBai.CommandType.LIST);
             case "mark":
-                return new Command(words, Duke.CommandType.MARK);
+                return new Command(words, XiaoBai.CommandType.MARK);
             case "unmark":
-                return new Command(words, Duke.CommandType.UNMARK);
+                return new Command(words, XiaoBai.CommandType.UNMARK);
             case "delete":
-                return new Command(words, Duke.CommandType.DELETE);
+                return new Command(words, XiaoBai.CommandType.DELETE);
             case "bye":
-                return new Command(words, Duke.CommandType.BYE);
+                return new Command(words, XiaoBai.CommandType.BYE);
             case "find":
-                return new Command(words, Duke.CommandType.FIND);
+                return new Command(words, XiaoBai.CommandType.FIND);
             default:
-                return new Command(words, Duke.CommandType.UNKNOWN);
+                return new Command(words, XiaoBai.CommandType.UNKNOWN);
         }
     }
 

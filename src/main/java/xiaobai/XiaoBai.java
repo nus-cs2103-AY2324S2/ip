@@ -1,5 +1,5 @@
 
-package duke;
+package xiaobai;
 
 import ui.Ui;
 
@@ -17,13 +17,13 @@ import command.Command;
 
 import parser.Parser;
 
-public class Duke {
+public class XiaoBai {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
     private static String botName = "XiaoBai";
 
-    public Duke() {
+    public XiaoBai() {
         this.ui = new Ui();
         this.storage = new Storage("./xiaobai.txt");
         try {

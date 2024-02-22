@@ -1,4 +1,4 @@
-package duke;
+package xiaobai;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,20 +21,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private XiaoBai xiaoBai;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/XiaoBai.png"));
+    private Image xiaoBaiImage = new Image(this.getClass().getResourceAsStream("/images/XiaoBai.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeString = Duke.showWelcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeString, dukeImage));
+        String welcomeString = XiaoBai.showWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getDialog(welcomeString, xiaoBaiImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setXiaoBai(XiaoBai d) {
+        xiaoBai = d;
     }
 
     /**
@@ -45,10 +45,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = xiaoBai.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
+                DialogBox.getDialog(response, xiaoBaiImage));
         userInput.clear();
     }
 }

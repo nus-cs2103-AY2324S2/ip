@@ -1,6 +1,6 @@
 package command;
 
-import duke.Duke;
+import xiaobai.XiaoBai;
 
 /**
  * Represents a command issued by the user.
@@ -8,14 +8,14 @@ import duke.Duke;
  */
 public class Command {
     private String[] inputs;
-    private Duke.CommandType inputType;
+    private XiaoBai.CommandType inputType;
 
-    public Command(String[] inputs, Duke.CommandType inputType) {
+    public Command(String[] inputs, XiaoBai.CommandType inputType) {
         this.inputs = inputs;
         this.inputType = inputType;
     }
-    
-    public Duke.CommandType getInputType() {
+
+    public XiaoBai.CommandType getInputType() {
         return this.inputType;
     }
 
@@ -23,4 +23,3 @@ public class Command {
         return this.inputs;
     }
 }
-
