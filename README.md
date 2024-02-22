@@ -2,12 +2,12 @@
 
 This is a project based on the template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-<img src="/" alt="A screenshot of the chatbot" />
+<img src="./src/main/resources/images/signal.png" alt="A screenshot of the chatbot" />
 
 # Features
-Create tasks, set deadlines and create events
-Mark some tasks as priority
-Mark tasks done and un-done
+* Create tasks, set deadlines and create events
+* Mark some tasks as priority 
+* Mark tasks done and un-done
 
 
 # Accepted inputs:
