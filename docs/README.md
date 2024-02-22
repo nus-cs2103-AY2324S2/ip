@@ -1,9 +1,3 @@
----
-runme:
-  id: 01HMZD4NRPP8TSXCEWV9VGZEMC
-  version: v2.2
----
-
 # JAV User Guide
 
 ![Product screenshot](https://github.com/javierng2knus/ip/blob/master/docs/Ui.png)
@@ -23,6 +17,12 @@ Ever wanted to keep track of deadlines, events and other types of information?
 How about making the process one that sparks joy?
 
 Well, the Joy Amplifying Virtuoso is a jovial chat bot that helps you keep track of your tasks.
+
+## Quick Start
+- [ ] Ensure you have Java 11 or above installed in your Computer.
+- [ ] Download the latest .jar file from [here](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).
+- [ ] Move the file to the folder you want to use as the root folder for bot.
+- [ ] Run the file.
 
 ## Features
 <details><summary>List of features</summary>
