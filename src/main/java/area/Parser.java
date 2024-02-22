@@ -99,6 +99,7 @@ public class Parser {
      * @return String
      */
     public String parseKeyword(String instruction) {
+        assert instruction != null : "instruction cannot be null";
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. I need a keyword to start my search.");
