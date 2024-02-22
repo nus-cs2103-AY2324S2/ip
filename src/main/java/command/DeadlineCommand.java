@@ -45,25 +45,24 @@ public class DeadlineCommand extends Command {
             throw new EmptyInputException("deadline");
         } else if (!input.contains("/by")) {
             throw new InvalidFormatException("deadline", "/by");
-        } else {
-            input = input.substring(8);
-            String[] arrOfStr = input.split("/by");
-            if (arrOfStr.length < 2) {
-                throw new EmptyTimeException("deadline", "end");
-            } else {
-                try {
-                    String description = arrOfStr[0].trim();
-                    String by = arrOfStr[1].trim();
-                    LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
-                    LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
-                    Deadline t = new Deadline(description, date, time);
-                    str = taskList.deadline(t);
-                    storage.writeTasks(taskList);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("deadline");
-                }
-            }
         }
+        input = input.substring(8);
+        String[] arrOfStr = input.split("/by");
+        if (arrOfStr.length < 2) {
+            throw new EmptyTimeException("deadline", "end");
+        }
+        try {
+            String description = arrOfStr[0].trim();
+            String by = arrOfStr[1].trim();
+            LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
+            LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
+            Deadline t = new Deadline(description, date, time);
+            str = taskList.deadline(t);
+            storage.writeTasks(taskList);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("deadline");
+        }
+
         return str;
     }
 
