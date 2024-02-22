@@ -1,0 +1,21 @@
+todo borrow book
+list
+deadline return book /by 3-4-2024
+event project meeting /from 27-1-2024 /to 30-2-2024
+find book
+delete 3
+event project meeting /from 27-1-2024 /to 30-2-2024
+mark 3
+unmark 3
+list
+todo
+deadline
+event
+deadline return book Sunday
+event LSRFM comeback /from 19 03 2023
+mark dfuhyasf
+mark 999
+delete dhuiasdhuasd
+delete 999
+LSRFM
+bye
