@@ -6,7 +6,7 @@ Henry is a desktop chatbot app for managing tasks, optimized for use via Command
 - Adding a `todo` task that has only description.
 - Adding a `deadline` task that has description, and a deadline datetime (`by`).
 - Adding an `event` task that has description, a starting datetime (`from`) and an ending datetime (`to`).
-- Mark a task as done or undone
+- Mark or unmark a task as done or undone.
 - Delete a task from the list.
 - Update a task's `description`, deadline (`by`), starting datetime (`from`) and/or ending datetime (`to`).
 
@@ -98,6 +98,18 @@ Expected output:
 ```
 This task has been marked as undone. :(
 [T][] task
+```
+
+### Deleting a Task
+`delete {index}`
+
+You can delete an existing task from the list.
+
+Example: `delete 1`
+- This deletes the task of index 1 from the list.
+```
+This task is deleted :)
+[T][] buy bread
 ```
 
 ### Updating a Task
