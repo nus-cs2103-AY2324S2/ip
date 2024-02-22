@@ -93,6 +93,4 @@ public class ArchiveCommand extends Command {
 
         return false;
     }
-
-    // TODO: Add test cases
 }
