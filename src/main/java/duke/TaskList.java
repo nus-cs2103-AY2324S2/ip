@@ -1,7 +1,9 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -133,11 +135,28 @@ public class TaskList {
      */
     public String searchDate(LocalDate localDate) {
         ArrayList<Task> result = new ArrayList<>();
+        ArrayList<Task> temp = new ArrayList<>();
+        HashMap<Task, LocalDateTime> pairs = new HashMap<>();
         for (Task task : tasks) {
-            if (task.canMatchDate(localDate)) {
+            if (task instanceof Todo) {
                 result.add(task);
+            } else {
+                if (task.canMatchDate(localDate)) {
+                    pairs.put(task, ((TaskWithTime) task).getTimestamp());
+                    temp.add(task);
+                }
             }
         }
+        for (int i = 0; i < temp.size(); i++) {
+            for (int j = i + 1; j < temp.size(); j++) {
+                if (!pairs.get(temp.get(i)).isBefore(pairs.get(temp.get(j)))) {
+                    Task t = temp.get(i);
+                    temp.set(i, temp.get(j));
+                    temp.set(j, t);
+                }
+            }
+        }
+        result.addAll(temp);
         if (result.isEmpty()) {
             return "Sorry! No tasks can satisfy your query conditions...\n";
         } else {

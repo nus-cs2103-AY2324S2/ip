@@ -12,7 +12,7 @@ import command.FindKeywordCommand;
 
 
 /**
- * Represents the process of understanding user's prompts, and convert them into certain commands.
+ * Represents the process of understanding user's prompts, and convert them into certain commands
  */
 abstract class Parser {
     /**
@@ -67,13 +67,14 @@ abstract class Parser {
             } catch (NumberFormatException f) {
                 throw e;
             }
-        case "search":
+        case "view":
             try {
                 assert order.length <= 2;
             } catch (AssertionError e1) {
                 throw e;
             }
             return new SearchDateCommand(order[1]);
+        case "search":
         case "find":
             try {
                 assert order.length <= 2;
