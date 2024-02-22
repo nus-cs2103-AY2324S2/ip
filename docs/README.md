@@ -1,6 +1,6 @@
 # LilyBot User Guide
 
-![A screenshot of LilyBot](/Users/sifanye/Desktop/CS2103T/ip/docs/Ui.png "A product screenshot of LilyBot")
+![A screenshot of LilyBot](Ui.png "A product screenshot of LilyBot")
 
 LilyBot frees your mind of having to remember things you intend to do.
 
