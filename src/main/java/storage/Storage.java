@@ -46,7 +46,7 @@ public class Storage {
      * Loads tasks from the file and returns them as an ArrayList.
      *
      * @return An ArrayList containing tasks loaded from the file.
-     * @throws DukeException If there is an error reading the file.
+     * @throws XiaoBaiException If there is an error reading the file.
      */
     public ArrayList<Task> load() throws XiaoBaiException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -86,6 +86,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
+            throw new XiaoBaiException("Unable to load txt file");
         }
         return taskList;
     }

@@ -55,10 +55,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a DialogBox representing the user's dialog.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image representing the user's face.
+     * @return The DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a DialogBox representing the chatbot's dialog.
+     * This method also flips the dialog box layout.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image representing the chatbot's face.
+     * @return The DialogBox representing the chatbot's dialog.
+     */
     public static DialogBox getDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
