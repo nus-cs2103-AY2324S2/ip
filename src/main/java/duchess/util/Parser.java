@@ -30,8 +30,8 @@ public class Parser {
             if (input.substring(0, 3).toUpperCase().contains("BYE")) {
                 try {
                     storage.save(tasks.retrieveTaskList());
-
-                    return ui.printExit();
+                    ui.printExit();
+                    System.exit(0);
                 } catch (IOException e) {
                     e.printStackTrace();
 
