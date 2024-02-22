@@ -10,6 +10,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String doneOrNot() {
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -18,7 +22,10 @@ public class Task {
         this.isDone = false;
     }
 
+
+    @Override
     public String toString() {
-        return "|" + (isDone ? " 1 " : " 0 ") + "| " + taskDescription;
+        return "|" + doneOrNot() + "| " + taskDescription;
     }
+
 }
