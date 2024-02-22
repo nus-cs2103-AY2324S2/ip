@@ -100,7 +100,7 @@ public class Echo extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        dialogContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+        //dialogContainer.prefHeightProperty().bind(scrollPane.heightProperty());
         dialogContainer.setStyle("-fx-background-color: #F4F4F4;");
 
         userInput.setPromptText("Type here...");
@@ -197,6 +197,7 @@ public class Echo extends Application {
         assert userInputText != null : "User input should not be null";
 
         Label userTextLabel = new Label(getResponse(userInputText));
+        userTextLabel.setWrapText(true);
         DialogBox userDialog = DialogBox.getUserDialog(userTextLabel, new ImageView(user));
         userDialog.setAlignment(Pos.TOP_RIGHT);
         assert userTextLabel != null : "User label should not be null";
@@ -205,6 +206,7 @@ public class Echo extends Application {
         startConversation(userInputText, taskManager);
 
         Label botTextLabel = new Label(formattedBotResponse);
+        botTextLabel.setWrapText(true);
         assert botTextLabel != null : "Bot label should not be null";
         DialogBox botDialog = DialogBox.getDukeDialog(botTextLabel, new ImageView(echo));
         botDialog.setAlignment(Pos.TOP_LEFT);
@@ -232,6 +234,11 @@ public class Echo extends Application {
      */
     public void displayBotResponse(String response) {
         formattedBotResponse = "Echo: " + response + "\n";
+    }
+
+    //for testing only
+    public String getFormattedBotResponse() {
+        return formattedBotResponse;
     }
 
     /**

@@ -1,3 +1,0 @@
-T | 1 | woho
-T | 1 | what
-T | 0 | sleep

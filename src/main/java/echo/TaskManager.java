@@ -462,4 +462,9 @@ public class TaskManager {
         return (event1.getFrom().isBefore(event2.getTo()) || event1.getFrom().isEqual(event2.getTo()))
                 && (event1.getTo().isAfter(event2.getFrom()) || event1.getTo().isEqual(event2.getFrom()));
     }
+
+    //for testing only
+    public Echo getEcho() {
+        return echo;
+    }
 }
