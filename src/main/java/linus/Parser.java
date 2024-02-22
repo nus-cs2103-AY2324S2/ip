@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class Parser {
     // Adapted from @ZhiWei1010
-    private String outputResponse = "";
     private final TaskList taskList;
     private final Ui ui;
     private final Storage storage;
@@ -21,7 +20,7 @@ public class Parser {
         this.storage = storage;
     }
 
-    public String parseCommand(String command) {
+    public String parseInputCommand() {
         ui.showMessage("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
         ArrayList<Task> loadedTaskList = storage.loadTasksFromFile(); // Load list of tasks from file

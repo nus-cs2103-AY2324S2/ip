@@ -1,7 +1,5 @@
 package linus;
 
-import java.util.Scanner;
-
 /**
  * Main class for running Linus chatbot.
  */
@@ -18,11 +16,8 @@ public class Linus {
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-
         Parser parser = new Parser(this.taskList, this.ui, this.storage);
-        parser.parseCommand(command);
+        parser.parseInputCommand();
     }
 
     public static void main(String[] args) {
@@ -34,7 +29,7 @@ public class Linus {
      */
     public String getResponse(String input) {
         Parser parser = new Parser(this.taskList, this.ui, this.storage);
-        String outputResponse = parser.parseCommand(input);
+        String outputResponse = parser.parseInputCommand();
 
         return outputResponse;
     }
