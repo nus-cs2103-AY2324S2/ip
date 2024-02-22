@@ -28,9 +28,7 @@ public class Deadline extends Task {
         super(name);
         this.name = name;
         this.by = Parser.convertDateTime(byText);
-        if (name == null || name.isEmpty() || name == " ") {
-            throw new XiaoBaiException("Task name cannot be empty");
-        } else if (by == null) {
+        if (by == null) {
             throw new XiaoBaiException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
         }
     }
@@ -49,9 +47,7 @@ public class Deadline extends Task {
         super(name, doneStatus);
         this.name = name;
         this.by = Parser.convertDateTime(byText);
-        if (name == null || name.isEmpty() || name == " ") {
-            throw new XiaoBaiException("Task name cannot be empty");
-        } else if (by == null) {
+        if (by == null) {
             throw new XiaoBaiException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
         }
     }

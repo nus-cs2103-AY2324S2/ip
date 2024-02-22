@@ -1,5 +1,7 @@
 package task;
 
+import exception.XiaoBaiException;
+
 /**
  * Represents a task that needs to be done.
  */
@@ -13,9 +15,12 @@ public class Task {
      *
      * @param name The name of the task.
      */
-    Task(String name) {
+    Task(String name) throws XiaoBaiException {
         this.isDone = false;
         this.name = name;
+        if (name == null || name.isEmpty() || name.trim().isEmpty()) {
+            throw new XiaoBaiException("Task name cannot be empty");
+        }
     }
 
     /**
@@ -24,9 +29,12 @@ public class Task {
      * @param name   The name of the task.
      * @param isDone The completion status of the task.
      */
-    Task(String name, boolean isDone) {
+    Task(String name, boolean isDone) throws XiaoBaiException {
         this.isDone = isDone;
         this.name = name;
+        if (name == null || name.isEmpty() || name.trim().isEmpty()) {
+            throw new XiaoBaiException("Task name cannot be empty");
+        }
     }
 
     /**
