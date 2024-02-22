@@ -69,4 +69,8 @@ public class TaskList {
 
         return matchingTasks;
     }
+
+    public void clearTasks() {
+        tasks.clear();
+    }
 }

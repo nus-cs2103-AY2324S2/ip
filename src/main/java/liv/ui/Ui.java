@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import liv.container.TaskList;
+import liv.exception.LivException;
 import liv.task.Task;
 import liv.task.TodoTask;
 import liv.task.Deadline;
@@ -49,6 +50,12 @@ public class Ui {
         return byeMessage;
     }
 
+    public static String getClearMessage() {
+        String clearMessage = "Your mission list has been cleared.";
+        displayMessage(clearMessage);
+        return clearMessage;
+    }
+
     /**
      * Prints the list of tasks to the user.
      */
@@ -68,33 +75,63 @@ public class Ui {
 
     /**
      * Prints the task that was marked by the command from the user.
-     * @param task The task that was marked.
+     * @param indices The list of indices of the tasks that was marked.
+     * @param markedTasks The list of tasks that was marked.
      */
-    public static String getMarkMessage(Task task) {
-        String markMessage = String.join("\n", "Mission completed:",
-                " " + task.getStatusIcon() + " " + task.getDescription());
+    public static String getMarkMessage(ArrayList<Integer> indices, ArrayList<Task> markedTasks) {
+        assert indices.size() == markedTasks.size();
+        String markMessage = "Mission(s) completed:\n";
+
+        for (int i = 0; i < markedTasks.size(); i++) {
+            int displayedIndex = indices.get(i) + 1;
+            String taskDescription = markedTasks.get(i).getDisplayedString();
+
+            markMessage += displayedIndex + ". " + taskDescription + "\n";
+        }
+
+        markMessage += "Total: " + markedTasks.size() + " mission(s)";
         displayMessage(markMessage);
         return markMessage;
     }
 
     /**
      * Prints the task that was unmarked by the command from the user.
-     * @param task The task that was unmarked.
+     * @param indices The list of indices of the tasks that was unmarked.
+     * @param unmarkedTasks The list of tasks that was unmarked.
      */
-    public static String getUnmarkMessage(Task task) {
-        String unmarkMessage = String.join("\n", "Mission pending:",
-                " " + task.getStatusIcon() + " " + task.getDescription());
+    public static String getUnmarkMessage(ArrayList<Integer> indices, ArrayList<Task> unmarkedTasks) {
+        assert indices.size() == unmarkedTasks.size();
+        String unmarkMessage = "Mission(s) pending:\n";
+
+        for (int i = 0; i < unmarkedTasks.size(); i++) {
+            int displayedIndex = indices.get(i) + 1;
+            String taskDescription = unmarkedTasks.get(i).getDisplayedString();
+
+            unmarkMessage += displayedIndex + ". " + taskDescription + "\n";
+        }
+
+        unmarkMessage += "Total: " + unmarkedTasks.size() + " mission(s)";
         displayMessage(unmarkMessage);
         return unmarkMessage;
     }
 
     /**
      * Prints the task that was deleted from the list by the user.
-     * @param removed The task removed from the list.
+     * @param indices The list of indices of the tasks that was deleted.
+     * @param deletedTasks The list of tasks removed from the list.
      */
-    public static String getDeleteMessage(Task removed) {
-        String deleteMessage = String.join("\n", "Mission deleted from list:",
-                removed.getDisplayedString(), "You have " + TaskList.getListSize() + " mission(s) on the list");
+    public static String getDeleteMessage(ArrayList<Integer> indices, ArrayList<Task> deletedTasks) {
+        assert indices.size() == deletedTasks.size();
+        String deleteMessage = "Mission(s) deleted from list:\n";
+
+        for (int i = 0; i < deletedTasks.size(); i++) {
+            int displayedIndex = indices.get(i) + 1;
+            String taskDescription = deletedTasks.get(i).getDisplayedString();
+
+            deleteMessage += displayedIndex + ". " + taskDescription + "\n";
+        }
+
+        deleteMessage += "Total: " + deletedTasks.size() + " mission(s)";
         displayMessage(deleteMessage);
         return deleteMessage;
     }
@@ -138,8 +175,8 @@ public class Ui {
      */
     public static String getFindMessage(ArrayList<String> matchingTasks) {
         String findMessage = "Here are the mission(s) you requested me to find:\n";
-        if (matchingTasks.size() == 0) {
-            displayErrorMessage("No mission found!");
+        if (matchingTasks.size() == 0)  {
+            return "No mission found!";
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
                 findMessage += matchingTasks.get(i) + "\n";

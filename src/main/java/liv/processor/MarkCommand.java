@@ -1,5 +1,6 @@
 package liv.processor;
 
+import java.util.ArrayList;
 import liv.container.Storage;
 import liv.exception.LivException;
 import liv.task.Task;
@@ -10,14 +11,14 @@ import liv.ui.Ui;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private final int index;
+    private final ArrayList<Integer> indices;
 
     /**
      * The constructor of the class.
-     * @param index The index of the task to be marked as done.
+     * @param indices The index of the task to be marked as done.
      */
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(ArrayList<Integer> indices) {
+        this.indices = indices;
     }
 
     /**
@@ -30,14 +31,26 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
-        int trueIndex = index - 1;
-        Task task = TaskList.getTask(trueIndex);
-        boolean currentState = task.getStatus();
-        if (currentState) {
-            throw new LivException("Mission already marked!");
+        ArrayList<Task> markedTasks = new ArrayList<>();
+
+        for (int index: indices) {
+            Task task = TaskList.getTask(index);
+            boolean currentState = task.getStatus();
+            if (currentState) {
+                throw new LivException("Mission number " + (index + 1) + " is already marked!");
+            }
         }
-        task.markAsDone();
-        String message = Ui.getMarkMessage(task);
+
+        for (int index: indices) {
+            Task task = TaskList.getTask(index);
+            task.markAsDone();
+            markedTasks.add(task);
+        }
+
+        String message = Ui.getMarkMessage(indices, markedTasks);
+
+        storage.saveTaskToFile();
+
         return message;
     }
 }
