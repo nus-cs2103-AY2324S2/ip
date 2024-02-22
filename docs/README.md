@@ -1,6 +1,6 @@
 # Duchess User Guide
 
-![Screenshot of Duchess Ui](Ui.png)
+![Screenshot of Duchess Ui](Ui.png | width=200)
 
 ## Introduction
 
