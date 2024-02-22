@@ -4,7 +4,7 @@ package alpa.commands;
  * Represents the types of commands in the application.
  */
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    BYE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, DELETE, INVALID, HELP;
 
     /**
      * Converts a string representation of a command into the corresponding CommandType.
