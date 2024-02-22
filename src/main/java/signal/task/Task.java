@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Task {
     private String description;
     private boolean isDone = false;
+    private boolean isPriority = false;
     private String type;
     private String date;
 
@@ -28,13 +29,20 @@ public class Task {
     public boolean checkDone() {
         return this.isDone;
     }
+    public boolean checkPriority() {
+        return this.isPriority;
+    }
 
     /**
      *
      * @return A representation of the completion of the task.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : "0" ); // mark done task with 1
+        return (this.isDone ? "X" : "0" ); // mark done task with X
+    }
+
+    public String getPriorityIcon() {
+        return (this.isPriority ? "*" : "0"); // mark priority with P
     }
 
     /**
@@ -51,6 +59,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setPriority() {
+        this.isPriority = true;
+    }
+
+    public void setNotPriority() {
+        this.isPriority = false;
+    }
+
     public String checkType() {
         return "Task";
     }
@@ -60,7 +76,7 @@ public class Task {
      * @return The string representation of the task.
      */
     public String toString() {
-        return " | " + getStatusIcon() + " | " + this.description;
+        return " | " + getStatusIcon() + " | " + this.description + " " + (isPriority ? getPriorityIcon() : "");
     }
 
 

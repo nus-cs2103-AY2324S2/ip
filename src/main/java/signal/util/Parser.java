@@ -60,6 +60,14 @@ public class Parser {
             reply = ui.unMarkTask(inputParts);
         } else if (ui.isPermutationMatch(inputParts[0], "unmark")) {
             reply = unmarkTypo(inputParts);
+        } else if (userInput.equals("notdonelist")) {
+            reply = ui.commandNotDoneList();
+        } else if (userInput.startsWith("prioritise")) {
+            reply = ui.markPriority(inputParts);
+        } else if (userInput.startsWith("unprioritise")) {
+            reply = ui.markNotPriority(inputParts);
+        } else if (userInput.equals("prioritylist")) {
+            reply = ui.commandPriorityList();
         } else if (userInput.equals("list")) {
             // show list of tasks
             reply = ui.commandList();

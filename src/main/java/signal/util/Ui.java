@@ -260,8 +260,8 @@ public class Ui {
         current.markDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
-                ? "This task is already done! Yay!\n"
-                : "Nice! I've marked this task as done:\n");
+                ? "This task is already done! Yay!"
+                : "Nice! I've marked this task as done:");
         response.add("  " + current.toString());
         String reply = listToString(response);
         return reply;
@@ -286,11 +286,36 @@ public class Ui {
         current.markUnDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
-                ? "This task is not yet done! Yay!\n"
-                : "OK, I've marked this task as undone:\n");
+                ? "This task is not yet done! Best get on it :D"
+                : "OK, I've marked this task as undone:");
         response.add("  " + current.toString());
         String reply = listToString(response);
 
+        signalSays(reply);
+        return reply;
+    }
+
+    public String commandNotDoneList() throws DukeException {
+        String reply = "";
+
+        if (taskList.size() == 0) {
+            reply = "Oops, looks like you haven't added any tasks!";
+            throw new DukeException(reply);
+        }
+        ArrayList<String> response = new ArrayList<>();
+        response.add("Here are your tasks that are not yet completed!");
+        for (Task i : taskList) {
+            if (!i.checkDone()) {
+                response.add(taskList.indexOf(i) + 1 + ". " + i.toString());
+            }
+        }
+
+        if (response.size() == 1) {
+            reply = "Wow! Looks like you dont have any uncompleted tasks!";
+            throw new DukeException(reply);
+        }
+
+        reply = listToString(response);
         signalSays(reply);
         return reply;
     }
@@ -304,6 +329,64 @@ public class Ui {
     public String unMarkTask(String[] inputParts) {
         int index = Integer.parseInt(inputParts[1]);
         return commandUnmark(taskList.get(index - 1));
+    }
+
+    public String commandPriorityList() throws DukeException {
+        String reply = "";
+
+        if (taskList.size() == 0) {
+            reply = "Oops, looks like you haven't added any tasks!";
+            throw new DukeException(reply);
+        }
+        ArrayList<String> response = new ArrayList<>();
+        response.add("Here are your tasks marked as priority!");
+        for (Task i : taskList) {
+            if (i.checkPriority()) {
+                response.add(taskList.indexOf(i) + 1 + ". " + i.toString());
+            }
+        }
+
+        if (response.size() == 1) {
+            reply = "Oops, looks like you haven't marked any tasks as priority!";
+            throw new DukeException(reply);
+        }
+
+        reply = listToString(response);
+        signalSays(reply);
+        return reply;
+    }
+
+    public String commandPriority(Task current) {
+        current.setPriority();
+        ArrayList<String> response = new ArrayList<>();
+        response.add("OK, I've marked this task as high priority!");
+        response.add("  " + current.toString());
+        String reply = listToString(response);
+
+        signalSays(reply);
+        return reply;
+    }
+
+    public String markPriority(String[] inputParts) {
+        int index = Integer.parseInt(inputParts[1]);
+        return commandPriority(taskList.get(index - 1));
+    }
+
+    public String commandNotPriority(Task current) {
+        current.setNotPriority();
+        ArrayList<String> response = new ArrayList<>();
+        response.add("OK, I've marked this task as not priority!");
+        response.add("  " + current.toString());
+        String reply = listToString(response);
+
+        signalSays(reply);
+        return reply;
+    }
+
+
+    public String markNotPriority(String[] inputParts) {
+        int index = Integer.parseInt(inputParts[1]);
+        return commandNotPriority(taskList.get(index - 1));
     }
 
 
@@ -344,11 +427,9 @@ public class Ui {
 
     public ArrayList<String> find(String key) {
         ArrayList<String> result = new ArrayList<>();
-        int count = 1;
         for (Task i : taskList) {
             if (i.getDescription().contains(key)) {
-                result.add(Integer.toString(count) + ". " + i.toString());
-                count++;
+                result.add(taskList.indexOf(i) + 1 + ". " + i.toString());
             }
         }
         return result;
