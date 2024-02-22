@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("display.Duke")
+    mainClass.set("anxi.display.Launcher")
 }
 
 checkstyle {
@@ -52,10 +52,11 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "anxi"
     archiveClassifier = null
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'Anxi.jar'
     dependsOn("distZip", "distTar")
+    mainClassName= "anxi.display.Launcher"
 }
 
 run{
