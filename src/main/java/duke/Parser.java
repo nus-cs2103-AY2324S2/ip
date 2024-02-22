@@ -18,7 +18,7 @@ class Parser {
      */
     static Command parseCommand(String command) throws DukeException {
         String[] parts = command.split(" ", 2);
-
+        assert parts.length > 0;
         // Ensure there's at least one part
         if (parts.length < 1) {
             throw new DukeException("Command is empty.");
