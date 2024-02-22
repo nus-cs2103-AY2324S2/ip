@@ -19,7 +19,7 @@
             <HBox>
                <children>
                   <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="26.0" prefWidth="551.0" />
-                  <Button fx:id="sendButton" onAction="#handleUserInput" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="sendButton" onAction="#handleUserInput" mnemonicParsing="false" text="Send" />
                </children>
             </HBox>
          </children>
