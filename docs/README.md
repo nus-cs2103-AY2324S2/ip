@@ -32,7 +32,7 @@ Nice! I've marked this task as done!
 [D][X] return book (by: Feb 17 2024)
 
 
-Here are examples of how you can use other Toothless's commands:
+## Here are examples of how you can use other Toothless's commands:
 
 Finding tasks
 find book
