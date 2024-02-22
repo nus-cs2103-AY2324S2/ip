@@ -57,6 +57,7 @@ public class Parser {
                 break;
             default:
                 sb.append(Ui.yapError());
+                break;
 
         }
         int size = storage.countFromFile();
