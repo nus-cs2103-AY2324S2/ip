@@ -1,6 +1,6 @@
-package seedu.duke;
+package seedu.bobby;
 
-import seedu.duke.task.Task;
+import seedu.bobby.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class TaskList {
             try {
                 Storage.add(task);
                 return result;
-            } catch (DukeException e) {
+            } catch (BobbyException e) {
                 return e.getMessage();
             }
         } else {
@@ -52,10 +52,10 @@ public class TaskList {
      *
      * @param num index of task to be deleted from the task list
      */
-    public String delete(int num) throws DukeException{
+    public String delete(int num) throws BobbyException {
         assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
+            throw new BobbyException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task taskToDelete = tasks.get(num - 1);
         String result = "Got it. I've removed this task:\n" + taskToDelete.printFullDesc();
@@ -66,7 +66,7 @@ public class TaskList {
         return result;
     }
 
-    public String update(int num, String attribute, String toUpdate) throws DukeException, IOException {
+    public String update(int num, String attribute, String toUpdate) throws BobbyException, IOException {
         Task taskToUpdate = tasks.get(num - 1);
         taskToUpdate.update(attribute, toUpdate);
         String result = "Got it. I've updated the task to this:\n" + taskToUpdate.printFullDesc();
@@ -80,10 +80,10 @@ public class TaskList {
      *
      * @param num index of task to be marked done.
      */
-    public String mark(int num) throws DukeException, IOException {
+    public String mark(int num) throws BobbyException, IOException {
         assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
+            throw new BobbyException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task toMark = tasks.get(num - 1);
         String result = toMark.markDone(true);
@@ -98,10 +98,10 @@ public class TaskList {
      *
      * @param num index of task to be marked undone.
      */
-    public String unmark(int num) throws DukeException, IOException {
+    public String unmark(int num) throws BobbyException, IOException {
         assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
+            throw new BobbyException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task toUnmark = tasks.get(num - 1);
         String result = toUnmark.unmark();

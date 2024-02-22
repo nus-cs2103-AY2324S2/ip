@@ -1,7 +1,6 @@
-package seedu.duke.task;
+package seedu.bobby.task;
 
-import seedu.duke.Duke;
-import seedu.duke.DukeException;
+import seedu.bobby.BobbyException;
 
 /**
  * <h1> Event </h1>
@@ -30,7 +29,7 @@ public class Event extends Task{
     }
 
     @Override
-    public void update(String attribute, String toUpdate) throws DukeException {
+    public void update(String attribute, String toUpdate) throws BobbyException {
         if (attribute.equalsIgnoreCase("desc")) {
             description = toUpdate.trim();
         } else if (attribute.equalsIgnoreCase("from")) {
@@ -38,7 +37,7 @@ public class Event extends Task{
         } else if (attribute.equalsIgnoreCase("to")) {
             to = toUpdate.trim();
         } else {
-            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+            throw new BobbyException("Oops. The task you want to update does not have a " + attribute + " attribute.");
         }
     }
 
@@ -58,7 +57,7 @@ public class Event extends Task{
     public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
-            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s (from: %s to: %s)\n",
+            return String.format("Okies~ Here are the tasks in your list:\n %d.[%s][%s] %s (from: %s to: %s)\n",
                     num, getTag(), getStatusIcon(), getDescription(), from, to);
         } else {
             return String.format(" %d.[%s][%s] %s (from: %s to: %s)\n",

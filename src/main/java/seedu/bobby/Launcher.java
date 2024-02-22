@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.bobby;
 
 import javafx.application.Application;
 

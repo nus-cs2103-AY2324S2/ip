@@ -1,8 +1,8 @@
-package seedu.duke;
+package seedu.bobby;
 
-import seedu.duke.task.Task;
-import seedu.duke.task.Event;
-import seedu.duke.task.Deadline;
+import seedu.bobby.task.Task;
+import seedu.bobby.task.Event;
+import seedu.bobby.task.Deadline;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -126,7 +126,7 @@ public class Storage {
         fw.close();
     }
 
-    public static String findFromFile(String input) throws FileNotFoundException, DukeException {
+    public static String findFromFile(String input) throws FileNotFoundException, BobbyException {
         Scanner s = new Scanner(f);
         String lowercaseInput = input.toLowerCase();
         int ptr = 1;
@@ -144,7 +144,7 @@ public class Storage {
         }
         //if no matching tasks found
         if (count == 0) {
-            throw new DukeException("There was no matching tasks found in your list. Perhaps a typo?\n");
+            throw new BobbyException("There was no matching tasks found in your list. Perhaps a typo?\n");
         } else {
             return result;
         }
@@ -155,11 +155,11 @@ public class Storage {
      *
      * @param task the Task object whose information is to be stored.
      */
-    public static void add(Task task) throws DukeException{ //to append items to taskList
+    public static void add(Task task) throws BobbyException { //to append items to taskList
         try {
             writeToFile(task.toStore());
         } catch (IOException e) {
-            throw new DukeException("Oops something went wrong.\n" + e.getMessage());
+            throw new BobbyException("Oops something went wrong.\n" + e.getMessage());
         }
     }
 
@@ -169,11 +169,11 @@ public class Storage {
      * @param num the index of the task to be deleted, which corresponds with the
      *            index of the line that contains the information to be deleted.
      */
-    public static void delete(int num) throws DukeException{
+    public static void delete(int num) throws BobbyException {
         try {
             deleteFromFile(num);
         } catch (IOException e) {
-            throw new DukeException("Oops something went wrong.\n" + e.getMessage());
+            throw new BobbyException("Oops something went wrong.\n" + e.getMessage());
         }
     }
 }
