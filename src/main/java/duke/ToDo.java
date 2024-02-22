@@ -33,4 +33,10 @@ public class ToDo extends Task {
         }
         return todo;
     }
+
+    public static String getHelpString() {
+        return "Add Todo: Adds a to-do task to the list.\n"
+                + "  To add a to-do task, use the following format\n"
+                + "    todo <description>";
+    }
 }

@@ -177,4 +177,30 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    public String getHelpString() {
+        return "These are all the features you can use: \n\n"
+                + ToDo.getHelpString() + "\n\n"
+                + Deadline.getHelpString() + "\n\n"
+                + Event.getHelpString() + "\n\n"
+                + "Display Tasks: Displays all tasks in the list\n"
+                + "  To display tasks, use the following command\n"
+                + "    list\n\n"
+                + "Delete Tasks: Deletes a task from the list\n"
+                + "  To delete a task, use the following format\n"
+                + "    delete <task number>\n"
+                + "    Example: delete 1\n\n"
+                + "Mark Task as Done: Marks a task as done\n"
+                + "  To mark a task as done, use the following format\n"
+                + "    mark <task number>\n"
+                + "    Example: mark 1\n\n"
+                + "Unmark Task as Done: Unmarks a task as done\n"
+                + "  To unmark a task as done, use the following format\n"
+                + "    unmark <task number>\n"
+                + "    Example: unmark 1\n\n"
+                + "Find Tasks: Finds tasks that contain a keyword\n"
+                + "  To find tasks, use the following format\n"
+                + "    find <keyword>\n"
+                + "    Example: find book\n";
+    }
 }

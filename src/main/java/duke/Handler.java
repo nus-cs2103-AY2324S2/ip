@@ -34,6 +34,8 @@ public class Handler {
             output = handleDelete(input);
         } else if (command.equals("find")) {
             output = handleFind(input);
+        } else if (command.equals("help")) {
+            output = taskList.getHelpString();
         } else {
             output = handleAdd(input);
         }
