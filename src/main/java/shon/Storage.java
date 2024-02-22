@@ -6,12 +6,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import shon.note.NoteList;
+import shon.task.TaskList;
+
 /**
- * Represents a storage that stores the user's todo list.
+ * Represents a storage that stores the user's lists.
  */
 public class Storage {
     /** The file object storing the data for the user's todo list */
-    private File file;
+    private File tasks;
+    /** The file object storing the data for the user's notes list */
+    private File notes;
     /** The different type of task encoded in the data file */
     private enum TaskType {
         T, D, E
@@ -21,19 +26,21 @@ public class Storage {
      * Returns a <code>Storage</code> object with the data found at filepath. If no pre-existing data exists, a new file
      * along with any relevant parent directory is created.
      *
-     * @param filepath The filepath to the file storing the user's todo list.
      * @throws Error If an IO error occurred while trying to create the new data file. Suggests potential errors in
      *     creating the relevant parent directories, or bug in storage initialisation.
      */
-    public Storage(String filepath) {
+    public Storage() {
         try {
-            this.file = new File(filepath);
-            File dir = this.file.getParentFile();
+            File dir = new File("./data");
+            this.tasks = new File("./data/tasks.txt");
+            this.notes = new File("./data/notes.txt");
             boolean isNewDir = dir.mkdirs();
-            boolean isNewFile = this.file.createNewFile();
+            boolean isNewTasks = this.tasks.createNewFile();
+            boolean isNewNotes = this.notes.createNewFile();
 
             assert dir.exists() : "Parent directory(s) for storage is not created";
-            assert this.file.exists() : "Storage file is not created";
+            assert this.tasks.exists() : "Storage file for tasks is not created";
+            assert this.notes.exists() : "Storage file for notes is not created";
         } catch (IOException e) {
             throw new Error("There is an error in creating/opening the \"Shon.txt\" file."
                     + " Check if new directory is created.");
@@ -41,37 +48,37 @@ public class Storage {
     }
 
     /**
-     * Loads the pre-existing list from the stored data file.
+     * Loads the pre-existing task list from the stored data file.
      *
      * @return <code>TaskList</code> loaded with the tasks and data from the existing data.
      * @throws Error If the data file is not found. Suggests that data file does not exist and
      *     potential errors in storage initialisation.
      */
-    public TaskList loadList() {
+    public TaskList loadTasks() {
         try {
-            assert this.file.exists() : "Storage file is not created";
-            Scanner scanner = new Scanner(this.file);
-            TaskList list = new TaskList();
+            assert this.tasks.exists() : "Storage file for tasks is not created";
+            Scanner scanner = new Scanner(this.tasks);
+            TaskList tasks = new TaskList();
             while (scanner.hasNext()) {
                 String data = scanner.nextLine();
                 TaskType taskType = TaskType.valueOf(String.valueOf(data.charAt(0)));
                 switch (taskType) {
                 case T:
-                    addTodo(data, list);
+                    addTodo(data, tasks);
                     break;
                 case D:
-                    addDeadline(data, list);
+                    addDeadline(data, tasks);
                     break;
                 case E:
-                    addEvent(data, list);
+                    addEvent(data, tasks);
                     break;
                 default:
                     System.out.println("Storage is in wrong format.");
                 }
             }
-            return list;
+            return tasks;
         } catch (FileNotFoundException e) {
-            throw new Error("Check that new data file is created (if needed) in initializer.");
+            throw new Error("Check that new tasks file is created (if needed) in initializer.");
         }
     }
 
@@ -110,16 +117,44 @@ public class Storage {
      *
      * @param tasks TaskList to be formatted and stored.
      */
-    public void updateData(TaskList tasks) {
+    public void updateData(TaskList tasks, NoteList notes) {
         try {
-            FileWriter writer = new FileWriter(this.file.getPath());
+            FileWriter tasksWriter = new FileWriter(this.tasks.getPath());
+            FileWriter notesWriter = new FileWriter(this.notes.getPath());
             for (String line : tasks.formatData()) {
-                writer.write(line);
-                writer.write(System.lineSeparator());
+                tasksWriter.write(line);
+                tasksWriter.write(System.lineSeparator());
             }
-            writer.close();
+            tasksWriter.close();
+            for (String text : notes.formatData()) {
+                notesWriter.write(text);
+                notesWriter.write(System.lineSeparator());
+            }
+            notesWriter.close();
         } catch (IOException e) {
             System.out.println("Error writing to data file.");
+        }
+    }
+
+    /**
+     * Loads the pre-existing note list from the stored data file.
+     *
+     * @return <code>NoteList</code> loaded with the tasks and data from the existing data.
+     * @throws Error If the data file is not found. Suggests that data file does not exist and
+     *     potential errors in storage initialisation.
+     */
+    public NoteList loadNotes() {
+        try {
+            assert this.notes.exists() : "Storage file for notes is not created";
+
+            Scanner scanner = new Scanner(this.notes);
+            NoteList notes = new NoteList();
+            while (scanner.hasNext()) {
+                notes.addNote(scanner.nextLine());
+            }
+            return notes;
+        } catch (FileNotFoundException e) {
+            throw new Error("Check that new tasks file is created (if needed) in initializer.");
         }
     }
 }

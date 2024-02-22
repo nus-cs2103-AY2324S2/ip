@@ -1,4 +1,4 @@
-package shon;
+package shon.task;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class TaskList {
     public String[] getTasks() {
         // check for empty tasklist
         if (this.tasks.size() == 0) {
-            return new String[]{"Your list is currently empty."};
+            return new String[]{"Your list of tasks is currently empty."};
         }
 
         String[] outputs = new String[this.tasks.size() + 1];
@@ -176,7 +176,7 @@ public class TaskList {
     public String[] deleteTask(int idx) throws ParameterException {
         // check empty list
         if (this.tasks.size() == 0) {
-            throw new ParameterException("Your list is empty. Nothing to delete.");
+            throw new ParameterException("Your list of tasks is empty. Nothing to delete.");
         }
 
         // check invalid index

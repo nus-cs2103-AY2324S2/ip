@@ -1,17 +1,22 @@
 package shon;
 
-import shon.command.AddDeadlineCommand;
-import shon.command.AddEventCommand;
-import shon.command.AddTodoCommand;
 import shon.command.Command;
-import shon.command.DeleteTaskCommand;
 import shon.command.ExitCommand;
-import shon.command.FindCommand;
-import shon.command.ListCommand;
-import shon.command.MarkCommand;
-import shon.command.UnmarkCommand;
+import shon.command.note.AddNoteCommand;
+import shon.command.note.DeleteNoteCommand;
+import shon.command.note.ShowNotesCommand;
+import shon.command.task.AddDeadlineCommand;
+import shon.command.task.AddEventCommand;
+import shon.command.task.AddTodoCommand;
+import shon.command.task.DeleteTaskCommand;
+import shon.command.task.FindCommand;
+import shon.command.task.ListCommand;
+import shon.command.task.MarkCommand;
+import shon.command.task.UnmarkCommand;
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
+import shon.note.NoteList;
+import shon.task.TaskList;
 
 /**
  * Represents a Parser that makes sense of the user's inputs.
@@ -19,7 +24,7 @@ import shon.exception.ParameterException;
 public class Parser {
     /** The allowed set of actions that the user can do */
     private enum Action {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, NOTE, SHOW, DELNOTE
     }
 
     /**
@@ -30,28 +35,35 @@ public class Parser {
      * @throws CommandException If given user input is empty, or a command not allowed in <code>Action</code>.
      * @throws ParameterException If given parameters for that command is invalid.
      */
-    public static Command parse(String input) throws CommandException, ParameterException {
+    public static Command parse(String input, TaskList tasks, NoteList notes)
+            throws CommandException, ParameterException {
         Action action = Parser.getAction(input);
         assert action != null : "Action in Parser#parse is null";
         switch (action) {
         case LIST:
-            return new ListCommand();
+            return new ListCommand(tasks);
         case MARK:
-            return new MarkCommand(Parser.getIdx(input));
+            return new MarkCommand(tasks, Parser.getIdx(input));
         case UNMARK:
-            return new UnmarkCommand(Parser.getIdx(input));
+            return new UnmarkCommand(tasks, Parser.getIdx(input));
         case TODO:
-            return new AddTodoCommand(Parser.getDescription(input));
+            return new AddTodoCommand(tasks, Parser.getDescription(input));
         case DEADLINE:
-            return new AddDeadlineCommand(Parser.getDescription(input), Parser.getBy(input));
+            return new AddDeadlineCommand(tasks, Parser.getDescription(input), Parser.getBy(input));
         case EVENT:
-            return new AddEventCommand(Parser.getDescription(input), Parser.getFrom(input), Parser.getTo(input));
+            return new AddEventCommand(tasks, Parser.getDescription(input), Parser.getFrom(input), Parser.getTo(input));
         case DELETE:
-            return new DeleteTaskCommand(Parser.getIdx(input));
+            return new DeleteTaskCommand(tasks, Parser.getIdx(input));
         case FIND:
-            return new FindCommand(Parser.getKeyword(input));
+            return new FindCommand(tasks, Parser.getKeyword(input));
         case BYE:
             return new ExitCommand();
+        case NOTE:
+            return new AddNoteCommand(notes, Parser.getText(input));
+        case SHOW:
+            return new ShowNotesCommand(notes);
+        case DELNOTE:
+            return new DeleteNoteCommand(notes, Parser.getIdx(input));
         default:
             throw new CommandException("Sorry. I have a problem with that command.");
         }
@@ -246,5 +258,21 @@ public class Parser {
         if (input.endsWith(word)) {
             throw new ParameterException(word + " date/time cannot be empty.");
         }
+    }
+
+    /**
+     * Returns the text of the note.
+     * @param input The input of the user.
+     * @return The text of the note.
+     * @throws ParameterException If the given text of the note is empty.
+     */
+    private static String getText(String input) throws ParameterException {
+        String[] parameters = input.split(" ", 2);
+
+        // Check empty note
+        if (parameters.length == 1) {
+            throw new ParameterException("Note cannot be empty.");
+        }
+        return parameters[1].strip();
     }
 }
