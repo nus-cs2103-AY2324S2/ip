@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="talkingbot.gui.Window">
+    <children>
+        <TextField fx:id="textInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="572.0" AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton" layoutX="574.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-radius: 100; -fx-background-color: lightyellow;" text="Send">
+         <effect>
+            <DropShadow radius="4.84" width="0.36" />
+         </effect></Button>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="660.0" prefWidth="650.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="vBox" prefHeight="660.0" prefWidth="650.0" style="-fx-background-color: lightblue;" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

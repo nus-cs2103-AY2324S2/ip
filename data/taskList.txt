@@ -1,0 +1,7 @@
+D | 0 | read book | 2024-02-19 2400
+E | 0 | meet mentor | 2024-02-20 1800 | 2024-02-20 2000
+W | 0 | return book | 2024-03-10 1200 | 2024-03-10 1300
+T | 0 | make cookies
+T | 0 | read essay
+T | 0 | read article
+T | 0 | practice piano
