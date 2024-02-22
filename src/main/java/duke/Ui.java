@@ -21,7 +21,7 @@ public class Ui {
      * Display the welcome message.
      */
     public static String showWelcome() {
-        String msg = "\nHello! I'm Bee!\n"
+        String msg = "Hello! I'm Bee!\n"
                 + "What can I do for you?\n";
 
         return msg;
