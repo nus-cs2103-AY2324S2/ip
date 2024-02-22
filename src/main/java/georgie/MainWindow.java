@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = georgie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, georgieImage)
+                DialogBox.getGeorgieDialog(response, georgieImage)
         );
         userInput.clear();
     }
@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
         Ui ui = new Ui();
         String response = ui.showWelcomeMessage();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(response, georgieImage)
+                DialogBox.getGeorgieDialog(response, georgieImage)
         );
 
     }

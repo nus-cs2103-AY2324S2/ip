@@ -67,7 +67,7 @@ public class DialogBox extends HBox {
      * @param img  The image to be associated with Duke's dialog box.
      * @return A DialogBox object representing Duke's dialog.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getGeorgieDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -6,7 +6,7 @@ package georgie;
 public class GeorgieException extends Exception{
 
     /**
-     * Constructs a DukeException with the specified message.
+     * Constructs a GeorgieException with the specified message.
      *
      * @param message The detail message.
      */
