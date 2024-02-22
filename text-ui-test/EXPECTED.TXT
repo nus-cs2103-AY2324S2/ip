@@ -1,7 +1,84 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
+ ____        _
+|  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
+================================================================
+Wassup! I'm someBOTy.
+What are you here for?
+================================================================
 
+================================================================
+Got it. I've added this task:
+  [T][ ] borrow "Harry Potter"
+Now you have 1 tasks in the list.
+(Type 'list' to see the full list of tasks)
+================================================================
+
+================================================================
+Got it. I've added this task:
+  [D][ ] burn "The Gollum Game" (by: tonight)
+Now you have 2 tasks in the list.
+(Type 'list' to see the full list of tasks)
+================================================================
+
+================================================================
+Got it. I've added this task:
+  [E][ ] Career Fair (from: Sun 2am, to: Mon 2pm)
+Now you have 3 tasks in the list.
+(Type 'list' to see the full list of tasks)
+================================================================
+
+================================================================
+Here are the tasks:
+1. [T][ ] Borrow "Harry Potter"
+2. [D][ ] burn "The Gollum Game" (by: tonight)
+3. [E][ ] Career Fair (from: Sun 2am, to: Mon 2pm)
+================================================================
+
+================================================================
+Unable to identify the start and/or end date. Make sure to follow the format:
+'event DESCRIPTION /from START /to END'
+================================================================
+
+================================================================
+Unable to identify the start and/or end date. Make sure to follow the format:
+event DESCRIPTION /from START /to END
+================================================================
+
+================================================================
+Unable to identify the start and/or end date. Make sure to follow the format:
+event DESCRIPTION /from START /to END
+================================================================
+
+================================================================
+Here are the tasks:
+1. [T][ ] Borrow "Harry Potter"
+2. [D][ ] burn "The Gollum Game" (by: tonight)
+3. [E][ ] Career Fair (from: Sun 2am, to: Mon 2pm)
+================================================================
+
+================================================================
+>>> Bruh, there ain't no task 4
+================================================================
+
+================================================================
+>>> Wow. Can't believe you've done it.
+[T][X] Borrow "Harry Potter"
+================================================================
+
+================================================================
+>>> Wow. Can't believe you've done it.
+[D][X] burn "The Gollum Game" (by: tonight)
+================================================================
+
+================================================================
+Here are the tasks:
+1. [T][X] Borrow "Harry Potter"
+2. [D][X] burn "The Gollum Game" (by: tonight)
+3. [E][ ] Career Fair (from: Sun 2am, to: Mon 2pm)
+================================================================
+
+================================================================
+Aight. Imma head out.
+================================================================
