@@ -72,6 +72,8 @@ public class Parser {
         if (keyword.isEmpty()) {
             if (commands.length <= 1) {
                 throw new JadeException(EMPTY_DESCRIPTION_MSG);
+            } else {
+                return;
             }
         }
         if (Arrays.asList(commands).indexOf(keyword) <= 1) {
@@ -157,7 +159,7 @@ public class Parser {
      */
     public static Command parse(String str) {
         try {
-            String[] commands = str.split(" ");
+            String[] commands = str.split("\\s+");
             switch (commands[0]) {
             case "todo":
                 return parseTodo(commands);
