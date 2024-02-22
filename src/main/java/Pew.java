@@ -9,7 +9,7 @@ public class Pew {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private String filePath = "data/pew.txt";
+    private String filePath = "pew.txt";
     /**
      * Constructs a Pew object
      *
@@ -30,7 +30,7 @@ public class Pew {
      * default constructor
      */
     public Pew() {
-        this("data/pew.txt");
+        this("pew.txt");
     }
 
     /**
@@ -101,6 +101,6 @@ public class Pew {
      */
     public static void main(String[] args) {
         System.out.println("Hello! I'm PeWPeWPeW");
-        new Pew("data/pew.txt").run();
+        new Pew("pew.txt").run();
     }
 }
