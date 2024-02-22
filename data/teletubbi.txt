@@ -1,3 +1,2 @@
 T|X|this
-T| |this
 E| |mushrooms|now|tmr
