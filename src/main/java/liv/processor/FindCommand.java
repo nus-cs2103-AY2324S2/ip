@@ -1,6 +1,7 @@
 package liv.processor;
 
 import java.util.ArrayList;
+import liv.container.Storage;
 import liv.container.TaskList;
 import liv.exception.LivException;
 import liv.ui.Ui;
@@ -16,7 +17,7 @@ public class FindCommand  extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
         ArrayList<String> matchingTasks = tasks.findMatchingTasks(keyword);
         String message = Ui.getFindMessage(matchingTasks);
         return message;

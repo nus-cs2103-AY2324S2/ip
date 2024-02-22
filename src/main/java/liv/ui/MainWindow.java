@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import liv.Liv;
@@ -31,7 +32,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greetingMessage = String.join("\n",
+                "Liv, under your instructions!", "What is your command?");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getLivDialog(greetingMessage, livImage)
+        );
     }
 
     public void setLiv(Liv l) {

@@ -1,5 +1,6 @@
 package liv.processor;
 
+import liv.container.Storage;
 import liv.container.TaskList;
 import liv.task.TodoTask;
 import liv.ui.Ui;
@@ -20,13 +21,16 @@ public class TodoCommand extends Command {
 
     /**
      * Add the TodoTask object to the list and signals the Ui to respond.
-     * @param tasks The list of tasks to operate on.
-     * @param ui The Ui to gives interaction with users.
+     *
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The Ui to gives interaction with users.
+     * @param storage The storage where the data is stored.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(todo);
         String message = Ui.getTodoMessage(todo);
+        storage.saveTaskToFile();
         return message;
     }
 

@@ -1,5 +1,6 @@
 package liv.processor;
 
+import liv.container.Storage;
 import liv.exception.LivException;
 import liv.container.TaskList;
 import liv.ui.Ui;
@@ -10,11 +11,13 @@ import liv.ui.Ui;
 public abstract class Command {
     /**
      * Executes this command.
-     * @param tasks The list of tasks to operate on.
-     * @param ui The Ui to gives interaction with users.
+     *
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The Ui to gives interaction with users.
+     * @param storage The storage where the data is stored.
      * @throws LivException
      */
-    public abstract String execute(TaskList tasks, Ui ui) throws LivException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws LivException;
 
     /**
      * Checks if this command is a bye command to exit the chatbot.

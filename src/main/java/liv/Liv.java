@@ -48,6 +48,7 @@ public class Liv extends Application {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList();
+        storage.loadDataFile();
     }
 
     @Override
@@ -55,6 +56,9 @@ public class Liv extends Application {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setFillWidth(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -157,12 +161,13 @@ public class Liv extends Application {
     public String getResponse(String input) throws LivException {
         try {
             Command command = Parser.parse(input);
-            String response = command.execute(tasks, ui);
+            String response = command.execute(tasks, ui, storage);
             return response;
         } catch (LivException e) {
             return e.getMessage();
         }
     }
+
 //    /**
 //     * The main logic structure of the chatbot.
 //     */

@@ -1,5 +1,6 @@
 package liv.processor;
 
+import liv.container.Storage;
 import liv.task.Event;
 import liv.container.TaskList;
 import liv.ui.Ui;
@@ -20,13 +21,16 @@ public class EventCommand extends Command {
 
     /**
      * Add the event to the task list and signals the Ui to respond.
-     * @param tasks The list of tasks to operate on.
-     * @param ui The Ui to gives interaction with users.
+     *
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The Ui to gives interaction with users.
+     * @param storage The storage where the data is stored.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(event);
         String message = Ui.getEventMessage(event);
+        storage.saveTaskToFile();
         return message;
     }
 

@@ -25,10 +25,11 @@ public class Ui {
     /**
      * Prints the greeting message.
      */
-    public String getGreetMessage() {
-        String greetMessage = String.join("\n", "Liv, under your instructions!", "What is your command?");
-        displayMessage(greetMessage);
-        return greetMessage;
+    public static String getGreetingMessage() {
+        String greetingMessage = String.join("\n",
+                "Liv, under your instructions!", "What is your command?");
+        //displayMessage(greetingMessage);
+        return greetingMessage;
     }
 
     /**
@@ -134,12 +135,12 @@ public class Ui {
      * @param matchingTasks The list of tasks that is the result of the "find" command.
      */
     public static String getFindMessage(ArrayList<String> matchingTasks) {
-        String findMessage = "Here are the mission(s) you requested me to find:";
+        String findMessage = "Here are the mission(s) you requested me to find:\n";
         if (matchingTasks.size() == 0) {
             displayErrorMessage("No mission found!");
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
-                findMessage += matchingTasks.get(i);
+                findMessage += matchingTasks.get(i) + "\n";
             }
             findMessage += "Total: " + matchingTasks.size() + " mission(s)";
         }

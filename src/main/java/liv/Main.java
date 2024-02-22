@@ -15,7 +15,7 @@ import liv.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Liv liv = new Liv();
+    private Liv liv = new Liv("./data/Liv.txt");
 
     @Override
     public void start(Stage stage) {
@@ -23,6 +23,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Liv");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setLiv(liv);
             stage.show();

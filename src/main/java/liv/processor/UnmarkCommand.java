@@ -1,5 +1,6 @@
 package liv.processor;
 
+import liv.container.Storage;
 import liv.exception.LivException;
 import liv.task.Task;
 import liv.container.TaskList;
@@ -21,12 +22,14 @@ public class UnmarkCommand extends Command {
 
     /**
      * Unmarks the task and signals the Ui to respond.
-     * @param tasks The list of tasks to operate on.
-     * @param ui The Ui to gives interaction with users.
+     *
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The Ui to gives interaction with users.
+     * @param storage The storage where the data is stored.
      * @throws LivException
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
         int trueIndex = index - 1;
         Task task = TaskList.getTask(trueIndex);
         boolean currentState = task.getStatus();
