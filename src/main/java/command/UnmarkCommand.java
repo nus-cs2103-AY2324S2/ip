@@ -3,6 +3,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.DukeException;
+import exception.EmptyInputException;
 
 /**
  * Command to unmark a specific task in the task list.
@@ -27,6 +28,9 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = ui.getInput();
+        if (input.split(" ").length <= 1) {
+            throw new EmptyInputException("mark position");
+        }
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) - 1;
         String str = taskList.unmark(position);

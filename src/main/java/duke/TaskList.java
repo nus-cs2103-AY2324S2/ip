@@ -151,7 +151,7 @@ public class TaskList {
         }
         Task t = taskList.get(position);
         taskList.remove(t);
-        return "Noted. I've removed this task:\n"
+        return "buzz buzz~~ Noted. I've removed this task:\n"
                 + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
@@ -194,7 +194,7 @@ public class TaskList {
         }
         Task t = taskList.get(position);
         t.updateDescription(newDescription);
-        return "I have updated the description\n"
+        return "buzz buzz~~ I have updated the description\n"
                 + t.toString();
     }
 

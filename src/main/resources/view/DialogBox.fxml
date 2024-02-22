@@ -13,6 +13,7 @@
                 <Font name="Comic Sans MS" size="13.0" />
             </font>
         </Label>
+        <Label fx:id="empty" text="  " minHeight="-Infinity"/>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>

@@ -3,6 +3,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.DukeException;
+import exception.EmptyInputException;
 
 /**
  * Command to mark a specific task in the task list.
@@ -28,6 +29,9 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String str;
         String input = ui.getInput();
+        if (input.split(" ").length <= 1) {
+            throw new EmptyInputException("mark position");
+        }
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) - 1;
         str = taskList.mark(position);
