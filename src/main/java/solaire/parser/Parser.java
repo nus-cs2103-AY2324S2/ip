@@ -35,8 +35,9 @@ public class Parser {
     }
 
     private static Event getEvent(String input) throws SolaireException {
-        Matcher eventPattern = Pattern.compile("^(?i)event\\s+(.+)\\s+/from\\s+(\\S+)\\s+/to\\s+(\\S+.*)$")
+        Matcher eventPattern = Pattern.compile("^(?i)event\\s+(.+)\\s+/from\\s+(\\S+.*)\\s+/to\\s+(\\S+.*)$")
                 .matcher(input);
+
         if (eventPattern.matches()) {
             String taskName = eventPattern.group(1);
             String from = eventPattern.group(2);
