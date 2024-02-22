@@ -42,13 +42,18 @@ public class Storage {
      * @throws JadeException If directory or file does not exit
      */
     public List<Task> load() throws JadeException {
-        String[] dirs = filePath.split("/");
-        String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays
-                .copyOfRange(dirs, 0, dirs.length - 1));
-        createJadeDir(jadeDirStr);
-        String jadeFileDirStr = System.getProperty("user.dir") + "/" + filePath;
-        File jadeFile = createJadeFile(jadeFileDirStr);
-        return readFromLocal(jadeFile);
+        try {
+            String[] dirs = filePath.split("/");
+            String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays
+                    .copyOfRange(dirs, 0, dirs.length - 1));
+            createJadeDir(jadeDirStr);
+            String jadeFileDirStr = System.getProperty("user.dir") + "/" + filePath;
+            File jadeFile = createJadeFile(jadeFileDirStr);
+            return readFromLocal(jadeFile);
+        } catch (JadeException e) {
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
     }
     /**
      * Creates directory for saving the local file if not exists.
