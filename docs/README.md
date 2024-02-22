@@ -1,4 +1,4 @@
-# Duke User Guide
+# Bozo User Guide
 
 ![Screenshot of Ui.](Ui.png)
 
