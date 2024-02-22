@@ -18,6 +18,6 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         String taskStatus = this.getIsDone() ? "1" : "0";
-        return "E | " + taskStatus + " | " + this.getDescription() + " | " + this.from + " | " + this.to;
+        return "E | " + taskStatus + " | " + this.getDescription() + " | " + this.from + "-" + this.to;
     }
 }
