@@ -13,8 +13,8 @@ public abstract class Command {
      * Executes the command with the given parameters.
      * 
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A message indicating the result of executing the command.
      */
     public abstract String execute(TaskList tasklist, Storage storage);
 }

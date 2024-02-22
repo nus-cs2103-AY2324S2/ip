@@ -18,9 +18,9 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command by terminating the application.
      *
-     * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
-     * @param storage The Storage object handling loading and saving of tasks.
+     * @param tasklist The TaskList object representing the list of tasks (not used in this command).
+     * @param storage The Storage object handling loading and saving of tasks (not used in this command).
+     * @return A farewell message to the user.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

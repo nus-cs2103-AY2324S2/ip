@@ -30,9 +30,9 @@ public class DeadlineCommand extends Command {
      * Executes the deadline command by adding a new Deadline task to the task list with the specified description and due date,
      * and updates the storage.
      *
-     * @param t The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
-     * @param s The Storage object handling loading and saving of tasks.
+     * @param tasklist The TaskList object representing the list of tasks.
+     * @param storage The Storage object handling loading and saving of tasks.
+     * @return A message indicating the result of executing the command.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

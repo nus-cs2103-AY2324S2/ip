@@ -4,23 +4,23 @@ import emis.TaskList;
 import emis.Storage;
 
 /**
- * The PrintCommand class represents a command to print the list of tasks in the EMIS application.
- * When executed, it displays the list of tasks to the user.
+ * The HelpCommand class represents a command to display help information in the EMIS application.
+ * When executed, it provides instructions and usage information to the user.
  */
 public class HelpCommand extends Command {
 
     /**
-     * Constructs a new PrintCommand object.
+     * Constructs a new HelpCommand object.
      */
     public HelpCommand() {
     }
 
     /**
-     * Executes the print command by displaying the list of tasks to the user.
+     * Executes the help command by providing instructions and usage information to the user.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A string containing instructions and usage information.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

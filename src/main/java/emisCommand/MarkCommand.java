@@ -1,6 +1,5 @@
 package emisCommand;
 
-import emisExceptions.EmisException;
 import emis.TaskList;
 import emis.Storage;
 
@@ -25,8 +24,8 @@ public class MarkCommand extends Command {
      * Executes the mark command by marking the specified task as done and updating the storage.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A string indicating the result of the command execution.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {
@@ -34,7 +33,7 @@ public class MarkCommand extends Command {
             String response = tasklist.markAsDone(this.taskNo);
             storage.updateStorage();
             return response;
-        } catch (EmisException e) {
+        } catch (AssertionError e) {
             return e.getMessage();
         }
     }
