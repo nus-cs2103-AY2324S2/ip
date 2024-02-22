@@ -29,7 +29,7 @@ public class TodoTest {
     }
 
     @Test
-    public void constructor_markAsDone_success() {
+    public void constructor_markAsDone_exceptionThrown() {
         try {
             Todo todo = new Todo("test3");
             todo.markAsDone();
@@ -40,7 +40,7 @@ public class TodoTest {
     }
 
     @Test
-    public void constructor_invalidInput1_success() {
+    public void constructor_invalidInput1_exceptionThrown() {
         try {
             Todo todo = new Todo("");
             fail();
