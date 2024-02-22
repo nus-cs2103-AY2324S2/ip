@@ -1,0 +1,27 @@
+mark
+mark 1
+mark a
+unmark
+unmark 1
+unmark a
+todo
+todo test todo
+mark 2
+unmark 2
+deadline test deadline
+deadline test deadline /by
+deadline test deadline /by now
+deadline test deadline /by 23/6/2022 23:33
+event
+event test event
+event test event /from now
+event test event /from now /to later
+event test event /from 12/12/1212 12:34 /to 2/2/2222 11:11
+mark 2
+mark 3
+list
+unmark 2
+unmark 3
+list
+help
+bye

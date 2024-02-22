@@ -1,0 +1,20 @@
+[
+    {
+        "description": "test todo",
+        "type": "todo",
+        "isDone": false
+    },
+    {
+        "description": "test deadline",
+        "type": "deadline",
+        "deadlyne": "22/2/2222 22:22",
+        "isDone": false
+    },
+    {
+        "description": "test event",
+        "from": "12/12/1212 12:34",
+        "to": "12/12/2121 11:11",
+        "type": "event",
+        "isDone": true
+    }
+]
