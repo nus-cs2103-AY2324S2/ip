@@ -91,8 +91,8 @@ public class Event implements Item, Serializable {
     @Override
     public String addMessage(int num) {
         return "Got it. I've added this task:\n"
-                + "       " + this.toString()
-                + "\n     Now you have " + num + " tasks in the list.";
+                + this.toString()
+                + "\nNow you have " + num + " tasks in the list.";
     }
 
     @Override

@@ -35,7 +35,7 @@ public class Parser {
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yy hh:mma"),
             new DateTimeFormatterBuilder().appendPattern("d/M/y HHmm")
     };
-    private HashMap<String, Command> commands = new HashMap<>();
+    private final HashMap<String, Command> commands = new HashMap<>();
     private ItemList itemList;
 
     /**
@@ -78,6 +78,7 @@ public class Parser {
                 thrown = e;
             }
         }
+        assert thrown != null;
         throw thrown;
     }
 

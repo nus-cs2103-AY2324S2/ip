@@ -82,12 +82,15 @@ public class ItemList implements Serializable {
      */
     public String removeItem(int index) throws CustomExceptions {
         String s = "";
+        int initial = itemCount;
         try {
             itemCount--;
             s = listOfItems.get(index - 1).removeMessage(itemCount);
             listOfItems.remove(index - 1);
+            assert itemCount == initial - 1;
         } catch (IndexOutOfBoundsException e) {
             itemCount++; // reverse decrement in the event of error
+            assert itemCount == initial;
             throw new CustomExceptions.NoSuchIndexException(
                     "Index out of bounds, there is no event with such an index");
         }

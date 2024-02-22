@@ -30,6 +30,8 @@ public class AddCommand implements Command {
      */
     public String execute(String command, String[] info, ItemList itemList)
             throws CustomExceptions {
+        assert info[0].equals("todo")||info[0].equals("event")||info[0].equals("deadline");
+
         if (info[0].equals("todo")) {
             if (info.length == 1) {
                 throw new CustomExceptions.InvalidTaskException(

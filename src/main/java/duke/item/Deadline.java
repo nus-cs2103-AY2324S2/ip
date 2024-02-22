@@ -34,7 +34,6 @@ public class Deadline implements Item, Serializable {
      */
     public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
-        String s = "";
         String doneByString = "";
         while (!info[index].equals("/by")) {
             if (index >= info.length - 1) {
