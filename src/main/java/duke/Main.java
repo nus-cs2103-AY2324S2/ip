@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke georgie = new Duke();
+    private Georgie georgie = new Georgie();
 
     /**
      * Exits the application after a delay of 3 seconds.
@@ -44,10 +44,11 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(georgie);
+            fxmlLoader.<MainWindow>getController().setGeorgie(georgie);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+

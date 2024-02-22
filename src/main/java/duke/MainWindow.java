@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke georgie;
+    private Georgie georgie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DinosaurRight.png"));
     private Image georgieImage = new Image(this.getClass().getResourceAsStream("/images/DinosaurLeft.png"));
@@ -41,9 +41,9 @@ public class MainWindow extends AnchorPane {
     /**
      * Sets the Duke instance for the controller.
      *
-     * @param d The Duke instance to be set.
+     * @param georgie The Georgie instance to be set.
      */
-    public void setDuke(Duke georgie) {
+    public void setGeorgie(Georgie georgie) {
         this.georgie = georgie;
     }
 

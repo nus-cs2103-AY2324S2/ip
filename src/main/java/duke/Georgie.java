@@ -5,12 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 /**
- * Represents the main class for the Duke application.
+ * Represents the main class for the Georgie application.
  */
-public class Duke extends Application {
+public class Georgie extends Application {
 
     boolean canExit = false;
     private TaskList taskList = new TaskList();
@@ -82,7 +83,7 @@ public class Duke extends Application {
 
         // Set the controller for the FXML file
         MainWindow mainWindowController = loader.getController();
-        mainWindowController.setDuke(this);
+        mainWindowController.setGeorgie(this);
 
         stage.setScene(scene);
         stage.show();

@@ -11,7 +11,7 @@ public class CommandHandler {
      * Handles the user input command.
      *
      * @param userInput The user input command.
-     * @param taskList     The task list to be modified.
+     * @param taskList The task list to be modified.
      * @throws DukeException If there is an issue handling the command.
      */
     public static String handleCommand(String userInput, TaskList taskList) throws DukeException {
