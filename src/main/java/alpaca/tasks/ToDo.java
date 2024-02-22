@@ -17,13 +17,13 @@ public class ToDo extends Task {
     /**
      * Creates a ToDo object, allowing the preset of the done option.
      *
-     * @param done If the task should be
-     * @param name What the task is named
+     * @param isDone If the task should be
+     * @param name   What the task is named
      **/
-    public ToDo(boolean done, String name) {
+    public ToDo(boolean isDone, String name) {
         super(name);
         setType("T");
-        if (done) {
+        if (isDone) {
             setDone();
         }
     }

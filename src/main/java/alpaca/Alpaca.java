@@ -1,22 +1,14 @@
 package alpaca;
 
+import alpaca.gui.Main;
+
+import javafx.application.Application;
+
 /**
- * The master class where everything begins.
- **/
+ * A launcher class to workaround classpath issues.
+ */
 public class Alpaca {
-    private Ui ui;
-
-    /**
-     * Creates an instance of Alpaca, containing an instance of Ui.
-     **/
-    public Alpaca() {
-        ui = new Ui();
-    }
-
-    /**
-     * Creates and runs an instance of alpaca.
-     **/
     public static void main(String[] args) {
-        return;
+        Application.launch(Main.class, args);
     }
 }

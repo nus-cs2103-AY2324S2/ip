@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 
 public abstract class Task {
     private String name;
-    private boolean done;
+    private boolean isDone;
     private String type;
     private ArrayList<LocalDate> dates;
 
     protected Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
         processDates();
         processParams();
     }
@@ -29,15 +29,15 @@ public abstract class Task {
     }
 
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void setUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     protected void setType(String type) {
@@ -47,8 +47,10 @@ public abstract class Task {
     private void processDates() {
         this.dates = new ArrayList<>();
         Pattern pattern = Pattern.compile(
-                "\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{4}"
-                        + "|\\d{4}\\/\\d{1,2}\\/\\d{1,2}|\\d{1,2}\\/\\d{1,2}\\/\\d{4}");
+                "\\d{4}-\\d{1,2}-\\d{1,2}" + // matches yyyy-mm-dd
+                "|\\d{1,2}-\\d{1,2}-\\d{4}" + // matches dd-mm-yyyy
+                "|\\d{4}\\/\\d{1,2}\\/\\d{1,2}" + // matches yyyy/mm/dd
+                "|\\d{1,2}\\/\\d{1,2}\\/\\d{4}"); // matches dd/mm/yyyy
         Matcher matcher = pattern.matcher(this.name);
         while (matcher.find()) {
             try {
@@ -98,6 +100,6 @@ public abstract class Task {
         for (LocalDate date : dates) {
             content = content.replaceFirst("~", date.toString());
         }
-        return this.getType() + " | " + (this.done ? "1" : "0") + " | " + content;
+        return this.getType() + " | " + (this.isDone ? "1" : "0") + " | " + content;
     }
 }

@@ -17,13 +17,13 @@ public class Event extends Task {
     /**
      * Creates a Event object, allowing the preset of the done option.
      *
-     * @param done If the task should be
-     * @param name What the task is named
+     * @param isDone If the task should be
+     * @param name   What the task is named
      **/
-    public Event(boolean done, String name) {
+    public Event(boolean isDone, String name) {
         super(name);
         setType("E");
-        if (done) {
+        if (isDone) {
             setDone();
         }
     }

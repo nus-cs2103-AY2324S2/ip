@@ -17,13 +17,13 @@ public class Deadline extends Task {
     /**
      * Creates a Deadline object, allowing the preset of the done option.
      *
-     * @param done If the task should be
-     * @param name What the task is named
+     * @param isDone If the task should be
+     * @param name   What the task is named
      **/
-    public Deadline(boolean done, String name) {
+    public Deadline(boolean isDone, String name) {
         super(name);
         setType("D");
-        if (done) {
+        if (isDone) {
             setDone();
         }
     }
