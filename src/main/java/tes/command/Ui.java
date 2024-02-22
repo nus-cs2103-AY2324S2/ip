@@ -111,7 +111,7 @@ public class Ui {
                 String errorMessage = "Only positive integer allowed! Idiot!!!";
                 throw new TesException(errorMessage);
             }
-            this.taskList.mark(index);
+            this.taskList.mark(index - 1);
             return "I've marked this task as done:\n"
                     + this.taskList.getTaskDescription(index - 1)
                     + "\nUnbelievable for someone like you 0o0";
@@ -137,7 +137,7 @@ public class Ui {
             }
             this.taskList.unmark(index - 1);
             return "OK, I've marked this task as not done yet:\n"
-                    + this.taskList.getTaskDescription(index)
+                    + this.taskList.getTaskDescription(index - 1)
                     + "\nAs expected...";
         } catch (TesException e) {
             return e.getMessage();
