@@ -15,7 +15,7 @@ deadline buy a cake /by 2024-10-22 00:00
 
 This would add this deadline task to the tasklist!
 
-Inputting the command "list will now show" :
+Inputting the command "list" will now show :
 
 ```
 1.[D][ ] buy a cake (by:Oct 22 2024 00:00)

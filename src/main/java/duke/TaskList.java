@@ -68,6 +68,10 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * returns all tasks in the list
+     * @return string representing all tasks in list
+     */
     public String getList() {
         if (taskList.size() == 0) {
             return "You have no tasks in your list!";

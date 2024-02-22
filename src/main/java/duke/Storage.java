@@ -153,6 +153,10 @@ public class Storage {
 
     }
 
+    /**
+     * moves all tasks from storage txt to the new created tasklist
+     * @param taskList to be written to
+     */
     public void move(TaskList taskList) {
         check();
         String currentLine;

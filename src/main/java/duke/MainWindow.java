@@ -57,6 +57,10 @@ public class MainWindow extends AnchorPane {
 
 
     }
+
+    /**
+     * Shows the initial welcome message of the chatbox
+     */
     private void greet() {
         String greetings ="Hello! I'm Dukey." + "\n" + "What can I do for you?";
         dialogContainer.getChildren().addAll(

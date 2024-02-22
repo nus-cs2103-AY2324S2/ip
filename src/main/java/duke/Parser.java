@@ -85,6 +85,12 @@ public class Parser {
         }
 
     }
+
+    /**
+     * Deletes a task from the list
+     * @param captured actually an int representing the task to delete
+     * @return The message to the user
+     */
     private String delete(String captured) {
         int number = Integer.parseInt(captured);
         if (number > 0 && number <= taskList.getLength()) {
@@ -100,6 +106,11 @@ public class Parser {
 
     }
 
+    /**
+     * Unmarks a task from the list
+     * @param captured the task represented as an int
+     * @return message to user
+     */
     private String unmark(String captured) {
         int number = Integer.parseInt(captured);
         if (number > 0 && number <= taskList.getLength()) {
@@ -115,6 +126,11 @@ public class Parser {
         }
     }
 
+    /**
+     * marks a task
+     * @param captured task represented as an int
+     * @return message to user
+     */
     private String mark(String captured) {
         int number = Integer.parseInt(captured);
         if (number > 0 && number <= taskList.getLength()) {
@@ -130,6 +146,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a new todo task
+     * @param newInput action of the todo task
+     * @return message to user
+     */
     private String todo(String newInput) {
         Todo n = new Todo(newInput, false);
         if (newInput.trim().equals("")) {
@@ -145,6 +166,11 @@ public class Parser {
         }
     }
 
+    /**
+     * creates a new event task
+     * @param input String entered by user
+     * @return message to user
+     */
     private String event(String input) {
         int startIndex = input.indexOf("/from");
         int startIndexTo = input.indexOf("/to");
@@ -176,6 +202,11 @@ public class Parser {
         }
     }
 
+    /**
+     * creates new deadline task
+     * @param input string entered by user
+     * @return message to user
+     */
     private String deadline(String input) {
         int finalIndex = input.indexOf("/by") + 3;
         String dL = input.substring(finalIndex);
@@ -201,6 +232,11 @@ public class Parser {
         }
     }
 
+    /**
+     * returns tasks that match keyword as a string
+     * @param tasks tasks found by storage
+     * @return message to user
+     */
     private String find(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
             return "There are no tasks that match your description!";
