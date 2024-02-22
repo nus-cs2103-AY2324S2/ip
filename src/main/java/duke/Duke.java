@@ -13,7 +13,7 @@ public class Duke {
     private static Ui ui;
 
     /**
-     * The main method is the entry point of the Duke application.
+     * Entry point of the Duke application.
      *
      * @param args Command-line arguments (not used).
      */
@@ -34,8 +34,8 @@ public class Duke {
     }
 
     /**
-     * The run method handles the main functionality of the Duke application.
-     * It continuously reads user input, processes commands, and executes tasks until the user enters "bye".
+     * Handles the main functionality of the Duke application.
+     * Continuously reads user input, processes commands, and executes tasks until the user enters "bye".
      */
     public void run() {
         String userInput;
