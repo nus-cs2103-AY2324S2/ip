@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toCSV() {
+    public String taskToCsv() {
         char status = this.isDone
                             ? '1'
                             : '0';
@@ -24,6 +24,22 @@ public class ToDo extends Task {
         return String.format("T,%c,%s\n",
                     status,
                     this.name);
+    }
+
+    /**
+     * Creates a new ToDo task with the given details read from the csv file.
+     * 
+     * @param details Array of string describing the task.
+     * @return An instance of ToDo with the given details.
+     */
+    protected static ToDo csvToTask(String[] details) {
+        boolean isCompleted = details[1].equals("1");
+        String description = details[2];
+
+        ToDo task = new ToDo(description);
+        task.setStatus(isCompleted);
+        
+        return task;
     }
 
     @Override

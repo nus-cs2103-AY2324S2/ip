@@ -51,7 +51,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toCSV() {
+    public String taskToCsv() {
         char status = this.isCompleted()
                             ? '1'
                             : '0';
@@ -61,6 +61,25 @@ public class Deadline extends Task {
                     this.name,
                     DateManager.printDate(this.deadline)
                     );
+    }
+
+    /**
+     * Creates a new Deadline task with the given details read from the csv file.
+     * 
+     * @param details Array of string describing the deadline.
+     * @return An instance of Deadline with the given details.
+     */
+    protected static Deadline csvToTask(String[] details) {
+        assert details.length == 4 : "Deadline:csvToTask A deadline line in the csv file is broken.";
+
+        boolean isCompleted = details[1].equals("1");
+        String description = details[2];
+        String deadline = details[3];
+
+        Deadline task = new Deadline(description, deadline);
+        task.setStatus(isCompleted);
+        
+        return task;
     }
 
     @Override

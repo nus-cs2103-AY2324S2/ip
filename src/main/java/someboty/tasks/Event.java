@@ -49,7 +49,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toCSV() {
+    public String taskToCsv() {
         char status = this.isCompleted()
                             ? '1'
                             : '0';
@@ -60,6 +60,26 @@ public class Event extends Task {
                     DateManager.printDate(this.from),
                     DateManager.printDate(this.to)
                     );
+    }
+
+    /**
+     * Creates a new Deadline task with the given details read from the csv file.
+     * 
+     * @param details Array of string describing the deadline.
+     * @return An instance of Deadline with the given details.
+     */
+    protected static Event csvToTask(String[] details) {
+        assert details.length == 5 : "Event:csvToTask An event line in the csv file is broken.";
+
+        boolean isCompleted = details[1].equals("1");
+        String description = details[2];
+        String from = details[3];
+        String to = details[4];
+
+        Event task = new Event(description, from, to);
+        task.setStatus(isCompleted);
+        
+        return task;
     }
     
     @Override

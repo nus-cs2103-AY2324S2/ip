@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import someboty.exceptions.InputException;
 import someboty.exceptions.TerminateException;
+import someboty.expenses.Expense;
 import someboty.tasks.Task;
 
 /**
@@ -24,17 +25,20 @@ public class CommandManager {
         "clear",
         "deadline", 
         "event", 
-        "todo"
+        "todo",
+        "expense"
     };
 
     private TaskManager taskManager;
+    private ExpenseManager expenseManager;
 
     /**
      * Constructor for commandManager
      * @param taskList The taskManager to coordinate with.
      */
-    public CommandManager(TaskManager taskList) {
-        this.taskManager = taskList;
+    public CommandManager(TaskManager task, ExpenseManager expense) {
+        this.taskManager = task;
+        this.expenseManager = expense;
     }
 
     /**
@@ -56,10 +60,11 @@ public class CommandManager {
 
             case "bye":
                 taskManager.update();
-                throw new TerminateException("");
+                expenseManager.update();
+                throw new TerminateException("Izuna has saved your lists");
             
             case "list":
-                return taskManager.printListTasks();
+                return printList(getDescription(input));
 
             case "help":
                 return listCommands();
@@ -84,7 +89,7 @@ public class CommandManager {
                 return deleteTask(getDescription(input));
 
             case "clear":
-                return clearTaskList();
+                return clearList(getDescription(input));
 
             case "todo":
                 return addTask('T', getDescription(input));
@@ -94,6 +99,9 @@ public class CommandManager {
 
             case "event":
                 return addTask('E', getDescription(input));
+
+            case "expense":
+                return addExpense(getDescription(input));
 
             default:
                 return "Izuna does not understand your command.\n"
@@ -136,6 +144,34 @@ public class CommandManager {
         }
 
         return description.trim();
+    }
+
+    private String clearList(String listType) {
+        listType = listType.toLowerCase();
+
+        if (listType.startsWith("task")) {
+            this.taskManager.clear();
+            return "Fufu, Izuna is glad that master can bring her out to the beach again!";
+
+        } else if (listType.startsWith("expense")) {
+            this.expenseManager.clear();
+            return "Izuna is confused why master is burning all the receipts.";
+        } 
+
+        throw new InputException("Izuna does not understand what did you want me to clear...");
+    }
+
+    private String printList(String listType) {
+        listType = listType.toLowerCase();
+
+        if (listType.startsWith("task")) {
+            return this.taskManager.printList();
+
+        } else if (listType.startsWith("expense")) {
+            return this.expenseManager.printList();
+        } 
+
+        throw new InputException("Izuna does not understand what did you want me to clear...");
     }
 
     /**
@@ -189,11 +225,6 @@ public class CommandManager {
             + String.format("Now you have %d tasks in the list.", this.taskManager.getListSize());
     }
 
-    private String clearTaskList() {
-        this.taskManager.clear();
-        return "Fufu, Izuna is glad that master can bring her out to the beach again!";
-    }
-
     /**
      * Forwards description to taskManager to create a new task and add to task list.
      * @param type Type of the new task, represented as the first character of the actual type.
@@ -231,5 +262,14 @@ public class CommandManager {
         }
 
         return response;
+    }
+
+    private String addExpense(String description) {
+        Expense newExpense = this.expenseManager.addExpense(description);
+
+        return "Got it. I've added this expense:\n"
+            + String.format("  %s\n", newExpense)
+            + String.format("Now you have %d expenses in the list.\n", this.expenseManager.getListSize())
+            +"(Type 'list' to see the full list of expenses)";
     }
 }

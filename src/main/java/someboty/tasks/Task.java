@@ -41,7 +41,7 @@ abstract public class Task {
      * 
      * @return a single string line containing its description.
      */
-    abstract public String toCSV();
+    abstract public String taskToCsv();
 
     // Get description of the task.
     public String getName() {
@@ -86,6 +86,29 @@ abstract public class Task {
 
     private static Task invalidTaskType() {
         throw new InputException("Unknown task type. Check that your command is correct.");
+    }
+
+    /**
+     * Creates a new task with the given details read from the csv file.
+     * 
+     * @param line String of a line in the csv file.
+     * @return A task with the given details.
+     */
+    public static Task csvToTask(String line) {
+        String[] details = line.split(",");
+        assert details.length >= 3 : "Task::csvToTask  A csv line is broken.";
+
+        switch(details[0]) {
+            case "T":
+                return ToDo.csvToTask(details);
+            case "D":
+                return Deadline.csvToTask(details);
+            case "E":
+                return Event.csvToTask(details);
+        }
+
+        throw new InputException("Error! An unknown task type is identified in csvToTask.");
+
     }
     
 }

@@ -15,16 +15,16 @@ import someboty.exceptions.InputException;
 public class TaskManager {
 
     private ArrayList<Task> taskList;
-    private FileManager files;
+    private FileManager file;
 
     /**
      * Constructor for taskManager.
      * 
      * @param files A fileManager object to fetch/save the task list.
      */
-    public TaskManager(FileManager files) {
-        this.files = files;
-        taskList = this.files.fetchTasks();
+    public TaskManager(FileManager file) {
+        this.file = file;
+        taskList = this.file.fetchTasks();
         assert (taskList != null) : "Unable to create/open 'tasks.csv' file.";
     }
 
@@ -43,7 +43,7 @@ public class TaskManager {
      * 
      * @return A formatted String displaying all the tasks.
      */
-    protected String printListTasks() {
+    protected String printList() {
         if (taskList.size() == 0) {    // special message for empty list
             return "Master seems to have nothing going on now...";
         }
@@ -145,8 +145,8 @@ public class TaskManager {
      * Passes the current task list into fileManager to save to csv file.
      */
     protected void update() {
-        assert this.files.storeTasks(this.taskList) 
-            : "Unable to store the tasks into the 'tasks.csv' file.";
+        boolean isSuccessful = this.file.storeTasks(this.taskList);
+        assert isSuccessful : "Unable to store the tasks into the 'tasks.csv' file.";
     }
     
     

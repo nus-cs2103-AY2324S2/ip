@@ -2,6 +2,7 @@ package someboty;
 
 import someboty.exceptions.TerminateException;
 import someboty.managers.CommandManager;
+import someboty.managers.ExpenseManager;
 import someboty.managers.FileManager;
 import someboty.managers.TaskManager;
 
@@ -17,7 +18,8 @@ public class SomeBoty {
     public SomeBoty(String filePath) {
         FileManager fileManager = new FileManager(filePath);
         TaskManager taskManager = new TaskManager(fileManager);
-        commandCenter = new CommandManager(taskManager);
+        ExpenseManager expenseManager = new ExpenseManager(fileManager);
+        commandCenter = new CommandManager(taskManager, expenseManager);
     }
 
     public String getResponse(String input) {
@@ -27,7 +29,7 @@ public class SomeBoty {
 
         } catch (TerminateException e) { 
             // re-wrap exception with a farewell message.
-            throw new TerminateException(ExitMessage());
+            throw new TerminateException(e.getMessage() + "\n" + ExitMessage());
         }
         
     }
@@ -36,7 +38,7 @@ public class SomeBoty {
      * Prints out a greeting message from the bot to user.
      */
     public static String Greeting() {
-        String message = "おかえりなさい、主殿！ イズナはここに待ってたよ\n"
+        String message = "おかえりなさい、主殿！ イズナはここにお待ちしておりましたよ！\n"
                        + "何かお困りことはありませんか！";
 
         return message;

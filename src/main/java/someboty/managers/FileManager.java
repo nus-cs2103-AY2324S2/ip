@@ -6,53 +6,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import someboty.tasks.Deadline;
-import someboty.tasks.Event;
 import someboty.tasks.Task;
-import someboty.tasks.ToDo;
+import someboty.expenses.Expense;
 
 
 /**
- * fileManager handles the fetching and storing of a task list
- * to/from a "tasks.csv" file.
- * 
- * Each task is saved as a row in the file in the following format:
- * task type:           E, D, T         [Event, Deadline, ToDo respectively]
- * completion status:   0, 1            [1 if completed, else 0]
- * task description:    String of words
- * deadline:                            [only for tasks of type D]
- * start date:                          [only for tasks of type E]
- * end date:                            [only for tasks of type E]
+ * fileManager handles the fetching and storing of task and expense lists
+ * to/from "tasks.csv" and "expenses.csv" files respectively.
  */
 public class FileManager {
 
-    private String filePath;
+    private String rootPath;
 
     /**
      * Constructor for fileManager.
      * 
-     * @param filePath Path to find the "data/tasks.csv" file.
+     * @param rootPath Path to create, read, and write the "data/tasks.csv" and "data/expenses.csv" file.
      */
-    public FileManager(String filePath) {
-        this.filePath = filePath;
+    public FileManager(String rootPath) {
+        this.rootPath = rootPath;
     }
 
-    /**
-     * Read saved tasks from the csv file and converts it into a list.
-     * 
-     * @return A list of tasks.
-     */
-    public ArrayList<Task> fetchTasks() {
-        Scanner scanner;
-        Task currentTask;
-        ArrayList<Task> taskList = new ArrayList<>();
-        File infile = new File(this.filePath 
+    private Scanner getFileScanner(String fileName) {
+        File infile = new File(this.rootPath 
                     + File.separator + "data"
-                    + File.separator + "tasks.csv");
+                    + File.separator + fileName);
 
+        Scanner scanner;
         try {
             // Creates new directory if it does not exist.
-            new File(filePath + File.separator + "data").mkdir(); 
+            new File(this.rootPath + File.separator + "data").mkdir(); 
             
             // Creates new file if it does not exist.
             infile.createNewFile(); 
@@ -64,8 +47,52 @@ public class FileManager {
             return null;
         }
 
+        return scanner;
+    }
+
+    private FileWriter getFileWriter(String fileName) {
+        FileWriter outfile;
+
+        try {  // create/open given csv file.
+            outfile = new FileWriter(this.rootPath
+                        + File.separator + "data"
+                        + File.separator + fileName);
+
+        } catch (IOException e) { // for devs debugging
+            System.out.println(String.format("Error. Unable to create fileWriter for %s.", fileName));
+            e.printStackTrace();
+            return null;
+        }
+
+        return outfile;
+    }
+
+    private boolean closeFileWriter(FileWriter file) {
+        try {
+            file.flush();
+            file.close();
+            
+        } catch (IOException e) { // for devs debugging
+            System.out.println("Error. Unable to close file.");
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Read saved tasks from the tasks.csv file and converts it into a list.
+     * 
+     * @return A list of tasks.
+     */
+    protected ArrayList<Task> fetchTasks() {
+        Scanner scanner = getFileScanner("tasks.csv");
+        Task currentTask;
+        ArrayList<Task> taskList = new ArrayList<>();
+
         while (scanner.hasNextLine()) {
-            currentTask = lineToTask(scanner.nextLine());
+            currentTask = Task.csvToTask(scanner.nextLine());
             taskList.add(currentTask);
         }
 
@@ -79,23 +106,13 @@ public class FileManager {
      * 
      * @param taskList A list of tasks to be saved into file.
      */
-    public boolean storeTasks(ArrayList<Task> taskList) {
-        FileWriter outfile;
-
-        try { // create/open tasks.csv file.
-            outfile = new FileWriter(this.filePath
-                        + File.separator + "data"
-                        + File.separator + "tasks.csv");
-
-        } catch (IOException e) { // for devs debugging
-            System.out.println("Error. Unable to create fileWriter.");
-            e.printStackTrace();
-            return false;
-        }
+    protected boolean storeTasks(ArrayList<Task> taskList) {
+        FileWriter outfile = getFileWriter("tasks.csv");
+        assert outfile != null : "FileManager::storeTasks  Null outfile created.";
 
         try { // write all the tasks in the task list into the csv file.
             for (Task task: taskList) {
-                outfile.write(task.toCSV());
+                outfile.write(task.taskToCsv());
             }
 
         } catch (IOException e) { // for devs debugging
@@ -103,56 +120,54 @@ public class FileManager {
             e.printStackTrace();
         }
 
-        try { // close the csv file after writing.
-            outfile.flush();
-            outfile.close();
-            
+        return closeFileWriter(outfile);
+    }
+
+
+    /**
+     * Read saved expenses from the expenses.csv file and converts it into a list.
+     * 
+     * @return A list of expenses.
+     */
+    protected ArrayList<Expense> fetchExpenses() {
+        Scanner scanner = getFileScanner("expenses.csv");
+        Expense currentExpense;
+        ArrayList<Expense> expenseList = new ArrayList<>();
+
+        while (scanner.hasNextLine()) {
+            currentExpense = Expense.csvToExpense(scanner.nextLine());
+            expenseList.add(currentExpense);
+        }
+
+        scanner.close();
+        return expenseList;
+    }
+
+    /**
+     * Takes in a list of expenses and overwrites it into the expenses.csv file.
+     * Note: This method does not append to the file, but overwrites it instead.
+     * 
+     * @param expenseList A list of expenses to be saved into file.
+     */
+    protected boolean storeExpenses(ArrayList<Expense> expenseList) {
+        FileWriter outfile = getFileWriter("expenses.csv");
+        assert outfile != null : "FileManager::storeExpenses  Null outfile created.";
+
+        try { // write all the expenses in the list into the csv file.
+            for (Expense expense: expenseList) {
+                String csvLine = expense.expenseToCsv();
+                System.out.println(csvLine);
+                outfile.write(csvLine);
+            }
+
         } catch (IOException e) { // for devs debugging
-            System.out.println("Error. Unable to close file.");
+            System.out.println("Error. Unable to save tasks to file.");
             e.printStackTrace();
             return false;
         }
 
-        return true;
-        
+        return closeFileWriter(outfile);
     }
 
-    /**
-     * Parses a row in the csv file into a task.
-     * 
-     * @param line A row in the csv file.
-     * @return A task object created from the descriptions parsed.
-     */
-    private static Task lineToTask(String line) {
-        Task task = null;
-        String[] details = line.split(",");
 
-        // every row in the file should follow 
-        assert details.length < 3 : "FileManager::lineToTask. A line in the file is broken.";
-
-        String taskType = details[0];
-        boolean isCompleted = details[1].equals("1");
-        String description = details[2];
-        
-        switch(taskType) {
-            
-        case "T":
-            task = new ToDo(description);
-            break;
-        
-        case "D":
-            String deadline = details[3];
-            task = new Deadline(description, deadline);
-            break;
-
-        case "E":
-            String from = details[3];
-            String to = details[4];
-            task = new Event(description, from, to);
-            break;
-        }
-
-        task.setStatus(isCompleted);
-        return task;
-    }
 }
