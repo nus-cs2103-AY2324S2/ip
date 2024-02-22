@@ -35,7 +35,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     private Color textboxColor;
-    private int textboxWidth = 255;
+    private int textboxWidth = 300;
 
     private DialogBox(String text, Image img, String type) {
 
@@ -117,10 +117,10 @@ public class DialogBox extends HBox {
      * @param img The display picture.
      */
     private void displayPicStyle(ImageView img) {
-        img.setFitWidth(100.0);
-        img.setFitHeight(100.0);
+        img.setFitWidth(50.0);
+        img.setFitHeight(50.0);
 
-        Circle clip = new Circle(50, 50, 50);
+        Circle clip = new Circle(25, 25, 25);
         img.setClip(clip);
     }
 
