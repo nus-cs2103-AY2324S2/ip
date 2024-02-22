@@ -1,6 +1,6 @@
 # Dune User Guide
 
-(./Ui.png.png)
+![image](./Ui.png)
 
 Dune is a task manager that helps you keep track of your tasks. It is a 
 command line application that is easy to use and has a simple interface.
@@ -76,7 +76,7 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-## (Un)marking tasks as done
+## (Un)marking tasks
 
 To (un)mark a task as done, type `(un)mark` followed by the number of the task, 
 e.g. `(un)mark 1`. (Un)mark means either mark or unmark. Same for unmark. In the above example, `mark 4` would be 
