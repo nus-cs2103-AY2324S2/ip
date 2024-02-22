@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.klara;
 
 import javafx.application.Application;
 

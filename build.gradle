@@ -8,12 +8,12 @@ plugins {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'seedu.duke.Launcher'
+                'Main-Class': 'seedu.klara.Launcher'
         )
     }
 }
 
-mainClassName = 'seedu.duke.Launcher'
+mainClassName = 'seedu.klara.Launcher'
 
 checkstyle {
     toolVersion = '10.2'
@@ -59,11 +59,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Launcher")
+    mainClass.set("seedu.klara.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "klara"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = 'Klara.jar'

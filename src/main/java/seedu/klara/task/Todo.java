@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package seedu.klara.task;
 
 /**
  * Represents the <code>Todo</code> class to store information

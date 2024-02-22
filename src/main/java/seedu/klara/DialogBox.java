@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.klara;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -55,8 +55,8 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        assert text != null : "Duke Dialog Box Text should not be null";
+    public static DialogBox getKlaraDialog(String text, Image img) {
+        assert text != null : "Klara Dialog Box Text should not be null";
         assert img != null : "User Dialog Box Image should not be null";
 
         var dialogBox = new DialogBox(text, img);

@@ -1,32 +1,30 @@
-package seedu.duke;
-
-import java.util.Objects;
+package seedu.klara;
 
 /**
- * Represents a task manager called <code>Duke</code>.
+ * Represents a task manager called <code>Klara</code>.
  */
-public class Duke {
+public class Klara {
 
     private static Storage storage;
     private static TaskList tasks;
     private static Ui ui;
 
     /**
-     * Constructor for Duke.
+     * Constructor for Klara.
      */
-    public Duke() {
-        String filePath = "data/duke.txt";
+    public Klara() {
+        String filePath = "data/klara.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (KlaraException e) {
             tasks = new TaskList();
         }
     }
 
     /**
-     * Represents the opening message when Duke starts.
+     * Represents the opening message when Klara starts.
      * @return opening message
      */
     public String welcomeMessage() {
@@ -41,7 +39,7 @@ public class Duke {
      * eg. <code>list, mark, unmark, deadline, todo, event</code>
      */
     public static String getResponse(String userInput) {
-        String dukeResponse = "";
+        String klaraResponse = "";
 
         assert ui != null : "Ui should not be null";
         assert tasks != null : "TaskList should not be null";
@@ -51,32 +49,32 @@ public class Duke {
         // command dependent logic
         if (userInput.equals("bye")) {
             storage.saveTasks(tasks.getList());
-            dukeResponse = ui.closingMessage();
+            klaraResponse = ui.closingMessage();
         } else if (userInput.equals("list") || userInput.startsWith("l")) {
-            dukeResponse = ui.printList(tasks.getList());
+            klaraResponse = ui.printList(tasks.getList());
         } else if (userInput.startsWith("mark") || userInput.startsWith("m")) {
-            dukeResponse = Parser.parseMark(userInput, tasks, ui);
+            klaraResponse = Parser.parseMark(userInput, tasks, ui);
         } else if (userInput.startsWith("unmark") || userInput.startsWith("u")) {
-            dukeResponse = Parser.parseUnmark(userInput, tasks, ui);
+            klaraResponse = Parser.parseUnmark(userInput, tasks, ui);
         } else if (userInput.startsWith("deadline") || userInput.startsWith("dead")) {
-            dukeResponse = Parser.parseDeadline(userInput, tasks, ui);
+            klaraResponse = Parser.parseDeadline(userInput, tasks, ui);
         } else if (userInput.startsWith("todo") || userInput.startsWith("t")) {
-            dukeResponse = Parser.parseTodo(userInput, tasks, ui);
+            klaraResponse = Parser.parseTodo(userInput, tasks, ui);
         } else if (userInput.startsWith("event") || userInput.startsWith("e")) {
-            dukeResponse = Parser.parseEvent(userInput, tasks, ui);
+            klaraResponse = Parser.parseEvent(userInput, tasks, ui);
         } else if (userInput.startsWith("delete") || userInput.startsWith("del")) {
-            dukeResponse = Parser.parseDelete(userInput, tasks, ui);
+            klaraResponse = Parser.parseDelete(userInput, tasks, ui);
         } else if (userInput.startsWith("find") || userInput.startsWith("f")) {
-            dukeResponse = Parser.parseFind(userInput, tasks, ui);
+            klaraResponse = Parser.parseFind(userInput, tasks, ui);
         } else {
             try {
-                throw new DukeException("Sorry, I didn't understand that.");
-            } catch (DukeException d) {
-                dukeResponse = ui.printError(d);
+                throw new KlaraException("Sorry, I didn't understand that.");
+            } catch (KlaraException d) {
+                klaraResponse = ui.printError(d);
             }
         }
         storage.saveTasks(tasks.getList());
-        assert !dukeResponse.isEmpty(): "Response should not be empty";
-        return dukeResponse;
+        assert !klaraResponse.isEmpty(): "Response should not be empty";
+        return klaraResponse;
     }
 }

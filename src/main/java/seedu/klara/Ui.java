@@ -1,8 +1,8 @@
-package seedu.duke;
+package seedu.klara;
 
 import java.util.ArrayList;
 
-import seedu.duke.task.Task;
+import seedu.klara.task.Task;
 
 /**
  * Represents the <code>UI</code> that users see in response to
@@ -11,16 +11,16 @@ import seedu.duke.task.Task;
 public class Ui {
 
     /**
-     * Represents printed output when a DukeException is thrown.
-     * @param dukeException
+     * Represents printed output when a KlaraException is thrown.
+     * @param klaraException
      * @return String to be printed
      */
-    public String printError(DukeException dukeException) {
-        return dukeException.getMessage();
+    public String printError(KlaraException klaraException) {
+        return klaraException.getMessage();
     }
 
     /**
-     * Represents printed output when Duke starts.
+     * Represents printed output when Klara starts.
      * @return String to be printed
      */
     public String openingMessage() {
@@ -28,7 +28,7 @@ public class Ui {
     }
 
     /**
-     * Represents printed output when Duke ends.
+     * Represents printed output when Klara ends.
      * @return String to be printed
      */
     public String closingMessage() {

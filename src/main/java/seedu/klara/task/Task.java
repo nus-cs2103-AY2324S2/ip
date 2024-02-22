@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package seedu.klara.task;
 
 import java.io.Serializable;
 

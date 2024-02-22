@@ -1,12 +1,12 @@
-package seedu.duke;
+package seedu.klara;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import seedu.duke.task.Deadline;
-import seedu.duke.task.Event;
-import seedu.duke.task.Task;
-import seedu.duke.task.Todo;
+import seedu.klara.task.Deadline;
+import seedu.klara.task.Event;
+import seedu.klara.task.Task;
+import seedu.klara.task.Todo;
 
 /**
  * Represents <code>parsing</code> logic to interpret and execute
@@ -29,22 +29,22 @@ public class Parser {
         try {
             if (splitInput.length < 2) {
                 // for invalid entry: "mark"
-                throw new DukeException("Here's the format I require: mark [valid index]");
+                throw new KlaraException("Here's the format I require: mark [valid index]");
             }
             int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
                 // for invalid entry: "mark [out of bounds]"
-                throw new DukeException("Here's the format I require: mark [valid index]");
+                throw new KlaraException("Here's the format I require: mark [valid index]");
             } else if (index < 0) {
                 // for invalid entry "mark [negative]"
-                throw new DukeException("We don't have negative tasks!");
+                throw new KlaraException("We don't have negative tasks!");
             }
             tasks.markTaskDone(Integer.parseInt(splitInput[1]) - 1);
             output = ui.showTaskDone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         } catch (NumberFormatException n) {
-            output = ui.printError(new DukeException("Here's the format I require: mark [valid index]"));
+            output = ui.printError(new KlaraException("Here's the format I require: mark [valid index]"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -64,22 +64,22 @@ public class Parser {
         String[] splitInput = input.split(" ");
         try {
             if (splitInput.length < 2) { // for invalid entry: "unmark"
-                throw new DukeException("Here's the format I require: unmark [valid index]");
+                throw new KlaraException("Here's the format I require: unmark [valid index]");
             }
             // for invalid entry "unmark [out of bounds]"
             int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
-                throw new DukeException("Here's the format I require: unmark [valid index]");
+                throw new KlaraException("Here's the format I require: unmark [valid index]");
             } else if (index < 0) {
                 // for invalid entry "mark [negative]"
-                throw new DukeException("We don't have negative tasks!");
+                throw new KlaraException("We don't have negative tasks!");
             }
             tasks.markTaskUndone(Integer.parseInt(splitInput[1]) - 1);
             output = ui.showTaskUndone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         } catch (NumberFormatException n) {
-            output = ui.printError(new DukeException("Here's the format I require: unmark [valid index]"));
+            output = ui.printError(new KlaraException("Here's the format I require: unmark [valid index]"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -99,7 +99,7 @@ public class Parser {
         String[] splitInput = input.split(" /by ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: deadline [description] /by [yyyy-mm-dd]");
+                throw new KlaraException("Here's the format I require: deadline [description] /by [yyyy-mm-dd]");
             }
             String[] commandAndDescription = splitInput[0].split(" ", 2);
             String dateline = splitInput[1];
@@ -107,10 +107,10 @@ public class Parser {
             Deadline deadline = new Deadline(commandAndDescription[1], localDate);
             tasks.addTask(deadline);
             output = ui.showTaskAdded(deadline, tasks.getSize());
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         } catch (DateTimeParseException dateTimeParseException) {
-            output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
+            output = ui.printError(new KlaraException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -130,13 +130,13 @@ public class Parser {
         String[] splitInput = input.split(" ", 2);
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: todo [name]");
+                throw new KlaraException("Here's the format I require: todo [name]");
             }
             String description = splitInput[1];
             Todo todo = new Todo(description);
             tasks.addTask(todo);
             output = ui.showTaskAdded(todo, tasks.getSize());
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         }
         assert !output.isEmpty() : "Output should not be empty";
@@ -158,7 +158,7 @@ public class Parser {
         String[] splitInput = input.split(" /from ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: "
+                throw new KlaraException("Here's the format I require: "
                         + "event [description] /from [yyyy-mm-dd] /by [yyyy-mm-dd]");
             }
             String description = splitInput[0].split(" ", 2)[1];
@@ -167,10 +167,10 @@ public class Parser {
             Event event = new Event(description, fromDate, toDate);
             tasks.addTask(event);
             output = ui.showTaskAdded(event, tasks.getSize());
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         } catch (DateTimeParseException dateTimeParseException) {
-        output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
+        output = ui.printError(new KlaraException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -190,21 +190,21 @@ public class Parser {
         String[] splitInput = input.split(" ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Which task number do you want to delete?");
+                throw new KlaraException("Which task number do you want to delete?");
             }
             int numberToDelete = Integer.parseInt(splitInput[1]);
             if (numberToDelete > tasks.getSize()) {
-                throw new DukeException("You don't have that many tasks!");
+                throw new KlaraException("You don't have that many tasks!");
             } else if (numberToDelete < 1) {
-                throw new DukeException("We don't have negative tasks!");
+                throw new KlaraException("We don't have negative tasks!");
             }
             Task task = tasks.getTask(numberToDelete - 1);
             tasks.deleteTask(numberToDelete - 1);
             output = ui.showTaskDeleted(task, tasks.getSize());
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         } catch (NumberFormatException n) {
-            output = ui.printError(new DukeException("Is that a valid task number?"));
+            output = ui.printError(new KlaraException("Is that a valid task number?"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -224,11 +224,11 @@ public class Parser {
         String[] splitInput = input.split(" ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: find [search term]");
+                throw new KlaraException("Here's the format I require: find [search term]");
             }
             String searchTerm = splitInput[1];
             output = ui.searchThenPrintList(tasks.getList(), searchTerm);
-        } catch (DukeException d) {
+        } catch (KlaraException d) {
             output = ui.printError(d);
         }
         assert !output.isEmpty() : "Output should not be empty";

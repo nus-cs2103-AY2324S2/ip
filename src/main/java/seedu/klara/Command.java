@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.klara;
 
 /**
  * Represents <code>Enum</code> values corresponding to

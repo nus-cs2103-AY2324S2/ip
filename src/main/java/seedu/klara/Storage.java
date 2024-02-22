@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.klara;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import seedu.duke.task.Task;
+import seedu.klara.task.Task;
 
 /**
  * Represents <code>Storage</code> logic to save and load past
@@ -25,10 +25,10 @@ public class Storage {
     /**
      * Loads the saved TaskList into the application from the path provided.
      * @return {@code ArrayList<Task>} containing the saved <code>TaskList</code>
-     * @throws DukeException in the event of an Exception
+     * @throws KlaraException in the event of an Exception
      */
     @SuppressWarnings("unchecked")
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws KlaraException {
         ArrayList<Task> taskList = new ArrayList<>();
         // Load tasks from file
         // Solution below inspired by:

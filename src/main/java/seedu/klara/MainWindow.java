@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.klara;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,42 +21,42 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Klara klara;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image klaraImage = new Image(this.getClass().getResourceAsStream("/images/Klara.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setKlara(Klara d) {
+        klara = d;
     }
 
     /**
-     * Represents the welcome message when Duke starts.
+     * Represents the welcome message when Klara starts.
      */
     public void showWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(duke.welcomeMessage(), dukeImage)
+                DialogBox.getKlaraDialog(klara.welcomeMessage(), klaraImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Klara's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         assert userImage != null : "User image should not be null";
-        assert dukeImage != null : "Duke image should not be null";
+        assert klaraImage != null : "Klara image should not be null";
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = klara.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getKlaraDialog(response, klaraImage)
         );
         userInput.clear();
     }

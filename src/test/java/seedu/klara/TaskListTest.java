@@ -1,11 +1,10 @@
-package seedu.duke;
+package seedu.klara;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.duke.task.Todo;
-
+import seedu.klara.task.Todo;
 
 public class TaskListTest {
     @Test

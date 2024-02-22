@@ -1,8 +1,8 @@
-package seedu.duke;
+package seedu.klara;
 
 import java.util.ArrayList;
 
-import seedu.duke.task.Task;
+import seedu.klara.task.Task;
 
 /**
  * Represents the <code>class</code> that is able to contain
