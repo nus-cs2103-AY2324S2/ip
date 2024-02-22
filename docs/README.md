@@ -1,6 +1,6 @@
 # JAV User Guide
 
-![Product screenshot](https://github.com/javierng2knus/ip/blob/master/docs/Ui.png)
+![Product screenshot](Ui.png)
 
 ## Jav the Joy Amplifying Virtuoso 🎷
 ```
@@ -20,7 +20,7 @@ Well, the Joy Amplifying Virtuoso is a jovial chat bot that helps you keep track
 
 ## Quick Start
 - [ ] Ensure you have Java 11 or above installed in your Computer.
-- [ ] Download the latest .jar file from [here](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).
+- [ ] Download the latest .jar file from [here](https://github.com/javierng2knus/ip/releases).
 - [ ] Move the file to the folder you want to use as the root folder for bot.
 - [ ] Run the file.
 
