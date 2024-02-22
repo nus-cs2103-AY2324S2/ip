@@ -32,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private Main mainApp;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    // This image is from the artist MrsNami95 on DeviantArt.
+    // Website: https://www.deviantart.com/mrsnami95/art/Chopper-Franky-colored-301475007
+    // This image is under Creative Commons Attribution-No Derivative Works 3.0 License.
     private Image tesImage = new Image(this.getClass().getResourceAsStream("/images/tes.jpg"));
 
     @FXML
