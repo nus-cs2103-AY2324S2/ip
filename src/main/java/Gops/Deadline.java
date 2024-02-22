@@ -7,7 +7,6 @@ public class Deadline extends Todo {
     protected String endDateString;
     String reformattedEndDateString;
     protected LocalDate endDate;
-    protected boolean todoStatus = false;
 
     /**
      * Constructs new deadline object

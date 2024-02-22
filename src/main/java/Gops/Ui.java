@@ -31,14 +31,5 @@ public class Ui {
             taskCount = taskList.numberOfTasks();
         }
         return taskList;
-        /*
-        System.out.println("Hello! I'm Gops");
-        System.out.println("What can I do for you?");
-        String userReply = inputTaker.nextLine();
-        parser.parse(userReply, taskList, txtFile, inputTaker);
-        if (userReply.equals("bye")) {
-            System.out.print("Bye. Hope to see you again soon!");
-        }
-         */
     }
 }
