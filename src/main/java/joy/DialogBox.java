@@ -1,4 +1,4 @@
-package julia;
+package joy;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        Circle circle = new Circle(40, 40, 30);
+        Circle circle = new Circle(40, 30, 30);
         //circle.setRadius(50);
 
         displayPicture.setClip(circle);

@@ -1,4 +1,4 @@
-package julia.task;
+package joy.task;
 
 /**
  * Represents a task in the task list.

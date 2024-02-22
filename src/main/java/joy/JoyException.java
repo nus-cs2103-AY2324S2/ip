@@ -1,4 +1,4 @@
-package julia;
+package joy;
 // DukeExceptions.java
 
 /**
@@ -6,7 +6,7 @@ package julia;
  * Represents exceptions specific to the Duke program.
  */
 
-public class DukeException extends Exception {
+public class JoyException extends Exception {
 
     /**
      * Constructs a DukeException with the specified detail message.
@@ -14,7 +14,7 @@ public class DukeException extends Exception {
      * @param message The detail message (which is saved for later retrieval
      *                by the {@link #getMessage()} method).
      */
-    public DukeException(String message) {
+    public JoyException(String message) {
         super(message);
     }
 
@@ -22,7 +22,7 @@ public class DukeException extends Exception {
      * Exception class for an empty description in a Todo task.
      * This exception is thrown when attempting to create a Todo task with an empty description.
      */
-    public static class EmptyTodoDescriptionException extends DukeException {
+    public static class EmptyTodoDescriptionException extends JoyException {
 
         /**
          * Constructs an EmptyTodoDescriptionException with a default message.
@@ -37,7 +37,7 @@ public class DukeException extends Exception {
      * Exception class for an unknown command.
      * This exception is thrown when an unknown command is encountered in the Duke program.
      */
-    public static class UnknownCommandException extends DukeException {
+    public static class UnknownCommandException extends JoyException {
 
         /**
          * Constructs an UnknownCommandException with a default message.

@@ -1,4 +1,4 @@
-package julia;
+package joy;
 import javafx.application.Application;
 
 /**

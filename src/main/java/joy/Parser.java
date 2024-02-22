@@ -1,8 +1,8 @@
-package julia;
-import julia.task.Deadline;
-import julia.task.Event;
+package joy;
+import joy.task.Deadline;
+import joy.task.Event;
 
-import julia.task.Todo;
+import joy.task.Todo;
 
 
 
@@ -30,10 +30,10 @@ public class Parser {
      * @param userInput The user input to be parsed and executed.
      * @param tasks     The TaskList object to perform operations on.
      * @param ui        The Ui object for user interface interactions.
-     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     * @throws JoyException If an error occurs during the parsing or execution of the command.
      */
     public static String parseAndExecute(String userInput, TaskList tasks, Ui ui)
-            throws DukeException {
+            throws JoyException {
 
         assert userInput != null : "User input cannot be null";
         assert tasks != null : "Task list cannot be null";
@@ -61,13 +61,13 @@ public class Parser {
 
             try {
                 return parseTodo(words, tasks);
-            } catch (DukeException e) {
+            } catch (JoyException e) {
                 return ui.showError(e.getMessage());
             }
         case "DELETE":
 
             if (words.length != 2) {
-                throw new DukeException("The task number to delete is missing.");
+                throw new JoyException("The task number to delete is missing.");
             }
             int n = Integer.parseInt(words[1]);
             return tasks.removeTasks(n, ui);
@@ -78,7 +78,7 @@ public class Parser {
 
 
             if (words.length != 2) {
-                throw new DukeException("The task number to mark is missing.");
+                throw new JoyException("The task number to mark is missing.");
             }
             int num = Integer.parseInt(words[1]);
             return tasks.markTasks(num, ui);
@@ -87,14 +87,14 @@ public class Parser {
         case "DEADLINE":
             try {
                 return parseDeadline(words, tasks);
-            } catch (DukeException e) {
+            } catch (JoyException e) {
                 return ui.showError(e.getMessage());
             }
 
         case "EVENT":
             try {
                 return parseEvent(words, tasks);
-            } catch (DukeException e) {
+            } catch (JoyException e) {
                 return ui.showError(e.getMessage());
             }
 
@@ -103,7 +103,7 @@ public class Parser {
             return parseFind(words, ui);
             //break;
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means.");
+            throw new JoyException("I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -111,27 +111,27 @@ public class Parser {
      * Parses a deadline command and adds the corresponding task to the TaskList.
      *
      * @param tasks The TaskList object to add the task to.
-     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     * @throws JoyException If an error occurs during the parsing or execution of the command.
      */
-    public static String parseDeadline(String[] words, TaskList tasks) throws DukeException {
+    public static String parseDeadline(String[] words, TaskList tasks) throws JoyException {
 
 
         if (words.length < 4) {
-            throw new DukeException("Insufficient information for creating a deadline task.");
+            throw new JoyException("Insufficient information for creating a deadline task.");
         }
 
         if (words[1].isEmpty() || words[3].isEmpty()) {
             try {
-                throw new DukeException("OOPS!!! The description and deadline time cannot be empty.");
-            } catch (DukeException e) {
+                throw new JoyException("OOPS!!! The description and deadline time cannot be empty.");
+            } catch (JoyException e) {
                 System.out.println(e.getMessage());
                 //return;
             }
         }
         if (!words[2].equals("/by")) {
             try {
-                throw new DukeException("OOPS!!! Please provide a deadline time using '/by'.");
-            } catch (DukeException e) {
+                throw new JoyException("OOPS!!! Please provide a deadline time using '/by'.");
+            } catch (JoyException e) {
                 System.out.println(e.getMessage());
                 //return;
             }
@@ -166,13 +166,13 @@ public class Parser {
      * Parses an event command and adds the corresponding task to the TaskList.
      *
      * @param tasks The TaskList object to add the task to.
-     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     * @throws JoyException If an error occurs during the parsing or execution of the command.
      */
-    public static String parseEvent(String[] words, TaskList tasks) throws DukeException {
+    public static String parseEvent(String[] words, TaskList tasks) throws JoyException {
 
 
         if (words.length < 6) {
-            throw new DukeException("Insufficient information for creating a event task.");
+            throw new JoyException("Insufficient information for creating a event task.");
         }
 
         // Check if '/from' and '/to' are present
@@ -188,7 +188,7 @@ public class Parser {
         }
 
         if (!hasFrom || !hasTo) {
-            throw new DukeException("Event timing information is missing."
+            throw new JoyException("Event timing information is missing."
                     +
                     " Please provide event timing using '/from' and '/to'.");
         }
@@ -229,15 +229,15 @@ public class Parser {
      * Parses a todo command and adds the corresponding task to the TaskList.
      *
      * @param tasks The TaskList object to add the task todo
-     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     * @throws JoyException If an error occurs during the parsing or execution of the command.
      */
-    public static String parseTodo(String[] words, TaskList tasks) throws DukeException {
+    public static String parseTodo(String[] words, TaskList tasks) throws JoyException {
 
 
         if (words[1].isEmpty()) {
             try {
-                throw new DukeException.EmptyTodoDescriptionException();
-            } catch (DukeException e) {
+                throw new JoyException.EmptyTodoDescriptionException();
+            } catch (JoyException e) {
                 System.out.println(e.getMessage());
                 //return;
             }
@@ -265,8 +265,8 @@ public class Parser {
 
         if (words.length < 2) {
             try {
-                throw new DukeException("OOPS!!! The find value cannot be empty.");
-            } catch (DukeException e) {
+                throw new JoyException("OOPS!!! The find value cannot be empty.");
+            } catch (JoyException e) {
                 System.out.println(e.getMessage());
             }
         }

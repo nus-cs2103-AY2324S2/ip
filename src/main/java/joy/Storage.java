@@ -1,9 +1,9 @@
-package julia;
+package joy;
 
-import julia.task.Deadline;
-import julia.task.Event;
-import julia.task.Task;
-import julia.task.Todo;
+import joy.task.Deadline;
+import joy.task.Event;
+import joy.task.Task;
+import joy.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -114,9 +114,9 @@ public class Storage {
      * Loads tasks from the file specified in the constructor using the Parser class.
      *
      * @return An ArrayList of Task objects loaded from the file.
-     * @throws DukeException If an error occurs during the loading of tasks.
+     * @throws JoyException If an error occurs during the loading of tasks.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws JoyException {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
@@ -138,7 +138,7 @@ public class Storage {
             fileScanner.close();
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("Error loading tasks from file: " + e.getMessage());
+            throw new JoyException("Error loading tasks from file: " + e.getMessage());
         }
     }
 }
