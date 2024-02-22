@@ -63,12 +63,18 @@ public class CommandHandler {
             assert false : "Todo command is incomplete";
             throw new GeorgieException("Umm... The todo command is incomplete!");
         }
-        String description = parsedCommand[1];
+        String description = parsedCommand[1].trim();
+
+        if (taskList.containsTask(description)) {
+            return "Task already exists. Duplicate tasks are not allowed.";
+        }
+
         assert taskList != null : "Task list is null";
         return ToDo.addToDoTask(taskList, description);
     }
 
     private static String handleDeadlineCommand(String userInput, TaskList taskList) throws GeorgieException {
+
         if (userInput.length() <= 9) {
             assert false : "Deadline command is incomplete";
             throw new GeorgieException("Oops! The deadline command is incomplete.");
@@ -81,9 +87,15 @@ public class CommandHandler {
             throw new GeorgieException("Oops! Both description and deadline are required for a deadline task.");
         }
 
+        String description = descriptionAndDueBy[0].trim();
+        
+        if (taskList.containsTask(description)) {
+            return "Task already exists. Duplicate tasks are not allowed.";
+        }
+
         String dueBy = descriptionAndDueBy[1];
         assert taskList != null : "Task list is null";
-        return Deadline.addDeadlineTask(taskList, descriptionAndDueBy[0], dueBy);
+        return Deadline.addDeadlineTask(taskList, description, descriptionAndDueBy[1]);
     }
 
     private static String handleEventCommand(String userInput, TaskList taskList) throws GeorgieException {
@@ -99,10 +111,14 @@ public class CommandHandler {
         }
 
         assert description.length >= 3 : "Invalid event command format";
-        String start = description[1];
-        String end = description[2];
+        String eventDescription = description[0].trim();
+
+        if (taskList.containsTask(eventDescription)) {
+            return "Task already exists. Duplicate tasks are not allowed.";
+        }
+
         assert taskList != null : "Task list is null";
-        return Event.addEventTask(taskList, description[0], start, end);
+        return Event.addEventTask(taskList, eventDescription, description[1], description[2]);
     }
 
     private static String handleDeleteCommand(String[] parsedCommand, TaskList taskList) throws GeorgieException {

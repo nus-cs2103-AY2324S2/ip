@@ -148,4 +148,19 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Checks whether a task with the given description already exists in the task list.
+     *
+     * @param description The description of the task to check.
+     * @return true if a task with the given description exists, false otherwise.
+     */
+    public boolean containsTask(String description) {
+        for (Task task : tasks) {
+            if (task.description.equals(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
