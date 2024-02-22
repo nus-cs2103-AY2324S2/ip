@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a starting time and ending time
  */
-public class Event extends Task {
+public class Event extends Task implements TaskWithTime{
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
@@ -28,6 +28,15 @@ public class Event extends Task {
         } catch (AssertionError e) {
             throw new DukeException("Oops! It seems the event ends before it starts!");
         }
+    }
+
+    /**
+     * Returns a timestamp to compare the order of events.
+     *
+     * @return a LocalDateTime object to represent the timestamp of the task
+     */
+    public LocalDateTime getTimestamp() {
+        return startTime;
     }
 
     /**
