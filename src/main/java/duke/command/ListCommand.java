@@ -20,9 +20,10 @@ public class ListCommand implements Command {
      * @param itemList the ItemList object used in the current Elias instance.
      * @return a string that confirms that the command was executed correctly.
      */
+    @Override
     public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions {
         if (info.length == 1) {
-            return itemList.toString();
+            return "Here are your remaining tasks:\n" + itemList.toString();
         }
         return null;
     }

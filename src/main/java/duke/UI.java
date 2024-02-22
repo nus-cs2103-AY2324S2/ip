@@ -6,7 +6,6 @@ package duke;
  * is instantiated within the main method of Duke.
  */
 public class UI {
-
     public String getGreet() {
         String greet = "Hello! I'm ELIAS\n"
                 + "What can I do for you?";

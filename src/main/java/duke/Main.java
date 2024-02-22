@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.io.IOException;
 
 import duke.control.MainWindow;
@@ -18,6 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        File test = new File("../resources/view/MainWindow.fxml");
+        assert test.exists();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

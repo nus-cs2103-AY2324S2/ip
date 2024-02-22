@@ -32,6 +32,8 @@ public class Storage {
         if (new File(filepath).exists()) {
             this.path = filepath;
         }
+        File test = new File(this.path);
+        assert test.exists();
     }
 
     /**

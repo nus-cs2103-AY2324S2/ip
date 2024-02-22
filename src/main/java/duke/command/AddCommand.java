@@ -28,7 +28,9 @@ public class AddCommand implements Command {
      * @throws CustomExceptions.EventExceptionForFromTo if the start and end time
      *                                                  of the event fails to parse.
      */
+
     public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions {
+        assert info[0].equals("todo")||info[0].equals("event")||info[0].equals("deadline");
         if (info.length == 1) {
             throw new CustomExceptions.InvalidTaskException(
                     "Please re-enter your task with a valid name");
