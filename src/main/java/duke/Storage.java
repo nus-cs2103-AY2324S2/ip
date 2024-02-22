@@ -119,7 +119,7 @@ public class Storage {
                 } else if (type.equals("E")) {
                     String temp = line.substring(7);
                     String[] temp2 = temp.split("\\(from: ");
-                    String description = temp2[0];
+                    String description = temp2[0].trim();
                     String result = temp2[1];
                     LocalDate startDate = LocalDate.parse(result.substring(0, 11), dateTimeFormatter);
                     LocalTime startTime = LocalTime.parse(result.substring(12, 17));

@@ -30,6 +30,8 @@ public class EmptyInputException extends DukeException {
             str = "buzz buzz~~ The task number was not provided.\n";
         } else if (message.equals("update description")) {
             str = "buzz buzz~~ No new description was provided.\n";
+        } else if (message.equals("mark position")) {
+            str = "buzz buzz~~ The task number was not provided.\n";
         } else {
             str = "buzz buzz~~ The description of a " + this.message + " cannot be empty.\n";
         }
