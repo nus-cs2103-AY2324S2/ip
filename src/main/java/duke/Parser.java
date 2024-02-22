@@ -171,7 +171,6 @@ public class Parser {
     public Pair<TaskList, String> parseFind(TaskList tasksList, String input) throws MissingTaskToMarkException {
         String output = "";
         String keyword = input.split(" ")[1];
-        //TaskList temp = new TaskList();
         TaskList temp = new TaskList(tasksList.getTasksList().stream()
                 .filter(t -> t.getTaskName().contains(keyword))
                 .collect(Collectors

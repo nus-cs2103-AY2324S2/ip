@@ -31,11 +31,10 @@ public class Toothless {
     private Ui ui;
     private Parser parser;
     private String currentCommand;
-    //private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bunny.jpeg"));
-    //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
+
 
     /**
-     * Instantiates the Toothless class when Launcher is run, which will run the main class and call this method.
+     * Method to instantiate the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
      */
     public Toothless() {
         this.ui = new Ui();
@@ -55,7 +54,8 @@ public class Toothless {
         FileParser fileParser = new FileParser(f);
         try {
             fileParser.parseFile(f);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         this.taskList = fileParser.getTaskList();
