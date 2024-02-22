@@ -14,4 +14,3 @@ Format: `todo <TASK NAME>`
 Usage: `todo revise maths`
 
 Expected Output: 
-
