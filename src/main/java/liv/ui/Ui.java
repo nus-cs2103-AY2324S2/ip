@@ -70,9 +70,11 @@ public class Ui {
      * Prints the task that was marked by the command from the user.
      * @param task The task that was marked.
      */
-    public static String getMarkMessage(Task task) {
-        String markMessage = String.join("\n", "Mission completed:",
-                " " + task.getStatusIcon() + " " + task.getDescription());
+    public static String getMarkMessage(ArrayList<Task> markedTasks) {
+        String markMessage = "Mission completed:\n";
+        for (Task task: markedTasks) {
+            markMessage += task.getDisplayedString() + "\n";
+        }
         displayMessage(markMessage);
         return markMessage;
     }
@@ -138,7 +140,7 @@ public class Ui {
      */
     public static String getFindMessage(ArrayList<String> matchingTasks) {
         String findMessage = "Here are the mission(s) you requested me to find:\n";
-        if (matchingTasks.size() == 0) {
+        if (matchingTasks.size() == 0)  {
             displayErrorMessage("No mission found!");
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {

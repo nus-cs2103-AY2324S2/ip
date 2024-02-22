@@ -3,6 +3,8 @@ package liv.processor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import liv.exception.LivException;
 import liv.task.Deadline;
 import liv.task.Event;
@@ -54,7 +56,7 @@ public class Parser {
      * Creates a ByeCommand object to be executed.
      * @return A ByeCommand object.
      */
-    public static Command parseByeCommand() {
+    private static Command parseByeCommand() {
         return new ByeCommand();
     }
 
@@ -64,29 +66,51 @@ public class Parser {
      * @return The index of the task that users want to process.
      * @throws LivException If the index input is not a number, or no index input is given.
      */
-    private static int parseNumberInInput(String input) throws LivException {
-        // Expect input in this form: "<command> <number>"
-        int spaceIndex = input.indexOf(' ');
-        if (spaceIndex == -1) {
+    private static ArrayList<Integer> parseNumbersInInput(String input) throws LivException {
+        // Expect input in this form: "<command> <list of indices>"
+        ArrayList<Integer> indicesList = new ArrayList<>();
+
+        int firstSpaceIndex = input.indexOf(' ');
+        if (firstSpaceIndex == -1) {
             throw new LivException("Please state the mission number!");
         }
 
-        String numberString = input.substring(spaceIndex + 1);
-        if (!numberString.matches("\\d+")) {
-            throw new LivException("Please enter a positive integer as the mission number!");
+        String indicesListString = input.substring(firstSpaceIndex + 1);
+
+        while (true) {
+            int spaceIndex = indicesListString.indexOf(' ');
+            if (spaceIndex == -1) {
+                break;
+            }
+
+            String indexString = indicesListString.substring(0, spaceIndex - 1);
+            if (!indexString.matches("\\d+")) {
+                throw new LivException("Please enter a positive integer as the mission number!");
+            }
+
+            int index = Integer.parseInt(indexString);
+            assert index > 0: "Input number should be a positive integer!";
+            indicesList.add(index);
         }
 
-        int number = Integer.parseInt(numberString);
-        assert number > 0: "Input number should be a positive integer!";
-        return number;
+        indicesList.sort(Comparator.naturalOrder());
+        return indicesList;
     }
 
     /**
      * Creates a ListCommand object to be executed.
      * @return A ListCommand object.
      */
-    public static Command parseListCommand() {
+    private static Command parseListCommand() {
         return new ListCommand();
+    }
+
+    private static boolean isValidIndex(int index) {
+        int currentListSize = TaskList.getListSize();
+        if ((index < 0) || (index >= currentListSize)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -96,17 +120,20 @@ public class Parser {
      * @return A MarkCommand or a UnmarkCommand, depends on the boolean state.
      * @throws LivException If no task index was given.
      */
-    public static Command parseMarkOrUnmarkCommand(String input, boolean state) throws LivException {
-        int index = parseNumberInInput(input);
-        int trueIndex = index - 1;
-        if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
-            throw new LivException("That mission number does not exist in the list!");
+    private static Command parseMarkOrUnmarkCommand(String input, boolean state) throws LivException {
+        ArrayList<Integer> indices = parseNumbersInInput(input);
+        indices.replaceAll(index -> index - 1);
+
+        for (int index: indices) {
+            if (!isValidIndex(index)) {
+                throw new LivException("Mission number " + (index + 1) + " does not exist in the list!");
+            }
         }
 
         if (state) {
-            return new MarkCommand(index);
+            return new MarkCommand(indices);
         }
-        return new UnmarkCommand(index);
+        return new UnmarkCommand(indices);
     }
 
     /**
@@ -115,14 +142,17 @@ public class Parser {
      * @return A DeleteCommand object.
      * @throws LivException If no task index was given.
      */
-    public static Command parseDeleteCommand(String input) throws LivException {
-        int index = parseNumberInInput(input);
-        int trueIndex = index - 1;
-        if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
-            throw new LivException("That mission number does not exist in the list!");
+    private static Command parseDeleteCommand(String input) throws LivException {
+        ArrayList<Integer> indices = parseNumbersInInput(input);
+        indices.replaceAll(index -> index - 1);
+
+        for (int index: indices) {
+            if (!isValidIndex(index)) {
+                throw new LivException("Mission number " + (index + 1) + " does not exist in the list!");
+            }
         }
 
-        return new DeleteCommand(index);
+        return new DeleteCommand(indices);
     }
 
     /**
@@ -131,7 +161,7 @@ public class Parser {
      * @return A TodoCommand object.
      * @throws LivException If the description is empty.
      */
-    public static Command parseTodoCommand(String input) throws LivException {
+    private static Command parseTodoCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
@@ -149,7 +179,7 @@ public class Parser {
      * @return A DeadlineCommand object.
      * @throws LivException If the description or time is empty.
      */
-    public static Command parseDeadlineCommand(String input) throws LivException {
+    private static Command parseDeadlineCommand(String input) throws LivException {
         // deadline <description> /by <time>
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
@@ -176,7 +206,7 @@ public class Parser {
      * @return A EventCommand object.
      * @throws LivException If the description or time is empty.
      */
-    public static Command parseEventCommand(String input) throws LivException {
+    private static Command parseEventCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
@@ -206,7 +236,7 @@ public class Parser {
         return new EventCommand(newEvent);
     }
 
-    public static Command parseFindCommand(String input) throws LivException {
+    private static Command parseFindCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Keyword cannot be empty!");

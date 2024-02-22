@@ -1,5 +1,6 @@
 package liv.processor;
 
+import java.util.ArrayList;
 import liv.container.Storage;
 import liv.exception.LivException;
 import liv.task.Task;
@@ -10,14 +11,14 @@ import liv.ui.Ui;
  * Represents a command that unmark a task (mark it as not done).
  */
 public class UnmarkCommand extends Command {
-    private final int index;
+    private final ArrayList<Integer> indices;
 
     /**
      * Constructor of the class.
-     * @param index The index of the task to be unmark.
+     * @param indices The index of the task to be unmark.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(ArrayList<Integer> indices) {
+        this.indices = indices;
     }
 
     /**
@@ -30,7 +31,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
-        int trueIndex = index - 1;
+        int trueIndex = indices - 1;
         Task task = TaskList.getTask(trueIndex);
         boolean currentState = task.getStatus();
         if (!currentState) {
