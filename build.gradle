@@ -35,13 +35,13 @@ test {
 }
 
 application {
-    mainClass.set("arona.Launcher")
+    mainClass.set("arona.Arona")
 }
 
 shadowJar {
     archiveBaseName = "arona"
     archiveClassifier = null
-    mainClassName = "arona.Arona"
+    mainClassName = "arona.Launcher"
     archiveFileName = "arona.jar"
     dependsOn("distZip", "distTar")
 }

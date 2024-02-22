@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setArona(arona);
             fxmlLoader.<MainWindow>getController().setStage(stage);
+            stage.setTitle("A.R.O.N.A.");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
