@@ -39,6 +39,7 @@ public class DeleteCommand extends Command {
      *
      * @param storage  Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that tells that task removal is successful
      * @throws DukeException
      */
     @Override
