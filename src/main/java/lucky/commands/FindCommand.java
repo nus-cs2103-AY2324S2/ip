@@ -13,7 +13,7 @@ import lucky.ui.Ui;
 public class FindCommand extends Command {
     /**
      * Finds a task that contains a keyword similar to the user's input.
-     * 
+     *
      * @param tasks An ArrayList of tasks.
      * @param input An array of input containing the keyword.
      */

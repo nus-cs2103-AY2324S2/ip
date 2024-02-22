@@ -1,13 +1,12 @@
 package lucky;
 
+import javafx.application.Application;
 import lucky.ui.Main;
 
-import javafx.application.Application;
-
+/**
+ * Launcher class for GUI.
+ */
 public class Launcher {
-    /**
-     * Launcher for GUI.
-     */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }

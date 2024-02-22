@@ -9,16 +9,16 @@ import java.io.IOException;
 public class ParseCommand {
 
     /**
-     * The function takes in user input and a list of tasks, and returns the corresponding command
+     * Takes in user input and a list of tasks, and returns the corresponding command
      * object based on the input.
-     * 
+     *
      * @param input An array of strings representing the user's input. The first element of the array is
      *          the command, and the subsequent elements are any additional arguments or parameters for
      *          the command.
      * @return Command object based on the input command.
      */
     public static Command parse(String[] input) throws IOException {
-        assert input != null: "input[] should never be null";
+        assert input != null : "input[] should never be null";
 
         CommandsEnum command = CommandsEnum.getCommandEnum(input[0]);
 

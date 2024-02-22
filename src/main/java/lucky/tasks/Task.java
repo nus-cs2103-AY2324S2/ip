@@ -14,6 +14,11 @@ public class Task {
 
     private HashSet<String> tags;
 
+    /**
+     * Defines a constructor for the `Task` class.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.tags = new HashSet<>();
@@ -38,7 +43,7 @@ public class Task {
     /**
      * Adds tag(s) to a task. Duplicate tags are ignored on addition.
      *
-     * @param tagDetails the array which contains the #tags of the task.
+     * @param tagDetails Array which contains the #tags of the task.
      */
     public void addTags(String[] tagDetails) {
         for (String tag : tagDetails) {
@@ -49,7 +54,7 @@ public class Task {
     /**
      * Removes tag(s) from a task. Non-existent tags are ignored.
      *
-     * @param tags the array of strings which contains the tags to remove.
+     * @param tags Array of strings which contains the tags to remove.
      */
     public void removeTags(String[] tags) {
         for (String tag : tags) {
@@ -60,7 +65,7 @@ public class Task {
     /**
      * Converts a task object to its string representation for storage.
      *
-     * @return An empty string is being returned.
+     * @return Empty string.
      */
     public String toStorageString() {
         return "";
@@ -69,7 +74,7 @@ public class Task {
     /**
      * Returns a string representation of a task with its status and description.
      *
-     * @return Returns a string representation of a task.
+     * @return A string representation of a task.
      */
     @Override
     public String toString() {

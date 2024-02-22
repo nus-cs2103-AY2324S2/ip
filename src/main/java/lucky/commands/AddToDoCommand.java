@@ -17,7 +17,7 @@ public class AddToDoCommand extends Command {
     /**
      * Adds a ToDo task to a list of tasks, validates the input format, updates the storage and
      * prints the updated task list.
-     * 
+     *
      * @param tasks An ArrayList of Task objects, representing the current list of tasks.
      * @param input An array of strings representing the user's input.
      * @throws CommandException for invalid input.

@@ -1,15 +1,15 @@
 package lucky;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import lucky.commands.Command;
 import lucky.commands.CommandException;
 import lucky.commands.ParseCommand;
 import lucky.storage.Storage;
 import lucky.tasks.Task;
 import lucky.ui.Ui;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Lucky {
     private static Ui ui;
@@ -22,6 +22,7 @@ public class Lucky {
 
     /**
      * Returns a response using the provided input.
+     *
      * @param input String input.
      * @return String output of the command executed.
      */

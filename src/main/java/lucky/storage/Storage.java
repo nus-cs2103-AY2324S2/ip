@@ -23,7 +23,7 @@ public class Storage {
     private static final String DELIMITER = "~";
 
     /**
-     * An empty constructor for Storage.
+     * Empty constructor for Storage.
      */
     public Storage() {
 
@@ -32,7 +32,7 @@ public class Storage {
     /**
      * Initialises an ArrayList of Task objects by either reading from a storage file or creating a new
      * ArrayList if the file does not exist.
-     * 
+     *
      * @return The method is returning an ArrayList of task. This contains tasks from previous
      *         application session if there's any.
      * @throws FileNotFoundException if the FILE_PATH does not exist.
@@ -80,10 +80,10 @@ public class Storage {
     /**
      * Takes an array of strings as input and returns a `Task` object based on the command and data
      * provided in the input.
-     * 
+     *
      * @param input An array of strings representing the input data for a task. The first element of the
-     *        array is the command, and the subsequent elements contain the necessary information for
-     *        creating the task object.
+     *              array is the command, and the subsequent elements contain the necessary information for
+     *              creating the task object.
      * @return The method `parseInput` returns a `Task` object.
      */
     private static Task parseInput(String[] input) {
@@ -115,11 +115,11 @@ public class Storage {
 
         ToDo todo = new ToDo(input[2]);
         todo.setMarked(input[1].equals("1"));
-      
+
         if (input.length > 3) {
             todo.addTags(Arrays.copyOfRange(input, 3, input.length));
         }
-      
+
         return todo;
     }
 
@@ -134,11 +134,11 @@ public class Storage {
         Event event = new Event(input[2], Utils.parseDateTime(input[3]),
                 Utils.parseDateTime(input[4]));
         event.setMarked(input[1].equals("1"));
-  
+
         if (input.length > 5) {
             event.addTags(Arrays.copyOfRange(input, 5, input.length));
         }
-  
+
         return event;
     }
 
@@ -152,11 +152,11 @@ public class Storage {
 
         Deadline deadline = new Deadline(input[2], Utils.parseDateTime(input[3]));
         deadline.setMarked(input[1].equals("1"));
-  
+
         if (input.length > 4) {
-            deadline.addTags(Arrays.copyOfRange(input, 4, input.length ));
+            deadline.addTags(Arrays.copyOfRange(input, 4, input.length));
         }
-  
+
         return deadline;
     }
 

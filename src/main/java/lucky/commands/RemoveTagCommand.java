@@ -1,13 +1,17 @@
 package lucky.commands;
 
-import lucky.storage.Storage;
-import lucky.tasks.Task;
-import lucky.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lucky.storage.Storage;
+import lucky.tasks.Task;
+import lucky.ui.Ui;
+
+/**
+ * The RemoveTagCommand class is responsible for executing the command to remove tag(s) from tasks.
+ */
 public class RemoveTagCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input) throws CommandException, IOException {

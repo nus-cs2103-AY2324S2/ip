@@ -7,14 +7,16 @@ import java.util.regex.Pattern;
 
 import lucky.tasks.Task;
 import lucky.ui.Ui;
-
+/**
+ * The Command class is a Java class that represents a general command.
+ */
 public class Command {
     protected String commandResponse;
 
     /**
-     * Executes the command given by the input.
-     * It is meant to be overridden by subclasses of `Command` to perform specific actions based on the input.
-     * 
+     * Executes the command given by the input. It is meant to be overridden by subclasses of `Command` to perform
+     * specific actions based on the input.
+     *
      * @param tasks ArrayList of tasks.
      * @param input the details of the task being executed.
      * @throws CommandException if there is some invalid input.

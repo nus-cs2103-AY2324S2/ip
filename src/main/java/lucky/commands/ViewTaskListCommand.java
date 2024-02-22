@@ -11,8 +11,8 @@ import lucky.ui.Ui;
  */
 public class ViewTaskListCommand extends Command {
     /**
-     * This function executes a command to print a list of tasks.
-     * 
+     * Prints a list of all the tasks.
+     *
      * @param tasks An ArrayList of Task objects. This represents the list of tasks that the program
      *              currently has.
      * @param input An array of strings representing user input commands or arguments. Can be empty.

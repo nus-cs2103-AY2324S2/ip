@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 import lucky.storage.Storage;
 import lucky.tasks.Task;
 import lucky.ui.Ui;
-
+/**
+ * The AddTagCommand class is responsible for executing the command to add tag(s) to tasks.
+ */
 public class AddTagCommand extends Command {
 
     @Override

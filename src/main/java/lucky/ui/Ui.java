@@ -12,7 +12,6 @@ public class Ui {
      * Returns the output of the chatbot in formatted form.
      *
      * @param msg The message to output.
-     *
      * @return Returns a String, containing the response.
      */
     public static String printOutput(String... msg) {
@@ -27,8 +26,7 @@ public class Ui {
      * Prints the list of tasks in the provided ArrayList of tasks.
      *
      * @param tasks ArrayList of task to output.
-     *
-     * @return Returns a String, containing the response.
+     * @return A string which contains the response.
      */
     public static String printList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
@@ -44,7 +42,7 @@ public class Ui {
     /**
      * Reads the command input of the user and returns it.
      *
-     * @return Returns an array of String, containing the command.
+     * @return An array of String, containing the command.
      */
     public String[] readCommand(String input) {
         String[] inputArray = input.trim().split(" ", 2);

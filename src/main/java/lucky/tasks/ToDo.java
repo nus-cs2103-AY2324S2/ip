@@ -10,9 +10,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Converts the tasks's status and description into a formatted string for storage.
-     * 
-     * @return The method is returning a string representation of the task for storage purposes. The
+     * Converts the tasks' status and description into a formatted string for storage.
+     *
+     * @return A string representation of the task for storage purposes. The
      *         string is formatted as "todo~statusValue~description", where statusValue is either 1 or 0
      *         depending on the status of the task, and description is the description of the task.
      */
@@ -34,8 +34,8 @@ public class ToDo extends Task {
 
     /**
      * Returns a string representation of a ToDo with its status and description.
-     * 
-     * @return Returns a string representation of a Todo.
+     *
+     * @return A string representation of a Todo.
      */
     @Override
     public String toString() {

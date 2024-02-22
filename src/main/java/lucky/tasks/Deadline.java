@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Defines a constructor for the `Deadline` class.
-     * 
+     *
      * @param description Description of the Deadline task.
      * @param dateBy The deadline date of the task.
      */
@@ -24,15 +24,14 @@ public class Deadline extends Task {
 
     /**
      * Converts the object's data into a formatted string for storage.
-     * 
-     * @return The method is returning a formatted string that represents the object's data in a
-     *         storage-friendly format.
+     *
+     * @return A formatted string that represents the object's data in a storage-friendly format.
      */
     @Override
     public String toStorageString() {
         int statusValue = this.getIsMarked() ? 1 : 0;
         assert statusValue == 0 || statusValue == 1 : "Status value must be equal to 0 or 1";
-      
+
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("deadline~%d~%s~%s", statusValue, this.description,
@@ -47,8 +46,8 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of a Deadline with its status and description.
-     * 
-     * @return Returns a string representation of a Deadline.
+     *
+     * @return A string representation of a Deadline.
      */
     @Override
     public String toString() {

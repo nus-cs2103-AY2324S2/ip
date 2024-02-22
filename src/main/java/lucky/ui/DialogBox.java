@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
         displayPicture.setFitHeight(40);
         displayPicture.setFitWidth(40);
-        displayPicture.setClip(new Circle(20,20,20));
+        displayPicture.setClip(new Circle(20, 20, 20));
     }
 
     /**

@@ -12,7 +12,7 @@ public class Utils {
 
     /**
      * Checks if a given string represents a valid date and time in a specific format.
-     * 
+     *
      * @param dateTime The dateTime parameter is a string representing a date and time in a specific
      *                  format.
      * @return The method is returning a boolean value. It returns true if the given dateTime string is
@@ -30,9 +30,9 @@ public class Utils {
     }
 
     /**
-     * The function checks if two date-time strings are valid and if the "from" date-time is before or
+     * Checks if two date-time strings are valid and if the "from" date-time is before or
      * equal to the "to" date-time.
-     * 
+     *
      * @param fromDateTime The starting date and time.
      * @param toDateTime The ending date and time.
      * @return The method is returning a boolean value. It returns true if the fromDateTime is before or
@@ -54,7 +54,7 @@ public class Utils {
 
     /**
      * Returns a formatted string representation of the date in the format "dd MMMM yyyy".
-     * 
+     *
      * @param dateTime The `dateTime` parameter is a `LocalDateTime` object representing a specific date
      *        and time.
      * @return The method is returning a formatted string representation of the given LocalDateTime
@@ -67,7 +67,7 @@ public class Utils {
 
     /**
      * Returns a formatted string representation of the date and time.
-     * 
+     *
      * @param dateTime A LocalDateTime object representing a date and time.
      * @return The method is returning a formatted string representation of the given LocalDateTime
      *         object.
@@ -78,7 +78,7 @@ public class Utils {
 
     /**
      * Takes a string representation of a date and time and returns a `LocalDateTime` object.
-     * 
+     *
      * @param dateTime A string representation of a date and time in a specific format.
      * @return The method is returning a LocalDateTime object.
      */
@@ -89,7 +89,7 @@ public class Utils {
 
     /**
      * Checks if a given string can be parsed into an integer.
-     * 
+     *
      * @param input The input parameter is a string that represents a number.
      * @return The method is returning a boolean value. It returns true if the input string can be
      *         parsed into an integer, and false if it cannot.

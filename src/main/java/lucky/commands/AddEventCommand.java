@@ -31,7 +31,7 @@ public class AddEventCommand extends Command {
                 "([^/]+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4}"
                         + "\\s+\\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
 
-        if(!isValidCommand(pattern, input)) {
+        if (!isValidCommand(pattern, input)) {
             throw new CommandException(
                     "Wrong format! (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
         }

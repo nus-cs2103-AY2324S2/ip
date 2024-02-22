@@ -11,11 +11,10 @@ import lucky.ui.Ui;
  */
 public class ExitCommand extends Command {
     /**
-     * The function prints a goodbye message and exits the program.
-     * 
+     * Prints a goodbye message and exits the program.
+     *
      * @param tasks An ArrayList of Task objects. Can enter empty tasks.
-     * @param input An array of strings representing the user's input. 
-     *              Can enter empty input.
+     * @param input An array of strings representing the user's input. Can enter empty input.
      */
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {

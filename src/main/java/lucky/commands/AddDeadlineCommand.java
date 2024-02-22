@@ -19,7 +19,7 @@ public class AddDeadlineCommand extends Command {
     /**
      * Adds a deadline task to a list of tasks, validates the input format, updates the storage, and
      * prints the updated task list.
-     * 
+     *
      * @param tasks An ArrayList of Task objects, representing the current list of tasks.
      * @param input A String[] that contains the details of the task being executed.
      * @throws CommandException for invalid input.
@@ -29,7 +29,7 @@ public class AddDeadlineCommand extends Command {
             throws CommandException, IOException {
         String pattern = "([^/]+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
 
-        if(!isValidCommand(pattern, input)) {
+        if (!isValidCommand(pattern, input)) {
             throw new CommandException(
                     "Wrong format! (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
         }
