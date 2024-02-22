@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Judges if 2 commands are deleting the same index in the taskList.
+     *
      * @param other Another command
      * @return True if the indices are the same
      */
@@ -36,7 +37,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes a task. Deletes the task from the file and the task list.
      *
-     * @param storage Involved in file management
+     * @param storage  Involved in file management
      * @param taskList Active during the execution of the program
      * @return A string that tells that task removal is successful
      * @throws DukeException

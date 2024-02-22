@@ -29,29 +29,41 @@ public class AddTaskCommand extends Command {
         String taskType = order[0];
         switch (taskType) {
         case "todo":
-            if (order.length <= 1) {
+            try {
+                assert order.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. It seems this todo task has no content at all!");
             }
             return new Todo(order[1]);
         case "deadline":
-            if (order.length <= 1) {
+            try {
+                assert order.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. It seems this deadline task has no content at all!");
             }
             String[] deadline = order[1].split(" /by ", 2);
-            if (deadline.length <= 1) {
+            try {
+                assert deadline.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. The description of the deadline task is of incompatible format!");
             }
             return new Deadline(deadline[0], deadline[1]);
         case "event":
-            if (order.length <= 1) {
+            try {
+                assert order.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. It seems this event has no content at all!");
             }
             String[] start = order[1].split(" /from ", 2);
-            if (start.length <= 1) {
+            try {
+                assert start.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. The starting time of this event is not described in correct format");
             }
             String[] end = start[1].split(" /to ", 2);
-            if (end.length <= 1) {
+            try {
+                assert end.length > 1;
+            } catch (AssertionError e) {
                 throw new DukeException("Sorry. The ending time of this event is not described in correct format");
             }
             return new Event(start[0], end[0], end[1]);
@@ -77,7 +89,7 @@ public class AddTaskCommand extends Command {
     /**
      * Adds a new task to the taskList and write it into the file.
      *
-     * @param storage Involved in file management
+     * @param storage  Involved in file management
      * @param taskList Active during the execution of the program
      * @return A string that tells that the task-adding is successful
      * @throws DukeException

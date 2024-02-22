@@ -52,7 +52,9 @@ public class TaskList {
      * @throws DukeException if the index is invalid
      */
     public Task retrieve(int num) throws DukeException {
-        if (num <= 0 || num > tasks.size()) {
+        try {
+            assert num > 0 && num <= tasks.size();
+        } catch (AssertionError e) {
             throw new DukeException("OOPS! Invalid Index!");
         }
         return tasks.get(num - 1);
@@ -66,7 +68,9 @@ public class TaskList {
      * @throws DukeException if the index is invalid
      */
     public Task remove(int num) throws DukeException {
-        if (num <= 0 || num > tasks.size()) {
+        try {
+            assert num > 0 && num <= tasks.size();
+        } catch (AssertionError e) {
             throw new DukeException("OOPS! Invalid Index!");
         }
         return tasks.remove(num - 1);
@@ -95,7 +99,9 @@ public class TaskList {
             }
             return newTask;
         case "D":
-            if (lineSplit.length < 4) {
+            try {
+                assert lineSplit.length >= 4;
+            } catch (AssertionError e) {
                 throw new DukeException("Oops! The file format is wrong!");
             }
             newTask = new Deadline(lineSplit[2], lineSplit[3]);
@@ -104,7 +110,9 @@ public class TaskList {
             }
             return newTask;
         case "E":
-            if (lineSplit.length < 5) {
+            try {
+                assert lineSplit.length >= 5;
+            } catch (AssertionError e) {
                 throw new DukeException("Oops! The file format is wrong!");
             }
             newTask = new Event(lineSplit[2], lineSplit[3], lineSplit[4]);
