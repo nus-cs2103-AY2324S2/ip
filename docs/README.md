@@ -182,6 +182,7 @@ This means that `02/10/2024 1700` is interpreted as 02 October 2024 5:00 p.m. by
 > use the program!
 
 ## Command summary
+
 | Action       | Format                                                                    |
 |--------------|---------------------------------------------------------------------------|
 | help         | `help`                                                                    |
