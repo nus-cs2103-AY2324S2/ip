@@ -9,8 +9,6 @@ import oak.task.model.Task;
 import oak.task.model.Todo;
 
 public class ReminderService {
-    private LocalDateTime cur = LocalDateTime.now();
-
     /**
      * Checks all tasks currently in the system and formats a return String of all tasks
      * for which the user should be reminded
@@ -52,6 +50,7 @@ public class ReminderService {
      * @return Either true or false, indicating whether the user should be reminded about the event
      */
     private Boolean toRemind(LocalDateTime toDateTime) {
+        LocalDateTime cur = LocalDateTime.now();
         return cur.isBefore(toDateTime);
     }
 }

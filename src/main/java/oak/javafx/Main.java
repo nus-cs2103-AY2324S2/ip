@@ -10,6 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oak.controller.OakController;
 
+// @@author SherisseTJW-reused
+// The contents of this file is mainly reused, with minor modifications from the JavaFX Tutorial as provided here
+// https://se-education.org/guides/tutorials/javaFxPart4.html
+
 public class Main extends Application {
     private OakController oak = new OakController();
 

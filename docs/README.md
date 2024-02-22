@@ -143,3 +143,7 @@ Syntax: `reminder`
 [E][ ] lecture (from: 01 12 2024 @ 1000 to: 01 12 2024 @ 1200)
 [D][ ] CS2103 Assignment (by: 23 02 2024 @ 2359)
 ```
+
+## Finding Tasks
+
+TODO

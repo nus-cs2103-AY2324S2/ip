@@ -11,6 +11,10 @@ import oak.controller.OakController;
 import oak.feedback.enums.CommandEnum;
 import oak.task.ReminderService;
 
+// @@author SherisseTJW-reused
+// The contents of this file is mainly reused, with minor modifications from the JavaFX Tutorial as provided here
+// https://se-education.org/guides/tutorials/javaFxPart4.html
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */

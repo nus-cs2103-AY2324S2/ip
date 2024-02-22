@@ -176,7 +176,7 @@ public class TaskService {
 
         return String.format("Are you giving up? Or is this task no longer needed?\n" +
                 "Hmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.",
-                taskId
+                (taskId + 1)
         );
     }
 
@@ -187,7 +187,6 @@ public class TaskService {
      * @return the string
      */
     public String markTaskCompleted(int taskId) throws IOException {
-        // TODO: Exception handling for if task does not exist
         String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskCompleted();
         this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
@@ -203,7 +202,6 @@ public class TaskService {
      * @return the string
      */
     public String markTaskUncompleted(int taskId) throws IOException {
-        // TODO: Exception handling for if task does not exist
         String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskNotCompleted();
         this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
