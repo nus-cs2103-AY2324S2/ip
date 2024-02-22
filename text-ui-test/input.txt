@@ -1,7 +1,7 @@
 todo Watch CS2106 Lecture
 todo Watch CS2107 Lecture
-deadline Do CS2103 Quiz /by Friday 2359
-deadline Do CS2103 IP /by Thursday 2359
+deadline Do CS2103 Quiz /by 23 02 2024 2359
+deadline Do CS2103 IP /by 23 02 2024 2359
 event coldplay concert /from Friday 8pm /to 1030pm
 event SGO volunteering training /from Saturday 9am /to 530pm
 event work at UCC /from Saturday 6pm /to 10pm
