@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * Controller for MainDisplay.
+ * Represents the Main Display Window of the HariUp chat application
  */
 public class MainWindow extends AnchorPane {
     public static final String USERIMGPATH = "/images/user.PNG";
@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream(HARIIMGPATH));
 
     /**
-     * Creates the screen for the user interface
+     * Creates the main display window for the user interface
      */
     @FXML
     public void initialize() {
@@ -39,13 +39,17 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren();
     }
 
+    /**
+     * Sets duke object (dukes) to be associated with the main display window
+     * Includes the display of the application greeting message upon startup
+     */
     public void setDuke(Duke dukes) {
         duke = dukes;
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Ui().greeting(), dukeImage));
     }
 
     /**
-     * Creates two dialog boxes, one for user input and the other containing Duke's reply.
+     * Creates two dialog boxes, one for user input and the other containing the reply from the chat bot
      * Input is cleared after processing.
      */
     @FXML
@@ -56,7 +60,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-
         userInput.clear();
     }
 }

@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Contains exceptions tailored to the bot.
+ * Contains exceptions that will be handled by the chat bot
  */
 
 public class DukeBotException extends Exception {
@@ -20,30 +20,11 @@ public class DukeBotException extends Exception {
     }
 
     /**
-     * Exception thrown when invalid arguments are given to find command.
+     * Exception thrown when a task is not found based on given integer
      */
-
-    public static class FindException extends DukeBotException {
-        public FindException() {
-            super("Oops! You need to enter a string for the find command!");
-        }
-    }
-
-    /**
-     * Exception thrown when invalid arguments are given to mark command.
-     */
-    public static class MarkException extends DukeBotException {
-        public MarkException() {
-            super("Oops! You need to enter an integer for the unmark or mark command!");
-        }
-    }
-
-    /**
-     * Exception thrown when invalid arguments are given to the delete command.
-     */
-    public static class DeleteException extends DukeBotException {
-        public DeleteException() {
-            super("Oops! You need to enter an integer for the delete command!");
+    public static class TaskException extends DukeBotException {
+        public TaskException() {
+            super("Oops! Could not find the task!");
         }
     }
 
@@ -61,7 +42,7 @@ public class DukeBotException extends Exception {
      */
     public static class EventException extends DukeBotException {
         public EventException() {
-            super("An event task must have a description and a duration ('from' and 'to')!");
+            super("Oops! An event task must have a description and a duration ('from' and 'to')!");
         }
     }
 
@@ -70,16 +51,34 @@ public class DukeBotException extends Exception {
      */
     public static class DeadlineException extends DukeBotException {
         public DeadlineException() {
-            super("A deadline task must have a description and a deadline ('by') !");
+            super("Oops! A deadline task must have a description and a deadline ('by') !");
         }
     }
 
     /**
-     * Exception thrown when a task is not found based on given integer
+     * Exception thrown when invalid arguments are given to the delete command.
      */
-    public static class TaskException extends DukeBotException {
-        public TaskException() {
-            super("Oops! Could not find the task!");
+    public static class DeleteException extends DukeBotException {
+        public DeleteException() {
+            super("Oops! You need to enter an integer for the delete command!");
+        }
+    }
+
+    /**
+     * Exception thrown when invalid arguments are given to mark command.
+     */
+    public static class MarkException extends DukeBotException {
+        public MarkException() {
+            super("Oops! You need to enter an integer for the unmark or mark command!");
+        }
+    }
+
+    /**
+     * Exception thrown when invalid arguments are given to find command.
+     */
+    public static class FindException extends DukeBotException {
+        public FindException() {
+            super("Oops! You need to enter a string for the find command!");
         }
     }
 }

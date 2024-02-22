@@ -1,18 +1,17 @@
 package duke;
 
 /**
- * Represents a task with a description only.
+ * Represents tasks entered and stored in the application
  */
+
 public class Todo extends Task {
 
     /**
-     * Default constructor for Todo task, sets isDone to false.
+     * Constructor for Todo task
      *
      * @param description description of the Todo task
      */
-    public Todo(String description) {
-        super(description);
-    }
+    public Todo(String description) {super(description);}
 
     /**
      * Constructor for Todo task with specified completion status.

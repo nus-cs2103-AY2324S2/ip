@@ -9,12 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Hari using FXML.
+ * The Main class is used to launch the GUI (JavaFX - FXML) of the Duke application
  */
 
 public class Main extends Application {
 
     private final Duke duke = new Duke();
+
+    /**
+     *
+     * @param stage Primary stage for the JavaFX - FXML Duke application
+     */
 
     @Override
     public void start(Stage stage) {
@@ -24,12 +29,12 @@ public class Main extends Application {
 
             Scene scene = new Scene(anchoringPane);
             stage.setScene(scene);
+            stage.setTitle("HariUp");
 
             // Set controller data
             MainWindow controller = fxmlLoader.<MainWindow>getController();
             controller.setDuke(duke);
 
-            stage.setTitle("HariUp");
             stage.show();
 
         } catch (IOException e) {

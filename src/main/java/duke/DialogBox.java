@@ -16,9 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label.
- * containing text from the speaker.
+ * Custom dialog box for displaying messages in the JavaFX application
  */
 
 public class DialogBox extends HBox {
@@ -38,9 +36,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        final Circle clip = new Circle(50, 50, 50);
+        final Circle circle = new Circle(50, 50, 50);
         displayPicture.setImage(img);
-        displayPicture.setClip(clip);
+        displayPicture.setClip(circle);
     }
 
     /**
@@ -53,10 +51,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     *
+     * @param text Text that will be displayed in the dialog box
+     * @param img  Image to be displayed in a circle as the user image in the dialog box
+     * @return Instance of DialogBox that captures and displays user's input
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     *
+     * @param text Text that will be displayed in the dialog box
+     * @param img  Image to be displayed in a circle as the image of the chat bot in the dialog box
+     * @return Instance of DialogBox that captures and displays Duke's response
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
