@@ -3,12 +3,17 @@ package emis;
 import emisCommand.Command;
 import emisExceptions.EmisException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * The main class of the EMIS application.
  * Duke handles the initialization of application components and the main application logic.
  */
 
-public class Duke {
+public class Duke extends Application {
 
     /** The storage component for managing data. */
     private Storage storage;
@@ -35,6 +40,10 @@ public class Duke {
             ui.showLoadingError();
             tasklist = new TaskList();
         }
+    }
+
+    public Duke() {
+        
     }
 
     /**
@@ -69,5 +78,14 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke("./data/emis.txt").run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
