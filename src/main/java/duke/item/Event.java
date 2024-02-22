@@ -113,6 +113,11 @@ public class Event implements Item, Serializable {
     }
 
     @Override
+    public LocalDateTime getTimeToSortBy() {
+        return this.start;
+    }
+
+    @Override
     public String toString() {
         return "[E]["
                 + printChecked(this.isDone) + "] " + this.name + " " + "(from: "

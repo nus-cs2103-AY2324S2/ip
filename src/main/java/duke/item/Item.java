@@ -1,6 +1,7 @@
 package duke.item;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * The Item interface ensures that ItemList is able to
@@ -25,5 +26,7 @@ public interface Item extends Serializable {
     String addMessage(int num);
 
     String removeMessage(int num);
+
+    LocalDateTime getTimeToSortBy();
 
 }

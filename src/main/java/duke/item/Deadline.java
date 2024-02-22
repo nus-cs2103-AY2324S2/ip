@@ -109,6 +109,11 @@ public class Deadline implements Item, Serializable {
     }
 
     @Override
+    public LocalDateTime getTimeToSortBy() {
+        return this.doneBy;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + printChecked(this.isDone) + "] " + this.name + " " + "(by: "
                 + this.doneBy.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + ")";

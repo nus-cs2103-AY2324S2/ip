@@ -1,6 +1,7 @@
 package duke.item;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Represents a To-do, which differs from an Event and a Deadline
@@ -68,6 +69,11 @@ public class ToDo implements Item, Serializable {
     @Override
     public void markUndone() {
         this.isDone = false;
+    }
+
+    @Override
+    public LocalDateTime getTimeToSortBy() {
+        return LocalDateTime.MAX;
     }
 
     @Override
