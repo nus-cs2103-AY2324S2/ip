@@ -25,6 +25,8 @@ public class Parser {
             return new ListCommand();
         }
         switch (message.split(" ")[0]) {
+        case "help":
+            return new HelpCommand();
         case "mark":
             return new MarkCommand();
         case "unmark":

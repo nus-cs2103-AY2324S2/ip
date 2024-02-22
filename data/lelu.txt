@@ -1,1 +1,2 @@
-T | 1 | sleep  
+T | 1 | sleep     
+T | 0 | wake up  
