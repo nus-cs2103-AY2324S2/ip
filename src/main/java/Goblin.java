@@ -18,20 +18,40 @@ public class Goblin {
                 unmark(input);
             } else if (inputWord.equals("list")) {
                 showList();
+            } else if (inputWord.equals("todo")) {
+                line();
+                System.out.print("\t" + "Got it. I've added this task:\n");
+                String inputLine = input.nextLine();
+                String description = inputWord + inputLine;
+                addTodo(description);
+                count();
+            } else if (inputWord.equals("deadline")) {
+                line();
+                System.out.print("\t" + "Got it. I've added this task:\n");
+                String inputLine = input.nextLine();
+                String command = inputWord + inputLine;
+                addDeadline(command);
+                count();
+            } else if (inputWord.equals("event")) {
+                System.out.print("\t" + "Got it. I've added this task:\n");
+                String inputLine = input.nextLine();
+                String command = inputWord + inputLine;
+                addEvent(command);
+                count();
             } else if (inputWord.equals("bye")) {
                 sayBye();
                 input.close();
                 break;
-            } else {
-                String inputLine = input.nextLine();
+            } /*else {
+
                 Task temptask = new Task(inputWord + inputLine);
                 line();
                 System.out.println("added: " + inputWord + inputLine);
                 line();
                 list.add(temptask);
-                }
-            }
+            }*/
         }
+    }
     public static void line() {
         System.out.println("--------------------------------");
     }
@@ -47,12 +67,6 @@ public class Goblin {
         System.out.println(bye);
     }
 
-    public static void echo(String input) {
-        line();
-        System.out.println(input);
-        line();
-    }
-
     public static void showList() {
         line();
         System.out.println("\t" + "Here are the tasks in your list:");
@@ -66,8 +80,8 @@ public class Goblin {
         int i = Integer.parseInt(input.next());
         list.get(i - 1).done();
         line();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + list.get(i - 1).getStatusIcon() + list.get(i - 1).getDescription());
+        System.out.println("\t" + "Nice! I've marked this task as done:");
+        list.get(i - 1).print();
         line();
     }
 
@@ -75,8 +89,40 @@ public class Goblin {
         int i = Integer.parseInt(input.next());
         list.get(i - 1).undone();
         line();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("\t" + "Nice! I've marked this task as done:");
         System.out.println("\t" + list.get(i - 1).getStatusIcon() + list.get(i - 1).getDescription());
+        line();
+    }
+
+    public static void addTodo(String description) {
+        ToDos temptask = new ToDos(description);
+        temptask.print();
+        list.add(temptask);
+    }
+
+    public static void addDeadline(String command) {
+        String[] desplit = command.split("/by") ;
+        String description = desplit[0];
+        String deadline = desplit[1];
+        Deadlines temptask = new Deadlines(description, deadline);
+        temptask.print();
+        list.add(temptask);
+    }
+
+    public static void addEvent(String command) {
+        String[] desplit = command.split("/from") ;
+        String description = desplit[0];
+        String time = desplit[1];
+        String[] timeSplit = time.split(" /to");
+        String start = timeSplit[0];
+        String end = timeSplit[1];
+        Events temptask = new Events(description, start, end);
+        temptask.print();
+        list.add(temptask);
+    }
+
+    public static void count() {
+        System.out.println("\t" + "Now you have " + list.size() + " tasks in the list.");
         line();
     }
 }
