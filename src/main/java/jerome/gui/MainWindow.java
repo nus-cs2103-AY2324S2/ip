@@ -1,5 +1,6 @@
 package jerome.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,6 +13,7 @@ import jerome.JeromeGpt;
 /**
  * Represents the Controller for MainWindow.
  * Provides the layout for the other controls.
+ *
  * @@author se-edu
  * Reuse from https://se-education.org/guides/tutorials/javaFx.html
  * with minor modifications to cater for differences in
@@ -54,6 +56,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Sets JeromeGpt instance for the MainWindow.
+     *
      * @param j the JeromeGpt instance to set
      */
     public void setJeromeGpt(JeromeGpt j) {
@@ -69,6 +72,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            // Referenced from: https://github.com/nus-cs2103-AY2324S2/forum/issues/366
+            // Referenced: https://stackoverflow.com/questions/46053974/using-platform-exit-and-system-exitint-together
+            Platform.exit();
+        }
         String response = jeromeGpt.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
