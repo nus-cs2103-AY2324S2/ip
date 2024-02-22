@@ -1,0 +1,11 @@
+T | Y | Borrow Book
+T | N | Read Book
+T | Y | 100 sit-ups
+T | N | 100 push-ups
+E | Y | Year | Jan 1 2023 12:00 AM | Dec 31 2023 11:59 PM
+E | N | Team meeting | Mar 13 2023 6:00 PM | Mar 13 2023 8:00 PM
+D | Y | 1231 Tut Sheet | Dec 1 2023
+D | Y | Return Book | Dec 22 2023
+E | N | MSL Meeting | Dec 22 2023 6:00 PM | Dec 22 2023 8:00 PM
+E | N | Orientation Camp | Jan 15 2024 8:00 AM | Jan 18 2024 10:00 PM
+D | N | Complete project report | Mar 15 2024

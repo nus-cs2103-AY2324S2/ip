@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+#dialogContainer {
+    -fx-background-color: lightblue;
+}
+
+.dialogBox {
+    -fx-background-color: #FFFF;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.5) , 10,0,0,1 );
+    -fx-font-family: "Chakra Petch", sans-serif;;
+}
