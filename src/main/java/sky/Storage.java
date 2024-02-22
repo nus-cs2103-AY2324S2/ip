@@ -14,8 +14,8 @@ import task.Todo;
  * Represents a local storage to save and load tasks from a file.
  */
 public class Storage {
-    private static final String filePath = Paths.get("data", "sky.txt").toString();
-    private File dataFile = new File(filePath);
+    private static final String FILEPATH = Paths.get("data", "sky.txt").toString();
+    private File dataFile = new File(FILEPATH);
 
     /**
      * Constructor for Storage.

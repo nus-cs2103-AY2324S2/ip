@@ -22,4 +22,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # application data
 src/main/java/data/sky.txt
-data/sky.txt
+data/*.txt

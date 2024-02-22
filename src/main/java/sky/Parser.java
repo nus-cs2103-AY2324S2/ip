@@ -29,72 +29,142 @@ public class Parser {
     public static Command parseCommand(String command) throws IncompleteCommandException, UnknownCommandException {
         String[] input = command.split(" ", 2);
         String action = input[0].toUpperCase();
-        String description = "";
-        int index;
         switch (action) {
         case "BYE":
             return new ExitCommand();
         case "LIST":
             return new ListCommand();
         case "MARK":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            index = Integer.parseInt(input[1]) - 1;
-            return new MarkCommand(index);
+            return parseMarkCommand(input);
         case "UNMARK":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            index = Integer.parseInt(input[1]) - 1;
-            return new UnMarkCommand(index);
+            return parseUnMarkCommand(input);
         case "DELETE":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            index = Integer.parseInt(input[1]) - 1;
-            return new DeleteCommand(index);
+            return parseDeleteCommand(input);
         case "TODO":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            description = input[1];
-            return new AddTodoCommand(description);
+            return parseTodoCommand(input);
         case "DEADLINE":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            input = input[1].split(" /by ", 2);
-            if (input.length == 1) {
-                throw new NoDeadlineException();
-            }
-            description = input[0];
-            String by = input[1];
-            return new AddDeadlineCommand(description, by);
+            return parseDeadlineCommand(input);
         case "EVENT":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            input = input[1].split(" /from ", 2);
-            if (input.length == 1) {
-                throw new NoPeriodException();
-            }
-            description = input[0];
-            String[] arr = input[1].split(" /to ", 2);
-            if (arr.length == 1) {
-                throw new NoPeriodException();
-            }
-            return new AddEventCommand(description, arr[0], arr[1]);
+            return parseEventCommand(input);
         case "FIND":
-            if (input.length == 1 || input[1].equals("")) {
-                throw new IncompleteCommandException(input[0]);
-            }
-            description = input[1];
-            return new FindCommand(description);
+            return parseFindCommand(input);
         case "ARCHIVE":
             return new ArchiveCommand();
         default:
             throw new UnknownCommandException();
         }
+    }
+    
+    /**
+     * Parses the user input into a mark command.
+     * @param input User input.
+     * @return Mark command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     */
+    private static Command parseMarkCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        int index = Integer.parseInt(input[1]) - 1;
+        return new MarkCommand(index);
+    }
+    
+    /**
+     * Parses the user input into an unmark command.
+     * @param input User input.
+     * @return Unmark command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     */
+    private static Command parseUnMarkCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        int index = Integer.parseInt(input[1]) - 1;
+        return new UnMarkCommand(index);
+    }
+
+    /**
+     * Parses the user input into a delete command.
+     * @param input User input.
+     * @return Delete command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     */
+    private static Command parseDeleteCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        int index = Integer.parseInt(input[1]) - 1;
+        return new DeleteCommand(index);
+    }
+
+    /**
+     * Parses the user input into a todo command.
+     * @param input User input.
+     * @return Todo command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     */
+    private static Command parseTodoCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        String description = input[1];
+        return new AddTodoCommand(description);
+    }
+
+    /**
+     * Parses the user input into a deadline command.
+     * @param input User input.
+     * @return Deadline command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     * @throws NoDeadlineException If the deadline is not provided.
+     */
+    private static Command parseDeadlineCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        input = input[1].split(" /by ", 2);
+        if (input.length == 1) {
+            throw new NoDeadlineException();
+        }
+        String description = input[0];
+        String by = input[1];
+        return new AddDeadlineCommand(description, by);
+    }
+
+    /**
+     * Parses the user input into an event command.
+     * @param input User input.
+     * @return Event command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     * @throws NoPeriodException If the period is not provided.
+     */
+    private static Command parseEventCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        input = input[1].split(" /from ", 2);
+        if (input.length == 1) {
+            throw new NoPeriodException();
+        }
+        String description = input[0];
+        String[] arr = input[1].split(" /to ", 2);
+        if (input.length == 1) {
+            throw new NoPeriodException();
+        }
+        return new AddEventCommand(description, arr[0], arr[1]);
+    }
+
+    /**
+     * Parses the user input into a find command.
+     * @param input User input.
+     * @return Find command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     */
+    private static Command parseFindCommand(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        }
+        String description = input[1];
+        return new FindCommand(description);
     }
 }
