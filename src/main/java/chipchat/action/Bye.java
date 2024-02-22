@@ -25,7 +25,6 @@ public final class Bye extends Action {
     @Override
     public void run(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks);
-        ui.showBye();
     }
 
     /**

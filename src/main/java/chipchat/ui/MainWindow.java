@@ -26,16 +26,27 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image appImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the scrollPane to bind with a dialogContainer.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Shows the initial greetings message.
+     */
     @FXML
     public void showInitialGreeting() {
         dialogContainer.getChildren().add(DialogBox.getAppDialog(app.getGreetings(), appImage));
     }
 
+    /**
+     * Assigns the application logic to the interface.
+     *
+     * @param app the application logic
+     */
     public void setApp(App app) {
         this.app = app;
     }

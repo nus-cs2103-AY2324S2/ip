@@ -1,5 +1,7 @@
 package chipchat;
 
+import java.util.List;
+
 import chipchat.action.Action;
 import chipchat.exception.ChipchatException;
 import chipchat.parser.Parser;
@@ -7,8 +9,6 @@ import chipchat.storage.Storage;
 import chipchat.task.TaskList;
 import chipchat.ui.Ui;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 /**
  * Encapsulates the main program application.
@@ -32,24 +32,29 @@ public class App {
         for (Action addTask : actions) {
             addTask.run(tasks, ui, null);
         }
-        ui.clearBuffer();
         this.tasks = tasks;
+        ui.clearBuffer();
     }
 
+    /**
+     * Returns the welcome message.
+     *
+     * @return the welcome message
+     */
     public String getGreetings() {
-        ui.showLine();
         ui.showWelcome();
-        ui.showLine();
         return ui.getOutput();
     }
 
+    /**
+     * Returns the app response.
+     *
+     * @param userInput the user input to be handled
+     * @return the response by the app
+     */
     public String getResponse(String userInput) {
         run(userInput);
         return ui.getOutput();
-    }
-
-    private void closeApp() {
-        stage.close();
     }
 
     /**
@@ -57,7 +62,6 @@ public class App {
      */
     public void run(String userInput) {
         try {
-            ui.showLine();
             Action action = Parser.parseAction(userInput);
             action.run(tasks, ui, storage);
             if (action.isExit()) {
@@ -65,8 +69,10 @@ public class App {
             }
         } catch (ChipchatException exc) {
             ui.showErrMsg(exc);
-        } finally {
-            ui.showLine();
         }
+    }
+
+    private void closeApp() {
+        stage.close();
     }
 }

@@ -19,7 +19,6 @@ import chipchat.action.Unmark;
 import chipchat.exception.ArgumentException;
 import chipchat.exception.InvalidArgumentException;
 import chipchat.exception.MissingArgumentException;
-import chipchat.task.Task;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.

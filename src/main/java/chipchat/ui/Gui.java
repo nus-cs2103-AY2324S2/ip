@@ -1,6 +1,5 @@
 package chipchat.ui;
 
-import java.beans.EventHandler;
 import java.io.IOException;
 
 import chipchat.App;
@@ -10,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * A GUI for Duke using FXML.
@@ -19,6 +17,11 @@ public class Gui extends Application {
 
     private App app;
 
+    /**
+     * Starts the running of the GUI.
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         try {
