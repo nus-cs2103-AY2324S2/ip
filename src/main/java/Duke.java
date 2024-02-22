@@ -1,10 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
