@@ -32,10 +32,9 @@ public class Parser {
     private static TaskList taskList;
     private static Map<Pattern, SingleParameterRunnable> methodStore = new HashMap<>();
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final String HELP_MESSAGE = "COMMAND MENU\n"
-            + "help: loads this menu\n"
-            + "list: shows all tasks\n"
-            + "todo [TODO]: adds a new todo\n";
+    private static final String HELP_MESSAGE = "User Guide: https://chengjunyuan.github.io/ip/\n"
+            + "(I'm so sorry, you can't click the link,\n"
+            + " you can also go to bit.ly/gronk_help)";
 
     // Patterns used
     private static final String DATE_REGEX = "(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/2[0-9]{3}";
