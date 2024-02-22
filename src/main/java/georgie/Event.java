@@ -40,6 +40,11 @@ public class Event extends Task {
 
         LocalDate startDate = parseDate(start);
         LocalDate endDate = parseDate(end);
+
+        if (startDate == null || endDate == null) {
+            throw new GeorgieException("Oops! Please provide valid due date with format /by 'yyyy-MM-dd'.");
+        }
+
         taskList.addTask(new Event(description, startDate, endDate));
 
         int newSize = taskList.size();

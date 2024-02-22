@@ -45,6 +45,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setGeorgie(georgie);
+            stage.setTitle("Georgie");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

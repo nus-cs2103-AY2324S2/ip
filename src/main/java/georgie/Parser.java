@@ -68,7 +68,7 @@ public class Parser {
 
         String[] descriptionAndDetails = parts[1].split(" /from | /to ", 3);
 
-        if (descriptionAndDetails.length < 2) {
+        if (descriptionAndDetails.length < 3) {
             return new String[]{parts[0], descriptionAndDetails[0]};
         }
 
