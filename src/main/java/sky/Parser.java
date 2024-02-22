@@ -54,7 +54,7 @@ public class Parser {
             throw new UnknownCommandException();
         }
     }
-    
+
     /**
      * Parses the user input into a mark command.
      * @param input User input.
@@ -68,7 +68,7 @@ public class Parser {
         int index = Integer.parseInt(input[1]) - 1;
         return new MarkCommand(index);
     }
-    
+
     /**
      * Parses the user input into an unmark command.
      * @param input User input.
