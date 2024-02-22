@@ -89,7 +89,16 @@ public class Ui {
         return DASHED_LINE + "Noted. I've removed this task:\n" + task + "\n" + "Now you have " + size
                 + " tasks in the list.\n" + DASHED_LINE;
     }
-
+    /**
+     * Returns a message confirming the deletion of a contact, the contact itself, and the new total number of contact.
+     *
+     * @param contact The contact that has been deleted.
+     * @param size The new total number of contacts in the contact-list.
+     */
+    public String showDeleteContact(Contact contact, int size) {
+        return DASHED_LINE + "Noted. I've removed this contact:\n" + contact + "\n" + "Now you have " + size
+                + " contacts in the list.\n" + DASHED_LINE;
+    }
     /**
      * Returns a message showing tasks that match the input.
      *
@@ -106,12 +115,23 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns a message confirming the addition of a contact, the contact itself, and the new total number of contacts.
+     *
+     * @param contact The contact that has been added.
+     * @param size The new total number of contacts in the list.
+     */
     public String showContactAdd(Contact contact, int size) {
         assert contact != null : "Task object cannot be null.";
         return DASHED_LINE + "Got it. I've added this contact:\n" + contact + "\n" + "Now you have " + size
                 + " contacts in your Contact List.\n" + DASHED_LINE;
     }
 
+    /**
+     * Returns the list of contacts as a string.
+     *
+     * @param contacts The contact-list containing the contacts to display.
+     */
     public String showContacts(ArrayList<Contact> contacts) {
         StringBuilder sb = new StringBuilder();
         sb.append(DASHED_LINE);

@@ -15,7 +15,7 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 
 enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, ADD_CONTACT, SHOW_CONTACTS;
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, ADD_CONTACT, SHOW_CONTACTS, DELETE_CONTACT;
     public static Command fromString(String commandString) {
         switch (commandString.toLowerCase()) {
         case "bye":
@@ -40,6 +40,8 @@ enum Command {
             return ADD_CONTACT;
         case "list-contacts":
             return SHOW_CONTACTS;
+        case "delete-contact":
+            return DELETE_CONTACT;
         default:
             return INVALID;
         }
@@ -101,6 +103,8 @@ public class Drake {
                 return handleContactAdd(input);
             case SHOW_CONTACTS:
                 return showContacts();
+            case DELETE_CONTACT:
+                return handleDeleteContact(input);
             default:
                 throw new NotValidCommandException("That's not a valid command!");
             }
@@ -134,7 +138,7 @@ public class Drake {
     }
 
     private String handleMark(String input) throws Exception {
-        int markIndex = Parser.parseTaskIndex(input);
+        int markIndex = Parser.parseIndex(input);
         if (markIndex < 0 && markIndex >= tasks.size()) {
             throw new Exception("Invalid task index for marking");
         }
@@ -144,7 +148,7 @@ public class Drake {
     }
 
     private String handleUnmark(String input) throws Exception {
-        int unmarkIndex = Parser.parseTaskIndex(input);
+        int unmarkIndex = Parser.parseIndex(input);
         if (unmarkIndex < 0 && unmarkIndex >= tasks.size()) {
             throw new Exception("Invalid task index for un-marking");
         }
@@ -190,13 +194,22 @@ public class Drake {
     }
 
     private String handleDelete(String input) throws Exception {
-        int deleteIndex = Parser.parseTaskIndex(input);
-        if (deleteIndex < 0 && deleteIndex >= tasks.size()) {
+        int deleteIndex = Parser.parseIndex(input);
+        if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
             throw new Exception("Invalid task index for deleting");
         }
         Task deletedTask = tasks.deleteTask(deleteIndex);
         storage.saveTasks(tasks.getTasks());
         return ui.showDeleteTask(deletedTask, tasks.size());
+    }
+
+    private String handleDeleteContact(String input) throws Exception {
+        int deleteIndex = Parser.parseIndex(input);
+        if (deleteIndex < 0 || deleteIndex >= contacts.size()) {
+            throw new Exception("Invalid contact index for deleting");
+        }
+        Contact deletedContact = contacts.remove(deleteIndex);
+        return ui.showDeleteContact(deletedContact, contacts.size());
     }
 
     private String handleFind(String input) {

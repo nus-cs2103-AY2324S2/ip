@@ -10,23 +10,22 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Parses an event task from the user input. It assumes the input contains
-     *     the event details after the 'event' keyword.
+     * Parses the index provided for a task or contact operation.
      *
-     * @param input The user input string that contains the event details.
-     * @return A String array with three elements: the event title, the start time, and the end time.
-     * @throws IllegalArgumentException If the input does not contain valid 'from' and 'to' times for the event.
+     * @param input The command followed by an index.
+     * @return The integer list index provided in the input.
+     * @throws Exception If the input does not contain a valid integer index.
      */
-    public static int parseTaskIndex(String input) throws Exception {
-        assert input != null && input.contains(" ") : "Invalid input format for parsing task index.";
+    public static int parseIndex(String input) throws Exception {
+        assert input != null && input.contains(" ") : "Invalid input format for parsing index.";
         String[] words = input.split(" ", 2);
         if (words.length < 2) {
-            throw new IllegalArgumentException("No task index provided.");
+            throw new IllegalArgumentException("No index provided.");
         }
         try {
             return Integer.parseInt(words[1]) - 1; // Subtract 1 to convert to zero-based index
         } catch (Exception e) {
-            throw new Exception("Enter a valid integer to select task!");
+            throw new Exception("Enter a valid integer!");
         }
     }
 
