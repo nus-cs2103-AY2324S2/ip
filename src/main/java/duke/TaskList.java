@@ -10,11 +10,12 @@ import java.util.ArrayList;
 public class TaskList {
     private static final String MSG_TASK_ADDED = "Got it. I've added this task: \n%s\nNow you have %d tasks in the list.";
     private static final String MSG_TASK_REMOVED = "Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.";
-    private static final String MSG_TASK_MARKED = "  %s";
     private static final String ERROR_UNKNOWN_TASK_NUMBER = "Unknown task number. Please try again";
     private static final String MSG_NO_TASKS_FOUND = "No recorded tasks found.";
     private static final String MSG_TASKS_MATCHING_SEARCH = "Here are the matching tasks in your list: \n";
     private static final String MSG_NO_MATCHING_TASKS = "No tasks match your search.";
+    private static final String DUPLICATE_TASK = "This task is already in your list.";
+    private static final String NULL_TASKLIST = "This task is already in your list.";
 
     /**
      * The list of tasks.
@@ -43,8 +44,16 @@ public class TaskList {
      * @param newTask The new task to add to the list.
      * @param storage The storage handler to save tasks after adding the new task.
      */
-    public String addTask(Task newTask, Storage storage) {
-        assert tasks != null : "Task list must not be null";
+    public String addTask(Task newTask, Storage storage) throws ChatbotException {
+        assert tasks != null : NULL_TASKLIST;
+
+        // Check for duplicates
+        for (Task task : tasks) {
+            if (task.getDescription().equals(newTask.getDescription())) {
+                throw new ChatbotException(DUPLICATE_TASK);
+            }
+        }
+
         tasks.add(newTask);
 
         try {
@@ -63,7 +72,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String deleteTask(int taskNumber, Storage storage) throws ChatbotException {
-        assert tasks != null : "Task list must not be null";
+        assert tasks != null : NULL_TASKLIST;
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
@@ -88,7 +97,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
-        assert tasks != null : "Task list must not be null";
+        assert tasks != null : NULL_TASKLIST;
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
