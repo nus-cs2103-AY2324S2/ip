@@ -197,6 +197,11 @@ public class Parser {
         for (int i = 1; i < inputStringSplits.length; i++) {
             todoDescription.append(inputStringSplits[i]);
         }
+        // Handle empty to-do descriptions
+        if (todoDescription.toString().isEmpty()) {
+            outputResponse = this.ui.showEmptyTodoDescriptionMessage();
+            return outputResponse;
+        }
         try {
             // Create to-do task
             Todo currTodo = new Todo(todoDescription.toString());

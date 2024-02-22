@@ -133,6 +133,16 @@ public class Ui {
     }
 
     /**
+     * Show empty to-do description task message
+     *
+     * @return String message of to-do description cannot be empty
+     */
+    public String showEmptyTodoDescriptionMessage() {
+        return DIVIDER + "\nPlease la bro, Todo description cannot be empty...\nWhat you want to add liddat?\n"
+                + DIVIDER;
+    }
+
+    /**
      * Prints message to CLI
      *
      * @param message String message to be printed.
