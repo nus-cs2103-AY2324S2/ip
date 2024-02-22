@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import duke.commons.exceptions.DukeException;
 
+/**
+ * Provides test cases for the CommandParser class, ensuring that user input is
+ * correctly parsed into commands, task indices, descriptions, and task details.
+ */
 public class CommandParserTest {
 
     @Test
@@ -62,7 +66,7 @@ public class CommandParserTest {
     @Test
     public void parseDeadline_ValidInput_ReturnsDetails() throws DukeException {
         String userInput = "deadline submit report /by 13-07-2025";
-        String[] expected = new String[]{"submit report", "13-07-2025"};
+        String[] expected = new String[] { "submit report", "13-07-2025" };
         String msg = "Parsing valid deadline should return correct details.";
         assertArrayEquals(expected, CommandParser.parseDeadline(userInput), msg);
     }
@@ -77,7 +81,7 @@ public class CommandParserTest {
     @Test
     public void parseEvent_ValidInput_ReturnDetails() throws DukeException {
         String userInput = "event eat cake /from 01-12-2024 /to 2-12-2025";
-        String[] expected = new String[]{"eat cake", "01-12-2024", "2-12-2025"};
+        String[] expected = new String[] { "eat cake", "01-12-2024", "2-12-2025" };
         String msg = "Parsing valid event should return correct details.";
         assertArrayEquals(expected, CommandParser.parseEvent(userInput), msg);
     }
