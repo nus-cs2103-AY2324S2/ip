@@ -10,7 +10,7 @@ Have you ever wanted your personal dragon chatbot to help you keep track of task
 
 Toothless can help you keep track of your deadlines using a simple command line.
 
-For example, if you have a deadline to return a book by Sunday, you can input "deadline return book /by Sunday"
+For example, if you have a deadline to return a book by Sunday, you can input "deadline return book /by Sunday".
 The command will start with deadline, followed by the task name and the deadline, separated by a "/by".
 
 The expected output would be:
