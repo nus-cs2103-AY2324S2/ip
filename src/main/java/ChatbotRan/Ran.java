@@ -41,6 +41,7 @@ public class Ran {
     }
 
     public void setContainer(VBox dialogContainer) {
+        assert dialogContainer != null;
         this.ui.setContainer(dialogContainer);
     }
 }

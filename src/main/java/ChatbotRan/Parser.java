@@ -102,6 +102,7 @@ public class Parser {
         } else if (taskNo > taskList.size()) {
             throw new TaskException("No task by that number.");
         } else {
+            assert taskList.get(taskNo - 1) != null;
             return taskList.get(taskNo - 1);
         }
     }

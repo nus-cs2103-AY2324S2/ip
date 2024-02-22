@@ -47,6 +47,7 @@ public class TaskList {
      * @param task  new task
      */
     public void set(int index, Task task) {
+        assert 0 <= index && index < tasks.size();
         tasks.set(index, task);
         updateTasks();
     }
