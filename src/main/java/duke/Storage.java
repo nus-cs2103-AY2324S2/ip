@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -16,34 +17,52 @@ import java.util.ArrayList;
  * any updates in the task list
  */
 public class Storage {
-    private File file;
-    private Path filePath;
+    private static final String CURRENT_DIRECTORY_STRING = System.getProperty("user.dir");
+    private static final Path STORAGE_DIRECTORY_PATH = Paths.get(CURRENT_DIRECTORY_STRING, "data");
+    public static final Path STORAGE_FILE_PATH = Paths.get(STORAGE_DIRECTORY_PATH.toString(), "data.txt");
+    private File myStorageFile;
 
     /**
      * Constructor for Storage class
-     * @param filePath This is the file path of the storage text file
      */
-    public Storage(Path filePath) {
-        this.filePath = filePath;
-        this.file = new File(String.valueOf(filePath));
+    public Storage() {
+        File storageDirectory = new File(STORAGE_DIRECTORY_PATH.toString());
+        if (!storageDirectory.exists()) {
+            createStorageDirectory(STORAGE_DIRECTORY_PATH);
+        }
+        File storageFile = new File(STORAGE_FILE_PATH.toString());
+        if (!storageFile.exists()) {
+            createStorageFile(STORAGE_FILE_PATH);
+        }
+        this.myStorageFile = storageFile;
     }
 
-    public boolean isFileCreated() {
-        return Files.exists(this.filePath);
+    public void createStorageDirectory(Path directoryPath) {
+        File f = new File(directoryPath.toString());
+        try {
+            if (!f.exists()) {
+                Files.createDirectory(STORAGE_DIRECTORY_PATH);
+                System.out.println("directory created!");
+            } else {
+                System.out.println("create directory fail!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     /**
      * Method to create the storage text file if file is not yet created.
      */
-    public void createStorageFile() {
+    public void createStorageFile(Path filePath) {
+        File f = new File(filePath.toString());
         try {
-            if (this.file.createNewFile()) {
-                System.out.println("File created: " + this.file.getName());
+            if (f.createNewFile()) {
+                System.out.println("file created!");
             } else {
-                System.out.println("File already exists.");
+                System.out.println("create file fail!");
             }
         } catch (IOException e) {
-            System.out.println("cannot create file" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +72,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksFromFile() {
         try {
-            FileInputStream readTasks = new FileInputStream(this.file);
+            FileInputStream readTasks = new FileInputStream(this.myStorageFile);
             ObjectInputStream readStream = new ObjectInputStream(readTasks);
 
             // The file will only contain ArrayList<Task> object.
@@ -76,7 +95,7 @@ public class Storage {
      */
     public void updateStorageFile(TaskList taskList) {
         try {
-            FileOutputStream writeData = new FileOutputStream(this.file);
+            FileOutputStream writeData = new FileOutputStream(this.myStorageFile);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
 
             writeStream.writeObject(taskList.getListOfTasks());
