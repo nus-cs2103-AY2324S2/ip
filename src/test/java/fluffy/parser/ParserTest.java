@@ -17,7 +17,6 @@ import fluffy.command.MarkCommand;
 import fluffy.command.TodoCommand;
 import fluffy.command.UnmarkCommand;
 
-
 public class ParserTest {
 
     @Test
