@@ -1,29 +1,60 @@
-# User Guide
+# Howie User Guide
 
-## Features 
+> Just Do It - Nike
+> 
+![Ui.png](Ui.png)
 
-### Feature-ABC
+Simple to Use
 
-Description of the feature.
+Free-Of-Charge
 
-### Feature-XYZ
+User Friendly GUI
 
-Description of the feature.
+## How to use Howie?
 
-## Usage
+  ```powershell
+  java -jar C:\filepath\of\the\downloaded\jar\file
+  ```
 
-### `Keyword` - Describe action
+## Sample Commands
+Adds shower into the to-do list. `todo shower`
 
-Describe the action and its outcome.
+Add a deadline. `deadline Assignment Submission /by Thursday`
 
-Example of usage: 
+Add an event. `event Prom date /from Wed 9pm /to Wed 11pm`
 
-`keyword (optional arguments)`
+Mark an item as completed. `mark 1`/ `mark 3`
 
-Expected outcome:
+Unmark an item as uncompleted `unmark 3`
 
-Description of the outcome.
+## Basic Commands
 
-```
-expected output
-```
+### Add a todo task
+- Adds a basic task: `todo todo-task-name`
+
+### Add a deadline task
+- Adds a deadline: `deadline deadline-task-name /by a-date-or-time`.
+
+- Alternatively, you can format the `/by` in `yyyy-mm-dd`.
+
+### Add an event task
+- Adds an event: `event event-name /from today /to tomorrow`
+
+- Alternatively, you can for `/from` and `/by` in `yyyy-mm-dd`.
+
+### List all tasks
+- Shows the full list of tasks: `list`
+
+### Mark
+- Mark/Set a task as completed: `mark [index of task]`.
+
+### Unmark
+- Unmark/Unset a task as uncompleted: `unmark [index of task]`.
+
+### Getting help
+- If you are unsure of all the commands, type: `help`
+
+### Exiting the program
+- To exit the program: `bye`
+> [!NOTE]
+> Note that data you have entered inside the program will be automatically saved upon exit.
