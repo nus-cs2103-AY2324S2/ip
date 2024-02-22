@@ -21,6 +21,7 @@
       [T][0] drink coffee
     Now you have 5 tasks in the list.
     ```
+    
 ### Add a new Deadline task 
 **Usage:**
    ```
@@ -40,6 +41,7 @@
       [D][0] buy cake (by: 20 OCTOBER 2024)
     Now you have 6 tasks in the list.
     ```
+    
 ### Add a new Event task 
 **Usage:**
    ```
@@ -59,6 +61,7 @@
       [E][0] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     Now you have 7 tasks in the list.
     ```
+    
 ### View all tasks 
 **Usage:**
    ```
@@ -93,6 +96,7 @@
     2. [D][X] buy cake (by: 20 OCTOBER 2024)
     3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
+    
 ### Unmark task(s) as undone
 **Usage:**
    ```
@@ -109,6 +113,7 @@
     2. [D][0] buy cake (by: 20 OCTOBER 2024)
     3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
+    
 ### Delete task(s)
 **Usage:**
    ```
@@ -125,6 +130,7 @@
     [T][0] drink coffee
     Now you have 1 task left in the list.
     ```
+    
 ### Find task(s) containing the keyword
 **Usage:**
    ```
@@ -144,6 +150,7 @@
     ```
     No matching tasks found.
     ```
+    
 ### Change directory of tasklist
 **Usage:**
    ```
