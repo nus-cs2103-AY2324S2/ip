@@ -17,20 +17,22 @@
   <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox fx:id="topHBox" alignment="CENTER" prefHeight="54.0" prefWidth="400.0" style="-fx-background-color: #292F3F; -fx-spacing: 111;">
+            <HBox fx:id="topHBox" alignment="CENTER" prefHeight="54.0" prefWidth="400.0" style="-fx-background-color: #292F3F; -fx-spacing: 10;">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label alignment="TOP_LEFT" text="Podz" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
                   <ImageView fx:id="imgTop" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/DaDuke.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="TOP_LEFT" text="Podz" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
                </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
             </HBox>
           <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="480.0" prefWidth="400.0" stylesheets="@styles.css" vbarPolicy="ALWAYS" vvalue="1.0" VBox.vgrow="ALWAYS">
             <content>
