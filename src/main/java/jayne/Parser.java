@@ -9,7 +9,6 @@ import jayne.task.TaskList;
 public class Parser {
     private static final String ERROR_MESSAGE = "What are you typing. please include either bye, list, mark, "
             + "umark, todo, deadline or event in your inputs please";
-    //private String[] parts;
     private TaskList taskList;
 
     /**
