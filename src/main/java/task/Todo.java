@@ -1,6 +1,6 @@
 package task;
 
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 /**
  * Represents a todo task, which is a type of task that needs to be completed.
@@ -8,17 +8,17 @@ import exception.DukeException;
  */
 public class Todo extends Task {
 
-    public Todo(String name) throws DukeException {
+    public Todo(String name) throws XiaoBaiException {
         super(name);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         }
     }
 
-    public Todo(String name, boolean doneStatus) throws DukeException {
+    public Todo(String name, boolean doneStatus) throws XiaoBaiException {
         super(name, doneStatus);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         }
     }
 

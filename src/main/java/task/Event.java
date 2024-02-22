@@ -2,7 +2,7 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 import parser.Parser;
 
@@ -15,31 +15,31 @@ public class Event extends Task {
     private LocalDateTime to;
     private String name;
 
-    public Event(String name, String fromText, String toText) throws DukeException {
+    public Event(String name, String fromText, String toText) throws XiaoBaiException {
         super(name);
         this.name = name;
         this.to = Parser.convertDateTime(toText);
         this.from = Parser.convertDateTime(fromText);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         } else if (from == null) {
-            throw new DukeException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
         } else if (to == null) {
-            throw new DukeException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
         }
     }
 
-    public Event(String name, String fromText, String toText, boolean doneStatus) throws DukeException {
+    public Event(String name, String fromText, String toText, boolean doneStatus) throws XiaoBaiException {
         super(name, doneStatus);
         this.name = name;
         this.to = Parser.convertDateTime(toText);
         this.from = Parser.convertDateTime(fromText);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         } else if (from == null) {
-            throw new DukeException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
         } else if (to == null) {
-            throw new DukeException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
         }
     }
 

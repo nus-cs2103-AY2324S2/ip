@@ -2,7 +2,7 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import exception.DukeException;
+import exception.XiaoBaiException;
 import task.Event;
 
 public class EventTest {
@@ -13,7 +13,7 @@ public class EventTest {
             Event event = new Event("Birthday party", "12/02/2022 1800", "12/02/2022 2000");
             assertEquals("Birthday party", event.getName());
             assertEquals("2022-02-12T20:00", event.getTo().toString());
-        } catch (DukeException e) {
+        } catch (XiaoBaiException e) {
         }
     }
 
@@ -23,7 +23,7 @@ public class EventTest {
             Event event = new Event("Birthday party", "12/02/2022 1800", "12/02/2022 2000");
             assertEquals("Birthday party", event.getName());
             assertEquals("2022-02-12T18:00", event.getFrom().toString());
-        } catch (DukeException e) {
+        } catch (XiaoBaiException e) {
         }
     }
 }

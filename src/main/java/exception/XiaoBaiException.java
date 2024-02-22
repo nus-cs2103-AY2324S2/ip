@@ -5,12 +5,12 @@ package exception;
  * This exception can be thrown when there is an error or unexpected condition
  * in the Duke application.
  */
-public class DukeException extends Exception {
-    public DukeException() {
+public class XiaoBaiException extends Exception {
+    public XiaoBaiException() {
         super();
     }
 
-    public DukeException(String message) {
+    public XiaoBaiException(String message) {
         super(message);
     }
 }

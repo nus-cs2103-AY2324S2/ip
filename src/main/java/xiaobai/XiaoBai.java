@@ -11,7 +11,7 @@ import task.Deadline;
 import task.Event;
 import task.Todo;
 
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 import command.Command;
 
@@ -28,7 +28,7 @@ public class XiaoBai {
         this.storage = new Storage("./xiaobai.txt");
         try {
             this.taskList = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (XiaoBaiException e) {
             ui.showLoadingError(e);
             this.taskList = new TaskList();
         }
@@ -94,11 +94,11 @@ public class XiaoBai {
                     String stringToFind = input.substring(5);
                     return ui.findTask(taskList, stringToFind);
                 case UNKNOWN:
-                    throw new DukeException("Unknown input");
+                    throw new XiaoBaiException("Unknown input");
                 default:
-                    throw new DukeException("Unknown input");
+                    throw new XiaoBaiException("Unknown input");
             }
-        } catch (DukeException e) {
+        } catch (XiaoBaiException e) {
             return ui.showErrorMessage(e.toString());
         }
     }

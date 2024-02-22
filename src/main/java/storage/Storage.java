@@ -14,7 +14,7 @@ import task.Deadline;
 import task.Event;
 import task.Todo;
 
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 /**
  * Handles the reading from and writing to a file.
@@ -48,7 +48,7 @@ public class Storage {
      * @return An ArrayList containing tasks loaded from the file.
      * @throws DukeException If there is an error reading the file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws XiaoBaiException {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             while (reader.ready()) {
@@ -86,7 +86,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException();
+            throw new XiaoBaiException();
         }
         return taskList;
     }

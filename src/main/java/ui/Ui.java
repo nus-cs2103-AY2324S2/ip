@@ -4,7 +4,7 @@ package ui;
 import java.util.Scanner;
 import task.TaskList;
 import task.Task;
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 public class Ui {
     Scanner reader;
@@ -128,7 +128,7 @@ public class Ui {
      *
      * @param e The DukeException indicating the loading error.
      */
-    public void showLoadingError(DukeException e) {
+    public void showLoadingError(XiaoBaiException e) {
         StringBuilder outputString = new StringBuilder();
         outputString.append(e.toString() + "\n");
         System.out.println(outputString.toString());
@@ -140,7 +140,7 @@ public class Ui {
      * @return The line of input entered by the user.
      * @throws DukeException If there is an error reading the input.
      */
-    public String readLine() throws DukeException {
+    public String readLine() throws XiaoBaiException {
         return reader.nextLine();
     }
 }

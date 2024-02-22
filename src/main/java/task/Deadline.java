@@ -2,7 +2,7 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import exception.DukeException;
+import exception.XiaoBaiException;
 
 import parser.Parser;
 
@@ -15,25 +15,25 @@ public class Deadline extends Task {
     private LocalDateTime by;
     private String name;
 
-    public Deadline(String name, String byText) throws DukeException {
+    public Deadline(String name, String byText) throws XiaoBaiException {
         super(name);
         this.name = name;
         this.by = Parser.convertDateTime(byText);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         } else if (by == null) {
-            throw new DukeException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
         }
     }
 
-    public Deadline(String name, String byText, boolean doneStatus) throws DukeException {
+    public Deadline(String name, String byText, boolean doneStatus) throws XiaoBaiException {
         super(name, doneStatus);
         this.name = name;
         this.by = Parser.convertDateTime(byText);
         if (name == null || name.isEmpty()) {
-            throw new DukeException("Task name cannot be empty");
+            throw new XiaoBaiException("Task name cannot be empty");
         } else if (by == null) {
-            throw new DukeException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
+            throw new XiaoBaiException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
         }
     }
 
