@@ -1,0 +1,5 @@
+T | 0 | pilates
+T | 0 | swimming
+T | 0 | mahjong
+T | 0 | deco
+E | 0 | deco party | 4pm | 6pm
