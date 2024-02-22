@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import duke.command.SnoozeCommand;
+import duke.others.BelleException;
+
 /**
  * Represents tasks.
  */
@@ -7,6 +10,11 @@ public class Task {
 
     private boolean isDone;
     private String name;
+
+    private enum Type {
+        E,
+        D
+    }
 
     /**
      * Constructs Task.
@@ -57,5 +65,26 @@ public class Task {
 
     public String getDone() {
         return Boolean.toString(this.isDone);
+    }
+
+
+    /**
+     * Snoozes task and edits deadline.
+     *
+     * @param snoozeTask Task to be snoozed.
+     * @param deadline New deadline.
+     * @throws BelleException If a todo task
+     *         is to be snoozed.
+     */
+    public void snooze(Task snoozeTask, String deadline) throws BelleException {
+        if (snoozeTask.getType().equals(Type.D.name())) {
+            DeadlineTask currTask = (DeadlineTask) snoozeTask;
+            currTask.setDeadline(deadline);
+        } else if (snoozeTask.getType().equals(Type.E.name())) {
+            EventTask currTask = (EventTask) snoozeTask;
+            currTask.setDeadline(deadline);
+        } else {
+            throw new BelleException("Trying to snooze an invalid Task type");
+        }
     }
 }

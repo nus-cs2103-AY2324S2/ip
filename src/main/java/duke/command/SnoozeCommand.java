@@ -14,10 +14,6 @@ import duke.tasks.Task;
  */
 public class SnoozeCommand extends Command {
     private String msg;
-    enum Type {
-        E,
-        D
-    }
 
     /**
      * Constructs SnoozeCommand.
@@ -45,30 +41,27 @@ public class SnoozeCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
         try {
-            assert (msg.length() >= 7) : "invalid input to run snooze task";
             int snoozeLength = 7; // as snooze + 1 space is 7 characters.
             String[] indexAndDeadlineList = this.msg.substring(snoozeLength).split(" to ");
+
             if (indexAndDeadlineList.length != 2) {
                 throw new BelleException("Please enter command in the format ( snooze "
                         + "[index] to [new deadline] )");
             }
+
             String index = indexAndDeadlineList[0].trim();
             String deadline = indexAndDeadlineList[1];
             Task snoozeTask = taskList.getTask(Integer.valueOf(index) - 1);
-            if (snoozeTask.getType().equals(Type.D.name())) {
-                DeadlineTask currTask = (DeadlineTask) snoozeTask;
-                currTask.setDeadline(deadline);
-            } else if (snoozeTask.getType().equals(Type.E.name())) {
-                EventTask currTask = (EventTask) snoozeTask;
-                currTask.setDeadline(deadline);
-            } else {
-                throw new BelleException("Trying to snooze an invalid Task type");
-            }
+
+            //high-level step to edit the deadline
+            snoozeTask.snooze(snoozeTask, deadline);
+
+            //high-level step that saves new list to harddisk
+            storage.save(taskList.getList());
+
             String printStatement = "--------------------------" + "\n"
                     + "Nice! I have shifted the deadline of:" + "\n"
                     + snoozeTask.toString() + "\n" + "--------------------------";
-            //high-level step that saves new list to harddisk
-            storage.save(taskList.getList());
             return printStatement;
         } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");

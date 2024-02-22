@@ -1,1 +1,3 @@
-D , true , feed dog , 6pm
+D , false , feed dog , 8pm
+E , true , pet cat , tues 9pm , 9pm
+T , false , add math
