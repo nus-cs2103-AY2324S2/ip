@@ -29,7 +29,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
-mainClassName = 'duke.Launcher'
+mainClassName = 'ganAnWo.Launcher'
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-source' << '11' // Set the Java source version
@@ -55,11 +55,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("ganAnWo.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'ganAnWo.jar'
 }
 
 run{
