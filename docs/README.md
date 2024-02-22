@@ -108,7 +108,7 @@
   - The expected output will be
     ```
     OK, I've marked this task as not done yet:
-    2. [D][0] buy cake (by: 20 OCTOBER 2024)
+    [D][0] buy cake (by: 20 OCTOBER 2024)
     ```
     
 ### Delete task(s)
@@ -148,7 +148,7 @@
     No matching tasks found.
     ```
     
-### Change directory of tasklist
+### Change directory of tasklist ( note that existing tasklist will overwrite the tasklist in new directory if any )
 **Usage:**
    ```
     change <file path>
