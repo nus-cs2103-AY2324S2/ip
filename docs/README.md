@@ -14,6 +14,7 @@ delivers a beautiful smart personal assistant to interact with.
         * [Todo](#todo)
         * [Deadline](#deadline)
         * [Event](#event)
+        * [Specification for DateTimeFormat](#specification-for-datetimeformat)
     2. [Manage Task](#manage-task)
     3. [Query Task](#query-task)
         * [Find](#find)
@@ -173,6 +174,7 @@ When you know specific information about task and you wish to find a specific ta
 ### Find
 
 Finds in the description of each task if it matches the keyword 
+
 Usage: `find [KEYWORD]`
 
 ### View
@@ -180,9 +182,10 @@ Usage: `find [KEYWORD]`
 View the all the task being scheduled on that date.
 
 Usage: `view [DateFormats]`
+
 <sub>**Refer to the section above for the specification of [DateFormat]**</sub>
 
-> If your [DateTimeFormat] is invalid when adding the task, Plato will not show them in here when you try to search for it.
+> If your [DateTimeFormat] is invalid when adding the task, Plato will not show them in the results when you try to search for it.
 
 Examples:
 ```
