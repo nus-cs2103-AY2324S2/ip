@@ -13,7 +13,7 @@ public abstract class Command {
     /**
      * Sets the task list for the command.
      *
-     * @param taskList the task list to be set
+     * @param taskList the task list to be set.
      */
     public void setTasks(TaskList taskList) {
         this.taskList = taskList;
@@ -22,7 +22,7 @@ public abstract class Command {
     /**
      * Executes the command with the provided user interface.
      *
-     * @throws PodzException if there is an issue executing the command
+     * @throws PodzException if there is an issue executing the command.
      */
     public abstract String execute() throws PodzException;
 }

@@ -9,7 +9,7 @@ public class IncorrectCommand extends Command {
     /**
      * Constructs an IncorrectCommand object with the specified exception.
      *
-     * @param e the exception to be handled
+     * @param e the exception to be handled.
      */
     public IncorrectCommand(Exception e) {
         this.e = e;

@@ -9,7 +9,7 @@ public class FindCommand extends Command {
     /**
      * Constructs a FindCommand object with the specified keyword.
      *
-     * @param keyword the keyword to search for
+     * @param keyword the keyword to search for.
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -17,7 +17,6 @@ public class FindCommand extends Command {
 
     /**
      * Executes the find command to search for tasks with the keyword.
-     *
      */
     @Override
     public String execute() {

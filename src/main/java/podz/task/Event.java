@@ -14,9 +14,9 @@ public class Event extends Task {
     /**
      * Constructs an Event object with the specified description, start date and end date.
      * 
-     * @param description the description of the event
-     * @param from the start date and time of the event
-     * @param to the end date and time of the event
+     * @param description the description of the event.
+     * @param from the start date and time of the event.
+     * @param to the end date and time of the event.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -34,8 +34,8 @@ public class Event extends Task {
     /**
      * Formats the date and time into a specific format.
      * 
-     * @param dateAndTime the array containing date and time information
-     * @return the formatted date and time string
+     * @param dateAndTime the array containing date and time information.
+     * @return the formatted date and time string.
      */
     private String formatDT(String[] dateAndTime) {
         String formattedString;
@@ -61,7 +61,7 @@ public class Event extends Task {
     /**
      * Returns the saved format of the event task.
      * 
-     * @return the saved format of the event task
+     * @return the saved format of the event task.
      */
     @Override
     public String savedFormat() {
@@ -71,7 +71,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task.
      * 
-     * @return a string representing the event task
+     * @return a string representing the event task.
      */
     @Override
     public String toString() {

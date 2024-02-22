@@ -46,8 +46,8 @@ public class Parser {
         /**
          * Returns the enum value corresponding to the command input or a default value.
          * 
-         * @param command the string to be converted into an enum value
-         * @return the enum value representing the string
+         * @param command the string to be converted into an enum value.
+         * @return the enum value representing the string.
          */
         public static Commands valueOfOrElse(String command) {
             try {

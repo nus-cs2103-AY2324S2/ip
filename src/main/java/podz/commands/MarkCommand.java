@@ -11,7 +11,7 @@ public class MarkCommand extends Command {
     /**
      * Constructs a MarkCommand object with the specified task index.
      *
-     * @param index the index of the task to be marked
+     * @param index the index of the task to be marked.
      */
     public MarkCommand(int index) {
         this.index = index;
@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     /**
      * Executes the mark command to mark a task as completed.
      *
-     * @throws PodzException if the task index is invalid
+     * @throws PodzException if the task index is invalid.
      */
     @Override
     public String execute() throws PodzException {

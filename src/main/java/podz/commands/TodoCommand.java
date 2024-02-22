@@ -11,7 +11,7 @@ public class TodoCommand extends Command {
     /**
      * Constructs a TodoCommand object with the specified todo task.
      *
-     * @param todo the todo task to be added
+     * @param todo the todo task to be added.
      */
     public TodoCommand(Todo todo) {
         this.todo = todo;

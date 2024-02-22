@@ -8,7 +8,7 @@ public class PodzException extends Exception {
     /**
      * Constructs a PodzException object with the specified error message.
      * 
-     * @param msg the error message for the exception
+     * @param msg the error message for the exception.
      */
     public PodzException(String msg) {
         super(msg);
@@ -17,7 +17,7 @@ public class PodzException extends Exception {
     /**
      * Returns a string representation of the exception.
      * 
-     * @return a string representing the exception
+     * @return a string representing the exception.
      */
     @Override
     public String toString() {

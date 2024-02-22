@@ -11,7 +11,7 @@ public class EventCommand extends Command {
     /**
      * Constructs an EventCommand object with the specified event task.
      *
-     * @param event the event task to be added
+     * @param event the event task to be added.
      */
     public EventCommand(Event event) {
         this.event = event;

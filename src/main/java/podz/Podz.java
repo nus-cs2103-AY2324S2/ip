@@ -29,8 +29,8 @@ public class Podz {
     /**
      * Generates a response to user input.
      *
-     * @param input the user input
-     * @return the response generated based on the input
+     * @param input the user input.
+     * @return the response generated based on the input.
      */
     public String getResponse(String input) {
         try {
@@ -66,7 +66,7 @@ public class Podz {
     /**
      * Returns a greeting message.
      *
-     * @return a greeting message
+     * @return a greeting message.
      */
     public String getGreeting() {
         return "Hello! I'm Podz.\n"
@@ -76,7 +76,7 @@ public class Podz {
     /**
      * Checks if the application should exit.
      *
-     * @return true if the application should exit, false otherwise
+     * @return true if the application should exit, false otherwise.
      */
     public boolean hasExit() {
         return this.isExit;

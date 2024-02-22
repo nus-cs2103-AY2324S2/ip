@@ -14,8 +14,8 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline object with the specified description and deadline.
      * 
-     * @param description the description of the deadline task
-     * @param by the deadline date and time
+     * @param description the description of the deadline task.
+     * @param by the deadline date and time.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -44,7 +44,7 @@ public class Deadline extends Task {
     /**
      * Returns the saved format of the deadline task.
      * 
-     * @return the saved format of the deadline task
+     * @return the saved format of the deadline task.
      */
     @Override
     public String savedFormat() {
@@ -54,7 +54,7 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task.
      * 
-     * @return a string representing the deadline task
+     * @return a string representing the deadline task.
      */
     @Override
     public String toString() {

@@ -13,7 +13,7 @@ public class TaskListStub extends TaskList {
     /**
      * Constructs a TaskListStub object with the given list of tasks.
      *
-     * @param tasks the list of tasks to initialize the TaskListStub with
+     * @param tasks the list of tasks to initialize the TaskListStub with.
      */
     public TaskListStub(ArrayList<Task> tasks) {
         super(tasks);
@@ -22,7 +22,7 @@ public class TaskListStub extends TaskList {
     /**
      * Deletes a task at the specified index.
      *
-     * @param i the index of the task to delete
+     * @param i the index of the task to delete.
      */
     @Override
     public void deleteTask(int i) {
@@ -32,7 +32,7 @@ public class TaskListStub extends TaskList {
     /**
      * Marks a task at the specified index.
      *
-     * @param i the index of the task to mark
+     * @param i the index of the task to mark.
      */
     @Override
     public void markTask(int i) {
@@ -51,7 +51,7 @@ public class TaskListStub extends TaskList {
     /**
      * Retrieves the list of tasks in the TaskListStub.
      *
-     * @return the list of tasks
+     * @return the list of tasks.
      */
     public ArrayList<Task> getTaskList() {
         return super.tasks;

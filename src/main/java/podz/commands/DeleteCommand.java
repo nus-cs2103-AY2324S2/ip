@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand object with the specified task index.
      *
-     * @param index the index of the task to be deleted
+     * @param index the index of the task to be deleted.
      */
     public DeleteCommand(int index) {
         this.index = index;
@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command to remove a task from the task manager.
      *
-     * @throws PodzException if the task index is invalid
+     * @throws PodzException if the task index is invalid.
      */
     @Override
     public String execute() throws PodzException {

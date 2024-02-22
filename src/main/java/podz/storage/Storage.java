@@ -21,7 +21,7 @@ public class Storage {
     /**
      * Constructs a Storage object with the specified file path.
      * 
-     * @param filePath the file path where the data are stored
+     * @param filePath the file path where the data are stored.
      */
     public Storage(String filePath) {
         Storage.FILE_PATH = filePath;
@@ -30,7 +30,7 @@ public class Storage {
     /**
      * Updates the saved tasks in the data file.
      * 
-     * @param tasks the list of tasks to be saved
+     * @param tasks the list of tasks to be saved.
      */
     public static void updateSaved(ArrayList<Task> tasks) {
         try {
@@ -51,7 +51,7 @@ public class Storage {
     /**
      * Loads tasks from the data file and returns them as an <code>ArrayList<Task></code>.
      * 
-     * @return the list of tasks
+     * @return the list of tasks.
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();

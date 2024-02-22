@@ -11,7 +11,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an UnmarkCommand object with the specified task index.
      *
-     * @param index the index of the task to be unmarked
+     * @param index the index of the task to be unmarked.
      */
     public UnmarkCommand(int index) {
         this.index = index;
@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the unmark command to unmark a task.
      *
-     * @throws PodzException if the task index is invalid
+     * @throws PodzException if the task index is invalid.
      */
     @Override
     public String execute() throws PodzException {

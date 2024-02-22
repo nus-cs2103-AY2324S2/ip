@@ -11,7 +11,7 @@ public class DeadlineCommand extends Command {
     /**
      * Constructs a DeadlineCommand with the specified Deadline task.
      * 
-     * @param deadline the deadline task to be added
+     * @param deadline the deadline task to be added.
      */
     public DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
