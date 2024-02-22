@@ -9,4 +9,9 @@ public class DeadlineTest {
     public void testToString(){
         assertEquals("[D][ ] return book (by: Feb 12 2019 18:00)", new Deadline("return book", "2019-02-12 18:00").toString());
     }
+
+    @Test
+    public void testToString2(){
+        assertEquals("[D][ ] return book (by: Mar 12 2019 18:00)", new Deadline("return book", "2019-02-12 18:00").toString());
+    }
 }
