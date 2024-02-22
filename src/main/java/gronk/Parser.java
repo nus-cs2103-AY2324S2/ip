@@ -110,6 +110,7 @@ public class Parser {
      * @return Message indicating that a Todo has been created.
      */
     private static String parseTodo(String message) {
+        assert TODO.matcher(message).matches() : "message should follow TODO format";
         taskList.addTask(new Todo(message.substring(5), 0));
         return "Task added: " + message.substring(5);
     }
@@ -121,6 +122,7 @@ public class Parser {
      * @return Message indicating that an Event has been created.
      */
     private static String parseDeadline(String message) {
+        assert DEADLINE.matcher(message).matches() : "message should follow DEADLINE format";
         String[] words = message.substring(9).split(" /[bB] ");
         String deadlineDescription = words[0];
         String time = words[1]; // Follows dd/MM/yyyy format
@@ -136,6 +138,7 @@ public class Parser {
      * @return Message indicating that an Event has been created.
      */
     private static String parseEvent(String message) {
+        assert EVENT.matcher(message).matches() : "message should follow EVENT format";
         String[] words = message.substring(6).split(" /[fF] ");
         String eventDescription = words[0];
         String startTime = words[1].substring(0, 10); // Follows dd/MM/yyyy format
@@ -151,6 +154,7 @@ public class Parser {
      * @return Lists all tasks, their completion status, and dates (where applicable).
      */
     private static String parseList(String message) {
+        assert LIST.matcher(message).matches() : "message should follow LIST format";
         return Parser.userInterface.returnAllTasks(Parser.taskList);
     }
 
@@ -176,6 +180,7 @@ public class Parser {
      * @return Generates a message stating which tasks have been marked.
      */
     private static String parseMark(String message) {
+        assert MARK.matcher(message).matches() : "message should follow MARK format";
         Integer[] indexes = Arrays.stream(message.substring(5).split(" "))
                 .map(Integer::valueOf)
                 .toArray(Integer[]::new);
@@ -216,6 +221,7 @@ public class Parser {
      * @return Message indicating a task has been deleted.
      */
     private static String parseDelete(String message) {
+        assert DELETE.matcher(message).matches() : "message should follow DELETE format";
         Integer[] indexes = Arrays.stream(message.substring(7).split(" "))
                 .map(Integer::valueOf)
                 .sorted(Comparator.reverseOrder())
@@ -229,6 +235,7 @@ public class Parser {
      * @return Lists all tasks with a matching description.
      */
     private static String parseFind(String message) {
+        assert FIND.matcher(message).matches() : "message should follow FIND format";
         String searchString = message.substring(5);
         TaskList matchedTasks = new TaskList();
         for (Task task: Parser.taskList.getAllTasks()) {
