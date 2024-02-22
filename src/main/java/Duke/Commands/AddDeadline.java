@@ -75,7 +75,9 @@ public class AddDeadline extends Command implements AddActivity {
      */
     @Override
     public void execute(ActivityList list) throws CommandException {
-        addToList(list);
+        if (addToList(list) == null) {
+            throw new CommandException("The activity name of a deadline cannot be a duplicate.");
+        }
     }
 
     /**

@@ -88,7 +88,9 @@ public class AddEvent extends Command implements AddActivity {
     @Override
     public void execute(ActivityList list) throws CommandException {
         if (DateFormat.compareDate(STARTDATE, ENDDATE)) {
-            addToList(list);
+            if(addToList(list) == null) {
+                throw new CommandException("The activity name of an event cannot be a duplicate.");
+            }
         } else {
             throw new CommandException("Start date is after end date");
         }

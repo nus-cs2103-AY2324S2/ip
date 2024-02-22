@@ -40,6 +40,9 @@ public class ActivityList {
      */
     public Activity add(String name) {
         Activity activity = Activity.of(name);
+        if (isDuplicate(name)) {
+            return null;
+        }
         activities.add(activity);
         localList.write(toStorageList());
         return activity;
@@ -54,6 +57,9 @@ public class ActivityList {
      */
     public Activity add(String name, LocalDate date) {
         Activity activity = Activity.of(name, date);
+        if (isDuplicate(name)) {
+            return null;
+        }
         activities.add(activity);
         localList.write(toStorageList());
         return activity;
@@ -69,6 +75,9 @@ public class ActivityList {
      */
     public Activity add(String name, LocalDate start, LocalDate end) {
         Activity activity = Activity.of(name, start, end);
+        if (isDuplicate(name)) {
+            return null;
+        }
         activities.add(activity);
         localList.write(toStorageList());
         return activity;
@@ -177,5 +186,20 @@ public class ActivityList {
             result[i] = activities.get(i).toStorage();
         }
         return result;
+    }
+
+    /**
+     * Check for new task added if there is a duplication.
+     *
+     * @param name The exact name to match against activity names.
+     * @return true if found duplicate, false otherwise.
+     */
+    public boolean isDuplicate(String name) {
+        for (Activity activity : activities) {
+            if (activity.checkExactName(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

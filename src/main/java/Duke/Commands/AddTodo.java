@@ -58,7 +58,9 @@ public class AddTodo extends Command implements AddActivity {
         if (NAME.isEmpty()) {
             throw new CommandException("The activity name of a todo cannot be empty.");
         } else {
-            addToList(list);
+            if(addToList(list) == null) {
+                throw new CommandException("The activity name of a todo cannot be a duplicate.");
+            }
         }
     }
 
