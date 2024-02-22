@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import anxi.command.AnxiException;
-import anxi.handlers.TimeHandler;
+import anxi.handlers.Handler;
 
 /**
  * Event task template.
@@ -42,9 +42,9 @@ public class Event extends Task {
         super.updateIsDone(done);
 
         try {
-            TimeHandler th = new TimeHandler();
-            this.from = th.parseDateTime(from);
-            this.to = th.parseTime(to);
+            Handler h = new Handler();
+            this.from = h.parseDateTime(from);
+            this.to = h.parseTime(to);
         } catch (AnxiException de) {
             // Since reading in from file, will not have error
         }

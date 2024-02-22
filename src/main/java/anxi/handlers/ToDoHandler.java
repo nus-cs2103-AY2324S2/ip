@@ -1,7 +1,5 @@
 package anxi.handlers;
 
-import java.io.IOException;
-
 import anxi.command.AnxiException;
 import anxi.command.Storage;
 import anxi.command.TaskList;
@@ -11,7 +9,7 @@ import anxi.tasks.Task;
 /**
  * Handles inputs related to ToDo tasks.
  */
-public class ToDoHandler {
+public class ToDoHandler extends Handler {
 
     /**
      * ToDoHandler constructor.
@@ -52,11 +50,8 @@ public class ToDoHandler {
         }
 
         Task task = taskList.addTodo(input.strip());
-        try {
-            storage.addNewTask(task);
-        } catch (IOException e) {
-            return ui.printErrorMessage(e.getMessage());
-        }
+        addTaskInStorage(storage, task);
+
         return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
     }
 }

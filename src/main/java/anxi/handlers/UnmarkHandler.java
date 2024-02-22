@@ -1,7 +1,5 @@
 package anxi.handlers;
 
-import java.io.IOException;
-
 import anxi.command.AnxiException;
 import anxi.command.Storage;
 import anxi.command.TaskList;
@@ -11,7 +9,7 @@ import anxi.tasks.Task;
 /**
  * Handles inputs related to unmark task.
  */
-public class UnmarkHandler {
+public class UnmarkHandler extends Handler {
 
     /**
      * UnmarkHandler constructor.
@@ -20,7 +18,7 @@ public class UnmarkHandler {
     }
 
     /**
-     * Unmarks specific task index.
+     * Un-marks specific task index.
      *
      * @param input         Input command string.
      * @param storage       Instance of Storage class.
@@ -39,10 +37,10 @@ public class UnmarkHandler {
     /**
      * Parses and calls relevant methods to unmark task and update storage.
      *
-     * @param input         Input command string.
-     * @param storage       Instance of Storage class.
-     * @param taskList      Instance of TaskList class.
-     * @param ui            Instance of Ui class.
+     * @param input             Input command string.
+     * @param storage           Instance of Storage class.
+     * @param taskList          Instance of TaskList class.
+     * @param ui                Instance of Ui class.
      * @return String           Indicates if task was successfully completed.
      * @throws AnxiException    Thrown if there are missing inputs or inputs are out of bounds.
      */
@@ -51,24 +49,13 @@ public class UnmarkHandler {
             throw new AnxiException("Missing index, what to unmark?");
         }
 
-        int index;
-        try {
-            index = Integer.parseInt(input.strip());
-        } catch (NumberFormatException n) {
-            throw new AnxiException("Tsk tsk integers only.");
-        }
-
+        int index = stringToInt(input);
         int numOfTasks = taskList.getNumOfTasks();
-        if (((index - 1) < 0) || (index > numOfTasks)) {
-            throw new AnxiException("Index out of bounds, no task found.");
-        }
+        checkOutOfBounds(index, numOfTasks);
 
         Task t = taskList.unmarkTask(index - 1);
-        try {
-            storage.updateTask(t, index, numOfTasks);
-        } catch (IOException e) {
-            return ui.printErrorMessage(e.getMessage());
-        }
+        updateTaskInStorge(storage, t, index, numOfTasks);
+
         return ui.printUnmarkTask(t.toString());
     }
 }

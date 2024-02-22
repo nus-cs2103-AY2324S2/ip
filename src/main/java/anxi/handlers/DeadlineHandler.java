@@ -1,6 +1,5 @@
 package anxi.handlers;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import anxi.command.AnxiException;
@@ -12,7 +11,7 @@ import anxi.tasks.Task;
 /**
  * Handles inputs related to Deadline tasks.
  */
-public class DeadlineHandler {
+public class DeadlineHandler extends Handler {
 
     /**
      * DeadlineHandler constructor.
@@ -56,20 +55,11 @@ public class DeadlineHandler {
         if (d.length < 2) {
             throw new AnxiException("To survive is to procrastinate death, when is this due?");
         }
-        LocalDateTime by;
-        try {
-            TimeHandler th = new TimeHandler();
-            by = th.parseDateTime(d[1].strip());
-        } catch (AnxiException de) {
-            return ui.printErrorMessage(de.getErrorMessage());
-        }
 
+        LocalDateTime by = parseDateTime(d[1].strip());
         Task task = taskList.addDeadline(d[0].strip(), by);
-        try {
-            storage.addNewTask(task);
-        } catch (IOException e) {
-            return ui.printErrorMessage(e.getMessage());
-        }
+        addTaskInStorage(storage, task);
+
         return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
     }
 }

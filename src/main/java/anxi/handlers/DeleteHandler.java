@@ -11,7 +11,7 @@ import anxi.tasks.Task;
 /**
  * Handles inputs related to delete tasks.
  */
-public class DeleteHandler {
+public class DeleteHandler extends Handler {
 
     /**
      * EventHandler constructor.
@@ -51,24 +51,17 @@ public class DeleteHandler {
             throw new AnxiException("Missing the target with your input, what to remove?");
         }
 
-        int index;
-        try {
-            index = Integer.parseInt(input.strip());
-        } catch (NumberFormatException n) {
-            throw new AnxiException("Tsk tsk integers only.");
-        }
-
+        int index = stringToInt(input);
         int numOfTasks = taskList.getNumOfTasks();
-        if (((index - 1) < 0) || (index > numOfTasks)) {
-            throw new AnxiException("Index out of bounds, no task found.");
-        }
+        checkOutOfBounds(index, numOfTasks);
 
         Task task = taskList.deleteTask(index - 1);
         try {
             storage.deleteTask(index - 1, numOfTasks);
         } catch (IOException e) {
-            return ui.printErrorMessage(e.getMessage());
+            return ui.printErrorMessage("Error, unable to update task in storage.");
         }
+
         return ui.printDeleteTask(task.toString(), taskList.getNumOfTasks());
     }
 }
