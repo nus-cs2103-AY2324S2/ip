@@ -2,6 +2,9 @@
 
 Welcome to Chipchat user guide! ChipChat is a **chatbot to assist users in managing their tasks**. As of now it supports three task types: 1) ToDo 2) Deadline 3) Event. 
 
+## Installing and Running Chipchat
+Prerequisite: Java and JDK11 is downloaded on your computer.
+
 ## Add Tasks
 Allows users to add tasks of three types.
 Format: `<TASK TYPE> <TASK NAME>`
@@ -49,7 +52,7 @@ Tags can be attached to all three types of tasks at creation.
 - Use of tags are optional.
 - You can attach as many number of tags as you want.
 
-Format: `<TASK TYPE> <TASK NAME> /tags <tag1> <tag2> <...>`
+Format: `<TASK TYPE> <TASK NAME> /tag <tag1> <tag2> <...>`
 
 Format of tag: `#<tag name>`
 
@@ -131,3 +134,13 @@ Expected Output:
 Noted. I've removed this task:
 [T][ ] revise maths
 ```
+
+## Save Data
+The app will automatically save user data to local drive.
+
+## Close app
+Users can terminate the app program.
+
+Format: `bye`
+
+Expected Output: No output. App will close immediately.
