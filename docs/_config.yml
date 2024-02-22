@@ -20,8 +20,8 @@
 
 title: Jade
 description: >- # this means to ignore newlines until "baseurl:"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://fy17ohhh.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: /ip # the subpath of your site, e.g. /blog
+url: https://fy17ohhh.github.io # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  fy17ohhh
 markdown: GFM
 # Build settings
