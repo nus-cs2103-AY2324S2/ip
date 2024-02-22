@@ -14,10 +14,16 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Getter method for name.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter method for status.
+     */
     public String getStatus() {
         return (this.isDone ? "X" : " ");
     }
