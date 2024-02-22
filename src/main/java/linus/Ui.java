@@ -58,7 +58,7 @@ public class Ui {
      * @param taskInStringFormat Task in String
      */
     public void markTaskAsDone(String taskInStringFormat) {
-        add("Great! I will makr this as done:");
+        add("Great! I will mark this as done:");
         add(taskInStringFormat);
     }
 
