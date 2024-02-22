@@ -80,13 +80,14 @@ public class Storage {
             // change task to string
             String line = "";
             if (task instanceof Todo) {
-                line = "T | " + task.isMarked() + " | " + task.getItem();
+                line = "T | " + task.isMarked() + " | " + task.getItem() + " | " + task.isFun();
             } else if (task instanceof Deadline) {
                 Deadline t = (Deadline) task;
-                line = "D | " + t.isMarked() + " | " + t.getItem() + " | " + t.getbyWhen();
+                line = "D | " + t.isMarked() + " | " + t.getItem() + " | " + t.getbyWhen() + " | " + task.isFun();
             } else if (task instanceof Event) {
                 Event t = (Event) task;
-                line = "E | " + t.isMarked() + " | " + t.getItem() + " | " + t.getStart() + " | " + t.getEnd();
+                line = "E | " + t.isMarked() + " | " + t.getItem() + " | " + t.getStart() + " | " + t.getEnd() + " | "
+                        + task.isFun();
             }
             saveTaskToFile(line);
         }

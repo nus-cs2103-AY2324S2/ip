@@ -10,14 +10,15 @@ public class Event extends Task {
      * @param item   The item that describes what the event is about, i.e. name of
      *               event.
      * @param marked A boolean that indicates whether this event is marked as
-     *               attended or
+     *               attended or not.
+     * @param fun    A boolean that indicates whether this event is marked as fun or
      *               not.
      * @param start  A string that indicates when the event starts.
      * @param end    A string that indicates when the event ends.
      * @return Nothing, it is a constructor.
      */
-    public Event(String item, boolean marked, String start, String end) {
-        super(item, marked);
+    public Event(String item, boolean marked, boolean fun, String start, String end) {
+        super(item, marked, fun);
         this.start = start;
         this.end = end;
     }
@@ -47,6 +48,10 @@ public class Event extends Task {
             m = "[X]";
         else
             m = "[ ]";
-        return "[E]" + m + " " + super.stringify() + " (from: " + this.start + " to: " + this.end + ")";
+
+        if (super.isFun())
+            return "[E]" + m + " " + super.stringify() + " (from: " + this.start + " to: " + this.end + ") #fun";
+        else
+            return "[E]" + m + " " + super.stringify() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }

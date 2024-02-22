@@ -14,14 +14,15 @@ public class Deadline extends Task {
      *                      what
      *                      needs to be done.
      * @param marked        A boolean that indicates whether this deadline is marked
-     *                      as
-     *                      over or not.
+     *                      as over or not.
+     * @param fun           A boolean that indicates whether this deadline is marked
+     *                      as fun or not.
      * @param byWhen        A LocalDate object that indicates when the deadline is.
      * @param byWhen_String A string that indicates when the deadline is.
      * @return Nothing, it is a constructor.
      */
-    public Deadline(String item, boolean marked, LocalDate byWhen, String byWhen_String) {
-        super(item, marked);
+    public Deadline(String item, boolean marked, boolean fun, LocalDate byWhen, String byWhen_String) {
+        super(item, marked, fun);
         this.byWhen = byWhen;
         this.byWhen_String = byWhen_String;
     }
@@ -42,7 +43,12 @@ public class Deadline extends Task {
             m = "[X]";
         else
             m = "[ ]";
-        return "[D]" + m + " " + super.stringify() + " (by: "
-                + this.byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+
+        if (super.isFun())
+            return "[D]" + m + " " + super.stringify() + " (by: "
+                    + this.byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ") #fun";
+        else
+            return "[D]" + m + " " + super.stringify() + " (by: "
+                    + this.byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

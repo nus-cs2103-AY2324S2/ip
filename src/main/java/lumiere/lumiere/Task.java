@@ -3,21 +3,27 @@ package lumiere.lumiere;
 import java.time.LocalDate;
 
 public class Task {
-    private boolean marked;
+    private boolean isMarked;
     private String item;
+    private boolean isFun;
 
     /**
      * Constructor for Task object
      * 
-     * @param item   The item that describes what the task is about, i.e. what needs
-     *               to be done
-     * @param marked A boolean that indicates whether this task is marked as done or
-     *               not.
+     * @param item     The item that describes what the task is about, i.e. what
+     *                 needs
+     *                 to be done
+     * @param isMarked A boolean that indicates whether this task is marked as done
+     *                 or
+     *                 not.
+     * @param isFun    A boolean that indicates whether this task is tagged as #fun
+     *                 or not.
      * @return Nothing, it is a constructor.
      */
-    public Task(String item, boolean marked) {
+    public Task(String item, boolean isMarked, boolean isFun) {
         this.item = item;
-        this.marked = marked;
+        this.isMarked = isMarked;
+        this.isFun = isFun;
     }
 
     /**
@@ -26,7 +32,7 @@ public class Task {
      * @return Nothing, it is a void method.
      */
     public void mark() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
     /**
@@ -35,7 +41,25 @@ public class Task {
      * @return Nothing, it is a void method.
      */
     public void unmark() {
-        this.marked = false;
+        this.isMarked = false;
+    }
+
+    /**
+     * An instance method that marks the task object as fun.
+     * 
+     * @return Nothing, it is a void method.
+     */
+    public void markAsFun() {
+        this.isFun = true;
+    }
+
+    /**
+     * An instance method that marks the task object as not fun.
+     * 
+     * @return Nothing, it is a void method.
+     */
+    public void unmarkAsFun() {
+        this.isFun = false;
     }
 
     /**
@@ -44,7 +68,16 @@ public class Task {
      * @return A boolean, true if task is marked done, false otherwise.
      */
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
+    }
+
+    /**
+     * An instance method that returns whether the task object is fun.
+     * 
+     * @return A boolean, true if task is marked fun, false otherwise.
+     */
+    public boolean isFun() {
+        return this.isFun;
     }
 
     /**
@@ -80,34 +113,53 @@ public class Task {
         }
     }
 
-    public static Todo createTodo(String[] info) {
-        boolean marked;
+    private static Todo createTodo(String[] info) {
+        boolean isMarked;
+        boolean isFun;
         if (info[2].equals("true"))
-            marked = true;
+            isMarked = true;
         else
-            marked = false;
-        Todo task = new Todo(info[4], marked);
+            isMarked = false;
+
+        if (info[6].equals("true"))
+            isFun = true;
+        else
+            isFun = false;
+
+        Todo task = new Todo(info[4], isMarked, isFun);
         return task;
     }
 
-    public static Deadline createDeadline(String[] info) {
-        boolean marked;
+    private static Deadline createDeadline(String[] info) {
+        boolean isMarked;
+        boolean isFun;
         if (info[2].equals("true"))
-            marked = true;
+            isMarked = true;
         else
-            marked = false;
+            isMarked = false;
 
-        Deadline task = new Deadline(info[4], marked, LocalDate.parse(info[6]), info[6]);
+        if (info[8].equals("true"))
+            isFun = true;
+        else
+            isFun = false;
+
+        Deadline task = new Deadline(info[4], isMarked, isFun, LocalDate.parse(info[6]), info[6]);
         return task;
     }
 
-    public static Event createEvent(String[] info) {
-        boolean marked;
+    private static Event createEvent(String[] info) {
+        boolean isMarked;
+        boolean isFun;
         if (info[2].equals("true"))
-            marked = true;
+            isMarked = true;
         else
-            marked = false;
-        Event task = new Event(info[4], marked, info[6], info[8]);
+            isMarked = false;
+
+        if (info[10].equals("true"))
+            isFun = true;
+        else
+            isFun = false;
+        Event task = new Event(info[4], isMarked, isFun, info[6], info[8]);
         return task;
     }
 }

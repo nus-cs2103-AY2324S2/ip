@@ -1,4 +1,2 @@
-T | true | 2103t
-T | false | 2109s
-T | false | finish
-E | false | night safari | 6pm | 11pm
+T | false | 2109s | false
+T | false | night safari | true

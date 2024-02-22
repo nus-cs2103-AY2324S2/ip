@@ -45,6 +45,10 @@ public class TaskList {
             return unmarkTask(command, storage);
         } else if (command.contains("mark")) {
             return markTask(command, storage);
+        } else if (command.contains("untagAsFun")) {
+            return unmarkFun(command, storage);
+        } else if (command.contains("tagAsFun")) {
+            return markFun(command, storage);
         } else if (command.contains("delete")) {
             return deleteTask(command, storage);
         } else if (command.contains("find")) {
@@ -90,6 +94,26 @@ public class TaskList {
         return "Nice! I've marked this task as done:\n" + list.get(num - 1).stringify();
     }
 
+    private String unmarkFun(String command, Storage storage) throws IOException {
+        int space = command.indexOf(" ");
+        int num = Integer.parseInt(command.substring(space + 1));
+        Task curr = list.get(num - 1);
+        curr.unmarkAsFun();
+        list.set(num - 1, curr);
+        storage.saveTasksToFile(list);
+        return "Ok, I've marked this task as not fun:\n" + list.get(num - 1).stringify();
+    }
+
+    private String markFun(String command, Storage storage) throws IOException {
+        int space = command.indexOf(" ");
+        int num = Integer.parseInt(command.substring(space + 1));
+        Task curr = list.get(num - 1);
+        curr.markAsFun();
+        list.set(num - 1, curr);
+        storage.saveTasksToFile(list);
+        return "Nice! I've marked this task as fun:\n" + list.get(num - 1).stringify();
+    }
+
     private String deleteTask(String command, Storage storage) throws IOException {
         int space = command.indexOf(" ");
         int num = Integer.parseInt(command.substring(space + 1)); // delete X
@@ -112,7 +136,7 @@ public class TaskList {
 
     private String addAndSaveTodo(int space, String command, Storage storage) throws IOException {
         String rest = command.substring(space + 1);
-        Todo task = new Todo(rest, false);
+        Todo task = new Todo(rest, false, false);
         list.add(task);
         storage.saveTasksToFile(list);
         return "Got it. I've added this task:\n" + task.stringify() + "\n" +
@@ -124,7 +148,7 @@ public class TaskList {
         String[] description = rest.split(" /by ");
         try {
             LocalDate time = LocalDate.parse(description[1]);
-            Deadline task = new Deadline(description[0], false, time, description[1]);
+            Deadline task = new Deadline(description[0], false, false, time, description[1]);
             list.add(task);
             storage.saveTasksToFile(list);
             return "Got it. I've added this task:\n" + task.stringify() + "\n" +
@@ -138,7 +162,7 @@ public class TaskList {
         String rest = command.substring(space + 1);
         String[] description = rest.split(" /from ");
         String[] time = description[1].split(" /to ");
-        Event task = new Event(description[0], false, time[0], time[1]);
+        Event task = new Event(description[0], false, false, time[0], time[1]);
         list.add(task);
         storage.saveTasksToFile(list);
         return "Got it. I've added this task:\n" + task.stringify() + "\n" +

@@ -41,9 +41,9 @@ public class LumiereTest {
     public void anotherDummyTest() {
         String time = "2024-01-12"; // represents 12 Jan 2024, NOT 1 Dec 2024!!
 
-        Deadline test = new Deadline("Visit National Museum", true, LocalDate.parse(time), time);
+        Deadline test = new Deadline("Visit National Museum", true, true, LocalDate.parse(time), time);
 
-        assertEquals("[D][X] Visit National Museum (by: Jan 12 2024)",
+        assertEquals("[D][X] Visit National Museum (by: Jan 12 2024) #fun",
                 test.stringify());
     }
 
@@ -61,8 +61,8 @@ public class LumiereTest {
     public void anotherDummyJavaTest() {
         String time = "2024-01-12"; // represents 12 Jan 2024, NOT 1 Dec 2024!!
 
-        Deadline test = new Deadline("Visit National Museum", true, LocalDate.parse(time), time);
+        Deadline test = new Deadline("Visit National Museum", true, true, LocalDate.parse(time), time);
 
-        assert "[D][X] Visit National Museum (by: Jan 12 2024)" == test.stringify();
+        assert "[D][X] Visit National Museum (by: Jan 12 2024) #fun" == test.stringify();
     }
 }
