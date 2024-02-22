@@ -6,20 +6,7 @@
 
 pookie is a chatbot that helps you to keep track of your tasks!
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
+# Features
 ## 1. Add todo
 
 Adds a todo task.
@@ -79,3 +66,9 @@ Format:
 Examples:
 - `mark 1 3 5`
 - `unmark 2 4 6`
+
+## Exit 
+Ends the program
+
+Format:
+- `bye`
