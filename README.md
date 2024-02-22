@@ -1,24 +1,94 @@
-# Pew project template
+# Pew ChatBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a user guide on how to use Pew Chatbot. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- Command Keywords are case-insensitive
+- Words in UPPER_CASE are the parameters to be supplied by the user.
+- Items in square brackets are optional.
+Example
+```
+deadline submit TASK /by DATE [TIME]
+```
+TASK, DATE and TIME are parameters which can be used as:
+```
+deadline submit 2103T homework /by 22/2/2024 2359
+```
+- Date formats allowed:
+   - M/d/yyyy
+   - yyyy-MM-dd
+   - dd-MM-yyyy
+   - d/M/yyyy
+   - M-d-yyyy
+   - d-M-yyyy
+- Time format allowed: HHmm
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Pew.java` file, right-click it, and choose `Run Pew.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Commands
+### todo
+Add todo task
+```
+todo eat
+```
+### deadline
+Add an event with deadline, must include DATE, TIME is optional.
+If TIME not included, it will be automatically set to 12AM.
+
+Without TIME:
+```
+deadline submit 2103T homework /by 22/2/2024
+```
+With TIME
+```
+deadline submit 2103T homework /by 22/2/2024 2359
+```
+### event
+Add an event with a start and end. Must include DATE for start and end, TIME is optional.
+If TIME not included, it will be automatically set to 12AM.
+
+Without TIME:
+```
+event submit 2103T homework /from 12/2/2024 /to 22/2/2024
+```
+With TIME
+```
+event submit 2103T homework /from 12/2/2024 1000 /to 22/2/2024 2359
+```
+### mark
+Mark a task as done.
+
+Example: You want to mark the first item in the list as done:
+```
+mark 1
+```
+### unmark
+Mark a task as not done.
+
+Example: You want to mark the first item in the list as not done:
+```
+unmark 1
+```
+### list
+List all the tasks and the total number of tasks saved.
+```
+list
+```
+### delete
+Delete a task.
+
+Example: You want to delete the first item in the list:
+```
+delete 1
+``` 
+### find
+Find a task based on a keyword or phrase. 
+
+It will return all tasks that matches or partially matches the keyword or phrase.
+
+Example: You want to find all the tasks that includes "2103T"
+```
+find 2103T
+```
+### pewpewpew
+Easter egg 🥚
+
