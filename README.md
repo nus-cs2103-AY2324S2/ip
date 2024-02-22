@@ -6,22 +6,21 @@ This is a project based on the template for a greenfield Java project. It's name
 
 # Features
 * Create tasks, set deadlines and create events
-* Mark some tasks as priority 
+* Mark some tasks as priority
 * Mark tasks done and un-done
-
 
 # Accepted inputs:
 
 CREATING TASKS:
-* todo () -- creates a To Do task, which has no deadline. 
+* todo () -- creates a To Do task, which has no deadline.
 * deadline () \by () -- creates a Deadline task, indicate its deadline after '\by'.
 * event () \from () \to () -- creates an Event task, indicate its start and end after '\from' and '\to'.
-Note: dates are formatted as yyyy-mm-dd. time is formatted as 
+  Note: dates are formatted as yyyy-mm-dd. time is formatted as
 
-COMMANDS: 
+COMMANDS:
 * list -- prints a numbered list of the tasks created, in input order.
-* mark [] -- marks the task at index [] as completed. 
-* unmark [] -- marks the task at index [] as uncompleted. 
+* mark [] -- marks the task at index [] as completed.
+* unmark [] -- marks the task at index [] as uncompleted.
 * notdonelist -- show the list of tasks that are uncompleted.
 * prioritise [] -- sets the task at index [] as priority.
 * unprioritise [] -- sets the task at index [] as non priority
