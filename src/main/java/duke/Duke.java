@@ -1,21 +1,7 @@
 package duke;
 
-import duke.control.DialogBox;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.util.Scanner;
 
 /**
  * Represents an instance of the chatbot Elias, which is
@@ -29,8 +15,8 @@ import java.util.Scanner;
 public class Duke extends Application {
     private final Storage storage;
     private final ItemList itemList;
-    public final UI ui;
     private final Parser parser;
+    private final UI ui;
 
     /**
      * Creates a new instance of Duke as Elias.
@@ -45,6 +31,10 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         stage.show();
+    }
+
+    public UI getUi() {
+        return ui;
     }
 
     public String getResponse(String input) {

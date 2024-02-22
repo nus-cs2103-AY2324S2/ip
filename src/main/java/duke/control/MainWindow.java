@@ -4,13 +4,12 @@ import duke.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -56,9 +55,12 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Creates two dialog boxes, containing ELIAS in word art and the standard greeting respectively
+     */
     public void greet() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.ui.getLogo(), dukeImage));
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.ui.getGreet(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.getUi().getLogo(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.getUi().getGreet(), dukeImage));
     }
 
 }
