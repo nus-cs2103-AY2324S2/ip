@@ -6,21 +6,18 @@ import java.util.ArrayList;
  * Represents the user interface for the SecretaryW application.
  */
 public class Ui {
-    private static final String LINE = "-----------------------------------------\n";
-
     /**
      * Displays the list of tasks.
      * @param taskList The list of tasks to display.
      */
     public String showTasks(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
-            return LINE + "No tasks available\n" + LINE;
+            return "No tasks available";
         } else {
-            StringBuilder result = new StringBuilder(LINE + "Here are the tasks in your list:\n");
+            StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskList.size(); i++) {
                 result.append(" ").append(i + 1).append(". ").append(taskList.get(i)).append("\n");
             }
-            result.append(LINE);
             return result.toString();
         }
     }
@@ -32,8 +29,8 @@ public class Ui {
      * @return A formatted string representing the task addition message.
      */
     public String showTaskAdded(Task task, int count) {
-        return LINE + "Got it. I've added this task:\n" + task + "\n" +
-                " Now you have " + count + " tasks in the list.\n" + LINE;
+        return "Got it. I've added this task:\n" + task + "\n" +
+                " Now you have " + count + " tasks in the list.";
     }
 
     /**
@@ -41,7 +38,7 @@ public class Ui {
      * @param message The message to display.
      */
     public String showMessage(String message) {
-        return LINE + message + "\n" + LINE;
+        return message;
     }
 
     /**
@@ -51,24 +48,23 @@ public class Ui {
      */
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            return LINE + "No matching tasks found.\n" + LINE;
+            return "No matching tasks found.";
         } else {
-            StringBuilder result = new StringBuilder(LINE + "Here are the matching tasks in your list:\n");
+            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 result.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
             }
-            result.append(LINE);
             return result.toString();
         }
     }
 
     public String showHelpMessage() {
-        return LINE + "Commands Supported:\n " +
+        return "Commands Supported:\n " +
                     "bye->exit chatbot, list->show tasks\n" +
                     "todo [descr], deadline [descr]/by [date]\n" +
                     "event [descr]/from [date]/to [date]\n" +
                     "->adds todo, deadline & event tasks\n" +
                     "mark [i]->ticks task, unmark [i]->unticks task\n" +
-                    "delete [i]->remove task, find [descr]-> find task\n" + LINE;
+                    "delete [i]->remove task, find [descr]-> find task\n";
     }
 }
