@@ -2,11 +2,13 @@ package duchess;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duchess.task.Task;
-import javafx.util.Pair;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import duchess.task.Task;
+
+import javafx.util.Pair;
 
 
 /**
@@ -105,8 +107,8 @@ public class TaskListTest {
             assertEquals(0, listOfTasksFound.get(0).getKey());
             assertEquals(2, listOfTasksFound.get(1).getKey());
 
-            Task taskFoundOne =  listOfTasksFound.get(0).getValue();
-            Task taskFoundTwo =  listOfTasksFound.get(1).getValue();
+            Task taskFoundOne = listOfTasksFound.get(0).getValue();
+            Task taskFoundTwo = listOfTasksFound.get(1).getValue();
             assertEquals("[T][ ] buy groceries", taskFoundOne.toString());
             assertEquals("[T][ ] buy flowers", taskFoundTwo.toString());
         } catch (DuchessException e) {

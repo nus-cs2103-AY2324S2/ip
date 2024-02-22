@@ -42,10 +42,14 @@ public class DialogBox extends HBox {
 
         if (isUser) {
             // Apply styling for user input
-            dialog.setStyle("-fx-background-color: paleturquoise; -fx-padding: 10px; -fx-border-color: lavender; -fx-border-width: 1px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-translate-x: -5.0;");
+            dialog.setStyle("-fx-background-color: paleturquoise; -fx-padding: 10px; -fx-border-color: lavender;"
+                    + "-fx-border-width: 1px; -fx-background-radius: 20; -fx-border-radius: 20; "
+                    + "-fx-translate-x: -5.0;");
         } else {
             // Apply styling for bot responses
-            dialog.setStyle("-fx-background-color: mistyrose; -fx-padding: 10px; -fx-border-color: lavenderblush; -fx-border-width: 1px; -fx-background-radius: 20; -fx-border-radius: 20; -fx-translate-x: 5.0;");
+            dialog.setStyle("-fx-background-color: mistyrose; -fx-padding: 10px; -fx-border-color: lavenderblush;"
+                    + "-fx-border-width: 1px; -fx-background-radius: 20; -fx-border-radius: 20;"
+                    + "-fx-translate-x: 5.0;");
         }
     }
 
