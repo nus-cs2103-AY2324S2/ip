@@ -1,11 +1,9 @@
 <!-- @format -->
 
-# :notebook_with_decorative_cover: Ciara - High performance tasks manager solution
+# Ciara - High performance tasks manager solution
 
 ![Screenshot of Ciara GUI](Ui.png)
 
-> [!CAUTION]
->
 > - This project is under **active** development
 > - There will be bugs and breaking changes
 > - **Do not use this app as the sole way of storing important tasks**
@@ -33,7 +31,6 @@ Alternatively, you could launch it from the command line with the following comm
 java -jar ciara.jar
 ```
 
-> [!WARNING]
 > This project was developed with `Java 11` and is not guaranteed to work with other versions of Java
 
 ## Supported Commands

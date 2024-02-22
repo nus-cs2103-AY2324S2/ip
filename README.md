@@ -1,26 +1,99 @@
 <!-- @format -->
 
-# Ciara project template
+# :notebook_with_decorative_cover: Ciara - High performance tasks manager solution
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Ciara_. Given below are instructions on how to use it.
+![Screenshot of Ciara GUI](/docs/Ui.png)
 
-## Setting up in Intellij
+> [!CAUTION]
+>
+> - This project is under **active** development
+> - There will be bugs and breaking changes
+> - **Do not use this app as the sole way of storing important tasks**
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Ciara is a simple tasks command line based tasks manager developed with speed as the main focus.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Ciara.java` file, right-click it, and choose `Run Ciara.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _
-   |  _ \ _   _| | _____
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+
+- Text-based
+- Low learning curve
+- FAST to use
+
+## Getting Started
+
+1. Grab the latest release from [here](https://github.com/RyanNgWH/ip/releases)
+1. Launch the application
+1. Add your tasks
+1. Profit!
+
+---
+
+Alternatively, you could launch it from the command line with the following command:
+
+```bash
+java -jar ciara.jar
+```
+
+> [!WARNING]
+> This project was developed with `Java 11` and is not guaranteed to work with other versions of Java
+
+## Supported Commands
+
+```bash
+usage:    <command> <arguments>
+commands:
+    bye                                   # Exit the application
+    list      [/archive] [/date]          # List all tasks (choose between archived or not) in the application (with an optional date filter - in the format YYYY/MM/DD)
+    mark      {index}                     # Mark the task as completed
+    unmark    {index}                     # Mark the task as not completed
+    archive   {index}                     # Archive the task
+    unarchive {index}                     # Unarchive the task
+    delete    {index}                     # Delete the task
+    todo      {description}               # Create a todo with the specified description
+    deadline  {description} {/by}         # Create a deadline with the specified description and deadline
+    event     {description} {/from} {/to} # Create an event with the specified description and duration
+```
+
+## Sample Commands
+
+### List
+
+```bash
+list                            # List all tasks
+list /archive                   # List all archived tasks
+list /date 2024/12/12           # List all tasks occuring on 12 Dec 2024
+list /archive /date 2024/12/12  # List all archived tasks occuring on 12 Dec 2024
+```
+
+### Mark & Unmark
+
+```bash
+mark 1      # Mark the 1st task (as shown in the `list` command)
+
+unmark 2    # Unmark the 2nd task (as shown in the `list` command)
+```
+
+### Archive, Unarchive & Delete
+
+```bash
+archive 1   # Archive the 1st task (as shown in the `list`` command)
+
+unarchive 2 # Unarchive the 2nd task (as shown in the `list /archive` command)
+
+delete 3    # Delete the 3rd task (as shown in the `list`` command)
+```
+
+### Todo, Deadline & Event
+
+```bash
+todo buy bread                                                      # Create a new "Todo" task with the description "buy bread"
+
+deadline project submission /by 2024/02/23 14:00                    # Create a new "Deadline" task with the description "project submission" that is due on 23 Feb 2024 at 2pm
+
+event taengoo concert /from 2024/02/24 17:00 /to 2024/02/24 20:00   # Create a new "Event" task with the description "taengoo concert" that occurs from 23 Feb 2024 at 5pm to 8pm
+```
+
+## Roadmap
+
+- [x] Managing tasks
+- [x] Managing deadlines
+- [ ] Reminders (coming soon)
