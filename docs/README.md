@@ -41,7 +41,7 @@ Free up space in your mind, and allow Scribbles to be the fish friend you need i
 > ❗**IMPORTANT**
 > <br/>
 > Running Scribbles will create a folder in your current directory named `scribblesData` 
-> which will contain a `taskData.txt` file. This file save's your data in a program-readable
+> which will contain a `taskData.txt` file. This file saves your data in a program-readable
 > format. To ensure your data is saved properly and not corrupted, please try not to tamper with this file.
 
 ## Features
@@ -92,7 +92,7 @@ will add the event task `scribble's birthday` with the start date and time `03/0
 <br/>
 
 ### Listing all tasks and events
-Show all the tasks and events currently in your list.
+Shows all the tasks and events currently in your list.
 
 Format: `list`
 
@@ -124,7 +124,7 @@ and you will end up with `[T][X] feed scribbles`
 <br/>
 
 ### Unmarking tasks
-Unmarks the task at the given index. The task is not considered incompleted.
+Unmarks the task at the given index. The task is now considered incomplete.
 
 Format: `unmark <INDEX>`
 
@@ -134,7 +134,7 @@ and you will end up with `[T][ ] feed scribbles`
 <br/>
 
 ### Finding tasks
-Finds and lists all the task that match the given keyword.
+Finds and lists all the tasks that match the given keyword.
 
 Format: `find <KEYWORD>`
 
@@ -165,7 +165,7 @@ Format: `sortBy <ORDER>`
 <br/>
 
 ### Exiting Scribbles
-Exits and closes the Scribbles. Your current list of task will be saved for the next time you run Scribbles again.
+Exits and closes the Scribbles. Your current list of tasks will be saved for the next time you run Scribbles again.
 
 Format: `bye`
 
@@ -183,7 +183,7 @@ This means that `02/10/2024 1700` is interpreted as 02 October 2024 5:00 p.m. by
 
 ### Data-wiping
 Deleting the file `scribblesData` created by Scribbles will wipe all data currently stored by Scribbles. This includes 
-all tasks stored and their details. However this does not affect the functioning of Scribbles.
+all tasks stored and their details. However, this does not affect the functioning of Scribbles.
 If you wish to use Scribbles again, running Scribbles will create 
 a new `scribblesData` file without any stored data and you can continue using Scribbles as normal.
 
