@@ -96,10 +96,10 @@ public class TaskList {
                 return addTask(deadline);
             } else {
                 ui.invalidDeadlineMessage();
-                throw new KenException("Invalid deadline command. By when?.");
+                throw new KenException("\nInvalid deadline command :(.");
             }
         } catch (Exception e) {
-            throw new KenException("Invalid deadline command. By when?.");
+            throw new KenException("\nInvalid deadline command :(");
         }
     }
 
@@ -124,10 +124,10 @@ public class TaskList {
                 return addTask(event);
             } else {
                 ui.invalidEventMessage();
-                throw new KenException("Invalid event command. From when to when?");
+                throw new KenException("\nInvalid event command :(");
             }
         } catch (Exception e) {
-            throw new KenException("Invalid event command. From when to when?");
+            throw new KenException("\nInvalid event command :(");
         }
     }
 

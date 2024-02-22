@@ -43,7 +43,7 @@ public class Event extends Task {
      * @return A string representation of the event from.
      */
     public String getFrom() {
-        return " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return " \n(from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
     /**

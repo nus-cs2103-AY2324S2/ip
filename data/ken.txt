@@ -1,4 +1,7 @@
-T | 1 | slay
+T | 0 | slay
 T | 0 | watch CS2106 lectures
 T | 0 | gui
-T | 1 | stats tut
+T | 1 | study for ts2243
+T | 0 | assignment
+D | 0 | assignment | 2024-02-24 0000
+E | 0 | birthday | 2024-02-24 0000 | 2024-02-24 2359

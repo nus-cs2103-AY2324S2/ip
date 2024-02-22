@@ -61,9 +61,9 @@ public class Ui {
     public Response helpMessage() {
         String HELP_LIST = "list\n-> Lists tasks.\n";
         String HELP_TODO = "todo <task>\n-> Adds todo task.\n";
-        String HELP_DEADLINE = "deadline <task> /by <due by in YYYY-MM-DD HHmm>\n" +
+        String HELP_DEADLINE = "deadline <task> /by\n <due by in YYYY-MM-DD HHmm>\n" +
                 "-> Adds task with deadline.\n";
-        String HELP_EVENT = "event <task> /from <from in YYYY-MM-DD HHmm> /to <to in YYYY-MM-DD HHmm>\n" +
+        String HELP_EVENT = "event <task> /from\n <from in YYYY-MM-DD HHmm>\n /to <to in YYYY-MM-DD HHmm>\n" +
                 "-> Adds event with duration.\n";
         String HELP_DELETE = "delete <task index>\n-> Deletes task numbered 'index'.\n";
         String HELP_HELP = "help\n-> Lists all commands you can give me - like this!\n";
