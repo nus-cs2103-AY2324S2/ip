@@ -14,11 +14,10 @@ For example, if you have a deadline to return a book by Sunday, you can input "d
 The command will start with deadline, followed by the task name and the deadline, separated by a "/by".
 
 The expected output would be:
-------------------------------------------
+
 Got it. I've added this task:
-[D][] return book (by: Feb 17 2024)
+[D][] return book (by: Feb 18 2024)
 Now you have 1 task in the list.
-------------------------------------------
 
 ## Marking tasks
 
@@ -28,22 +27,30 @@ For example, if you have a completed the deadline task "return book", you can in
 The command will start with mark, followed by the task index.
 
 The expected output would be:
-------------------------------------------
+
 Nice! I've marked this task as done!
 [D][X] return book (by: Feb 17 2024)
------------------------------------------- 
 
 
-## Finding tasks
+## Here are examples of how you can use other Toothless's commands:
 
-Too many tasks in the list to keep track of? Toothless can help you find tasks you in the list using a simple command line.
+Finding tasks:
+find book
 
-For example, if you wish to find tasks associated with a book, you can input "find book".
-The command will start with find, followed by the keyword!
+Adding a Todo:
+todo read book
 
-The expected output would be:
-------------------------------------------
-Here are the matching tasks in your list:
-------------------------------------------
-Here are the tasks in your list:
-1 [D][X] return book (by: Feb 17 2024)
+Adding an Event:
+event project meeting /from 12/2/2024 /to 12/2/2024
+
+Listing all Tasks:
+list
+
+Unmarking a Task:
+unmark 1
+
+Deleting a Task:
+delete 1
+
+Exiting the App:
+bye
