@@ -62,43 +62,11 @@ public class Storage {
                 String line = scanner.nextLine();
                 try {
                     if (line.contains("from:")) {
-                        String[] partsOfEventTask = line.split(" \\| ");
-                        assert partsOfEventTask.length == 4;
-                        String statusOfEvent = partsOfEventTask[1];
-                        String eventDescription = partsOfEventTask[2];
-                        String period = partsOfEventTask[3].substring(6);
-                        String[] fromAndTo = period.split(" to: ");
-                        String from = fromAndTo[0];
-                        String to = fromAndTo[1];
-                        LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_STORE);
-                        LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_STORE);
-                        Event store = new Event(eventDescription, formattedFrom, formattedTo);
-                        if (statusOfEvent.equals("X")) {
-                            store.mark();
-                        }
-                        storageList.add(store);
+                        loadEventTask(line);
                     } else if (line.contains("by:")) {
-                        String[] partsOfDeadlineTask = line.split(" \\| ");
-                        assert partsOfDeadlineTask.length == 4;
-                        String statusOfDeadline = partsOfDeadlineTask[1];
-                        String deadlineDescription = partsOfDeadlineTask[2];
-                        String by = partsOfDeadlineTask[3].substring(4);
-                        LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_STORE);
-                        Deadline store = new Deadline(deadlineDescription, formattedBy);
-                        if (statusOfDeadline.equals("X")) {
-                            store.mark();
-                        }
-                        storageList.add(store);
+                        loadDeadlineTask(line);
                     } else {
-                        String[] partsOfToDoTask = line.split(" \\| ");
-                        assert partsOfToDoTask.length == 3;
-                        String statusOfToDo = partsOfToDoTask[1];
-                        String toDoDescription = partsOfToDoTask[2];
-                        ToDo store = new ToDo(toDoDescription);
-                        if (statusOfToDo.equals("X")) {
-                            store.mark();
-                        }
-                        storageList.add(store);
+                        loadToDoTask(line);
                     }
                 } catch (Exception e) {
                     System.out.println("Error printing task from file: " + e.getMessage());
@@ -110,4 +78,65 @@ public class Storage {
         }
         return this.storageList;
     }
+
+    /**
+     * Load an event task from the file.
+     *
+     * @param line Line to be loaded.
+     */
+    public void loadEventTask(String line) {
+        String[] partsOfEventTask = line.split(" \\| ");
+        assert partsOfEventTask.length == 4;
+        String statusOfEvent = partsOfEventTask[1];
+        String eventDescription = partsOfEventTask[2];
+        String period = partsOfEventTask[3].substring(6);
+        String[] fromAndTo = period.split(" to: ");
+        String from = fromAndTo[0];
+        String to = fromAndTo[1];
+        LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_STORE);
+        LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_STORE);
+        Event eventToBeLoaded = new Event(eventDescription, formattedFrom, formattedTo);
+        if (statusOfEvent.equals("X")) {
+            eventToBeLoaded.mark();
+        }
+        storageList.add(eventToBeLoaded);
+    }
+
+    /**
+     * Load an deadline task from the file.
+     *
+     * @param line Line to be loaded.
+     */
+    public void loadDeadlineTask(String line) {
+        String[] partsOfDeadlineTask = line.split(" \\| ");
+        assert partsOfDeadlineTask.length == 4;
+        String statusOfDeadline = partsOfDeadlineTask[1];
+        String deadlineDescription = partsOfDeadlineTask[2];
+        String by = partsOfDeadlineTask[3].substring(4);
+        LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_STORE);
+        Deadline deadlineTaskToBeStored = new Deadline(deadlineDescription, formattedBy);
+        if (statusOfDeadline.equals("X")) {
+            deadlineTaskToBeStored.mark();
+        }
+        storageList.add(deadlineTaskToBeStored);
+    }
+
+    /**
+     * Load an toDo task from the file.
+     *
+     * @param line Line to be loaded.
+     */
+    public void loadToDoTask(String line) {
+        String[] partsOfToDoTask = line.split(" \\| ");
+        assert partsOfToDoTask.length == 3;
+        String statusOfToDo = partsOfToDoTask[1];
+        String toDoDescription = partsOfToDoTask[2];
+        ToDo toDoTaskToBeStored = new ToDo(toDoDescription);
+        if (statusOfToDo.equals("X")) {
+            toDoTaskToBeStored.mark();
+        }
+        storageList.add(toDoTaskToBeStored);
+    }
 }
+
+
