@@ -1,5 +1,6 @@
 package ciara.ui.gui;
 
+import ciara.commands.Command;
 import ciara.exceptions.CiaraException;
 import ciara.exceptions.StorageException;
 import ciara.ui.Gui;
@@ -69,8 +70,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws StorageException {
         String userText = this.userInput.getText();
         String ciaraText = "";
+        Boolean toExit = false;
         try {
-            ciaraText = gui.getResponse(this.userInput.getText());
+            Command command = gui.getCommand(this.userInput.getText());
+
+            if (command.isExit()) {
+                toExit = true;
+            }
+
+            ciaraText = gui.getResponse(command);
         } catch (CiaraException e) {
             ciaraText = String.format("Sorry! I got the following error:\n %s", e.getMessage());
         } finally {
@@ -79,6 +87,10 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getCiaraDialog(ciaraText, this.ciaraImage));
 
             this.userInput.clear();
+
+            if (toExit) {
+                System.exit(0);
+            }
         }
 
     }

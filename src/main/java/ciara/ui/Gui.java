@@ -20,15 +20,25 @@ public class Gui extends Ui {
     private static TaskList taskList;
 
     /**
-     * Create a label with the response from the application to the user input
+     * Get the command associated with the user input
      *
      * @param input User input to be parsed
      *
+     * @return Relevant command for the user input
+     */
+    public Command getCommand(String input) throws CiaraException {
+        // Parse user input
+        return Parser.parse(input);
+    }
+
+    /**
+     * Get the response from a command
+     *
+     * @param command Command to be executed
+     *
      * @return String with the response from the application
      */
-    public String getResponse(String input) throws CiaraException {
-        // Parse user input
-        Command command = Parser.parse(input);
+    public String getResponse(Command command) throws CiaraException {
         assert command != null; // Command should exist
 
         // Execute command
