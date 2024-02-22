@@ -19,7 +19,7 @@ public class Ui {
             + " |     \\   |     |   |            |__|    |___  [__     [__  \n"
             + " |__/   |__|   |___    |     |    |___  ___]  ___] \n"
             + "                                   "
-            + "\n" + "Hello! I'm Duchess.\n" + "What can I do for you today?\n";
+            + "\n" + "Good Day! I'm Duchess.\n" + "What can I do for you today, adventurer?\n";
     private static final String CLOSING_GREETING = "Farewell. Hope to see you again soon, my dear!";
 
     public String nextLine() {
@@ -46,7 +46,7 @@ public class Ui {
      */
     public void printClosingGreeting() {
         printHorizontalLine();
-        System.out.println("Farewell. Hope to see you again soon, my dear!");
+        System.out.println(CLOSING_GREETING);
         printHorizontalLine();
     }
 
