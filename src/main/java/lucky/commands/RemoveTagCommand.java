@@ -15,6 +15,8 @@ import lucky.ui.Ui;
 public class RemoveTagCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input) throws CommandException, IOException {
+        // This regex pattern was generated using ChatGPT. Generating regex pattern through ChatGPT
+        // can allow developers to focus more on less mundane stuff.
         Pattern pattern = Pattern.compile("(\\d+)\\s+(#[\\w\\d]+\\s*)+");
 
         if (input.length < 2) {
