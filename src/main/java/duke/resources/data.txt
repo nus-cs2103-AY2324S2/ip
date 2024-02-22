@@ -1,6 +1,0 @@
-event~0~cs2103 tutorial~11/11/2011 1111~11/11/2012 1111
-todo~0~event1~1~#test~#hello
-todo~1~event2
-todo~0~1
-todo~0~whatever im doing today
-deadline~0~ip week 1~11/11/2011 1111~#this~5~#testing~#is~#working
