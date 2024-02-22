@@ -63,6 +63,9 @@ public class Command {
                 response = ui.sayDeleted(removed);
                 storage.rewriteFile(taskList);
                 break;
+            case HI:
+                response = ui.sayGreeting();
+                break;
             case TODO:
                 Todo todo = new Todo(remainingWords);
                 response = taskList.add(todo);

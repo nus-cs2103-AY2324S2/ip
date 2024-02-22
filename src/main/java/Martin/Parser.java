@@ -34,6 +34,8 @@ public class Parser {
                 return ChatbotKeyword.DEADLINE;
             case "event":
                 return ChatbotKeyword.EVENT;
+            case "hi":
+                return ChatbotKeyword.HI;
             case "bye":
                 return ChatbotKeyword.BYE;
             case "find":

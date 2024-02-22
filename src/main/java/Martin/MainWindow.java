@@ -33,6 +33,8 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Martin m) {
         martin = m;
+        String welcomeMessage = m.getResponse("hi"); 
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 
     /**

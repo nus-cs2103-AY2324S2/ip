@@ -20,7 +20,7 @@ public class Ui {
      */
     public String sayGreeting() {
         String lineOne = "Hello from Martin" + "\n";
-        String lineTwo = "What can I do for you?" + "\n";
+        String lineTwo = "What can I do for you today?" + "\n";
         return lineOne + lineTwo;
     }
 

@@ -2,6 +2,7 @@ package Martin;
 
 public enum ChatbotKeyword {
     LIST,
+    HI,
     BYE,
     MARK,
     UNMARK,
