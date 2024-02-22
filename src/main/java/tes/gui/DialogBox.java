@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
@@ -27,8 +26,6 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView pictureDisplayer;
-    @FXML
-    private StackPane imageContainer;
 
     private DialogBox(String text, Image img, boolean isUser) {
         try {
@@ -44,7 +41,6 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         pictureDisplayer.setImage(img);
         pictureDisplayer.setClip(clipToCircle(pictureDisplayer));
-
 
         if (isUser) {
             setStyleForUserDialogue();
