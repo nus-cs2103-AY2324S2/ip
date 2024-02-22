@@ -217,19 +217,19 @@ Hence, it is recommended to take a backup of the file before editing it.
 it creates with the file that contains the data of your previous Lamball home folder.
 
 ## Command Summary
-Action | Format
-:----- | :-----
-Add todo | `todo DESCRIPTION`
-Add deadline | `deadline DESCRIPTION /by DATE`
-Add event | `event DESCRIPTION /from DATE1 /to DATE2`
-Mark | `mark INDEX`
-Unmark | `unmark INDEX`
-Delete task | `delete INDEX`
-Find | `find KEYWORD`
-List | `list`
-Add memo | `memo add DESCRIPTION`
-Delete memo | `memo del INDEX`
-Clear memos | `memo clear`
-List memos | `memo list`
-Exit | `bye`
+|Action | Format |
+|:----- | :----- |
+|Add todo | `todo DESCRIPTION`|
+|Add deadline | `deadline DESCRIPTION /by DATE`|
+|Add event | `event DESCRIPTION /from DATE1 /to DATE2`|
+|Mark | `mark INDEX`|
+|Unmark | `unmark INDEX`|
+|Delete task | `delete INDEX`|
+|Find | `find KEYWORD`|
+|List | `list`|
+|Add memo | `memo add DESCRIPTION`|
+|Delete memo | `memo del INDEX`|
+|Clear memos | `memo clear`|
+|List memos | `memo list`|
+|Exit | `bye`|
 
