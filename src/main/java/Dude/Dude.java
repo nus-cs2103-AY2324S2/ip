@@ -36,6 +36,8 @@ public class Dude {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert tasks != null : "TaskList should not be null";
+
         try {
             Command cmd = Parser.getCommand(input);
             int index;
@@ -73,10 +75,12 @@ public class Dude {
                     ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
                     return ui.showTaskList(matchingTasks);
                 case TODO:
+                    assert cmd.info != null : "Command info missing";
                     ToDo todo = new ToDo(cmd.info);
                     tasks.add(todo);
                     return ui.showAddTask(todo);
                 case DEADLINE:
+                    assert cmd.info != null : "Command info missing";
                     if (!cmd.info.contains(" /by ")) {
                         throw new IllegalArgumentException(
                                 "Invalid deadline format. Use '/by' to specify the deadline.");
@@ -86,6 +90,8 @@ public class Dude {
                     tasks.add(deadline);
                     return ui.showAddTask(deadline);
                 case EVENT:
+                    assert cmd.info != null : "Command info missing";
+
                     if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
                         throw new IllegalArgumentException(
                                 "Invalid event format. Use '/from' and '/to' to specify the event times.");
