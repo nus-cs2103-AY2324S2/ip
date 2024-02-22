@@ -62,8 +62,7 @@ public class Storage {
     public ItemList readFromFile() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.path));
-            final ItemList il = (ItemList) in.readObject();
-            return il;
+            return (ItemList) in.readObject();
         } catch (FileNotFoundException | EOFException e) {
             return new ItemList();
         } catch (IOException e) {
