@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog("Welcome to JeromeGPT!", jeromeGptImage)
         );
 
+        // Enable the return / enter key.
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
