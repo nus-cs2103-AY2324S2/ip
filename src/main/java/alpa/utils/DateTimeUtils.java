@@ -158,7 +158,7 @@ public class DateTimeUtils {
     /**
      * Parses a string representation of a deadline into a {@link LocalDateTime} object.
      *
-     * @param dateTimeStr the string representation of the date and time
+     * @param deadlineStr the string representation of the date and time
      * @return the parsed {@link LocalDateTime} object
      * @throws DateTimeParseException if the input string is not in a valid date and time format
      */

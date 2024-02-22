@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.Event;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.DateTimeUtils;
 import alpa.utils.Storage;
 
@@ -32,19 +31,19 @@ public class EventCommand implements Command {
      * and saving the tasks to storage.
      *
      * @param taskList the task list
-     * @param ui the user interface
      * @param storage the storage
+     * @return a message indicating the successful addition of the event task
      * @throws AlpaException if there is an error executing the command
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
         try {
             Pattern fromPattern = Pattern.compile("\\s*/from\\s*");
             Pattern toPattern = Pattern.compile("\\s*/to\\s*");
             Matcher fromMatcher = fromPattern.matcher(details);
             Matcher toMatcher = toPattern.matcher(details);
             if (!fromMatcher.find() || !toMatcher.find()) {
-                throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' "
+                throw new AlpaException("Invalid event format, human! Please use '/from' and '/to' "
                         + "to specify the event time.");
             }
             int fromIndex = fromMatcher.start();
@@ -55,14 +54,15 @@ public class EventCommand implements Command {
             LocalDateTime startDateTime = DateTimeUtils.parseDateTime(startStr);
             LocalDateTime endDateTime = DateTimeUtils.tryParseEndDateTime(endStr, startDateTime.toLocalDate());
             if (endDateTime.isBefore(startDateTime)) {
-                throw new AlpaException("\nEnd time cannot be before start time, human!");
+                throw new AlpaException("End time cannot be before start time, human!");
             }
             Event event = new Event(description, startDateTime, endDateTime);
             taskList.addTask(event);
-            ui.showAddedTask(event, taskList.getSize());
             storage.saveTasks(taskList.getTasks());
+            int size = taskList.getSize();
+            return String.format("You added a task human!\n  %s\nNow you have %d tasks in your list!", event, size);
         } catch (DateTimeParseException e) {
-            throw new AlpaException("\nInvalid date and time format, human!! Start: '" + details + "'.");
+            throw new AlpaException("Invalid date and time format, human!! Start: '" + details + "'.");
         }
     }
 

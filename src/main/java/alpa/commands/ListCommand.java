@@ -1,7 +1,9 @@
 package alpa.commands;
 
+import java.util.List;
+
+import alpa.tasks.Task;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -13,12 +15,20 @@ public class ListCommand implements Command {
      * Executes the list command by displaying all tasks in the task list.
      *
      * @param taskList The task list containing the tasks.
-     * @param ui The user interface to display the task list.
      * @param storage The storage to save the task list.
+     * @return A string representation of the tasks in the task list.
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTaskList(taskList.getTasks());
+    public String executeCommand(TaskList taskList, Storage storage) {
+        if (taskList.getSize() == 0) {
+            return "Your list is empty, human!";
+        }
+        List<Task> tasks = taskList.getTasks(); // Use getTasks() to get the list of tasks
+        StringBuilder listOutput = new StringBuilder("Your list, human!\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            listOutput.append("  ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return listOutput.toString().trim(); // Trim to remove the last newline character
     }
 
     /**

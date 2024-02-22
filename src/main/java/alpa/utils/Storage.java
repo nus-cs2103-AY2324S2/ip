@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import alpa.exceptions.AlpaException;
-import alpa.tasks.*;
+import alpa.tasks.Deadline;
+import alpa.tasks.Event;
+import alpa.tasks.Task;
+import alpa.tasks.TaskType;
+import alpa.tasks.ToDo;
 
 /**
  * The Storage class is responsible for loading and saving tasks to a file.

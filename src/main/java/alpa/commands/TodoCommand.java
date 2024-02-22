@@ -3,7 +3,6 @@ package alpa.commands;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.TaskList;
 import alpa.tasks.ToDo;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -26,19 +25,20 @@ public class TodoCommand implements Command {
      * displaying the added task, and saving the updated task list to storage.
      *
      * @param taskList The task list.
-     * @param ui The user interface.
      * @param storage The storage.
+     * @return a message indicating the successful addition of the todo task.
      * @throws AlpaException If the description is empty.
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
         if (description.isEmpty()) {
             throw new AlpaException("\nBaa-ad news, human! The description of a todo cannot be empty.");
         }
         ToDo todo = new ToDo(description);
         taskList.addTask(todo);
-        ui.showAddedTask(todo, taskList.getSize());
         storage.saveTasks(taskList.getTasks());
+        int size = taskList.getSize();
+        return String.format("You added a task human!\n  %s\nNow you have %d tasks in your list!", todo, size);
     }
 
     /**

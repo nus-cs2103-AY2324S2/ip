@@ -1,10 +1,10 @@
 package alpa.main;
 
-import alpa.commands.*;
-import alpa.exceptions.*;
-import alpa.tasks.*;
-import alpa.ui.*;
-import alpa.utils.*;
+import alpa.commands.Command;
+import alpa.commands.Parser;
+import alpa.exceptions.AlpaException;
+import alpa.tasks.TaskList;
+import alpa.utils.Storage;
 
 /**
  * Represents the main class of the Alpa application.
@@ -14,50 +14,50 @@ public class Alpa {
     private static final String FILE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Represents the main class of the Alpa application.
      */
     public Alpa() {
-        ui = new Ui();
         storage = new Storage(FILE_PATH);
+        tasks = new TaskList();
         try {
-            tasks = new TaskList();
             tasks.addAll(storage.loadTasks());
         } catch (AlpaException e) {
-            ui.showLoadingError(e.getMessage());
-            tasks = new TaskList();
+            System.out.println("Failed to load tasks: " + e.getMessage());
         }
     }
 
     /**
-     * Runs the Alpa program.
-     * Displays a welcome message and enters a loop to read and execute user commands until the user chooses to exit.
-     * Each command is parsed and executed using the provided tasks, ui, and storage objects.
-     * If an AlpaException is thrown during command execution, an error message is displayed.
-     */
-    public void runAlpa() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.executeCommand(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (AlpaException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The main entry point of the Alpa application.
+     * Returns the task list.
      *
-     * @param args The command line arguments passed to the application.
+     * @return the task list
      */
-    public static void main(String[] args) {
-        new Alpa().runAlpa();
+    public TaskList getTaskList() {
+        return tasks;
+    }
+
+    /**
+     * Returns the storage object used by the application.
+     *
+     * @return the storage object
+     */
+    public Storage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Processes input from the GUI and returns a response.
+     *
+     * @param input User input from the GUI.
+     * @return Response to be displayed in the GUI.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.executeCommand(tasks, storage);
+        } catch (AlpaException e) {
+            return e.getMessage();
+        }
     }
 }

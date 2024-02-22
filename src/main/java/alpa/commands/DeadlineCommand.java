@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.Deadline;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.DateTimeUtils;
 import alpa.utils.Storage;
 
@@ -26,31 +25,33 @@ public class DeadlineCommand implements Command {
     }
 
     /**
-     * Executes the DeadlineCommand by parsing the details of the command and
-     * adding a new Deadline task to the task list.
-     * If the details are not in the correct format or the date/time is invalid, an AlpaException is thrown.
+     * Represents a command to add a deadline task to the task list.
+     * The deadline task includes a description and a deadline date and time.
+     * The command parses the input details and adds the deadline task to the task list.
+     * It also saves the updated task list to the storage.
      *
-     * @param taskList the task list to add the new Deadline task to
-     * @param ui the user interface to display messages
+     * @param taskList the task list to add the deadline task to
      * @param storage the storage to save the updated task list
-     * @throws AlpaException if the details are in an invalid format or the date/time is invalid
+     * @return a message indicating the successful addition of the deadline task
+     * @throws AlpaException if the deadline format is invalid or the date/time format is invalid
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
         try {
             String[] parts = this.details.split("\\s*/by\\s*", 2);
             if (parts.length < 2) {
-                throw new AlpaException("\nInvalid deadline format, human! Use '/by' to specify the deadline.");
+                throw new AlpaException("Invalid deadline format, human! Use '/by' to specify the deadline.");
             }
             String description = parts[0].trim();
             String deadlineStr = parts[1].trim();
             LocalDateTime parsedDeadlineDateTime = DateTimeUtils.parseDeadlineDateTime(deadlineStr);
             Deadline deadline = new Deadline(description, parsedDeadlineDateTime);
             taskList.addTask(deadline);
-            ui.showAddedTask(deadline, taskList.getSize());
             storage.saveTasks(taskList.getTasks());
+            int size = taskList.getSize();
+            return String.format("You added a task human!\n  %s\nNow you have %d tasks in your list!", deadline, size);
         } catch (DateTimeParseException e) {
-            throw new AlpaException("\nInvalid date or time format, human!!");
+            throw new AlpaException("Invalid date or time format, human!!");
         }
     }
 

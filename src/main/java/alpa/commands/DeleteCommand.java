@@ -3,7 +3,6 @@ package alpa.commands;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.Task;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -31,18 +30,19 @@ public class DeleteCommand implements Command {
      * Throws an AlpaException if the index is invalid.
      *
      * @param taskList the task list containing the tasks
-     * @param ui the user interface for displaying messages
      * @param storage the storage for saving tasks
+     * @return the result of executing the command
      * @throws AlpaException if the index is out of bounds
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
         if (index < 0 || index >= taskList.getSize()) {
             throw new AlpaException("Invalid task number, human!!");
         }
         Task removedTask = taskList.deleteTask(index);
-        ui.showDeletedTask(removedTask, taskList.getSize());
         storage.saveTasks(taskList.getTasks());
+        return String.format("Removed this task for you, human.\n"
+            + "%s\nNow you have %d tasks left human!", removedTask, taskList.getSize());
     }
 
     /**

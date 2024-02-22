@@ -1,7 +1,6 @@
 package alpa.commands;
 
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -20,15 +19,15 @@ public class InvalidCommand implements Command {
     }
 
     /**
-     * Executes the invalid command by displaying an error message on the user interface.
+     * Executes the invalid command and returns the error message.
      *
-     * @param taskList the task list containing the tasks
-     * @param ui the user interface for displaying messages
-     * @param storage the storage for saving and loading tasks
+     * @param taskList the task list to operate on
+     * @param storage the storage to save the task list
+     * @return the error message
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) {
-        ui.showError(message);
+    public String executeCommand(TaskList taskList, Storage storage) {
+        return message; // Return the error message directly
     }
 
     /**
