@@ -45,6 +45,16 @@ class Parser {
                 assert input.length() > 5 : "Invalid 'find' command format.";
                 String keyword = input.substring(5).trim();
                 return tasks.findTasks(keyword);
+            } else if (input.startsWith("tag ")) {
+                String[] parts = input.substring(4).trim().split(" ");
+                int taskIndex = Integer.parseInt(parts[0]);
+                String tagName = parts[1];
+                return tasks.tagTask(taskIndex, tagName);
+            } else if (input.startsWith("untag ")) {
+                String[] parts = input.substring(6).trim().split(" ");
+                int taskIndex = Integer.parseInt(parts[0]);
+                String tagName = parts[1];
+                return tasks.untagTask(taskIndex, tagName);
             } else if (input.equalsIgnoreCase("bye")) {
                 return tasks.exit();
             } else {

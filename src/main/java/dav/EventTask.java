@@ -3,6 +3,8 @@ package dav;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.Set;
+
 /**
  * Represents a task that is an event with a specified start and end date/time.
  */
@@ -43,23 +45,23 @@ class EventTask extends Task {
     public static Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
 
-        if (parts.length != 5) {
+        if (parts.length < 5) {
             return null;
         }
 
-        String[] dateTimeParts = parts[3].split(" ");
-        String[] dateTimePartsTo = parts[4].split(" ");
-
-        if (dateTimeParts.length != 2 || dateTimePartsTo.length != 2) {
-            return null;
-        }
-
-        EventTask eventTask = new EventTask(parts[2], dateTimeParts[0] + " " + dateTimeParts[1],
-                dateTimePartsTo[0] + " " + dateTimePartsTo[1]);
+        EventTask eventTask = new EventTask(parts[2], parts[3], parts[4]);
         eventTask.isDone = parts[1].equals("1");
+
+        if (parts.length > 5) {
+            String[] tagParts = parts[5].split(", ");
+            for (String tag : tagParts) {
+                eventTask.addTag(tag);
+            }
+        }
 
         return eventTask;
     }
+
 
     /**
      * Parses a date-time string and returns a LocalDateTime object.
@@ -78,9 +80,19 @@ class EventTask extends Task {
      */
     @Override
     public String toDataString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description
+        StringBuilder dataString = new StringBuilder("E | " + (isDone ? "1" : "0") + " | " + description
                 + " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
-                + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                + " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+        Set<String> eventTags = getTags();
+        if (!eventTags.isEmpty()) {
+            dataString.append(" | ");
+            for (String tag : eventTags) {
+                dataString.append(tag).append(", ");
+            }
+            dataString.delete(dataString.length() - 2, dataString.length());
+        }
+
+        return dataString.toString();
     }
 
     /**
@@ -89,7 +101,7 @@ class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString()
+        return "[E]" + super.toString() + "\n"
                 + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
                 + " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }

@@ -1,5 +1,8 @@
 package dav;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a generic task with a description and completion status.
  */
@@ -7,6 +10,7 @@ class Task {
 
     protected String description;
     protected boolean isDone;
+    private Set<String> tags;
 
     /**
      * Constructs a Task with the specified description.
@@ -15,6 +19,7 @@ class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -55,6 +60,18 @@ class Task {
         return "";
     }
 
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
     /**
      * Parses task data string and returns a Task object.
      * @param data Data string representing the task.
@@ -78,7 +95,17 @@ class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        StringBuilder result = new StringBuilder(getStatusIcon() + " " + description);
+
+        if (!tags.isEmpty()) {
+            result.append("\nTags: ");
+            for (String tag : tags) {
+                result.append(tag).append(", ");
+            }
+            result.delete(result.length() - 2, result.length());
+        }
+
+        return result.toString();
     }
 }
 
