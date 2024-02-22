@@ -3,25 +3,12 @@ package emis;
 import emisCommand.Command;
 import emisExceptions.EmisException;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-
 /**
  * The main class of the EMIS application.
  * Duke handles the initialization of application components and the main application logic.
  */
 
-public class Duke extends Application {
+public class Duke {
 
     /** The storage component for managing data. */
     private Storage storage;
@@ -31,14 +18,6 @@ public class Duke extends Application {
 
     /** The user interface cokponent for interacting with users. */
     private Ui ui;
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Emis.png"));
 
     /**
      * Constructs a new Duke object with the specified file path.
@@ -96,6 +75,7 @@ public class Duke extends Application {
         new Duke("./data/emis.txt").run();
     }
 
+    /*
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -165,41 +145,13 @@ public class Duke extends Application {
             handleUserInput();
         });
     }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
-    
+    */
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         return "Emis heard: " + input;
     }
 
