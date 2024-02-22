@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import duke.command.CommandParser;
 import duke.command.CommandType;
 import duke.commons.exceptions.DukeException;
+import duke.commons.utils.DateUtils;
 import duke.storage.PersistentStorageHandler;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -130,7 +131,7 @@ public class Main {
     private static void handleDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = CommandParser.parseDeadline(userInput);
         String description = deadlineDetails[0];
-        LocalDate due = LocalDate.parse(deadlineDetails[1]);
+        LocalDate due = DateUtils.parseDateString(deadlineDetails[1]);
         String response = taskList.addTask(new Deadline(description, due));
         int totalTasks = taskList.getNumberTasks();
         UserInterface.printTaskAdded(response, totalTasks);
@@ -139,8 +140,8 @@ public class Main {
     private static void handleEvent(String userInput) throws DukeException {
         String[] eventDetails = CommandParser.parseEvent(userInput);
         String description = eventDetails[0];
-        LocalDate start = LocalDate.parse(eventDetails[1]);
-        LocalDate end = LocalDate.parse(eventDetails[2]);
+        LocalDate start = DateUtils.parseDateString(eventDetails[1]);
+        LocalDate end = DateUtils.parseDateString(eventDetails[2]);
         String response = taskList.addTask(new Event(description, start, end));
         int totalTasks = taskList.getNumberTasks();
         UserInterface.printTaskAdded(response, totalTasks);
