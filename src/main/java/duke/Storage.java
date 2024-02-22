@@ -20,31 +20,24 @@ public class Storage {
      */
     static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
+        File file = new File(FILE_PATH);
 
-                    try {
-                        Task task = Parser.parseTaskFromString(line);
-                        tasks.add(task);
-                    } catch (DukeException e) {
-                        System.out.println("Error parsing task from file: " + e.getMessage());
-                        // Decide how to handle the DukeException, e.g., logging or skipping the task
-                    }
-
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                try {
+                    tasks.add(Parser.parseTaskFromString(line));
+                } catch (DukeException e) {
+                    System.out.println("Error parsing task from file: " + e.getMessage());
                 }
-                scanner.close();
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
+
         return tasks;
     }
+
 
     /**
      * Saves the given tasks to the file.
