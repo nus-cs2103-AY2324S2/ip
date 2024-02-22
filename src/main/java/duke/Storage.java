@@ -18,7 +18,7 @@ import duke.task.Task;
  * for some of the code here.
  */
 public class Storage {
-    private static final String fileName = "duke.ser";
+    private static final String fileName = "refinement.ser";
 
     /**
      * Save tasks to file.
