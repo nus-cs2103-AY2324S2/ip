@@ -1,4 +1,0 @@
-[T][X] borrow book
-[D][X] return book (by: Dec 02 2019 1800)
-[E][ ] project meeting (from: Oct 18 2019 1900 to: Oct 18 2019 2100)
-[D][ ] submit report (by: Feb 28 2022 0900)
