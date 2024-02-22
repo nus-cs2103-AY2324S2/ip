@@ -20,7 +20,9 @@ public class Deadline extends Task {
             String by) {
         super(description);
         this.details = LocalDate.parse(by);
+        assert this.details.isAfter(LocalDate.now()) : "Deadline must be in the future";
     }
+    
 
     /**
      * returns a string that displays the deadline details.

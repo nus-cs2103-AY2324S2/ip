@@ -21,7 +21,9 @@ public class Event extends Task {
             String to) {
         super(description);
         this.from = from;
+        assert this.from != null : "from cannot be null";
         this.to = to;
+        assert this.to != null : "to cannot be null";
     }
 
     /**
