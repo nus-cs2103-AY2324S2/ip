@@ -40,6 +40,7 @@ public class Ui {
     public String waveBye() {
         scn.close();
         String farewellMessage = "Farewell!\n";
+        System.exit(0);
         return farewellMessage;
     }
 }
