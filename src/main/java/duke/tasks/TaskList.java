@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,33 @@ public class TaskList {
         List<Task> searchResults = new ArrayList<>();
         for (Task task : tasks) {
             if (task.search(keyword)) {
+                searchResults.add(task);
+            }
+        }
+        return new TaskList(searchResults);
+    }
+
+    /**
+     * Finds tasks that match the specified LocalDateTime.
+     * Tasks are considered a match if they have a deadline or event occurring at the specified date and time.
+     *
+     * @param checkDate The LocalDateTime to check against task deadlines and event timings.
+     * @return A TaskList containing tasks that match the specified LocalDateTime.
+     */
+    public TaskList find(LocalDate checkDate) {
+        List<Task> searchResults = new ArrayList<>();
+        for (Task task : tasks) {
+            boolean isMatch = false;
+            if (task instanceof ToDo) {
+                continue;
+            } else if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                isMatch = deadlineTask.search(checkDate);
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                isMatch = eventTask.search(checkDate);
+            }
+            if (isMatch) {
                 searchResults.add(task);
             }
         }

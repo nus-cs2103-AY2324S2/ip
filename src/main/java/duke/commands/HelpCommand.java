@@ -18,6 +18,6 @@ public class HelpCommand extends Command {
     @Override
     public String execute(Ui ui, TaskList tasks) {
         return "OOPS! This command doesn't exist. Retry! "
-                + "Acceptable commands are: todo, deadline, event, list, mark, unmark, save, delete, bye";
+                + "Acceptable commands are: todo, deadline, event, list, mark, unmark, save, delete, find, view, bye";
     }
 }

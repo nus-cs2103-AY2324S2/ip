@@ -1,21 +1,10 @@
 package duke.parsers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import duke.commands.Command;
-import duke.commands.CreateDeadlineCommand;
-import duke.commands.CreateEventCommand;
-import duke.commands.CreateTodoCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.ErrorCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.HelpCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkTaskCommand;
-import duke.commands.SaveCommand;
-import duke.commands.UnmarkTaskCommand;
+import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.utils.Utils;
 
@@ -57,6 +46,8 @@ public class Parser {
             return new SaveCommand();
         case "find":
             return new FindCommand(commandArguments);
+        case "view":
+            return handleViewSchedules(commandArguments);
         default:
             return new HelpCommand();
         }
@@ -150,12 +141,10 @@ public class Parser {
                     + "state the starting and ending time using these two keywords.");
         }
         String[] instruction = arguments.split(" from ", 2);
-        if (instruction.length < 2) {
-            if (arguments.startsWith("from")) {
-                throw new DukeException("OOPS! You forget to write the task description. "
-                        + "Please follow this format: '<task_description> from <start_time> to <end_time>' "
-                        + "in yyyy-mm-dd HHmm 24-hr format ");
-            }
+        if (instruction.length < 2 && arguments.startsWith("from")) {
+            throw new DukeException("OOPS! You forget to write the task description. "
+                    + "Please follow this format: '<task_description> from <start_time> to <end_time>' "
+                    + "in yyyy-mm-dd HHmm 24-hr format ");
         } else if (instruction.length < 3 && instruction[1].startsWith("to")) {
             throw new DukeException("OOPS! You forget to write the starting time of this event.");
         }
@@ -269,6 +258,26 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new ErrorCommand("Unable to parse the input as an integer. "
                     + "Please put a number after 'delete'.");
+        }
+    }
+
+    /**
+     * Handles the command to view schedules for a specific date.
+     * Parses the command arguments to extract the date for which schedules are to be viewed.
+     *
+     * @param commandArguments The string containing the date for which schedules are to be viewed.
+     * @return A Command object representing the action to view schedules for the specified date.
+     * If the commandArguments is blank, an ErrorCommand is returned with a corresponding error message.
+     */
+    public static Command handleViewSchedules(String commandArguments) {
+        if (commandArguments.isBlank()) {
+            return new ErrorCommand("OPPS! You have forget to provide a date to search the schedule.");
+        }
+        try {
+            LocalDate checkDate = Utils.convertToLocalDate(commandArguments);
+            return new ViewSchedulesCommand(checkDate);
+        } catch (DateTimeParseException e) {
+            return new ErrorCommand("Unable to parse the date, please follow this format: 'yyyy-MM-dd'");
         }
     }
 }

@@ -19,7 +19,6 @@ public class FindCommand extends Command {
             return "OOPS! You forget to provide the keyword to search.";
         }
         TaskList results = tasks.find(keyword);
-        ui.showLine();
         if (results.size() != 0) {
             return "Here are the matching tasks in your list:\n" + results.displayTasks();
         } else {

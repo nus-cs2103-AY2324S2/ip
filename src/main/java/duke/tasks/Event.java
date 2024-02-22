@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -52,5 +53,20 @@ public class Event extends Task {
     public String convertToFileFormat(DateTimeFormatter storeFormatter) {
         return "E | " + super.convertToFileFormat(storeFormatter) + " | " + this.start.format(storeFormatter)
                 + " | " + this.end.format(storeFormatter);
+    }
+
+    /**
+     * Checks if the specified LocalDateTime is within the range of this task's start and end times,
+     * inclusive of the start and end times.
+     *
+     * @param checkDate The LocalDateTime to check against this task's start and end times.
+     * @return {@code true} if the checkDate is equal to the start time or end time of this task,
+     *         or if it falls within the range of the start and end times (inclusive), {@code false} otherwise.
+     */
+    public boolean search(LocalDate checkDate) {
+        LocalDate startDate = this.start.toLocalDate();
+        LocalDate endDate = this.end.toLocalDate();
+        return (checkDate.equals(startDate) || checkDate.equals(endDate))
+                || (checkDate.isAfter(startDate) && checkDate.isBefore(endDate));
     }
 }

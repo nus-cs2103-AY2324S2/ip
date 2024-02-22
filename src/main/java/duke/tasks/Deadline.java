@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -46,4 +47,16 @@ public class Deadline extends Task {
     public String convertToFileFormat(DateTimeFormatter storeFormatter) {
         return "D | " + super.convertToFileFormat(storeFormatter) + " | " + this.deadline.format(storeFormatter);
     }
+
+    /**
+     * Checks if the specified LocalDateTime is equal to the deadline of this task.
+     *
+     * @param checkDate The LocalDateTime to compare with the deadline of this task.
+     * @return {@code true} if the checkDate is equal to the deadline of this task, {@code false} otherwise.
+     */
+    public boolean search(LocalDate checkDate) {
+        LocalDate deadlineDate = deadline.toLocalDate();
+        return deadlineDate.equals(checkDate);
+    }
+
 }

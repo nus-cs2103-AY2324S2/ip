@@ -1,7 +1,9 @@
 package duke.utils;
 
+import static duke.constants.Constant.DATE_FORMATTER;
 import static duke.constants.Constant.DATE_TIME_FORMATTER;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -25,5 +27,14 @@ public class Utils {
      */
     public static LocalDateTime convertToLocalDateTime(String timeStr) {
         return LocalDateTime.parse(timeStr, DATE_TIME_FORMATTER);
+    }
+
+    /**
+     * Converts time string to LocalDate object, accepted date format is yyyy-MM-dd
+     * @param timeStr for convert to LocalDate
+     * @return time in LocalDate object
+     */
+    public static LocalDate convertToLocalDate(String timeStr) {
+        return LocalDate.parse(timeStr, DATE_FORMATTER);
     }
 }
