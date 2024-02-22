@@ -23,12 +23,12 @@ Got it. I've added this task:
 
 Format: `deadline <TASK NAME> /by <DUE DATE>`
 
-Usage: `deadline submit quiz /by 2024-02-23`
+Usage: `deadline submit maths quiz /by 2024-02-23`
 
 Expected Output:
 ```
 Got it. I've added this task:
-[D][ ] submit quiz (by: 2024-02-23)
+[D][ ] submit maths quiz (by: 2024-02-23)
 ```
 
 ### Add Event
@@ -72,7 +72,7 @@ Expected Output:
 ```
 Here are the tasks in your list:
 0. [T][ ] revise maths
-1. [D][ ] submit quiz (by: 2024-02-23)
+1. [D][ ] submit maths quiz (by: 2024-02-23)
 2. [E][ ] exam week (from: 2024-04-01 to: 2024-04-07)
 3. [T][ ] cs2101 ca1 script  #important #cs2101
 ```
@@ -105,4 +105,29 @@ Nice! I've unmarked this task as not done:
 [T][ ] revise maths
 ```
 
-##
+## Find task by keyword
+Users can find tasks by their name using a keyword.
+
+Format: `find <KEYWORD>`
+
+Usage: `find maths`
+
+Expected Output:
+```
+Here are the possible tasks that match your query:
+0. [T][ ] revise maths
+1. [D][ ] submit maths quiz (by: 2024-02-23)
+```
+
+## Delete task
+Users can delete task by their index.
+
+Format: `delete <INDEX>`
+
+Usage: `delete 0`
+
+Expected Output:
+```
+Noted. I've removed this task:
+[T][ ] revise maths
+```
