@@ -1,6 +1,8 @@
 package liv.processor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import liv.container.Storage;
 import liv.exception.LivException;
 import liv.task.Task;
@@ -31,10 +33,21 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
+        ArrayList<Task> deletedTasks = new ArrayList<>();
+        ArrayList<Integer> reversedIndices = new ArrayList<>();
+        reversedIndices.addAll(indices);
+        reversedIndices.sort(Comparator.reverseOrder());
 
-        Task removed = tasks.deleteTask(trueIndex);
-        String message = Ui.getDeleteMessage(removed);
+        for (int index: reversedIndices) {
+            Task deletedTask = tasks.deleteTask(index);
+            deletedTasks.add(deletedTask);
+        }
+
+        Collections.reverse(deletedTasks);
+        String message = Ui.getDeleteMessage(indices, deletedTasks);
+
         storage.saveTaskToFile();
+
         return message;
     }
 

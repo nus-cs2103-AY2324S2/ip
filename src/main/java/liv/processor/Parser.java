@@ -33,6 +33,8 @@ public class Parser {
             return parseByeCommand();
         } else if (input.equalsIgnoreCase("list")) {
             return parseListCommand();
+        } else if (input.equalsIgnoreCase("clear")) {
+            return parseClearCommand();
         } else if (input.startsWith("mark")) {
             return parseMarkOrUnmarkCommand(input, true);
         } else if (input.startsWith("unmark")) {
@@ -60,6 +62,10 @@ public class Parser {
         return new ByeCommand();
     }
 
+    private static Command parseClearCommand() {
+        return new ClearCommand();
+    }
+
     /**
      * Processes the input that includes the index of the task.
      * @param input The command that users input.
@@ -77,19 +83,18 @@ public class Parser {
 
         String indicesListString = input.substring(firstSpaceIndex + 1);
 
-        while (true) {
-            int spaceIndex = indicesListString.indexOf(' ');
-            if (spaceIndex == -1) {
-                break;
-            }
-
-            String indexString = indicesListString.substring(0, spaceIndex - 1);
+        String[] splitIndicesList = indicesListString.split(" ");
+        for (String indexString: splitIndicesList) {
             if (!indexString.matches("\\d+")) {
                 throw new LivException("Please enter a positive integer as the mission number!");
             }
-
             int index = Integer.parseInt(indexString);
             assert index > 0: "Input number should be a positive integer!";
+
+            if (indicesList.contains(index)) {
+                throw new LivException("Cannot enter duplicate mission number!");
+            }
+
             indicesList.add(index);
         }
 

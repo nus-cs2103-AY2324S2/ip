@@ -31,14 +31,26 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
-        int trueIndex = indices - 1;
-        Task task = TaskList.getTask(trueIndex);
-        boolean currentState = task.getStatus();
-        if (!currentState) {
-            throw new LivException("Mission already unmarked!");
+        ArrayList<Task> unmarkedTasks = new ArrayList<>();
+
+        for (int index: indices) {
+            Task task = TaskList.getTask(index);
+            boolean currentState = task.getStatus();
+            if (!currentState) {
+                throw new LivException("Mission number " + (index + 1) + " is already unmarked!");
+            }
         }
-        task.markAsNotDone();
-        String message = Ui.getUnmarkMessage(task);
+
+        for (int index: indices) {
+            Task task = TaskList.getTask(index);
+            task.markAsNotDone();
+            unmarkedTasks.add(task);
+        }
+
+        String message = Ui.getUnmarkMessage(indices, unmarkedTasks);
+
+        storage.saveTaskToFile();
+
         return message;
     }
 }

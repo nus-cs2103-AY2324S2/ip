@@ -39,11 +39,17 @@ public class MarkCommand extends Command {
             if (currentState) {
                 throw new LivException("Mission number " + (index + 1) + " is already marked!");
             }
+        }
+
+        for (int index: indices) {
+            Task task = TaskList.getTask(index);
             task.markAsDone();
             markedTasks.add(task);
         }
 
-        String message = Ui.getMarkMessage(markedTasks);
+        String message = Ui.getMarkMessage(indices, markedTasks);
+
+        storage.saveTaskToFile();
 
         return message;
     }
