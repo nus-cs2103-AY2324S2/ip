@@ -15,32 +15,32 @@ public class Ui {
     /**
      * Prints the greeting message when user opens chatbot.
      */
-    public void greet() {
-        System.out.println("Hello! My name is Mitsuki, nice to meet you!\n"
-                + "What can I do for you today?\n");
+    public String greet() {
+        return "Hello! My name is Mitsuki, nice to meet you!\n"
+                + "What can I do for you today?\n";
     }
 
     /**
      * Prints the user's previously saved list, if available.
      */
-    public void loadList() {
-        System.out.println("I have loaded your previously saved list for you. :)");
+    public String loadList() {
+        return "I have loaded your previously saved list for you. :)";
     }
 
     /**
      * Prints message to tell user that there is no previously saved list, so a new
      * list will be used.
      */
-    public void loadError() {
-        System.out.println("No saved list found. A new list will be used!");
+    public String loadError() {
+        return "No saved list found. A new list will be used!";
     }
 
     /**
      * Prints message to inform user their command is invalid.
      */
-    public void invalidCommandMessage() {
-        System.out.println("Sorry, I am unable to do that at the current moment.");
-        System.out.println("Please type 'help' for a list of commands you can give me! :)");
+    public String invalidCommandMessage() {
+        return "Sorry, I am unable to do that at the current moment. "
+                + "Please type 'help' for a list of commands you can give me! :)";
     }
 
     /**
@@ -48,8 +48,8 @@ public class Ui {
      *
      * @param ex the exception thrown.
      */
-    public void printErrorMessage(Exception ex) {
-        System.out.println("Something went wrong: " + ex.getMessage());
+    public String printErrorMessage(Exception ex) {
+        return "Something went wrong: " + ex.getMessage();
     }
 
     /**
@@ -57,14 +57,15 @@ public class Ui {
      *
      * @param commands the list of commands
      */
-    public void printHelpList(ArrayList<String> commands) {
+    public String printHelpList(ArrayList<String> commands) {
          //Lists all the commands the user can give Mitsuki.
 
-            System.out.println("Here is a list of commands you can give me:");
+            String message = "Here is a list of commands you can give me:\n";
             for (int i = 0; i < commands.size(); i++) {
                 int j = i + 1;
-                System.out.println(j + ". " + commands.get(i));
+                message = message + j + ". " + commands.get(i) + "\n";
             }
+            return message;
         }
 
     /**
@@ -73,22 +74,21 @@ public class Ui {
      * @param keyWord the keyWord that the tasks to be displayed must contain.
      * @param taskList the user's current todo list.
      */
-    public void printFound(String keyWord, ArrayList<Task> taskList) {
-        System.out.println("Here are the tasks related to: " + keyWord);
+    public String printFound(String keyWord, ArrayList<Task> taskList) {
+        String message = "Here are the tasks related to: " + keyWord;
         for (int i = 0; i < taskList.size(); i++) {
             int j = i + 1;
             String task = taskList.get(i).toString();
             if (task.contains(keyWord)) {
-                System.out.println(j + ". " + task);
+                message = message + j + ". " + task + "\n";
             }
         }
+        return message;
     }
     /**
      * Says goodbye to Mitsuki and exits the Chat bot.
      */
-    public void printByeMessage(Scanner scan) {
-        System.out.println("Bye! Hope to see you again soon!\n");
-        scan.close();
-        System.exit(0);
+    public String printByeMessage() {
+        return "Bye! Hope to see you again soon!\n";
     }
 }
