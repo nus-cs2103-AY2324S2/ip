@@ -4,7 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-
+    /**
+     * Parses the user command and dispatches it to the appropriate handler.
+     * @param command The full command entered by the user.
+     * @param tasks   The current list of tasks.
+     * @param ui      The user interface object for interaction.
+     * @return A string result of command execution.
+     * @throws QuackyException if an error occurs during command parsing or execution.
+     */
     public static String parseCommand(String command, TaskList tasks, UI ui) throws QuackyException {
         String[] keywords = command.split(" ", 2);
         String commandWord = keywords[0];
@@ -76,12 +83,27 @@ public class Parser {
         case "bye":
             return handleBye(ui);
         default:
-            throw new QuackyException("Quack? (In confusion)");
+            throw new QuackyException("Quack? (I dont know what that means. Try another command)");
         }
     }
+
+    /**
+     * Handles the 'list' command and displays all tasks.
+     * @param tasks The current list of tasks.
+     * @param ui    The user interface object for interaction.
+     * @return A string displaying all tasks.
+     */
     public static String handleList(TaskList tasks, UI ui) {
         return ui.showList(tasks);
     }
+
+    /**
+     * Handles the 'find' command and searches for tasks containing the keyword.
+     * @param keyword The keyword to search for within task descriptions.
+     * @param tasks   The current list of tasks.
+     * @param ui      The user interface object for interaction.
+     * @return A string result of the search operation.
+     */
     public static String handleFind(String keyword, TaskList tasks, UI ui) {
         TaskList tasksFound = tasks.findTasksByKeyword(keyword);
         assert tasksFound != null:  "This should always return a TaskList";
@@ -92,6 +114,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the 'mark' command and marks a task as complete.
+     * @param taskNumber The index of the task to mark as complete.
+     * @param tasks      The current list of tasks.
+     * @param ui         The user interface object for interaction.
+     * @return A string result of the mark operation.
+     * @throws QuackyException if the task cannot be found or another error occurs.
+     */
     public static String handleMark(int taskNumber, TaskList tasks, UI ui) {
         try {
             assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
@@ -102,16 +132,40 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the 'unmark' command and marks a task as incomplete.
+     * @param taskNumber The index of the task to mark as incomplete.
+     * @param tasks      The current list of tasks.
+     * @param ui         The user interface object for interaction.
+     * @return A string result of the unmark operation.
+     */
     public static String handleUnmark(int taskNumber, TaskList tasks, UI ui) {
         assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
         tasks.unmarkCompleteTask(taskNumber);
         return ui.showUnmarkDone(tasks.printTask(taskNumber));
     }
+
+    /**
+     * Handles the 'delete' command and deletes a task from the list.
+     * @param taskNumber The index of the task to be deleted.
+     * @param tasks      The current list of tasks.
+     * @param ui         The user interface object for interaction.
+     * @return A string confirming the deletion of the task.
+     */
     public static String handleDelete(int taskNumber, TaskList tasks, UI ui) {
         assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
         tasks.deleteTask(taskNumber);
         return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
     }
+
+    /**
+     * Handles adding new tasks to the task list.
+     * @param newTask The new task to be added.
+     * @param tasks   The current list of tasks.
+     * @param ui      The user interface object for interaction.
+     * @return A string confirming the addition of the new task.
+     * @throws QuackyException if an error occurs during the addition of the new task.
+     */
     public static String handleTasks(Task newTask,TaskList tasks, UI ui) {
         try {
             tasks.addTask(newTask);
@@ -120,6 +174,11 @@ public class Parser {
             return ui.showErrorMessage(e);
         }
     }
+    /**
+     * Handles the 'bye' command and initiates the shutdown sequence of the application.
+     * @param ui The user interface object for interaction.
+     * @return A farewell message indicating the application is closing.
+     */
     public static String handleBye(UI ui) {
         return ui.showFarewell();
     }

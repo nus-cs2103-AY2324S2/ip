@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 
 /**
  * Represents the file used to store task data
- * adapted fromDate:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
+ * adapted from:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
  */
 public class Storage {
     /**
