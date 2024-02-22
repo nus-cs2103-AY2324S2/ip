@@ -19,7 +19,7 @@ import chipchat.task.TaskList;
  * Represents the storage for Chipchat, used to read/write task data to storage files.
  */
 public class Storage {
-    private static final String FILE_PATH = "storage.txt";
+    private static final String FILE_PATH = "chipchat.txt";
     private final Path filePath;
 
     /**
