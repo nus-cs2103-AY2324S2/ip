@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Demon {
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     String filePath = "src/main/taskList.txt";
     Command command = new Command(filePath);
     boolean isRun = true;
@@ -25,17 +25,13 @@ public class Demon {
             tasks = new TaskList(STORAGE.load());
         } catch (NoSuchFileException e) {
             tasks = new TaskList();
-        } catch (IOException e) {
+        } catch (IOException | NoSuchTaskException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    String getResponse(String input) {
+    public String getResponse(String input) {
         if (input.equalsIgnoreCase("bye")) {
             isRun = false;
             return ui.exitMessage();

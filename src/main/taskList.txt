@@ -1,10 +1,14 @@
-D | 0 | buy dinner | 07/03/2024 0000
-T | 0 | eat dinner liao sia what time liao
 T | 0 | eat dinner liao sia what time lia
-E | 0 | buy dinner | 07/03/2024 0000 | 02/10/2024 0000
 E | 0 | buy dinner | 07/03/2024 0000 | 02/10/2023 0000
 E | 0 | b dinner | 07/03/2024 0000 | 02/10/2024 0000
 D | 0 | buy dinner | 07/03/2023 0000
-T | 1 | buy dinner
+T | 0 | buy dinner
 T | 0 | meet with dikfan
 T | 0 | meet with dikfan and movie later
+T | 0 | eat dinner
+D | 1 | submit 2103t | 22/2/2024 2359
+E | 0 | eat dinner with family | 22/2/2024 0000 | 22/2/2025 0000
+E | 0 | eat dinner with family | 22/2/2024 0000 | 22/2/2026 0000
+T | 0 | eat breakfast paylah
+D | 0 | submit cs2103t chatbot | 23/2/2024 0000
+E | 0 | submit cs2103t start | 1/1/2024 0000 | 23/2/2024 2300

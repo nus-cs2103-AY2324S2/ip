@@ -22,47 +22,67 @@ public class TaskList {
      *
      * @param storageArray The list of strings containing all tasks populated from the tasks.txt file.
      */
-    public TaskList(List<String> storageArray) {
+    public TaskList(List<String> storageArray) throws NoSuchTaskException {
         this.tasks = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-        // Read file line by line
-        for (int i = 0; i < storageArray.size(); i++) {
-            // Process the line
+        for (String line : storageArray) {
             Task item;
-            String isCompleted;
-            String line = storageArray.get(i);
             char firstChar = line.charAt(0);
-            if (firstChar == 'D') {
-                String[] parts = line.split("\\|");
-                isCompleted = parts[1].trim();
-                String description = parts[2].trim();
-                String by = parts[3].trim();
-                LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-                item = new Deadline(description, dateTime);
+            String[] parts = line.split("\\|");
 
-            } else if (firstChar == 'T') {
-                String[] parts = line.split("\\|");
-                isCompleted = parts[1].trim();
-                String description = parts[2].trim();
-                item = new Todo(description);
-
-            } else {
-                String[] parts = line.split("\\|");
-                isCompleted = parts[1].trim();
-                String description = parts[2].trim();
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
-                LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
-                item = new Event(description, dateTimeFrom, dateTimeTo);
+            switch (firstChar) {
+            case 'D':
+                item = createDeadline(parts, formatter);
+                break;
+            case 'T':
+                item = createTodo(parts);
+                break;
+            case 'E':
+                item = createEvent(parts, formatter);
+                break;
+            default:
+                throw new NoSuchTaskException(firstChar);
             }
 
             this.tasks.add(item);
-            if (isCompleted.equals("1")) {
-                item.markDone();
-            }
         }
+    }
+
+    private Task createDeadline(String[] parts, DateTimeFormatter formatter) {
+        String isCompleted = parts[1].trim();
+        String description = parts[2].trim();
+        String by = parts[3].trim();
+        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+        Deadline deadline = new Deadline(description, dateTime);
+        if (isCompleted.equals("1")) {
+            deadline.markDone();
+        }
+        return deadline;
+    }
+
+    private Task createTodo(String[] parts) {
+        String isCompleted = parts[1].trim();
+        String description = parts[2].trim();
+        Todo todo = new Todo(description);
+        if (isCompleted.equals("1")) {
+            todo.markDone();
+        }
+        return todo;
+    }
+
+    private Task createEvent(String[] parts, DateTimeFormatter formatter) {
+        String isCompleted = parts[1].trim();
+        String description = parts[2].trim();
+        String from = parts[3].trim();
+        String to = parts[4].trim();
+        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+        Event event = new Event(description, dateTimeFrom, dateTimeTo);
+        if (isCompleted.equals("1")) {
+            event.markDone();
+        }
+        return event;
     }
 
     public List<Task> getTaskList() {
