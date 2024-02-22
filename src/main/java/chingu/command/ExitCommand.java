@@ -10,11 +10,13 @@ public class ExitCommand extends Command {
 
     }
 
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks);
         return ui.sayGoodBye();
     }
 
+    @Override
     public boolean isExit() {
         return true;
     }

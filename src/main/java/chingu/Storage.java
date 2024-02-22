@@ -9,6 +9,7 @@ import chingu.task.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,8 +26,8 @@ public class Storage {
      * The constructor that creates an instance of Storage class.
      * @param filePath where the file is located and the file where the tasks will be saved
      */
-    public Storage(String filePath) {
-        this.store = new File(filePath);
+    public Storage(InputStream filePath) {
+        this.store = new File(String.valueOf(filePath));
     }
 
     /**
@@ -142,7 +143,7 @@ public class Storage {
         try {
             FileWriter data = new FileWriter("./data/list.txt");
             String to_record = "";
-            for (int i = 0; i < tasks.getSize(); i++) {
+            for (int i = 0; i < tasks.getSizeNumber(); i++) {
                 Task temp = tasks.getTask(i);
                 String to_add = sortTask(temp, "");
                 to_record += to_add;

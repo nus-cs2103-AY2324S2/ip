@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Chingu YOUR Friend");
+            stage.setTitle("Chingu - Your Great Friend To Help You");
             fxmlLoader.<MainWindow>getController().setDoummi(duke);
             stage.show();
         } catch (IOException e) {

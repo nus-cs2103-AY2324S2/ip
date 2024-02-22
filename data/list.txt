@@ -1,4 +1,0 @@
-T | 0 | make a soup for Ryan/priority high
-E | 1 | Trip to Italy|2025/02/07 1200|2025/02/17 1900/priority High
-T | 0 | buy a birthday cake for Sally /priority mid
-D | 0 | submit the Research Project Final Report |2024/05/30/priority High

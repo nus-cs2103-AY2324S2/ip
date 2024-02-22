@@ -3,30 +3,28 @@ package chingu;
 import chingu.task.Task;
 
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
     public final Scanner IN;
-
-    private final PrintStream OUT;
 
     private static final String LINE = "_________________________________________________________";
 
     private static final String LOADING_ERROR = "Your tasks are loaded wrongly " +
             "- Please check your list.txt again, my friend!";
 
+    private static final String ACKNOWLEDGEMENT = "Got it, my friend! I've added this task:\n";
+
     private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:\n";
 
     public static final String BYE = "Hope to see you again soon!";
 
     public Ui() {
-        this(System.in, System.out);
+        this(System.in);
     }
 
-    public Ui(InputStream in, PrintStream out) {
+    public Ui(InputStream in) {
         this.IN = new Scanner(in);
-        this.OUT = out;
     }
 
 
@@ -35,8 +33,12 @@ public class Ui {
         return userCmd;
     }
 
-    public String showError(String msg) {
-        return "My dear friend, " + msg;
+    public String showError(String message) {
+        return "My dear friend, " + message;
+    }
+
+    public String showDateError(String message) {
+        return "My dear friend, your date format is WRONG!\n" + message;
     }
 
     public String showLoadingError() {
@@ -45,6 +47,11 @@ public class Ui {
 
     public String showLine() {
         return LINE;
+    }
+
+
+    public String announceAcknowledgement(){
+        return ACKNOWLEDGEMENT;
     }
 
     public String announceListing() {

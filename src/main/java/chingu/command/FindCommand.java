@@ -14,9 +14,11 @@ public class FindCommand extends Command{
         this.keyword = keyword;
         this.count = 1;
     }
+
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String Response = ui.announceFinding();
-        for (int i = 0; i < tasks.getSize(); i++) {
+        for (int i = 0; i < tasks.getSizeNumber(); i++) {
             Task task_now = tasks.getTask(i);
             String counter = count + ". ";
             if (task_now.findingKeyword(keyword)) {
@@ -27,6 +29,7 @@ public class FindCommand extends Command{
         return Response;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

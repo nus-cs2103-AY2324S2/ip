@@ -26,14 +26,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the number of tasks in the list
-     * @return
-     */
-    public int getSize() {
-        return tasks.size();
-    }
-
-    /**
      * Returns the specific task with specific index from the tasklist
      * @param i index of the task in the tasklist
      * @return
@@ -41,4 +33,22 @@ public class TaskList {
     public Task getTask(int i) {
         return tasks.get(i);
     }
+
+    /**
+     * Returns the number of tasks in the list
+     * @return
+     */
+    public String getSize() {
+        return "Now you have " + tasks.size() + " tasks in the list.";
+    }
+
+    public int getSizeNumber() {
+        return tasks.size();
+    }
+
+    public void add(Task task) {
+        this.tasks.add(task);
+    }
+
+
 }

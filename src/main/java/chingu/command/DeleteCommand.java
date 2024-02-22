@@ -13,17 +13,17 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert !(index < 0 || index >= tasks.getSize()) : "this task doesn't exist!";
-        System.out.println("HERE");
+        assert !(index < 0 || index >= tasks.getSizeNumber()) : "this task doesn't exist!";
         Task removed = tasks.tasks.remove(index);
         String Response = "Noted. I've removed this task:\n";
-        String length = "" + tasks.getSize();
         Response = Response + removed.toString() + "\n" +
-                "Now you have " + length + " tasks in the list.\n";
+                tasks.getSize();
         return Response;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

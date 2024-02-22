@@ -5,7 +5,7 @@ import chingu.exception.NoCommandException;
 import chingu.task.TaskList;
 
 import java.io.IOException;
-
+import java.io.InputStream;
 
 /**
  * Class Duke that is the main class that helps to run the program
@@ -16,8 +16,7 @@ public class Chingu {
     private TaskList tasks;
     private Ui ui;
 
-    private String filePath = "./data/list.txt";
-
+    private InputStream filePath = Main.class.getResourceAsStream("/data/list.txt") ;
 
 
     public Chingu() {
@@ -30,7 +29,6 @@ public class Chingu {
             tasks = new TaskList();
         }
     }
-
 
 
     /**
@@ -62,8 +60,6 @@ public class Chingu {
             throw new RuntimeException(e);
         }
         return Response;
-
-
     }
 
     public static void main(String[] args) {
