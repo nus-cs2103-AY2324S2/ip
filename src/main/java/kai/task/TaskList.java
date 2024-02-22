@@ -20,9 +20,8 @@ public class TaskList {
      * @param task
      */
     public String addTask(Task task) {
-        String result;
         tasks.add(task);
-        result = "Got it. I've added this task:\n"
+        String result = "Got it. I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + getSize()
                 + " tasks in the list.";
@@ -30,7 +29,7 @@ public class TaskList {
     }
 
     /**
-     * Get size of the list.
+     * Gets the size of the list.
      *
      * @return List size.
      */
@@ -66,7 +65,7 @@ public class TaskList {
     }
 
     /**
-     * Change the specific task at index as done.
+     * Changes the specific task at index as done.
      *
      * @param index
      */
@@ -79,7 +78,7 @@ public class TaskList {
     }
 
     /**
-     * Change the specific task at index as not done.
+     * Changes the specific task at index as not done.
      *
      * @param index
      */
@@ -92,7 +91,7 @@ public class TaskList {
     }
 
     /**
-     * Find the task with the keyword given and list it in order.
+     * Finds the task with the keyword given and list it in order.
      *
      * @param keyword
      */
