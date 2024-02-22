@@ -30,11 +30,11 @@ delivers a beautiful smart personal assistant to interact with.
 ## Add Task
 
 Adds a task to the current task list 
-There are three types of task you can add, todo, deadline and event
+There are three types of task you can add, todo, deadline and event.
 
 ### Todo
 
-The todo task just contains a description of the task
+The todo task just contains a description of the task.
 Usage: `todo [DESCRIPTION]`
 
 Examples:
@@ -99,8 +99,8 @@ It comes in two parts `[DateFormats]` and `[TimeFormats]`.
 
 The order of the `[DateFormats]` and `[TimeFormats]` does not matter as long as a space between them to differentiate the two
 
-> If your [DateTimeFormat] is invalid, Plato will store them as normal strings instead ,this is to support a wider variety fo users,
-> this will affect the Query:view command later
+> If your [DateTimeFormat] is invalid, Plato will store them as normal strings instead ,this is to support a wider variety of users.
+> This will affect the Query:view command later.
 
 Usage:
 ```
@@ -113,7 +113,6 @@ Examples :
 ```
 12-04-24 1800
 03:30pm 15/03/2024
-
 ```
 
 Current acceptable **[DateFormats]** are :
@@ -146,7 +145,6 @@ Usages:
 umark [INDEX]
 mark [INDEX]
 delete [INDEX]
-
 ```
 
 Examples:
@@ -163,7 +161,6 @@ Nice! I've marked this task as done:
 Noted. I've removed this task
  [E][ ] cs2103 planning (from:23-02-2024 18:00)
  Now you have 2 taks in the list
-
 ```
 ---
 
