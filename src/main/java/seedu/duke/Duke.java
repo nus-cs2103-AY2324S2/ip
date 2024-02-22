@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import javafx.application.Platform;
 import seedu.duke.task.Task;
 import seedu.duke.task.Event;
 import seedu.duke.task.Deadline;
@@ -9,8 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static java.nio.file.Files.createFile;
 
 
 /**
@@ -30,6 +36,15 @@ public class Duke {
     private TaskList taskList;
 
     public Duke(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         taskList = new TaskList();
         store = new Storage(filePath, taskList);
         try {
@@ -69,6 +84,7 @@ public class Duke {
                 String[] parts = Parser.parseUpdate(input);
                 return taskList.update(taskNum, parts[0], parts[1]);
             } else if (input.equalsIgnoreCase("bye")){
+                scheduleShutdown();
                 return UI.bye();
             } else {
                 throw new DukeException();
@@ -78,15 +94,17 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        String filePath = "./data/Duke.txt";
-        File f = new File(filePath);
-        if (!f.exists()) {
-            try {
-                Files.createFile(Paths.get(filePath));
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+    public void scheduleShutdown() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                System.exit(0);
             }
-        }
+        }, 1500);
+    }
+
+    public static void main(String[] args) {
     }
 }

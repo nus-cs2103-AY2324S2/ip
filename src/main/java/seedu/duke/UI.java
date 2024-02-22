@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import javafx.application.Platform;
+
 import java.util.Scanner;
 
 /**
