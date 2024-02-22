@@ -27,6 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("AcademicWeapon Task Bot");
             fxmlLoader.<MainWindow>getController().setDuke("./src/main/data/acadList.txt");
             stage.show();
         } catch (IOException e) {
