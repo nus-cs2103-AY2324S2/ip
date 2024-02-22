@@ -46,7 +46,7 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
 
         double radius = displayPicture.getBoundsInParent().getWidth() / 2.0;
-        circle.setRadius(46.0);
+        circle.setRadius(36.0);
         // Set the position of the circle relative to the displayPicture
         circle.setLayoutX(displayPicture.getLayoutX() + radius);
         circle.setLayoutY(displayPicture.getLayoutY() + radius);
