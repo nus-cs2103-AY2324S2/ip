@@ -25,12 +25,14 @@ public class TaskList {
     }
 
     /**
-     * Prints out all the tasks in the list.
+     * Returns a string representation of all the tasks in the list.
      */
-    public void listTasks() {
+    public String getDisplayListTasks() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -42,9 +44,12 @@ public class TaskList {
         return tasks.size();
     }
 
-    public void printTaskCount() {
+    /**
+     * Returns a string representation of the task count suitable to be displayed to the user.
+     */
+    public String getDisplayTaskCount() {
         int count = getTaskCount();
-        System.out.println("Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.");
+        return "Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.";
     }
 
     public TaskList findTasks(String query) {
@@ -103,7 +108,7 @@ public class TaskList {
         clear();
         try {
             for (String command : lines) {
-                parser.parse(command).executeSilently(this);
+                parser.parse(command).execute(this);
             }
         } catch (DukeException e) {
             clear();
