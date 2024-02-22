@@ -44,15 +44,15 @@ public abstract class Find extends Template {
         }
         Pattern pattern = Pattern.compile(removePrefix(input, trigger).toLowerCase());
         Matcher matcher;
-        boolean oneMatch = false;
+        boolean isMatching = false;
         for (int i = 0; i < list.size(); i++) {
             matcher = pattern.matcher(list.get(i).toString());
             if (matcher.find()) {
-                oneMatch = true;
+                isMatching = true;
                 break;
             }
         }
-        if (!oneMatch) {
+        if (!isMatching) {
             return "Sorry, there are no matching tasks :(\n";
         }
         result += " Here are matching the tasks in your list:\n";

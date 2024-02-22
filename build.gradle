@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("alpaca.Launcher")
+    mainClass.set("alpaca.Alpaca")
 }
 
 shadowJar {
