@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: #DFEFF0;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Text fx:id="dialog" text="Text" wrappingWidth="250.0">
-         <HBox.margin>
-            <Insets right="5.0" />
-         </HBox.margin>
-      </Text>
-        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-         <HBox.margin>
-            <Insets left="10.0" />
-         </HBox.margin></ImageView>
+      <FlowPane maxHeight="0.0" maxWidth="255.0" prefWidth="16.0" style="-fx-background-color: #c6e2e9;">
+         <children>
+            <Text fx:id="dialog" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </FlowPane>
+      <Circle fx:id="displayPicture" radius="46.0" stroke="#f8f8f8" strokeType="INSIDE" strokeWidth="0.0" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

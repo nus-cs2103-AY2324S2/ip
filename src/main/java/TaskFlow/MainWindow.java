@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(TaskFlow d) {
+    public void setTaskie(TaskFlow d) {
         taskFlow = d;
     }
 
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         assert response != "";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, chatBotImage)
+                DialogBox.getTaskieDialog(response, chatBotImage)
         );
         userInput.clear();
     }
@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
     public void greet() {
         String response = taskFlow.showGreetings();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(response, chatBotImage)
+                DialogBox.getTaskieDialog(response, chatBotImage)
         );
         userInput.clear();
     }

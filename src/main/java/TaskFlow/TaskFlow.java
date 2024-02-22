@@ -44,14 +44,11 @@ public class TaskFlow {
     public String run(String userInput) {
         String response = "";
         try {
-            response += ui.showLine();
             Command c = Parser.parse(userInput);
             response += c.execute(tasks, archiveTasks, ui, storageForTask,
                     storageForArchivedTask);
         } catch (DukeException e) {
             response += ui.showError(e.getMessage());
-        } finally {
-            response += ui.showLine();
         }
         return response;
     }
