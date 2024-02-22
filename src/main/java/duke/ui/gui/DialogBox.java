@@ -12,8 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's
@@ -26,7 +27,9 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private HBox dialogContainer;
+    @FXML
+    private Circle displayCircle;
 
     private DialogBox(String text, Image img) throws StorageException {
         try {
@@ -41,7 +44,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayCircle.setFill(new ImagePattern(img));
     }
 
     /**
@@ -54,7 +57,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
 
         getChildren().setAll(tmp);
-        setAlignment(Pos.CENTER_LEFT);
+        dialogContainer.setAlignment(Pos.CENTER_LEFT);
     }
 
     /**
@@ -66,7 +69,9 @@ public class DialogBox extends HBox {
      * @return DialogBox for user input
      */
     public static DialogBox getUserDialog(String text, Image picture) throws StorageException {
-        return new DialogBox(text, picture);
+        var dialogBox = new DialogBox(text, picture);
+
+        return dialogBox;
     }
 
     /**
