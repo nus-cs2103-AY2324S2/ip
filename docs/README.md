@@ -2,7 +2,8 @@
 
 Jade is a Personal Assistant Chatbot that helps a person to manage different types of tasks efficiently. Jade is __optimized for use via a Command Line Interface__ (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-![Ui.png](Ui.png)
+<p style="text-align: center;"><img src="Ui.png" width="400" alt="Jade Ui"></p>
+
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest `jade.jar` from [here](https://github.com/fy17ohhh/ip/releases).
