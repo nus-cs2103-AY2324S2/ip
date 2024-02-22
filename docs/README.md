@@ -67,7 +67,7 @@ Format: `deadline <TASK> /by <TIME>`
 
 Example:
 ```
-deadline return book /by 11112024 1100
+deadline return book /by 11/11/2024 1100
 ```
 
 Expected Output:
@@ -89,7 +89,7 @@ Format: `event <TASK> /from <TIME> /to <TIME>`
 
 Example:
 ```
-event meeting /from 11112024 1100 /to 11112024 1300
+event meeting /from 11/11/2024 1100 /to 11/11/2024 1300
 ```
 
 Expected Output:
