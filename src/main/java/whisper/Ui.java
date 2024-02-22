@@ -53,6 +53,9 @@ public class Ui {
      */
     public void printTasks(ArrayList<Task> tasks) {
         responseBuilder.append("Here are your tasks:\n");
+        if (tasks.isEmpty()) {
+            responseBuilder.append("\nOpps, there are no task in the list. Add task now!");
+        }
         for (int i = 0; i < tasks.size(); i++) {
             responseBuilder.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }

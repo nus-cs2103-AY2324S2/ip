@@ -26,7 +26,7 @@ public class Whisper {
     /**
      * The file path for storing and retrieving task data.
      */
-    private static final String FILE_PATH = "src/main/java/data/whisper.txt";
+    private static final String FILE_PATH = "whisper.txt";
 
     /**
      * Constructs a new Whisper instance. Initializes the user interface, storage, and task list.

@@ -35,12 +35,22 @@ public class Storage {
     public ArrayList<Task> load() throws WhisperException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try (Scanner sc = new Scanner(new File(FILE_PATH))) {
+        try {
+            File file = new File(FILE_PATH);
+
+            if (!file.exists()) {
+                // If the file doesn't exist, create a new file
+                file.createNewFile();
+            }
+
+            Scanner sc = new Scanner(file);
+
             while (sc.hasNextLine()) {
                 String input = sc.nextLine().trim();
                 Task task = parseTaskFromString(input);
                 tasks.add(task);
             }
+            sc.close();
         } catch (IOException e) {
             throw new WhisperException("Error loading tasks from file: " + e.getMessage());
         }
