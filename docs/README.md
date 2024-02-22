@@ -164,6 +164,7 @@
     ```
     Changing file path to ./data/sample.txt
     ```
+    
 ### Exit the application
 **Usage:**
    ```
