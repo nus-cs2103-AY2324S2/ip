@@ -69,4 +69,12 @@ public class Deadline extends Task {
         return "D | " + super.toString() + " | "
                 + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
+
+    public static String getHelpString() {
+        return "Add Deadline: Adds a task with a deadline\n"
+                + "  To add a deadline, use the following format\n"
+                + "    deadline <description> /by <deadline>\n"
+                + "  The deadline should be in the format 'dd/MM/yyyy HHmm'.\n"
+                + "    Example: deadline return book /by 02/12/2019 1800\n";
+    }
 }
