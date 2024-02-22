@@ -36,7 +36,7 @@ public class Event extends Task {
      * @param from The start time of the Event task.
      * @param to The end time of the Event task.
      */
-    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
+    Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -47,7 +47,7 @@ public class Event extends Task {
      * @return Icon representing an Event task.
      */
     @Override
-    public String getTaskType() {
+    public String getTaskTypeIcon() {
         return EVENT_ICON;
     }
 
@@ -57,7 +57,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (from: " + DateTime.displayDateTimeToUser(from)
+        return "[" + getTaskTypeIcon() + "]" + super.toString() + " (from: " + DateTime.displayDateTimeToUser(from)
                 + " to: " + DateTime.displayDateTimeToUser(to) + ")";
     }
 

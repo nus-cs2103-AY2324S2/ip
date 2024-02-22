@@ -35,11 +35,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getBanterDialog(Ui.GREET_MESSAGE.getString(), banterImage));
     }
 
+    /**
+     * Sets Banter for the main window.
+     * @param b Banter to be set.
+     */
     public void setBanter(Banter b) {
         banter = b;
+        String initMessage = banter.initialize();
+        dialogContainer.getChildren().add(DialogBox.getBanterDialog(initMessage, banterImage));
     }
 
     /**

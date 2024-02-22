@@ -15,7 +15,7 @@ public class Todo extends Task {
      *
      * @param description The description of the Todo task.
      */
-    public Todo(String description) {
+    Todo(String description) {
         super(description);
         Assertions.assertTaskIsUnmarked(this);
     }
@@ -26,7 +26,7 @@ public class Todo extends Task {
      * @param description The description of the Todo task.
      * @param isDone The done status of the Todo task.
      */
-    public Todo(String description, boolean isDone) {
+    Todo(String description, boolean isDone) {
         super(description, isDone);
     }
 
@@ -36,7 +36,7 @@ public class Todo extends Task {
      * @return The icon representing a Todo task.
      */
     @Override
-    public String getTaskType() {
+    public String getTaskTypeIcon() {
         return TODO_ICON;
     }
 
@@ -47,7 +47,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString();
+        return "[" + getTaskTypeIcon() + "]" + super.toString();
     }
 
     /**

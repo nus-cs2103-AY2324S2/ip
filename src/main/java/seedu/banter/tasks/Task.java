@@ -38,7 +38,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatus() + "] " + description;
+        return "[" + getDoneStatusIcon() + "] " + description;
     }
 
     String markAsDone() {
@@ -55,7 +55,7 @@ public abstract class Task {
      * Returns the status of a task.
      * @return Status of a task.
      */
-    public String getStatus() {
+    public String getDoneStatusIcon() {
         return isDone ? IS_DONE_ICON : IS_NOT_DONE_ICON;
     }
 
@@ -89,7 +89,11 @@ public abstract class Task {
      * Returns icon representing a task type.
      * @return Icon representing a task type.
      */
-    public abstract String getTaskType();
+    public abstract String getTaskTypeIcon();
 
+    /**
+     * Returns the priority of a task.
+     * @return Priority of a task.
+     */
     public abstract LocalDateTime getDateTimePriority();
 }

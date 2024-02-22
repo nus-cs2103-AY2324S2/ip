@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import seedu.banter.errors.Errors;
 import seedu.banter.errors.InvalidBanterUsageError;
 import seedu.banter.errors.InvalidTaskNumberUsageError;
 import seedu.banter.ui.Ui;
@@ -34,7 +33,7 @@ public class TaskList implements Iterable<Task> {
         taskList.add(todo);
         Assertions.assertTaskIsUnmarked(todo);
         return "Got it. I've added this task:\n" + todo
-                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -59,7 +58,7 @@ public class TaskList implements Iterable<Task> {
         Assertions.assertDateTimeIsInTheFuture(dueDate);
         Assertions.assertTaskIsUnmarked(deadline);
         return "Got it. I've added this task:\n" + deadline
-                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -87,7 +86,7 @@ public class TaskList implements Iterable<Task> {
         Assertions.assertDateTimeIsInTheFuture(end);
         Assertions.assertTaskIsUnmarked(event);
         return "Got it. I've added this task:\n" + event
-                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -113,7 +112,7 @@ public class TaskList implements Iterable<Task> {
         }
 
         this.sortByDateTime();
-        StringBuilder sb = new StringBuilder("Here are the banter.tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append("\n").append(i + 1).append(". ").append(taskList.get(i));
         }
@@ -129,7 +128,7 @@ public class TaskList implements Iterable<Task> {
         try {
             return taskList.get(taskNumber - 1).markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.MARK_USAGE, this);
+            throw new InvalidTaskNumberUsageError(this);
         }
     }
 
@@ -142,7 +141,7 @@ public class TaskList implements Iterable<Task> {
         try {
             return taskList.get(taskNumber - 1).markAsUndone();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.UNMARK_USAGE, this);
+            throw new InvalidTaskNumberUsageError(this);
         }
     }
 
@@ -155,9 +154,9 @@ public class TaskList implements Iterable<Task> {
         try {
             Task deleted = taskList.remove(taskNumber - 1);
             return "Noted. I've removed this task:\n" + deleted
-                    + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+                    + "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.DELETE_USAGE, this);
+            throw new InvalidTaskNumberUsageError(this);
         }
     }
 

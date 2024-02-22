@@ -68,7 +68,7 @@ public class TodoTest {
     void todoGetTaskType() {
         Todo todo = new Todo("Walk the dog");
 
-        assertEquals("T", todo.getTaskType(), "getTaskType() should return the expected task type");
+        assertEquals("T", todo.getTaskTypeIcon(), "getTaskTypeIcon() should return the expected task type");
     }
 
     @Test

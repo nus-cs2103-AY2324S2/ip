@@ -1,8 +1,12 @@
 package seedu.banter.utilities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import seedu.banter.errors.Errors;
+import seedu.banter.errors.InvalidBanterDateTimeError;
 
 
 /**
@@ -17,21 +21,25 @@ public class DateTime {
      * @param str String to be parsed
      * @return LocalDateTime object
      */
-    public static LocalDateTime getDateTimeFromUserInput(String str) {
+    public static LocalDateTime getDateTimeFromUserInput(String str) throws InvalidBanterDateTimeError {
         LocalDateTime parsedDateTime = null;
 
         for (String format : USER_INPUT_FORMATS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-                parsedDateTime = LocalDateTime.parse(str, formatter);
+                if (isDateOnlyFormatter(format)) {
+                    parsedDateTime = LocalDate.parse(str, formatter).atStartOfDay();
+                } else {
+                    parsedDateTime = LocalDateTime.parse(str, formatter);
+                }
                 break;
-            } catch (DateTimeParseException ignored) {
-                // TODO: handle exception
+            } catch (DateTimeParseException ignoredTemporarily) {
+                // Exception handled at the end
             }
         }
 
         if (parsedDateTime == null) {
-            System.out.println("Invalid date time format");
+            throw Errors.INVALID_DATE_TIME_FORMAT_ERROR;
         }
         return parsedDateTime;
     }
@@ -59,5 +67,10 @@ public class DateTime {
             acceptedFormats.append(format);
         }
         return acceptedFormats.toString();
+    }
+
+    // Helper methods
+    private static boolean isDateOnlyFormatter(String format) {
+        return !format.contains("h") && !format.contains("m") && !format.contains("s");
     }
 }

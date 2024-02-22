@@ -16,6 +16,9 @@ public class Errors {
     public static final String MISSING_EVENT_START = "☹ OOPS!!! The start date of an event cannot be empty.";
     public static final String MISSING_EVENT_END = "☹ OOPS!!! The end date of an event cannot be empty.";
     public static final String MISSING_KEYWORD = "☹ OOPS!!! The keyword(s) cannot be empty.";
+    public static final String INVALID_DATE_TIME_FORMAT = "☹ OOPS!!! The date time format is invalid.";
+    public static final String UNABLE_TO_SAVE_TASK_LIST = "☹ OOPS!!! Unable to save task list to file.";
+    public static final String UNABLE_TO_LOAD_TASK_LIST = "☹ OOPS!!! Unable to load task list from file.";
 
 
     // Errors
@@ -41,4 +44,7 @@ public class Errors {
             MISSING_EVENT_END, Ui.EVENT_USAGE);
     public static final InvalidBanterUsageError MISSING_KEYWORD_ERROR = new InvalidBanterUsageError(
             MISSING_KEYWORD, Ui.FIND_USAGE);
+    public static final InvalidBanterDateTimeError INVALID_DATE_TIME_FORMAT_ERROR = new InvalidBanterDateTimeError();
+    public static final UnableToSaveTaskListError UNABLE_TO_SAVE_TASK_LIST_ERROR = new UnableToSaveTaskListError();
+    public static final UnableToLoadTaskListError UNABLE_TO_LOAD_TASK_LIST_ERROR = new UnableToLoadTaskListError();
 }

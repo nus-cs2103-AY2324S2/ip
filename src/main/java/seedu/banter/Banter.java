@@ -1,16 +1,33 @@
 package seedu.banter;
 
 
+import seedu.banter.errors.BanterError;
+import seedu.banter.ui.Ui;
+
 /**
  * Represents the Banter program.
  */
 public class Banter {
-    private final Storage storage = new Storage();
-    private final Parser parser = new Parser(storage);
+    private Storage storage;
+    private Parser parser;
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Initializes the Banter program.
+     */
+    public String initialize() {
+        try {
+            storage = new Storage();
+            parser = new Parser(storage);
+            return Ui.GREET_MESSAGE.getString();
+        } catch (BanterError e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Returns the response to the user input.
+     * @param input User input.
+     * @return Response to the user input.
      */
     public String getResponse(String input) {
         return parser.respondToUser(input);

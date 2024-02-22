@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param by The due date of the Deadline task.
      */
-    public Deadline(String description, LocalDateTime by) {
+    Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
         Assertions.assertDateTimeIsInTheFuture(by);
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * @param isDone The done status of the Deadline task.
      * @param by The due date of the Deadline task.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
+    Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -41,7 +41,7 @@ public class Deadline extends Task {
      * @return Icon representing a Deadline task.
      */
     @Override
-    public String getTaskType() {
+    public String getTaskTypeIcon() {
         return DEADLINE_ICON;
     }
 
@@ -51,7 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (by: " + DateTime.displayDateTimeToUser(by) + ")";
+        return "[" + getTaskTypeIcon() + "]" + super.toString() + " (by: " + DateTime.displayDateTimeToUser(by) + ")";
     }
 
     /**

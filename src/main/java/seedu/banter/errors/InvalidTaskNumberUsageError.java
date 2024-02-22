@@ -1,6 +1,7 @@
 package seedu.banter.errors;
 
 import seedu.banter.tasks.TaskList;
+import seedu.banter.ui.Ui;
 
 
 /**
@@ -9,11 +10,9 @@ import seedu.banter.tasks.TaskList;
 public class InvalidTaskNumberUsageError extends InvalidBanterUsageError {
     /**
      * Constructs a new InvalidTaskNumberUsageError object.
-     * @param error Error message.
-     * @param usage Usage message.
      * @param list Task list.
      */
-    public InvalidTaskNumberUsageError(String error, String usage, TaskList list) {
-        super(error, usage + "\n" + list);
+    public InvalidTaskNumberUsageError(TaskList list) {
+        super(Errors.INVALID_TASK_NUMBER, Ui.MARK_USAGE + "\n" + list);
     }
 }

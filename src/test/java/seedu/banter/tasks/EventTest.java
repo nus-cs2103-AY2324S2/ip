@@ -89,9 +89,9 @@ class EventTest {
     void eventGetTaskType() {
         Event event = new Event("Meeting", false, LocalDateTime.now(), LocalDateTime.now());
 
-        String result = event.getTaskType();
+        String result = event.getTaskTypeIcon();
 
-        assertEquals("E", result, "getTaskType() should return the expected task type");
+        assertEquals("E", result, "getTaskTypeIcon() should return the expected task type");
     }
 
     @Test

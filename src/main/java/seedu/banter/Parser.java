@@ -3,8 +3,11 @@ package seedu.banter;
 import java.time.LocalDateTime;
 
 import seedu.banter.enums.CommandType;
+import seedu.banter.errors.BanterError;
 import seedu.banter.errors.Errors;
 import seedu.banter.errors.InvalidBanterUsageError;
+import seedu.banter.errors.UnableToLoadTaskListError;
+import seedu.banter.errors.UnableToSaveTaskListError;
 import seedu.banter.tasks.TaskList;
 import seedu.banter.ui.Card;
 import seedu.banter.utilities.DateTime;
@@ -24,16 +27,16 @@ public class Parser {
     private final TaskList taskList;
     private final Storage storage;
 
+    // Methods
     /**
      * Constructs a new Parser object.
      * @param storage Storage object that handles loading and saving of tasks.
      */
-    public Parser(Storage storage) {
+    public Parser(Storage storage) throws UnableToLoadTaskListError {
         this.storage = storage;
         taskList = this.storage.loadTaskList();
     }
 
-    // Methods
     /**
      * Responds to user input until the user exits the app, then print exit message.
      */
@@ -60,7 +63,7 @@ public class Parser {
             default:
                 assert false : "Invalid command type parsed";
             }
-        } catch (InvalidBanterUsageError e) {
+        } catch (BanterError e) {
             Card errorMessage = new Card(e.getMessage());
             return errorMessage.getString();
         }
@@ -81,7 +84,7 @@ public class Parser {
         return taskListMessage.getString();
     }
 
-    private String parseTodo(String input) throws InvalidBanterUsageError {
+    private String parseTodo(String input) throws InvalidBanterUsageError, UnableToSaveTaskListError {
         String[] words = getWords(input);
         if (words.length == 1) {
             throw Errors.MISSING_TODO_DESCRIPTION_ERROR;
@@ -92,7 +95,7 @@ public class Parser {
         return taskAddedMessage.getString();
     }
 
-    private String parseDeadline(String input) throws InvalidBanterUsageError {
+    private String parseDeadline(String input) throws BanterError {
         String[] words = getWords(input);
 
         int indexOfDueDate = indexOf(words, DEADLINE_DUE_DATE);
@@ -115,7 +118,7 @@ public class Parser {
         return taskAddedMessage.getString();
     }
 
-    private String parseEvent(String input) throws InvalidBanterUsageError {
+    private String parseEvent(String input) throws BanterError {
         String[] words = getWords(input);
 
         int indexOfEnd = indexOf(words, EVENT_END);
@@ -148,7 +151,7 @@ public class Parser {
         return taskAddedMessage.getString();
     }
 
-    private String parseMark(String input) throws InvalidBanterUsageError {
+    private String parseMark(String input) throws BanterError {
         String[] words = getWords(input);
         int taskNumber;
         try {
@@ -161,7 +164,7 @@ public class Parser {
         return taskDoneMessage.getString();
     }
 
-    private String parseUnmark(String input) throws InvalidBanterUsageError {
+    private String parseUnmark(String input) throws BanterError {
         String[] words = getWords(input);
         int taskNumber;
         try {
@@ -174,7 +177,7 @@ public class Parser {
         return taskUndoneMessage.getString();
     }
 
-    private String parseDelete(String input) throws InvalidBanterUsageError {
+    private String parseDelete(String input) throws BanterError {
         String[] words = getWords(input);
         int taskNumber;
         try {

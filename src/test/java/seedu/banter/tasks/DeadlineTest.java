@@ -81,9 +81,9 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Assignment",
                 LocalDateTime.of(2100, 1, 30, 10, 0));
 
-        String result = deadline.getTaskType();
+        String result = deadline.getTaskTypeIcon();
 
-        assertEquals("D", result, "getTaskType() should return the expected icon");
+        assertEquals("D", result, "getTaskTypeIcon() should return the expected icon");
     }
 
     @Test

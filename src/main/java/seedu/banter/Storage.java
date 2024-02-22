@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import seedu.banter.errors.Errors;
+import seedu.banter.errors.UnableToLoadTaskListError;
+import seedu.banter.errors.UnableToSaveTaskListError;
 import seedu.banter.tasks.Deadline;
 import seedu.banter.tasks.Event;
 import seedu.banter.tasks.Task;
@@ -29,7 +32,7 @@ public class Storage {
      * Loads the task list from the file.
      * @return Task list loaded from the file.
      */
-    public TaskList loadTaskList() {
+    public TaskList loadTaskList() throws UnableToLoadTaskListError {
         try {
             File file = new File(TASK_LIST_FILE_PATH);
             Scanner sc = new Scanner(file);
@@ -66,13 +69,13 @@ public class Storage {
         }
     }
 
-    private void handleFileNotFound() {
+    private void handleFileNotFound() throws UnableToLoadTaskListError {
         try {
             File file = new File(TASK_LIST_FILE_PATH);
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println("Unable to create file: " + e.getMessage());
+            throw Errors.UNABLE_TO_LOAD_TASK_LIST_ERROR;
         }
     }
 
@@ -80,14 +83,14 @@ public class Storage {
      * Saves the task list to the file.
      * @param taskList Task list to be saved.
      */
-    public void saveTaskList(TaskList taskList) {
+    public void saveTaskList(TaskList taskList) throws UnableToSaveTaskListError {
         try {
             FileWriter fw = new FileWriter(TASK_LIST_FILE_PATH);
             taskList.sortByDateTime();
             fw.write(toStorageFormat(taskList));
             fw.close();
         } catch (IOException e) {
-            System.out.println("Unable to save task list: " + e.getMessage());
+            throw Errors.UNABLE_TO_SAVE_TASK_LIST_ERROR;
         }
     }
 
@@ -100,7 +103,7 @@ public class Storage {
     }
 
     private String toStorageFormat(Task task) {
-        String statusDescription = task.getStatus() + " | " + task.getDescription();
+        String statusDescription = task.getDoneStatusIcon() + " | " + task.getDescription();
         if (task instanceof Deadline) {
             return DEADLINE_REPRESENTATION + " | " + statusDescription + " | "
                     + toStorageFormat(((Deadline) task).getDueDateTime());

@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.banter.Main")
+    mainClass.set("seedu.banter.Launcher")
 }
 
 shadowJar {

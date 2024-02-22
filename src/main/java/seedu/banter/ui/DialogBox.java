@@ -50,12 +50,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox object representing the user's dialog.
+     * @param text
+     * @param img
+     * @return DialogBox object representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.dialog.getStyleClass();
         return db;
     }
 
+    /**
+     * Returns a DialogBox object representing the bot's dialog.
+     * @param text
+     * @param img
+     * @return DialogBox object representing the bot's dialog.
+     */
     public static DialogBox getBanterDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.dialog.getStyleClass();
