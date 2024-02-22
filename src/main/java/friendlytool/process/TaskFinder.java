@@ -18,6 +18,7 @@ public class TaskFinder {
     public static String findTask(TaskList tasks, String input) throws FtException {
         int counter = 0;
         String keyword = Parser.parseKeyword(input);
+        assert keyword != null : "Keyword should not be null";
         UI.prepareMatchingMsg();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);

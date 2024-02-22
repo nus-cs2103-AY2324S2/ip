@@ -36,12 +36,13 @@ public class Duke {
      * @throws FtException
      */
     private String findNextAction(String input) throws FtException {
-        String response = "";
+        String response;
         if (input.isEmpty()) {
             throw new FtException("Error: Please Type Command");
         }
         try {
             CommandTypes command = Parser.parseType(input);
+            assert command != null : "Command should not be null";
             switch (command) {
             case BYE:
                 this.isActive = false;
@@ -80,6 +81,7 @@ public class Duke {
             default:
                 throw new FtException("Unknown Command: Please use a correct command");
             }
+            assert response != null : "Response should not be null";
             return response;
         } catch (IllegalArgumentException e) {
             throw new FtException("Unknown Command: Please use a correct command");
