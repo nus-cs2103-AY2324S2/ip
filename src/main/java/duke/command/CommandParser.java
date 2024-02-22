@@ -18,6 +18,9 @@ public class CommandParser {
         String[] splitInput = userInput.split("\\s+", 2);
         try {
             int idx = Integer.parseInt(splitInput[1]) - 1;
+            if (idx < 0) {
+                throw new DukeException("Invalid task Index" + splitInput[1]);
+            }
             return idx;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please provide a task index");
@@ -57,7 +60,7 @@ public class CommandParser {
             String[] timings = eventDetails[1].split(" /to ", 2);
             String start = timings[0];
             String end = timings[1];
-            return new String[]{description, start, end};
+            return new String[] { description, start, end };
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Valid format: event [description] /from [start] /to [end]");
         }
