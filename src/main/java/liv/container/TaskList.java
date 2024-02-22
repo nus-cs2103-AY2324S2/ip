@@ -57,6 +57,7 @@ public class TaskList {
      * @return A list of tasks that match the keyword.
      */
     public ArrayList<String> findMatchingTasks(String keyword) {
+        assert keyword != null: "Keyword cannot be null!";
         ArrayList<String> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
