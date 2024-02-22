@@ -73,20 +73,10 @@ public class Storage {
             try {
                 File createFile = new File(this.filePath);
                 createFile.getParentFile().mkdirs();
-                if (createFile.createNewFile()) {
-                    System.out.println("File created");
-                } else {
-                    System.out.println("File already exists");
-                }
+                createFile.createNewFile();
             } catch (IOException IOe) {
                 System.out.println("An error occurred while creating the file.");
             }
-            /*
-            catch () {
-                // handle folder-does-not-exist-yet case
-                // handle data file being corrupted (i.e. content not in expected format)
-            }
-            */
         }
         return this.taskList;
     }
@@ -104,9 +94,7 @@ public class Storage {
             }
             fileWriter.write(taskToBeAdded);
             fileWriter.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException IOe) {
-            System.out.println("Error occurred while writing to the file.");
             IOe.printStackTrace();
         }
     }

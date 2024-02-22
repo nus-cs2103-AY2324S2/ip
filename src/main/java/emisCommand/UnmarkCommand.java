@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 import emisExceptions.EmisException;
 
@@ -30,22 +29,13 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
         try {
-            tasklist.markAsUndone(this.taskNo);
+            String response = tasklist.markAsUndone(this.taskNo);
             storage.updateStorage();
+            return response;
         } catch (EmisException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     * 
-     * @return false, as the unmark command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

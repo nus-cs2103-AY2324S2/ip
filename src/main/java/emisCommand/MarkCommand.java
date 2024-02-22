@@ -2,7 +2,6 @@ package emisCommand;
 
 import emisExceptions.EmisException;
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 
 /**
@@ -30,22 +29,13 @@ public class MarkCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
         try {
-            tasklist.markAsDone(this.taskNo);
+            String response = tasklist.markAsDone(this.taskNo);
             storage.updateStorage();
+            return response;
         } catch (EmisException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false, as the mark command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

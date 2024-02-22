@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 import emisTask.Deadline;
 
@@ -36,18 +35,9 @@ public class DeadlineCommand extends Command {
      * @param s The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.addTask(new Deadline(this.description, this.by));
+    public String execute(TaskList tasklist, Storage storage) {
+        String response = tasklist.addTask(new Deadline(this.description, this.by));
         storage.updateStorage();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false, as the deadline command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return response;
     }
 }

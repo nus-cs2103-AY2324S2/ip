@@ -1,7 +1,5 @@
 package emisTask;
 
-import emis.Ui;
-
 /**
  * The Task class represents a generic task in the EMIS application.
  * It provides methods to manage the status and details of tasks.
@@ -52,23 +50,21 @@ public class Task {
     /**
      * Marks the task as done and displays a confirmation message.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        Ui.showLine();
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t\t[" + this.getStatusIcon() + "] " + this.description);
-        Ui.showLine();
+        String response = "Nice! I've marked this task as done:";
+        response += ("\n[" + this.getStatusIcon() + "] " + this.description);
+        return response;
     }
 
     /**
      * Marks the task as not done and displays a confirmation message.
      */
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
-        Ui.showLine();
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t\t[" + this.getStatusIcon() + "] " + this.description);
-        Ui.showLine();
+        String response = "OK, I've marked this task as not done yet:";
+        response += ("\n[" + this.getStatusIcon() + "] " + this.description);
+        return response;
     }
 
     /**

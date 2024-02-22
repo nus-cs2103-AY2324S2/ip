@@ -6,12 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayList;
-
 import emisExceptions.EmisException;
 import emis.Parser;
-import emisTask.Task;
-import emis.TaskList;
 import emisCommand.ToDoCommand;
 
 /**
@@ -24,8 +20,6 @@ public class ParserTest {
      */
     @Test
     public void parse_success() {
-        ArrayList<Task> testTasks = new ArrayList<>();
-        TaskList testTasklist = new TaskList(testTasks);
         try {
             assertTrue(Parser.parse("todo test1") instanceof ToDoCommand);
         } catch (EmisException e) {
@@ -38,8 +32,6 @@ public class ParserTest {
      */
     @Test
     public void parse_fail() {
-        ArrayList<Task> testTasks = new ArrayList<>();
-        TaskList testTasklist = new TaskList(testTasks);
         try {
             Parser.parse("screaming crying");
             fail("Expected EmisException to be thrown"); // the test should not reach this line
