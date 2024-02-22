@@ -11,6 +11,9 @@ import lindi.task.TaskList;
 public class MassOpsCommand extends Command {
     private final ArrayList<Command> commands;
 
+    /**
+     * Creates a command that executes multiple commands in a mass operation.
+     */
     public MassOpsCommand() {
         this.commands = new ArrayList<>();
     }
@@ -25,12 +28,17 @@ public class MassOpsCommand extends Command {
         this.commands.add(command);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Executes each command in the list of commands and appends their status messages to a single status message.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Command command : this.commands) {
             command.execute(tasks, storage);
-            stringBuilder.append(command.statusMsg).append("\n\n");
+            stringBuilder.append(command.status()).append("\n\n");
         }
         this.statusMsg = stringBuilder.toString();
     }
