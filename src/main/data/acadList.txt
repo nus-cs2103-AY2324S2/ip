@@ -1,5 +1,2 @@
-T | 1 | go for class
-T | 0 | return book
 D | 0 | return book | 2029-01-02 1900
-T | 0 | sleep
 T | 0 | sleep
