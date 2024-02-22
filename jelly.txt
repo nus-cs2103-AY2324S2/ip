@@ -1,0 +1,5 @@
+T1my todo
+E0my event /then/now
+D0mhehe deadline /now
+D0mhehehee deadline /2024-12-31
+T0new todo
