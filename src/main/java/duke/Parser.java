@@ -34,7 +34,8 @@ public class Parser {
             new DateTimeFormatterBuilder().appendPattern("dd/MM/yy hh:mma"),
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yy-hh:mma"),
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yy hh:mma"),
-            new DateTimeFormatterBuilder().appendPattern("d/M/y HHmm")
+            new DateTimeFormatterBuilder().appendPattern("d/M/y HHmm"),
+            new DateTimeFormatterBuilder().appendPattern("d/M/y h:mma")
     };
     private final HashMap<String, Command> commands = new HashMap<>();
 
