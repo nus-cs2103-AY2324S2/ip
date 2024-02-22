@@ -8,9 +8,16 @@ import task.Task;
 
 import exception.XiaoBaiException;
 
+/**
+ * Represents the user interface of the XiaoBai chatbot application.
+ * Handles input and output interactions with the user.
+ */
 public class Ui {
     Scanner reader;
 
+    /**
+     * Constructs a Ui object with a Scanner to read user input from the console.
+     */
     public Ui() {
         this.reader = new Scanner(System.in);
     }
@@ -24,15 +31,22 @@ public class Ui {
         return outputString.toString();
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param e The XiaoBaiException indicating the error.
+     * @return The error message as a string.
+     */
     public String showErrorMessage(XiaoBaiException e) {
         return e.toString();
     }
 
     /**
-     * Displays a message of the deleted task and the number of task in the list
-     * 
-     * @param task
-     * @param listOfTasks
+     * Displays a message confirming the deletion of a task.
+     *
+     * @param task     The task that was deleted.
+     * @param taskList The updated task list after deletion.
+     * @return The deletion confirmation message as a string.
      */
     public String showDeleteMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
@@ -62,7 +76,7 @@ public class Ui {
     /**
      * Marks task as done.
      * 
-     * @param task
+     * @param task Task input
      */
     public String showMarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();
@@ -74,7 +88,7 @@ public class Ui {
     /**
      * Marks task as not done.
      * 
-     * @param task
+     * @param task Task input
      */
     public String showUnmarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();

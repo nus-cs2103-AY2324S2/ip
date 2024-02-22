@@ -53,9 +53,11 @@ public class Parser {
     }
 
     /**
-     * 
-     * @param dateTimeString
-     * @return
+     * Converts a date-time string to a LocalDateTime object.
+     *
+     * @param dateTimeString The date-time string to be converted.
+     * @return The LocalDateTime object representing the parsed date-time, or null
+     *         if the string cannot be parsed.
      */
     public static LocalDateTime convertDateTime(String dateTimeString) {
         for (String dateFormat : DATE_FORMATS) {

@@ -8,10 +8,18 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.listOfTasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     *
+     * @param taskList The list of tasks to initialize the TaskList.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.listOfTasks = taskList;
     }
@@ -27,7 +35,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index in the task list.
-     * 
+     *
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
