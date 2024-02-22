@@ -26,9 +26,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
     private DialogBox(String text, Image img) {
         try {
-            String fxmlPath = java.nio.file.Paths.get(".", "view", "DialogBox.fxml").toString();
-            fxmlPath = fxmlPath.substring(1);
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(fxmlPath));
+            System.out.println(MainWindow.class.getResource("/view/DialogBox.fxml"));;
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

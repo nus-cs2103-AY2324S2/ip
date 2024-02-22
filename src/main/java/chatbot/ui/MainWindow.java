@@ -1,7 +1,5 @@
 package chatbot.ui;
 
-import java.nio.file.Paths;
-
 import chatbot.cortana.Cortana;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,11 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Cortana cortana;
 
-    private final String userImagePath = Paths.get(".", "images", "chief.png").toString().substring(1);
-    private final String chatbotImagePath = Paths.get(".", "images", "cortana.jpeg").toString().substring(1);
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream(userImagePath));
-    private Image chatbotImage = new Image(this.getClass().getResourceAsStream(chatbotImagePath));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/chief.png"));
+    private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/cortana.jpeg"));
 
     /**
      * Initializes the MainWindow and greets the user.
