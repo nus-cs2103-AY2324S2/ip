@@ -72,15 +72,18 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks.
+     * Prints the list of tasks. If list only has one task (the stub task), it will return list is empty.
      *
      * @return A string representation of the list of tasks.
      */
     public String printList() {
-        // 1-indexed todolist
+        if (tasks.size() == 1) {
+            return "hello! the list is empty :(";
+        }
+
         String list = "";
         for (int i = 1; i < tasks.size(); i++) {
-            list += (i + "." + tasks.get(i) + "\n");
+            list += (i + ". " + tasks.get(i) + "\n");
         }
         return list;
     }
