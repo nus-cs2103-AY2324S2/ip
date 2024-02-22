@@ -21,17 +21,15 @@ public class Ui {
      * Display the welcome message.
      */
     public static String showWelcome() {
-        String msg = "\nHello! I'm Bee!\n"
-                + "What can I do for you?\n";
-
-        return msg;
+        return "buzz buzz~~ Hello! I'm Bee!\n"
+                + "Nice to meet you!! What can I do for you?\n";
     }
 
     /**
      * Display the goodbye message
      */
     public static String showGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "buzz buzz~~ Bye. Hope to see you again soon!";
     }
 
     /**

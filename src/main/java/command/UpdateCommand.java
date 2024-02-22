@@ -34,20 +34,19 @@ public class UpdateCommand extends Command {
             throw new EmptyInputException("update position");
         } else if (input.split(" ").length <= 2) {
             throw new EmptyInputException("update description");
-        } else {
-            String indexStr = input.split(" ")[1];
-            int position = Integer.parseInt(indexStr) - 1;
-
-            String[] inputArr = input.split(" ");
-            String newDescription = "";
-            for (int i = 2; i < inputArr.length; i++) {
-                newDescription = newDescription + " " + inputArr[i];
-            }
-            newDescription = newDescription.trim();
-            String str = taskList.update(position, newDescription);
-            storage.writeTasks(taskList);
-            return str;
         }
+        String indexStr = input.split(" ")[1];
+        int position = Integer.parseInt(indexStr) - 1;
+
+        String[] inputArr = input.split(" ");
+        String newDescription = "";
+        for (int i = 2; i < inputArr.length; i++) {
+            newDescription = newDescription + " " + inputArr[i];
+        }
+        newDescription = newDescription.trim();
+        String str = taskList.update(newDescription, position);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     @Override
