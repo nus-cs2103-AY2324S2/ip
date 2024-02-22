@@ -1,3 +1,4 @@
+
 package ui;
 
 import java.util.Scanner;
@@ -12,34 +13,19 @@ public class Ui {
         this.reader = new Scanner(System.in);
     }
 
-    private static final String LINE = "    ___________________________________________________________\n";
-
-    public void showLine() {
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays a greeting message.
-     * 
-     * @param botName Name of the bot.
-     */
-    public void showWelcomeMessage(String botName) {
-        System.out.println(String.format(
-                "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
-    }
-
     /**
      * Displays a farewell message.
      */
-    public void showExitMessage() {
-        System.out.println(String.format(
-                "%s     Bye. Hope to see you again soon! \n%s", LINE, LINE));
+    public String showExitMessage() {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append("Bye. Hope to see you again soon! \n");
+        return outputString.toString();
     }
 
-    public void showErrorMessage(String errorMessage) {
-        showLine();
-        System.out.println("     " + errorMessage);
-        showLine();
+    public String showErrorMessage(String errorMessage) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append(errorMessage);
+        return outputString.toString();
     }
 
     /**
@@ -48,13 +34,13 @@ public class Ui {
      * @param task
      * @param listOfTasks
      */
-    public void deleteTask(Task task, TaskList taskList) {
-        this.showLine();
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
+    public String deleteTask(Task task, TaskList taskList) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append("Noted. I've removed this task:\n");
+        outputString.append(task.toString());
         int len = taskList.getSize();
-        System.out.println(String.format("     Now you have %d tasks in the list.", len));
-        this.showLine();
+        outputString.append(String.format("Now you have %d tasks in the list.", len));
+        return outputString.toString();
     }
 
     /**
@@ -64,13 +50,13 @@ public class Ui {
      * @param task        Task input
      * @param listOfTasks List of all tasks
      */
-    public void showRepeatFunction(Task task, TaskList taskList) {
-        this.showLine();
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
+    public String showRepeatFunction(Task task, TaskList taskList) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append("Got it. I've added this task:\n");
+        outputString.append(task.toString());
         int len = taskList.getSize();
-        System.out.println(String.format("     Now you have %d tasks in the list.", len));
-        this.showLine();
+        outputString.append(String.format("Now you have %d tasks in the list.", len));
+        return outputString.toString();
     }
 
     /**
@@ -78,11 +64,11 @@ public class Ui {
      * 
      * @param task
      */
-    public void showMark(Task task) {
-        showLine();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task.toString());
-        showLine();
+    public String showMark(Task task) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append("Nice! I've marked this task as done:\n");
+        outputString.append(task.toString());
+        return outputString.toString();
     }
 
     /**
@@ -90,11 +76,11 @@ public class Ui {
      * 
      * @param task
      */
-    public void showUnmark(Task task) {
-        showLine();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + task.toString());
-        showLine();
+    public String showUnmark(Task task) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append("OK, I've marked this task as not done yet:\n");
+        outputString.append(task.toString());
+        return outputString.toString();
     }
 
     /**
@@ -102,17 +88,17 @@ public class Ui {
      * 
      * @param listOfStrings list of Strings.
      */
-    public void printList(TaskList taskList) {
-        showLine();
+    public String printList(TaskList taskList) {
+        StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        finalString.append("     Here are the tasks in your list:\n");
+        finalString.append("Here are the tasks in your list:\n");
         int counter = 1;
         for (Task c : taskList.getList()) {
-            finalString.append(String.format("     %d. %s\n", counter, c));
+            finalString.append(String.format("%d. %s\n", counter, c.toString()));
             counter++;
         }
-        System.out.println(finalString.toString());
-        showLine();
+        outputString.append(finalString.toString());
+        return outputString.toString();
     }
 
     /**
@@ -122,19 +108,19 @@ public class Ui {
      * @param taskList   The task list to search in.
      * @param findString The string to search for in task names.
      */
-    public void findTask(TaskList taskList, String findString) {
-        showLine();
+    public String findTask(TaskList taskList, String findString) {
+        StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        finalString.append("     Here are the matching tasks in your list:\n");
+        finalString.append("Here are the matching tasks in your list:\n");
         int counter = 1;
         for (Task c : taskList.getList()) {
             if (c.getName().contains(findString)) {
-                finalString.append(String.format("     %d. %s\n", counter, c));
+                finalString.append(String.format("%d. %s\n", counter, c.toString()));
                 counter++;
             }
         }
-        System.out.println(finalString.toString());
-        showLine();
+        outputString.append(finalString.toString());
+        return outputString.toString();
     }
 
     /**
@@ -143,9 +129,9 @@ public class Ui {
      * @param e The DukeException indicating the loading error.
      */
     public void showLoadingError(DukeException e) {
-        showLine();
-        System.out.println(e.toString() + "\n");
-        showLine();
+        StringBuilder outputString = new StringBuilder();
+        outputString.append(e.toString() + "\n");
+        System.out.println(outputString.toString());
     }
 
     /**
