@@ -38,6 +38,7 @@ public class Storage {
         try {
             File file = new File(filepath);
             if (!file.exists()) {
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             }
 
