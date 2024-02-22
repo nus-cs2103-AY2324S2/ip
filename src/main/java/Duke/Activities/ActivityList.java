@@ -15,9 +15,8 @@ import java.util.Arrays;
 public class ActivityList {
     private final LocalList localList;
     private final ArrayList<Activity> activities;
-    private final String filePath = "data/duke.txt";
 
-    public ActivityList() {
+    public ActivityList(String filePath) {
         this.localList = new LocalList(filePath);
         activities = new ArrayList<>();
         localList.read(this);

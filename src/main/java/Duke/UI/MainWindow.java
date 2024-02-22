@@ -44,7 +44,7 @@ public class MainWindow extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/image/user.png"));
     private Image client = new Image(this.getClass().getResourceAsStream("/image/client.png"));
 
-    private final ActivityList activityList = new ActivityList();
+    private final ActivityList activityList = new ActivityList("data/duke.txt");
 
     @Override
     public void start(Stage stage) {
