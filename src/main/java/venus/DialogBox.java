@@ -26,7 +26,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Set up DialogBox, assert if the file is found.
+     * Set up DialogBox and assert if the file is found.
      *
      * @param text Text to be wrapped for the DialogBox.
      * @param img Image to be used for the DialogBox.
