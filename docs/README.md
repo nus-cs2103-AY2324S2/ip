@@ -25,7 +25,7 @@ Now you have 1 task in the list.
 Toothless can help you keep mark tasks you have completed using a simple command line.
 
 For example, if you have a completed the deadline task "return book", you can input "mark 1"
-The command will start with mark, followed by the task index
+The command will start with mark, followed by the task index.
 
 The expected output would be:
 ------------------------------------------
