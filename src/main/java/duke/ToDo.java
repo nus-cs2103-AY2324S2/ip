@@ -20,9 +20,9 @@ public class ToDo extends Task {
      * @param taskList The task list to which the task will be added.
      * @param description The description of the to-do task.
      * @return A string representing the result of adding the ToDo task.
-     * @throws DukeException If an error occurs while adding the task.
+     * @throws GeorgieException If an error occurs while adding the task.
      */
-    public static String addToDoTask(TaskList taskList, String description) throws DukeException {
+    public static String addToDoTask(TaskList taskList, String description) throws GeorgieException {
         assert ("todo " + description).length() > "todo ".length() : "Input not handled properly";
 
         taskList.addTask(new ToDo(description));

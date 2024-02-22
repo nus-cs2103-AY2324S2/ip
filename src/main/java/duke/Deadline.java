@@ -29,9 +29,9 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param dueBy The due by date of the task.
      * @return A string representing the result of adding the Deadline task.
-     * @throws DukeException If there is an issue adding the task.
+     * @throws GeorgieException If there is an issue adding the task.
      */
-    public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws DukeException {
+    public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws GeorgieException {
         assert dueBy.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
 
         LocalDate dueByDate = parseDate(dueBy);

@@ -24,13 +24,13 @@ public class Parser {
      *
      * @param dateString The date string to parse.
      * @return The parsed LocalDate.
-     * @throws DukeException If there is an issue parsing the date.
+     * @throws GeorgieException If there is an issue parsing the date.
      */
-    public static LocalDate parseDate(String dateString) throws DukeException {
+    public static LocalDate parseDate(String dateString) throws GeorgieException {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
-            throw new DukeException("Error parsing date: " + e.getMessage());
+            throw new GeorgieException("Error parsing date: " + e.getMessage());
         }
     }
 

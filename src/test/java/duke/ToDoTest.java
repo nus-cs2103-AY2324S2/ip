@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ToDoTest {
 
     @Test
-    public void addToDoTaskTest() throws DukeException {
+    public void addToDoTaskTest() throws GeorgieException {
         TaskList taskList = new TaskList();
         ToDo.addToDoTask(taskList, "Test ToDo Task");
         assertEquals("[T] [ ] Test ToDo Task", taskList.getTask(0).getStatusIcon());

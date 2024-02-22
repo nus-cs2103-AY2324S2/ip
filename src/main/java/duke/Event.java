@@ -33,9 +33,9 @@ public class Event extends Task {
      * @param start The start details of the event.
      * @param end The end details of the event.
      * @return A string representing the result of adding the Event task.
-     * @throws DukeException If there is an issue adding the task.
+     * @throws GeorgieException If there is an issue adding the task.
      */
-    public static String addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
+    public static String addEventTask(TaskList taskList, String description, String start, String end) throws GeorgieException {
         assert (start + " /to " + end).length() >= "event /from /to".length() : "Input not handled properly";
 
         LocalDate startDate = parseDate(start);

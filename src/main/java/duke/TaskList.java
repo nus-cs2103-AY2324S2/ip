@@ -42,9 +42,9 @@ public class TaskList {
      *
      * @param index The index of the task to be retrieved.
      * @return The task at the specified index.
-     * @throws DukeException If the index is invalid.
+     * @throws GeorgieException If the index is invalid.
      */
-    public Task getTask(int index) throws DukeException {
+    public Task getTask(int index) throws GeorgieException {
         validateIndex(index);
         return tasks.get(index);
     }
@@ -58,9 +58,9 @@ public class TaskList {
         return tasks;
     }
 
-    private void validateIndex(int index) throws DukeException {
+    private void validateIndex(int index) throws GeorgieException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Task not found. Please provide a valid task number.");
+            throw new GeorgieException("Task not found. Please provide a valid task number.");
         }
     }
 
@@ -69,9 +69,9 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      * @return A string representing the result of the deletion.
-     * @throws DukeException If the index is invalid.
+     * @throws GeorgieException If the index is invalid.
      */
-    public String deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws GeorgieException {
         validateIndex(index);
         Task removedTask = tasks.remove(index);
 
@@ -89,16 +89,16 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      * @return A string representing the result of marking the task as done.
-     * @throws DukeException If the index is invalid or the task is already marked as done.
+     * @throws GeorgieException If the index is invalid or the task is already marked as done.
      */
-    public String markTaskAsDone(int index) throws DukeException {
+    public String markTaskAsDone(int index) throws GeorgieException {
         validateIndex(index);
         Task task = tasks.get(index);
 
         assert ("mark " + (index + 1)).length() >= "mark #".length() : "Input not handled properly";
 
         if (task.isDone()) {
-            throw new DukeException("Oops! This task is already marked as done.");
+            throw new GeorgieException("Oops! This task is already marked as done.");
         }
 
         assert !task.isDone() : "Task already marked as done";
@@ -112,16 +112,16 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      * @return A string representing the result of marking the task as not done.
-     * @throws DukeException If the index is invalid or the task is not marked as done.
+     * @throws GeorgieException If the index is invalid or the task is not marked as done.
      */
-    public String markTaskAsNotDone(int index) throws DukeException {
+    public String markTaskAsNotDone(int index) throws GeorgieException {
         validateIndex(index);
         Task task = tasks.get(index);
 
         assert ("unmark " + (index + 1)).length() >= "unmark #".length() : "Input not handled properly";
 
         if (!task.isDone()) {
-            throw new DukeException("Oops! This task is not marked as done yet.");
+            throw new GeorgieException("Oops! This task is not marked as done yet.");
         }
 
         assert task.isDone() : "Task not marked as done";

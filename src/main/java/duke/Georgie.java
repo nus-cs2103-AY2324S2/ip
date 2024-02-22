@@ -33,7 +33,7 @@ public class Georgie extends Application {
                 String userInput = Ui.getUserInput();
                 CommandHandler.handleCommand(userInput, taskList);
                 storage.saveTasksToFile(taskList.getTasks());
-            } catch (DukeException e) {
+            } catch (GeorgieException e) {
                 Ui.showError(e.getMessage());
             }
         }
@@ -57,7 +57,7 @@ public class Georgie extends Application {
                 return "Bye. Hope to see you again soon!";
             }
             return CommandHandler.handleCommand(input, taskList);
-        } catch (DukeException e) {
+        } catch (GeorgieException e) {
             return e.getMessage();
         } finally {
             if (canExit) {
