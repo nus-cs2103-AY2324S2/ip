@@ -32,8 +32,8 @@ public class TaskList {
     public String addItem(Task task, boolean isNew) { //to append items to tasks
         tasks.add(task);
         if (isNew) {
-            String result = "Got it. I've added this task:\n" + task.printFullDesc();
-            result += String.format("Now you have %d %s in the tasks.\n", tasks.size(),
+            String result = "Got it! I've added this task:\n" + task.printFullDesc();
+            result += String.format("Now you have %d %s in your task list.\n", tasks.size(),
                         (tasks.size() == 1 ? "task" : "tasks"));
             try {
                 Storage.add(task);
