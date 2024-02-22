@@ -47,24 +47,23 @@ public class AddTaskCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException {
-        Task curr;
+        Task currTask;
         if (type.equals(Type.T.name())) {
-            curr = generateTodo();
+            currTask = generateTodo();
         } else if (type.equals(Type.D.name())) {
-            curr = generateDeadline();
+            currTask = generateDeadline();
         } else if (type.equals(Type.E.name())) {
-            curr = generateEvent();
+            currTask = generateEvent();
         } else {
             throw new BelleException("You are trying to add an invalid type to the list.");
         }
 
-        assert (curr != null) : "current task to be added is null";
+        assert (currTask != null) : "current task to be added is null";
 
-        taskList.addTask(curr);
+        taskList.addTask(currTask);
         storage.save(taskList.getList());
-        return generateAddStatement(taskList, curr);
+        return generateAddStatement(taskList, currTask);
     }
-
 
     /**
      * Generates TodoTask based on message.
