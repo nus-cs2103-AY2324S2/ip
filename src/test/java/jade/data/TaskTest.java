@@ -6,6 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * The <code>TaskTest</code> class contains unit tests for the <code>Task</code> class,
+ * which represents a generic task within the task management system.
+ * These tests verify various functionalities of the <code>Task</code> class, including
+ * retrieving the status icon, formatting the status, converting the task to a string,
+ * and checking if the task contains a specific keyword.
+ * The above comment is generated using ChatGPT 3.5 using the prompt:
+ * "generate a block comment for the TaskTest class:{code}".
+ * Modified by author for higher quality.
+ */
 public class TaskTest {
     @Test
     public void getStatusIcon() {

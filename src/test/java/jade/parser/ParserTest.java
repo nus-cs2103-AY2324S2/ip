@@ -7,7 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import jade.exception.JadeException;
 
-
+/**
+ * The <code>ParserTest</code> class contains unit tests for the <code>Parser</code> class,
+ * which is responsible for parsing user input and performing various text processing operations.
+ * These tests verify the functionality of the <code>Parser</code> class, including concatenating strings
+ * with text boundaries and parsing integers from strings.
+ * The above comment is generated using ChatGPT 3.5 using the prompt:
+ * "generate a block comment for the ParserTest class:{code}".
+ * Modified by author for higher quality.
+ */
 public class ParserTest {
     @Test
     public void concatStringWithTextBound() throws JadeException {

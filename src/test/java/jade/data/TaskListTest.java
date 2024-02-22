@@ -7,6 +7,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * The <code>TaskListTest</code> class contains unit tests for the <code>TaskList</code> class,
+ * which represents a list of tasks within the task management system.
+ * These tests verify various functionalities of the <code>TaskList</code> class, including
+ * retrieving the size of the task list, marking tasks as done or undone,
+ * checking if the task list is empty, and formatting the task list into a string representation.
+ * The above comment is generated using ChatGPT 3.5 using the prompt:
+ * "generate a block comment for the TaskListTest class:{code}".
+ * Modified by author for higher quality.
+ */
 public class TaskListTest {
     @Test
     public void size() {
