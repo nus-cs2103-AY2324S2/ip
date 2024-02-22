@@ -1,3 +1,3 @@
 T | true | ur mum
-T | true | borrow book
 D | false | return book | 12/12/2012 1200
+E | true | project meeting | 02/02/2001 1400-22/08/2011 1600
