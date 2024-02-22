@@ -8,21 +8,21 @@ delivers a beautiful smart personal assistant to interact with.
 
 # Table of Contents
 1. [Features](#features)
-    1.[Add Task](#add-task)
-        *[Todo](#todo)
-        *[deadline](#deadline)
-        *[event](#event)
-    2.[Manage Task](#manage-task)
-    3.[Query Task](#query-task)
-        *[find](#find)
-        *[view](#view)
+    1. [Add Task](#add-task)
+        * [Todo](#todo)
+        * [Deadline](#deadline)
+        * [Event](#event)
+    2. [Manage Task](#manage-task)
+    3. [Query Task](#query-task)
+        * [Find](#find)
+        * [View](#view)
 2. [Save Information](#saving-the-data)
 3. [Extra information](#credits)
 
 ---
 # Features
 
----
+
 
 ## Add Task
 
@@ -36,9 +36,9 @@ Usage: `todo [DESCRIPTION]`
 
 Examples:
 
-*`todo Cook Dinner`
+* `todo Cook Dinner`
 
-*`todo Read Book`
+* `todo Read Book`
 
 Expected outcome:
 ```
@@ -50,16 +50,16 @@ Now you got 1 tasks in your list.
 ### Deadline
 
 The deadline task is a a todo task with a date to complete by.
-Usage: 
-`deadline [DESCRIPTION] /by [DateTimeFormat]` 
+
+Usage: `deadline [DESCRIPTION] /by [DateTimeFormat]` 
 
 <sub>**Refer to the section below for the specification of [DateTimeFormat]**</sub>
 
 Examples:
 
-*`deadline cs3230 /by 2359 23/02/2024`
+* `deadline cs3230 /by 2359 23/02/2024`
 
-*`deadline cs2103 /by 23:59 23-02-24`
+* `deadline cs2103 /by 23:59 23-02-24`
 
 Expected outcome:
 ```
@@ -71,6 +71,7 @@ Now you got 2 tasks in your list.
 ### Event
 
 The event task is a todo task that spans a period of time.
+
 Usage:
 `event [DESCRIPTION] /from [DateTimeFormat] /to [DateTimeFormat]`
 
@@ -78,9 +79,9 @@ Usage:
 
 Examples:
 
-*`event cs2103 planning /from 1800 24/02/24 /to 1900 27/02/24`
+* `event cs2103 planning /from 1800 24/02/24 /to 1900 27/02/24`
 
-*`event midterm study session /from 01:00pm 28-02-24 /to 02:00pm 30-02-24`
+* `event midterm study session /from 01:00pm 28-02-24 /to 02:00pm 30-02-24`
 
 Expected outcome:
 ```
