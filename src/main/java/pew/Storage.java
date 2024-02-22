@@ -13,47 +13,52 @@ public class Storage {
     }
 
     public ArrayList<Task> loadTasks() throws PewException {
-        ArrayList<Task> task_arr = new ArrayList<>();
+        ArrayList<Task> taskArr = new ArrayList<>();
         int index = 0;
-
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                // Load tasks from file and populate taskArr
-                // ... (your existing file reading logic)
                 String[] line = scanner.nextLine().split("\\|");
                 String type = line[0];
                 boolean isDone = line[1].equals("1");
                 String description = line[2];
-                if (Objects.equals(type, "T")) {
-                    task_arr.add(new ToDo(index, description));
-                    if (isDone) {
-                        task_arr.get(index).mark();
-                    }
-                    index++;
-                } else if (Objects.equals(type, "D")) {
-                    String deadline = line[3];
-                    task_arr.add(new Deadline(index, description, deadline));
-                    if (isDone) {
-                        task_arr.get(index).mark();
-                    }
-                    index++;
-                } else if (Objects.equals(type, "E")) {
-                    String start = line[3];
-                    String end = line[4];
-                    task_arr.add(new Event(index, description, start, end));
-                    if (isDone) {
-                        task_arr.get(index).mark();
-                    }
-                    index++;
-                }
+                Task newTask = createTask(type, index, description, line, isDone);
+                taskArr.add(newTask);
+                index++;
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             throw new PewException("File not found: " + e);
         }
-        return task_arr;
+        return taskArr;
+    }
+
+    private Task createTask(String type, int index, String description, String[] line, boolean isDone) {
+        if (type.equals("T")) {
+            Task newTask = new ToDo(index, description);
+            if (isDone) {
+                newTask.mark();
+            }
+            return newTask;
+        } else if (type.equals("D")) {
+            String deadline = line[3];
+            Task newTask = new Deadline(index, description, deadline);
+            if (isDone) {
+                newTask.mark();
+            }
+            return newTask;
+        } else if (type.equals("E")) {
+            String start = line[3];
+            String end = line[4];
+            Task newTask = new Event(index, description, start, end);
+            if (isDone) {
+                newTask.mark();
+            }
+            return newTask;
+        } else {
+            throw new IllegalArgumentException("Invalid task type: " + type);
+        }
     }
 
     // Add other methods for saving tasks if needed
