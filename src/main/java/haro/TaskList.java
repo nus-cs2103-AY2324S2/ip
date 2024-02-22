@@ -146,6 +146,15 @@ public class TaskList {
         return resultString;
     }
 
+    /**
+     * Returns an edited version of the task in the task list with updated sections as indicated by the user.
+     *
+     * @param taskIndex Index of the task in the task list
+     * @param portionToEdit The portion of the task that the user wishes to edit
+     * @param updatedPortion The new supplied value for the portion the user wants to edit
+     * @return Edited version of the task
+     * @throws InvalidArgsException If the arguments supplied by the user are invalid
+     */
     public Task editTask(int taskIndex, String portionToEdit, String updatedPortion) throws InvalidArgsException {
         Task currTask = tasks.get(taskIndex);
 

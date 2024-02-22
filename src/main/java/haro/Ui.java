@@ -11,7 +11,6 @@ import haro.task.Task;
  * showing errors and printing out task information.
  */
 public class Ui {
-    private Scanner inputScanner;
     private static final String haroLogo = " ___  ___  ________  ________  ________\n"
             + "|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\\n"
             + "\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\\n"
@@ -22,6 +21,7 @@ public class Ui {
     private static final String horizontalLine = "______________________________________________";
     private static String openingMsg = "Heya! I'm Haro!\n" + "What can I do for you today?";
     private static String closingMSg = "Bye. Hope to see you some time soon!";
+    private Scanner inputScanner;
 
     /**
      * Constructs a Ui instance with a scanner for user input.
@@ -130,6 +130,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the result of a task edit operation.
+     *
+     * @param task Task objected of the edited task
+     * @param index Index of the task in the task list
+     * @return A message telling the user the task has been updated
+     */
     public String printEditTask(Task task, int index) {
         int taskNumber = index + 1;
         return "Got it I've edited this task:\n"
