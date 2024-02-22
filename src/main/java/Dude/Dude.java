@@ -13,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * The Dude class is the entry point of the application that manages tasks.
- * It is responsible for initializing the system, loading existing tasks from a file,
+ * It is responsible for initializing the system, loading existing tasks from a
+ * file,
  * and processing user commands.
  */
 public class Dude {
@@ -29,8 +30,6 @@ public class Dude {
 
     }
 
-
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
@@ -42,7 +41,7 @@ public class Dude {
             Command cmd = Parser.getCommand(input);
             int index;
 
-            switch (cmd.action){
+            switch (cmd.action) {
                 case BYE:
                     return ui.showGoodbye();
                 case LIST:
@@ -64,10 +63,7 @@ public class Dude {
                     tasks.get(index).markAsNotDone();
                     return ui.showUndone(tasks.get(index));
                 case DELETE:
-                    index = Parser.getDeleteIndex(input);
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new IndexOutOfBoundsException("Task number does not exist.");
-                    }
+                    index = Parser.getDeleteIndex(input, tasks.size());
                     Task removedTask = tasks.remove(index);
                     return ui.showDelete(removedTask);
                 case FIND:
@@ -81,24 +77,12 @@ public class Dude {
                     return ui.showAddTask(todo);
                 case DEADLINE:
                     assert cmd.info != null : "Command info missing";
-                    if (!cmd.info.contains(" /by ")) {
-                        throw new IllegalArgumentException(
-                                "Invalid deadline format. Use '/by' to specify the deadline.");
-                    }
-                    String[] deadlineParts = cmd.info.split(" /by ", 2);
-                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    Deadline deadline = Deadline.fromCmd(cmd);
                     tasks.add(deadline);
                     return ui.showAddTask(deadline);
                 case EVENT:
                     assert cmd.info != null : "Command info missing";
-
-                    if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
-                        throw new IllegalArgumentException(
-                                "Invalid event format. Use '/from' and '/to' to specify the event times.");
-                    }
-                    String[] eventParts = cmd.info.split(" /from ", 2);
-                    String[] eventTimes = eventParts[1].split(" /to ", 2);
-                    Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+                    Event newEvent = Event.fromCmd(cmd);
                     tasks.add(newEvent);
                     return ui.showAddTask(newEvent);
             }
@@ -119,7 +103,8 @@ public class Dude {
 // Base Task class
 /**
  * Abstract class representing the structure and functionality of a task.
- * This class serves as a base for different types of tasks that can be created, tracked, and modified.
+ * This class serves as a base for different types of tasks that can be created,
+ * tracked, and modified.
  * Each task has a description and a status indicating whether it is done.
  */
 abstract class Task {
@@ -167,8 +152,8 @@ abstract class Task {
     public abstract String toString();
 
     public abstract String toFileString();
-}
 
+}
 
 // ToDo subclass
 /**
@@ -244,8 +229,16 @@ class Deadline extends Task {
         String byDate = by.format(formatter);
         return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + byDate;
     }
-}
 
+    public static Deadline fromCmd(Command cmd) {
+        if (!cmd.info.contains(" /by ")) {
+            throw new IllegalArgumentException(
+                    "Invalid deadline format. Use '/by' to specify the deadline.");
+        }
+        String[] deadlineParts = cmd.info.split(" /by ", 2);
+        return new Deadline(deadlineParts[0], deadlineParts[1]);
+    }
+}
 
 /**
  * Represents an Event task with a description, start date, and end date.
@@ -254,8 +247,10 @@ class Deadline extends Task {
 class Event extends Task {
     LocalDate start;
     LocalDate end;
+
     /**
-     * Constructs a new Event task with the specified description, start date, and end date.
+     * Constructs a new Event task with the specified description, start date, and
+     * end date.
      *
      * @param description The description of the Event task.
      * @param start       The start date of the event in the format "yyyy-MM-dd".
@@ -293,11 +288,22 @@ class Event extends Task {
         String endDate = end.format(formatter);
         return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + startDate + "|" + endDate;
     }
+
+    public static Event fromCmd(Command cmd) {
+        if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
+            throw new IllegalArgumentException(
+                    "Invalid event format. Use '/from' and '/to' to specify the event times.");
+        }
+        String[] eventParts = cmd.info.split(" /from ", 2);
+        String[] eventTimes = eventParts[1].split(" /to ", 2);
+        return new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+    }
 }
 
 /**
  * Provides functionality to save and load tasks to and from a file.
- * This class handles the conversion of Task objects into a string format suitable for file storage
+ * This class handles the conversion of Task objects into a string format
+ * suitable for file storage
  * and the parsing of these strings back into Task objects.
  */
 class TaskStorage {
@@ -323,7 +329,8 @@ class TaskStorage {
     }
 
     /**
-     * Loads a list of tasks from a file, converting each line of the file back into a Task object.
+     * Loads a list of tasks from a file, converting each line of the file back into
+     * a Task object.
      *
      * @return An ArrayList of Task objects read from the file.
      * @throws IOException If an I/O error occurs reading from the file.
@@ -342,15 +349,14 @@ class TaskStorage {
         return tasks;
     }
 
-
-
-
     /**
      * Converts a string representation of a task back into a Task object.
-     * The string format should include task type, completion status, description, and dates if applicable.
+     * The string format should include task type, completion status, description,
+     * and dates if applicable.
      *
      * @param line The string representation of the task.
-     * @return A Task object corresponding to the string, or null if the string format is invalid.
+     * @return A Task object corresponding to the string, or null if the string
+     *         format is invalid.
      */
     private static Task taskFromString(String line) {
         String[] parts = line.split("\\|");
@@ -359,20 +365,23 @@ class TaskStorage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             switch (parts[0]) {
-            case "T":
-                ToDo todo = new ToDo(description);
-                if (isDone) todo.markAsDone();
-                return todo;
-            case "D":
-                Deadline deadline = new Deadline(description, parts[3]);
-                if (isDone) deadline.markAsDone();
-                return deadline;
-            case "E":
-                Event event = new Event(description, parts[3], parts[4]);
-                if (isDone) event.markAsDone();
-                return event;
-            default:
-                return null;
+                case "T":
+                    ToDo todo = new ToDo(description);
+                    if (isDone)
+                        todo.markAsDone();
+                    return todo;
+                case "D":
+                    Deadline deadline = new Deadline(description, parts[3]);
+                    if (isDone)
+                        deadline.markAsDone();
+                    return deadline;
+                case "E":
+                    Event event = new Event(description, parts[3], parts[4]);
+                    if (isDone)
+                        event.markAsDone();
+                    return event;
+                default:
+                    return null;
             }
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date: " + e.getMessage());
@@ -391,7 +400,7 @@ class Ui {
         return "Hello! I'm Dude\nWhat can I do for you?";
     }
 
-    public String showAddTask(Event event){
+    public String showAddTask(Event event) {
         return "Added Event: " + event;
     }
 
@@ -404,7 +413,7 @@ class Ui {
     }
 
     public String showDelete(Task task) {
-        return "Deleted: "  + task;
+        return "Deleted: " + task;
     }
 
     public String showDone(Task task) {
@@ -415,17 +424,16 @@ class Ui {
         return "Marked as Not Done: " + task;
     }
 
-
     public String showGoodbye() {
-        return("Bye. Hope to see you again soon!");
+        return ("Bye. Hope to see you again soon!");
     }
 
     public String showError(String message) {
-        return("Error: " + message);
+        return ("Error: " + message);
     }
 
     public String showMessage(String message) {
-        return(message);
+        return (message);
     }
 
     public String showTaskList(ArrayList<Task> tasks) {
@@ -456,7 +464,8 @@ enum Actions {
 }
 
 /**
- * Represents a command issued by the user, encapsulating an action and optional additional information.
+ * Represents a command issued by the user, encapsulating an action and optional
+ * additional information.
  */
 class Command {
     public Actions action;
@@ -476,18 +485,21 @@ class Command {
 
 /**
  * A utility class to parse input strings into Command objects.
- * This class interprets user inputs and translates them into actionable commands
+ * This class interprets user inputs and translates them into actionable
+ * commands
  * for the application to execute.
  */
- class Parser {
+class Parser {
 
     /**
      * Parses the user input into a Command object.
-     * This method identifies the action requested by the user and any associated information.
+     * This method identifies the action requested by the user and any associated
+     * information.
      *
      * @param input The user input as a String.
      * @return A Command object representing the action to be performed.
-     * @throws RuntimeException If the input does not match any known command patterns.
+     * @throws RuntimeException If the input does not match any known command
+     *                          patterns.
      */
     public static Command getCommand(String input) {
         if (Parser.isBye(input)) {
@@ -515,21 +527,21 @@ class Command {
         String taskInfo = parts.length > 1 ? parts[1] : "";
 
         switch (command.toLowerCase()) {
-        case "todo":
-            return new Command(Actions.TODO, taskInfo);
-         case "deadline":
-             return new Command(Actions.DEADLINE, taskInfo);
-         case "event":
-             return new Command(Actions.EVENT, taskInfo);
-         default:
-             throw new RuntimeException("Invalid input. Try again!");
+            case "todo":
+                return new Command(Actions.TODO, taskInfo);
+            case "deadline":
+                return new Command(Actions.DEADLINE, taskInfo);
+            case "event":
+                return new Command(Actions.EVENT, taskInfo);
+            default:
+                throw new RuntimeException("Invalid input. Try again!");
         }
 
     }
+
     public static boolean isBye(String input) {
         return input.equalsIgnoreCase("bye");
     }
-
 
     public static boolean isList(String input) {
         return input.equalsIgnoreCase("list");
@@ -551,12 +563,15 @@ class Command {
      * @param input The user input as a String.
      * @return The index of the task to be deleted.
      */
-    public static int getDeleteIndex(String input) {
-        return Integer.parseInt(input.substring(7));
+    public static int getDeleteIndex(String input, Integer maxSize) {
+        int index = Integer.parseInt(input.substring(7));
+        if (index < 0 || index >= maxSize) {
+            throw new IndexOutOfBoundsException("Task number does not exist.");
+        }
+        return index;
     }
 
 }
-
 
 class TaskList {
     private ArrayList<Task> tasks;
@@ -564,6 +579,7 @@ class TaskList {
     public TaskList(ArrayList<Task> startingTasks) {
         this.tasks = startingTasks;
     }
+
     public void add(Task task) {
         tasks.add(task);
     }
@@ -598,4 +614,3 @@ class TaskList {
         return foundTasks;
     }
 }
-
