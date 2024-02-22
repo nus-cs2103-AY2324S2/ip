@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 
 /**
  * Represents the whole program that handles the user interaction, user prompt parsing, task list and file management,
- * and executions on the tasks.
+ * and executions on the tasks
  */
 public class Duke {
     private final Ui ui;

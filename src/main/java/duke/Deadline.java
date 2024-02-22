@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements TaskWithTime{
     private final LocalDateTime deadline;
 
     /**
@@ -20,6 +20,15 @@ public class Deadline extends Task {
     public Deadline(String name, String deadline) throws DukeException {
         super(name);
         this.deadline = Task.parse(deadline);
+    }
+
+    /**
+     * Returns a timestamp to compare the order of events.
+     *
+     * @return a LocalDateTime object to represent the timestamp of the task
+     */
+    public LocalDateTime getTimestamp() {
+        return deadline;
     }
 
     /**
