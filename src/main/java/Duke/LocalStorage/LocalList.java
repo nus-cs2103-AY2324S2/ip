@@ -18,7 +18,6 @@ import static Duke.phrase.phrase.phraseCommand;
 public class LocalList {
     private final File FILE;
 
-
     public LocalList(String filePath) {
         this.FILE = new File(filePath);
         initializeFile();
@@ -48,6 +47,7 @@ public class LocalList {
     }
 
     public void read(ActivityList list) {
+        assert list != null : "ActivityList should not be null";
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE))) {
             String line;
             ArrayList<String> lines = new ArrayList<>();
@@ -63,6 +63,7 @@ public class LocalList {
 
             for (String currentLine : lines) {
                 String[] words = currentLine.split(" /isMarked ");
+                assert words.length == 2 : "Unexpected format in file";
                 if (words.length == 2) {
                     phraseCommand(words[0]).execute(list);
                     if (words[1].equals("1")) {

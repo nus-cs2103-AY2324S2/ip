@@ -6,6 +6,7 @@ import Duke.Exception.CommandException;
 
 public class phrase {
     public static Command phraseCommand(String input) throws CommandException {
+        assert input != null : "input should not be null";
         String firstWord = input.split(" ")[0];
         int trimIndex = firstWord.length();
         String remainingWord = input.substring(trimIndex).trim();
