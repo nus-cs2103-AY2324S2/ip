@@ -34,9 +34,16 @@ public class UiTest {
     public void testGreet() {
         Ui ui = new Ui();
         String printedOutput = ui.greet();
-        String expected = "    Tes here.\n"
-                + "    huh? What you want from me?\n";
+        String expected = "Tes here.\n"
+                + "Huh? What you want from me?";
+        assertEquals(expected, printedOutput);
+    }
 
+    @Test
+    public void testClose() {
+        Ui ui = new Ui();
+        String printedOutput = ui.close();
+        String expected = "Annoying brat (-.-)";
         assertEquals(expected, printedOutput);
     }
 }
