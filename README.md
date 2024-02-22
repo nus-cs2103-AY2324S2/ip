@@ -70,7 +70,7 @@ Example output:
 - `[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00PM to: 09 Mar 2024 10:00PM)`
 - `Now you have ***Number*** tasks in the list.`
 
-### Listing out all tasks
+### Listing out all tasks: `list`
 Lists the tasks that are in the database
 
 Format: `list`
