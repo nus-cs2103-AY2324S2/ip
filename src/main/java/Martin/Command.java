@@ -3,6 +3,7 @@ package Martin;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command that can be executed by the chatbot.
@@ -73,7 +74,12 @@ public class Command {
                 break;
             case DEADLINE:
                 String[] deadlineArray = parser.parseDeadline(remainingWords);
-                LocalDate deadlineTime = LocalDate.parse(deadlineArray[1]);
+                LocalDate deadlineTime;
+                try {
+                    deadlineTime = LocalDate.parse(deadlineArray[1]);
+                } catch (DateTimeParseException e) {
+                    return "Invalid date format. Please use yyyy-mm-dd";
+                }
                 Deadline deadline = new Deadline(deadlineArray[0], deadlineTime);
                 response = taskList.add(deadline);
                 storage.appendToFile(deadline.toFileString());
@@ -95,7 +101,7 @@ public class Command {
                 response = ui.sayHelp();
                 break;
             default:
-                throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
+                response = "I'm sorry, but I don't know what that means :-(";
         }
         return response;
     }
