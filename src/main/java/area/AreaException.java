@@ -3,7 +3,7 @@ package area;
 /**
  * Checks for exception for each command.
  */
-public class DukeException extends Exception {
+public class AreaException extends Exception {
 
     protected String description;
 
@@ -11,7 +11,7 @@ public class DukeException extends Exception {
      * creates a DukeException object to store error
      * @param description
      */
-    public DukeException(String description) {
+    public AreaException(String description) {
         this.description = description;
     }
 

@@ -19,14 +19,13 @@ public class Storage {
 
     private File file;
     private File folder;
-    private String filePath;
     private TaskList tasks;
     private ArrayList<String> instructions;
 
     /**
-     * Return an object of type Storage
+     * The Storage class manages files I/O operations for storing and retrieving task data.
+     * It handles the interaction with the data files where tasks are located.
      * 
-     * @param path
      * @param tasks
      */
     public Storage(TaskList tasks) {
@@ -37,9 +36,9 @@ public class Storage {
     }
 
     /**
-     * Add an instruction to a list of instructions
+     * Add an instruction to a list of instructions.
      * 
-     * @param instruction
+     * @param instruction the instruction to be added.
      */
     public void addInstruction(String instruction) {
         this.instructions.add(instruction);

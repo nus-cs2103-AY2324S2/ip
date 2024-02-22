@@ -39,14 +39,14 @@ public class Task {
     /**
      * Set work as done
      */
-    public void taskDone() {
+    public void markTaskAsDone() {
         isDone = true;
     }
 
     /**
      * Set work as undone
      */
-    public void taskUndone() {
+    public void markTaskAsUndone() {
         isDone = false;
     }
 
