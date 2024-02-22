@@ -88,7 +88,7 @@ public class TaskList {
         Task toMark = tasks.get(num - 1);
         String result = toMark.markDone(true);
         String toReplace = toMark.toStore();
-        Storage.changeMarking(num - 1, toReplace);
+        Storage.updateFile(num - 1, toReplace);
         return result;
     }
 
@@ -106,7 +106,7 @@ public class TaskList {
         Task toUnmark = tasks.get(num - 1);
         String result = toUnmark.unmark();
         String toReplace = toUnmark.toStore();
-        Storage.changeMarking(num - 1, toReplace);
+        Storage.updateFile(num - 1, toReplace);
         return result;
     }
 
