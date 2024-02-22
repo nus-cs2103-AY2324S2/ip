@@ -11,11 +11,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
@@ -24,28 +22,34 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.concurrent.Phaser;
 
 /**
- * A GUI for Duke using FXML.
+ * The {@code MainWindow} class represents the main window of the Duke application using JavaFX and FXML.
+ * It handles user input, displays a conversation dialog, and executes commands based on user input.
  */
 public class MainWindow extends Application {
+
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private Scene scene;
+
     private static boolean isTerminated = false;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/image/user.png"));
-    private Image client = new Image(this.getClass().getResourceAsStream("/image/client.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/image/user.png"));
+    private final Image client = new Image(this.getClass().getResourceAsStream("/image/client.png"));
 
     private final ActivityList activityList = new ActivityList("data/duke.txt");
 
+    /**
+     * The main entry point for JavaFX application. It loads the FXML layout, sets up the scene, and shows the stage.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -60,7 +64,10 @@ public class MainWindow extends Application {
         }
     }
 
-
+    /**
+     * Initializes the main window after the FXML layout has been loaded.
+     * It binds the vertical value property of the scroll pane and displays an initial greeting message from Duke.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -70,11 +77,11 @@ public class MainWindow extends Application {
         );
     }
 
-
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating dialog boxes for the user and Duke's response.
+     * Clears the user input after processing and terminates the application if the user enters "bye".
+     *
+     * @throws CommandException If an error occurs while processing the user command.
      */
     @FXML
     private void handleUserInput() throws CommandException {
@@ -96,8 +103,11 @@ public class MainWindow extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves Duke's response for a given user input by executing the corresponding command.
+     *
+     * @param input The user input to process.
+     * @return Duke's response to the user input.
+     * @throws CommandException If an error occurs while processing the user command.
      */
     private String getResponse(String input) throws CommandException {
         try {
@@ -109,6 +119,11 @@ public class MainWindow extends Application {
         }
     }
 
+    /**
+     * Gets the termination status of the application.
+     *
+     * @return {@code true} if the application is terminated, {@code false} otherwise.
+     */
     public static boolean isTerminated() {
         return isTerminated;
     }

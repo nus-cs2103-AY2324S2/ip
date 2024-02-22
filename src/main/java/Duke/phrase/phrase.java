@@ -1,10 +1,22 @@
 package Duke.phrase;
 
 import Duke.Commands.*;
-import Duke.Commands.Unknown;
 import Duke.Exception.CommandException;
 
+/**
+ * The {@code Phrase} class is a utility class that parses a given input phrase and returns the corresponding
+ * {@link Command} object. It is designed to recognize specific keywords in the input and instantiate the
+ * appropriate command class based on those keywords.
+ */
 public class phrase {
+
+    /**
+     * Parses the given input phrase and returns the corresponding command.
+     *
+     * @param input The input phrase to be parsed into a command.
+     * @return The command corresponding to the parsed input phrase.
+     * @throws CommandException If an error occurs during command parsing.
+     */
     public static Command phraseCommand(String input) throws CommandException {
         assert input != null : "input should not be null";
         String firstWord = input.split(" ")[0];
@@ -33,5 +45,4 @@ public class phrase {
                 return new Unknown("I'm sorry, but I don't know what that means");
         }
     }
-
 }
