@@ -39,7 +39,7 @@ Nice! I've marked this task as done!
 Too many tasks in the list to keep track of? Toothless can help you find tasks you in the list using a simple command line.
 
 For example, if you wish to find tasks associated with a book, you can input "find book"
-The command will start with find, followed by the keyword.
+The command will start with find, followed by the keyword!
 
 The expected output would be:
 ------------------------------------------
