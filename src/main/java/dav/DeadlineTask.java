@@ -3,6 +3,8 @@ package dav;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.Set;
+
 /**
  * Represents a task with a deadline.
  */
@@ -29,18 +31,26 @@ class DeadlineTask extends Task {
     public static Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
 
-        if (parts.length != 4) {
+        if (parts.length < 4) {
             return null;
         }
 
-        String[] dateTimeParts = parts[3].split(" ");
+        String description = parts[2];
+        String dateTimeString = parts[3];
+        String[] dateTimeParts = dateTimeString.split(" ");
 
-        if (dateTimeParts.length != 2) {
-            return null;
-        }
+        String date = dateTimeParts[0];
+        String time = dateTimeParts[1];
 
-        DeadlineTask deadlineTask = new DeadlineTask(parts[2], dateTimeParts[0], dateTimeParts[1]);
+        DeadlineTask deadlineTask = new DeadlineTask(description, date, time);
         deadlineTask.isDone = parts[1].equals("1");
+
+        if (parts.length > 4) {
+            String[] tagParts = parts[4].split(", ");
+            for (String tag : tagParts) {
+                deadlineTask.addTag(tag);
+            }
+        }
 
         return deadlineTask;
     }
@@ -64,8 +74,18 @@ class DeadlineTask extends Task {
      */
     @Override
     public String toDataString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        StringBuilder dataString = new StringBuilder("D | " + (isDone ? "1" : "0") + " | " + description
+                + " | " + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+        Set<String> deadlineTags = getTags();
+        if (!deadlineTags.isEmpty()) {
+            dataString.append(" | ");
+            for (String tag : deadlineTags) {
+                dataString.append(tag).append(", ");
+            }
+            dataString.delete(dataString.length() - 2, dataString.length());
+        }
+
+        return dataString.toString();
     }
 
     /**
@@ -74,8 +94,8 @@ class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: "
-                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + "\n"
+                + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
 

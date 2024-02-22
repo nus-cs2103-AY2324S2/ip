@@ -274,6 +274,28 @@ class TaskList {
         return result.toString();
     }
 
+    public String tagTask(int taskIndex, String tagName) {
+        if (isValidIndex(taskIndex)) {
+            Task task = tasks.get(taskIndex - 1);
+            task.addTag(tagName);
+            saveTasks();
+            return "Task tagged:\n   " + task;
+        } else {
+            return "Invalid task index.";
+        }
+    }
+
+    public String untagTask(int taskIndex, String tagName) {
+        if (isValidIndex(taskIndex)) {
+            Task task = tasks.get(taskIndex - 1);
+            task.removeTag(tagName);
+            saveTasks();
+            return "Task untagged:\n   " + task;
+        } else {
+            return "Invalid task index.";
+        }
+    }
+
     private boolean isValidIndex(int index) {
         return index >= 1 && index <= tasks.size();
     }

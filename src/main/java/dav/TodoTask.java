@@ -1,5 +1,7 @@
 package dav;
 
+import java.util.Set;
+
 /**
  * Represents a todo task with a description and completion status.
  */
@@ -20,12 +22,21 @@ class TodoTask extends Task {
      */
     public static Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
-        if (parts.length == 3) {
-            TodoTask todoTask = new TodoTask(parts[2]);
-            todoTask.isDone = parts[1].equals("1");
-            return todoTask;
+        if (parts.length < 3) {
+            return null;
         }
-        return null;
+
+        TodoTask todoTask = new TodoTask(parts[2]);
+        todoTask.isDone = parts[1].equals("1");
+
+        if (parts.length > 3) {
+            String[] tagParts = parts[3].split(", ");
+            for (String tag : tagParts) {
+                todoTask.addTag(tag);
+            }
+        }
+
+        return todoTask;
     }
 
     /**
@@ -34,7 +45,17 @@ class TodoTask extends Task {
      */
     @Override
     public String toDataString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        StringBuilder dataString = new StringBuilder("T | " + (isDone ? "1" : "0") + " | " + description);
+        Set<String> todoTags = getTags();
+        if (!todoTags.isEmpty()) {
+            dataString.append(" | ");
+            for (String tag : todoTags) {
+                dataString.append(tag).append(", ");
+            }
+            dataString.delete(dataString.length() - 2, dataString.length());
+        }
+
+        return dataString.toString();
     }
 
     /**
