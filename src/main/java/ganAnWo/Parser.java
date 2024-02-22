@@ -59,7 +59,6 @@ public class Parser {
         } else if (inputs[0].equals("delete")) { //if the user use delete command
             return new DeleteCommand(command);
         } else if (inputs[0].equals("find")) {
-            System.out.println(inputs[0]);
             return new FindCommand(command);
         } else {
             return new AddCommand(command);
