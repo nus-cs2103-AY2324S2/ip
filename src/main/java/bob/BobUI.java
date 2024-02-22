@@ -16,7 +16,6 @@ public class BobUI {
     public String getTaskListText(boolean summarized, ArrayList<Task> list) {
 
         String listTexts = "";
-        int archivedCount = 0;
 
         if (!summarized) {
 
@@ -31,7 +30,17 @@ public class BobUI {
                         + task.getStatus() + " " + task + "\r\n";
             }
         } else {
-            listTexts = "You have " + list.size()
+
+            int count = 0;
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).isArchived) {
+                    continue;
+                }
+                count++;
+            }
+
+            listTexts = "You have " + count
                     + " tasks in your list.";
         }
 
