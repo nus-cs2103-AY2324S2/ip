@@ -56,6 +56,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws LivException {
         String input = userInput.getText();
+        assert input != null: "Command cannot be empty!";
         String response = liv.getResponse(input);
 
         dialogContainer.getChildren().addAll(

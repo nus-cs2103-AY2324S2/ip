@@ -119,25 +119,13 @@ public class Liv extends Application {
         });
     }
 
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
         return textToAdd;
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         String input = userInput.getText();
         String response = null;
@@ -155,11 +143,6 @@ public class Liv extends Application {
         userInput.clear();
     }
 
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) throws LivException {
         try {
             Command command = Parser.parse(input);
@@ -169,32 +152,4 @@ public class Liv extends Application {
             return e.getMessage();
         }
     }
-
-//    /**
-//     * The main logic structure of the chatbot.
-//     */
-//        public void run() {
-//        storage.loadDataFile();
-//        ui.displayGreetCommand();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String input = ui.readCommand();
-//                ui.displayBar(); // show the divider line ("_______")
-//                Command c = Parser.parse(input);
-//                c.execute(tasks, ui);
-//                if (c.hasChangedData()) {
-//                    storage.saveTaskToFile();
-//                }
-//                isExit = c.isExit();
-//            } catch (LivException e) {
-//                ui.displayErrorMessage(e.getMessage());
-//            } finally {
-//                ui.displayBar();
-//            }
-//        }
-//    }
-//    public static void main(String[] args) {
-//        new Liv("./data/Liv.txt").run();
-//    }
 }
