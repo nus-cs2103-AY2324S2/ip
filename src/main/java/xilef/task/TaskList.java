@@ -67,4 +67,14 @@ public class TaskList {
     public void add(Task t) {
         this.tasks.add(t);
     }
+
+    /**
+     * Adds a task to the list in the specific position.
+     *
+     * @param t The task to add.
+     * @param index The position to insert the task in.
+     */
+    public void insert(Task t, int index) {
+        this.tasks.add(index, t);
+    }
 }

@@ -15,7 +15,8 @@ public class Xilef {
     private TaskList tasks;
     private final Ui ui;
     private static final String FILE_NAME = "xilef.txt";
-    private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
+    private static final String FOLDER_NAME = "data";
+    private static final String FILE_PATH = Paths.get(".", FOLDER_NAME, FILE_NAME).toString();
 
     public Xilef() {
         ui = new Ui();

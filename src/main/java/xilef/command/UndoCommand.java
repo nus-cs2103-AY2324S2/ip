@@ -33,7 +33,7 @@ public class UndoCommand extends Command {
         if (c instanceof AddCommand) {
             tasks.remove(task);
         } else if (c instanceof DeleteCommand) {
-            tasks.add(task);
+            tasks.insert(task, ((DeleteCommand) c).getIndex());
         } else if (c instanceof MarkCommand) {
             task.unmarkDone();
         } else {
