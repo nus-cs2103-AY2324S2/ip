@@ -1,0 +1,12 @@
+help
+todo drink bbt
+deadline make bbt /by tonight
+event sell bbt /from tmr /to next monday
+list
+mark 1
+list
+unmark 1
+list
+delete 2
+list
+bye

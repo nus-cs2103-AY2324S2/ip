@@ -1,29 +1,30 @@
-# User Guide
+# seedu.chrisPBacon.seedu.chrisPBacon User Guide
 
-## Features 
+// Update the title above to match the actual product name
 
-### Feature-ABC
+// Product screenshot goes here
 
-Description of the feature.
+// Product intro goes here
 
-### Feature-XYZ
+## Adding deadlines
 
-Description of the feature.
+// Describe the action and its outcome.
 
-## Usage
+// Give examples of usage
 
-### `Keyword` - Describe action
+Example: `keyword (optional arguments)`
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+// A description of the expected outcome goes here
 
 ```
 expected output
 ```
+
+## Feature ABC
+
+// Feature details
+
+
+## Feature XYZ
+
+// Feature details
