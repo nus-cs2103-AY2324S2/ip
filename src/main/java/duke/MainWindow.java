@@ -65,16 +65,19 @@ public class MainWindow extends AnchorPane {
         assert dialogContainer != null : "Dialog container must be initialized";
 
         String input = userInput.getText();
+
         if ("bye".equals(input.trim().toLowerCase())) {
             // Get the stage from the event source
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.close(); // Close the application
         }
+
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
     }
 }

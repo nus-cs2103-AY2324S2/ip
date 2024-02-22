@@ -15,6 +15,9 @@ abstract public class Task {
      */
     protected boolean isDone;
 
+    protected static final String DATE_TIME_FORMAT_INPUT = "dd/MM/yyyy HHmm";
+    protected static final String DATE_TIME_FORMAT_OUTPUT = "MMM dd yyyy, h:mma";
+
     /**
      * Constructs a new Task instance.
      *

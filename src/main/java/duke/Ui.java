@@ -3,7 +3,7 @@ package duke;
 import java.util.Scanner;
 
 /**
- * Manages user interface interactions for the Duke application.
+ * Manages user command line interface interactions for the Duke application.
  * This class is responsible for displaying messages to the user and reading user input.
  */
 public class Ui {

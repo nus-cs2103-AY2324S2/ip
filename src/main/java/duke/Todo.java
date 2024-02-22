@@ -12,6 +12,9 @@ public class Todo extends Task {
      * @param description The description of the todo task. It should provide a brief summary of the task to be accomplished.
      * @param isDone The initial completion status of the todo task. True indicates that the task has been completed, while false indicates that it is still pending.
      */
+
+    private final String TASK_TYPE = "T";
+
     public Todo(String description, Boolean isDone) {
         super(description, isDone);
     }
@@ -25,7 +28,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "T | " +  this.isDone + " | " + this.description;
+        return TASK_TYPE + " | " +  this.isDone + " | " + this.description;
     }
 
     /**
@@ -38,6 +41,6 @@ public class Todo extends Task {
     @Override
     public String toString() {
         // Assuming the super.toString() method correctly formats the completion status and description
-        return "[T]" + super.toString();
+        return "[" + TASK_TYPE + "]" + super.toString();
     }
 }

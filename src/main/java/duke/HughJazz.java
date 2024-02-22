@@ -66,7 +66,7 @@ public class HughJazz{
         try {
             return Parser.parse(input, taskList, storage);
         } catch (DateTimeParseException e) {
-            return "Please input date and time in the correct format dd/MM/yyyy HHmm";
+            return "Please input date and time in the correct format " + Task.DATE_TIME_FORMAT_INPUT;
         } catch (ChatbotException e) {
             return e.getMessage();
         }

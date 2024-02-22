@@ -15,6 +15,8 @@ public class Deadline extends Task {
      */
     protected LocalDateTime by;
 
+    private final String TASK_TYPE = "D";
+
     /**
      * Constructs a new Deadline instance.
      *
@@ -26,7 +28,7 @@ public class Deadline extends Task {
     public Deadline(String description, Boolean isDone, String by) throws DateTimeParseException {
         super(description, isDone);
         try {
-            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_INPUT));
         } catch (DateTimeParseException e) {
             System.err.println("Failed to parse the date/time: " + by);
             throw e;
@@ -43,7 +45,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " +  this.isDone + " | " + this.description  + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        return TASK_TYPE + " | " +  this.isDone + " | " + this.description  + " | " + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_INPUT));
     }
 
     /**
@@ -56,7 +58,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma")) + ")";
+        return "[" + TASK_TYPE + "]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT)) + ")";
     }
 }
 

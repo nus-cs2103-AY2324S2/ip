@@ -48,6 +48,7 @@ public class Storage {
             }
         }
         scanner.close();
+
         return loadedTasks;
     }
 
@@ -61,9 +62,11 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         new File("." + File.separator + "data").mkdirs();
         PrintWriter writer = new PrintWriter(new File(filePath));
+
         for (Task task : tasks) {
             writer.println(task.toFileFormat());
         }
+
         writer.close();
     }
 }

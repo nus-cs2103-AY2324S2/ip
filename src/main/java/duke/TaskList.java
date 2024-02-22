@@ -8,6 +8,14 @@ import java.util.ArrayList;
  * It encapsulates operations to manipulate tasks such as adding, deleting, and marking tasks as done or not done.
  */
 public class TaskList {
+    private static final String MSG_TASK_ADDED = "Got it. I've added this task: \n%s\nNow you have %d tasks in the list.";
+    private static final String MSG_TASK_REMOVED = "Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.";
+    private static final String MSG_TASK_MARKED = "  %s";
+    private static final String ERROR_UNKNOWN_TASK_NUMBER = "Unknown task number. Please try again";
+    private static final String MSG_NO_TASKS_FOUND = "No recorded tasks found.";
+    private static final String MSG_TASKS_MATCHING_SEARCH = "Here are the matching tasks in your list: \n";
+    private static final String MSG_NO_MATCHING_TASKS = "No tasks match your search.";
+
     /**
      * The list of tasks.
      */
@@ -38,13 +46,13 @@ public class TaskList {
     public String addTask(Task newTask, Storage storage) {
         assert tasks != null : "Task list must not be null";
         tasks.add(newTask);
+
         try {
             storage.saveTasks(tasks);
         } catch(IOException e) {
             System.out.print(e);
         }
-
-        return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return String.format(MSG_TASK_ADDED, newTask, tasks.size());
     }
 
     /**
@@ -57,16 +65,18 @@ public class TaskList {
     public String deleteTask(int taskNumber, Storage storage) throws ChatbotException {
         assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new ChatbotException("Unknown task number. Please try again");
+            throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
+
         Task removedTask = tasks.remove(taskNumber - 1);
+
         try {
             storage.saveTasks(tasks);
         } catch(IOException e) {
             System.out.print(e);
         }
 
-        return "Noted. I've removed this task: \n" + removedTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return String.format(MSG_TASK_REMOVED, removedTask, tasks.size());
     }
 
     /**
@@ -80,31 +90,39 @@ public class TaskList {
     public String markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
         assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new ChatbotException("Unknown task number. Please try again");
+            throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
+
         Task task = tasks.get(taskNumber - 1);
+
         if (isDone) {
             task.markAsDone();
         } else {
             task.unmarkAsDone();
         }
+
         try {
             storage.saveTasks(tasks);
         } catch(IOException e) {
             System.out.print(e);
         }
-        return "  " + task.toString();
+
+        return task.toString();
     }
 
     /**
      * Prints all tasks in the task list to the console.
      */
     public String printTasks() {
-        String finalString = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            finalString += (i + 1) + ". " + tasks.get(i).toString() + "\n";
+        if (tasks.isEmpty()) {
+            return MSG_NO_TASKS_FOUND;
         }
-        return finalString;
+
+        StringBuilder finalString = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            finalString.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return finalString.toString();
     }
 
     /**
@@ -113,23 +131,16 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      */
     public String findTask(String keyword) {
-        String finalString = "Here are the matching tasks in your list: \n";
+        StringBuilder finalString = new StringBuilder(MSG_TASKS_MATCHING_SEARCH);
         int matchCount = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+
+        for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                finalString += (i + 1) + "." + task + "\n";
-                matchCount++;
+                finalString.append(++matchCount).append(".").append(task).append("\n");
             }
         }
-        if (matchCount == 0) {
-            finalString = "No tasks match your search.";
-        }
-        return finalString;
-    }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+        return matchCount == 0 ? MSG_NO_MATCHING_TASKS : finalString.toString();
     }
 }
 
