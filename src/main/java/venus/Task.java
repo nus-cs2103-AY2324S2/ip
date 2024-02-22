@@ -9,7 +9,7 @@ package venus;
 
 public class Task {
     private String item;
-    private boolean mark;
+    private boolean markBoolean;
 
     /**
      * Returns Task that saves given item string and mark as false.
@@ -18,20 +18,20 @@ public class Task {
      */
     public Task(String item) {
         super();
-        this.mark = false;
+        this.markBoolean = false;
         this.item = item;
     }
 
     public void mark() {
-        this.mark = true;
+        this.markBoolean = true;
     }
 
     public void unmark() {
-        this.mark = false;
+        this.markBoolean = false;
     }
 
     public boolean getMark() {
-        return mark;
+        return markBoolean;
     }
 
     public String getItem() {
@@ -45,7 +45,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String x = (mark) ? "X" : " ";
+        String x = (markBoolean) ? "X" : " ";
         return ("[" + x + "] " + item);
     }
 }

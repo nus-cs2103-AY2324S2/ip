@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("venus.Venus")
+    mainClass.set("Launcher.main")
 }
 
 shadowJar {
@@ -59,6 +59,7 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 run {
