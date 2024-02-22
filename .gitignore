@@ -7,7 +7,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
-
+/gradle/wrapper/gradle-wrapper.jar
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -15,3 +15,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+*.class

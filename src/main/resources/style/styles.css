@@ -1,0 +1,6 @@
+.scroll-pane .viewport {
+    -fx-background-image: url('../images/Background.jpg');
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
