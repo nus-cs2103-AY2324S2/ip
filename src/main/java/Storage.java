@@ -12,27 +12,19 @@ public class Storage {
     public Storage(String FILE_PATH) {
         this.FILE_PATH = FILE_PATH;
     }
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws SamException, IOException {
         ArrayList<Task> taskList = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+        String line;
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                Task task = createTaskFromLine(line);
-                if (task != null) {
-                    taskList.add(task);
-                }
+        while ((line = reader.readLine()) != null) {
+            Task task = createTaskFromLine(line);
+            if (task != null) {
+                taskList.add(task);
             }
-
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing data file found. Starting with an empty task list.");
-        } catch (IOException e) {
-            System.out.println("Error reading data file. Starting with an empty task list.");
         }
 
+        reader.close();
         return taskList;
     }
     public void save(TaskList tasks) {

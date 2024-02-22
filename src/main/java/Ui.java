@@ -1,4 +1,15 @@
+import java.util.Scanner;
 public class Ui {
+    Scanner scanner;
+
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
     public void greet() {
         String logo =
                 "  ______\n" +
@@ -11,9 +22,12 @@ public class Ui {
         System.out.println(logo);
         System.out.println(greetMessage);
     }
-    public void bye() {
-        String byeMessage = "Hope you enjoy my help!";
-        System.out.println(byeMessage);
+
+    public void showError(String err) {
+        System.err.println(err);
     }
 
+    public void showLoadingError() {
+        System.err.println("Error reading tasks from file.");
+    }
 }
