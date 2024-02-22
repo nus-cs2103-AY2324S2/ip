@@ -7,7 +7,7 @@ Whether you're managing daily chores, important deadlines, or upcoming events, D
 
 ## Table of Contents
 
-- [Features Overview](#features)
+- [Features Overview](#features-overview)
 - [Adding Tasks](#adding-tasks)
   - [Todo](#todo)
   - [Deadline](#deadline)
