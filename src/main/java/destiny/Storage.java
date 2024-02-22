@@ -30,15 +30,15 @@ public class Storage {
         if (!directory.exists()) {
             directory.mkdir();
             try {
+                // first initialization, create new save file
                 file.createNewFile();
-                System.out.println("First initialization, creating new save file...");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (!file.exists()) {
             try {
+                // data file missing, create new save file
                 file.createNewFile();
-                System.out.println("Data file missing, creating new save file...");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -70,8 +70,8 @@ public class Storage {
             } catch (DukeException | ArrayIndexOutOfBoundsException e) {
                 try {
                     file.delete();
+                    // data file corrupted, create new save file
                     file.createNewFile();
-                    System.out.println("Data file corrupted, creating new save file...");
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }

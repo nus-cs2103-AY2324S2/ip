@@ -6,8 +6,6 @@ import java.util.ArrayList;
  * Used to store and manage the list of tasks.
  */
 public class TaskList {
-    private String horzLine = "____________________________________________________________";
-
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
     /**
@@ -55,7 +53,14 @@ public class TaskList {
      * @param newTask Task that will be inserted into the TaskList.
      * @return Message for successful addition of task.
      */
-    public String addTask(Task newTask) {
+    public String addTask(Task newTask) throws DukeException {
+        for (Task task: taskList) {
+            boolean isDuplicate = newTask.equals(task);
+            if (isDuplicate) {
+                throw new DukeException("This task already exists!");
+            }
+        }
+
         taskList.add(newTask);
         return "Got it. I've added this task:\n   " + newTask.toString()
                 + "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks " : " task ")
