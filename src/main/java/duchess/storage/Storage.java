@@ -28,6 +28,20 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path is null or empty";
         this.filePath = filePath;
+        createDirectoryIfNotExists(filePath);
+    }
+
+    /**
+     * Helper method to create the directory if it doesn't exist.
+     *
+     * @param filePath the file path to check and create directory
+     */
+    private void createDirectoryIfNotExists(String filePath) {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (!directory.exists()) {
+            directory.mkdirs(); // Creates parent directories if they don't exist
+        }
     }
 
     /**
