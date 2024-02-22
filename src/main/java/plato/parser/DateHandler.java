@@ -61,6 +61,11 @@ public class DateHandler {
      * @return An Optional that contains LocalTime if it exists.
      */
     public static Optional<LocalTime> checkTime(String testTime) throws PlatoException {
+        //Remove the date so that it is easier to check for the time, and prevent conflicts
+        Matcher removeDate = PATTERN_DATE.matcher(testTime);
+        if (removeDate.find()) {
+            testTime = testTime.replaceAll(removeDate.group(), "");
+        }
 
         Matcher match = TIME_PATTERN.matcher(testTime);
         Matcher am = Pattern.compile("(?i)[ap]m").matcher(testTime);

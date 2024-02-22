@@ -70,7 +70,7 @@ public class Event extends Task {
         if (byDateTime == null) {
             return "[E]" + super.toString() + " (from: " + from + " to " + by + ")";
         } else {
-            return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(fromDateTime) + " to "
+            return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(fromDateTime) + " to: "
                    + DateHandler.formatDate(byDateTime) + ")";
         }
     }
