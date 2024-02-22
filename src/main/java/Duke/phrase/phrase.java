@@ -19,6 +19,9 @@ public class phrase {
      */
     public static Command phraseCommand(String input) throws CommandException {
         assert input != null : "input should not be null";
+        if (input.trim().isEmpty()) {
+            throw new CommandException("It's all space! Please enter a valid command.");
+        }
         String firstWord = input.split(" ")[0];
         int trimIndex = firstWord.length();
         String remainingWord = input.substring(trimIndex).trim();
