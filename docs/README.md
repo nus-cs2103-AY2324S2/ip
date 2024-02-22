@@ -1,3 +1,5 @@
+> One of the chatbots of all time
+
 # Tars Chatbot
 
 This is a **chatbot** application that allows you to _manage tasks_.
@@ -20,7 +22,6 @@ It's that easy :+1:
 
 Example: `todo taskname`
 
-// A description of the expected outcome goes here
 
 ```
 Created todo task: taskname
