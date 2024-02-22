@@ -21,10 +21,6 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    private void lineBreak() {
-        System.out.print("--------------------------------------------------\n");
-    }
-
     /**
      * Parses and adds a task to the current list if input corresponds to task creation.
      *
