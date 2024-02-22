@@ -16,8 +16,6 @@ public class Ui {
     protected String intro;
     /** The ending variable is used to hold the ending String this program says when the user inputs "bye". */
     protected String ending;
-    /** The barrier variable is used to hold the String that acts as a barrier to better separate the output. */
-    protected String barrier = "____________________________________________________________";
 
     /**
      * The Ui constructor takes in no parameters, but it does
@@ -63,16 +61,6 @@ public class Ui {
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
-    }
-
-    /**
-     * The displayBarrier method is used to print out the
-     * barrier variable, and is normally used to separate the outputs for each
-     * user command to improve ease of readability.
-     *
-     */
-    public void displayBarrier() {
-        System.out.println(this.barrier);
     }
 
 }

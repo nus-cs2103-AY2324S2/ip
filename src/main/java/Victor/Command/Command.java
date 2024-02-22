@@ -1,7 +1,6 @@
 package victor.command;
 
 import javafx.application.Platform;
-import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
 import victor.tasktype.Deadline;

@@ -1,20 +1,11 @@
 package victor.parser;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Pattern;
 
-import javafx.application.Platform;
 import victor.command.Command;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
-import victor.tasktype.Deadline;
-import victor.tasktype.Event;
-import victor.tasktype.Task;
-import victor.tasktype.Todo;
 import victor.ui.Ui;
 
 
@@ -33,10 +24,6 @@ public class Parser {
             new Storage("data/victor.txt");
 
     /**
-     * Ui class that is used to display certain information for this class.
-     */
-    private final Ui ui;
-    /**
      * The currentTasks variable is used to hold the current data from the Victor.txt data file.
      */
     private final TaskList currentTasks;
@@ -48,7 +35,9 @@ public class Parser {
      * @param currentTasks The currentTasks that is used to get the current task list.
      */
     public Parser(Ui ui, TaskList currentTasks) {
-        this.ui = ui;
+        /**
+         * Ui class that is used to display certain information for this class.
+         */
         this.currentTasks = currentTasks;
     }
 

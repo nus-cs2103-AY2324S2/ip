@@ -2,7 +2,6 @@ package victor;
 
 import java.io.IOException;
 
-import javafx.scene.image.Image;
 import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
