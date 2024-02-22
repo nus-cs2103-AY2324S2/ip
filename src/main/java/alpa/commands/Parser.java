@@ -23,6 +23,9 @@ public class Parser {
         CommandType commandType = CommandType.fromString(commandWord);
 
         switch (commandType) {
+        case HELP:
+            // Returns a command to display help information.
+            return new HelpCommand();
         case BYE:
             // Returns a command to terminate the application.
             return new ByeCommand();
