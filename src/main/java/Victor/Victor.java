@@ -9,16 +9,6 @@ import victor.tasklist.TaskList;
 import victor.ui.Ui;
 
 
-class DukeException extends Exception {
-//    public DukeException (String s)
-//    {
-//        // Call constructor of parent Exception
-//        super(s);
-//    }
-
-
-}
-
 /**
  * The Victor class is the main part of the AI where
  * we start running the program from.
