@@ -8,7 +8,7 @@ import Objects.Task;
 public class Ui {
 
     public static String greetings() {
-        return "Yo! I'm Poe\nWhat can I do for you bro\nEnter \"help\" for guide";
+        return "Yo! I'm Poe\nWhat can I do for you bro\nEnter \"help\" for guide\n";
     }
 
     public static String bye() {

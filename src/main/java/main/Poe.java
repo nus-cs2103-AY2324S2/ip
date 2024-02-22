@@ -17,6 +17,15 @@ public class Poe {
         }
     }
 
+    public String welcome(){
+        try {
+            String data = Storage.loadFromFile("./data.txt");
+            TaskList taskList = new TaskList(data);
+            return Ui.greetings() + taskList.remindTask();
+        } catch (Exception e) {
+            return Ui.greetings();
+        }
+    }
     public String getResponse(String input){
         String response;
         try {

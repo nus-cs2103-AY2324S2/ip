@@ -25,4 +25,8 @@ public class Deadline extends Task {
     public String toStringFile(){
         return "D|" + super.toStringFile() + "|" + this.deadline;
     }
+
+    public LocalDate getDeadline(){
+        return this.deadline;
+    }
 }

@@ -31,8 +31,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        setPoe(new Poe());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.greetings(),dukeImage)
+                DialogBox.getDukeDialog(poe.welcome(),dukeImage)
         );
     }
 

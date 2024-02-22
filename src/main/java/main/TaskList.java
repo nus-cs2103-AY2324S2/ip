@@ -4,10 +4,14 @@ import Objects.Deadline;
 import Objects.Event;
 import Objects.Task;
 import Objects.Todo;
+
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * An object that has methods to change tasks in the list
@@ -151,6 +155,45 @@ public class TaskList {
     public void addTask(Task task){
         this.list.add(task);
         assert !list.isEmpty() : "Task list is empty after adding a task";
+    }
+
+    public static String printReminder(ArrayList<Task> reminders){
+        if (reminders.isEmpty()){
+            return  "No upcoming tasks";
+        }
+        String str = "REMINDER! Upcoming tasks: \n";
+        for (int i = 0; i < reminders.size(); i++) {
+            str += String.format("%d. %s\n", i + 1, reminders.get(i).toString());
+        }
+
+        return str;
+
+    }
+    public String remindTask(){
+        LocalDate dateNow = LocalDate.now();
+        ArrayList<Task> reminders = new ArrayList<>();
+        for (Task task : list){
+            if(compareDate(task,dateNow)){
+                reminders.add(task);
+            }
+        }
+        return printReminder(reminders);
+    }
+
+    public LocalDate reminderDate(Task task){
+        if(task instanceof Deadline){
+            return ((Deadline) task).getDeadline();
+        }else if(task instanceof Event){
+            return ((Event) task).getStartDate();
+        }
+        return null;
+    }
+
+    public boolean compareDate(Task task, LocalDate dateNow){
+        LocalDate d = reminderDate(task);
+        if(d == null){
+            return false;
+        } else return DAYS.between(dateNow, d) <= 2;
     }
 
 }

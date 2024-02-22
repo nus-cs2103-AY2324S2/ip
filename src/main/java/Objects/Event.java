@@ -26,4 +26,8 @@ public class Event extends Task {
     public String toStringFile() {
         return "E|" + super.toStringFile() + "|" + this.startDate + "|" + this.endDate;
     }
+
+    public LocalDate getStartDate(){
+        return this.startDate;
+    }
 }
