@@ -9,6 +9,8 @@ import alastor.task.Task;
  */
 public class Ui {
 
+    protected static boolean dirCreated = false;
+    protected static boolean fileCreated = false;
     protected Scanner sc;
 
     /**
@@ -22,8 +24,17 @@ public class Ui {
      * Shows the greeting message.
      */
     public String showGreet() {
-        return "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
+        String temp = "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
                 + "What desires or inquiries do you bring to my infernal realm?\n";
+        if (dirCreated) {
+            temp += "I've created a new directory for your tasks, my dear.\n";
+            dirCreated = false;
+        }
+        if (fileCreated) {
+            temp += "I've created a new file for your tasks, my dear.\n";
+            fileCreated = false;
+        }
+        return temp;
     }
 
     /**

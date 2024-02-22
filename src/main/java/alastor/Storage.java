@@ -50,7 +50,7 @@ public class Storage {
             File parentDir = storageFile.getParentFile();
             if (!parentDir.exists()) {
                 if (parentDir.mkdir()) {
-                    System.out.println("I've created a new directory for your tasks, my dear.\n");
+                    Ui.dirCreated = true;
                 } else {
                     throw new AlastorException("I'm afraid I've encountered an error while creating a directory for"
                             + " your tasks, my dear.\n");
@@ -58,7 +58,7 @@ public class Storage {
             }
             try {
                 if (storageFile.createNewFile()) {
-                    System.out.println("I've created a new file for your tasks, my dear.\n");
+                    Ui.fileCreated = true;
                 } else {
                     throw new AlastorException("I'm afraid the file I tried creating already exists, my dear.\n");
                 }
