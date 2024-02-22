@@ -12,9 +12,9 @@ public class Todo extends Task {
     @Override
     public String statusMessage() {
         if (this.getStatus() == 0) {
-            return "\tWell done! Task: " + this.getDesc() + " completed.";
+            return "Well done! Task: " + this.getDesc() + " completed.";
         } else {
-            return "\tTask updated. Task: " + this.getDesc() + " marked as incomplete.";
+            return "Task updated. Task: " + this.getDesc() + " marked as incomplete.";
         }
     }
 

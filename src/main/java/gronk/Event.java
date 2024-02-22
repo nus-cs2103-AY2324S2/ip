@@ -66,9 +66,9 @@ public class Event extends Task {
     @Override
     public String statusMessage() {
         if (this.getStatus() == 0) {
-            return "\tWell done! Event: " + this.getDesc() + " finished.";
+            return "Well done! Event: " + this.getDesc() + " finished.";
         } else {
-            return "\tEvent updated. Event: " + this.getDesc() + " marked as incomplete.";
+            return "Event updated. Event: " + this.getDesc() + " marked as incomplete.";
         }
     }
 

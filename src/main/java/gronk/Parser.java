@@ -1,5 +1,6 @@
 package gronk;
 
+import exception.gronk.EmptyListException;
 import exception.gronk.UnknownCommandException;
 import exception.gronk.WrongDateFormatException;
 
@@ -98,8 +99,7 @@ public class Parser {
                 return returnMessage;
             }
         } catch (WrongDateFormatException | UnknownCommandException e) {
-            Parser.userInterface.printMessage(e.toString());
-            return "";
+            return e.toString();
         }
     }
 
@@ -111,7 +111,7 @@ public class Parser {
      */
     private static String parseTodo(String message) {
         taskList.addTask(new Todo(message.substring(5), 0));
-        return "\tTask added: " + message.substring(5);
+        return "Task added: " + message.substring(5);
     }
 
     /**
@@ -126,7 +126,7 @@ public class Parser {
         String time = words[1]; // Follows dd/MM/yyyy format
         Deadline newTask = Deadline.createDeadline(deadlineDescription, 0, time);
         Parser.taskList.addTask(newTask);
-        return "\tDeadline added: " + words[0];
+        return "Deadline added: " + words[0];
     }
 
     /**
@@ -142,7 +142,7 @@ public class Parser {
         String endTime = words[1].substring(14, 24); // Follows dd/MM/yyyy format
         Event newTask = Event.createEvent(eventDescription, 0, startTime, endTime);
         Parser.taskList.addTask(newTask);
-        return "\tEvent added: " + words[0];
+        return "Event added: " + words[0];
     }
 
     /**
@@ -198,7 +198,7 @@ public class Parser {
                 if (index > size || index <= 0) {
                     throw new NoSuchElementException();
                 }
-                returnMessage = "\tItem: " + Parser.taskList.getTask(index - 1).getDesc()
+                returnMessage = "Item: " + Parser.taskList.getTask(index - 1).getDesc()
                         + " removed from list." + "\n" + returnMessage;
                 Parser.taskList.deleteTask(index - 1);
             }

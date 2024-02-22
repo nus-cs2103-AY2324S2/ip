@@ -1,4 +1,4 @@
-package gronk;
+package exception.gronk;
 
 /**
  * EmptyListException class.
@@ -15,6 +15,6 @@ public class EmptyListException extends Exception {
 
     @Override
     public String toString() {
-        return "\tNothing added yet!";
+        return "Nothing added yet!";
     }
 }

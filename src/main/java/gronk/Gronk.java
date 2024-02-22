@@ -29,6 +29,7 @@ public class Gronk {
         this.storage.loadFromFile();
         this.parser = new Parser(this.storage.returnTasks());
         this.userInterface = new UserInterface();
+        /**
         this.messageReader = new Scanner(System.in);
 
         this.userInterface.printHello();
@@ -47,6 +48,7 @@ public class Gronk {
         }
 
         this.userInterface.printGoodbye();
+         */
     }
 
     public static void main(String[] args) {

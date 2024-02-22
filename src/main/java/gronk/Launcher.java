@@ -6,9 +6,10 @@ import javafx.application.Application;
  * TempLauncher class.
  * Playing with javafx.
  */
-public class TempLauncher {
+public class Launcher {
     public static void main(String[] args) {
-        Application.launch(TempMain.class, args);
+        Application.launch(Main.class, args);
     }
 
 }
+

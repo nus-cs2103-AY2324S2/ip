@@ -78,7 +78,7 @@ public class Storage {
      */
     public void loadLine(String m) {
         String[] message = m.split(",");
-        int messageType = message.length;
+        int messageType = message.length; // Number of variables stored
         if (messageType == 2) {
             this.taskList.addTask(new Todo(
                     message[1],

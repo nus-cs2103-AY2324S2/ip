@@ -1,5 +1,7 @@
 package gronk;
 
+import exception.gronk.EmptyListException;
+
 /**
  * UserInterface class.
  * Helper class that provides text formatting for output messages.
@@ -8,13 +10,13 @@ public class UserInterface {
     /**
      * Welcome message to be played when Gronk starts.
      */
-    public static final String WELCOME = "\tHi, I'm Gronk!\n"
-            + "\tWhat's up today?";
+    public static final String WELCOME = "Hi, I'm Gronk!\n"
+            + "What's up today?";
 
     /**
      * Closing message to be closed when the user quits Gronk.
      */
-    public static final String GOODBYE = "\tSystem closing. Goodbye!";
+    public static final String GOODBYE = "System closing. Goodbye!";
 
     /**
      * Line variable for message formatting purposes.
@@ -31,6 +33,10 @@ public class UserInterface {
      */
     public void printGoodbye() {
         System.out.println(GOODBYE);
+    }
+
+    public String returnGoodbye() {
+        return GOODBYE;
     }
 
     /**
@@ -65,12 +71,11 @@ public class UserInterface {
             }
             String message = "";
             for (int j = 0; j < taskList.getSize(); j++) {
-                message += "\t" + Integer.toString(j + 1) + ". " + taskList.getTask(j).toString() + "\n";
+                message += "" + Integer.toString(j + 1) + ". " + taskList.getTask(j).toString() + "\n";
             }
             return message.substring(0, message.length() - 1);
         } catch (EmptyListException e) {
-            printMessage(e.toString());
-            return "";
+            return e.toString();
         }
     }
 }

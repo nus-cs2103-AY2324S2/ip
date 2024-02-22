@@ -48,9 +48,9 @@ public class Deadline extends Task {
     @Override
     public String statusMessage() {
         if (this.getStatus() == 0) {
-            return "\tWell done! Deadline: " + this.getDesc() + " finished.";
+            return "Well done! Deadline: " + this.getDesc() + " finished.";
         } else {
-            return "\tDeadline updated. Deadline: " + this.getDesc() + " marked as incomplete.";
+            return "Deadline updated. Deadline: " + this.getDesc() + " marked as incomplete.";
         }
     }
 
