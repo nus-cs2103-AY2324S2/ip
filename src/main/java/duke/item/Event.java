@@ -38,6 +38,7 @@ public class Event implements Item, Serializable {
     public Event(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";
+
         while ((index < info.length) && !info[index].equals("/from")) {
             if (info[index].equals("/to")) {
                 throw new CustomExceptions.ToBeforeFromException("Wrong input, /to should be after /from");
@@ -45,6 +46,11 @@ public class Event implements Item, Serializable {
             this.name += info[index] + " ";
             index++;
         }
+        this.name = this.name.trim();
+        if (this.name.equals("")) {
+            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Event with a valid name");
+        }
+
         if (index < info.length) {
             for (int i = index; i < info.length; i++) {
                 s += info[i] + " ";
@@ -58,12 +64,6 @@ public class Event implements Item, Serializable {
                 throw new CustomExceptions.UnrecognizableDateException(
                         "Date format is unrecognizable, try dd/mm/yy hhmm");
             }
-        }
-
-        this.name = this.name.trim();
-
-        if (this.name.equals("")) {
-            throw new CustomExceptions.NamelessTaskException("Missing duke.item.Event Name");
         }
     }
     @Override

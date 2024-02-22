@@ -23,7 +23,7 @@ import duke.command.UnmarkCommand;
  */
 public class Parser {
 
-    private static DateTimeFormatterBuilder[] dtFormats = {
+    private static final DateTimeFormatterBuilder[] dtFormats = {
             new DateTimeFormatterBuilder().append(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)),
             new DateTimeFormatterBuilder().appendPattern("dd/MM/yy-HHmm"),
             new DateTimeFormatterBuilder().appendPattern("dd/MM/yy HHmm"),
@@ -36,7 +36,9 @@ public class Parser {
             new DateTimeFormatterBuilder().appendPattern("d/M/y HHmm")
     };
     private final HashMap<String, Command> commands = new HashMap<>();
-    private ItemList itemList;
+
+    private final ItemList itemList;
+
 
     /**
      * Creates a parser object, and populates the commands hashmap
@@ -72,8 +74,7 @@ public class Parser {
         DateTimeParseException thrown = null;
         for (DateTimeFormatterBuilder f : dtFormats) {
             try {
-                LocalDateTime dt = LocalDateTime.parse(s.trim(), f.toFormatter());
-                return dt;
+                return LocalDateTime.parse(s.trim(), f.toFormatter());
             } catch (DateTimeParseException e) {
                 thrown = e;
             }

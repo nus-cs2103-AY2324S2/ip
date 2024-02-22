@@ -16,7 +16,7 @@ import duke.item.ToDo;
  * of Duke is run.
  */
 public class ItemList implements Serializable {
-    private ArrayList<Item> listOfItems = new ArrayList<Item>();
+    private final ArrayList<Item> listOfItems = new ArrayList<>();
     private int itemCount = 0;
 
     public int getItemCount() {
@@ -81,7 +81,7 @@ public class ItemList implements Serializable {
      *                                               exists in the ItemList
      */
     public String removeItem(int index) throws CustomExceptions {
-        String s = "";
+        String s;
         int initial = itemCount;
         try {
             itemCount--;

@@ -39,7 +39,7 @@ public class Duke extends Application {
 
     public String getResponse(String input) {
         // to abstract out UI stuff using fxml
-        String out = "";
+        String out;
         if (!input.equals("bye")) {
             try {
                 out = this.parser.parse(input);

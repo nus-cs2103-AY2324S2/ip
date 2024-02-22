@@ -16,9 +16,9 @@ import duke.Parser;
  */
 public class Deadline implements Item, Serializable {
 
-    private boolean isDone = false;
+    private boolean isDone;
     private String name = "";
-    private LocalDateTime doneBy;
+    private final LocalDateTime doneBy;
 
     /**
      * Creates a new deadline object. The name, isDone and doneBy
@@ -35,6 +35,8 @@ public class Deadline implements Item, Serializable {
     public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
         String doneByString = "";
+        this.isDone = false;
+
         while (!info[index].equals("/by")) {
             if (index >= info.length - 1) {
                 throw new CustomExceptions.DeadlineExceptionBy("Please use /by command after deadline name");
@@ -42,24 +44,22 @@ public class Deadline implements Item, Serializable {
             this.name += info[index] + " ";
             index++;
         }
+        this.name = this.name.trim();
+        if (this.name.equals("")) {
+            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Deadline with a valid name");
+        }
+
         for (int i = index + 1; i < info.length; i++) {
             doneByString += info[i] + " ";
         }
-        this.name = this.name.trim();
-
         try {
             if (doneByString.trim().equals("")) {
                 this.doneBy = LocalDateTime.now();
             } else {
                 this.doneBy = Parser.parseDtString(doneByString.trim());
             }
-
         } catch (DateTimeParseException e) {
             throw new CustomExceptions.UnrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
-        }
-        this.isDone = false;
-        if (this.name.equals("")) {
-            throw new CustomExceptions.NamelessTaskException("Missing duke.item.Event Name");
         }
     }
     @Override
@@ -87,8 +87,8 @@ public class Deadline implements Item, Serializable {
     @Override
     public String addMessage(int num) {
         return "Got it. I've added this task:\n"
-                + "       " + this.toString()
-                + "\n     Now you have " + num + " tasks in the list.";
+                + this.toString()
+                + "\nNow you have " + num + " tasks in the list.";
     }
 
     @Override
