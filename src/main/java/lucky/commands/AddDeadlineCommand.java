@@ -27,6 +27,8 @@ public class AddDeadlineCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
+        // This regex pattern was generated using ChatGPT. Generating regex pattern through ChatGPT
+        // can allow developers to focus more on less mundane stuff.
         String pattern = "([^/]+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
 
         if (!isValidCommand(pattern, input)) {
