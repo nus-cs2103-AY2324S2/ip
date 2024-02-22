@@ -39,6 +39,7 @@ Free up space in your mind, and allow Scribbles to be the fish friend you need i
 4. Enter `java -jar scribbles.jar` to launch Scribbles!
 
 > ❗**IMPORTANT**
+> <br/>
 > Running Scribbles will create a folder in your current directory named `scribblesData` 
 > which will contain a `taskData.txt` file. This file save's your data in a program-readable
 > format. To ensure your data is saved properly and not corrupted, please try not to tamper with this file.
@@ -75,6 +76,7 @@ Example: the input, `deadline scribbles tutorial /by 01/01/2024 2359`, will add 
 with a deadline `01/01/2024 2359`
 
 > 🏷️ **NOTE**
+> <br/>
 > Scribbles only allows for your date and time to be formatted in `dd/MM/yyyy HHmm` format
 > i.e. if you input `01/10/2024 1700` it refers to 1 October 2024, 5:00 p.m.
 
@@ -138,7 +140,8 @@ Format: `find <KEYWORD>`
 
 Example: the input `find scribbles` will return a list of tasks which contain the word `scribbles`
 
-> [!NOTE]
+> 🏷️ **NOTE**
+> <br/>
 > Scribbles is case-sensitive i.e. `Scribbles` is not equal to `scribbles`. So if you input `find scribbles`, it 
 > exclude tasks that contain the word `Scribbles`
 
@@ -174,6 +177,7 @@ Unfortunately, Scribbles currently only reads dates and time in the format `dd/M
 This means that `02/10/2024 1700` is interpreted as 02 October 2024 5:00 p.m. by Scribbles.
 
 > 🏷️ **NOTE**
+> <br/>
 > Don't worry if you find it hard to remember the accepted formatting! Scribbles will remind you and correct you as you
 > use the program!
 
