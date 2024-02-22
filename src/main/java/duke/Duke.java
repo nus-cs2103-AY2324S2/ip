@@ -1,53 +1,49 @@
 package duke;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
-public class Duke {
-    Ui ui = new Ui();
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class Duke extends Application {
     Parser parser = new Parser();
     TaskList tasks = new TaskList();
     Storage storage = new Storage();
 
-    /**
-     * Main function to run the chatbot.
-     */
-    public void run() {
+    @Override
+    public void start(Stage stage) {
+        Commands.registerCommands();
         try {
             tasks.loadFromSavedData(storage.loadFromFile(), parser);
         } catch (DukeException e) {
             storage.deleteFile();
-            ui.printCorruptedFileMessage(e);
+            //ui.printCorruptedFileMessage(e);
         }
-        ui.printBanner();
-        while (true) {
-            String prompt;
-            try {
-                prompt = ui.askForPrompt();
-            } catch (NoSuchElementException e) {
-                System.out.println();
-                try {
-                    new ByeCommand().execute(tasks);
-                } catch (DukeException e2) {
-                    System.out.println(e2.getMessage());
-                }
-                break;
-            }
-
-            Command command;
-            try {
-                command = parser.parse(prompt);
-                command.execute(tasks);
-                storage.saveToFile(tasks.getSaveData());
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(this);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        Commands.registerCommands();
-        Duke duke = new Duke();
-        duke.run();
+    public String getResponse(String input) {
+        Command command;
+        try {
+            command = parser.parse(input);
+            String result = command.execute(tasks);
+            storage.saveToFile(tasks.getSaveData());
+            return result;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }

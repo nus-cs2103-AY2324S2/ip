@@ -6,11 +6,10 @@ import java.util.regex.Matcher;
 class ClearCommand extends Command {
     public ClearCommand() {}
 
-    public void execute(TaskList tasks, boolean silent) {
+    @Override
+    public String execute(TaskList tasks) {
         tasks.clear();
-        if (!silent) {
-            System.out.println("Cleared all tasks!");
-        }
+        return "Cleared all tasks!";
     }
 }
 
@@ -25,15 +24,15 @@ abstract class AddTaskCommand extends Command {
         assert task != null : "Task should not be null";
     }
 
-    public void execute(TaskList tasks, boolean silent) throws DukeException {
+    @Override
+    public String execute(TaskList tasks) throws DukeException {
         assert task != null : "execute() can only be called once";
         tasks.addTask(task);
-        if (!silent) {
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            tasks.printTaskCount();
-        }
+        String result = "Got it. I've added this task:\n" +
+            task + "\n" +
+            tasks.getDisplayTaskCount();
         task = null;
+        return result;
     }
 }
 
@@ -99,8 +98,9 @@ class AddEventCommand extends AddTaskCommand {
 }
 
 class ListCommand extends Command {
-    public void execute(TaskList tasks, boolean silent) throws DukeException {
-        tasks.listTasks();
+    @Override
+    public String execute(TaskList tasks) throws DukeException {
+        return tasks.getDisplayListTasks();
     }
 }
 
@@ -132,12 +132,11 @@ class MarkDoneCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(TaskList tasks, boolean silent) throws DukeException {
+    @Override
+    public String execute(TaskList tasks) throws DukeException {
         tasks.markTaskAsDone(index);
-        if (!silent) {
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks.getTaskDescription(index));
-        }
+        return "Nice! I've marked this task as done:\n" +
+            tasks.getTaskDescription(index);
     }
 }
 
@@ -146,12 +145,11 @@ class UnmarkDoneCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(TaskList tasks, boolean silent) throws DukeException {
+    @Override
+    public String execute(TaskList tasks) throws DukeException {
         tasks.unmarkTaskAsDone(index);
-        if (!silent) {
-            System.out.println("OK, I've unmarked this task as not done yet:");
-            System.out.println(tasks.getTaskDescription(index));
-        }
+        return "OK, I've unmarked this task as not done yet:\n" +
+            tasks.getTaskDescription(index);
     }
 }
 
@@ -160,14 +158,13 @@ class DeleteCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(TaskList tasks, boolean silent) throws DukeException {
+    @Override
+    public String execute(TaskList tasks) throws DukeException {
         String taskToDelete = tasks.getTaskDescription(index);
         tasks.deleteTask(index);
-        if (!silent) {
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(taskToDelete);
-            tasks.printTaskCount();
-        }
+        return "Noted. I've removed this task:\n" +
+            taskToDelete + "\n" +
+            tasks.getDisplayTaskCount();
     }
 }
 
@@ -178,8 +175,9 @@ class FindCommand extends Command {
         this.query = query;
     }
 
-    public void execute(TaskList tasks, boolean silent) {
-        tasks.findTasks(query).listTasks();
+    @Override
+    public String execute(TaskList tasks) {
+        return tasks.findTasks(query).getDisplayListTasks();
     }
 }
 
