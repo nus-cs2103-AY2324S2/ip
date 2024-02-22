@@ -65,6 +65,12 @@ Format: `delete [index of task]`
 
 Example: `delete 1`
 
+### Exit chatbot: `bye`
+
+Closes the chatbot and exits.
+
+Format: `bye`
+
 
 ## Usage
 
