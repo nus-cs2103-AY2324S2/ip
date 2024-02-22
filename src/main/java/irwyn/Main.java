@@ -31,6 +31,7 @@ public class Main extends Application {
             assert scene != null : "Need Scene";
             stage.setScene(scene);
             assert stage != null : "Need Stage";
+            stage.setTitle("Irwyn - chatbot!");
             fxmlLoader.<UiWindow>getController().setIrwyn(irwyn);
             stage.show();
         } catch (IOException e) {
