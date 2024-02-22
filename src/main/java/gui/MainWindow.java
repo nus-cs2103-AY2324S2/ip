@@ -1,6 +1,7 @@
 package gui;
 
 import destiny.Destiny;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.util.Duration;
+
+import static destiny.Destiny.GOODBYE_MSG;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -73,5 +77,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDestinyDialog(destinyText, destinyImage)
         );
         userInput.clear();
+
+        if (destinyText.equals(GOODBYE_MSG)) {
+            PauseTransition pauseProgram = new PauseTransition(Duration.seconds(5));
+            pauseProgram.setOnFinished(event -> Platform.exit());
+            pauseProgram.play();
+        }
     }
+
+
 }

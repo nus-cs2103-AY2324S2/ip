@@ -1,5 +1,3 @@
-T | 0 | abc
-D | 1 | efg | 01/02/2025 1234
-E | 0 | magic | 01/02/2025 1234 | 03/02/2025 1234
-T | 1 | commit the next changes
-E | 0 | bugfix | 16/02/2024 1855 | 17/03/2024 2359
+T | 0 | Daily: Laundry
+D | 0 | submit cs2103 deliverables | 23/03/2024 2359
+E | 0 | host friends for a movie night | 24/02/2024 1500 | 24/02/2024 2300

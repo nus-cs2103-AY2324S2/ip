@@ -12,8 +12,8 @@ import javafx.application.Application;
 public class Destiny {
 
     public static final String CHATBOT_NAME = "Destiny";
-    public static final String GREETING_MSG = "\nGreetings! I'm " + CHATBOT_NAME + "\nHow may I serve you?\n";
-    public static final String GOODBYE_MSG = "\nBye. Hope to see you again soon!\n";
+    public static final String GREETING_MSG = "\nGreetings! I'm " + CHATBOT_NAME + "\nHow may I serve you?";
+    public static final String GOODBYE_MSG = "\nIt's been nice chatting with you!.\nHope to see you again soon!";
 
 
 
