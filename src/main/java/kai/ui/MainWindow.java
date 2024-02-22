@@ -39,6 +39,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Creates the welcome message when the application runs
+     */
+    @FXML
+    public void displayWelcomeMessage() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getKaiDialog(Ui.showWelcome(), dukeImage)
+        );
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

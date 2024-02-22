@@ -4,8 +4,8 @@ public class Ui {
     /**
      * Displays welcome message when chatbot is first booted up.
      */
-    public static void showWelcome() {
-        System.out.println("Hello! I'm KAI\n" + "Please type in what you want to do");
+    public static String showWelcome() {
+        return "Hello! I'm KAI\n" + "Please type in what you want to do";
     }
 
     /**
@@ -28,7 +28,7 @@ public class Ui {
     /**
      * Displays farewell messages when chatbot is terminated.
      */
-    public static void showFarewell() {
-        System.out.println("Bye Bye. Hope to see you again soon!");
+    public static String showFarewell() {
+        return "Bye Bye. Hope to see you again soon!";
     }
 }
