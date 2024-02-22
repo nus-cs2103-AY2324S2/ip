@@ -13,6 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# I/O testing files
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# IDE setting files
 /.vscode/
+
+# Local task storage file
+data/

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,30 +15,26 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="podz.gui.MainWindow">
   <children>
-      <HBox layoutX="-4.0" layoutY="519.0" prefHeight="82.0" prefWidth="404.0" style="-fx-alignment: center; -fx-background-color: #292F3F; -fx-spacing: 5;">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-          <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="324.0" promptText="Type a command" style="-fx-background-radius: 10; -fx-background-color: #1F232F; -fx-text-inner-color: white;" />
-          <Button fx:id="sendButton" alignment="CENTER" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #02AD83; -fx-background-radius: 10;" />
-         </children>
-      </HBox>
-      <VBox>
-         <children>
-            <HBox fx:id="topHBox" alignment="CENTER" prefHeight="54.0" prefWidth="400.0" style="-fx-background-color: #292F3F; -fx-spacing: 111;">
+            <HBox fx:id="topHBox" alignment="CENTER" prefHeight="54.0" prefWidth="400.0" style="-fx-background-color: #292F3F; -fx-spacing: 10;">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label alignment="TOP_LEFT" text="Podz" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
                   <ImageView fx:id="imgTop" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/DaDuke.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="TOP_LEFT" text="Podz" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Grande Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
             </HBox>
-          <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="480.0" prefWidth="400.0" stylesheets="@styles.css" vvalue="1.0">
+          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="480.0" prefWidth="400.0" stylesheets="@styles.css" vbarPolicy="ALWAYS" vvalue="1.0" VBox.vgrow="ALWAYS">
             <content>
               <VBox fx:id="dialogContainer" prefHeight="480.0" prefWidth="388.0" style="-fx-background-color: #292F3F;" />
             </content>
@@ -45,6 +42,23 @@
                   <InnerShadow choke="0.11" height="66.27" radius="16.0675" width="0.0" />
                </effect>
           </ScrollPane>
+            <HBox prefHeight="82.0" prefWidth="404.0" style="-fx-alignment: center; -fx-background-color: #292F3F; -fx-spacing: 5;">
+               <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="324.0" promptText="Write a command..." style="-fx-background-radius: 10; -fx-background-color: #1F232F; -fx-text-inner-color: white;" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="18.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Lucida Grande" size="13.0" />
+                     </font>
+                  </TextField>
+                <Button fx:id="sendButton" alignment="CENTER" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #02AD83; -fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets right="18.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
   </children>
