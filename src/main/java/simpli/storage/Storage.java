@@ -28,6 +28,9 @@ public class Storage {
      * @param taskList ArrayList of task.
      */
     public Storage(Parser parser, Interpreter intrpr, TaskList taskList) {
+        assert parser != null : "Parser object not found";
+        assert intrpr != null : " Interpreter object not found";
+        assert taskList != null : "TaskList object not found";
         this.parser = parser;
         this.intrpr = intrpr;
         this.taskList = taskList;

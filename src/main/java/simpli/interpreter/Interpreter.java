@@ -1,5 +1,6 @@
 package simpli.interpreter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,6 +25,7 @@ public class Interpreter {
      * @param taskList Manages tasks and their actions.
      */
     public Interpreter(TaskList taskList) {
+        assert taskList != null : "TaskList object not found";
         this.taskList = taskList;
     }
 
@@ -37,19 +39,7 @@ public class Interpreter {
      */
     public String interpret(String[] tokens) throws ActionException, TaskException {
         // interpret the string date and time as LocalDateTime object
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime[] dates = new LocalDateTime[tokens.length];
-        Arrays.fill(dates, LocalDateTime.MIN);
-        try {
-            for (int i = 3; i < tokens.length; i++) {
-                if (tokens[i].isEmpty()) {
-                    break;
-                }
-                dates[i - 3] = LocalDateTime.parse(tokens[i], formatter);
-            }
-        } catch (DateTimeParseException e) {
-            throw new TaskException();
-        }
+        LocalDateTime[] dates = interpretLocalDateTime(tokens);
 
         // interpreting different action types
         Action actionType = Action.valueOf(tokens[0].toUpperCase());
@@ -70,8 +60,10 @@ public class Interpreter {
                     + taskList.getTask(taskNum);
         }
         case DELETE: { // delete task
+            int oldSize = taskList.size();
             int taskNum = Integer.parseInt(tokens[2]);
             Task removedTask = taskList.deleteTask(taskNum);
+            assert oldSize - taskList.size() == 1 : "Only 1 task should be deleted.";
             return "Noted. I've removed this task:\n"
                     + removedTask + "\n"
                     + "Now you have " + taskList.size() + " task(s) in the list.";
@@ -83,25 +75,31 @@ public class Interpreter {
                     + foundTasks.toString();
         }
         case TODO: { // creates todo task
+            int oldSize = taskList.size();
             Task addedTask = taskList.addTodo(tokens);
+            assert taskList.size() - oldSize == 1 : "Only 1 todo task should be added.";
             return "Got it. I've added this task:\n\t"
                     + addedTask + "\n"
                     + "Now you have " + taskList.size() + " task(s) in the list.";
         }
         case DEADLINE: { // creates deadline task
+            int oldSize = taskList.size();
             if (!isValidDateTime(dates)) {
                 throw new TaskException();
             }
             Task addedTask = taskList.addDeadline(tokens, dates);
+            assert taskList.size() - oldSize == 1 : "Only 1 deadline task should be added.";
             return "Got it. I've added this task:\n\t"
                     + addedTask + "\n"
                     + "Now you have " + taskList.size() + " task(s) in the list.";
         }
         case EVENT: { // creates event task
+            int oldSize = taskList.size();
             if (!isValidDateTime(dates)) {
                 throw new TaskException();
             }
             Task addedTask = taskList.addEvent(tokens, dates);
+            assert taskList.size() - oldSize == 1 : "Only 1 event task should be added.";
             return "Got it. I've added this task:\n\t"
                     + addedTask + "\n"
                     + "Now you have "
@@ -114,6 +112,22 @@ public class Interpreter {
             throw new ActionException();
         }
         }
+    }
+
+    private LocalDateTime[] interpretLocalDateTime(String[] tokens) throws TaskException {        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime[] dates = new LocalDateTime[tokens.length];
+        Arrays.fill(dates, LocalDateTime.MIN);
+        try {
+            for (int i = 3; i < tokens.length; i++) {
+                if (tokens[i].isEmpty()) {
+                    break;
+                }
+                dates[i - 3] = LocalDateTime.parse(tokens[i], formatter);
+            }
+        } catch (DateTimeParseException e) {
+            throw new TaskException();
+        }
+        return dates;
     }
 
     private boolean isValidDateTime(LocalDateTime[] dates) {

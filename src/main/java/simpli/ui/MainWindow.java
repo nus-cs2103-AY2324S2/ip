@@ -55,6 +55,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = simpli.processInput(input);
 
+        assert !response.isEmpty() : "chatbot response cannot be an empty String";
         if (response.equals("exit")) {
             Platform.exit();
         }
