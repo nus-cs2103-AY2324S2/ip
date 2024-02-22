@@ -122,7 +122,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";
+        return "Currently, the list comprises  " + listItems.size() + " tasks.";
     }
 
 }

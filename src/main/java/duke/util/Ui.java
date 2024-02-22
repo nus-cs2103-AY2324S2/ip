@@ -33,8 +33,9 @@ public class Ui {
      * shows the details of valid commands.
      */
     public void informInvalidCommand() {
-        String message = "I regret to inform you that I currently lack an understanding of the intended meaning behind"
-                + "that statement.";
+        informWrongInputFormat();
+        String message = "I regret to inform you that I currently lack an understanding of the intended meaning behind "
+                + "that statement. Please type 'help' to see more command";
         this.message = message;
     }
 
@@ -107,6 +108,10 @@ public class Ui {
      */
     public void displaySelectedList(ArrayList<Task> taskList) {
         StringBuilder stringBuilder = new StringBuilder();
+        if(taskList.size() == 0){
+            this.message = "Unfortunately, I can't find any such task.";
+            return;
+        }
         stringBuilder.append("Here are the corresponding tasks that align with your criteria:\n");
         for (Task t : taskList) {
             stringBuilder.append("\t").append(t).append("\n");
@@ -127,18 +132,18 @@ public class Ui {
      * displaying the correct format of all the valid commands.
      */
     public void informWrongInputFormat() {
-        String message = "Please follow the correct format for adding tasks:\n"
-                + "To add todos: todo <Task name>\n"
-                + "To add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"
-                + "To add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> "
-                + "to <end time in yyyy-mm-dd HHmm format>\n"
-                + "Other commands: \n"
-                + "list : to list the full list\n"
-                + "mark <index>: to mark the task at index no <index> in the list as complete\n"
-                + "unmark <index>: to mark the task at index no <index> in the last as incomplete\n"
-                + "delete <index>: to remove the taks at index no <index> in the last\n"
-                + "bye: to leave the program\n"
-                + "find <keyword>: to find tasks with description that contains the keyword";
+        String message = "Valid commands are as follow:\n"
+                + "1. todo <Task name>: To add todos.\n"
+                + "2. deadline <Task name> /by <deadline in yyyy/mm/dd HHmm format>: To add deadlines.\n"
+                + "3. event <Task name> /from <start time in yyyy/mm/dd HHmm format> /to <end time in yyyy/mm/dd HHmm format>: " +
+                "To add events. \n"
+                + "4. list : to list the full list\n"
+                + "5. mark <index>: to mark the task at index no <index> in the list as complete\n"
+                + "6. unmark <index>: to mark the task at index no <index> in the last as incomplete\n"
+                + "7. delete <index>: to remove the taks at index no <index> in the last\n"
+                + "8. find <keyword>: to find tasks with description that contains the keyword\n"
+                + "9. help: to get the correct list of valid commands."
+                + "10. bye: to leave the program\n";
         this.message = message;
     }
 

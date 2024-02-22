@@ -23,7 +23,7 @@ public class Parser {
      * The enumeration of command.
      */
     public enum Cmd {
-        list, todo, deadline, event, mark, unmark, delete, find, viewSchedule, bye, none;
+        list, todo, deadline, event, mark, unmark, delete, find, viewSchedule, bye, none, help
     }
 
     private Ui ui;
@@ -123,6 +123,9 @@ public class Parser {
                 command = new ViewScheduleCommand(Cmd.viewSchedule, targetDate);
             case delete:
                 command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(commandComponents[1]));
+                break;
+            case help:
+                command = new HelpCommand(Cmd.help);
                 break;
             default:
                 break;
