@@ -32,7 +32,7 @@ import ciara.storage.Todo;
 @TestInstance(Lifecycle.PER_CLASS)
 public class ParserTest {
     /**
-     * Test successful user date to instant conversion
+     * Tests successful user date to instant conversion
      */
     @Test
     public void userDateToInstant_validDate_success() {
@@ -45,7 +45,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'bye' command
+     * Tests parsing of successful 'bye' command
      */
     @Test
     public void parse_bye_success() throws CiaraException {
@@ -56,7 +56,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'list' command without filters
+     * Tests parsing of successful 'list' command without filters
      */
     @Test
     public void parse_listNoFilter_success() throws CiaraException {
@@ -70,7 +70,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'list' command with date filter
+     * Tests parsing of successful 'list' command with date filter
      */
     @Test
     public void parse_listDateFilter_success() throws CiaraException {
@@ -85,7 +85,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'list' command of archived tasks
+     * Tests parsing of successful 'list' command of archived tasks
      */
     @Test
     public void parse_listArchivedTasks_success() throws CiaraException {
@@ -99,7 +99,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'list' command with date filter with malformed date
+     * Tests parsing of 'list' command with date filter with malformed date
      */
     @Test
     public void parse_listDateFilter_exceptionThrown() throws CiaraException {
@@ -129,7 +129,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'list' command with of archived tasks with date filter
+     * Tests parsing of 'list' command with of archived tasks with date filter
      * with malformed date
      */
     @Test
@@ -166,7 +166,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'list' command with unknown filter
+     * Tests parsing of 'list' command with unknown filter
      */
     @Test
     public void parse_listUnknownFilter_exceptionThrown() throws CiaraException {
@@ -182,7 +182,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'list' command of archived tasks with unknown filter
+     * Tests parsing of 'list' command of archived tasks with unknown filter
      */
     @Test
     public void parse_listArchivedUnknownFilter_exceptionThrown() throws CiaraException {
@@ -198,7 +198,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'mark' command
+     * Tests parsing of successful 'mark' command
      */
     @Test
     public void parse_mark_success() throws CiaraException {
@@ -212,7 +212,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'mark' command with missing/malformed argument
+     * Tests parsing of 'mark' command with missing/malformed argument
      */
     @Test
     public void parse_mark_exceptionThrown() throws CiaraException {
@@ -260,7 +260,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'unmark' command
+     * Tests parsing of successful 'unmark' command
      */
     @Test
     public void parse_unmark_success() throws CiaraException {
@@ -274,7 +274,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'unmark' command with missing/malformed argument
+     * Tests parsing of 'unmark' command with missing/malformed argument
      */
     @Test
     public void parse_unmark_exceptionThrown() throws CiaraException {
@@ -314,7 +314,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'delete' command
+     * Tests parsing of successful 'delete' command
      */
     @Test
     public void parse_delete_success() throws CiaraException {
@@ -329,7 +329,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'delete' command with missing/malformed argument
+     * Tests parsing of 'delete' command with missing/malformed argument
      */
     @Test
     public void parse_delete_exceptionThrown() throws CiaraException {
@@ -377,7 +377,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'todo' command
+     * Tests parsing of successful 'todo' command
      */
     @Test
     public void parse_todo_success() throws CiaraException {
@@ -390,7 +390,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'todo' command with missing argument
+     * Tests parsing of 'todo' command with missing argument
      */
     @Test
     public void parse_todo_exceptionThrown() throws CiaraException {
@@ -417,7 +417,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'deadline' command
+     * Tests parsing of successful 'deadline' command
      */
     @Test
     public void parse_deadline_success() throws CiaraException {
@@ -430,7 +430,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'deadline' command with missing/malformed argument
+     * Tests parsing of 'deadline' command with missing/malformed argument
      */
     @Test
     public void parse_deadline_exceptionThrown() throws CiaraException {
@@ -488,7 +488,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'event' command
+     * Tests parsing of successful 'event' command
      */
     @Test
     public void parse_event_success() throws CiaraException {
@@ -506,7 +506,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of 'event' command with missing/malformed argument
+     * Tests parsing of 'event' command with missing/malformed argument
      */
     @Test
     public void parse_event_exceptionThrown() throws CiaraException {
@@ -569,7 +569,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of successful 'find' command
+     * Tests parsing of successful 'find' command
      */
     @Test
     public void parse_find_success() throws CiaraException {
@@ -589,7 +589,7 @@ public class ParserTest {
     }
 
     /**
-     * Test parsing of unknown command
+     * Tests parsing of unknown command
      */
     @Test
     public void parse_unknown_exceptionThrown() throws CiaraException {

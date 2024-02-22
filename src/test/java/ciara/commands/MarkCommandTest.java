@@ -45,7 +45,7 @@ public class MarkCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -54,7 +54,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -63,7 +63,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() throws CiaraException {
@@ -85,7 +85,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * Reset testing environment for each test
+     * Resets testing environment for each test
      */
     @AfterEach
     public void resetEnvironment() {
@@ -93,7 +93,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * Test print to standard output for successful marking of task as completed
+     * Tests print to standard output for successful marking of task as completed
      */
     @Test
     public void execute_markTask_success() throws CiaraException {
@@ -107,7 +107,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * Test print to standard output for successful unmarking of task as completed
+     * Tests print to standard output for successful unmarking of task as completed
      */
     @Test
     public void execute_unmarkTask_success() throws CiaraException {

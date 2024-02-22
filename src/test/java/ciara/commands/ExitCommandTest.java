@@ -39,7 +39,7 @@ public class ExitCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -48,7 +48,7 @@ public class ExitCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -57,7 +57,7 @@ public class ExitCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() {
@@ -67,7 +67,7 @@ public class ExitCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute
+     * Tests print to standard output for successful execute
      */
     @Test
     public void execute_validCommand_success() throws CiaraException {

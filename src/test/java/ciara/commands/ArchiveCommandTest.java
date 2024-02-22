@@ -45,7 +45,7 @@ public class ArchiveCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -54,7 +54,7 @@ public class ArchiveCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -63,7 +63,7 @@ public class ArchiveCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() throws CiaraException {
@@ -85,7 +85,7 @@ public class ArchiveCommandTest {
     }
 
     /**
-     * Reset testing environment for each test
+     * Resets testing environment for each test
      */
     @AfterEach
     public void resetEnvironment() {
@@ -93,7 +93,7 @@ public class ArchiveCommandTest {
     }
 
     /**
-     * Test print to standard output for successful archival of task
+     * Tests print to standard output for successful archival of task
      */
     @Test
     public void execute_archiveTask_success() throws CiaraException {
@@ -107,7 +107,7 @@ public class ArchiveCommandTest {
     }
 
     /**
-     * Test print to standard output for successful unmarking of task as completed
+     * Tests print to standard output for successful unmarking of task as completed
      */
     @Test
     public void execute_unarchiveTask_success() throws CiaraException {

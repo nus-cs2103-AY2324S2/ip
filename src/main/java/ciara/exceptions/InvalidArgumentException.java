@@ -8,7 +8,7 @@ package ciara.exceptions;
  */
 public class InvalidArgumentException extends CiaraException {
     /**
-     * Creates am InvalidArgumentException
+     * Creates an InvalidArgumentException
      *
      * @param errorMessage Error message
      */

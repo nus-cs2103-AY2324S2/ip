@@ -18,7 +18,7 @@ import ciara.exceptions.CiaraException;
 @TestInstance(Lifecycle.PER_CLASS)
 public class DeadlineTest {
     /**
-     * Test isOn method successful
+     * Tests isOn method successful
      */
     @Test
     public void isOn_correctDate_success() throws CiaraException {

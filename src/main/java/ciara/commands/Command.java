@@ -26,7 +26,7 @@ public abstract class Command {
     }
 
     /**
-     * Check if the command is an exit command
+     * Checks if the command is an exit command
      *
      * @return True if the command is an exist command, false otherwise
      */

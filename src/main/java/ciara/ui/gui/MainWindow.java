@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
     private Image ciaraImage = new Image(this.getClass().getResourceAsStream("/images/Ciara.jpg"));
 
     /**
-     * Initialize the main window
+     * Initializes the main window
      */
     @FXML
     public void initialize() throws StorageException {
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Set GUI instance of the main window
+     * Sets GUI instance of the main window
      *
      * @param gui GUI instance to set
      */

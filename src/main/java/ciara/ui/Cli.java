@@ -57,7 +57,7 @@ public class Cli extends Ui {
     }
 
     /**
-     * Print warning on standard output when application fails to load tasks from
+     * Prints warning on standard output when application fails to load tasks from
      * file
      */
     public static void printLoadFromFileWarning() {
@@ -65,7 +65,7 @@ public class Cli extends Ui {
     }
 
     /**
-     * Get and return the user input from standard input.
+     * Gets and return the user input from standard input.
      *
      * @return User input from standard input
      */
@@ -74,7 +74,7 @@ public class Cli extends Ui {
     }
 
     /**
-     * Print greeting on standard output
+     * Prints greeting on standard output
      */
     private void printGreeting() {
         // UI Greeting
@@ -88,14 +88,14 @@ public class Cli extends Ui {
     }
 
     /**
-     * Print divider line on standard output
+     * Prints divider line on standard output
      */
     private void printDividerLine() {
         System.out.println("------------------------------------------------------------");
     }
 
     /**
-     * Print error on standard output
+     * Prints error on standard output
      *
      * @param message Error message to be printed
      */

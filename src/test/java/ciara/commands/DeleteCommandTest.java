@@ -43,7 +43,7 @@ public class DeleteCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -52,7 +52,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() {
@@ -76,7 +76,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Reset testing environment for each test
+     * Resets testing environment for each test
      */
     @AfterEach
     public void resetEnvironment() {
@@ -84,7 +84,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute
+     * Tests print to standard output for successful execute
      */
     @Test
     public void execute_validTask_success() throws CiaraException {

@@ -18,7 +18,7 @@ import ciara.exceptions.CiaraException;
 @TestInstance(Lifecycle.PER_CLASS)
 public class EventTest {
     /**
-     * Test encompasses method successful
+     * Tests encompasses method successful
      */
     @Test
     public void encompasses_correctDate_success() throws CiaraException {

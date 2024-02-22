@@ -17,7 +17,7 @@ public class Deadline extends Task {
     private Instant dueDate;
 
     /**
-     * Create a Deadline task
+     * Creates a Deadline task
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
@@ -28,7 +28,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Create a Deadline task
+     * Creates a Deadline task
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Create a Deadline task
+     * Creates a Deadline task
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline (in epoch Milliseconds)
@@ -54,7 +54,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get the due date of the deadline (in epoch milliseconds)
+     * Gets the due date of the deadline (in epoch milliseconds)
      *
      * @return Due date of the deadline
      */
@@ -63,7 +63,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Check if deadline is on the specified date
+     * Checks if deadline is on the specified date
      *
      * @param date Date to check against
      *

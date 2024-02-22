@@ -37,7 +37,7 @@ public class TaskList {
     private ArrayList<Task> archivedTaskArray = new ArrayList<>();
 
     /**
-     * Create a new task list with values loaded from a file
+     * Creates a new task list with values loaded from a file
      *
      * @param file File to load tasks from
      */
@@ -50,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Get the number of stored tasks
+     * Gets the number of stored tasks
      *
      * @return Number of stored tasks
      */
@@ -76,7 +76,7 @@ public class TaskList {
     }
 
     /**
-     * Remove an item from task list
+     * Removes an item from task list
      *
      * @param deleteIndex Index of the item to delete
      * @param isArchived  Visibility of the task
@@ -102,7 +102,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as completed/uncompleted
+     * Marks a task as completed/uncompleted
      *
      * @param markIndex   Index of the item to mark
      * @param isCompleted Status of the task
@@ -127,7 +127,7 @@ public class TaskList {
     }
 
     /**
-     * Get all items in storage
+     * Gets all items in storage
      *
      * @param isArchived Visibility of the tasks to retrieve
      *
@@ -145,7 +145,7 @@ public class TaskList {
     }
 
     /**
-     * Get all items in storage filtered by date
+     * Gets all items in storage filtered by date
      *
      * @param date       Date to filter
      * @param isArchived Visibility of the tasks
@@ -183,7 +183,7 @@ public class TaskList {
     }
 
     /**
-     * Get all items in storage filtered by keyword
+     * Gets all items in storage filtered by keyword
      *
      * @param keyword    Keyword to filter
      * @param isArchived Visibility of the tasks
@@ -205,7 +205,7 @@ public class TaskList {
     }
 
     /**
-     * Archive/unarchive a task
+     * Archives or unarchives a task
      *
      * @param taskIndex Index of the item to archive/unarchive
      * @param toArchive Visibility to apply to the task
@@ -245,7 +245,7 @@ public class TaskList {
     }
 
     /**
-     * Save the current tasklist to file
+     * Saves the current tasklist to file
      */
     public void saveTasks() throws StorageException {
         try {
@@ -259,7 +259,7 @@ public class TaskList {
     }
 
     /**
-     * Get string representation of tasks
+     * Gets string representation of tasks
      *
      * @param taskList Task list whose string representation to get
      *

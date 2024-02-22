@@ -45,7 +45,7 @@ public class FindCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -54,7 +54,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -63,7 +63,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() {
@@ -79,7 +79,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Reset testing environment for each test
+     * Resets testing environment for each test
      */
     @AfterEach
     public void resetEnvironment() {
@@ -87,7 +87,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute without keyword with a
+     * Tests print to standard output for successful execute without keyword with a
      * populated tasklist
      */
     @Test
@@ -110,7 +110,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute with a keyword and a
+     * Tests print to standard output for successful execute with a keyword and a
      * populated tasklist
      */
     @Test
@@ -131,7 +131,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Test print to standard output for empty result with a keyword and a
+     * Tests print to standard output for empty result with a keyword and a
      * populated tasklist
      */
     @Test
@@ -151,7 +151,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute without keyword and an
+     * Tests print to standard output for successful execute without keyword and an
      * unpopulated tasklist
      */
     @Test
@@ -165,7 +165,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute with keyword and an
+     * Tests print to standard output for successful execute with keyword and an
      * unpopulated tasklist
      */
     @Test

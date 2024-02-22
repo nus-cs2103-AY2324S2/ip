@@ -45,7 +45,7 @@ public class ListCommandTest {
     private Ui ui;
 
     /**
-     * Set up streams to allow for System.out testing
+     * Sets up streams to allow for System.out testing
      */
     @BeforeAll
     public void setUpStreams() {
@@ -54,7 +54,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Restore streams after tests
+     * Restores streams after tests
      */
     @AfterAll
     public void restoreStreams() {
@@ -63,7 +63,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Create testing environment for each test
+     * Creates testing environment for each test
      */
     @BeforeEach
     public void createEnvironment() {
@@ -79,7 +79,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Reset testing environment for each test
+     * Resets testing environment for each test
      */
     @AfterEach
     public void resetEnvironment() {
@@ -87,7 +87,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute without filter with a
+     * Tests print to standard output for successful execute without filter with a
      * populated tasklist
      */
     @Test
@@ -110,7 +110,8 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute with a date filter and a
+     * Tests print to standard output for successful execute with a date filter and
+     * a
      * populated tasklist
      */
     @Test
@@ -131,7 +132,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for empty result with a date filter and a
+     * Tests print to standard output for empty result with a date filter and a
      * populated tasklist
      */
     @Test
@@ -151,7 +152,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute without filter and an
+     * Tests print to standard output for successful execute without filter and an
      * unpopulated tasklist
      */
     @Test
@@ -165,7 +166,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute with filter and an
+     * Tests print to standard output for successful execute with filter and an
      * unpopulated tasklist
      */
     @Test

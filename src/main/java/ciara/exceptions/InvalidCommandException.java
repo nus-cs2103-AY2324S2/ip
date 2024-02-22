@@ -8,7 +8,7 @@ package ciara.exceptions;
  */
 public class InvalidCommandException extends CiaraException {
     /**
-     * Creates a InvalidCommandException
+     * Creates an InvalidCommandException
      *
      * @param errorMessage Error message
      */

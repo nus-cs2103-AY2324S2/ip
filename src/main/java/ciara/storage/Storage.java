@@ -41,7 +41,7 @@ public class Storage {
     }
 
     /**
-     * Populate storage array from file in JSON format
+     * Populates storage array from file in JSON format
      *
      * @param taskList TaskList to populate
      * @param file     File to load values from

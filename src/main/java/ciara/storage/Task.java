@@ -36,7 +36,7 @@ public class Task {
     private boolean isArchived;
 
     /**
-     * Constructor for creating a task
+     * Creates a task
      *
      * @param description Description of the task
      * @param type        Type of task
@@ -51,7 +51,7 @@ public class Task {
     }
 
     /**
-     * Get the type of the task
+     * Gets the type of the task
      *
      * @return Type of the task
      */
@@ -60,7 +60,7 @@ public class Task {
     }
 
     /**
-     * Get the description of the task
+     * Gets the description of the task
      *
      * @return Description of the task
      */
@@ -69,7 +69,7 @@ public class Task {
     }
 
     /**
-     * Get the status of the task
+     * Gets the status of the task
      *
      * @return Status of the task
      */
@@ -78,7 +78,7 @@ public class Task {
     }
 
     /**
-     * Get the visibility of the task
+     * Gets the visibility of the task
      *
      * @return Visibility of the task
      */
@@ -87,35 +87,35 @@ public class Task {
     }
 
     /**
-     * Mark the task as done
+     * Marks the task as done
      */
     public void mark() {
         this.isCompleted = true;
     }
 
     /**
-     * Mark the task as not done
+     * Marks the task as not done
      */
     public void unmark() {
         this.isCompleted = false;
     }
 
     /**
-     * Archive the task
+     * Archives the task
      */
     public void archive() {
         this.isArchived = true;
     }
 
     /**
-     * Unarchive the task
+     * Unarchives the task
      */
     public void unarchive() {
         this.isArchived = false;
     }
 
     /**
-     * Check if task description contains keyword
+     * Checks if task description contains keyword
      *
      * @param keyword Keyword to check against
      *

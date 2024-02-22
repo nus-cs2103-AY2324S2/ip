@@ -20,7 +20,7 @@ public class Gui extends Ui {
     private static TaskList taskList;
 
     /**
-     * Get the command associated with the user input
+     * Gets the command associated with the user input
      *
      * @param input User input to be parsed
      *
@@ -32,7 +32,7 @@ public class Gui extends Ui {
     }
 
     /**
-     * Get the response from a command
+     * Gets the response from a command
      *
      * @param command Command to be executed
      *

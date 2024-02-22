@@ -50,7 +50,7 @@ public class Parser {
     }
 
     /**
-     * Parse a string and return a command if valid
+     * Parses a string and return a command if valid
      *
      * @param input String to be parsed
      *
@@ -106,7 +106,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to list tasks in the application
+     * Parses a user input to list tasks in the application
      *
      * @param splitInput Options from the user input
      *
@@ -147,7 +147,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to mark tasks in the application
+     * Parses a user input to mark tasks in the application
      *
      * @param splitInput Options from the user input
      *
@@ -171,7 +171,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to unmark tasks in the application
+     * Parses a user input to unmark tasks in the application
      *
      * @param splitInput Options from the user input
      *
@@ -195,7 +195,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to delete tasks in the application
+     * Parses a user input to delete tasks in the application
      *
      * @param splitInput Options from the user input
      *
@@ -219,7 +219,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to create a todo task in the application
+     * Parses a user input to create a todo task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task
@@ -241,7 +241,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to create a deadline task in the application
+     * Parses a user input to create a deadline task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task
@@ -285,7 +285,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to create an event task in the application
+     * Parses a user input to create an event task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task
@@ -345,7 +345,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to search for a task in the application
+     * Parses a user input to search for a task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task
@@ -364,7 +364,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to archive a task in the application
+     * Parses a user input to archive a task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task
@@ -388,7 +388,7 @@ public class Parser {
     }
 
     /**
-     * Parse a user input to unarchive a task in the application
+     * Parses a user input to unarchive a task in the application
      *
      * @param splitInput  Options from the user input
      * @param description Description of the task

@@ -28,7 +28,7 @@ public class Ciara {
     private Ui ui;
 
     /**
-     * Create a Ciara instance
+     * Creates a Ciara instance
      *
      * @param file File to save and load tasks
      */
@@ -43,7 +43,7 @@ public class Ciara {
     }
 
     /**
-     * Get the save file of the application
+     * Gets the save file of the application
      *
      * @return Save file of the application
      */
@@ -52,7 +52,7 @@ public class Ciara {
     }
 
     /**
-     * Set the save file of the application
+     * Sets the save file of the application
      *
      * @param file File to use as the save file of the application
      */
@@ -61,7 +61,7 @@ public class Ciara {
     }
 
     /**
-     * Run the Ciara instance
+     * Runs the Ciara instance
      *
      * @param args Arguments to pass to the application
      */

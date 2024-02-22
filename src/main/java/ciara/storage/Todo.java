@@ -7,7 +7,7 @@ package ciara.storage;
  */
 public class Todo extends Task {
     /**
-     * Create a Todo task
+     * Creates a Todo task
      *
      * @param description Description of the todo task
      */
@@ -16,7 +16,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Create a Todo task
+     * Creates a Todo task
      *
      * @param description Description of the todo task
      * @param isCompleted Status of the task

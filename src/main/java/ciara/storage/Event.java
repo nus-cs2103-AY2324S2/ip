@@ -22,7 +22,7 @@ public class Event extends Task {
     private Instant endDate;
 
     /**
-     * Create an Event task
+     * Creates an Event task
      *
      * @param description Description of the event
      * @param startDate   Start date of the event
@@ -35,7 +35,7 @@ public class Event extends Task {
     }
 
     /**
-     * Create an Event task
+     * Creates an Event task
      *
      * @param description Description of the event
      * @param startDate   Start date of the event
@@ -50,7 +50,7 @@ public class Event extends Task {
     }
 
     /**
-     * Create an Event task
+     * Creates an Event task
      *
      * @param description Description of the event
      * @param startDate   Start date of the event (in epoch milliseconds)
@@ -65,7 +65,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get the start date of the event
+     * Gets the start date of the event
      *
      * @return Start date of the event
      */
@@ -74,7 +74,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get the end date of the event
+     * Gets the end date of the event
      *
      * @return End date of the event
      */
@@ -83,7 +83,7 @@ public class Event extends Task {
     }
 
     /**
-     * Check if event encompasses the specified date
+     * Checks if event encompasses the specified date
      *
      * @param date Date to check against
      *
