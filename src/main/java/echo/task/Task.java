@@ -8,7 +8,7 @@
  * Specific task types (e.g., Todo, Deadline, Event) will extend this class.
  */
 
-package Echo.Task;
+package echo.task;
 
 public abstract class Task {
     private String description;

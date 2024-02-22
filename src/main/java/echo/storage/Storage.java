@@ -8,12 +8,12 @@
  *
  */
 
-package Echo.Storage;
+package echo.storage;
 
-import Echo.Task.Task;
-import Echo.Task.Todo;
-import Echo.Task.Deadline;
-import Echo.Task.Event;
+import echo.task.Task;
+import echo.task.Todo;
+import echo.task.Deadline;
+import echo.task.Event;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,59 +44,78 @@ public class Storage {
      */
     private void addTaskFromFileString(String fileLine, List<Task> tasks) {
         try {
-            // Parse the file line into task information
             String[] tokens = fileLine.split(" \\|");
             if (tokens.length <= 1) {
                 throw new IllegalArgumentException("Invalid task format in file!");
             }
 
-            // Extract task type, status, and description
             String taskType = tokens[0];
-            System.out.println(tokens[1]);
             boolean isDone = tokens[1].equals(" 1");
-            System.out.println(isDone);
-            if (tokens[2].isEmpty()) {
-                throw new IllegalArgumentException("The description of a task cannot be empty.");
-            }
             String taskDescription = tokens[2].trim();
 
-            // Create the corresponding task object based on the task type
+            Task newTask;
+
             switch (taskType) {
             case "T":
-                Todo todoTask = new Todo(taskDescription);
-                if (isDone) {
-                    todoTask.markAsDone();
-                }
-                tasks.add(todoTask);
+                newTask = new Todo(taskDescription);
                 break;
             case "D":
-                String[] deadlineTokens = tokens[3].split(" ", 2);
-                if (deadlineTokens.length != 2) {
-                    throw new IllegalArgumentException("Invalid deadline format in file.");
-                }
-                Deadline deadlineTask = new Deadline(taskDescription, deadlineTokens[1]);
-                if (isDone) {
-                    deadlineTask.markAsDone();
-                }
-                tasks.add(deadlineTask);
+                newTask = createDeadlineTask(taskDescription, tokens[3], isDone);
                 break;
             case "E":
-                String[] eventTokens = tokens[3].split(" ", 3);
-                if (eventTokens.length != 3) {
-                    throw new IllegalArgumentException("Invalid event format in file.");
-                }
-                Event eventTask = new Event(taskDescription, eventTokens[1], eventTokens[2]);
-                if (isDone) {
-                    eventTask.markAsDone();
-                }
-                tasks.add(eventTask);
+                newTask = createEventTask(taskDescription, tokens[3], isDone);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type in file!");
             }
+
+            tasks.add(newTask);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Creates a new Deadline task based on the provided description, deadline token, and completion status.
+     *
+     * @param description   The description of the task.
+     * @param deadlineToken The token containing deadline information.
+     * @param isDone        A boolean indicating whether the task is marked as done.
+     * @return A new Deadline task.
+     * @throws IllegalArgumentException If the deadline format in the file is invalid.
+     */
+    private Deadline createDeadlineTask(String description, String deadlineToken, boolean isDone) {
+        String[] deadlineTokens = deadlineToken.split(" ", 2);
+        if (deadlineTokens.length != 2) {
+            throw new IllegalArgumentException("Invalid deadline format in file.");
+        }
+        Deadline deadlineTask = new Deadline(description, deadlineTokens[1]);
+        if (isDone) {
+            deadlineTask.markAsDone();
+        }
+        return deadlineTask;
+    }
+
+
+    /**
+     * Creates a new Event task based on the provided description, event token, and completion status.
+     *
+     * @param description The description of the task.
+     * @param eventToken  The token containing event information.
+     * @param isDone      A boolean indicating whether the task is marked as done.
+     * @return A new Event task.
+     * @throws IllegalArgumentException If the event format in the file is invalid.
+     */
+    private Event createEventTask(String description, String eventToken, boolean isDone) {
+        String[] eventTokens = eventToken.split(" ", 3);
+        if (eventTokens.length != 3) {
+            throw new IllegalArgumentException("Invalid event format in file.");
+        }
+        Event eventTask = new Event(description, eventTokens[1], eventTokens[2]);
+        if (isDone) {
+            eventTask.markAsDone();
+        }
+        return eventTask;
     }
 
 
@@ -142,12 +160,25 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Handles the case where the tasks file is missing. Creates a new file if it doesn't exist.
+     *
+     * @param file The tasks file.
+     * @throws IOException If an I/O error occurs while creating the file.
+     */
     private void handleMissingFile(File file) throws IOException {
         file.getParentFile().mkdirs(); // Create parent directories if they don't exist
         file.createNewFile(); // Create the file if it doesn't exist
         System.out.println("No tasks file found. Created a new tasks file.");
     }
 
+    /**
+     * Reads tasks from the specified file and populates the provided list of tasks.
+     *
+     * @param file        The tasks file to read.
+     * @param loadedTasks The list to populate with loaded tasks.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     private void readTasksFromFile(File file, List<Task> loadedTasks) throws IOException {
         // Read each line from the file and attempt to add the corresponding task
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -163,6 +194,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Handles an error that occurs during tasks file loading. Deletes the corrupted file and creates a new tasks file.
+     *
+     * @param e           The IOException that occurred during file loading.
+     * @param loadedTasks The list of loaded tasks.
+     */
     private void handleFileLoadError(IOException e, List<Task> loadedTasks) {
         System.out.println("Error loading tasks from file: " + e.getMessage());
 

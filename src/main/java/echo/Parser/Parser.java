@@ -8,8 +8,8 @@
  *
  */
 
-package Echo.Parser;
-import Echo.TaskManager;
+package echo.Parser;
+import echo.TaskManager;
 import java.util.Scanner;
 
 public class Parser {

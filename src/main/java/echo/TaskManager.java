@@ -9,13 +9,13 @@
  *
  */
 
-package Echo;
+package echo;
 
-import Echo.Task.Task;
-import Echo.Task.Todo;
-import Echo.Task.Deadline;
-import Echo.Task.Event;
-import Echo.Storage.Storage;
+import echo.task.Task;
+import echo.task.Todo;
+import echo.task.Deadline;
+import echo.task.Event;
+import echo.storage.Storage;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -33,7 +33,7 @@ public class TaskManager {
             + "data" + File.separator + "echo.txt";
     private Storage storage;
 
-    private Echo echo;
+    private echo.Echo echo;
 
     /**
      * Constructor for the TaskManager class.
@@ -105,20 +105,17 @@ public class TaskManager {
      */
 
     public void listTasks() {
-        StringBuilder response = new StringBuilder("____________________________________________________________\n");
+        StringBuilder response = new StringBuilder("OK Here are the tasks in your list:\n");
 
         if (tasks.isEmpty()) {
             response.append("No tasks in the list.\n");
         } else {
-            response.append("Here are the tasks in your list:\n");
             response.append(tasks.stream()
                     .map(task -> tasks.indexOf(task) + 1 + ". " + task.toString())
                     .collect(Collectors.joining("\n")));
             response.append("\n");
         }
-
-        response.append("____________________________________________________________");
-
+        response.append("You really can't remember them yourself?");
         echo.displayBotResponse(response.toString());
     }
 
@@ -133,7 +130,7 @@ public class TaskManager {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
                 tasks.get(index - 1).markAsDone();
-                echo.displayBotResponse(" Nice I have marked this task as done: "
+                echo.displayBotResponse("Can't believe you finished a task haha: "
                         + tasks.get(index - 1));
             } else {
                 echo.displayBotResponse("Invalid task index.");
@@ -155,7 +152,7 @@ public class TaskManager {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
                 tasks.get(index - 1).markAsUndone();
-                echo.displayBotResponse("Got it, I have unmarked this task: "
+                echo.displayBotResponse("I knew you couldn't do this task: "
                         + tasks.get(index - 1));
             } else {
                 echo.displayBotResponse("Invalid task index.");
@@ -166,12 +163,25 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    /**
+     * Adds a task to the task list without performing a scheduling conflict check. Displays a confirmation message and
+     * saves the tasks to the file.
+     *
+     * @param newTask The task to be added.
+     */
     private void addTaskWithoutConflictCheck(Task newTask) {
         tasks.add(newTask);
         echo.displayBotResponse(getTaskAddedMessage(tasks.size()));
         saveTasksToFile();
     }
 
+    /**
+     * Creates a new {@link Deadline} task based on the provided task description.
+     *
+     * @param taskDescription The description of the deadline task.
+     * @return A new {@link Deadline} task.
+     * @throws IllegalArgumentException If the task description does not match the expected format.
+     */
     private Deadline createDeadline(String taskDescription) {
         String[] deadlineTokens = taskDescription.split(" /by ", 2);
         if (deadlineTokens.length != 2) {
@@ -181,6 +191,13 @@ public class TaskManager {
         return new Deadline(deadlineTokens[0], deadlineTokens[1]);
     }
 
+    /**
+     * Creates a new {@link Event} task based on the provided task description.
+     *
+     * @param taskDescription The description of the event task.
+     * @return A new {@link Event} task.
+     * @throws IllegalArgumentException If the task description does not match the expected format.
+     */
     private Event createEvent(String taskDescription) {
         String[] eventTokens = taskDescription.split(" /from ", 2);
         if (eventTokens.length != 2) {
@@ -195,6 +212,12 @@ public class TaskManager {
         return new Event(eventTokens[0], toTokens[0], toTokens[1]);
     }
 
+    /**
+     * Adds a task based on the provided command tokens. Supports "todo," "deadline," and "event" tasks.
+     * Displays appropriate error messages for invalid commands or task descriptions.
+     *
+     * @param tokens The command tokens containing the task type and description.
+     */
     public void addTask(String[] tokens) {
         assert tokens != null : "Tokens cannot be null";
         try {
@@ -234,7 +257,7 @@ public class TaskManager {
             if (!hasSchedulingConflict(newTask)) {
                 addTaskWithoutConflictCheck(newTask);
             } else {
-                echo.displayBotResponse("Scheduling conflict detected! Please choose a different time.");
+                echo.displayBotResponse("You already have a task at this time dumb!");
             }
         } catch (IllegalArgumentException e) {
             echo.displayBotResponse(e.getMessage());
@@ -258,7 +281,7 @@ public class TaskManager {
      * @return string response
      */
     private String getTaskAddedMessage(int size) {
-        return "Got it. I've added this task:\n" +
+        return "Ok you are never going to finish your tasks: :\n" +
                 "  " + tasks.get(size - 1) + "\n" +
                 "Now you have " + size + " tasks in the list.\n" ;
     }
@@ -270,11 +293,9 @@ public class TaskManager {
      * @return string response
      */
     private String getTaskDeletedMessage(Task removedTask) {
-        return "____________________________________________________________\n" +
-                "Noted. I've removed this task:\n" +
+        return "Did you finish it or did you just avoid it?\n" + "Removed task" +
                 "  " + removedTask + "\n" +
-                "Now you have " + tasks.size() + " tasks in the list.\n" +
-                "____________________________________________________________";
+                "Now you have " + tasks.size() + " tasks in the list.\n" ;
     }
 
     /**
@@ -291,7 +312,7 @@ public class TaskManager {
 
             int taskNumber = Integer.parseInt(tokens[1]) - 1;  // Adjusting for 0-based index
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                throw new IllegalArgumentException("NO! Echo.Task.Echo." +
+                throw new IllegalArgumentException("NO!" +
                         "Task number does not exist. Enter a valid task number to delete.");
             }
 
@@ -355,9 +376,9 @@ public class TaskManager {
         StringBuilder response = new StringBuilder();
 
         if (matchingTasks.isEmpty()) {
-            response.append("No matching tasks found.\n");
+            response.append("Looks like you lost your memory. No matching tasks found.\n");
         } else {
-            response.append("Here are the matching tasks in your list:\n");
+            response.append("OK here are the matching tasks in your list:\n");
             response.append(matchingTasks.stream()
                     .map(task -> matchingTasks.indexOf(task) + 1 + ". " + task.toString())
                     .collect(Collectors.joining("\n")));
@@ -368,6 +389,12 @@ public class TaskManager {
     }
 
 
+    /**
+     * Checks if adding a new task would result in a scheduling conflict with existing tasks.
+     *
+     * @param newTask The new task to be checked for conflicts.
+     * @return {@code true} if there is a scheduling conflict, {@code false} otherwise.
+     */
     public boolean hasSchedulingConflict(Task newTask) {
         if (newTask instanceof Event) {
             return hasEventConflict((Event) newTask);
@@ -377,6 +404,12 @@ public class TaskManager {
         return false; // No conflict for other task types
     }
 
+    /**
+     * Checks if adding a new event would result in a scheduling conflict with existing events.
+     *
+     * @param newEvent The new event to be checked for conflicts.
+     * @return {@code true} if there is a scheduling conflict, {@code false} otherwise.
+     */
     private boolean hasEventConflict(Event newEvent) {
         for (Task task : tasks) {
             if (task instanceof Event) {
@@ -389,6 +422,12 @@ public class TaskManager {
         return false; // No clash
     }
 
+    /**
+     * Checks if adding a new deadline would result in a scheduling conflict with existing deadlines.
+     *
+     * @param newDeadline The new deadline to be checked for conflicts.
+     * @return {@code true} if there is a scheduling conflict, {@code false} otherwise.
+     */
     private boolean hasDeadlineConflict(Deadline newDeadline) {
         for (Task task : tasks) {
             if (task instanceof Deadline) {
@@ -401,10 +440,24 @@ public class TaskManager {
         return false; // No clash
     }
 
+    /**
+     * Checks if two date-time values are equal.
+     *
+     * @param dateTime1 The first date-time value.
+     * @param dateTime2 The second date-time value.
+     * @return {@code true} if the date-time values are equal, {@code false} otherwise.
+     */
     private boolean isDateTimeEqual(LocalDateTime dateTime1, LocalDateTime dateTime2) {
         return dateTime1.isEqual(dateTime2);
     }
 
+    /**
+     * Checks if the time range of two events is overlapping.
+     *
+     * @param event1 The first event.
+     * @param event2 The second event.
+     * @return {@code true} if the time ranges overlap, {@code false} otherwise.
+     */
     private boolean isTimeRangeOverlapping(Event event1, Event event2) {
         return (event1.getFrom().isBefore(event2.getTo()) || event1.getFrom().isEqual(event2.getTo()))
                 && (event1.getTo().isAfter(event2.getFrom()) || event1.getTo().isEqual(event2.getFrom()));

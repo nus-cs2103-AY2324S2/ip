@@ -9,10 +9,9 @@
  *
  */
 
-package Echo.Ui;
-import Echo.Echo;
-import Echo.TaskManager;
-import Echo.Parser.Parser;
+package echo.ui;
+import echo.Echo;
+import echo.TaskManager;
 
 public class Ui {
     private static Echo echoInstance;

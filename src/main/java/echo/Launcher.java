@@ -1,4 +1,4 @@
-package Echo;
+package echo;
 
 import javafx.application.Application;
 

@@ -1,12 +1,12 @@
-package Echo;
+package echo;
 
-import Echo.Storage.Storage;
-import Echo.Ui.Ui;
+import echo.storage.Storage;
+import echo.ui.Ui;
 
 import java.util.stream.Stream;
-import java.util.stream.Collectors;
 import java.io.File;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
-import static Echo.Ui.Ui.startConversation;
+import static echo.ui.Ui.startConversation;
 
 /**
  * The Echo class represents the main application for a chatbot with task management features.
@@ -43,6 +43,7 @@ public class Echo extends Application {
     private AnchorPane mainLayout;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image echo = new Image(this.getClass().getResourceAsStream("/images/DaEcho.png"));
+    private Image backgroundImage = new Image(this.getClass().getResourceAsStream("/images/DaBackground.png"));
     private String formattedBotResponse;
 
     /**
@@ -103,6 +104,10 @@ public class Echo extends Application {
         dialogContainer.setStyle("-fx-background-color: #F4F4F4;");
 
         userInput.setPromptText("Type here...");
+        userInput.setStyle("-fx-background-color: #dbffdb; " +
+                "-fx-text-fill: #000000; -fx-prompt-text-fill: #808080;");
+
+        sendButton.setStyle("-fx-background-color: #b1fab1; -fx-text-fill: #000000;");
 
         AnchorPane.setTopAnchor(scrollPane, 10.0);
         AnchorPane.setRightAnchor(scrollPane, 10.0);
@@ -117,7 +122,7 @@ public class Echo extends Application {
         AnchorPane.setRightAnchor(sendButton, 10.0);
 
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        mainLayout.setPrefSize(800, 400);
+        mainLayout.setPrefSize(700, 400);
     }
 
 
@@ -142,7 +147,7 @@ public class Echo extends Application {
      * Greets the user with an initial message and displays it in the chat interface.
      */
     public void greetUser() {
-        Label greetingLabel = new Label("Hello! I'm Echo.Echo\nWhat can I do for you?");
+        Label greetingLabel = new Label("Hello! I'm Echo\nDon't expect too much from me.");
         DialogBox botDialog = DialogBox.getDukeDialog(greetingLabel, new ImageView(echo));
         dialogContainer.getChildren().add(botDialog);
     }
@@ -152,7 +157,7 @@ public class Echo extends Application {
      * The application will exit after a pause of 2 seconds.
      */
     public void endConversation() {
-        Label farewellLabel = new Label("Bye. Hope to see you again soon!");
+        Label farewellLabel = new Label("Bye. COME BACK!");
         DialogBox botDialog = DialogBox.getDukeDialog(farewellLabel, new ImageView(echo));
         dialogContainer.getChildren().add(botDialog);
 
@@ -177,7 +182,7 @@ public class Echo extends Application {
     private void showStage(Stage stage) {
         scene = new Scene(mainLayout);
         stage.setScene(scene);
-        stage.setTitle("Echo Chat");
+        stage.setTitle("Echo Tasks Management");
         stage.show();
     }
 
@@ -193,6 +198,7 @@ public class Echo extends Application {
 
         Label userTextLabel = new Label(getResponse(userInputText));
         DialogBox userDialog = DialogBox.getUserDialog(userTextLabel, new ImageView(user));
+        userDialog.setAlignment(Pos.TOP_RIGHT);
         assert userTextLabel != null : "User label should not be null";
         assert userDialog != null : "User dialog should not be null";
 
@@ -201,6 +207,7 @@ public class Echo extends Application {
         Label botTextLabel = new Label(formattedBotResponse);
         assert botTextLabel != null : "Bot label should not be null";
         DialogBox botDialog = DialogBox.getDukeDialog(botTextLabel, new ImageView(echo));
+        botDialog.setAlignment(Pos.TOP_LEFT);
         assert botDialog != null : "Bot dialog should not be null";
 
         Stream.of(userDialog, botDialog).forEach(dialogContainer.getChildren()::add);
@@ -208,14 +215,30 @@ public class Echo extends Application {
         userInput.clear();
     }
 
+    /**
+     * Gets the formatted response string for user input.
+     *
+     * @param input The user input string.
+     * @return A formatted string representing the user input.
+     */
     private String getResponse(String input) {
         return "You: " + input + "\n";
     }
 
+    /**
+     * Displays a formatted bot response in the chat interface.
+     *
+     * @param response The bot response to be displayed.
+     */
     public void displayBotResponse(String response) {
-        formattedBotResponse = "Bot: " + response + "\n";
+        formattedBotResponse = "Echo: " + response + "\n";
     }
-  
+
+    /**
+     * Appends the specified command to the chat area in the UI.
+     *
+     * @param command The command to be echoed in the chat area.
+     */
     public void echoCommand(String command) {
         Platform.runLater(() -> {
             chatArea.appendText(command + "\n");

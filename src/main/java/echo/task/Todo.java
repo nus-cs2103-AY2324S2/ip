@@ -9,7 +9,7 @@
  *
  */
 
-package Echo.Task;
+package echo.task;
 
 public class Todo extends Task {
     /**
