@@ -48,6 +48,11 @@ public class Goblin {
                     String command = inputWord + inputLine;
                     addEvent(command);
                     count();
+                } else if (inputWord.equals("delete")) {
+                    String inputLine = input.nextLine();
+                    String[] deleteSplit = inputLine.split(" ");
+                    String index= deleteSplit[1];
+                    deleteList(index);
                 } else if (inputWord.equals("bye")) {
                     sayBye();
                     input.close();
@@ -85,7 +90,7 @@ public class Goblin {
 
     public static void showList() {
         line();
-        System.out.println("\t" + "Here are the tasks in your list:");
+        System.out.println("\t" + "Read it yourself.");
         for (int i = 0; i < list.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i).getStatusIcon() + list.get(i).getDescription());
         }
@@ -96,7 +101,7 @@ public class Goblin {
         int i = Integer.parseInt(input.next());
         list.get(i - 1).done();
         line();
-        System.out.println("\t" + "Nice! I've marked this task as done:");
+        System.out.println("\t" + "Done.");
         list.get(i - 1).print();
         line();
     }
@@ -105,7 +110,7 @@ public class Goblin {
         int i = Integer.parseInt(input.next());
         list.get(i - 1).undone();
         line();
-        System.out.println("\t" + "Nice! I've marked this task as done:");
+        System.out.println("\t" + "Lazy meat tastes good. CHOP CHOP");
         System.out.println("\t" + list.get(i - 1).getStatusIcon() + list.get(i - 1).getDescription());
         line();
     }
@@ -139,6 +144,15 @@ public class Goblin {
 
     public static void count() {
         System.out.println("\t" + "Now you have " + list.size() + " tasks in the list.");
+        line();
+    }
+    public static void deleteList(String index) {
+        line();
+        int indexi = Integer.parseInt(index);
+        System.out.println("\t" + "Delete your task already, you happy now?");
+        list.get(indexi - 1).print();
+        list.remove(indexi - 1);
+        System.out.println("\t" + "No meat, no goblins, hayahyahya");
         line();
     }
 }
