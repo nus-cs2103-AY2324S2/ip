@@ -96,7 +96,9 @@ public class Storage {
             case "E":
                 String start = parts.length > 3 ? parts[3].trim() : "";
                 String end = parts.length > 4 ? parts[4].trim() : "";
-                return new Event(description, start, end);
+                LocalDate startDate = parseDate(start);
+                LocalDate endDate = parseDate(end);
+                return new Event(description, startDate, endDate);
             default:
                 return null;
         }

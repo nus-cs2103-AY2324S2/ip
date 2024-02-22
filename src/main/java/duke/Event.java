@@ -1,12 +1,16 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents an event task.
  */
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     /**
      * Creates an Event task with the given description, start, and end details.
@@ -15,7 +19,7 @@ public class Event extends Task {
      * @param start The start details of the event.
      * @param end The end details of the event.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -34,7 +38,9 @@ public class Event extends Task {
     public static String addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
         assert (start + " /to " + end).length() >= "event /from /to".length() : "Input not handled properly";
 
-        taskList.addTask(new Event(description, start, end));
+        LocalDate startDate = parseDate(start);
+        LocalDate endDate = parseDate(end);
+        taskList.addTask(new Event(description, startDate, endDate));
 
         int newSize = taskList.size();
         assert newSize > 0 : "Task not added successfully";
@@ -53,7 +59,9 @@ public class Event extends Task {
      */
     @Override
     public String getStatusIcon() {
-        return "[E] " + super.getStatusIcon() + " " + description + " (from: " + start + " to: " + end + ")";
+        return "[E] " + super.getStatusIcon() + " " + description + " (from: " +
+                start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
+                end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**
@@ -63,6 +71,17 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " | " + end;
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " +
+                end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public static LocalDate parseDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
     }
 }
