@@ -1,19 +1,19 @@
-package duke.command;
+package cruisey.command;
 
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskPriority;
-import duke.task.ToDo;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.storage.Storage;
+import cruisey.task.Deadline;
+import cruisey.task.Event;
+import cruisey.task.Task;
+import cruisey.task.TaskList;
+import cruisey.task.TaskPriority;
+import cruisey.task.ToDo;
+import cruisey.ui.Ui;
 
 
 

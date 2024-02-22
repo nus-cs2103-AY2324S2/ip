@@ -1,7 +1,7 @@
-package duke.task;
+package cruisey.task;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.ui.Ui;
 
 /**
  * The ToDo class represents a task of type ToDo in the Duke application.
@@ -30,7 +30,7 @@ public class ToDo extends Task {
     public String getMessage() {
         assert this.ui != null : "UI should not be null.";
         String priorityFormatted = (priority != null) ? " [Priority: " + priority + "]" : "";
-        return ui.printMessage("Got it. I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription()
+        return ui.printMessage("Coool, I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription()
                 + priorityFormatted);
     }
 }

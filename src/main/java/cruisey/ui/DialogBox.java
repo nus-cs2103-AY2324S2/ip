@@ -1,4 +1,4 @@
-package duke.ui;
+package cruisey.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

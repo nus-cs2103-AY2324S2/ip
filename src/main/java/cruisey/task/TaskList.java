@@ -1,9 +1,9 @@
-package duke.task;
+package cruisey.task;
 
 import java.util.ArrayList;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.ui.Ui;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application.

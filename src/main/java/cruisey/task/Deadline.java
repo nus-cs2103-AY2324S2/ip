@@ -1,11 +1,11 @@
-package duke.task;
+package cruisey.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.ui.Ui;
 
 /**
  * The Deadline class represents a task with a specific deadline.
@@ -118,7 +118,7 @@ public class Deadline extends Task {
         assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not "
                 + "be non-null.";
 
-        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] "
+        return ui.printMessage("Coool, I've added this task:\n [D][" + getStatusIcon() + "] "
                 + getDescription() + byStringFormatted + priorityFormatted);
     }
 

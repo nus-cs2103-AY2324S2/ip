@@ -1,12 +1,12 @@
-package duke;
+package cruisey;
 
 import java.util.Scanner;
 
-import duke.command.Parser;
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import cruisey.command.Parser;
+import cruisey.exception.DukeException;
+import cruisey.storage.Storage;
+import cruisey.task.TaskList;
+import cruisey.ui.Ui;
 import javafx.application.Platform;
 
 /**

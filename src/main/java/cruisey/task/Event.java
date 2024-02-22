@@ -1,11 +1,11 @@
-package duke.task;
+package cruisey.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.ui.Ui;
 
 /**
  * The Event class represents a task that spans a specific duration.
@@ -172,7 +172,7 @@ public class Event extends Task {
 
         String priorityFormatted = (priority != null) ? " [Priority: " + priority + "]" : "";
 
-        return ui.printMessage("Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription()
+        return ui.printMessage("Coool, I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription()
                 + fromStringFormatted + toStringFormatted + priorityFormatted);
     }
 }

@@ -1,4 +1,4 @@
-package duke.task;
+package cruisey.task;
 
 /**
  * The TaskType enum represents the types of tasks in the Duke application.

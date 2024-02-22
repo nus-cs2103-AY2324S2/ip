@@ -1,10 +1,10 @@
-package duke.task;
+package cruisey.task;
 
 /**
  * The enumeration {@code TaskPriority} represents the priority levels that can be associated with tasks.
  * Priority can be set to HIGH, MEDIUM, or LOW.
  *
- * @see duke.task.Task
+ * @see cruisey.task.Task
  */
 public enum TaskPriority {
 

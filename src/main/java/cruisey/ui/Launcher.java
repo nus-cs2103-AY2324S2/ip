@@ -1,5 +1,5 @@
-package duke.ui;
-import duke.Main;
+package cruisey.ui;
+import cruisey.Main;
 import javafx.application.Application;
 
 /**

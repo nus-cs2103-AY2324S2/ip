@@ -1,4 +1,4 @@
-package duke.ui;
+package cruisey.ui;
 
 public class UiTest {
 

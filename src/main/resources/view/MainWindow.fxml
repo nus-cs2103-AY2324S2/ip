@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-font-family: url(&quot;C:\Users\Tresa\Desktop\Poppins-Mediumurl(&quot;C:\Users\Tresa\Desktop\Poppins-Medium.ttf&quot;) .ttf&quot;); -fx-background-image: url('/images/bg.png');" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-font-family: url(&quot;C:\Users\Tresa\Desktop\Poppins-Mediumurl(&quot;C:\Users\Tresa\Desktop\Poppins-Medium.ttf&quot;) .ttf&quot;); -fx-background-image: url('/images/bg.png');" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cruisey.ui.MainWindow">
     <children>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" styleClass="send-button" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #042654;" stylesheets="@style.css" text="Send" textFill="WHITE" AnchorPane.rightAnchor="0.0" />

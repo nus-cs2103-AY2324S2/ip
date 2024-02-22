@@ -1,4 +1,4 @@
-package duke.task;
+package cruisey.task;
 
 /**
  * The {@code TaskStatus} enum represents the status of a task, indicating whether it is done or not done.

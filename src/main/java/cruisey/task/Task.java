@@ -1,4 +1,4 @@
-package duke.task;
+package cruisey.task;
 
 
 /**

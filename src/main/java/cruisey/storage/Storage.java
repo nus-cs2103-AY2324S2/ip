@@ -1,4 +1,4 @@
-package duke.storage;
+package cruisey.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,16 +9,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskPriority;
-import duke.task.TaskStatus;
-import duke.task.TaskType;
-import duke.task.ToDo;
-import duke.ui.Ui;
+import cruisey.exception.DukeException;
+import cruisey.task.Deadline;
+import cruisey.task.Event;
+import cruisey.task.Task;
+import cruisey.task.TaskList;
+import cruisey.task.TaskPriority;
+import cruisey.task.TaskStatus;
+import cruisey.task.TaskType;
+import cruisey.task.ToDo;
+import cruisey.ui.Ui;
 
 
 /**

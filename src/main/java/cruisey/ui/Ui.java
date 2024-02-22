@@ -1,10 +1,10 @@
-package duke.ui;
+package cruisey.ui;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
+import cruisey.exception.DukeException;
+import cruisey.task.Deadline;
+import cruisey.task.Event;
+import cruisey.task.Task;
+import cruisey.task.TaskList;
 
 /**
  * The Ui class handles user interface-related operations in the Duke application.
@@ -58,7 +58,7 @@ public class Ui {
      * Displays a goodbye message when the user exits the Duke application.
      */
     public static String showGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye! Keep Cruisin' :))";
     }
 
     /**
@@ -93,7 +93,7 @@ public class Ui {
      */
     public static String markTask(Task task) {
         assert task != null : "Task should not be null.";
-        return "Nice! I've marked this as done: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] "
+        return "Way to go! I've marked this as done: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] "
                 + task.getDescription();
     }
 
@@ -104,7 +104,7 @@ public class Ui {
      */
     public static String unmarkTask(Task task) {
         assert task != null : "Task should not be null.";
-        return "OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "]["
+        return "Okayy, I've marked this task as not done yet: \n " + "[" + task.getType() + "]["
                 + task.getStatusIcon() + "] " + task.getDescription();
     }
 

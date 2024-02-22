@@ -1,6 +1,6 @@
-package duke.ui;
+package cruisey.ui;
 
-import duke.Duke;
+import cruisey.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
