@@ -17,6 +17,7 @@ public class Lindi {
     private TaskList tasks;
     private final Ui ui;
     private final String name = "Lindi"; // Log It N Do It -> LINDI
+    private boolean isExit = false;
 
     /**
      * No argument constructor for JavaFx compatibility
@@ -50,7 +51,7 @@ public class Lindi {
     }
 
     /**
-     * Runs the program. This loops until terminated by user with ExitCommand.
+     * Runs the program. This loops until terminated by user with ExitCommand. Purely for CLI functionality.
      */
     public void run() {
         this.ui.greeting();
@@ -68,14 +69,23 @@ public class Lindi {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response of Lindi to the user input from the GUI. Sets the isExit flag accordingly.
+     * Once the isExit flag is set, the GUI should terminate the program.
+     *
+     * @param input user input from GUI
+     * @return response of Lindi to the user input
      */
     public String getResponse(String input) {
+        assert !this.isExit : "Lindi already exited. Cannot get response.";
         Command c = Parser.parse(input);
         c.execute(this.tasks, this.storage);
         String response = c.status();
+        this.isExit = c.isExit();
         return response;
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 
     public static void main(String[] args) {
