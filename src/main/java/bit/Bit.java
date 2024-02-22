@@ -74,6 +74,8 @@ public class Bit {
             return tasklist.delete(parser.getIndex());
         } else if (input.equals("find")) {
             return UI.listHits(parser.getWord(), tasklist);
+        } else if (input.equals("remind")) {
+            return UI.listDueSoon(parser.getIndex(), tasklist);
         } else if (input.equals("add")) {
             try {
                 return tasklist.addTo(addInput);

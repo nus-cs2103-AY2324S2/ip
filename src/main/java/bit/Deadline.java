@@ -55,4 +55,15 @@ public class Deadline extends Task {
     public boolean getValid() {
         return isValid;
     }
+
+    /**
+     * This method returns whether or not the deadline is due in i days
+     * @param i
+     * @return true or false depending on whether it is due in i days
+     */
+    public boolean isDueIn(int i) {
+        LocalDate current = LocalDate.now();
+        LocalDate dueDate = current.plusDays(i);
+        return deadline.isBefore(dueDate);
+    }
 }

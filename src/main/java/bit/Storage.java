@@ -54,7 +54,7 @@ public class Storage {
             while ((next = br.readLine()) != null) {
                 String[] parts = next.split("/");
                 if (parts.length == 1) {
-                    assert false : "Save file is corrupted";
+                    break;
                 }
                 if (parts[0].equals("T")) {
                     loadTask(list, parts);

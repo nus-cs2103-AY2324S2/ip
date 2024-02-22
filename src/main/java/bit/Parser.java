@@ -46,6 +46,8 @@ public class Parser {
             return parseForDelete(input);
         } else if (input.startsWith("find ")) {
             return parseForFind(input);
+        } else if (input.startsWith("remind ")) {
+            return parseForRemind(input);
         } else {
             return "add";
         }
@@ -100,5 +102,20 @@ public class Parser {
             return "find";
         }
         return "add";
+    }
+    private String parseForRemind(String input) {
+        if (!input.trim().equals("remind")) {
+            String[] parts = input.split(" ", 2);
+            try {
+                index = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                ui.handleErrorMessage("Not a number");
+                return "add";
+            }
+            return "remind";
+        } else {
+            ui.handleErrorMessage("forget");
+            return "add";
+        }
     }
 }

@@ -117,8 +117,29 @@ public class Ui {
                 s += (j) + "." + tasklist.getTask(i).toString() + "\n";
                 j++;
             }
-
         }
         return s;
+    }
+
+    /**
+     *  This method returns a list of all deadlines due in the specified amount
+     *  of days as a string
+     * @param daysLeft the number of days the deadlines we are looking for are due in at max
+     * @param tasklist the list we are searching
+     * @return the list of deadlines due in specified number of days
+     */
+    public String listDueSoon(int daysLeft, Tasklist tasklist) {
+        String dueMessage = "Hmmm, this tasks are due soon:\n";
+        int index = 1;
+        for (int i = 0; i < tasklist.getSize(); i++) {
+            Task task = tasklist.getTask(i);
+            if (task instanceof Deadline) {
+                if (((Deadline) task).isDueIn(daysLeft)) {
+                    dueMessage += index + task.toString() + "\n";
+                    index++;
+                }
+            }
+        }
+        return dueMessage;
     }
 }

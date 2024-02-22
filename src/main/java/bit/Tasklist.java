@@ -175,5 +175,4 @@ public class Tasklist {
     public void addFromStorage(Task task) {
         taskList.add(task);
     }
-
 }
