@@ -1,30 +1,17 @@
-# Duke User Guide
+# ChipChat User Guide
 
-// Update the title above to match the actual product name
+Welcome to Chipchat user guide! ChipChat is a **chatbot to assist users in managing their tasks**. As of now it supports three task types: 1) ToDo 2) Deadline 3) Event. 
 
-// Product screenshot goes here
+## Add Tasks
+Add tasks of three types.
+Format: `<TASK TYPE> <TASK NAME>`
 
-// Product intro goes here
+### Add ToDo
+Add todos.
 
-## Adding deadlines
+Format: `todo <TASK NAME>`
 
-// Describe the action and its outcome.
+Usage: `todo revise maths`
 
-// Give examples of usage
+Expected Output: 
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
