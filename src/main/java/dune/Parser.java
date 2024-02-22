@@ -11,7 +11,7 @@ public class Parser {
 
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
-    enum commands {
+    enum Commands {
         BYE, DELETE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, HELP
     }
 
@@ -19,7 +19,7 @@ public class Parser {
      * Parses the user input and decides what to do.
      *
      * @param scanner The scanner object to read user input.
-     * @param taskList
+     * @param taskList An object that represents the list of tasks.
      * @param ui
      * @param storage The storage object to save the tasks to.
      * @return
@@ -36,23 +36,23 @@ public class Parser {
 
     /**
      * Decides what to do with the user input.
-     * @param text
-     * @param taskList
-     * @param storage
+     * @param text The user input.
+     * @param taskList An object that represents the list of tasks.
+     * @param storage The storage object to save the tasks to.
      * @return The response to the user input.
      */
     public String response(String text, TaskList taskList, Storage storage) {
         text = text.toLowerCase();
         try {
-            String firstWord = text.split(" ")[0].toUpperCase();
+            Commands firstWord = Commands.valueOf(text.split(" ")[0].toUpperCase());
             switch(firstWord) {
-                case "BYE":
+                case BYE:
                     return "Bye. Hope to see you again soon!";
-                case "DELETE":
+                case DELETE:
                     return taskList.deleteTask(text.substring(6), storage);
-                case "LIST":
+                case LIST:
                     return taskList.toString();
-                case "MARK":
+                case MARK:
                     try {
                         return markTask(text, taskList, storage);
                     } catch (IndexOutOfBoundsException i) {
@@ -62,17 +62,25 @@ public class Parser {
                     } catch (DuneException d) {
                         return d.toString();
                     }
-//                case "UNMARK":
-//                    return unmarkTask(text, taskList, storage);
-                case "FIND":
+                case UNMARK:
+                    try {
+                        return unmarkTask(text, taskList, storage);
+                    } catch (IndexOutOfBoundsException i) {
+                        return "Give a valid index to unmark\n";
+                    } catch (NumberFormatException n) {
+                        return "Remaining characters do not match an integer\n";
+                    } catch (DuneException d) {
+                        return d.toString();
+                    }
+                case FIND:
                     return taskList.find(text.substring(4).trim());
-                case "TODO":
+                case TODO:
                     return taskList.addTask(0, text.substring(4).trim(), storage);
-                case "DEADLINE":
+                case DEADLINE:
                     return taskList.addTask(1, text.substring(9).trim(), storage);
-                case "EVENT":
+                case EVENT:
                     return taskList.addTask(2, text.substring(6).trim(), storage);
-                case "HELP":
+                case HELP:
                     return "Here are the commands I understand:\n" +
                             "bye\n" +
                             "delete\n" +
@@ -87,19 +95,28 @@ public class Parser {
                     return "I do not know of this command. Please try again.";
             }
         } catch (Exception e) {
-            return "An error occurred. Please try again.";
+            return "I do not know of this command. Please try again.";
         }
 
     }
 
     // Do I need to list everything it can throw? No.
+
+    /**
+     * Marks a task as done.
+     * @param text The user input.
+     * @param taskList An object that represents the list of tasks.
+     * @param storage The storage object to save the tasks to.
+     * @return The status of the task.
+     * @throws DuneException
+     */
     public String markTask(String text, TaskList taskList, Storage storage) throws DuneException {
         if (text.equals("mark")) {
             throw new DuneException("Give an index to mark");
         }
         String remaining = "";
         // remove all leading and trailing spaces
-        remaining = text.substring(4).trim();
+        remaining = text.substring("mark".length()).trim();
         // parseInt might throw NumberFormatException
         int index = Integer.parseInt(remaining);
         // Index... exception
@@ -107,6 +124,33 @@ public class Parser {
         storage.saveTasks(taskList);
         String ans = "Nice! I've marked this task as done:\n";
         ans += taskList.getTask(index - 1) + "\n";
+        return ans;
+    }
+
+    /**
+     * Marks a task as not done.
+     *
+     * @param text The user input.
+     * @param taskList An object that represents the list of tasks.
+     * @param storage The storage object to save the tasks to.
+     * @return The status of the task.
+     * @throws DuneException
+     */
+    public String unmarkTask(String text, TaskList taskList, Storage storage) throws DuneException {
+        if (text.equals("unmark")) {
+            throw new DuneException("Give an index to unmark");
+        }
+        String remaining = "";
+        // remove all leading and trailing spaces
+        remaining = text.substring("unmark".length()).trim();
+        // parseInt might throw NumberFormatException
+        int index = Integer.parseInt(remaining);
+        // Index... exception
+        taskList.getTask(index - 1).unmark();
+        storage.saveTasks(taskList);
+        String ans = "Rippp. I've marked this task as undone:\n";
+        ans += taskList.getTask(index - 1) + "\n";
+        ans += "Good luck with your tasks!\n";
         return ans;
     }
 }

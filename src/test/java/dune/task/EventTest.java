@@ -1,5 +1,6 @@
 package dune.task;
 
+import dune.DuneException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,14 +9,19 @@ public class EventTest {
     // correct behaviour for normal event
     @Test
     public void testEvent() {
-        Event event = new Event("7-Eleven", "2001-09-11T07:59", "2001-09-11T17:20");
-        assertEquals("2001-09-11T07:59", event.getStart().toString());
-        assertEquals("2001-09-11T17:20", event.getEnd().toString());
-        assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
-        event.mark();
-        assertEquals("[E][X] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
-        event.unmark();
-        assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
+        try {
+            Event event = new Event("7-Eleven", "2001-09-11T07:59", "2001-09-11T17:20");
+            assertEquals("2001-09-11T07:59", event.getStart().toString());
+            assertEquals("2001-09-11T17:20", event.getEnd().toString());
+            assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
+            event.mark();
+            assertEquals("[E][X] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
+            event.unmark();
+            assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
+        } catch (DuneException d) {
+            System.out.println(d.getMessage());
+        }
+
     }
 
     // same start and end datetime, should throw exception

@@ -69,19 +69,17 @@ public class Storage {
         // components = [type, T/F, task] for todo
         // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
         String[] components = s.split("\\|");
-        // System.out.println(components.length);
         String taskType = components[0];
-        // System.out.println(eventType);
         boolean isDone = (components[1].equals("1")) ? true: false;
 
-        boolean validTaskType = false;
+        boolean isValidTaskType = false;
         for (int i = 0; i < this.taskTypes.length; i++) {
             if (taskType.equals(this.taskTypes[i])) {
-                validTaskType = true;
+                isValidTaskType = true;
                 break;
             }
         }
-        assert validTaskType;
+        assert isValidTaskType;
 
         if (taskType.equals("T")) {
             return new ToDo(components[2], isDone);

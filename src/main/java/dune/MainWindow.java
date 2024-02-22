@@ -71,8 +71,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from the chatbot given the user input.
      */
     private String getResponse(String input) {
         return this.dune.response(input);
