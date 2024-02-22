@@ -2,6 +2,9 @@
 tasklist.dat
 *.jar
 
+# VSCode
+.vscode/
+
 # Java files
 *.class
 
