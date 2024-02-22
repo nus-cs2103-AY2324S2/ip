@@ -15,7 +15,7 @@ public class Deadline extends Task {
      */
     protected LocalDateTime by;
 
-    private final String TASK_TYPE = "R";
+    private final String TASK_TYPE = "D";
 
     /**
      * Constructs a new Deadline instance.
