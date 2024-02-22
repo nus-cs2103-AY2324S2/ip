@@ -30,12 +30,12 @@ public abstract class Command {
      * @return TaskList number as an int
      * @throws InvalidFormatException if the number is not valid
      */
-    public int getTaskListNumber(String number) throws InvalidFormatException {
+    public int getTaskListNumber(String number, LeluException.ErrorType err) throws InvalidFormatException {
         int i = 0;
         try {
             i = Integer.parseInt(number) - 1;
         } catch (NumberFormatException e) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.MARK);
+            InvalidFormatException.callInvalidFormatException(err);
         }
         return i;
     }

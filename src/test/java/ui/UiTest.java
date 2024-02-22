@@ -21,7 +21,7 @@ public class UiTest {
     @Test
     public void testDateFormatInstructions() {
         Ui ui = new Ui();
-        assertEquals("    Your date should be in this format:\n    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n\n",
+        assertEquals("    Your date should be in this format:\n    <yyyy-MM-dd HH:mm> e.g. 2024-02-03 15:25\n\n",
                 ui.dateFormatInstructions());
     }
 }

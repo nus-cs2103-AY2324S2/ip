@@ -23,10 +23,12 @@ public class Main extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Platform.exit();
+                System.exit(1);
             }
         }, exitDelay);
     }
+
+
 
     @Override
     public void start(Stage stage) {

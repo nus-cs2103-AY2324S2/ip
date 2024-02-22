@@ -1,15 +1,6 @@
 package lelu;
 
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.AddToDoCommand;
-import commands.ByeCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
+import commands.*;
 import exceptions.InvalidInputException;
 import exceptions.LeluException;
 import ui.Ui;
@@ -48,6 +39,8 @@ public class Parser {
             return new AddEventCommand();
         case "find":
             return new FindCommand();
+        case "update":
+            return new UpdateCommand();
         default:
             throw new InvalidInputException(ui.showInstructions());
         }

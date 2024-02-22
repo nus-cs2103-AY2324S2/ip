@@ -14,7 +14,8 @@ public class LeluException extends Exception {
         MARK,
         UNMARK,
         DELETE,
-        FIND
+        FIND,
+        UPDATE
     }
     public LeluException(String message) {
         super(message);

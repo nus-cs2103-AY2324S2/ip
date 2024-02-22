@@ -18,6 +18,13 @@ public class TaskList {
         this.tasks.add(t);
     }
 
+    public String updateTask(int i, Task t) {
+        String oldTask = tasks.get(i).toString();
+        tasks.set(i, t);
+        return String.format("    %s\n    replaced by\n    %s", oldTask, t.toString());
+    }
+
+
     public String removeTask(int i) {
         Task t = this.tasks.get(i);
         this.tasks.remove(i);
