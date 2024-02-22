@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(drake);
+            fxmlLoader.<MainWindow>getController().setDrake(drake);
             stage.setTitle("Drake");
             stage.show();
             fxmlLoader.<MainWindow>getController().setWelcomeMessage(Ui.showWelcome());
