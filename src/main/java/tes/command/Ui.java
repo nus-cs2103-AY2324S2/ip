@@ -102,10 +102,22 @@ public class Ui {
      * @param index Index of the task to be marked.
      */
     public String mark(int index) {
-        this.taskList.mark(index);
-        return "Nice! I've marked this task as done:\n"
-                + this.taskList.getTaskDescription(index)
-                + "\nUnbelievable for someone like you 0o0";
+        try {
+            if (index > this.taskList.getSize()) {
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
+                        "you idiot!", this.taskList.getSize());
+                throw new TesException(errorMessage);
+            } else if (index < 1) {
+                String errorMessage = "Only positive integer allowed! Idiot!!!";
+                throw new TesException(errorMessage);
+            }
+            this.taskList.mark(index);
+            return "I've marked this task as done:\n"
+                    + this.taskList.getTaskDescription(index - 1)
+                    + "\nUnbelievable for someone like you 0o0";
+        } catch (TesException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -114,10 +126,22 @@ public class Ui {
      * @param index Index of the task to be unmarked.
      */
     public String unmark(int index) {
-        this.taskList.unmark(index);
-        return "OK, I've marked this task as not done yet:\n"
-                + this.taskList.getTaskDescription(index)
-                + "\nAs expected...";
+        try {
+            if (index > this.taskList.getSize()) {
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
+                        "you idiot!", this.taskList.getSize());
+                throw new TesException(errorMessage);
+            } else if (index < 1) {
+                String errorMessage = "Only positive integer allowed! Idiot!!!";
+                throw new TesException(errorMessage);
+            }
+            this.taskList.unmark(index - 1);
+            return "OK, I've marked this task as not done yet:\n"
+                    + this.taskList.getTaskDescription(index)
+                    + "\nAs expected...";
+        } catch (TesException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -126,15 +150,27 @@ public class Ui {
      * @param index Index of the task to be unmarked.
      */
     public String delete(int index) {
-        String deletedTask = "Noted. I've removed this task:\n"
-                + this.taskList.getTaskDescription(index - 1)
-                + "\nNow you have "
-                + (this.taskList.getSize() - 1)
-                + " in the list.\n"
-                + "Finally giving up eh?";
+        try {
+            if (index > this.taskList.getSize()) {
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
+                        "you idiot!", this.taskList.getSize());
+                throw new TesException(errorMessage);
+            } else if (index < 1) {
+                String errorMessage = "Only positive integer allowed! Idiot!!!";
+                throw new TesException(errorMessage);
+            }
+            String deletedTask = "Noted. I've removed this task:\n"
+                    + this.taskList.getTaskDescription(index - 1)
+                    + "\nNow you have "
+                    + (this.taskList.getSize() - 1)
+                    + " in the list.\n"
+                    + "Finally giving up eh?";
 
-        this.taskList.delete(index - 1);
-        return deletedTask;
+            this.taskList.delete(index - 1);
+            return deletedTask;
+        } catch (TesException e) {
+            return e.getMessage();
+        }
     }
 
     /**
