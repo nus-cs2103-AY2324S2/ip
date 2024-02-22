@@ -25,6 +25,10 @@ class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    /**
+     * Gets the description representing the task.
+     * @return Description of the task as a string.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -65,7 +69,6 @@ class Task {
             return EventTask.parseTask(data);
         }
 
-        System.out.println("Error parsing task from data: " + data);
         return null;
     }
 
