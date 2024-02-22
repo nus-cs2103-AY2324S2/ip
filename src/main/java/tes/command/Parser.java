@@ -56,28 +56,52 @@ public class Parser {
         }
     }
 
+    /**
+     * List the tasks stored.
+     *
+     */
     public String listTask() {
         return this.ui.listTask();
     }
 
+    /**
+     * Unmark a task.
+     *
+     * @param command The unmark command.
+     */
     public String unmarkTask(String command) {
         String indexInString = command.substring(7);
         int index = Integer.parseInt(indexInString);
         return this.ui.unmark(index);
     }
 
+    /**
+     * Mark a task.
+     *
+     * @param command The mark command.
+     */
     public String markTask(String command) {
         String indexInString = command.substring(5);
         int index = Integer.parseInt(indexInString);
         return this.ui.mark(index);
     }
 
+    /**
+     * Delete a task.
+     *
+     * @param command The delete command.
+     */
     public String deleteTask(String command) {
         String indexInString = command.substring(7);
         int index = Integer.parseInt(indexInString);
         return this.ui.delete(index);
     }
 
+    /**
+     * Add a deadline task.
+     *
+     * @param command The deadline command.
+     */
     public String addDeadlineTask(String command) {
         try {
             if (command.equals("deadline")) {
@@ -95,6 +119,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Add an event task.
+     *
+     * @param command The event command.
+     */
     public String addEventTask(String command) {
         try {
             if (command.equals("event")) {
@@ -115,6 +144,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Add a toDo task.
+     *
+     * @param command The toDo command.
+     */
     public String addToDoTask(String command) {
         try {
             if (command.equals("todo")) {
@@ -127,6 +161,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Find a task using keyword.
+     *
+     * @param command The find command.
+     */
     public String findTask(String command) {
         String keyword = command.substring(5);
         return this.ui.find(keyword);
