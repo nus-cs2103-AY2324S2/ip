@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     public LocalDate getDeadline() {
-        return deadline;
+        return this.deadline;
     }
 
     public void setDeadline(LocalDate deadline) {
