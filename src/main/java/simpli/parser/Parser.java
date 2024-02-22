@@ -21,6 +21,14 @@ public final class Parser {
      * 4 - toDate (Event task)
      * */
     private static final int MAX_TOKENS = 5;
+    private HashSet<Action> singleCommands;
+
+    public Parser() {
+        this.singleCommands = new HashSet<>();
+        singleCommands.add(Action.LIST);
+        singleCommands.add(Action.GREET);
+        singleCommands.add(Action.BYE);
+    }
 
     /**
      * Parses and breaks down the content String into tokens.
@@ -46,12 +54,7 @@ public final class Parser {
             throw new ActionException("No such command!");
         }
 
-        HashSet<Action> singleCommands = new HashSet<>();
-        singleCommands.add(Action.LIST);
-        singleCommands.add(Action.GREET);
-        singleCommands.add(Action.BYE);
         parsedTokens[2] = !singleCommands.contains(actionType) ? taskInfo[1] : "";
-
         System.arraycopy(tokens, 1, parsedTokens, 3, tokens.length - 1);
 
         if (!isValidCommand(parsedTokens)) {

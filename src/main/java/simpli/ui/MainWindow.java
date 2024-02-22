@@ -57,6 +57,9 @@ public class MainWindow extends AnchorPane {
 
         assert !response.isEmpty() : "chatbot response cannot be an empty String";
         if (response.equals("exit")) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getSimpliDialog(simpli.bye(), simpliImage)
+            );
             Platform.exit();
         }
 
