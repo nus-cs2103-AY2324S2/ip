@@ -37,7 +37,7 @@ public class DeadlineCommand implements Command {
                     + "Figure out what you want and then come back to me.");
         }
         if (!input.contains(BY_KEYWORD)) {
-            throw new RickException("Seriously, Morty? You don't even know when the deadline is? "
+            throw new RickException("Seriously, Morty? "
                     + "How am I supposed to help you if you don't give me all the information? "
                     + "Put it in 'deadline [title] /by yyyy-mm-ddTHH-MM-SS' format, Morty. Get it together. ");
         }
@@ -47,7 +47,7 @@ public class DeadlineCommand implements Command {
         String name = input.substring(0, byIndex);
         String deadline = input.substring(byIndex + keywordLength);
         if (name.isBlank() || deadline.isBlank()) {
-            throw new RickException("Seriously, Morty? You don't even know when the deadline is? "
+            throw new RickException("Seriously, Morty? "
                     + "How am I supposed to help you if you don't give me all the information? "
                     + "Put it in 'deadline [title] /by yyyy-mm-ddTHH-MM-SS' format, Morty. Get it together. ");
         }

@@ -37,7 +37,8 @@ public class EventCommand implements Command {
                     + "How am I supposed to do that, Morty? I'm not a mind reader, you know");
         }
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
-            throw new RickException("Alright, Morty, you forgot to tell me the start and end times for the event. "
+            throw new RickException("Alright, Morty, you forgot to tell me the name, "
+                    + "the start time and end time for the event. "
                     + "You gotta give me all the info like below, Morty, or I can't help you. Get it together.\n"
                     + "event [title] /from yyyy-mm-ddTHH-MM-SS /to yyyy-mm-ddTHH-MM-SS");
         }
