@@ -41,7 +41,7 @@ public class Deadline extends Task {
 
     @Override
     public String toWrite() {
-        return "D | " + super.toWrite() + " | " + date;
+        return "D | " + super.toWrite() + " | " + dateTimeToWriteFormat(date);
     }
 
     @Override

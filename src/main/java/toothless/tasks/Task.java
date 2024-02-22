@@ -67,9 +67,12 @@ public abstract class Task {
      * @return A string representation of the date and time in "MMM dd yyyy HH:mm" format.
      */
     public String dateTimeFormat(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy hh:mm"));
     }
 
+    public String dateTimeToWriteFormat(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 
 
     /**

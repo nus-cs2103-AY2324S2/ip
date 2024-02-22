@@ -62,13 +62,15 @@ public class Event extends Task {
 
     @Override
     public String toWrite() {
-        return "E | " + super.toWrite() + " | " + startDate + " | " + endDate;
+        return "E | " + super.toWrite() +
+                " | " + dateTimeToWriteFormat(startDate) +
+                " | " + dateTimeToWriteFormat(endDate);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + super.dateTimeFormat(startDate)
-                + " to: " + super.dateTimeFormat(endDate) + ")";
+        return super.toString() + " (from: " + super.dateTimeFormat(startDate) +
+                " to: " + super.dateTimeFormat(endDate) + ")";
     }
 
     public LocalDateTime getStartDate() {
