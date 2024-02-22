@@ -2,7 +2,7 @@
 
 Henry is a desktop chatbot app for managing tasks, optimized for use via Command Line Interface (CLI).
 
-## Features
+Here are what Henry can do:
 - Adding a `todo` task that has only description.
 - Adding a `deadline` task that has description, and a deadline datetime (`by`).
 - Adding an `event` task that has description, a starting datetime (`from`) and an ending datetime (`to`).
@@ -10,7 +10,7 @@ Henry is a desktop chatbot app for managing tasks, optimized for use via Command
 - Delete a task from the list.
 - Update a task's `description`, deadline (`by`), starting datetime (`from`) and/or ending datetime (`to`).
 
-### Adding a Todo Task: `todo {description}`
+## Adding a Todo Task: `todo {description}`
 
 You can add a `Todo` task into the list. A todo task only has a `description`
 
@@ -25,7 +25,7 @@ Added this task
 Now you have 1 tasks in the list :(
 ```
 
-### Adding a Deadline Task: `deadline {description} /by {datetime}`
+## Adding a Deadline Task: `deadline {description} /by {datetime}`
 
 You can add a `Deadline` task into the list.
 
@@ -40,7 +40,7 @@ Added this task
 Now you have 1 tasks in the list :(
 ```
 
-### Adding an Event Task: `event {description} /from {datetime} /to {datetime}`
+## Adding an Event Task: `event {description} /from {datetime} /to {datetime}`
 
 You can add an `Event` task into the list.
 
@@ -55,7 +55,7 @@ Added this task
 Now you have 1 tasks in the list :(
 ```
 
-### Listing tasks: `list`
+## Listing tasks: `list`
 
 You can list all the tasks that were added.
 
@@ -68,7 +68,7 @@ Here is a list of tasks
 2. [T][] item2
 ```
 
-### Marking a Task: `mark {index}`
+## Marking a Task: `mark {index}`
 
 You can mark a task as done after completing it.
 
@@ -81,7 +81,7 @@ This task has been marked as done. XD
 [T][X] task
 ```
 
-### Unmarking a Task: `unmark {index}`
+## Unmarking a Task: `unmark {index}`
 
 You can mark a task as done after completing it.
 
@@ -94,7 +94,7 @@ This task has been marked as undone. :(
 [T][] task
 ```
 
-### Deleting a Task: `delete {index}`
+## Deleting a Task: `delete {index}`
 
 You can delete an existing task from the list.
 
@@ -105,7 +105,7 @@ This task is deleted :)
 [T][] buy bread
 ```
 
-### Updating a Task: `update {index} /d {description} /by {datetime} /to {datetime} /from {datetime}`
+## Updating a Task: `update {index} /d {description} /by {datetime} /to {datetime} /from {datetime}`
 
 You can update a task that is already added into the list. Other than the index, you can only specify the information that you want to change.
 
