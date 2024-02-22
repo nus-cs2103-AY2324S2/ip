@@ -44,6 +44,7 @@ public class TaskList {
      * @param storage The storage handler to save tasks after adding the new task.
      */
     public String addTask(Task newTask, Storage storage) {
+        assert tasks != null : "Task list must not be null";
         tasks.add(newTask);
 
         try {
@@ -62,6 +63,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String deleteTask(int taskNumber, Storage storage) throws ChatbotException {
+        assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
@@ -86,6 +88,7 @@ public class TaskList {
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
     public String markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
+        assert tasks != null : "Task list must not be null";
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException(ERROR_UNKNOWN_TASK_NUMBER);
         }
