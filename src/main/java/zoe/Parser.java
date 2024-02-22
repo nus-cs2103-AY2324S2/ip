@@ -106,16 +106,16 @@ public class Parser {
                 return res;
 
             case "mark":
-                tl.markAsDone(Integer.parseInt(commandDescription));
-                return ui.markedTask(tl.get(Integer.parseInt(commandDescription)));
+                tl.markAsDone(Integer.parseInt(commandDescription.trim()));
+                return ui.markedTask(tl.get(Integer.parseInt(commandDescription.trim())));
 
             case "unmark":
-                tl.unmark(Integer.parseInt(commandDescription));
-                return ui.unmarkedTask(tl.get(Integer.parseInt(commandDescription)));
+                tl.unmark(Integer.parseInt(commandDescription.trim()));
+                return ui.unmarkedTask(tl.get(Integer.parseInt(commandDescription.trim())));
 
             case "delete":
-                Task deletedTask = tl.get(Integer.parseInt(commandDescription));
-                tl.delete(Integer.parseInt(commandDescription));
+                Task deletedTask = tl.get(Integer.parseInt(commandDescription.trim()));
+                tl.delete(Integer.parseInt(commandDescription.trim()));
                 return ui.deletedTask(deletedTask, tl.getSize());
 
             default:
@@ -132,6 +132,9 @@ public class Parser {
 
         } catch (DateTimeParseException d) {
             return ui.invalidDate();
+
+        } catch (NumberFormatException n) {
+            return ui.invalidIndexFormat();
         }
     }
 }

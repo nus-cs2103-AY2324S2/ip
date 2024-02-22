@@ -47,8 +47,9 @@ public class Ui {
      * Alerts user that the index does not exist, gives user current size
      */
     public String invalidIndex(int size) {
-        return String.format
-                ("This task does not exist! Input a positive number among tasks in list starting from 1 to %d", size);
+        return size > 0 ? String.format
+                ("This task does not exist! Input a positive number among tasks in list starting from 1 to %d", size)
+                : "Your task list is currently empty, fill it up before interacting with it :D";
     }
 
     /**
@@ -125,5 +126,12 @@ public class Ui {
     public String noDescription(){
         return "The task you are trying to create " +
                 "or find lacks a description, refer to the website for formatting info :D";
+    }
+
+    /**
+     * Alerts user that the bot currently cannot read multiple integers when it comes to mark/unmark/delete
+     */
+    public String invalidIndexFormat(){
+        return "I currently mark/unmark/delete multiple tasks in a row, please key in only 1 number";
     }
 }

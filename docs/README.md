@@ -57,6 +57,8 @@ Marks, unmarks or deletes a task according to its index in list
 
 Examples: `mark 1` or `unmark 2` or `delete 3`
 
+Note, the function currently does not support keying in multiple numbers
+
 ### Finding
 
 Shows tasks that contain a certain `word` in their description
