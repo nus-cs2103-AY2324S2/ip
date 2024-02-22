@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import anxi.command.AnxiException;
-import anxi.handlers.TimeHandler;
+import anxi.handlers.Handler;
 
 /**
  * Deadline task template.
@@ -36,8 +36,8 @@ public class Deadline extends Task {
         super.updateIsDone(done);
 
         try {
-            TimeHandler th = new TimeHandler();
-            this.by = th.parseDateTime(by);
+            Handler h = new Handler();
+            this.by = h.parseDateTime(by);
         } catch (AnxiException de) {
             // Since reading from file, not errors will be reported.
         }

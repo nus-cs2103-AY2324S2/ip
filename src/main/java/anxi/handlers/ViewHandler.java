@@ -10,7 +10,7 @@ import anxi.command.Ui;
 /**
  * Handles commands related to viewing of tasks on specific date.
  */
-public class ViewHandler {
+public class ViewHandler extends Handler {
     /**
      * ViewHandler constructor.
      */
@@ -45,15 +45,13 @@ public class ViewHandler {
             throw new AnxiException("No date honey, try again.");
         }
 
-        TimeHandler th = new TimeHandler();
-        LocalDate find = th.parseDate(date);
+        LocalDate find = parseDate(date);
 
         String events = taskList.findAllEventOnDate(find);
         String deadlines = taskList.findAllDeadlineOnDate(find);
 
-        if (events.isEmpty() && deadlines.isEmpty()) {
-            throw new AnxiException("Nothing on "
-                    + find.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+        if (events.isBlank() && deadlines.isBlank()) {
+            return "Nothing on " + find.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
 
         return ui.printTasksOnDay(find.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),

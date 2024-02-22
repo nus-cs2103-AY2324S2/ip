@@ -47,7 +47,7 @@ public class FindHandler {
 
         String result = taskList.findMatchingTasks(find.strip());
 
-        if (result.isEmpty()) {
+        if (result.isBlank()) {
             return "No tasks matching your request";
         }
         return ui.printFindTask(result);

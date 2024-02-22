@@ -1,7 +1,5 @@
 package anxi.handlers;
 
-import java.io.IOException;
-
 import anxi.command.AnxiException;
 import anxi.command.Storage;
 import anxi.command.TaskList;
@@ -11,7 +9,7 @@ import anxi.tasks.Task;
 /**
  * Handles inputs related to mark task.
  */
-public class MarkHandler {
+public class MarkHandler extends Handler {
 
     /**
      * MarkHandler constructor.
@@ -51,24 +49,13 @@ public class MarkHandler {
             throw new AnxiException("Missing index, what to mark?");
         }
 
-        int index;
-        try {
-            index = Integer.parseInt(input.strip());
-        } catch (NumberFormatException n) {
-            throw new AnxiException("Tsk tsk integers only.");
-        }
-
+        int index = stringToInt(input);
         int numOfTasks = taskList.getNumOfTasks();
-        if (((index - 1) < 0) || (index > numOfTasks)) {
-            throw new AnxiException("Index out of bounds, no task found.");
-        }
+        checkOutOfBounds(index, numOfTasks);
 
         Task t = taskList.markTask(index - 1);
-        try {
-            storage.updateTask(t, index, numOfTasks);
-        } catch (IOException e) {
-            return ui.printErrorMessage(e.getMessage());
-        }
+        updateTaskInStorge(storage, t, index, numOfTasks);
+
         return ui.printMarkTask(t.toString());
     }
 }
