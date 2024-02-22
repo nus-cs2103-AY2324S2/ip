@@ -95,20 +95,20 @@ Jade is a Personal Assistant Chatbot that helps a person to manage different typ
     - mark 1
     - mark 2
 
-### Unmarking a task: `unmark`
+## Unmarking a task: `unmark`
 - Marks the task with the specified index as uncompleted, using the **absolute index** of the task in all tasks.
 - Format: `unmark INDEX`
 - Examples:
     - unmark 1
     - unmark 2
 
-### Exiting the program: `bye`
+## Exiting the program: `bye`
 - Exits the program.
 - Format: `exit`
 
-### Viewing help: `help`
+## Viewing help: `help`
 - Shows a message containing a summary of the usage all commands.
 - Format: `help`
 
-### Saving the data
+## Saving the data
 The task data of user are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
