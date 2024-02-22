@@ -11,10 +11,6 @@ import java.util.Scanner;
  * @author Tee Chu Jie
  */
 public class Parser {
-    /**
-     * Initiating the scanner for user input.
-     */
-    private final Scanner scan = new Scanner(System.in);
 
     /**
      * A list of commands that can be given to Mitsuki.
@@ -45,70 +41,65 @@ public class Parser {
      * Processes user input and calls the relevant method based
      * on what user comand is.
      *
-     * @param command the command to be executed.
+     * @param userInput the user's input.
      */
-    public void parse(String command) {
-        // The loop that takes in user input and determines what to do.
-        while (command != null) {
-            // Taking in next user input.
-            command = scan.next();
+    public String parse(String userInput) {
+        String command = userInput.indexOf(' ') < 0
+                ? userInput
+                : userInput.substring(0, userInput.indexOf(' '));
 
             // Making sure user is giving a valid command.
             try {
                 MitsukiException.validate(command, commands);
             } catch (MitsukiException ex) {
-                ui.invalidCommandMessage();
+                return ui.invalidCommandMessage();
             }
+
+            String description = userInput.substring(userInput.indexOf(' ') + 1);
 
             // Calling the method based on what the user input is.
             switch (command) {
             case "help":
-                ui.printHelpList(commands);
-                break;
+                return ui.printHelpList(commands);
 
             case "deadline":
-                TaskList.deadline(scan);
-                break;
+                return TaskList.deadline(description);
 
             case "todo":
-                TaskList.todo(scan);
-                break;
+                return TaskList.todo(description);
 
             case "event":
-                TaskList.event(scan);
-                break;
+                return TaskList.event(description);
 
             case "list":
-                TaskList.list();
-                break;
+                return TaskList.list();
 
             case "mark":
-                TaskList.mark(scan);
-                break;
+                int index = Integer.parseInt(description);
+                return TaskList.mark(index);
 
             case "unmark":
-                TaskList.unmark(scan);
-                break;
+                int index1 = Integer.parseInt(description);
+                return TaskList.unmark(index1);
 
             case "delete":
-                TaskList.delete(scan);
-                break;
+                int index2 = Integer.parseInt(description);
+                return TaskList.delete(index2);
 
             case "bye":
                 try {
                     Storage.save("list.txt");
                 } catch (IOException ex) {
-                    ui.printErrorMessage(ex);
+                    return ui.printErrorMessage(ex);
                 }
-                ui.printByeMessage(scan);
+                return ui.printByeMessage();
 
             case "find":
-                TaskList.find(scan);
-                break;
+                return TaskList.find(description);
 
             default:
-                break;
+                return " ";
             }
         }
     }
-}
+
