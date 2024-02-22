@@ -1,8 +1,7 @@
 # Jinni User Guide
 
-
 ![UI Screenshot](Ui.png "UI Screenshot")
-
+Before using, ensure that you have installed java 11 or above
 ## Jinni is a chatbot that assists you in managing the tasks you need to do. She can handle 3 types of tasks:
 
 ### Adding todos
