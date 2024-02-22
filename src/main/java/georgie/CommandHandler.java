@@ -88,14 +88,19 @@ public class CommandHandler {
         }
 
         String description = descriptionAndDueBy[0].trim();
-        
+
         if (taskList.containsTask(description)) {
             return "Task already exists. Duplicate tasks are not allowed.";
         }
 
-        String dueBy = descriptionAndDueBy[1];
+        String dueBy = descriptionAndDueBy[1].trim();
+
+        if (dueBy.length() < "yyyy-MM-dd".length()) {
+            throw new GeorgieException("Oops! Please provide a valid due date with format /by 'yyyy-MM-dd'.");
+        }
+
         assert taskList != null : "Task list is null";
-        return Deadline.addDeadlineTask(taskList, description, descriptionAndDueBy[1]);
+        return Deadline.addDeadlineTask(taskList, description, dueBy);
     }
 
     private static String handleEventCommand(String userInput, TaskList taskList) throws GeorgieException {

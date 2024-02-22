@@ -1,6 +1,7 @@
 package duke;
 
 import georgie.Deadline;
+import georgie.GeorgieException;
 import georgie.TaskList;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void addDeadlineTaskTest() throws DukeException {
+    public void addDeadlineTaskTest() throws GeorgieException {
         TaskList taskList = new TaskList();
         Deadline.addDeadlineTask(taskList, "Finish Assignment", "2022-01-23");
         assertEquals(1, taskList.size());

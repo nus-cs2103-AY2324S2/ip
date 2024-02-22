@@ -32,9 +32,14 @@ public class Deadline extends Task {
      * @throws GeorgieException If there is an issue adding the task.
      */
     public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws GeorgieException {
-        assert dueBy.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
+        assert (description + " /by " + dueBy).length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
 
         LocalDate dueByDate = parseDate(dueBy);
+
+        if (dueByDate == null) {
+            throw new GeorgieException("Oops! Please provide valid due date with format /by 'yyyy-MM-dd'.");
+        }
+
         taskList.addTask(new Deadline(description, dueByDate));
 
         int newSize = taskList.size();
