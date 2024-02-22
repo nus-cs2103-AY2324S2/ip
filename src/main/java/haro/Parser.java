@@ -1,6 +1,14 @@
 package haro;
 
-import haro.command.*;
+import haro.command.AddCommand;
+import haro.command.ByeCommand;
+import haro.command.Command;
+import haro.command.DeleteCommand;
+import haro.command.EditCommand;
+import haro.command.FindCommand;
+import haro.command.ListCommand;
+import haro.command.MarkCommand;
+import haro.command.UnmarkCommand;
 import haro.exception.EmptyCommandException;
 import haro.exception.EmptyTaskException;
 import haro.exception.InvalidArgsException;
@@ -180,7 +188,7 @@ public class Parser {
      * @return An AddCommand object with the Deadline task to be added.
      * @throws MissingDuedateException If the due date is missing.
      */
-    private static Command processDeadlineCommand(String userInput) throws  MissingDuedateException {
+    private static Command processDeadlineCommand(String userInput) throws MissingDuedateException {
         if (!userInput.contains("/by")) {
             throw new MissingDuedateException("Please specify a due date using '/by'!\n");
         }
@@ -200,7 +208,7 @@ public class Parser {
      * @return An AddCommand object with the Event task to be added.
      * @throws MissingEventTimeException If the event start or end time is missing.
      */
-    private static Command processEventCommand(String userInput) throws  Exception {
+    private static Command processEventCommand(String userInput) throws Exception {
         if (!userInput.contains("/from")) {
             throw new MissingEventTimeException("Please specify a start date using '/from'!\n");
         } else if (!userInput.contains("/to")) {
@@ -227,7 +235,7 @@ public class Parser {
      * @return A DeleteCommand object.
      * @throws InvalidArgsException If the user input is not numeric.
      */
-    private static Command processDeleteCommand(String userInput) throws InvalidArgsException{
+    private static Command processDeleteCommand(String userInput) throws InvalidArgsException {
         if (!isNumeric(userInput)) {
             throw new InvalidArgsException("Please input a number for the task you want to delete!\n");
         }

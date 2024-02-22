@@ -1,3 +1,5 @@
+package haro;
+
 import javafx.application.Application;
 
 /**

@@ -1,4 +1,6 @@
-import haro.Ui;
+package haro;
+
+import haro.gui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,12 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import haro.Haro;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.paint.Color;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for haro.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
