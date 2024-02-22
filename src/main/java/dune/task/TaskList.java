@@ -1,5 +1,6 @@
 package dune.task;
 
+import dune.Parser;
 import dune.Storage;
 import dune.DuneException;
 
@@ -60,19 +61,19 @@ public class TaskList {
     /**
      * Adds task to list of tasks given a string, provided there is no duplicate.
      *
-     * @param i  Type of task.
+     * @param command  Type of task.
      * @param text  Description of task.
      * @param storage  Storage object to save tasks.
      */
-    public String addTask(int i, String text, Storage storage) {
+    public String addTask(Parser.Commands command, String text, Storage storage) {
         Task x = null;
         try {
             try {
-                if (i == 0) {
+                if (command == Parser.Commands.TODO) {
                     x = new ToDo(text.trim());
-                } else if (i == 1) {
+                } else if (command == Parser.Commands.DEADLINE) {
                     x = createDeadline(text);
-                } else if (i == 2) {
+                } else if (command == Parser.Commands.EVENT) {
                     x = createEvent(text);
                 } else {
                     throw new DuneException("Unrecognized event type");
@@ -108,7 +109,7 @@ public class TaskList {
     public Task createDeadline(String text) throws DuneException, DateTimeParseException {
         String[] parts = text.split("/by");
         if (parts.length < 2) {
-            throw new DuneException("Deadlines need a deadline /by ... ");
+            throw new DuneException("Deadlines need a /by (some date) ");
         } else if (parts.length > 2) {
             throw new DuneException("There can only be 1 instance of /by. String cannot be parsed...");
         }

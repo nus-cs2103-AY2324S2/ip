@@ -40,8 +40,6 @@ public class Dune {
     private Button sendButton;
     private Scene scene;
 
-    private Image userPic = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dunePic = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructor for dune.Dune.

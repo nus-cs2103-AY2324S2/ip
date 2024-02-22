@@ -11,7 +11,7 @@ public class Parser {
 
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
-    enum Commands {
+    public enum Commands {
         BYE, DELETE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, HELP
     }
 
@@ -44,12 +44,13 @@ public class Parser {
     public String response(String text, TaskList taskList, Storage storage) {
         text = text.toLowerCase();
         try {
-            Commands firstWord = Commands.valueOf(text.split(" ")[0].toUpperCase());
+            String firstWordText = text.split(" ")[0];
+            Commands firstWord = Commands.valueOf(firstWordText.toUpperCase());
             switch(firstWord) {
                 case BYE:
                     return "Bye. Hope to see you again soon!";
                 case DELETE:
-                    return taskList.deleteTask(text.substring(6), storage);
+                    return taskList.deleteTask(text.substring(Commands.DELETE.name().length()), storage);
                 case LIST:
                     return taskList.toString();
                 case MARK:
@@ -73,13 +74,16 @@ public class Parser {
                         return d.toString();
                     }
                 case FIND:
-                    return taskList.find(text.substring(4).trim());
+                    return taskList.find(text.substring(Commands.FIND.name().length()).trim());
                 case TODO:
-                    return taskList.addTask(0, text.substring(4).trim(), storage);
+                    return taskList.addTask(Commands.TODO,
+                            text.substring(Commands.TODO.name().length()).trim(), storage);
                 case DEADLINE:
-                    return taskList.addTask(1, text.substring(9).trim(), storage);
+                    return taskList.addTask(Commands.DEADLINE,
+                            text.substring(Commands.DEADLINE.name().length()).trim(), storage);
                 case EVENT:
-                    return taskList.addTask(2, text.substring(6).trim(), storage);
+                    return taskList.addTask(Commands.EVENT,
+                            text.substring(Commands.EVENT.name().length()).trim(), storage);
                 case HELP:
                     return "Here are the commands I understand:\n" +
                             "bye\n" +
