@@ -41,21 +41,30 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Retrieves the size of the tasklist.
+     * @return Integer of the size of the list.
+     */
     public int size() {
         return tasks.size();
     }
 
-    public String printTask(int index) {
-        return tasks.get(index).toString();
-    }
-
+    /**
+     * Marks the task as completed.
+     * @param index of the task to mark.
+     */
     public void mark(int index) {
         tasks.get(index).markDone();
     }
 
+    /**
+     * Unmarks the task as completed.
+     * @param index of the task to unmark.
+     */
     public void unmark(int index) {
         tasks.get(index).markNotDone();
     }
+
 
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -73,6 +82,11 @@ public class TaskList {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Finds the tasks that corresponds to the date.
+     * @param date The date criteria.
+     * @return The tasks that meet the criteria.
+     */
     public ArrayList<Task> getTasksForDate(LocalDate date) {
         return tasks.stream()
                 .filter(task -> task.isScheduledForDate(date))

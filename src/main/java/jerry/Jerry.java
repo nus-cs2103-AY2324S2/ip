@@ -1,7 +1,12 @@
 package jerry;
 
+import javafx.application.Platform;
 import jerry.command.ByeCommand;
 import jerry.command.Command;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -36,7 +41,9 @@ public class Jerry {
     public String getResponse(String input) {
         Command command = parser.parse(input);
         String response = command.execute();
-
+        if (command instanceof ByeCommand) {
+            exit();
+        }
         Storage.saveTasks(tasks.getTasks(), "./data/jerry.txt");
         return "JERRY\n " + response;
     }
@@ -76,6 +83,19 @@ public class Jerry {
             }
 
         }
+    }
+
+    private void exit() {
+        long delayInMillis = 1000;
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                System.exit(0);
+            }
+        }, delayInMillis);
     }
 }
 

@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
 
     @Override
     public String execute() {
+        ui.closeScanner();
         return ui.showGoodbye();
-
     }
 }

@@ -27,7 +27,7 @@ class StorageTest {
 
     @Test
     void parseTask_ReturnsEventTaskCorrectly() {
-        String line = "E | 1 | Project meeting | 2020-12-30 | 14:00 | 16:00";
+        String line = "E | 1 | Project meeting | 2020-12-30 14:00 | 2020-12-30 16:00";
         Task task = Storage.parseTask(line);
 
         assertTrue(task instanceof Event);

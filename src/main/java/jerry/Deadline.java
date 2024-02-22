@@ -17,7 +17,6 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The deadline date for the task.
      */
-
     public Deadline(String description, String by) throws DateTimeParseException{
         super(description);
         this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

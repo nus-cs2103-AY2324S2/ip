@@ -15,6 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
 import javafx.scene.shape.Circle;
 
+/**
+ * Represents the dialog box for the GUI.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -52,12 +55,24 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Produce a new dialog box for the user.
+     * @param text The text in the dialog box.
+     * @param img The image for the user's profile picture.
+     * @return The dialog box instance.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #ADD8E6;"); // Light green for user dialog
         return db;
     }
 
+    /**
+     * Produce a new dialog box for the chatbot.
+     * @param text The text in the dialog box.
+     * @param img The image for the chatbot's profile picture.
+     * @return The dialog box instance.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

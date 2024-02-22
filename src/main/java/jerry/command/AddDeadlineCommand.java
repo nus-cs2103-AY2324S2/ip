@@ -6,16 +6,35 @@ import jerry.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a new Deadline task to the task list.
+ * <p>
+ * Deadline tasks have a specific due date along with a description. This command
+ * facilitates adding such tasks to the application's task list.
+ */
 public class AddDeadlineCommand extends Command {
 
     private final String commandDetails;
 
+    /**
+     * Constructs an {@code AddDeadlineCommand} with the specified UI, task list, description, and deadline.
+     *
+     * @param ui          The UI component for interacting with the user.
+     * @param tasks       The task list to which the new deadline task will be added.
+     * @param commandDetails The description of the deadline task.
+     */
     public AddDeadlineCommand(Ui ui, TaskList tasks, String commandDetails) {
         super(ui, tasks);
         assert tasks != null : "TaskList should not be null";
         this.commandDetails = commandDetails;
     }
 
+    /**
+     * Executes the addition of a Deadline task to the task list.
+     * <p>
+     * A new Deadline task with the provided description and due date is created and added to the task list.
+     * The user is then informed of the successful task addition.
+     */
     @Override
     public String execute() {
         try {

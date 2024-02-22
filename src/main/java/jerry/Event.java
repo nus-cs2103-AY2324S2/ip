@@ -21,7 +21,6 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-
     public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
