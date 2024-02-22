@@ -98,6 +98,8 @@ public class Storage {
         }
     }
 
+    //Solution below inspired by https://github.com/stephanie-csy/ip/blob/master/src/main/java/duke/util/Storage.java
+    //Calling parseInput method
     /**
      * Reads the previous tasks saved in file and loads it into a TaskList.
      *

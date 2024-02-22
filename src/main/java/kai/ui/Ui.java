@@ -8,6 +8,11 @@ public class Ui {
         System.out.println("Hello! I'm KAI\n" + "Please type in what you want to do");
     }
 
+    /**
+     * Displays a guide message with a specific format and description
+     *
+     * @return String message
+     */
     public static String showHelp() {
         return "Here is the list of commands you can type in~\n\n"
             + "list: list out all the tasks you have keyed in!\n\n"
