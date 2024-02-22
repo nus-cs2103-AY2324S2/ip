@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * It supports various command for managing tasks such as adding, listing, marking and deleting tasks.
  */
 @SuppressWarnings("checkstyle:CommentsIndentation")
-public class Duke {
+public class AcademicWeapon {
 
     private Storage storage;
     private TaskList tasks;
@@ -28,7 +28,7 @@ public class Duke {
     /**
      * Constructs a Duke object with the specified file path for storage
      */
-    public Duke(String filePath) {
+    public AcademicWeapon(String filePath) {
         //String filePath = "./src/main/data/acadList.txt";
         ui = new Ui();
         storage = new Storage(filePath);

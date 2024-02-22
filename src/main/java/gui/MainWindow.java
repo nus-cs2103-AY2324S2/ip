@@ -1,6 +1,6 @@
 package gui;
 
-import academicweapon.Duke;
+import academicweapon.AcademicWeapon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private AcademicWeapon academicWeapon;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -38,8 +38,8 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDuke(String filename) {
-        this.duke = new Duke(filename);
-        String deadlineTasks = duke.printDeadlineTasks();
+        this.academicWeapon = new AcademicWeapon(filename);
+        String deadlineTasks = academicWeapon.printDeadlineTasks();
         dialogContainer.getChildren()
                 .addAll(DialogBox.getDukeDialog(deadlineTasks, dukeImage));
     }
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response;
-        response = this.duke.runGui(input);
+        response = this.academicWeapon.runGui(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

@@ -2,7 +2,7 @@ package gui;
 
 import java.io.IOException;
 
-import academicweapon.Duke;
+import academicweapon.AcademicWeapon;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke;
+    private AcademicWeapon academicWeapon;
     private VBox dialogContainer;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
