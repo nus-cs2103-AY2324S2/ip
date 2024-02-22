@@ -59,8 +59,9 @@ public class Ui {
     }
 
     /**
-     * Loads tasks into the arraylist. If the file does not exist or the format is wrong, initializes an
-     * empty list first.
+     * Loads tasks into the arraylist.
+     * If the folder does not exist, create the folder.
+     * If the file does not exist or the format is wrong, initializes an empty list first.
      */
     public void loadTasks() {
         try {

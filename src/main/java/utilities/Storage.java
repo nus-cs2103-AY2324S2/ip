@@ -22,8 +22,8 @@ import tasks.Todo;
 public class Storage {
     private String filePath;
 
-    // MATCHING_PATTERN has been improved by AI, the previous pattern
-    // cannot be detected when given a wrong format
+    // MATCHING_PATTERN has been improved by ChatGPT, the previous pattern
+    // cannot be detected when given a wrong format. The current format can be detected.
     private final String MATCHING_PATTERN = "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|"
             + "\\s*([^|]+?)\\s*\\|\\s*([^|]+?)\\s*\\|\\s*([^|]+?)\\s*\\|\\s*([^|\\s]+?)\\s*$";
 
