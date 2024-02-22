@@ -1,4 +1,1 @@
-| 0 | T || 1 | read book
-| 0 | D || 0 | return book | Sep 15 2019
-| 0 | E || 0 | project meeting |  from: Sep 15 2019 06:00PM  to: Sep 15 2019 07:00PM
-| 0 | T || 0 | join sport club
+T || 0 | homework
