@@ -11,11 +11,8 @@ public class Ui {
      * Displays greeting to the user upon start
      */
 
-    public void greeting() {
-        System.out.println(borderline);
-        System.out.println("Hey! I'm Hari!");
-        System.out.println("How may I be of service today?");
-        System.out.println(borderline);
+    public String greeting() {
+        return "Hey! I'm Hari!\nHow may I be of service today?";
     }
 
     public void displayLoadError() {

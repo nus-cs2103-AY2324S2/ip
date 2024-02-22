@@ -12,8 +12,7 @@ import java.util.Scanner;
  */
 
 public class Duke {
-    //    public static final String DATABASE_PATH = "../data/duke.txt";
-    public static final String DATABASE_PATH = "data/duke.txt";
+    public static final String DATABASE_PATH = "./duke.txt";
     private DatabaseHandler databaseHandler;
     private TaskList taskList;
     private Ui userInterface;
