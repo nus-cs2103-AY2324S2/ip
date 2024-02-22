@@ -1,5 +1,6 @@
 package simpli.interpreter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,6 +25,7 @@ public class Interpreter {
      * @param taskList Manages tasks and their actions.
      */
     public Interpreter(TaskList taskList) {
+        assert taskList != null : "TaskList object not found";
         this.taskList = taskList;
     }
 
@@ -75,6 +77,7 @@ public class Interpreter {
 
     private LocalDateTime[] interpretLocalDateTime(String[] tokens) throws TaskException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
         LocalDateTime[] dates = new LocalDateTime[tokens.length];
         Arrays.fill(dates, LocalDateTime.MIN);
         try {
