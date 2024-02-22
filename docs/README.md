@@ -1,6 +1,6 @@
 # SirDuke User Guide
 
-![product screenshot](productScreenshot.png)
+![product screenshot](Ui.png)
 
 SirDuke is at your service. With SirDuke you would be able to:
 - Add deadlines
