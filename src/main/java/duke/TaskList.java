@@ -42,9 +42,9 @@ public class TaskList {
     public String showList() {
         String str = "";
         if (taskList.isEmpty()) {
-            return "There are currently no tasks in your list";
+            return "buzz buzz~~ There are currently no tasks in your list";
         }
-        str = str + "Here are the tasks in your list:\n";
+        str = str + "buzz buzz~~ Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             String temp = (i + 1) + "." + t.toString();
@@ -64,13 +64,13 @@ public class TaskList {
         String str = "";
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            return "Task does not exist";
+            return "buzz buzz~~ Task does not exist";
         }
         Task t = taskList.get(position);
         if (t.getStatusIcon().equals(" ")) {
-            str = str + "Nice! I've marked this task as done:\n";
+            str = str + "buzz buzz~~ Nice! I've marked this task as done:\n";
         } else {
-            str = str + "This task is already done\n";
+            str = str + "buzz buzz~~ This task is already done\n";
         }
         t.markAsDone();
         str = str + "  " + t.toString();
@@ -92,9 +92,9 @@ public class TaskList {
         }
         Task t = taskList.get(position);
         if (t.getStatusIcon().equals("X")) {
-            str = str + "OK, I've marked this task as not done yet:\n";
+            str = str + "buzz buzz~~ I've marked this task as not done yet:\n";
         } else {
-            str = str + "This task is not done yet\n";
+            str = str + "buzz buzz~~ This task is not done yet\n";
         }
         t.markAsUndone();
         str = str + "  " + t.toString();
@@ -108,7 +108,7 @@ public class TaskList {
      */
     public String todo(Todo t) {
         taskList.add(t);
-        return "Got it. I've added this task:\n"
+        return "buzz buzz~~ I've added this task:\n"
                 + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
@@ -120,7 +120,7 @@ public class TaskList {
      */
     public String deadline(Deadline t) {
         taskList.add(t);
-        return "Got it. I've added this task:\n"
+        return "buzz buzz~~ I've added this task:\n"
                 + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
@@ -132,7 +132,7 @@ public class TaskList {
      */
     public String event(Event t) {
         taskList.add(t);
-        return "Got it. I've added this task:\n"
+        return "buzz buzz~~ I've added this task:\n"
                 + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
@@ -147,7 +147,7 @@ public class TaskList {
     public String delete(int position) {
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            return "Task does not exist";
+            return "buzz buzz~~ Task does not exist";
         }
         Task t = taskList.get(position);
         taskList.remove(t);
@@ -163,9 +163,10 @@ public class TaskList {
         String str = "";
 
         if (taskList.isEmpty()) {
-            str = str + "There are currently no tasks in your list";
+            str = str + "buzz buzz~~ There are currently no tasks in your list";
         }
-        str = str + "Here are the matching tasks in your list:\n";
+      
+        str = str + "buzz buzz~~ Here are the matching tasks in your list:\n";
         int index = 1;
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
@@ -174,6 +175,10 @@ public class TaskList {
                 str = str + index + "." + t.toString() + "\n";
                 index += 1;
             }
+        }
+      
+        if (index == 1) {
+            str = "buzz buzz~~ No task in your list match this result";
         }
 
         return str;
@@ -185,7 +190,7 @@ public class TaskList {
     public String update(String newDescription, int position) {
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
-            return "Task does not exist";
+            return "buzz buzz~~ Task does not exist";
         }
         Task t = taskList.get(position);
         t.updateDescription(newDescription);
