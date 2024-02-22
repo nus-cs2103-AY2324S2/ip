@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("shon.Shon")
+    mainClass.set("shon.Launcher")
 }
 
 shadowJar {
-    mainClassName = "shon.Shon"
+    mainClassName = "shon.Launcher"
     archiveBaseName = "shon"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
