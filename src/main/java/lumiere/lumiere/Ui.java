@@ -32,19 +32,6 @@ public class Ui {
     }
 
     /**
-     * An instance method that prints a welcome greeting.
-     */
-    public void greet() {
-        System.out.println("Hello! I'm Lumiere\n" + "Tell me what I can do for you, be my guest!\n");
-    }
-
-    /**
-     * An instance method that prints an exit greeting.
-     */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!\n");
-=======
-    /**
      * A static method that prints a welcome greeting.
      */
     public static String greet() {
@@ -56,6 +43,5 @@ public class Ui {
      */
     public static String exit() {
         return "Bye. Hope to see you again soon!\n";
->>>>>>> Stashed changes
     }
 }

@@ -24,16 +24,8 @@ public class TaskList {
      * 
      * @return Nothing, this is a void method.
      */
-    public void printList() {
-=======
-    /**
-     * An instance method that prints the TaskList, task by task.
-     * 
-     * @return Nothing, this is a void method.
-     */
     public String printList() {
         String result = "";
->>>>>>> Stashed changes
         for (int i = 0; i < list.size(); i++) {
             result += Integer.toString(i + 1) + "." + list.get(i).stringify() + "\n";
         }
@@ -56,7 +48,8 @@ public class TaskList {
         } else if (command.contains("delete")) {
             deleteTask(command, storage);
         } else if (command.contains("find")) {
-            findByKeyword(command, storage);
+            return findByKeyword(command, storage);
+>>>>>>> Stashed changes
         } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
             // create Task object with command
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
@@ -66,11 +59,11 @@ public class TaskList {
                 String type = command.substring(0, space);
 
                 if (type.equals("todo")) {
-                    addAndSaveTodo(space, command, storage);
+                    return addAndSaveTodo(space, command, storage);
                 } else if (type.equals("deadline")) {
-                    addAndSaveDeadline(space, command, storage);
-                } else if (type.equals("event")) {
-                    addAndSaveEvent(space, command, storage);
+                    return addAndSaveDeadline(space, command, storage);
+                } else {
+                    return addAndSaveEvent(space, command, storage);
                 }
             }
         } else {
