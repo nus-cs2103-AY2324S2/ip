@@ -1,6 +1,8 @@
+package sam.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-class Event extends Task {
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
