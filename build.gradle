@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("grumblebug.GrumbleBug")
+    mainClass.set("grumblebug.Launcher")
 }
 
 shadowJar {

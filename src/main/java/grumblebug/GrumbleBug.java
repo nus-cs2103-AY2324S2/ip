@@ -20,7 +20,7 @@ public class GrumbleBug extends Application {
     private TextField userInput;
     private Button buttonToSendMessage;
     private Image grumbleBugImage = new Image(this.getClass().getResourceAsStream("/images/nailong.jpg"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/smiley.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/blacknailong.jpg"));
     private TaskList taskList;
     private Parser parser;
     private Storage storage;

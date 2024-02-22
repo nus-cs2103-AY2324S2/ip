@@ -38,6 +38,8 @@ public class Parser {
             return "";
         } else if (input.equals("save")) {
             return storage.writeToFile(taskList);
+        } else if (input.equals("changecolor")) {
+            return processChangeColor();
         } else if (input.startsWith("mark")) {
             return processMarkTaskInput(input, true, GrumbleBug.NUM_PARAMS_FOR_MARK, taskList);
         } else if (input.startsWith("unmark")) {
@@ -67,7 +69,7 @@ public class Parser {
      * @return Confirmation message if successful or a scolding if input format was
      *         poor.
      */
-    public String processMarkTaskInput(String input, boolean doneness, int numParams, TaskList taskList) {
+    private String processMarkTaskInput(String input, boolean doneness, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
         try {
@@ -81,6 +83,11 @@ public class Parser {
         } catch (NumberFormatException e) {
             return "That was not understood. Silly.";
         }
+    }
+
+    private String processChangeColor() {
+
+        return "Color changed";
     }
 
     /**
@@ -101,11 +108,15 @@ public class Parser {
      * @param input The user input into the chat.
      * @return A confirmation message of the successful action.
      */
-    public String processTodoInput(String input, int numParams, TaskList taskList) {
+    private String processTodoInput(String input, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
+        if (words.length < numParams || words[1].length() < 1) {
+            return "Give a non-empty name for the task, you stupid!";
+        }
         taskList.addToDo(words[1]);
-        return "k";
+        return "k added...";
+
     }
 
     /**
@@ -116,9 +127,12 @@ public class Parser {
      * @return A confirmation message of the addition, or a scolding if input is
      *         improper.
      */
-    public String processDeadlineInput(String input, int numParams, TaskList taskList) {
+    private String processDeadlineInput(String input, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
+        if (words.length < numParams) {
+            return "Give the correct number of arguments! This should be simple by now.";
+        }
         try {
             taskList.addDeadline(words[1], this.parseDate(words[2]));
             return "k";
@@ -135,9 +149,12 @@ public class Parser {
      * @return A confirmation message of the addition, or a scolding if input is
      *         improper.
      */
-    public String processEventInput(String input, int numParams, TaskList taskList) {
+    private String processEventInput(String input, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
+        if (words.length < numParams) {
+            return "Give the correct number of arguments! This should be simple by now.";
+        }
         try {
             taskList.addEvent(words[1], this.parseDate(words[2]), this.parseDate(words[3]));
             return "k";
@@ -154,9 +171,12 @@ public class Parser {
      * @return A confirmation message of deletion, or a scolding if input is
      *         improper.
      */
-    public String processDeleteInput(String input, int numParams, TaskList taskList) {
+    private String processDeleteInput(String input, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
-        assert words.length < 3;
+        assert words.length <= numParams;
+        if (words.length < numParams) {
+            return "Give the correct number of arguments! This should be simple by now.";
+        }
         try {
             int i = Integer.parseInt(words[1]);
             taskList.delete(i);
