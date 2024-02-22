@@ -21,7 +21,7 @@ public class Event extends Task {
         this.name = name;
         this.to = Parser.convertDateTime(toText);
         this.from = Parser.convertDateTime(fromText);
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name == " ") {
             throw new XiaoBaiException("Task name cannot be empty");
         } else if (from == null) {
             throw new XiaoBaiException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
@@ -35,7 +35,7 @@ public class Event extends Task {
         this.name = name;
         this.to = Parser.convertDateTime(toText);
         this.from = Parser.convertDateTime(fromText);
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name == " ") {
             throw new XiaoBaiException("Task name cannot be empty");
         } else if (from == null) {
             throw new XiaoBaiException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
