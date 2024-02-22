@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
 
+    /**
+     * Test Case: delete 2nd element
+     */
     @Test
     public void deleteTest() {
         Duke duke = new Duke();

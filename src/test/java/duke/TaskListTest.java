@@ -15,6 +15,4 @@ public class TaskListTest {
         String expected = "1: " + testList.getTaskList().get(0).toString();
         assertEquals(expected, actual);
     }
-
-
 }
