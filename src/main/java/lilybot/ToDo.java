@@ -7,7 +7,7 @@ public class ToDo extends Task{
     protected String description;
 
     /**
-     * Constructor of todo class.
+     * Constructs a todo object.
      *
      * @param description The content of todos.
      */

@@ -5,39 +5,39 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Deadline class, a subtype of task.
- * Deadlines are specified by a due date.
+ * Deadlines are specified byDate a due date.
  */
 public class Deadline extends Task {
 
-    /** Due dtae of deadline */
-    protected String by;
+    /** Due date of deadline */
+    protected String byDate;
 
-    /** Due date format */
+    /** Formatted Due date */
     protected LocalDate date;
 
     /**
-     * Constructor for Deadline.
-     * @param description Contents of deadline entered by the user.
-     * @param by Due date of the deadline.
+     * Constructs a Deadline object.
+     *
+     * @param description Contents of deadline entered byDate the user.
+     * @param byDate Due date of the deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String byDate) {
         super(description);
-        this.by = by.trim(); // Trim leading and trailing whitespace
-        this.date = LocalDate.parse(by);
+        this.byDate = byDate.trim(); // Trim leading and trailing whitespace
+        this.date = LocalDate.parse(byDate);
     }
 
     @Override
     public String toString() {
-        //return "[D]" + super.toString() + "(by:" + getBy() + ")";
         return "[D]" + super.toString()
-                + "(by:" + getDate()
+                + "(byDate:" + getDate()
                 .format(DateTimeFormatter
                         .ofPattern("MMM dd yyyy"))
                 + ")";
     }
 
-    public String getBy() {
-        return by;
+    public String getByDate() {
+        return byDate;
     }
 
     public LocalDate getDate() {

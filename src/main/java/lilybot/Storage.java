@@ -12,14 +12,12 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /**
-     * File to be loaded or saved
-     */
+    /** File to be loaded or saved */
     private File file;
 
     /**
-     * Constructor of Storage class.
-     * Create a new file if the file required is not found.
+     * Constructs a Storage object.
+     * Creates a new file if the file required is not found.
      *
      * @param filePath The path of file duke.txt.
      * @throws IOException For input error.
@@ -42,25 +40,25 @@ public class Storage {
     }
 
     /**
-     * Load the file from the txt file.
+     * Loads the file from the txt file.
      *
      * @return An arraylist of tasks stored in the txt file.
      * @throws FileNotFoundException For cases when file is not found.
      */
     public ArrayList<Task> loadFile() throws FileNotFoundException {
         ArrayList<Task> ls = new ArrayList<>();
-        ArrayList<String> existing = new ArrayList<>();
+        ArrayList<String> existingList = new ArrayList<>();
 
         //Load the current content of the file
         Scanner s = new Scanner(getFile());
         while (s.hasNext()) {
             String st = s.nextLine();
-            existing.add(st);
+            existingList.add(st);
         }
 
         //Turn content in the file into a list
-        for (int i = 0; i < existing.size(); i++) {
-            String tk = existing.get(i);
+        for (int i = 0; i < existingList.size(); i++) {
+            String tk = existingList.get(i);
             String[] arr = tk.split("<>", 4);
 
             switch (arr[0]) {
@@ -137,7 +135,7 @@ public class Storage {
 
 
     /**
-     * Write to file in duke.txt and save it.
+     * Writes to file in duke.txt and save it.
      *
      * @param file The file used.
      * @param ls   The taskList to be saved.
@@ -164,9 +162,9 @@ public class Storage {
                 } else if (task instanceof Deadline) {
                     String s;
                     if (!task.getStatus()) {
-                        s = "D" + separator + "0" + separator + task.getDescription() + separator + ((Deadline) task).getBy();
+                        s = "D" + separator + "0" + separator + task.getDescription() + separator + ((Deadline) task).getByDate();
                     } else {
-                        s = "D" + separator + "1" + separator + task.getDescription() + separator + ((Deadline) task).getBy();
+                        s = "D" + separator + "1" + separator + task.getDescription() + separator + ((Deadline) task).getByDate();
                     }
                     arr.add(s);
                 } else if (task instanceof Event) {

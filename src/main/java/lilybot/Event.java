@@ -1,33 +1,37 @@
 package lilybot;
 
+/**
+ * Event class, a subtype of task.
+ * Events are specified with a startTime and an endTime.
+ */
 public class Event extends Task{
     /** Start time of event */
-    protected String from;
+    protected String startTime;
     /** End time of event */
-    protected String to;
+    protected String endTime;
 
     /**
-     * Constructor of event class.
+     * Constructs an Event object.
      *
-     * @param description Content of the event entered by the user.
+     * @param description Content of the event entered byDate the user.
      * @param from Start time of the event.
-     * @param to End time of the event.
+     * @param endTime End time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String endTime) {
         super(description);
-        this.from = from.trim();
-        this.to = to.trim();
+        this.startTime = from.trim();
+        this.endTime = endTime.trim();
     }
 
     @Override
     public String toString() {
         return "[E]"
                 + super.toString() + "("
-                + from +" "+ to.trim() + ")";
+                + startTime +" "+ endTime.trim() + ")";
     }
 
     public String getFromTo() {
-        return from +" "
-                + to.trim();
+        return startTime + " "
+                + endTime.trim();
     }
 }

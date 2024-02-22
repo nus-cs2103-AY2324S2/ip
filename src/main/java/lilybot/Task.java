@@ -9,9 +9,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task.
+     * Constructs a Task object.
      *
-     * @param description The content of the task entered by users.
+     * @param description The content of the task entered byDate users.
      */
     public Task(String description) {
         this.description = description;
@@ -42,14 +42,14 @@ public class Task {
     }
 
     /**
-     * Mark the status of the task to be done.
+     * Marks the status of the task to be done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Mark the status of the task to be incompleted.
+     * Marks the status of the task to be incompleted.
      */
     public void unmark() {
         this.isDone = false;

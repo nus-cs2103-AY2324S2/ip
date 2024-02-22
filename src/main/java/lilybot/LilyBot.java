@@ -3,6 +3,9 @@ package lilybot;
 import java.io.IOException;
 
 
+/**
+ * Creates a LilyBot with LilyBot class.
+ */
 public class LilyBot {
 
     private Storage storage;
@@ -11,7 +14,7 @@ public class LilyBot {
 
 
     /**
-     * Constructor for Duke
+     * Constructs LilyBot with the following constructor.
      *
      * @param filePath For file duke.txt.
      * @throws IOException For input error.
@@ -24,8 +27,11 @@ public class LilyBot {
 
 
     /**
-     * Initialize LilyBot
+     * Initializes LilyBot.
      *
+     * @param command Command entered by the user.
+     * @param lastCommand Previous command entered by the user.
+     * @return What should be displayed for the user based on the command.
      * @throws IOException For input error.
      */
     public String getResponse(String command, String lastCommand) throws IOException{
@@ -37,7 +43,7 @@ public class LilyBot {
                 return ui.listTask(ls);
             } else if (command.equals("undo")) {
                 if (lastCommand.equals(null)) {
-                    return ui.noLasCommand();
+                    return ui.noLastCommand();
                 } else {
                     return ui.undoTask(lastCommand, ls);
                 }
