@@ -31,6 +31,9 @@ public class Bobby {
 
     public Bobby(String filePath) {
         File file = new File(filePath);
+        //@@author bachletuankhai-reused
+        //Reused this code snippet that bachletuankhai shared on the github forum
+        //from https://github.com/nus-cs2103-AY2324S2/forum/issues/134 with minor modifications
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             try {
