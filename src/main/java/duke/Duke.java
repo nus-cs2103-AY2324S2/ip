@@ -19,6 +19,7 @@ public class Duke {
     public Duke(String filePath) {
         try {
             assert filePath.length() != 0 : "File Path must be defined";
+
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(this.storage.loadTaskList());
             this.parser = new Parser();
@@ -74,6 +75,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         assert this.parser != null : "Parser class must be instantiated first.";
+        
         return this.parser.parseInstr(this.tasks, this.storage, input);
     }
 }

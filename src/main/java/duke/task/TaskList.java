@@ -52,9 +52,7 @@ public class TaskList {
      * @param cmd Represents the type of the task.
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
-     *
      * @return A string that represents the results of instruction.
-     *
      * @throws DukeException When there is inappropriate input.
      */
     public String addTask(TaskCommand cmd, String instr, Storage thisStorage) throws DukeException {

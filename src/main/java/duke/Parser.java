@@ -24,6 +24,7 @@ public class Parser {
     public String parseInstr(TaskList tskLst, Storage storage, String instr) {
         String res = "";
         assert instr.length() != 0 : "Instructions must contain some form of command.";
+        
         if (instr.equals("list")) {
             res = tskLst.listOut();
         } else {

@@ -31,6 +31,7 @@ public class Storage {
         this.filePath = filePath;
 
         assert this.filePath.length() != 0 : "File Path must be defined";
+
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -52,6 +53,7 @@ public class Storage {
         try {
 
             assert this.filePath.length() != 0 : "File Path must be defined";
+            
             FileWriter fw = new FileWriter(this.filePath);
             for (Task tsk : instrList) {
                 fw.write(tsk.toSave());
@@ -79,6 +81,7 @@ public class Storage {
                 Task tsk = deconstruct(sc.nextLine());
                 tskList.add(tsk);
             }
+            sc.close();
         } catch (FileNotFoundException e) {
             throw new DukeException("OOOPS!! File '" + this.filePath
                 + "' not found in local drive. Please check your working folder!");
