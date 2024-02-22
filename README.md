@@ -7,13 +7,13 @@ _CatChat_ is my attempt at making my personalised version of _Duke_. Given below
 Here is a list of commands that you can input:
    1. **help** - _Displays this helpful list of commands_
    2. **list** - _Displays your task list_
-   3. **todo** <task> - _Adds a Todo task to the list_
-   4. **deadline** <task> **/by** <date> - _Adds a Deadline task to the list_
-   5. **event** <task> **/from** <date> **/to** <date> - _Adds an Event task to the list_
-   6. **mark done** <index> - _Marks the task at the given index as done_
-   7. **mark undone** <index> - _Marks the task at the given index as undone_
-   8. **delete** <index> - _Deletes the task at the given index_
-   9. **find** <keyword> - _Finds tasks that contain the given keyword_
+   3. **todo** task - _Adds a Todo task to the list_
+   4. **deadline** task **/by** <date> - _Adds a Deadline task to the list_
+   5. **event** task **/from** <date> **/to** <date> - _Adds an Event task to the list_
+   6. **mark done** index - _Marks the task at the given index as done_
+   7. **mark undone** index - _Marks the task at the given index as undone_
+   8. **delete** index - _Deletes the task at the given index_
+   9. **find** keyword - _Finds tasks that contain the given keyword_
    10. **bye** - _Exits the program_
 
 Hope you enjoy using it!
