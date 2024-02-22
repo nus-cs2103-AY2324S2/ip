@@ -1,2 +1,4 @@
 T | true | 2103t
-T | false | 2109s ps3
+T | false | 2109s
+T | false | finish
+E | false | night safari | 6pm | 11pm

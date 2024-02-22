@@ -25,9 +25,19 @@ public class TaskList {
      * @return Nothing, this is a void method.
      */
     public void printList() {
+=======
+    /**
+     * An instance method that prints the TaskList, task by task.
+     * 
+     * @return Nothing, this is a void method.
+     */
+    public String printList() {
+        String result = "";
+>>>>>>> Stashed changes
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(Integer.toString(i + 1) + "." + list.get(i).stringify());
+            result += Integer.toString(i + 1) + "." + list.get(i).stringify() + "\n";
         }
+        return result;
     }
 
     /**
