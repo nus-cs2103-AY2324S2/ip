@@ -50,9 +50,7 @@ public class PewException extends Exception{
      * @throws PewException if the index is invalid
      */
     static void validateArrIndex(int index, ArrayList<Task> task_arr) throws PewException {
-        if (index>= task_arr.size()) {
-            throw new PewException("Your task number input is invalid, please try again");
-        } else if (task_arr.get(index) == null) {
+        if (index > task_arr.size() || index < 1) {
             throw new PewException("Your task number input is invalid, please try again");
         }
     }
