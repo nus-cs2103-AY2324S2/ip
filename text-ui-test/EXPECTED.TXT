@@ -1,7 +1,272 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+.______        ___      .__   __. .___________. _______ .______
+|   _  \      /   \     |  \ |  | |           ||   ____||   _  \
+|  |_)  |    /  ^  \    |   \|  | `---|  |----`|  |__   |  |_)  |
+|   _  <    /  /_\  \   |  . `  |     |  |     |   __|  |      /
+|  |_)  |  /  _____  \  |  |\   |     |  |     |  |____ |  |\  \----.
+|______/  /__/     \__\ |__| \__|     |__|     |_______||__| `._____|
+    ____________________________________________________________
+     Hello! I'm banter.Banter
+     What can I do for you?
+     
+     This is what banter.Banter can do:
+     bye
+     list
+     mark <task number>
+     unmark <task number>
+     todo <description>
+     deadline <description> /by <due date>
+     event <description> /from <start date> /to <end date>
+     delete <task number>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+     Usage: This is what banter.Banter can do:
+     bye
+     list
+     mark <task number>
+     unmark <task number>
+     todo <description>
+     deadline <description> /by <due date>
+     event <description> /from <start date> /to <end date>
+     delete <task number>
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [T][ ]  borrow book
+     Now you have 1 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [T][ ]  read book
+     Now you have 2 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [D][ ]  return book (by:  Sunday)
+     Now you have 3 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [D][ ]  submit project (by:  Sunday)
+     Now you have 4 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [E][ ]  project meeting (from:  Mon 2pm to:  4pm)
+     Now you have 5 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+     [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+     Now you have 6 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][ ]  borrow book
+     2. [T][ ]  read book
+     3. [D][ ]  return book (by:  Sunday)
+     4. [D][ ]  submit project (by:  Sunday)
+     5. [E][ ]  project meeting (from:  Mon 2pm to:  4pm)
+     6. [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [T][X]  borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [D][X]  return book (by:  Sunday)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [T][X]  read book
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [D][X]  submit project (by:  Sunday)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [E][X]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][X]  borrow book
+     2. [T][X]  read book
+     3. [D][X]  return book (by:  Sunday)
+     4. [D][X]  submit project (by:  Sunday)
+     5. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+     6. [E][X]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [T][ ]  read book
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [D][ ]  submit project (by:  Sunday)
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][X]  borrow book
+     2. [T][ ]  read book
+     3. [D][X]  return book (by:  Sunday)
+     4. [D][ ]  submit project (by:  Sunday)
+     5. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+     6. [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Noted. I've removed this task:
+     [T][X]  borrow book
+     Now you have 5 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][X]  return book (by:  Sunday)
+     3. [D][ ]  submit project (by:  Sunday)
+     4. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+     5. [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Noted. I've removed this task:
+     [E][ ]  lecture (from:  Mon 4pm to:  6pm)
+     Now you have 4 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][X]  return book (by:  Sunday)
+     3. [D][ ]  submit project (by:  Sunday)
+     4. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Noted. I've removed this task:
+     [D][X]  return book (by:  Sunday)
+     Now you have 3 banter.tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][ ]  submit project (by:  Sunday)
+     3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The task number is invalid.
+     Usage: mark <task number>
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][ ]  submit project (by:  Sunday)
+     3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The task number is invalid.
+     Usage: delete <task number>
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][ ]  submit project (by:  Sunday)
+     3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The task number is invalid.
+     Usage: unmark <task number>
+     Here are the banter.tasks in your list:
+     1. [T][ ]  read book
+     2. [D][ ]  submit project (by:  Sunday)
+     3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The description of a task cannot be empty.
+     Usage: todo <description>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The due date of a deadline cannot be empty.
+     Usage: deadline <description> /by <due date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The due date of a deadline cannot be empty.
+     Usage: deadline <description> /by <due date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The description of a task cannot be empty.
+     Usage: deadline <description> /by <due date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The due date of a deadline cannot be empty.
+     Usage: deadline <description> /by <due date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The start date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The start date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The start date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The end date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The start date of an event cannot be empty.
+     Usage: event <description> /from <start date> /to <end date>
+    ____________________________________________________________
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
