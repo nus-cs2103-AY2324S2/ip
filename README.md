@@ -29,6 +29,11 @@ deadline and event management.**
 4. Refer to the [Features](#Features) below for details of each command.
 
 ## Features
+>[!NOTE]
+> After insertion, Taylor will announce the total tasks in the
+> respective groups of tasks (todo, deadline or event).
+>
+> Not the total tasks in the database.
 ### Inserting tasks: `todo`
 Adds a to-do task to the database
 
