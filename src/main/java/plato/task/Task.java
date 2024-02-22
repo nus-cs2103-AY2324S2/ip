@@ -1,7 +1,5 @@
 package plato.task;
 
-import plato.storage.SaveType;
-
 /**
  * Basic class of a Task.
  */
@@ -73,7 +71,7 @@ public class Task {
      * Checks what type of task this is .
      * @return The type of Task it is
      */
-    public SaveType getType() {
+    public Actions getType() {
         return null;
     }
 

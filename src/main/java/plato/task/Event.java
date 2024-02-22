@@ -4,11 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import plato.parser.DateHandler;
-import plato.storage.SaveType;
 
 
 /**
- * An Event Task is a task with a from date and to date.
+ * Event Task is a task with a from date and to date.
  */
 public class Event extends Task {
 
@@ -75,7 +74,7 @@ public class Event extends Task {
         }
     }
     @Override
-    public SaveType getType() {
-        return SaveType.EVENT;
+    public Actions getType() {
+        return Actions.EVENT;
     }
 }

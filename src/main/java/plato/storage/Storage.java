@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import plato.PlatoException;
+import plato.task.Actions;
 import plato.task.Deadline;
 import plato.task.Event;
 import plato.task.Task;
@@ -86,13 +87,13 @@ public class Storage {
 
         switch (type) {
         case "D":
-            item = createLoadedTask(SaveType.DEADLINE, information);
+            item = createLoadedTask(Actions.DEADLINE, information);
             break;
         case "E":
-            item = createLoadedTask(SaveType.EVENT, information);
+            item = createLoadedTask(Actions.EVENT, information);
             break;
         case "T":
-            item = createLoadedTask(SaveType.TODO, information);
+            item = createLoadedTask(Actions.TODO, information);
             break;
         default:
             throw new PlatoException("loadError");
@@ -102,7 +103,7 @@ public class Storage {
 
     }
 
-    private static Task createLoadedTask(SaveType type, String... values) throws PlatoException {
+    private static Task createLoadedTask(Actions type, String... values) throws PlatoException {
 
         Task item;
         switch (type) {

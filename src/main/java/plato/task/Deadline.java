@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import plato.parser.DateHandler;
-import plato.storage.SaveType;
 
 /**
  * Deadline task to keep track of a task with one deadline.
@@ -65,7 +64,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public SaveType getType() {
-        return SaveType.DEADLINE;
+    public Actions getType() {
+        return Actions.DEADLINE;
     }
 }

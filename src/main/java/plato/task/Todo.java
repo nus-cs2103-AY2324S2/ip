@@ -1,6 +1,5 @@
 package plato.task;
 
-import plato.storage.SaveType;
 
 /**
  * Create a todo class that only has a name.
@@ -27,7 +26,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public SaveType getType() {
-        return SaveType.TODO;
+    public Actions getType() {
+        return Actions.TODO;
     }
 }

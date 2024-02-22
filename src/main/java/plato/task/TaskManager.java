@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 
 import plato.PlatoException;
 import plato.parser.DateHandler;
-import plato.storage.SaveType;
 
 /**
  * Manager class to manage and keep track of all the actions being performed on the task.
@@ -248,7 +247,7 @@ public class TaskManager {
 
 
     /**
-     * Querys the task with the corresponding query action.
+     * Queries the task with the corresponding query action.
      *
      * @param act         a valid query action
      * @param instruction query parameters to find
@@ -297,7 +296,7 @@ public class TaskManager {
      * Returns the task scheduled on that particular date.
      *
      * @param date the date to query.
-     * @return A string array of the task to print to the Ui.
+     * @return A String array of the task to print to the Ui.
      * @throws PlatoException throws invalid query error.
      */
     public String[] viewByDate(String date) throws PlatoException {
@@ -323,13 +322,13 @@ public class TaskManager {
                         .collect(Collectors.toList());
     }
 
-    private boolean isMatchDate(SaveType type, Task first, LocalDate second) {
-        if (type.equals(SaveType.DEADLINE)) {
+    private boolean isMatchDate(Actions type, Task first, LocalDate second) {
+        if (type.equals(Actions.DEADLINE)) {
             Deadline test = (Deadline) first;
             Optional<LocalDateTime> compareDate = test.getDateTime();
             return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
 
-        } else if (type.equals(SaveType.EVENT)) {
+        } else if (type.equals(Actions.EVENT)) {
             Event test = (Event) first;
             Optional<LocalDateTime> compareDate = test.getDateTime();
             return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
