@@ -41,6 +41,8 @@ public class Parser {
                 return Ui.bye();
             case "list":
                 return taskList.printList();
+                case "help":
+                return Ui.help();
             case "mark":
                 return output(taskList.mark(Integer.parseInt(splitStr[1])-1));
             case "unmark":
