@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     String taskName;
     Boolean done = false;
+    enum Priority {
+        LOW,
+        HIGH
+    }
+    Priority priority = Priority.LOW;
     public static Task EMPTY_TASK = new Task("");
 
     public Task(String task) {
@@ -19,6 +24,7 @@ public class Task {
         this.done = true;
     }
     public void unmark() { this.done = false; }
+    public void togglePrio() { this.priority = (this.priority == Priority.HIGH) ? Priority.LOW : Priority.HIGH; }
 
     /**
      * Returns string format of a task
@@ -27,7 +33,7 @@ public class Task {
     public String getRep() {
         // Returns representation of the task (including done)
         String doneChar = (this.done) ? "X" : " ";
-        return String.format("[%s] %s", doneChar, this.taskName);
+        return String.format("[%s] %s Priority:%s ", doneChar, this.taskName, this.priority);
     }
 
     /**

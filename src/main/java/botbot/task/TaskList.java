@@ -58,12 +58,19 @@ public class TaskList {
     public String mark(int i) {
         Task task = getTask(i - 1);
         task.mark();
+        assert task.done;
         return task.getRep();
     } // Handle index exception here maybe
 
     public String unmark(int i) {
         Task task = getTask(i - 1);
         task.unmark();
+        assert !task.done;
+        return task.getRep();
+    }
+    public String togglePrio(int i) {
+        Task task = getTask(i - 1);
+        task.togglePrio();
         return task.getRep();
     }
     public void addTaskInit(Task t) {

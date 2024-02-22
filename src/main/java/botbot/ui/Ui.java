@@ -17,6 +17,8 @@ public class Ui {
             return "Good job on completing the task:\n" + list.mark(Integer.parseInt(input.split(" ", 2)[1]));
         } else if (input.startsWith("unmark")) {
             return "I have unmarked a task:\n" + list.unmark(Integer.parseInt(input.split(" ", 2)[1]));
+        } else if (input.startsWith("togglePrio")) {
+                return "I have toggled the priority of:\n" + list.togglePrio(Integer.parseInt(input.split(" ", 2)[1]));
         } else if (input.startsWith("list")) {
             return "These are the tasks in your list:\n" + list.printList();
         } else if (input.startsWith("delete")) {
