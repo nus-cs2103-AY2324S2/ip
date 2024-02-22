@@ -19,7 +19,8 @@ public abstract class ChronosException extends Exception {
      * @return InvalidByeException.
      */
     public static ChronosException createInvalidByeException() {
-        return new InvalidByeException("Invalid command. To exit the program, please key in bye.");
+        return new InvalidByeException("Oh dear, this is an invalid bye command! "
+                + "To exit the program, please key in bye.");
     }
 
     /**
@@ -28,7 +29,8 @@ public abstract class ChronosException extends Exception {
      * @return InvalidListException.
      */
     public static ChronosException createInvalidListException() {
-        return new InvalidListException("Invalid command. To print the list of tasks, please key in list.");
+        return new InvalidListException("Oh dear, this is an invalid list command! "
+                + "To print the list of tasks, please key in list.");
     }
 
     /**
@@ -37,7 +39,8 @@ public abstract class ChronosException extends Exception {
      * @return InvalidHelpException.
      */
     public static ChronosException createInvalidHelpException() {
-        return new InvalidHelpException("Invalid command. To view the list of commands, please key in help.");
+        return new InvalidHelpException("Oh dear, this is an invalid help command! "
+                + "To view the list of commands, please key in help.");
     }
 
     /**
@@ -46,7 +49,7 @@ public abstract class ChronosException extends Exception {
      * @return InvalidCommandException.
      */
     public static ChronosException createInvalidCommandException() {
-        return new InvalidCommandException("Invalid command. Please try again.");
+        return new InvalidCommandException("Oh dear, this is an invalid command! Please try again.");
     }
 
     /**
@@ -55,7 +58,7 @@ public abstract class ChronosException extends Exception {
      * @return MissingTaskNumberException.
      */
     public static ChronosException createMissingTaskNumberException() {
-        return new MissingTaskNumberException("Missing task number. Please specify the task number.");
+        return new MissingTaskNumberException("Oh dear, the task number is missing! Please specify the task number.");
     }
 
     /**
@@ -64,7 +67,8 @@ public abstract class ChronosException extends Exception {
      * @return MissingDescriptionException.
      */
     public static ChronosException createMissingDescriptionException() {
-        return new MissingDescriptionException("Missing description. Please specify the description of your task.");
+        return new MissingDescriptionException("Oh dear, the task description is missing! "
+                + "Please specify the description of your task.");
     }
 
     /**
@@ -73,9 +77,9 @@ public abstract class ChronosException extends Exception {
      * @return InvalidDeadlineException.
      */
     public static ChronosException createInvalidDeadlineException() {
-        return new InvalidDeadlineException("Invalid command. "
+        return new InvalidDeadlineException("Oh dear, this is an invalid deadline command! "
                 + "Please include a task description and due date following the example below:\n"
-                + "\t\te.g. deadline return library book /by 2024-09-22 15:00");
+                + "e.g. deadline return library book /by 2024-09-22 15:00");
     }
 
     /**
@@ -84,9 +88,9 @@ public abstract class ChronosException extends Exception {
      * @return InvalidEventException.
      */
     public static ChronosException createInvalidEventException() {
-        return new InvalidEventException("Invalid command. "
+        return new InvalidEventException("Oh dear, this is an invalid event command! "
                 + "Please include a task description and due date following the example below:\n"
-                + "\t\te.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
+                + "e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
     }
 
     /**
@@ -95,7 +99,8 @@ public abstract class ChronosException extends Exception {
      * @return KeywordNotFoundException.
      */
     public static ChronosException createKeywordNotFoundException() {
-        return new KeywordNotFoundException("Keyword not found in any tasks. Please specify a valid keyword.");
+        return new KeywordNotFoundException("Oh dear, the keyword(s) is not found in any tasks. "
+                + "Please specify a valid keyword.");
     }
 
     /**
@@ -104,6 +109,6 @@ public abstract class ChronosException extends Exception {
      * @return MissingKeywordException.
      */
     public static ChronosException createMissingKeywordException() {
-        return new MissingKeywordException("Missing keyword. Please specify at least 1 keyword.");
+        return new MissingKeywordException("Oh dear, the keyword is missing! Please specify at least 1 keyword.");
     }
 }

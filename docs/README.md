@@ -7,7 +7,7 @@ for use via a Command Line Interface (CLI), Chronos can track your tasks faster 
 ![](Ui.png)
 
 ## Quick Start
-1. Ensure you have `Java 11` or above installed in your Computer. 
+1. Ensure you have `Java 11` or above installed in your Computer.
 2. Download the latest `chronos.jar` from [here](https://github.com/triciiaaa/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for your Chronos application.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar chronos.jar` 

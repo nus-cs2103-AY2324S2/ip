@@ -47,6 +47,19 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        customiseDialogBoxText(text, backgroundColor);
+        customiseDialogBoxImage(img);
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.setSpacing(15);
+    }
+
+    /**
+     * Customises the text in the dialog box.
+     *
+     * @param text The text provided by the user.
+     * @param backgroundColor The background color of the text.
+     */
+    private void customiseDialogBoxText(String text, Color backgroundColor) {
         dialog.setText(text);
         dialog.setWrapText(true);
         dialog.setStyle("-fx-background-radius: 5px; "
@@ -55,7 +68,14 @@ public class DialogBox extends HBox {
                 + "-fx-border-color: #F2F2F2;"
                 + "-fx-border-width: 1px;"
                 + "-fx-font-family: 'Product Sans'; -fx-font-size: 13px;");
+    }
 
+    /**
+     * Customises the image in the dialog box.
+     *
+     * @param img The image in the dialog box.
+     */
+    private void customiseDialogBoxImage(Image img) {
         displayPicture.setImage(img);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
@@ -63,11 +83,14 @@ public class DialogBox extends HBox {
         Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2,
                 displayPicture.getFitWidth() / 2);
         displayPicture.setClip(clip);
-
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.setSpacing(15);
     }
 
+    /**
+     * Converts the color to an RGB string format.
+     *
+     * @param color Color to be converted.
+     * @return RGB string format of the given color.
+     */
     private String toRgbString(Color color) {
         return String.format("rgba(%d, %d, %d, %f)",
                 (int) (color.getRed() * 255),

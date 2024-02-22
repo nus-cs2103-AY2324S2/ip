@@ -231,8 +231,8 @@ public class Parser {
             return e.getMessage();
         } catch (Exception e) {
             ArrayList<String> message = new ArrayList<>();
-            message.add("Invalid command.");
-            message.add("Please include a task description and due date following the example below:");
+            message.add("Oh dear, this is an invalid deadline command!");
+            message.add("Please include a task description and due date following the example below:\n");
             message.add("e.g. deadline return library book /by 2024-09-22 15:00");
             return String.join(" ", message);
         }
@@ -265,8 +265,8 @@ public class Parser {
             return e.getMessage();
         } catch (Exception e) {
             ArrayList<String> message = new ArrayList<>();
-            message.add("Invalid command.");
-            message.add("Please include a task description and due date following the example below:");
+            message.add("Oh dear, this is an invalid event command!");
+            message.add("Please include a task description and due date following the example below:\n");
             message.add("e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
             return String.join(" ", message);
         }
@@ -317,27 +317,27 @@ public class Parser {
         try {
             if (isNotDoubleArgument(token.length) || token[1].trim().isEmpty()) {
                 throw ChronosException.createMissingKeywordException();
-            } else {
-                String[] keywords = token[1].split(" ");
+            }
 
-                for (String keyword : keywords) {
-                    for (int i = 1; i < tasks.size() + 1; i++) {
-                        Task currentTask = tasks.getTask(i - 1);
-                        assert currentTask != null : "Current task should not be null.";
+            String[] keywords = token[1].split(" ");
 
-                        if (currentTask.getDescription().contains(keyword)
-                                && !filteredTasks.contains(currentTask)) {
-                            filteredTasks.addTask(currentTask);
-                        }
+            for (String keyword : keywords) {
+                for (int i = 1; i < tasks.size() + 1; i++) {
+                    Task currentTask = tasks.getTask(i - 1);
+                    assert currentTask != null : "Current task should not be null.";
+
+                    if (currentTask.getDescription().contains(keyword)
+                            && !filteredTasks.contains(currentTask)) {
+                        filteredTasks.addTask(currentTask);
                     }
                 }
-
-                if (filteredTasks.isEmpty()) {
-                    throw ChronosException.createKeywordNotFoundException();
-                } else {
-                    return ui.printTasks(filteredTasks);
-                }
             }
+
+            if (filteredTasks.isEmpty()) {
+                throw ChronosException.createKeywordNotFoundException();
+            }
+
+            return ui.printTasks(filteredTasks);
         } catch (exception.MissingKeywordException | exception.KeywordNotFoundException e) {
             return e.getMessage();
         }

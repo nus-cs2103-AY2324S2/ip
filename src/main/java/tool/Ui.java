@@ -41,7 +41,7 @@ public class Ui {
      * Prints goodbye to user.
      */
     public static String bidGoodbye() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye~ Come back anytime to track your tasks!";
     }
 
     /**
@@ -83,7 +83,7 @@ public class Ui {
      */
     public String printAddTodoSuccessful(Task todo, int noOfTasks) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("Got it. I've added this task:\n");
+        message.add("Got it! I've added this todo:\n");
         message.add(todo + "\n");
         message.add("Now you have " + noOfTasks + " tasks in the list.");
         return String.join(" ", message);
@@ -97,7 +97,7 @@ public class Ui {
      */
     public String printAddDeadlineSuccessful(Task deadline, int noOfTasks) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("Got it. I've added this task:\n");
+        message.add("Got it! I've added this deadline:\n");
         message.add(deadline + "\n");
         message.add("Now you have " + noOfTasks + " tasks in the list.");
         return String.join(" ", message);
@@ -111,7 +111,7 @@ public class Ui {
      */
     public String printAddEventSuccessful(Task event, int noOfTasks) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("Got it. I've added this task:\n");
+        message.add("Got it! I've added this event:\n");
         message.add(event + "\n");
         message.add("Now you have " + noOfTasks + " tasks in the list.");
         return String.join(" ", message);
@@ -124,7 +124,7 @@ public class Ui {
      */
     public String printMarkTaskSuccessful(Task selectedTaskToBeMarked) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("OK, I've marked this task as not done yet:\n");
+        message.add("Great work in completing the task! I've marked this task as done:\n");
         message.add(selectedTaskToBeMarked.toString());
         return String.join(" ", message);
     }
@@ -136,7 +136,7 @@ public class Ui {
      */
     public String printUnmarkTaskSuccessful(Task selectedTaskToBeUnmarked) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("OK, I've marked this task as not done yet:\n");
+        message.add("This task is still waiting to be conquered! I've marked this task as not done:\n");
         message.add(selectedTaskToBeUnmarked.toString());
         return String.join(" ", message);
     }
@@ -149,7 +149,7 @@ public class Ui {
      */
     public String printDeleteTaskSuccessful(Task deletedTask, int noOfTasks) {
         ArrayList<String> message = new ArrayList<>();
-        message.add("Noted. I've removed this task:\n");
+        message.add("Got it! I've removed this task:\n");
         message.add(deletedTask + "\n");
         message.add("Now you have " + noOfTasks + " tasks in the list.");
         return String.join(" ", message);
@@ -159,13 +159,13 @@ public class Ui {
      * Prints custom error message for NumberFormatException.
      */
     public String printNumberFormatException() {
-        return "Task number is not an integer. Please include a valid task number.";
+        return "Oh dear, the task number is not an integer! Please include a valid task number.";
     }
 
     /**
      * Prints custom error message for IndexOutOfBoundsException.
      */
     public String printIndexOutOfBoundsException() {
-        return "Task number out of range. Please include a valid task number.";
+        return "Oh dear, the task number out of range! Please include a valid task number.";
     }
 }
