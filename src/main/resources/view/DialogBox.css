@@ -1,13 +1,20 @@
 .dialogBox {
-    -fx-background-color: #E78895;
     -fx-opacity: 80%;
     -fx-background-radius: 2em;
     -fx-min-width: 400px;
     -fx-background-insets: 0px;
-    -fx-padding: 10px;
+}
+.dialogLabel {
+    -fx-label-padding: 10 15 10 15;
 }
 
-.dialogLabel {
+.userBox {
+    -fx-background-color: #E78895;
+}
+
+.dukeBox {
     -fx-background-color: #AC7D88;
 }
+
+
 
