@@ -12,7 +12,9 @@ like the efficient and respected leader that she is.
 
 To add a todo, use the following syntax:
 
-**todo <description>**
+`
+todo <description>
+`
 
 Example: `todo Buy Flowers`
 
@@ -27,7 +29,9 @@ Now you have X tasks in the list.
 
 To add a deadline, use the following syntax:
 
-**deadline <description> /by <DD-MM-YYYY> <HHMM>** 
+`
+deadline <description> /by <DD-MM-YYYY> <HHMM>
+`
 
 Example: `deadline Complete Report /by 22-03-2024 1800`
 
@@ -42,7 +46,9 @@ Now you have X tasks in the list.
 
 To add an event, use the following syntax:
 
-**event <description> /from <start> /to <end>**
+`
+event <description> /from <start> /to <end>
+`
 
 Example: `event Birthday Party /from Saturday 6PM /to 10PM`
 
@@ -57,7 +63,9 @@ Now you have X tasks in the list.
 
 To mark a task as done, use the following syntax:
 
-**mark <index>**
+`
+mark <index>
+`
 
 Example: `mark 1`
 
@@ -71,7 +79,9 @@ Perfect! I've marked this task as done:
 
 To mark a task as not done, use the following syntax:
 
-**unmark <index>**
+`
+unmark <index>
+`
 
 Example: `unmark 1`
 
@@ -85,7 +95,9 @@ Understood, I've marked this task as not done yet:
 
 To delete a task, use the following syntax:
 
-**delete <index>**
+`
+delete <index>
+`
 
 Example: `delete 1`
 
@@ -100,7 +112,9 @@ Now you have X tasks in the list.
 
 To find a task using a keyword, use the following syntax:
 
-**find <keyword>**
+`
+find <keyword>
+`
 
 Example: `find Buy`
 
@@ -119,7 +133,9 @@ No matching tasks found.
 
 To check if there are duplicate tasks, use the following syntax:
 
-**duplicates**
+`
+duplicates
+`
 
 Example: `duplicates`
 
