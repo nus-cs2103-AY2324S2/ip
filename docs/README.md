@@ -82,14 +82,14 @@ Usage:
 
 Examples:
 
-* `event cs2103 planning /from 1800 24/02/24 /to 1900 27/02/24`
+* `event cs2103 planning /from 1800 23/02/24 /to 1900 27/02/24`
 
-* `event midterm study session /from 01:00pm 28-02-24 /to 02:00pm 30-02-24`
+* `event midterm study session /from 01:00pm 28-02-24 /to 02:00pm 01-03-24`
 
 Expected outcome:
 ```
 Got it. I've added this task:
-    [E][ ] cs2103 planning (from:23-02-2024 18:00)
+    [E][ ] cs2103 planning (from:23-02-2024 18:00 to: 27-02-24 19:00)
 Now you got 3 tasks in your list.
 ```
 ### Specification for `[DateTimeFormat]`
@@ -150,7 +150,7 @@ delete [INDEX]
 Examples:
 ```
 mark 1
-delete 3
+delete 2
 ```
 
 Expected outcome:
@@ -159,8 +159,8 @@ Nice! I've marked this task as done:
     [T][X] Cook dinner
     
 Noted. I've removed this task
- [E][ ] cs2103 planning (from:23-02-2024 18:00)
- Now you have 2 taks in the list
+ [D][ ] cs3230 (by:23-02-2024 23:59)
+ Now you have 2 tasks in the list
 ```
 ---
 
@@ -176,7 +176,7 @@ Usage: `find [KEYWORD]`
 
 ### View
 
-View the all the task being scheduled on that date.
+View the all the task being scheduled on that date. For event task view command only checks the to dateline of the task.
 
 Usage: `view [DateFormats]`
 
@@ -187,7 +187,7 @@ Usage: `view [DateFormats]`
 Examples:
 ```
 find Cook
-view 23-02-24
+view 27-02-24
 ```
 
 Expected outcome:
@@ -196,7 +196,7 @@ Here are the matching task in your list:
    1. [T][X] Cook dinner
     
 Here are the task scheduled on that date: 
- 1. [E][ ] cs2103 planning (from:23-02-2024 18:00)
+ 1. [E][ ] cs2103 planning (from:23-02-2024 18:00 to: 27-02-24 19:00)
  ```
 
 ---

@@ -1,6 +1,5 @@
 package plato.task;
 
-
 /**
  * Create a todo class that only has a name.
  */

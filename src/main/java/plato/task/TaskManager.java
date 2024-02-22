@@ -278,8 +278,9 @@ public class TaskManager {
      * @return A list of items containing the search results.
      */
     public String[] findTask(String search) {
-        List<String> foundTask =
-            items.stream().map(Task::toString).filter(string -> string.contains(search)).collect(Collectors.toList());
+        List<String> foundTask = items.stream().map(Task::toString).filter(string -> string.toLowerCase()
+                                                                                           .contains(search))
+                                      .collect(Collectors.toList());
 
         if (!foundTask.isEmpty()) {
             List<String> print = iterateWithIndex(foundTask);
@@ -301,7 +302,7 @@ public class TaskManager {
      */
     public String[] viewByDate(String date) throws PlatoException {
         LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new PlatoException("dateError"));
-        System.out.println(inputDate);
+
         List<String> foundDates =
             items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate)).map(Task::toString)
                  .collect(Collectors.toList());

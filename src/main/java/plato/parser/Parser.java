@@ -60,7 +60,8 @@ public class Parser {
 
 
     /**
-     * @return Whether plato should close the chat-bot.
+     * Checks if should close the bot.
+     * @return Whether plato should close the chat bot.
      */
     public static boolean isExit() {
         return isDead;

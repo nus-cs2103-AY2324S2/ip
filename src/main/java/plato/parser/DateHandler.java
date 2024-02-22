@@ -16,7 +16,7 @@ import plato.PlatoException;
 public class DateHandler {
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
     private static final Pattern PATTERN_DATE =
-        Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
+        Pattern.compile("([a-zA-Z]+)?\\s?(?<date>(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4}))\\s?([a-zA-Z]+)?");
     private static final Pattern TIME_PATTERN =
         Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -64,7 +64,7 @@ public class DateHandler {
         //Remove the date so that it is easier to check for the time, and prevent conflicts
         Matcher removeDate = PATTERN_DATE.matcher(testTime);
         if (removeDate.find()) {
-            testTime = testTime.replaceAll(removeDate.group(), "");
+            testTime = testTime.replaceAll(removeDate.group("date"), "");
         }
 
         Matcher match = TIME_PATTERN.matcher(testTime);
