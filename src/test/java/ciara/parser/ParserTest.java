@@ -140,22 +140,28 @@ public class ParserTest {
                 InvalidArgumentException.class, () -> Parser.parse("list /archive /date  "));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("list /archive /date 2024"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024-122-12"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("list /archive /date 2024-122-12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024-25-25"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("list /archive /date 2024-25-25"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 12pm"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("list /archive /date 12pm"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 12:00"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("list /archive /date 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("List /archive /date 12:00"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("List /archive /date 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -381,8 +387,6 @@ public class ParserTest {
         assertEquals(expected, Parser.parse("todo Nights Into Days "));
         assertEquals(expected, Parser.parse(" todo Nights Into Days"));
         assertEquals(expected, Parser.parse("Todo Nights Into Days"));
-        // TODO: Fix bug where multiple spaces is not allowed in description
-        // assertNotEquals(expected, Parser.parse("todo Nights Into Days"));
     }
 
     /**
@@ -423,9 +427,6 @@ public class ParserTest {
         assertEquals(expected, Parser.parse("deadline Nights Into Days /by 2024/01/29 12:00 "));
         assertEquals(expected, Parser.parse(" deadline Nights Into Days /by 2024/01/29 12:00 "));
         assertEquals(expected, Parser.parse("Deadline Nights Into Days /by 2024/01/29 12:00"));
-        // TODO: Fix bug where multiple spaces is not allowed in description
-        // assertNotEquals(expected, Parser.parse("deadline Nights Into Days /by
-        // 2024/01/29 12:00")));
     }
 
     /**
@@ -502,9 +503,6 @@ public class ParserTest {
                 Parser.parse(" event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00 "));
         assertEquals(expected,
                 Parser.parse("Event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00"));
-        // TODO: Fix bug where multiple spaces is not allowed in description
-        // assertNotEquals(expected, Parser.parse("event Nights Into Days /from
-        // 2024/01/29 12:00 /to 2024/01/29 14:00")));
     }
 
     /**
@@ -581,8 +579,6 @@ public class ParserTest {
         assertEquals(expected, Parser.parse("find Back To Alonica "));
         assertEquals(expected, Parser.parse(" find Back To Alonica "));
         assertEquals(expected, Parser.parse("Find Back To Alonica"));
-        // TODO: Fix bug where multiple spaces is not allowed in description
-        // assertNotEquals(expected, Parser.parse("find Back To Alonica")));
 
         // Test no arguments
         expected = new FindCommand(false);
