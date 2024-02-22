@@ -5,12 +5,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="Infinity" maxWidth="Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Label fx:id="dialog" maxHeight="Infinity" styleClass="dialog-text" text="Label" wrapText="true" />
-    <ImageView fx:id="displayPicture" styleClass="dialog-image" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-  </children>
-  <padding>
-    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-  </padding>
+<fx:root type="HBox" alignment="CENTER_LEFT" spacing="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@style.css">
+    <children>
+        <ImageView fx:id="displayPicture" fitHeight="90" fitWidth="90" preserveRatio="true"/>
+        <Label fx:id="dialog" styleClass="dialog-text" text="Label" wrapText="true" HBox.hgrow="ALWAYS"/>
+    </children>
+    <padding>
+      <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
 </fx:root>

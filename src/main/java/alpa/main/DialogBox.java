@@ -79,7 +79,9 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.flip();
         db.getStyleClass().add("user-dialog");
+        db.setAlignment(Pos.CENTER_RIGHT);
         return db;
     }
 
@@ -92,7 +94,6 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getAlpaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
         db.getStyleClass().add("alpa-dialog");
         return db;
     }

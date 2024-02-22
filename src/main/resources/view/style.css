@@ -21,8 +21,8 @@
 }
 
 .scroll-pane {
-    -fx-vbar-policy: ALWAYS;
-    -fx-hbar-policy: NEVER;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
 }
 
 .dialog-label {
