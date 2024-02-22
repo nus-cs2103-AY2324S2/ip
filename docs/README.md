@@ -5,6 +5,9 @@ With Chronos, you can effortlessly **organize your todos, deadlines, and events*
 for use via a Command Line Interface (CLI), Chronos can track your tasks faster than traditional GUI apps.
 
 ![](Ui.png)
+<p align="center">
+  <img src="Ui.png" width="300" height="200" alt="Description of the image">
+</p>
 
 ## Quick Start
 1. Ensure you have `Java 11` or above installed in your Computer.
