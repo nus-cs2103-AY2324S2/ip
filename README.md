@@ -1,6 +1,6 @@
-# Doye task manager
-## welcome to Doye task manager
-### Doye will help your task managing skill
+# Dobby task manager
+## welcome to Dobby task manager
+### Dobby will help your task managing skill
 
 **Do you ...**
 - want to manage tasks?
@@ -17,7 +17,7 @@ These are some functions provided:
 
 Some basic commands are:
 ```
-task reading
+todo reading
 deadline return book /by 2/12/2019 1800
 event festival /from 2/12/2019 1800 /to 2/12/2019 2000
 ```
