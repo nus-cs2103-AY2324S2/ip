@@ -140,28 +140,22 @@ public class ParserTest {
                 InvalidArgumentException.class, () -> Parser.parse("list /archive /date  "));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /archive /date 2024"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /archive /date 2024-122-12"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024-122-12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /archive /date 2024-25-25"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 2024-25-25"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /archive /date 12pm"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 12pm"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /archive /date 12:00"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /archive /date 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("List /archive /date 12:00"));
+        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("List /archive /date 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
