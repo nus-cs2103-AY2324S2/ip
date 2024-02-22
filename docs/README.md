@@ -14,11 +14,10 @@ For example, if you have a deadline to return a book by Sunday, you can input "d
 The command will start with deadline, followed by the task name and the deadline, separated by a "/by".
 
 The expected output would be:
-------------------------------------------
+
 Got it. I've added this task:
-[D][] return book (by: Feb 17 2024)
+[D][] return book (by: Feb 18 2024)
 Now you have 1 task in the list.
-------------------------------------------
 
 ## Marking tasks
 
@@ -28,12 +27,15 @@ For example, if you have a completed the deadline task "return book", you can in
 The command will start with mark, followed by the task index.
 
 The expected output would be:
-------------------------------------------
+
 Nice! I've marked this task as done!
 [D][X] return book (by: Feb 17 2024)
------------------------------------------- 
+
 
 Here are examples of how you can use other Toothless's commands:
+
+Finding tasks
+find book
 
 Adding a Todo
 todo read book
