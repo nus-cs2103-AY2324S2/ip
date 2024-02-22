@@ -1,0 +1,5 @@
+T |   | some homework
+T | X | more hoemwork
+T |   | even more homework
+A |   | something | after: 2024-12-12 2359
+T |   | meow
