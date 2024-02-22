@@ -1,11 +1,11 @@
 package commands;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import destiny.DestinyException;
 import destiny.Task;
 import destiny.TaskList;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Command that finds all relevant tasks in the tasklist.

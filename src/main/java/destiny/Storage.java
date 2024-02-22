@@ -28,58 +28,59 @@ public class Storage {
 
         // check if data directory and file exist already
         if (!directory.exists()) {
-            directory.mkdir();
-            try {
-                // first initialization, create new save file
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            makeNewDataFileWithDir(directory, file);
         } else if (!file.exists()) {
-            try {
-                // data file missing, create new save file
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         } else {
             try {
                 Scanner s = new Scanner(file);
                 while (s.hasNextLine()) {
-                    String newEntry = s.nextLine();
-                    String[] entryDetails = newEntry.split(" \\| ");
-                    Task newTask;
-                    switch (entryDetails[0]) {
-                    case "T":
-                        newTask = new ToDo(entryDetails[1], entryDetails[2]);
-                        tempTaskStorage.add(newTask);
-                        break;
-                    case "D":
-                        newTask = new Deadline(entryDetails[1], entryDetails[2], entryDetails[3]);
-                        tempTaskStorage.add(newTask);
-                        break;
-                    case "E":
-                        newTask = new Event(entryDetails[1], entryDetails[2], entryDetails[3], entryDetails[4]);
-                        tempTaskStorage.add(newTask);
-                        break;
-                    default:
-                        // ignores corrupted line in data file
-                    }
+                    addTaskFromStorage(s, tempTaskStorage);
                 }
                 return tempTaskStorage;
             } catch (DestinyException | ArrayIndexOutOfBoundsException e) {
-                try {
-                    file.delete();
-                    // data file corrupted, create new save file
-                    file.createNewFile();
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+                file.delete();
+                makeNewDataFile(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
         return new ArrayList<>(100);
+    }
+
+    private void makeNewDataFileWithDir(File directory, File file) {
+        directory.mkdir();
+        makeNewDataFile(file);
+    }
+
+    private void makeNewDataFile(File file) {
+        try {
+            // data file missing, create new save file
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void addTaskFromStorage(Scanner s, ArrayList<Task> tempTaskStorage) throws DestinyException {
+        String newEntry = s.nextLine();
+        String[] entryDetails = newEntry.split(" \\| ");
+        Task newTask;
+        switch (entryDetails[0]) {
+        case "T":
+            newTask = new ToDo(entryDetails[1], entryDetails[2]);
+            tempTaskStorage.add(newTask);
+            break;
+        case "D":
+            newTask = new Deadline(entryDetails[1], entryDetails[2], entryDetails[3]);
+            tempTaskStorage.add(newTask);
+            break;
+        case "E":
+            newTask = new Event(entryDetails[1], entryDetails[2], entryDetails[3], entryDetails[4]);
+            tempTaskStorage.add(newTask);
+            break;
+        default:
+            // ignores corrupted line in data file
+        }
     }
 
     /**

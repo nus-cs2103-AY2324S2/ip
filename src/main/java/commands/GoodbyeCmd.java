@@ -1,9 +1,9 @@
 package commands;
 
+import static destiny.Destiny.GOODBYE_MSG;
+
 import destiny.DestinyException;
 import destiny.TaskList;
-
-import static destiny.Destiny.GOODBYE_MSG;
 
 /**
  * Command that simply returns the goodbye message

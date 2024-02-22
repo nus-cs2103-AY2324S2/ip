@@ -6,7 +6,7 @@ import destiny.TaskList;
 /**
  * Command that marks indicated task as not done.
  */
-public class MarkNotDoneCmd extends Command{
+public class MarkNotDoneCmd extends Command {
     private String indexStr;
 
     /**

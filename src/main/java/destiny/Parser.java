@@ -1,34 +1,32 @@
 package destiny;
 
-import commands.*;
-
 import java.util.Arrays;
+
+import commands.AcceptedCmds;
+import commands.Command;
+import commands.DeadlineCmd;
+import commands.DeleteCmd;
+import commands.EventCmd;
+import commands.FindCmd;
+import commands.GoodbyeCmd;
+import commands.ListCmd;
+import commands.MarkDoneCmd;
+import commands.MarkNotDoneCmd;
+import commands.ToDoCmd;
 
 /**
  * Used to understand the user input.
  */
 public class Parser {
     /**
-     * Determines command that the user has inputted.
+     * Determines and returns command that the user has inputted.
      *
      * @param userMessage The user input.
      * @return Command object that will subsequently execute desired task by user.
      * @throws DestinyException If description of command is required but not provided by user.
      */
     public Command parse(String userMessage) throws DestinyException {
-        String[] input = new String[2];
-        Boolean foundSplit = false;
-        for (int i = 0; i < userMessage.length(); i++) {
-            if (userMessage.charAt(i) == ' ') {
-                input[0] = userMessage.substring(0, i);
-                input[1] = userMessage.substring(i + 1, userMessage.length());
-                foundSplit = true;
-                break;
-            }
-        }
-        if (!foundSplit) {
-            input[0] = userMessage;
-        }
+        String[] input = splitString(userMessage);
 
         String cmd = input[0].toLowerCase().trim();
         // check if command is in list of valid commands
@@ -42,9 +40,7 @@ public class Parser {
         // list and bye are the only commands that does not require details
         if (cmd.equals("list")) {
             return new ListCmd();
-        }
-
-        if (cmd.equals("bye")) {
+        } else if (cmd.equals("bye")) {
             return new GoodbyeCmd();
         }
 
@@ -56,7 +52,27 @@ public class Parser {
         // start processing commands that require details.
         String details = input[1].trim();
 
-        //  todo, deadline, event, delete
+        return commandMatch(cmd, details);
+    }
+
+    private String[] splitString(String userMessage) {
+        String[] input = new String[2];
+        Boolean foundSplit = false;
+        for (int i = 0; i < userMessage.length(); i++) {
+            if (userMessage.charAt(i) == ' ') {
+                input[0] = userMessage.substring(0, i);
+                input[1] = userMessage.substring(i + 1, userMessage.length());
+                foundSplit = true;
+                break;
+            }
+        }
+        if (!foundSplit) {
+            input[0] = userMessage;
+        }
+        return input;
+    }
+
+    private Command commandMatch(String cmd, String details) throws DestinyException {
         switch (cmd) {
         case "find":
             return new FindCmd(details);

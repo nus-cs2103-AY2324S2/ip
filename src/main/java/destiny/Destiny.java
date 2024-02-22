@@ -30,7 +30,7 @@ public class Destiny {
     }
 
     /**
-     * Main code for the running of the Destiny chatbot which interacts with the graphical user interface.
+     * Executes relevant functions and returns an appropriate response.
      *
      * @param input The input given by the user.
      * @return Appropriate string response from Destiny.

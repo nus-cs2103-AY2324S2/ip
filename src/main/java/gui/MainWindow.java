@@ -1,5 +1,7 @@
 package gui;
 
+import static destiny.Destiny.GOODBYE_MSG;
+
 import destiny.Destiny;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -9,14 +11,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import static destiny.Destiny.GOODBYE_MSG;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
