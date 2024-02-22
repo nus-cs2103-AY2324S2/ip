@@ -26,6 +26,7 @@ public class Parser {
      * @throws LivException If the command is not valid.
      */
     public static Command parse(String input) throws LivException {
+        assert input != null: "Input cannot be null!";
         if (input.equalsIgnoreCase("bye")) {
             return parseByeCommand();
         } else if (input.equalsIgnoreCase("list")) {
@@ -64,16 +65,18 @@ public class Parser {
      * @throws LivException If the index input is not a number, or no index input is given.
      */
     private static int parseNumberInInput(String input) throws LivException {
-        // Expect input.txt in this form: "<command> <number>"
+        // Expect input in this form: "<command> <number>"
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Please state the mission number!");
         }
         String numberString = input.substring(spaceIndex + 1);
         if (!numberString.matches("\\d+")) {
-            throw new LivException("Please enter a number as the mission number!");
+            throw new LivException("Please enter a positive integer as the mission number!");
         }
-        return Integer.parseInt(numberString);
+        int number = Integer.parseInt(numberString);
+        assert number > 0: "Input number should be a positive integer!";
+        return number;
     }
 
     /**
@@ -180,6 +183,8 @@ public class Parser {
         }
         String time1 = timeInterval.substring(0, splitterIndex - 1);
         String time2 = timeInterval.substring(splitterIndex + 4);
+        assert time1 != null: "Incorrect time format!";
+        assert time2 != null: "Incorrect time format!";
         LocalDateTime from = LocalDateTime.parse(time1, INPUT_PATTERN);
         LocalDateTime to = LocalDateTime.parse(time2, INPUT_PATTERN);
         Event newEvent = new Event(description, from, to);
@@ -192,6 +197,9 @@ public class Parser {
             throw new LivException("Keyword cannot be empty!");
         }
         String keyword = input.substring(spaceIndex + 1);
+        if (keyword.equals("")) {
+            throw new LivException("Keyword cannot be empty!");
+        }
         return new FindCommand(keyword);
     }
 }
