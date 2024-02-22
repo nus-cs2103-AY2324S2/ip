@@ -19,6 +19,9 @@ public class Shon {
     public Shon() {
         this.storage = new Storage("./data/Shon.txt");
         this.list = storage.loadList();
+
+        assert this.storage != null : "No storage initialised in Shon";
+        assert this.list != null : "No tasklist initialised in Shon";
     }
 
     public String getResponse(String input) {
