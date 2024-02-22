@@ -181,6 +181,12 @@ This means that `02/10/2024 1700` is interpreted as 02 October 2024 5:00 p.m. by
 > Don't worry if you find it hard to remember the accepted formatting! Scribbles will remind you and correct you as you
 > use the program!
 
+### Data-wiping
+Deleting the file `scribblesData` created by Scribbles will wipe all data currently stored by Scribbles. This includes 
+all tasks stored and their details. However this does not affect the functioning of Scribbles.
+If you wish to use Scribbles again, running Scribbles will create 
+a new `scribblesData` file without any stored data and you can continue using Scribbles as normal.
+
 ## Command summary
 
 | Action       | Format                                                                    |
