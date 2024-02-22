@@ -33,17 +33,23 @@ Nice! I've marked this task as done!
 [D][X] return book (by: Feb 17 2024)
 ------------------------------------------ 
 
+Here are examples of how you can use other Toothless's commands:
 
-## Finding tasks
+Adding a Todo
+todo read book
 
-Too many tasks in the list to keep track of? Toothless can help you find tasks you in the list using a simple command line.
+Adding an Event
+event project meeting /from 12/2/2024 /to 12/2/2024
 
-For example, if you wish to find tasks associated with a book, you can input "find book".
-The command will start with find, followed by the keyword!
+Listing all Tasks
+list
 
-The expected output would be:
-------------------------------------------
-Here are the matching tasks in your list:
-------------------------------------------
-Here are the tasks in your list:
-1 [D][X] return book (by: Feb 17 2024)
+Unmarking a Task
+unmark 1
+
+Deleting a Task
+delete 1
+
+
+Exiting the App
+bye
