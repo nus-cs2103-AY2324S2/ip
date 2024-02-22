@@ -84,6 +84,7 @@
       Todo tasks (which do not have dates) are placed last.
     * Example Input: `sort`
     * Example Output:
+
       ```
       Here are the tasks in your list:
       1. [D][] Task (by: Feb 20 2024)
