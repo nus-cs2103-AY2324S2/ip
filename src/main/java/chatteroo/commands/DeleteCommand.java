@@ -1,5 +1,6 @@
 package chatteroo.commands;
 
+import chatteroo.ChatterooException;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
 import chatteroo.storage.Storage;
@@ -24,10 +25,14 @@ public class DeleteCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Task deletedTask = tasks.getTask(taskNum);
-        tasks.deleteTask(taskNum);
-        int listCount = tasks.getTaskListSize();
-        return ui.showDeleteTaskResponse(deletedTask, listCount);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
+        try {
+            Task deletedTask = tasks.getTask(taskNum);
+            tasks.deleteTask(taskNum);
+            int listCount = tasks.getTaskListSize();
+            return ui.showDeleteTaskResponse(deletedTask, listCount);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showInvalidTaskNumberResponse();
+        }
     }
 }

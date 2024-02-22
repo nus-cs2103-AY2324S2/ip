@@ -1,5 +1,6 @@
 package chatteroo.commands;
 
+import chatteroo.ChatterooException;
 import chatteroo.tasks.Task;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
@@ -23,7 +24,7 @@ public class AddCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
         tasks.addTask(newTask);
         int listCount = tasks.getTaskListSize();
         return ui.showAddTaskResponse(newTask, listCount);

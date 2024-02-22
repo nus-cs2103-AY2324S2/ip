@@ -1,5 +1,6 @@
 package chatteroo.commands;
 
+import chatteroo.ChatterooException;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
 import chatteroo.storage.Storage;
@@ -23,8 +24,12 @@ public class MarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.markTaskAsDone(taskNum);
-        return ui.showMarkDoneTaskResponse() + tasks.getTask(taskNum).toString();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
+        try {
+            tasks.markTaskAsDone(taskNum);
+            return ui.showMarkDoneTaskResponse() + tasks.getTask(taskNum).toString();
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showInvalidTaskNumberResponse();
+        }
     }
 }

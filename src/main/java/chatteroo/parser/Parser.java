@@ -63,15 +63,15 @@ public class Parser {
             if (inputArr.length < 2) {
                 throw new ChatterooException("ChatterOOHNOO! A todOO's description cannot be empty!");
             }
-            input = inputArr[1];
+            input = input.substring(5);
             return Parser.parseTodo(input);
         case "DEADLINE":
-            if (inputArr.length < 2) {
+            if (inputArr.length < 2 || inputArr[1].equals("/by")) {
                 throw new ChatterooException("ChatterOOHNOO! A deadline's description cannot be empty!");
             }
             return Parser.parseDeadline(input);
         case "EVENT":
-            if (inputArr.length < 2) {
+            if (inputArr.length < 2 || inputArr[1].equals("/from") || inputArr[1].equals("/to")) {
                 throw new ChatterooException("ChatterOOHNOO! An event's description cannot be empty!");
             }
             return Parser.parseEvent(input);
@@ -122,14 +122,14 @@ public class Parser {
             throw new ChatterooException("ChatterOOHNOO! An event's date and time cannot be empty!");
         }
 
-        input = eventInputArr[0];
+        String description = eventInputArr[0];
         String[] timeArr = eventInputArr[1].split("/to");
         if (timeArr.length < 2) {
             throw new ChatterooException("ChatterOOHNOO! An event's date and time cannot be empty!");
         }
         String from = timeArr[0];
         String to = timeArr[1];
-        Task newEvent = new Event(input, from, to);
+        Task newEvent = new Event(description, from, to);
         return new AddCommand(newEvent);
     }
 

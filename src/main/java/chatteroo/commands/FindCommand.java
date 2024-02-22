@@ -1,5 +1,6 @@
 package chatteroo.commands;
 
+import chatteroo.ChatterooException;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
 import chatteroo.storage.Storage;
@@ -22,7 +23,7 @@ public class FindCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
         TaskList filteredTasks = tasks.findTasks(keyword);
         int listCount = filteredTasks.getTaskListSize();
         String findTaskUi = ui.showFindTaskResponse(listCount);

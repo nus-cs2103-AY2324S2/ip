@@ -1,5 +1,8 @@
 package chatteroo.commands;
 
+import javafx.application.Platform;
+
+import chatteroo.ChatterooException;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
 import chatteroo.storage.Storage;
@@ -20,7 +23,8 @@ public class ExitCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
+        Platform.exit();
         return ui.showByeResponse();
     }
 

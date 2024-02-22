@@ -1,6 +1,6 @@
 todo read a book
-deadline return book /by Tuesday
-event club meeting /from Wed 6pm /to 8pm
+deadline return book /by 2024-02-23 1800
+event club meeting /from 2024-03-03 1200 /to 2024-03-03 1400
 mark 2
 unmark 2
 list

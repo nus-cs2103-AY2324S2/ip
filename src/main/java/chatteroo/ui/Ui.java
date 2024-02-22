@@ -107,4 +107,8 @@ public class Ui {
         return e.getMessage();
     }
 
+    public String showInvalidTaskNumberResponse() {
+        return "Mate, ya can't give a invalid task number, y'know?\n";
+    }
+
 }

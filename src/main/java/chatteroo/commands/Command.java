@@ -1,5 +1,6 @@
 package chatteroo.commands;
 
+import chatteroo.ChatterooException;
 import chatteroo.tasks.Task;
 import chatteroo.tasks.TaskList;
 import chatteroo.ui.Ui;
@@ -46,8 +47,9 @@ public class Command {
      * @param ui      The user interface.
      * @param storage The storage.
      * @return
+     * @throws ChatterooException If an error occurs during the execution of the command.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterooException {
         return "";
     }
 
