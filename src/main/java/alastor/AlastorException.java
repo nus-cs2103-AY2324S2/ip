@@ -12,5 +12,6 @@ public class AlastorException extends Exception {
      */
     public AlastorException(String message) {
         super(message);
+        assert message != null : "Message should not be null";
     }
 }

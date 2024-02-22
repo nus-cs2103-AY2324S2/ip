@@ -61,6 +61,11 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Shows the greeting message from Duke.
+     *
+     * @param text The greeting message from Duke.
+     */
     public void showGreet(String text) {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(text, dukeImage));
     }

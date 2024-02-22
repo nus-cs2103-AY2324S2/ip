@@ -77,6 +77,7 @@ public class Storage {
      * @throws AlastorException If an error occurs while saving the task to the storage file.
      */
     public void saveAdd(Task task) throws AlastorException {
+        assert task != null : "Task should not be null";
         try {
             FileWriter writer = new FileWriter(this.filePath, true);
             writer.write(task.toFile() + "\n");
@@ -93,6 +94,7 @@ public class Storage {
      * @throws AlastorException If an error occurs while rewriting the storage file with the list of tasks.
      */
     public void saveRewrite(TaskList tasks) throws AlastorException {
+        assert tasks != null : "TaskList should not be null";
         try {
             FileWriter writer = new FileWriter(this.filePath);
             for (int i = 0; i < tasks.size(); i++) {

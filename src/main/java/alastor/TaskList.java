@@ -53,6 +53,7 @@ public class TaskList {
      */
     public void add(Task task) {
         this.tasks.add(task);
+        assert this.tasks.contains(task) : "Task should be added to the list";
     }
 
     /**
@@ -78,5 +79,6 @@ public class TaskList {
      */
     public void delete(int index) {
         this.tasks.remove(index);
+        assert !this.tasks.contains(this.tasks.get(index)) : "Task should be deleted from the list";
     }
 }
