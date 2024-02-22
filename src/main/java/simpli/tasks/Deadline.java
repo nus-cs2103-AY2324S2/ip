@@ -19,6 +19,8 @@ public class Deadline extends Task {
      */
     public Deadline(boolean isDone, String name, LocalDateTime by) {
         super(isDone, name);
+
+        assert by.isAfter(LocalDateTime.now());
         this.by = by;
     }
 

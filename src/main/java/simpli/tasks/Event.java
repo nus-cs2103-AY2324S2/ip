@@ -21,6 +21,9 @@ public class Event extends Task {
      */
     public Event(boolean isDone, String name, LocalDateTime from, LocalDateTime to) {
         super(isDone, name);
+
+        assert from.isAfter(LocalDateTime.now());
+        assert to.isAfter(from);
         this.from = from;
         this.to = to;
     }
