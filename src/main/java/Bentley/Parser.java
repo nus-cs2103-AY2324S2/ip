@@ -1,3 +1,5 @@
+package Bentley;
+
 public class Parser {
 
     public static void parseCommand(String userInput, TaskList taskList, Ui ui, Storage storage) {

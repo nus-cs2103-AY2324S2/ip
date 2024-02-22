@@ -1,3 +1,5 @@
+package Bentley;
+
 import java.util.Scanner;
 
 public class Duke {
