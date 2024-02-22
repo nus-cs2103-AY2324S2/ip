@@ -7,7 +7,6 @@ import ping.gui.UI;
 
 
 
-
 /**
  * This class is used to run the program
  */
@@ -23,7 +22,7 @@ public class Ping {
             this.ui = new UI();
             this.tasks = new TaskList(Storage.loadFiles());
         } catch (PingException e) {
-            throw new PingException("An error occurred while loading the file");
+            throw new PingException("An error occurred while loading the file. Pls delete the whole data file");
         }
     }
 
@@ -33,14 +32,13 @@ public class Ping {
             Storage.saveFiles(tasks.allTasks());
             return com.perform(tasks, ui);
         } catch (NullPointerException | PingException e) {
-            return e.getMessage();
+            return "An error occurred: " + e.getMessage();
         }
     }
     /**
      * This method is used to run the program
      */
     public void run() throws PingException {
-        ui.welcome();
         boolean isRun = true;
         while (isRun) {
             try {

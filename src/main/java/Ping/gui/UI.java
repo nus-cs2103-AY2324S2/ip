@@ -36,10 +36,6 @@ public class UI {
         return "haha, that's humorous\n";
     }
 
-    public void exceptionMessage() {
-        System.out.println("Incorrect number or command");
-    }
-
     public String hiMessage() {
         return "Hi, there\n";
     }

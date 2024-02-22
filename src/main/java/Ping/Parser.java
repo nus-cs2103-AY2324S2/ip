@@ -159,7 +159,7 @@ public class Parser {
             }
         }
         return List.of(rest, date);
-    }        
+    }
 
     private static Command parseEvent(String[] evCommand) throws PingException {
         StringBuilder rest = new StringBuilder();
