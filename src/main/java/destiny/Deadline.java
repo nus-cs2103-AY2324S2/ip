@@ -81,11 +81,32 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Getter for by time in the input format, used to store the time in the destiny.txt data file.
+     *
+     * @return Reformatted string of to time.
+     */
     public String getBy() {
         return by.format(inputFormatter);
+    }
+
+    private LocalDateTime getByAsLdt() {
+        return by;
     }
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(displayFormatter) + ")";
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) task;
+        boolean isSimilar = this.description.equals(deadline.getDescription())
+                && this.by.isEqual(deadline.getByAsLdt());
+        boolean isSame = this == task;
+        return isSimilar || isSame;
     }
 }

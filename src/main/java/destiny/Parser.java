@@ -39,7 +39,6 @@ public class Parser {
         }
 
         String cmd = input[0].toLowerCase().trim();
-        System.out.println(cmd == "list");
         // check if command is in list of valid commands
         try {
             AcceptedCmds testCommand = AcceptedCmds.valueOf(cmd.toLowerCase());

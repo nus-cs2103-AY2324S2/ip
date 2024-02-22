@@ -63,4 +63,12 @@ public abstract class Task {
         // the task should reflect that it has been unmarked
         assert this.toString().substring(3, 6).equals("[ ]");
     }
+
+    /**
+     * Checks if given task is equal to current task.
+     *
+     * @param task The given task.
+     * @return True if the current task and given task are the same.
+     */
+    public abstract boolean equals(Task task);
 }

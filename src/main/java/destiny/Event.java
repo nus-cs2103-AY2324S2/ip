@@ -120,9 +120,29 @@ public class Event extends Task {
         return to.format(inputFormatter);
     }
 
+    private LocalDateTime getFromAsLdt() {
+        return from;
+    }
+
+    private LocalDateTime getToAsLdt() {
+        return to;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(displayFormatter)
                 + "  to: " + to.format(displayFormatter) + ")";
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        Event event = (Event) task;
+        boolean isSimilar = this.description.equals(event.getDescription())
+                && this.from.isEqual(event.getFromAsLdt())
+                && this.to.isEqual(event.getToAsLdt());
+        boolean isSame = this == task;
+        return isSimilar || isSame;
     }
 }
