@@ -46,6 +46,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Returns the current list of tasks.
+     *
+     * @return an <code>ArrayList</code> of <code>Task</code> objects.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
@@ -54,6 +59,7 @@ public class TaskList {
      * Removes a specified task from the list of Tasks.
      *
      * @param input user input command in the format "delete (index)".
+     * @return a String message indicating the task has been removed from the list.
      */
     public String processRemoveFromList(String input) {
         try {
@@ -78,7 +84,9 @@ public class TaskList {
     }
 
     /**
-     * Prints the current list of tasks.
+     * Returns the String representation of the current list of tasks.
+     *
+     * @return a String representation of the current list of tasks.
      */
     public String showList() {
         String output = "Your list is as follows:\n " + "-------------------\n";
@@ -89,9 +97,10 @@ public class TaskList {
     }
 
     /**
-     * Mark a specified task as done.
+     * Marks a specified task as done.
      *
      * @param id 1-indexed integer identifier of the task as shown in the UI.
+     * @return a String message indicating the task has been marked as done.
      */
     public String markDone(int id) {
         assert id > 0 : "Task ID should be a positive integer";
@@ -109,9 +118,10 @@ public class TaskList {
     }
 
     /**
-     * Mark a specified task as "not done".
+     * Marks a specified task as "not done".
      *
      * @param id 1-indexed integer identifier of the task as shown in the UI.
+     * @return a String message indicating the task has been marked as "not done".
      */
     public String unmarkDone(int id) {
         String output = "";
@@ -130,6 +140,7 @@ public class TaskList {
      * Filters the current list of tasks based on a given prompt and returns the corresponding list.
      *
      * @param prompt a user input to match task descriptions against.
+     * @return a String message containing the filtered list of tasks.
      */
     public String findTask(String prompt) {
         prompt = prompt.trim();
@@ -152,6 +163,7 @@ public class TaskList {
     /**
      * Reminds the user of upcoming deadlines and events.
      *
+     * @param buffer an optional buffer to specify the number of days to look ahead.
      * @return a message containing the upcoming deadlines and events.
      */
     public String remindMe(String... buffer) {

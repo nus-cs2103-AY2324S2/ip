@@ -49,11 +49,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox object representing a user dialog.
+     *
+     * @param text the user input as String.
+     * @param img  the user's image as Image.
+     * @return a DialogBox object representing a user dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Returns a DialogBox object representing a Solaire dialog.
+     *
+     * @param text Solaire's response as String.
+     * @param img  Solaire's image as Image.
+     * @return a DialogBox object representing a Solaire dialog.
+     */
+    public static DialogBox getSolaireDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
