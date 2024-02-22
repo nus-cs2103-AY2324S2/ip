@@ -36,7 +36,7 @@ public class ListTest {
         String result = taskList.showList();
 
         // Check if all tasks are listed successfully
-        assertEquals("Here are the tasks in your list:\n"
+        assertEquals("buzz buzz~~ Here are the tasks in your list:\n"
                 + "1.[T][ ] Task 1\n"
                 + "2.[D][ ] Deadline 2 (by: 02 Feb 2022 10:00)\n"
                 + "3.[E][ ] Event 3 (from: 02 Feb 2022 10:00 | to: 10 Feb 2022 10:00)\n", result);

@@ -64,7 +64,7 @@ public class EventCommand extends Command {
             String end = arrOfStr[2].substring(2).trim();
             LocalDate endDate = LocalDate.parse(end.split(" ")[0].trim());
             LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
-            if (startDate.compareTo(endDate) > 0 ) {
+            if (startDate.compareTo(endDate) > 0) {
                 throw new InvalidDateTimeException("unexpected date");
             } else if (startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime) > 0) {
                 throw new InvalidDateTimeException("unexpected time");

@@ -36,7 +36,7 @@ public class UpdateTest {
 
         // Check if the task is updated successfully
         String result = taskList.update(2, "Project Meeting for CS2103T");
-        assertEquals("I have updated the description\n"
+        assertEquals("buzz buzz~~ I have updated the description\n"
                 + "[E][ ] Project Meeting for CS2103T (from: 02 Feb 2022 10:00"
                 + " | to: 10 Feb 2022 10:00)", result);
 

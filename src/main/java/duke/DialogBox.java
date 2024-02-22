@@ -22,13 +22,15 @@ import javafx.scene.paint.Color;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+
+    private static final String[] beeStyleClasses = {"bee-dialog-background"};
+    private static final String[] userStyleClasses = {"user-dialog-background"};
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
-    private static final String[] beeStyleClasses = {"bee-dialog-background"};
-    private static final String[] userStyleClasses = {"user-dialog-background"};
+
 
     private DialogBox(String text, Image img, String... styleClass) {
         try {

@@ -26,6 +26,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image beeImage = new Image(this.getClass().getResourceAsStream("/images/bee.png"));
 
+    /**
+     * Initializes the JavaFX controller.
+     * Adds the initial welcome message dialog box to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
