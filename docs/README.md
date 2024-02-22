@@ -76,7 +76,7 @@
     2. [D][0] buy cake (by: 20 OCTOBER 2024)
     3. [E][0] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
-    
+
 ### Mark task(s) as done
 **Usage:**
    ```
