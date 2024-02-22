@@ -1,7 +1,58 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+   _____ __  ______  ____  ___    _   __  
+  / ___// / / / __ \/ __ \/   |  / | / /
+  \__ \/ /_/ / / / / / / / /| | /  |/ / 
+ ___/ / __  / /_/ / /_/ / ___ |/ /|  /    
+/____/_/ /_/\____/_____/_/  |_/_/ |_/    
 
+Greetings, human.
+What can I do for you?
+> You currently have no shodan.tasks.
+> Task has been added:
+	[T][ ] walk dog
+You have 1 shodan.tasks now.
+> Task has been added:
+	[D][ ] return books (by: 18 Mar)
+You have 2 shodan.tasks now.
+> Here is your list of shodan.tasks:
+1. [T][ ] walk dog
+2. [D][ ] return books (by: 18 Mar)
+> Task set to done:
+	[D][X] return books (by: 18 Mar)
+> Here is your list of shodan.tasks:
+1. [T][ ] walk dog
+2. [D][X] return books (by: 18 Mar)
+> Task has been set as not done yet:
+	[D][ ] return books (by: 18 Mar)
+> Task set to done:
+	[T][X] walk dog
+> Task has been added:
+	[E][ ] birthday (from: 2pm to: 3pm)
+You have 3 shodan.tasks now.
+> Here is your list of shodan.tasks:
+1. [T][X] walk dog
+2. [D][ ] return books (by: 18 Mar)
+3. [E][ ] birthday (from: 2pm to: 3pm)
+> The following task has been removed:
+	[T][X] walk dog
+There are now 2 shodan.tasks remaining in the list.
+> Here is your list of shodan.tasks:
+1. [D][ ] return books (by: 18 Mar)
+2. [E][ ] birthday (from: 2pm to: 3pm)
+> You need to specify a name for your task.
+> Adding a deadline requires a end date specified with /by. For example:
+	deadline return books /by 2pm
+> You need to specify a name for your task.
+> Adding a deadline requires a end date specified with /by. For example:
+	deadline return books /by 2pm
+> The /by field cannot be empty. Please specify a end date/time.
+> Adding an event requires both a start and end date/time using /from and /to. For example:
+	event attend birthday party /from 5pm /to 6pm
+> Adding an event requires both a start and end date/time using /from and /to. For example:
+	event attend birthday party /from 5pm /to 6pm
+> Adding an event requires both a start and end date/time using /from and /to. For example:
+	event attend birthday party /from 5pm /to 6pm
+> Adding an event requires both a start and end date/time using /from and /to. For example:
+	event attend birthday party /from 5pm /to 6pm
+> You need to specify a name for your task.
+> The /to field cannot be empty. Please specify a end date/time.
+> Goodbye.

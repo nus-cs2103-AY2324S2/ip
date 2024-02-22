@@ -1,0 +1,24 @@
+list
+todo walk dog
+deadline return books /by 
+list
+mark 2
+list
+unmark 2
+mark 1
+event birthday /from 2pm /to 3pm
+list
+delete 1
+list
+todo
+deadline
+deadline /by 2pm
+deadline return
+deadline return books /by
+event
+event attend birthday
+event /from 2pm
+event attend birthday /to 2pm
+event /from 2pm /to 3pm
+event attend birthday /from 2pm /to
+bye
