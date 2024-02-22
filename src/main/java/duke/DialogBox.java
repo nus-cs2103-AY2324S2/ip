@@ -42,6 +42,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+
+        // Inspired by Microsoft Copilot AI although the given response is not directly used
         dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,
                 new CornerRadii(10.0), Insets.EMPTY)));
         dialog.setPadding(new Insets(10));
