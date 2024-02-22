@@ -17,7 +17,7 @@ These are some functions provided:
 
 Some basic commands are:
 ```
-task reading
+todo reading
 deadline return book /by 2/12/2019 1800
 event festival /from 2/12/2019 1800 /to 2/12/2019 2000
 ```
