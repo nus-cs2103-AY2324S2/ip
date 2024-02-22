@@ -36,7 +36,44 @@ public class Interpreter {
      * @throws TaskException When task have invalid parameters.
      */
     public String interpret(String[] tokens) throws ActionException, TaskException {
-        // interpret the string date and time as LocalDateTime object
+        LocalDateTime[] dates = interpretLocalDateTime(tokens);
+
+        Action actionType = Action.valueOf(tokens[0].toUpperCase());
+        switch (actionType) {
+        case LIST: {
+            return interpretList();
+        }
+        case MARK: {
+            return interpretMark(tokens);
+        }
+        case UNMARK: {
+            return interpretUnmark(tokens);
+        }
+        case DELETE: {
+            return interpretDelete(tokens);
+        }
+        case FIND: {
+            return interpretFind(tokens);
+        }
+        case TODO: {
+            return interpretTodo(tokens);
+        }
+        case DEADLINE: {
+            return interpretDeadline(tokens, dates);
+        }
+        case EVENT: {
+            return interpretEvent(tokens, dates);
+        }
+        case BYE: {
+            return interpretBye();
+        }
+        default: {
+            throw new ActionException();
+        }
+        }
+    }
+
+    private LocalDateTime[] interpretLocalDateTime(String[] tokens) throws TaskException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime[] dates = new LocalDateTime[tokens.length];
         Arrays.fill(dates, LocalDateTime.MIN);
@@ -50,70 +87,72 @@ public class Interpreter {
         } catch (DateTimeParseException e) {
             throw new TaskException();
         }
+        return dates;
+    }
 
-        // interpreting different action types
-        Action actionType = Action.valueOf(tokens[0].toUpperCase());
-        switch (actionType) {
-        case LIST: { // list stored tasks
-            return taskList.toString();
+    private String interpretList() {
+        return taskList.toString();
+    }
+
+    private String interpretMark(String[] tokens) {
+        int taskNum = Integer.parseInt(tokens[2]);
+        taskList.mark(taskNum);
+        return "Nice! I've marked this task as done:\n\t"
+                + taskList.getTask(taskNum);
+    }
+
+    private String interpretUnmark(String[] tokens) {
+        int taskNum = Integer.parseInt(tokens[2]);
+        taskList.unmark(taskNum);
+        return "OK, I've marked this task as not done yet:\n\t"
+                + taskList.getTask(taskNum);
+    }
+
+    private String interpretDelete(String[] tokens) {
+        int taskNum = Integer.parseInt(tokens[2]);
+        Task removedTask = taskList.deleteTask(taskNum);
+        return "Noted. I've removed this task:\n"
+                + removedTask + "\n"
+                + "Now you have " + taskList.size() + " task(s) in the list.";
+    }
+
+    private String interpretFind(String[] tokens) {
+        ArrayList<Task> tasks = taskList.findTasks(tokens[2]);
+        TaskList foundTasks = new TaskList(tasks);
+        return "Here are the matching tasks in your list:\n"
+                + foundTasks.toString();
+    }
+
+    private String interpretTodo(String[] tokens) {
+        Task addedTask = taskList.addTodo(tokens);
+        return "Got it. I've added this task:\n\t"
+                + addedTask + "\n"
+                + "Now you have " + taskList.size() + " task(s) in the list.";
+    }
+
+    private String interpretDeadline(String[] tokens, LocalDateTime[] dates) throws TaskException {
+        if (!isValidDateTime(dates)) {
+            throw new TaskException();
         }
-        case MARK: { // mark task as done
-            int taskNum = Integer.parseInt(tokens[2]);
-            taskList.mark(taskNum);
-            return "Nice! I've marked this task as done:\n\t"
-                    + taskList.getTask(taskNum);
+        Task addedTask = taskList.addDeadline(tokens, dates);
+        return "Got it. I've added this task:\n\t"
+                + addedTask + "\n"
+                + "Now you have " + taskList.size() + " task(s) in the list.";
+    }
+
+    private String interpretEvent(String[] tokens, LocalDateTime[] dates) throws TaskException {
+        if (!isValidDateTime(dates)) {
+            throw new TaskException();
         }
-        case UNMARK: { // mark task as undone
-            int taskNum = Integer.parseInt(tokens[2]);
-            taskList.unmark(taskNum);
-            return "OK, I've marked this task as not done yet:\n\t"
-                    + taskList.getTask(taskNum);
-        }
-        case DELETE: { // delete task
-            int taskNum = Integer.parseInt(tokens[2]);
-            Task removedTask = taskList.deleteTask(taskNum);
-            return "Noted. I've removed this task:\n"
-                    + removedTask + "\n"
-                    + "Now you have " + taskList.size() + " task(s) in the list.";
-        }
-        case FIND: { // find tasks with the given keyword
-            ArrayList<Task> tasks = taskList.findTasks(tokens[2]);
-            TaskList foundTasks = new TaskList(tasks);
-            return "Here are the matching tasks in your list:\n"
-                    + foundTasks.toString();
-        }
-        case TODO: { // creates todo task
-            Task addedTask = taskList.addTodo(tokens);
-            return "Got it. I've added this task:\n\t"
-                    + addedTask + "\n"
-                    + "Now you have " + taskList.size() + " task(s) in the list.";
-        }
-        case DEADLINE: { // creates deadline task
-            if (!isValidDateTime(dates)) {
-                throw new TaskException();
-            }
-            Task addedTask = taskList.addDeadline(tokens, dates);
-            return "Got it. I've added this task:\n\t"
-                    + addedTask + "\n"
-                    + "Now you have " + taskList.size() + " task(s) in the list.";
-        }
-        case EVENT: { // creates event task
-            if (!isValidDateTime(dates)) {
-                throw new TaskException();
-            }
-            Task addedTask = taskList.addEvent(tokens, dates);
-            return "Got it. I've added this task:\n\t"
-                    + addedTask + "\n"
-                    + "Now you have "
-                    + taskList.size() + " task(s) in the list.";
-        }
-        case BYE: {
-            return "exit";
-        }
-        default: {
-            throw new ActionException();
-        }
-        }
+        Task addedTask = taskList.addEvent(tokens, dates);
+        return "Got it. I've added this task:\n\t"
+                + addedTask + "\n"
+                + "Now you have "
+                + taskList.size() + " task(s) in the list.";
+    }
+
+    private String interpretBye() {
+        return "exit";
     }
 
     private boolean isValidDateTime(LocalDateTime[] dates) {

@@ -56,6 +56,9 @@ public class MainWindow extends AnchorPane {
         String response = simpli.processInput(input);
 
         if (response.equals("exit")) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getSimpliDialog(simpli.bye(), simpliImage)
+            );
             Platform.exit();
         }
 
