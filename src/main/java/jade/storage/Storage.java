@@ -133,7 +133,7 @@ public class Storage {
      */
     public void saveChange(TaskList<Task> taskList) throws JadeException {
         try {
-            Path dataFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), "data", "jadeList.txt");
+            Path dataFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), filePath.split("/"));
             File jadeList = new File(dataFilePath.toString());
             FileWriter jadeListWriter = new FileWriter(jadeList);
             jadeListWriter.write(taskList.listFormatter());

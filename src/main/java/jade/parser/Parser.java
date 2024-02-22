@@ -182,7 +182,6 @@ public class Parser {
             case "help":
                 return parseHelp(commands);
             default:
-                assert false : commands[0];
                 return parseInvalid();
             }
         } catch (JadeException e) {
