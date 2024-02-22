@@ -1,5 +1,7 @@
 package anxi.command;
 
+import java.util.ArrayList;
+
 /**
  * Handles interaction with user.
  */
@@ -138,11 +140,8 @@ public class Ui {
      * @param command   Input command string.
      * @return unknownCommandString     Indicates that command entered is not a known command.
      */
-    public String printUnknownCommandError(String command) {
-        StringBuilder stringBuilder = new StringBuilder("What's \"");
-        stringBuilder.append(command);
-        stringBuilder.append("\"? Invalid request.");
-        return stringBuilder.toString();
+    public String printUnknownCommandError() {
+        return "What's that? Invalid request.";
     }
 
     /**

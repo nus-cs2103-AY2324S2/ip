@@ -71,6 +71,16 @@ public class Anxi extends Application {
     private void handleUserInput() throws AnxiException, IOException {
         String input = userInput.getText();
         String response = getResponse(userInput.getText());
+
+        if (input.length() > 70) {
+            String updatedInput = "";
+            for (int i = 0; i < input.length(); i += 70) {
+                updatedInput = new StringBuffer(input).insert(i, "\n").toString();
+            }
+
+            input = updatedInput;
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),
                 DialogBox.getDukeDialog(response, duke)
