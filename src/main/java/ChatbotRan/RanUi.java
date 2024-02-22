@@ -137,7 +137,7 @@ public class RanUi {
         if (tasks.isEmpty()) {
             System.out.println("No tasks contain that string.");
         } else {
-            System.out.println("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
+            System.out.println("Found " + tasks.size() + " match" + (tasks.size() == 1 ? "" : "es"));
             for (Task t: tasks) {
                 printTask(t);
             };
