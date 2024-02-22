@@ -6,27 +6,40 @@ runme:
 
 # JAV User Guide
 
-// Product screenshot goes here
+![Product screenshot](https://github.com/javierng2knus/ip/blob/master/docs/Ui.png)
 
-// Product intro goes here
+## Jav the Joy Amplifying Virtuoso 🎷
+```
+      ____.  _________   ____
+     |    | /  _  \   \ /   /
+     |    |/  /_\  \   Y   /
+ /\__|    /    |    \     /
+ \________\____|__  /\___/
+                  \/
+```
+
+Ever wanted to keep track of deadlines, events and other types of information?
+
+How about making the process one that sparks joy?
+
+Well, the Joy Amplifying Virtuoso is a jovial chat bot that helps you keep track of your tasks.
 
 ## Features
+<details><summary>List of features</summary>
+<p>
 
-### Feature-Greetings & Farewells
-
-Chat bot is able to say greetings and farewells upon starting or ending a conversation.
-
-### Feature-Storage
-
-Chat bot is able to store and list out tasks from the user via the "store" and "list" commands.
-
-### Feature-Mark & Unmark as done
-
-Chat bot is able to modify stored tasks as done or undone.
-
-### Feature-Local file storage
-
-Chat bot is able to save data into a local file and read the data upon startup.
+1. Create different tasks
+   - To-dos (Do X)
+   - Deadlines (Complete X by Y)
+   - Events (Attend X from Y to Z)
+2. Store data into a local file
+3. Deleting tasks from storage
+4. Output all stored data
+5. Mark & Unmark tasks
+6. Find specific tasks
+7. Undo previous command
+</p>
+</details> 
 
 ## Usage
 
@@ -64,9 +77,6 @@ Bot replies with a confirmation message and stores the string.
 | User Input:
 > e read book \from 1 jan \to 1 dec
 | Sure I'll store it right away!
-
-
-
 ```
 
 ### `list` or `l` - Lists out all stored tasks
@@ -86,9 +96,6 @@ Bot replies with a confirmation message and prints all the stored strings in the
 > l
 | Here's everything that I'd stored!
 | 1.[ ] userinputedstring
-
-
-
 ```
 
 ### `mark *` or `m *` - Marks a task as done, where * is index of the task (starting from 1)
@@ -101,7 +108,9 @@ Example of usage:
 
 Expected outcome:
 
-If the task exists, the bot replies with a confirmation message and marks the specified task as done. Otherwise, the bot replies with a error messsage.
+If the task exists, the bot replies with a confirmation message and marks the specified task as done.
+
+Otherwise, the bot replies with a error messsage.
 
 ```sh {"id":"01HMZRCM91X6GB5EH09NJFQP7Y"}
 // If valid
@@ -115,9 +124,6 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 > m 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
-
-
-
 ```
 
 ### `unmark *` or `u *` - Marks a task as not done, where * is index of the task (starting from 1)
@@ -130,7 +136,9 @@ Example of usage:
 
 Expected outcome:
 
-If the task exists, the bot replies with a confirmation message and marks the specified task as not done. Otherwise, the bot replies with a error messsage.
+If the task exists, the bot replies with a confirmation message and marks the specified task as not done.
+
+Otherwise, the bot replies with a error messsage.
 
 ```sh {"id":"01HMZQS7Z1TQDRK0F62XPS3GPN"}
 // If valid
@@ -144,9 +152,6 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 > u 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
-
-
-
 ```
 
 ### `remove *` or `r *` - Deletes a task, where * is index of the task (starting from 1)
@@ -173,9 +178,6 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 > r 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
-
-
-
 ```
 
 ### `find *` or `f *` - Finds tasks matching a given keyword, where * is the keyword to search for
@@ -188,7 +190,9 @@ Example of usage:
 
 Expected outcome:
 
-If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage. Otherwise, the bot replies with a error messsage.
+If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage.
+
+Otherwise, the bot replies with a error messsage.
 
 ```sh {"id":"01HP40KJH2Y1D6W3292VZZ82QP"}
 // If valid
@@ -210,7 +214,32 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 > f zzz
 | It appears that this road is a deadend and no tasks were found with the keyword!
 | Shall we recalibrate our keyword quest to find a different task?
+```
 
+### `undo` or `un` - Undo the most recent command if possible.
 
+Checks the most recent command and tries to undo if possible.
+If the most recent command does not have a undo functionality such as the `list` command, The program will search for the next most recent command.
 
+Example of usage:
+
+`undo` or `un`
+
+Expected outcome:
+
+If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage.
+
+Otherwise, the bot replies with a error messsage.
+
+```sh {"id":"01HP40KJH2Y1D6W3292VZZ82QP"}
+// If valid
+| User Input:
+> un
+| Yep, between you and me, that never happened.
+
+// If invalid
+| User Input:
+> un 
+| It appears the parameters might be doing a little dance of confusion!
+| Could you please check the parameters and give them another whirl?
 ```
