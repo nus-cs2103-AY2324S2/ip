@@ -1,4 +1,4 @@
-# DukeJinni
+# Jinni
 > Jinni is a Duke in 1800 AC
 > 
 Your **latest** assistant to help you sort things out! Jinni is:
