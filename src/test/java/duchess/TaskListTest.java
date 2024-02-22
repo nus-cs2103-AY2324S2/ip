@@ -2,7 +2,11 @@ package duchess;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duchess.task.Task;
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 
 /**
@@ -78,6 +82,33 @@ public class TaskListTest {
             assertEquals("X", taskList.getTasks().get(0).getStatusIcon());
             taskList.unmarkTaskAsDone(0);
             assertEquals(" ", taskList.getTasks().get(0).getStatusIcon());
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the findTasksByKeyword method of the TaskList class.
+     * It checks if a task is correctly found by keyword from the task list.
+     */
+    @Test
+    public void findTasksByKeywordTest() {
+        TaskList taskList = new TaskList();
+        try {
+            taskList.addToDo("buy groceries");
+            taskList.addToDo("sell books");
+            taskList.addToDo("buy flowers");
+
+            ArrayList<Pair<Integer, Task>> listOfTasksFound = taskList.findTasksByKeyword("buy");
+
+            assertEquals(2, listOfTasksFound.size());
+            assertEquals(0, listOfTasksFound.get(0).getKey());
+            assertEquals(2, listOfTasksFound.get(1).getKey());
+
+            Task taskFoundOne =  listOfTasksFound.get(0).getValue();
+            Task taskFoundTwo =  listOfTasksFound.get(1).getValue();
+            assertEquals("[T][ ] buy groceries", taskFoundOne.toString());
+            assertEquals("[T][ ] buy flowers", taskFoundTwo.toString());
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         }
