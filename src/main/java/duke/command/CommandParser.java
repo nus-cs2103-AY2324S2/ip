@@ -1,148 +1,179 @@
 package duke.command;
 
+import duke.command.handler.*;
 import duke.conversation.Conversation;
-import duke.task.Task;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
-import duke.task.TaskType;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * The Parser class is responsible for parsing user commands and interacting with the TaskManager.
- * It interprets the input commands and executes corresponding actions.
+ * The CommandParser class is responsible for parsing user commands and interacting with the TaskManager.
+ * It interprets the input commands and delegates the execution to appropriate command handlers.
  */
 public class CommandParser {
-    TaskManager taskManager;
-    Conversation conversation;
-    private final String username;
-
-    TaskDisplay taskDisplay = new TaskDisplay();
-
-    private static final String DELETE_ALL_COMMAND = "delete all";
+    private final TaskManager taskManager;
+    private final Conversation conversation;
+    private final TaskDisplay taskDisplay;
+    private final Map<String, CommandHandler> commandMap;
+    private final Set<String> defaultCommands;
 
     /**
-     * Constructs a Parser with the specified username. Initializes the TaskManager and Conversation.
+     * Constructs a CommandParser.
      *
-     * @param username The username for which the Parser is created.
+     * @param username the username
      */
     public CommandParser(String username) {
-        taskManager = new TaskManager(username);
-        conversation = new Conversation();
+        this.taskManager = new TaskManager(username);
+        this.conversation = new Conversation(username);
+        this.taskDisplay = new TaskDisplay();
+        this.commandMap = new HashMap<>();
+        this.defaultCommands = Set.of("f", "find", "lst", "list", "m", "mark", "um", "unmark", "t",
+                "todo", "e", "event", "dl", "deadline", "del", "delete");
+
+        defineDefaultCommands();
         conversation.resetConversation();
-        this.username = username;
     }
 
     /**
-     * Parses the user input and executes the corresponding action.
+     * Parses the input command.
      *
-     * @param input The user input to be parsed and executed.
+     * @param input the input command
+     * @return the response to the input command
      */
     public String parseInput(String input) {
+        input = input.trim().toLowerCase();
 
-        String[] userMessage = input.split(" ");
-
-        if (input.equalsIgnoreCase(DELETE_ALL_COMMAND)) {
-            taskManager.deleteAllTasks();
-            return "okay, noted. I've removed all tasks from the list.\n";
-        }
-
-        switch (userMessage[0].toLowerCase()) {
-            case "find":
-                return handleFindCommand(userMessage, taskManager);
-            case "list":
-                return taskManager.displayTask(input);
-            case "mark":
-                return handleMarkCommand(userMessage, taskManager, input);
-            case "unmark":
-                return handleUnmarkCommand(userMessage, taskManager, input);
-            case "todo":
-                taskManager.addTask(input, TaskType.Todo);
-                return taskManager.displayTask(input);
-            case "deadline":
-                taskManager.addTask(input, TaskType.Deadline);
-                return taskManager.displayTask(input);
-            case "event":
-                taskManager.addTask(input, TaskType.Event);
-                return taskManager.displayTask(input);
-            case "delete":
-                return handleDeleteCommand(userMessage, taskManager, input);
-            default:
-                return conversation.generateResponse(input);
-        }
-    }
-
-    private String handleMarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
-        }
-        taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
-       return taskManager.displayTask(input);
-    }
-
-    private String handleUnmarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
-        }
-        taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
-        return taskManager.displayTask(input);
-    }
-
-    private String handleDeleteCommand(String[] userMessage, TaskManager taskManager, String input) {
-        String deletedTask = "";
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
+        if ("help".equals(input) || "commands".equals(input)) {
+            return listAllCommands();
+        } else if (input.startsWith("define ")) {
+            return handleDefineCommand(input.substring(7));
+        } else if ("delete all".equals(input)) {
+            return handleDeleteAllCommand();
         } else {
-            deletedTask = taskManager.displayTask(input);
-            taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
+            return processUserCommand(input);
         }
-        return deletedTask;
     }
 
-    private String handleFindCommand(String[] userMessage, TaskManager taskManager) {
-        if (userMessage.length == 1) {
-            return "Can you specify a keyword after the find command" +
-                    "so that I can help you better?";
+    private String processUserCommand(String input) {
+        String[] userMessage = input.split(" ");
+        CommandHandler handler = commandMap.get(userMessage[0]);
+        if (handler != null) {
+            return handler.handle(userMessage);
+        } else {
+            return conversation.generateResponse(input);
         }
-
-        String keyword = userMessage[1];
-        List<Task> matchingTasks = taskManager.findTask(keyword);
-
-        String findTask = "";
-        if (!matchingTasks.isEmpty()) {
-           findTask = taskDisplay.printFindTaskList(matchingTasks);
-        }
-        return findTask;
     }
 
-    public void saveAllTasks() {
-        taskManager.autoSaveTask();
+    private void defineDefaultCommands() {
+        commandMap.put("f", new FindCommandHandler(taskManager, taskDisplay));
+        commandMap.put("find", new FindCommandHandler(taskManager, taskDisplay));
+        commandMap.put("lst", new ListCommandHandler(taskManager, taskDisplay));
+        commandMap.put("list", new ListCommandHandler(taskManager, taskDisplay));
+        commandMap.put("m", new MarkCommandHandler(taskManager, taskDisplay));
+        commandMap.put("mark", new MarkCommandHandler(taskManager, taskDisplay));
+        commandMap.put("um", new UnmarkCommandHandler(taskManager, taskDisplay));
+        commandMap.put("unmark", new UnmarkCommandHandler(taskManager, taskDisplay));
+        commandMap.put("t", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("todo", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("e", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("event", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("dl", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("deadline", new AddCommandHandler(taskManager, taskDisplay));
+        commandMap.put("del", new DeleteCommandHandler(taskManager, taskDisplay));
+        commandMap.put("delete", new DeleteCommandHandler(taskManager, taskDisplay));
     }
 
-    /**
-     * Checks if a given string is numeric.
-     *
-     * @param str The string to check.
-     * @return True if the string is numeric, false otherwise.
-     */
-    private boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
+    private boolean mapNewCommand(String shortcut, String commandName) {
+        if (isDefaultCommand(shortcut) || commandMap.containsKey(shortcut)) {
             return false;
         }
+
+        CommandHandler handler = createHandlerForCommand(commandName);
+        if (handler != null) {
+            define(shortcut, handler);
+            return true;
+        }
+        return false;
+    }
+
+    private CommandHandler createHandlerForCommand(String commandName) {
+        switch (commandName.toLowerCase()) {
+            case "todo":
+            case "event":
+            case "deadline":
+                return new AddCommandHandler(taskManager, taskDisplay);
+            case "find":
+                return new FindCommandHandler(taskManager, taskDisplay);
+            case "list":
+                return new ListCommandHandler(taskManager, taskDisplay);
+            case "mark":
+                return new MarkCommandHandler(taskManager, taskDisplay);
+            case "unmark":
+                return new UnmarkCommandHandler(taskManager, taskDisplay);
+            case "delete":
+                return new DeleteCommandHandler(taskManager, taskDisplay);
+            default:
+                return null;
+        }
+    }
+
+    private boolean isDefaultCommand(String commandName) {
+        return defaultCommands.contains(commandName.toLowerCase());
+    }
+
+    private String handleDefineCommand(String defineInput) {
+        String[] parts = defineInput.split("=");
+        if (parts.length != 2) {
+            return "Oops! 🙈 The format seems off. Try 'define shortcut=command'.";
+        }
+        String shortcut = parts[0].trim();
+        String command = parts[1].trim();
+
+        if (isDefaultCommand(shortcut)) {
+            return "Nice try! 😜 But '" + command + "' is already a default command. Pick something unique!";
+        }
+
+        if (mapNewCommand(shortcut, command)) {
+            return "Woohoo! 🎉 Shortcut '" + shortcut + "' is all set up for '" + command + "'.";
+        } else {
+            return "Uh-oh! 😕 Looks like that shortcut/command combo is already taken or it's a default command.";
+        }
     }
 
     /**
-     * Prints an error message indicating that the TASK NUMBER is missing after the specified command.
+     * Lists all available commands.
      *
-     * @param input The input command causing the error.
+     * @return a string containing all available commands
      */
-    private String printError(String input) {
-        return "Sorry, " + " the task number " +
-                "is missing after " + input.toUpperCase() +
-                ". Can you please specify a valid task number from the list?";
+    public String listAllCommands() {
+        StringBuilder commandsList = new StringBuilder("Here are all the magical spells... I mean commands you can use: 🪄\n");
+        for (Map.Entry<String, CommandHandler> entry : commandMap.entrySet()) {
+            String command = entry.getKey();
+            String description = entry.getValue().getDescription();
+            commandsList.append(command).append(": ").append(description).append("\n");
+        }
+        return commandsList.toString();
     }
-}
 
+    /**
+     * Defines a new command with a shortcut.
+     *
+     * @param shortcut the shortcut for the new command
+     * @param handler the handler for the new command
+     */
+    public void define(String shortcut, CommandHandler handler) {
+        if (commandMap.containsKey(shortcut)) {
+            System.out.println("Switcheroo! 🔄 Replacing the spell... erm, command for shortcut: " + shortcut);
+        }
+        commandMap.put(shortcut, handler);
+    }
+
+    private String handleDeleteAllCommand() {
+        taskManager.deleteAllTasks();
+        return "All clear! 🧹✨ I've removed every single task from the list.\n";
+    }
+
+}

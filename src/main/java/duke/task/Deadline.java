@@ -94,4 +94,9 @@ public class Deadline extends Task {
 
         return taskDescription;
     }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.DEADLINE;
+    }
 }

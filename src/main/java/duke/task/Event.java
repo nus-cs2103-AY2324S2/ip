@@ -94,6 +94,12 @@ public class Event extends Task {
         return taskDescription;
     }
 
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EVENT;
+    }
+
     /**
      * Gets the start time of the event.
      *

@@ -27,7 +27,6 @@ public class Conversation {
     public Conversation() {
 
         try {
-            // Assuming your .env file is in the root directory of your project
             Properties env = EnvLoader.loadEnvVariables(".env");
             this.apiKey = env.getProperty("OPENAI_API_KEY");
             if (this.apiKey == null || this.apiKey.isEmpty()) {

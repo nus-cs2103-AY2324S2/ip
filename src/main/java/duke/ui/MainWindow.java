@@ -1,24 +1,17 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.ui.DialogBox;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.util.Objects;
+import java.util.Random;
 
-/**
- * Controller for MainWindow. Provides the layout for the other controls.
- */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -36,10 +29,8 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        // Bind scrollPane to dialogContainer height
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        // Print default message
         printDefaultMessage();
     }
 
@@ -47,19 +38,23 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
-    // Method to print default message
     private void printDefaultMessage() {
-        String defaultMessage = "Hi there! I'm Sophia :)\n" +
-                "I'm your AI Assistant and I'm here\n" +
-                "to help you with anything.";
+        // Array of welcome messages
+        String[] welcomeMessages = {
+                "Hey there! I'm Sophia 😊\nReady to get things done today?",
+                "Good day! Sophia at your service. 🌟\nHow can I assist you?",
+                "Hello! 🎉 I'm Sophia, your friendly AI sidekick!\nLet's tackle your to-do list together.",
+                "Hi! I'm Sophia, your digital helper. 🤖\nTell me, what's on the agenda today?",
+                "Yo! Sophia here. 😎\nReady to crush some tasks? Let's dive in!"
+        };
+
+        Random rand = new Random();
+        String defaultMessage = welcomeMessages[rand.nextInt(welcomeMessages.length)];
+
         dialogContainer.getChildren().add(DukeDialogBox.getDukeDialog(defaultMessage, dukeImage));
     }
 
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -72,4 +67,3 @@ public class MainWindow extends AnchorPane {
     }
 
 }
-

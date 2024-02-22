@@ -25,6 +25,8 @@ public abstract class Task {
 
     public abstract String getTaskIcon();
 
+    public abstract TaskType getType();
+
     /**
      * Trims the task description by removing leading and trailing whitespaces.
      *

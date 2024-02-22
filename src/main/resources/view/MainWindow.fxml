@@ -9,38 +9,43 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="659.0" maxWidth="484.0" minHeight="659.0" minWidth="484.0" scaleShape="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+<AnchorPane maxHeight="750.0" maxWidth="550.0" minHeight="750.0" minWidth="550.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="14.0" layoutY="604.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="357.0" promptText="Enter a text..." style="-fx-background-radius: 15px; -fx-border-radius: 15px;" AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="userInput" layoutX="10.0" layoutY="601.0" onAction="#handleUserInput" prefHeight="45.0" prefWidth="372.0" promptText="Type your message here..." style="-fx-border-color: #F0F0F0; -fx-border-radius: 25px; -fx-background-color: white;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="102.0">
             <font>
-                <Font name="Avenir Next" size="14.0" />
+                <Font name="Segoe UI Emoji" size="14.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="TEXT" />
-            </cursor></TextField>
-        <Button fx:id="sendButton" defaultButton="true" layoutX="383.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #86A7FC; -fx-background-radius: 25px;" text="Send" textFill="#fffefe">
+            </cursor>
+         <padding>
+            <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+         </padding>
+        </TextField>
+        <Button fx:id="sendButton" defaultButton="true" layoutX="389.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="38.0" prefWidth="74.0" style="-fx-background-color: #0052F5; -fx-background-radius: 25px;" text="Send" textFill="#fffefe" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="21.0">
             <font>
                 <Font name="Avenir Next Demi Bold" size="17.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
-            </cursor></Button>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="593.0" prefWidth="484.0" vvalue="1.0">
+            </cursor>
+        </Button>
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="582.0" prefWidth="464.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: white;" vvalue="1.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <content>
-                <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="595.0" prefWidth="468.0" style="-fx-background-color: white;">
+                <VBox fx:id="dialogContainer" prefHeight="595.0" prefWidth="462.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #ced4da; -fx-background-color: white;">
                     <cursor>
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>
                     <opaqueInsets>
                         <Insets />
-                    </opaqueInsets></VBox>
+                    </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding></VBox>
             </content>
-            <cursor>
-                <Cursor fx:constant="DEFAULT" />
-            </cursor>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
         </ScrollPane>
     </children>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
 </AnchorPane>

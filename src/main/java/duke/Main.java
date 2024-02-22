@@ -1,8 +1,5 @@
 package duke;
 
-/*
-This is the main class
- */
 import java.io.IOException;
 
 import duke.ui.MainWindow;
@@ -13,12 +10,27 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The Main class serves as the entry point for the Duke application.
+ * It initializes and starts the graphical user interface using JavaFX.
  */
 public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * The main method that launches the Duke application.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * Starts the JavaFX application by loading the main FXML file and setting up the scene.
+     *
+     * @param stage the primary stage for the application
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -27,7 +39,6 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Sophia");
             stage.setScene(scene);
-            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
