@@ -1,7 +1,5 @@
 package duke;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -11,25 +9,16 @@ import java.util.Scanner;
  * deleting tasks and listing tasks.
  */
 public class Duke {
-    private static final String CURRENT_DIR = System.getProperty("user.dir");
-    public static final Path FILE_PATH = Paths.get(CURRENT_DIR, "src", "main", "java", "duke", "data", "data.txt");
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    /**
-     * Constructor for Duke Application
-     */
-    public Duke() {
-        // ...
-    }
 
     /**
      * Constructor for Duke class
-     * @param filePath File path of storage text file
      */
-    public Duke(Path filePath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage();
         this.tasks = new TaskList(storage.loadTasksFromFile());
         ui.showLoadingError();
     }
@@ -48,7 +37,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        new Duke(FILE_PATH).run();
+        new Duke().run();
     }
     /**
      * Returns a String response based on user input to the GUI.
