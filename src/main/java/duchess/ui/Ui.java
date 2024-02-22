@@ -15,6 +15,13 @@ import javafx.util.Pair;
 public class Ui {
     private static Scanner scanner = new Scanner(System.in);
 
+    private static final String OPENING_GREETING = "___  _     _ ____  _     _  ____ ____ ____ \n"
+            + " |     \\   |     |   |            |__|    |___  [__     [__  \n"
+            + " |__/   |__|   |___    |     |    |___  ___]  ___] \n"
+            + "                                   "
+            + "\n" + "Hello! I'm Duchess.\n" + "What can I do for you today?\n";
+    private static final String CLOSING_GREETING = "Farewell. Hope to see you again soon, my dear!";
+
     public String nextLine() {
         return scanner.nextLine();
     }
@@ -30,11 +37,7 @@ public class Ui {
      * Represents the opening greeting message displayed when the Duchess program starts.
      */
     public String openingGreeting() {
-        String logo = "___  _     _ ____  _     _  ____ ____ ____ \n"
-                + " |     \\   |     |   |            |__|    |___  [__     [__  \n"
-                + " |__/   |__|   |___    |     |    |___  ___]  ___] \n"
-                + "                                   ";
-        return String.format(logo + "\n" + "Hello! I'm Duchess.\n" + "What can I do for you today?\n");
+        return OPENING_GREETING;
     }
 
 
@@ -67,7 +70,7 @@ public class Ui {
      * @return The closing farewell message.
      */
     public String showClosingGreeting() {
-        return "Farewell. Hope to see you again soon, my dear!";
+        return CLOSING_GREETING;
     }
 
     /**
