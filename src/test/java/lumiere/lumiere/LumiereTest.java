@@ -46,4 +46,23 @@ public class LumiereTest {
         assertEquals("[D][X] Visit National Museum (by: Jan 12 2024)",
                 test.stringify());
     }
+
+    public void dummyJavaTest() {
+        try {
+            new TaskList().addTask("deadline testing /by NEVER!", new Storage("./lumiere.txt"));
+        } catch (IOException err) {
+            System.out.println("SOMETHING IS WRONG");
+        }
+
+        assert "Sorry! Your deadline is in the wrong format. Correct format is YYYY-MM-DD" == outContent.toString()
+                .trim();
+    }
+
+    public void anotherDummyJavaTest() {
+        String time = "2024-01-12"; // represents 12 Jan 2024, NOT 1 Dec 2024!!
+
+        Deadline test = new Deadline("Visit National Museum", true, LocalDate.parse(time), time);
+
+        assert "[D][X] Visit National Museum (by: Jan 12 2024)" == test.stringify();
+    }
 }
