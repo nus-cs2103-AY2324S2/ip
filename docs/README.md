@@ -7,7 +7,7 @@ Hey you! Yes you! Do you need to manage tasks? Well I can do it for you!
 ## Get Started
 
 1. Ensure you have java 11 installed in your computer
-2. Download the latest Zoe.jar from here
+2. Download the latest Zoe.jar from [here](https://github.com/Arixeyeion/ip/releases/tag/A-Release)
 3. Copy the jar file to a directory of your choosing
 4. Open the command terminal, change to the directory you chose in step 3 and key in `java -jar Zoe.jar`
 5. aaaaaaaaaaaaand Viola! you can start managing your tasks
