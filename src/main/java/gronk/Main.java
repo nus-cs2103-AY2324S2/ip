@@ -9,19 +9,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
- * TempMain class.
- * Playing with javafx.
+ * Main class.
+ * Updated to use JavaFX instead of CLI.
  */
 public class Main extends Application {
 
+    private static final TimerTask QUIT_SYSTEM = new TimerTask() {
+        public void run() {
+            System.exit(0);
+        }
+    };
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -32,11 +37,6 @@ public class Main extends Application {
     private Storage storage;
     private UserInterface userInterface;
     private Parser parser;
-    private static final TimerTask QUIT_SYSTEM = new TimerTask() {
-        public void run () {
-            System.exit(0);
-        }
-    };
 
     public Main() {
 
