@@ -1,6 +1,9 @@
 package jav.command;
 
+import java.io.IOException;
+
 import jav.exception.InvalidParamException;
+import jav.manager.FileManager;
 import jav.manager.StorageManager;
 import jav.manager.UiManager;
 
@@ -24,7 +27,7 @@ public class UpdateTaskMarkCommand extends TaskCommand {
     }
 
     @Override
-    public String execute() throws InvalidParamException {
+    public String execute() throws InvalidParamException, IOException {
         // Check if given an integer
         int index = 0;
         try {
@@ -43,6 +46,9 @@ public class UpdateTaskMarkCommand extends TaskCommand {
             throw new InvalidParamException("Cannot update, given num is out of scope/no need update", null);
         }
 
+        // Save changes to file
+        FileManager.getInstance().saveStorageData(StorageManager.getInstance().getFileFormat());
+
         // Update the task mark based on the parameters
         if (shouldMark) {
             return UiManager.getInstance().printMarkingTask();
@@ -53,7 +59,11 @@ public class UpdateTaskMarkCommand extends TaskCommand {
 
     @Override
     public String undo() throws Exception {
+        // Update mark
         StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, !shouldMark);
+        
+        // Save changes to file
+        FileManager.getInstance().saveStorageData(StorageManager.getInstance().getFileFormat());
 
         return UiManager.getInstance().printUndo();
     }

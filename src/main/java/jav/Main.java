@@ -28,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Joy Amplifying Virtuoso");
             fxmlLoader.<MainWindow>getController().setJav(jav);
             stage.show();
         } catch (IOException e) {
