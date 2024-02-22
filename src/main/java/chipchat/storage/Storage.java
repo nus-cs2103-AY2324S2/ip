@@ -19,7 +19,7 @@ import chipchat.task.TaskList;
  * Represents the storage for Chipchat, used to read/write task data to storage files.
  */
 public class Storage {
-    private static final String STORAGE_PATH = "/src/main/data/storage.txt";
+    private static final String FILE_PATH = "storage.txt";
     private final Path filePath;
 
     /**
@@ -28,7 +28,7 @@ public class Storage {
      * path to top-level working directory + "/src/main/data/storage.txt"
      */
     public Storage() {
-        this.filePath = createFilePath(System.getProperty("user.dir"), STORAGE_PATH);
+        this.filePath = Paths.get(".", FILE_PATH);
     }
 
     /**
