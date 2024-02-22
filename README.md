@@ -1,6 +1,6 @@
 # GrumbleBug
 
-![GrumbleBug interaction](Ui.png "GrumbleBug Interaction")
+![GrumbleBug interaction](docs/Ui.png "GrumbleBug Interaction")
 
 GrumbleBug is an unfriendly chatbot whose purpose is to (begrudgingly) help you keep track of tasks. You can add and delete various tasks, mark them as you complete them, and get a nice view of all your tasks at will. Just beware not to enter any poorly formatted commands, or GrumbleBug might get impatient and give you a scolding!
 
