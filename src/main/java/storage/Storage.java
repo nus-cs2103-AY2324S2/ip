@@ -46,9 +46,7 @@ public class Storage {
         File parentDir = file.getParentFile();
         if (!parentDir.exists()) {
             parentDir.mkdirs();
-            System.out.println("make");
         }
-        System.out.println("write");
         try (FileWriter writer = new FileWriter(file, false)) {
             writer.write(convertArrayToStr(data) + "\n");
         } catch (IOException e) {
@@ -149,7 +147,6 @@ public class Storage {
                 stringBuilder.append("\n");
             }
         }
-        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 }
