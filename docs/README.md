@@ -4,6 +4,8 @@ Welcome to Chipchat user guide! ChipChat is a **chatbot to assist users in manag
 
 ## Installing and Running Chipchat
 Prerequisite: Java and JDK11 is downloaded on your computer.
+1) Go to Releases > iP v0.2 > chipchat.jar
+2) Run with `java -jar chipchat.jar` in the Terminal
 
 ## Add Tasks
 Allows users to add tasks of three types.
