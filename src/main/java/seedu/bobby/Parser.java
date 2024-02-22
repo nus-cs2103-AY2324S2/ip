@@ -160,6 +160,11 @@ public class Parser {
     public static String[] parseUpdate(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split("/", 2);
+        if (items.length == 1) {
+            throw new BobbyException("Oops, please state the attribute you want to update " +
+                    "and the information to update.\n" + "Run your command like this:\n" +
+                    "update <taskNum> /<attribute> <newInfo>");
+        }
         String[] parts = items[1].split(" ", 2);
         return parts;
     }

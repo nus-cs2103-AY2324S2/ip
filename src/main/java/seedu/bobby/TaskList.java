@@ -67,6 +67,10 @@ public class TaskList {
     }
 
     public String update(int num, String attribute, String toUpdate) throws BobbyException, IOException {
+        assert num >= 0 : "task number should be a valid array index (>=0)";
+        if (num - 1 >= tasks.size()) {
+            throw new BobbyException("Oops, there isn't that task number in your list. Run list to check again.");
+        }
         Task taskToUpdate = tasks.get(num - 1);
         taskToUpdate.update(attribute, toUpdate);
         String result = "Got it. I've updated the task to this:\n" + taskToUpdate.printFullDesc();
