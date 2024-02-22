@@ -34,24 +34,23 @@ Nice! I've marked this task as done!
 
 ## Here are examples of how you can use other Toothless's commands:
 
-Finding tasks
+Finding tasks:
 find book
 
-Adding a Todo
+Adding a Todo:
 todo read book
 
-Adding an Event
+Adding an Event:
 event project meeting /from 12/2/2024 /to 12/2/2024
 
-Listing all Tasks
+Listing all Tasks:
 list
 
-Unmarking a Task
+Unmarking a Task:
 unmark 1
 
-Deleting a Task
+Deleting a Task:
 delete 1
 
-
-Exiting the App
+Exiting the App:
 bye
