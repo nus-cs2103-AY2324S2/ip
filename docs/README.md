@@ -1,8 +1,7 @@
 # Bob User Guide
 
-// Update the title above to match the actual product name
-
 ![Bob](Ui.png)
+
 Bob is a chatbot that helps you manage your daily tasks; be it todos, events, or deadlines, Bob can help you keep track of them all.
 
 ## Adding Todos
