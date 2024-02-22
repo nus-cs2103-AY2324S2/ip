@@ -70,55 +70,93 @@ public class Storage {
     }
 
     /**
-     * Parses a line from the file to a task.
+     * Parses a line from the file to a Task object.
      *
      * @param line The line to be parsed.
-     * @return The task parsed from the line.
-     * @throws AlpaException If the line is in an invalid format.
+     * @return The Task object parsed from the line.
+     * @throws AlpaException If an error occurs while parsing the line.
      */
     private Task parseLineToTask(String line) throws AlpaException {
-        try {
-            String[] parts = line.split(" \\| ");
-
-            if (parts.length < 3) {
-                throw new AlpaException("\nInvalid line format in tasks file.");
-            }
-
-            TaskType taskType = TaskType.fromShortName(parts[0]);
-            boolean isDone = "1".equals(parts[1]);
-            Task task = null;
-
-            switch (taskType) {
-            case TODO:
-                task = new ToDo(parts[2]);
-                break;
-            case DEADLINE:
-                LocalDateTime deadlineDateTime = LocalDateTime.parse(parts[3],
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                task = new Deadline(parts[2], deadlineDateTime);
-                break;
-            case EVENT:
-                String[] dateTimeParts = parts[3].split(" - ");
-                if (dateTimeParts.length != 2) {
-                    throw new AlpaException("\nInvalid event time format, expected 'start - end'.");
-                }
-                LocalDateTime startDateTime = LocalDateTime.parse(dateTimeParts[0],
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                LocalDateTime endDateTime = LocalDateTime.parse(dateTimeParts[1],
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                task = new Event(parts[2], startDateTime, endDateTime);
-                break;
-            default:
-                break;
-            }
-
-            if (task != null && isDone) {
-                task.markAsDone();
-            }
-            return task;
-        } catch (Exception e) {
-            throw new AlpaException("Error parsing line to task: " + e.getMessage());
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new AlpaException("Invalid line format: " + line);
         }
+
+        TaskType taskType = TaskType.fromShortName(parts[0]);
+        boolean isDone = "1".equals(parts[1]);
+        String description = parts[2];
+        Task task;
+
+        switch (taskType) {
+        case TODO:
+            task = parseToDoTask(description, isDone);
+            break;
+        case DEADLINE:
+            task = parseDeadlineTask(parts, isDone);
+            break;
+        case EVENT:
+            task = parseEventTask(parts, isDone);
+            break;
+        default:
+            throw new AlpaException("Unrecognized task type: " + taskType);
+        }
+        return task;
+    }
+
+    /**
+     * Parses a line from the file to a ToDo object.
+     *
+     * @param description The description of the task.
+     * @param isDone     Whether the task is done.
+     * @return The ToDo object parsed from the line.
+     */
+    private ToDo parseToDoTask(String description, boolean isDone) {
+        ToDo task = new ToDo(description);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Parses a line from the file to a Deadline object.
+     *
+     * @param parts The parts of the line to be parsed.
+     * @param isDone Whether the task is done.
+     * @return The Deadline object parsed from the line.
+     * @throws AlpaException If an error occurs while parsing the line.
+     */
+    private Deadline parseDeadlineTask(String[] parts, boolean isDone) throws AlpaException {
+        if (parts.length < 4) {
+            throw new AlpaException("Invalid deadline task format.");
+        }
+        LocalDateTime time = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Deadline task = new Deadline(parts[2], time);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Parses a line from the file to an Event object.
+     *
+     * @param parts The parts of the line to be parsed.
+     * @param isDone Whether the task is done.
+     * @return The Event object parsed from the line.
+     * @throws AlpaException If an error occurs while parsing the line.
+     */
+    private Event parseEventTask(String[] parts, boolean isDone) throws AlpaException {
+        if (parts.length < 5) {
+            throw new AlpaException("Invalid event task format.");
+        }
+        LocalDateTime start = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime end = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Event task = new Event(parts[2], start, end);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     /**
