@@ -65,7 +65,7 @@ Expected outcome:
 
 Bot replies with a confirmation message and stores the string.
 
-```sh {"id":"01HMZD4NRPP8TSXCEWV6YPTZE0"}
+```
 | User Input:
 > t read book
 | Sure I'll store it right away!
@@ -91,7 +91,7 @@ Expected outcome:
 
 Bot replies with a confirmation message and prints all the stored strings in the order that they were stored.
 
-```sh {"id":"01HMZMAJCPTDT1GMQ9NRCDH4V2"}
+```
 | User Input:
 > l
 | Here's everything that I'd stored!
@@ -112,7 +112,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 
 Otherwise, the bot replies with a error messsage.
 
-```sh {"id":"01HMZRCM91X6GB5EH09NJFQP7Y"}
+```
 // If valid
 | User Input:
 > m 1
@@ -140,7 +140,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 
 Otherwise, the bot replies with a error messsage.
 
-```sh {"id":"01HMZQS7Z1TQDRK0F62XPS3GPN"}
+```
 // If valid
 | User Input:
 > u 1
@@ -166,7 +166,7 @@ Expected outcome:
 
 If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage. Otherwise, the bot replies with a error messsage.
 
-```sh {"id":"01HN13MPSVX0V5J4FSCYWCMSYY"}
+```
 // If valid
 | User Input:
 > r 1
@@ -194,7 +194,7 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 
 Otherwise, the bot replies with a error messsage.
 
-```sh {"id":"01HP40KJH2Y1D6W3292VZZ82QP"}
+```
 // If valid
 | User Input:
 > f user
@@ -231,7 +231,7 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 
 Otherwise, the bot replies with a error messsage.
 
-```sh {"id":"01HP40KJH2Y1D6W3292VZZ82QP"}
+```
 // If valid
 | User Input:
 > un
