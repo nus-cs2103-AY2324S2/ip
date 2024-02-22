@@ -2,7 +2,7 @@
 
 // Update the title above to match the actual product name
 
-![](docs.Ui.png)
+![](/docs/Ui.png)
 
 pookie is a chatbot that helps you to keep track of your tasks!
 
