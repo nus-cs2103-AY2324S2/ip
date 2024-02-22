@@ -172,7 +172,7 @@ public class Parser {
 
         default:
 
-            return "(O_o) Huh? What does that even mean?";
+            return ChatGptApi.chatGptResponse(message);
         }
 
     }

@@ -1,4 +1,5 @@
 package jelly;
+import jelly.*;
 import javafx.application.Application;
 
 /**
