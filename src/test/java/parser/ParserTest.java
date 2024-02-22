@@ -3,9 +3,13 @@ package parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import exceptions.*;
 import org.junit.jupiter.api.Test;
 
+import exceptions.CommandNotFoundException;
+import exceptions.ErrorMessages;
+import exceptions.IncorrectParametersException;
+import exceptions.MissingParametersException;
+import exceptions.ParseDateException;
 import logic.Validator;
 import tasks.TaskList;
 
@@ -206,10 +210,10 @@ public class ParserTest {
     @Test
     public void createDeadline_missingDescription_exceptionThrown() {
         Exception thrown = assertThrows(MissingParametersException.class, () ->
-                Validator.validateDeadlineCommand("deadline")
+                Validator.validateDeadlineCommand("deadline /by 2024-10-10")
         );
 
-        String expectedMessage = ErrorMessages.MISSING_TASK_DESCRIPTION;
+        String expectedMessage = ErrorMessages.INCORRECT_PARAMETERS;
         String actualMessage = thrown.getMessage();
 
         assertEquals(actualMessage, expectedMessage);
@@ -221,7 +225,7 @@ public class ParserTest {
                 Validator.validateDeadlineCommand("deadline Assignment")
         );
 
-        String expectedMessage = ErrorMessages.MISSING_DUE_DATE;
+        String expectedMessage = ErrorMessages.INCORRECT_PARAMETERS;
         String actualMessage = thrown.getMessage();
 
         assertEquals(actualMessage, expectedMessage);
@@ -230,7 +234,7 @@ public class ParserTest {
     @Test
     public void createDeadline_extraFromToDate_exceptionThrown() {
         Exception thrown = assertThrows(IncorrectParametersException.class, () ->
-                Validator.validateDeadlineCommand("deadline Assignment /from 2024-10-10 /to 2024-10-11")
+                Validator.validateDeadlineCommand("deadline Assignment /by 2024-10-10 /from 2024-10-10 /to 2024-10-11")
         );
 
         String expectedMessage = ErrorMessages.FROM_TO_DATE_NOT_NEEDED;
@@ -254,10 +258,10 @@ public class ParserTest {
     @Test
     public void createEvent_missingDescription_exceptionThrown() {
         Exception thrown = assertThrows(MissingParametersException.class, () ->
-                Validator.validateEventCommand("deadline")
+                Validator.validateEventCommand("event /from 2024-10-10 /to 2024-10-11")
         );
 
-        String expectedMessage = ErrorMessages.MISSING_TASK_DESCRIPTION;
+        String expectedMessage = ErrorMessages.INCORRECT_PARAMETERS;
         String actualMessage = thrown.getMessage();
 
         assertEquals(actualMessage, expectedMessage);
@@ -290,7 +294,7 @@ public class ParserTest {
     @Test
     public void createEvent_extraDueDate_exceptionThrown() {
         Exception thrown = assertThrows(IncorrectParametersException.class, () ->
-                Validator.validateEventCommand("event Assignment /by 2024-10-10 /to 2024-10-10")
+                Validator.validateEventCommand("event Assignment /by 2024-10-10 /from 2024-10-09 /to 2024-10-10")
         );
 
         String expectedMessage = ErrorMessages.DUE_DATE_NOT_NEEDED;

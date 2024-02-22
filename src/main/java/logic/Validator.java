@@ -211,17 +211,18 @@ public class Validator {
             throws MissingParametersException, IncorrectParametersException,
             DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
-        if (!command.contains("/by")) {
-            throw new MissingParametersException(ErrorMessages.MISSING_DUE_DATE);
-        }
-        if (command.contains("/from") || command.contains("/to")) {
-            throw new IncorrectParametersException(ErrorMessages.FROM_TO_DATE_NOT_NEEDED);
-        }
 
         if (splitCommand.length < 4) {
             // command has less than required parameters
             // requirement: deadline (description) /by (date) -> 4 parameters
             throw new MissingParametersException(ErrorMessages.INCORRECT_PARAMETERS);
+        }
+
+        if (!command.contains("/by")) {
+            throw new MissingParametersException(ErrorMessages.MISSING_DUE_DATE);
+        }
+        if (command.contains("/from") || command.contains("/to")) {
+            throw new IncorrectParametersException(ErrorMessages.FROM_TO_DATE_NOT_NEEDED);
         }
 
         int secondLastIndex = splitCommand.length - 2;
@@ -255,6 +256,7 @@ public class Validator {
             throws MissingParametersException, IncorrectParametersException,
             DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
+
         if (!command.contains("/from")) {
             throw new MissingParametersException(ErrorMessages.MISSING_FROM_DATE);
         }
