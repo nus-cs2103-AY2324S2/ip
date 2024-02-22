@@ -24,7 +24,7 @@ public class ParserTest {
     public void parseDeadlineWrongDateFormatTest() {
         try {
 
-            String testInput1 = "deadline eat dinner /by 24-11-01";
+            String testInput1 = "deadline eat dinner /by 24-09-01";
             Object[] actualOutput1 = Parser.parseDeadline(testInput1);
             String testInput2 = "deadline eat dinner /by 2024-14-01";
             Object[] actualOutput2 = Parser.parseDeadline(testInput2);
