@@ -1,4 +1,4 @@
-package duke;
+package georgie;
 
 /**
  * Represents a to-do task.

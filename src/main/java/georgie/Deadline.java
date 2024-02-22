@@ -1,46 +1,41 @@
-package duke;
+package georgie;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task.
+ * Represents a task with a deadline.
  */
-public class Event extends Task {
+public class Deadline extends Task {
 
-    protected LocalDate start;
-    protected LocalDate end;
+    protected LocalDate dueByDate;
 
     /**
-     * Creates an Event task with the given description, start, and end details.
+     * Creates a Deadline task with the given description and due by date.
      *
      * @param description The description of the task.
-     * @param start The start details of the event.
-     * @param end The end details of the event.
+     * @param dueByDate   The due by date of the task.
      */
-    public Event(String description, LocalDate start, LocalDate end) {
+    public Deadline(String description, LocalDate dueByDate) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.dueByDate = dueByDate;
     }
 
     /**
-     * Adds an Event task to the task list with the specified description, start, and end details.
+     * Adds a Deadline task to the task list with the specified description and due by date.
      *
      * @param taskList The task list to add the task to.
      * @param description The description of the task.
-     * @param start The start details of the event.
-     * @param end The end details of the event.
-     * @return A string representing the result of adding the Event task.
+     * @param dueBy The due by date of the task.
+     * @return A string representing the result of adding the Deadline task.
      * @throws GeorgieException If there is an issue adding the task.
      */
-    public static String addEventTask(TaskList taskList, String description, String start, String end) throws GeorgieException {
-        assert (start + " /to " + end).length() >= "event /from /to".length() : "Input not handled properly";
+    public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws GeorgieException {
+        assert dueBy.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
 
-        LocalDate startDate = parseDate(start);
-        LocalDate endDate = parseDate(end);
-        taskList.addTask(new Event(description, startDate, endDate));
+        LocalDate dueByDate = parseDate(dueBy);
+        taskList.addTask(new Deadline(description, dueByDate));
 
         int newSize = taskList.size();
         assert newSize > 0 : "Task not added successfully";
@@ -59,9 +54,8 @@ public class Event extends Task {
      */
     @Override
     public String getStatusIcon() {
-        return "[E] " + super.getStatusIcon() + " " + description + " (from: " +
-                start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
-                end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D] " + super.getStatusIcon() + " " + description + " (by: " +
+                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**
@@ -71,11 +65,20 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " +
-                end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        if (dueByDate == null) {
+            return "";
+        }
+
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
+    /**
+     * Parses the date from the given date string.
+     *
+     * @param dateString The date string to parse.
+     * @return The parsed LocalDate.
+     */
     public static LocalDate parseDate(String dateString) {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

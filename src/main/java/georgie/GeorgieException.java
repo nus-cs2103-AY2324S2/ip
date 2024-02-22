@@ -1,4 +1,4 @@
-package duke;
+package georgie;
 
 /**
  * Represents an exception specific to the Duke application.

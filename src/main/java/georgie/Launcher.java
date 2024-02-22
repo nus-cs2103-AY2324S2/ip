@@ -1,4 +1,4 @@
-package duke;
+package georgie;
 
 import javafx.application.Application;
 

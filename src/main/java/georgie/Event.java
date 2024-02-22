@@ -1,41 +1,46 @@
-package duke;
+package georgie;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task with a deadline.
+ * Represents an event task.
  */
-public class Deadline extends Task {
+public class Event extends Task {
 
-    protected LocalDate dueByDate;
+    protected LocalDate start;
+    protected LocalDate end;
 
     /**
-     * Creates a Deadline task with the given description and due by date.
+     * Creates an Event task with the given description, start, and end details.
      *
      * @param description The description of the task.
-     * @param dueByDate   The due by date of the task.
+     * @param start The start details of the event.
+     * @param end The end details of the event.
      */
-    public Deadline(String description, LocalDate dueByDate) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
-        this.dueByDate = dueByDate;
+        this.start = start;
+        this.end = end;
     }
 
     /**
-     * Adds a Deadline task to the task list with the specified description and due by date.
+     * Adds an Event task to the task list with the specified description, start, and end details.
      *
      * @param taskList The task list to add the task to.
      * @param description The description of the task.
-     * @param dueBy The due by date of the task.
-     * @return A string representing the result of adding the Deadline task.
+     * @param start The start details of the event.
+     * @param end The end details of the event.
+     * @return A string representing the result of adding the Event task.
      * @throws GeorgieException If there is an issue adding the task.
      */
-    public static String addDeadlineTask(TaskList taskList, String description, String dueBy) throws GeorgieException {
-        assert dueBy.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
+    public static String addEventTask(TaskList taskList, String description, String start, String end) throws GeorgieException {
+        assert (start + " /to " + end).length() >= "event /from /to".length() : "Input not handled properly";
 
-        LocalDate dueByDate = parseDate(dueBy);
-        taskList.addTask(new Deadline(description, dueByDate));
+        LocalDate startDate = parseDate(start);
+        LocalDate endDate = parseDate(end);
+        taskList.addTask(new Event(description, startDate, endDate));
 
         int newSize = taskList.size();
         assert newSize > 0 : "Task not added successfully";
@@ -54,8 +59,9 @@ public class Deadline extends Task {
      */
     @Override
     public String getStatusIcon() {
-        return "[D] " + super.getStatusIcon() + " " + description + " (by: " +
-                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E] " + super.getStatusIcon() + " " + description + " (from: " +
+                start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
+                end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**
@@ -65,20 +71,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        if (dueByDate == null) {
-            return "";
-        }
-
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " +
+                end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    /**
-     * Parses the date from the given date string.
-     *
-     * @param dateString The date string to parse.
-     * @return The parsed LocalDate.
-     */
     public static LocalDate parseDate(String dateString) {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

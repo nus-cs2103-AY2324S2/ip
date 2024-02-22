@@ -28,7 +28,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
-mainClassName = 'duke.Duke'
+mainClassName = 'georgie.Georgie'
 
 test {
     useJUnitPlatform()
@@ -45,13 +45,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
-    mainClassName = 'duke.Launcher'
+    mainClass.set("georgie.Launcher")
+    mainClassName = 'georgie.Launcher'
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
-    archiveBaseName = "duke"
+    archiveFileName = 'georgie.jar'
+    archiveBaseName = "georgie"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

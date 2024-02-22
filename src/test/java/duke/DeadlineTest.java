@@ -1,5 +1,7 @@
 package duke;
 
+import georgie.Deadline;
+import georgie.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package duke;
+package georgie;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

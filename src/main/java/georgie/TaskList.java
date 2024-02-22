@@ -1,4 +1,4 @@
-package duke;
+package georgie;
 
 import java.util.ArrayList;
 
