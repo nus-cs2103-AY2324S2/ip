@@ -1,0 +1,7 @@
+unmark 1
+todo
+deadline task
+event task /from
+todo task
+mark 99
+delete 99
