@@ -24,4 +24,9 @@ public class Deadline extends Task {
         String formattedTime = dateTime.format(timeFormat);
         return "[D]" + description + " (by: " + formattedDate + " " + formattedTime + ")";
     }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
+    }
 }

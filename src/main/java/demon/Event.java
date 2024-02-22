@@ -29,4 +29,14 @@ public class Event extends Task {
         return "[E]" + description
                 + " (from: " + fromDate + " " + fromTime + " to: " + toDate + " " + toTime + ")";
     }
+
+    @Override
+    public LocalDateTime getDateTimeFrom() {
+        return this.dateTimeFrom;
+    }
+
+    @Override
+    public LocalDateTime getDateTimeTo() {
+        return this.dateTimeTo;
+    }
 }

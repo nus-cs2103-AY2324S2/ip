@@ -18,6 +18,7 @@ public class Command {
     public Command(String filePath) {
         this.storage = new Storage(filePath);
     }
+
     /**
      * Prints out all tasks saved numbered in sequence.
      * No tasks will be printed if there is no saved tasks.
@@ -25,10 +26,12 @@ public class Command {
      * @param tasks an array containing all tasks.
      */
     public void list(TaskList tasks) {
-        this.storeString.append("List of things to do :\n");
+        String str = "List of things to do :\n";
+        this.storeString.append(str);
         for (int i = 1; i <= tasks.getTaskList().size(); i++) {
             Task item = tasks.getTaskList().get(i - 1);
-            this.storeString.append("\t").append(i).append(".").append(item.toString()).append("\n");
+            String strToAppend = "\t" + i + ". " + item.toString() + "\n";
+            this.storeString.append(strToAppend);
         }
     }
 
@@ -46,9 +49,11 @@ public class Command {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals("X")) {
                 item.markNotDone();
+                String markStr = "Sure Master, I've marked this task as not done : \n";
+                String itemStr = item + "\n";
                 storage.reWriteFile(num);
-                this.storeString.append("Sure Master, I've marked this task as not done : \n");
-                this.storeString.append(item).append("\n");
+                this.storeString.append(markStr);
+                this.storeString.append(itemStr);
             } else {
                 this.storeString.append("Oops! Task already NOT done!");
             }
@@ -63,15 +68,19 @@ public class Command {
      * @param num array index of the task list
      */
     public void mark(TaskList tasks, int num) {
+        assert tasks != null : "TaskList reference cannot be null";
+        assert tasks.getTaskList() != null : "getTaskList() returned null";
         if (num < 1 | num > tasks.getTaskList().size()) {
             throw new IndexOutOfBoundsException("Integer provided out of range!");
         } else {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals(" ")) {
                 item.markDone();
+                String markStr = "Sure Master, I've marked this task as done : \n";
+                String itemStr = item + "\n";
                 storage.reWriteFile(num);
-                this.storeString.append("Sure Master, I've marked this task as done : \n");
-                this.storeString.append(item).append("\n");
+                this.storeString.append(markStr);
+                this.storeString.append(itemStr);
             } else {
                 this.storeString.append("Oops! Task already done!");
             }
@@ -91,9 +100,43 @@ public class Command {
      */
     public void addDeadline(TaskList tasks, String input)
             throws NoTimingException,
-                   EmptyDescriptionException,
-                   IOException,
-                   DateTimeParseException {
+            EmptyDescriptionException,
+            IOException,
+            DateTimeParseException, DuplicateException {
+        String[] parts2 = getStrings(tasks, input);
+        String description = parts2[0].trim();
+        String by = parts2[1].trim();
+
+        by = reformatTime(by);
+
+        if (checkDuplicate(tasks, description, by)) {
+            throw new DuplicateException();
+        } else {
+            // Format the date, time, and create Deadline object, add to list
+            LocalDateTime dateTime = formatDateTime(by);
+            Deadline itemDeadline = new Deadline(description, dateTime);
+            tasks.getTaskList().add(itemDeadline);
+            String itemStatus = itemDeadline.getStatusIcon().equals("X") ? "1" : "0";
+            String stringToSave = "D | " + itemStatus
+                    + " | " + description + " | " + by + "\n";
+
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            int taskListSize = tasks.getTaskList().size();
+            this.storeString.append(Ui.showTaskAdded());
+            this.storeString.append(itemDeadline).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        }
+    }
+
+    private LocalDateTime formatDateTime(String by) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(by, formatter);
+    }
+    private static String[] getStrings(TaskList tasks, String input) throws EmptyDescriptionException,
+            NoTimingException {
+        assert tasks != null : "TaskList reference cannot be null";
+        assert input != null && !input.isEmpty() : "Input string cannot be null or empty";
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
@@ -103,27 +146,7 @@ public class Command {
         if (parts2.length < 2) {
             throw new NoTimingException("WOI! Please include deadline!");
         }
-        String description = parts2[0].trim();
-        String by = parts2[1].trim();
-
-        // Automatically assume that if time is not given, then time is 0000hrs
-        int sizeOfBy = by.split(" ").length;
-        if (sizeOfBy < 2) {
-            by += " 0000";
-        }
-        // Format the date, time, and create Deadline object, add to list
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-        Deadline itemDeadline = new Deadline(description, dateTime);
-        tasks.getTaskList().add(itemDeadline);
-        String stringToSave = "D | " + (itemDeadline.getStatusIcon().equals("X") ? "1" : "0")
-                + " | " + description + " | " + by + "\n";
-
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        this.storeString.append(Ui.showTaskAdded());
-        this.storeString.append(itemDeadline).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        return parts2;
     }
 
     /**
@@ -135,20 +158,26 @@ public class Command {
      * @throws EmptyDescriptionException if description not given.
      * @throws IOException if fails to write new task into file.
      */
-    public void addToDo(TaskList tasks, String input) throws EmptyDescriptionException, IOException {
+    public void addToDo(TaskList tasks, String input) throws EmptyDescriptionException, IOException, DuplicateException {
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
         }
         String toDo = parts[1];
-        Todo item_toDo = new Todo(toDo);
-        tasks.getTaskList().add(item_toDo);
-        String stringToSave = "T | " + (item_toDo.getStatusIcon().equals("X") ? "1" : "0") + " | " + toDo +"\n";
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        this.storeString.append(Ui.showTaskAdded());
-        this.storeString.append(item_toDo).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        if (checkDuplicate(tasks, toDo)) {
+            throw new DuplicateException();
+        } else {
+            Todo item_toDo = new Todo(toDo);
+            tasks.getTaskList().add(item_toDo);
+            String itemStatus = item_toDo.getStatusIcon().equals("X") ? "1" : "0";
+            String stringToSave = "T | " + itemStatus + " | " + toDo + "\n";
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            int taskListSize = tasks.getTaskList().size();
+            this.storeString.append(Ui.showTaskAdded());
+            this.storeString.append(item_toDo).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        }
     }
 
     /**
@@ -164,46 +193,89 @@ public class Command {
      */
     public void addEvent(TaskList tasks, String input)
             throws EmptyDescriptionException,
-                   NoTimingException,
-                   IOException,
-                   DateTimeParseException {
+            NoTimingException,
+            IOException,
+            DateTimeParseException, DuplicateException {
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
         }
         String description_date = parts[1];
+        String[] parts2 = splitDescriptionDate(description_date);
+        String description = parts2[0].trim();
+        String[] details = splitDetails(parts2[1]);
+        String from = details[0].trim();
+        String to = details[1].trim();
+
+        // Reformat dateTime if from and to is missing time
+        from = reformatTime(from);
+        to = reformatTime(to);
+        if (checkDuplicate(tasks, description, from, to)) {
+            throw new DuplicateException();
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+            LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+            Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
+            tasks.getTaskList().add(item_event);
+            String stringToSave = "E | "
+                    + (item_event.getStatusIcon().equals("X") ? "1" : "0")
+                    + " | " + description + " | " + from + " | " + to + "\n";
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            this.storeString.append("Yes Master, I've added this task: \n");
+            this.storeString.append(item_event).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        }
+    }
+    private String[] splitInput(String input) throws EmptyDescriptionException {
+        String[] parts = input.split(" ",2);
+        if (parts.length < 2) {
+            throw new EmptyDescriptionException("Description is EMPTY!");
+        }
+        return parts;
+    }
+
+    private String[] splitDescriptionDate(String description_date) throws NoTimingException {
         String[] parts2 = description_date.split("/from ");
         if (parts2.length < 2) {
             throw new NoTimingException("WOI! Please include time!");
         }
-        String[] details = parts2[1].split("/to ");
-        String description = parts2[0].trim();
-        String from = details[0].trim();
-        String to = details[1].trim();
+        return parts2;
+    }
 
-        // Automatically assume that if time is not given, then time is 0000hrs
-        int sizeOfFrom = from.split(" ").length;
-        if (sizeOfFrom < 2) {
-            from += " 0000";
+    private String[] splitDetails(String details) throws NoTimingException {
+        String[] detailParts = details.split("/to ");
+        if (detailParts.length < 2) {
+            throw new NoTimingException("Time range is incomplete, missing '/to'.");
         }
-        int sizeOfTo = to.split(" ").length;
-        if (sizeOfTo < 2) {
-            to += " 0000";
+        return detailParts;
+    }
+    /**
+     * Returns the formatted dateTime String given in the parameter.
+     * If given string does not include the time, we add 0000hrs by default to the date.
+     * @param dateTime A string consisting date and time.
+     * @return a String consisting of date and time.
+     */
+    private String reformatTime(String dateTime) {
+        String outPut = dateTime;
+        int dateTimeSize = dateTime.split(" ").length;
+        if (dateTimeSize < 2) {
+            outPut += " 0000";
         }
+        return outPut;
+    }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
-        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
-        Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
-        tasks.getTaskList().add(item_event);
-        String stringToSave = "E | "
-                + (item_event.getStatusIcon().equals("X") ? "1" : "0")
-                + " | " + description + " | " + from + " | " + to + "\n";
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        this.storeString.append("Yes Master, I've added this task: \n");
-        this.storeString.append(item_event).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+    private void checkExcessLen(String[] parts, int num) throws ExcessArgumentException {
+        if (parts.length > num) {
+            throw new ExcessArgumentException("TOO MANY ARGUMENTS PROVIDED!");
+        }
+    }
+
+    private void checkOutOfRange(TaskList tasks, String[] parts) {
+        if (Integer.parseInt(parts[1]) > tasks.getTaskList().size() | Integer.parseInt(parts[1]) < 1) {
+            throw new IndexOutOfBoundsException("Integer provided out of range!");
+        }
     }
 
     /**
@@ -218,21 +290,18 @@ public class Command {
             throws EmptyDescriptionException,
                     IOException,
                     ExcessArgumentException {
-        String[] parts = input.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("Description is EMPTY!");
-        } else if (parts.length > 2) {
-            throw new ExcessArgumentException("TOO MANY ARGUMENTS PROVIDED!");
-        }
-        if (Integer.parseInt(parts[1]) > tasks.getTaskList().size() | Integer.parseInt(parts[1]) < 1) {
-            throw new IndexOutOfBoundsException("Integer provided out of range!");
-        }
-
-        this.storeString.append("Noted Master. I've removed this task: \n");
-        this.storeString.append(tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString()).append("\n");
+        String[] parts = splitInput(input);
+        checkExcessLen(parts, 2);
+        checkOutOfRange(tasks, parts);
+        String str = "Noted Master. I've removed this task: \n";
+        int indexToDelete = Integer.parseInt(parts[1]) - 1;
+        String itemRemoveStr = tasks.getTaskList().get(indexToDelete).toString() + "\n";
+        this.storeString.append(str);
+        this.storeString.append(itemRemoveStr);
         tasks.getTaskList().remove(Integer.parseInt(parts[1]) - 1);
         storage.removeFromFile(Integer.parseInt(parts[1]) - 1);
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        int taskListSize = tasks.getTaskList().size();
+        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
     }
 
     /**
@@ -244,25 +313,26 @@ public class Command {
      * @throws EmptyDescriptionException if description (keyword) not given.
      */
     public void findTask(TaskList tasks, String input) throws EmptyDescriptionException {
-        boolean hasMatched = false;
-        String[] parts = input.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("Description is EMPTY!");
-        }
-
+        String[] parts = splitInput(input);
         String keyword = parts[1].toLowerCase();
-        this.storeString.append("Here are your matching tasks in your list: \n");
+        findMatchingTasks(this.storeString, tasks, keyword);
+    }
+
+    private void findMatchingTasks(StringBuilder storeString, TaskList tasks, String keyword) {
+        String str = "Here are your matching tasks in your list: \n ";
+        storeString.append(str);
+        boolean hasMatched = false;
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             String taskString = task.toString();
             if (taskString.toLowerCase().contains(keyword)) {
-                this.storeString.append((i + 1)).append(".").append(taskString).append("\n");
+                String matchedTask = i + 1 + ". " + taskString + "\n ";
+                storeString.append(matchedTask);
                 hasMatched = true;
             }
         }
-
         if (!hasMatched) {
-            this.storeString.append("NONE!");
+            storeString.append("NONE!");
         }
     }
     private String outPutString() {
@@ -271,11 +341,55 @@ public class Command {
         return outPut;
     }
 
+    /**
+     * Returns a boolean to check whether the task to be added has a duplicate.
+     *
+     * @param tasks An array containing all tasks.
+     * @param args Variable arguments representing task attributes, where:
+     *             - args[0] is always the task description.
+     *             - For a To-do task, only args[0] is provided.
+     *             - For a Deadline task, args[1] contains the deadline date/time as a String.
+     *             - For an Event task, args[1] and args[2] contain the event's start and end date/time as Strings.
+     * @return boolean true if a duplicate is found, false otherwise.
+     */
+    private boolean checkDuplicate(TaskList tasks, String... args) {
+        String descriptionToCheck = args[0];
+        if (args.length == 1) {
+            return checkDuplicateTodo(tasks, descriptionToCheck);
+        } else if (args.length == 2) {
+            LocalDateTime dateTimeToCheck = formatDateTime(args[1]);
+            return checkDuplicateDeadline(tasks, descriptionToCheck, dateTimeToCheck);
+        } else if (args.length == 3) {
+            LocalDateTime dateTimeFrom = formatDateTime(args[1]);
+            LocalDateTime dateTimeTo = formatDateTime(args[2]);
+            return checkDuplicateEvent(tasks, descriptionToCheck, dateTimeFrom, dateTimeTo);
+        }
+        return false;
+    }
+
+    private boolean checkDuplicateTodo(TaskList tasks, String description) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Todo && task.description.equals(description));
+    }
+
+    private boolean checkDuplicateDeadline(TaskList tasks, String description, LocalDateTime dateTime) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Deadline && task.description.equals(description)
+                        && task.getDateTime().equals(dateTime));
+    }
+
+    private boolean checkDuplicateEvent(TaskList tasks, String description, LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Event && task.description.equals(description)
+                        && task.getDateTimeFrom().equals(dateTimeFrom) && task.getDateTimeTo().equals(dateTimeTo));
+    }
+
     public String callCommand(String input, TaskList tasks)
             throws NoTimingException,
-                    EmptyDescriptionException,
-                    IOException,
-                    ExcessArgumentException {
+            EmptyDescriptionException,
+            IOException,
+            ExcessArgumentException,
+            DuplicateException {
         if (input.equalsIgnoreCase("list")) {
             list(tasks);
         } else if (input.split(" ",2)[0].equalsIgnoreCase("unmark")) {

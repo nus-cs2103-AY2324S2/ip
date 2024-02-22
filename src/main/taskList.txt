@@ -1,15 +1,10 @@
-T | 0 | asdasd
-T | 0 | asdasfdfgfdgh
-T | 0 | asdas
-T | 0 | asfpdfogj
-T | 1 | asfsdf
-T | 0 | sadsadojn
-T | 0 | asfsdf
-T | 0 | asonasdo
-T | 0 | eat dinner later
-T | 0 | eat breakfast
-T | 0 | eat your mamammamam
-T | 0 | dfgdfgsg
-T | 0 | asdasd
-E | 0 | cny dinner | 09/02/2024 0000 | 13/02/2024 0000
-T | 0 | asdsad
+D | 0 | buy dinner | 07/03/2024 0000
+T | 0 | eat dinner liao sia what time liao
+T | 0 | eat dinner liao sia what time lia
+E | 0 | buy dinner | 07/03/2024 0000 | 02/10/2024 0000
+E | 0 | buy dinner | 07/03/2024 0000 | 02/10/2023 0000
+E | 0 | b dinner | 07/03/2024 0000 | 02/10/2024 0000
+D | 0 | buy dinner | 07/03/2023 0000
+T | 1 | buy dinner
+T | 0 | meet with dikfan
+T | 0 | meet with dikfan and movie later
