@@ -1,10 +1,9 @@
-# Duke User Guide
+# Ping User Guide
+🏖️ Thank you for looking through my iP project. 🏖️
 
-// Update the title above to match the actual product name
+<img 
 
-// Product screenshot goes here
-
-// Product intro goes here
+🐤 Ping is a chatbot that helps you track your tasks in your life. 🐤
 
 ## Adding deadlines
 
