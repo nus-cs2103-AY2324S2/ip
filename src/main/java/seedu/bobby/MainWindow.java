@@ -1,6 +1,5 @@
-package seedu.duke;
+package seedu.bobby;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Bobby bobby;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image bobbyImage = new Image(this.getClass().getResourceAsStream("/images/bobby.png"));
@@ -33,12 +30,12 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello, I'm Bobby!\n" + "What can I do for you today? :)\n", bobbyImage)
+                DialogBox.getDukeDialog(UI.intro(), bobbyImage)
         );
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Bobby d) {
+        bobby = d;
     }
 
     /**
@@ -48,7 +45,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = bobby.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

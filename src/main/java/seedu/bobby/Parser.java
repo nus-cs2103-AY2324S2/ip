@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.bobby;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,13 +22,13 @@ public class Parser {
      *
      * @param input the user input from system (command)
      * @return Integer parsed from the user input
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static int parseNum(String input) throws DukeException {
+    public static int parseNum(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ");
         if (items.length == 1) {
-            throw new DukeException("Oops! Please state the task number.");
+            throw new BobbyException("Oops! Please state the task number.");
         } else {
             return Integer.parseInt(items[1].trim());
         }
@@ -40,9 +40,9 @@ public class Parser {
      *
      * @param input the user input from system (command)
      * @return String parsed from the user input
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static String parseTodo(String input) throws DukeException{
+    public static String parseTodo(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
@@ -57,9 +57,9 @@ public class Parser {
      *
      * @param input the user input from system (command)
      * @return String parsed from the user input, extracting only the description.
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static String parseDeadlineTask(String input) throws DukeException{
+    public static String parseDeadlineTask(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String task = "";
         String[] items = input.split(" ", 2);
@@ -78,9 +78,9 @@ public class Parser {
      * @param input the user input from system (command)
      * @return String array which contains elements parsed from the user input, extracting
      * only the required information, the description and deadline.
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static LocalDateTime parseDeadlineCommand(String input) throws DukeException{
+    public static LocalDateTime parseDeadlineCommand(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
@@ -92,17 +92,17 @@ public class Parser {
             LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
             return deadline;
         } catch (DateTimeParseException e) {
-            throw new DukeException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
+            throw new BobbyException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
         }
     }
 
-    public static LocalDateTime parseDeadline(String input) throws DukeException{
+    public static LocalDateTime parseDeadline(String input) throws BobbyException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
             LocalDateTime deadline = LocalDateTime.parse(input.trim(), formatter);
             return deadline;
         } catch (DateTimeParseException e) {
-            throw new DukeException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
+            throw new BobbyException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
         }
     }
 
@@ -113,9 +113,9 @@ public class Parser {
      * @param input the user input from system (command)
      * @return String array which contains elements parsed from user input. First element is the description of the event,
      * second element is the start timing and third element is the end timing of the event.
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static String[] parseEvent(String input) throws DukeException{
+    public static String[] parseEvent(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         try {
@@ -130,7 +130,7 @@ public class Parser {
             parts[2] = helper[1].split("/to ")[1]; //to store event end timing
             return parts;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Please state the details like this: event event_name /from timing /to timing.");
+            throw new BobbyException("Please state the details like this: event event_name /from timing /to timing.");
         }
 
     }
@@ -140,24 +140,24 @@ public class Parser {
      *
      * @param input the user input from system (command)
      * @return String parsed from the user input
-     * @throws DukeException
+     * @throws BobbyException
      */
-    public static String parseFind(String input) throws DukeException{
+    public static String parseFind(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
-            throw new DukeException("Oops, please state the description of the task you want to find.");
+            throw new BobbyException("Oops, please state the description of the task you want to find.");
         }
         return items[1];
     }
 
-    public static int parseUpdateNum(String input) throws DukeException {
+    public static int parseUpdateNum(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split("/", 2);
         return parseNum(items[0]);
     }
 
-    public static String[] parseUpdate(String input) throws DukeException {
+    public static String[] parseUpdate(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split("/", 2);
         String[] parts = items[1].split(" ", 2);

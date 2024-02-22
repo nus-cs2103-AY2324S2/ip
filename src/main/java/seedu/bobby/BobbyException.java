@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.bobby;
 
 /**
  * <h1> DukeException </h1>
@@ -9,14 +9,14 @@ package seedu.duke;
  * @author Yap Xuan Xuan
  * @version 0.1
  */
-public class DukeException extends Exception{
+public class BobbyException extends Exception{
 
-    public DukeException() {
+    public BobbyException() {
         super("Oops! I'm afraid I don't understand what that means.\n"
                 + "Try adding a todo task like this: todo buy strawberry shortcake\n");
     }
 
-    public DukeException(String error) {
+    public BobbyException(String error) {
         super(error);
     }
 

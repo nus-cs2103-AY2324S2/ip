@@ -1,7 +1,7 @@
-package seedu.duke.task;
+package seedu.bobby.task;
 
-import seedu.duke.DukeException;
-import seedu.duke.Parser;
+import seedu.bobby.BobbyException;
+import seedu.bobby.Parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,13 +30,13 @@ public class Deadline extends Task{
     }
 
     @Override
-    public void update(String attribute, String toUpdate) throws DukeException {
+    public void update(String attribute, String toUpdate) throws BobbyException {
         if (attribute.equalsIgnoreCase("desc")) {
             description = toUpdate.trim();
         } else if (attribute.equalsIgnoreCase("by")) {
             deadline = Parser.parseDeadline(toUpdate.trim());
         } else {
-            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+            throw new BobbyException("Oops. The task you want to update does not have a " + attribute + " attribute.");
         }
     }
 
@@ -67,7 +67,7 @@ public class Deadline extends Task{
     public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
-            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s (by: %s)\n",
+            return String.format("Okies~ Here are the tasks in your list:\n %d.[%s][%s] %s (by: %s)\n",
                     num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
         } else {
             return String.format(" %d.[%s][%s] %s (by: %s)\n",

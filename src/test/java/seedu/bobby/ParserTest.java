@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.bobby;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class ParserTest {
         try {
             assertEquals(0, Parser.parseNum("mark"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobbyException e) {
             assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the task number."
                     + "\n      ______________________________________________________________________________________\n", e.getMessage());
         }
@@ -33,7 +33,7 @@ public class ParserTest {
         try {
             assertEquals("", Parser.parseTodo("todo"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobbyException e) {
             assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your todo task."
                     + "\n      ______________________________________________________________________________________\n", e.getMessage());
         }
@@ -53,7 +53,7 @@ public class ParserTest {
             String[] expected = new String[2];
             assertEquals(expected, Parser.parseDeadlineCommand("deadline"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobbyException e) {
             assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your task and the deadline."
                     + "\n      ______________________________________________________________________________________\n", e.getMessage());
         }
@@ -74,7 +74,7 @@ public class ParserTest {
             String[] expected = new String[3];
             assertEquals(expected, Parser.parseEvent("event"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobbyException e) {
             assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your event and provide the start and end timing."
                     + "\n      ______________________________________________________________________________________\n", e.getMessage());
         }
@@ -85,7 +85,7 @@ public class ParserTest {
             String[] expected = new String[2];
             assertEquals(expected, Parser.parseEvent("event career fest /from 2pm"));
             fail();
-        } catch (DukeException e) {
+        } catch (BobbyException e) {
             assertEquals("      ______________________________________________________________________________________\n      Please state the details like this: event event_name /from timing /to timing."
                     + "\n      ______________________________________________________________________________________\n", e.getMessage());
         }

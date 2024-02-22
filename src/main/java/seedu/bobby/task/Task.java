@@ -1,6 +1,6 @@
-package seedu.duke.task;
+package seedu.bobby.task;
 
-import seedu.duke.DukeException;
+import seedu.bobby.BobbyException;
 
 /**
  * <h1> Task </h1>
@@ -57,18 +57,18 @@ public class Task {
         return "T";
     }
 
-    public void update(String attribute, String toUpdate) throws DukeException {
+    public void update(String attribute, String toUpdate) throws BobbyException {
         if (attribute.equalsIgnoreCase("desc")) {
             description = toUpdate.trim();
         } else {
-            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+            throw new BobbyException("Oops. The task you want to update does not have a " + attribute + " attribute.");
         }
     }
 
     public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
-            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s\n",
+            return String.format("Okies~ Here are the tasks in your list:\n %d.[%s][%s] %s\n",
                     num, getTag(), getStatusIcon(), getDescription());
         } else {
             return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
@@ -86,7 +86,7 @@ public class Task {
 
     public String printMarking(Task task, String tag) {
         if (isDone) {
-            return "Great job! I've marked this task as done:\n" +
+            return "Wow, well done! I've marked this task as done:\n" +
                     String.format(" [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
         } else {
             return "Ok, I've marked this task as not done yet:\n" +

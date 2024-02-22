@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.bobby;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 

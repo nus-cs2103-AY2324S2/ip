@@ -1,22 +1,16 @@
-package seedu.duke;
+package seedu.bobby;
 
 import javafx.application.Platform;
-import seedu.duke.task.Task;
-import seedu.duke.task.Event;
-import seedu.duke.task.Deadline;
+import seedu.bobby.task.Task;
+import seedu.bobby.task.Event;
+import seedu.bobby.task.Deadline;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static java.nio.file.Files.createFile;
 
 
 /**
@@ -29,13 +23,13 @@ import static java.nio.file.Files.createFile;
  * @author Yap Xuan Xuan
  * @version 0.1
  */
-public class Duke {
+public class Bobby {
     private static Storage store;
     private UI ui;
 
     private TaskList taskList;
 
-    public Duke(String filePath) {
+    public Bobby(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
@@ -87,9 +81,9 @@ public class Duke {
                 scheduleShutdown();
                 return UI.bye();
             } else {
-                throw new DukeException();
+                throw new BobbyException();
             }
-        } catch (DukeException | IOException e) {
+        } catch (BobbyException | IOException e) {
             return e.getMessage();
         }
     }
@@ -102,7 +96,7 @@ public class Duke {
                 Platform.exit();
                 System.exit(0);
             }
-        }, 1500);
+        }, 1250);
     }
 
     public static void main(String[] args) {
