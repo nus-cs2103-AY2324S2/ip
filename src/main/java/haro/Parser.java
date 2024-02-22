@@ -274,19 +274,34 @@ public class Parser {
     private static Command processEditCommand(String userInput) throws InvalidArgsException {
         String[] editArgs = userInput.split("\\s", 2);
 
-        if (editArgs.length < 3) {
+        if (editArgs.length < 2) {
             throw new InvalidArgsException("Please use edit command in the following format:\n"
-                    + "edit {taskNumber} {portion to edit} {updated value}");
+                    + "\n"
+                    + "edit <taskNumber> <portion to edit> <updated value>\n"
+                    + "\n"
+                    + "Please use /task, /by, /from or /to to indicate which portion to edit");
         }
 
         String taskNumber = editArgs[0].trim();
         String editInstruction = editArgs[1].trim();
         if (!isNumeric(taskNumber)) {
-            throw new InvalidArgsException("Please input a number for the task you want to edit!\n");
+            throw new InvalidArgsException("Please use edit command in the following format:\n"
+                    + "\n"
+                    + "edit <taskNumber> <portion to edit> <updated value>\n"
+                    + "\n"
+                    + "Please use /task, /by, /from or /to to indicate which portion to edit");
         }
 
         int taskIndex = Integer.parseInt(taskNumber) - 1;
         String[] editCommandArgs = editInstruction.split("\\s", 2);
+
+        if (editCommandArgs.length < 2) {
+            throw new InvalidArgsException("Please use edit command in the following format:\n"
+                    + "\n"
+                    + "edit <taskNumber> <portion to edit> <updated value>\n"
+                    + "\n"
+                    + "Please use /task, /by, /from or /to to indicate which portion to edit");
+        }
         String portionToEdit = editCommandArgs[0].trim();
         String updatedPortion = editCommandArgs[1].trim();
 
