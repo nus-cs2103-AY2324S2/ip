@@ -19,8 +19,8 @@ public class PrintCommand extends Command {
      * Executes the print command by displaying the list of tasks to the user.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A string representing the list of tasks.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

@@ -49,6 +49,8 @@ public class Task {
 
     /**
      * Marks the task as done and displays a confirmation message.
+     * 
+     * @return A string confirmation message.
      */
     public String markAsDone() {
         this.isDone = true;
@@ -59,6 +61,8 @@ public class Task {
 
     /**
      * Marks the task as not done and displays a confirmation message.
+     * 
+     * @return A string confirmation message.
      */
     public String markAsUndone() {
         this.isDone = false;

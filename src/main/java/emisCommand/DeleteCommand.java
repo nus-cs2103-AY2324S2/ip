@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
      * Executes the delete command by deleting the task with the specified task number from the task list and updating the storage.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A message indicating the result of executing the command.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

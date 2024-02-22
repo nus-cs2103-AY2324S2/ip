@@ -25,8 +25,8 @@ public class MarkCommand extends Command {
      * Executes the mark command by marking the specified task as done and updating the storage.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A string indicating the result of the command execution.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {

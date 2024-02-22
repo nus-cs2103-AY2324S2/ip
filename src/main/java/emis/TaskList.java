@@ -4,7 +4,6 @@ import emisExceptions.EmisException;
 import emisTask.Task;
 import java.util.ArrayList;
 
-// TaskList class, contains task list and its operations
 /**
  * The TaskList class contains a list of tasks and provides operations to manipulate the task list in the EMIS application.
  */
@@ -30,6 +29,8 @@ public class TaskList {
 
     /**
      * Prints the list of tasks.
+     * 
+     * @return A string representation of the tasks in the list.
      */
     public String printList() {
         String response = "Here are the tasks in your list:";
@@ -43,6 +44,7 @@ public class TaskList {
      * Deletes a task from the list.
      * 
      * @param taskNo The index of the task to delete.
+     * @return A message confirming the deletion of the task.
      * @throws EmisException If the specified task number is invalid.
      */
     public String deleteTask(int taskNo) throws EmisException {
@@ -62,6 +64,7 @@ public class TaskList {
      * Adds a task to the list.
      * 
      * @param task The task to add.
+     * @return A message confirming the addition of the task.
      */
     public String addTask(Task task) {
         String response = "";
@@ -76,6 +79,7 @@ public class TaskList {
      * Marks a task as done.
      * 
      * @param taskNo The index of the task to mark as done.
+     * @return A message confirming the task has been marked as done.
      * @throws EmisException If the specified task number is invalid.
      */
     public String markAsDone(int taskNo) throws EmisException {
@@ -93,6 +97,7 @@ public class TaskList {
      * Marks a task as undone.
      * 
      * @param taskNo The index of the task to mark as undone.
+     * @return A message confirming the task has been marked as undone.
      * @throws EmisException If the specified task number is invalid.
      */
     public String markAsUndone(int taskNo) throws EmisException {

@@ -35,8 +35,8 @@ public class EventCommand extends Command {
      * Executes the event command by adding a new event task to the task list and updating the storage.
      *
      * @param tasklist The TaskList object representing the list of tasks.
-     * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
+     * @return A message indicating the result of executing the command.
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {
