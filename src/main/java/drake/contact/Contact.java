@@ -16,6 +16,11 @@ public class Contact {
         this.name = name;
         this.details = details;
     }
+    /**
+     * Creates a string representation of an instance of this class.
+     *
+     * @return The String representation of an instance of this class.
+     */
     @Override
     public String toString() {
         return this.name + ": " + details;

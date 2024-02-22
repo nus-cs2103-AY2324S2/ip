@@ -25,6 +25,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Creates a string representation of an instance of this class.
+     *
+     * @return The String representation of an instance of this class.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))

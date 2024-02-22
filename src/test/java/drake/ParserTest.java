@@ -24,12 +24,16 @@ public class ParserTest {
     public void parseDeadlineWrongDateFormatTest() {
         try {
 
-            String testInput = "deadline eat dinner /by 2024-14-01";
-            Object[] actualOutput = Parser.parseDeadline(testInput);
+            String testInput1 = "deadline eat dinner /by 24-11-01";
+            Object[] actualOutput1 = Parser.parseDeadline(testInput1);
+            String testInput2 = "deadline eat dinner /by 2024-14-01";
+            Object[] actualOutput2 = Parser.parseDeadline(testInput2);
             Object[] expectedWrongOutput = {"eat dinner", LocalDate.parse("2024-14-01",
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
-            assertEquals(expectedWrongOutput[0], actualOutput[0]);
-            assertEquals(expectedWrongOutput[1], actualOutput[1]);
+            assertEquals(expectedWrongOutput[0], actualOutput1[0]);
+            assertEquals(expectedWrongOutput[1], actualOutput1[1]);
+            assertEquals(expectedWrongOutput[0], actualOutput2[0]);
+            assertEquals(expectedWrongOutput[1], actualOutput2[1]);
             fail(); //This block should not be run.
         } catch (Exception e) {
             System.out.println(e.getMessage());

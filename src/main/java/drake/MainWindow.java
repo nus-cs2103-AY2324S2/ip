@@ -27,11 +27,18 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(USER_PATH)));
     private final Image drakeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(DRAKE_PATH)));
 
+    /**
+     * Initializes Dialog Container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the instance of the Drake class.
+     * @param d Drake instance to be set.
+     */
     public void setDrake(Drake d) {
         drake = d;
     }

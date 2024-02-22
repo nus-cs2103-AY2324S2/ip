@@ -34,13 +34,14 @@ public class Parser {
      *
      * @param input The user input string.
      * @return The task description.
-     * @throws TodoLeftBlank if the description part of the input is empty.
+     * @throws TodoLeftBlankException if the description part of the input is empty.
      */
     public static String parseDescription(String input) {
         assert input != null && input.contains(" ") : "Invalid input format for parsing description.";
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new TodoLeftBlank("Looks like you left the description of the todo empty. This isn't allowed!");
+            throw new TodoLeftBlankException("Looks like you left the description of the todo empty."
+                    + "This isn't allowed!");
         }
         return parts[1].trim();
     }

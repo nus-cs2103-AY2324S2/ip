@@ -21,18 +21,33 @@ public class Task implements Serializable { // adapted skeleton from cs2103t cou
         this.isDone = false;
     }
 
+    /**
+     * Gets status icon
+     * @return Status icon based on isDone field.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
+    /**
+     * Marks task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Creates a string representation of an instance of this class.
+     *
+     * @return The String representation of an instance of this class.
+     */
     @Override
     public String toString() {
         return getStatusIcon() + description;

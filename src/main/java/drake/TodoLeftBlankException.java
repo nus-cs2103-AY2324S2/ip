@@ -5,8 +5,8 @@ package drake;
  * This is a subclass of StringIndexOutOfBoundsException, which is typically thrown to indicate that
  * an index is either negative or greater than the size of the string.
  */
-public class TodoLeftBlank extends StringIndexOutOfBoundsException {
-    public TodoLeftBlank(String message) {
+public class TodoLeftBlankException extends StringIndexOutOfBoundsException {
+    public TodoLeftBlankException(String message) {
         super(message);
     }
 }

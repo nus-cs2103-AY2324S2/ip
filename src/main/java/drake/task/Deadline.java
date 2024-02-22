@@ -20,7 +20,11 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
+    /**
+     * Creates a string representation of an instance of this class.
+     *
+     * @return The String representation of an instance of this class.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
