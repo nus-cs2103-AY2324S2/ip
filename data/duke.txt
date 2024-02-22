@@ -1,10 +1,4 @@
-| 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | T || 1 | read book
-| 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | D || 0 | return book | June 6th
-| 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | E || 0 | project meeting | Aug 6th 2pm-4pm
-| 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | | 0 | T || 1 | join sports club
-| 0 | | 0 | | 0 | | 0 | | 0 | | 0 | D || 0 | return book | Dec 02 2019 18:00
-| 0 | | 0 | | 0 | | 0 | D || 0 | return book | Oct 15 2019
-| 0 | | 0 | | 0 | E || 0 | project meeting |  (from: Sep 15 2019 18:00 to: Sep 15 2019 19:00)
-| 0 | | 0 | E || 0 | project meeting |  from: Sep 15 2019 18:00 to: Sep 15 2019 19:00
-| 0 | E || 0 | project meeting |  (from: Sep 15 2019 06:00PM to: Sep 15 2019 07:00PM)
-E || 0 | project meeting |  from: Sep 15 2019 06:00PM  to: Sep 15 2019 07:00PM
+| 0 | T || 1 | read book
+| 0 | D || 0 | return book | Sep 15 2019
+| 0 | E || 0 | project meeting |  from: Sep 15 2019 06:00PM  to: Sep 15 2019 07:00PM
+| 0 | T || 0 | join sport club

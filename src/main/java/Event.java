@@ -19,6 +19,6 @@ public class Event extends Task {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
         String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
 
-        return "E |" + super.toString() + " | " + " from: " + formattedFrom + "  to: " + formattedTo ;
+        return "E |" + super.toString() + " |" + " from: " + formattedFrom + "  to: " + formattedTo ;
     }
 }
