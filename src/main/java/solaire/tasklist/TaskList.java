@@ -43,7 +43,6 @@ public class TaskList {
         if (task != null) {
             taskList.add(task);
             output = "Added " + task + " to your list";
-            //lineBreak();
         } else {
             output = "Task not added to list";
         }

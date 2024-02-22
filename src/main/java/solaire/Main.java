@@ -19,11 +19,13 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load(); // error here
+            AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-
-            fxmlLoader.<MainWindow>getController().setSolaire(solaire);
+            MainWindow mainWindowController = fxmlLoader.<MainWindow>getController();
+            mainWindowController.setSolaire(solaire);
+            mainWindowController.displayWelcomeMessage();
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
