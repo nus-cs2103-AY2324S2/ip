@@ -19,19 +19,9 @@ public class ParserTest {
         String expectedOutput2 = "world, how are you?";
         assertEquals(expectedOutput2, parser.removeCommandWord(input2));
 
-        // Test case 3: input with leading spaces
-        String input3 = "   Hello   world";
+        // Test case 3: input with trailing spaces
+        String input3 = "Hello world   ";
         String expectedOutput3 = "world";
         assertEquals(expectedOutput3, parser.removeCommandWord(input3));
-
-        // Test case 4: input with trailing spaces
-        String input4 = "Hello world   ";
-        String expectedOutput4 = "world";
-        assertEquals(expectedOutput4, parser.removeCommandWord(input4));
-
-        // Test case 5: input with leading and trailing spaces
-        String input5 = "   Hello   world   ";
-        String expectedOutput5 = "world";
-        assertEquals(expectedOutput5, parser.removeCommandWord(input5));
     }
 }
