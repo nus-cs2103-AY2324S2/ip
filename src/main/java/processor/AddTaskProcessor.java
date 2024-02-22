@@ -5,6 +5,7 @@ import tasks.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,13 +13,14 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class AddTaskProcessor extends Processor {
 
 
     /**
      * Constructor for Processor element
-     * @param taskList
-     * @param chatbotUi
+     * @param taskList task list.
+     * @param chatbotUi chatbot ui.
      */
     public AddTaskProcessor(TaskList taskList, Ui chatbotUi) {
         super(taskList, chatbotUi);
@@ -56,7 +58,6 @@ public class AddTaskProcessor extends Processor {
 
         
         String todoDescription = componentsSplitBySpace[1].trim();
-
         
         String[] componentsSplitByTime = userInput.split("//");
 
@@ -110,7 +111,7 @@ public class AddTaskProcessor extends Processor {
         // Case for adding an event task
         case "event":
 
-            if (componentsSplitByTime.length < 3) { 
+            if (componentsSplitByTime.length < 3) {
                 System.out.println(chatbotUi.dividerWrapper(
                         "Wrong syntax! Must be `event <task> //from <start date> //to <end date>`"));
                 return;
@@ -139,7 +140,8 @@ public class AddTaskProcessor extends Processor {
                         "Added the task, but recommend using"
                                 + " the date/time format `M/d/yyyy HHmm` "
                                 + "on both start and end dates for better experience."));
-                taskList.addEventTask(deadlineOrEventDescription, start, end.substring(3)); //substring(3) to remove "to "
+                taskList.addEventTask(
+                        deadlineOrEventDescription, start, end.substring(3)); //substring(3) to remove "to "
             }
 
             assert taskList.size() > previousSize : "Task list size should have increased";

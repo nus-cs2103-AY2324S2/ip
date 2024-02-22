@@ -9,10 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-import javafx.stage.Stage;
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -26,8 +27,6 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     private Stage stage;
-    
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/1520228936541.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/1520228936541.jpeg"));
 

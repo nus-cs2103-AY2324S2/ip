@@ -31,5 +31,4 @@ public class FindTaskProcessor extends Processor {
         System.out.println(chatbotUi.dividerWrapper(
                 "Here are the matching tasks in your list: \n" + taskList.findTask(keyword)));
     }
-    
 }

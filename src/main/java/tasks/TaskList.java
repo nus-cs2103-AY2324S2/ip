@@ -10,6 +10,9 @@ import java.util.List;
 public class TaskList {
 
 
+    /**
+     * Enum to represent the sort type.
+     */
     public enum SortType {
         ALPHABETICAL,
         START_DATE,

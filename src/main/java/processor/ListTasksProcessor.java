@@ -11,7 +11,6 @@ import ui.Ui;
  */
 public class ListTasksProcessor extends Processor {
     
-
     /**
      * Constructor for Processor element
      * @param taskList
@@ -21,8 +20,7 @@ public class ListTasksProcessor extends Processor {
         super(taskList, chatbotUi);
     }
 
-
-     /**
+    /**
      * Processes the given user command by delegating it to the appropriate method in the Processor class.
      * Specifically, this method processes the user command to list all tasks in the TaskList.
      * @throws IOException if an I/O error occurs while processing the command

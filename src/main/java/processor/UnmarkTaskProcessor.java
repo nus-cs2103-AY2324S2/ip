@@ -24,10 +24,8 @@ public class UnmarkTaskProcessor extends Processor {
      */
     public void processCommand(String userInput) throws IOException {
         String[] array = userInput.split(" ");
-        
         try {
             int number = Integer.parseInt(array[1]);
-    
             taskList.unmarkTask(number - 1);
             System.out.println(chatbotUi.dividerWrapper(
                     chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));

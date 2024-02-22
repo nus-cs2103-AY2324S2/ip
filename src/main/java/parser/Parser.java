@@ -2,7 +2,15 @@ package parser;
 
 import java.io.IOException;
 
-import processor.*;
+import processor.AddTaskProcessor;
+import processor.DeleteTaskProcessor;
+import processor.Factory;
+import processor.FindTaskProcessor;
+import processor.ListTasksProcessor;
+import processor.MarkTaskProcessor;
+import processor.SortTaskProcessor;
+import processor.UnmarkTaskProcessor;
+
 
 /**
  * The Parser class is responsible for processing user commands and delegating them
@@ -15,11 +23,14 @@ public class Parser {
     //private final ExitProcessor exitProcessor;
     private final FindTaskProcessor findTaskProcessor;
     private final ListTasksProcessor listTasksProcessor;
-   //private final MarkUnMarkTaskProcessor markTaskProcessor;
     private final SortTaskProcessor sortTaskProcessor;
     private final MarkTaskProcessor markTaskProcessor;
     private final UnmarkTaskProcessor unmarkTaskProcessor;
 
+    /**
+     * Constructs a Parser object.
+     * @param factory the factory object to create the processors
+     */
     public Parser(Factory factory) {
         this.addTaskProcessor = factory.createAddTaskProcessor();
         this.deleteTaskProcessor = factory.createDeleteTaskProcessor();
@@ -56,7 +67,7 @@ public class Parser {
         case "sort":
             sortTaskProcessor.processCommand(userInput);
             break;
-        default:            
+        default:
             addTaskProcessor.processCommand(userInput);
             break;
         }
