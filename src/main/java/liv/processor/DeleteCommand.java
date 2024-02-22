@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
         int trueIndex = index - 1;
+
         Task removed = tasks.deleteTask(trueIndex);
         String message = Ui.getDeleteMessage(removed);
         storage.saveTaskToFile();

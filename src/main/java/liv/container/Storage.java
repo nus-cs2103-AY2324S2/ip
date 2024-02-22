@@ -38,6 +38,7 @@ public class Storage {
         boolean isDone = parts[1].equals("[X]");
         String description = parts[2];
         Task task;
+
         if (taskType.equals("[T]")) {
             task = new TodoTask(description);
         } else if (taskType.equals("[D]")) {
@@ -52,6 +53,7 @@ public class Storage {
         } else {
             throw new RuntimeException("Unknown format: " + line);
         }
+
         TaskList.addTask(task);
         if (isDone)
             task.changeStatus();

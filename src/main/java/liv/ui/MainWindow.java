@@ -30,14 +30,18 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image livImage = new Image(this.getClass().getResourceAsStream("/images/liv.png"));
 
+    private static final String GREETING_MESSAGE = String.join("\n",
+            "Liv, under your instructions!", "What is your command?");
+
+
     @FXML
     public void initialize() {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greetingMessage = String.join("\n",
-                "Liv, under your instructions!", "What is your command?");
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getLivDialog(greetingMessage, livImage)
+                DialogBox.getLivDialog(GREETING_MESSAGE, livImage)
         );
     }
 
@@ -53,6 +57,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws LivException {
         String input = userInput.getText();
         String response = liv.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLivDialog(response, livImage)

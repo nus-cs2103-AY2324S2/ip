@@ -69,10 +69,12 @@ public class Parser {
         if (spaceIndex == -1) {
             throw new LivException("Please state the mission number!");
         }
+
         String numberString = input.substring(spaceIndex + 1);
         if (!numberString.matches("\\d+")) {
             throw new LivException("Please enter a number as the mission number!");
         }
+
         return Integer.parseInt(numberString);
     }
 
@@ -97,6 +99,7 @@ public class Parser {
         if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
             throw new LivException("That mission number does not exist in the list!");
         }
+
         if (state) {
             return new MarkCommand(index);
         }
@@ -115,6 +118,7 @@ public class Parser {
         if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
             throw new LivException("That mission number does not exist in the list!");
         }
+
         return new DeleteCommand(index);
     }
 
@@ -129,8 +133,10 @@ public class Parser {
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
         }
+
         String description = input.substring(spaceIndex + 1);
         TodoTask newTodoTask = new TodoTask(description);
+
         return new TodoCommand(newTodoTask);
     }
 
@@ -146,14 +152,18 @@ public class Parser {
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
         }
+
         int timeIndex = input.indexOf('/');
         if (timeIndex == -1) {
             throw new LivException("Time cannot be empty!");
         }
+
         String description = input.substring(spaceIndex + 1, timeIndex - 1);
         String time = input.substring(timeIndex + 4);
+
         LocalDateTime by = LocalDateTime.parse(time, INPUT_PATTERN);
         Deadline newDeadline = new Deadline(description, by);
+
         return new DeadlineCommand(newDeadline);
     }
 
@@ -168,21 +178,25 @@ public class Parser {
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
         }
+
         int timeIntervalIndex = input.indexOf('/');
         if (timeIntervalIndex == -1) {
             throw new LivException("Time cannot be empty!");
         }
         String description = input.substring(spaceIndex + 1, timeIntervalIndex - 1);
         String timeInterval = input.substring(timeIntervalIndex + 6);
+
         int splitterIndex = timeInterval.indexOf('/');
         if (splitterIndex == -1) {
             throw new LivException("Please enter the correct format for time!");
         }
         String time1 = timeInterval.substring(0, splitterIndex - 1);
         String time2 = timeInterval.substring(splitterIndex + 4);
+
         LocalDateTime from = LocalDateTime.parse(time1, INPUT_PATTERN);
         LocalDateTime to = LocalDateTime.parse(time2, INPUT_PATTERN);
         Event newEvent = new Event(description, from, to);
+
         return new EventCommand(newEvent);
     }
 
@@ -191,7 +205,9 @@ public class Parser {
         if (spaceIndex == -1) {
             throw new LivException("Keyword cannot be empty!");
         }
+
         String keyword = input.substring(spaceIndex + 1);
+
         return new FindCommand(keyword);
     }
 }

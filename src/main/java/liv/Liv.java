@@ -141,11 +141,13 @@ public class Liv extends Application {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = null;
+
         try {
             response = getResponse(input);
         } catch (LivException e) {
             throw new RuntimeException(e);
         }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLivDialog(response, livImage)

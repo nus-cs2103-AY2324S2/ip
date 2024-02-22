@@ -58,12 +58,14 @@ public class TaskList {
      */
     public ArrayList<String> findMatchingTasks(String keyword) {
         ArrayList<String> matchingTasks = new ArrayList<>();
+
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.isInDescription(keyword)) {
                 matchingTasks.add(task.getDisplayedString());
             }
         }
+
         return matchingTasks;
     }
 }
