@@ -37,6 +37,9 @@ public class Storage {
             martinFile = new File(filePath);
             if (!martinFile.exists()) {
                 System.out.println("File does not exist. Creating a new file.");
+                if (martinFile.getParentFile().mkdirs()) {
+                    System.out.println("Directory created: " + martinFile.getParentFile().getName());
+                }
                 if (martinFile.createNewFile()) {
                     System.out.println("File created: " + martinFile.getName());
                 }
