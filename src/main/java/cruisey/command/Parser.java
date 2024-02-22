@@ -1,4 +1,5 @@
 package cruisey.command;
+import static com.sun.javafx.application.PlatformImpl.exit;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,8 +15,8 @@ import cruisey.task.TaskList;
 import cruisey.task.TaskPriority;
 import cruisey.task.ToDo;
 import cruisey.ui.Ui;
-
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.
@@ -102,6 +103,7 @@ public class Parser {
         switch (firstWord) {
         case "bye":
             handleByeCommand();
+            exitWithDelay();
             break;
         case "list":
             handleListCommand();
@@ -131,6 +133,21 @@ public class Parser {
             handleDefaultCommand();
             break;
         }
+    }
+
+    /**
+     * Exits the application after introducing a delay.
+     *
+     * This method schedules the exit code to run on the JavaFX Application Thread
+     * after a specified delay using a {@link PauseTransition}.
+     *
+     * Note: The delay is set to 2 seconds (2000 milliseconds) by default.
+     */
+    private void exitWithDelay() {
+        Duration delayDuration = Duration.seconds(2);
+        PauseTransition pause = new PauseTransition(delayDuration);
+        pause.setOnFinished(event -> exit());
+        pause.play();
     }
 
     /**
@@ -244,6 +261,11 @@ public class Parser {
         int taskNumber = Integer.parseInt(words[1]) - 1;
         if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "delete what? Please re-enter correctly with the task number!";
+            Ui.showError(error);
+            this.response = error;
+            return;
+        } else if (taskNumber > tasks.size()) {
+            String error = "you have not created a task " + words[1] + " for me to delete yet!";
             Ui.showError(error);
             this.response = error;
             return;
