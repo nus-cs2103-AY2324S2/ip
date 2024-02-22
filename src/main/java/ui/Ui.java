@@ -24,10 +24,8 @@ public class Ui {
         return outputString.toString();
     }
 
-    public String showErrorMessage(String errorMessage) {
-        StringBuilder outputString = new StringBuilder();
-        outputString.append(errorMessage);
-        return outputString.toString();
+    public String showErrorMessage(XiaoBaiException e) {
+        return e.toString();
     }
 
     /**

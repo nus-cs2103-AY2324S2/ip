@@ -10,14 +10,14 @@ public class Todo extends Task {
 
     public Todo(String name) throws XiaoBaiException {
         super(name);
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name == " ") {
             throw new XiaoBaiException("Task name cannot be empty");
         }
     }
 
     public Todo(String name, boolean doneStatus) throws XiaoBaiException {
         super(name, doneStatus);
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name == " ") {
             throw new XiaoBaiException("Task name cannot be empty");
         }
     }
