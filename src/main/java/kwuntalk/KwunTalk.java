@@ -51,7 +51,7 @@ public class KwunTalk {
      * Returns the response to the user's input.
      *
      * @param input The user's input.
-     * @return The response to the user's input
+     * @return The response to the user's input.
      */
     protected String getResponse(String input) {
         try {
@@ -64,6 +64,14 @@ public class KwunTalk {
         }
     }
 
+    /**
+     * Returns whether the program should exit.
+     *
+     * @return boolean Whether the program should exit.
+     */
+    public boolean isExit() {
+        return this.isExit;
+    }
 
     public static void main(String[] args) {
         new KwunTalk().run();
