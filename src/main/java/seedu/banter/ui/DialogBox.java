@@ -52,8 +52,8 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox object representing the user's dialog.
-     * @param text
-     * @param img
+     * @param text The user's dialog.
+     * @param img The user's image.
      * @return DialogBox object representing the user's dialog.
      */
     public static DialogBox getUserDialog(String text, Image img) {
@@ -64,8 +64,8 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox object representing the bot's dialog.
-     * @param text
-     * @param img
+     * @param text The bot's dialog.
+     * @param img The bot's image.
      * @return DialogBox object representing the bot's dialog.
      */
     public static DialogBox getBanterDialog(String text, Image img) {

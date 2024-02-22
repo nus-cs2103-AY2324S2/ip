@@ -26,17 +26,6 @@ public class Card {
     }
 
     /**
-     * Prints the card to the user.
-     */
-    public void print() {
-        String smallSpace = "    ";
-        String line = "____________________________________________________________";
-        System.out.println(smallSpace + line);
-        System.out.println(message);
-        System.out.println(smallSpace + line);
-    }
-
-    /**
      * Returns a string representation of the card.
      * @return String representation of the card.
      */
