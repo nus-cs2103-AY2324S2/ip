@@ -138,7 +138,7 @@ Bye. Hope to see you again soon!
 Data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ## Editing the data file
-Data are saved automatically as a text file [JAR file location]/data/test.txt. Advanced users are welcome to update data directly by editing that data file.
+Data are saved automatically as a text file [JAR file location]/data/tasks.txt. Advanced users are welcome to update data directly by editing that data file.
 
 ## Command Summary
 

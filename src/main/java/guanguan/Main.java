@@ -16,7 +16,7 @@ public class Main extends Application {
     private final GuanGuan guanguan;
 
     public Main() throws GgException {
-        this.guanguan = new GuanGuan("data/test.txt", new Gui());
+        this.guanguan = new GuanGuan("data/tasks.txt", new Gui());
     }
 
     @Override

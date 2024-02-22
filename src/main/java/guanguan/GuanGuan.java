@@ -58,7 +58,7 @@ public class GuanGuan {
     }
 
     public static void main(String[] args) throws GgException {
-        new GuanGuan("data/test.txt").run();
+        new GuanGuan("data/tasks.txt").run();
     }
 
     /**
