@@ -36,7 +36,7 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image gronk = new Image(this.getClass().getResourceAsStream("/images/DaGronk.png"));
     private Storage storage;
     private UserInterface userInterface;
     private Parser parser;
@@ -104,18 +104,18 @@ public class Main extends Application {
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        Label dukeText = new Label(this.userInterface.returnHello());
+        Label gronkText = new Label(this.userInterface.returnHello());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getGronkDialog(gronkText, new ImageView(gronk))
         );
     }
 
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label gronkText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getGronkDialog(gronkText, new ImageView(gronk))
         );
         userInput.clear();
     }
