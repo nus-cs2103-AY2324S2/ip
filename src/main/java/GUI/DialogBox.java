@@ -35,15 +35,15 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     private Color textboxColor;
-    private int textboxWidth = 260;
+    private int textboxWidth = 255;
 
     private DialogBox(String text, Image img, String type) {
 
         dialog = new Label(text);
         displayPicture = new ImageView(img);
 
-
         dialog.setText(text);
+
         displayPicture.setImage(img);
         if (type.equals("USER")) {
             textboxColor = Color.LIGHTBLUE;

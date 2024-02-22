@@ -64,6 +64,7 @@ public class Ui {
         response.add("How can I help?");
         response.add(("Enter 'help' to see the list of commands available :D"));
         String reply = listToString(response);
+        signalSays(reply);
         return reply;
     }
 
