@@ -9,9 +9,9 @@ public class Pew {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-
+    private String filePath = "data/pew.txt";
     /**
-     * Constructs a Duke object
+     * Constructs a Pew object
      *
      * @param filePath the path to the file containing the tasks
      */
@@ -67,7 +67,7 @@ public class Pew {
 
     private void saveTasksToFile() {
         try {
-            FileWriter writer = new FileWriter("data/pew.txt");
+            FileWriter writer = new FileWriter(filePath);
             for (Task task : taskList.getTaskArr()) {
                 writer.write(task.save() + "\n");
             }
@@ -79,7 +79,7 @@ public class Pew {
 
     public String getResponse(String userInput) {
         if (userInput.equalsIgnoreCase("bye")){
-            return "Bye. Hope to see you again soon!";
+            System.exit(0);
         }
         try {
             PewException.validateInstn(userInput);

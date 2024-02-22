@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Pew pew = new Pew();
+    private Pew pew = new Pew("pew.txt");
 
     @Override
     public void start(Stage stage) {
