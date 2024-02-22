@@ -36,6 +36,8 @@ public class Deadline implements Item, Serializable {
         int index = 1;
         String s = "";
         String doneByString = "";
+        this.isDone = false;
+
         while (!info[index].equals("/by")) {
             if (index >= info.length - 1) {
                 throw new CustomExceptions.DeadlineExceptionBy("Please use /by command after deadline name");
@@ -43,24 +45,22 @@ public class Deadline implements Item, Serializable {
             this.name += info[index] + " ";
             index++;
         }
+        this.name = this.name.trim();
+        if (this.name.equals("")) {
+            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Deadline with a valid name");
+        }
+
         for (int i = index + 1; i < info.length; i++) {
             doneByString += info[i] + " ";
         }
-        this.name = this.name.trim();
-
         try {
             if (doneByString.trim().equals("")) {
                 this.doneBy = LocalDateTime.now();
             } else {
                 this.doneBy = Parser.parseDtString(doneByString.trim());
             }
-
         } catch (DateTimeParseException e) {
             throw new CustomExceptions.UnrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
-        }
-        this.isDone = false;
-        if (this.name.equals("")) {
-            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Deadline with a valid name");
         }
     }
     @Override
