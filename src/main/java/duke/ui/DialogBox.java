@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    Label dialog;
 
     @FXML
     private Label infoLabel;
