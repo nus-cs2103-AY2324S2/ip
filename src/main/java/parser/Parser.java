@@ -2,7 +2,6 @@ package parser;
 
 import java.util.List;
 
-import exceptions.TaylorException;
 import filestorage.Storage;
 import taskhelper.WordsSplit;
 import tasklist.DeleteTask;
