@@ -8,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
+ * @@author Arixeyeion-reused
+ * Reused from https://se-education.org/guides/tutorials/javaFx.html
+ * with some modifications to accomodate ip.
  * A GUI for zoe.Zoe using FXML.
  */
 public class Main extends Application {

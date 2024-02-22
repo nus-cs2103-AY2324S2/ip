@@ -65,6 +65,8 @@ Shows tasks that contain a certain `word` in their description
 
 Example: Calling `find book` will display all tasks that contain `book` in their description
 
+Note, the `word` used to locate a task is case sensitive
+
 ### Exiting
 
 Calling `bye` or clicking on the red cross closes Zoe

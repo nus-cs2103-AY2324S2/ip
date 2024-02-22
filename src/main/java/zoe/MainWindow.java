@@ -13,6 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * @@author Arixeyeion-reused
+ * Reused from https://se-education.org/guides/tutorials/javaFx.html
+ * with some modifications to accomodate ip.
  * Controller for zoe.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {

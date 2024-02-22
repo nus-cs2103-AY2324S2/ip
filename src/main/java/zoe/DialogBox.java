@@ -18,6 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
+ * @@author Arixeyeion-reused
+ * Reused from https://se-education.org/guides/tutorials/javaFx.html
+ * with some modifications to accomodate ip.
  * Custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * Zoe replies user and performs functions based on input
