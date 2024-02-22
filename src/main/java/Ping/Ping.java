@@ -1,7 +1,10 @@
 // Some of the code modified from the JavaFX tutorial
-package Ping;
+package ping;
 
-import Command.Command;
+import ping.command.Command;
+import ping.exceptions.PingException;
+import ping.gui.UI;
+
 
 
 

@@ -1,7 +1,9 @@
-package Ping;
+package ping.gui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import ping.job.Task;
 
 /**
  * This class is used to create a user interface

@@ -1,6 +1,7 @@
-package Ping;
+package ping.job;
 import java.io.Serializable;
 // Solution below adapted by week2 iP Level-3 Partial solution
+
 /**
  * This class is used to create a task
  */
@@ -22,6 +23,10 @@ public class Task implements Serializable {
 
     public void unMarkDone() {
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

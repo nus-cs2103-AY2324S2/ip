@@ -47,14 +47,17 @@ test {
     }
 }
 
+
 application {
-    mainClass.set("Ping.Launcher")
+    mainClass.set("ping.Launcher")
 }
 
+
 shadowJar {
-    archiveBaseName = "Ping"
+    archiveBaseName = "ping"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = "ping.jar"
 }
 
 run{

@@ -1,5 +1,5 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-package Ping;
+package ping.job;
 import java.time.LocalDate;
 
 /**
@@ -7,6 +7,7 @@ import java.time.LocalDate;
  */
 public class Deadline extends Task {
     protected LocalDate by;
+    protected String description;
 
     /**
      * This is the constructor of the Deadline class
@@ -16,6 +17,15 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+    }
+
+    
+    public LocalDate getBy() {
+        return by;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
