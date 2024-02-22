@@ -74,7 +74,7 @@ public class TaskList {
                 }
                 Task taskToDelete = taskList.get(targetTaskId - 1);
                 taskList.remove(taskToDelete);
-                String output = "Removed" + taskToDelete + " from your list";
+                String output = "Removed " + taskToDelete.getId() + ". " + taskToDelete + " from your list";
                 return output;
             }
         } catch (SolaireException e) {
@@ -109,7 +109,7 @@ public class TaskList {
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.markAsDone();
-                output = "Marked item number: " + item.getId() + "\n";
+                output = "Marked item number: " + item.getId() + ". " + item + " as done\n";
                 return output;
             }
         }
@@ -128,7 +128,7 @@ public class TaskList {
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.unmarkDone();
-                output = "Unmarked  item number: " + item.getId() + "\n";
+                output = "Marked item number: " + item.getId() + ". " + item + " as not done\n";
                 return output;
             }
         }
