@@ -20,6 +20,6 @@ public class DeadlineTest {
 
         Deadline deadlineWithCorrectInput = new Deadline("test deadline description", date, time);
         String tString1 = deadlineWithCorrectInput.toString();
-        assertEquals("[D][ ] test deadline description (by: 2 Feb 2022 10:00)", tString1);
+        assertEquals("[D][ ] test deadline description (by: 02 Feb 2022 10:00)", tString1);
     }
 }
