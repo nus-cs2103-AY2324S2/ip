@@ -5,6 +5,8 @@ import java.time.format.DateTimeParseException;
 import shon.command.Command;
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
+import shon.note.NoteList;
+import shon.task.TaskList;
 
 /**
  * Represents a chatbot that maintains a Todo List.
@@ -12,13 +14,16 @@ import shon.exception.ParameterException;
 public class Shon {
     private TaskList tasks;
     private Storage storage;
+    private NoteList notes;
 
     /**
      * Creates a <code>Shon</code> chatbot.
      */
     public Shon() {
-        this.storage = new Storage("./data/Shon.txt");
-        this.tasks = storage.loadList();
+        this.storage = new Storage();
+        this.tasks = storage.loadTasks();
+        this.notes = storage.loadNotes();
+
 
         assert this.storage != null : "No storage initialised in Shon";
         assert this.tasks != null : "No tasklist initialised in Shon";
@@ -31,7 +36,7 @@ public class Shon {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);
+            Command command = Parser.parse(input, this.tasks, this.notes);
             return executeCommand(command);
         } catch (ParameterException | CommandException e) {
             return e.getMessage();
@@ -49,8 +54,12 @@ public class Shon {
      * @throws DateTimeParseException If date/time passed into command is in invalid format.
      */
     private String executeCommand(Command command) throws ParameterException, DateTimeParseException {
-        String output = command.execute(this.tasks);
-        this.storage.updateData(this.tasks);
+        String output = command.execute();
+        this.storage.updateData(this.tasks, this.notes);
         return output;
+    }
+
+    public String greet() {
+        return "Hello! I'm Shon, your friendly bot that keeps track of your tasks and notes. What can I do for you?";
     }
 }

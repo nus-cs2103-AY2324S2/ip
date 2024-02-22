@@ -33,7 +33,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        this.greet();
     }
 
     /**
@@ -42,6 +41,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setShon(Shon s) {
         shon = s;
+        dialogContainer.getChildren().addAll(DialogBox.getShonDialog(this.shon.greet(), shonImage));
     }
 
     /**
@@ -57,14 +57,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getShonDialog(response, shonImage)
         );
         userInput.clear();
-    }
-
-    /**
-     * Displays the greeting message.
-     */
-    @FXML
-    private void greet() {
-        String shonGreeting = "Hello! I'm Shon. What can I do for you?";
-        dialogContainer.getChildren().addAll(DialogBox.getShonDialog(shonGreeting, shonImage));
     }
 }
