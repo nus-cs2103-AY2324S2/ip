@@ -23,7 +23,9 @@ public class Event extends Task {
         super(name);
         this.startTime = Task.parse(startTime);
         this.endTime = Task.parse(endTime);
-        if (!this.startTime.isBefore(this.endTime)) {
+        try {
+            assert this.startTime.isBefore(this.endTime);
+        } catch (AssertionError e) {
             throw new DukeException("Oops! It seems the event ends before it starts!");
         }
     }

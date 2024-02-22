@@ -22,7 +22,7 @@ public class ListCommand extends Command {
     /**
      * Prints currently recorded tasks.
      *
-     * @param storage Involved in file management
+     * @param storage  Involved in file management
      * @param taskList Active during the execution of the program
      */
     @Override
