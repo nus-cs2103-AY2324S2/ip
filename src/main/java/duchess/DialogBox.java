@@ -26,7 +26,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -39,6 +39,14 @@ public class DialogBox extends HBox {
         assert img != null : "Display image must be initialised";
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        if (isUser) {
+            // Apply styling for user input
+            dialog.setStyle("-fx-background-color: lightblue; -fx-padding: 10px;");
+        } else {
+            // Apply styling for bot responses
+            dialog.setStyle("-fx-background-color: lightgreen; -fx-padding: 10px;");
+        }
     }
 
     /**
@@ -52,11 +60,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     public static DialogBox getDuchessDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, false);
         db.flip();
         return db;
     }
