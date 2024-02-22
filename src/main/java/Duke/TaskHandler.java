@@ -15,6 +15,7 @@ import static java.lang.String.join;
 
 public class TaskHandler{
 
+
     /**
      * Handles user input and performs operation based of it
      *
@@ -23,15 +24,20 @@ public class TaskHandler{
      * @param filePath
      * @throws IOException
      */
-    public static void doTasks(String input, TaskList storage, Path filePath) throws IOException {
+    public static String doTasks(String input, TaskList storage, Path filePath) throws IOException, DukeException {
         int taskNum = storage.size() + 1;
+        if (input.equals("bye")) {
+            UI.showExitMsg();
+            return GUI.exitMsg();
+        }
         if (input.equals("list")) {
             String contents = storage.showALlTask();
-
             UI.listMsg(contents);
+            return GUI.listMsg(contents);
 
         } else if (input.equals("help")) {
             UI.showAvailCommands();
+            return GUI.showAvailCommands();
 
         } else if (input.startsWith("find")) {
             String[] temp = input.split(" ");
@@ -43,22 +49,32 @@ public class TaskHandler{
                 TaskList matchedTasks = findMatchedTasks(keyword, storage);
                 String content = matchedTasks.showALlTask();
                 UI.printMatchedTasks(content);
+                return GUI.printMatchedTasks(content);
 
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
-        } else if (input.equals("check dates")) {
-            Scanner scan = new Scanner(System.in);
-            UI.checkDatesMsg();
-            String fromDate = scan.nextLine();
-            System.out.println("End: ");
-            String toDate = scan.nextLine();
-            ArrayList<Task> taskList = TaskHandler.checkSchedule(fromDate, toDate, storage);
-            UI.scheduledTaskMsg();
-            for (Task task : taskList) {
-                System.out.println(task.toString());
+        } else if (input.startsWith("check dates")) {
+
+            String[] temp = input.split(" ");
+            try {
+                if (temp.length <= 2) {
+                    throw new DukeException("Need a period!!");
+                }
+                Pattern p = Pattern.compile("check dates (\\d+/\\d+/\\d+) (\\d+/\\d+/\\d+)(.*)");
+                Matcher m = p.matcher(input);
+                if (m.matches()) {
+                    TaskList taskList = TaskHandler.checkSchedule(m.group(1), m.group(2), storage);
+                    String contents = taskList.showALlTask();
+                    UI.scheduledTaskMsg(contents);
+                    return GUI.scheduledTaskMsg(contents);
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
             }
         } else if (input.startsWith("mark")) {
             String[] temp = input.split(" ");
@@ -68,9 +84,12 @@ public class TaskHandler{
                 boolean toMark = true;
                 Task task = storage.mark(index, toMark);
                 UI.markedMsg(task);
+                saveTasks(storage, filePath);
+                return GUI.markedMsg(task);
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.startsWith("unmark")) {
@@ -81,9 +100,12 @@ public class TaskHandler{
                 boolean toMark = false;
                 Task task = storage.mark(index, toMark);
                 UI.unMarkedMsg(task);
+                saveTasks(storage, filePath);
+                return GUI.unMarkedMsg(task);
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.startsWith("delete")) {
@@ -91,11 +113,14 @@ public class TaskHandler{
             try {
                 checkInput(temp, storage, UI.errorMsg("delete"));
                 int index = Integer.parseInt(temp[1]);
-                Task task  = storage.delete(index);
+                Task task = storage.delete(index);
                 UI.deleteMsg(task, storage);
+                saveTasks(storage, filePath);
+                return GUI.deleteMsg(task, storage);
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.startsWith("todo")) {
@@ -104,10 +129,14 @@ public class TaskHandler{
                 checkTaskInput(test, storage, UI.errorMsg("todo"));
                 String msg = input.substring(5);
                 ToDo task = new ToDo(msg);
-                UI.printAddMsg(task, taskNum);
                 storage.add(task);
+                saveTasks(storage, filePath);
+                UI.printAddMsg(task, taskNum);
+                return GUI.printAddMsg(task, taskNum);
+
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.startsWith("deadline")) {
@@ -122,14 +151,15 @@ public class TaskHandler{
                     LocalDate date = getDate(m.group(2));
                     task = new Deadline(m.group(1), date);
                 } else {
-                    throw new DukeException("__________________________________\n" +
-                            "Need a deadline!!\n" +
-                            "__________________________________\n");
+                    throw new DukeException("Need a deadline!!");
                 }
                 UI.printAddMsg(task, taskNum);
                 storage.add(task);
+                saveTasks(storage, filePath);
+                return GUI.printAddMsg(task, taskNum);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else if (input.startsWith("event")) {
@@ -145,25 +175,32 @@ public class TaskHandler{
                     LocalDate toDate = getDate(m.group(4));
                     task = new Event(m.group(1), fromDate, toDate);
                 } else {
-                    throw new DukeException("__________________________________\n" +
-                            "Need a period for the event!!\n" +
-                            "__________________________________\n");
+                    throw new DukeException("Need a period for the event!!");
                 }
                 UI.printAddMsg(task, taskNum);
                 storage.add(task);
+                saveTasks(storage, filePath);
+                return GUI.printAddMsg(task, taskNum);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
 
         } else {
             try {
-                throw new DukeException("__________________________________\n" +
-                        "What is this task???\n" +
-                        "__________________________________\n");
+                throw new DukeException("What is this task??\n");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
         }
+
+        String output = "What is this task??\n" +
+                "Please use 'help' to see list of commands";
+        return output;
+    }
+
+    private static void saveTasks(TaskList storage, Path filePath) throws IOException, DukeException {
         Files.writeString(filePath, "");
         for (Task task : storage) {
             try {
@@ -171,10 +208,7 @@ public class TaskHandler{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
-
-
     }
 
     /**
@@ -185,8 +219,8 @@ public class TaskHandler{
      * @param storage
      * @return ArrayList<Task> containing task in the date range
      */
-    public static ArrayList<Task> checkSchedule(String start, String end, ArrayList<Task> storage) {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public static TaskList checkSchedule(String start, String end, ArrayList<Task> storage) {
+        TaskList tasks = new TaskList();
         try {
             LocalDate fromDate = getDate(start);
             LocalDate toDate = getDate(end);

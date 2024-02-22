@@ -74,9 +74,11 @@ public class UI {
     /**
      * Displays output message for when check dates command is used.
      */
-    public static void scheduledTaskMsg() {
+    public static void scheduledTaskMsg(String contents) {
         System.out.println("__________________________________\n" +
-                "This are the tasks within the period you stated:");
+                "This are the tasks within the period you stated:\n" +
+                contents +
+                "__________________________________\n");
     }
 
     /**
