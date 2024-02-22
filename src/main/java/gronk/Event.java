@@ -46,12 +46,6 @@ public class Event extends Task {
         }
     }
 
-    public String getTime() {
-        String st = this.getStartTime();
-        String et = this.getEndTime();
-        return "\tAny time from " + st + " to " + et;
-    }
-
     public String getStartTime() {
         return this.startTime.format(DATE_FORMAT);
     }
@@ -59,7 +53,6 @@ public class Event extends Task {
     public String getEndTime() {
         return this.endTime.format(DATE_FORMAT);
     }
-
 
     @Override
     public String statusMessage() {

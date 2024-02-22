@@ -16,6 +16,6 @@ public class WrongDateFormatException extends Exception {
 
     @Override
     public String toString() {
-        return "Error, please input the time in DD/MM/YYYY format.";
+        return "Error, please input the time in dd/MM/yyyy format.";
     }
 }

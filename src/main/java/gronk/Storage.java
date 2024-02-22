@@ -44,6 +44,7 @@ public class Storage {
             }
             myWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -59,6 +60,7 @@ public class Storage {
                 loadLine(sc.nextLine());
             }
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
