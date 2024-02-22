@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sylvia.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"  minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sylvia.ui.MainWindow">
   <children>
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="359.0" promptText="Message Sylvia..." AnchorPane.bottomAnchor="1.0">
+    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" onKeyPressed="#handleKeyPress" prefHeight="41.0" prefWidth="359.0" promptText="Message Sylvia..." AnchorPane.bottomAnchor="1.0">
          <font>
             <Font size="14.0" />
          </font></TextField>

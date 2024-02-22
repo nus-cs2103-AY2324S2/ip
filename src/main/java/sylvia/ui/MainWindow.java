@@ -1,14 +1,17 @@
 package sylvia.ui;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import sylvia.Sylvia;
 
 /**
  * Represents the main window of the bot.
@@ -23,7 +26,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Sylvia sylvia;
+    private Function<String, Response> inputHandler;
+
+    private Supplier<String> prevChatSupplier = () -> "up";
+    private Supplier<String> nextChatSupplier = () -> "down";
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/userimg.jpg"));
     private final Image sylviaImage = new Image(this.getClass().getResourceAsStream("/image/sylviaimg.jpg"));
@@ -38,8 +44,24 @@ public class MainWindow extends AnchorPane {
         sendButton.setGraphic(new ImageView(sendIcon));
     }
 
-    public void setSylvia(Sylvia d) {
-        sylvia = d;
+    /**
+     * Sets the input handler for the main window.
+     *
+     * @param inputHandler The input handler for the main window.
+     */
+    public void setInputHandler(Function<String, Response> inputHandler) {
+        this.inputHandler = inputHandler;
+    }
+
+    /**
+     * Sets the chat history suppliers for the main window.
+     *
+     * @param prevChatSupplier The supplier for the previous chat message.
+     * @param nextChatSupplier The supplier for the next chat message.
+     */
+    public void setChatHistorySuppliers(Supplier<String> prevChatSupplier, Supplier<String> nextChatSupplier) {
+        this.prevChatSupplier = prevChatSupplier;
+        this.nextChatSupplier = nextChatSupplier;
     }
 
     private String getUserInput() {
@@ -59,9 +81,31 @@ public class MainWindow extends AnchorPane {
         if (input.isEmpty()) {
             return;
         }
-        Response response = sylvia.runCommand(input);
+        Response response = inputHandler.apply(input);
         showResponse(response);
         userInput.clear();
+    }
+
+    private void setNullableUserInput(String input) {
+        if (input == null) {
+            return;
+        }
+        userInput.setText(input);
+        userInput.positionCaret(input.length()); // move caret to end
+    }
+
+    @FXML
+    private void handleKeyPress(KeyEvent event) {
+        switch (event.getCode()) {
+        case UP:
+            setNullableUserInput(prevChatSupplier.get());
+            break;
+        case DOWN:
+            setNullableUserInput(nextChatSupplier.get());
+            break;
+        default:
+            break;
+        }
     }
 
     /**
