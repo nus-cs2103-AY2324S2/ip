@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,19 +21,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Teletubbi teletubbi;
 
     private Image userImage = new Image(this.getClass()
             .getResourceAsStream("/images/Screenshot 2024-02-17 at 5.12.09 PM.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/teletubbi.png"));
+    private Image teletubbiImage = new Image(this.getClass().getResourceAsStream("/images/teletubbi.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setTeletubbi(Teletubbi t) {
+        teletubbi = t;
     }
 
     /**
@@ -43,10 +43,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = teletubbi.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTeletubbiDialog(response, teletubbiImage)
         );
         userInput.clear();
     }

@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents a task with the specified description.

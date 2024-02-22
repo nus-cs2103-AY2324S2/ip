@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents a to-do task.

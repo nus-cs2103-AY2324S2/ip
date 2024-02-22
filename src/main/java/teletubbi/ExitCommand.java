@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the command to exit the chatbot program.
@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
         setExit(true);
         try {
             storage.save(taskList);
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             ui.showMessage("Unable to save :(");
         }
         return "";

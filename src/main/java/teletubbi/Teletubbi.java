@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
  * Represents a chatbot that assists the user with managing a task list.
  * This chatbot has a task-list to keep track of tasks and a storage to store task content.
  */
-public class Duke {
+public class Teletubbi {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -25,32 +25,32 @@ public class Duke {
 
 
     /**
-     * Creates a new Duke object with duke.txt as the storage file.
+     * Creates a new Teletubbi object with teletubbi.txt as the storage file.
      */
-    public Duke() {
+    public Teletubbi() {
         ui = new Ui();
-        storage = new Storage("./data/duke.txt");
+        storage = new Storage("./data/teletubbi.txt");
         parser = new Parser();
         try {
             taskList = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             taskList = new TaskList();
         }
     }
 
     /**
-     * Creates a new Duke object with the given filePath to store data.
+     * Creates a new Teletubbi object with the given filePath to store data.
      *
      * @param filePath Filepath to storage file.
      */
-    public Duke(String filePath) {
+    public Teletubbi(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty!";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             taskList = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             taskList = new TaskList();
         }
     }
@@ -74,7 +74,7 @@ public class Duke {
                     ui.exit();
                     isRunning = false;
                 }
-            } catch (DukeException e) {
+            } catch (TeletubbiException e) {
                 ui.showMessage(e.getMessage());
             } finally {
                 if (isRunning) {
@@ -85,14 +85,16 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response given a text user input.
+     *
+     * @param input User input.
+     * @return Teletubbi response.
      */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
             return command.execute(taskList, ui, storage);
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             return e.getMessage();
         }
     }
@@ -103,7 +105,7 @@ public class Duke {
      * @param args Arguments.
      */
     public static void main(String[] args) {
-        Duke duke = new Duke("./data/duke.txt");
-        duke.run();
+        Teletubbi teletubbi = new Teletubbi("./data/teletubbi.txt");
+        teletubbi.run();
     }
 }

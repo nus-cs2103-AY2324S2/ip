@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import javafx.application.Application;
 

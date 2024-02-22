@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the command to find a task given a keyword.
@@ -16,9 +16,9 @@ public class FindCommand extends Command {
             TaskList filteredList = taskList.find(this.keyword);
             for (int i = 0; i < filteredList.size(); i++) {
                 int index = i + 1;
-                result = result + index + ". " + filteredList.get(0).toString() + "\n";
+                result = result + index + ". " + filteredList.get(i).toString() + "\n";
             }
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             result = "";
         }
         return result;

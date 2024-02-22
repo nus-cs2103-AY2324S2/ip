@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the command to add a task.

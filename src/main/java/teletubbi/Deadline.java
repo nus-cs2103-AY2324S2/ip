@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

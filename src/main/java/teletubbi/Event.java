@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents an event with start and end time.

@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,9 +19,9 @@ public class Storage {
      * Initializes and loads file of given file path.
      *
      * @return File content.
-     * @throws DukeException If unable to initialize file.
+     * @throws TeletubbiException If unable to initialize file.
      */
-    public String load() throws DukeException {
+    public String load() throws TeletubbiException {
         File f = new File(filePath);
         try {
             boolean isDirCreated = f.getParentFile().mkdirs();
@@ -36,7 +36,7 @@ public class Storage {
                 return content;
             }
         } catch (IOException e) {
-            throw new DukeException("Unable to initialize storage file.");
+            throw new TeletubbiException("Unable to initialize storage file.");
         }
         return "";
     }
@@ -46,9 +46,9 @@ public class Storage {
      *
      * @param taskList Task content to save.
      */
-    public void save(TaskList taskList) throws DukeException {
+    public void save(TaskList taskList) throws TeletubbiException {
         try {
-            FileWriter fw = new FileWriter("./data/duke.txt");
+            FileWriter fw = new FileWriter("./data/teletubbi.txt");
             for (int i = 0; i < taskList.size(); i++) {
                 Task curr = taskList.get(i);
                 if (curr instanceof ToDo) {
@@ -66,7 +66,7 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("Error updating file: " + e.getMessage());
-        } catch (DukeException a) {
+        } catch (TeletubbiException a) {
             throw a;
         }
     }

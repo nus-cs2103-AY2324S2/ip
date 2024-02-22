@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the command to unmark a task.
@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
             Task t = taskList.get(index - 1);
             setExit(false);
             return t.unmark();
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             return e.getMessage();
         }
     }

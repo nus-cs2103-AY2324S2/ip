@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents a command to delete a task from the list.
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
             String sOrP = numItems == 1 ? "task" : "tasks";
             return "Noted. I've removed this task:\n" + removedTask.toString()
                     + "\nNow you have " + numItems + " " + sOrP + " in the list.";
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             return e.getMessage();
         }
     }

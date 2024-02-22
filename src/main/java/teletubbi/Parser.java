@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the parser responsible for interpreting user commands.
@@ -16,9 +16,9 @@ public class Parser {
      *
      * @param input User input.
      * @return Command to be executed.
-     * @throws DukeException If command is invalid or incomplete.
+     * @throws TeletubbiException If command is invalid or incomplete.
      */
-    public Command parse(String input) throws DukeException {
+    public Command parse(String input) throws TeletubbiException {
         String cleanedInput = input.replaceAll(" ", "");
 
         if (cleanedInput.equals("bye")) {
@@ -47,11 +47,11 @@ public class Parser {
      *
      * @param input User input.
      * @return FindCommand with the relevant keyword.
-     * @throws DukeException If the keyword to find is not specified.
+     * @throws TeletubbiException If the keyword to find is not specified.
      */
-    private Command parseFindCommand(String input) throws DukeException {
+    private Command parseFindCommand(String input) throws TeletubbiException {
         if (input.length() < 6) {
-            throw new DukeException("find what");
+            throw new TeletubbiException("find what");
         }
         String keyword = input.split("find ")[1];
         return new FindCommand(keyword);
@@ -62,20 +62,20 @@ public class Parser {
      *
      * @param input User input.
      * @return MarkCommand with the index of task to be marked.
-     * @throws DukeException If the task number is missing or invalid.
+     * @throws TeletubbiException If the task number is missing or invalid.
      */
-    private Command parseMarkCommand(String input) throws DukeException {
+    private Command parseMarkCommand(String input) throws TeletubbiException {
         try {
             String[] parts = input.split("mark");
             if (parts.length < 2) {
-                throw new DukeException("Missing task number...");
+                throw new TeletubbiException("Missing task number...");
             }
             int taskNumber = Integer.parseInt(parts[1]);
             return new MarkCommand(taskNumber);
         } catch (IndexOutOfBoundsException b) {
-            throw new DukeException("Invalid task number... count properly xx");
+            throw new TeletubbiException("Invalid task number... count properly xx");
         } catch (NumberFormatException n) {
-            throw new DukeException("number only...");
+            throw new TeletubbiException("number only...");
         }
     }
 
@@ -84,20 +84,20 @@ public class Parser {
      *
      * @param input User input.
      * @return UnmarkCommand with the index of task to be unmarked.
-     * @throws DukeException If the task number is missing or invalid.
+     * @throws TeletubbiException If the task number is missing or invalid.
      */
-    private Command parseUnmarkCommand(String input) throws DukeException {
+    private Command parseUnmarkCommand(String input) throws TeletubbiException {
         try {
             String[] parts = input.split("unmark");
             if (parts.length < 2) {
-                throw new DukeException("Missing task number...");
+                throw new TeletubbiException("Missing task number...");
             }
             int taskNumber = Integer.parseInt(parts[1]);
             return new UnmarkCommand(taskNumber);
         } catch (IndexOutOfBoundsException b) {
-            throw new DukeException("Invalid task number... count properly xx");
+            throw new TeletubbiException("Invalid task number... count properly xx");
         } catch (NumberFormatException n) {
-            throw new DukeException("number only...");
+            throw new TeletubbiException("number only...");
         }
     }
 
@@ -106,20 +106,20 @@ public class Parser {
      *
      * @param input User input.
      * @return DeleteCommand with the index of task to be deleted.
-     * @throws DukeException If the task number is missing or invalid.
+     * @throws TeletubbiException If the task number is missing or invalid.
      */
-    private Command parseDeleteCommand(String input) throws DukeException {
+    private Command parseDeleteCommand(String input) throws TeletubbiException {
         try {
             String taskNumber = input.replaceAll("delete", "").replaceAll(" ", "");
             if (taskNumber.length() < 1) {
-                throw new DukeException("which task?");
+                throw new TeletubbiException("which task?");
             }
             int task = Integer.parseInt(taskNumber);
             return new DeleteCommand(task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("invalid task number... count properly xx");
+            throw new TeletubbiException("invalid task number... count properly xx");
         } catch (NumberFormatException n) {
-            throw new DukeException("number only...");
+            throw new TeletubbiException("number only...");
         }
     }
 
@@ -128,19 +128,19 @@ public class Parser {
      *
      * @param input User input.
      * @return AddCommand with the index of task to be added.
-     * @throws DukeException If the task details are missing or invalid, or if the command is not supported.
+     * @throws TeletubbiException If the task details are missing or invalid, or if the command is not supported.
      */
-    private Command parseAddCommand(String input) throws DukeException {
+    private Command parseAddCommand(String input) throws TeletubbiException {
         try {
             Task taskAdded;
             if (input.startsWith("todo")) {
                 if (input.length() < 6) {
-                    throw new DukeException("do what?");
+                    throw new TeletubbiException("do what?");
                 }
                 taskAdded = new ToDo(input.substring(5));
             } else if (input.startsWith("deadline")) {
                 if (input.length() < 12) {
-                    throw new DukeException("what's the task?");
+                    throw new TeletubbiException("what's the task?");
                 }
                 String description = input.split("deadline ")[1].split(" /by")[0];
                 String by = input.split("/by ", 2)[1];
@@ -151,11 +151,11 @@ public class Parser {
                 String end = input.split("/to ")[1];
                 taskAdded = new Event(description, start, end);
             } else {
-                throw new DukeException("gong mat yeh");
+                throw new TeletubbiException("gong mat yeh");
             }
             return new AddCommand(taskAdded);
         } catch (IndexOutOfBoundsException a) {
-            throw new DukeException("please follow input format...");
+            throw new TeletubbiException("please follow input format...");
         }
     }
 }

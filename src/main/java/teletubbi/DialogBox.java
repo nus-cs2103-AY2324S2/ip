@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getTeletubbiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

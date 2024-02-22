@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 import java.util.ArrayList;
 
@@ -87,9 +87,9 @@ public class TaskList {
      * Removes task of specified index from the task list.
      *
      * @param index Index of task on the list to be deleted
-     * @throws DukeException If index is invalid.
+     * @throws TeletubbiException If index is invalid.
      */
-    public void delete(int index) throws DukeException {
+    public void delete(int index) throws TeletubbiException {
         try {
             Task removedTask = taskList.get(index - 1);
             taskList.remove(index - 1);
@@ -98,7 +98,7 @@ public class TaskList {
             ui.showMessage("Noted. I've removed this task:\n" + removedTask.toString()
                     + "\nNow you have " + numItems + " " + sOrP + " in the list.");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task number... count properly xx");
+            throw new TeletubbiException("Invalid task number... count properly xx");
         }
     }
 
@@ -135,13 +135,13 @@ public class TaskList {
      *
      * @param i Index of task.
      * @return Task of index i in the list.
-     * @throws DukeException If the index specified is invalid.
+     * @throws TeletubbiException If the index specified is invalid.
      */
-    public Task get(int i) throws DukeException {
+    public Task get(int i) throws TeletubbiException {
         try {
             return taskList.get(i);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task number... count properly xx");
+            throw new TeletubbiException("Invalid task number... count properly xx");
         }
     }
 }

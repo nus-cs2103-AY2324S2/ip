@@ -1,4 +1,4 @@
-package duke;
+package teletubbi;
 
 /**
  * Represents the command to mark a task as done.
@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
             Task t = taskList.get(index - 1);
             setExit(false);
             return t.markAsDone();
-        } catch (DukeException e) {
+        } catch (TeletubbiException e) {
             return e.getMessage();
         }
     }
