@@ -4,7 +4,6 @@ import ChatbotRan.components.DialogBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 public class RanUi {
     private VBox container;
 
-    private StringBuilder sb = new StringBuilder();
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image ranImage = new Image(this.getClass().getResourceAsStream("/images/DaRan.png"));
+    private final StringBuilder sb = new StringBuilder();
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image ranImage = new Image(this.getClass().getResourceAsStream("/images/DaRan.png"));
 
     /**
      * Prints the startup message.
@@ -148,8 +147,8 @@ public class RanUi {
         if (tasks.isEmpty()) {
             addOutputLn("No tasks contain that string.");
         } else {
-            addOutputLn("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
-            for (Task t: tasks) {
+            addOutputLn("Found " + tasks.size() + " match" + (tasks.size() == 1 ? "" : "es"));
+            for (Task t : tasks) {
                 printTask(t);
             }
         }
@@ -176,12 +175,14 @@ public class RanUi {
         sb.setLength(0);
         container.getChildren().add(DialogBox.getDukeDialog(response, ranImage));
     }
+
     public void setContainer(VBox dialogContainer) {
         this.container = dialogContainer;
     }
 
     /**
      * Displays user input in a dialog box.
+     *
      * @param input user input
      */
     public void displayInput(String input) {

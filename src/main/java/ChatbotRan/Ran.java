@@ -2,8 +2,6 @@ package ChatbotRan;
 
 import javafx.scene.layout.VBox;
 
-import java.util.Scanner;
-
 /**
  * Runs the entire chatbot. Reads from standard input.
  */
@@ -27,6 +25,7 @@ public class Ran {
 
     /**
      * Displays input and response to an input.
+     *
      * @param input input line
      */
     public void respond(String input) {

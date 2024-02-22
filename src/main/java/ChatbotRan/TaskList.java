@@ -35,11 +35,6 @@ public class TaskList {
         updateTasks();
     }
 
-    public void changeTask(int index, Consumer<Task> func) {
-        func.accept(tasks.get(index));
-        updateTasks();
-    }
-
     /**
      * Replaces the task at given index with the new task and saves.
      *
@@ -78,7 +73,7 @@ public class TaskList {
 
     public ArrayList<Task> find(String substring) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task t: tasks) {
+        for (Task t : tasks) {
             if (t.getContents().contains(substring)) {
                 matchingTasks.add(t);
             }

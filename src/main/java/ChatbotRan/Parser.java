@@ -30,6 +30,7 @@ public class Parser {
             return;
         }
         ui.displayInput(line);
+
         int space = line.indexOf(' ');
         String command = space == -1 ? line : line.substring(0, space);
         Task task;
@@ -42,7 +43,6 @@ public class Parser {
             ui.printTask(task);
             break;
         case "unmark":
-
             task = this.handleTaskNo(line, space, taskList);
             ui.unmark(task.isCompleted());
             task.setCompleted(false);
@@ -86,9 +86,8 @@ public class Parser {
             default:
                 ui.unknown();
             }
-
-
         }
+
         ui.displayBuiltOutput();
     }
 
