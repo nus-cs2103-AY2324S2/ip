@@ -30,9 +30,9 @@ public class Storage {
      * @throws IOException if file cannot be created at the path
      */
     public void store() throws IOException{
-        String filePathOld = "data/toothless.txt";
+        String filePathOld = "./data/toothless.txt";
         File oldFile = new File(filePathOld);
-        String filePathNew = "data/temp.txt";
+        String filePathNew = "./data/toothless.txt";
         File newFile = new File(filePathNew);
         try {
             boolean fileCreated = newFile.createNewFile();
@@ -77,11 +77,11 @@ public class Storage {
         }
         //System.out.println("1");
         fw.close();
-
+        /*
         Path source = Paths.get("data/temp.txt");
         Path destination = Paths.get("data/toothless.txt");
         //oldFile.delete();
         Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-
+        */
     }
 }
