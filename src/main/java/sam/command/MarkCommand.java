@@ -12,7 +12,11 @@ public class MarkCommand extends Command {
         if (index.isBlank()) {
             throw new SamException("Please provide a task number.");
         }
-        this.index = Integer.parseInt(index) - 1;
+        try {
+            this.index = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new SamException("Please provide a number");
+        }
     }
 
     @Override

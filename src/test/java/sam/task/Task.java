@@ -1,7 +1,4 @@
 package sam.task;
-
-import sam.SamException;
-
 public class Task {
     protected String description;
     protected boolean isDone;

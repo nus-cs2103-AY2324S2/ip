@@ -1,19 +1,19 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 
-public class UnmarkCommand extends Command {
-    private final int index;
+public class DeleteCommand extends Command {
+    private int index;
 
-    public UnmarkCommand(String index) throws SamException {
-        if (index.isBlank()) {
-            throw new SamException("Please provide a task number.");
+    public DeleteCommand(String taskInfo) throws SamException {
+        if (taskInfo.isBlank()) {
+            throw new SamException("Please provide the task number to delete.");
         }
         try {
-            this.index = Integer.parseInt(index) - 1;
+            this.index = Integer.parseInt(taskInfo) - 1;
         } catch (NumberFormatException e) {
             throw new SamException("Please provide a number");
         }
@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
-        tasks.unmarkTask(index);
+        tasks.deleteTask(index);
         storage.save(tasks);
     }
 }

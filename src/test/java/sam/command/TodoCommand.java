@@ -1,9 +1,9 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 import sam.task.ToDo;
 
 public class TodoCommand extends Command {
@@ -11,7 +11,7 @@ public class TodoCommand extends Command {
 
     public TodoCommand(String taskInfo) throws SamException {
         if (taskInfo.isBlank()) {
-            throw new SamException("Please provide a task description.");
+                throw new SamException("Please provide a task description.");
         }
         this.description = taskInfo;
     }

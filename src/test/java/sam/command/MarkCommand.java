@@ -1,14 +1,14 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final int index;
 
-    public UnmarkCommand(String index) throws SamException {
+    public MarkCommand(String index) throws SamException {
         if (index.isBlank()) {
             throw new SamException("Please provide a task number.");
         }
@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
-        tasks.unmarkTask(index);
+        tasks.markTask(index);
         storage.save(tasks);
     }
 }

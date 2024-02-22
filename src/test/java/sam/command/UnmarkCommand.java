@@ -1,9 +1,9 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 
 public class UnmarkCommand extends Command {
     private final int index;

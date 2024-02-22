@@ -1,21 +1,14 @@
 package sam.task;
 
-import sam.SamException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task  {
+public class Deadline extends Task {
     protected LocalDateTime date;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
- public Deadline(String description, String by) throws SamException {
+ public Deadline(String description, String by) {
         super(description);
-
-        if(by.isBlank()) {
-            throw new SamException("No due date specified.");
-        }
-
         this.date = LocalDateTime.parse(by, INPUT_FORMATTER);
     }
 

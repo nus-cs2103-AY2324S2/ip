@@ -1,14 +1,11 @@
 package sam;
 
-import sam.task.Task;
-import sam.task.ToDo;
 import sam.task.Deadline;
 import sam.task.Event;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import sam.task.Task;
+import sam.task.ToDo;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
@@ -46,7 +43,7 @@ public class Storage {
         }
     }
 
-    private static Task createTaskFromLine(String line) throws SamException {
+    private static Task createTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
 
         if (parts.length < 3) {

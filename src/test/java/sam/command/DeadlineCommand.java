@@ -1,9 +1,9 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 import sam.task.Deadline;
 
 public class DeadlineCommand extends Command {
@@ -15,9 +15,6 @@ public class DeadlineCommand extends Command {
             throw new SamException("Invalid format for deadline, please provide a deadline using /by.");
         }
         String[] details = taskInfo.split(" /by ");
-        if (details.length < 2) {
-            throw new SamException("Invalid format for deadline, please provide a deadline using /by.");
-        }
         if (details[0].isBlank()) {
             throw new SamException("Please provide a description of the task");
         }
