@@ -86,6 +86,8 @@ Example: the input, `event scribble's birthday /from 03/09/2003 0000 /to 03/09/2
 will add the event task `scribble's birthday` with the start date and time `03/09/2003 0000` and end date and time 
 `03/09/2003 2359`
 
+<br/>
+
 ### Listing all tasks and events: `list`
 Show all the tasks and events currently in your list.
 
@@ -97,12 +99,16 @@ Format: `list`
     alt="list preview" height="200">
 </p>
 
+<br/>
+
 ### Deleting tasks and events: `delete`
 Deletes a task from your list at the given index.
 
 Format: `delete <INDEX>`
 
 Example: `delete 1` deletes the task at currently at index 1 of your list.
+
+<br/>
 
 ### Marking tasks: `mark`
 Marks the task at the given index as completed.
@@ -112,6 +118,8 @@ Format: `mark <INDEX>`
 Example: if the first task on your list is `[T][ ] feed scribbles`, the input, `mark 1` will mark the task with an `X` 
 and you will end up with `[T][X] feed scribbles`
 
+<br/>
+
 ### Unmarking tasks: `unmark`
 Unmarks the task at the given index. The task is not considered incompleted.
 
@@ -119,6 +127,8 @@ Format: `unmark <INDEX>`
 
 Example: if the first task on your list is `[T][X] feed scribbles`, the input, `unmark 1` will remove the `X`
 and you will end up with `[T][ ] feed scribbles`
+
+<br/>
 
 ### Finding tasks: `find`
 Finds and lists all the task that match the given keyword.
@@ -130,6 +140,8 @@ Example: the input `find scribbles` will return a list of tasks which contain th
 > [!NOTE]
 > Scribbles is case-sensitive i.e. `Scribbles` is not equal to `scribbles`. So if you input `find scribbles`, it 
 > exclude tasks that contain the word `Scribbles`
+
+<br/>
 
 ### Sorting tasks: `sortBy`
 Sorts your tasks according to the given order.
@@ -145,10 +157,14 @@ Format: `sortBy <ORDER>`
 | incompleted first | `sortBy incompleted first` | Sorts your incompleted tasks to the top of your task list.                                                               |
 
 
+<br/>
+
 ### Exiting Scribbles: `bye`
 Exits and closes the Scribbles. Your current list of task will be saved for the next time you run Scribbles again.
 
 Format: `bye`
+
+<br/>
 
 ## Additional notes
 ### Date time formats
