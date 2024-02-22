@@ -1,0 +1,22 @@
+abc
+123
+a1s2d3
+todo 132
+todo ccc
+dealine okokok /by Sun
+deadline okkoko /by Sun
+deadline a332s /by dsd
+event newEvent/from 123 /to 456
+event iii /from zxc1 /to yh hy
+list
+mark 2
+mark 3
+mark 7
+mark 8
+list
+unmark 3
+unmark 7
+mark 1
+mark 10
+list
+bye
