@@ -1,7 +1,185 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    ____________________________________________________________
+    Hello! I'm Stratify!
+    What can I do for you?
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `mark` is invalid!
+        Reason: `0` is out of bounds. The task list is empty.
+        Usage: `mark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I didn't expect <tasks> :-(
+        Usage: `list`
+    ____________________________________________________________
+    ____________________________________________________________
+    Your list is empty.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this to-do:
+        [T][ ] read book
+    Now you have 1 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this to-do:
+        [T][ ] return book
+    Now you have 2 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `mark` must be present!
+        Usage: `mark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `mark` is invalid!
+        Reason: `two` is not an integer.
+        Usage: `mark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [T][X] return book
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][X] return book
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `unmark` must be present!
+        Usage: `unmark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `unmark` is invalid!
+        Reason: `two` is not an integer.
+        Usage: `unmark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Ok, I've marked this task as not done yet:
+        [T][ ] return book
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <index> of `mark` is invalid!
+        Reason: `2` is out of bounds. The index must be between 1 and 2.
+        Usage: `mark <index>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <name> of `todo` must be present!
+        Usage: `todo <name>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this to-do:
+        [T][ ] borrow book
+    Now you have 3 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    3. [T][ ] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument `/by` of `deadline` must be present!
+        Usage: `deadline <name> /by <by_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what `/on` means :-(
+        Usage: `deadline <name> /by <by_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this deadline:
+        [D][ ] return book (by: Jan 23 2011)
+    Now you have 4 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    3. [T][ ] borrow book
+    4. [D][ ] return book (by: Jan 23 2011)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <name> of `event` must be present!
+        Usage: `event <name> /from <start_date> /to <end_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what `/at` means :-(
+        Usage: `event <name> /from <start_date> /to <end_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument `/to` of `event` must be present!
+        Usage: `event <name> /from <start_date> /to <end_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this event:
+        [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 5 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    3. [T][ ] borrow book
+    4. [D][ ] return book (by: Jan 23 2011)
+    5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! The argument value <name> of `deadline` must be present!
+        Usage: `deadline <name> /by <by_date>`
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this deadline:
+        [D][ ] do homework (by: no idea :-p)
+    Now you have 6 task(s) in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    3. [T][ ] borrow book
+    4. [D][ ] return book (by: Jan 23 2011)
+    5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    6. [D][ ] do homework (by: no idea :-p)
+    ____________________________________________________________
+    ____________________________________________________________
+    Nice! I've marked this task as done:
+        [D][X] return book (by: Jan 23 2011)
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [T][ ] return book
+    3. [T][ ] borrow book
+    4. [D][X] return book (by: Jan 23 2011)
+    5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    6. [D][ ] do homework (by: no idea :-p)
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+        [T][ ] read book
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [T][ ] return book
+    2. [T][ ] borrow book
+    3. [D][X] return book (by: Jan 23 2011)
+    4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    5. [D][ ] do homework (by: no idea :-p)
+    ____________________________________________________________
+    ____________________________________________________________
+    OOPS!!! I'm sorry, but I don't know what `exit` means :-(
+    ____________________________________________________________
+    ____________________________________________________________
+    Bye! Hope to see you again soon!
+    ____________________________________________________________
