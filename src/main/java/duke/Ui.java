@@ -131,4 +131,13 @@ public class Ui {
         String matchingTasks = tasks.findTask(keyword);
         return DIVIDER + "\nHere are the matching tasks in your list:\n" + matchingTasks + DIVIDER;
     }
+
+    /**
+     * Prints message to CLI
+     *
+     * @param message String message to be printed.
+     */
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
 }

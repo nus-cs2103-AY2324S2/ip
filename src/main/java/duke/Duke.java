@@ -43,6 +43,7 @@ public class Duke {
         Parser parser = new Parser(this.tasks, this.ui, this.storage);
         while (!parser.isExit()) {
             parser.parse(command);
+            command = scanner.nextLine();
         }
     }
 

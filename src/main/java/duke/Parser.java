@@ -89,8 +89,9 @@ public class Parser {
      */
     private String processByeCommand() {
         // Get response message
-        outputResponse = ui.showGoodbyeMessage();
+        outputResponse = this.ui.showGoodbyeMessage();
         this.isExit = true;
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -102,6 +103,7 @@ public class Parser {
     private String processListCommand() {
         // Get response message
         outputResponse = this.ui.showListMessage(this.taskList);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -122,6 +124,7 @@ public class Parser {
         // Get response message
         currTask = this.taskList.getTask(taskIndex);
         outputResponse = this.ui.showMarkMessage(currTask);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -142,6 +145,7 @@ public class Parser {
         // Get response message
         currTask = this.taskList.getTask(taskIndex);
         outputResponse = this.ui.showUnmarkMessage(currTask);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -162,6 +166,7 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showDeleteMessage(currTask, taskList);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -175,6 +180,7 @@ public class Parser {
         String keywordToFind = inputStringSplits[1];
         // Get response message
         outputResponse = this.ui.showFindMessage(this.taskList, keywordToFind);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -203,6 +209,7 @@ public class Parser {
         } catch (TodoException e) {
             System.err.println(e.getMessage());
         }
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -227,6 +234,7 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showDeadlineMessage(currDeadline, this.taskList);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -254,6 +262,7 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showEventMessage(currEvent, this.taskList);
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -265,6 +274,7 @@ public class Parser {
     private String processInvalidCommand() {
         // Get response message
         outputResponse = this.ui.showWrongCommand();
+        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
