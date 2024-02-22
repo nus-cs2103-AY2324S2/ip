@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 import javafx.application.Application;
 

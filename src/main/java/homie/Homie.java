@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 import java.util.Scanner;
 
@@ -8,15 +8,15 @@ import java.util.Scanner;
  * Other functions include adding tasks, finding tasks, marking or un-marking tasks as done,
  * deleting tasks and listing tasks.
  */
-public class Duke {
+public class Homie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Constructor for Duke class
+     * Constructor for Homie class
      */
-    public Duke() {
+    public Homie() {
         this.ui = new Ui();
         this.storage = new Storage();
         this.tasks = new TaskList(storage.loadTasksFromFile());
@@ -25,7 +25,7 @@ public class Duke {
     /**
      * Runs the chatbot application.
      */
-    public void run() throws DukeException {
+    public void run() throws HomieException {
         Scanner scanner = new Scanner(System.in); // Create scanner
         String command = scanner.nextLine();
 
@@ -36,13 +36,13 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws DukeException {
-        new Duke().run();
+    public static void main(String[] args) throws HomieException {
+        new Homie().run();
     }
     /**
      * Returns a String response based on user input to the GUI.
      */
-    public String getResponse(String input) throws DukeException {
+    public String getResponse(String input) throws HomieException {
         Parser parser = new Parser(this.tasks, this.ui, this.storage);
         String outputResponse = parser.parse(input);
         if (parser.isExit()) {

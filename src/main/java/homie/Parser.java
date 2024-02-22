@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 /**
  * Parser class to parse the user command

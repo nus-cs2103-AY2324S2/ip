@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Storage class to deal with storing of tasks and
- * loading of tasks when the duke chatbot starts, ends or have
+ * loading of tasks when the homie chatbot starts, ends or have
  * any updates in the task list
  */
 public class Storage {

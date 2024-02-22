@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 import java.util.ArrayList;
 
