@@ -1,11 +1,11 @@
-# :hourglass: Chronos User Guide
+# Chronos User Guide
 
 Chronos is a powerful task management application designed to streamline your workflow and boost productivity. 
 With Chronos, you can effortlessly **organize your todos, deadlines, and events**, all in one intuitive platform. Optimised
 for use via a Command Line Interface (CLI), Chronos can track your tasks faster than traditional GUI apps.
 
 <p align="center">
-  <img src="Ui.png" height="500" alt="Description of the image">
+  <img src="Ui.png" height="600" alt="Description of the image">
 </p>
 
 ## Quick Start
@@ -17,7 +17,7 @@ command to run the application. A GUI similar to the below should appear in a fe
 Note how the app contains some sample data.
 
 <p align="center">
-  <img src="QuickStart.png" height="500" alt="Description of the image">
+  <img src="QuickStart.png" height="600" alt="Description of the image">
 </p>
 
 ## Features
@@ -125,18 +125,18 @@ The automatic save happens after any command that changes the data.
 
 ## Command Summary
 
-| Command         | Syntax                                                     |
-|-----------------|------------------------------------------------------------|
-| **Get Help**    | `help` or `sos`                                            |
-| **Add Todo**    | `todo return book` or `td return book`                      |
-| **Add Deadline**| `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `dl DESCRIPTION /by YYYY-MM-DD HH:MM` |
-| **Add Event**   | `event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` or `ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` |
-| **List Tasks**  | `list` or `ls`                                             |
-| **Find Tasks**  | `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]` |
-| **Mark Task**   | `mark INDEX` or `mk INDEX`                                  |
-| **Unmark Task** | `unmark INDEX` or `umk INDEX`                               |
-| **Delete Task** | `delete INDEX` or `rm INDEX`                                |
-| **Exit Program**| `bye`                                                      |
+| Command          | Syntax                                                     |
+|------------------|------------------------------------------------------------|
+| **View Help**    | `help` or `sos`                                            |
+| **List Tasks**   | `list` or `ls`                                             |
+| **Add Todo**     | `todo return book` or `td return book`                      |
+| **Add Deadline** | `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `dl DESCRIPTION /by YYYY-MM-DD HH:MM` |
+| **Add Event**    | `event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` or `ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` |
+| **Mark Task**    | `mark INDEX` or `mk INDEX`                                  |
+| **Unmark Task**  | `unmark INDEX` or `umk INDEX`                               |
+| **Delete Task**  | `delete INDEX` or `rm INDEX`                                |
+| **Find Tasks**   | `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]` |
+| **Exit Program** | `bye`                                                      |
 
 The structure of this user guide took considerable reference from the user guide of AB3, 
 which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
