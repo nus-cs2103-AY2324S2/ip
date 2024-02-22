@@ -156,6 +156,7 @@ Before exiting, TalkingBot will respond with the following message:
 ```
 Bye. Hope to see you again soon!
 ```
+
 ## Invalid commands
 
 Any other command (other than the aforementioned ones) entered into TalkingBot will be processed as an invalid command. 
