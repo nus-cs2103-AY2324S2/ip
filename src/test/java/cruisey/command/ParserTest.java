@@ -1,3 +1,5 @@
+//ONLY WORKED FOR CLI
+
 //package duke.command;
 //
 //import duke.ui.Ui;
@@ -70,3 +72,4 @@
 //    }
 //
 //}
+

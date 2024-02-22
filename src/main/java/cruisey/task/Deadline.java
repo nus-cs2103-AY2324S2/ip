@@ -56,10 +56,6 @@ public class Deadline extends Task {
             this.by = null;
         }
 
-        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should "
-                + "not be non-null.";
-        assert (this.by == null && this.byString.isEmpty()) : "Didnt enter correctly";
-
         if (this.by == null && this.byString.isEmpty()) {
             Ui.showError("by when? You forgot to enter \"/by\"");
         } else if (description.isEmpty()) {
