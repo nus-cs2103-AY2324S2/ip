@@ -12,10 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -26,9 +23,9 @@ import javafx.scene.shape.Circle;
  */
 public class DialogBox extends HBox {
     private static final Background USER_BG = new Background(new BackgroundFill(
-            Color.web("#AAACD4"), null, null));
+            Color.web("#AAACD4"), new CornerRadii(25), null));
     private static final Background DESTINY_BG = new Background(new BackgroundFill(
-            Color.web("B4D6D7"), null, null));
+            Color.web("B4D6D7"), new CornerRadii(25), null));
     @FXML
     private Label dialog;
     @FXML
@@ -53,7 +50,6 @@ public class DialogBox extends HBox {
 
         // configuring image
         displayPicture.setImage(img);
-        displayPicture.setPreserveRatio(false); // prevents cropping
         Circle circleView = new Circle(50, 50, 50);
         displayPicture.setClip(circleView); // puts image in circle
 

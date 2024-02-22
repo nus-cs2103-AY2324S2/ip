@@ -1,9 +1,5 @@
 package destiny;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import commands.Command;
 import gui.Main;
 import javafx.application.Application;
@@ -49,7 +45,7 @@ public class Destiny {
         try {
             Command c = parser.parse(input);
             result = c.execute(tasks);
-        } catch (DukeException e) {
+        } catch (DestinyException e) {
             return e.getMessage();
         }
 

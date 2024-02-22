@@ -19,9 +19,9 @@ public class Event extends Task {
      * @param description Title of the task.
      * @param fromTime The start date of this Deadline task.
      * @param toTime The end date of this Deadline task.
-     * @throws DukeException If description is empty or either fromTime or toTime is not given in the correct format.
+     * @throws DestinyException If description is empty or either fromTime or toTime is not given in the correct format.
      */
-    public Event(String description, String fromTime, String toTime) throws DukeException {
+    public Event(String description, String fromTime, String toTime) throws DestinyException {
         super(description);
         fromTime = fromTime.trim();
         toTime = toTime.trim();
@@ -36,18 +36,18 @@ public class Event extends Task {
             if (toTime.length() == 0) {
                 errorMessage += "\na deadline after the '/to' command";
             }
-            throw new DukeException(errorMessage);
+            throw new DestinyException(errorMessage);
         }
 
         String formatIssueMessage = "Please enter the date and time in the following format:\n"
                 + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234)";
         try {
             if (LocalDateTime.parse(fromTime, inputFormatter).isAfter(LocalDateTime.parse(toTime, inputFormatter))) {
-                throw new DukeException("The time in \"from\" comes after the time in \"to\"\n"
+                throw new DestinyException("The time in \"from\" comes after the time in \"to\"\n"
                         + "Please ensure that your \"from\" time is earlier than your \"to\" time");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("The time format in \"from\" or \"to\" is wrong\n" + formatIssueMessage);
+            throw new DestinyException("The time format in \"from\" or \"to\" is wrong\n" + formatIssueMessage);
         }
         this.from = LocalDateTime.parse(fromTime, inputFormatter);
         this.to = LocalDateTime.parse(toTime, inputFormatter);
@@ -61,9 +61,9 @@ public class Event extends Task {
      * @param description Title of the task.
      * @param fromTime The start date of this Deadline task.
      * @param toTime The end date of this Deadline task.
-     * @throws DukeException If description is empty or either fromTime or toTime is not given in the correct format.
+     * @throws DestinyException If description is empty or either fromTime or toTime is not given in the correct format.
      */
-    public Event(String logic, String description, String fromTime, String toTime) throws DukeException {
+    public Event(String logic, String description, String fromTime, String toTime) throws DestinyException {
         super(description);
         fromTime = fromTime.trim();
         toTime = toTime.trim();
@@ -78,18 +78,18 @@ public class Event extends Task {
             if (toTime.length() == 0) {
                 errorMessage += "\na deadline after the '/to' command";
             }
-            throw new DukeException(errorMessage);
+            throw new DestinyException(errorMessage);
         }
 
         String formatIssueMessage = "Please enter the date and time in the following format:\n"
                 + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234)";
         try {
             if (LocalDateTime.parse(fromTime, inputFormatter).isAfter(LocalDateTime.parse(toTime, inputFormatter))) {
-                throw new DukeException("The time in \"from\" comes after the time in \"to\"\n"
+                throw new DestinyException("The time in \"from\" comes after the time in \"to\"\n"
                         + "Please ensure that your \"from\" time is earlier than your \"to\" time");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("The time format in \"from\" or \"to\" is wrong\n" + formatIssueMessage);
+            throw new DestinyException("The time format in \"from\" or \"to\" is wrong\n" + formatIssueMessage);
         }
         this.from = LocalDateTime.parse(fromTime, inputFormatter);
         this.to = LocalDateTime.parse(toTime, inputFormatter);

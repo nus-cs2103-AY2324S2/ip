@@ -1,6 +1,6 @@
 package commands;
 
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.TaskList;
 import destiny.ToDo;
 
@@ -20,9 +20,9 @@ public class ToDoCmd extends Command {
         this.details = details;
     }
     @Override
-    public String execute(TaskList tasks) throws DukeException {
+    public String execute(TaskList tasks) throws DestinyException {
         if (details == "" || details == null) {
-            throw new DukeException("Please enter a description for the ToDo command");
+            throw new DestinyException("Please enter a description for the ToDo command");
         }
 
         ToDo newToDo = new ToDo(details);

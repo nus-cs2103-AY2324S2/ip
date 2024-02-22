@@ -67,7 +67,7 @@ public class Storage {
                     }
                 }
                 return tempTaskStorage;
-            } catch (DukeException | ArrayIndexOutOfBoundsException e) {
+            } catch (DestinyException | ArrayIndexOutOfBoundsException e) {
                 try {
                     file.delete();
                     // data file corrupted, create new save file

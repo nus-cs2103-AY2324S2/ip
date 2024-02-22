@@ -53,11 +53,11 @@ public class TaskList {
      * @param newTask Task that will be inserted into the TaskList.
      * @return Message for successful addition of task.
      */
-    public String addTask(Task newTask) throws DukeException {
+    public String addTask(Task newTask) throws DestinyException {
         for (Task task: taskList) {
             boolean isDuplicate = newTask.equals(task);
             if (isDuplicate) {
-                throw new DukeException("This task already exists!");
+                throw new DestinyException("This task already exists!");
             }
         }
 
@@ -72,14 +72,14 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      * @return Message for successful deletion of task.
-     * @throws DukeException If TaskList is empty, or the index is invalid.
+     * @throws DestinyException If TaskList is empty, or the index is invalid.
      */
-    public String delete(int index) throws DukeException {
+    public String delete(int index) throws DestinyException {
         if (taskList.size() == 0) {
-            throw new DukeException("Nothing is in the list yet");
+            throw new DestinyException("Nothing is in the list yet");
         }
         if (index < 1 || index > taskList.size()) {
-            throw new DukeException("Please enter a number between 1 and " + taskList.size());
+            throw new DestinyException("Please enter a number between 1 and " + taskList.size());
         }
         Task tempTask = taskList.get(index - 1);
         taskList.remove(index - 1);

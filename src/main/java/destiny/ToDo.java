@@ -8,12 +8,12 @@ public class ToDo extends Task {
      * Base constructor used by Destiny to generate ToDo object.
      *
      * @param description Title of the task.
-     * @throws DukeException If description is empty.
+     * @throws DestinyException If description is empty.
      */
-    public ToDo(String description) throws DukeException {
+    public ToDo(String description) throws DestinyException {
         super(description);
         if (description.trim().length() == 0) {
-            throw new DukeException("Please enter a description for this todo task");
+            throw new DestinyException("Please enter a description for this todo task");
         }
     }
 
@@ -22,12 +22,12 @@ public class ToDo extends Task {
      *
      * @param logic Indicates if this task should be marked.
      * @param description Title of the task.
-     * @throws DukeException If description is empty.
+     * @throws DestinyException If description is empty.
      */
-    public ToDo(String logic, String description) throws DukeException {
+    public ToDo(String logic, String description) throws DestinyException {
         super(description);
         if (description.trim().length() == 0) {
-            throw new DukeException("Please enter a description for this todo task");
+            throw new DestinyException("Please enter a description for this todo task");
         }
         switch (logic) {
         case "1":

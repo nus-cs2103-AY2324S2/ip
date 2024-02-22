@@ -1,6 +1,6 @@
 package commands;
 
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.Task;
 import destiny.TaskList;
 
@@ -27,12 +27,12 @@ public class FindCmd extends Command {
      * collates these tasks into a string.
      *
      * @return String of found elements from the tasklist.
-     * @throws DukeException when no details were provided by the user.
+     * @throws DestinyException when no details were provided by the user.
      */
     @Override
-    public String execute(TaskList tasks) throws DukeException {
+    public String execute(TaskList tasks) throws DestinyException {
         if (details == "" || details == null) {
-            throw new DukeException("Please enter a description for the Find command");
+            throw new DestinyException("Please enter a description for the Find command");
         }
 
         List<Task> matches = tasks.getTaskList().stream().filter(task -> task.getDescription().contains(details))

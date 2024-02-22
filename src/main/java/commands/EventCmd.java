@@ -1,6 +1,6 @@
 package commands;
 
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.Event;
 import destiny.TaskList;
 
@@ -20,9 +20,9 @@ public class EventCmd extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks) throws DukeException {
+    public String execute(TaskList tasks) throws DestinyException {
         if (details == "" || details == null) {
-            throw new DukeException("Please enter a description for the Event command");
+            throw new DestinyException("Please enter a description for the Event command");
         }
 
         String[] splitDetails = details.split("/from ", 2);
@@ -33,11 +33,11 @@ public class EventCmd extends Command {
                 Event newEvent = new Event(splitDetails[0], secondSplitDetails[0], secondSplitDetails[1]);
                 return tasks.addTask(newEvent);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("After entering your desired start time,\n"
+                throw new DestinyException("After entering your desired start time,\n"
                         + "add '/to' followed by your desired end time");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("After entering the event task name,\n"
+            throw new DestinyException("After entering the event task name,\n"
                     + "add '/from' followed by your desired start time");
         }
     }

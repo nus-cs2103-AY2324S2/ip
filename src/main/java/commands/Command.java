@@ -1,6 +1,6 @@
 package commands;
 
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.TaskList;
 
 /**
@@ -14,5 +14,5 @@ public abstract class Command {
      * @param tasks The set of tasks saved by Destiny.
      * @return String result of the execution of the command.
      */
-    public abstract String execute(TaskList tasks) throws DukeException;
+    public abstract String execute(TaskList tasks) throws DestinyException;
 }

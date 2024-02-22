@@ -1,6 +1,6 @@
 package commands;
 
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.TaskList;
 
 /**
@@ -23,22 +23,22 @@ public class MarkDoneCmd extends Command{
      *
      * @param tasks The set of tasks saved by Destiny.
      * @return Message for successful mark.
-     * @throws DukeException If 0 < index < tasks.size() or if integer not provided.
+     * @throws DestinyException If 0 < index < tasks.size() or if integer not provided.
      */
     @Override
-    public String execute(TaskList tasks) throws DukeException {
+    public String execute(TaskList tasks) throws DestinyException {
         int index;
 
         try {
             index = Integer.parseInt(indexStr);
         } catch (NumberFormatException e) {
-            throw new DukeException(tasks.size() != 0
+            throw new DestinyException(tasks.size() != 0
                     ? "Invalid input type\nEnter a number between 1 and " + tasks.size()
                     : "Invalid input type\nCan't mark either cause the list is empty");
         }
 
         if (index < 1 || index > tasks.size()) {
-            throw new DukeException("Please enter a number between 1 and " + tasks.size());
+            throw new DestinyException("Please enter a number between 1 and " + tasks.size());
         }
 
         tasks.get(index - 1).markAsDone();

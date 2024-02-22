@@ -3,12 +3,12 @@ package destiny;
 /**
  * An extension of the Exception class used to identify exceptions unique to Destiny.
  */
-public class DukeException extends Exception {
-    public DukeException() {
+public class DestinyException extends Exception {
+    public DestinyException() {
         super();
     }
 
-    public DukeException(String message) {
+    public DestinyException(String message) {
         super("Something went wrong...\n" + message);
     }
 }

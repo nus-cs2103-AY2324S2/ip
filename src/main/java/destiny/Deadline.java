@@ -18,9 +18,9 @@ public class Deadline extends Task {
      *
      * @param description Title of the task.
      * @param time The deadline of this Deadline task.
-     * @throws DukeException If description is empty or time is not given in the correct format.
+     * @throws DestinyException If description is empty or time is not given in the correct format.
      */
-    public Deadline(String description, String time) throws DukeException {
+    public Deadline(String description, String time) throws DestinyException {
         super(description);
         time = time.trim();
         if (description.trim().length() == 0 || time.length() == 0) {
@@ -31,13 +31,13 @@ public class Deadline extends Task {
             if (time.length() == 0) {
                 errorMessage += "\na deadline after the '/by' command";
             }
-            throw new DukeException(errorMessage);
+            throw new DestinyException(errorMessage);
         }
 
         try {
             this.by = LocalDateTime.parse(time, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter the date and time in the following format:\n"
+            throw new DestinyException("Please enter the date and time in the following format:\n"
                     + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
         }
     }
@@ -48,9 +48,9 @@ public class Deadline extends Task {
      * @param logic Indicates if this task should be marked.
      * @param description Title of the task.
      * @param time The deadline of this Deadline task.
-     * @throws DukeException If description is empty or time is not given in the correct format.
+     * @throws DestinyException If description is empty or time is not given in the correct format.
      */
-    public Deadline(String logic, String description, String time) throws DukeException {
+    public Deadline(String logic, String description, String time) throws DestinyException {
         super(description);
         time = time.trim();
         if (description.trim().length() == 0 || time.length() == 0) {
@@ -61,13 +61,13 @@ public class Deadline extends Task {
             if (time.length() == 0) {
                 errorMessage += "\na deadline after the '/by' command";
             }
-            throw new DukeException(errorMessage);
+            throw new DestinyException(errorMessage);
         }
 
         try {
             this.by = LocalDateTime.parse(time, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter the date and time in the following format:\n"
+            throw new DestinyException("Please enter the date and time in the following format:\n"
                     + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
         }
 

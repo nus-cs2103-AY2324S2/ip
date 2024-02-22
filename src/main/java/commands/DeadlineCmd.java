@@ -1,7 +1,7 @@
 package commands;
 
 import destiny.Deadline;
-import destiny.DukeException;
+import destiny.DestinyException;
 import destiny.TaskList;
 
 /**
@@ -19,9 +19,9 @@ public class DeadlineCmd extends Command {
         this.details = details;
     }
     @Override
-    public String execute(TaskList tasks) throws DukeException {
+    public String execute(TaskList tasks) throws DestinyException {
         if (details == "" || details == null) {
-            throw new DukeException("Please enter a description for the Deadline command");
+            throw new DestinyException("Please enter a description for the Deadline command");
         }
 
         String[] splitDetails = details.toLowerCase().split("/by ", 2);
@@ -31,7 +31,7 @@ public class DeadlineCmd extends Command {
             Deadline newDL = new Deadline(splitDetails[0], splitDetails[1]);
             return tasks.addTask(newDL);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("After entering the deadline task name,\n"
+            throw new DestinyException("After entering the deadline task name,\n"
                     + "add '/by' followed by your desired deadline");
         }
     }

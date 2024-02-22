@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -17,12 +18,6 @@ import javafx.scene.paint.Stop;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private static final Background DIALOGUE_BG = new Background(new BackgroundFill(
-            new LinearGradient(
-                    0, 0.5, 1, 0.5, true,
-                    CycleMethod.NO_CYCLE,
-                    new Stop(0, Color.web("#330066")),
-                    new Stop(1, Color.web("#000066"))), null, null));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,11 +26,12 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
+    @FXML
+    private ImageView background;
     private Destiny destiny;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Chad.png"));
-    private Image destinyImage = new Image(this.getClass().getResourceAsStream("/images/Chadette.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image destinyImage = new Image(this.getClass().getResourceAsStream("/images/Destiny.png"));
 
     /**
      * Initializes the user interface.
@@ -44,7 +40,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         dialogContainer.setSpacing(10.0);
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        dialogContainer.setBackground(DIALOGUE_BG);
+        dialogContainer.setStyle("-fx-background-color: transparent");
 
         // scroll down to the end every time dialogContainer's height changes.
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

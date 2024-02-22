@@ -21,9 +21,9 @@ public class Parser {
      *
      * @param userMessage The user input.
      * @return Command object that will subsequently execute desired task by user.
-     * @throws DukeException If description of command is required but not provided by user.
+     * @throws DestinyException If description of command is required but not provided by user.
      */
-    public Command parse(String userMessage) throws DukeException {
+    public Command parse(String userMessage) throws DestinyException {
         String[] input = new String[2];
         Boolean foundSplit = false;
         for (int i = 0; i < userMessage.length(); i++) {
@@ -43,7 +43,7 @@ public class Parser {
         try {
             AcceptedCmds testCommand = AcceptedCmds.valueOf(cmd.toLowerCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Please enter a valid command\nThe list of valid commands are as follows:\n"
+            throw new DestinyException("Please enter a valid command\nThe list of valid commands are as follows:\n"
                     + Arrays.asList(AcceptedCmds.values()));
         }
 
@@ -54,7 +54,7 @@ public class Parser {
 
         // ensure that details are provided
         if (input[1] == null || input[1].trim().length() == 0) {
-            throw new DukeException("Please enter a description after the command");
+            throw new DestinyException("Please enter a description after the command");
         }
 
         // start processing commands that require details.
@@ -80,7 +80,7 @@ public class Parser {
             // invalid commands have already been accounted for,
             // code should not execute beyond this point
             assert false;
-            throw new DukeException("Critical error");
+            throw new DestinyException("Critical error");
         }
     }
 }
