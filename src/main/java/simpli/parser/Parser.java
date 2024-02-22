@@ -13,7 +13,6 @@ import simpli.exceptions.ActionException;
 public final class Parser {
     /**
      * The maximum number of tokens allowed.
-     *
      * Token index information:
      * 0 - command
      * 1 - isDone
@@ -70,7 +69,7 @@ public final class Parser {
      */
     public boolean isValidCommand(String[] tokens) {
         try {
-            Action actionType = Action.valueOf(tokens[0].toUpperCase());
+            Action.valueOf(tokens[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             return false;
         }
