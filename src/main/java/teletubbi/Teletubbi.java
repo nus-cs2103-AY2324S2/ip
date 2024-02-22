@@ -93,7 +93,9 @@ public class Teletubbi {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
-            return command.execute(taskList, ui, storage);
+            String response = command.execute(taskList, ui, storage);
+            storage.save(taskList);
+            return response;
         } catch (TeletubbiException e) {
             return e.getMessage();
         }
