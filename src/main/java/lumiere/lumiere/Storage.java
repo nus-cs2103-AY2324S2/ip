@@ -17,14 +17,18 @@ public class Storage {
 
     // load tasks from data file into tasklist whenever lumiere is opened and ran
     public void loadTasksFromFile(TaskList list) throws IOException {
-        boolean listCreated = this.file.createNewFile();
-        if (!listCreated) {
-            Scanner s = new Scanner(this.file);
-            while (s.hasNextLine()) {
-                String next = s.nextLine();
-                list.loadTask(Task.parseTask(next)); // load task INTO tasklist
+        try {
+            boolean listCreated = this.file.createNewFile();
+            if (!listCreated) {
+                Scanner s = new Scanner(this.file);
+                while (s.hasNextLine()) {
+                    String next = s.nextLine();
+                    list.loadTask(Task.parseTask(next)); // load task INTO tasklist
+                }
+                s.close();
             }
-            s.close();
+        } catch (IOException err) {
+            System.out.println("ERROR LOADING FILE");
         }
     }
 
