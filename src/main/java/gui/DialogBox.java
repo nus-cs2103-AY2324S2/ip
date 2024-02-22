@@ -45,20 +45,26 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        // ensure text is sized correctly
         dialog.setText(text);
+        displayPicture.setImage(img);
+
+        configureTxtAndImg(dialog, displayPicture);
+
+        // ensure proper spacing
+        this.setSpacing(10.0);
+    }
+
+    private void configureTxtAndImg(Label dialog, ImageView displayPicture) {
+        // ensure text is sized correctly
         dialog.setWrapText(true);
         DialogBox.setHgrow(dialog, Priority.ALWAYS);
         dialog.setMaxWidth(Double.MAX_VALUE);
         dialog.setMaxHeight(Double.MAX_VALUE);
 
         // configuring image
-        displayPicture.setImage(img);
         Circle circleView = new Circle(50, 50, 50);
-        displayPicture.setClip(circleView); // puts image in circle
-
-        // ensure proper spacing
-        this.setSpacing(10.0);
+        // put image in circle
+        displayPicture.setClip(circleView);
     }
 
     /**
