@@ -38,7 +38,6 @@ test {
 
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -54,7 +53,7 @@ application {
 shadowJar {
     archiveBaseName = "talkingbot"
     archiveClassifier = null
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     dependsOn("distZip", "distTar")
 }
 
