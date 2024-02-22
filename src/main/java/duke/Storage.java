@@ -62,7 +62,7 @@ public class Storage {
     }
 
     /**
-     * Rewrite a certain line in the file using the latest information of the task.
+     * Rewrites a certain line in the file using the latest information of the task.
      *
      * @param num  the index of the task that needs to be updated
      * @param task The task with latest updated information

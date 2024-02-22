@@ -38,6 +38,7 @@ public class FindKeywordCommand extends Command {
      *
      * @param storage  Involved in file management
      * @param taskList Active during the program execution
+     * @return A string that contains all matching tasks
      * @throws DukeException if the execution is unsuccessful
      */
     @Override
