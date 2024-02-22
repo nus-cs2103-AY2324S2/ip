@@ -1,0 +1,69 @@
+.root {
+    -fx-padding: 10px;
+    padding: 10px;
+}
+
+.label {
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #00ced1;
+    background-color: #00ced1;
+    -fx-text-fill: white;
+}
+
+.dialog-container {
+    -fx-fill-width: true;
+    -fx-wrap-text: true;
+}
+
+.scroll-pane {
+    -fx-vbar-policy: ALWAYS;
+    -fx-hbar-policy: NEVER;
+}
+
+.dialog-label {
+    -fx-font-size: 14px;
+    font-size: 14px;
+}
+
+.dialog-image {
+    margin-right: 10px;
+    -fx-margin-right: 10px;
+}
+
+.dialog-text {
+    padding: 10px;
+    -fx-padding: 10px;
+    -fx-wrap-text: true;
+}
+
+.dialog-box {
+    -fx-padding: 10px;
+    padding: 10px;
+    -fx-fill-width: true;
+    -fx-wrap-text: true;
+}
+
+.user-dialog {
+    -fx-background-color: #e7e7e7;
+    background-color: #e7e7e7;
+    -fx-fill-width: true;
+    -fx-wrap-text: true;
+}
+
+.app-dialog {
+    -fx-background-color: #f8f8f8;
+    background-color: #f8f8f8;
+    -fx-fill-width: true;
+    -fx-wrap-text: true;
+}
+
+.error-dialog .dialog-text {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    font-weight: bold;
+}

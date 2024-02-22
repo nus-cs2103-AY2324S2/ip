@@ -26,7 +26,12 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
             stage.setScene(scene);
+            stage.setTitle("Your Fluffy Assistant Alpa");
+            stage.setMinWidth(400); // Set minimum window width
+            stage.setMinHeight(600); // Set minimum window height
+
             fxmlLoader.<MainWindow>getController().setAlpa(alpa);
             stage.show();
         } catch (IOException e) {
