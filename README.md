@@ -10,7 +10,7 @@ deadline and event management.**
     - [Inserting tasks: `todo`](#inserting-tasks-todo)
     - [Inserting tasks: `deadline`](#inserting-tasks-deadline)
     - [Inserting tasks: `event`](#inserting-tasks-event)
-    - [Listing out all tasks](#listing-out-all-tasks)
+    - [Listing out all tasks: `list`](#listing-out-all-tasks-list)
     - [Deleting task: `delete`](#deleting-task-delete)
     - [Mark a task: `mark/unmark`](#mark-a-task-markunmark)
     - [Find a task: `find`](#find-a-task-find)
