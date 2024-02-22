@@ -55,7 +55,7 @@ public class FindActivity extends Command {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         if (foundList.isEmpty()) {
             output += "No matching activities found\n";
         } else {
@@ -64,7 +64,6 @@ public class FindActivity extends Command {
                 output += foundList.get(i).toString() + "\n";
             }
         }
-        output += Dialog.printLine();
         return output;
     }
 }

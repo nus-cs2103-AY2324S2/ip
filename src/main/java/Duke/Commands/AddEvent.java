@@ -103,9 +103,8 @@ public class AddEvent extends Command implements AddActivity {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         output += "Got it. I've added this task: " + NAME + ".\n";
-        output += Dialog.printLine();
         return output;
     }
 }

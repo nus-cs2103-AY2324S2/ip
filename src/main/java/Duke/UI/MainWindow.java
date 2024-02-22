@@ -40,8 +40,8 @@ public class MainWindow extends Application {
 
     private static boolean isTerminated = false;
 
-    private final Image user = new Image(this.getClass().getResourceAsStream("/image/user.png"));
-    private final Image client = new Image(this.getClass().getResourceAsStream("/image/client.png"));
+    private final Image client = new Image(this.getClass().getResourceAsStream("/image/user.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/image/client.png"));
 
     private final ActivityList activityList = new ActivityList("data/duke.txt");
 
@@ -71,9 +71,9 @@ public class MainWindow extends Application {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        Label msg = new Label(Dialog.greetUser());
+        String msg = Dialog.greetUser();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(msg, new ImageView(client))
+                DialogBox.getDukeDialog(msg, client)
         );
     }
 
@@ -85,12 +85,13 @@ public class MainWindow extends Application {
      */
     @FXML
     private void handleUserInput() throws CommandException {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String input = userInput.getText();
+        String response = getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(client))
+                DialogBox.getUserDialog(input, user),
+                DialogBox.getDukeDialog(response, client)
         );
+
         if (userInput.getText().equals("bye")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {

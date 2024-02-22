@@ -49,9 +49,8 @@ public class MarkActivity extends Command {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         output += "Nice! I've marked this task as done: " + NAME + ".\n";
-        output += Dialog.printLine();
         return output;
     }
 }

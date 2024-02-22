@@ -49,9 +49,8 @@ public class UnmarkActivity extends Command {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         output += "I've unmarked this task as not done: " + NAME + ".\n";
-        output += Dialog.printLine();
         return output;
     }
 }

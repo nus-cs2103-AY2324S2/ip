@@ -63,9 +63,8 @@ public class DeleteActivity extends Command {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         output += "Got it. I've deleted activity number: " + INDEX + ".\n";
-        output += Dialog.printLine();
         return output;
     }
 }

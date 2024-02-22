@@ -42,10 +42,9 @@ public class ListActivity extends Command {
      */
     @Override
     public String toString() {
-        String output = Dialog.printLine();
+        String output = "";
         output += "Here are the tasks in your list:\n";
         output += list.printActivities() + "\n";
-        output += Dialog.printLine();
         return output;
     }
 }

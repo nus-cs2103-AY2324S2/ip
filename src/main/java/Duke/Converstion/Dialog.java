@@ -11,9 +11,8 @@ public class Dialog {
      * @return A string containing a formatted greeting message.
      */
     public static String greetUser() {
-        String output = "\t______________________________________________________";
-        output += "\tHello! \n\tWhat can I do for you?";
-        output += "\t______________________________________________________" + "\n\n";
+        String output = "";
+        output += "Hello! \nWhat can I do for you?";
         return output;
     }
 
@@ -23,18 +22,8 @@ public class Dialog {
      * @return A string containing a formatted farewell message.
      */
     public static String fairwellUser() {
-        String output = "\t______________________________________________________";
-        output += "\tLater";
-        output += "\t______________________________________________________" + "\n\n";
+        String output = "";
+        output += "Later";
         return output;
-    }
-
-    /**
-     * Generates a standard line separator for formatting purposes.
-     *
-     * @return A string containing a standard line separator.
-     */
-    public static String printLine() {
-        return "\t______________________________________________________" + "\n";
     }
 }
