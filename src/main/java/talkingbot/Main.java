@@ -34,6 +34,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<Window>getController().setBot(this.talkingBot);
             stage.show();
+            stage.setTitle("TalkingBot");
             this.startChecker();
         } catch (IOException e) {
             e.printStackTrace();
