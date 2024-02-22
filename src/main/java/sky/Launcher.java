@@ -1,4 +1,4 @@
-package duke;
+package sky;
 
 import javafx.application.Application;
 

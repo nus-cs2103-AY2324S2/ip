@@ -1,4 +1,4 @@
-package duke;
+package sky;
 
 import java.util.ArrayList;
 import java.util.Scanner;

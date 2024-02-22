@@ -1,4 +1,4 @@
-package duke;
+package sky;
 
 import command.Command;
 import exception.UnknownCommandException;
@@ -7,15 +7,15 @@ import task.TaskList;
 /**
  * Represents a chat bot that helps the user to manage tasks.
  */
-public class Duke {
+public class Sky {
     public static final Ui UI = new Ui();
     private TaskList taskList = new TaskList();
     private Storage storage;
 
     /**
-     * Constructor for Duke.
+     * Constructor for Sky.
      */
-    public Duke() {
+    public Sky() {
         this.taskList = new TaskList();
         this.storage = new Storage();
         try {
@@ -30,17 +30,17 @@ public class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        Duke duke = new Duke();
+        Sky sky = new Sky();
         UI.sayGreetings();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String userInput = UI.readCommand();
                 Command command = Parser.parseCommand(userInput);
-                command.execute(duke.taskList, UI);
+                command.execute(sky.taskList, UI);
                 isExit = command.isExit();
             } catch (IllegalArgumentException e) {
-                if (e.getMessage().contains("No enum constant Duke.Command.")) {
+                if (e.getMessage().contains("No enum constant Sky.Command.")) {
                     UI.showErrorMessage(new UnknownCommandException());
                 } else {
                     UI.showErrorMessage(e);
@@ -50,7 +50,7 @@ public class Duke {
             }
         }
         try {
-            duke.storage.saveData(duke.taskList);
+            sky.storage.saveData(sky.taskList);
         } catch (Exception e) {
             UI.showErrorMessage(e);
         }

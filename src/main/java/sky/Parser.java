@@ -1,4 +1,4 @@
-package duke;
+package sky;
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
 import command.AddTodoCommand;

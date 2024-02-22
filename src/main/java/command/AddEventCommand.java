@@ -1,5 +1,5 @@
 package command;
-import duke.Ui;
+import sky.Ui;
 import task.Event;
 import task.TaskList;
 

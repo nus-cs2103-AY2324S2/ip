@@ -2,7 +2,7 @@ package command;
 
 import java.util.ArrayList;
 
-import duke.Ui;
+import sky.Ui;
 import task.Task;
 import task.TaskList;
 

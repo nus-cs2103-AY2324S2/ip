@@ -1,6 +1,6 @@
 package command;
 
-import duke.Ui;
+import sky.Ui;
 import task.Deadline;
 import task.TaskList;
 /**

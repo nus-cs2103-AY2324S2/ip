@@ -1,4 +1,4 @@
-package duke;
+package sky;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,10 +21,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Sky sky;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image skyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window.
@@ -36,40 +36,40 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Duke instance.
-     * @param d Duke instance.
+     * Sets the Sky instance.
+     * @param d Sky instance.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setSky(Sky d) {
+        sky = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Sky's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = sky.getResponse(input);
         assert response != null : "Response should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSkyDialog(response, skyImage)
         );
         userInput.clear();
         if (input.toUpperCase().equals("BYE")) {
-            duke.saveData();
+            sky.saveData();
             exit();
         }
     }
 
     /**
-     * Shows the welcome message from Duke.
+     * Shows the welcome message from Sky.
      */
     @FXML
     private void showWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Duke.UI.sayGreetings(), dukeImage)
+                DialogBox.getSkyDialog(Sky.UI.sayGreetings(), skyImage)
         );
     }
 

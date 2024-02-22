@@ -1,6 +1,6 @@
 package command;
-import duke.Storage;
-import duke.Ui;
+import sky.Storage;
+import sky.Ui;
 import task.TaskList;
 
 /**
@@ -16,7 +16,7 @@ public class ArchiveCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui) throws Exception {
         Storage storage = new Storage();
-        String archiveName = "DukeArchive_" + java.time.LocalDate.now() + ".txt";
+        String archiveName = "SkyArchive_" + java.time.LocalDate.now() + ".txt";
         storage.saveData(tasks, archiveName);
         return ui.showArchiveMessage(archiveName);
     }
