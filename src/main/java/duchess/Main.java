@@ -48,6 +48,7 @@ public class Main extends Application {
                 }
             });
 
+            stage.setTitle("Duchess");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
