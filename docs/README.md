@@ -1,12 +1,11 @@
-# Chronos User Guide
+# :hourglass: Chronos User Guide
 
 Chronos is a powerful task management application designed to streamline your workflow and boost productivity. 
 With Chronos, you can effortlessly **organize your todos, deadlines, and events**, all in one intuitive platform. Optimised
 for use via a Command Line Interface (CLI), Chronos can track your tasks faster than traditional GUI apps.
 
-![](Ui.png)
 <p align="center">
-  <img src="Ui.png" width="300" height="200" alt="Description of the image">
+  <img src="Ui.png" height="500" alt="Description of the image">
 </p>
 
 ## Quick Start
@@ -17,7 +16,9 @@ for use via a Command Line Interface (CLI), Chronos can track your tasks faster 
 command to run the application. A GUI similar to the below should appear in a few seconds. 
 Note how the app contains some sample data.
 
-![](QuickStart.png)
+<p align="center">
+  <img src="QuickStart.png" height="500" alt="Description of the image">
+</p>
 
 ## Features
 
@@ -43,7 +44,7 @@ Examples:
 ### Adding Deadline: `deadline` or `dl`
 Adds a deadline into the task list.
 
-Command Syntax: `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `DL DESCRIPTION /by YYYY-MM-DD HH:MM`
+Command Syntax: `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `dl DESCRIPTION /by YYYY-MM-DD HH:MM`
 
 Examples:
 - `deadline return library book /by 2024-02-22 12:00`
