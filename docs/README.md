@@ -79,7 +79,7 @@ This command adds a deadline task to the task list.
 
 > Format: `deadline <task description> /by <date>`
 > 
-> Do note that the `<date>` should be in the format `YYYY-MM-DD hh:mm`
+> Do note that the `<date>` should be in the format `YYYY-MM-DD HH:mm`
 
 Example: `deadline essay assignment /by 2024-02-20 22:00`
 
@@ -96,7 +96,7 @@ This command adds an event task to the task list.
 
 > Format: `event <task description> /from <date> /to <date>`
 >
-> Do note that the `<date>` should be in the format `YYYY-MM-DD hh:mm`
+> Do note that the `<date>` should be in the format `YYYY-MM-DD HH:mm`
 
 Example: `event project meeting /from 2024-02-20 22:00 /to 2024-02-20 23:00`
 

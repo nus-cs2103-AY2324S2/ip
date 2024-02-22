@@ -91,19 +91,19 @@ public class Ui {
 
     public String showNoDeadlineWarning() {
         return "Deadline has no date! >_<\n" +
-                "Human, please enter a date for the deadline in this format: yyyy-MM-dd hh:mm\n" +
+                "Human, please enter a date for the deadline in this format: yyyy-MM-dd HH:mm\n" +
                 "with a /by in front of the date.";
     }
 
     public String showEventNoStartWarning() {
         return "Event has no start date! >_<\n" +
-                "Human, please enter a start date for the event in this format: yyyy-MM-dd hh:mm\n" +
+                "Human, please enter a start date for the event in this format: yyyy-MM-dd HH:mm\n" +
                 "with a /from in front of the date.";
     }
 
     public String showEventNoEndWarning() {
         return "Event has no end date! >_<\n" +
-                "Human, please enter an end date for the event in this format: yyyy-MM-dd hh:mm\n" +
+                "Human, please enter an end date for the event in this format: yyyy-MM-dd HH:mm\n" +
                 "with a /to in front of the date.";
     }
 

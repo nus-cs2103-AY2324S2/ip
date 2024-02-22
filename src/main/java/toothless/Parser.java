@@ -142,10 +142,10 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTime) throws ToothlessException {
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
             throw new ToothlessException("Human date not correct! D:\n" +
-                    "Please enter in this format: yyyy-MM-dd hh:mm");
+                    "Please enter in this format: yyyy-MM-dd HH:mm");
         }
     }
 }
