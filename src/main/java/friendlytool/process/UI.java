@@ -169,6 +169,7 @@ public class UI {
      * @return error message
      */
     public static String getErrorMsg(FtException e) {
+        assert e != null : "Error should not be null";
         sb.append("____________________________________________________________\n")
                 .append(e.getMessage()).append("\n")
                 .append("____________________________________________________________\n");
