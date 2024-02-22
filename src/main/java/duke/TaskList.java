@@ -74,6 +74,7 @@ public class TaskList {
         }
 
         tasks.add(newTask);
+        assert tasks.contains(newTask) : "New task should be added to the list";
         updateStorage();
         return ("Got it. I've added this task: \n" + newTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list.\n");
@@ -97,6 +98,7 @@ public class TaskList {
      * @throws DukeException If an error occurs while updating the storage.
      */
     public String markTaskAsDone(int index) throws DukeException {
+        assert index > 0 && index <= tasks.size() : "Task index out of range";
         String output = tasks.get(index - 1).markAsDone();
         try {
             updateStorage();
@@ -113,6 +115,7 @@ public class TaskList {
      * @throws DukeException If an error occurs while updating the storage.
      */
     public String unmarkTaskAsDone(int index) throws DukeException {
+        assert index > 0 && index <= tasks.size() : "Task index out of range";
         String output = tasks.get(index - 1).unmarkDone();
         try {
             updateStorage();
@@ -130,6 +133,7 @@ public class TaskList {
      */
     public String deleteTask(int index) throws DukeException {
         Task removed = tasks.remove(index - 1);
+        assert !tasks.contains(removed) : "Removed task should not be in the list";
         String output = ("Noted. I've removed this task: \n" + removed.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list.\n");
         try {
