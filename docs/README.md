@@ -8,6 +8,16 @@ Welcome to Duchess, your personal task manager!
 Duchess helps you stay organised by managing your tasks efficiently, 
 like the efficient and respected leader that she is.
 
+You can do things like 
+- Adding a todo
+- Adding deadlines
+- Adding events
+- Mark as done
+- Mark as not done
+- Delete task
+- Find task by keyword
+- Check if there are duplicate tasks
+
 ## Adding todo
 
 To add a todo, use the following syntax:
