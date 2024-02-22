@@ -1,5 +1,8 @@
-package Ping;
+package ping;
 import java.util.ArrayList;
+
+import ping.job.Task;
+
 
 /**
  * This class is used to create a list of tasks
@@ -30,9 +33,15 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * This method is used to detect Duplicate tasks
+     *
+     * @param task the task to be checked
+     * @return true if the task is a duplicate, false otherwise
+     */
     public boolean detectDuplicate(Task task) {
         for (Task t : tasks) {
-            if (t.description.equals(task.description)) {
+            if (t.getDescription().equals(task.getDescription())) {
                 return true;
             }
         }

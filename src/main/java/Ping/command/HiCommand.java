@@ -1,8 +1,8 @@
-package Command;
+package ping.command;
 
+import ping.TaskList;
+import ping.gui.UI;
 
-import Ping.TaskList;
-import Ping.UI;
 
 
 /**

@@ -1,5 +1,5 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-package Ping;
+package ping.job;
 import java.time.LocalDateTime;
 
 /**
@@ -11,12 +11,12 @@ public class Event extends Task {
 
     /**
      * This is the constructor of the Event class
-     * @param destription the description of the event task
+     * @param description the description of the event task
      * @param from the start time of the event task
      * @param to the end time of the event task
      */
-    public Event(String destription, LocalDateTime from, LocalDateTime to) {
-        super(destription);
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
         this.from = from;
         this.to = to;
     }

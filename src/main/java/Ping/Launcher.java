@@ -1,4 +1,5 @@
-package Ping;
+package ping;
+
 import javafx.application.Application;
 
 /**

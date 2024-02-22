@@ -1,8 +1,10 @@
-package Ping;
+package ping.timematch;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import ping.exceptions.PingException;
 
 
 /**
