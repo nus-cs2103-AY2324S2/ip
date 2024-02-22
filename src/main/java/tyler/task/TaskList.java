@@ -81,6 +81,7 @@ public class TaskList {
             for (int i = 0; i < matchedTasks.size(); i++) {
                 result += "\n" + "      " + (i + 1) + ". " + matchedTasks.get(i);
             }
+            assert result != null;
             return result;
         }
     }

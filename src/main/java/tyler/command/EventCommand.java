@@ -40,6 +40,7 @@ public class EventCommand extends AddCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event newTask = new Event(this.taskName, this.start, this.end);
+        assert newTask != null;
         tasks.addTask(newTask);
         int num = tasks.getNumOfTasks();
         return ui.showTaskAdded(newTask, num);
