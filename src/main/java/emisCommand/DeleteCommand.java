@@ -2,7 +2,6 @@ package emisCommand;
 
 import emisExceptions.EmisException;
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 
 /**
@@ -30,22 +29,14 @@ public class DeleteCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Storage storage) {
+        String response = "";
         try {
-            tasklist.deleteTask(this.taskNo);
+            response = tasklist.deleteTask(this.taskNo);
             storage.updateStorage();
         } catch (EmisException e) {
-            ui.showError(e.getMessage());
+            response = e.getMessage();
         }
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false, as the delete command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return response;
     }
 }

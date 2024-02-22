@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 
 /**
@@ -24,17 +23,7 @@ public class ExitCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        Ui.exit();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return true, as the exit command represents an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
+    public String execute(TaskList tasklist, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 }

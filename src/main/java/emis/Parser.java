@@ -36,7 +36,7 @@ public class Parser {
             } else if (fullCommand.equals("list")) {
                 return new PrintCommand();
             } else {
-                throw new EmisException("Invalid command.");
+                throw new EmisException("Meow? Emis doesn't understand.");
             }
         } else {
             // spaces found

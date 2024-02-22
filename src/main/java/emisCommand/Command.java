@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 
 /**
@@ -17,11 +16,5 @@ public abstract class Command {
      * @param ui The Ui object handling interactions with the user.
      * @param storage The Storage object handling loading and saving of tasks.
      */
-    public abstract void execute(TaskList tasklist, Ui ui, Storage storage);
-
-    /**
-     * Checks if the command is an exit command.
-     * @return true if the command is an exit command, false otherwise.
-     */
-    public abstract boolean isExit();
+    public abstract String execute(TaskList tasklist, Storage storage);
 }

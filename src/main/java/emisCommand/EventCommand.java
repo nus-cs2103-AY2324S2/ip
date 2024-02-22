@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 import emisTask.Event;
 
@@ -40,18 +39,9 @@ public class EventCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.addTask(new Event(this.description, this.from, this.to));
+    public String execute(TaskList tasklist, Storage storage) {
+        String response = tasklist.addTask(new Event(this.description, this.from, this.to));
         storage.updateStorage();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false, as the event command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return response;
     }
 }

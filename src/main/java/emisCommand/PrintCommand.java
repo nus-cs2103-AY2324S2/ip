@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 
 /**
@@ -24,17 +23,7 @@ public class PrintCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.printList();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false, as the print command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList tasklist, Storage storage) {
+        return tasklist.printList();
     }
 }

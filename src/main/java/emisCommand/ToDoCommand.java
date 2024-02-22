@@ -1,7 +1,6 @@
 package emisCommand;
 
 import emis.TaskList;
-import emis.Ui;
 import emis.Storage;
 import emisTask.ToDo;
 
@@ -30,18 +29,9 @@ public class ToDoCommand extends Command {
      * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.addTask(new ToDo(this.description));
+    public String execute(TaskList tasklist, Storage storage) {
+        String response = tasklist.addTask(new ToDo(this.description));
         storage.updateStorage();
-    }
-
-    /**
-     * Indicates whether the command is an exit command.
-     * 
-     * @return false, as the to-do command does not represent an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return response;
     }
 }

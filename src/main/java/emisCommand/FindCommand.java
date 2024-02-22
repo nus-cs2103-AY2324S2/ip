@@ -1,7 +1,7 @@
 package emisCommand;
 
-import emis.Ui;
 import emis.Storage;
+import emis.TaskList;
 
 /**
  * Command class to find tasks containing a specific keyword in their descriptions.
@@ -25,17 +25,7 @@ public class FindCommand extends Command {
      * @param storage The storage for saving task data.
      */
     @Override
-    public void execute(emis.TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.findTasks(this.keywordToFind);
-    }
-
-    /**
-     * Indicates whether the find command is an exit command.
-     * 
-     * @return Always returns false since find command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList tasklist, Storage storage) {
+        return tasklist.findTasks(this.keywordToFind);
     }
 }
