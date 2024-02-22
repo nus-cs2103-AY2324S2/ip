@@ -11,8 +11,8 @@ public class Messages {
     public static final String MESSAGE_WRONG_PARAMETERS_DEADLINE = "Boop Boop, wrong"
         + "parameters detected for deadline command."
         + "\n Command Format: \n deadline <name of task> /by YYYY-MM-DD HHMM";
-    public static final String MESSAGE_SEARCH_NO_RESULTS = "BOOP, BobBot tried his hardest,"
-        + "but didn't find anything.";
+    public static final String MESSAGE_SEARCH_NO_RESULTS = "BOOP, BobBot tried his hardest, "
+        + "but didn't find anything (and is very sad).";
     public static final String MESSAGE_WRONG_PARAMETERS_EVENT = "Boop Event no boop,"
         + "wrong parameters detected for event command."
         + "\n Command Format: \n event <name of task> /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM";

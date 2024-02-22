@@ -157,7 +157,10 @@ public class Parser {
         if (inputSplit.length != 2) {
             return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
         }
-        int commandId = Integer.parseInt(inputSplit[1]);
+        int commandId = convertStringToInteger(inputSplit[1]);
+        if (commandId == -1) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        }
         ActionTask t = new ActionTask(ActionType.MARK, commandId);
         return t;
     }
@@ -173,7 +176,10 @@ public class Parser {
         if (inputSplit.length != 2) {
             return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
         }
-        int commandId = Integer.parseInt(inputSplit[1]);
+        int commandId = convertStringToInteger(inputSplit[1]);
+        if (commandId == -1) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        }
         return new ActionTask(ActionType.UNMARK, commandId);
     }
 
@@ -187,7 +193,10 @@ public class Parser {
         if (inputSplit.length != 2) {
             return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
         }
-        int commandId = Integer.parseInt(inputSplit[1]);
+        int commandId = convertStringToInteger(inputSplit[1]);
+        if (commandId == -1) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        }
         return new ActionTask(ActionType.DELETE, commandId);
     }
 
@@ -227,6 +236,21 @@ public class Parser {
             return LocalDateTime.parse(dateString, DATE_FORMAT);
         } catch (DateTimeParseException e) {
             return null;
+        }
+    }
+
+    /**
+     * Parses a string into an integer object.
+     * This is to ensure that the user typed an actual number.
+     *
+     * @param stringInput String to be converted.
+     * @return the corrsponding integer.
+     */
+    public int convertStringToInteger(String stringInput) {
+        try {
+            return Integer.parseInt(stringInput);
+        } catch (NumberFormatException e) {
+            return -1;
         }
     }
 }

@@ -47,4 +47,29 @@ public class TaskStorageTest {
         taskStorage.markTask(3, true);
         assertEquals(t3Task.getCompleted(), "1");
     }
+
+    @Test
+    public void taskStorage_addThreeTaskAndSearchOne_success() {
+        TaskStorage taskStorage = new TaskStorage();
+        Task t1Task = new ToDo("Test");
+        Task t2Task = new ToDo("Test 2");
+        Task t3Task = new ToDo("Test 3");
+        taskStorage.addTask(t1Task);
+        taskStorage.addTask(t2Task);
+        taskStorage.addTask(t3Task);
+        String response = taskStorage.searchForTask("Test 2");
+        assertEquals(response, "2.[T][ ] Test 2");
+    }
+
+    @Test
+    public void taskStorage_addThreeTaskAndGetSize_success() {
+        TaskStorage taskStorage = new TaskStorage();
+        Task t1Task = new ToDo("Test");
+        Task t2Task = new ToDo("Test 2");
+        Task t3Task = new ToDo("Test 3");
+        taskStorage.addTask(t1Task);
+        taskStorage.addTask(t2Task);
+        taskStorage.addTask(t3Task);
+        assertEquals(taskStorage.size(), 3);
+    }
 }

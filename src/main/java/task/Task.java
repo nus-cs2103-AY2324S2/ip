@@ -11,7 +11,7 @@ import parser.ParseExecutionable;
  */
 public abstract class Task implements ParseExecutionable {
     private String command;
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Creates a Task object with the task name.
@@ -21,7 +21,7 @@ public abstract class Task implements ParseExecutionable {
      */
     public Task(String command) {
         this.command = command;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class Task implements ParseExecutionable {
      * Changes the completedness to true.
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
@@ -47,14 +47,14 @@ public abstract class Task implements ParseExecutionable {
      * Sets the completedness of the object to false.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
      * Gets the class's completed status.
      */
     public String getCompleted() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "1";
         }
         return "0";
@@ -76,7 +76,7 @@ public abstract class Task implements ParseExecutionable {
     @Override
     public String toString() {
         String checkIfCompleted = "X";
-        if (!this.completed) {
+        if (!this.isCompleted) {
             checkIfCompleted = " ";
         }
         String s = "[" + checkIfCompleted + "] " + this.command;
