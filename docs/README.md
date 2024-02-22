@@ -100,7 +100,7 @@ User types keyword ```cont```, followed by a Contact command to add, delete, gro
 
 1. Add contact: ```cont -a NAME/NUMBER/[NOTES]``` where ```NOTES``` is an optional field to fill in.
 2. Delete contact: ```cont -d NAME```
-3. Group contacts together: ```cont group GROUP_NAME/CONTACT_INDEX_1/CONTACT_INDEX_2.../CONTACT_INDEX_N``` where `CONTACT_INDEX``` refers to the index of the contact in the contact list
+3. Group contacts together: ```cont group GROUP_NAME/CONTACT_INDEX_1/CONTACT_INDEX_2.../CONTACT_INDEX_N``` where ```CONTACT_INDEX``` refers to the index of the contact in the contact list
 4. Find group: ```cont find group GROUP_NAME```
 5. List all contacts: ```cont ls```
    
