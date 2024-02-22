@@ -40,20 +40,19 @@ public class TaskList {
      * @return Nothing, this is a void method.
      * @throws IOException If saveTasksToFile method throws an exception.
      */
-    public void addTask(String command, Storage storage) throws IOException {
+    public String addTask(String command, Storage storage) throws IOException {
         if (command.contains("unmark")) {
-            unmarkTask(command, storage);
+            return unmarkTask(command, storage);
         } else if (command.contains("mark")) {
-            markTask(command, storage);
+            return markTask(command, storage);
         } else if (command.contains("delete")) {
-            deleteTask(command, storage);
+            return deleteTask(command, storage);
         } else if (command.contains("find")) {
             return findByKeyword(command, storage);
->>>>>>> Stashed changes
         } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
             // create Task object with command
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                return "OOPS!!! The description of a todo cannot be empty.";
             } else {
                 int space = command.indexOf(" ");
                 String type = command.substring(0, space);
@@ -67,89 +66,83 @@ public class TaskList {
                 }
             }
         } else {
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
     }
 
-    private void unmarkTask(String command, Storage storage) throws IOException {
-        System.out.println("OK, I've marked this task as not done yet:");
+    private String unmarkTask(String command, Storage storage) throws IOException {
         int space = command.indexOf(" ");
         int num = Integer.parseInt(command.substring(space + 1)); // unmark X
         Task curr = list.get(num - 1);
         curr.unmark();
         list.set(num - 1, curr);
         storage.saveTasksToFile(list);
-        System.out.println(list.get(num - 1).stringify());
+        return "OK, I've marked this task as not done yet:\n" + list.get(num - 1).stringify();
     }
 
-    private void markTask(String command, Storage storage) throws IOException {
-        System.out.println("Nice! I've marked this task as done:");
+    private String markTask(String command, Storage storage) throws IOException {
         int space = command.indexOf(" ");
         int num = Integer.parseInt(command.substring(space + 1)); // mark X
         Task curr = list.get(num - 1);
         curr.mark();
         list.set(num - 1, curr);
         storage.saveTasksToFile(list);
-        System.out.println(list.get(num - 1).stringify());
+        return "Nice! I've marked this task as done:\n" + list.get(num - 1).stringify();
     }
 
-    private void deleteTask(String command, Storage storage) throws IOException {
-        System.out.println("Noted. I've removed this task:");
+    private String deleteTask(String command, Storage storage) throws IOException {
         int space = command.indexOf(" ");
         int num = Integer.parseInt(command.substring(space + 1)); // delete X
-        System.out.println(list.get(num - 1).stringify());
+        String temp = list.get(num - 1).stringify();
         list.remove(num - 1);
         storage.saveTasksToFile(list);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        return "Noted. I've removed this task:\n" + temp + "\nNow you have " + list.size() + " tasks in the list.";
     }
 
-    private void findByKeyword(String command, Storage storage) throws IOException {
+    private String findByKeyword(String command, Storage storage) throws IOException {
         int space = command.indexOf(" ");
         String search_phrase = command.substring(space + 1);
-        System.out.println("Here are the matching tasks in your list:\n");
+        String result = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getItem().contains(search_phrase))
-                System.out.println(i + 1 + "." + list.get(i).stringify());
+                result += i + 1 + "." + list.get(i).stringify() + "\n";
         }
+        return result;
     }
 
-    private void addAndSaveTodo(int space, String command, Storage storage) throws IOException {
+    private String addAndSaveTodo(int space, String command, Storage storage) throws IOException {
         String rest = command.substring(space + 1);
         Todo task = new Todo(rest, false);
-        System.out.println(task.stringify());
         list.add(task);
-        System.out.println("Got it. I've added this task:");
         storage.saveTasksToFile(list);
-        System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+        return "Got it. I've added this task:\n" + task.stringify() + "\n" +
+                "Now you have " + Integer.toString(list.size()) + " tasks in the list.";
     }
 
-    private void addAndSaveDeadline(int space, String command, Storage storage) throws IOException {
+    private String addAndSaveDeadline(int space, String command, Storage storage) throws IOException {
         String rest = command.substring(space + 1);
         String[] description = rest.split(" /by ");
         try {
             LocalDate time = LocalDate.parse(description[1]);
             Deadline task = new Deadline(description[0], false, time, description[1]);
-            System.out.println(task.stringify());
             list.add(task);
-            System.out.println("Got it. I've added this task:");
             storage.saveTasksToFile(list);
-            System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+            return "Got it. I've added this task:\n" + task.stringify() + "\n" +
+                    "Now you have " + Integer.toString(list.size()) + " tasks in the list.";
         } catch (DateTimeParseException err) {
-            System.out.println(
-                    "Sorry! Your deadline is in the wrong format. Correct format is YYYY-MM-DD");
+            return "Sorry! Your deadline is in the wrong format. Correct format is YYYY-MM-DD";
         }
     }
 
-    private void addAndSaveEvent(int space, String command, Storage storage) throws IOException {
+    private String addAndSaveEvent(int space, String command, Storage storage) throws IOException {
         String rest = command.substring(space + 1);
         String[] description = rest.split(" /from ");
         String[] time = description[1].split(" /to ");
         Event task = new Event(description[0], false, time[0], time[1]);
-        System.out.println(task.stringify());
         list.add(task);
-        System.out.println("Got it. I've added this task:");
         storage.saveTasksToFile(list);
-        System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+        return "Got it. I've added this task:\n" + task.stringify() + "\n" +
+                "Now you have " + Integer.toString(list.size()) + " tasks in the list.";
     }
 
 }
