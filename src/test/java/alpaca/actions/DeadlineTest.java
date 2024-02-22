@@ -14,7 +14,7 @@ public class DeadlineTest {
     @Test
     public void noInputTest() {
         ValueNotFound thrown = assertThrows(ValueNotFound.class, () -> 
-                Deadline.run("Deadline", new ArrayList<Task>()), 
+                Deadline.check("Deadline", new ArrayList<Task>()), 
                 "Expected ValueNotFound thrown.");
         assertTrue(thrown.getMessage().equals("You need to provide a value for deadline"));
     }
