@@ -1,5 +1,7 @@
 <h1>Plato User Guide <img src="headerIcon.png" alt = "plato" width="70" height="70" style="margin-left: 30px; margin-top:30px"> </h1>
+
 ---
+
 ![This is the product](Ui.png)
 
 Plato is a desktop application for managing your everyday task, optimised with CLI-like(Command Line Interface) inputs, it
