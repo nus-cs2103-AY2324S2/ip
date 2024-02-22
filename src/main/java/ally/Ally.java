@@ -1,10 +1,10 @@
-package duke;
+package ally;
 
-import duke.exception.AllyException;
-import duke.parser.Parser;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
+import ally.exception.AllyException;
+import ally.parser.Parser;
+import ally.task.Deadline;
+import ally.task.Event;
+import ally.task.Todo;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
  * Chatbot to help users manage their tasks.
  * Supports Todos, Deadline and Event tasks.
  */
-public class Duke {
+public class Ally {
 
     protected static TaskList lst = new TaskList();
     protected static Storage storage = new Storage();
@@ -32,7 +32,7 @@ public class Duke {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
     private MainWindow mainWindow;
 
-    public Duke() {
+    public Ally() {
         lst = storage.loadTasks();
     }
 

@@ -1,4 +1,4 @@
-package duke.task;
+package ally.task;
 
 /**
  * Abstraction of Todo Tasks.

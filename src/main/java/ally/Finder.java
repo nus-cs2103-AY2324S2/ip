@@ -1,6 +1,6 @@
-package duke;
+package ally;
 
-import duke.task.Task;
+import ally.task.Task;
 
 /**
  * Searches for task based on Search Keyword.

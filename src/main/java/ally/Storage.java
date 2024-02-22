@@ -1,4 +1,4 @@
-package duke;
+package ally;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +47,7 @@ public class Storage {
 
             // Save the tasks
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-                oos.writeObject(Duke.lst);
+                oos.writeObject(Ally.lst);
             }
         } catch (IOException e) {
             e.printStackTrace();

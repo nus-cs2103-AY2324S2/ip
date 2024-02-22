@@ -1,4 +1,4 @@
-package duke;
+package ally;
 
 import javafx.application.Application;
 

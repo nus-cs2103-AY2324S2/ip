@@ -1,4 +1,4 @@
-package duke;
+package ally;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Ally ally;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Ally d) {
+        ally = d;
         d.linkMainWindow(this);
     }
 
@@ -42,12 +42,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = ally.getResponse(input);
         assert response != null;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
     }
     protected void addDukeMessage(String s) {

@@ -1,6 +1,6 @@
-package duke;
+package ally;
 
-import duke.task.Todo;
+import ally.task.Todo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class StorageTest {
         tempFile = tempDir.resolve("duke.txt").toFile();
         Storage.dataPath = tempFile.getPath();
         // Initialize Duke.lst or the list used in your Storage class
-        Duke.lst = new TaskList();
+        Ally.lst = new TaskList();
     }
 
     /**
@@ -42,7 +42,7 @@ class StorageTest {
     @Test
     void testSaveAndLoadTasks() {
         // Add a task to the list
-        Duke.lst.add(new Todo("Test task"));
+        Ally.lst.add(new Todo("Test task"));
 
         // Save the list to the file
         Storage.saveTasks();

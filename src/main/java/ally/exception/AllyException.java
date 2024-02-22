@@ -1,4 +1,4 @@
-package duke.exception;
+package ally.exception;
 
 /**
  * Special Exception for Duke

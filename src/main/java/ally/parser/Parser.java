@@ -1,4 +1,4 @@
-package duke.parser;
+package ally.parser;
 
 /**
  * Abstraction of String parsing.
