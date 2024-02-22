@@ -8,7 +8,8 @@ import java.time.format.DateTimeParseException;
 
 public class PewException extends Exception{
     /**
-     * Constructor for DukeException
+     * Constructor for PewException
+     *
      * @param msg error message
      */
     public PewException(String msg) {
@@ -17,17 +18,19 @@ public class PewException extends Exception{
 
     /**
      * Validates the todo input is not empty
+     *
      * @param str user input for todo task
      * @throws PewException if the input is empty after todo
      */
     static void validateToDo(String str) throws PewException {
         if (str.split(" ").length < 2) {
-            throw new PewException("duke.ToDo duke.Task Missing!");
+            throw new PewException("ToDo Task Missing!");
         }
     }
 
     /**
      * Validates the instruction is in the list of valid instructions
+     *
      * @param str user input
      * @throws PewException if the instruction is not in the list
      */
@@ -41,6 +44,7 @@ public class PewException extends Exception{
 
     /**
      * Validates if the list index to be deleted is valid
+     *
      * @param index list index to be deleted
      * @param task_arr list of tasks
      * @throws PewException if the index is invalid
@@ -55,6 +59,7 @@ public class PewException extends Exception{
 
     /**
      * Validates of the date and time format is valid
+     *
      * @param str date and time user input
      * @throws PewException if the date and time format is invalid
      */

@@ -6,6 +6,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline
+     *
      * @param index the index of the task
      * @param description the description of the task
      * @param deadline the deadline of the task
@@ -17,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String getTask() {
-        return index + ". [" + type + "][" + getStatusIcon() + "] " + description + "(" + deadline + ")";
+        return index + ". [" + type + "][" + getStatusIcon() + "] " + description + " (" + deadline + ")";
     }
 
     @Override

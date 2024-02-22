@@ -9,6 +9,7 @@ import java.util.Locale;
 public class Parser {
     /**
      * Converts the input string to LocalDateTime
+     *
      * @param inputStr the input date and time string
      * @return the LocalDateTime
      */
@@ -46,6 +47,7 @@ public class Parser {
 
     /**
      * Parses the user input and calls the appropriate method
+     *
      * @param userInput the user input
      * @param taskList the list of tasks
      * @return the message result of the user input

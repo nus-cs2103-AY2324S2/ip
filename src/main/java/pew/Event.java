@@ -7,6 +7,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event
+     *
      * @param index index of the task
      * @param description description of the task
      * @param start start date and time of the task
@@ -20,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public String getTask() {
-        return index + ". [" + type + "][" + getStatusIcon() + "] " + description + "(from: " + start + " to: " + end + ")";
+        return index + ". [" + type + "][" + getStatusIcon() + "] " + description + " (from: " + start + " to: " + end + ")";
     }
 
     @Override

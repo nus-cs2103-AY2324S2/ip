@@ -7,6 +7,7 @@ public class Task {
 
     /**
      * Constructor for the Task class
+     *
      * @param index the index of the task
      * @param description the description of the task
      */
@@ -43,6 +44,7 @@ public class Task {
     }
     /**
      * change the index of the task
+     *
      * @param newIndex the new index of the task
      */
     public void changeindex(int newIndex) {
@@ -51,6 +53,7 @@ public class Task {
 
     /**
      * saves the task as a string
+     *
      * @return the string representation of the task
      */
     public String save() {

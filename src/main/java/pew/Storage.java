@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
-
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -54,7 +53,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new PewException("File not found: " + e);
         }
-
         return task_arr;
     }
 

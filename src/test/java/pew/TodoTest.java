@@ -2,6 +2,7 @@ package pew;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,27 +10,18 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TodoTest {
     @Test
-    public void todo_getTask_success() throws PewException {
+    public void todo_createTask_success() throws PewException {
         assertEquals("1. [T][ ] pray", new ToDo(0, "pray").getTask());
     }
 
     @Test
-    public void deadline_getTask_invalidDate_exceptionThrown(){
+    public void todo_createTask_invalidInput(){
         try {
-            PewException.validateDateTime("111/11/1111");
-            assertEquals("fail", new Deadline(1, "fail", "111/11/1111").getTask());
+            String userInput = "todo";
+            PewException.validateToDo(userInput);
+            assertEquals("1. [T][ ]", Parser.parseUserInput(userInput, new TaskList(new ArrayList<>())));
         } catch (PewException d) {
-            String[] dateFormats = {
-                    "M/d/yyyy[ HHmm]",
-                    "yyyy-MM-dd[ HHmm]",
-                    "dd-MM-yyyy[ HHmm]",
-                    "d/M/yyyy[ HHmm]",
-                    "M-d-yyyy[ HHmm]",
-                    "d-M-yyyy[ HHmm]"
-            };
-            assertEquals("Invalid date and time format, use the following formats: " +
-                    "\n" + Arrays.toString(dateFormats), d.getMessage());
+            assertEquals("ToDo Task Missing!", d.getMessage());
         }
-
     }
 }

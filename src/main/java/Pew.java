@@ -12,6 +12,7 @@ public class Pew {
 
     /**
      * Constructs a Duke object
+     *
      * @param filePath the path to the file containing the tasks
      */
     public Pew(String filePath) {
@@ -78,7 +79,7 @@ public class Pew {
 
     public String getResponse(String userInput) {
         if (userInput.equalsIgnoreCase("bye")){
-            return "BYE";
+            return "Bye. Hope to see you again soon!";
         }
         try {
             PewException.validateInstn(userInput);
@@ -95,6 +96,7 @@ public class Pew {
     }
     /**
      * Main method that starts the program
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

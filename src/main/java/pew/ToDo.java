@@ -5,6 +5,7 @@ public class ToDo extends Task{
 
     /**
      * Constructor for ToDo
+     *
      * @param index the index of the task
      * @param description the description of the task
      */
