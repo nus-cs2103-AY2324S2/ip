@@ -5,3 +5,4 @@ E | 0 | meeting | 2024-02-20T00:00 | 2024-02-20T23:59 | HIGH
 D | 1 | submit code | 2024-02-23T23:59 | DEFAULT
 T | 0 | task 1 | DEFAULT
 T | 1 | task 2 | DEFAULT
+T | 0 | hello | DEFAULT
