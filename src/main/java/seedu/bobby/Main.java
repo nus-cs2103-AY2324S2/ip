@@ -9,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Bobby using FXML.
  */
 public class Main extends Application {
 
-    private Bobby bobby = new Bobby("./data/Duke.txt");
+    private Bobby bobby = new Bobby("./data/Bobby.txt");
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Bobby");
-            fxmlLoader.<MainWindow>getController().setDuke(bobby);
+            fxmlLoader.<MainWindow>getController().setBobby(bobby);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

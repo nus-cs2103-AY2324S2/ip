@@ -69,7 +69,7 @@ public class DialogBox extends HBox {
         db.setBackground(new Background(new BackgroundFill(Color.LAVENDERBLUSH, null, null)));
         return db;
     }
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getBobbyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         db.setBackground(new Background(new BackgroundFill(Color.LAVENDER ,null, null)));

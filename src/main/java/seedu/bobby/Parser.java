@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * <h1> Parser </h1>
- * This Parser class parses the user inputs of the Duke program and returns
+ * This Parser class parses the user inputs of the Bobby program and returns
  * the required information. The outputs are then passed as arguments to the other functions
  * from the other classes that produce the functionality of the program,
  * like marking the correct task number in the task list.

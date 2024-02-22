@@ -18,7 +18,7 @@ public class UI {
     }
 
     /**
-     * Throws a DukeException when the user input did not state the description of the
+     * Throws a BobbyException when the user input did not state the description of the
      * todo task, deadline or event command that is tailored to the different cases.
      *
      * @param tasktype Type of task command that the user tried to call

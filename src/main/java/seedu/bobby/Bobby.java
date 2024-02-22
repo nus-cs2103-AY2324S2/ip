@@ -14,8 +14,8 @@ import java.util.TimerTask;
 
 
 /**
- * <h1> Duke </h1>
- * Duke program is a chat bot that maintains your todo list of todo tasks, events and deadlines.
+ * <h1> Bobby </h1>
+ * Bobby program is a chat bot that maintains your todo list of todo tasks, events and deadlines.
  * Simply type "todo //name of your task" and Bobby, your friendly assistant will add it to
  * your task list and it will be stored in the data on your hard disk as well!
  * Type "list" to view all the tasks in your task list.

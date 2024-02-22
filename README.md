@@ -1,4 +1,4 @@
-# Bobby chatbot
+# Bobby
 
 Too much on your mind and want a useful chatbot to help you keep track of your tasks, deadlines and events?
 Fret not, Bobby is here! 

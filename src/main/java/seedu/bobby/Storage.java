@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * <h1> Storage </h1>
  * This Storage class loads tasks from the data file on the hard disk on initialization
- * of the Duke program. It also saves and stores the changes made to the tasks onto the same file in the hard disk
+ * of the Bobby program. It also saves and stores the changes made to the tasks onto the same file in the hard disk
  * of the user, including the adding of new tasks, deleting and changing of markings.
  *
  * @author Yap Xuan Xuan
