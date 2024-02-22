@@ -74,7 +74,6 @@ public class Parser {
             return new ExitCommand();
 
         case "list": // List tasks
-            // Check if date filter exists
             if (splitInput.size() > 1) { // List filtered tasks
                 boolean isArchived = false;
                 if (splitInput.get(1).equals("/archive")) {
