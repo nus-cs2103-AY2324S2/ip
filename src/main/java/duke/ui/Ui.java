@@ -21,7 +21,7 @@ public class Ui {
      * Displays a welcome message when the Duke application is launched.
      */
     public static String showWelcomeMessage() {
-        return "Hello! I'm Tango. \nWhat can I do for you today?";
+        return "Hello! I'm Cruisey, your personal task list manager. \nWhat can I do for you today?";
     }
 
     /**

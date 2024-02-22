@@ -64,4 +64,3 @@ public class MainWindow extends AnchorPane {
         }
     }
 }
-
