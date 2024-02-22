@@ -69,7 +69,7 @@ public class Deadline extends Task {
      * @param s The input number
      * @return String representing the input number with at least two digits.
      */
-    private String padZero(int s) {
+    public String padZero(int s) {
         if (s < 10) {
             return "0" + s;
         }
