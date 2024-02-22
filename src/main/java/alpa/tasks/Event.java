@@ -18,6 +18,11 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description, TaskType.EVENT);
+        assert description != null : "Description cannot be empty";
+        assert start != null : "Start time cannot be empty";
+        assert end != null : "End time cannot be empty";
+        assert end.isAfter(start) : "End time must be after start time";
+
         this.start = start;
         this.end = end;
     }
