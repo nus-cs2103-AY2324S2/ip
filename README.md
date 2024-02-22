@@ -1,6 +1,6 @@
-# Doby task manager
-## welcome to Doby task manager
-### Doby will help your task managing skill
+# Dobby task manager
+## welcome to Dobby task manager
+### Dobby will help your task managing skill
 
 **Do you ...**
 - want to manage tasks?
