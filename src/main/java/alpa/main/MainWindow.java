@@ -36,10 +36,6 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        // Debug: Print out the resource paths to check if they are correct
-        System.out.println(this.getClass().getResource("/images/User.png").toExternalForm());
-        System.out.println(this.getClass().getResource("/images/Alpa.png").toExternalForm());
-
         // Load the images
         userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
         alpaImage = new Image(this.getClass().getResourceAsStream("/images/Alpa.png"));
@@ -86,7 +82,7 @@ public class MainWindow extends AnchorPane {
                     closeApplication();
                 }
             } catch (AlpaException e) {
-                dialogContainer.getChildren().add(DialogBox.getAlpaDialog(e.getMessage(), alpaImage));
+                dialogContainer.getChildren().add(DialogBox.getErrorDialog(e.getMessage(), alpaImage));
                 userInput.clear();
             }
         }

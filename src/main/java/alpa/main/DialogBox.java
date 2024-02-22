@@ -78,7 +78,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox representing the user's message.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.getStyleClass().add("user-dialog");
+        return db;
     }
 
     /**
@@ -91,6 +93,20 @@ public class DialogBox extends HBox {
     public static DialogBox getAlpaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("alpa-dialog");
+        return db;
+    }
+
+    /**
+     * Represents a dialog box that displays an error message from Alpa.
+     *
+     * @param text The error message from Alpa.
+     * @param img Alpa's profile picture.
+     * @return A DialogBox representing Alpa's error message.
+     */
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.getStyleClass().add("error-dialog");
         return db;
     }
 }
