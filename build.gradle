@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("gronk.Gronk")
+    mainClass.set("gronk.Launcher")
 }
 
 shadowJar {
