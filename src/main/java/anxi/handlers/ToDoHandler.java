@@ -47,7 +47,7 @@ public class ToDoHandler {
      * @throws AnxiException    Thrown if there are missing inputs or inputs are out of bounds.
      */
     private String toDo(String input, Storage storage, TaskList taskList, Ui ui) throws AnxiException {
-        if (input.matches("")) {
+        if (input.isBlank()) {
             throw new AnxiException("Need to check my eyesight, nothing to do.");
         }
 

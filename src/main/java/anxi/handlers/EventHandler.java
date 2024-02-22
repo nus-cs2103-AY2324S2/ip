@@ -49,7 +49,7 @@ public class EventHandler {
      * @throws AnxiException    Thrown if there are missing inputs or inputs are out of bounds.
      */
     private String event(String input, Storage storage, TaskList taskList, Ui ui) throws AnxiException {
-        if (input.matches("")) {
+        if (input.isBlank()) {
             throw new AnxiException("This event is the highlight of the social \"calen-darling.\""
                     + "\r\nGot all the details?");
         }

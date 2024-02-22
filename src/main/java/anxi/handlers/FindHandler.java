@@ -41,7 +41,7 @@ public class FindHandler {
      * @throws AnxiException    Thrown if there are missing or invalid inputs.
      */
     private String find(String find, TaskList taskList, Ui ui) throws AnxiException {
-        if (find.matches("")) {
+        if (find.isBlank()) {
             throw new AnxiException("Are you searching? Maybe my eyesight's missing.\nNo input.");
         }
 

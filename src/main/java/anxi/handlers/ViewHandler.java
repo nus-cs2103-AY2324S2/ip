@@ -41,7 +41,7 @@ public class ViewHandler {
      * @throws AnxiException    Thrown if there is an invalid date.
      */
     private String viewOnDate(String date, TaskList taskList, Ui ui) throws AnxiException {
-        if (date.isEmpty()) {
+        if (date.isBlank()) {
             throw new AnxiException("No date honey, try again.");
         }
 

@@ -47,11 +47,17 @@ public class DeleteHandler {
      * @throws AnxiException    Thrown if there are missing inputs or inputs are out of bounds.
      */
     private String delete(String input, Storage storage, TaskList taskList, Ui ui) throws AnxiException {
-        if (input.matches("")) {
+        if (input.isBlank()) {
             throw new AnxiException("Missing the target with your input, what to remove?");
         }
 
-        int index = Integer.parseInt(input.strip());
+        int index;
+        try {
+            index = Integer.parseInt(input.strip());
+        } catch (NumberFormatException n) {
+            throw new AnxiException("Tsk tsk integers only.");
+        }
+
         int numOfTasks = taskList.getNumOfTasks();
         if (((index - 1) < 0) || (index > numOfTasks)) {
             throw new AnxiException("Index out of bounds, no task found.");
