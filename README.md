@@ -29,8 +29,8 @@ your task.
 ## Delete a task
 Enter 'delete (task number)' to delete the corresponding task.
 
-## Tag a task
-Enter 'tag (task number) (tag)' to tag the corresponding task.
+## Tag/Untag a task
+Enter 'tag (task number) (tag)' or 'untag (task number)' to tag/untag the corresponding task.
 
 ## Find a task
 Enter 'search (keyword)' to search a task.
