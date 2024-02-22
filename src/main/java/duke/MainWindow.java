@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -61,6 +63,11 @@ public class MainWindow extends AnchorPane {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return duke.run(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "An error occurred while processing your command.";
+        }
     }
 }

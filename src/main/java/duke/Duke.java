@@ -30,42 +30,35 @@ import ui.Ui;
          * Executes the chatbot.
          * @throws IOException if an I/O error occurs while running the chatbot
          */
-        public void run() throws IOException {
-            // Greet User
-            System.out.print(chatbotUi.greetingBox());
-            String userInput;
-            do {
-                userInput = chatbotUi.getCommand();
-                if (userInput.equals("bye")) {
-                    break;
-                } else {
-                    parser.parse(userInput);
-                }
-            } while (true);
-            System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
-        }
-        //    /**
-        //     * Starts the chatbot.
-        //     * @param stage the stage to be used for the chatbot
-        //     * @throws IOException if an I/O error occurs while starting the chatbot
-        //     * @see Application#start(Stage)
-        //     */
-        //    @Override
-        //    public void start(Stage stage) {
-        //        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        //        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-        //
-        //        stage.setScene(scene); // Setting the stage to show our screen
-        //        stage.show(); // Render the stage.
-        //    }
-        // ...
+        // public void run() throws IOException {
+        //     // Greet User
+        //     System.out.print(chatbotUi.greetingBox());
+        //     String userInput;
+        //     do {
+        //         userInput = chatbotUi.getCommand();
+        //         if (userInput.equals("bye")) {
+        //             break;
+        //         } else {
+        //             parser.parse(userInput);
+        //         }
+        //     } while (true);
+        //     System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
+        // }
 
-            public static void main(String[] args) throws IOException {
-                Duke d = new Duke();
-                d.run();
-//                stage.setScene(scene); // Setting the stage to show our screen
-//                stage.show(); // Render the stage.
+        public String run(String userInput) throws IOException {
+            if (userInput.equals("bye")) {
+                //return chatbotUi.dividerWrapper(Ui.bye());
+                System.exit(1);
+            } else {
+                //parser.parse(userInput);
+                // Assuming that the parse method updates the chatbotUi with the response
+                return chatbotUi.getResponse(userInput, parser);
             }
+            return null;
+        }
+        public static void main(String[] args) throws IOException {
+           
+        }
 
 
     }
