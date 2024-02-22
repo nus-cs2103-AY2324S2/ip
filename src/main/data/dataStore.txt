@@ -1,4 +1,0 @@
-deadline bye /by 2001-10-110
-event bye /from a /to c1
-event * /from null /to null0
-todo hello0

@@ -53,7 +53,7 @@ public class Ui {
      * Prints error message if there is an issue in loading tasks from existing file.
      */
     public String printTasklistLoadError() {
-        return "Unable to load existing list from file.\nThis could be due to corrupted file data or missing file.";
+        return "\tUnable to load existing list from file.\n\tThis could be due to corrupted file data or missing file.";
     }
 
     /**
