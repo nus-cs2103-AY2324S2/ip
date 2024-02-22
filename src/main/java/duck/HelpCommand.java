@@ -31,7 +31,8 @@ public class HelpCommand implements Command {
         helpMessage.append("2. mark <task_index> - Mark a task as done\n");
         helpMessage.append("3. unmark <task_index> - Mark a task as undone\n");
         helpMessage.append("4. delete <task_index> - Delete a task\n");
-        helpMessage.append("5. tag <task_index> <tag> - Tag a task\n");
+        helpMessage.append("5a. tag <task_index> <tag> - Tag a task\n");
+        helpMessage.append("5b. untag <task_index>  - Untag a task\n");
         helpMessage.append("6. find <keyword> - Find a task\n");
         helpMessage.append("7a. todo <task> - Create a todo task\n");
         helpMessage.append("7b. deadline <task> /by <yyyy-mm-dd> - Create a deadline task\n");
