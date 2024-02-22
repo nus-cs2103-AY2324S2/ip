@@ -71,6 +71,31 @@ public class Parser {
         }
     }
 
+    /**
+     * A simple data parser that uses yyyy-MM-dd format.
+     *
+     * @param date a string representing a date
+     * @return parsed date
+     */
+    public static LocalDate parseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        return LocalDate.parse(date, formatter);
+    }
+
+    /**
+     * Returns a task parsed from saved data.
+     *
+     * @param line the data-format string retrieved from storage file
+     * @return parsed action that has been initialized based on stored data
+     * @throws ArgumentException
+     */
+    public static AddTask parseLoadedTask(String line) throws ArgumentException {
+        String[] tokens = line.split(" ");
+        CommandType taskType = parseCommand(tokens[1]);
+        return parseTask(taskType, Arrays.copyOfRange(tokens, 1, tokens.length));
+    }
+
+
     private static CommandType parseCommand(String command) throws InvalidArgumentException {
         assert(!command.isEmpty());
 
@@ -202,29 +227,5 @@ public class Parser {
         }
         resetArgsMap();
         return addTaskAction;
-    }
-
-    /**
-     * Returns a task parsed from saved data.
-     *
-     * @param line the data-format string retrieved from storage file
-     * @return parsed action that has been initialized based on stored data
-     * @throws ArgumentException
-     */
-    public static AddTask parseLoadedTask(String line) throws ArgumentException {
-        String[] tokens = line.split(" ");
-        CommandType taskType = parseCommand(tokens[1]);
-        return parseTask(taskType, Arrays.copyOfRange(tokens, 1, tokens.length));
-    }
-
-    /**
-     * A simple data parser that uses yyyy-MM-dd format.
-     *
-     * @param date a string representing a date
-     * @return parsed date
-     */
-    public static LocalDate parseDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        return LocalDate.parse(date, formatter);
     }
 }
