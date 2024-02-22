@@ -1,5 +1,6 @@
 package talkingbot.command;
 
+import talkingbot.exception.TalkingBotException;
 import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
@@ -29,7 +30,11 @@ public class FindCommand extends Command {
     @Override
     public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] commandArr = super.getCommandArr();
-        String filterCondition = commandArr[1];
-        return tasks.filterList(filterCondition);
+        try {
+            String filterCondition = commandArr[1];
+            return tasks.filterList(filterCondition);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getFindCmdErrMsg();
+        }
     }
 }

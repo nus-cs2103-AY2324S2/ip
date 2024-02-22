@@ -65,6 +65,7 @@ For example, if you only have a todo `read article` that is not done, TalkingBot
 ```
 
 ## Marking/unmarking tasks as done
+
 ### Marking tasks as done
 
 To mark tasks as done, type `mark INDEX` and press enter, where `INDEX` is the index of the task you wish to mark as done.
@@ -147,6 +148,8 @@ Saving tasks to file: ./data/taskList.txt
 Save done!
 ```
 
+We will also be able to see a `./data/taskList.txt` file that stores the list of tasks we have in TalkingBot.
+
 ## Exiting 
 
 Once you're done with managing your daily activities using TalkingBot and wish to exit the application, type `bye` into the command line. This will also save the tasks to the same file as in the [Saving Tasks](#saving-tasks) section above.
@@ -166,3 +169,5 @@ Given an invalid command, TalkingBot will respond with the following message:
 ```
 ERROR! Unknown command detected.
 ```
+
+However, whenever one has entered an invalid format for a command 

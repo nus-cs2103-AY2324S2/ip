@@ -13,6 +13,7 @@ public class Ui {
             + "TalkingBot\n\tWhat can I do for you?";
     private static final String GOODBYE = "\tBye. Hope to see you again soon!";
     private static final String LOADING_ERR_MSG = "\tUsing new file instead...";
+    private static final String FIND_CMD_ERR_MSG = "\tERROR! find needs to have a parameter.";
     private static final String TASK_SET_DONE_MSG = "\tNice! I've marked this task as done:";
     private static final String TASK_SET_UNDONE_MSG = "\tAlright, I've marked this task as undone.";
     private static final String INVALID_CMD_MSG = "\tERROR! Unknown command detected.";
@@ -60,6 +61,8 @@ public class Ui {
 
     /**
      * Returns a message when an invalid command is entered.
+     *
+     * @return A formatted String.
      */
     public String getInvalidCmdMsg() {
         return String.format("%s\n", INVALID_CMD_MSG);
@@ -67,6 +70,8 @@ public class Ui {
 
     /**
      * Returns a welcome message when the application starts.
+     *
+     * @return A formatted String.
      */
     public String getWelcomeMsg() {
         return String.format("%s\n", WELCOME);
@@ -93,6 +98,8 @@ public class Ui {
 
     /**
      * Returns a message indicating that the saving has been done.
+     *
+     * @return A formatted String.
      */
     public String getSaveDoneMsg() {
         return String.format("%s\n", SAVE_DONE_MSG);
@@ -122,7 +129,18 @@ public class Ui {
     }
 
     /**
+     * Returns an error message when a find command does not execute correctly.
+     *
+     * @return A formatted String.
+     */
+    public String getFindCmdErrMsg() {
+        return String.format("%s\n", FIND_CMD_ERR_MSG);
+    }
+
+    /**
      * Returns a goodbye message.
+     *
+     * @return A formatted String.
      */
     public String getGoodbyeMsg() {
         return String.format("%s\n", GOODBYE);
