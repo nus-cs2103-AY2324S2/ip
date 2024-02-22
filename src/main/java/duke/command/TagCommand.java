@@ -1,12 +1,12 @@
 package duke.command;
 
+import static duke.DukeException.NON_POSITIVE_INDEX_ERROR;
+import static duke.DukeException.SMALL_INDEX_ERROR;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-
-import static duke.DukeException.NON_POSITIVE_INDEX_ERROR;
-import static duke.DukeException.SMALL_INDEX_ERROR;
 
 /**
  * The `EditCommand` class represents a command that edit task's status in the task list.

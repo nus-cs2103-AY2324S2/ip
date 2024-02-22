@@ -36,7 +36,8 @@ public class DukeException extends Exception {
             + "E.g. tag 1 urgent";
 
 
-    public static final String EMPTY_ERROR = "Error: Sorry, we are not sync enough to communicate through empty command.";
+    public static final String EMPTY_ERROR = "Error: Sorry, "
+            + "we are not sync enough to communicate through empty command.";
     public static final String SMALL_INDEX_ERROR = "Error: The index of task cannot be larger than number of task.";
     public static final String NON_POSITIVE_INDEX_ERROR = "Error: The index of task must be positive integer.";
 

@@ -13,7 +13,14 @@ import static duke.DukeException.TODO_ERROR;
 import static duke.DukeException.UNKNOWN_ERROR;
 import static duke.DukeException.UNMARK_ERROR;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.EditCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.TagCommand;
 
 /**
  * The `Parser` class represents a tool to make sense of user input.
