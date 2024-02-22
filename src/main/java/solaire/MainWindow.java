@@ -1,5 +1,6 @@
 package solaire;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -48,6 +49,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         assert !input.isEmpty() : "User input should not be empty";
+        if (input.equals("bye")) {
+            pauseGui();
+        }
         String response = solaire.processInput(input);
         assert !response.isEmpty() : "Response should not be empty";
         dialogContainer.getChildren().addAll(
@@ -56,6 +60,13 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    private void pauseGui() {
+        PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
+        pause.setOnFinished(event -> System.exit(0));
+        pause.play();
+    }
+
 
     /**
      * Displays the welcome message from Solaire.
