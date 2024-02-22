@@ -28,19 +28,11 @@ public class Ui {
         return "Here's a list of commands (1):\n" + getCommands1();
     }
 
-    public String getHelp2() {
-        return "More commands (2):\n" + getCommands2();
-    }
-
     public String getCommands1() {
         return "(Dates are in dd/mm/yyyy format)\n"
                 + "\tlist: Display task list\n"
                 + "\ttodo <task>: Add a Todo\n"
-                + "\tdeadline <task> /by <date>: Add a Deadline\n";
-    }
-
-    public String getCommands2() {
-        return "(Dates are in dd/mm/yyyy format)\n"
+                + "\tdeadline <task> /by <date>: Add a Deadline\n"
                 + "\tevent <task> /from <date> /to <date>: Add an Event\n"
                 + "\tmark done <index>: Mark a task as done\n"
                 + "\tmark undone <index>: Mark a task as undone\n"
