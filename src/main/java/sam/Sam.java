@@ -1,3 +1,6 @@
+package sam;
+
+import sam.command.Command;
 import java.io.IOException;
 
 public class Sam {
@@ -30,6 +33,6 @@ public class Sam {
         }
     }
     public static void main(String[] args) {
-        new Sam("./data/Sam.txt").run();
+        new Sam("././data/Sam.txt").run();
     }
 }

@@ -1,3 +1,5 @@
+package sam;
+
 import java.util.Scanner;
 public class Ui {
     Scanner scanner;

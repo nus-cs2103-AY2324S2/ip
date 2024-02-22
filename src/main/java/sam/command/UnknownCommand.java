@@ -1,3 +1,10 @@
+package sam.command;
+
+import sam.Storage;
+import sam.TaskList;
+import sam.Ui;
+import sam.SamException;
+
 public class UnknownCommand extends Command {
     public UnknownCommand() {}
 

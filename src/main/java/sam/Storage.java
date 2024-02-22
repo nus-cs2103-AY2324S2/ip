@@ -1,6 +1,11 @@
+package sam;
+
+import sam.task.Task;
+import sam.task.ToDo;
+import sam.task.Deadline;
+import sam.task.Event;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,7 +80,9 @@ public class Storage {
                 return null;
         }
 
-        task.isDone = (isDone == 1);
+        if (isDone == 1) {
+            task.markAsDone();
+        }
         return task;
     }
 }
