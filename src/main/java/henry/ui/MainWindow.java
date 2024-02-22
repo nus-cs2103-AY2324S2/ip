@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Henry henry;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image henryImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
 
     public void setHenry(Henry h) {
         henry = h;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Hello! I am henry", henryImage)
+        );
     }
 
     /**
@@ -45,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = henry.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, henryImage)
         );
         userInput.clear();
     }
