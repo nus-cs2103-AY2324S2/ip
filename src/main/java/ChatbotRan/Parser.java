@@ -26,6 +26,10 @@ public class Parser {
      */
 
     public void exec(String line, TaskList taskList, RanUi ui) {
+        if (!this.running()) {
+            return;
+        }
+        ui.displayInput(line);
         int space = line.indexOf(' ');
         String command = space == -1 ? line : line.substring(0, space);
         Task task;
@@ -73,6 +77,7 @@ public class Parser {
         default:
             switch (line) {
             case "bye":
+                ui.bye();
                 this.isComplete = true;
                 break;
             case "list":
@@ -84,6 +89,7 @@ public class Parser {
 
 
         }
+        ui.displayBuiltOutput();
     }
 
     private Task handleTaskNo(String line, int posOfSpace, TaskList taskList) throws TaskException {
