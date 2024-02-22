@@ -63,13 +63,13 @@ public class Parser {
     public String unmarkTask(String command) {
         String indexInString = command.substring(7);
         int index = Integer.parseInt(indexInString);
-        return this.ui.unmark(index - 1);
+        return this.ui.unmark(index);
     }
 
     public String markTask(String command) {
         String indexInString = command.substring(5);
         int index = Integer.parseInt(indexInString);
-        return this.ui.mark(index - 1);
+        return this.ui.mark(index);
     }
 
     public String deleteTask(String command) {
