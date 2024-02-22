@@ -143,6 +143,7 @@ public class Eueu extends Application {
 
         if (input.startsWith("cont")) {
             try {
+
                 String str = input.substring(5);
                 return conts.parsing(str);
             } catch (StringIndexOutOfBoundsException e){

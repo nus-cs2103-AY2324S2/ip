@@ -1,6 +1,7 @@
 T/1/work
 T/0/ip
-T/0/stuff
 D/0/work/12-02-2024
 D/1/stuff/2024-02-12
-E/0/dinz/7pm/9pm
+E/1/dinz/7pm/9pm
+T/0/work
+E/1/work/sun/mon

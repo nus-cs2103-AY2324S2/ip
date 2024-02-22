@@ -32,6 +32,7 @@ private TaskList tasklist;
     static final String INVALID_DEADLINE_DDL = "Let me know your deadlines babe: e.g. deadline <deadline> /by <ddl>";
     static final String INVALID_EVENT_TIMINGS = "Let me know when this event is bb: " +
                                                 "e.g. event <event> /from <when>/to <when>";
+    static final String BLANK_TASK = "ENTER VALID TASK BABES";
 
     /**
      * Parses user's String input to commands that TaskList executes.
@@ -94,8 +95,12 @@ private TaskList tasklist;
      */
     public String addTodo(String command) throws IOException {
         String str = command.substring(5);
-        Todo todo = new Todo(str);
-        return tasklist.addTask(todo);
+        if (str.isEmpty()) {
+            return BLANK_TASK;
+        } else {
+            Todo todo = new Todo(str);
+            return tasklist.addTask(todo);
+        }
     }
 
     /**
@@ -107,11 +112,15 @@ private TaskList tasklist;
     public String addDeadline(String command) {
         try {
             String str = command.substring(9);
-            String[] arr = str.split("/");
-            String c = arr[0];
-            String ddl = arr[1].substring(3);
-            Deadline deadline = new Deadline(ddl, c);
-            return tasklist.addTask(deadline);
+            if (str.isEmpty()) {
+                return BLANK_TASK;
+            } else {
+                String[] arr = str.split("/");
+                String c = arr[0];
+                String ddl = arr[1].substring(3);
+                Deadline deadline = new Deadline(ddl, c);
+                return tasklist.addTask(deadline);
+            }
         } catch (ArrayIndexOutOfBoundsException | IOException e) {
             return INVALID_DEADLINE_DDL;
         }
@@ -126,12 +135,16 @@ private TaskList tasklist;
     public String addEvent(String command) {
         try {
             String str = command.substring(6);
-            String[] arr = str.split("/");
-            String c = arr[0];
-            String start = arr[1].substring(5);
-            String end = arr[2].substring(3);
-            Event event = new Event(start, end, c);
-            return tasklist.addTask(event);
+            if (str.isEmpty()) {
+                return BLANK_TASK;
+            } else {
+                String[] arr = str.split("/");
+                String c = arr[0];
+                String start = arr[1].substring(5);
+                String end = arr[2].substring(3);
+                Event event = new Event(start, end, c);
+                return tasklist.addTask(event);
+            }
         } catch(ArrayIndexOutOfBoundsException | IOException e) {
             return INVALID_EVENT_TIMINGS;
         }
