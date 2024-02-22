@@ -33,16 +33,4 @@ public class Lumiere {
             return "Sorry! This is an invalid command.";
         }
     }
-
-    /*
-     * public void run() throws IOException {
-     * Ui.greet();
-     * Lumiere lumiere = new Lumiere();
-     * lumiere.ui.run(lumiere.tasks, lumiere.storage);
-     * }
-     * 
-     * public static void main(String[] args) throws IOException {
-     * new Lumiere().run();
-     * }
-     */
 }
