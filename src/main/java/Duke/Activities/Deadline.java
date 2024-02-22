@@ -3,8 +3,6 @@ package Duke.Activities;
 import Duke.Commands.DateFormat;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * Represents a Deadline activity, which is a type of activity with a specific due date.

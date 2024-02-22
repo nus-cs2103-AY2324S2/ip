@@ -1,7 +1,7 @@
 package Duke.phrase;
 
 import Duke.Commands.*;
-import Duke.Commands.Unknow;
+import Duke.Commands.Unknown;
 import Duke.Exception.CommandException;
 
 public class phrase {
@@ -30,7 +30,7 @@ public class phrase {
             case "bye":
                 return new Terminate(remainingWord);
             default:
-                return new Unknow("I'm sorry, but I don't know what that means");
+                return new Unknown("I'm sorry, but I don't know what that means");
         }
     }
 

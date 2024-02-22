@@ -1,7 +1,5 @@
 package Duke.Activities;
 
-import java.util.List;
-
 /**
  * Represents a Todo activity, which is a type of activity without a specific date or duration.
  */

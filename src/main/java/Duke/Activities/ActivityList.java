@@ -5,7 +5,6 @@ import Duke.LocalStorage.LocalList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a list of activities managed by the application.
