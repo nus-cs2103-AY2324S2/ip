@@ -80,6 +80,20 @@ public class Storage {
      * @throws IOException If there is an issue reading from the file.
      */
     public ArrayList<Task> readTasks() throws IOException {
+        String[] dirName = this.path.split("/");
+        File dir = new File(dirName[0]);
+
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        File file = new File(this.path);
+        assert(this.path.equals("data/tasks.txt"));
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
         ArrayList<Task> userRequests = new ArrayList<Task>();
         try {
             ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(this.path), StandardCharsets.UTF_8);
