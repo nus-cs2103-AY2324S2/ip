@@ -33,71 +33,102 @@ public class Parser {
     public String parse(String command) {
         try {
             if (command.equals("list")) {
-                return this.ui.listTask();
+                return listTask();
             } else if (command.startsWith("unmark")) {
-                String indexInString = command.substring(7);
-                int index = Integer.parseInt(indexInString);
-                return this.ui.unmark(index - 1);
+                return unmarkTask(command);
             } else if (command.startsWith("mark")) {
-                String indexInString = command.substring(5);
-                int index = Integer.parseInt(indexInString);
-                return this.ui.mark(index - 1);
+                return markTask(command);
             } else if (command.startsWith("delete")) {
-                String indexInString = command.substring(7);
-                int index = Integer.parseInt(indexInString);
-                return this.ui.delete(index);
+                return deleteTask(command);
             } else if (command.startsWith("deadline")) {
-                try {
-                    if (command.equals("deadline")) {
-                        throw new TesException("Stop wasting my time. Are you muted?!");
-                    } else if (!command.contains("/by")) {
-                        throw new TesException("I see an idiot with no time management in their little brain.");
-                    }
-                    String deadlineTask = command.substring(9);
-                    String[] descriptionAndPeriod = deadlineTask.split(" /by ");
-                    String description = descriptionAndPeriod[0];
-                    String period = descriptionAndPeriod[1];
-                    return this.ui.addDeadline(description, period);
-                } catch (TesException e) {
-                    return e.getMessage();
-                }
+               return addDeadlineTask(command);
             } else if (command.startsWith("event")) {
-                try {
-                    if (command.equals("event")) {
-                        throw new TesException("Stop wasting my time. Are you muted?!");
-                    } else if (!command.contains("/from") || !command.contains("/to")) {
-                        throw new TesException("I see an idiot with no time management in their little brain.");
-                    }
-                    String eventTask = command.substring(6);
-                    String[] descriptionAndPeriod = eventTask.split(" /from ");
-                    String description = descriptionAndPeriod[0];
-                    String period = descriptionAndPeriod[1];
-                    String[] fromAndTo = period.split(" /to ");
-                    String from = fromAndTo[0];
-                    String to = fromAndTo[1];
-                    return this.ui.addEvent(description, from, to);
-                } catch (TesException e) {
-                    return e.getMessage();
-                }
+                return addEventTask(command);
             } else if (command.startsWith("todo")) {
-                try {
-                    if (command.equals("todo")) {
-                        throw new TesException("Stop wasting my time. Are you muted?!");
-                    }
-                    String description = command.substring(5);
-                    return this.ui.addToDo(description);
-                } catch (TesException e) {
-                    return e.getMessage();
-                }
+                return addToDoTask(command);
             } else if (command.contains("find")) {
-                String keyword = command.substring(5);
-                return this.ui.find(keyword);
+                return findTask(command);
             } else {
                 throw new TesException("Stop this nonsense. Come back with a smarter brain.");
             }
         } catch (TesException e) {
             return e.getMessage();
         }
+    }
 
+    public String listTask() {
+        return this.ui.listTask();
+    }
+
+    public String unmarkTask(String command) {
+        String indexInString = command.substring(7);
+        int index = Integer.parseInt(indexInString);
+        return this.ui.unmark(index - 1);
+    }
+
+    public String markTask(String command) {
+        String indexInString = command.substring(5);
+        int index = Integer.parseInt(indexInString);
+        return this.ui.mark(index - 1);
+    }
+
+    public String deleteTask(String command) {
+        String indexInString = command.substring(7);
+        int index = Integer.parseInt(indexInString);
+        return this.ui.delete(index);
+    }
+
+    public String addDeadlineTask(String command) {
+        try {
+            if (command.equals("deadline")) {
+                throw new TesException("Stop wasting my time. Are you muted?!");
+            } else if (!command.contains("/by")) {
+                throw new TesException("I see an idiot with no time management in their little brain.");
+            }
+            String deadlineTask = command.substring(9);
+            String[] descriptionAndPeriod = deadlineTask.split(" /by ");
+            String description = descriptionAndPeriod[0];
+            String period = descriptionAndPeriod[1];
+            return this.ui.addDeadline(description, period);
+        } catch (TesException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String addEventTask(String command) {
+        try {
+            if (command.equals("event")) {
+                throw new TesException("Stop wasting my time. Are you muted?!");
+            } else if (!command.contains("/from") || !command.contains("/to")) {
+                throw new TesException("I see an idiot with no time management in their little brain.");
+            }
+            String eventTask = command.substring(6);
+            String[] descriptionAndPeriod = eventTask.split(" /from ");
+            String description = descriptionAndPeriod[0];
+            String period = descriptionAndPeriod[1];
+            String[] fromAndTo = period.split(" /to ");
+            String from = fromAndTo[0];
+            String to = fromAndTo[1];
+            return this.ui.addEvent(description, from, to);
+        } catch (TesException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String addToDoTask(String command) {
+        try {
+            if (command.equals("todo")) {
+                throw new TesException("Stop wasting my time. Are you muted?!");
+            }
+            String description = command.substring(5);
+            return this.ui.addToDo(description);
+        } catch (TesException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String findTask(String command) {
+        String keyword = command.substring(5);
+        return this.ui.find(keyword);
     }
 }
