@@ -20,7 +20,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            String fxmlPath = java.nio.file.Paths.get(".", "view", "MainWindow.fxml").toString();
+            fxmlPath = fxmlPath.substring(1);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlPath));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
