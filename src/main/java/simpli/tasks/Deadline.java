@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Deadline task to know when is the task due by.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Task> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime by;
 
@@ -32,6 +32,15 @@ public class Deadline extends Task {
     @Override
     public String toCsv() {
         return String.format("Deadline,%s,%s", super.toCsv(), this.by.format(FORMATTER));
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof Deadline) {
+            Deadline deadline = (Deadline) o;
+            return this.by.compareTo(deadline.by);
+        }
+        return super.compareTo(o);
     }
 
     /**

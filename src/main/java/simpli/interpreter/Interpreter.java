@@ -114,6 +114,7 @@ public class Interpreter {
     private String interpretDelete(String[] tokens) {
         int taskNum = Integer.parseInt(tokens[2]);
         Task removedTask = taskList.deleteTask(taskNum);
+        taskList.sortTask();
         return "Noted. I've removed this task:\n"
                 + removedTask + "\n"
                 + "Now you have " + taskList.size() + " task(s) in the list.";
@@ -128,6 +129,7 @@ public class Interpreter {
 
     private String interpretTodo(String[] tokens) {
         Task addedTask = taskList.addTodo(tokens);
+        taskList.sortTask();
         return "Got it. I've added this task:\n\t"
                 + addedTask + "\n"
                 + "Now you have " + taskList.size() + " task(s) in the list.";
@@ -138,6 +140,7 @@ public class Interpreter {
             throw new TaskException();
         }
         Task addedTask = taskList.addDeadline(tokens, dates);
+        taskList.sortTask();
         return "Got it. I've added this task:\n\t"
                 + addedTask + "\n"
                 + "Now you have " + taskList.size() + " task(s) in the list.";
@@ -148,6 +151,7 @@ public class Interpreter {
             throw new TaskException();
         }
         Task addedTask = taskList.addEvent(tokens, dates);
+        taskList.sortTask();
         return "Got it. I've added this task:\n\t"
                 + addedTask + "\n"
                 + "Now you have "

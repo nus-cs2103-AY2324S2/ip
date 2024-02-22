@@ -3,7 +3,7 @@ package simpli.tasks;
 /**
  * Task to keep track of the things for user.
  */
-public class Task {
+public class Task implements Comparable<Task> {
     private final String name;
     private boolean isDone;
 
@@ -48,6 +48,14 @@ public class Task {
      */
     public String toCsv() {
         return String.format("%s,%s", isDone ? 1 : 0, name);
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        if (this instanceof Deadline) {
+            return -1;
+        }
+        return 0;
     }
 
     /**
