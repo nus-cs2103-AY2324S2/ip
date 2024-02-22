@@ -5,6 +5,3 @@
 1,running
 0,nap
 0,game,24/02/2024
-0,q
-0,w
-0,e
