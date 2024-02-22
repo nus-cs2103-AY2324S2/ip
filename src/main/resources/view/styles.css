@@ -1,3 +1,5 @@
+/* Solution below inspired by https://stackoverflow.com/questions/41804373/javafx-scrollpane-styling */
+
 .scroll-pane {
     -fx-background-color: #292F3F;
 }
