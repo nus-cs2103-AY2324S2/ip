@@ -9,7 +9,7 @@ Here is a list of commands that you can input:
    2. **list** - _Displays your task list_
    3. **todo** task - _Adds a Todo task to the list_
    4. **deadline** task **/by** <date> - _Adds a Deadline task to the list_
-   5. **event** task **/from** <date> **/to** <date> - _Adds an Event task to the list_
+   5. **event** task **/from** date **/to** date - _Adds an Event task to the list_
    6. **mark done** index - _Marks the task at the given index as done_
    7. **mark undone** index - _Marks the task at the given index as undone_
    8. **delete** index - _Deletes the task at the given index_
