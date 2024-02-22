@@ -15,6 +15,13 @@ public class Main extends Application {
 
     private Shon shon = new Shon();
 
+    /**
+     * Loads FXML, sets the stage, and show stage.
+     * @param stage the primary stage for this application, onto which
+     *     the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     *     primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
