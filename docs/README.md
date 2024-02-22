@@ -1,6 +1,6 @@
 Dukey User Guide
 
-![Dukey](docs/Ui.png)
+![Dukey](Ui.png)
 
 Welcome to Dukey! A user friendly chatbot that will allow you to keep track of 
 all your tasks!
