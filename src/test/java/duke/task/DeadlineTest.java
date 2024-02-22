@@ -17,13 +17,14 @@ public class DeadlineTest {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
+    private LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
+    private Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
+
     /**
      * Ensure the "padZero" function outputs the padded integer as string correctly.
      */
     @Test
     public void padZero_validFormat_returnsFormattedIntegerToHaveAtLeastTwoDigits() {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
-        Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
         assertEquals("00", newTask.padZero(0));
         assertEquals("05", newTask.padZero(5));
         assertEquals("10", newTask.padZero(10));
@@ -34,8 +35,6 @@ public class DeadlineTest {
      */
     @Test
     public void getDeadlineForSave_validFormat_returnsFormattedDateTime() {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
-        Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
         assertEquals("2022-12-31 12:31", newTask.getDeadlineForSave());
     }
 
@@ -44,8 +43,6 @@ public class DeadlineTest {
      */
     @Test
     public void getDeadlineForDisplay_validFormat_returnsFormattedDateTime() {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
-        Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
         assertEquals("DECEMBER 31 2022 12:31PM", newTask.getDeadlineForDisplay());
     }
 
@@ -54,8 +51,6 @@ public class DeadlineTest {
      */
     @Test
     public void getDescriptionStatus_validFormat_returnsFormattedDescriptionStatus() {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
-        Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
         assertEquals("[D][ ] Project (by: DECEMBER 31 2022 12:31PM)", newTask.getDescriptionStatus());
     }
 
@@ -64,8 +59,6 @@ public class DeadlineTest {
      */
     @Test
     public void getFields_correctOutput_returnsStringArrayContainingFields() {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(SAMPLE_DATE_TIME, DATE_TIME_FORMATTER);
-        Deadline newTask = new Deadline(SAMPLE_DESCRIPTION, parsedDateTime);
         String[] fields = newTask.getFields();
         assertEquals("Project", fields[0]);
         assertEquals("N", fields[1]);

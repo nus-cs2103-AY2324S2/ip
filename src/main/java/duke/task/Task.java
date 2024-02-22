@@ -4,7 +4,7 @@ package duke.task;
  * The `Task` class represents a general task.
  * It provides methods to create strings related to task's details, and edit the status of task.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
