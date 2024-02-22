@@ -1,7 +1,5 @@
 package dav;
 
-import java.util.Scanner;
-
 /**
  * Dav application class for managing tasks.
  */
