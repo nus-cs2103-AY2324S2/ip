@@ -82,8 +82,8 @@ Now you have <Number> task in the list.
 Mark/unmark whether something is done.
 
 Format:
-* `mark`
-* `unmark`
+* `mark <task number>`
+* `unmark <task number>`
 
 Expected output:
 ```
