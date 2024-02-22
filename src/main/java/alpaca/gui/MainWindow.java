@@ -37,6 +37,8 @@ public class MainWindow extends AnchorPane {
         this.ui = ui;
         dialogContainer.getChildren().add(
                 DialogBox.getAlpacaDialog(ui.greet(), alpacaImage));
+        ui.read();
+        
     }
 
     /**
@@ -52,5 +54,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAlpacaDialog(response, alpacaImage));
         userInput.clear();
+        if (response.equals("cucu")) {
+            System.exit(0);
+        }
     }
 }
