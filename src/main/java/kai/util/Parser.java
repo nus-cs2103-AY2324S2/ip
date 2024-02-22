@@ -24,6 +24,7 @@ public class Parser {
     private static final int DEADLINE_EVENT_DESCRIPTION = 0;
     private static final int DEADLINE_EVENT_ISDONE = 1;
 
+    //Solution below inspired by https://github.com/yuqitanyq/ip/blob/master/src/main/java/duke/functionality/Parser.java
     /**
      * Reads user input of tasks and parse it into the current TaskList.
      *

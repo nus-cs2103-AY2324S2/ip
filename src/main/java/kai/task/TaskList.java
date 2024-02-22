@@ -56,9 +56,8 @@ public class TaskList {
      * @param index
      */
     public String deleteTask(int index) {
-        String result;
         Task removed = getTask(index - 1);
-        result = "Noted. I've removed this task:\n" + removed + "\n";
+        String result = "Noted. I've removed this task:\n" + removed + "\n";
         tasks.remove(index - 1);
         result += "Now you have " + getSize() + " tasks in the list";
         return result;
@@ -70,10 +69,9 @@ public class TaskList {
      * @param index
      */
     public String markTask(int index) {
-        String result;
         Task modTask = tasks.get(index - 1);
         modTask.setIsDone(true);
-        result = "Nice! I've marked this task as done:\n" + modTask;
+        String result = "Nice! I've marked this task as done:\n" + modTask;
         return result;
     }
 
@@ -83,10 +81,9 @@ public class TaskList {
      * @param index
      */
     public String unmarkTask(int index) {
-        String result;
         Task modTask = tasks.get(index - 1);
         modTask.setIsDone(false);
-        result = "OK, I've marked this task as not done yet:\n" + modTask;
+        String result = "OK, I've marked this task as not done yet:\n" + modTask;
         return result;
     }
 
