@@ -1,6 +1,8 @@
 # Lamball User Guide 🐐
 
-![Ui](/docs/Ui.png)
+
+<img src="https://github.com/ongzhili/ip/blob/master/docs/Ui.png/">
+
 
 Lamball is a helpful pal that you never knew you needed. 
 
