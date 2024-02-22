@@ -2,37 +2,29 @@
 
 <img src="./Ui.png" width="300">
 
-Imagine you have to Hurry-Up!
-Those countless tasks are not going to manage themselves
-Just Level Up with "Hari-Up!" 
+You need to Hurry-Up! <br>
+Those countless tasks are not going to manage themselves! <br>
+No need to worry, just use "Hari-Up!" 
 
 ## Setting up HariUp
-1. Download the hari.jar file into your desired directory.
-2. Run hari.jar. <br>
+1. Download the hari.jar file into a folder of your choice
+2. Run hari.jar, using the following command, within your folder;
+```
+java -jar hari.jar
+```
 
 ## Features
 
 ### View All Tasks: `list`
 View all tasks in the list. <br>
 Format: `list`
-
 ### Adding Todos: `todo`
 Add a todo task to the list. <br>
 Format: `todo [DESCRIPTION]<br>
 Examples:<br>
-
 ```
 todo do assignment
 ```
-
-### Adding Deadlines: `deadline`
-Add a deadline task to the list.<br>
-Format: `deadline [DESCRIPTION] /by [TIME]` <br>
-Examples:<br>
-```
-deadline do CS2103T IP /by 23/02/2024 2359<br>
-```
-`[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
 
 ### Adding Events: `event`
 Add an event task to the list.<br>
@@ -43,28 +35,50 @@ event watch CS2103T lecture videos /from 20/02/2024 0000 /to 20/02/2024 0230<br>
 ```
 `[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
 
+### Adding Deadlines: `deadline`
+Add a deadline task to the list.<br>
+Format: `deadline [DESCRIPTION] /by [TIME]` <br>
+Examples:<br>
+```
+deadline do CS2103T IP /by 23/02/2024 2359
+```
+`[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
+
 ### Marking Tasks as Done: `mark`
 Mark a task as complete.<br>
 Format: `mark [INDEX]`, where `INDEX` is the index of the task in the task list.
 
-Example: `mark 1(index in list)`
-Example: `unmark 1(index in list)`
+Example: 
+```
+mark 1 (refer to the task number)
+```
 
-### Unmarking Tasks as Done: `unmark`
+### Unmarking Previously Marked Tasks: `unmark`
 Unmark a previously marked task.<br>
 Format: `unmark [INDEX]`, where `INDEX` is the index of the task in the task list.
 
-### Deleting Tasks: `delete`
-Delete a task.<br>
-Format: `delete [INDEX]`, where `INDEX` is the index of the task in the task list.
-
-Example: `delete 1(index in list)`
+Example: 
+```
+unmark 1 (refer to the task number)
+```
 
 ### Finding Tasks: `find`
 Find all tasks containing a certain keyword.<br>
 Format: `find [KEYWORD]`, where `KEYWORD` is the keyword searched for among the tasks.
 
-Example: `find lecture`
+Example: 
+```
+find lecture
+```
+
+### Deleting Tasks: `delete`
+Delete a task.<br>
+Format: `delete [INDEX]`, where `INDEX` is the index of the task in the task list.
+
+Example: 
+```
+delete 1 (refer to the task number)
+```
 
 ### Undo-ing Actions: `undo`
 
