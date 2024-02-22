@@ -1,6 +1,7 @@
 package seedu.banter;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import seedu.banter.enums.CommandType;
 import seedu.banter.errors.BanterError;
@@ -200,8 +201,8 @@ public class Parser {
         if (words.length == 1) {
             throw Errors.MISSING_KEYWORD_ERROR;
         }
-        String keyword = joinWords(words, 1, words.length - 1);
-        Card taskFoundMessage = new Card(taskList.findTasks(keyword));
+        String[] keywords = Arrays.copyOfRange(words, 1, words.length);
+        Card taskFoundMessage = new Card(taskList.findTasks(keywords));
         return taskFoundMessage.getString();
     }
 
