@@ -202,18 +202,23 @@ public class TaskList {
     }
 
     public void findTask(ArrayList<Task> userTasks, String userInput, Image kervynImage, VBox dialogContainer) {
-        String[] processedUserInput = userInput.split(" ");
+        String lowerCaseInput = userInput.toLowerCase();
+        String[] processedUserInput = lowerCaseInput.split(" ");
         StringBuilder userKeywords = new StringBuilder();
         ArrayList<Task> results = new ArrayList<>();
 
         for (int i = 1; i < processedUserInput.length; i++) {
-            userKeywords.append(processedUserInput[i]);
+            if (i != processedUserInput.length - 1) {
+                userKeywords.append(processedUserInput[i] + " ");
+            } else {
+                userKeywords.append(processedUserInput[i]);
+            }
         }
 
         for (Task userTask : userTasks) {
             // Check the type of the tasks
             String task = "";
-            task = userTask.toString();
+            task = userTask.toString().toLowerCase();
             if (task.contains(userKeywords)) {
                 results.add(userTask);
             }
