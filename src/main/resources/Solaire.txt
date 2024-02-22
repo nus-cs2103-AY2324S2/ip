@@ -6,3 +6,4 @@ D | 0 | return book | 2022-02-23
 D | 0 | buy groceries | 2024-02-15
 D | 0 | buy toys | 2024-02-24
 T | 0 | go back to sleep
+E | 0 | career fair at utown | today | tomorrow
