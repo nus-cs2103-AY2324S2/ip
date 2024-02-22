@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.chatteroo.Chatteroo")
+    mainClass.set("chatteroo.Launcher")
 }
 
 shadowJar {
