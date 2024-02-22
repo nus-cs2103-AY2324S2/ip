@@ -41,6 +41,8 @@ public class HelpCommand extends Command {
             + "9. unmark {index}\n"
             + "   - Unmarks the task with the specified index as incomplete.\n"
             + "   - Example: unmark 1\n"
+            + "10. bye\n"
+            + "   - Exits the program\n"
             + "Remember to replace {date}, {keyword}, {description}, {dateTime}, {startDateTime}, "
             + "{endDateTime}, and {index} with appropriate values when using these commands.";
 
