@@ -3,8 +3,8 @@ package lumiere.lumiere;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
 public class Storage {
     private final String path;
@@ -15,7 +15,13 @@ public class Storage {
         this.file = new File(path);
     }
 
-    // load tasks from data file into tasklist whenever lumiere is opened and ran
+    /**
+     * A void method that load tasks from data file into tasklist whenever lumiere
+     * is opened and ran
+     * 
+     * @param list TaskList that tasks will load into.
+     * @throws IOException If file cannot be found, created, or loaded.
+     */
     public void loadTasksFromFile(TaskList list) throws IOException {
         try {
             boolean listCreated = this.file.createNewFile();
@@ -32,16 +38,41 @@ public class Storage {
         }
     }
 
+    /**
+     * A void method that saves a given task to data file whenever a new task is
+     * created.
+     * 
+     * @param task New task to be added to data file.
+     * @throws IOException If the named file exists but is a directory rather than a
+     *                     regular file, does not exist but cannot be created, or
+     *                     cannot be opened for any other reason.
+     */
     public void saveTaskToFile(String task) throws IOException {
         FileWriter writer = new FileWriter(this.path, true);
         writer.write(task + System.lineSeparator());
         writer.close();
     }
 
+    /**
+     * A void method that clears the data file so that it can be updated.
+     * 
+     * @throws IOException If the named file exists but is a directory rather than a
+     *                     regular file, does not exist but cannot be created, or
+     *                     cannot be opened for any other reason.
+     */
     public void clearFile() throws IOException {
         new FileWriter(this.path, false).close();
     }
 
+    /**
+     * A void method that saves tasks in given list of tasks to data file.
+     * 
+     * @param list Java List of Task objects that will be saved one by one into the
+     *             data file.
+     * @throws IOException If the named file exists but is a directory rather than a
+     *                     regular file, does not exist but cannot be created, or
+     *                     cannot be opened for any other reason.
+     */
     public void saveTasksToFile(List<Task> list) throws IOException {
         // clear file first
         clearFile();
