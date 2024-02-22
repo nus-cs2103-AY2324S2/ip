@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import tes.Tes;
 import tes.Main;
 
+// Solution below adapted from https://se-education.org/guides/tutorials/javaFx.html
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -71,7 +72,10 @@ public class MainWindow extends AnchorPane {
             mainApp.showHelpWindow();
         } else if (input.trim().equals("bye")) {
             String closingLine = tes.exit();
-            dialogContainer.getChildren().add(DialogBox.getTesDialog(closingLine, tesImage));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getTesDialog(closingLine, tesImage)
+            );
 
             // Creates a pause transition for 1 second
             PauseTransition pause = new PauseTransition(Duration.seconds(1));

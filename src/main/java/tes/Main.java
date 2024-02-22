@@ -10,6 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tes.gui.MainWindow;
 
+// Solution below adapted from https://se-education.org/guides/tutorials/javaFx.html
 /**
  * A GUI for Tes using FXML.
  */

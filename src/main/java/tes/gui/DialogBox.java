@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+// Solution below adapted from https://se-education.org/guides/tutorials/javaFx.html
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
