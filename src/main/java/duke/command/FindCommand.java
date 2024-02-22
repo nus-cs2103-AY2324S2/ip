@@ -14,7 +14,7 @@ public class FindCommand implements Command {
      * @param info a string array obtained from splitting command with
      *             the whitespace regex.
      * @param itemList the ItemList object used in the current Elias instance.
-     * @returna string that confirms that the command was executed correctly.
+     * @return a string that confirms that the command was executed correctly.
      * @throws CustomExceptions.FindException when no search string is given.
      */
     @Override
