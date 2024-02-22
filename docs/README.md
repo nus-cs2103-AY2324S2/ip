@@ -18,7 +18,7 @@ Example: `todo buy bread`
 
 - This adds a todo item into the list with the description of "buy bread".
 
-Expected output:
+Expected outcome:
 ```
 Added this task
 [T][] buy bread
@@ -33,7 +33,7 @@ Example: `deadline return book /by 29/2/2024 15:00`
 
 - This adds a deadline with description "return book" on 29 February 2024 15:00.
 
-Expected output:
+Expected outcome:
 ```
 Added this task
 [D][] return book (by: Feb 29 2024 15:00)
@@ -48,7 +48,7 @@ Example: `event project meeting /from 29/2/2024 16:00 /to 29/2/2024 17:00`
 
 - This adds an event with description "project meeting" from 29 February 2024 16:00 to 29 February 17:00.
 
-Expected output:
+Expected outcome:
 ```
 Added this task
 [E][] project meeting (from: Feb 29 2024 16:00 /to Feb 29 2024 17:00)
@@ -62,6 +62,7 @@ You can list all the tasks that were added.
 Example: `list`
 - This will list all the tasks that are in the list.
 
+Expected outcome:
 ```
 Here is a list of tasks
 1. [T][X] item1
@@ -75,7 +76,7 @@ You can mark a task as done after completing it.
 Example: `mark 1`
 - This marks the task with index of 1 as done.
 
-Expected output:
+Expected outcome:
 ```
 This task has been marked as done. XD
 [T][X] task
@@ -88,7 +89,7 @@ You can mark a task as done after completing it.
 Example: unmark 1
 - This marks the task with index of 1 as done.
 
-Expected output:
+Expected outcome:
 ```
 This task has been marked as undone. :(
 [T][] task
@@ -100,6 +101,8 @@ You can delete an existing task from the list.
 
 Example: `delete 1`
 - This deletes the task of index 1 from the list.
+
+Expected outcome:
 ```
 This task is deleted :)
 [T][] buy bread
@@ -111,6 +114,16 @@ You can update a task that is already added into the list. Other than the index,
 
 Example: `update 1 /d new description`
 - This updates the description of task of index 1 into "new description" 
+
+Expected outcome:
 ```
 Edited task: [T][] new description
 ```
+
+## Exit Henry: `bye`
+
+You can exit Henry and your tasks will be saved automatically.
+
+Example: `bye`
+
+Expected outcome: the program exits.
