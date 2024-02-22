@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         checkEmptyDescription(message, COMMAND, LeluException.ErrorType.MARK);
-        int i = getTaskListNumber(message.split(" ")[1]);
+        int i = getTaskListNumber(message.split(" ")[1], LeluException.ErrorType.MARK);
         assert message.length() >= "mark #".length() : "Input not handled properly";
         return tasks.markTask(i);
     }

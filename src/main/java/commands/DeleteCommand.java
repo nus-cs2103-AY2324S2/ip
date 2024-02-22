@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         checkEmptyDescription(message, COMMAND, LeluException.ErrorType.DELETE);
-        int i = getTaskListNumber(message.split(" ")[1]);
+        int i = getTaskListNumber(message.split(" ")[1], LeluException.ErrorType.DELETE);
         assert message.length() >= (COMMAND + "#").length() : "Input not handled properly";
         return tasks.removeTask(i);
     }
