@@ -7,7 +7,7 @@ Felix is designed for users familiar with a Command Line Interface (CLI).
 
 # Note
 The output messages for the features below were constructed assuming that there is no prior data and the commands were executed sequentially in the order they were introduced in this User Guide.
-The actual output message may differ depending on the tasks added to the task list. </br>
+The actual output message may differ depending on the tasks added to the task list. 
 
 I would like to credit my teammate Yan Jie, whose User Guide I used a reference to create this User Guide.
 
@@ -155,9 +155,11 @@ _______________________________________________________
 Updates tasks from the task list.
 
 Format: </br>
-`update INDEX {description}` for updating todos at INDEX in task list </br>
-`update INDEX {description} /by {end}` for updating deadlines at INDEX in task list </br>
-`update INDEX {description} /from {start} /to {end}` for updating events at INDEX in task list </br>
+`update INDEX {description}` for updating todos at INDEX in task list
+
+`update INDEX {description} /by {end}` for updating deadlines at INDEX in task list
+
+`update INDEX {description} /from {start} /to {end}` for updating events at INDEX in task list 
 
 Example: `update 2 sports /from 2024-02-23 1700 /to 2024-02-23 1800` will update the description, start time and end time of the event at index 2 in the task list to "sports", 23 Feb 2024 1700, and 23 Feb 2024 1800.
 
