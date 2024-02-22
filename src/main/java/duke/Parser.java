@@ -28,12 +28,16 @@ abstract class Parser {
         DukeException e = new DukeException("Sorry! The prompt has ambiguious meanings...");
         switch (order[0]) {
         case "list":
-            if (order.length > 1) {
+            try {
+                assert order.length <= 1;
+            } catch (AssertionError e1) {
                 throw e;
             }
             return new ListCommand();
         case "mark":
-            if (order.length > 2) {
+            try {
+                assert order.length <= 2;
+            } catch (AssertionError e1) {
                 throw e;
             }
             try {
@@ -42,7 +46,9 @@ abstract class Parser {
                 throw e;
             }
         case "unmark":
-            if (order.length > 2) {
+            try {
+                assert order.length <= 2;
+            } catch (AssertionError e1) {
                 throw e;
             }
             try {
@@ -51,7 +57,9 @@ abstract class Parser {
                 throw e;
             }
         case "delete":
-            if (order.length > 2) {
+            try {
+                assert order.length <= 2;
+            } catch (AssertionError e1) {
                 throw e;
             }
             try {
@@ -60,17 +68,23 @@ abstract class Parser {
                 throw e;
             }
         case "search":
-            if (order.length > 2) {
+            try {
+                assert order.length <= 2;
+            } catch (AssertionError e1) {
                 throw e;
             }
             return new SearchDateCommand(order[1]);
         case "find":
-            if (order.length > 2) {
+            try {
+                assert order.length <= 2;
+            } catch (AssertionError e1) {
                 throw e;
             }
             return new FindKeywordCommand(order[1]);
         case "bye":
-            if (order.length > 1) {
+            try {
+                assert order.length <= 1;
+            } catch (AssertionError e1) {
                 throw e;
             }
             return new ExitCommand();
