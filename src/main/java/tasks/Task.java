@@ -28,10 +28,16 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
+    /**
+     * Sets isDone to true.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Sets isDone to false.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
