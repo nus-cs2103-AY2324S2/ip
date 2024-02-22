@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import duke.command.CommandParser;
 import duke.command.CommandType;
@@ -54,6 +55,10 @@ public class Main {
                     case DELETE:
                         handleDelete(userInput);
                         break;
+                    
+                    case FIND:
+                        handleFind(userInput);
+                        break;
 
                     case TODO:
                         handleToDo(userInput);
@@ -65,10 +70,6 @@ public class Main {
 
                     case EVENT:
                         handleEvent(userInput);
-                        break;
-
-                    case EXIT:
-                        isExit = true;
                         break;
 
                     case BYE:
@@ -110,6 +111,13 @@ public class Main {
         String response = taskList.deleteTask(idx);
         int totalTasks = taskList.getNumberTasks();
         UserInterface.printTaskDeleted(response, totalTasks);
+    }
+
+    private static void handleFind(String userInput) throws DukeException {
+        String[] keywords = CommandParser.parseFind(userInput);
+        ArrayList<Integer> taskIndices = taskList.findTasksByKeywordsMatching(keywords);
+        ArrayList<String> response = taskList.getTaskRepresentationsByIndices(taskIndices);
+        UserInterface.printTasksByIndices(response);
     }
 
     private static void handleToDo(String userInput) throws DukeException {

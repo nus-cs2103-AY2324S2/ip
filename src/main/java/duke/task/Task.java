@@ -22,8 +22,22 @@ public abstract class Task implements Serializable {
         return description;
     }
 
+    public boolean containsKeyword(String keyword) {
+        boolean found = false;
+        for (String word : description.split(" ")) {
+            if (word.equals(keyword)) {
+                found = true;
+            }
+        }
+        return found;
+    }
+
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;
+    }
+
+    public String getRepresentation() {
+        return this.toString();
     }
 }

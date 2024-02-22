@@ -1,16 +1,17 @@
 package duke.ui;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
     public static final String INDENT = "     ";
 
-    public static final String LINE =  "____________________________________________________________";
+    public static final String LINE = "____________________________________________________________";
 
     private static final String WELCOME_MESSAGE = String.join(
-        "\n",
-        "Hello! I'm DEREK",
-        INDENT + "What can I do for you?"
-    );
+            "\n",
+            "Hello! I'm DEREK",
+            INDENT + "What can I do for you?");
 
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
@@ -56,6 +57,19 @@ public class UserInterface {
         System.out.println(INDENT + "Deleted Task:");
         System.out.println(INDENT + "  " + msg);
         System.out.println(INDENT + "Now you have " + numTasks + " tasks in the list.");
+        System.out.println(INDENT + LINE + "\n");
+    }
+
+    public static void printTasksByIndices(ArrayList<String> taskRepresentations) {
+        System.out.println(INDENT + LINE);
+        if (taskRepresentations.size() == 0) {
+            System.out.println(INDENT + "No matching tasks found.");
+        } else {
+            System.out.println(INDENT + "Here are the matching tasks in your list:");
+            for (String t : taskRepresentations) {
+                System.out.println(INDENT + t);
+            }
+        }
         System.out.println(INDENT + LINE + "\n");
     }
 

@@ -51,8 +51,29 @@ public class TaskList implements Serializable {
         }
     }
 
+    public ArrayList<Integer> findTasksByKeywordsMatching(String[] keywords) throws DukeException {
+        ArrayList<Integer> matchingTaskIndices = new ArrayList<>();
+        for (int i = 0; i < getNumberTasks(); i++) {
+            for (String keyword : keywords) {
+                if (tasks.get(i).containsKeyword(keyword)) {
+                    matchingTaskIndices.add(i);
+                    break;
+                }
+            }
+        }
+        return matchingTaskIndices;
+    }
+
     public int getNumberTasks() {
         return tasks.size();
+    }
+
+    public ArrayList<String> getTaskRepresentationsByIndices(ArrayList<Integer> indices) {
+        ArrayList<String> taskRepresentations = new ArrayList<>();
+        for (int i : indices) {
+            taskRepresentations.add(tasks.get(i).getRepresentation());
+        }
+        return taskRepresentations;
     }
 
     public void printTasks() {

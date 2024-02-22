@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.util.Arrays;
+
 import duke.commons.exceptions.DukeException;
 
 public class CommandParser {
@@ -27,6 +29,22 @@ public class CommandParser {
         } catch (IllegalArgumentException e) {
             throw new DukeException("Invalid task index: " + splitInput[1]);
         }
+    }
+
+    /**
+     * 
+     * @param userInput
+     * @return String[] Array of keywords to search for in task list
+     * @throws DukeException If keywords not provided.
+     */
+    public static String[] parseFind(String userInput) throws DukeException {
+        String[] splitInput = userInput.split("\\s+");
+        try {
+            String[] keywords = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+            return keywords;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please provide keyword(s) to search for");
+        } 
     }
 
     public static String parseToDo(String userInput) throws DukeException {
