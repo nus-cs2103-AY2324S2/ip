@@ -1,18 +1,17 @@
 package luke.ui;
 
-import luke.task.Task;
-import luke.task.TaskList;
-
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
+import luke.task.Task;
+import luke.task.TaskList;
 
 /**
  * Represents the user interface of the application.
  */
 public class Ui {
-    Scanner sc;
     private static final String LINE = "_________________________________________________________";
+    private Scanner sc;
+
     /**
      * Constructs an Ui object, where the scanner is initialised.
      */

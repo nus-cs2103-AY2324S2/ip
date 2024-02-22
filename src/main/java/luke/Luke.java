@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import luke.exception.FileException;
 import luke.exception.LukeException;
 import luke.parser.Parser;
@@ -23,6 +22,7 @@ import luke.ui.Ui;
  * Represents the main class of the program.
  */
 public class Luke extends Application {
+    private static final String FILE_PATH = "./src/main/data/luke.txt";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -32,7 +32,6 @@ public class Luke extends Application {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-    private static final String FILE_PATH = "./src/main/data/luke.txt";
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
     private Image luke = new Image(this.getClass().getResourceAsStream("/images/luke.jpeg"));

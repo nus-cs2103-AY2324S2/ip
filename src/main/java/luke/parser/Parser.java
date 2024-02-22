@@ -5,7 +5,11 @@ import luke.exception.DateException;
 import luke.exception.FileException;
 import luke.exception.LukeException;
 import luke.exception.TaskException;
-import luke.task.*;
+import luke.task.Deadline;
+import luke.task.Event;
+import luke.task.Task;
+import luke.task.TaskList;
+import luke.task.Todo;
 import luke.ui.Ui;
 
 
@@ -70,7 +74,7 @@ public class Parser {
                         throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
                     }
 
-                    int index = Integer.parseInt(instruction[1]) - 1;  // array is 0-indexed
+                    int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
 
                     if (index >= list.size()) {
                         throw new LukeException("Hold up!! There is no such task in the list.\n"
@@ -118,7 +122,7 @@ public class Parser {
                         throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
                     }
 
-                    int index = Integer.parseInt(instruction[1]) - 1;  // array is 0-indexed
+                    int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
 
                     if (index >= list.size()) {
                         throw new LukeException("Hold up!! There is no such task in the list.\n"

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents an event task, that is a task with a description and the starting and ending date and time.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
