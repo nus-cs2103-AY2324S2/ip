@@ -69,6 +69,8 @@ public class TaskManager {
                 System.exit(0);
             } else if (command.equals(Command.FIND.getCommand())) {
                 return this.find(input);
+            } else if (command.equals(Command.HELP.getCommand())) {
+                return UiManager.help();
             } else {
                 return "Command not recognized";
             }

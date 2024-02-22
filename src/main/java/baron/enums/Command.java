@@ -11,6 +11,7 @@ public enum Command {
     UNMARK("unmark"),
     DELETE_TASK("delete"),
     DELETE_CLIENT("discharge"),
+    HELP("help"),
     BYE("bye");
 
 

@@ -56,6 +56,24 @@ public class UiManager {
     }
 
     /**
+     * Lists all commands and their descirptions
+     */
+    public static String help() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("tasks: Lists all tasks\n");
+        sb.append("clients: Lists all clients\n");
+        sb.append("todo NAME: Creates a todo with the specified name\n");
+        sb.append("deadline NAME /by d/M/yyy - Creates a deadline with a specified date. "
+                  + "E.g. deadline Math homework /by 9/12/2024: Lists all tasks\n");
+        sb.append("event NAME /from FROM /to TO: Creates an event with a specified from and to\n");
+        sb.append("mark INDEX: Marks a specified task as done. E.g. mark 1\n");
+        sb.append("unmark INDEX: Marks a specified task as not done. E.g. unmark 1\n");
+        sb.append("delete INDEX: Deletes a specified task. E.g. delete 1\n");
+        sb.append("discharge INDEX: Deletes a specified client. E.g. discharge 1\n");
+        return formatOutput(sb.toString());
+    }
+
+    /**
      * Prints output for when user finds tasks
      *
      * @param tasks tasks to print out
