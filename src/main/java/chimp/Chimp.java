@@ -62,7 +62,7 @@ public class Chimp extends Application {
 
     private void formatWindow(Stage stage, AnchorPane mainLayout) {
         // Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Chimp");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -119,7 +119,7 @@ public class Chimp extends Application {
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing
-     * Duke's reply and then appends them to
+     * Chimp's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
