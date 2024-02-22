@@ -91,10 +91,9 @@
    ```
   - The expected output will be
     ```
-    Here are the tasks in your list:
-    1. [T][0] drink coffee
-    2. [D][X] buy cake (by: 20 OCTOBER 2024)
-    3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
+    Nice! I've marked the following tasks as done:
+    [D][X] buy cake (by: 20 OCTOBER 2024)
+    [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
     
 ### Unmark task(s) as undone
@@ -108,10 +107,8 @@
    ```
   - The expected output will be
     ```
-    Here are the tasks in your list:
-    1. [T][0] drink coffee
+    OK, I've marked this task as not done yet:
     2. [D][0] buy cake (by: 20 OCTOBER 2024)
-    3. [E][X] attend career talk (from: 9 OCTOBER 2024 to: 9 OCTOBER 2024)
     ```
     
 ### Delete task(s)
@@ -156,6 +153,7 @@
    ```
     change <file path>
    ```
+
 **Example:**
    ```
     change ./data/sample.txt
