@@ -1,3 +1,45 @@
+------------------------------------
 Hello! I'm Taylor
 What can I do for you?
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+[T][] cry to 'You're losing me' from Midnights (The Vault)
+Now you have 1 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+[D][] The Eras Tour (by: 02 Mar 2024 07:00 PM)
+Now you have 2 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00 PM to: 09 Mar 2024 10:00PM)
+Now you have 2 tasks in the list.
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+[T][] borrow book
+[D][] The Eras Tour (by: 02 Mar 2024 07:00 PM)
+[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00 PM to: 09 Mar 2024 10:00PM)
+------------------------------------
+------------------------------------
+Nice! I've marked this task as done:
+[T][X] cry to 'You're losing me' from Midnights (The Vault)
+------------------------------------
+------------------------------------
+Invalid task number
+------------------------------------
+------------------------------------
+OK, I've marked this task as not done yet:
+[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00 PM to: 09 Mar 2024 10:00PM)
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+[T][X] borrow book
+[D][] The Eras Tour (by: 02 Mar 2024 07:00 PM)
+[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00 PM to: 09 Mar 2024 10:00PM)
+------------------------------------
+------------------------------------
 Bye. Hope to see you again soon!
+------------------------------------
