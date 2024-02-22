@@ -60,7 +60,7 @@ public class Deadline implements Item, Serializable {
         }
         this.isDone = false;
         if (this.name.equals("")) {
-            throw new CustomExceptions.NamelessTaskException("Missing duke.item.Event Name");
+            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Deadline with a valid name");
         }
     }
     @Override

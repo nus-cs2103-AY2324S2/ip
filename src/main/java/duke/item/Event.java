@@ -63,7 +63,7 @@ public class Event implements Item, Serializable {
         this.name = this.name.trim();
 
         if (this.name.equals("")) {
-            throw new CustomExceptions.NamelessTaskException("Missing duke.item.Event Name");
+            throw new CustomExceptions.NamelessTaskException("Please re-enter duke.item.Event with a valid name");
         }
     }
     @Override

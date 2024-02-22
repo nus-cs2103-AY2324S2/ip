@@ -28,46 +28,25 @@ public class AddCommand implements Command {
      * @throws CustomExceptions.EventExceptionForFromTo if the start and end time
      *                                                  of the event fails to parse.
      */
-    public String execute(String command, String[] info, ItemList itemList)
-            throws CustomExceptions {
-
+    public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions {
+        if (info.length == 1) {
+            throw new CustomExceptions.InvalidTaskException(
+                    "Please re-enter your task with a valid name");
+        }
         switch (info[0]) {
             case "todo":
-                if (info.length == 1) {
-                    throw new CustomExceptions.InvalidTaskException(
-                            "Please re-enter Todo with a valid name");
-                } else {
-                    return itemList.addToDo(info);
-                }
+                return itemList.addToDo(info);
             case "deadline":
-                if (info.length == 1) {
-                    throw new CustomExceptions.InvalidTaskException(
-                            "Please re-enter duke.item.Deadline with a valid name");
-                } else {
-                    try {
-                        return itemList.addDeadline(info);
-                    } catch (CustomExceptions.NamelessTaskException e) {
-                        throw new CustomExceptions.NamelessTaskException(
-                                "Please re-enter duke.item.Deadline with a valid name");
-                    }
-                }
+                return itemList.addDeadline(info);
             case "event":
-                if (info.length == 1) {
-                    throw new CustomExceptions.InvalidTaskException(
-                            "Please re-enter duke.item.Event with a valid name");
-                } else {
-                    try {
-                        return itemList.addEvent(info);
-                    } catch (CustomExceptions.ToBeforeFromException e) {
-                        throw new CustomExceptions.ToBeforeFromException(
-                                "Please re-enter duke.item.Event /from BEFORE /to: " + command);
-                    } catch (CustomExceptions.EventExceptionForFromTo e) {
-                        throw new CustomExceptions.EventExceptionForFromTo(
-                                "Could not parse /from and /to strings: " + command);
-                    } catch (CustomExceptions.NamelessTaskException e) {
-                        throw new CustomExceptions.NamelessTaskException(
-                                "Please re-enter duke.item.Event with a valid name");
-                    }
+                try {
+                    return itemList.addEvent(info);
+                } catch (CustomExceptions.ToBeforeFromException e) {
+                    throw new CustomExceptions.ToBeforeFromException(
+                            "Please re-enter duke.item.Event /from BEFORE /to: " + command);
+                } catch (CustomExceptions.EventExceptionForFromTo e) {
+                    throw new CustomExceptions.EventExceptionForFromTo(
+                            "Could not parse /from and /to strings: " + command);
                 }
             default:
                 return "something went wrong";
