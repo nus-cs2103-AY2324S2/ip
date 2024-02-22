@@ -1,0 +1,4 @@
+T | 0 | Print notes
+D | 0 | ACC1701X Tutorial | 2024-02-22 12:00
+E | 0 | Exercise | 2024-02-23 18:00 | 19:00
+T | 1 | Tutorials
