@@ -13,7 +13,7 @@ Jade is a Personal Assistant Chatbot that helps a person to manage different typ
 6. Refer to the Features below for details of each command.
 
 ## Features
-### :pushpin: About the command format
+### 📌 About the command format
 - Words in `UPPER_CASE` are the parameters to be supplied by the user
 - Words in curly brackets `{}` are enumerations, please check values of all enums under the description of that command
 - Items in square brackets `[]` are optional
@@ -104,5 +104,6 @@ Jade is a Personal Assistant Chatbot that helps a person to manage different typ
 ### Viewing help: `help`
 - Shows a message containing a summary of the usage all commands.
 - Format: `help`
+
 ### Saving the data
 The task data of user are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
