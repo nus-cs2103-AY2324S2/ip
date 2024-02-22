@@ -179,7 +179,7 @@ to 'watch lecture'.
 
 Expected Output:
 ```
-buzz buzz~~ Here are the matching tasks in your list: 
+buzz buzz~~ I have updated the description:
 1.[D][ ] watch lecture (by: 01 Jan 2022 10:00)
 ```
 
