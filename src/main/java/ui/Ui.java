@@ -2,8 +2,10 @@
 package ui;
 
 import java.util.Scanner;
+
 import task.TaskList;
 import task.Task;
+
 import exception.XiaoBaiException;
 
 public class Ui {
@@ -18,7 +20,7 @@ public class Ui {
      */
     public String showExitMessage() {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Bye. Hope to see you again soon! \n");
+        outputString.append("Bye. Hope to see you again soon!");
         return outputString.toString();
     }
 
@@ -34,10 +36,10 @@ public class Ui {
      * @param task
      * @param listOfTasks
      */
-    public String deleteTask(Task task, TaskList taskList) {
+    public String showDeleteMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         outputString.append("Noted. I've removed this task:\n");
-        outputString.append(task.toString());
+        outputString.append(task.toString() + "\n");
         int len = taskList.getSize();
         outputString.append(String.format("Now you have %d tasks in the list.", len));
         return outputString.toString();
@@ -50,10 +52,10 @@ public class Ui {
      * @param task        Task input
      * @param listOfTasks List of all tasks
      */
-    public String showRepeatFunction(Task task, TaskList taskList) {
+    public String showAddTaskMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         outputString.append("Got it. I've added this task:\n");
-        outputString.append(task.toString());
+        outputString.append(task.toString() + "\n");
         int len = taskList.getSize();
         outputString.append(String.format("Now you have %d tasks in the list.", len));
         return outputString.toString();
@@ -64,7 +66,7 @@ public class Ui {
      * 
      * @param task
      */
-    public String showMark(Task task) {
+    public String showMarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();
         outputString.append("Nice! I've marked this task as done:\n");
         outputString.append(task.toString());
@@ -76,7 +78,7 @@ public class Ui {
      * 
      * @param task
      */
-    public String showUnmark(Task task) {
+    public String showUnmarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();
         outputString.append("OK, I've marked this task as not done yet:\n");
         outputString.append(task.toString());
@@ -88,7 +90,7 @@ public class Ui {
      * 
      * @param listOfStrings list of Strings.
      */
-    public String printList(TaskList taskList) {
+    public String showPrintListMessage(TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
         finalString.append("Here are the tasks in your list:\n");
@@ -108,7 +110,7 @@ public class Ui {
      * @param taskList   The task list to search in.
      * @param findString The string to search for in task names.
      */
-    public String findTask(TaskList taskList, String findString) {
+    public String showFoundTask(TaskList taskList, String findString) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
         finalString.append("Here are the matching tasks in your list:\n");
@@ -132,15 +134,5 @@ public class Ui {
         StringBuilder outputString = new StringBuilder();
         outputString.append(e.toString() + "\n");
         System.out.println(outputString.toString());
-    }
-
-    /**
-     * Reads a line of input from the user.
-     *
-     * @return The line of input entered by the user.
-     * @throws DukeException If there is an error reading the input.
-     */
-    public String readLine() throws XiaoBaiException {
-        return reader.nextLine();
     }
 }

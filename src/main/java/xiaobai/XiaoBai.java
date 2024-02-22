@@ -21,7 +21,7 @@ public class XiaoBai {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private static String botName = "XiaoBai";
+    private static final String BOTNAME = "XiaoBai";
 
     public XiaoBai() {
         this.ui = new Ui();
@@ -34,13 +34,8 @@ public class XiaoBai {
         }
     }
 
-    public String getName() {
-        return botName;
-    }
-
-    public static String showWelcomeMessage() {
-        return String.format(
-                "Woof! I'm %s \nWhat can I do for you? \n", botName);
+    public static String getName() {
+        return BOTNAME;
     }
 
     /**
@@ -49,7 +44,7 @@ public class XiaoBai {
      */
     public String getResponse(String input) {
         Task newTask;
-        String[] parts;
+        String[] parts = input.split(" ");
         try {
             Command command = Parser.parseCommand(input);
             switch (command.getInputType()) {
@@ -59,40 +54,37 @@ public class XiaoBai {
                 case TODO:
                     newTask = new Todo(input.substring(5));
                     taskList.addTask(newTask);
-                    return ui.showRepeatFunction(newTask, taskList);
+                    return ui.showAddTaskMessage(newTask, taskList);
                 case LIST:
-                    return ui.printList(taskList);
+                    return ui.showPrintListMessage(taskList);
                 case DEADLINE:
                     parts = input.substring(9).split(" /");
                     newTask = new Deadline(parts[0], parts[1].substring(3));
                     taskList.addTask(newTask);
-                    return ui.showRepeatFunction(newTask, taskList);
+                    return ui.showAddTaskMessage(newTask, taskList);
                 case EVENT:
                     parts = input.substring(6).split(" /");
                     newTask = new Event(parts[0], parts[1].substring(5),
                             parts[2].substring(3));
                     taskList.addTask(newTask);
-                    return ui.showRepeatFunction(newTask, taskList);
+                    return ui.showAddTaskMessage(newTask, taskList);
                 case MARK:
-                    parts = input.split(" ");
                     int index = Integer.parseInt(parts[1]);
                     Task task = taskList.getTask(index - 1);
                     task.setDone();
-                    return ui.showMark(task);
+                    return ui.showMarkMessage(task);
                 case UNMARK:
-                    parts = input.split(" ");
                     Task unmarkTask = taskList.getTask(Integer.parseInt(parts[1]) - 1);
                     unmarkTask.setNotDone();
-                    return ui.showUnmark(unmarkTask);
+                    return ui.showUnmarkMessage(unmarkTask);
                 case DELETE:
-                    parts = input.split(" ");
                     int deleteIndex = Integer.parseInt(parts[1]) - 1;
                     Task deletedTask = taskList.getTask(deleteIndex);
                     taskList.removeTask(deleteIndex);
-                    return ui.deleteTask(deletedTask, taskList);
+                    return ui.showDeleteMessage(deletedTask, taskList);
                 case FIND:
                     String stringToFind = input.substring(5);
-                    return ui.findTask(taskList, stringToFind);
+                    return ui.showFoundTask(taskList, stringToFind);
                 case UNKNOWN:
                     throw new XiaoBaiException("Unknown input");
                 default:

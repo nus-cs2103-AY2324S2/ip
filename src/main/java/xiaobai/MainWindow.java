@@ -1,6 +1,7 @@
 package xiaobai;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -29,7 +30,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeString = XiaoBai.showWelcomeMessage();
+        String welcomeString = String.format(
+                "Woof! I'm %s \nWhat can I do for you? \n", XiaoBai.getName());
         dialogContainer.getChildren().add(DialogBox.getDialog(welcomeString, xiaoBaiImage));
     }
 

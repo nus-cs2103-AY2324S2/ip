@@ -86,7 +86,6 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new XiaoBaiException();
         }
         return taskList;
     }

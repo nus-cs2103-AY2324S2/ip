@@ -1,8 +1,11 @@
-package seedu.duke;
+package seedu.xiaobai;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import exception.XiaoBaiException;
+
 import task.Deadline;
 
 public class DeadlineTest {

@@ -1,4 +1,4 @@
-package seedu.duke; //same package as the class being tested
+package seedu.xiaobai; //same package as the class being tested
 
 import org.junit.jupiter.api.Test;
 
