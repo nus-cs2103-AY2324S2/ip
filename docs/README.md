@@ -66,7 +66,7 @@ Expected output:
 added: [D][ ] submit homework (by: this friday)
 ```
 
-## Adding a Plan: `plan`
+## Adding a plan: `plan`
 
 Adds a plan to the list.
 
@@ -79,7 +79,7 @@ Expected output:
 added: [P][ ] submit homework (after: this friday)
 ```
 
-## Adding an Event: `event`
+## Adding an event: `event`
 
 Adds an event to the list.
 
@@ -92,7 +92,7 @@ Expected output:
 added: [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Marking a Task: `mark`
+## Marking a task: `mark`
 
 Marks a task in the list.
 
@@ -106,7 +106,7 @@ Nice! I've marked this task as done:
 [E][X] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Unmarking a Task: `unmark`
+## Unmarking a task: `unmark`
 
 Marks a task in the list.
 
@@ -120,7 +120,7 @@ OK, I've marked this task as not done yet:
 [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Deleting a Task: `delete`
+## Deleting a task: `delete`
 
 Deletes a task in the list.
 
