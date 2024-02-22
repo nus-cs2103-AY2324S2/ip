@@ -13,7 +13,7 @@ public class Storage {
     /** The file object storing the data for the user's todo list */
     private File file;
     /** The different type of task encoded in the data file */
-    private enum Task {
+    private enum TaskType {
         T, D, E
     }
 
@@ -54,8 +54,8 @@ public class Storage {
             TaskList list = new TaskList();
             while (scanner.hasNext()) {
                 String data = scanner.nextLine();
-                Task task = Task.valueOf(String.valueOf(data.charAt(0)));
-                switch (task) {
+                TaskType taskType = TaskType.valueOf(String.valueOf(data.charAt(0)));
+                switch (taskType) {
                 case T:
                     addTodo(data, list);
                     break;
@@ -108,12 +108,12 @@ public class Storage {
     /**
      * Writes to the data file with the updated data in the TaskList.
      *
-     * @param data Data that is string-formatted to be stored in the data file.
+     * @param tasks TaskList to be formatted and stored.
      */
-    public void updateData(String[] data) {
+    public void updateData(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(this.file.getPath());
-            for (String line : data) {
+            for (String line : tasks.formatData()) {
                 writer.write(line);
                 writer.write(System.lineSeparator());
             }
