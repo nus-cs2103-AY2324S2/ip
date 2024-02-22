@@ -78,7 +78,6 @@ public class Parser {
                 t = taskList.getTask(id - 1);
                 t.unmarkAsDone();
             }
-
             this.storage.saveTasks(taskList);
             String msg = t.getIsDone()
                     ? "Woof! I've marked this task as done:\n"

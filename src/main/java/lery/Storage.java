@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -135,8 +133,6 @@ public class Storage {
         } catch (IOException e) {
             throw new LeryException("Woof! Error saving tasks to file");
         }
-
-
     }
 
     /**

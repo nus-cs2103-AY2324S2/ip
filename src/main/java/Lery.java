@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import javafx.scene.image.Image;
 import lery.LeryException;
 import lery.Parser;
 import lery.Storage;
@@ -64,7 +63,6 @@ public class Lery {
      * Runs the chatbot and parses the users comments.
      */
     public void run() {
-
         System.out.println(ui.greet());
         Scanner scanner = new Scanner(System.in);
         try {
