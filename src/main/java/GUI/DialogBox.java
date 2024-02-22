@@ -3,6 +3,7 @@ package GUI;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 
 /**
@@ -54,7 +56,6 @@ public class DialogBox extends HBox {
         makeTextbox(textBox, dialog);
         displayPicStyle(displayPicture);
         dialogBoxStyle(textBox, displayPicture);
-
     }
 
     /**
@@ -90,9 +91,11 @@ public class DialogBox extends HBox {
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.setFill(textboxColor);
-        rect.setWidth(textboxWidth);
+
+        rect.widthProperty().bind(Bindings.min(text.widthProperty(), textboxWidth));
         rect.heightProperty().bind(text.heightProperty());
 
+        stack.setAlignment(text, Pos.CENTER_RIGHT);
         stack.getChildren().addAll(rect, text);
     }
 
@@ -104,6 +107,8 @@ public class DialogBox extends HBox {
     private void textStyle(Label text) {
         text.setWrapText(true);
         text.setPadding(new Insets(10));
+        text.setMinHeight(Double.NEGATIVE_INFINITY);
+
     }
 
     /**
