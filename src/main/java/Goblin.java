@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Goblin {
     static String greetings = "Hello！ I'm NetGoblin\n"
-            + "What can I do for you?\n";
+            + "What can I do for you?";
     static String bye = "Bye. Hope to see you agian soon!\n";
 
     static ArrayList<Task> list = new ArrayList<>();
@@ -11,46 +11,62 @@ public class Goblin {
         sayHello();
         Scanner input = new Scanner(System.in);
         while (input.hasNext()){
-            String inputWord = input.next();
-            if (inputWord.equals("mark")) {
-                mark(input);
-            } else if (inputWord.equals("unmark")) {
-                unmark(input);
-            } else if (inputWord.equals("list")) {
-                showList();
-            } else if (inputWord.equals("todo")) {
+            try {
+                String inputWord = input.next();
+                if (inputWord.equals("mark")) {
+                    mark(input);
+                } else if (inputWord.equals("unmark")) {
+                    unmark(input);
+                } else if (inputWord.equals("list")) {
+                    showList();
+                } else if (inputWord.equals("todo")) {
+                    String inputLine = input.nextLine();
+                    if (inputLine.equals("")) {
+                        throw new OrkException("To do what? You dumb meat!");
+                    }
+                    line();
+                    System.out.print("\t" + "Got it. I've added this task:\n");
+                    String description = inputWord + inputLine;
+                    addTodo(description);
+                    count();
+                } else if (inputWord.equals("deadline")) {
+                    String inputLine = input.nextLine();
+                    if (inputLine.equals("")) {
+                        throw new OrkException("The deadline for what?! You dumb meat!");
+                    }
+                    line();
+                    System.out.print("\t" + "Got it. I've added this task:\n");
+                    String command = inputWord + inputLine;
+                    addDeadline(command);
+                    count();
+                } else if (inputWord.equals("event")) {
+                    String inputLine = input.nextLine();
+                    if (inputLine.equals("")) {
+                        throw new OrkException("You need to tell me what the event is! You dumb meat!");
+                    }
+                    System.out.print("\t" + "Got it. I've added this task:\n");
+                    String command = inputWord + inputLine;
+                    addEvent(command);
+                    count();
+                } else if (inputWord.equals("bye")) {
+                    sayBye();
+                    input.close();
+                    break;
+                } else {
+                    throw new OrkException("You think you are smart? You fresh meat!");
+                }
+            }
+            catch (OrkException exception) {
+                String message = exception.getMessage();
                 line();
-                System.out.print("\t" + "Got it. I've added this task:\n");
-                String inputLine = input.nextLine();
-                String description = inputWord + inputLine;
-                addTodo(description);
-                count();
-            } else if (inputWord.equals("deadline")) {
+                System.out.println("\t " + message);
                 line();
-                System.out.print("\t" + "Got it. I've added this task:\n");
-                String inputLine = input.nextLine();
-                String command = inputWord + inputLine;
-                addDeadline(command);
-                count();
-            } else if (inputWord.equals("event")) {
-                System.out.print("\t" + "Got it. I've added this task:\n");
-                String inputLine = input.nextLine();
-                String command = inputWord + inputLine;
-                addEvent(command);
-                count();
-            } else if (inputWord.equals("bye")) {
-                sayBye();
-                input.close();
-                break;
-            } /*else {
+                String a = input.nextLine();
+            }
 
-                Task temptask = new Task(inputWord + inputLine);
-                line();
-                System.out.println("added: " + inputWord + inputLine);
-                line();
-                list.add(temptask);
-            }*/
         }
+
+
     }
     public static void line() {
         System.out.println("--------------------------------");
