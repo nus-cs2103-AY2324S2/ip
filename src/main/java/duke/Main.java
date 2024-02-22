@@ -39,44 +39,44 @@ public class Main {
                 CommandType commandType = CommandParser.parseCommand(userInput);
 
                 switch (commandType) {
-                    case LIST:
-                        handleList();
-                        break;
+                case LIST:
+                    handleList();
+                    break;
 
-                    case MARK:
-                        handleMark(userInput);
-                        break;
+                case MARK:
+                    handleMark(userInput);
+                    break;
 
-                    case UNMARK:
-                        handleUnmark(userInput);
-                        break;
+                case UNMARK:
+                    handleUnmark(userInput);
+                    break;
 
-                    case DELETE:
-                        handleDelete(userInput);
-                        break;
+                case DELETE:
+                    handleDelete(userInput);
+                    break;
 
-                    case TODO:
-                        handleToDo(userInput);
-                        break;
+                case TODO:
+                    handleToDo(userInput);
+                    break;
 
-                    case DEADLINE:
-                        handleDeadline(userInput);
-                        break;
+                case DEADLINE:
+                    handleDeadline(userInput);
+                    break;
 
-                    case EVENT:
-                        handleEvent(userInput);
-                        break;
+                case EVENT:
+                    handleEvent(userInput);
+                    break;
 
-                    case EXIT:
-                        isExit = true;
-                        break;
+                case EXIT:
+                    isExit = true;
+                    break;
 
-                    case BYE:
-                        isExit = true;
-                        break;
+                case BYE:
+                    isExit = true;
+                    break;
 
-                    default:
-                        throw new DukeException("Invalid Command" + commandType);
+                default:
+                    throw new DukeException("Invalid Command" + commandType);
                 }
 
                 persistentStorageHandler.writeTaskFileToDisc(taskList);
