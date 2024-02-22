@@ -103,13 +103,14 @@ public class Storage {
             taskList.add(newTask);
             break;
         }
-        case 4: {
+        case 4:
+        case 5: {
             Task newTask = getTaskWithTimeLimit(taskType, taskDescription, taskDetails, isComplete);
             taskList.add(newTask);
             break;
         }
         default:
-            throw new SolaireException("Invalid task format in local storage");
+            throw new SolaireException("Invalid task format in local storage " + taskDetails.length);
         }
     }
 
@@ -119,8 +120,7 @@ public class Storage {
         if (taskType.trim().equals("D")) {
             newTask = new Deadline(taskDescription, taskDetails[3]);
         } else {
-            String[] timeDetails = taskDetails[3].split("\\-");
-            newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+            newTask = new Event(taskDescription, taskDetails[3], taskDetails[4]);
         }
         if (isComplete) {
             newTask.markAsDone();

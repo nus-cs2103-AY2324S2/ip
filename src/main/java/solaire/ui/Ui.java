@@ -39,7 +39,8 @@ public class Ui {
      */
     public String waveBye() {
         scn.close();
-        String farewellMessage = "Farewell!\n";
+        String farewellMessage = "Farewell!\n"
+                + "May the sun shine upon thee!\n";
         // System.exit(0);
         return farewellMessage;
     }

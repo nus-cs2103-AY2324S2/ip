@@ -1,8 +1,4 @@
-T | 0 | eat dinner
-T | 0 | add salt to the dishes
-T | 1 | read book
-T | 0 | mark student scripts
-D | 0 | return book | 2022-02-23
-D | 0 | buy groceries | 2024-02-15
-D | 0 | buy toys | 2024-02-24
-T | 0 | go back to sleep
+D | 1 | return book | 2024-02-24
+E | 0 | career fair | 12pm | 6pm
+E | 0 | project meeting | 2021-09-17 | 2021-09-18
+T | 0 | read book
