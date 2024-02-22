@@ -32,17 +32,19 @@ public class MarkCommand extends Command {
      * @throws DukeException If an error occurs while marking the task as done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String result;
         try {
             Task taskToMark = tasks.getTask(indexToMark);
             taskToMark.markAsDone();
-            ui.showMarkedTask(taskToMark);
+            result = ui.showMarkedTask(taskToMark); // Assumes this method returns a String message
             storage.save(tasks.getTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The task index provided is invalid.");
         } catch (IOException e) {
-            ui.showError("An error occurred while saving tasks: " + e.getMessage());
+            result = ui.showError("An error occurred while saving tasks: " + e.getMessage());
         }
+        return result;
     }
 
     /**

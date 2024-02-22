@@ -1,7 +1,6 @@
 package james.ui;
 
 import java.util.List;
-import java.util.Scanner;
 
 import james.exception.DukeException;
 import james.tasklist.TaskList;
@@ -11,36 +10,26 @@ import james.tasks.Task;
  * Represents the user interface of the application.
  */
 public class Ui {
-    private Scanner scanner;
 
     /**
      * Constructor for Ui class.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads the next line of input from the user.
-     *
-     * @return The next line of input from the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
+        //empty constructor
     }
 
     /**
      * Shows the welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm james.James!\nWhat can I do for you?\n");
+    public String showWelcome() {
+        return "Hello! I'm James!\nWhat can I do for you?";
     }
 
     /**
      * Shows the goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -48,8 +37,8 @@ public class Ui {
      *
      * @param message The error message to be shown.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
@@ -57,9 +46,8 @@ public class Ui {
      *
      * @param message The message to be shown.
      */
-    public void showTask(String message, Task task, int size) {
-        System.out.println(message + "\n" + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String showTask(String message, Task task, int size) {
+        return message + "\n" + task + "Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -67,15 +55,16 @@ public class Ui {
      *
      * @param tasks The task list to be shown.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
-                System.out.println((i + 1) + ". " + tasks.getTask(i));
+                sb.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
             } catch (DukeException e) {
-                System.out.println("Error: " + e.getMessage());
+                sb.append("Error: ").append(e.getMessage()).append("\n");
             }
         }
+        return sb.toString().trim();
     }
 
     /**
@@ -83,14 +72,15 @@ public class Ui {
      *
      * @param tasks The tasks found to be shown.
      */
-    public void showTasksFound(List<String> tasks) {
+    public String showTasksFound(List<String> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks match your search keyword.");
+            return "No tasks match your search keyword.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString().trim();
         }
     }
 
@@ -100,9 +90,8 @@ public class Ui {
      * @param task The tasks found to be shown.
      * @param remainingTasks The number of remaining tasks.
      */
-    public void showDeletedTask(Task task, int remainingTasks) {
-        System.out.println("Noted. I've removed this task: " + task);
-        System.out.println("Now you have " + remainingTasks + " tasks in the list.");
+    public String showDeletedTask(Task task, int remainingTasks) {
+        return "Noted. I've removed this task: \n" + task + "\nNow you have " + remainingTasks + " tasks in the list.";
     }
 
     /**
@@ -110,8 +99,8 @@ public class Ui {
      *
      * @param task The tasks found to be shown.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -119,7 +108,7 @@ public class Ui {
      *
      * @param task The tasks found to be shown.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + task);
+    public String showUnmarkedTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 }

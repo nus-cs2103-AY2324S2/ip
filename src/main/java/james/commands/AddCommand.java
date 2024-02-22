@@ -32,15 +32,17 @@ public class AddCommand extends Command {
      * @param storage The Storage where the task list is persisted.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(task);
-        ui.showTask("", task, tasks.getSize());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        tasks.addTask(task); // Assume 'task' is already defined in this context
+        String result = ui.showTask("Task added:", task, tasks.getSize());
         try {
             storage.save(tasks.getTasks());
         } catch (IOException e) {
-            ui.showError("An error occurred while saving tasks: " + e.getMessage());
+            String errorMessage = ui.showError("An error occurred while saving tasks: " + e.getMessage());
+            result += "\n" + errorMessage;
             e.printStackTrace();
         }
+        return result;
     }
 
     /**

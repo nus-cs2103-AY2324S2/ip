@@ -3,6 +3,9 @@ package james;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import james.commands.Command;
+import james.exception.DukeException;
+import james.parser.Parser;
 import james.storage.Storage;
 import james.tasklist.TaskList;
 import james.ui.Ui;
@@ -159,7 +162,12 @@ public class James extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "James heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) {

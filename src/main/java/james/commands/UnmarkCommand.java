@@ -32,17 +32,19 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If an error occurs while unmarking the task as not done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String result;
         try {
             Task taskToUnmark = tasks.getTask(indexToUnmark);
             taskToUnmark.markAsNotDone();
-            ui.showUnmarkedTask(taskToUnmark);
-            storage.save(tasks.getTasks()); // Handle exceptions appropriately
+            result = ui.showUnmarkedTask(taskToUnmark);
+            storage.save(tasks.getTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The task index provided is invalid.");
         } catch (IOException e) {
-            ui.showError("An error occurred while saving tasks: " + e.getMessage());
+            result = ui.showError("An error occurred while saving tasks: " + e.getMessage());
         }
+        return result;
     }
 
     /**

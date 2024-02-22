@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import james.storage.Storage;
 import james.tasklist.TaskList;
+import james.tasks.Task;
 import james.ui.Ui;
 
 /**
@@ -29,12 +30,12 @@ public class FindCommand extends Command {
      * @param ui    The Ui responsible for displaying the search results to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<String> matchingTasks = tasks.getTasks().stream()
             .filter(task -> task.getDescription().contains(keyword))
-            .map(task -> task.toString())
+            .map(Task::toString)
             .collect(Collectors.toList());
-        ui.showTasksFound(matchingTasks);
+        return ui.showTasksFound(matchingTasks);
     }
 
     /**

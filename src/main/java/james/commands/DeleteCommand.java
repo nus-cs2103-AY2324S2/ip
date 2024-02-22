@@ -34,16 +34,18 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the index provided is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            Task taskToRemove = tasks.deleteTask(indexToDelete);
-            ui.showDeletedTask(taskToRemove, tasks.getSize());
+            Task taskToRemove = tasks.deleteTask(indexToDelete); // Assuming indexToDelete is defined
+            String successMessage = ui.showDeletedTask(taskToRemove, tasks.getSize());
             storage.save(tasks.getTasks());
+            return successMessage;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The task index provided is invalid.");
         } catch (IOException e) {
-            ui.showError("An error occurred while saving tasks: " + e.getMessage());
+            String errorMessage = ui.showError("An error occurred while saving tasks: " + e.getMessage());
             e.printStackTrace();
+            return errorMessage;
         }
     }
 
