@@ -1,7 +1,6 @@
 # Lamball User Guide 🐐
 
-
-<img src="https://github.com/ongzhili/ip/blob/master/docs/Ui.png/">
+![Lamball UI](Ui.png)
 
 
 Lamball is a helpful pal that you never knew you needed. 
