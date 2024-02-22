@@ -23,9 +23,9 @@ import javafx.scene.shape.Circle;
  */
 public class DialogBox extends HBox {
     private static final Background USER_BG = new Background(new BackgroundFill(
-            Color.web("#AAACD4"), new CornerRadii(25), null));
+            Color.web("rgba(170,172,212,0.75)"), new CornerRadii(25), null));
     private static final Background DESTINY_BG = new Background(new BackgroundFill(
-            Color.web("B4D6D7"), new CornerRadii(25), null));
+            Color.web("rgba(180,214,215,0.75)"), new CornerRadii(25), null));
     @FXML
     private Label dialog;
     @FXML
