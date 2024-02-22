@@ -1,5 +1,7 @@
 # Adam User Guide
 
+![Screenshot of Adam](Ui.png)
+
 Adam is a desktop app for **managing tasks, optimised for use via a Command Line Interface** (CLI) while still having the
 benefits of a Graphical user Interface (GUI).
 
