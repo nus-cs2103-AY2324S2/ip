@@ -1,6 +1,6 @@
 # Anxi User Guide
 
-![](/docs/Ui.png)
+![](Ui.png)
 
 Too many things to do? Calenders not working? 
 
