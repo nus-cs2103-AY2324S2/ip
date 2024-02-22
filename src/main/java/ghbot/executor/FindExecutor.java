@@ -30,7 +30,7 @@ public class FindExecutor extends Executor {
         for (int i = 0; i < this.taskList.taskSize(); i++) {
             String[] words = this.taskList.getTask(i).toString().split(" ");
             for (int j = 0; j < words.length; j++) {
-                if (words[j].toLowerCase().startsWith(this.description)) {
+                if (words[j].toLowerCase().contains(this.description)) {
                     matchedList.add(this.taskList.getTask(i).toString());
                     break;
                 }
