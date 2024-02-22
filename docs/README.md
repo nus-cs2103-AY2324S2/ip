@@ -136,3 +136,9 @@ Output:
 1. [E][] NUS Career Fest (from: 20/2/24 9:00 am to: 22/2/24, 5:00 pm)
 2. [D][] CS2103T iP submission (by: 23/02/24 11:59pm)
 ```
+
+## Save Task List
+
+Saves the task list to memory, and exits the programme.
+
+Syntax: `bye`
