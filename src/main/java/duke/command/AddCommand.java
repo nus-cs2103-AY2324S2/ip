@@ -30,6 +30,7 @@ public class AddCommand implements Command {
      */
     public String execute(String command, String[] info, ItemList itemList)
             throws CustomExceptions {
+
         if (info[0].equals("todo")) {
             if (info.length == 1) {
                 throw new CustomExceptions.InvalidTaskException(
@@ -37,7 +38,9 @@ public class AddCommand implements Command {
             } else {
                 return itemList.addToDo(info);
             }
-        } else if (info[0].equals("deadline")) {
+        }
+
+        if (info[0].equals("deadline")) {
             if (info.length == 1) {
                 throw new CustomExceptions.InvalidTaskException(
                         "Please re-enter duke.item.Deadline with a valid name");
@@ -49,7 +52,9 @@ public class AddCommand implements Command {
                             "Please re-enter duke.item.Deadline with a valid name");
                 }
             }
-        } else if (info[0].equals("event")) {
+        }
+
+        if (info[0].equals("event")) {
             if (info.length == 1) {
                 throw new CustomExceptions.InvalidTaskException(
                         "Please re-enter duke.item.Event with a valid name");
@@ -68,6 +73,7 @@ public class AddCommand implements Command {
                 }
             }
         }
-        return null;
+
+        return "something went wrong";
     }
 }
