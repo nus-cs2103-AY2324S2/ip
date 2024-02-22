@@ -4,20 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="400.0"
-         minWidth="-Infinity" prefHeight="90.0" prefWidth="400.0" type="javafx.scene.layout.HBox"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" prefWidth="400.0" text="Label" wrapText="true">
-            <font>
-                <Font name="Calibri" size="14.0" />
-            </font></Label>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" preserveRatio="true">
-            <HBox.margin>
-                <Insets right="10.0" />
-            </HBox.margin></ImageView>
+        <Label fx:id="dialog" alignment="CENTER" style="-fx-background-radius: 13; -fx-background-color: #0073ff;" textFill="WHITE" wrapText="true">
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </padding>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

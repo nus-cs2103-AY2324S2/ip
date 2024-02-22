@@ -1,30 +1,33 @@
-# Duke User Guide
+# Lumiere User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Lumiere in action.](/Ui.png.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Lumiere is a bot that keeps track of your task list. There are 3 types of tasks - todo, deadline, and event.
+You can check out your current list of tasks by typing the command 'list'.
+You can also close Lumiere by typing the command 'bye'.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+'todo buy eggs'
+A todo called 'buy eggs' is created and added to your list of tasks.
 
-// Give examples of usage
+'deadline iP tasks /by 2024-02-26'
+A deadline called 'iP tasks' is created and added to your list of tasks.
+This deadline has a date of 26 Feb 2024.
+Deadline inputs must follow the format of YYYY-MM-DD, and must be marked by " /by ".
 
-Example: `keyword (optional arguments)`
+'event mixer dinner /from 6.30pm /to 10pm'
+An event called 'mixer dinner' is created and added to your list of tasks.
+This event is from 6.30pm to 10pm.
+Event inputs do not have any restrictions, but must be marked with ' /from ' and ' /to '.
 
-// A description of the expected outcome goes here
+## Marking-As-Done and Tagging-As-Fun Features
 
-```
-expected output
-```
+'unmark 1' marks the first item on your task list as not done / incomplete.
+'mark 1' marks the first item on your task list as done.
+'tagAsFun 2' tags the second item on your task list as fun.
+'untagAsFun 2' tags the second item on your task list as not fun.
 
-## Feature ABC
+## Delete Feature
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+'delete 3' deletes the third item from your task list.
