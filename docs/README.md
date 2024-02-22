@@ -1,5 +1,29 @@
 # Maltese User Guide 🐕
 
+## Set up
+- Ensure you have Java 11 installed in your computer
+- Open up your terminal and locate the maltese.jar file
+- Enter `java -jar maltese.jar`
+- As this is your first time setting up, there is a high chance that you might encounter these error messages
+  
+  ```
+  WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5b2ba064'
+  File not found: ./data/tasks.txt
+  Creating the file...
+  Sorry ./data/tasks.txt (No such file or directory)
+  Error loading data from file.
+  ```
+  
+  You may choose to ignore these error messages as **Maltese will still run as intended**.
+  On subsequent runs, however, you should only encounter this error message as by now, your directory should contain ./data/tasks.txt
+
+  ```
+  WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5b2ba064'
+  ```
+
+- By now, Maltese should be up and running! Do take a look at the features available to get the best out of Maltese!
+  
+
 ## Features 
 ## This are the features available in Maltese
 ### Add a new Todo task 
