@@ -113,7 +113,8 @@ public class TaskList {
         TaskList filteredList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
-            if (ld.apply(currTask.getDescription(), keyword) < 3) {
+            String currTaskDesc = currTask.getDescription();
+            if (ld.apply(currTaskDesc, keyword) < 3 || currTaskDesc.contains(keyword)) {
                 filteredList.taskList.add(currTask);
             }
         }
