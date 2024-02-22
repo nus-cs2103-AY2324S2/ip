@@ -1,4 +1,4 @@
-package destiny;
+package commands;
 
 /**
  * Contains the list of commands accepted by destiny.

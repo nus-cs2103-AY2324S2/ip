@@ -35,8 +35,8 @@ public class FindCmd extends Command {
             throw new DestinyException("Please enter a description for the Find command");
         }
 
-        List<Task> matches = tasks.getTaskList().stream().filter(task -> task.getDescription().contains(details))
-                .collect(Collectors.toList());
+        List<Task> matches = tasks.getTaskList().stream().filter(task -> task.getDescription().toLowerCase()
+                    .contains(details.toLowerCase())).collect(Collectors.toList());
 
         if (tasks.size() == 0) {
             return "There's nothing in your list so far";

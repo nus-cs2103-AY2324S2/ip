@@ -16,7 +16,6 @@ public class Destiny {
     public static final String GOODBYE_MSG = "\nIt's been nice chatting with you!.\nHope to see you again soon!";
 
 
-
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
@@ -37,10 +36,6 @@ public class Destiny {
      * @return Appropriate string response from Destiny.
      */
     public String getResponse(String input) {
-        if (input.trim().equalsIgnoreCase("bye")) {
-            return GOODBYE_MSG;
-        }
-
         String result;
         try {
             Command c = parser.parse(input);

@@ -1,14 +1,6 @@
 package destiny;
 
-import commands.Command;
-import commands.ListCmd;
-import commands.FindCmd;
-import commands.MarkDoneCmd;
-import commands.MarkNotDoneCmd;
-import commands.DeleteCmd;
-import commands.ToDoCmd;
-import commands.DeadlineCmd;
-import commands.EventCmd;
+import commands.*;
 
 import java.util.Arrays;
 
@@ -47,9 +39,13 @@ public class Parser {
                     + Arrays.asList(AcceptedCmds.values()));
         }
 
-        // list is the only command that does not require details
+        // list and bye are the only commands that does not require details
         if (cmd.equals("list")) {
             return new ListCmd();
+        }
+
+        if (cmd.equals("bye")) {
+            return new GoodbyeCmd();
         }
 
         // ensure that details are provided
