@@ -20,4 +20,9 @@ public class DateHandlerTest {
     public void checkTime_success() throws PlatoException {
         assertEquals(LocalTime.of(18, 0), DateHandler.checkTime("1800 12-04-23").orElse(LocalTime.of(0, 0)));
     }
+
+    @Test
+    public void checkTime_dateyearfull_success() throws PlatoException {
+        assertEquals(LocalTime.of(23, 59), DateHandler.checkTime("2359 15/02/2024").orElse(LocalTime.of(0, 0)));
+    }
 }
