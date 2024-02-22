@@ -60,6 +60,7 @@ public class Duke {
      * @return Response as a string.
      */
     String getResponse(String input) {
+        // Following has debugged by Chat GPT
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream previous = System.out;
         System.setOut(new PrintStream(baos));
@@ -67,7 +68,7 @@ public class Duke {
             ui = new Ui();
             taskList = new TaskList();
             try {
-                taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
+                taskList.getTasks().addAll(Storage.loadTasks());
             } catch (DukeException e) {
                 return "Failed to load tasks: " + e.getMessage();
             }
