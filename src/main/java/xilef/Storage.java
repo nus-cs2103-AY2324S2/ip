@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -28,6 +29,23 @@ public class Storage {
      */
     public Storage(String filePath) {
         Storage.filePath = filePath;
+        createDirectories(filePath);
+    }
+
+
+    /**
+     * Create directories if they do not exist.
+     *
+     * @param filePath The file path to check and create directories for.
+     */
+    private void createDirectories(String filePath) {
+        Path parentDirectory = Path.of(filePath).getParent();
+        if (parentDirectory != null) {
+            File directory = new File(parentDirectory.toString());
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+        }
     }
 
     /**
