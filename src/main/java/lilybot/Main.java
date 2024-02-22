@@ -25,6 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("LilyBot");
             fxmlLoader.<MainWindow>getController().setLilyBot(lilyBot);
 
             stage.show();
