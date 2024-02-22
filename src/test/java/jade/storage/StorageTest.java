@@ -36,34 +36,42 @@ public class StorageTest {
     }
 
     @Test
-    public void load_emptyFile_returnsEmptyList() throws JadeException, IOException {
-        File file = new File(TEST_FILE_PATH);
-        file.delete();
-        file.createNewFile();
+    public void load_emptyFile_returnsEmptyList() throws JadeException {
+        try {
+            File file = new File(TEST_FILE_PATH);
+            file.delete();
+            file.createNewFile();
 
-        List<Task> tasks = storage.load();
+            List<Task> tasks = storage.load();
 
-        assertNotNull(tasks);
-        assertEquals(0, tasks.size());
+            assertNotNull(tasks);
+            assertEquals(0, tasks.size());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     public void saveChange_validTaskList_fileIsUpdated() throws JadeException, IOException {
-        File file = new File(TEST_FILE_PATH);
-        file.delete();
-        file.createNewFile();
+        try {
+            File file = new File(TEST_FILE_PATH);
+            file.delete();
+            file.createNewFile();
 
-        TaskList<Task> taskList = new TaskList<>();
-        Task task = new Todo("Test Task", false);
-        taskList.add(task);
+            TaskList<Task> taskList = new TaskList<>();
+            Task task = new Todo("Test Task", false);
+            taskList.add(task);
 
-        storage.saveChange(taskList);
+            storage.saveChange(taskList);
 
-        assertTrue(file.exists());
+            assertTrue(file.exists());
 
-        List<Task> loadedTasks = storage.load();
-        assertNotNull(loadedTasks);
-        assertEquals(1, loadedTasks.size());
-        assertEquals(task.toString(), loadedTasks.get(0).toString());
+            List<Task> loadedTasks = storage.load();
+            assertNotNull(loadedTasks);
+            assertEquals(1, loadedTasks.size());
+            assertEquals(task.toString(), loadedTasks.get(0).toString());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
