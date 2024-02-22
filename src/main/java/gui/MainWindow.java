@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import chronos.Chronos;
 import exception.ChronosException;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import tool.Ui;
 
 /**
@@ -39,6 +42,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         String text = Ui.greetUser();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setStyle("-fx-background: #E8F5FC;");
         dialogContainer.setPadding(new Insets(15));
         dialogContainer.setSpacing(15);
         dialogContainer.getChildren().add(
@@ -71,5 +75,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getChronosDialog(response, chronosImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> {
+                Platform.exit();
+            });
+            pause.play();
+        }
     }
 }

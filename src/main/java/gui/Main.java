@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 /**
  * A GUI for Chronos using FXML.
@@ -26,6 +27,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Inter-Bold.ttf"), 12);
             stage.setScene(scene);
             stage.setTitle("Chronos");
             fxmlLoader.<MainWindow>getController().setChronos(chronos);

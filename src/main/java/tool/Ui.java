@@ -8,9 +8,17 @@ import task.Task;
  * Represents the tool to deal with user interactions.
  */
 public class Ui {
-    private static final String POSSIBLE_COMMANDS = "TODO     --- todo [task name]\n"
-            + "DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n"
-            + "EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]";
+    private static final String POSSIBLE_COMMANDS = "1. Add a todo task\ntodo [task name]\ntd [task name]\n\n"
+            + "2. Add a task with deadline\ndeadline [task name] /by [yyyy-mm-dd HH:MM]\n"
+            + "dl [task name] /by [yyyy-mm-dd HH:MM]\n\n"
+            + "3. Add an event\nevent [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]\n"
+            + "ev [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]\n\n"
+            + "4. List tasks\nlist\nls\n\n"
+            + "5. Find task(s)\nfind [keyword(s)]\nf [keyword(s)]\n\n"
+            + "6. Mark task\nmark [index]\nmk [index]\n\n"
+            + "7. Unmark task\nunmark [index]\numk [index]\n\n"
+            + "8. Delete task\ndelete [index]\nrm [index]\n\n"
+            + "9. Exit program\nbye";
 
     /**
      * Constructs a Ui object.
@@ -23,9 +31,10 @@ public class Ui {
      */
     public static String greetUser() {
         ArrayList<String> message = new ArrayList<>();
-        message.add("Hello! I'm Chronos.\n");
-        message.add("What can I do for you?");
-        return String.join(" ", message);
+        message.add("Hello! I'm Chronos, your trusted task manager! ");
+        message.add("What can I do for you today?\n\n");
+        message.add("Not sure of the commands? Send me 'help' or 'sos' and I will show you the possible commands!");
+        return String.join("", message);
     }
 
     /**
@@ -56,8 +65,7 @@ public class Ui {
      * Prints no outstanding tasks and list of commands.
      */
     public String printNoOutstandingTasks() {
-        return "There are no outstanding tasks in your list.\n" + "You may add various tasks with the commands below:\n"
-                + POSSIBLE_COMMANDS;
+        return "There are no outstanding tasks in your list.\n";
     }
 
     /**

@@ -22,8 +22,8 @@ import javafx.scene.shape.Circle;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    private static final Color USER_TEXT_COLOR = Color.LIGHTGREEN;
-    private static final Color CHRONOS_TEXT_COLOR = Color.LIGHTBLUE;
+    private static final Color USER_TEXT_COLOR = Color.web("#EEFCD7");
+    private static final Color CHRONOS_TEXT_COLOR = Color.web("#FFFFFF");
 
     @FXML
     private Label dialog;
@@ -48,13 +48,15 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
-
         dialog.setWrapText(true);
         dialog.setStyle("-fx-background-radius: 5px; "
                 + "-fx-background-color: " + toRgbString(backgroundColor) + "; "
-                + "-fx-padding: 10px;");
+                + "-fx-padding: 10px;"
+                + "-fx-border-color: #F2F2F2;"
+                + "-fx-border-width: 1px;"
+                + "-fx-font-family: 'Product Sans'; -fx-font-size: 13px;");
 
+        displayPicture.setImage(img);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 

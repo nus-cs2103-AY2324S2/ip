@@ -40,6 +40,6 @@ public class Chronos {
      * @throws ChronosException If there are invalid commands provided.
      */
     public String getResponse(String input) throws IOException, ChronosException {
-        return Parser.processCommand(input, ui, storage, tasks);
+        return Parser.processCommand(input.toLowerCase(), ui, storage, tasks);
     }
 }
