@@ -66,7 +66,7 @@ public class CommandHandler {
         String description = parsedCommand[1].trim();
 
         if (taskList.containsTask(description)) {
-            return "Task already exists. Duplicate tasks are not allowed.";
+            return "Umm... The task already exists. Duplicate tasks are not allowed.";
         }
 
         assert taskList != null : "Task list is null";
@@ -88,11 +88,6 @@ public class CommandHandler {
         }
 
         String description = descriptionAndDueBy[0].trim();
-
-        if (taskList.containsTask(description)) {
-            return "Task already exists. Duplicate tasks are not allowed.";
-        }
-
         String dueBy = descriptionAndDueBy[1].trim();
 
         if (dueBy.length() < "yyyy-MM-dd".length()) {
@@ -100,6 +95,11 @@ public class CommandHandler {
         }
 
         assert taskList != null : "Task list is null";
+
+        if (taskList.containsTask(description)) {
+            return "Umm... The task already exists. Duplicate tasks are not allowed.";
+        }
+
         return Deadline.addDeadlineTask(taskList, description, dueBy);
     }
 
@@ -116,13 +116,19 @@ public class CommandHandler {
         }
 
         assert description.length >= 3 : "Invalid event command format";
+
         String eventDescription = description[0].trim();
 
-        if (taskList.containsTask(eventDescription)) {
-            return "Task already exists. Duplicate tasks are not allowed.";
+        if (description[1].length() < "yyyy-MM-dd".length() || description[2].length() < "yyyy-MM-dd".length()) {
+            throw new GeorgieException("Oops! Please provide a valid due date with format /by 'yyyy-MM-dd'.");
         }
 
         assert taskList != null : "Task list is null";
+
+        if (taskList.containsTask(eventDescription)) {
+            return "Umm... The task already exists. Duplicate tasks are not allowed.";
+        }
+
         return Event.addEventTask(taskList, eventDescription, description[1], description[2]);
     }
 
