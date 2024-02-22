@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class that provides the help for the various commands.
+ */
 public class Help {
     String byeHelp =
             "bye: Quits the program\n" +
@@ -42,61 +45,112 @@ public class Help {
                     "date to be specified in the format d/M/YY (e.g. 21/2/24)." +
                     "If date is not specified, it defaults to today";
 
+    /**
+     * Returns the help for the clear command
+     * @return help for the clear command
+     */
     public static String getClearHelp() {
         Help h = new Help();
         return h.clearHelp;
     }
 
+    /**
+     * Returns the help for the deadline command
+     * @return help for the deadline command
+     */
     public static String getDeadlineHelp() {
         Help h = new Help();
         return h.deadlineHelp;
     }
 
+    /**
+     * Returns the help for the delete command
+     * @return help for the delete command
+     */
     public static String getDeleteHelp() {
         Help h = new Help();
         return h.deleteHelp;
     }
 
+    /**
+     * Returns the help for the event command
+     * @return help for the event command
+     */
     public static String getEventHelp() {
         Help h = new Help();
         return h.eventHelp;
     }
 
+    /**
+     * Returns the help for the find command
+     * @return help for the find command
+     */
     public static String getFindHelp() {
         Help h = new Help();
         return h.findHelp;
     }
 
+    /**
+     * Returns the help for the list command
+     * @return help for the list command
+     */
     public static String getListHelp() {
         Help h = new Help();
         return h.listHelp;
     }
 
+    /**
+     * Returns the help for the mark command
+     * @return help for the mark command
+     */
     public static String getMarkHelp() {
         Help h = new Help();
         return h.markHelp;
     }
 
+    /**
+     * Returns the help for the schedule command
+     * @return help for the schedule command
+     */
     public static String getScheduleHelp() {
         Help h = new Help();
         return h.scheduleHelp;
     }
 
+    /**
+     * Returns the help for the todo command
+     * @return help for the todo command
+     */
     public static String getTodoHelp() {
         Help h = new Help();
         return h.todoHelp;
     }
 
+    /**
+     * Returns the help for the bye command
+     * @return help for the bye command
+     */
     public static String getByeHelp() {
         Help h = new Help();
         return h.byeHelp;
     }
 
+    /**
+     * Returns the help for the unmark command
+     * @return help for the unmark command
+     */
     public static String getUnmarkHelp() {
         Help h = new Help();
         return h.unmarkHelp;
     }
 
+    /**
+     * Returns the help for the command specified
+     *
+     * @param command the command to return help for
+     *
+     * @return help for the command specified
+     */
     public static String getHelp(String command) {
         String str;
         switch (command) {
