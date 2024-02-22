@@ -8,10 +8,33 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    String javaFxVersion = '17.0.7'
+    String javaFxSdkDir = 'lib/javafx-sdk-23'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
+    implementation files("${javaFxSdkDir}/lib/javafx.base.jar")
+    implementation files("${javaFxSdkDir}/lib/javafx.controls.jar")
+    implementation files("${javaFxSdkDir}/lib/javafx.fxml.jar")
+    implementation files("${javaFxSdkDir}/lib/javafx.graphics.jar")
+
 }
+
 
 
 test {
@@ -29,7 +52,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke.Duke")
+    mainClass.set("Duke.Tim")
 }
 
 shadowJar {
