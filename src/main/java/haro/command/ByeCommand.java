@@ -7,7 +7,7 @@ import haro.Ui;
 /**
  * The ByeCommand class represents a command to exit the application.
  * It extends the base Command class and implements the execute method to save Tasks to the save file before
- * exitingg the application.
+ * exiting the application.
  */
 public class ByeCommand extends Command {
 

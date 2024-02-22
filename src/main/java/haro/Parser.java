@@ -63,42 +63,42 @@ public class Parser {
             break;
         case "mark":
             instruction = Instruction.MARK;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, true);
             resultCommand = processMarkCommand(inputArgs[1]);
             break;
         case "unmark":
             instruction = Instruction.UNMARK;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, true);
             resultCommand = processUnmarkCommand(inputArgs[1]);
             break;
         case "todo":
             instruction = Instruction.TODO;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, false);
             resultCommand = processTodoCommand(inputArgs[1]);
             break;
         case "deadline":
             instruction = Instruction.DEADLINE;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, false);
             resultCommand = processDeadlineCommand(inputArgs[1]);
             break;
         case "event":
             instruction = Instruction.EVENT;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, false);
             resultCommand = processEventCommand(inputArgs[1]);
             break;
         case "delete":
             instruction = Instruction.DELETE;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, true);
             resultCommand = processDeleteCommand(inputArgs[1]);
             break;
         case "find":
             instruction = Instruction.FIND;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, false);
             resultCommand = processFindCommand(inputArgs[1]);
             break;
         case "edit":
             instruction = Instruction.EDIT;
-            checkArguments(inputArgs);
+            checkArguments(inputArgs, true);
             resultCommand = processEditCommand(inputArgs[1]);
             break;
         default:
@@ -274,7 +274,7 @@ public class Parser {
     private static Command processEditCommand(String userInput) throws InvalidArgsException {
         String[] editArgs = userInput.split("\\s", 2);
 
-        if (editArgs.length < 2) {
+        if (editArgs.length < 3) {
             throw new InvalidArgsException("Please use edit command in the following format:\n"
                     + "edit {taskNumber} {portion to edit} {updated value}");
         }
@@ -334,10 +334,14 @@ public class Parser {
      * Checks the validity of the command arguments.
      *
      * @param userInputs The array of user inputs containing the command arguments.
+     * @param isIndexCommand Boolean indicating whether the command requires a task index input
      * @throws EmptyTaskException If the task name is missing.
      */
-    private static void checkArguments(String[] userInputs) throws EmptyTaskException {
+    private static void checkArguments(String[] userInputs, boolean isIndexCommand) throws EmptyTaskException {
         if (userInputs.length < 2 || userInputs[1].equals("")) {
+            if (isIndexCommand) {
+                throw new EmptyTaskException("Please input a task number\n");
+            }
             throw new EmptyTaskException("Please input a task name\n");
         }
     }

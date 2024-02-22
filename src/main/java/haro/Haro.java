@@ -19,6 +19,7 @@ public class Haro {
     private TaskList taskList;
     private Storage haroStorage;
     private Ui haroUi;
+    private boolean isExit;
 
     /**
      * Constructs a new Haro object.
@@ -65,6 +66,9 @@ public class Haro {
      */
     public String getResponse(String userInput) throws Exception {
         Command c = Parser.parseCommand(userInput);
+        if (c.isExit()) {
+            this.isExit = true;
+        }
         return c.execute(taskList, haroUi, haroStorage);
     }
 
@@ -73,6 +77,9 @@ public class Haro {
      */
     public void saveList() {
         this.haroStorage.saveToDisk(this.taskList);
+    }
+    public boolean isExit() {
+        return this.isExit;
     }
 }
 

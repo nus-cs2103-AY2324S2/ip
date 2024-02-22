@@ -1,6 +1,7 @@
 package haro;
 
 import haro.gui.DialogBox;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
@@ -12,6 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -64,6 +67,9 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeErrorDialog(response, cropImage(dukeImage, imageRadius))
             );
         } finally {
+            if (haro.isExit()) {
+                Platform.exit();
+            }
             userInput.clear();
             haro.saveList();
         }
