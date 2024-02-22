@@ -48,7 +48,7 @@ For tasks that need to be completed by a specific date.
 
 - **Command:** `deadline [task description] /by [YYYY-MM-DD]`
 
-  **Example:** `deadline Submit project /by 2023-12-20`
+  **Example:** `deadline finish 2103t ip assignment /by 2024-02-23`
 
 ### Event
 
