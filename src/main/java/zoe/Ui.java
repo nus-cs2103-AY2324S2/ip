@@ -93,7 +93,7 @@ public class Ui {
      * Alerts user in the event they keyed in an invalid date
      */
     public String invalidDate() {
-        return "Sorry, I only accept deadline dates in the form yyyy-mm-dd";
+        return "Sorry, I only accept deadline dates in the form <yyyy-MM-dd HH:mm>";
     }
 
     /**
