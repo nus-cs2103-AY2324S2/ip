@@ -3,7 +3,7 @@
 Welcome to BotYue, your personal task manager! BotYue is a command-line application designed to help you keep track of your tasks efficiently.
 Whether it's deadlines, events, or simple to-dos, BotYue has got you covered.
 
-![GUI window](Ui.png)
+![GUI window](docs/Ui.png)
 
 ## Quick Start
 1. Ensure you have Java11 or above installed in your computer.
