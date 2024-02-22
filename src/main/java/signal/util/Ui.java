@@ -489,6 +489,10 @@ public class Ui {
         response.add("* list -- prints a numbered list of the tasks created, in input order.");
         response.add("* mark [] -- marks the task at index [] as completed. ");
         response.add("* unmark [] -- marks the task at index [] as uncompleted. ");
+        response.add("* notdonelist -- show the list of tasks that are uncompleted.");
+        response.add("* prioritise [] -- sets the task at index [] as priority.");
+        response.add("* unprioritise [] -- sets the task at index [] as non priority");
+        response.add("* prioritylist -- show the list of prioritised tasks");
         response.add("* delete [] -- removes the task at index [] from the list.");
         response.add("* bye -- exits the program.");
         String reply = listToString(response);
