@@ -38,6 +38,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setStyle("-fx-background-color: #D8D8D8; -fx-background-radius: 10; -fx-padding: 10px;");
+
 
         this.setSpacing(10);
 
@@ -61,15 +63,14 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.setAlignment(Pos.CENTER_RIGHT);
         db.dialog.setAlignment(Pos.CENTER_RIGHT);
+        db.dialog.setStyle("-fx-background-color: #acd5ff; -fx-background-radius: 10; -fx-padding: 10px;");
         return db;
     }
 
     public static DialogBox getBozoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.dialog.setStyle("-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;");
-        db.dialog.setMinWidth(225);
-        db.dialog.setMinHeight(50);
+        db.dialog.setStyle("-fx-background-color: #acd5ff; -fx-background-radius: 10; -fx-padding: 10px;");
         return db;
     }
 }
