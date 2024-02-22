@@ -3,7 +3,6 @@ package alpa.commands;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.Task;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -26,15 +25,18 @@ public class MarkCommand implements Command {
      * and saving the updated task list to storage.
      *
      * @param taskList The task list containing the tasks.
-     * @param ui The user interface to interact with the user.
      * @param storage The storage to save the updated task list.
+     *
      * @throws AlpaException If there is an error executing the command.
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
+        if (index < 0 || index >= taskList.getSize()) {
+            throw new AlpaException("Task number out of range.");
+        }
         Task task = taskList.markTaskAsDone(index);
-        ui.showMarkedAsDone(task);
         storage.saveTasks(taskList.getTasks());
+        return "Marked as done, human!\n" + "  " + task;
     }
 
     /**

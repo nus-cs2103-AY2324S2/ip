@@ -27,18 +27,39 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case FIND:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("I don't know what you're trying to find, human!");
+            }
             return new FindCommand(taskInfo);
         case MARK:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("I don't know what task you're referring to, human!");
+            }
             return new MarkCommand(taskInfo);
         case UNMARK:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("I don't know what task you're referring to, human!");
+            }
             return new UnmarkCommand(taskInfo);
         case TODO:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("You need to tell me what your todo is, human!");
+            }
             return new TodoCommand(taskInfo);
         case DEADLINE:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("What and when is your deadline, human? I need more information!");
+            }
             return new DeadlineCommand(taskInfo);
         case EVENT:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("What and when is your event, human? I need more information!");
+            }
             return new EventCommand(taskInfo);
         case DELETE:
+            if (taskInfo.isEmpty()) {
+                throw new AlpaException("I don't know what you're trying to delete, human!");
+            }
             return new DeleteCommand(taskInfo);
         case INVALID:
         default:

@@ -3,7 +3,6 @@ package alpa.commands;
 import alpa.exceptions.AlpaException;
 import alpa.tasks.Task;
 import alpa.tasks.TaskList;
-import alpa.ui.Ui;
 import alpa.utils.Storage;
 
 /**
@@ -25,15 +24,18 @@ public class UnmarkCommand implements Command {
      * Executes the unmark command, marking the specified task as not done.
      *
      * @param taskList The task list containing the tasks.
-     * @param ui The user interface to interact with the user.
      * @param storage The storage to save the tasks.
+     * @return A string representation of the task that was marked as not done.
      * @throws AlpaException If there is an error executing the command.
      */
     @Override
-    public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
+    public String executeCommand(TaskList taskList, Storage storage) throws AlpaException {
+        if (index < 0 || index >= taskList.getSize()) {
+            throw new AlpaException("Task number out of range.");
+        }
         Task task = taskList.markTaskAsNotDone(index);
-        ui.showMarkedAsNotDone(task);
         storage.saveTasks(taskList.getTasks());
+        return String.format("Not done with this yet, human?\n  %s", task);
     }
 
     /**
