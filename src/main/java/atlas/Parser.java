@@ -48,6 +48,11 @@ public class Parser {
         if (!checkPriorityRange(priority)) {
             throw new InvalidPriorityException("Invalid Priority Range(0 to 5)");
         }
+        return getCommand(tasks, ui, storage, command, details, priority);
+    }
+
+    private static Command getCommand(TaskList tasks, Ui ui, Storage storage, String command, String details,
+                                      int priority) throws AtlasException {
         switch (command) {
         case "bye":
             return new ExitCommand(tasks, ui, storage);
@@ -104,7 +109,8 @@ public class Parser {
         return new AddEventCommand(tasks, ui, storage, description, start, end, priority);
     }
 
-    private static AddDeadlineCommand createAddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String details, int priority) throws InvalidDeadlineFormatException {
+    private static AddDeadlineCommand createAddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String details,
+                                                               int priority) throws InvalidDeadlineFormatException {
         String[] deadlineDetails = details.split(" /by ");
         LocalDateTime by;
         try {
@@ -130,7 +136,8 @@ public class Parser {
         return new MarkCommand(tasks, ui, storage, taskIndex);
     }
 
-    private static SetPriorityCommand createSetPriorityCommand(TaskList tasks, Ui ui, Storage storage, String details) throws AtlasException {
+    private static SetPriorityCommand createSetPriorityCommand(TaskList tasks, Ui ui, Storage storage, String details)
+            throws AtlasException {
         String[] parts = details.split(" ", 2);
         if (!checkPriorityRange(Integer.parseInt(parts[1]))) {
             throw new InvalidPriorityException("Invalid Priority Range(0 to 5)");

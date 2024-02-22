@@ -163,6 +163,14 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Takes in a TaskList and an index and returns a string indicating a task's priority has been changed
+     * and its new priority.
+     *
+     * @param tasks     TaskList to retrieve the task from.
+     * @param taskIndex Index of the task in the TaskList that has it's priority changed.
+     * @return A string of tasks that match.
+     */
     public String showTaskPriority(TaskList tasks, int taskIndex) {
         ArrayList<Task> al = tasks.getTasks();
         StringBuilder sb = new StringBuilder();

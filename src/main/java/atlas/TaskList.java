@@ -1,6 +1,7 @@
 package atlas;
 
 import atlas.exception.AtlasException;
+import atlas.exception.InvalidPriorityException;
 import atlas.task.Deadline;
 import atlas.task.Event;
 import atlas.task.Task;
@@ -141,8 +142,23 @@ public class TaskList {
         return matchingTasks;
     }
 
-    public void changeTaskPriority(int taskIndex, int priority) {
+    /**
+     * Takes in a task index and a priority value, in which the task's priority would be to set to that new value.
+     *
+     * @param taskIndex Index of task which priority is to be modified.
+     * @param priority  Value of new priority.
+     * @throws AtlasException If task index or priority is out of bounds.
+     */
+    public void changeTaskPriority(int taskIndex, int priority) throws AtlasException {
+        checkBounds(taskIndex);
+        if (!checkPriorityRange(priority)) {
+            throw new InvalidPriorityException("Invalid Priority Value (0 to 5)");
+        }
         this.tasks.get(taskIndex).setPriority(priority);
+    }
+
+    private static boolean checkPriorityRange(int priority) {
+        return priority >= 0 && priority <= 5;
     }
 
 }

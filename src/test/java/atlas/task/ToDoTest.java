@@ -4,15 +4,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ToDoTest {
+
+    private static final int DEFAULT_PRIORITY = 3;
     @Test
-    public void createToDo_ShouldHaveCorrectToString() {
-        ToDo td = new ToDo("Read book");
-        assertEquals("[T][ ] Read book", td.toString());
+    public void createToDoShouldHaveCorrectToString() {
+        ToDo td = new ToDo("Read book", DEFAULT_PRIORITY);
+        assertEquals(td.toString(), "[T][ ] Read book (P:" + DEFAULT_PRIORITY + ")");
     }
     @Test
-    public void toggle_ShouldHaveCorrectToString() {
-        ToDo td = new ToDo("Read book");
+    public void toggleShouldHaveCorrectToString() {
+        ToDo td = new ToDo("Read book", DEFAULT_PRIORITY);
         td.toggle();
-        assertEquals("[T][X] Read book", td.toString());
+        assertEquals(td.toString(), "[T][X] Read book (P:" + DEFAULT_PRIORITY + ")");
     }
 }
