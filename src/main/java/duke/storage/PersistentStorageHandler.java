@@ -48,8 +48,7 @@ public class PersistentStorageHandler {
             return decode(ois);
         } catch (FileNotFoundException e) {
             throw new TaskDataNotFoundException("File: " + TASKLIST_PATH + " not found.\nWelcome to your new productivity journey.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DukeException("Failed to read file: " + TASKLIST_PATH);
         }
     }
