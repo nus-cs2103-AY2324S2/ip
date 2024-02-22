@@ -36,31 +36,6 @@ public class Andelu {
         }
     }
 
-    /*
-    /**
-     * Runs the program.
-     *
-    public void run() {
-        ui.printWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String command = ui.readCommand();
-                ui.printOpeningDottedLine();
-
-                Command c = Parser.parse(command);
-                c.executeCommand(tasks, ui, storage);
-                isExit = c.getIsExit();
-            } catch (AndeluException e) {
-                ui.printError(e.getMessage());
-            } finally {
-                ui.printClosingDottedLine();
-            }
-        }
-    }
-    */
-
     /**
      * Returns the ui.
      *

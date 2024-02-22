@@ -182,44 +182,4 @@ public class Storage {
 
         return fileTasks;
     }
-
-    /**
-     * Converts the String content to an ArrayList of Tasks.
-     *
-     * @param content the String content to be converted.
-     * @return an ArrayList of Tasks.
-     */
-    private ArrayList<Task> convertStringToTasks(String content) throws AndeluException {
-        String[] individualStringTask = content.trim().split(System.lineSeparator());
-        ArrayList<Task> fileTasks = new ArrayList<>();
-
-        for (String i : individualStringTask) {
-            String[] stringAttributes = i.split("|");
-            if (stringAttributes[0].equals("T")) {
-                fileTasks.add(new ToDo(
-                        stringAttributes[2].trim(),
-                        stringAttributes[1].equals("1") ? true : false,
-                        PriorityLevel.valueOf(stringAttributes[3].trim())));
-
-            } else if (stringAttributes[0].equals("D")) {
-                fileTasks.add(new Deadline(
-                        stringAttributes[2].trim(),
-                        stringAttributes[1].equals("1") ? true : false,
-                        PriorityLevel.valueOf(stringAttributes[3].trim()),
-                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
-
-            } else if (stringAttributes[0].equals("E")) {
-                fileTasks.add(new Event(
-                        stringAttributes[2].trim(),
-                        stringAttributes[1].equals("1") ? true : false,
-                        PriorityLevel.valueOf(stringAttributes[3].trim()),
-                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
-                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
-            }
-        }
-        return fileTasks;
-    }
-
-
-
 }
