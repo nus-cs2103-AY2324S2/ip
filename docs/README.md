@@ -1,4 +1,6 @@
-# Duke User Guide
+<!-- @format -->
+
+# Ciara User Guide
 
 // Update the title above to match the actual product name
 
@@ -23,7 +25,6 @@ expected output
 ## Feature ABC
 
 // Feature details
-
 
 ## Feature XYZ
 
