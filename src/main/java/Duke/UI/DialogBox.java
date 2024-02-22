@@ -55,8 +55,8 @@ public class DialogBox extends HBox {
         dialog.textProperty().addListener((observable, oldValue, newValue) -> adjustHeight());
 
         // Set style class based on the type of dialog (user or Duke)
-        String backgroundColor = isUserDialog ? "-fx-background-color: lightyellow; -fx-border-color: grey;"
-                : "-fx-background-color: lightblue; -fx-border-color: grey;";
+        String backgroundColor = isUserDialog ? "-fx-border-color: grey;"
+                : "-fx-background-color: lightyellow; -fx-border-color: grey;";
         this.setStyle(backgroundColor);
     }
 
