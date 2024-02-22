@@ -30,20 +30,20 @@ import ui.Ui;
          * Executes the chatbot.
          * @throws IOException if an I/O error occurs while running the chatbot
          */
-        // public void run() throws IOException {
-        //     // Greet User
-        //     System.out.print(chatbotUi.greetingBox());
-        //     String userInput;
-        //     do {
-        //         userInput = chatbotUi.getCommand();
-        //         if (userInput.equals("bye")) {
-        //             break;
-        //         } else {
-        //             parser.parse(userInput);
-        //         }
-        //     } while (true);
-        //     System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
-        // }
+         public void run() throws IOException {
+             // Greet User
+             System.out.print(chatbotUi.greetingBox());
+             String userInput;
+             do {
+                 userInput = chatbotUi.getCommand();
+                 if (userInput.equals("bye")) {
+                     break;
+                 } else {
+                     parser.parse(userInput);
+                 }
+             } while (true);
+             System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
+         }
 
         public String run(String userInput) throws IOException {
             if (userInput.equals("bye")) {
@@ -57,7 +57,8 @@ import ui.Ui;
             return null;
         }
         public static void main(String[] args) throws IOException {
-           
+           Duke duke = new Duke();
+           duke.run();
         }
 
 
