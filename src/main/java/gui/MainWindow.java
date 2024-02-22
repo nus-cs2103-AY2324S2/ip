@@ -1,6 +1,7 @@
 package gui;
 
 import academicweapon.AcademicWeapon;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -58,5 +59,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (response.equals("Bye. Hope to see you again soon!\n")) {
+            Platform.runLater(() -> {
+                try {
+                    Thread.sleep(1000);
+                    System.exit(0);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+        }
     }
 }
