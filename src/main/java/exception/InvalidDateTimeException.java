@@ -25,7 +25,6 @@ public class InvalidDateTimeException extends DukeException {
     @Override
     public String getMessage() {
         String str;
-      
         if (message.equals("unexpected date")) {
             str = "buzz buzz~~ The start date cannot be later than the end date.\n";
         } else if (message.equals("unexpected time")) {
@@ -33,7 +32,6 @@ public class InvalidDateTimeException extends DukeException {
         } else {
             str = "buzz buzz~~ Please provide the time in this format: 'yyyy-mm-dd hh:mm'\n";
         }
-      
         return str;
     }
 }

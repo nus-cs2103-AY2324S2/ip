@@ -29,6 +29,6 @@ public class ByeTest {
 
         // Check the program end
         String result = taskList.bye(ui);
-        assertEquals("Bye. Hope to see you again soon!", result);
+        assertEquals("buzz buzz~~ Bye. Hope to see you again soon!", result);
     }
 }

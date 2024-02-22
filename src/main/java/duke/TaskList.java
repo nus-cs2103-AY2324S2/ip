@@ -165,7 +165,6 @@ public class TaskList {
         if (taskList.isEmpty()) {
             str = str + "buzz buzz~~ There are currently no tasks in your list";
         }
-      
         str = str + "buzz buzz~~ Here are the matching tasks in your list:\n";
         int index = 1;
         for (int i = 0; i < taskList.size(); i++) {
@@ -176,7 +175,6 @@ public class TaskList {
                 index += 1;
             }
         }
-      
         if (index == 1) {
             str = "buzz buzz~~ No task in your list match this result";
         }
@@ -187,7 +185,7 @@ public class TaskList {
     /**
      * To update a specific task
      */
-    public String update(String newDescription, int position) {
+    public String update(int position, String newDescription) {
         // check for error
         if (position + 1 > taskList.size() || position < 0) {
             return "buzz buzz~~ Task does not exist";

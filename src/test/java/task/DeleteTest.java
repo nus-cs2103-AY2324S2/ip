@@ -28,7 +28,7 @@ public class DeleteTest {
         String result = taskList.delete(1);
 
         // Check if the task is deleted successfully
-        assertEquals("Noted. I've removed this task:\n"
+        assertEquals("buzz buzz~~ Noted. I've removed this task:\n"
                 + "[T][ ] Task 2\nNow you have 2 tasks in the list.", result);
 
         // Check if the size of the task list is updated

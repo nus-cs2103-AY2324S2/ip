@@ -36,13 +36,13 @@ public class FindTest {
 
         // Check if the tasks are found successfully
         String result = taskList.find("book");
-        assertEquals("Here are the matching tasks in your list:\n"
+        assertEquals("buzz buzz~~ Here are the matching tasks in your list:\n"
                 + "1.[T][ ] Read book\n"
                 + "2.[D][ ] Return book (by: 02 Feb 2022 10:00)\n", result);
 
         // Show error message when task is not found
         String result2 = taskList.find("friend");
-        assertEquals("Here are the matching tasks in your list:\n", result2);
+        assertEquals("buzz buzz~~ No task in your list match this result", result2);
 
     }
 }
