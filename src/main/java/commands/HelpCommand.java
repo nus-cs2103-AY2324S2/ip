@@ -8,10 +8,11 @@ import ui.Ui;
 public class HelpCommand extends Command {
 
     public static final String COMMAND = "help";
+
     /**
      * Prints out the help tool.
      *
-     * @return
+     * @return A list of valid commands.
      */
     @Override
     public String executeCommand() {

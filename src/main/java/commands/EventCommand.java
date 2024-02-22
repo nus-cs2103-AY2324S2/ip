@@ -24,7 +24,7 @@ public class EventCommand extends Command {
     /**
      * Adds an event into TaskList.
      *
-     * @return
+     * @return String representation after adding an event.
      */
     @Override
     public String executeCommand() {

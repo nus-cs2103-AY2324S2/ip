@@ -12,6 +12,9 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.List;
 
+/**
+ * Storage class is responsible for fetching/saving data from/to local storage.
+ */
 public class Storage {
 
     public static final String FILEPATH = "data/data.txt";
@@ -44,6 +47,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file and encoded input from local storage.
+     * @return A task list containing tasks in storage.
+     * @throws HowieException Throws an exception when I/O error is detected.
+     */
     public TaskList readFile() throws HowieException {
         if (!Files.exists(path)) {
             return new TaskList();
@@ -84,6 +92,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks into local storage.
+     * @param taskLs Task list containing all tasks.
+     * @throws IOException Throws an error when I/O error is detected.
+     */
     public void saveFile(TaskList taskLs) throws IOException {
         List<Task> tasks = taskLs.getList();
         try {
@@ -102,12 +115,18 @@ public class Storage {
         }
     }
 
+    /**
+     * An exception class encapsulating a file error.
+     */
     public static class InvalidFileException extends HowieException {
         public InvalidFileException(String message) {
             super(message);
         }
     }
 
+    /**
+     * An exception class for invalid format found in local data.
+     */
     public static class InvalidFormatException extends HowieException {
         public InvalidFormatException(String message) {
             super(message);

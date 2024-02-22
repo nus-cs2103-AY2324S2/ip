@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
     /**
      * Sets this task to complete status.
      *
-     * @return
+     * @return String representing the outcome of mark.
      */
     @Override
     public String executeCommand() {

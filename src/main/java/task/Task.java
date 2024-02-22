@@ -60,7 +60,6 @@ public class Task {
 
     /**
      * Returns a string representation for saving into file.
-     *
      */
     public String encode() {
         String taskType = "T|";

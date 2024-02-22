@@ -20,7 +20,7 @@ public class DeadlineCommand extends Command {
     /**
      * Creates a Deadline and adds into TaskList.
      *
-     * @return
+     * @return String representation after adding deadline.
      */
     @Override
     public String executeCommand() {

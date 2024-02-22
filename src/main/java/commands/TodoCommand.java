@@ -20,7 +20,7 @@ public class TodoCommand extends Command {
     /**
      * Adds a Task into TaskList.
      *
-     * @return
+     * @return String representation after adding a todo task.
      */
     @Override
     public String executeCommand() {

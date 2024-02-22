@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the particular task from TaskList based on the given index.
      *
-     * @return
+     * @return String representation after deletion.
      * @throws HowieException Throws an exception when index is out of range.
      */
     @Override

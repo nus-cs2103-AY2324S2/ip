@@ -17,11 +17,16 @@ import exceptions.HowieException;
 
 import ui.Ui;
 
+/**
+ * The parser class handles the all input typed by user. The class
+ * checks for the validity of the input, and returns an executable command.
+ */
 public class Parser {
+
     /**
      * Returns a Command class based on input type.
      * @param input An array of strings split by spaces.
-     * @return Command
+     * @return Command An executable command.
      */
     public Command parseCommand(String[] input) throws HowieException {
         StringBuilder name;

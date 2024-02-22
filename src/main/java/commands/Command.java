@@ -12,7 +12,7 @@ public class Command {
     protected TaskList taskList;
 
     /**
-     * Excutes the command.
+     * Executes the command.
      *
      * @throws HowieException Throws an exception when calling execute() on this command.
      * @throws IOException Throws an exception when I/O error is caught.
@@ -21,6 +21,10 @@ public class Command {
         throw new HowieException("Invalid call of execute()");
     };
 
+    /**
+     * Set the data for command execution.
+     * @param tasks List of tasks.
+     */
     public void setData(TaskList tasks) {
         this.taskList = tasks;
     }

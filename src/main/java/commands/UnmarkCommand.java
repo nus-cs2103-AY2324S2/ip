@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
     /**
      * Sets the task to incomplete status.
      *
-     * @return
+     * @return String representation of the outcome of unmarking a task.
      */
     @Override
     public String executeCommand() {
