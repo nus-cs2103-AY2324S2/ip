@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke.Launcher")
+    mainClass.set("zhen.Launcher")
 }
 
 checkstyle {
@@ -52,7 +52,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "zhen"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

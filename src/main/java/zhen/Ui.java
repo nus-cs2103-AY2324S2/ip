@@ -8,22 +8,13 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
-    private static final String logo = "ZZZZZ   H   H  EEEEE  N   N\n"
-            + "   Z    H   H  E      NN  N\n"
-            + "  Z     HHHHH  EEEE   N N N\n"
-            + " Z      H   H  E      N  NN\n"
-            + "ZZZZZ   H   H  EEEEE  N   N\n";
 
     /**
      * Shows welcome to the users
      */
     public static String showWelcome() {
-        String welcomeMessage = "";
-        System.out.println("Hello from\n" + logo);
-        welcomeMessage = welcomeMessage + "Hello from\n" + logo;
-        welcomeMessage = welcomeMessage
-                + "\n"
-                + print_message("Hello! I'm ZHEN\n What can I do for you? ");
+        String welcomeMessage = "Hello! I'm ZHEN\nWhat can I do for you? ";
+        print_message(welcomeMessage);
         return welcomeMessage;
     }
 

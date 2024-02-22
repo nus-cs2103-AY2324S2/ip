@@ -9,9 +9,7 @@ public class Task implements Serializable {
 
     public Task(String message) {
         this.message = message;
-        if (message.length() == 0) {
-            throw new IllegalArgumentException("input can't be empty");
-        }
+
     }
     public void mark() {
         isCompleted = true;

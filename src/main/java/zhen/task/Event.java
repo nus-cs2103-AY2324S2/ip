@@ -2,6 +2,7 @@ package zhen.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Event extends Task {
     private LocalDate startDate;
@@ -28,8 +29,8 @@ public class Event extends Task {
             msg = "[E][ ] " + getMessage();
         }
         if (startDate != null && endDate != null) {
-            return msg + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")" + tag;
+            return msg + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH))
+                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH)) + ")" + tag;
         } else {
             return msg + " (from: " + startDateString + " to: " + endDateString + ")" + tag;
         }

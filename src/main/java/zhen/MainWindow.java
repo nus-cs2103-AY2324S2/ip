@@ -30,10 +30,11 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.showWelcome(), zhenImage)
+                DialogBox.getZhenDialog(Ui.showWelcome(), zhenImage)
         );
     }
 
@@ -53,7 +54,7 @@ public class MainWindow extends AnchorPane {
         assert zhenImage != null : "Can't find ZHEN image";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, zhenImage)
+                DialogBox.getZhenDialog(response, zhenImage)
         );
         if (response.equals("Bye")) {
             Platform.exit();

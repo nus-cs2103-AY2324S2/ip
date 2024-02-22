@@ -74,36 +74,56 @@ public class Parser {
 
     private static Command parseMarkingCommands(String userInput) {
         if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
-            int number = Integer.parseInt(userInput.substring(5));
-            return new MarkCommand(number);
+            try {
+                int number = Integer.parseInt(userInput.substring(5));
+                return new MarkCommand(number);
+            } catch (Exception E) {
+                return new ShowErrorCommand("Please follow the input format: mark [task index]");
+            }
         } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("unmark")) {
-            int number = Integer.parseInt(userInput.substring(7));
-            return new UnmarkCommand(number);
+            try {
+                int number = Integer.parseInt(userInput.substring(7));
+                return new UnmarkCommand(number);
+            } catch (Exception e) {
+                return new ShowErrorCommand("Please follow the input format: unmark [task index]");
+            }
         }
         return null;
     }
 
     private static Command parseDeleteCommand(String userInput) {
         if (userInput.length() > 6 && userInput.substring(0, 6).equals("delete")) {
-            int number = Integer.parseInt(userInput.substring(7));
-            return new DeleteCommand(number);
+            try {
+                int number = Integer.parseInt(userInput.substring(7));
+                return new DeleteCommand(number);
+            } catch (Exception e) {
+                return new ShowErrorCommand("Please follow the input format: delete [task index]");
+            }
         }
         return null;
     }
 
     private static Command parseTagCommand(String userInput) {
         if (userInput.length() > 3 && userInput.substring(0, 3).equals("tag")) {
-            int number = Integer.parseInt(userInput.substring(4,5));
-            String tagInfo = userInput.substring(5);
-            return new TagCommand(number, tagInfo);
+            try {
+                int number = Integer.parseInt(userInput.substring(4, 5));
+                String tagInfo = userInput.substring(5);
+                return new TagCommand(number, tagInfo);
+            } catch (Exception e) {
+                return new ShowErrorCommand("Please follow the input format: tag [task index] [tag] ");
+            }
         }
         return null;
     }
 
-        private static Command parseFindCommand(String userInput) {
+    private static Command parseFindCommand(String userInput) {
         if (userInput.length() > 4 && userInput.substring(0, 4).equals("find")) {
-            String stringToFind = userInput.substring(5);
-            return new FindCommand(stringToFind);
+            try {
+                String stringToFind = userInput.substring(5);
+                return new FindCommand(stringToFind);
+            } catch (Exception e) {
+                return new ShowErrorCommand("Please Follow the input format: find [keyword]");
+            }
         }
         return null;
     }
