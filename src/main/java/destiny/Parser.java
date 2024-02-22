@@ -57,16 +57,16 @@ public class Parser {
 
     private String[] splitString(String userMessage) {
         String[] input = new String[2];
-        Boolean foundSplit = false;
+        Boolean isSplit = false;
         for (int i = 0; i < userMessage.length(); i++) {
             if (userMessage.charAt(i) == ' ') {
                 input[0] = userMessage.substring(0, i);
                 input[1] = userMessage.substring(i + 1, userMessage.length());
-                foundSplit = true;
+                isSplit = true;
                 break;
             }
         }
-        if (!foundSplit) {
+        if (!isSplit) {
             input[0] = userMessage;
         }
         return input;
