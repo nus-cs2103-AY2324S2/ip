@@ -56,6 +56,7 @@ Format: `help`
     alt="ui preview" height="300">
 </p>
 
+<br/>
 
 ### Adding tasks and events: `todo`, `deadline`, `event`
 #### To-do task:
