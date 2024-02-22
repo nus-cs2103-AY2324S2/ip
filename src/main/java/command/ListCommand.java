@@ -24,6 +24,7 @@ public class ListCommand extends Command {
      *
      * @param storage Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that contains all the tasks
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {

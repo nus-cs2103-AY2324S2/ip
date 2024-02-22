@@ -79,6 +79,7 @@ public class AddTaskCommand extends Command {
      *
      * @param storage Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that tells that the task-adding is successful
      * @throws DukeException
      */
     @Override

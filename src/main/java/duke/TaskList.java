@@ -29,6 +29,8 @@ public class TaskList {
 
     /**
      * Prints all tasks in the list.
+     *
+     * @return A string that contains all tasks
      */
     public String print() {
         if (tasks.isEmpty()) {
@@ -72,6 +74,8 @@ public class TaskList {
 
     /**
      * Counts the number of available tasks.
+     *
+     * @return A string that contains the number of tasks
      */
     public String countSize() {
         if (tasks.size() == 1) {
@@ -117,6 +121,7 @@ public class TaskList {
      * Searches all tasks with the given date. If there is a match, print it out.
      *
      * @param localDate The searching date
+     * @return A string that contains all matching tasks
      */
     public String searchDate(LocalDate localDate) {
         ArrayList<Task> result = new ArrayList<>();
@@ -140,6 +145,7 @@ public class TaskList {
      * Searches all tasks that contain the certain keyword and print them all.
      *
      * @param keyword The keyword typed in by the user
+     * @return A string that contains all matching tasks
      */
     public String searchKeyword(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
@@ -160,10 +166,10 @@ public class TaskList {
     }
 
     /**
-     * HEAD
      * Adds a new Task to the list.
      *
      * @param task The task that needs to be added
+     * @return A string that tells that the task-adding is successful
      */
     public String add(Task task) {
         tasks.add(task);

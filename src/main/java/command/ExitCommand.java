@@ -23,6 +23,7 @@ public class ExitCommand extends Command {
      *
      * @param storage  Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that tells the user the exection is complete
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {

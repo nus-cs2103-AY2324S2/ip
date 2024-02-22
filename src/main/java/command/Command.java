@@ -16,6 +16,7 @@ public abstract class Command {
      *
      * @param storage Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that answers the user
      * @throws DukeException
      */
     public abstract String execute(Storage storage, TaskList taskList) throws DukeException;

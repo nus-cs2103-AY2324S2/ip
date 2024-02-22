@@ -39,6 +39,7 @@ public class UnmarkCommand extends Command {
      *
      * @param storage Involved in file management
      * @param taskList Active during the execution of the program
+     * @return A string that tells that the task has been unmarked
      * @throws DukeException
      */
     @Override
