@@ -22,8 +22,21 @@ public class MainWindow extends AnchorPane {
 
     private Venus venus;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image venusImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpeg"));
+    private Image userImage; //= new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image venusImage; //= new Image(this.getClass().getResourceAsStream("/images/bot.jpeg"));
+
+    /**
+     * Constructor for main class that asserts user and bot images are there.
+     */
+    public MainWindow() {
+        super();
+        assert this.getClass().getResourceAsStream("/images/user.png") != null
+                : "User image not found!";
+        assert this.getClass().getResourceAsStream("/images/bot.jpeg") != null
+                : "User image not found!";
+        userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+        venusImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpeg"));
+    }
 
     /**
      * Initialize program and adds welcome message.

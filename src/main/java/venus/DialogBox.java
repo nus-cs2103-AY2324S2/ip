@@ -25,8 +25,15 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Set up DialogBox, assert if the file is found.
+     *
+     * @param text Text to be wrapped for the DialogBox.
+     * @param img Image to be used for the DialogBox.
+     */
     private DialogBox(String text, Image img) {
         try {
+            assert MainWindow.class.getResource("/view/DialogBox.fxml") != null : "No FXML for DialogBox!";
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
