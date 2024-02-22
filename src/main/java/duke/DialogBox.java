@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -56,6 +57,15 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+
+        // Check if the response starts with "Error:"
+        boolean isError = text.startsWith("Error:");
+
+        // Set the text color based on the condition
+        if (isError) {
+            db.dialog.setTextFill(Color.RED);
+        }
+
         return db;
     }
 }
