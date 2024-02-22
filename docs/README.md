@@ -68,4 +68,4 @@ Jayne Android supports three types of tasks: Todo, Deadline, and Event. Each tas
    - `add event Vacation /from 2024-07-01 /to 2024-07-14`
 
 ## Getting Started <br>
-To get started with Jayne Android, simply download the `jayne.jar` in `build/libs`. Once installed, open the app, and you'll be greeted with a simple interface where you can begin adding and managing your tasks immediately.
+Simply click [here](../jayne.jar) download the . Once installed, open the app, and you'll be greeted with a simple interface where you can begin adding and managing your tasks immediately.
