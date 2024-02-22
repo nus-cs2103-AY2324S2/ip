@@ -7,6 +7,7 @@ import jayne.task.TaskList;
  * This class encapsulates the initialization of core components
  * such as Ui, TaskList, and Storage, and contains the main program loop.
  * Already made better GUI
+ * Already made better personality
  */
 public class Jayne {
     private TaskList taskList;
