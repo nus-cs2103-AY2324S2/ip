@@ -1,8 +1,11 @@
 package alpaca.tasks;
 
+import java.text.ParsePosition;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +15,24 @@ public abstract class Task {
     private boolean isDone;
     private String type;
     private ArrayList<LocalDate> dates;
+    private final static String[][] DATE_PATTERNS = {
+        { "\\\\d{4}-\\\\d{1,2}-\\\\d{1,2}", "yyyy-M-d" },
+        { "\\d{1,2}-\\d{1,2}-\\d{4}", "d-M-yyyy" },
+        { "\\d{4}\\/\\d{2}\\/\\d{1,2}", "yyyy/M/d" },
+        { "\\d{1,2}\\/\\d{1,2}\\/\\d{4}", "d/M/yyyy" },
+        { "\\d{1,2}-\\[a-zA-Z]{3}-\\d{4}", "d-LLL-yyyy" },
+        { "\\d{1,2}\\/\\[a-zA-Z]{3}\\/\\d{4}", "d/LLL/yyyy" },
+        { "\\d{1,2} [a-zA-Z]{3} \\d{4}", "d LLL yyyy"},
+    };
+    private final static String[][] DAY_PATTERNS = {
+            { "monday", "mon" },
+            { "tuesday", "tues", "tue" },
+            { "wednesday", "weds", "wed" },
+            { "thursday", "thurs", "thur", "thu" },
+            { "friday", "fri" },
+            { "saturday", "sat" },
+            { "sunday", "sun" },
+    };
 
     protected Task(String name) {
         this.name = name;
@@ -46,27 +67,58 @@ public abstract class Task {
 
     private void processDates() {
         this.dates = new ArrayList<>();
-        Pattern pattern = Pattern.compile(
-                "\\d{4}-\\d{1,2}-\\d{1,2}" + // matches yyyy-mm-dd
-                "|\\d{1,2}-\\d{1,2}-\\d{4}" + // matches dd-mm-yyyy
-                "|\\d{4}\\/\\d{1,2}\\/\\d{1,2}" + // matches yyyy/mm/dd
-                "|\\d{1,2}\\/\\d{1,2}\\/\\d{4}"); // matches dd/mm/yyyy
-        Matcher matcher = pattern.matcher(this.name);
-        while (matcher.find()) {
-            try {
-                String dateStr = matcher.group();
-                String dateMod = dateStr.replaceAll("\\/", "-");
-                dateMod = dateMod.replaceFirst("(^|[^\\d])(\\d)($|[^\\d])", "$10$2$3");
-                dateMod = dateMod.replaceFirst("(^|[^\\d])(\\d)($|[^\\d])", "$10$2$3");
-                dateMod = dateMod.replaceAll("(\\d{2})-(\\d{2})-(\\d{4})", "$3-$2-$1");
-                LocalDate date = LocalDate.parse(dateMod);
-                this.dates.add(date);
-                this.name = this.name.replaceFirst(dateStr, "~");
-            } catch (DateTimeParseException e) {
-                System.out.println(e);
+        for (String[] datePattern : DATE_PATTERNS) {
+            Pattern pattern = Pattern.compile(datePattern[0]);
+            Matcher matcher = pattern.matcher(this.name);
+            while (matcher.find()) {
+                try {
+                    String dateStr = matcher.group();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern[1]);
+                    LocalDate date = LocalDate.from(formatter.parse(dateStr, new ParsePosition(0)));
+                    this.dates.add(date);
+                    this.name = this.name.replaceFirst(dateStr, "~");
+                } catch (DateTimeParseException e) {
+                    System.out.println(e);
+                }
             }
         }
-        ;
+        for (int i = 0; i < DAY_PATTERNS.length; i++) {
+            for (String dayPattern: DAY_PATTERNS[i]) {
+                Pattern pattern = Pattern.compile("(\\s|^)("+ dayPattern + ")(\\s|$)", Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(this.name);
+                while (matcher.find()) {
+                    LocalDate date = LocalDate.now();
+                    switch (i) {
+                        case 0:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                            break;
+                        case 1:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+                            break;
+                        case 2:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+                            break;
+                        case 3:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+                            break;
+                        case 4:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+                            break;
+                        case 5:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+                            break;
+                        case 6:
+                            date = date.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+                            break;
+                        default:
+                            break;
+                    }
+                    String dateStr = matcher.group(2);
+                    this.dates.add(date);
+                    this.name = this.name.replaceFirst(dateStr, "~");
+                }
+            }
+        }
     }
 
     private void processParams() {

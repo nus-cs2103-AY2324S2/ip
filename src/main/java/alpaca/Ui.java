@@ -45,7 +45,12 @@ public class Ui {
         return result;
     }
 
+    public void read() {
+        ReadData.read(list);
+    }
+
     public String processInput(String input) {
+        ReadData.write(list);
         if (input.toLowerCase().equals("bye")) {
             return bye();
         } else if (input.toLowerCase().equals("list")) {
