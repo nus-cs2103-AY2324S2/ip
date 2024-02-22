@@ -2,6 +2,7 @@ package storage;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,14 +42,14 @@ public class Storage {
      * @throws FileError if there is an IO error in writing to the txt file
      */
     public void write(ArrayList<Task> data) throws FileError {
-        try {
-            File file = new File(fileName);
-            // Ensure the parent directories exist
-            File parentDir = file.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs();
-            }
-            FileWriter writer = new FileWriter(file, false);
+        File file = new File("src/main/resources/" + fileName);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+            System.out.println("make");
+        }
+        System.out.println("write");
+        try (FileWriter writer = new FileWriter(file, false)) {
             writer.write(convertArrayToStr(data) + "\n");
         } catch (IOException e) {
             throw new FileError("Problem writing to file!");
@@ -70,16 +71,30 @@ public class Storage {
      */
     public ArrayList<Task> read() throws FileError, FileAccessError {
         ArrayList<String> contents = new ArrayList<>();
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        File file = new File("src/main/resources/" + fileName);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new FileError("Problem creating new file: " + e.getMessage());
+            }
+        }
+
+        try (InputStream is = new FileInputStream(file);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 contents.add(line);
             }
         } catch (IOException e) {
-            throw new FileError("Problem reading from file!");
+            throw new FileError("Problem reading from file: " + e.getMessage());
         }
+
         String[] data = contents.toArray(new String[0]);
         return convertStrToArray(data);
     }
@@ -134,6 +149,7 @@ public class Storage {
                 stringBuilder.append("\n");
             }
         }
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 }

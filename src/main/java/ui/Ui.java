@@ -23,9 +23,9 @@ public class Ui {
     /**
      * This method prints the welcome message on start up of chatBot
      */
-    public void showWelcome() {
-        printer.print(LINE + "Paws what you're doing! I'm Blawg\n"
-                + "What can I do for you?\n" + LINE);
+    public static String showWelcome() {
+        return "Paws what you're doing! I'm Blawg\n"
+                + "What can I do for you?\n";
     }
 
     /**
