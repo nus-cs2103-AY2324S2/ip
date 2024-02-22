@@ -27,7 +27,7 @@ With Osiris, streamline your productivity and effortlessly organize your tasks l
 
 ---
 
-1. **Download Osiris**: Click [here](https://github.com) to download the Osiris application.
+1. **Download Osiris**: Click [here](https://github.com/Austintjh19/ip/releases) to download the Osiris application.
 2. **Navigate to the Folder**: Open your preferred file explorer and go to the directory containing the `Osiris.jar` file.
 3. **Open Terminal**: Launch a terminal window at the folder location.
 4. **Execute Command**: Type the following command into the terminal: `java -jar Osiris.jar`.
