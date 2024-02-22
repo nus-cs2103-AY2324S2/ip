@@ -33,12 +33,13 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         dialog.setWrapText(true);
         dialog.setMaxWidth(250);
         displayPicture.setImage(img);
     }
+
+    @FXML
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
