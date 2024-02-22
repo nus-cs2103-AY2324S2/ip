@@ -39,8 +39,16 @@ public class MainWindow extends AnchorPane {
      * Initialize the main window
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws StorageException {
         scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
+
+        // UI Greeting
+        String greeting = "Hello! I'm Ciara\n"
+                + "What can I do for you?";
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getCiaraDialog(greeting, this.ciaraImage));
+
     }
 
     /**
