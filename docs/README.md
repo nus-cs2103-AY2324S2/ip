@@ -10,8 +10,8 @@ Have you ever wanted your personal dragon chatbot to help you keep track of task
 
 Toothless can help you keep track of your deadlines using a simple command line.
 
-For example, if you have a deadline to return a book by Sunday, you can input "deadline return book /by Sunday"
-The command will start with deadline, followed by the task name and the deadline, separated by a "/by"
+For example, if you have a deadline to return a book by Sunday, you can input "deadline return book /by Sunday".
+The command will start with deadline, followed by the task name and the deadline, separated by a "/by".
 
 The expected output would be:
 ------------------------------------------
@@ -25,7 +25,7 @@ Now you have 1 task in the list.
 Toothless can help you keep mark tasks you have completed using a simple command line.
 
 For example, if you have a completed the deadline task "return book", you can input "mark 1"
-The command will start with mark, followed by the task index
+The command will start with mark, followed by the task index.
 
 The expected output would be:
 ------------------------------------------
@@ -38,8 +38,8 @@ Nice! I've marked this task as done!
 
 Too many tasks in the list to keep track of? Toothless can help you find tasks you in the list using a simple command line.
 
-For example, if you wish to find tasks associated with a book, you can input "find book"
-The command will start with find, followed by the keyword.
+For example, if you wish to find tasks associated with a book, you can input "find book".
+The command will start with find, followed by the keyword!
 
 The expected output would be:
 ------------------------------------------

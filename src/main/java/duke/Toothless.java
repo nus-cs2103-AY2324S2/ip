@@ -34,7 +34,7 @@ public class Toothless {
 
 
     /**
-     * Method to instantiate the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
+     * Instantiates the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
      */
     public Toothless() {
         this.ui = new Ui();
@@ -109,7 +109,7 @@ public class Toothless {
     }
 
     /**
-     * Prints out line for formatting purposes when not running GUI
+     * print lines for formatting
      */
     static void printLines() {
         System.out.println("____________________________________________________________");
