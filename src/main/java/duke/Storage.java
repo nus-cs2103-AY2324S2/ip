@@ -176,7 +176,6 @@ public class Storage {
             } else if (mDeadline2.find()) {
                 int finalIndex = currentLine.indexOf("/by") + 3;
                 String dL = currentLine.substring(finalIndex);
-                // Define the format of the input string
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime ldt = null;
                 try {
