@@ -12,18 +12,6 @@ public class CustomExceptions extends Exception {
     }
 
     /**
-     * ZeroIndexException is deprecated, and used to be
-     * thrown when a mark, unmark or delete command was
-     * followed by a 0 index. This throws an error as
-     * ItemList is 1-indexed.
-     */
-    public static class ZeroIndexException extends CustomExceptions {
-        public ZeroIndexException(String errorMessage) {
-            super(errorMessage);
-        }
-    }
-
-    /**
      * InvalidTaskException is thrown when a command with a valid
      * identifier (e.g. list, event, deadline etc.) is not followed
      * by other required information, leading to error in parsing the
