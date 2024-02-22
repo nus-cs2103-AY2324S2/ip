@@ -86,7 +86,7 @@ public class Ui {
      * Lists the tasks stored.
      */
     public String listTask() {
-        StringBuilder tasks = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder tasks = new StringBuilder("This list wouldn't be so long if you stop sleeping:\n");
         for (int i = 1; i <= this.taskList.getSize(); i++) {
             tasks.append(i)
                     .append(". ")
@@ -130,7 +130,8 @@ public class Ui {
                 + this.taskList.getTaskDescription(index - 1)
                 + "\nNow you have "
                 + (this.taskList.getSize() - 1)
-                + " in the list.";
+                + " in the list.\n"
+                + "Finally giving up eh?";
 
         this.taskList.delete(index - 1);
         return deletedTask;
@@ -142,7 +143,7 @@ public class Ui {
      * @param keyword Word used to find the task.
      */
     public String find(String keyword) {
-        StringBuilder foundTasks = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder foundTasks = new StringBuilder("Here are the matching tasks, my little blind friend:\n");
         int counter = 1;
         for (int i = 1; i <= this.taskList.getSize(); i++) {
             String taskDescription = this.taskList.getTaskDescription(i - 1);
