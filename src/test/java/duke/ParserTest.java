@@ -28,6 +28,9 @@ public class ParserTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test Case: delete non-existent element
+     */
     @Test
     public void deleteTest2() {
         Duke duke = new Duke();
