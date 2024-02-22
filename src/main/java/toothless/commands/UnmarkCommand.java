@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
+        if (taskIndex >= taskList.size() || taskIndex < 0) {
             throw new ToothlessException(ui.showInvalidUnmarkWarning());
         }
 

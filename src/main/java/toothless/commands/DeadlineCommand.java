@@ -44,7 +44,14 @@ public class DeadlineCommand extends Command {
             throw new ToothlessException(ui.showNoDeadlineWarning());
         }
 
+        if (dateIndex < 1) {
+            throw new ToothlessException(ui.showNoTaskNameWarning());
+        }
         String description = detail.substring(0, dateIndex - 1);
+
+        if (dateIndex + 4 >= detail.length()) {
+            throw new ToothlessException(ui.showNoDeadlineWarning());
+        }
         String date = detail.substring(dateIndex + 4);
 
         Task t = new Deadline(description, date);

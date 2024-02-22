@@ -44,7 +44,15 @@ public class EventCommand extends Command {
         if (date1Index == -1) {
             throw new ToothlessException(ui.showEventNoStartWarning());
         }
+
+        if (date1Index < 1) {
+            throw new ToothlessException(ui.showNoTaskNameWarning());
+        }
         String description = detail.substring(0, date1Index - 1);
+
+        if (date1Index + 6 >= detail.length()) {
+            throw new ToothlessException(ui.showEventNoStartWarning());
+        }
         detail = detail.substring(date1Index + 6);
 
         int date2Index = detail.indexOf("/to");
@@ -52,8 +60,16 @@ public class EventCommand extends Command {
             throw new ToothlessException(ui.showEventNoEndWarning());
         }
 
+        if (date2Index < 1) {
+            throw new ToothlessException(ui.showEventNoStartWarning());
+        }
         String startDate = detail.substring(0, date2Index - 1);
+
+        if (date2Index + 4 >= detail.length()) {
+            throw new ToothlessException(ui.showEventNoEndWarning());
+        }
         String endDate = detail.substring(date2Index + 4);
+
         Task t = new Event(description, startDate, endDate);
         taskList.addTask(t);
 
