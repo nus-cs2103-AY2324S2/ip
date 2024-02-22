@@ -28,6 +28,10 @@ public class ToggleMarkTaskCommand extends Command {
      */
     @Override
     public void run(TaskList taskList, Ui ui) {
+        if(this.index > taskList.getSize() || this.index <= 0){
+            ui.informIndexOutofBound();
+            return;
+        }
         if (this.type == Parser.Cmd.mark) {
             ui.informListMarked(taskList.markList(this.index));
         } else {

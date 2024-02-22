@@ -29,6 +29,10 @@ public class DeleteTaskCommand extends Command {
      */
     @Override
     public void run(TaskList taskList, Ui ui) {
+        if(this.index > taskList.getSize() || this.index <= 0){
+            ui.informIndexOutofBound();
+            return;
+        }
         Task task = taskList.deleteList(this.index);
         ui.informItemRemoved(task, taskList.getSize());
     }
