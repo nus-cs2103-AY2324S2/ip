@@ -32,6 +32,7 @@ public class Parser {
      */
     public static Command parse(String input) throws CommandException, ParameterException {
         Action action = Parser.getAction(input);
+        assert action != null : "Action in Parser#parse is null";
         switch (action) {
         case LIST:
             return new ListCommand();
