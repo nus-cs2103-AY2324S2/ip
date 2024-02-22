@@ -77,8 +77,8 @@ public class DialogBox extends HBox {
      */
     private void customiseDialogBoxImage(Image img) {
         displayPicture.setImage(img);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        displayPicture.setFitWidth(70.0);
+        displayPicture.setFitHeight(70.0);
 
         Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2,
                 displayPicture.getFitWidth() / 2);

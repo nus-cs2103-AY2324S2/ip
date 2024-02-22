@@ -1,3 +1,4 @@
 D | 1 | return book | 22 Sep 2024 15:00
 E | 0 | concert | 16 Feb 2024 18:00 | 16 Feb 2024 20:00
 T | 0 | complete proposal | 
+T | 0 | st2334 assignment | 
