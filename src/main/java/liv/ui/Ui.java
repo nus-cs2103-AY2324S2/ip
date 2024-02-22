@@ -54,11 +54,13 @@ public class Ui {
      */
     public static String getListMessage() {
         String listMessage = "Here are the missions you added:\n";
+
         for (int i = 0; i < TaskList.getListSize(); i++) {
             Task task = TaskList.getTask(i);
             int displayedIndex = i + 1;
             listMessage += displayedIndex + ". " + task.getDisplayedString() + "\n";
         }
+
         listMessage += "Total: " + TaskList.getListSize() + " mission(s)";
         displayMessage(listMessage);
         return listMessage;
