@@ -64,11 +64,12 @@ public class Parser {
      * @throws CommandException If input is empty or not a command not allowed in <code>Action</code>.
      */
     private static Action getAction(String input) throws CommandException {
+        // check for empty command
         if (input.equals("")) {
             throw new CommandException("Please enter a command.");
         }
         try {
-            // guaranteed to have at least one item in split as input is stripped and empty string checked
+            // guaranteed to have at least one item in split since input is stripped and empty string checked
             return Action.valueOf(input.split(" ")[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new CommandException("OOPS!!! I'm sorry, but I don't know what that means :-)");
@@ -85,12 +86,17 @@ public class Parser {
      */
     private static int getIdx(String input) throws ParameterException {
         String[] parameters = input.split(" ");
+
+        // no index given
         if (parameters.length == 1) {
             throw new ParameterException("Please enter which task number to mark.");
         }
+
+        // more than one index given
         if (parameters.length > 2) {
             throw new ParameterException("Please enter only one task number to mark.");
         }
+
         try {
             return Integer.parseInt(parameters[1].strip());
         } catch (NumberFormatException e) {
@@ -107,27 +113,23 @@ public class Parser {
      */
     private static String getDescription(String input) throws ParameterException {
         String[] parameters = input.split(" ", 2);
+
+        // No description entered
         if (parameters.length == 1) {
             throw new ParameterException("Description cannot be empty.");
         }
         String description = parameters[1].strip();
-        // check empty description for deadline
+
+        // remove the "/by" parameter if any
         parameters = description.split("/by", 2);
-        if (parameters.length == 0) {
-            throw new ParameterException("Description cannot be empty.");
-        }
         description = parameters[0].strip();
-        // check empty description for event
-        parameters = description.split("/to", 2);
-        if (parameters.length == 0) {
-            throw new ParameterException("Description cannot be empty.");
-        }
-        description = parameters[0].strip();
+
+        // remove the "/from" parameter if any. assumes that "/to" is placed after the "/from" parameter
+        // if "/to" is in front of the "/from" parameter, it will be detected by the getTo() method.
         parameters = description.split("/from", 2);
-        if (parameters.length == 0) {
-            throw new ParameterException("Description cannot be empty.");
-        }
         description = parameters[0].strip();
+
+        // checks for empty description
         if (description.equals("")) {
             throw new ParameterException("Description cannot be empty");
         }
@@ -143,13 +145,9 @@ public class Parser {
      *     or if the given <code>/by</code> datetime is empty.
      */
     private static String getBy(String input) throws ParameterException {
-        if (!input.contains("/by")) {
-            throw new ParameterException("Please indicate due date/time after \"/by\".");
-        }
-        // description is guaranteed to be not empty since getDescription() is called first
-        if (input.endsWith("/by")) {
-            throw new ParameterException("Deadline's due date/time cannot be empty.");
-        }
+        Parser.checkContains(input, "/by");
+        Parser.checkNotEmptyAfter(input, "/by");
+
         return input.split("/by", 2)[1].strip();
     }
 
@@ -162,25 +160,25 @@ public class Parser {
      *     or if the given <code>/from</code> datetime is empty.
      */
     private static String getFrom(String input) throws ParameterException {
-        if (!input.contains("/from")) {
-            throw new ParameterException("Please indicate from date/time after \"/from\".");
-        }
-        // drop the first word
+        Parser.checkContains(input, "/from");
+
+        // drop the first action word
         input = input.split(" ", 2)[1].strip();
+
+        // check for characters after "/from"
         String[] parameters = input.split("/from", 2);
-        // description is guaranteed to be not empty since getDescription() is called first
         if (parameters.length == 1) {
             throw new ParameterException("Event from date/time cannot be empty.");
         }
         String from = parameters[1].strip();
+
+        // check for characters before "/to"
         parameters = from.split("/to", 2);
-        if (parameters.length == 0) {
-            throw new ParameterException("Event from date/time cannot be empty.");
-        }
         from = parameters[0].strip();
         if (from.equals("")) {
             throw new ParameterException("Event from date/time cannot be empty.");
         }
+
         return from;
     }
 
@@ -193,17 +191,18 @@ public class Parser {
      *     or if the given <code>/to</code> datetime is empty.
      */
     private static String getTo(String input) throws ParameterException {
-        if (!input.contains("/to")) {
-            throw new ParameterException("Please indicate to date/time after \"/to\".");
-        }
+        Parser.checkContains(input, "/to");
+
+        // get strings after "/from"
         // split on "/from" is guaranteed to have at least 2 items since getFrom() is called first
         String to = input.split("/from", 2)[1].strip();
+
+        // check if "/to" is in the string after "/from"
         if (!to.contains("/to")) {
             throw new ParameterException("\"/to\" must come after \"/from\".");
         }
-        if (to.endsWith("/to")) {
-            throw new ParameterException("Event to date/time cannot be empty.");
-        }
+
+        Parser.checkNotEmptyAfter(input, "/to");
         return to.split("/to", 2)[1].strip();
     }
 
@@ -216,9 +215,35 @@ public class Parser {
      */
     private static String getKeyword(String input) throws ParameterException {
         String[] parameters = input.split(" ", 2);
+
+        // check for empty keyword
         if (parameters.length == 1) {
             throw new ParameterException("Please enter a keyword to find by.");
         }
         return parameters[1].strip();
+    }
+
+    /**
+     * Checks that input contains keyword.
+     * @param input The input to check.
+     * @param keyword The keyword to find in input.
+     * @throws ParameterException If keyword is not found in input.
+     */
+    private static void checkContains(String input, String keyword) throws ParameterException {
+        if (!input.contains(keyword)) {
+            throw new ParameterException("Please indicate from date/time after \"" + keyword + "\".");
+        }
+    }
+
+    /**
+     * Checks input is not empty after the given word.
+     * @param input The input to check.
+     * @param word Checks for input after this word.
+     * @throws ParameterException If there are no further input after word.
+     */
+    private static void checkNotEmptyAfter(String input, String word) throws ParameterException {
+        if (input.endsWith(word)) {
+            throw new ParameterException(word + " date/time cannot be empty.");
+        }
     }
 }

@@ -27,19 +27,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image shonImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Sets auto scroll, and displays greeting message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.greet();
     }
 
+    /**
+     * Sets the chatbot to the Shon instance provided.
+     * @param s The Shon instance to be used.
+     */
     public void setShon(Shon s) {
         shon = s;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Shon's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -52,6 +59,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays the greeting message.
+     */
     @FXML
     private void greet() {
         String shonGreeting = "Hello! I'm Shon. What can I do for you?";

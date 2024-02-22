@@ -114,9 +114,11 @@ public class TaskList {
      * @return An array of Strings representing the tasks in the list.
      */
     public String[] getTasks() {
+        // check for empty tasklist
         if (this.tasks.size() == 0) {
             return new String[]{"Your list is currently empty."};
         }
+
         String[] outputs = new String[this.tasks.size() + 1];
         outputs[0] = "Here are the tasks in your list:";
         for (int i = 1; i < this.tasks.size() + 1; i++) {
@@ -134,9 +136,11 @@ public class TaskList {
      *     the index is a non-positive number.
      */
     public String[] mark(int idx) throws ParameterException {
+        // check invalid index
         if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number from the list.");
         }
+
         Task task = this.tasks.get(idx - 1);
         String description = task.markAsDone();
         return new String[]{"Nice! I've marked this task as done:", "  " + description};
@@ -151,9 +155,11 @@ public class TaskList {
      *     the index is a non-positive number.
      */
     public String[] unmark(int idx) throws ParameterException {
+        // check invalid index
         if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number from the list.");
         }
+
         Task task = this.tasks.get(idx - 1);
         String description = task.markAsNotDone();
         return new String[]{"OK, I've marked this task as not done yet:", "  " + description};
@@ -168,12 +174,16 @@ public class TaskList {
      *     list, or if the index is a non-positive number.
      */
     public String[] deleteTask(int idx) throws ParameterException {
+        // check empty list
         if (this.tasks.size() == 0) {
             throw new ParameterException("Your list is empty. Nothing to delete.");
         }
+
+        // check invalid index
         if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number to delete from the list.");
         }
+
         Task task = this.tasks.get(idx - 1);
         this.tasks.remove(idx - 1);
         int size = this.tasks.size();
@@ -187,12 +197,11 @@ public class TaskList {
      * @return An array of String representing the tasks in the list, in a storage-appropriate format.
      */
     public String[] formatData() {
-        int size = this.tasks.size();
-        String[] outputs = new String[size];
-        for (int i = 0; i < size; i++) {
-            outputs[i] = this.tasks.get(i).formatData();
+        List<String> outputs = new ArrayList<>(this.tasks.size());
+        for (Task task : this.tasks) {
+            outputs.add(task.formatData());
         }
-        return outputs;
+        return outputs.toArray(new String[0]);
     }
 
     /**
@@ -204,8 +213,7 @@ public class TaskList {
     public String[] filterByKeyword(String keyword) {
         List<String> filteredTasks = new ArrayList<>();
         filteredTasks.add("Here are the matching tasks in your list:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
+        for (Task task : this.tasks) {
             if (task.hasKeyword(keyword)) {
                 filteredTasks.add(filteredTasks.size() + "." + task.toString());
             }

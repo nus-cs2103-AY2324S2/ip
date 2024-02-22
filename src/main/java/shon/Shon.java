@@ -10,7 +10,7 @@ import shon.exception.ParameterException;
  * Represents a chatbot that maintains a Todo List.
  */
 public class Shon {
-    private TaskList list;
+    private TaskList tasks;
     private Storage storage;
 
     /**
@@ -18,9 +18,14 @@ public class Shon {
      */
     public Shon() {
         this.storage = new Storage("./data/Shon.txt");
-        this.list = storage.loadList();
+        this.tasks = storage.loadList();
     }
 
+    /**
+     * Parses the input into a command, executes command and return the result.
+     * @param input Input given by the user.
+     * @return String representing the result of the command.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
@@ -33,9 +38,16 @@ public class Shon {
         }
     }
 
+    /**
+     * Executes and saves the changes to the tasklist into the storage.
+     * @param command The command to be executed.
+     * @return String representing the result of the command.
+     * @throws ParameterException If any parameters to the command is invalid.
+     * @throws DateTimeParseException If date/time passed into command is in invalid format.
+     */
     private String executeCommand(Command command) throws ParameterException, DateTimeParseException {
-        String output = command.execute(this.list);
-        this.storage.updateData(this.list.formatData());
+        String output = command.execute(this.tasks);
+        this.storage.updateData(this.tasks);
         return output;
     }
 }
