@@ -43,9 +43,7 @@ public class Storage {
                 myWriter.write(t.saveFormat() + "\n");
             }
             myWriter.close();
-            this.userInterface.printMessage("\tTasks saved to " + this.filename);
         } catch (IOException e) {
-            this.userInterface.printMessage("\tFailed to save.");
         }
     }
 
@@ -56,16 +54,11 @@ public class Storage {
     public void loadFromFile() {
         try {
             File myFile = new File(this.filename);
-            System.out.println("\tWelcome back! Loading tasks...");
             Scanner sc = new Scanner(myFile);
-            int numberOfTasks = 0;
             while (sc.hasNextLine()) {
                 loadLine(sc.nextLine());
-                numberOfTasks += 1;
             }
-            System.out.println("\tLoaded " + Integer.toString(numberOfTasks) + " tasks from file.");
         } catch (FileNotFoundException e) {
-            System.out.println("\tNo tasks saved. Initializing new session.");
         }
     }
 

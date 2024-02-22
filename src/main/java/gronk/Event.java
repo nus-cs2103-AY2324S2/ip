@@ -38,8 +38,6 @@ public class Event extends Task {
      */
     public static Event createEvent(String description, int status, String start, String end) {
         try {
-            System.out.println(start);
-            System.out.println(end);
             LocalDate startTime = LocalDate.parse(start, DATE_FORMAT);
             LocalDate endTime = LocalDate.parse(end, DATE_FORMAT);
             return new Event(description, status, startTime, endTime);

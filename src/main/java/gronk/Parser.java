@@ -4,6 +4,8 @@ import exception.gronk.EmptyListException;
 import exception.gronk.UnknownCommandException;
 import exception.gronk.WrongDateFormatException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -29,9 +31,15 @@ public class Parser {
     private static UserInterface userInterface;
     private static TaskList taskList;
     private static Map<Pattern, SingleParameterRunnable> methodStore = new HashMap<>();
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final String HELP_MESSAGE = "COMMAND MENU\n"
+            + "help: loads this menu\n"
+            + "list: shows all tasks\n"
+            + "todo [TODO]: adds a new todo\n";
 
     // Patterns used
     private static final String DATE_REGEX = "(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/2[0-9]{3}";
+    private static final Pattern DATE_PATTERN = Pattern.compile(DATE_REGEX);
     private static final Pattern TODO = Pattern.compile("(?i)todo .+");
     private static final Pattern DEADLINE = Pattern.compile("(?i)deadline .+ /[bB] " + DATE_REGEX);
     private static final Pattern WRONG_DEADLINE = Pattern.compile("(?i)deadline .+ /[bB] .+");
@@ -41,6 +49,7 @@ public class Parser {
     private static final Pattern MARK = Pattern.compile("(?i)mark ([1-9][0-9]* )*([1-9][0-9]*)");
     private static final Pattern DELETE = Pattern.compile("(?i)delete ([1-9][0-9]* )*([1-9][0-9]*)");
     private static final Pattern FIND = Pattern.compile("(?i)find .+");
+    private static final Pattern HELP = Pattern.compile("(?i)help");
 
     /**
      * Constructor for Parser object.
@@ -68,6 +77,7 @@ public class Parser {
         Parser.methodStore.put(MARK, Parser::parseMark);
         Parser.methodStore.put(DELETE, Parser::parseDelete);
         Parser.methodStore.put(FIND, Parser::parseFind);
+        Parser.methodStore.put(HELP, Parser::parseHelp);
     }
 
     /**
@@ -230,12 +240,91 @@ public class Parser {
     }
 
     /**
+     * Lists all Todo objects.
+     * @return Lists all Todo objects.
+     */
+    private static String parseFindTodos() {
+        TaskList matchedTasks = new TaskList();
+        for (Task task: Parser.taskList.getAllTasks()) {
+            if (task instanceof Todo) {
+                matchedTasks.addTask(task);
+            }
+        }
+        return Parser.userInterface.returnAllTasks(matchedTasks);
+    }
+
+    /**
+     * Lists all Deadline objects.
+     * @return Lists all Deadline objects.
+     */
+    private static String parseFindDeadlines() {
+        TaskList matchedTasks = new TaskList();
+        for (Task task: Parser.taskList.getAllTasks()) {
+            if (task instanceof Deadline) {
+                matchedTasks.addTask(task);
+            }
+        }
+        return Parser.userInterface.returnAllTasks(matchedTasks);
+    }
+
+    /**
+     * Lists all Event objects.
+     * @return Lists all Event objects.
+     */
+    private static String parseFindEvents() {
+        TaskList matchedTasks = new TaskList();
+        for (Task task: Parser.taskList.getAllTasks()) {
+            if (task instanceof Event) {
+                matchedTasks.addTask(task);
+            }
+        }
+        return Parser.userInterface.returnAllTasks(matchedTasks);
+    }
+
+    /**
+     * Lists all Deadline and Event objects with a date or end date before the specified date.
+     * @return Lists all Deadline and Event objects matching the above criteria.
+     */
+    private static String parseFindByDate(String date) {
+        assert DATE_PATTERN.matcher(date).matches() : "message should follow DATE_REGEX format";
+        LocalDate time = LocalDate.parse(date, DATE_FORMAT);
+        TaskList matchedTasks = new TaskList();
+        for (Task task: Parser.taskList.getAllTasks()) {
+            if (task instanceof Deadline) {
+                LocalDate taskTime = LocalDate.parse(((Deadline) task).getTime(), DATE_FORMAT);
+                if (taskTime.isBefore(time)) {
+                    matchedTasks.addTask(task);
+                }
+            }
+            if (task instanceof Event) {
+                LocalDate taskTime = LocalDate.parse(((Event) task).getEndTime(), DATE_FORMAT);
+                if (taskTime.isBefore(time)) {
+                    matchedTasks.addTask(task);
+                }
+            }
+        }
+        return Parser.userInterface.returnAllTasks(matchedTasks);
+    }
+
+    /**
      * Generates a list of tasks with a matching description.
      * @param message
      * @return Lists all tasks with a matching description.
      */
     private static String parseFind(String message) {
         assert FIND.matcher(message).matches() : "message should follow FIND format";
+        if (message.length() >= 7) { // Checks if there is a special command
+            switch (message.substring(5, 7)) {
+            case "/t": // Finds tasks
+                return Parser.parseFindTodos();
+            case "/d": // Finds deadlines
+                return Parser.parseFindDeadlines();
+            case "/e": // Finds events
+                return Parser.parseFindEvents();
+            case "/b": // Finds deadlines and events before a certain date
+                return Parser.parseFindByDate(message.substring(8));
+            }
+        }
         String searchString = message.substring(5);
         TaskList matchedTasks = new TaskList();
         for (Task task: Parser.taskList.getAllTasks()) {
@@ -244,5 +333,13 @@ public class Parser {
             }
         }
         return Parser.userInterface.returnAllTasks(matchedTasks);
+    }
+
+    /**
+     * Generates a help message.
+     * @return Generates a simplified help message.
+     */
+    private static String parseHelp(String message) {
+        return HELP_MESSAGE;
     }
 }

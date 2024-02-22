@@ -29,21 +29,17 @@ public class UserInterface {
     public UserInterface() {}
 
     /**
-     * Prints the GOODBYE message.
+     * Returns the GOODBYE message.
      */
-    public void printGoodbye() {
-        System.out.println(GOODBYE);
-    }
-
     public String returnGoodbye() {
         return GOODBYE;
     }
 
     /**
-     * Prints the HELLO message in the prettified format.
+     * Returns the HELLO message.
      */
-    public void printHello() {
-        printMessage(WELCOME);
+    public String returnHello() {
+        return WELCOME;
     }
 
     /**

@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 /**
  * Main class.
  * Updated to use JavaFX instead of CLI.
+ *
+ * @author Cheng Jun Yuan A0255307H
+ * @version CS2103T AY23/24 Semester 2
  */
 public class Main extends Application {
 
@@ -100,18 +103,11 @@ public class Main extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
 
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
+        Label dukeText = new Label(this.userInterface.returnHello());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
     }
 
     private void handleUserInput() {
