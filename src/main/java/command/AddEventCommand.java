@@ -53,7 +53,9 @@ public class AddEventCommand extends Command {
         }
         String[] eventSplit = input.split("/");
         if (eventSplit.length < 3) {
-            throw new AndeluException("Invalid format for new Event!");
+            throw new AndeluException("Invalid format for new Event!"
+                    + "\nIt should be 'event DESCRIPTION /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'."
+                    + "\nYou can add a priority level to this task by adding this '/priority'-- High, Medium and Low.");
         }
 
         String[] priorityStringSplit = input.split("/priority");

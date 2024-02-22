@@ -52,7 +52,9 @@ public class AddDeadlineCommand extends Command {
         }
         String[] deadlineSplit = input.split("/");
         if (deadlineSplit.length < 2) {
-            throw new AndeluException("Invalid format for new Deadline!");
+            throw new AndeluException("Invalid format for new Deadline!"
+                    + "\nIt should be 'deadline DESCRIPTION /by yyyy-MM-dd HH:mm'."
+                    + "\nYou can add a priority level to this task by adding this '/priority'-- High, Medium and Low.");
         }
 
         String[] priorityStringSplit = input.split("/priority");
