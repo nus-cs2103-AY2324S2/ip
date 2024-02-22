@@ -197,11 +197,7 @@ public class TaskList {
      * @return An array of String representing the tasks in the list, in a storage-appropriate format.
      */
     public String[] formatData() {
-        List<String> outputs = new ArrayList<>(this.tasks.size());
-        for (Task task : this.tasks) {
-            outputs.add(task.formatData());
-        }
-        return outputs.toArray(new String[0]);
+        return this.tasks.stream().map(Task::formatData).toArray(String[]::new);
     }
 
     /**
