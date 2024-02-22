@@ -19,6 +19,13 @@ public class Storage {
      */
     public Storage() {
         File file = new File(Storage.FILE_PATH);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -31,7 +38,7 @@ public class Storage {
         File file = new File(FILE_PATH);
         if (file.exists()) {
             try (Scanner fileScanner = new Scanner(file)) {
-                while (fileScanner.hasNext()) {
+                while (fileScanner.hasNextLine()) {
                     String taskData = fileScanner.nextLine();
                     Task task = createTaskFromData(taskData);
                     if (task != null) {
