@@ -34,14 +34,14 @@ public class GulieUi {
     }
 
     public void printStore(Task task, int size) {
-        String line1 = " Understood. I have added this task:\n   " + task;
-        String line2 = String.format(" You now have %d tasks in the list", size);
+        String line1 = " Understood. I have added this task:\n   " + task.toString(DATE_TIME_FORMATTER);
+        String line2 = String.format(" You now have %d task%s in the list", size, size == 1 ? "" : "s");
         gulieInterface.print(line1 + '\n' + line2);
     }
 
     public void printDelete(Task task, int size) {
         String line1 = " I have removed this task:\n   " + task;
-        String line2 = String.format(" You now have %d tasks in the list", size);
+        String line2 = String.format(" You now have %d task%s in the list", size, size == 1 ? "" : "s");
         gulieInterface.print(line1 + '\n' + line2);
     }
 
@@ -69,10 +69,11 @@ public class GulieUi {
      * Displays a list of tasks found with the "find" command. 
      * @param tasklist the tasklist found
      */
-    public void printFind(GulieTasklist tasklist) {
+    public void printFind(GulieTasklist tasklist, GulieTasklist findlist) {
         String lines = " These are the matching tasks in your list: ";
-        for (int i = 0; i < tasklist.size(); i++) {
-            lines += '\n' + String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER));
+        for (int i = 0; i < findlist.size(); i++) {
+            Task task = findlist.get(i);
+            lines += '\n' + String.format(" %d. %s", tasklist.indexOf(task) + 1, task.toString(DATE_TIME_FORMATTER));
         }
         gulieInterface.print(lines);
     }
@@ -85,7 +86,7 @@ public class GulieUi {
     public void printSchedule(LocalDate date, GulieTasklist tasklist) {
         String lines = " These are the tasks you have on " + date.format(DATE_FORMATTER);
         for (int i = 0; i < tasklist.size(); i++) {
-            lines += '\n' + String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER));
+            lines += '\n' + String.format(" %s", tasklist.get(i).toString(DATE_TIME_FORMATTER));
         }
         gulieInterface.print(lines);
     }

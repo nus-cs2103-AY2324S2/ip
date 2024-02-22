@@ -1,8 +1,5 @@
 package gulie;
 
-import gulie.gui.GulieApp;
-import javafx.application.Application;
-
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -79,6 +76,7 @@ public class Gulie {
     }
 
     public static void main(String[] args) {
-        Application.launch(GulieApp.class, args);
+//        Application.launch(GulieApp.class, args);
+        launchTextGulie();
     }
 }

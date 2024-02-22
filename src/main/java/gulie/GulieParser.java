@@ -72,7 +72,7 @@ public class GulieParser {
         case "deadline": {
             try {
                 final String name = getArgument(input, "deadline", "name");
-                final LocalDateTime by = LocalDateTime.parse(getArgument(input, "/by"));
+                final LocalDateTime by = LocalDateTime.parse(getArgument(input, "/by", "deadline"));
                 return (ui, storage, tasklist) -> {
                     Deadline deadline = new Deadline(name, by);
                     tasklist.add(deadline);
@@ -87,8 +87,8 @@ public class GulieParser {
         case "event": {
             try {
                 final String name = getArgument(input, "event", "name");
-                final LocalDateTime from = LocalDateTime.parse(getArgument(input, "/from"));
-                final LocalDateTime to = LocalDateTime.parse(getArgument(input, "/to"));
+                final LocalDateTime from = LocalDateTime.parse(getArgument(input, "/from", "start"));
+                final LocalDateTime to = LocalDateTime.parse(getArgument(input, "/to", "end"));
                 return (ui, storage, tasklist) -> {
                     Event event = new Event(name, from, to);
                     tasklist.add(event);
@@ -116,7 +116,7 @@ public class GulieParser {
         case "find": {
             final String keyword = getArgument(input, "find", "keyword");
             return (ui, storage, tasklist) -> {
-                ui.printFind(tasklist.find(keyword));
+                ui.printFind(tasklist, tasklist.find(keyword));
             };
         }
         case "schedule": {
