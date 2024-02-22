@@ -98,6 +98,22 @@ public class Youdon {
                 }
             }
 
+            // if input == "snooze", add one day to the deadline
+            if (command.equals("snooze")) {
+                int taskNumber = Integer.parseInt(task);
+                Task taskToSnooze = tasks.get(taskNumber - 1);
+                if (taskToSnooze instanceof Deadline) {
+                    ((Deadline) taskToSnooze).snoozeDeadline();
+                }
+                // save in save file
+                try {
+                    this.storage.saveData(tasks);
+                    return ui.getSnoozeMsg(tasks, taskNumber) + "\n Tasklist saved!";
+                } catch (IOException e) {
+                    return "Error!" + e.getMessage();
+                }
+            }
+
             // if input == "delete", delete the specified task
             if (command.equals("delete")) {
                 int taskNumber = Integer.parseInt(task);

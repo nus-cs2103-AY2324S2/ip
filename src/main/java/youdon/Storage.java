@@ -43,10 +43,13 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveData(TaskList tasks) throws IOException {
-        FileWriter writer = new FileWriter(this.filepath);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            writer.write(task.toString() + "\n");
+        try (FileWriter writer = new FileWriter(this.filepath)) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                writer.write(task.toString() + "\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Error! " + e.getMessage());
         }
     }
 

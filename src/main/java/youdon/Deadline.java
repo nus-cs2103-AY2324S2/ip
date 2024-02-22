@@ -20,6 +20,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public void snoozeDeadline() {
+        this.deadline = this.deadline.plusDays(1);
+    }
+
     /**
      * Returns the type icon for the deadline task.
      *
