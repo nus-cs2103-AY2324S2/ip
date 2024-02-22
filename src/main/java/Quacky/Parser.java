@@ -1,6 +1,7 @@
 package quacky;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -37,24 +38,41 @@ public class Parser {
                 if (command.trim().equals("deadline")) {
                     throw new QuackyException("Quack? (Please provide a description for your task)");
                 }
-                String[] parts = command.substring(9).split(" /by ");
-                Deadline newDeadline = new Deadline(parts[0], LocalDate.parse(parts[1]));
-                return handleTasks(newDeadline, tasks, ui);
+                String[] parts = command.split(" /by ", 2);
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new QuackyException("Quack? (Please provide a date for the deadline)");
+                }
+                try {
+                    LocalDate byDate = LocalDate.parse(parts[1]);
+                    Deadline newDeadline = new Deadline(parts[0], byDate);
+                    return handleTasks(newDeadline, tasks, ui);
+                } catch (DateTimeParseException e) {
+                    throw new QuackyException("Quack? (Please provide the correct format for the deadline: YYYY-MM-DD)");
+                }
             } catch (QuackyException e) {
                 return ui.showErrorMessage(e);
             }
-        case "event":
+        case "event": {
             try {
                 if (command.trim().equals("event")) {
-                    throw new QuackyException("Quack? (Please provide a description for your task)");
+                    throw new QuackyException("Quack? (Please provide a description for your event)");
                 }
-                String[] parts = keywords[1].split(" /from | /to ");
-                Event newEvent = new Event(parts[0], LocalDate.parse(parts[1]), LocalDate.parse(parts[2]));
-                return handleTasks(newEvent, tasks, ui);
-
+                String[] parts = command.split(" /from | /to ", 3);
+                if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+                    throw new QuackyException("Quack? (Please provide start and end dates for the event)");
+                }
+                try {
+                    LocalDate fromDate = LocalDate.parse(parts[1]);
+                    LocalDate toDate = LocalDate.parse(parts[2]);
+                    Event newEvent = new Event(parts[0], fromDate, toDate);
+                    return handleTasks(newEvent, tasks, ui);
+                } catch (DateTimeParseException e) {
+                    throw new QuackyException("Quack? (Please use the correct date format for events: YYYY-MM-DD)");
+                }
             } catch (QuackyException e) {
                 return ui.showErrorMessage(e);
             }
+        }
         case "bye":
             return handleBye(ui);
         default:
