@@ -1,5 +1,7 @@
 package ally;
 
+import ally.ui.Ally;
+import ally.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(ally);
+            fxmlLoader.<MainWindow>getController().setAlly(ally);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package ally.task;
 
+import ally.exception.AllyException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,9 +19,13 @@ public class Deadline extends Task {
      * @param desc description of Deadline in required format
      */
     public Deadline(String desc) {
-        String[] splitDesc = desc.split(" /by ");
-        this.description = splitDesc[0];
-        this.by = LocalDate.parse(splitDesc[1]);
+        try {
+            String[] splitDesc = desc.split(" /by ");
+            this.description = splitDesc[0];
+            this.by = LocalDate.parse(splitDesc[1]);
+        } catch (Exception e) {
+            throw new AllyException();
+        }
     }
 
     /**
@@ -27,7 +33,7 @@ public class Deadline extends Task {
      * @return String
      */
     @Override
-    public String toString() {
+    public String toString() throws AllyException {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

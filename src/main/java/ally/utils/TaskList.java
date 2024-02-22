@@ -1,4 +1,4 @@
-package ally;
+package ally.utils;
 
 import ally.task.Task;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class TaskList extends ArrayList<Task> {
 
-    ArchiveList archive = new ArchiveList();
+    private ArchiveList archive = new ArchiveList();
 
     /**
      * Adds a Task to the TaskList.
@@ -17,7 +17,7 @@ public class TaskList extends ArrayList<Task> {
      * @param t Task to be added.
      * @return String
      */
-    String addToList(Task t) {
+    public String addToList(Task t) {
         this.add(t);
         return "Got it. I've added this duke.task:" + "\n" + t + "\n" + countTasks();
 
@@ -27,7 +27,7 @@ public class TaskList extends ArrayList<Task> {
      * Displays the tasks in the task list.
      * Tasks are numbered and each begin on a new line
      */
-    void displayList() {
+    public void displayList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.size(); i++) {
             System.out.println(i + 1 + ":" + this.get(i));
@@ -40,7 +40,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @return String
      */
-    String getTasks(String taskDetail) {
+    public String getTasks(String taskDetail) {
         if (taskDetail.toUpperCase().equals("ALL")) {
             return listAllTasks();
         }
@@ -53,7 +53,7 @@ public class TaskList extends ArrayList<Task> {
      * @param i index of the task to be marked as complete.
      * @return String
      */
-    String markComplete(int i) {
+    public String markComplete(int i) {
         this.get(i - 1).markComplete();
         assert this.get(i-1).isDone();
         return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i - 1);
@@ -65,7 +65,7 @@ public class TaskList extends ArrayList<Task> {
      * @param i index of the task to be marked as incomplete.
      * @return String
      */
-    String unmarkComplete(int i) {
+    public String unmarkComplete(int i) {
         this.get(i - 1).unmarkComplete();
         assert !this.get(i - 1).isDone();
         return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i - 1);
@@ -77,7 +77,7 @@ public class TaskList extends ArrayList<Task> {
      * @param i index of the task to be deleted.
      * @return String
      */
-    String delete(int i) {
+    public String delete(int i) {
         int s0 = this.size();
         Task t = this.remove(i - 1);
         int s1 = this.size();
@@ -91,7 +91,7 @@ public class TaskList extends ArrayList<Task> {
      * @param i index of the task to be archived
      * @return String
      */
-    String archive(int i) {
+    public String archive(int i) {
         Task t = this.remove(i-1);
         archive.add(t);
         return "Noted. I've archived this duke.task: " + "\n" + t + "\n" + countTasks();

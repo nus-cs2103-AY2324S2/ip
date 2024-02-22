@@ -1,4 +1,4 @@
-package ally;
+package ally.utils;
 
 import ally.task.Task;
 
@@ -20,7 +20,7 @@ public class Finder {
      * @param s String to be found
      * @return String response from Duke
      */
-    String find(String s) {
+    public String find(String s) {
         boolean found = false;
         StringBuilder sb = new StringBuilder();
         int ctr = 1;
@@ -35,9 +35,8 @@ public class Finder {
         if (!found) {
             sb.append("No results found.");
         } else {
-            sb.append("All results shown.");
+            sb.append("\nAll results shown.");
         }
         return sb.toString();
     }
-
 }

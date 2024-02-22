@@ -1,4 +1,6 @@
-package ally;
+package ally.utils;
+
+import ally.ui.Ally;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +21,7 @@ public class Storage {
      * Returns empty List if no previous entries found.
      * @return TaskList the list of tasks
      */
-    protected static TaskList loadTasks() {
+    public static TaskList loadTasks() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
             return (TaskList) ois.readObject();
         } catch (IOException | ClassCastException | ClassNotFoundException e) {
@@ -31,7 +33,7 @@ public class Storage {
     /**
      * Save Tasks into Storage
      */
-    protected static void saveTasks() {
+    public static void saveTasks() {
         try {
             // Ensure the parent directories exist
             File file = new File(dataPath);

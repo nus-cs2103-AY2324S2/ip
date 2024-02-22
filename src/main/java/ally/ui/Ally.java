@@ -1,11 +1,13 @@
-package ally;
+package ally.ui;
 
+import ally.utils.Finder;
+import ally.utils.Storage;
+import ally.utils.TaskList;
 import ally.exception.AllyException;
 import ally.parser.Parser;
 import ally.task.Deadline;
 import ally.task.Event;
 import ally.task.Todo;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -20,7 +22,7 @@ import javafx.scene.layout.VBox;
  */
 public class Ally {
 
-    protected static TaskList lst = new TaskList();
+    public static TaskList lst = new TaskList();
     protected static Storage storage = new Storage();
 
     private ScrollPane scrollPane;
@@ -28,18 +30,17 @@ public class Ally {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image allyImage = new Image(this.getClass().getResourceAsStream("/images/ally.png"));
     private MainWindow mainWindow;
 
     public Ally() {
         lst = storage.loadTasks();
     }
 
-    protected void linkMainWindow(MainWindow mw) {
+    public void linkMainWindow(MainWindow mw) {
         this.mainWindow = mw;
-        String logo = "        _  _        \n  __ _ | || | _   _ \n / _` || || || | | |\n| (_| || || || |_| |\n \\__,_||_||_| \\__, |\n              |___/ \n";
-        mw.addDukeMessage("Hello from" + "\n" + logo + "\n" + "How can I help you today?");
+        mw.addMessage("Hello from Ally!\nHow can I help you today?");
     }
 
     protected String getResponse(String s) {
@@ -51,7 +52,7 @@ public class Ally {
                 return lst.getTasks(taskDetail);
             case BYE:
                 Storage.saveTasks();
-                mainWindow.addDukeMessage("Bye. Hope to see you again soon!");
+                mainWindow.addMessage("Bye. Hope to see you again soon!");
                 System.exit(0);
                 // will not fall through
             case MARK:

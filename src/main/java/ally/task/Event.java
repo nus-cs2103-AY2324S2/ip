@@ -1,7 +1,10 @@
 package ally.task;
 
+import ally.exception.AllyException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Abstraction of Event Tasks.
@@ -17,11 +20,15 @@ public class Event extends Task {
      * @param desc input required in the form of {@code name /from YYYY-MM-DD /to YYYY-MM-DD}
      */
     public Event(String desc) {
-        String[] splitDesc = desc.split(" /from ");
-        this.description = splitDesc[0];
-        String[] splitPeriod = splitDesc[1].split(" /to ");
-        this.from = LocalDate.parse(splitPeriod[0]);
-        this.to = LocalDate.parse(splitPeriod[1]);
+        try {
+            String[] splitDesc = desc.split(" /from ");
+            this.description = splitDesc[0];
+            String[] splitPeriod = splitDesc[1].split(" /to ");
+            this.from = LocalDate.parse(splitPeriod[0]);
+            this.to = LocalDate.parse(splitPeriod[1]);
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            throw new AllyException();
+        }
     }
 
     /**

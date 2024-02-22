@@ -1,4 +1,4 @@
-package ally;
+package ally.utils;
 
 import ally.task.Task;
 

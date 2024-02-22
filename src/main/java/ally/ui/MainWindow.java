@@ -1,4 +1,4 @@
-package ally;
+package ally.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,16 +23,16 @@ public class MainWindow extends AnchorPane {
     private Ally ally;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private Image allyImage = new Image(this.getClass().getResourceAsStream("/images/ally.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Ally d) {
-        ally = d;
-        d.linkMainWindow(this);
+    public void setAlly(Ally a) {
+        ally = a;
+        a.linkMainWindow(this);
     }
 
     /**
@@ -46,14 +46,19 @@ public class MainWindow extends AnchorPane {
         assert response != null;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getAllyDialog(response, allyImage)
         );
 
         userInput.clear();
     }
-    protected void addDukeMessage(String s) {
+
+    /**
+     * Creates a Dialog Bog containing specified Message.
+     * @param s String to be added
+     */
+      public void addMessage(String s) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(s, dukeImage)
+                DialogBox.getAllyDialog(s, allyImage)
         );
     }
 }
