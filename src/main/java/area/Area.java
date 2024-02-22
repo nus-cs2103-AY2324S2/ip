@@ -91,6 +91,7 @@ public class Area {
      * @return the respective output based on input
      */
     String getResponse(String input) {
+        assert input != null : "input cannot be null";
         return allotTasks(input);
     }
 

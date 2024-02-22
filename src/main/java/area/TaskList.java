@@ -129,6 +129,7 @@ public class TaskList {
             Task deletedTask = tasks.get(index - 1);
             tasks.remove(index - 1);
             count -= 1;
+            assert count >= 0 : "count cannot be negative";
             return ui.deleteTask(deletedTask, this);
         }
         return "";
