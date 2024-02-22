@@ -70,6 +70,8 @@ public class Parser {
 
         } else {
             output = "Bye! Hope to see you again soon!";
+            System.out.println("Bye parsed");
+            System.out.println(tasksList.toString());
             Storage storage = new Storage(tasksList);
             try {
                 storage.store();

@@ -1,2 +1,1 @@
-T | 1 | chores
-T | 0 | hore
+T | 0 | chores

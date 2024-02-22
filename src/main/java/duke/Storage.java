@@ -22,7 +22,7 @@ public class Storage {
 
     public Storage(TaskList taskList) {
         this.taskList = taskList;
-        this.toothlessFilePath = "data/toothless.txt";
+        this.toothlessFilePath = "../data/toothless.txt";
     }
 
     /**
@@ -30,19 +30,25 @@ public class Storage {
      * @throws IOException if file cannot be created at the path
      */
     public void store() throws IOException{
+        System.out.println("Ran storage");
         String filePathOld = "./data/toothless.txt";
         File oldFile = new File(filePathOld);
         String filePathNew = "./data/toothless.txt";
-        File newFile = new File(filePathNew);
+        File newFile = new File(filePathOld);
         try {
-            boolean fileCreated = newFile.createNewFile();
+            Path filePath = Paths.get(filePathOld);
 
+            Files.createDirectories(filePath.getParent());
+
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
         } catch (IOException e) {
-            System.err.println("Error creating the file: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Error" + e.getMessage());
         }
-        FileWriter fw = new FileWriter(filePathNew);
+        FileWriter fw = new FileWriter(filePathOld);
         for (Task t : taskList.getTasksList()) {
+            System.out.println("Stored successfully");
             String textToAdd = "";
             String taskType = t.getTaskType();
             if (taskType.equals("T")) {
