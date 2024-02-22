@@ -32,7 +32,6 @@ public class Ui {
                         + "father!\n" + "If only I could be so grossly incandescent!\n";
 
         return greetingMessage;
-        //lineBreak();
     }
 
     /**
@@ -42,10 +41,5 @@ public class Ui {
         scn.close();
         String farewellMessage = "Farewell!\n";
         return farewellMessage;
-        //lineBreak();
-    }
-
-    private void lineBreak() {
-        System.out.print("--------------------------------------------------\n");
     }
 }
