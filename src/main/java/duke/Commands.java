@@ -9,6 +9,7 @@ class ClearCommand extends Command {
     @Override
     public String execute(TaskList tasks) {
         tasks.clear();
+        assert tasks.getTaskCount() == 0;
         return "Cleared all tasks!";
     }
 }
@@ -27,7 +28,9 @@ abstract class AddTaskCommand extends Command {
     @Override
     public String execute(TaskList tasks) throws DukeException {
         assert task != null : "execute() can only be called once";
+        int oldTaskCount = tasks.getTaskCount();
         tasks.addTask(task);
+        assert oldTaskCount + 1 == tasks.getTaskCount();
         String result = "Got it. I've added this task:\n" +
             task + "\n" +
             tasks.getDisplayTaskCount();
@@ -161,7 +164,9 @@ class DeleteCommand extends CommandTakingTaskIndex {
     @Override
     public String execute(TaskList tasks) throws DukeException {
         String taskToDelete = tasks.getTaskDescription(index);
+        int oldTaskCount = tasks.getTaskCount();
         tasks.deleteTask(index);
+        assert oldTaskCount - 1 == tasks.getTaskCount();
         return "Noted. I've removed this task:\n" +
             taskToDelete + "\n" +
             tasks.getDisplayTaskCount();
