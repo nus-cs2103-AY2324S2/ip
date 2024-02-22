@@ -212,17 +212,17 @@ public class Validator {
             DateTimeParseException, ParseDateException {
         String[] splitCommand = command.split(" ");
 
-        if (splitCommand.length < 4) {
-            // command has less than required parameters
-            // requirement: deadline (description) /by (date) -> 4 parameters
-            throw new MissingParametersException(ErrorMessages.INCORRECT_PARAMETERS);
-        }
-
         if (!command.contains("/by")) {
             throw new MissingParametersException(ErrorMessages.MISSING_DUE_DATE);
         }
         if (command.contains("/from") || command.contains("/to")) {
             throw new IncorrectParametersException(ErrorMessages.FROM_TO_DATE_NOT_NEEDED);
+        }
+
+        if (splitCommand.length < 4) {
+            // command has less than required parameters
+            // requirement: deadline (description) /by (date) -> 4 parameters
+            throw new MissingParametersException(ErrorMessages.INCORRECT_PARAMETERS);
         }
 
         int secondLastIndex = splitCommand.length - 2;
@@ -259,8 +259,7 @@ public class Validator {
 
         if (!command.contains("/from")) {
             throw new MissingParametersException(ErrorMessages.MISSING_FROM_DATE);
-        }
-        else if (!command.contains("/to")) {
+        } else if (!command.contains("/to")) {
             throw new MissingParametersException(ErrorMessages.MISSING_TO_DATE);
         }
         if (command.contains("/by")) {
@@ -292,8 +291,7 @@ public class Validator {
         if (eventFrom.isEmpty()) {
             System.out.println(ErrorMessages.MISSING_FROM_DATE);
             throw new MissingParametersException(ErrorMessages.MISSING_FROM_DATE);
-        }
-        else if (eventTo.isEmpty()) {
+        } else if (eventTo.isEmpty()) {
             System.out.println(ErrorMessages.MISSING_TO_DATE);
             throw new MissingParametersException(ErrorMessages.MISSING_TO_DATE);
         }

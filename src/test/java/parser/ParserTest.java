@@ -225,7 +225,7 @@ public class ParserTest {
                 Validator.validateDeadlineCommand("deadline Assignment")
         );
 
-        String expectedMessage = ErrorMessages.INCORRECT_PARAMETERS;
+        String expectedMessage = ErrorMessages.MISSING_DUE_DATE;
         String actualMessage = thrown.getMessage();
 
         assertEquals(actualMessage, expectedMessage);
