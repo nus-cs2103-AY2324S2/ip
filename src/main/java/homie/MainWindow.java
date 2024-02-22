@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,31 +20,31 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Homie homie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gojo.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/homie.png"));
+    private Image homieImage = new Image(this.getClass().getResourceAsStream("/images/homie.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setHomie(Homie h) {
+        homie = h;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Homie's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException {
+    private void handleUserInput() throws HomieException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = homie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getHomieDialog(response, homieImage)
         );
         userInput.clear();
     }

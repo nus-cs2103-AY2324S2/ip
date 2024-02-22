@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 /**
  * To-do class that extends the Task class.

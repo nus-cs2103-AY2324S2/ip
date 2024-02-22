@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 /**
  * To do Exception class. Thrown when there is an error creating to do task.

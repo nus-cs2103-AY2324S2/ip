@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 /**
  * Event class that extends Task class.

@@ -1,4 +1,4 @@
-package duke;
+package homie;
 
 /**
  * Ui Class to handle any output to user
