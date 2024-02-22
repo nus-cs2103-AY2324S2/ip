@@ -10,10 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.util.Scanner;
+import duke.Storage;
 
 /**
  * Main class of duke chatbot project. Upon running, creates a new ui to handle interactions with user and a parser to parse instructions
@@ -39,18 +41,9 @@ public class Toothless {
     public Toothless() {
         this.ui = new Ui();
         this.currentCommand = "";
-        String filePath = "data/toothless.txt";
+        String filePath = "./data/toothless.txt";
         this.parser = new Parser();
         File f = new File(filePath);
-        try {
-            boolean fileCreated = f.createNewFile();
-
-        } catch (IOException e) {
-            System.err.println("Error creating the file: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-
         FileParser fileParser = new FileParser(f);
         try {
             fileParser.parseFile(f);
