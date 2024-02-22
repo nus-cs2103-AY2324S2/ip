@@ -1,6 +1,5 @@
 package emis;
 
-import emisExceptions.EmisException;
 import emisTask.Task;
 import java.util.ArrayList;
 
@@ -45,19 +44,16 @@ public class TaskList {
      * 
      * @param taskNo The index of the task to delete.
      * @return A message confirming the deletion of the task.
-     * @throws EmisException If the specified task number is invalid.
+     * @throws AssertionError If the specified task number is invalid.
      */
-    public String deleteTask(int taskNo) throws EmisException {
+    public String deleteTask(int taskNo) {
         String response = "";
-        if (taskNo <= 0 || taskNo > this.tasklist.size()) {
-            throw new EmisException("This task does not exist!");
-        } else {
-            response += "Noted. I've removed this task:";
-            response += "\n" + this.tasklist.get(taskNo - 1).toString();
-            this.tasklist.remove(taskNo - 1);
-            response += ("\nNow you have " + this.tasklist.size() + " tasks in the list.");
-            return response;
-        }
+        assert taskNo > 0 && taskNo <= this.tasklist.size() : "Task must exist!";
+        response += "Noted. I've removed this task:";
+        response += "\n" + this.tasklist.get(taskNo - 1).toString();
+        this.tasklist.remove(taskNo - 1);
+        response += ("\nNow you have " + this.tasklist.size() + " tasks in the list.");
+        return response;
     }
 
     /**
@@ -80,17 +76,14 @@ public class TaskList {
      * 
      * @param taskNo The index of the task to mark as done.
      * @return A message confirming the task has been marked as done.
-     * @throws EmisException If the specified task number is invalid.
+     * @throws AssertionError If the specified task number is invalid.
      */
-    public String markAsDone(int taskNo) throws EmisException {
-        if (taskNo <= 0 || taskNo > tasklist.size()) {
-            throw new EmisException("This task does not exist!");
-        } else {
-            Task task = this.tasklist.get(taskNo - 1);
-            String response = task.markAsDone();
-            this.tasklist.set(taskNo - 1, task);
-            return response;
-        }
+    public String markAsDone(int taskNo) {
+        assert taskNo > 0 && taskNo <= tasklist.size() : "Task must exist!";
+        Task task = this.tasklist.get(taskNo - 1);
+        String response = task.markAsDone();
+        this.tasklist.set(taskNo - 1, task);
+        return response;
     }
 
     /**
@@ -98,17 +91,14 @@ public class TaskList {
      * 
      * @param taskNo The index of the task to mark as undone.
      * @return A message confirming the task has been marked as undone.
-     * @throws EmisException If the specified task number is invalid.
+     * @throws AssertionError If the specified task number is invalid.
      */
-    public String markAsUndone(int taskNo) throws EmisException {
-        if (taskNo <= 0 || taskNo > tasklist.size()) {
-            throw new EmisException("This task does not exist!");
-        } else {
-            Task task = this.tasklist.get(taskNo - 1);
-            String response = task.markAsUndone();
-            this.tasklist.set(taskNo - 1, task);
-            return response;
-        }
+    public String markAsUndone(int taskNo) {
+        assert taskNo > 0 && taskNo <= tasklist.size() : "Task must exist!";
+        Task task = this.tasklist.get(taskNo - 1);
+        String response = task.markAsUndone();
+        this.tasklist.set(taskNo - 1, task);
+        return response;
     }
 
     /**

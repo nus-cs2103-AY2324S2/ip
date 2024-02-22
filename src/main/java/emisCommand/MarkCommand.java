@@ -1,6 +1,5 @@
 package emisCommand;
 
-import emisExceptions.EmisException;
 import emis.TaskList;
 import emis.Storage;
 
@@ -34,7 +33,7 @@ public class MarkCommand extends Command {
             String response = tasklist.markAsDone(this.taskNo);
             storage.updateStorage();
             return response;
-        } catch (EmisException e) {
+        } catch (AssertionError e) {
             return e.getMessage();
         }
     }

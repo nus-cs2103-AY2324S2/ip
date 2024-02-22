@@ -32,8 +32,8 @@ public class TaskListTest {
         try {
             testTasklist.markAsDone(0);
             fail(); // the test should not reach this line
-        } catch (EmisException e) {
-            assertEquals("This task does not exist!", e.getMessage());
+        } catch (AssertionError e) {
+            assertEquals("Task must exist!", e.getMessage());
         }
     }
 
@@ -50,8 +50,8 @@ public class TaskListTest {
         try {
             testTasklist.deleteTask(0);
             fail(); // the test should not reach this line
-        } catch (EmisException e) {
-            assertEquals("This task does not exist!", e.getMessage());
+        } catch (AssertionError e) {
+            assertEquals("Task must exist!", e.getMessage());
         }
     }
 }

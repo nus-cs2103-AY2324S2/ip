@@ -2,7 +2,6 @@ package emisCommand;
 
 import emis.TaskList;
 import emis.Storage;
-import emisExceptions.EmisException;
 
 /**
  * The UnmarkCommand class represents a command to mark a task as undone in the EMIS application.
@@ -34,7 +33,7 @@ public class UnmarkCommand extends Command {
             String response = tasklist.markAsUndone(this.taskNo);
             storage.updateStorage();
             return response;
-        } catch (EmisException e) {
+        } catch (AssertionError e) {
             return e.getMessage();
         }
     }

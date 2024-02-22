@@ -1,6 +1,5 @@
 package emisCommand;
 
-import emisExceptions.EmisException;
 import emis.TaskList;
 import emis.Storage;
 
@@ -34,7 +33,7 @@ public class DeleteCommand extends Command {
         try {
             response = tasklist.deleteTask(this.taskNo);
             storage.updateStorage();
-        } catch (EmisException e) {
+        } catch (AssertionError e) {
             response = e.getMessage();
         }
         return response;
