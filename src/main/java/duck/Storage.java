@@ -181,14 +181,14 @@ class TaskListDecoder {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                return decodeTodoTask(description, isDone, parts);
-            case "D":
-                return decodeDeadlineTask(description, isDone, parts);
-            case "E":
-                return decodeEventTask(description, isDone, parts);
-            default:
-                return null;
+        case "T":
+            return decodeTodoTask(description, isDone, parts);
+        case "D":
+            return decodeDeadlineTask(description, isDone, parts);
+        case "E":
+            return decodeEventTask(description, isDone, parts);
+        default:
+            return null;
         }
     }
 

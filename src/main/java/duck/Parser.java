@@ -39,13 +39,6 @@ public class Parser {
     }
 
     /**
-     * Parses the tag from the user input.
-     *
-     * @param userInput The user input to parse.
-     * @return The parsed tag.
-     * @throws DukeException If an error occurs while parsing the tag.
-     */
-    /**
      * Parses the tag number and tag from the user input.
      *
      * @param userInput The user input to parse.

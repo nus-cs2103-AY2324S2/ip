@@ -156,8 +156,8 @@ public class Duck extends Application {
      */
     private void setupWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                getDialogLabel("Welcome to Duck Chatbot! How can I assist you today? " +
-                        "Use help to see the list of commands available")
+                getDialogLabel("Welcome to Duck Chatbot! How can I assist you today? "
+                        + "Use help to see the list of commands available")
         );
     }
 
