@@ -64,7 +64,8 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new ToothlessException("Toothless cannot write to file :(");
+            throw new ToothlessException("Toothless cannot write to file :( \n" +
+                    "Please check if the file is in use or if the file path is correct.");
         }
     }
 }

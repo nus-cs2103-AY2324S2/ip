@@ -17,6 +17,7 @@ import toothless.tasks.Task;
 import toothless.tasks.Todo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -41,7 +42,8 @@ public class Parser {
             return new ListCommand();
         case "FIND":
             if (split.length < 2) {
-                throw new ToothlessException("Input keyword pls");
+                throw new ToothlessException("Find command needs a keyword! >_<\n" +
+                        "Please enter in this format: find <keyword>");
             }
             return new FindCommand(split[1].trim());
         case "MARK":
@@ -56,13 +58,14 @@ public class Parser {
             return new ScheduleCommand();
         default:
             assert false : commandType;
-            throw new ToothlessException("Me dragon, no understand this action :P");
+            throw new ToothlessException("Sorry, Toothless no understand this action :P");
         }
     }
 
     private static Command parseTaskCommand(String[] split) throws ToothlessException{
         if (split.length < 2) {
-            throw new ToothlessException("Input description @_@");
+            throw new ToothlessException("Task has no name! >_<\n" +
+                    "Please enter in this format: <task_type> <task_description> [/<date>]");
         }
         String taskType = split[0].toUpperCase();
         String taskDetails = split[1].trim();
@@ -75,13 +78,14 @@ public class Parser {
             return new DeadlineCommand(taskDetails);
         default:
             assert false : taskType;
-            throw new ToothlessException("Invalid Task Command");
+            throw new ToothlessException("Invalid Task Command O_O");
         }
     }
 
     private static Command parseUpdateCommand(String[] split) throws ToothlessException {
         if (split.length < 2) {
-            throw new ToothlessException("Input number pls");
+            throw new ToothlessException("Update command has no task number! >_<\n" +
+                    "Please enter in this format: <update type> <task number>");
         }
         String updateType = split[0].toUpperCase();
         String taskDetails = split[1].trim();
@@ -94,7 +98,7 @@ public class Parser {
             return new DeleteCommand(taskDetails);
         default:
             assert false : updateType;
-            throw new ToothlessException("Invalid Update Command");
+            throw new ToothlessException("Invalid Update Command O_O");
         }
     }
 
@@ -120,10 +124,13 @@ public class Parser {
                     String endDate = storedTask[4];
                     return new Event(description, startDate, endDate, isDone);
                 default:
-                    throw new ToothlessException("File corrupted O_O.\nTry again later.");
+                    throw new ToothlessException("File corrupted O_O.\n" +
+                            "Please delete the toothless.txt file located " +
+                            "in the data folder and restart the program.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ToothlessException("File corrupted O_O.\nTry again later.");
+            throw new ToothlessException("File corrupted O_O.\n" +
+                    "Please delete the toothless.txt file located in the data folder and restart the program.");
         }
     }
 
@@ -135,9 +142,10 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTime) throws ToothlessException {
         try {
-            return LocalDateTime.parse(dateTime);
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
         } catch (DateTimeParseException e) {
-            throw new ToothlessException("Human date is not correct!");
+            throw new ToothlessException("Human date not correct! D:\n" +
+                    "Please enter in this format: yyyy-MM-dd hh:mm");
         }
     }
 }

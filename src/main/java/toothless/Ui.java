@@ -12,7 +12,7 @@ public class Ui {
     private String chatBotName = "Toothless";
     private String greetingString = "Hi! " + chatBotName + " is " + chatBotName + "!\n"
             + "What can " + chatBotName + " do for human?\n";
-    private String exitString = "Toothless will miss you, human. Toothless will be here when you need Toothless.";
+    private String exitString = "Toothless will miss you, human.\nToothless will be here when you need Toothless.";
 
     public String showWelcome() {
         return greetingString;
@@ -85,38 +85,49 @@ public class Ui {
 
     // Warning messages
     public String showNoTaskNameWarning() {
-        return "Human task no name :(";
+        return "Task has no name! >_<\n" +
+                "Please enter in this format: <task_type> <task_description> [/<date>]";
     }
 
     public String showNoDeadlineWarning() {
-        return "Human deadline no deadline @_@";
+        return "Deadline has no date! >_<\n" +
+                "Human, please enter a date for the deadline in this format: yyyy-MM-dd hh:mm\n" +
+                "with a /by in front of the date.";
     }
 
     public String showEventNoStartWarning() {
-        return "Human event no start date :/";
+        return "Event has no start date! >_<\n" +
+                "Human, please enter a start date for the event in this format: yyyy-MM-dd hh:mm\n" +
+                "with a /from in front of the date.";
     }
 
     public String showEventNoEndWarning() {
-        return "Human event no end date :/";
+        return "Event has no end date! >_<\n" +
+                "Human, please enter an end date for the event in this format: yyyy-MM-dd hh:mm\n" +
+                "with a /to in front of the date.";
     }
 
     public String showEmptyListWarning() {
-        return "Human list is empty like my tummy right now D:";
+        return "Human list is empty like my tummy right now! :(" +
+                "Please add some tasks to me! :D";
     }
 
     public String showNoMatchingTaskWarning() {
-        return "No matching tasks in your list!";
+        return "Toothless cannot find any matching tasks! :(";
     }
 
     public String showInvalidMarkWarning() {
-        return "Human trying to mark nothing ^O^.\nFoolish";
+        return "Human trying to mark nothing ^O^. Foolish.\n" +
+                "Please enter a valid task number to mark. :)";
     }
 
     public String showInvalidUnmarkWarning() {
-        return "Human trying to unmark nothing ^O^.\nSilly";
+        return "Human trying to unmark nothing ^O^. Silly.\n" +
+                "Please enter a valid task number to unmark. :)";
     }
 
     public String showInvalidDeleteWarning() {
-        return "Human trying to delete nothing ^O^.\nAbsurd";
+        return "Human trying to delete nothing ^O^. Absurd.\n" +
+                "Please enter a valid task number to delete. :)";
     }
 }

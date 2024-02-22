@@ -12,6 +12,8 @@ import toothless.ToothlessException;
 public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private static String warningMessage = "Your end date is earlier than your start date :/\n" +
+            "Please make sure your end date is after your start date.";
 
     /**
      * Constructs an Event task with the specified description, start date, and end date.
@@ -26,7 +28,7 @@ public class Event extends Task {
         LocalDateTime start = Parser.parseDateTime(startDate);
         LocalDateTime end = Parser.parseDateTime(endDate);
         if (start.isAfter(end)) {
-            throw new ToothlessException("End date is earlier :/");
+            throw new ToothlessException(warningMessage);
         }
         this.startDate = start;
         this.endDate = end;
@@ -47,7 +49,7 @@ public class Event extends Task {
         LocalDateTime start = Parser.parseDateTime(startDate);
         LocalDateTime end = Parser.parseDateTime(endDate);
         if (start.isAfter(end)) {
-            throw new ToothlessException("End date is earlier :/");
+            throw new ToothlessException(warningMessage);
         }
         this.startDate = start;
         this.endDate = end;

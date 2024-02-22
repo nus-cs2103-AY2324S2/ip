@@ -79,9 +79,9 @@ This command adds a deadline task to the task list.
 
 > Format: `deadline <task description> /by <date>`
 > 
-> Do note that the `<date>` should be in the format `YYYY-MM-DDThh:mm`
+> Do note that the `<date>` should be in the format `YYYY-MM-DD hh:mm`
 
-Example: `deadline essay assignment /by 2024-02-20T22:00`
+Example: `deadline essay assignment /by 2024-02-20 22:00`
 
 ```
 Toothless adds this task:
@@ -96,9 +96,9 @@ This command adds an event task to the task list.
 
 > Format: `event <task description> /from <date> /to <date>`
 >
-> Do note that the `<date>` should be in the format `YYYY-MM-DDThh:mm`
+> Do note that the `<date>` should be in the format `YYYY-MM-DD hh:mm`
 
-Example: `event project meeting /from 2024-02-20T22:00 /to 2024-02-20T23:00`
+Example: `event project meeting /from 2024-02-20 22:00 /to 2024-02-20 23:00`
 
 ```
 Toothless adds this task:
@@ -237,8 +237,8 @@ Toothless data are saved in the hard disk automatically after the `bye` command.
 | Action           | Format, Examples                                                                                                                  |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | Add todo         | `todo <task description>` <br> e.g., `todo read book`                                                                             |
-| Add deadline     | `deadline <task description> /by <date>` <br> e.g., `deadline essay assignment /by 2024-02-20T22:00`                              |
-| Add event        | `event <task description> /from <date> /to <date>` <br> e.g., `event project meeting /from 2024-02-20T22:00 /to 2024-02-20T23:00` |
+| Add deadline     | `deadline <task description> /by <date>` <br> e.g., `deadline essay assignment /by 2024-02-20 22:00`                              |
+| Add event        | `event <task description> /from <date> /to <date>` <br> e.g., `event project meeting /from 2024-02-20 22:00 /to 2024-02-20 23:00` |
 | List             | `list`                                                                                                                            |
 | Schedule         | `schedule`                                                                                                                        |
 | Find             | `find <keyword>` <br> e.g., `find book`                                                                                           |
