@@ -3,7 +3,7 @@
 Jayne Android is a versatile task management application designed to help you organize your tasks efficiently. With a simple and intuitive interface, Jayne Android allows you to add, manage, and sort your tasks with ease. Whether you're planning your day, managing projects, or setting reminders, Jayne Android provides you with the tools you need to stay on top of your tasks.
 
 ## Jayne Android First Look
-![Jayne Diagram](Ui.png)
+![Jayne Diagram](docs/Ui.png)
 
 ## How it works
 
