@@ -26,7 +26,7 @@
                   </ImageView>
                   <Label alignment="TOP_LEFT" text="Podz" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="Lucida Grande Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
@@ -44,10 +44,13 @@
           </ScrollPane>
             <HBox prefHeight="82.0" prefWidth="404.0" style="-fx-alignment: center; -fx-background-color: #292F3F; -fx-spacing: 5;">
                <children>
-                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="324.0" promptText="Type a command" style="-fx-background-radius: 10; -fx-background-color: #1F232F; -fx-text-inner-color: white;" HBox.hgrow="ALWAYS">
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="324.0" promptText="Write a command..." style="-fx-background-radius: 10; -fx-background-color: #1F232F; -fx-text-inner-color: white;" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="18.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Lucida Grande" size="13.0" />
+                     </font>
                   </TextField>
                 <Button fx:id="sendButton" alignment="CENTER" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #02AD83; -fx-background-radius: 10;">
                      <HBox.margin>
