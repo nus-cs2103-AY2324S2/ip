@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import rick.ui.DialogBox;
 
@@ -46,8 +45,11 @@ public class MainController {
             DialogBox dialogUser = DialogBox.getUserDialog(input, userImage);
             DialogBox dialogRick = DialogBox.getRickDialog(rick.getResponse(input), rickImage);
             vBox.getChildren().addAll(dialogUser, dialogRick);
-            userInput.clear();
         }
+        if (input.equalsIgnoreCase("bye")) {
+            System.exit(0);
+        }
+        userInput.clear();
     }
 
     /**

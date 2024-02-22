@@ -1,10 +1,10 @@
-/* Style for the user's dialog bubble */
+/* Style for the dialog bubbles */
 .bubble {
     -fx-background-radius: 15; /* rounded corners */
     -fx-padding: 10px; /* padding around the text */
 }
 
-/* Style for  background */
+/* Style for background image*/
 .bg-image {
     -fx-background-image: url("/images/background.png");
     -fx-background-attachment: fixed;
@@ -12,3 +12,21 @@
     -fx-background-repeat: repeat;
     -fx-background-size: 100% auto;
 }
+
+/* Send Button Style */
+.send-button {
+    -fx-background-color: #216c7f; /* Blue background color */
+    -fx-text-fill: white; /* White text color */
+    -fx-cursor: hand; /* Cursor style */
+}
+
+/* Hover effect */
+.send-button:hover {
+    -fx-background-color: #5096a8; /* Lighter blue background color */
+}
+
+/* Pressed effect */
+.send-button:pressed {
+    -fx-background-color: #175666; /* Darker green background color */
+}
+

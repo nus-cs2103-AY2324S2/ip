@@ -39,7 +39,7 @@ public class Executer {
                 Task markTask = this.taskList.mark(mIndex);
                 this.storage.update();
                 return "Alright, Morty, I've marked that task as done for you:\n" + markTask
-                        + "\nYou're making progress, Morty!";
+                        + "\nYou're making progress, *burp* Morty!";
             case ("U"):
                 int uIndex = Integer.parseInt(command.respond()[1]);
                 Task unmarkTask = this.taskList.unmark(uIndex);
@@ -66,7 +66,8 @@ public class Executer {
                 this.storage.update();
                 return "Fine, Morty, I'll add your stupid task to the list:\n"
                     + tTask
-                    + "\nThere, you happy now? You've got " + this.taskList.getSize() + " other pointless tasks in your stupid list.";
+                    + "\nThere, you happy now? You've got " + this.taskList.getSize()
+                        + " other pointless tasks in your stupid list.";
             case ("DL"):
                 Task dTask = this.taskList.addToList(command.respond()[1], command.respond()[2]);
                 this.storage.update();

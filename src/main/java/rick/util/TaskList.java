@@ -36,7 +36,7 @@ public class TaskList {
      */
     public String list() {
         StringBuilder string = new StringBuilder();
-        string.append("Fine, Morty, here's your list of tasks. Try not to mess it up:");
+        string.append("Fine, Morty, here's your list of tasks. Try not to mess it up:\n");
         for (int i = 0; i < tasks.size(); i++) {
             string.append((i + 1) + ". " + tasks.get(i) + "\n");
         }

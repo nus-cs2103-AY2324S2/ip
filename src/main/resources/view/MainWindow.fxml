@@ -26,7 +26,7 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin></TextField>
-                  <Button fx:id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="26.0" prefWidth="53.5" text="Button">
+                  <Button fx:id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="26.0" prefWidth="53.5" styleClass="send-button" stylesheets="@../css/styles.css" text="Send">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></Button>

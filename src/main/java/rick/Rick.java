@@ -52,7 +52,7 @@ public class Rick {
         } catch (Exception e) {
             return "Aw, jeez, Morty, I did not see that coming. "
                     + "This is... this is bad. I need a drink. I need several drinks. "
-                    + "This is... this is really, really bad. Pass me the flask, Morty. "
+                    + "Pass me the flask, Morty. "
                     + "I think I'm gonna need it. Oh, and uh, Morty, send me a report at uh, "
                     + "https://forms.gle/hnnDTA7qYMnhJvQ46, so I can try to fix this mess. "
                     + "Thanks, Morty. You're... you're a good kid..";

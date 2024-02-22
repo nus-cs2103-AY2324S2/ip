@@ -3,6 +3,7 @@ package rick;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -27,6 +28,8 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             loader.<MainController>getController().setRick(rick);
             stage.setScene(scene);
+            stage.setTitle("Rick");
+            stage.getIcons().add(new Image("/images/icon.avif"));
             stage.show();
             loader.<MainController>getController().greet();
         } catch (Exception e) {
