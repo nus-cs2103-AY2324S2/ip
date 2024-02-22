@@ -6,7 +6,6 @@ public class Lumiere {
 
     private Storage storage;
     private TaskList tasks;
-    @SuppressWarnings("unused")
     private Ui ui;
     public static String TASK_LIST_PATH = "./lumiere.txt";
 
@@ -32,5 +31,14 @@ public class Lumiere {
         } catch (IOException err) {
             return "Sorry! This is an invalid command.";
         }
+    }
+
+    public void run() throws IOException {
+        Lumiere lumiere = new Lumiere();
+        lumiere.ui.run(lumiere.tasks, lumiere.storage);
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Lumiere().run();
     }
 }

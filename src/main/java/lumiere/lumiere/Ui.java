@@ -15,6 +15,7 @@ public class Ui {
      * @throws IOException If addTask throws an exception.
      */
     public void run(TaskList tasks, Storage storage) throws IOException {
+        System.out.println(Ui.greet());
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String nextTask = scanner.nextLine();
