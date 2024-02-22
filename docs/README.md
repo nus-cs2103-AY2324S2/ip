@@ -2,7 +2,7 @@
 
 Henry is a desktop chatbot app for managing tasks, optimized for use via Command Line Interface (CLI).
 
-Here are what Henry can do:
+Here's what Henry can do:
 - Adding a `todo` task that has only description.
 - Adding a `deadline` task that has description, and a deadline datetime (`by`).
 - Adding an `event` task that has description, a starting datetime (`from`) and an ending datetime (`to`).
