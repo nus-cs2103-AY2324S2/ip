@@ -31,5 +31,13 @@ public class TaskListTest {
         } catch (IndexOutOfBoundsException e) {
             assertEquals("Task index is out of bounds.", e.getMessage());
         }
+
+        try {
+            Task actualOutput = input.getTask(-1);
+            assertEquals(task1, actualOutput);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals("Task index is out of bounds.", e.getMessage());
+        }
     }
 }

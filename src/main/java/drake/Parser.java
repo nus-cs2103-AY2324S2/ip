@@ -52,11 +52,14 @@ public class Parser {
      * @throws Exception if the deadline format is incorrect or if the 'deadline' keyword is misspelled.
      */
     public static Object[] parseDeadline(String input) throws Exception {
-        assert input != null && input.contains(" /by ") : "Input must contain '/by' to specify the deadline.";
+        assert input != null : "Input must not be null";
         String[] parts = input.split(" /by ");
         if (parts.length == 1) {
             throw new IllegalArgumentException("Looks like you didn't input the 'by' sub-command. "
                     + "This isn't allowed!");
+        }
+        if (!parts[0].split(" ")[0].equals("deadline")) {
+            throw new Exception("Looks like you spelt deadline wrong. Please try again!");
         }
 
         String description = parts[0].substring(parts[0].indexOf(' ') + 1).trim();

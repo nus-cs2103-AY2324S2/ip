@@ -15,7 +15,9 @@ public class ParserTest {
         Object[] actualOutput = Parser.parseDeadline(testInput);
         Object[] expectedOutput = {"eat dinner", LocalDate.parse("2024-12-01",
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
-        assertEquals(expectedOutput, actualOutput);
+
+        assertEquals(expectedOutput[0], actualOutput[0]);
+        assertEquals(expectedOutput[1], actualOutput[1]);
     }
 
     @Test
@@ -26,7 +28,8 @@ public class ParserTest {
             Object[] actualOutput = Parser.parseDeadline(testInput);
             Object[] expectedWrongOutput = {"eat dinner", LocalDate.parse("2024-14-01",
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
-            assertEquals(actualOutput, expectedWrongOutput);
+            assertEquals(expectedWrongOutput[0], actualOutput[0]);
+            assertEquals(expectedWrongOutput[1], actualOutput[1]);
             fail(); //This block should not be run.
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,6 +47,20 @@ public class ParserTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             assertEquals("Looks like you spelt deadline wrong. Please try again!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseDeadlineNoByTest() {
+        try {
+            String testInput = "deadline eat dinner 2024-12-01";
+
+            Parser.parseDeadline(testInput);
+            fail(); //This block should not be run.
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            assertEquals("Looks like you didn't input the 'by' sub-command. "
+                    + "This isn't allowed!", e.getMessage());
         }
     }
 }
