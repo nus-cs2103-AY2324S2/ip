@@ -1,11 +1,12 @@
 package cruisey.command;
+import static com.sun.javafx.application.PlatformImpl.exit;
 
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.storage.Storage;
 import cruisey.task.Deadline;
 import cruisey.task.Event;
@@ -14,8 +15,8 @@ import cruisey.task.TaskList;
 import cruisey.task.TaskPriority;
 import cruisey.task.ToDo;
 import cruisey.ui.Ui;
-
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.
@@ -73,14 +74,14 @@ public class Parser {
      * and handling any exceptions that may occur. The processed response is then printed with
      * appropriate formatting.
      *
-     * @throws DukeException If there is an issue processing the command.
+     * @throws CruiseyException If there is an issue processing the command.
      */
-    public void processCommand() throws DukeException {
+    public void processCommand() throws CruiseyException {
         String[] words = command.split("\\s+");
         try {
             ui.printDashes();
             handleCommand(words);
-        } catch (DukeException | IOException e) {
+        } catch (CruiseyException | IOException e) {
             handleError(e);
         } finally {
             ui.printDashes();
@@ -94,14 +95,15 @@ public class Parser {
      * the execution to the corresponding method.
      *
      * @param words An array of words obtained by splitting the user command.
-     * @throws DukeException If there is an issue handling the command.
+     * @throws CruiseyException If there is an issue handling the command.
      * @throws IOException  If an I/O error occurs during command execution.
      */
-    private void handleCommand(String[] words) throws DukeException, IOException {
+    private void handleCommand(String[] words) throws CruiseyException, IOException {
         final String firstWord = words[0].toLowerCase();
         switch (firstWord) {
         case "bye":
             handleByeCommand();
+            exitWithDelay();
             break;
         case "list":
             handleListCommand();
@@ -134,6 +136,21 @@ public class Parser {
     }
 
     /**
+     * Exits the application after introducing a delay.
+     *
+     * This method schedules the exit code to run on the JavaFX Application Thread
+     * after a specified delay using a {@link PauseTransition}.
+     *
+     * Note: The delay is set to 2 seconds (2000 milliseconds) by default.
+     */
+    private void exitWithDelay() {
+        Duration delayDuration = Duration.seconds(2);
+        PauseTransition pause = new PauseTransition(delayDuration);
+        pause.setOnFinished(event -> exit());
+        pause.play();
+    }
+
+    /**
      * Handles the 'bye' command, sets the response to the goodbye message, and marks the application
      * as not running.
      */
@@ -146,9 +163,9 @@ public class Parser {
      * Handles the 'list' command, sets the response to the formatted task list, and prints the
      * number of tasks.
      *
-     * @throws DukeException If there is an issue handling the 'list' command.
+     * @throws CruiseyException If there is an issue handling the 'list' command.
      */
-    private void handleListCommand() throws DukeException {
+    private void handleListCommand() throws CruiseyException {
         this.response = Ui.showTaskList(tasks) + "\n" + TaskList.getList(tasks);
     }
 
@@ -158,9 +175,9 @@ public class Parser {
      *
      * @param words An array of words obtained by splitting the user command.
      * @throws IOException  If an I/O error occurs during command execution.
-     * @throws DukeException If there is an issue handling the 'mark' command.
+     * @throws CruiseyException If there is an issue handling the 'mark' command.
      */
-    private void handleMarkCommand(String[] words) throws IOException, DukeException {
+    private void handleMarkCommand(String[] words) throws IOException, CruiseyException {
         if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "mark what? Please re-enter correctly with the task number!";
             Ui.showError(error);
@@ -188,9 +205,9 @@ public class Parser {
      *
      * @param words An array of words obtained by splitting the user command.
      * @throws IOException  If an I/O error occurs during command execution.
-     * @throws DukeException If there is an issue handling the 'unmark' command.
+     * @throws CruiseyException If there is an issue handling the 'unmark' command.
      */
-    private void handleUnmarkCommand(String[] words) throws IOException, DukeException {
+    private void handleUnmarkCommand(String[] words) throws IOException, CruiseyException {
         if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "unmark what? Please re-enter correctly with the task number!";
             Ui.showError(error);
@@ -237,13 +254,18 @@ public class Parser {
      * Handles the 'delete' command by removing a task, saves the tasks, and sets the hasChanged flag.
      *
      * @param words An array of words obtained by splitting the user command.
-     * @throws DukeException If there is an issue handling the 'delete' command.
+     * @throws CruiseyException If there is an issue handling the 'delete' command.
      * @throws IOException  If an I/O error occurs during command execution.
      */
-    private void handleDeleteCommand(String[] words) throws DukeException, IOException {
+    private void handleDeleteCommand(String[] words) throws CruiseyException, IOException {
         int taskNumber = Integer.parseInt(words[1]) - 1;
         if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "delete what? Please re-enter correctly with the task number!";
+            Ui.showError(error);
+            this.response = error;
+            return;
+        } else if (taskNumber > tasks.size()) {
+            String error = "you have not created a task " + words[1] + " for me to delete yet!";
             Ui.showError(error);
             this.response = error;
             return;
@@ -258,10 +280,10 @@ public class Parser {
      * Handles the 'todo' command by creating a new ToDo task, adding it to the task list,
      * saving the tasks, and setting the hasChanged flag.
      *
-     * @throws DukeException If there is an issue handling the 'todo' command.
+     * @throws CruiseyException If there is an issue handling the 'todo' command.
      * @throws IOException  If an I/O error occurs during command execution.
      */
-    private void handleToDoCommand() throws DukeException, IOException {
+    private void handleToDoCommand() throws CruiseyException, IOException {
         Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
         String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
 
@@ -284,10 +306,10 @@ public class Parser {
      * saving the tasks, and setting the hasChanged flag.
      *
      * @param words An array of words obtained by splitting the user command.
-     * @throws DukeException If there is an issue handling the 'deadline' command.
+     * @throws CruiseyException If there is an issue handling the 'deadline' command.
      * @throws IOException  If an I/O error occurs during command execution.
      */
-    private void handleDeadlineCommand(String[] words) throws DukeException, IOException {
+    private void handleDeadlineCommand(String[] words) throws CruiseyException, IOException {
         Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
         String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
 
@@ -326,10 +348,10 @@ public class Parser {
      * saving the tasks, and setting the hasChanged flag.
      *
      * @param words An array of words obtained by splitting the user command.
-     * @throws DukeException If there is an issue handling the 'event' command.
+     * @throws CruiseyException If there is an issue handling the 'event' command.
      * @throws IOException  If an I/O error occurs during command execution.
      */
-    private void handleEventCommand(String[] words) throws DukeException, IOException {
+    private void handleEventCommand(String[] words) throws CruiseyException, IOException {
         Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
         String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
 
@@ -385,9 +407,9 @@ public class Parser {
      * Handles the 'find' command by searching for tasks containing a specific keyword,
      * displaying the found tasks, and printing the number of tasks.
      *
-     * @throws DukeException If there is an issue handling the 'find' command.
+     * @throws CruiseyException If there is an issue handling the 'find' command.
      */
-    private void handleFindCommand() throws DukeException {
+    private void handleFindCommand() throws CruiseyException {
         if (command.length() <= FULL_FIND_COMMAND_LENGTH) {
             String reply = "find what? Please re-enter correctly!";
             ui.showError(reply);
@@ -406,9 +428,9 @@ public class Parser {
     /**
      * Handles default commands by displaying an error message indicating that the command is not recognized.
      *
-     * @throws DukeException If there is an issue handling the default command.
+     * @throws CruiseyException If there is an issue handling the default command.
      */
-    private void handleDefaultCommand() throws DukeException {
+    private void handleDefaultCommand() throws CruiseyException {
         String reply = "I don't know what you are saying :(";
         ui.showError(reply);
         this.response = reply;
@@ -418,9 +440,9 @@ public class Parser {
      * Handles exceptions by displaying the error message to the user and setting the response.
      *
      * @param e The exception that occurred.
-     * @throws DukeException If there is an issue handling the error.
+     * @throws CruiseyException If there is an issue handling the error.
      */
-    private void handleError(Exception e) throws DukeException {
+    private void handleError(Exception e) throws CruiseyException {
         ui.showError(e.getMessage());
         this.response = e.getMessage();
     }

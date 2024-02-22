@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.ui.Ui;
 
 /**
@@ -34,10 +34,10 @@ public class Event extends Task {
      * @param fromString   The string representation of the start time.
      * @param toString     The string representation of the end time.
      * @param priority    The priority of the task.
-     * @throws DukeException If there are issues with the provided description or duration.
+     * @throws CruiseyException If there are issues with the provided description or duration.
      */
     public Event(String description, String fromString, String toString, Ui ui, TaskPriority priority)
-            throws DukeException {
+            throws CruiseyException {
         super(TaskType.E, description, priority);
         this.fromString = fromString.trim();
         this.toString = toString.trim();
@@ -51,9 +51,9 @@ public class Event extends Task {
      * Validates the inputs and ensures that either LocalDateTime or its corresponding string representation is
      * non-null.
      *
-     * @throws DukeException If there is an issue with the date-time parsing or if the inputs are invalid.
+     * @throws CruiseyException If there is an issue with the date-time parsing or if the inputs are invalid.
      */
-    public void initializeEvent() throws DukeException {
+    public void initializeEvent() throws CruiseyException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             this.from = LocalDateTime.parse(fromString, dateTimeFormatter);
@@ -81,7 +81,8 @@ public class Event extends Task {
      * @return The start time as an Object (either LocalDateTime or String).
      */
     public Object getFrom() {
-        return (this.from != null) ? this.from : this.fromString;
+        return (this.from != null) ? getFromTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                : getFromString();
     }
     /**
      * Gets the representation of the end time (either LocalDateTime or the original string).
@@ -89,15 +90,15 @@ public class Event extends Task {
      * @return The end time as an Object (either LocalDateTime or String).
      */
     public Object getTo() {
-        return (this.to != null) ? this.to : this.toString;
+        return (this.to != null) ? getToTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : getToString();
     }
 
     /**
      * Validates the inputs to ensure that required information is provided.
      *
-     * @throws DukeException If validation fails.
+     * @throws CruiseyException If validation fails.
      */
-    private void validateInputs() throws DukeException {
+    private void validateInputs() throws CruiseyException {
         if ((from == null && to == null) && (fromString.isEmpty() && toString.isEmpty())) {
             Ui.showError("You did not mention the duration! Please re-enter correctly!");
         } else if (from == null && fromString.isEmpty()) {
