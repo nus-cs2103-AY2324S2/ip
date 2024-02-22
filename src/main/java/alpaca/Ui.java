@@ -34,6 +34,7 @@ public class Ui {
         if (list.size() == 0) {
             return "Sorry, you haven't created any tasks yet :(";
         }
+        assert !list.isEmpty(): "List is not supposed to be empty";
         String result = "";
         result += " Here are the tasks in your list:";
         int counter = 1;

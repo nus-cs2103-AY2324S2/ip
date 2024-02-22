@@ -24,6 +24,7 @@ public abstract class ReadData {
         if (!f.isFile()) {
             return;
         }
+        assert f.isFile(): "File should exist here";
         try {
             Scanner scanner = new Scanner(f);
             while (scanner.hasNextLine()) {
@@ -56,6 +57,8 @@ public abstract class ReadData {
             return;
         }
         createFile();
+        File f = new File(dataPath);
+        assert f.exists(): "File supposed to exist after createFile";
         try {
             new FileOutputStream(dataPath).close();
             BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath, true));
