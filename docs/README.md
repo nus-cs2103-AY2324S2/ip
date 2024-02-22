@@ -14,6 +14,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
 3. [Marking or unmarking a task as done](#marking-a-task-as-done)
 4. [Deleting a task](#deleting-a-task)
 5. [Finding tasks related to input](#finding-a-task)
+6. [local storage](#local-storage)
 
 
 ## Adding a task
@@ -140,4 +141,10 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
     1. [T][ ] read book
     2. [D][ ] return book (by: Sep 17 2021)
     ```
-  
+
+## Local storage
+- chat stores all tasks in a local file, so that the tasks are not lost when the app is closed.
+- the file is located at `data/tasks.txt` relative to the location of the jar file
+- the file is created if it does not exist
+- the file is updated every time a task is added, deleted, or marked as done
+- the file is read every time the app is started, to load the tasks into the app
