@@ -6,7 +6,6 @@ import Duke.Exception.CommandException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static Duke.phrase.phrase.phraseCommand;
 
@@ -15,14 +14,31 @@ import static Duke.phrase.phrase.phraseCommand;
  * It supports loading activities from a specified file and saving activities back to that file. This class enables
  * the application to maintain state across sessions by reading from and writing to a file system.
  */
+/**
+ * The {@code LocalList} class is responsible for managing the persistence of {@link Activity} objects to a local file.
+ * It supports loading activities from a specified file and saving activities back to that file. This class enables
+ * the application to maintain state across sessions by reading from and writing to a file system.
+ */
 public class LocalList {
+
+    /**
+     * The file object representing the local file where activities are stored.
+     */
     private final File FILE;
 
+    /**
+     * Constructs a {@code LocalList} instance with the specified file path.
+     *
+     * @param filePath The file path for the local file.
+     */
     public LocalList(String filePath) {
         this.FILE = new File(filePath);
         initializeFile();
     }
 
+    /**
+     * Initializes the file, creating it and its parent directories if they do not exist.
+     */
     private void initializeFile() {
         if (!FILE.exists()) {
             // If the file doesn't exist, create directory and file
@@ -35,6 +51,11 @@ public class LocalList {
         }
     }
 
+    /**
+     * Writes the given list of activities to the local file.
+     *
+     * @param list The array of strings representing the activities to be written.
+     */
     public void write(String[] list) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE))) {
             for (String activity : list) {
@@ -46,6 +67,11 @@ public class LocalList {
         }
     }
 
+    /**
+     * Reads activities from the local file and updates the provided {@link ActivityList}.
+     *
+     * @param list The {@link ActivityList} to be updated based on the contents of the local file.
+     */
     public void read(ActivityList list) {
         assert list != null : "ActivityList should not be null";
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE))) {
