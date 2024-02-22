@@ -34,7 +34,7 @@ Free up space in your mind, and allow Scribbles to be the fish friend you need i
 
 ## Quick start
 1. Ensure you have Java 11 or above installed in your computer
-2. Download `scribbles.jar` from [here](docs/README.md)
+2. Download the lastest release of `scribbles.jar` from [here](https://github.com/danielleloh/ip/releases)
 3. Open to your terminal and go to the folder containing `scribbles.jar`
 4. Enter `java -jar scribbles.jar` to launch Scribbles!
 
