@@ -50,4 +50,9 @@ public class Ui {
         return "Alright! Task added:\n  " + tasks.get(index).toString() + "\n" +
                 "You now have " + tasks.size() + " task(s) in the list." + "\n";
     }
+
+    public String getSnoozeMsg(TaskList tasks, int taskNumber) {
+        return "Okies! The task has been snoozed by 1 day:" + "\n" +
+                "  " + tasks.get(taskNumber - 1).toString() + "\n";
+    }
 }

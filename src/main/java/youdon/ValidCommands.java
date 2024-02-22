@@ -12,7 +12,8 @@ public enum ValidCommands {
     LIST("list"),
     BYE("bye"),
     DELETE("delete"),
-    FIND("find");
+    FIND("find"),
+    SNOOZE("snooze");
 
 
     private final String command;
