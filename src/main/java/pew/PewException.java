@@ -28,6 +28,18 @@ public class PewException extends Exception{
         }
     }
 
+    static void validateDeadline(String str) throws PewException {
+        if (!str.contains("/by")) {
+            throw new PewException("Deadline Date Missing!");
+        }
+    }
+
+    static void validateEvent(String str) throws PewException {
+        if (!str.contains("/from") || !str.contains("/to")) {
+            throw new PewException("Event Start and End Date Missing!");
+        }
+    }
+
     /**
      * Validates the instruction is in the list of valid instructions
      *
