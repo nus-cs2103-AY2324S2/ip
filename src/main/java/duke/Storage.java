@@ -73,14 +73,20 @@ public class Storage {
     public ArrayList<Task> loadTasksFromFile() {
         try {
             FileInputStream readTasks = new FileInputStream(this.myStorageFile);
+            if (readTasks.available() == 0) {
+                readTasks.close();
+                System.out.println("No tasks in file.");
+                return new ArrayList<Task>();
+            }
+
             ObjectInputStream readStream = new ObjectInputStream(readTasks);
 
             // The file will only contain ArrayList<Task> object.
             // So it is safe to typecast.
             @SuppressWarnings("unchecked")
-            ArrayList<Task> myList = (ArrayList<Task>) readStream.readObject();
+            ArrayList<Task> taskList = (ArrayList<Task>) readStream.readObject();
             readStream.close();
-            return myList;
+            return taskList;
         } catch (Exception e) {
             System.out.println("Error loading task: " + e.getMessage());
         }
