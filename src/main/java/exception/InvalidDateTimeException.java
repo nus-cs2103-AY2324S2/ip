@@ -24,6 +24,6 @@ public class InvalidDateTimeException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "Please provide the time in this format: 'yyyy-mm-dd hh:mm'\n";
+        return "buzz buzz~~ Please provide the time in this format: 'yyyy-mm-dd hh:mm'\n";
     }
 }

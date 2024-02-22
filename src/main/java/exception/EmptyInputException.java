@@ -25,13 +25,13 @@ public class EmptyInputException extends DukeException {
     public String getMessage() {
         String str;
         if (message.equals("find")) {
-            str = "OOPS!!! No keyword was provided.\n";
+            str = "buzz buzz~~ No keyword was provided.\n";
         } else if (message.equals("update position")) {
-            str = "OOPS!!! The task number was not provided.\n";
+            str = "buzz buzz~~ The task number was not provided.\n";
         } else if (message.equals("update description")) {
-            str = "OOPS!!! No new description was provided.\n";
+            str = "buzz buzz~~ No new description was provided.\n";
         } else {
-            str = "OOPS!!! The description of a " + this.message + " cannot be empty.\n";
+            str = "buzz buzz~~ The description of a " + this.message + " cannot be empty.\n";
         }
 
         return str;
