@@ -31,6 +31,9 @@ public class Storage {
             File dir = this.file.getParentFile();
             boolean isNewDir = dir.mkdirs();
             boolean isNewFile = this.file.createNewFile();
+
+            assert dir.exists() : "Parent directory(s) for storage is not created";
+            assert this.file.exists() : "Storage file is not created";
         } catch (IOException e) {
             throw new Error("There is an error in creating/opening the \"Shon.txt\" file."
                     + " Check if new directory is created.");
@@ -46,6 +49,7 @@ public class Storage {
      */
     public TaskList loadList() {
         try {
+            assert this.file.exists() : "Storage file is not created";
             Scanner scanner = new Scanner(this.file);
             TaskList list = new TaskList();
             while (scanner.hasNext()) {
@@ -73,6 +77,7 @@ public class Storage {
 
     private void addTodo(String data, TaskList list) {
         String[] d = data.split(" \\| ", 3);
+        assert d[0].equals("T") : "Provided data is not a Todo storage data";
         String isDoneStatus = d[1];
         String description = d[2];
         boolean isDone = isDoneStatus.equals("1");
@@ -81,6 +86,7 @@ public class Storage {
 
     private void addDeadline(String data, TaskList list) {
         String[] d = data.split(" \\| ", 4);
+        assert d[0].equals("D") : "Provided data is not a Deadline storage data";
         String isDoneStatus = d[1];
         String description = d[2];
         String by = d[3];
@@ -90,6 +96,7 @@ public class Storage {
 
     private void addEvent(String data, TaskList list) {
         String[] d = data.split(" \\| ", 5);
+        assert d[0].equals("E") : "Provided data is not an Event storage data";
         String isDoneStatus = d[1];
         String description = d[2];
         String from = d[3];

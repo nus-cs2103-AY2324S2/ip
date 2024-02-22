@@ -19,6 +19,9 @@ public class Shon {
     public Shon() {
         this.storage = new Storage("./data/Shon.txt");
         this.tasks = storage.loadList();
+
+        assert this.storage != null : "No storage initialised in Shon";
+        assert this.tasks != null : "No tasklist initialised in Shon";
     }
 
     /**
