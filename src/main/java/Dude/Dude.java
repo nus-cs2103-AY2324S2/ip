@@ -62,10 +62,7 @@ public class Dude {
                     tasks.get(index).markAsNotDone();
                     return ui.showUndone(tasks.get(index));
                 case DELETE:
-                    index = Parser.getDeleteIndex(input);
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new IndexOutOfBoundsException("Task number does not exist.");
-                    }
+                    index = Parser.getDeleteIndex(input, tasks.size());
                     Task removedTask = tasks.remove(index);
                     return ui.showDelete(removedTask);
                 case FIND:
@@ -77,22 +74,11 @@ public class Dude {
                     tasks.add(todo);
                     return ui.showAddTask(todo);
                 case DEADLINE:
-                    if (!cmd.info.contains(" /by ")) {
-                        throw new IllegalArgumentException(
-                                "Invalid deadline format. Use '/by' to specify the deadline.");
-                    }
-                    String[] deadlineParts = cmd.info.split(" /by ", 2);
-                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    Deadline deadline = Deadline.fromCmd(cmd);
                     tasks.add(deadline);
                     return ui.showAddTask(deadline);
                 case EVENT:
-                    if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
-                        throw new IllegalArgumentException(
-                                "Invalid event format. Use '/from' and '/to' to specify the event times.");
-                    }
-                    String[] eventParts = cmd.info.split(" /from ", 2);
-                    String[] eventTimes = eventParts[1].split(" /to ", 2);
-                    Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+                    Event newEvent = Event.fromCmd(cmd);
                     tasks.add(newEvent);
                     return ui.showAddTask(newEvent);
             }
@@ -161,6 +147,7 @@ abstract class Task {
     public abstract String toString();
 
     public abstract String toFileString();
+
 }
 
 
@@ -238,6 +225,15 @@ class Deadline extends Task {
         String byDate = by.format(formatter);
         return "D|" + (isDone ? "1" : "0") + "|" + description + "|" + byDate;
     }
+
+    public static Deadline fromCmd(Command cmd) {
+        if (!cmd.info.contains(" /by ")) {
+            throw new IllegalArgumentException(
+                    "Invalid deadline format. Use '/by' to specify the deadline.");
+        }
+        String[] deadlineParts = cmd.info.split(" /by ", 2);
+        return new Deadline(deadlineParts[0], deadlineParts[1]);
+    }
 }
 
 
@@ -286,6 +282,16 @@ class Event extends Task {
         String startDate = start.format(formatter);
         String endDate = end.format(formatter);
         return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + startDate + "|" + endDate;
+    }
+
+    public static Event fromCmd(Command cmd) {
+        if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
+            throw new IllegalArgumentException(
+                    "Invalid event format. Use '/from' and '/to' to specify the event times.");
+        }
+        String[] eventParts = cmd.info.split(" /from ", 2);
+        String[] eventTimes = eventParts[1].split(" /to ", 2);
+        return new Event(eventParts[0], eventTimes[0], eventTimes[1]);
     }
 }
 
@@ -545,8 +551,12 @@ class Command {
      * @param input The user input as a String.
      * @return The index of the task to be deleted.
      */
-    public static int getDeleteIndex(String input) {
-        return Integer.parseInt(input.substring(7));
+    public static int getDeleteIndex(String input, Integer maxSize) {
+        int index = Integer.parseInt(input.substring(7));
+        if (index < 0 || index >= maxSize) {
+            throw new IndexOutOfBoundsException("Task number does not exist.");
+        }
+        return index;
     }
 
 }
