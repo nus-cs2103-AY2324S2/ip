@@ -12,7 +12,7 @@ Here's the full list of features (and commands) that comes with Destiny:
 * Displaying the tasks in the task list
   * list 
   * find
-* Progress Tracking
+* Progress tracking
   * mark
   * unmark
 * Adding tasks to the task list
@@ -121,56 +121,71 @@ Now you have 4 tasks in the list.
 
 ### Deadline
 
+Creates a Deadline task.
 
-Creates a ToDo task.
+Format: `deadline [description] /by [date & time]`
 
-Format: `todo [description]`
-
-Example: `todo Get 7 hours of sleep`
+Example: `deadline create notes for finals /by 27/02/2024 2359`
 
 Displays the new task you have added to the task list.
 
 ```
 Got it. I've added this task:
-   [T][ ] Get 7 hours of sleep
-Now you have 4 tasks in the list.
+   [D][ ] create notes for finals (by: Feb 27 2024 11:59PM)
+Now you have 5 tasks in the list.
 ```
 
 ### Event
 
-Creates a ToDo task.
+Creates an Event task.
 
-Format: `todo [description]`
+Format: `event [description] /from [date & time] /to [date & time]`
 
-Example: `todo Get 7 hours of sleep`
+Example: `event recess week /from 24/02/2024 0000 /to 03/03/2024 2359`
 
 Displays the new task you have added to the task list.
 
 ```
 Got it. I've added this task:
-   [T][ ] Get 7 hours of sleep
-Now you have 4 tasks in the list.
+   [E][ ] recess week (from: Feb 24 2024 12:00AM  to: Mar 03 2024 11:59PM)
+Now you have 6 tasks in the list.
 ```
 
-### 
+## Removing tasks
 
-// Describe the action and its outcome.
+Destiny allows you to delete certain tasks with the delete command.
 
-// Give examples of usage
+### Delete
 
-Example: `keyword (optional arguments)`
+Deletes the task specified by you. The task deleted will follow the index indicated when
+using the `list` command
 
-// A description of the expected outcome goes here
+Format: `delete [index]`
+
+Example: `delete 6`
+
+The task deleted is then displayed.
 
 ```
-expected output
+Noted. I've removed this task:
+   [E][ ] recess week (from: Feb 24 2024 12:00AM  to: Mar 03 2024 11:59PM)
+Now you have 5 tasks in the list.
 ```
 
-## Feature ABC
+## Exiting Destiny
 
-// Feature details
+Once you are done interacting destiny, bid farewell to destiny by saying `bye`
+and it'll wrap up things and close itself.
 
+### Bye
 
-## Feature XYZ
+Destiny will begin closing upon this command.
 
-// Feature details
+Format: `bye`
+
+Destiny then replies with the following message before closing.
+
+```
+It's been nice chatting with you!.
+Hope to see you again soon!
+```

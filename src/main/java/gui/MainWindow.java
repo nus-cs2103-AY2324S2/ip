@@ -84,6 +84,4 @@ public class MainWindow extends AnchorPane {
             pauseProgram.play();
         }
     }
-
-
 }
