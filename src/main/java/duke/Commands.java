@@ -44,6 +44,7 @@ class AddTodoCommand extends AddTaskCommand {
         super(argument);
     }
 
+    @Override
     public Task parseTask(String argument) throws InvalidCommandException {
         if (argument.isEmpty()) {
             throw new InvalidCommandException("The description of a todo cannot be empty.");
@@ -57,6 +58,7 @@ class AddDeadlineCommand extends AddTaskCommand {
         super(argument);
     }
 
+    @Override
     public Task parseTask(String argument) throws InvalidCommandException {
         String[] parts = argument.split(" /by ", 2);
         if (parts.length != 2) {
@@ -79,6 +81,7 @@ class AddEventCommand extends AddTaskCommand {
 
     private static final Pattern EVENT_PATTERN = Pattern.compile("(.*) /from (.*) /to (.*)");
 
+    @Override
     public Task parseTask(String argument) throws InvalidCommandException {
         Matcher matcher = EVENT_PATTERN.matcher(argument);
         if (!matcher.matches()) {
