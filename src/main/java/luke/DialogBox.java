@@ -3,10 +3,11 @@ package luke;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.Node;
+
 
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFxPart3.html
 public class DialogBox extends HBox {
