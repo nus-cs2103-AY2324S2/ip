@@ -1,0 +1,19 @@
+aaa
+todo 
+todo read book
+deadline return book /by
+deadline return book /by 2024-02-02 20:24
+event dinner /from 5pm /to 7pm
+event dinner /from 2024-02-02 18:00 /to 2024-02-02 20:30 
+event party /to 2024-02-02 23:59 /from 2024-02-02 21:00
+mark 2
+mark 3
+list
+unmark 2
+mark 5
+unmark 
+list
+delete 4
+list
+find book
+bye
