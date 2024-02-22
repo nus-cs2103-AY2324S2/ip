@@ -13,6 +13,7 @@ import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.UnmarkCommand;
 
 /**
@@ -58,6 +59,7 @@ public class Parser {
         commands.put("delete", new DeleteCommand());
         commands.put("list", new ListCommand());
         commands.put("find", new FindCommand());
+        commands.put("sort", new SortCommand());
     }
 
     /**
