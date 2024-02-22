@@ -16,9 +16,9 @@ import duke.Parser;
  */
 public class Deadline implements Item, Serializable {
 
-    private boolean isDone = false;
+    private boolean isDone;
     private String name = "";
-    private LocalDateTime doneBy;
+    private final LocalDateTime doneBy;
 
     /**
      * Creates a new deadline object. The name, isDone and doneBy
@@ -34,7 +34,6 @@ public class Deadline implements Item, Serializable {
      */
     public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
-        String s = "";
         String doneByString = "";
         this.isDone = false;
 
@@ -88,8 +87,8 @@ public class Deadline implements Item, Serializable {
     @Override
     public String addMessage(int num) {
         return "Got it. I've added this task:\n"
-                + "       " + this.toString()
-                + "\n     Now you have " + num + " tasks in the list.";
+                + this.toString()
+                + "\nNow you have " + num + " tasks in the list.";
     }
 
     @Override
