@@ -2,7 +2,7 @@ package cruisey.task;
 
 import java.util.ArrayList;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.ui.Ui;
 
 /**
@@ -103,9 +103,9 @@ public class TaskList {
      * Deletes a task from the task list based on the specified index.
      *
      * @param index The index of the task to be deleted.
-     * @throws DukeException If the index is out of bounds.
+     * @throws CruiseyException If the index is out of bounds.
      */
-    public String deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws CruiseyException {
         assert index >= 0 && index < tasks.size() : "Index should be within bounds.";
         Task removedTask = tasks.remove(index);
         return this.ui.printDeletedTaskMessage(removedTask);
@@ -115,9 +115,9 @@ public class TaskList {
      * Marks a task as done and prints a message.
      *
      * @param job The task to be marked as done.
-     * @throws DukeException If the task is already marked as done.
+     * @throws CruiseyException If the task is already marked as done.
      */
-    public String markStatus(Task job) throws DukeException {
+    public String markStatus(Task job) throws CruiseyException {
         assert job != null : "Task to be marked should not be null.";
         if (job.isDone) {
             return Ui.showError("This task is already marked as done.");
@@ -130,9 +130,9 @@ public class TaskList {
      * Unmarks a task as done and prints a message.
      *
      * @param job The task to be unmarked.
-     * @throws DukeException If the task is already marked as not done.
+     * @throws CruiseyException If the task is already marked as not done.
      */
-    public String unmarkStatus(Task job) throws DukeException {
+    public String unmarkStatus(Task job) throws CruiseyException {
         assert job != null : "Task to be unmarked should not be null.";
         if (!job.isDone) {
             return Ui.showError("This task is already marked as not done.");
@@ -145,9 +145,9 @@ public class TaskList {
      * Displays the list of tasks along with their details.
      *
      * @param taskList The TaskList to be displayed.
-     * @throws DukeException If there is an issue displaying the task list.
+     * @throws CruiseyException If there is an issue displaying the task list.
      */
-    public static String getList(TaskList taskList) throws DukeException {
+    public static String getList(TaskList taskList) throws CruiseyException {
         assert taskList != null : "TaskList to be displayed should not be null";
         StringBuilder taskDetails = new StringBuilder();
 
@@ -225,7 +225,7 @@ public class TaskList {
      * @param searchString The string to search for in the task descriptions.
      * @return A new TaskList containing tasks with descriptions that match the search string.
      */
-    public TaskList findTask(String searchString) throws DukeException {
+    public TaskList findTask(String searchString) throws CruiseyException {
         assert searchString != null : "Search string should not be null.";
         TaskList foundTasks = new TaskList();
 

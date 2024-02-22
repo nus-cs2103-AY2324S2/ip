@@ -1,6 +1,6 @@
 package cruisey.ui;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.task.Deadline;
 import cruisey.task.Event;
 import cruisey.task.Task;
@@ -65,11 +65,11 @@ public class Ui {
      * Displays an error message.
      *
      * @param errorMessage The error message to be displayed.
-     * @throws DukeException DukeException is thrown to indicate an error.
+     * @throws CruiseyException DukeException is thrown to indicate an error.
      */
-    public static String showError(String errorMessage) throws DukeException {
+    public static String showError(String errorMessage) throws CruiseyException {
         assert errorMessage != null : "Error message should not be null.";
-        throw new DukeException(errorMessage);
+        throw new CruiseyException(errorMessage);
     }
 
     /**

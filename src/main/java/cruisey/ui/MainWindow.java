@@ -1,6 +1,6 @@
 package cruisey.ui;
 
-import cruisey.Duke;
+import cruisey.Cruisey;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Cruisey cruisey;
     private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -43,8 +43,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(Ui.showWelcomeMessage(), dukeImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Cruisey d) {
+        cruisey = d;
     }
 
     /**
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText().trim();
         if (!input.isEmpty()) {
-            String response = duke.getResponse(input);
+            String response = cruisey.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)

@@ -1,6 +1,6 @@
 package cruisey.task;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.ui.Ui;
 
 /**
@@ -14,9 +14,9 @@ public class ToDo extends Task {
      *
      * @param description The description of the ToDo task.
      * @param priority The priority of the task.
-     * @throws DukeException If there is an issue with the task creation.
+     * @throws CruiseyException If there is an issue with the task creation.
      */
-    public ToDo(String description, Ui ui, TaskPriority priority) throws DukeException {
+    public ToDo(String description, Ui ui, TaskPriority priority) throws CruiseyException {
         super(TaskType.T, description, priority);
         this.ui = ui;
         assert this.ui != null : "UI should not be null.";

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.task.Deadline;
 import cruisey.task.Event;
 import cruisey.task.Task;
@@ -132,9 +132,9 @@ public class Storage {
      * Loads tasks from the data file specified by FILE_PATH and returns them as an ArrayList.
      *
      * @return An ArrayList containing tasks loaded from the data file.
-     * @throws DukeException If there is an issue loading tasks from the file.
+     * @throws CruiseyException If there is an issue loading tasks from the file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws CruiseyException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(FILE_PATH);
 
@@ -162,9 +162,9 @@ public class Storage {
      *
      * @param line The line from the data file representing a task.
      * @return A Task object parsed from the line.
-     * @throws DukeException If there is an issue parsing the line into a Task object.
+     * @throws CruiseyException If there is an issue parsing the line into a Task object.
      */
-    private Task parseTask(String line) throws DukeException {
+    private Task parseTask(String line) throws CruiseyException {
         String[] parts = line.split("\\|");
         TaskType taskType = TaskType.valueOf(parts[0].trim());
         String description = parts[2].trim();
@@ -190,9 +190,9 @@ public class Storage {
      * @param description     The description of the ToDo task.
      * @param additionalInfo  The additional information containing priority.
      * @return A ToDo task parsed from the description and additional information.
-     * @throws DukeException If there is an issue parsing the ToDo task.
+     * @throws CruiseyException If there is an issue parsing the ToDo task.
      */
-    private Task parseToDoTask(String description, String additionalInfo) throws DukeException {
+    private Task parseToDoTask(String description, String additionalInfo) throws CruiseyException {
         TaskPriority priority = parsePriority(additionalInfo);
         return new ToDo(description, ui, priority);
     }
@@ -206,9 +206,9 @@ public class Storage {
      * @param description     The description of the Deadline task.
      * @param additionalInfo  The additional information containing 'by' and priority.
      * @return A Deadline task parsed from the description and additional information.
-     * @throws DukeException If there is an issue parsing the Deadline task.
+     * @throws CruiseyException If there is an issue parsing the Deadline task.
      */
-    private Task parseDeadlineTask(String description, String additionalInfo) throws DukeException {
+    private Task parseDeadlineTask(String description, String additionalInfo) throws CruiseyException {
         String by = additionalInfo;
         TaskPriority priority = parsePriority(by);
         return new Deadline(description, by, ui, priority);
@@ -223,9 +223,9 @@ public class Storage {
      * @param description     The description of the Event task.
      * @param additionalInfo  The additional information containing 'from,' 'to,' and priority.
      * @return An Event task parsed from the description and additional information.
-     * @throws DukeException If there is an issue parsing the Event task.
+     * @throws CruiseyException If there is an issue parsing the Event task.
      */
-    private Task parseEventTask(String description, String additionalInfo) throws DukeException {
+    private Task parseEventTask(String description, String additionalInfo) throws CruiseyException {
         String[] parts = additionalInfo.split("-");
         String from = parts[0].trim();
         String to = parts[1].trim();

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import cruisey.exception.DukeException;
+import cruisey.exception.CruiseyException;
 import cruisey.ui.Ui;
 
 /**
@@ -29,9 +29,9 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param byString    The string representation of the deadline.
      * @param priority    The priority of the task.
-     * @throws DukeException If there are issues with the provided description or deadline.
+     * @throws CruiseyException If there are issues with the provided description or deadline.
      */
-    public Deadline(String description, String byString, Ui ui, TaskPriority priority) throws DukeException {
+    public Deadline(String description, String byString, Ui ui, TaskPriority priority) throws CruiseyException {
         super(TaskType.D, description, priority);
         this.byString = byString.trim();
         this.ui = ui;
@@ -44,9 +44,9 @@ public class Deadline extends Task {
      * the corresponding LocalDateTime. Checks for errors in the input and displays appropriate
      * error messages using the Ui class.
      *
-     * @throws DukeException If there is an issue with initializing the deadline.
+     * @throws CruiseyException If there is an issue with initializing the deadline.
      */
-    private void initializeDeadline() throws DukeException {
+    private void initializeDeadline() throws CruiseyException {
         try {
             if (!this.byString.isEmpty()) {
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -73,10 +73,11 @@ public class Deadline extends Task {
      * @return The deadline as an Object (either LocalDateTime or String).
      */
     public Object getBy() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
         assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be "
                 + " non-null.";
-        return (this.by != null) ? this.by : this.byString;
+        return (this.by != null) ? getByTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : getByString();
     }
 
     /**
