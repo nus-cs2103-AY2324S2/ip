@@ -1,11 +1,10 @@
-package someboty.Managers;
+package someboty.managers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import someboty.exceptions.InputException;
-import someboty.managers.DateManager;
 
 public class DateManagerTest {
     

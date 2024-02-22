@@ -1,15 +1,14 @@
-package someboty.Managers;
+package someboty.managers;
 
 import org.junit.jupiter.api.Test;
 
 import someboty.exceptions.InputException;
-import someboty.managers.FileManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskManagerTest {
 
-    private taskManager manager;
+    private TaskManager manager;
 
     public TaskManagerTest() {
     }
@@ -22,7 +21,7 @@ public class TaskManagerTest {
 
     @Test
     public void ToDoTest() {
-        manager = new taskManager(new FileManager("taskManagerTestDummy"));
+        manager = new TaskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1 = manager.addTask('T', "Lord of the Bing Chillings").toString();
         String expected1 = "[T][ ] Lord of the Bing Chillings";
@@ -35,7 +34,7 @@ public class TaskManagerTest {
 
     @Test
     public void DeadlineTest() {
-        manager = new taskManager(new FileManager("taskManagerTestDummy"));
+        manager = new TaskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1;
         String expected1 = "[D][ ] 1st Test (by: [15 Mar 2024 06:10])";
@@ -68,7 +67,7 @@ public class TaskManagerTest {
 
     @Test
     public void EventTest() {
-        manager = new taskManager(new FileManager("taskManagerTestDummy"));
+        manager = new TaskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1;
         String expected1 = "[E][ ] 1st Test (from: [15 Mar 2024 06:10], to: [16 Oct 2025 09:50])";
@@ -102,7 +101,7 @@ public class TaskManagerTest {
 
     @Test
     public void ListTest() {
-        manager = new taskManager(new FileManager("taskManagerTestDummy"));
+        manager = new TaskManager(new FileManager("taskManagerTestDummy"));
 
         assertEquals(0, manager.getListSize());
 
