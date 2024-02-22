@@ -87,10 +87,10 @@ public class Parser {
     }
 
     private Task handleTaskNo(String line, int posOfSpace, TaskList taskList) throws TaskException {
-        if (space == -1) {
+        if (posOfSpace == -1) {
             throw new TaskException("Missing task number.");
         }
-        Integer taskNo = Util.parseNumber(line, space);
+        Integer taskNo = Util.parseNumber(line, posOfSpace);
         if (taskNo == null || taskNo < 1) {
             throw new TaskException("Invalid task number.");
         } else if (taskNo > taskList.size()) {

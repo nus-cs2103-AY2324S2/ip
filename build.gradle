@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("ChatbotRan.Ran")
+    mainClass.set("ChatbotRan.Launcher")
 }
 
 shadowJar {
