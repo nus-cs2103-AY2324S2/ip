@@ -1,7 +1,6 @@
 # Duchess User Guide
 
-![Screenshot of Duchess Ui]
-(Ui.png)
+![Screenshot of Duchess Ui](Ui.png)
 
 // Product intro goes here
 
