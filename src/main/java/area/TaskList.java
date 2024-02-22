@@ -9,20 +9,20 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks; // List of all the task objects in this list.
-    private int count;
+    private int taskCount;
     private Ui ui;
     private Parser parser;
 
     public TaskList(ArrayList<Task> tasks) throws Exception {
         this.tasks = tasks;
-        this.count = 0;
+        this.taskCount = 0;
         ui = new Ui();
         parser = new Parser();
     }
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.count = 0;
+        this.taskCount = 0;
         ui = new Ui();
         parser = new Parser();
     }
@@ -33,7 +33,7 @@ public class TaskList {
      * @return int
      */
     public int getNumberOfTasks() {
-        return count;
+        return taskCount;
     }
 
     /**
@@ -85,22 +85,22 @@ public class TaskList {
     public String addTask(String instruction) {
         String command = parser.parseCommand(instruction);
         if (command.equals("todo")) {
-            Todo todoTask = new Todo(parser.parseTodo(instruction));
+            Todo task = new Todo(parser.parseTodo(instruction));
             System.out.println("correct");
-            tasks.add(todoTask);
-            count++; // keep track of number of tasks
+            tasks.add(task);
+            taskCount++; // keep track of number of tasks
             return ui.addTask(this);
         } else if (command.equals("deadline")) {
             String[] description = parser.parseDeadline(instruction);
             Deadline task = new Deadline(description[0], description[1]);
             tasks.add(task);
-            count++; // keep track of number of tasks
+            taskCount++; // keep track of number of tasks
             return ui.addTask(this);
         } else if (command.equals("event")) {
             String[] description = parser.parseEvent(instruction);
             Event task = new Event(description[0], description[1], description[2]);
             tasks.add(task);
-            count++; // keeps track of tasks
+            taskCount++; // keeps track of tasks
             return ui.addTask(this);
         }
         return "";
@@ -117,18 +117,18 @@ public class TaskList {
         if (command.equals("mark")) {
             // marks a task as done
             int index = Integer.parseInt(parser.parseModify(instruction));
-            tasks.get(index - 1).taskDone();
+            tasks.get(index - 1).markTaskAsDone();
             return ui.taskDone(index, this);
         } else if (command.equals("unmark")) {
             // marks a specific task as undone
             int index = Integer.parseInt(parser.parseModify(instruction));
-            tasks.get(index - 1).taskUndone();
+            tasks.get(index - 1).markTaskAsUndone();
             return ui.taskUndone(index, this);
         } else if (command.equals("delete")) {
             int index = Integer.parseInt(parser.parseModify(instruction));
             Task deletedTask = tasks.get(index - 1);
             tasks.remove(index - 1);
-            count -= 1;
+            taskCount -= 1;
             return ui.deleteTask(deletedTask, this);
         }
         return "";

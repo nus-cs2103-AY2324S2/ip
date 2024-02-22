@@ -85,7 +85,7 @@ public class Ui {
      * @param instruction
      */
     public void instructionError(String instruction) {
-        DukeException error = new DukeException(instruction);
+        AreaException error = new AreaException(instruction);
         System.out.println(error.toString());
     }
 
