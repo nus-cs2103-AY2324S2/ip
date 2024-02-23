@@ -37,6 +37,7 @@ public class Parser {
      * @param ui The user interface.
      * @param storage The storage of the tasks.
      */
+    @SuppressWarnings("checkstyle:WhitespaceAround")
     public String parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
             return ui.goodbye();
