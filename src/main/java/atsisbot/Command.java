@@ -154,6 +154,15 @@ public class Command {
         Ui.printFindMessage(taskList.findTasks(args));
     }
 
+    /**
+     * Sets the priority of a task based on the given arguments.
+     * The arguments should be in the format "<taskIndex> /priority <priority>".
+     * If the arguments are not in the correct format, an error message is printed.
+     * If the task index is invalid or the priority is not valid, respective error messages are printed.
+     *
+     * @param args      the arguments containing the task index and priority
+     * @param taskList  the task list to modify
+     */
     public static void setPriority(String args, TaskList taskList) {
         String[] descriptionAndPriority = args.split(" /priority ");
         if (descriptionAndPriority.length != 2) {
