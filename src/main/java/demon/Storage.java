@@ -1,9 +1,11 @@
 package demon;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +32,7 @@ public class Storage {
      */
     public List<String> load() throws IOException {
         // Read all lines from the file as a List
+        createNewFile();
         this.storageArray = Files.readAllLines(Paths.get(filePath));
         return this.storageArray;
     }
@@ -68,7 +71,13 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
+    private void createNewFile() {
+        File f = new File(this.filePath);
+        File parentDir = f.getParentFile();
+        if (parentDir != null) {
+            parentDir.mkdirs();
+        }
+    }
     public void writeToFile(String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(this.filePath, true);
         fw.write(textToAdd);

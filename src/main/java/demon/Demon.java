@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class Demon {
     private TaskList tasks;
     private final Ui ui;
-    String filePath = "./demon.txt";
+    String filePath = "./output/demon.txt";
     Command command = new Command(filePath);
     boolean isRun = true;
 
