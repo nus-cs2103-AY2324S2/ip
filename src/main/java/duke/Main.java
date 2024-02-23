@@ -12,21 +12,120 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.ToDo;
+import duke.ui.DialogBox;
 import duke.ui.UserInterface;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * The main entry point for the Duke application.
- * This class handles the initialization and main execution loop of the application,
- * including loading tasks from disk, processing user commands, and exiting the application.
+ * This class handles the initialization and main execution loop of the
+ * application,
+ * including loading tasks from disk, processing user commands, and exiting the
+ * application.
  */
-public class Main {
+public class Main extends Application {
 
     private static TaskList taskList = new TaskList();
 
     private static PersistentStorageHandler persistentStorageHandler = new PersistentStorageHandler();
 
-    
-    /** 
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image derek = new Image(this.getClass().getResourceAsStream("/images/ChineseBeaver.png"));
+
+    @Override
+    public void start(Stage stage) {
+
+        // Component Setup
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        // Formatting
+        stage.setTitle("Derek");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        // Functionality
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        // Scrolls to the bottom whenever height changes
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+    }
+
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label agentText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.createUserDialog(userText, new ImageView(user)),
+                DialogBox.createAgentDialog(agentText, new ImageView(derek))
+        );
+        userInput.clear();
+    }
+
+    private String getResponse(String text) {
+        return "Agent Heard" + text;
+    }
+
+    /**
      * Processes and responds to user commands until exit is requested.
      * 
      * @param args Command line arguments (not used)
@@ -52,44 +151,44 @@ public class Main {
                 CommandType commandType = CommandParser.parseCommand(userInput);
 
                 switch (commandType) {
-                case LIST:
-                    handleList();
-                    break;
+                    case LIST:
+                        handleList();
+                        break;
 
-                case MARK:
-                    handleMark(userInput);
-                    break;
+                    case MARK:
+                        handleMark(userInput);
+                        break;
 
-                case UNMARK:
-                    handleUnmark(userInput);
-                    break;
+                    case UNMARK:
+                        handleUnmark(userInput);
+                        break;
 
-                case DELETE:
-                    handleDelete(userInput);
-                    break;
+                    case DELETE:
+                        handleDelete(userInput);
+                        break;
 
-                case FIND:
-                    handleFind(userInput);
-                    break;
+                    case FIND:
+                        handleFind(userInput);
+                        break;
 
-                case TODO:
-                    handleToDo(userInput);
-                    break;
+                    case TODO:
+                        handleToDo(userInput);
+                        break;
 
-                case DEADLINE:
-                    handleDeadline(userInput);
-                    break;
+                    case DEADLINE:
+                        handleDeadline(userInput);
+                        break;
 
-                case EVENT:
-                    handleEvent(userInput);
-                    break;
+                    case EVENT:
+                        handleEvent(userInput);
+                        break;
 
-                case BYE:
-                    isExit = true;
-                    break;
+                    case BYE:
+                        isExit = true;
+                        break;
 
-                default:
-                    throw new DukeException("Invalid Command" + commandType);
+                    default:
+                        throw new DukeException("Invalid Command" + commandType);
                 }
 
                 persistentStorageHandler.writeTaskFileToDisc(taskList);
@@ -102,8 +201,7 @@ public class Main {
         return;
     }
 
-    
-    /** 
+    /**
      * Displays the list of tasks to the user.
      * 
      * @throws DukeException If an error during task listing.
@@ -112,11 +210,11 @@ public class Main {
         taskList.printTasks();
     }
 
-    
-    /** 
+    /**
      * Marks a specified task as done.
      * 
-     * @param userInput The user input containing the index of the task to mark as done.
+     * @param userInput The user input containing the index of the task to mark as
+     *                  done.
      * @throws DukeException If the task index is invalid.
      */
     private static void handleMark(String userInput) throws DukeException {
@@ -125,11 +223,11 @@ public class Main {
         UserInterface.print(response);
     }
 
-    
-    /** 
+    /**
      * Marks a specified task as not done.
      * 
-     * @param userInput The user input containing the index of the task to mark as not done.
+     * @param userInput The user input containing the index of the task to mark as
+     *                  not done.
      * @throws DukeException If the task index is invalid.
      */
     private static void handleUnmark(String userInput) throws DukeException {
@@ -138,8 +236,7 @@ public class Main {
         UserInterface.print(response);
     }
 
-    
-    /** 
+    /**
      * Deletes a specified task from the task list.
      * 
      * @param userInput The user input containing the index of the task to delete.
@@ -159,7 +256,6 @@ public class Main {
         UserInterface.printTasksByIndices(response);
     }
 
-    
     /**
      * Adds a new ToDo task to the task list.
      * 
@@ -176,7 +272,8 @@ public class Main {
     /**
      * Adds a new Deadline task to the task list.
      * 
-     * @param userInput The user input containing the description of the Deadline task.
+     * @param userInput The user input containing the description of the Deadline
+     *                  task.
      * @throws DukeException If the description is invalid or other errors occur.
      */
     private static void handleDeadline(String userInput) throws DukeException {
