@@ -34,6 +34,7 @@ public class AlfredGui extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Alfred");
             FXMLLoader fxmlLoader = new FXMLLoader(AlfredGui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
