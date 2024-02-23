@@ -47,6 +47,7 @@ public class FriendlyTool {
             case BYE:
                 this.isActive = false;
                 response = UI.getByeMsg();
+                System.exit(0);
                 break;
             case LIST:
                 response = UI.getListMsg(tasks);
