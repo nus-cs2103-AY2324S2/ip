@@ -70,7 +70,7 @@ public class Task {
         if (this.isDone) {
             return String.format("[X] %s", this.name);
         } else {
-            return String.format("[ ] %s", this.name);
+            return String.format("[  ] %s", this.name);
         }
     }
 }

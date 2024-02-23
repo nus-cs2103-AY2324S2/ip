@@ -33,6 +33,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setXiaoBai(xiaoBai);
             stage.show();
+            stage.setTitle("XiaoBai");
         } catch (IOException e) {
             e.printStackTrace();
         }
