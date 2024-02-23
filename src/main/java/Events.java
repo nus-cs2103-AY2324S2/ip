@@ -12,6 +12,16 @@ public class Events extends Task{
 
     @Override
     public void print() {
-        System.out.println("\t" + "[E]" + getStatusIcon() + getDescription() + "(from: " + start + " to " + end +")");
+        System.out.println("\t" + "[E]" + getStatusIcon() + getDescription() + "(from:" + start + " to" + end +")");
+    }
+
+    @Override
+    public String toString() {
+        return isDone + " event " + getDescription() + "/from" + start + " /to" + end;
+    }
+
+    @Override
+    public String type() {
+        return ("[E]");
     }
 }

@@ -1,14 +1,22 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Goblin {
     static String greetings = "Hello！ I'm NetGoblin\n"
             + "What can I do for you?";
-    static String bye = "Bye. Hope to see you agian soon!\n";
+    static String bye = "Bye. Hope to see you again soon!\n";
 
     static ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        sayHello();
+        try {
+            sayHello();
+            readFile();
+        }
+        catch (OrkException exception) {}
         Scanner input = new Scanner(System.in);
         while (input.hasNext()){
             try {
@@ -21,32 +29,30 @@ public class Goblin {
                     showList();
                 } else if (inputWord.equals("todo")) {
                     String inputLine = input.nextLine();
-                    if (inputLine.equals("")) {
+                    if (inputLine.isEmpty()) {
                         throw new OrkException("To do what? You dumb meat!");
                     }
                     line();
                     System.out.print("\t" + "Got it. I've added this task:\n");
-                    String description = inputWord + inputLine;
-                    addTodo(description);
+                    addTodo(inputLine);
                     count();
                 } else if (inputWord.equals("deadline")) {
                     String inputLine = input.nextLine();
-                    if (inputLine.equals("")) {
+                    if (inputLine.isEmpty()) {
                         throw new OrkException("The deadline for what?! You dumb meat!");
                     }
                     line();
                     System.out.print("\t" + "Got it. I've added this task:\n");
-                    String command = inputWord + inputLine;
-                    addDeadline(command);
+                    addDeadline(inputLine);
                     count();
                 } else if (inputWord.equals("event")) {
                     String inputLine = input.nextLine();
-                    if (inputLine.equals("")) {
+                    if (inputLine.isEmpty()) {
                         throw new OrkException("You need to tell me what the event is! You dumb meat!");
                     }
+                    line();
                     System.out.print("\t" + "Got it. I've added this task:\n");
-                    String command = inputWord + inputLine;
-                    addEvent(command);
+                    addEvent(inputLine);
                     count();
                 } else if (inputWord.equals("delete")) {
                     String inputLine = input.nextLine();
@@ -56,22 +62,21 @@ public class Goblin {
                 } else if (inputWord.equals("bye")) {
                     sayBye();
                     input.close();
+                    saveList();;
                     break;
                 } else {
                     throw new OrkException("You think you are smart? You fresh meat!");
                 }
+                saveList();
             }
             catch (OrkException exception) {
                 String message = exception.getMessage();
                 line();
                 System.out.println("\t " + message);
                 line();
-                String a = input.nextLine();
+                input.nextLine();
             }
-
         }
-
-
     }
     public static void line() {
         System.out.println("--------------------------------");
@@ -92,7 +97,8 @@ public class Goblin {
         line();
         System.out.println("\t" + "Read it yourself.");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i).getStatusIcon() + list.get(i).getDescription());
+            System.out.println("\t" + (i + 1) + "." + list.get(i).type()
+                    + list.get(i).getStatusIcon() + list.get(i).getDescription());
         }
         line();
     }
@@ -116,30 +122,30 @@ public class Goblin {
     }
 
     public static void addTodo(String description) {
-        ToDos temptask = new ToDos(description);
-        temptask.print();
-        list.add(temptask);
+        ToDos todo = new ToDos(description);
+        todo.print();
+        list.add(todo);
     }
 
     public static void addDeadline(String command) {
-        String[] desplit = command.split("/by") ;
-        String description = desplit[0];
-        String deadline = desplit[1];
-        Deadlines temptask = new Deadlines(description, deadline);
-        temptask.print();
-        list.add(temptask);
+        String[] split = command.split("/by") ;
+        String description = split[0];
+        String deadline = split[1];
+        Deadlines deadlines = new Deadlines(description, deadline);
+        deadlines.print();
+        list.add(deadlines);
     }
 
     public static void addEvent(String command) {
-        String[] desplit = command.split("/from") ;
-        String description = desplit[0];
-        String time = desplit[1];
+        String[] split = command.split("/from") ;
+        String description =split[0];
+        String time = split[1];
         String[] timeSplit = time.split(" /to");
         String start = timeSplit[0];
         String end = timeSplit[1];
-        Events temptask = new Events(description, start, end);
-        temptask.print();
-        list.add(temptask);
+        Events events = new Events(description, start, end);
+        events.print();
+        list.add(events);
     }
 
     public static void count() {
@@ -148,11 +154,58 @@ public class Goblin {
     }
     public static void deleteList(String index) {
         line();
-        int indexi = Integer.parseInt(index);
-        System.out.println("\t" + "Delete your task already, you happy now?");
-        list.get(indexi - 1).print();
-        list.remove(indexi - 1);
-        System.out.println("\t" + "No meat, no goblins, hayahyahya");
+        int indexInt = Integer.parseInt(index);
+        System.out.println("\t" + "Delete task below, you happy now?");
+        list.get(indexInt - 1).print();
+        list.remove(indexInt - 1);
+        System.out.println("\t" + "No meat, no goblins, hya hya hya");
         line();
+    }
+
+    public static void saveList() throws OrkException {
+        try {
+            FileWriter myWriter = new FileWriter("src/main/java/data.txt");
+            for (int i = 0; i <list.size(); i++) {
+                myWriter.write(list.get(i).toString() + "\n");
+            }
+            myWriter.close();
+        } catch (IOException exception) {
+            throw new OrkException("\u2539 OOPS!!! Something went wrong :" + exception.getMessage());
+        }
+    }
+
+    public static void readFile() throws OrkException {
+         try {
+             File myObj = new File("src/main/java/data.txt");
+             Scanner myReader = new Scanner(myObj);
+             System.out.println("Current tasks: ");
+             while (myReader.hasNextLine()) {
+                 myReader.next();
+                 String command = myReader.nextLine();
+                 String[] removeASpace = command.split(" ", 2);
+                 transformToTask(removeASpace[1]);
+             }
+             line();
+             myReader.close();
+         }
+         catch (IOException e) {
+
+         }
+
+    }
+
+    public static void transformToTask(String command) {
+        String[] typeSplit = command.split(" ", 2);
+        String type = typeSplit[0];
+        if (type.equals("todo")) {
+            String description = typeSplit[1];
+            addTodo(description);
+        } else if (type.equals("deadline")) {
+            String description = typeSplit[1];
+            addDeadline(description);
+        } else if (type.equals("event")) {
+            String description = typeSplit[1];
+            addEvent(description);
+        }
     }
 }

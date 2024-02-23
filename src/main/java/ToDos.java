@@ -5,11 +5,16 @@ public class ToDos extends Task{
 
     @Override
     public void print() {
-        System.out.println( type() + getStatusIcon() + getDescription());
+        System.out.println( "\t" + "[T]" + getStatusIcon() + getDescription());
     }
 
     @Override
     public String type() {
-        return ("\t" + "[T]");
+        return ("[T]");
+    }
+
+    @Override
+    public String toString() {
+        return isDone + " todo " + getDescription();
     }
 }

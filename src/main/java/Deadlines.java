@@ -8,6 +8,16 @@ public class Deadlines extends Task{
 
     @Override
     public void print() {
-        System.out.println("\t" + "[D]" + getStatusIcon() + getDescription() + "(by: " + deadline + ")");
+        System.out.println("\t" + "[D]" + getStatusIcon() + getDescription() + "(by:" + deadline + ")");
+    }
+
+    @Override
+    public String toString() {
+        return isDone + " deadline " + getDescription() + "/by" + deadline;
+    }
+
+    @Override
+    public String type() {
+        return ("[D]");
     }
 }
