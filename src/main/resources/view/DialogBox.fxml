@@ -10,19 +10,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ScrollPane prefHeight="100.0" prefViewportHeight="1800.0" prefWidth="300.0">
-            <content>
-                <VBox minWidth="-Infinity" prefWidth="100.0">
-                    <children>
-                        <Label fx:id="dialog" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" text="Label" wrapText="true">
-                            <padding>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                            </padding>
-                        </Label>
-                    </children>
-                </VBox>
-            </content>
-        </ScrollPane>
+        <Label fx:id="dialog" text="Label" wrapText="true" />
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
             <clip>
                 <Circle radius="40.0" centerX="50.0" centerY="47.0" />

@@ -35,7 +35,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        // Vertical scroll
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Horizontal scroll position
+        scrollPane.hvalueProperty().bind(dialogContainer.widthProperty());
     }
 
     /**
