@@ -158,7 +158,7 @@ class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        String result = "Got it. I've added this task:\n   " + task + "\nNow you have " + tasks.size()
+        String result = "OK! I've added this task:\n   " + task + "\nNow you have " + tasks.size()
                         + " tasks in the list.";
         saveTasks();
         return result;
@@ -193,7 +193,7 @@ class TaskList {
             Task task = tasks.get(taskIndex - 1);
             task.markAsDone();
             saveTasks();
-            return "Nice! I've marked this task as done:\n   " + task;
+            return "OK! I've marked this task as done:\n   " + task;
         } else {
             return "Invalid task index.";
         }
@@ -209,7 +209,7 @@ class TaskList {
             Task task = tasks.get(taskIndex - 1);
             task.unmarkAsDone();
             saveTasks();
-            return "OK, I've marked this task as not done yet:\n   " + task;
+            return "OK! I've marked this task as not done yet:\n   " + task;
         } else {
             return "Invalid task index.";
         }
