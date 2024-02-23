@@ -49,7 +49,7 @@ public class GhBot {
                 executor.set(this.taskList);
                 return executor.execute();
             }
-        } catch (UiException | IOException | DateTimeException e) {
+        } catch (UiException | IOException | NumberFormatException | DateTimeException e) {
             return e.getMessage();
         }
         return "";

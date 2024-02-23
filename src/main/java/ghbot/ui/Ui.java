@@ -35,6 +35,7 @@ public class Ui {
         String[] subStr = this.input.trim().split(" ", 2);
         checkInvalidInstruction(subStr);
         checkMissingDescription(subStr);
+        checkIntegerDescription(subStr);
 
         if (subStr[0].equalsIgnoreCase(Instruction.DEADLINE.name())) {
             additionalCheckForDeadlineTask(subStr);
@@ -101,6 +102,24 @@ public class Ui {
             throw new UiException("Sorry! You need to include a number to delete your task!");
         } else if (subStr[0].equalsIgnoreCase(Instruction.FIND.name()) && subStr.length < 2) {
             throw new UiException("Sorry! You need to include a partial word or keyword that you want to find!");
+        }
+    }
+
+    /**
+     * Checks the description of mark, unmark and delete instruction to use valid list number.
+     * @param subStr A string array containing the input splits by instruction and description.
+     * @throws NumberFormatException When user key in an invalid number in the description.
+     */
+    public void checkIntegerDescription(String[] subStr) {
+        if (subStr[0].equalsIgnoreCase(Instruction.MARK.name())
+                || subStr[0].equalsIgnoreCase(Instruction.UNMARK.name())
+                || subStr[0].equalsIgnoreCase(Instruction.DELETE.name())) {
+            try {
+                Integer.parseInt(subStr[1]);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Sorry! Please key in a valid list number for the task!\n"
+                        + "E.g. mark 1, unmark 2, delete 10");
+            }
         }
     }
 

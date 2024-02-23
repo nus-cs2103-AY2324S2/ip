@@ -134,6 +134,39 @@ class UiTest {
     }
 
     @Test
+    public void checkIntegerDescription_invalidMarkIntegerDescription_numberFormatExceptionThrown() {
+        Ui ui = new Ui("mark gym");
+        NumberFormatException numberFormatException = assertThrows(NumberFormatException.class, ()-> {
+            ui.validateInput();
+        });
+        assertEquals("Sorry! Please key in a valid list number for the task!\n"
+                + "E.g. mark 1, unmark 2, delete 10", numberFormatException.getMessage());
+
+    }
+
+    @Test
+    public void checkIntegerDescription_invalidUnmarkIntegerDescription_numberFormatExceptionThrown() {
+        Ui ui = new Ui("unmark gym");
+        NumberFormatException numberFormatException = assertThrows(NumberFormatException.class, ()-> {
+            ui.validateInput();
+        });
+        assertEquals("Sorry! Please key in a valid list number for the task!\n"
+                + "E.g. mark 1, unmark 2, delete 10", numberFormatException.getMessage());
+
+    }
+
+    @Test
+    public void checkIntegerDescription_invalidDeleteIntegerDescription_numberFormatExceptionThrown() {
+        Ui ui = new Ui("delete gym");
+        NumberFormatException numberFormatException = assertThrows(NumberFormatException.class, ()-> {
+            ui.validateInput();
+        });
+        assertEquals("Sorry! Please key in a valid list number for the task!\n"
+                + "E.g. mark 1, unmark 2, delete 10", numberFormatException.getMessage());
+
+    }
+
+    @Test
     public void additionalCheckForDeadlineTask_wrongFormat_uiExceptionThrown() {
         Ui ui = new Ui("deadline wrong format");
         UiException uiException = assertThrows(UiException.class, ()-> {

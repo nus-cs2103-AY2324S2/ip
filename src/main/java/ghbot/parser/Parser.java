@@ -36,19 +36,19 @@ public class Parser {
         } else if (instr.equalsIgnoreCase(Instruction.LIST.name())) {
             return createNewListExecutor();
         } else if (instr.equalsIgnoreCase(Instruction.MARK.name())) {
-            return createNewMarkExecutor(input[1]);
+            return createNewMarkExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.UNMARK.name())) {
-            return createNewUnmarkExecutor(input[1]);
+            return createNewUnmarkExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.TODO.name())) {
-            return createNewTodoExecutor(input[1]);
+            return createNewTodoExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.name())) {
-            return createNewDeadlineExecutor(input[1]);
+            return createNewDeadlineExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.name())) {
-            return createNewEventExecutor(input[1]);
+            return createNewEventExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.DELETE.name())) {
-            return createNewDeleteExecutor(input[1]);
+            return createNewDeleteExecutor(input[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.FIND.name())) {
-            return createNewFindExecutor(input[1]);
+            return createNewFindExecutor(input[1].trim());
         } else {
             assert false : instr + " is a wrong instruction!";
             return null;
