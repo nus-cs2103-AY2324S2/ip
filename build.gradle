@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("Jelly.Jelly")
+    mainClass.set("jelly.Launcher")
 }
 
 shadowJar {

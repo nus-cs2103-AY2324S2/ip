@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private static String taskAdded = "(˃.˂) Got it. I've added this task:";
+    private static String taskAdded = "Got it. I've added this task:";
     private ArrayList<Task> tasks;
 
     /**
@@ -104,7 +104,7 @@ public class TaskList {
 
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
-        return "(•-•) Noted, I've removed this task:\n" + task + "\n" + listSize();
+        return "Noted, I've removed this task:\n" + task + "\n" + listSize();
     }
 
     /**
@@ -114,7 +114,7 @@ public class TaskList {
 
         Task task = tasks.get(index - 1);
         task.mark();
-        return "(•ᗜ•) Nice, I've marked this task as done:\n" + task;
+        return "Nice, I've marked this task as done:\n" + task;
     }
 
     /**
@@ -124,7 +124,7 @@ public class TaskList {
 
         Task task = tasks.get(index - 1);
         task.unmark();
-        return "(ᗒᗣᗕ) OK, I've marked this task as not done yet:\n" + task;
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**

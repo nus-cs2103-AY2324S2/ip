@@ -22,6 +22,7 @@ public class Event extends Task {
      * @param isDone whether task is done
      */
     public Event(String name, String start, String end, boolean isDone) {
+
         super(name, isDone);
         this.start = start;
         this.end = end;

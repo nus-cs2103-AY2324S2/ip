@@ -48,34 +48,32 @@ public class Parser {
             argument = message.substring(command.length() + 1);
         }
 
-        ui.printLine();
-
         switch (command) {
 
         case "bye":
 
-            return command;
+            return "sad " + command;
 
         case "list":
 
-            return taskList.toString();
+            return "normal " + taskList.toString();
 
         case "mark":
 
-            return taskList.markTask(Integer.parseInt(lines[1]));
+            return "excited " + taskList.markTask(Integer.parseInt(lines[1]));
 
         case "unmark":
 
-            return taskList.unmarkTask(Integer.parseInt(lines[1]));
+            return "normal " + taskList.unmarkTask(Integer.parseInt(lines[1]));
 
         case "todo":
 
             if (argument.length() == 0) {
 
-                return "(X_x) Formatting error! Task name missing";
+                return "confused Formatting error! Task name missing";
             }
 
-            return taskList.addTodo(argument, false);
+            return "normal " + taskList.addTodo(argument, false);
 
         case "deadline":
 
@@ -83,14 +81,14 @@ public class Parser {
 
             if (deadlineIndex.equals(-1)) { //formatting error
 
-                return "(X_x) Formatting error! /by is missing";
+                return "confused Formatting error! /by is missing";
             }
 
             String deadline = argument.substring(deadlineIndex + 3);
 
             if (deadline.length() == 1) {
 
-                return "(X_x) Formatting error! nothing after /by";
+                return "confused Formatting error! nothing after /by";
             }
 
             deadline = deadline.substring(1);
@@ -99,10 +97,10 @@ public class Parser {
 
             if (!argument.endsWith(" ")) {
 
-                return "(X_x) Formatting error! you need a space before any '/'";
+                return "confused Formatting error! you need a space before any '/'";
             }
 
-            return taskList.addDeadline(argument, deadline, false);
+            return "normal " + taskList.addDeadline(argument, deadline, false);
 
         case "event":
 
@@ -110,7 +108,7 @@ public class Parser {
 
             if (startIndex.equals(-1)) {
 
-                return "(X_x) Formatting error! /from is missing";
+                return "confused Formatting error! /from is missing";
             }
 
             String timeframe = argument.substring(startIndex + 1);
@@ -121,7 +119,7 @@ public class Parser {
 
             if (endIndex.equals(-1)) {
 
-                return "(X_x) Formatting error! /to is missing";
+                return "confused Formatting error! /to is missing";
             }
 
             String end = start.substring(endIndex + 3);
@@ -129,21 +127,21 @@ public class Parser {
 
             if (start.length() == 1) {
 
-                return "(X_x) Formatting error! nothing after /from ";
+                return "confused Formatting error! nothing after /from ";
             }
 
             start = start.substring(1);
 
             if (!start.endsWith(" ")) {
 
-                return "(X_x) Formatting error! you need a space before any '/'";
+                return "confused Formatting error! you need a space before any '/'";
             }
 
             start = start.substring(0, start.length() - 1);
 
             if (end.length() == 1) {
 
-                return "(X_x) Formatting error! nothing after /to";
+                return "confused Formatting error! nothing after /to";
             }
 
             end = end.substring(1);
@@ -152,23 +150,23 @@ public class Parser {
 
             if (!argument.endsWith(" ")) {
 
-                return "(X_x) Formatting error! you need a space before any '/'";
+                return "confused Formatting error! you need a space before any '/'";
             }
 
-            return taskList.addEvent(argument, start, end, false);
+            return "normal " + taskList.addEvent(argument, start, end, false);
 
         case "delete":
 
             if (argument.length() == 0) {
 
-                return "(X_x) Formatting error! no index received";
+                return "confused Formatting error! no index received";
             }
 
-            return taskList.deleteTask(Integer.parseInt(lines[1]));
+            return "normal " + taskList.deleteTask(Integer.parseInt(lines[1]));
 
         case "find":
 
-            return "(@_@) Here are the tasks that match your keyword!\n" + taskList.find(lines[1]);
+            return "hardworking Here are the tasks that match your keyword!\n" + taskList.find(lines[1]);
 
         default:
 
