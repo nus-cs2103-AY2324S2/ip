@@ -52,7 +52,7 @@ Deletes a task from the list by specifying the index.
 
 Format: `delete <task index>`
 
-- The index must refer to an index number shown in the displayed task list.
+- The index must refer to an existing number shown in the displayed task list when `list` is called.
 
 Example: 
 
@@ -70,7 +70,7 @@ Marks a task as completed.
 
 Format: `mark <task index>`
 
-- The index must refer to an index number shown in the displayed task list.
+- The index must refer to an existing number shown in the displayed task list when `list` is called.
 
 Example:
 
@@ -82,7 +82,7 @@ UnMarks a task as incomplete.
                                                                                        
 Format: `unmark <task index>`                                                           
                                                                                        
-- The index must refer to an index number shown in the displayed task list.                    
+- The index must refer to an existing number shown in the displayed task list when `list` is called.                    
                                                                                        
 Example:                                                                               
                                                                                        
