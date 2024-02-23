@@ -2,6 +2,7 @@ package asher.ui;
 
 import java.util.ArrayList;
 
+import asher.tasks.Deadline;
 import asher.tasks.TaskList;
 import asher.tasks.Task;
 
@@ -69,6 +70,16 @@ public class Ui {
             }
         }
         return messageBuilder.toString();
+    }
+
+    public String showSortedDeadlineTasks(ArrayList<Deadline> sortedDeadlines) {
+        StringBuilder messageBuilder = new StringBuilder("Here are your sorted deadlines:\n");
+
+        for (int i = 0; i < sortedDeadlines.size(); i++) {
+            messageBuilder.append((i + 1)).append(".").append(sortedDeadlines.get(i)).append("\n");
+        }
+        return messageBuilder.toString();
+
     }
 
     public String showErrorMessage(String message) {

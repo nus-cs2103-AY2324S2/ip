@@ -56,6 +56,8 @@ public class Parser {
             return new DeleteCommand(input);
         case "find":
             return new FindCommand(input);
+        case "sort":
+            return new SortCommand("sort");
         default:
             throw new BotException("Invalid Command!");
         }

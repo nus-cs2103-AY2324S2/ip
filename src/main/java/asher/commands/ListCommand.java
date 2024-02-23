@@ -27,7 +27,6 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskList taskList, Storage storage) {
-        taskList.sortByDeadline();
         return ui.showTaskList(taskList);
     }
 }
