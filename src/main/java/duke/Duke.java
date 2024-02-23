@@ -145,6 +145,9 @@ public class Duke {
                 return ui.showBye();
             } else if (command.equals("list")) {
                 return ui.showList(tasks);
+            } else if (command.equals("help")) {
+                ui.showHelpPopup();
+                return "Please look at the pop-up window!";
             } else if (command.equals("mark") || command.equals("unmark") || command.equals("todo")
                     || command.equals("deadline") || command.equals("event") || command.equals("delete")) {
                 if (fullCommand.length > 1) {
