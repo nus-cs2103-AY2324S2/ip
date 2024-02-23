@@ -39,4 +39,9 @@ public class Date {
     public String toSaveFormat() {
         return dateStr;
     }
+
+
+    public int compareTo(Date another) {
+        return this.date.compareTo(another.date);
+    }
 }

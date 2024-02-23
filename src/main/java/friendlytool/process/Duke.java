@@ -78,6 +78,9 @@ public class Duke {
             case FIND:
                 response = TaskFinder.findTask(tasks, input);
                 break;
+            case SORT:
+                response = tasks.sortTask();
+                break;
             default:
                 throw new FtException("Unknown Command: Please use a correct command");
             }

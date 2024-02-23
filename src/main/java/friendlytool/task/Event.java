@@ -43,4 +43,9 @@ public class Event extends Task {
     public String toSaveFormat() {
         return "E " + super.toSaveFormat() + " | " + from.toSaveFormat() + " | " + to.toSaveFormat() + "\n";
     }
+
+    @Override
+    public Date getEndTime() {
+        return this.to;
+    }
 }

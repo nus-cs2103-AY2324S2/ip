@@ -2,6 +2,7 @@ package friendlytool.process;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import friendlytool.command.CommandTypes;
@@ -176,5 +177,30 @@ public class TaskList {
      */
     public void add(Task task) {
         myList.add(task);
+    }
+
+    /**
+     * Sorts the list so that todo comes first and sort rest by chronological order.
+     *
+     * @return string that task is sorted
+     */
+    public String sortTask() {
+        myList.sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                if (t1 instanceof ToDo && t2 instanceof ToDo) {
+                    return 0;
+                } else if (t1 instanceof ToDo) {
+                    return -1;
+                } else if (t2 instanceof ToDo) {
+                    return 1;
+                } else {
+                    Date d1 = t1.getEndTime();
+                    Date d2 = t2.getEndTime();
+                    return d1.compareTo(d2);
+                }
+            }
+        });
+        return UI.getSortTaskMsg();
     }
 }

@@ -1,6 +1,8 @@
 package friendlytool.task;
 
 
+import friendlytool.process.Date;
+
 /**
  * Class that manages tasks.
  */
@@ -75,6 +77,10 @@ public class Task {
      */
     public String toSaveFormat() {
         return "| " + (isDone ? "true" : "false") + " | " + name;
+    }
+
+    public Date getEndTime() {
+        return null;
     }
 }
 
