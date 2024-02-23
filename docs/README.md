@@ -5,7 +5,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
 ## Environment
 
 1. ensure you have Java 11 installed on your computer
-2. download the latest version of chat.jar from [here](
+2. download the latest version of chat.jar from [here](https://github.com/SeaHogs/ip/releases/download/A-Release/Chat.jar)
 
 ## All features
 
