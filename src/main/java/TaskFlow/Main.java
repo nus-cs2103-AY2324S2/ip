@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,9 +30,11 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene sc = new Scene(ap);
+            Image img = new Image("/images/app_icon.jpg");
             stage.setScene(sc);
             fxmlLoader.<MainWindow>getController().setTaskie(taskFlow);
             stage.setTitle("TaskFlow");
+            stage.getIcons().add(img);
             stage.show();
             fxmlLoader.<MainWindow>getController().greet();
         } catch (IOException e) {
