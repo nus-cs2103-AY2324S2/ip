@@ -30,13 +30,13 @@ Example: `deadline math assignment /by 23/02/2024 2359`
 
 A task with the description "math assignment" and the deadline "by: 23/02/2024, 11:59PM" will be added to the list.
 
-### Adding an Event task: `event <description> /at <date in the format dd/mm/yyyy> <time in the format hh:mm am/pm>`
+### Adding an Event task: `event <description> /from <day> <time in the format hhmm> /to <time in the format hhmm>`
 
 Add an event to your list of tasks.
 
-Example: `event math exam /at 23/02/2024 6 pm`
+Example: `event math exam /from Mon 1400 /to 1600`
 
-An event with the description "math exam" and the date "at: 23/02/2024, 6 pm" will be added to the list.
+An event with the description "math exam" and the date "from: Mon 2:00pm to 4:00pm" will be added to the list.
 
 ### Listing all tasks: `list`
 

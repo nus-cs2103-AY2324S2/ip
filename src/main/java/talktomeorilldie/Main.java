@@ -9,14 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for TALKTOMEORILLDIE using FXML.
+ * A GUI for TalkToMeOrIllDie using FXML.
  */
 public class Main extends Application {
 
-    private final TALKTOMEORILLDIE talktomeorilldie = new TALKTOMEORILLDIE();
+    private final TalkToMeOrIllDie talktomeorilldie = new TalkToMeOrIllDie();
+
+    public Main() throws IOException {
+    }
 
     /**
-     * Starts the TALKTOMEORILLDIE program.
+     * Starts the TalkToMeOrIllDie program.
      * @param stage The stage to start the program.
      */
     @Override
@@ -26,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setTALKTOMEORILLDIE(talktomeorilldie);
+            fxmlLoader.<MainWindow>getController().setTalktomeorilldie(talktomeorilldie);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

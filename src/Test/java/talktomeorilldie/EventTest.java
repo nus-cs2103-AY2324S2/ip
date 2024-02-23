@@ -2,6 +2,8 @@ package talktomeorilldie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,26 +15,18 @@ public class EventTest {
      * Tests the toString method of Event.
      */
     @Test
-    public void testEventToString() {
-        Event event = new Event("Description", "From", "To");
-        assertEquals("[E][ ] Description (from: From to: To)", event.toString());
-    }
+    public void testToString() {
+        // Create an Event object
+        String description = "Project Meeting";
+        String fromDate = "Mon";
+        LocalTime fromTime = LocalTime.of(14, 0);
+        LocalTime toTime = LocalTime.of(16, 0);
+        Event event = new Event(description, fromDate, fromTime, toTime);
 
-    /**
-     * Tests the toSaveString method of Event.
-     */
-    @Test
-    public void testEventToSaveString() {
-        Event event = new Event("Description", "From", "To");
-        assertEquals("E | 0 | Description | From - To", event.toSaveString());
-    }
+        // Define the expected output string
+        String expected = "[E][ ] Project Meeting (from: Mon 2:00PM to: 4:00PM)";
 
-    /**
-     * Tests the event.
-     */
-    @Test
-    public void testEvent() {
-        Event event = new Event("Meeting", "2024-02-08 10:00", "2024-02-08 12:00");
-        assertEquals("[E][ ] Meeting (from: 2024-02-08 10:00 to: 2024-02-08 12:00)", event.toString());
+        // Check if the toString method produces the expected output
+        assertEquals(expected, event.toString());
     }
 }

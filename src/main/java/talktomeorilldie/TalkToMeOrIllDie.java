@@ -16,9 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Represents the main class of the TALKTOMEORILLDIE program.
+ * Represents the main class of the TalkToMeOrIllDie program.
  */
-public class TALKTOMEORILLDIE extends Application {
+public class TalkToMeOrIllDie extends Application {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -31,23 +31,19 @@ public class TALKTOMEORILLDIE extends Application {
     private Button sendButton;
 
     /**
-     * Constructor for TALKTOMEORILLDIE.
+     * Constructor for TalkToMeOrIllDie.
      */
-    public TALKTOMEORILLDIE() {
+    public TalkToMeOrIllDie() throws IOException {
         ui = new Ui();
         storage = new Storage("./data/talktomeorilldie.txt");
-        try {
-            tasks = new TaskList(storage.loadTasks());
-        } catch (IOException e) {
-            tasks = new TaskList();
-        }
+        tasks = new TaskList(storage.loadTasks());
         user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
         talktomeorilldie =
                 new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
     }
 
     /**
-     * Main method to start the TALKTOMEORILLDIE program.
+     * Main method to start the TalkToMeOrIllDie program.
      * @param args The arguments to start the program.
      */
     public static void main(String[] args) {
@@ -55,7 +51,7 @@ public class TALKTOMEORILLDIE extends Application {
     }
 
     /**
-     * Starts the TALKTOMEORILLDIE program.
+     * Starts the TalkToMeOrIllDie program.
      * @param stage The stage to start the program.
      */
     @Override
@@ -69,7 +65,7 @@ public class TALKTOMEORILLDIE extends Application {
     }
 
     /**
-     * Initializes the layout of the TALKTOMEORILLDIE program.
+     * Initializes the layout of the TalkToMeOrIllDie program.
      * @param stage The stage to initialize the layout.
      */
     private void initializeLayout(Stage stage) {
@@ -89,7 +85,7 @@ public class TALKTOMEORILLDIE extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("TALKTOMEORILLDIE");
+        stage.setTitle("TalkToMeOrIllDie");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -98,7 +94,7 @@ public class TALKTOMEORILLDIE extends Application {
     }
 
     /**
-     * Configures the scroll pane for the TALKTOMEORILLDIE program.
+     * Configures the scroll pane for the TalkToMeOrIllDie program.
      */
     private void configureScrollPane() {
         chatScrollPane.setPrefSize(385, 535);
@@ -115,14 +111,14 @@ public class TALKTOMEORILLDIE extends Application {
     }
 
     /**
-     * Configures the user input field for the TALKTOMEORILLDIE program.
+     * Configures the user input field for the TalkToMeOrIllDie program.
      */
     private void configureUserInput() {
         userInputField.setPrefWidth(325.0);
     }
 
     /**
-     * Configures the send button for the TALKTOMEORILLDIE program.
+     * Configures the send button for the TalkToMeOrIllDie program.
      */
     private void configureSendButton() {
         sendButton.setPrefWidth(55.0);
@@ -138,11 +134,11 @@ public class TALKTOMEORILLDIE extends Application {
      * Greets the user with a welcome message.
      */
     private void greetUser() {
-        dialogContainer.getChildren().add(DialogBox.getTALKTOMEORILLDIEDialog(ui.welcomeMessage(), talktomeorilldie));
+        dialogContainer.getChildren().add(DialogBox.gettalktomeorilldieDialog(ui.welcomeMessage(), talktomeorilldie));
     }
 
     /**
-     * Configures the event handlers for the TALKTOMEORILLDIE program.
+     * Configures the event handlers for the TalkToMeOrIllDie program.
      */
     private void configureEventHandlers() {
         //Step 3. Add functionality to handle user input.
@@ -158,15 +154,15 @@ public class TALKTOMEORILLDIE extends Application {
         String talktomeorilldieText = getResponse(userInputField.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getTALKTOMEORILLDIEDialog(talktomeorilldieText, talktomeorilldie)
+                DialogBox.gettalktomeorilldieDialog(talktomeorilldieText, talktomeorilldie)
         );
         userInputField.clear();
     }
 
     /**
-     * Gets the response from TALKTOMEORILLDIE based on the user input.
+     * Gets the response from TalkToMeOrIllDie based on the user input.
      * @param input User input.
-     * @return TALKTOMEORILLDIE's response based on the user input.
+     * @return TalkToMeOrIllDie's response based on the user input.
      */
     String getResponse(String input) {
         try {
@@ -186,7 +182,7 @@ public class TALKTOMEORILLDIE extends Application {
                 }).start();
             }
             return result;
-        } catch (TALKTOMEORILLDIEException e) {
+        } catch (DukeException e) {
             return e.getMessage();
         }
     }

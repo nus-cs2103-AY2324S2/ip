@@ -8,10 +8,10 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Main method to launch the TALKTOMEORILLDIE program.
+     * Main method to launch the TalkToMeOrIllDie program.
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        Application.launch(TALKTOMEORILLDIE.class, args);
+        Application.launch(TalkToMeOrIllDie.class, args);
     }
 }

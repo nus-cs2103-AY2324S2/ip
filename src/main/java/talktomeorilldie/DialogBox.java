@@ -25,8 +25,6 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private String backgroundColor;
-
     /**
      * Constructor for DialogBox.
      * @param text The text to display in the dialog box.
@@ -43,7 +41,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dialog.setMinSize(0,70);
+        dialog.setMinSize(0, 70);
 
         dialog.setText(text);
 
@@ -82,19 +80,18 @@ public class DialogBox extends HBox {
      * @param color The color to set the background to.
      */
     public void setBackgroundColor(String color) {
-        backgroundColor = color;
-        assert backgroundColor != null : "Background color cannot be null";
+        assert color != null : "Background color cannot be null";
         String colorStyle = String.format("-fx-background-color: %s;", color);
         setStyle(colorStyle);
     }
 
     /**
-     * Gets a dialog box for TALKTOMEORILLDIE.
+     * Gets a dialog box for TalkToMeOrIllDie.
      * @param text The text to display in the dialog box.
      * @param img The image to display in the dialog box.
-     * @return The dialog box for TALKTOMEORILLDIE.
+     * @return The dialog box for TalkToMeOrIllDie.
      */
-    public static DialogBox getTALKTOMEORILLDIEDialog(String text, Image img) {
+    public static DialogBox gettalktomeorilldieDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         db.setBackgroundColor("LIGHTPINK");

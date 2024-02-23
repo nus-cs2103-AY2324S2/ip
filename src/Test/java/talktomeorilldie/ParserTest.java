@@ -13,7 +13,7 @@ public class ParserTest {
      * Tests the parse method of Parser.
      */
     @Test
-    public void testParseByeCommand() throws TALKTOMEORILLDIEException {
+    public void testParseByeCommand() throws DukeException {
         String userInput = "bye";
         TaskList tasks = new TaskList();
         Ui ui = new Ui();

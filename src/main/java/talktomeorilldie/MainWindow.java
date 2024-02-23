@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private TALKTOMEORILLDIE talktomeorilldie;
+    private TalkToMeOrIllDie talktomeorilldie;
 
     private final Image userImage =
             new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
@@ -36,16 +36,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets TALKTOMEORILLDIE to the current TALKTOMEORILLDIE object.
-     * @param d The TALKTOMEORILLDIE object to set.
+     * Sets TalkToMeOrIllDie to the current TalkToMeOrIllDie object.
+     * @param d The TalkToMeOrIllDie object to set.
      */
-    public void setTALKTOMEORILLDIE(TALKTOMEORILLDIE d) {
+    public void setTalktomeorilldie(TalkToMeOrIllDie d) {
         talktomeorilldie = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing TALKTOMEORILLDIE's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing TalkToMeOrIllDie's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = talktomeorilldie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTALKTOMEORILLDIEDialog(response, talktomeorilldieImage)
+                DialogBox.gettalktomeorilldieDialog(response, talktomeorilldieImage)
         );
         userInput.clear();
     }

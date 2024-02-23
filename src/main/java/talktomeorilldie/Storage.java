@@ -10,10 +10,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents the storage class of the TALKTOMEORILLDIE program.
+ * Represents the storage class of the TalkToMeOrIllDie program.
  */
 public class Storage {
     private final String filePath;
@@ -35,23 +36,21 @@ public class Storage {
     public void saveTasksToFile(Task[] tasks, int taskNum) {
         assert tasks != null : "Tasks array cannot be null";
         assert taskNum >= 0 : "Invalid task number";
-        try {
-            File file = new File(filePath);
-            if (file.getParentFile().mkdirs()) {
-                System.out.println("Directories created successfully.");
-            } else {
-                System.out.println("Saving it to your already created directories");
-            }
+        File file = new File(filePath);
+        if (file.getParentFile().mkdirs()) {
+            System.out.println("Directories created successfully.");
+        } else {
+            System.out.println("Saving it to your already created directories");
+        }
 
-            // Initialize writer outside try block
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                for (int i = 0; i < taskNum; i++) {
-                    writer.write(tasks[i].toSaveString());
-                    writer.newLine();
-                }
+        // Initialize writer outside try block
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (int i = 0; i < taskNum; i++) {
+                writer.write(tasks[i].toSaveString());
+                writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("can't save :((");
+            throw new RuntimeException(e);
         }
     }
 
@@ -126,8 +125,15 @@ public class Storage {
 
     private Task parseEventFromLine(String line, String description, int separationEvent) {
         int to = line.indexOf(" - ", separationEvent + 3);
-        String from = line.substring(separationEvent + 3, to);
+        int spacing = line.indexOf(" ", separationEvent + 3);
+        String fromDate = line.substring(separationEvent + 3, spacing);
+        String fromTime = line.substring(spacing + 1, to);
         String to2 = line.substring(to + 3);
-        return new Event(description, from, to2);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime deadlineFrom = LocalTime.parse(fromTime, formatter);
+        LocalTime deadlineTo = LocalTime.parse(to2, formatter);
+
+        return new Event(description, fromDate, deadlineFrom, deadlineTo);
     }
 }

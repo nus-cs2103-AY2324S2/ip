@@ -1,22 +1,28 @@
 package talktomeorilldie;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task.
  */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    private final LocalTime fromTime;
+    private final LocalTime to;
+    private final String fromDate;
 
     /**
      * Constructor for Event.
      * @param description Description of the event.
-     * @param from Starting date and time of the event.
+     * @param fromDate Starting date of the event.
+     * @param fromTime Starting date and time of the event.
      * @param to Ending date and time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String fromDate, LocalTime fromTime, LocalTime to) {
         super(description);
-        this.from = from;
+        this.fromDate = fromDate;
+        this.fromTime = fromTime;
         this.to = to;
     }
 
@@ -26,7 +32,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + fromDate + " "
+                + fromTime.format(DateTimeFormatter.ofPattern("h:mma"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("h:mma")) + ")";
     }
 
     /**
@@ -36,6 +44,6 @@ public class Event extends Task {
     @Override
     public String toSaveString() {
         return "E | " + (isDone ? "1" : "0") + " | "
-                + description + " | " + from + " - " + to;
+                + description + " | " + fromDate.replaceAll(":", "") + " " + fromTime + " - " + to;
     }
 }

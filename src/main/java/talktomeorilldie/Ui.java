@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
- * Represents the user interface of the TALKTOMEORILLDIE program.
+ * Represents the user interface of the TalkToMeOrIllDie program.
  */
 public class Ui {
 
@@ -24,7 +24,7 @@ public class Ui {
      * @return The welcome message.
      */
     public String welcomeMessage() {
-        return "     Hello! I'm TALKTOMEORILLDIE\n"
+        return "     Hello! I'm TalkToMeOrIllDie\n"
                 + "     What can I do for you?\n";
     }
 
@@ -87,7 +87,7 @@ public class Ui {
      */
     public String showDeadlinesEventsOnDate(Task[] tasks, int taskNum, LocalDate dateToCheck) {
         StringBuilder result = new StringBuilder();
-        result.append("     Deadlines/Events occurring on ")
+        result.append("     Deadlines occurring on ")
                 .append(dateToCheck.format(DateTimeFormatter.ofPattern("d/M/yyyy")))
                 .append(":\n");
         for (int i = 0; i < taskNum; i++) {
