@@ -10,13 +10,17 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 /**
- * Test class to test methods taskCommands in Parser and commandFind in Ui
+ * Test class for Signal application functionality.
  */
 public class SignalTest {
     private Ui ui = new Ui();
     private Parser parse = new Parser();
 
+    /**
+     * Test case for adding a Todo task with normal usage.
+     */
     @Test
     public void testTasks1(){
         // todo normal usage
@@ -27,6 +31,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Todo task with an empty task description.
+     */
     @Test
     public void testTasks2() {
         // todo with empty task
@@ -35,6 +42,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Deadline task with normal usage.
+     */
     @Test
     public void testTasks3() {
         // deadline normal usage
@@ -45,6 +55,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Deadline task with an empty task description.
+     */
     @Test
     public void testTasks4() {
         // deadline with empty task
@@ -53,6 +66,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Deadline task with an empty deadline.
+     */
     @Test
     public void testTasks5() {
         // deadline with empty deadline
@@ -61,6 +77,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Deadline task with an incorrect date/time format.
+     */
     @Test
     public void testTasks6() {
         // deadline with wrong date/time format
@@ -69,6 +88,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding a Deadline task with an empty description.
+     */
     @Test
     public void testTasks7() {
         // deadline with empty description
@@ -77,6 +99,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task with normal usage.
+     */
     @Test
     public void testTasks8() {
         // event normal usage
@@ -87,6 +112,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task with an empty task description.
+     */
     @Test
     public void testTasks9() {
         // deadline with empty task
@@ -95,6 +123,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task without specifying an end time.
+     */
     @Test
     public void testTasks10() {
         // deadline with no to
@@ -103,6 +134,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task with an incorrect date/time format.
+     */
     @Test
     public void testTasks11() {
         // deadline with wrong date/time format
@@ -111,6 +145,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task with an empty description.
+     */
     @Test
     public void testTasks12() {
         // deadline with empty description
@@ -119,6 +156,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for adding an Event task without specifying an end date.
+     */
     @Test
     public void testTasks13() {
         // event with no end date
@@ -127,6 +167,9 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for finding tasks with an empty search query.
+     */
     @Test
     public void testFind1() {
         // find with empty search
@@ -140,6 +183,11 @@ public class SignalTest {
 
     }
 
+    /**
+     * Test case for finding tasks when the task list is empty.
+     *
+     * @throws SignalException if an error occurs while processing the find command.
+     */
     @Test
     public void testFind2() throws SignalException {
         // find with empty tasklist
@@ -149,6 +197,11 @@ public class SignalTest {
         assertEquals(expected, test);
     }
 
+    /**
+     * Test case for finding tasks with a valid search query.
+     *
+     * @throws SignalException if an error occurs while processing the find command.
+     */
     @Test
     public void testFind3() throws SignalException {
         // find working correctly
