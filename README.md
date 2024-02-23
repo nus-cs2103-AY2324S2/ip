@@ -95,7 +95,7 @@ Format: `list`
 
 Finds tasks whose descriptions contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORDS`
 
 * The search is case-sensitive. e.g. `return` will not match `Return`
 * The order of the keywords does not matter. e.g. `return book` will match `book return`
