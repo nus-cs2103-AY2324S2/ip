@@ -1,5 +1,7 @@
 # Hanxiao User Guide
 
+<img src="Ui.png" alt="HanxiaoUi" style="zoom:50%;" />
+
 ## Setup 
 1. Ensure you have **Java 11** installed in your Computer.
 2. Move to the *folder* where you put the `jar` file.
@@ -33,6 +35,13 @@ Got it. I've added this task.
     [T][ ][] write user guide
 Now you have 1 tasks in the list.
 ```
+## `time` format
+
+#### Could be in 3 types
+Should capitalize the **first letter**
+1. yyyy-mm-dd  e.g. 2024-02-16
+2. Today/Tomorrow
+3. Monday/Mon ~ Sunday/Sun
 
 ## Adding deadlines
 
@@ -85,9 +94,9 @@ Now you have 2 tasks in the list.
 
 ## Mark a task as finished
 
-**Usage:** marking `index`
+**Usage:** mark `index`
 
-**Example:** marking 1
+**Example:** mark 1
 
 ```
 Nice! I've marked this task as done:
@@ -96,9 +105,9 @@ Nice! I've marked this task as done:
 
 ## Unmark a finished task as not finished
 
-**Usage:** unmarking `index`
+**Usage:** unmark `index`
 
-**Example:** unmarking 1
+**Example:** unmark 1
 
 ```
 OK, I've marked this task as not done yet:
@@ -167,9 +176,4 @@ Nice! I've update the tag:
 **Usage:** `quit`/`exit`/`bye`
 
 
-## `time` format
 
-#### Could be classified by 3 types
-1. yyyy-mm-dd  e.g. 2024-02-16
-2. Today/Tomorrow
-3. Monday/Mon ~ Sunday/Sun
