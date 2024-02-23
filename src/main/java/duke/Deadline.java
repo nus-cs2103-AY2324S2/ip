@@ -28,8 +28,7 @@ public class Deadline extends Task{
         if (by.equals("")) {
             return "[D]" + super.printWithStatus() + " (by: " +
                     date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-        }
-        else {
+        } else {
             return "[D]" + super.printWithStatus() + " (by: " +
                     by + ")";
         }
