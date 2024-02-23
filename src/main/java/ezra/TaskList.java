@@ -124,7 +124,7 @@ public class TaskList {
         for (int taskIndex : taskIndices) {
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-                invalidTaskNumbers.append(String.format("\n%d is an invalid task number.", taskIndex + 1));
+                invalidTaskNumbers.append(String.format("%d is an invalid task number.\n", taskIndex + 1));
             }
         }
         return invalidTaskNumbers.toString();
