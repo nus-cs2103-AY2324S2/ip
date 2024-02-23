@@ -17,7 +17,7 @@ import java.io.File;
 public class Duke {
     
     private static final String FILE_PATH = System.getProperty("user.home") + File.separator
-            + "Desktop" + File.separator + "jinni.txt";
+            + "data" + File.separator + "jinni.txt";
     private Storage storage;
     private Ui ui;
     private Parser parser;
