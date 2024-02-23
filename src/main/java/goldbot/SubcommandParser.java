@@ -24,13 +24,13 @@ public class SubcommandParser {
         List<String> initial = new ArrayList<>();
         Pattern p = Pattern.compile("\\" + initializer + "\\w*");
         int i = 0;
-        boolean matched = false;
+        boolean hasBeenMatched = false;
         while (i < words.length) {
             String word = words[i];
             i++;
             Matcher m = p.matcher(word);
             if (m.matches()) {
-                matched = true;
+                hasBeenMatched = true;
                 Pair<String, List<String>> subcommand = new Pair<String, List<String>>(word, new ArrayList<String>());
                 subcommandInternalList.add(subcommand);
                 while (i < words.length) {
@@ -42,7 +42,7 @@ public class SubcommandParser {
                     i++;
                 }
             }
-            if (!matched) {
+            if (!hasBeenMatched) {
                 initial.add(word);
             }
         }
