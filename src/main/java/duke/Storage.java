@@ -40,7 +40,7 @@ public class Storage {
      * it is created.
      */
     protected void loadTasks() {
-        File file = new File(Duke.DATA_FILE);
+        File file = new File(Ursa.DATA_FILE);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -48,7 +48,7 @@ public class Storage {
                 this.taskList.addTask(task);
             }
         } catch (FileNotFoundException e) {
-            ErrorHandler.handleFileNotFoundException(Duke.DATA_FILE);
+            ErrorHandler.handleFileNotFoundException(Ursa.DATA_FILE);
         }
     }
 
@@ -57,7 +57,7 @@ public class Storage {
      * Writes each task to the file in a format suitable for loading back.
      */
     protected void saveTasks() {
-        try (PrintWriter writer = new PrintWriter(Duke.DATA_FILE)) {
+        try (PrintWriter writer = new PrintWriter(Ursa.DATA_FILE)) {
             for (Task task : this.taskList.getTasks()) {
                 writer.println(task.toFileFormat());
             }

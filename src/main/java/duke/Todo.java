@@ -7,7 +7,7 @@ public class Todo extends Task {
 
 	/**
 	 * Constructs a new Todo task with the specified description and input.
-	 *
+     *
 	 * @param description The task's description.
 	 * @param input       The original input string that created the task.
 	 */

@@ -6,7 +6,7 @@ package duke;
  * greetings, errors, and other messages to the user.
  */
 public class Ui {
-    protected static String hello = String.format("\tHello! I'm %s\n", Duke.name) + "\tWhat can I do for you?\n";
+    protected static String hello = String.format("\tHello! I'm %s\n", Ursa.name) + "\tWhat can I do for you?\n";
     private static String goodbye = "\tBye. Hope to see you again soon!\n";
 
     private Storage storage = null;
@@ -22,29 +22,16 @@ public class Ui {
         this.taskList = taskList;
     }
 
-    /**
-     * Returns a message indicating the user has entered an invalid command.
-     * @return A string containing help message as response to invalid commands.
-     */
-    public static String getInvalidString() {
-        return "\tOOPS!!! That is not a valid command!\n"
-                + "\tTry the following: \n"
-                + "\tlist\n"
-                + "\tmark x\n"
-                + "\tunmark x\n"
-                + "\tdelete x\n"
-                + "\tfind xxx\n"
-                + "\ttodo xxx\n"
-                + "\tdeadline xxx /by yyyy-MM-dd\n"
-                + "\tevent xxx /from yyyy-MM-dd /to yyyy-MM-dd";
-    }
-
     public static String getInvalidFormatString() {
         return "\tSpecify a number!";
     }
 
     public static String getInvalidNumString() {
         return "\tTask number out of range!";
+    }
+
+    public boolean isExitCommand(String input) {
+        return input.equals("bye");
     }
 
     /**
@@ -93,7 +80,6 @@ public class Ui {
         case EVENT:
         case TODO:
         case DEADLINE:
-        System.out.println("HANDLING TODO");
             return handleTaskAddition(output, parsedCommand);
         default:
             return "";
@@ -107,7 +93,7 @@ public class Ui {
      * @return The string representation of the response.
      */
     private String handleInvalid(StringBuilder output) {
-        output.append(Ui.getInvalidString());
+        output.append(ErrorMessage.HELP_STRING);
         return output.toString();
     }
 
@@ -209,23 +195,46 @@ public class Ui {
         return output.toString();
     }
 
+/**
+ * Handles the addition of a task based on the parsed command.
+ * If the task is invalid, it appends the error message. Otherwise, it adds the task to the list
+ * and appends a confirmation message.
+ *
+ * @param output          The StringBuilder to append messages to.
+ * @param parsedCommand   The parsed command containing the task to add.
+ * @return                The updated output string.
+ */
+private String handleTaskAddition(StringBuilder output, Parser.ParsedCommand parsedCommand) {
+    Task task = Parser.createTask(parsedCommand.getCommandType(), parsedCommand.getInput());
+    
+    if (task instanceof InvalidTask) {
+        handleInvalidTask(output, task);
+    } else {
+        addValidTask(output, task);
+    }
+
+    return output.toString();
+}
+
     /**
-     * Adds a new task based on the parsed command and appends a confirmation message to the output.
+     * Appends the error message for an invalid task to the output.
+     *
+     * @param output The StringBuilder to append the message to.
+     * @param task   The invalid task containing the error message.
+     */
+    private void handleInvalidTask(StringBuilder output, Task task) {
+        output.append(task.getDetails());
+    }
+
+    /**
+     * Adds a valid task to the task list and appends a confirmation message to the output.
      *
      * @param output The StringBuilder to append the confirmation message to.
-     * @param parsedCommand The parsed command containing details for creating the new task.
-     * @return The string representation of the task addition confirmation.
+     * @param task   The valid task to be added.
      */
-    private String handleTaskAddition(StringBuilder output, Parser.ParsedCommand parsedCommand) {
-        Task task = Parser.createTask(parsedCommand.getCommandType(), parsedCommand.getInput());
-        if (task instanceof InvalidTask) {
-            output.append(task.getDetails());
-        } else {
-            this.taskList.addTask(task);
-            output.append("\tGot it. I've added this task:\n\t").append(task);
-            output.append("\tNow you have ").append(TaskList.storageFill).append(" tasks in the list.\n");
-        }
-        return output.toString();
+    private void addValidTask(StringBuilder output, Task task) {
+        this.taskList.addTask(task);
+        output.append("\tGot it. I've added this task:\n\t").append(task);
+        output.append("\tNow you have ").append(TaskList.storageFill).append(" tasks in the list.\n");
     }
-    
 }

@@ -38,7 +38,7 @@ public class Parser {
         case FIND:
             return handleFindCommand(parts);
         default:
-            // TODO, DEADLINE, EVENT, INVALID
+            // create TODO, DEADLINE, EVENT, INVALID tasks
             return handleOtherCommands(parts, input, commandType);
         }
     }
@@ -163,63 +163,79 @@ public class Parser {
     public static Task createTask(CommandType command, String input) {
         String[] parts = input.split(" ", 2);
         switch (command) {
-            case TODO:
-                return createTodoTask(parts, input);
-            case DEADLINE:
-                return createDeadlineTask(parts, input);
-            case EVENT:
-                return createEventTask(parts, input);
-            default:
-                return new InvalidTask("Invalid command.");
+        case TODO:
+            return createTodoTask(parts, input);
+        case DEADLINE:
+            return createDeadlineTask(parts, input);
+        case EVENT:
+            return createEventTask(parts, input);
+        default:
+            return new InvalidTask(ErrorMessage.INVALID_COMMAND);
         }
     }
 
     private static Task createTodoTask(String[] parts, String input) {
         if (parts[1].trim().isEmpty()) {
-            return new InvalidTask("Task description cannot be empty!");
+            return new InvalidTask(ErrorMessage.EMPTY_TODO_DESCRIPTION);
         }
         return new Todo(parts[1], input);
     }
 
+    /**
+     * Creates a {@code Deadline} task based on user input.
+     * Validates input for empty descriptions and checks due date format.
+     *
+     * @param parts Split user input, where {@code parts[1]} contains the task description and due date.
+     * @param input Original user input.
+     * @return A {@code Deadline} task if input is valid, or an {@code InvalidTask} with an error message.
+     */
     private static Task createDeadlineTask(String[] parts, String input) {
         String[] deadlineParts = parts[1].split(" /by ", 2);
         if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
-            return new InvalidTask("Task description cannot be empty!");
+            return new InvalidTask(ErrorMessage.EMPTY_DEADLINE_DESCRIPTION);
         } else if (deadlineParts.length < 2) {
-            return new InvalidTask("Specify xxx /by yyyy-MM-dd!");
+            return new InvalidTask(ErrorMessage.DEADLINE_TIME_NOT_SPECIFIED);
         } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
-            return new InvalidTask("Due date should not be empty!");
+            return new InvalidTask(ErrorMessage.EMPTY_DUE_DATE);
         } else {
             LocalDate dueDate = parseDate(deadlineParts[1]);
             if (dueDate == null) {
-                return new InvalidTask("Invalid date format. Please use yyyy-MM-dd.");
+                return new InvalidTask(ErrorMessage.INVALID_DATE_FORMAT);
             }
             return new Deadline(deadlineParts[0], dueDate, input);
         }
     }
 
+    /**
+     * Creates an {@code Event} task based on user input.
+     * Validates input for empty descriptions and checks event start and end date formats.
+     *
+     * @param parts Split user input, where {@code parts[1]} contains the task description and event timing.
+     * @param input Original user input.
+     * @return An {@code Event} task if input is valid, or an {@code InvalidTask} with an error message.
+     */
     private static Task createEventTask(String[] parts, String input) {
         String[] eventParts = parts[1].split(" /from ", 2);
         if (eventParts[0].trim().isEmpty()) {
-            return new InvalidTask("Task description cannot be empty.");
+            return new InvalidTask(ErrorMessage.EMPTY_EVENT_DESCRIPTION);
         } else if (eventParts.length < 2) {
             // not enough parts for an event
-            return new InvalidTask("Specify /from yyyy-MM-dd and /to yyyy-MM-dd!");
+            return new InvalidTask(ErrorMessage.EVENT_TIME_NOT_SPECIFIED);
         } else {
             String[] timeParts = eventParts[1].split(" /to ", 2);
             if (timeParts[0].replaceAll("\\s", "").equals("")) {
-                return new InvalidTask("Start time should not be empty!");
+                return new InvalidTask(ErrorMessage.EMPTY_START_TIME);
             } else if (timeParts.length < 2) {
-                return new InvalidTask("Specify yyyy-MM-dd /to yyyy-MM-dd!");
+                return new InvalidTask(ErrorMessage.EVENT_TIME_NOT_SPECIFIED);
             } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
-                return new InvalidTask("End time should not be empty!");
+                return new InvalidTask(ErrorMessage.EMPTY_END_TIME);
             } else {
                 // Construct the event string
                 LocalDate start = parseDate(timeParts[0]);
                 LocalDate end = parseDate(timeParts[1]);
                 String eventTime = formatEventTime(start, end);
                 if (start == null || end == null) {
-                    return new InvalidTask("Unable to parse the date. Please use the format: yyyy-MM-dd");
+                    return new InvalidTask(ErrorMessage.INVALID_DATE_FORMAT);
                 }
                 return new Event(eventParts[0], eventTime, input, start, end);
             }
@@ -258,7 +274,7 @@ public class Parser {
      *
      * @param line The formatted string representing a task.
      * @return A Task object corresponding to the input string. The task is marked as done if
-     *         the Status is 1. Returns null or throws an exception for invalid input formats or command types.
+     *         the Status is 1. Returns an Invalid task for invalid input formats or command types.
      */
     protected static Task createTaskFromFile(String line) {
         String[] parts = line.split(" \\| ");

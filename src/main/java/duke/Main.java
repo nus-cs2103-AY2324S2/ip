@@ -13,15 +13,19 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Ursa duke;
 
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            // Get the controller for the MainWindow
+            MainWindow mainWindow = fxmlLoader.getController();
+            duke = new Ursa(mainWindow);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(Ursa.name);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {

@@ -6,7 +6,7 @@ import java.nio.file.Paths;
  * The main class for the Duke application.
  * Initializes the application's UI, storage, and task list components.
  */
-public class Duke {
+public class Ursa {
     // Path to the directory where task data is stored
     protected static final String DATA_DIRECTORY = Paths.get("src", "main", "java", "data").toString();
     // Path to the file within DATA_DIRECTORY where tasks are saved
@@ -21,9 +21,10 @@ public class Duke {
      * Constructs a new Duke application instance.
      * Initializes the task list, storage, and UI components.
      */
-    public Duke() {
+    public Ursa(MainWindow mainWindow) {
+        ErrorHandler.setWindow(mainWindow);
         this.tasks = new TaskList();
-        this.storage = new Storage(tasks);
+        this.storage = new Storage(this.tasks);
         this.ui = new Ui(this.storage, this.tasks);
         this.storage.loadTasks();
     }
