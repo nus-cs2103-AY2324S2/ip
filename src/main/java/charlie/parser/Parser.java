@@ -24,6 +24,9 @@ public class Parser {
         } else if (fullCommand.startsWith("mark")) {
             String[] words = fullCommand.split(" ");
             return new MarkCommand(Integer.valueOf(words[1]));
+        } else if (fullCommand.startsWith("find")) {
+            String[] words = fullCommand.split(" ");
+            return new FindCommand(words[1]);
         }
         else{
             throw new CharlieException("Sorry, unknown command, try again!");
