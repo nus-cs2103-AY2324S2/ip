@@ -80,6 +80,7 @@ public class Duke {
                 break;
             case SORT:
                 response = tasks.sortTask();
+                Storage.updateTask(tasks);
                 break;
             default:
                 throw new FtException("Unknown Command: Please use a correct command");
