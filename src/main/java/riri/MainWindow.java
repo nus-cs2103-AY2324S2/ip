@@ -63,9 +63,6 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equals("bye") || input.equals("exit")) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(riri.endingResponse(), ririImage)
-            );
             try {
                 sleep(1000);
             } catch (InterruptedException e) {

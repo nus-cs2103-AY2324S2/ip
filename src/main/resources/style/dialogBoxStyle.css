@@ -5,9 +5,6 @@
     -fx-text-fill: white;
     -fx-background-radius: 20;
     -fx-padding: 10;
-    -fx-wrap-text: true;
-    -fx-text-overrun: clip;
-
 }
 
 .layout {
