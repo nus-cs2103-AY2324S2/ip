@@ -10,6 +10,6 @@ public class MarkCmd extends Command{
     }
 
     public MarkCmd(int i) {
-        this.index = i;
+        this.index = i - 1;
     }
 }

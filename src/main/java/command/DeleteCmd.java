@@ -14,6 +14,6 @@ public class DeleteCmd extends Command {
     }
 
     public DeleteCmd(int i) {
-        index = i;
+        index = i - 1;
     }
 }

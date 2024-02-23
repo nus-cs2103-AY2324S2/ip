@@ -10,6 +10,6 @@ public class UnmarkCmd extends Command {
     }
 
     public UnmarkCmd(int i) {
-        this.index = i;
+        this.index = i - 1;
     }
 }

@@ -1,4 +1,1 @@
-D | 0 | aajdbnfabfg';oiudhgajbnd;fjasdvona; | Dec 12 1212 12:12
-E | 0 | o;gfbnqr;ewjgbn;oqiwhn'reiqhjt;lkrggwjhkiefbnag;kaj | Dec 12 1212 12:12 | Dec 12 1212 12:12
-D | 1 | return book | Dec 2 2019 18:00
-D | 1 | book | Dec 12 1212 12:12
+D | 0 | book | Dec 12 1212 12:12

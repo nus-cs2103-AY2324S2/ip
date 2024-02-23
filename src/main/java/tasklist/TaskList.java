@@ -65,8 +65,8 @@ public class TaskList extends BarebonesTaskList {
      */
     @Override
     public void mark(int i) {
-        taskList.get(i - 1).markAsDone();
-        ui.markResponse(taskList.get(i - 1).toString());
+        taskList.get(i).markAsDone();
+        ui.markResponse(taskList.get(i).toString());
         storage.save();
     }
 
@@ -77,8 +77,8 @@ public class TaskList extends BarebonesTaskList {
      */
     @Override
     public void unmark(int i) {
-        taskList.get(i - 1).unMarkAsDone();
-        ui.unmarkResponse(taskList.get(i - 1).toString());
+        taskList.get(i).unMarkAsDone();
+        ui.unmarkResponse(taskList.get(i).toString());
         storage.save();
     }
 
@@ -90,7 +90,7 @@ public class TaskList extends BarebonesTaskList {
     @Override
     public void delete(int i) {
         try {
-            this.taskList.remove(i - 1);
+            this.taskList.remove(i);
             this.taskCount -= 1;
             storage.save();
         } catch (ArrayIndexOutOfBoundsException e) {

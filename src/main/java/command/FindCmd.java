@@ -10,6 +10,9 @@ public class FindCmd extends Command {
     public String execute() {
         // return another taskList
         result = tasks.find(query);
+        if (result.getTaskCount() == 0) {
+            return String.format("Sir/Mdm, there are no tasks of %s found in the list", query);
+        }
         response = ui.printTasks(result);
         return response;
     }
