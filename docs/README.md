@@ -12,7 +12,7 @@ It is:
 # Content
 - [Getting Started](#Getting_Started)
 - [Features](#Features)
-    - [List](#Listing)
+    - [List](#▶️_Listing)
 
 ## Getting Started 💻
 
