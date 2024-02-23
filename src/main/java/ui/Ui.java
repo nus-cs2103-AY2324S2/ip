@@ -74,6 +74,25 @@ public class Ui {
     }
 
     /**
+     * Generates a message displaying the sorted list of tasks.
+     *
+     * @param taskList The TaskList containing the sorted list of tasks.
+     * @return A formatted string displaying the sorted list of tasks.
+     */
+    public String showSortMessage(TaskList taskList) {
+        StringBuilder outputString = new StringBuilder();
+        StringBuilder finalString = new StringBuilder();
+        finalString.append("Here is the sorted list:\n");
+        int counter = 1;
+        for (Task c : taskList.getList()) {
+            finalString.append(String.format("%d. %s\n", counter, c.toString()));
+            counter++;
+        }
+        outputString.append(finalString.toString());
+        return outputString.toString();
+    }
+
+    /**
      * Marks task as done.
      * 
      * @param task Task input

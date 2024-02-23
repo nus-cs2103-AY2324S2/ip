@@ -2,6 +2,8 @@ package task;
 
 import java.util.ArrayList;
 
+import comparator.TaskComparator;
+
 /**
  * Represents a list of tasks.
  */
@@ -13,6 +15,13 @@ public class TaskList {
      */
     public TaskList() {
         this.listOfTasks = new ArrayList<>();
+    }
+
+    /**
+     * Sorts the list of tasks based on their names in alphabetical order.
+     */
+    public void sort() {
+        listOfTasks.sort(new TaskComparator<>());
     }
 
     /**

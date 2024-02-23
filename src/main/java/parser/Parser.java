@@ -29,6 +29,8 @@ public class Parser {
         String commandWord = words[0].toLowerCase();
 
         switch (commandWord) {
+            case "sort":
+                return new Command(words, XiaoBai.CommandType.SORT);
             case "todo":
                 return new Command(words, XiaoBai.CommandType.TODO);
             case "deadline":
