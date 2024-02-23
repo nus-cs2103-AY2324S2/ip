@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

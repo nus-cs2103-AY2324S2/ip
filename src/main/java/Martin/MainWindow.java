@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

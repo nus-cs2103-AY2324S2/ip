@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 public class Parser {
     /**

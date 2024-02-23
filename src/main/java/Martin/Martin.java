@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 import java.util.ArrayList;
 import java.io.IOException;

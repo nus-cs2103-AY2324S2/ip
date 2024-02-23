@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 /**
  * Represents a task.

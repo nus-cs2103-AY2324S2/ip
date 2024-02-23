@@ -1,4 +1,4 @@
-package Martin;
+package martin;
 
 import org.junit.jupiter.api.Test;
 
