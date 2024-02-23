@@ -20,8 +20,6 @@ public class Parser {
      * @param filePath The file path for data storage.
      */
     public Parser(TaskList tasks, String filePath) {
-        assert tasks != null : "TaskList must not be null";
-        assert filePath != null : "File path must not be null";
         this.tasks = tasks;
         this.storage = new Storage(filePath);
     }
@@ -32,7 +30,10 @@ public class Parser {
      * @return A String representing the response to the user command.
      */
     public String parseInput(String userInput) {
-        assert userInput != null : "User input must not be null";
+        if (userInput == null || userInput.trim().isEmpty()) {
+            return "Invalid input. Please provide a valid command.";
+        }
+
         String category = userInput.split(" ")[0].toLowerCase().trim();
         switch (category) {
         case "list":
@@ -45,27 +46,37 @@ public class Parser {
             }
             return sb.toString();
         case "mark":
-            assert tasks != null : "TaskList must not be null";
-            assert storage != null : "Storage must not be null";
-            String responseToMark = tasks.markTask(userInput);
-            try {
-                storage.writeToFile(tasks);
-            } catch (IOException e) {
-                return e.getMessage();
+            if (tasks != null && storage != null) {
+                String responseToMark = tasks.markTask(userInput);
+                try {
+                    storage.writeToFile(tasks);
+                } catch (IOException e) {
+                    return e.getMessage();
+                }
+                return responseToMark;
+            } else {
+                return "Task list or storage is not initialized.";
             }
-            return responseToMark;
         case "unmark":
-            assert tasks != null : "TaskList must not be null";
-            assert storage != null : "Storage must not be null";
-            String responseToUnmark = tasks.unmarkTask(userInput);
-            try {
-                storage.writeToFile(tasks);
-            } catch (IOException e) {
-                return e.getMessage();
+            if (tasks != null && storage != null) {
+                String responseToUnmark = tasks.unmarkTask(userInput);
+                try {
+                    storage.writeToFile(tasks);
+                } catch (IOException e) {
+                    return e.getMessage();
+                }
+                return responseToUnmark;
+            } else {
+                return "Task list or storage is not initialized.";
             }
-            return responseToUnmark;
         case "todo":
-            return tasks.addTodo(userInput);
+            if (storage == null) {
+                return "Storage is not initialized.";
+            } else if (tasks == null) {
+                return "Tasks is not initialized.";
+            } else {
+                return tasks.addTodo(userInput);
+            }
         case "deadline":
             return tasks.addDeadline(userInput);
         case "event":

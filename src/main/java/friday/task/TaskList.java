@@ -13,7 +13,7 @@ import friday.ui.Ui;
  * Represents a list of tasks in the Friday application.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
     private Ui ui;
     private Storage storage;
 
@@ -23,11 +23,14 @@ public class TaskList {
      * @param filePath The file path where task data is stored.
      */
     public TaskList(String filePath) {
-        this.tasks = new ArrayList<>();
+//        this.tasks = new ArrayList<>();
         this.ui = new Ui();
         this.storage = new Storage(filePath);
     }
 
+//    public TaskList() {
+//       this.tasks = new ArrayList<>();
+//    }
     /**
      * Returns the number of tasks in the task list.
      *
@@ -156,6 +159,10 @@ public class TaskList {
      * @return A message indicating the task has been added successfully or an error message.
      */
     public String addTodo(String userInput) {
+        if (tasks == null || storage == null) {
+            return "Error. TaskList or Storage is not initialized.";
+        }
+
         String description = userInput.substring(5).trim();
         if (description.isEmpty()) {
             return "Error. Cannot add empty Todo.";
