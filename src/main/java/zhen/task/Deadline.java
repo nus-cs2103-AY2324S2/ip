@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class Deadline extends Task {
     private LocalDate dueDate = null;
-    private String dueDateString;
+    private String dueDateString = "";
     public Deadline(String message, LocalDate dueDate) {
         super(message);
         this.dueDate = dueDate;
@@ -14,6 +14,11 @@ public class Deadline extends Task {
         super(message);
         this.dueDateString = dueDate;
     }
+    public Deadline(LocalDate dueDate, String message) {
+        super(message);
+        this.dueDate = dueDate;
+    }
+
     @Override
     public String toString() {
         String taskInfo;
