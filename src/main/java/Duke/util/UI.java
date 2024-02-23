@@ -11,12 +11,9 @@ import duke.tasks.Task;
  */
 public class UI {
     private static final String[] token = new String[]{
-        "____________________________________________________________",
         "Hello! I'm chinesepoliceman",
         "What can I do for you?",
-        "____________________________________________________________",
-        " Bye. Hope to see you again soon!",
-        "____________________________________________________________"
+        " Bye. Hope to see you again soon!"
     };
     private static final String[] listOfCommands = new String[]{
         "  1. bye (exit program)\n",
@@ -33,6 +30,7 @@ public class UI {
     };
     private Scanner sc = new Scanner(System.in);
     private String userName;
+
     /**
      * Generates a message indicating that a task has been marked as done.
      * @param t The task that has been marked as done.
@@ -41,6 +39,7 @@ public class UI {
     public String markMessage(Task t) {
         return String.format("Nice! I've marked this task as done:\n%s\n", t.toString());
     }
+
     /**
      * Generates a message indicating that a task has been marked as not done yet.
      * @param t The task that has been marked as not done yet.
@@ -91,7 +90,7 @@ public class UI {
      */
     public String introMessage() {
         StringBuilder result = new StringBuilder();
-        result.append(String.format("%s\n%s\n\nHere are the list of Commands:\n", token[1], token[2]));
+        result.append(String.format("%s\n%s\n\nHere are the list of Commands:\n", token[0], token[1]));
         for (int i = 0; i < listOfCommands.length; i++) {
             result.append(listOfCommands[i]);
         }
@@ -103,7 +102,7 @@ public class UI {
      * @return The generated exit message.
      */
     public String exitMessage() {
-        return String.format("%s\n", token[4]);
+        return String.format("%s\n", token[2]);
     }
 
     /**
@@ -143,17 +142,31 @@ public class UI {
         return result.toString();
     }
 
+    /**
+     * Sets the user's name.
+     * @param userName The user's name.
+     */
     public void setName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * Gets the user's name.
+     * @return The user's name.
+     */
     public String getName() {
         String name = this.userName == null
                 ? "User"
                 : this.userName;
         return name;
     }
+
+    /**
+     * Generates a message for the user's name.
+     * @return The generated message.
+     */
     public String nameMessage() {
         return String.format("Hello!!! Nice to meet you %s!!!\n", this.userName);
     }
 }
+

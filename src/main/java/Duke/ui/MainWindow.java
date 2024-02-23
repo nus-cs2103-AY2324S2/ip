@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+
 /**
  * The MainWindow class serves as the controller for the main window of the Duke application.
  * It provides the layout for the other controls and handles user interactions.
@@ -68,9 +69,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        dukeUserInput.clear();
         if (input.trim().toLowerCase().equals("bye")) {
             Platform.exit();
         }
-        dukeUserInput.clear();
     }
 }
