@@ -1,8 +1,12 @@
 package datuk;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -156,10 +160,10 @@ public class Datuk extends Application {
         try {
             if (cmd.equals("bye")) {
                 out = ui.byeMsg();
+                exit();
             } else if (cmd.equals("list")) {
                 out = ui.printList(tasks.get());
-            }
-            else if (cmd.equals("mark") || cmd.equals("unmark")) {
+            } else if (cmd.equals("mark") || cmd.equals("unmark")) {
                 out = tasks.marked(parser.parseMark(text));
                 storage.saveTasks(tasks.get());
             } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")){
@@ -180,6 +184,15 @@ public class Datuk extends Application {
         }
 
         return out;
+    }
+
+    private void exit()  {
+        ScheduledExecutorService execServ = Executors.newSingleThreadScheduledExecutor();
+
+        execServ.scheduleWithFixedDelay(() -> {
+            Platform.exit(); //exit javaFx
+            System.exit(0); //exit program
+        }, 1, 3, TimeUnit.SECONDS);
     }
 }
 

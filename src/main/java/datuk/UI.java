@@ -29,8 +29,7 @@ public class UI {
      * @return
      */
     public String byeMsg() {
-        return "Farewell!\n"
-                + "Please use the x on the top right corner to exit!";
+        return "Farewell!\n";
     }
 
     /**
