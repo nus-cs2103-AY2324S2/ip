@@ -98,7 +98,7 @@ class Task {
         StringBuilder result = new StringBuilder(getStatusIcon() + " " + description);
 
         if (!tags.isEmpty()) {
-            result.append("\nTags: ");
+            result.append("\n   Tags: ");
             for (String tag : tags) {
                 result.append(tag).append(", ");
             }

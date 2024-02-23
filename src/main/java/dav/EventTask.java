@@ -102,7 +102,7 @@ class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "\n"
-                + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                + "   (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
                 + " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
