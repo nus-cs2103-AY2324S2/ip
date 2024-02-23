@@ -117,7 +117,8 @@ public class Parser {
     private Command prepareMark(String[] inputs) {
         try {
             if (inputs.length != 2) {
-                throw new PodzException("Wrong mark command format!!");
+                throw new PodzException(
+                    "Oops! It looks like there was an issue with the mark command format.");
             }
 
             int taskIndex = parseTaskIndex(inputs[1]);
@@ -144,7 +145,7 @@ public class Parser {
         try {
             return Integer.parseInt(input.strip()) - 1;
         } catch (NumberFormatException e) {
-            throw new PodzException("Invalid task index format.");
+            throw new PodzException("Please provide a valid index and try again.");
         }
     }
 
@@ -215,7 +216,7 @@ public class Parser {
                                         + "cannot be empty.");
             }
 
-            int index = Integer.parseInt(inputs[1]) - 1;
+            int index = parseTaskIndex(inputs[1]);
             return new DeleteCommand(index);
         } catch (PodzException e) {
             return new IncorrectCommand(e);

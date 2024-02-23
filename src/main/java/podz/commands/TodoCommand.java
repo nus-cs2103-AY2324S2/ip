@@ -23,7 +23,7 @@ public class TodoCommand extends Command {
     @Override
     public String execute() {
         super.taskList.addTask(this.todo);
-        super.response = "Got it. I've added this task:\n"
+        super.response = "Sure thing! Added a new todo task:\n"
                         + this.todo + "\n"
                         + super.taskList.getListCounter();
         return super.response;

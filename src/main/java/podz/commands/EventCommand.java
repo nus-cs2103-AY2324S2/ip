@@ -23,7 +23,7 @@ public class EventCommand extends Command {
     @Override
     public String execute() {
         super.taskList.addTask(event);
-        super.response = "Got it. I've added this task:\n"
+        super.response = "Great choice! An event task has been added:\n"
                         + this.event + "\n"
                         + super.taskList.getListCounter();
         return super.response;

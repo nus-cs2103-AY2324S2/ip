@@ -69,8 +69,8 @@ public class Podz {
      * @return a greeting message.
      */
     public String getGreeting() {
-        return "Hello! I'm Podz.\n"
-                + "What can I do for you?";
+        return "Hello there! I'm Podz, your friendly robot assistant.\n"
+                + "How can I assist you today?";
     }
 
     /**

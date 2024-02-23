@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
             throw new PodzException("Oh no!!! Invalid task index!");
         }
         super.taskList.unmarkTask(index);
-        super.response = "OK, I've marked this task as not done yet: "
+        super.response = "Task status updated! The task is now marked as incomplete:\n"
                         + super.taskList.getTask(index);
         return super.response;
     }
