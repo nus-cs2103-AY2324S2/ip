@@ -45,16 +45,6 @@ public class Ui {
         return user;
     }
 
-    /*
-     * Reads a user command from the console input.
-     *
-     * @return The user-entered command as a String.
-     *
-    public String readCommand(String input) {
-        return input;
-    }
-    */
-
     /**
      * Displays a welcome message and the application logo.
      */
