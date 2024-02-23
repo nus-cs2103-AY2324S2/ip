@@ -37,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * Save Tasks into Storage
+     * Saves Tasks into Storage
      */
     public void saveTasks() {
         try {

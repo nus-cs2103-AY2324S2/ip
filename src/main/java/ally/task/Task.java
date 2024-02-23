@@ -22,6 +22,7 @@ public class Task implements Serializable {
     }
 
     /**
+     * Creates Task.
      * Another Task Constructor.
      * To be used only by Child Classes of Task.
      */
@@ -29,7 +30,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Status Icon of Task
+     * Gets Status Icon of Task
      * "X" denotes completion and " " denotes incomplete
      * @return String status icon
      */
@@ -38,7 +39,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get String representaiton of task.
+     * Gets String representaiton of task.
      * @return String string representation of task
      */
     @Override

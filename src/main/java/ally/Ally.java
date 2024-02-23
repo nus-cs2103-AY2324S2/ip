@@ -18,7 +18,7 @@ import ally.utils.TaskList;
 public class Ally {
 
     public static TaskList lst = new TaskList();
-    protected static Storage storage = new Storage("./data/duke.txt");
+    protected static Storage storage = new Storage("./data/ally.txt");
     private MainWindow mainWindow;
 
     public Ally() {
