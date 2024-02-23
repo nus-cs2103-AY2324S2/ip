@@ -6,6 +6,7 @@ package ghbot.executor;
  */
 public class ByeExecutor extends Executor {
     private String executeStr;
+
     /**
      * ByeExecutor Constructor.
      */

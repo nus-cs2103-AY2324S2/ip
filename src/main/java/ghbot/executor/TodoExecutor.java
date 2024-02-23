@@ -20,7 +20,8 @@ public class TodoExecutor extends Executor {
     }
 
     /**
-     * Prints a string to let user know that the todo task has been added.
+     * Returns a string to let user know that the todo task has been added.
+     * @return A string to let user know that the todo task has been added.
      */
     @Override
     public String execute() {

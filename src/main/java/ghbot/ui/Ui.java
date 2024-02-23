@@ -126,7 +126,7 @@ public class Ui {
     /**
      * Checks the description format for deadline task.
      * @param subStr A string array containing the input splits by instruction and description.
-     * @throws UiException When the description is incomplete.
+     * @throws UiException When the description is incomplete or the format is wrong.
      */
     public void additionalCheckForDeadlineTask(String[] subStr) throws UiException {
         String[] ss = subStr[1].split("/by");
@@ -153,7 +153,8 @@ public class Ui {
 
     /**
      * Checks the description format for event task.
-     * @throws UiException When the description is incomplete.
+     * @param subStr A string array containing the input splits by instruction and description.
+     * @throws UiException When the description is incomplete or the format is wrong.
      */
     public void additionalCheckForEventTask(String[] subStr) throws UiException {
         String[] ss = subStr[1].split("/from");

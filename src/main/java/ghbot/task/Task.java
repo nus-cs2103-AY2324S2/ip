@@ -36,7 +36,7 @@ public class Task {
      * @return X Returns X or " " depending on isDone.
      */
     public String getStatusIcon() {
-        return isDone ? "X" : " ";
+        return this.isDone ? "X" : " ";
     }
 
     /**
@@ -44,7 +44,7 @@ public class Task {
      * @return A string that describes the item in the list for file operation.
      */
     public String toFile() {
-        return "| " + (isDone ? "1" : "0") + " | " + this.description.trim();
+        return "| " + (this.isDone ? "1" : "0") + " | " + this.description.trim();
     }
 
     /**

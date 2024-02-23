@@ -9,7 +9,7 @@ public class Event extends Task {
     private String toTime;
 
     /**
-     * Event Constructor
+     * Event Constructor.
      * @param description Description of the event.
      * @param fromTime Start time of the event.
      * @param toTime End time of the event.

@@ -17,16 +17,16 @@ import ghbot.executor.UnmarkExecutor;
 
 /**
  * Parser Class.
- * It deals with making sense of the user command.
+ * It deals with making sense of the user instructions.
  */
 public class Parser {
     private static final DateTimeFormatter IN_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
 
     /**
-     * Creates specific executor instance corresponding to the different commands.
+     * Creates specific executor instance corresponding to the different instructions.
      * @param input User input.
-     * @return Specific executor instance corresponding to the different commands.
+     * @return Specific executor instance corresponding to the different instructions.
      */
     public static Executor parse(String[] input) {
         String instr = input[0];

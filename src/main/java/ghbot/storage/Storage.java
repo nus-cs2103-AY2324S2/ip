@@ -111,10 +111,10 @@ public class Storage {
 
     /**
      * Writes updated task to the file.
-     * @param lst A list of tasks.
+     * @param list A list of tasks.
      * @throws IOException Throw exception if there is an issue updating the file.
      */
-    public void writeDataToFile(List<Task> lst) throws IOException {
+    public void writeDataToFile(List<Task> list) throws IOException {
         Path directory = Paths.get("./data");
         if (!Files.exists(directory)) {
             Files.createDirectories(directory);
@@ -122,7 +122,7 @@ public class Storage {
         try {
             File file = new File(this.fileName);
             FileWriter fw = new FileWriter(file);
-            for (Task task : lst) {
+            for (Task task : list) {
                 fw.write(task.toFile() + "\n");
             }
             fw.close();
