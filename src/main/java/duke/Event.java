@@ -1,4 +1,5 @@
 package duke;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,17 +21,14 @@ public class Event extends Task {
      * @param endTime     The end time of the event in the format "yyyy-MM-dd HH:mm".
      * @throws DateTimeParseException If there is an issue parsing the date/time strings.
      */
-
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws DukeException {
         super(description);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date/time format. Please use: " + DATE_TIME_FORMAT);
-            // Handle the exception as needed, e.g., log it or inform the user
-            throw e;
+        } catch (DateTimeException e) {
+            throw new DukeException("Invalid date/time format. Please use: yyyy-MM-dd HHmm");
         }
     }
     /**

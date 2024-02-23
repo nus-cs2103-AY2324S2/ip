@@ -192,7 +192,6 @@ public class Duke extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -206,25 +205,6 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String userMessage = userInput.getText(); // Retrieve user input text
-//        String response = getResponse(userMessage); // Get the response from the user's input
-//
-//        // Check if the response is the goodbye message
-//        if (response.equals(ui.showGoodbye())) {
-//            dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, duke)); // Show goodbye message
-//            userInput.clear(); // Clear the user input
-//
-//            // Close the application after a short delay to allow the user to read the message
-//            new Thread(() -> {
-//                try {
-//                    Thread.sleep(2000); // Wait for 2 seconds
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt(); // Handle interrupted exception
-//                }
-//                Platform.exit(); // Close the application
-//            }).start();
-//
-//            return; // Exit the method to avoid adding more UI components
-//        }
         Label userTextLabel = new Label(userMessage); // Create a Label with user input text
         Label dukeTextLabel = new Label(getResponse(userMessage)); // Create a Label with Duke's response
 
@@ -253,16 +233,16 @@ public class Duke extends Application {
                 Task<Void> exitTask = new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        Thread.sleep(1000); // Wait for 1 second
-                        Platform.runLater(Platform::exit); // Schedule the exit to be run on the JavaFX thread
+                        Thread.sleep(1000);
+                        Platform.runLater(Platform::exit);
                         return null;
                     }
                 };
-                new Thread(exitTask).start(); // Start the thread to perform the sleep and then exit
+                new Thread(exitTask).start();
 
-                return "Goodbye! Hope to see you again soon!"; // Provide a farewell message before initiating the delay
+                return "Goodbye! Hope to see you again soon!";
             }
-            return command.execute(tasks, ui, storage); // Use the class member directly
+            return command.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return "Error: " + e.getMessage();
         }

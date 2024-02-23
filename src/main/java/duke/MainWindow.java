@@ -25,11 +25,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method binds the scroll pane to the dialog container for automatic scrolling.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance for this controller.
+     *
+     * @param d the Duke instance.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }

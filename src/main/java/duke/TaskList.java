@@ -96,14 +96,6 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted.
      */
-    //    public void deleteTask(int taskIndex, Ui ui) {
-    //        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-    //            Task removedTask = tasks.remove(taskIndex);
-    //            ui.showTaskDeleted(removedTask, tasks.size());
-    //        } else {
-    //            ui.showInvalidTaskIndex();
-    //        }
-    //  }
     public Task deleteTask(int taskIndex) throws DukeException {
         assert taskIndex >= 0 && taskIndex < tasks.size() : "taskIndex should be within the valid range";
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
@@ -125,14 +117,14 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
     }
-
-
-//        for (Task t : tasks) {
-//            if (t.getDescription().equals(task.getDescription())) {
-//                return true;
-//            }
-//        }
-//        return false;
+    /**
+     * Checks if the task list contains a task with the same description as the provided task.
+     * If the provided task is an instance of Deadline or Event,
+     * it also checks for matching deadline or event details respectively.
+     *
+     * @param task the task to check for in the task list.
+     * @return true if a matching task is found in the list, false otherwise.
+     */
     public boolean containsTask(Task task) {
         for (Task t : tasks) {
             if (t.getDescription().equals(task.getDescription())) {
@@ -140,22 +132,21 @@ public class TaskList {
                     Deadline d1 = (Deadline) t;
                     Deadline d2 = (Deadline) task;
                     if (d1.getBy().equals(d2.getBy())) {
-                        return true; // Both are Deadline tasks with same description and deadline
+                        return true;
                     }
                 } else if (t instanceof Event && task instanceof Event) {
                     Event e1 = (Event) t;
                     Event e2 = (Event) task;
                     if (e1.getStartTime().equals(e2.getStartTime()) && e1.getEndTime().equals(e2.getEndTime())) {
-                        return true; // Both are Event tasks with same description, start, and end times
+                        return true;
                     }
                 } else if (t.getClass().equals(task.getClass())) {
-                    return true; // Both tasks are of the same type (ToDo) and have the same description
+                    return true;
                 }
-                // If descriptions match but one is a Deadline and the other is an Event or ToDo, they are not considered duplicates
             }
         }
         return false;
 
-}
+    }
 
 }

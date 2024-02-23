@@ -30,7 +30,6 @@ public class Task {
      *
      * @return The status icon as a string.
      */
-
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -73,7 +72,6 @@ public class Task {
      * @param fileString The string representation of the task from the file.
      * @return The Task object created from the file string.
      */
-
     public static Task createTaskFromFileString(String fileString) {
         String[] parts = fileString.split(" \\| ");
         if (parts.length == 3) {

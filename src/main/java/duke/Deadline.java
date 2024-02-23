@@ -1,47 +1,3 @@
-//import java.time.DateTimeException;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-////public class Deadline extends Task{
-////    protected String by;
-////    //private LocalDateTime by;
-////
-////    public Deadline(String description, String by) {
-////        super(description);
-////        this.by = by;
-////    }
-////
-////    @Override
-////    public String toString() {
-////        return "[D]" + super.toString() + " (by: " + by + ")";
-////    }
-////
-////
-////}
-//
-//public class Deadline extends Task {
-//    private LocalDateTime by;
-//
-//    public Deadline(String description, LocalDateTime by) {
-//        super(description);
-//        this.by = by;
-//    }
-//
-//    public LocalDateTime getBy() {
-//        return by;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "[D]" + super.toString() + " (by: " +
-//                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
-//    }
-//
-//    @Override
-//    public String toFileString() {
-//        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
-//                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-//    }
-//}
 package duke;
 
 import java.time.DateTimeException;
@@ -61,13 +17,12 @@ public class Deadline extends Task {
      * @param by The deadline of the task in the format "yyyy-MM-dd HHmm".
      * @throws DateTimeException If there is an error parsing the deadline format.
      */
-    public Deadline(String description, String by) throws DateTimeException {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeException e) {
-            System.out.println("Invalid date/time format. Please use: yyyy-MM-dd HHmm");
-            throw e;
+            throw new DukeException("Invalid date/time format. Please use: yyyy-MM-dd HHmm");
         }
     }
     /**

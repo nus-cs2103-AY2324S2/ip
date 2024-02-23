@@ -15,6 +15,12 @@ public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * Starts the JavaFX application by loading the main window.
+     * This method loads the MainWindow.fxml file and sets up the scene with the Duke instance.
+     *
+     * @param stage the primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
