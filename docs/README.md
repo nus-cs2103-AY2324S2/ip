@@ -65,7 +65,7 @@ Format: `event DESCRIPTION /from DATE1 /to DATE2`
 - Events with the same description as other tasks on the list will not be added.
 
 Examples:
-- `Event User Guide /from 2024-02-24 /to 2024-02-25`
+- `event User Guide /from 2024-02-24 /to 2024-02-25`
 
 
 ```
