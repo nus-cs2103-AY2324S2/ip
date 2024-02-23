@@ -1,7 +1,47 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  _    _                       
+ | |  | |                      
+ | |__| | ___ _ __  _ __ _   _ 
+ |  __  |/ _ \ '_ \| '__| | | |
+ | |  | |  __/ | | | |  | |_| |
+ |_|  |_|\___|_| |_|_|   \__, |
+                          __/ |
+                         |___/ 
 
+Hello! I'm Henry
+What can I do for you?
+
+Added this task
+[T][ ] borrow book
+Now you have 1 tasks in the list :(
+
+Added this task
+[D][ ] return book (by: Thurs 1000)
+Now you have 2 tasks in the list :(
+
+Added this task
+[E][ ] CS3230 exam (from: 1300 to: 1500)
+Now you have 3 tasks in the list :(
+
+Here is a list of tasks:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Thurs 1000)
+3. [E][ ] CS3230 exam (from: 1300 to: 1500)
+
+This task is marked as done XD
+[T][X] borrow book
+
+This task is marked as done XD
+[E][X] CS3230 exam (from: 1300 to: 1500)
+
+This task is marked as undone :(
+[E][ ] CS3230 exam (from: 1300 to: 1500)
+
+This task is marked as done XD
+[D][X] return book (by: Thurs 1000)
+
+Here is a list of tasks:
+1. [T][X] borrow book
+2. [D][X] return book (by: Thurs 1000)
+3. [E][ ] CS3230 exam (from: 1300 to: 1500)
+
+See you again bro!
