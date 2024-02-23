@@ -251,6 +251,9 @@ public class Parser {
         assert taskString != null && !taskString.isEmpty() : "taskString cannot be null or empty";
         String[] parts = taskString.split(" \\| ");
         assert parts.length >= 3 : "Task string format is invalid";
+        if (parts.length < 3) {
+            throw new DukeException("Task string format is invalid: " + taskString);
+        }
         String taskType = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
