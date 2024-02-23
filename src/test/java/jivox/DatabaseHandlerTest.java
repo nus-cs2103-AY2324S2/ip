@@ -48,6 +48,12 @@ class DatabaseHandlerTest {
     }
 
     @Test
+    void testLoadEmpty() throws Exception {
+        ArrayList<Task> tasks = handler.load();
+        assertTrue(tasks.isEmpty());
+    }
+
+    @Test
     void testSaveAndLoad() throws Exception {
         TaskList tasks = new TaskList(new ArrayList<>());
         Todo todo = new Todo("Todo 1");
@@ -68,12 +74,6 @@ class DatabaseHandlerTest {
         assertInstanceOf(Todo.class, loaded.get(0));
         assertInstanceOf(Deadline.class, loaded.get(1));
         assertInstanceOf(Event.class, loaded.get(2));
-    }
-
-    @Test
-    void testLoadEmpty() throws Exception {
-        ArrayList<Task> tasks = handler.load();
-        assertTrue(tasks.isEmpty());
     }
 
 }
