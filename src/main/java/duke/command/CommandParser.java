@@ -34,7 +34,6 @@ public class CommandParser {
                 "todo", "e", "event", "dl", "deadline", "del", "delete");
 
         defineDefaultCommands();
-        conversation.resetConversation();
     }
 
     /**

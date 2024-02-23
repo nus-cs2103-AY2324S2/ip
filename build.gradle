@@ -15,12 +15,11 @@ checkstyle {
 
 dependencies {
     implementation 'org.json:json:20231013'
-    implementation 'io.github.cdimascio:dotenv-java:5.2.2'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
-    String javaFxVersion = '16'
+    String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -50,16 +49,15 @@ test {
     }
 }
 
-application {
-    mainClass.set("duke.Launcher")
-}
+mainClassName = 'duke.Launcher'
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'sophia.jar'
+    from('.') {
+        include '.env'
+    }
 }
 
-run{
+run {
     standardInput = System.in
 }

@@ -50,7 +50,7 @@ public class AddCommandHandler extends CommandHandler {
         if (taskIndex >= 0) {
             return "Yay! Your task is on the board 📋. Here's what you told me to remember:\n" +
                     taskDisplay.displayAddTask(taskManager.getTasks(), taskIndex) +
-                    "\nKeep rocking! 🎸";
+                    "Keep rocking! 🎸";
         } else {
             return "Uh-oh, encountered a bit of a hiccup trying to add that task 🤯. Let's give it another shot?";
         }

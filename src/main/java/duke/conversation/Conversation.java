@@ -1,103 +1,76 @@
 package duke.conversation;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
-import java.util.Properties;
+import java.util.Random;
 
 public class Conversation {
 
-    // OpenAI API endpoint
-    private static final String endpoint = "https://api.openai.com/v1/chat/completions";
+    protected Hashtable<String, List<String>> dialogues;
+    private final Random random;
 
-    // API key
-    private String apiKey;
-
-    // Conversation history
-    private List<String> conversationHistory = new LinkedList<>();
-
-    public Conversation() {
-
-        try {
-            Properties env = EnvLoader.loadEnvVariables(".env");
-            this.apiKey = env.getProperty("OPENAI_API_KEY");
-            if (this.apiKey == null || this.apiKey.isEmpty()) {
-                throw new IllegalStateException("API key not found in .env file.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load .env file.");
-        }
+    public Conversation(String username) {
+        dialogues = new Hashtable<>();
+        random = new Random();
+        initializeDialogues(username);
     }
 
-
-    /**
-     * Generates a response using OpenAI's API based on the user's input message.
-     *
-     * @param userInput The user's input message.
-     * @return The generated response.
-     */
-    public String generateResponse(String userInput) {
-        HttpClient httpClient = HttpClient.newHttpClient();
-        int maxResponseLength = 50;
-        double temperature = 0.8;
-
-        // Add user input to the conversation history
-        conversationHistory.add("{\"role\": \"user\", \"content\": \"" + userInput.replace("\"", "\\\"") + "\"}");
-
-        // Prepare the requestBody with the conversation history
-        String requestBody = String.format(
-                "{\"model\": \"gpt-3.5-turbo\", \"messages\": %s, \"max_tokens\": %d, \"temperature\": %f}",
-                conversationHistory.toString(), maxResponseLength, temperature
-        );
-
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(URI.create(endpoint))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + this.apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-
-        try {
-            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            if (httpResponse.statusCode() == 200) {
-                JSONObject jsonResponse = new JSONObject(httpResponse.body());
-                JSONArray choices = jsonResponse.getJSONArray("choices");
-                if (choices.length() > 0) {
-                    JSONObject firstChoice = choices.getJSONObject(0);
-                    JSONObject message = firstChoice.getJSONObject("message");
-                    String content = message.getString("content");
-
-                    // Add the bot's response to the conversation history
-                    conversationHistory.add("{\"role\": \"assistant\", \"content\": \"" + content.replace("\"", "\\\"") + "\"}");
-
-                    return content;
-                } else {
-                    return "Received unexpected response structure from API.";
-                }
-            } else {
-                System.out.println("Error Status Code: " + httpResponse.statusCode());
-                System.out.println("Error Body: " + httpResponse.body());
-                return "Error processing your request";
-            }
-        } catch (IOException | InterruptedException | JSONException e) {
-            e.printStackTrace();
-            return "Error parsing API response: " + e.getMessage();
-        }
+    public void addDialogue(String key, String response) {
+        key = key.toLowerCase();
+        dialogues.computeIfAbsent(key, k -> new ArrayList<>()).add(response);
     }
 
-    /**
-     * Resets the conversation history, starting a new conversation.
-     */
-    public void resetConversation() {
-        conversationHistory.clear();
+    public void initializeDialogues(String username) {
+        addDialogue("bye", "Catch you later, alligator! 🐊");
+        addDialogue("bye", "Goodbye! Don't forget to come back for more adventures! 🚀");
+
+        addDialogue("hello", "Hi there! How can I make your day awesome? 😊");
+        addDialogue("hello", "Greetings, Earthling! What adventures await us today?");
+
+        addDialogue("hey", "Hey! Ready to conquer some tasks? 💪");
+        addDialogue("hey", "Yo! What's up?");
+
+        addDialogue("how are you", "Running at optimal efficiency! Thanks for checking in. 🤖");
+        addDialogue("how are you", "I'm fantastic, thanks for asking! How about yourself?");
+
+        addDialogue("what's your name", "I go by Sophia in these parts of the internet. And who do I have the pleasure of speaking with?");
+        addDialogue("what's your name", "They call me Sophia. What's your codename?");
+
+        // Adding more common conversations
+        addDialogue("thank you", "You're welcome! Always here to help. 😊");
+        addDialogue("thank you", "No problemo! If you need me, just shout! 📣");
+
+        addDialogue("what can you do", "From managing tasks to telling jokes, I'm here to make life a tad easier. What's on your mind?");
+        addDialogue("what can you do", "I'm like a Swiss Army knife for your tasks and questions! Try asking me something specific.");
+
+        addDialogue("tell me a joke", "Why don't skeletons fight each other? They don't have the guts.");
+        addDialogue("tell me a joke", "I'd tell you a UDP joke, but you might not get it... and I wouldn't get your response. 🤣");
+        addDialogue("tell me a joke", "I told my wife she was drawing her eyebrows too high. She looked surprised.");
+        addDialogue("tell me a joke", "Parallel lines have so much in common. It’s a shame they’ll never meet.");
+        addDialogue("tell me a joke", "Why don't scientists trust atoms? Because they make up everything!");
+        addDialogue("tell me a joke", "I'm reading a book on anti-gravity. It's impossible to put down!");
+
+        addDialogue("good morning", "Good morning! Let's kickstart this day with some positivity! 🌞");
+        addDialogue("good morning", "Morning! If you had a dream last night, let's make it come true today!");
+
+        addDialogue("good night", "Good night! May your dreams be full of adventures. 🌜");
+        addDialogue("good night", "Nighty night! Don't let the bed bugs byte... err, I mean bite. 🐛");
+    }
+
+    public String generateResponse(String message) {
+        StringBuilder dialogueMessage = new StringBuilder();
+        List<String> dialoguesList = dialogues.get(message.toLowerCase());
+        if (dialoguesList != null && !dialoguesList.isEmpty()) {
+            String dialogue = dialoguesList.get(random.nextInt(dialoguesList.size()));
+            dialogueMessage.append(dialogue);
+        } else {
+            dialogueMessage.append("Whoops! 🙈 I'm scratching my digital head because I'm not quite sure what '")
+                    .append(message)
+                    .append("' means. 🤔\nCould you spell that out for me again, or maybe try" +
+                            " asking something else? Always here to help! 😊");
+
+        }
+        return dialogueMessage.toString();
     }
 }

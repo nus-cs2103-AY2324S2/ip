@@ -153,7 +153,7 @@ public class TaskDisplay {
             return "Hmm, something went wrong. I couldn't add the task. 🙁";
         }
         Task task = taskList.get(index);
-        message.append("\n   ").append(task.getTaskIcon())
+        message.append("   ").append(task.getTaskIcon())
                 .append(task.getStatusIcon()).append(" ").append(task.getTaskDescription()).append(" 📝\n")
                 .append("Bringing your total to ").append(taskList.size())
                 .append(" tasks. Let's keep this productivity train going! 🚂💨\n");
