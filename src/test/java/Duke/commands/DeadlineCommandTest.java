@@ -9,7 +9,7 @@ import duke.util.UI;
 public class DeadlineCommandTest {
     @Test
     public void executeForStringTest() {
-        Storage storage = new Storage("./data/duke.txt");
+        Storage storage = new Storage("./duke.txt");
         UI ui = new UI();
         TaskList tasks = new TaskList(storage.readFile());
         try {

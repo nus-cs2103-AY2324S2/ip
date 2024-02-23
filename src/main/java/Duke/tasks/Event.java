@@ -4,6 +4,7 @@
  */
 package duke.tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,10 +14,9 @@ import duke.exceptions.InvalidEventException;
  * Class for Event Task
  */
 public class Event extends Task {
-    private String start;
-    private String end;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
     /**
      * Constructs an Event object with the given description, start, and end times.
      *
@@ -29,29 +29,27 @@ public class Event extends Task {
         super(desc);
         start = start.trim();
         end = end.trim();
-        if (isValidDateFormat(start)) {
-            String[] dateNumbers = start.split("[/ ]");
+        String[] startDateNumbers = start.split("[/ ]");
+        int startYear = Integer.parseInt(startDateNumbers[2]);
+        int startMonth = Integer.parseInt(startDateNumbers[1]);
+        int startDay = Integer.parseInt(startDateNumbers[0]);
+        int startHour = Integer.parseInt(startDateNumbers[3].substring(0, 2));
+        int startMinutes = Integer.parseInt(startDateNumbers[3].substring(2));
+        String[] endDateNumbers = end.split("[/ ]");
+        int endYear = Integer.parseInt(endDateNumbers[2]);
+        int endMonth = Integer.parseInt(endDateNumbers[1]);
+        int endDay = Integer.parseInt(endDateNumbers[0]);
+        int endHour = Integer.parseInt(endDateNumbers[3].substring(0, 2));
+        int endMinutes = Integer.parseInt(endDateNumbers[3].substring(2));
+        try {
             this.startDate = LocalDateTime.of(
-                    Integer.parseInt(dateNumbers[2]),
-                    Integer.parseInt(dateNumbers[1]),
-                    Integer.parseInt(dateNumbers[0]),
-                    Integer.parseInt(dateNumbers[3].substring(0, 2)),
-                    Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.start = start;
-        }
-        if (isValidDateFormat(end)) {
-            String[] dateNumbers = end.split("[/ ]");
+                    startYear, startMonth, startDay, startHour, startMinutes);
             this.endDate = LocalDateTime.of(
-                    Integer.parseInt(dateNumbers[2]),
-                    Integer.parseInt(dateNumbers[1]),
-                    Integer.parseInt(dateNumbers[0]),
-                    Integer.parseInt(dateNumbers[3].substring(0, 2)),
-                    Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.end = end;
+                    endYear, endMonth, endDay, endHour, endMinutes);
+        } catch (DateTimeException e) {
+            throw new InvalidEventException();
         }
-        if (this.startDate != null && this.endDate != null && this.endDate.isBefore(this.startDate)) {
+        if (this.endDate.isBefore(this.startDate)) {
             throw new InvalidEventException();
         }
     }
@@ -69,56 +67,24 @@ public class Event extends Task {
         super.setStatus(status);
         start = start.trim();
         end = end.trim();
-        if (isValidDateFormat(start)) {
-            String[] dateNumbers = start.split("[/ ]");
-            this.startDate = LocalDateTime.of(
-                    Integer.parseInt(dateNumbers[2]),
-                    Integer.parseInt(dateNumbers[1]),
-                    Integer.parseInt(dateNumbers[0]),
-                    Integer.parseInt(dateNumbers[3].substring(0, 2)),
-                    Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.start = start;
-        }
-        if (isValidDateFormat(end)) {
-            String[] dateNumbers = end.split("[/ ]");
-            this.endDate = LocalDateTime.of(
-                    Integer.parseInt(dateNumbers[2]),
-                    Integer.parseInt(dateNumbers[1]),
-                    Integer.parseInt(dateNumbers[0]),
-                    Integer.parseInt(dateNumbers[3].substring(0, 2)),
-                    Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.end = end;
-        }
+        String[] startDateNumbers = start.split("[/ ]");
+        int startYear = Integer.parseInt(startDateNumbers[2].trim());
+        int startMonth = Integer.parseInt(startDateNumbers[1].trim());
+        int startDay = Integer.parseInt(startDateNumbers[0].trim());
+        int startHour = Integer.parseInt(startDateNumbers[3].trim().substring(0, 2));
+        int startMinutes = Integer.parseInt(startDateNumbers[3].trim().substring(2));
+        this.startDate = LocalDateTime.of(
+                startYear, startMonth, startDay, startHour, startMinutes);
+        String[] endDateNumbers = end.split("[/ ]");
+        int endYear = Integer.parseInt(endDateNumbers[2].trim());
+        int endMonth = Integer.parseInt(endDateNumbers[1].trim());
+        int endDay = Integer.parseInt(endDateNumbers[0].trim());
+        int endHour = Integer.parseInt(endDateNumbers[3].trim().substring(0, 2));
+        int endMinutes = Integer.parseInt(endDateNumbers[3].trim().substring(2));
+        this.endDate = LocalDateTime.of(
+                endYear, endMonth, endDay, endHour, endMinutes);
     }
 
-    /**
-     * Checks if the given deadline string has a valid date format.
-     *
-     * @param deadline The deadline string to be checked.
-     * @return True if the deadline string has a valid format, otherwise false.
-     */
-    private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 12 || deadline.length() >= 16) {
-            return false;
-        }
-        String[] dateNumbers = deadline.split("[/ ]");
-        if (dateNumbers.length != 4) {
-            return false;
-        }
-        try {
-            for (String i : dateNumbers) {
-                Integer.parseInt(i);
-            }
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if (Integer.parseInt(dateNumbers[3]) >= 2400) {
-            return false;
-        }
-        return true;
-    }
     /**
      * Writes the Event object into a string format for storage.
      *
@@ -126,13 +92,12 @@ public class Event extends Task {
      */
     @Override
     public String writeObject() {
-        if (startDate != null && endDate != null) {
-            return String.format("event %s | %s | %s\n",
-                    super.writeObject(),
-                    this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
-                    this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
-        }
-        return String.format("event %s | %s | %s \n", super.writeObject(), this.start, this.end);
+        assert this.startDate != null;
+        assert this.endDate != null;
+        return String.format("event %s | %s | %s\n",
+                super.writeObject(),
+                this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
     }
 
     /**
@@ -142,12 +107,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String startString = startDate != null
-                ? this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
-                : this.start;
-        String endString = endDate != null
-                ? this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
-                : this.end;
+        String startString = this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
+        String endString = this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
         return String.format("[E]%s(from: %s to: %s)",
                 super.toString(), startString, endString);
     }
@@ -161,5 +122,41 @@ public class Event extends Task {
     @Override
     public boolean hasDate(LocalDateTime toFind) {
         return toFind.equals(this.startDate) || toFind.equals(this.endDate);
+    }
+
+    public LocalDateTime getEndDate() {
+        return this.endDate;
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        if (task instanceof ToDo) {
+            return -1;
+        }
+        if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            LocalDateTime compareDate = deadlineTask.getDeadlineDate();
+            if (this.endDate.isBefore(compareDate)) {
+                return -1;
+            }
+            if (this.endDate.isAfter(compareDate)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            LocalDateTime compareDate = eventTask.getEndDate();
+            if (this.endDate.isBefore(compareDate)) {
+                return -1;
+            }
+            if (this.endDate.isAfter(compareDate)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        return 0;
     }
 }

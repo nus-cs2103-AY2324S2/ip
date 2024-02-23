@@ -21,12 +21,13 @@ public class UI {
         "  3. deadline [task description] /by dd/mm/yyyy HHmm\n",
         "  4. delete [integer]\n",
         "  5. event [task description] /from dd/mm/yyyy HHmm /to dd/mm/yyyy HHmm\n",
-        "  6. find [task description] (search for relevant task with desciption\n",
+        "  6. find [task description] (search for relevant task with description\n",
         "  7. list (show current tasks)\n",
         "  8. mark [integer] (mark task at index to be done)\n",
         "  9. todo [task description]\n",
         " 10. unmark [integer]\n",
-        " 11. name [your name]\n"
+        " 11. name [your name]\n",
+        " 12. clear [to clear existing list]\n"
     };
     private Scanner sc = new Scanner(System.in);
     private String userName;
@@ -167,6 +168,14 @@ public class UI {
      */
     public String nameMessage() {
         return String.format("Hello!!! Nice to meet you %s!!!\n", this.userName);
+    }
+
+    /**
+     * to get message to clear list
+     * @return message to be displayed to user to inform user that list have been cleared
+     */
+    public String listClearedMessage() {
+        return String.format("LIST CLEARED! YOUR LIST IS NOW EMPTY!!!");
     }
 }
 

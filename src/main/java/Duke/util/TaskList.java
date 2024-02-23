@@ -2,6 +2,10 @@ package duke.util;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+
 import duke.tasks.Task;
 
 /**
@@ -19,6 +23,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        sortTaskList();
     }
 
     /**
@@ -59,6 +64,7 @@ public class TaskList {
      */
     public Task addTask(Task t) {
         tasks.add(t);
+        sortTaskList();
         return t;
     }
 
@@ -114,5 +120,36 @@ public class TaskList {
      */
     public int getNumberOfTasks() {
         return this.tasks.size();
+    }
+    /**
+     * Sorts the task list using a custom comparator.
+     * The sorting is done based on the natural ordering of the Task objects.
+     */
+    private void sortTaskList() {
+        // Define a custom comparator for Task objects
+        Comparator<Task> taskComparator = new Comparator<>() {
+            /**
+             * Compares two tasks based on their natural ordering.
+             * @param task1 The first task to compare.
+             * @param task2 The second task to compare.
+             * @return An integer value:
+             *         - 0 if task1 is equal to task2,
+             *         - a negative value if task1 is less than task2,
+             *         - a positive value if task1 is greater than task2.
+             */
+            @Override
+            public int compare(Task task1, Task task2) {
+                return task1.compareTo(task2); // Delegates comparison to the Task class' compareTo method
+            }
+        };
+        // Sort the tasks using the defined comparator
+        Collections.sort(this.tasks, taskComparator);
+    }
+
+    /**
+     * clear the current taskList
+     */
+    public void clearTaskList() {
+        this.tasks = new ArrayList<>();
     }
 }

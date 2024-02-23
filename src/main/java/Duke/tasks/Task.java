@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * The Task class represents a task in the Duke application.
  * It is an abstract class that provides basic functionality common to all types of tasks.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     private final String description;
     private String status = "[ ]";
 

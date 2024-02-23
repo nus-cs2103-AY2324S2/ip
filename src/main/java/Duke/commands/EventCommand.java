@@ -23,6 +23,61 @@ public class EventCommand extends Command {
         super();
         this.words = words;
     }
+    private static boolean checkStringArrayContainIntegers(String[] inputs) {
+        try {
+            for (String input : inputs) {
+                Integer.parseInt(input);
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the provided time is in a valid 24-hour format.
+     *
+     * @param time The time to be checked.
+     * @return True if the time is in valid 24-hour format, otherwise false.
+     */
+    private static boolean checkValidInteger24hourFormat(int time) {
+        boolean isNegative = time < 0;
+        boolean isMoreThan2400 = time >= 2400;
+        if (isNegative || isMoreThan2400) {
+            return false;
+        }
+        int numberOfMinutes = 60;
+        boolean hasValidMinutes = (time % 100) < numberOfMinutes;
+        return hasValidMinutes;
+    }
+
+    /**
+     * Checks if the provided deadline string has a valid date format.
+     *
+     * @param dateString The deadline string to be validated.
+     * @return True if the deadline string has a valid date format, otherwise false.
+     */
+    private static boolean isValidDateFormat(String dateString) {
+        boolean isShorterThanMinimum = dateString.length() <= 12;
+        boolean isLongerThanMaximum = dateString.length() >= 16;
+        if (isShorterThanMinimum || isLongerThanMaximum) {
+            return false;
+        }
+        String[] dateNumbers = dateString.split("[/ ]");
+        boolean hasIncorrectDateFormatNumbers = dateNumbers.length != 4;
+        if (hasIncorrectDateFormatNumbers) {
+            return false;
+        }
+        boolean isDateNumberAllIntegers = checkStringArrayContainIntegers(dateNumbers);
+        if (!isDateNumberAllIntegers) {
+            return false;
+        }
+        int time = Integer.parseInt(dateNumbers[3]);
+        if (!checkValidInteger24hourFormat(time)) {
+            return false;
+        }
+        return true;
+    }
     @Override
     public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
         boolean hasEmptyDescription = words.length == 1;
@@ -43,6 +98,9 @@ public class EventCommand extends Command {
         String eventDescription = words[1].substring(0, startIdx);
         String startDate = eventDates[1];
         String endDate = eventDates[2];
+        if (!isValidDateFormat(startDate) || !isValidDateFormat(endDate)) {
+            throw new InvalidEventException();
+        }
         Task newEvent = new Event(eventDescription, startDate, endDate);
         tasks.addTask(newEvent);
         storage.addToWriteFile(newEvent);

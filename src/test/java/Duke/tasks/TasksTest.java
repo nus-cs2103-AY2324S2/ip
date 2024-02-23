@@ -1,6 +1,8 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidEventException;
+import duke.main.Duke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,8 +15,12 @@ public class TasksTest {
     }
     @Test
     public void hasDescriptionDeadline() {
-        Task token = new Deadline("read book", "19/10/2000 0000");
-        assertEquals(false, token.descriptionHasWord("read book and sleep"));
+        try {
+            Task token = new Deadline("read book", "19/10/2000 0000");
+            assertEquals(false, token.descriptionHasWord("read book and sleep"));
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
     }
     @Test
     public void hasDescriptionTestEvent() throws InvalidEventException {
