@@ -7,7 +7,7 @@ Add tasks, remove tasks, mark them as done or undone, all with just your keyboar
 
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest `tam.jar` from [here]() to your computer.
-3. Copy the file to the folder you want to use as the home folder for your Toothless.
+3. Copy the file to the folder you want to use as the home folder (can be any folder).
 4. Open a command terminal and `cd` to the home folder. Then run `java -jar Tam.jar` to start the app.
 5. A GUI similar to the below should appear in a few seconds.
 
