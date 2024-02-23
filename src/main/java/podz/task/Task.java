@@ -5,7 +5,7 @@ package podz.task;
  */
 public class Task {
     private static final String MARKED_STR = "X";
-    private static final String UNMARKED_STR = "";
+    private static final String UNMARKED_STR = " ";
     protected String description;
     protected boolean isDone;
 
