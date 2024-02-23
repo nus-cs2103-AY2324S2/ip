@@ -52,18 +52,6 @@ public class Dune {
         this.parser = new Parser();
     }
 
-    /**
-     * Runs the program.
-     */
-    public void run() {
-        // originally in the run function
-        this.ui.printWelcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isContinue = true;
-        while (isContinue) {
-            isContinue = this.parser.parse(scanner, tasks, ui, this.storage);
-        }
-    }
 
 
     /**

@@ -34,6 +34,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greeting = "Hello! I'm Dune, your task manager.\n"
+                + "What can I do for you, my dear?\n";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(greeting, dunePic)
+        );
     }
 
     public void setDuke(Dune d) {
@@ -41,7 +46,6 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

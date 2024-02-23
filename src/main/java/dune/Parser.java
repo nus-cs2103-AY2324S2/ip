@@ -16,25 +16,6 @@ public class Parser {
     }
 
     /**
-     * Parses the user input and decides what to do.
-     *
-     * @param scanner The scanner object to read user input.
-     * @param taskList An object that represents the list of tasks.
-     * @param ui
-     * @param storage The storage object to save the tasks to.
-     * @return
-     */
-    public boolean parse(Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
-        String text = scanner.nextLine();  // Read user input
-        ui.print(response(text, taskList, storage));
-        if (text.equals("bye")) {
-            return false;
-        }
-        return true;
-    }
-    
-
-    /**
      * Decides what to do with the user input.
      * @param text The user input.
      * @param taskList An object that represents the list of tasks.
