@@ -7,10 +7,11 @@ Introducing ALLY. Your personal Task Tracking assistant.
 
 1. **Starting Ally**: Launch the application from your terminal or command prompt.
 2. **Adding Tasks**: Use commands to add tasks. Supported task types include *todos*, *deadlines*, and *events*.
-3. **Viewing Tasks**: Easily view all your tasks or filter them based on specific criteria.
+3. **Viewing Tasks**: Easily view all your tasks.
 4. **Updating Tasks**: Mark tasks as done or unmark them with simple commands.
 5. **Removing Tasks**: No longer need a task? Delete it with a single command.
 6. **Searching Tasks**: Search for task based on specific keywords(s).
+7. **Archiving Tasks**: Archive a task.
 
 Example: `todo finish cs2103T iP`
 
