@@ -56,8 +56,10 @@ public class Storage {
         try (Scanner sc = new Scanner(this.file)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
+                assert line != null : "Line should not be null";
                 String[] parts = line.split("\\|");
 
+                assert parts.length == 3 || parts.length == 4 || parts.length == 5 : "Line should have 3, 4 or 5 parts";
                 String type = parts[0];
                 String markOrUnmark = parts[1];
                 String description = parts[2];
@@ -90,6 +92,7 @@ public class Storage {
                     + "yyyy-MM-dd\nYou can also enter the time in 24-hour format such as HH[:mm] after the date");
 
         }
+        System.out.println(tasks);
         return tasks;
     }
 

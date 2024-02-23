@@ -131,6 +131,12 @@ public class Ui {
 
     }
 
+    /**
+     * Prints the tasks found in the TaskList.
+     *
+     * @param tasks The TaskList of tasks found.
+     * @return The tasks found in the TaskList as a String.
+     */
     public String printTaskFound(TaskList tasks) {
         StringBuilder foundString = new StringBuilder();
         foundString = new StringBuilder(LINE + "\nHere are the matching tasks in your list:\n");

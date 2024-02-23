@@ -28,11 +28,9 @@ public class Luke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
     private Image luke = new Image(this.getClass().getResourceAsStream("/images/luke.jpeg"));
 
@@ -90,6 +88,7 @@ public class Luke extends Application {
 
         }
 
+        assert response != null : "Response should not be null";
         // Bye and exits
         System.out.println(response);
     }
