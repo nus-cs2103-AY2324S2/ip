@@ -1,6 +1,6 @@
 # UkeCat
 
-(https://ziiqii.github.io/ip/Ui.png)
+![](https://ziiqii.github.io/ip/Ui.png)
 
 **UkeCat** is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI) 
 while retaining the benefits of a Graphical User Interface (GUI).
