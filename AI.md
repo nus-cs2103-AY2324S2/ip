@@ -1,6 +1,4 @@
-I used GitHub CoPilot.
-
-I used in the following scenarios:
+I used GitHub CoPilot. I used in the following scenarios:
 - To save time writing basic structure of code. 
   - When creating multiple Command classes, I used it to create a skeleton of the Classes.
     - Observation: It was mostly helpful but missed inheriting from the abstract Command class and missed parameters for the methods
@@ -13,5 +11,11 @@ I used in the following scenarios:
   - When I had to write JavaDoc comments for a methods and classes.
     - Observation: It was able to generate the JavaDoc comments for the method, but I had to manually change the comments to be more accurate.
 
-Other Observations:
-There were moments where it gave irrelevant suggestions while I was writing code without expecting suggestions. It was annoying at times when the suggestions got implemented when I did not want it to.
+Other Observations on GitHub CoPilot:
+There were moments where it gave irrelevant suggestions while I was writing code without expecting suggestions. 
+It was annoying at times when the suggestions got implemented when I did not want it to.
+
+I also used ChatGPT to generate the responses from Alastor in hopes of getting a response with the right personality and tone.
+It took multiple tries to get a response that sounded okay. Often times the suggestions were too long or too short, 
+compared to what I was hoping for.
+
