@@ -4,7 +4,10 @@ import duke.util.Parser;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-public class HelpCommand extends Command{
+/**
+ * Represents the Command of getting help in commands for running the app.
+ */
+public class HelpCommand extends Command {
     /**
      * Initializes the exiting Command.
      *
@@ -15,9 +18,9 @@ public class HelpCommand extends Command{
     }
 
     /**
-     * Ends the program.
-     *
+     * Displays the vlid commands
      * @param taskList the given taskList to run the function on.
+     * @param ui
      */
     @Override
     public void run(TaskList taskList, Ui ui) {

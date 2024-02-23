@@ -107,7 +107,7 @@ public class TaskList {
         return searchResult;
     }
 
-    public ArrayList<Task> searchDate(LocalDate date){
+    public ArrayList<Task> searchDate(LocalDate date) {
         ArrayList<Task> searchResult = new ArrayList<>();
         for (Task t : this.listItems) {
             if (t.isOnThisDay(date)) {

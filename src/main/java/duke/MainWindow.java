@@ -2,7 +2,6 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -53,7 +52,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        if(input.equals("bye")){
+        if (input.equals("bye")) {
             Stage stage = (Stage) scrollPane.getScene().getWindow();
             stage.close();;
         }

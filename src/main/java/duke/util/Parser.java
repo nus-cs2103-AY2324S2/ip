@@ -12,8 +12,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import javax.swing.text.DateFormatter;
-
 /**
  *  Represents the parser of the program that converts user inputs into Commands.
  */
@@ -27,7 +25,7 @@ public class Parser {
     }
 
     private Ui ui;
-    public Parser(Ui ui){
+    public Parser(Ui ui) {
         this.ui = ui;
     }
     /**
@@ -49,12 +47,15 @@ public class Parser {
             task = new Todo(commandComponents[2]);
             break;
         case "D":
-            LocalDateTime date = LocalDateTime.parse(commandComponents[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            LocalDateTime date = LocalDateTime.parse(commandComponents[3],
+                    DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
             task = new Deadline(commandComponents[2], date);
             break;
         case "E":
-            LocalDateTime fromDate = LocalDateTime.parse(commandComponents[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-            LocalDateTime toDate = LocalDateTime.parse(commandComponents[4], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            LocalDateTime fromDate = LocalDateTime.parse(commandComponents[3],
+                    DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            LocalDateTime toDate = LocalDateTime.parse(commandComponents[4],
+                    DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
             task = new Event(commandComponents[2], fromDate, toDate);
             break;
         default:
@@ -121,6 +122,7 @@ public class Parser {
             case viewSchedule:
                 LocalDate targetDate = LocalDate.parse(commandComponents[1], dateFormatter);
                 command = new ViewScheduleCommand(Cmd.viewSchedule, targetDate);
+                break;
             case delete:
                 command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(commandComponents[1]));
                 break;

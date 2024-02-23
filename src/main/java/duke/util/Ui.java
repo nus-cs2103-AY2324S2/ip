@@ -108,7 +108,7 @@ public class Ui {
      */
     public void displaySelectedList(ArrayList<Task> taskList) {
         StringBuilder stringBuilder = new StringBuilder();
-        if(taskList.size() == 0){
+        if (taskList.size() == 0) {
             this.message = "Unfortunately, I can't find any such task.";
             return;
         }
@@ -122,9 +122,8 @@ public class Ui {
      * Informs the user of the correct format to enter a date and time.
      */
     public void informWrongDateFormat() {
-        String message = "The date and time is in the (yyyy/mm/dd HHmm) format for deadline and event and" +
-                " in (yyy/mm/dd) for viewSchedule";
-//        printMessageWithLines(message);
+        String message = "The date and time is in the (yyyy/mm/dd HHmm) format for deadline and event and"
+               + " in (yyy/mm/dd) for viewSchedule";
         this.message = message;
     }
 
@@ -136,9 +135,11 @@ public class Ui {
         String message = "Valid commands are as follow:\n"
                 + "1. todo <Task name>: To add todos.\n"
                 + "2. deadline <Task name> /by <deadline in yyyy/mm/dd HHmm format>: To add deadlines.\n"
-                + "3. event <Task name> /from <start time in yyyy/mm/dd HHmm format> /to <end time in yyyy/mm/dd HHmm format>: " +
-                "To add events. \n"
-                + "4. viewSchedule <date input in yyyy/mm/dd HHmm format>: To view deadlines and event that start on the input dates.\n"
+                + "3. event <Task name> /from <start time in yyyy/mm/dd HHmm format> /to "
+                + "<end time in yyyy/mm/dd HHmm format>: "
+                + "To add events. \n"
+                + "4. viewSchedule <date input in yyyy/mm/dd HHmm format>: To view deadlines and "
+                + "event that start on the input dates.\n"
                 + "5. list : to list the full list.\n"
                 + "6. mark <index>: to mark the task at index no <index> in the list as complete.\n"
                 + "7. unmark <index>: to mark the task at index no <index> in the last as incomplete.\n"
@@ -149,7 +150,7 @@ public class Ui {
         this.message = message;
     }
 
-    public void informIndexOutofBound(){
+    public void informIndexOutofBound() {
         String message = "I regret to inform you that the input index provided exceeds the bounds of the list.";
         this.message = message;
     }

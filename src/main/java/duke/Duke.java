@@ -27,7 +27,7 @@ public class Duke {
 
     public String getResponse(String input) {
         Command command;
-        try{
+        try {
             command = this.parser.parse(input);
             command.run(this.taskList, this.ui);
         } catch (IllegalArgumentException e) {

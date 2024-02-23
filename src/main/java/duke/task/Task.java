@@ -53,7 +53,9 @@ public class Task {
         return this.description.contains(keyword);
     }
 
-    public boolean isOnThisDay(LocalDate date){return false;}
+    public boolean isOnThisDay(LocalDate date) {
+        return false;
+    }
 
     /**
      * Changes the String representation of the task to displaying its status icon and its description.

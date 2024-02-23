@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 import duke.util.Parser;
 import duke.util.TaskList;
 import duke.util.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents the Command of finding a task from a list.
@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void run(TaskList taskList, Ui ui) {
-        ArrayList<Task>  searchResult = taskList.searchAndDisplay(this.keyword);
+        ArrayList<Task> searchResult = taskList.searchAndDisplay(this.keyword);
         ui.displaySelectedList(searchResult);
     }
 }

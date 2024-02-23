@@ -16,15 +16,15 @@ public class Storage {
     private static String fileListPath = "./data/duke.txt";
     private ArrayList<String> listStates = new ArrayList<>();
 
-    private void addList(String str){
+    private void addList(String str) {
         this.listStates.add(str);
     }
 
-    private void removeList(int index){
+    private void removeList(int index) {
         this.listStates.remove(index);
     }
 
-    private void setList(int index, String newRecord){
+    private void setList(int index, String newRecord) {
         this.listStates.set(index, newRecord);
     }
 
