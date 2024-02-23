@@ -15,7 +15,7 @@ public class DukeBotException extends Exception {
      */
     public static class UnknownException extends DukeBotException {
         public UnknownException() {
-            super("Hmmmm...I don't understand");
+            super("Sorry! I dont understand, try provided commands!");
         }
     }
 
@@ -42,7 +42,7 @@ public class DukeBotException extends Exception {
      */
     public static class EventException extends DukeBotException {
         public EventException() {
-            super("Oops! An event task must have a description and a duration ('from' and 'to')!");
+            super("Oops! An event must have a description and a duration!");
         }
     }
 
@@ -51,7 +51,7 @@ public class DukeBotException extends Exception {
      */
     public static class DeadlineException extends DukeBotException {
         public DeadlineException() {
-            super("Oops! A deadline task must have a description and a deadline ('by') !");
+            super("Oops! A deadline must have a description and deadline!");
         }
     }
 
@@ -60,7 +60,7 @@ public class DukeBotException extends Exception {
      */
     public static class DeleteException extends DukeBotException {
         public DeleteException() {
-            super("Oops! You need to enter an integer for the delete command!");
+            super("Oops! You need to enter an integer for deleting!");
         }
     }
 
@@ -69,7 +69,7 @@ public class DukeBotException extends Exception {
      */
     public static class MarkException extends DukeBotException {
         public MarkException() {
-            super("Oops! You need to enter an integer for the unmark or mark command!");
+            super("Oops! You need to enter an integer!");
         }
     }
 
@@ -78,7 +78,7 @@ public class DukeBotException extends Exception {
      */
     public static class FindException extends DukeBotException {
         public FindException() {
-            super("Oops! You need to enter a string for the find command!");
+            super("Oops! You need to enter a string to find!");
         }
     }
 }
