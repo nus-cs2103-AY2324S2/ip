@@ -6,21 +6,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: #042654; -fx-background-radius: 15;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<!--> maxHeight="-Infinity" </!-->
+
+<fx:root alignment="TOP_RIGHT" maxWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: #042654; -fx-background-radius: 15;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-font-family: Poppins-Medium;" styleClass="dialog" stylesheets="@style.css" text="Label" textFill="WHITE" wrapText="true">
-            <HBox.margin>
-                <Insets right="15.0" />
-            </HBox.margin>
-         <font>
-            <Font size="12.0" />
-         </font>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding></Label>
+      <HBox prefHeight="70.0" prefWidth="220.0" style="-fx-background-radius: 15; -fx-background-color: #07387B;">
+         <children>
+              <Label fx:id="dialog" alignment="TOP_CENTER" minHeight="-Infinity" text="Label" textFill="WHITE" wrapText="true">
+                  <font>
+                      <Font size="12.0" />
+                  </font>
+                  <padding>
+                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="2.0" top="10.0" />
+               </HBox.margin>
+              </Label>
+         </children>
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+         </HBox.margin>
+      </HBox>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
 </fx:root>
