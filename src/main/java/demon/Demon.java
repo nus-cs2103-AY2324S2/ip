@@ -37,7 +37,7 @@ public class Demon {
             return ui.exitMessage();
         } else {
             try {
-                return command.callCommand(input.toLowerCase(), this.tasks);
+                return command.callCommand(input, this.tasks);
             } catch (IOException | DateTimeParseException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 return Ui.outOfBoundsIndex(e);
             } catch (Exception e) {

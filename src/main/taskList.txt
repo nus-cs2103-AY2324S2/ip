@@ -1,5 +1,5 @@
 T | 1 | eat dinner liao sia what time lia
-E | 0 | buy dinner | 07/03/2024 0000 | 02/10/2023 0000
+E | 1 | buy dinner | 07/03/2024 0000 | 02/10/2023 0000
 E | 0 | b dinner | 07/03/2024 0000 | 02/10/2024 0000
 D | 0 | buy dinner | 07/03/2023 0000
 T | 0 | buy dinner
@@ -12,3 +12,11 @@ T | 0 | eat breakfast paylah
 D | 0 | submit cs2103t chatbot | 23/2/2024 0000
 E | 0 | submit cs2103t start | 1/1/2024 0000 | 23/2/2024 2300
 D | 0 | submit cs2103t chatbot | 23/2/2023 0000
+T | 0 | look for my family later
+T | 0 | submit cs2103t ip
+D | 0 | es2660 | 2/4/2024 2211
+D | 0 | es2660 | 2/2/2024 0000
+D | 0 | es2660 | 23/2/2024 0000
+D | 0 | es2660 sddsasfd | 23/2/2024 0000
+D | 0 | ES2660 sddsASF | 23/2/2024 0000
+T | 0 | nothing siol

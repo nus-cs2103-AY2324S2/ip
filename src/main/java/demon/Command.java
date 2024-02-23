@@ -400,23 +400,24 @@ public class Command {
             IOException,
             ExcessArgumentException,
             DuplicateException {
-        if (input.equalsIgnoreCase("list")) {
+        String inputCommand = input.split(" ",2)[0];
+        if (inputCommand.equalsIgnoreCase("list")) {
             list(tasks);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("unmark")) {
+        } else if (inputCommand.equalsIgnoreCase("unmark")) {
             int num = Integer.parseInt(input.split(" ")[1]);
             unmark(tasks, num);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("mark")) {
+        } else if (inputCommand.equalsIgnoreCase("mark")) {
             int num = Integer.parseInt(input.split(" ")[1]);
             mark(tasks, num);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("deadline")) {
+        } else if (inputCommand.equalsIgnoreCase("deadline")) {
             addDeadline(tasks, input);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("todo")) {
+        } else if (inputCommand.equalsIgnoreCase("todo")) {
             addToDo(tasks, input);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("event")) {
+        } else if (inputCommand.equalsIgnoreCase("event")) {
             addEvent(tasks, input);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("delete")) {
+        } else if (inputCommand.equalsIgnoreCase("delete")) {
             delete(tasks, input);
-        } else if (input.split(" ",2)[0].equalsIgnoreCase("find")) {
+        } else if (inputCommand.equalsIgnoreCase("find")) {
             findTask(tasks, input);
         } else {
             return Ui.inValidCommand();
