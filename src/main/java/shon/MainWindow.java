@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Shon shon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image shonImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
+    private Image shonImage = new Image(this.getClass().getResourceAsStream("/images/botImage.png"));
 
     /**
      * Sets auto scroll, and displays greeting message.
