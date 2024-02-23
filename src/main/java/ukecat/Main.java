@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("UkeCat");
             fxmlLoader.<MainWindow>getController().setUkeCat(ukeCat);
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
