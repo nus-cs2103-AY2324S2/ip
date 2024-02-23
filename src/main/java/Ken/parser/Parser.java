@@ -1,6 +1,11 @@
 package ken.parser;
 
+import static com.sun.javafx.application.PlatformImpl.exit;
+
 import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 import ken.exception.KenException;
 import ken.response.Response;
 import ken.task.TaskList;
@@ -58,7 +63,7 @@ public class Parser {
             return taskList.addEventTask(command.substring(6));
         } else if (command.equalsIgnoreCase("bye")) {
             storage.saveTasks(taskList.getTasks());
-            Platform.exit();
+            exitWithDelay();
             return new Response(ui.byeMessage().getMessage());
         } else if (command.startsWith("seek ")) {
             return taskList.findTasks(command.substring(5));
@@ -75,6 +80,21 @@ public class Parser {
         } else {
             return new Response("nothing");
         }
+    }
+
+    /**
+     * Exits the application after introducing a delay.
+     *
+     * This method schedules the exit code to run on the JavaFX Application Thread
+     * after a specified delay using a {@link PauseTransition}.
+     *
+     * Note: The delay is set to 1 seconds (1000 milliseconds) by default.
+     */
+    private void exitWithDelay() {
+        Duration delayDuration = Duration.seconds(1);
+        PauseTransition pause = new PauseTransition(delayDuration);
+        pause.setOnFinished(event -> exit());
+        pause.play();
     }
 
 }
