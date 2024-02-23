@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package charlie.models;
 
 public class Event extends Task {
     protected String startsAt;
@@ -8,6 +8,14 @@ public class Event extends Task {
         super(description);
         this.startsAt = startsAt;
         this.endsAt = endsAt;
+    }
+
+    public String getStartsAt() {
+        return startsAt;
+    }
+
+    public String getEndsAt() {
+        return endsAt;
     }
 
     @Override

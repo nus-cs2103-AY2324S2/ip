@@ -1,3 +1,5 @@
+package charlie.models;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,14 @@ public class Task {
 
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
