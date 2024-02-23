@@ -80,7 +80,7 @@ public class Parser {
     }
 
     /**
-     * parses ToDo Command
+     * parse ToDo Command
      * @param args
      * @return Command (ToDo/ Invalid)
      */
@@ -94,7 +94,7 @@ public class Parser {
     }
 
     /**
-     * parses Deadline Command
+     * parse Deadline Command
      * @param args
      * @return Command (Deadline/ Invalid)
      */
@@ -119,7 +119,7 @@ public class Parser {
     }
 
     /**
-     * parses Event Command
+     * parse Event Command
      * @param args
      * @return Command (Event/ Invalid)
      */
@@ -145,7 +145,7 @@ public class Parser {
     }
 
     /**
-     * parses Mark Command
+     * parse Mark Command
      * @param args
      * @return Command (Mark/ Invalid)
      */
@@ -163,7 +163,7 @@ public class Parser {
     }
 
     /**
-     * parses Unmark Command
+     * parse Unmark Command
      * @param args
      * @return Command (Unmark/ Invalid)
      */
@@ -181,7 +181,7 @@ public class Parser {
     }
 
     /**
-     * parses Delete Command
+     * parse Delete Command
      * @param args
      * @return Command (Delete/ Invalid)
      */
@@ -199,7 +199,7 @@ public class Parser {
     }
 
     /**
-     * parses Find Command
+     * parse Find Command
      * @param args
      * @return Command (Find/ Invalid)
      */
