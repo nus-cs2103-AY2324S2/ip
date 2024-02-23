@@ -51,9 +51,8 @@ public class Storage {
      */
     public void saveTaskList(ArrayList<Task> instrList) throws DukeException {
         try {
-
             assert this.filePath.length() != 0 : "File Path must be defined";
-            
+
             FileWriter fw = new FileWriter(this.filePath);
             for (Task tsk : instrList) {
                 fw.write(tsk.toSave());
@@ -61,10 +60,9 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("OOOPS! Invalid Item in Task List, please rectify!!!");
+            throw new DukeException("Invalid Item in Task List, please rectify!!!");
         }
     }
-
 
     /**
      * Reads from the specified filePath and writes into a new ArrayList.
@@ -77,13 +75,15 @@ public class Storage {
         File f = new File(this.filePath);
         try {
             Scanner sc = new Scanner(f);
+
             while (sc.hasNext()) {
                 Task tsk = deconstruct(sc.nextLine());
                 tskList.add(tsk);
             }
+
             sc.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("OOOPS!! File '" + this.filePath
+            throw new DukeException("File '" + this.filePath
                 + "' not found in local drive. Please check your working folder!");
         }
         return tskList;
@@ -98,6 +98,7 @@ public class Storage {
     public Task deconstruct(String fileStr) {
         String[] arr = fileStr.split("\\|");
         Boolean isDone = arr[1].equals("1") ? true : false;
+
         if (arr[0].equals("T")) {
             return new Todo(arr[2], isDone);
         } else if (arr[0].equals("D")) {
@@ -105,6 +106,7 @@ public class Storage {
         } else if (arr[0].equals("E")) {
             return new Event(arr[2], arr[3], arr[4], isDone);
         }
+
         return null;
     }
 }

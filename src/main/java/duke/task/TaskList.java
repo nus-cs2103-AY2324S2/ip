@@ -37,11 +37,13 @@ public class TaskList {
      */
     public String listOut() {
         String res = "Here are the tasks in your list:";
+
         for (int i = 0; i < this.instrList.size(); i++) {
             System.out.println(i + 1 + "." + this.instrList.get(i).toString());
             String temp = i + 1 + "." + this.instrList.get(i).toString();
             res += "\n" + temp;
         }
+
         return res;
     }
 
@@ -60,23 +62,23 @@ public class TaskList {
         switch (cmd) {
         case TODO:
             res = processTodo(instr, thisStorage);
+            res = res + "\n" + "Now you have " + this.instrList.size() + " tasks in the list.";
             System.out.println(res);
-            break;
+            return res;
         case DEADLINE:
             res = processDeadline(instr, thisStorage);
+            res = res + "\n" + "Now you have " + this.instrList.size() + " tasks in the list.";
             System.out.println(res);
-            break;
+            return res;
         case EVENT:
             res = processEvent(instr, thisStorage);
+            res = res + "\n" + "Now you have " + this.instrList.size() + " tasks in the list.";
             System.out.println(res);
-            break;
+            return res;
         default:
-            throw new DukeException("OOPS!!! What is that? I'm sorry,"
+            throw new DukeException("What is that? I'm sorry,"
                 + " but I don't recognise this command :-( \nTry another command!");
         }
-        res = res + "\n" + "Now you have " + this.instrList.size() + " tasks in the list.";
-        System.out.println(res);
-        return res;
     }
 
     /**
@@ -92,14 +94,16 @@ public class TaskList {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
             res = this.instrList.get(instrNum).markAsDone();
-            thisStorage.saveTaskList(this.instrList);
             res = "Nice! I've marked this task as done:" + "\n" + res;
             System.out.println(res);
+
+            thisStorage.saveTaskList(this.instrList);
+
         } catch (NullPointerException e) {
-            throw new DukeException("OOPS!! You have inputted an invalid task number."
+            throw new DukeException("You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOOPS!!! You missed out the task number.");
+            throw new DukeException("You missed out the task number.");
         }
         return res;
     }
@@ -117,14 +121,15 @@ public class TaskList {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
             res = this.instrList.get(instrNum).markAsUndone();
-            thisStorage.saveTaskList(this.instrList);
             res = "OK, I've marked this task as not done yet:" + "\n" + res;
             System.out.println(res);
+
+            thisStorage.saveTaskList(this.instrList);
         } catch (NullPointerException e) {
-            throw new DukeException("OOPS!! You have inputted an invalid task number."
+            throw new DukeException("You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOOPS!!! You missed out the task number.");
+            throw new DukeException("You missed out the task number.");
         }
         return res;
     }
@@ -143,17 +148,38 @@ public class TaskList {
             int ptr = Integer.valueOf(instr.split(" ")[1]) - 1;
             Task str = this.instrList.get(ptr);
             this.instrList.remove(ptr);
-            thisStorage.saveTaskList(this.instrList);
+
             res = "Noted. I've removed this task: \n" + str.toString()
                 + "\nNow you have " + this.instrList.size() + " tasks in the list.";
             System.out.println(res);
+
+            thisStorage.saveTaskList(this.instrList);
+            return res;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOOPS!!! You missed out the task number.");
+            throw new DukeException("You missed out the task number.");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!! You have inputted an invalid task number."
+            throw new DukeException("You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         }
-        return res;
+    }
+
+    /**
+     * Selects the details for the different tasks.
+     *
+     * @param validDescription Description informing what detail to be edited.
+     * @return A string representing the work that has been done.
+     * @throws DukeException When there is inappropriate input.
+     */
+    public String edit(String validDescription) throws DukeException {
+        try {
+            String cmdWord = validDescription.split("/")[0];
+            String newDetails = validDescription.split("/")[1];
+            int ptr = Integer.parseInt(validDescription.split("/")[2]);
+            Task tsk = this.instrList.get(ptr - 1);
+            return handleEdit(cmdWord, newDetails, tsk);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("You missed out the deatils that you want to edit!!!");
+        }
     }
 
     /**
@@ -161,12 +187,10 @@ public class TaskList {
      *
      * @param cmdWord Command word informing what detail to be edited.
      * @param newDetails Representing the new details to be added.
-     * @param ptr Representing the task number to be edited.
-     *
+     * @param tsk Representing the task to be edited.
      * @return A string representing the work that has been done.
      */
-    public String edit(String cmdWord, String newDetails, int ptr) {
-        Task tsk = this.instrList.get(ptr - 1);
+    public String handleEdit(String cmdWord, String newDetails, Task tsk) {
         try {
             switch (cmdWord) {
             case("description"):
@@ -175,19 +199,19 @@ public class TaskList {
                 if (tsk instanceof Event) {
                     return ((Event) tsk).updateStart(newDetails);
                 } else {
-                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT AN EVENT!!!");
+                    throw new DukeException("Task you are trying to edit is NOT AN EVENT!!!");
                 }
             case("end"):
                 if (tsk instanceof Event) {
                     return ((Event) tsk).updateStart(newDetails);
                 } else {
-                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT AN EVENT!!!");
+                    throw new DukeException("Task you are trying to edit is NOT AN EVENT!!!");
                 }
             case("by"):
                 if (tsk instanceof Deadline) {
                     return ((Deadline) tsk).updateBy(newDetails);
                 } else {
-                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT A DEADLINE!!!");
+                    throw new DukeException("Task you are trying to edit is NOT A DEADLINE!!!");
                 }
             default:
                 throw new DukeException("Invalid details to be edited");
@@ -211,14 +235,16 @@ public class TaskList {
             res = "Here are the matching tasks in your list:";
             System.out.println(res);
             int ctr = 1;
+
             for (int i = 0; i < this.instrList.size(); i++) {
                 if (this.instrList.get(i).description.contains(taskKeyword)) {
                     System.out.println(ctr + 1 + "." + this.instrList.get(i).toString());
                     res += ctr + 1 + "." + this.instrList.get(i).toString();
                 }
             }
+
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOOPS!!! You missed out the task to search for.");
+            throw new DukeException("You missed out the task to search for.");
         }
         return res;
     }
@@ -236,11 +262,12 @@ public class TaskList {
             Todo taskTodo = new Todo(instr.split("todo ")[1]);
             this.instrList.add(taskTodo);
             thisStorage.saveTaskList(this.instrList);
+
             String res = "Got it. I've added this task: \n "
                 + taskTodo.toString();
             return res;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!");
+            throw new DukeException("The description of a todo cannot be empty. \nTry again!");
         }
     }
 
@@ -257,16 +284,18 @@ public class TaskList {
             String deadlineDescription = instr.substring(9);
             String[] tskNames = deadlineDescription.split(" /by ");
             Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]);
+
             this.instrList.add(taskDeadline);
             thisStorage.saveTaskList(this.instrList);
+
             String res = "Got it. I've added this task: \n "
                 + taskDeadline.toString();
             return res;
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! You cannot leave the description"
+            throw new DukeException("You cannot leave the description"
                 + " of a deadline to be empty. \nTry again!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! You missed out the deadline time of this task. \nTry again!");
+            throw new DukeException("You missed out the deadline time of this task. \nTry again!");
         }
     }
 
@@ -285,16 +314,18 @@ public class TaskList {
             String name = instrSubString[0];
             String[] startAndEnd = instrSubString[1].split(" /to ");
             Event taskEvent = new Event(name, startAndEnd[0], startAndEnd[1]);
+
             this.instrList.add(taskEvent);
             thisStorage.saveTaskList(this.instrList);
+
             String res = "Got it. I've added this task: \n "
                 + taskEvent.toString();
             return res;
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! You cannot leave the"
+            throw new DukeException("You cannot leave the"
                 + " description of an event to be empty. \nTry again!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! You missed out the date of this task. \nTry again!");
+            throw new DukeException("You missed out the date of this task. \nTry again!");
         }
     }
 }

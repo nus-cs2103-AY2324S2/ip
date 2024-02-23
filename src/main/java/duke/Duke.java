@@ -75,7 +75,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         assert this.parser != null : "Parser class must be instantiated first.";
-        
+
         return this.parser.parseInstr(this.tasks, this.storage, input);
     }
 }
