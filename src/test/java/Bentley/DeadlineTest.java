@@ -1,5 +1,5 @@
 // DeadlineTest.java
-package Bentley;
+package bentley;
 
 import org.junit.jupiter.api.Test;
 

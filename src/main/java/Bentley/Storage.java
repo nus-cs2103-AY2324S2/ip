@@ -31,18 +31,21 @@ public class Storage {
      *
      * @param tasks The ArrayList to which loaded tasks will be added.
      */
-    public void loadTasks(ArrayList<Task> tasks) {
+    public ArrayList<Task> loadTasks() {
+        ArrayList<Task> taskList = new ArrayList<>();
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String taskDescription = scanner.nextLine();
-                tasks.add(new Task(taskDescription));
+                taskList.add(new Task(taskDescription));
             }
             scanner.close();
+            
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         }
+        return taskList;
     }
 
     /**

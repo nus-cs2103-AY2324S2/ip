@@ -20,6 +20,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+
     /**
      * Displays the list of tasks with their respective indices.
      */
