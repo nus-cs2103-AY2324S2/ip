@@ -10,9 +10,11 @@ import java.util.Scanner;
 public class Duke_Level8 {
     private static final String FILE_PATH = "D:\\Samuel\\NUS\\2324Sem2\\CS2103T\\ip";
     private List<Task> taskList;
+    private Ui ui;
 
     public Duke_Level8() {
         this.taskList = new ArrayList<>();
+        this.ui = new Ui();
         loadTasksFromFile();
     }
 
@@ -68,18 +70,8 @@ public class Duke_Level8 {
         }
     }
 
-    public void greet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?");
-    }
-
     public void run() {
-        this.greet();
+        ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
         String input;
         do {
@@ -87,8 +79,7 @@ public class Duke_Level8 {
             processInput(input);
             saveTasksToFile(); // Call saveTasksToFile() after processing each input
         } while (!input.equals("bye"));
-
-        System.out.println("Bye. Hope to see you again soon!");
+        ui.showGoodbye();
     }
 
     private void processInput(String input) {
@@ -106,7 +97,7 @@ public class Duke_Level8 {
             case "list":
                 listTasks();
                 break;
-            case "mark": // Added case for marking task as done
+            case "mark":
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     markTask(index);
@@ -114,7 +105,7 @@ public class Duke_Level8 {
                     System.out.println("Invalid command format.");
                 }
                 break;
-            case "unmark": // Added case for marking task as undone
+            case "unmark":
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     unmarkTask(index);
