@@ -1,7 +1,16 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Taro
+What can I do for you?
+
+Ok. I added this task:
+[T][ ] get breakfast
+Now you have 1 task(s) left
+Ok. I added this task:
+[D][ ] 2103 (by: tmr)
+Now you have 2 task(s) left
+This task is marked as done:
+[T][X] get breakfast
+Here are the tasks in the list:
+1.[T][X] get breakfast
+2.[D][ ] 2103 (by: tmr)
+BYE BYE
 
