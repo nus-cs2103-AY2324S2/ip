@@ -86,7 +86,11 @@ public class Storage {
     public void save() {
         try {
             FileWriter fw = new FileWriter(filePath);
-            fw.write(tasks.toDataFormat());
+            if (tasks.getTaskCount() == 0) {
+                fw.write("");
+            } else {
+                fw.write(tasks.toDataFormat());
+            }
             fw.close();
         } catch (IOException e) {
             ui.errorMsg(e.getMessage());
