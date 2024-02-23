@@ -1,0 +1,13 @@
+hello
+list
+todo practice piano
+deadline finish iP /by Sat 26 2359
+event volunteering /from Sat 930am /to 1130am
+list
+mark 2
+mark 1
+list
+event cca practice /to 10pm
+event cca practice /to 10pm /from 8pm
+deadline cca leader selection
+bye
