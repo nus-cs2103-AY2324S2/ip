@@ -3,7 +3,7 @@ package jux;
 public class JuxException extends Exception {
 
     /**
-     * Customised exception for user
+     * Custom exception for user
      * @param message
      */
     public JuxException(String message) {

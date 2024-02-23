@@ -19,7 +19,7 @@ public class DateTimeParser {
             // Add more formats as needed
     };
     /**
-     * Convert the localDateTime variable in the task to
+     * Converts the localDateTime variable in the task to
      * a presentable format
      * @param localDateTime date time stored in the task
      * @return formatted string to be printed

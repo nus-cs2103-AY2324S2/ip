@@ -129,7 +129,7 @@ public class Parser {
 
 
     /**
-     * Exception for input index for mark string
+     * Exceptions for input index for mark string
      * @param taskList task list
      * @param convertedToNumber the index of the task in tasklist
      * @throws JuxException the exception to the rule that it violates
