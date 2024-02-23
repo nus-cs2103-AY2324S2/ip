@@ -103,6 +103,7 @@ public class Duke {
             result = new NameCommand(commandAndDescription);
             break;
         default:
+            assert false : "Should not reach here";
             throw new UnknownInputException();
         }
         return result;

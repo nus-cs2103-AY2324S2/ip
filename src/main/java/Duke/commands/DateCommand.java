@@ -87,6 +87,7 @@ public class DateCommand extends Command {
                 Integer.parseInt(dateNumbers[0]),
                 Integer.parseInt(dateNumbers[3].substring(0, 2)),
                 Integer.parseInt(dateNumbers[3].substring(2)));
+        assert toFind != null;
         return ui.foundListMessage(tasks.findTaskWithDate(toFind));
     }
 }
