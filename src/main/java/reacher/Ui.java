@@ -13,9 +13,10 @@ public class Ui {
     /**
      * Creates a Ui.
      */
-    public Ui(){
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     /**
      * Prints welcome message.
      */
@@ -26,47 +27,13 @@ public class Ui {
                 "Functions are find, edit, list, add and bye");
     }
 
-    /**
-     * Prints all tasks in tasks.
-     * @param tasks List of tasks.
-     */
-    public void printList(ArrayList<Task> tasks) {
-        System.out.println("Tasks:");
+    public String listToString(ArrayList<Task> tasks) {
+        StringBuilder list = new StringBuilder("Tasks:\n");
         int c = 1;
         for (Task task : tasks) {
-            System.out.println(c + task.toString());
+            list.append(task.toString()).append("\n");
             c++;
         }
-    }
-
-    /**
-     * Takes in user input as a string.
-     * @return user input.
-     * @throws ReacherException If user input is empty.
-     */
-    public String readString() throws ReacherException {
-        String input = scanner.nextLine();
-        if (input.isEmpty()) {
-            throw new ReacherException("pls type a task name.");
-        }
-        return input;
-    }
-
-    /**
-     * Takes in user input as an int.
-     * @return user input.
-     */
-    public int readInt() {
-        int num = scanner.nextInt();
-        scanner.nextLine();
-        return num;
-    }
-
-    /**
-     * Prints message.
-     * @param message String to be printed.
-     */
-    public void print(String message){
-        System.out.println(message);
+        return String.valueOf(list);
     }
 }

@@ -1,15 +1,13 @@
 package reacher.command;
 
-import reacher.ReacherException;
-import reacher.Storage;
-import reacher.TaskList;
-import reacher.Ui;
+import reacher.*;
+import reacher.ui.MainWindow;
 
 public class FindCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {
-        ui.print("Searching for:");
-        String keyword = ui.readString();
-        ui.printList(tasks.findTasks(keyword));
+    public String execute(String input, TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+        String keyword = Parser.getInfo(input, 1);
+        String list = ui.listToString(tasks.findTasks(keyword));
+        return list;
     }
 }

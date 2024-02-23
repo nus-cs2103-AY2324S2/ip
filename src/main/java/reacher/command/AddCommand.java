@@ -1,10 +1,10 @@
 package reacher.command;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import reacher.*;
 import reacher.task.*;
+import reacher.ui.MainWindow;
 
 /**
  * Command that when executed, adds a task according to user to Task list and file storage.
@@ -12,49 +12,44 @@ import reacher.task.*;
 public class AddCommand extends Command {
     /**
      * Executes command by asking user for name and type of task and adding to tasks and update storage.
-     * @param tasks List of tasks.
-     * @param ui User interface.
+     *
+     * @param tasks   List of tasks.
+     * @param ui      User interface.
      * @param storage Local file storage.
+     * @return
      * @throws ReacherException if user input is invalid type of task.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {
-        ui.print("What is the name of the task?");
-        String name = ui.readString();
-
-        ui.print("What type of task is this?(Deadline, Event, Todo)");
-        String type = ui.readString().toLowerCase();
+    public String execute(String input, TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+        String name = Parser.getInfo(input, 1);
+        String type = Parser.getInfo(input, 2);
 
         Task t;
         switch (type) {
         case ("todo"):
             t = new Todos(name);
             tasks.addTask(t);
-            ui.print("I've added " + t.toString());
-            break;
+            storage.storeList(tasks.getTasks());
+            return ("I've added " + t.toString());
         case ("deadline"):
-            ui.print("When is the deadline?");
-            LocalDate deadline = null;
-            deadline = LocalDate.parse(ui.readString());
-            t = new Deadline(name, deadline);
+            String deadlineS = Parser.getInfo(input, 3);
+            LocalDate  deadlineD = LocalDate.parse(deadlineS);
+            t = new Deadline(name, deadlineD);
             tasks.addTask(t);
-            ui.print("I've added " + t.toString());
-            break;
+            storage.storeList(tasks.getTasks());
+            return ("I've added " + t.toString());
         case ("event"):
-            ui.print("When is the start?");
-            LocalDate start = LocalDate.parse(ui.readString());
-            ui.print("When is the end?");
-            LocalDate end = LocalDate.parse(ui.readString());
+            LocalDate start = LocalDate.parse(Parser.getInfo(input, 3));
+            LocalDate end = LocalDate.parse(Parser.getInfo(input, 4));
             if (start.isAfter(end)) {
                 throw new ReacherException("End cannot be before start.");
             }
             t = new Events(name, start, end);
             tasks.addTask(t);
-            ui.print("I've added " + t.toString());
-            break;
+            storage.storeList(tasks.getTasks());
+            return("I've added " + t.toString());
         default:
             throw new ReacherException("That is not a type of task.");
         }
-        storage.storeList(tasks.getTasks());
     }
 
     /**
