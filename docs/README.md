@@ -32,7 +32,7 @@ you want to find.
 
 Simply lists out all tasks in the task list.
 
-Example: `list`
+Format: `list`
 
 Destiny then prints out all the tasks for you.
 

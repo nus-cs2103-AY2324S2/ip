@@ -3,3 +3,5 @@ D | 0 | submit cs2103 deliverables | 23/03/2024 2359
 E | 0 | host friends for a movie night | 24/02/2024 1500 | 24/02/2024 2300
 T | 0 | Get 7 hours of sleep
 D | 0 | create notes for finals | 27/02/2024 2359
+D | 0 | test | 12/12/2024 1234
+E | 0 | test | 12/12/2024 1234 | 13/12/2024 1234
