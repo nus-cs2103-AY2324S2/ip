@@ -22,16 +22,16 @@ public class Messages {
      * @return The help message.
      */
     public static String helpMessage() {
-        return (" Here are the commands that I understand!\n" +
-                "   1. To add a todo, type 'todo <description>'\n" +
-                "   2. To add a deadline, type 'deadline <description> /by <yyyy-mm-dd HHmm>' \n" +
-                "   3. To add an event, type 'event <description> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>'\n" +
-                "   4. To list out your tasks, type 'list'\n" +
-                "   5. To mark a task as done, type 'mark <task number>' \n" +
-                "   6. To mark a task as undone, type 'unmark <task number>' \n" +
-                "   7. To delete a task, type 'delete <task number>' \n" +
-                "   8. To exit the chat, type 'bye'\n"
-        );
+        return (" Here are the commands that I understand!\n"
+                + "   1. To add a todo, type 'todo <description>'\n"
+                + "   2. To add a deadline, type 'deadline <description> /by <yyyy-mm-dd HHmm>' \n"
+                + "   3. To add an event, type 'event <description> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>'\n"
+                + "   4. To list out your tasks, type 'list'\n"
+                + "   5. To mark a task as done, type 'mark <task number>' \n"
+                + "   6. To mark a task as undone, type 'unmark <task number>' \n"
+                + "   7. To delete a task, type 'delete <task number>' \n"
+                + "   8. To exit the chat, type 'bye'\n"
+            );
     }
 
     /**
@@ -40,7 +40,7 @@ public class Messages {
      * @param size The updated size of the task list.
      * @return The message indicating the updated task size.
      */
-    public static String printTaskSize(int size){
+    public static String printTaskSize(int size) {
         return ("\n Now you have " + size + " tasks in the list. ");
     }
 }

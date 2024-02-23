@@ -3,7 +3,7 @@ package judy.exceptions;
 /**
  * A custom exception class for handling exceptions specific to the Duke application.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructs a DukeException with the specified error message.

@@ -1,9 +1,9 @@
 package judy.ui;
 
+import java.util.Scanner;
+
 import judy.task.Task;
 import judy.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The Ui class handles interactions with the user.
@@ -48,9 +48,9 @@ public class Ui {
      * @param size The updated size of the task list.
      */
     public void showAddTask(Task task, int size) {
-        System.out.println( Messages.ADD_TASK_MESSAGE +
-                task.toString() +
-                Messages.printTaskSize(size));
+        System.out.println(Messages.ADD_TASK_MESSAGE
+                + task.toString()
+                + Messages.printTaskSize(size));
     }
 
     /**
@@ -92,10 +92,10 @@ public class Ui {
             System.out.println(Messages.EMPTY_TASKLIST_MESSAGE);
         } else {
             System.out.println(Messages.LIST_TASKS_MESSAGE);
-            for(int i = 0; i < taskList.getSize(); i++) {
-                int seq = i+1;
+            for (int i = 0; i < taskList.getSize(); i++) {
+                int seq = i + 1;
                 Task t = taskList.get(i);
-                System.out.println ("  " + seq + ". " + t.toString());
+                System.out.println("  " + seq + ". " + t.toString());
             }
         }
     }
@@ -111,10 +111,10 @@ public class Ui {
             System.out.println(Messages.EMPTY_MATCHING_TASKS_MESSAGE);
         } else {
             System.out.println(Messages.LIST_MATCHING_TASKS_MESSAGE);
-            for(int i = 0; i < taskList.getSize(); i++) {
-                int seq = i+1;
+            for (int i = 0; i < taskList.getSize(); i++) {
+                int seq = i + 1;
                 Task t = taskList.get(i);
-                System.out.println ("  " + seq + ". " + t.toString());
+                System.out.println("  " + seq + ". " + t.toString());
             }
         }
     }
@@ -132,7 +132,7 @@ public class Ui {
      * @param errorMessage The error message to be displayed.
      */
     public void showError(String errorMessage) {
-         System.out.println(errorMessage);
+        System.out.println(errorMessage);
     }
 
     /**
