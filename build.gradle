@@ -41,7 +41,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.dobby.Dobby")
+    mainClass.set("dobby.Launcher")
 }
 
 shadowJar {
