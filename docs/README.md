@@ -1,13 +1,15 @@
 # **RizBot User Guide**
 
-// Update the title above to match the actual product name
+Hello! This is RizBot, a todo-list manager that is based off the mannerisms of my close friend Rizwan Khan.  
 
-// Product screenshot goes here
+**It is encouraged that you use the buttons provided in the interface for ease of use.**  
 
-// Product intro goes here
+
+**This a sample use case of the RizBot**\
+![Screenshot of the GUI of RizBot](UI.png)
 
 ## **Adding Tasks Guide**
-** Be sure to input the time in 24h format for Deadline and Event tasks!**
+**Be sure to input the time in 24h format for Deadline and Event tasks!**
 ### Adding Todo Tasks
 Format: todo **INSERT_TASK_HERE**
 ### Adding Deadline Tasks (With a deadline)
@@ -30,5 +32,5 @@ Format: find **INSERT_COMPLETE_OR_PARTIAL_TASK_NAME**
 ### Delete
 Deletes a task based on its numerical index.\
 Format: delete **INSERT_TASK_INDEX**
-### CLear List
+### Clear List
 Deletes all tasks in the tasklist.
