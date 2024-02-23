@@ -10,17 +10,17 @@ basic Graphical User Interface (GUI).
 * [Sleepy User Guide](#sleepy-user-guide)
 * [Quick Start](#quick-start)
 * [User commands](#user-commands)
-  * [Notes about the command format](#notes-about-the-command-format)
-  * [Adding a todo: `todo`](#adding-a-todo--todo)
-  * [Adding a deadline: `deadline`](#adding-a-deadline--deadline)
-  * [Adding a plan: `plan`](#adding-a-plan--plan)
-  * [Adding an event: `event`](#adding-an-event--event)
-  * [Marking a task: `mark`](#marking-a-task--mark)
-  * [Unmarking a task `unmark`](#unmarking-a-task-unmark)
-  * [Deleting a task: `delete`](#deleting-a-task--delete)
-  * [Finding task(s) by keyword: `find`](#finding-task--s--by-keyword--find)
-  * [Listing all your tasks: `list`](#listing-all-your-tasks--list)
-  * [Exiting the chatbot: `bye`](#exiting-the-chatbot--bye)
+    * [Notes about the command format](#notes-about-the-command-format)
+    * [Adding a todo: `todo`](#adding-a-todo-todo)
+    * [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+    * [Adding a plan: `plan`](#adding-a-plan-plan)
+    * [Adding an event: `event`](#adding-an-event-event)
+    * [Marking a task: `mark`](#marking-a-task-mark)
+    * [Unmarking a task `unmark`](#unmarking-a-task-unmark)
+    * [Deleting a task: `delete`](#deleting-a-task-delete)
+    * [Finding task(s) by keyword: `find`](#finding-tasks-by-keyword-find)
+    * [Listing all your tasks: `list`](#listing-all-your-tasks-list)
+    * [Exiting the chatbot: `bye`](#exiting-the-chatbot-bye)
 * [Features](#features)
 <!-- TOC -->
 
@@ -34,10 +34,10 @@ basic Graphical User Interface (GUI).
 5. Type your command in the input box at the bottom of the screen. You can press Enter or
    click the `SEND HELP PLS` button to send your message.
    Some example commands you can try (not case-sensitive):
-    * `list`: Lists all your tasks.
-    * `todo sleep`: Adds a reminder for you to get some sleep.
-    * `delete 7`: Deletes the 7th item in your task list.
-    * `bye`: Exits the app after a short delay.
+* `list`: Lists all your tasks.
+* `todo sleep`: Adds a reminder for you to get some sleep.
+* `delete 7`: Deletes the 7th item in your task list.
+* `bye`: Exits the app after a short delay.
 6. Refer to the [User commands](#user-commands) below for details of each command.
 
 # User commands
@@ -99,7 +99,7 @@ Expected output:
 added: [P][ ] submit homework (after: this friday)
 ```
 
-## Adding an event: `event` 
+## Adding an event: `event`
 
 Adds an event to the list.
 
@@ -126,7 +126,7 @@ Nice! I've marked this task as done:
 [E][X] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Unmarking a task `unmark`
+## Unmarking a task: `unmark`
 
 Marks a task in the list.
 
