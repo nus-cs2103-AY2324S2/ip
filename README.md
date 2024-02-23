@@ -9,6 +9,7 @@ basic Graphical User Interface (GUI).
 <!-- TOC -->
 * [Quick Start](#quick-start)
 * [User commands](#user-commands)
+    * [Notes about the command format](#notes-about-the-command-format)
     * [Adding a todo: `todo`](#adding-a-todo--todo)
     * [Adding a deadline: `deadline`](#adding-a-deadline--deadline)
     * [Adding a plan: `plan`](#adding-a-plan--plan)
