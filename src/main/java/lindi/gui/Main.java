@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.setTitle("Lindi");
             fxmlLoader.<MainWindow>getController().setLindi(lindi);
             stage.show();
         } catch (IOException e) {
