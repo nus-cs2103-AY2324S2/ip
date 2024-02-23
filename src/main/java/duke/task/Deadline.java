@@ -21,6 +21,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isComplete) {
         super(description);
         this.isComplete = isComplete;
+        assert this.by != null : "Deadline date-time parsing failed";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
