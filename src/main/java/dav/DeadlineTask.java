@@ -24,6 +24,14 @@ class DeadlineTask extends Task {
     }
 
     /**
+     * Getter for the byDateTime field.
+     * @return LocalDateTime representing the deadline date and time.
+     */
+    public LocalDateTime getByDateTime() {
+        return byDateTime;
+    }
+
+    /**
      * Parses task data string and returns a DeadlineTask object.
      * @param data Data string representing the task.
      * @return DeadlineTask object if parsing is successful, otherwise null.

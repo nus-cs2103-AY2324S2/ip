@@ -10,20 +10,22 @@ public class TodoTaskTest {
     @Test
     public void testToDataString() {
         TodoTask todoTask = new TodoTask("Test Todo");
-        assertEquals("T | 0 | Test Todo", todoTask.toDataString());
+        todoTask.addTag("testTag");
+        assertEquals("T | 0 | Test Todo | testTag", todoTask.toDataString());
     }
 
     @Test
     public void testParseTaskValidData() {
-        String data = "T | 1 | Test Todo";
+        String data = "T | 1 | Test Todo | testTag1, testTag2";
         Task task = TodoTask.parseTask(data);
 
-        assertEquals("[T][X] Test Todo", task.toString());
+        String expectedOutput = "[T][X] Test Todo\nTags: testTag1, testTag2";
+        assertEquals(expectedOutput, task.toString());
     }
+
 
     @Test
     public void testParseTaskInvalidData() {
-        // Invalid data should return null
         String invalidData = "Invalid Data";
         assertNull(TodoTask.parseTask(invalidData));
     }
