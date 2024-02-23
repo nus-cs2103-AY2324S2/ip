@@ -2,6 +2,7 @@ import inputcommands.Command;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -53,16 +54,33 @@ public class Snom extends Application {
     public String runCommand(String s) {
         try {
             Command c = Command.makeCommand(s);
-            return this.parser.processCommand(c, this.taskList, this.data);
+            String reply = this.parser.processCommand(c, this.taskList, this.data);
+            if (reply.equals("bye")) {
+                return this.getExitMessage();
+            } else {
+                return reply;
+            }
         } catch (InvalidCommandException e) {
             return e.getMessage();
         }
+    }
+
+    public String getStartMessage() {
+        return this.ui.greet();
+    }
+
+    public String getExitMessage() {
+        return this.ui.bye();
     }
 
 
 
     @Override
     public void start(Stage stage) {
+        Label startMessage = new Label(this.getStartMessage());
+        Scene scene = new Scene(startMessage);
+        stage.setScene(scene);
+        stage.show();
     }
 
 

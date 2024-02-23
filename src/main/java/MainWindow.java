@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,18 +27,23 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/trainer.png"));
     private Image snomImage = new Image(this.getClass().getResourceAsStream("/images/snom.png"));
 
+    /**
+     * Set up the scrollPane
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     public void setSnom(Snom s) {
         this.snom = s;
+        dialogContainer.getChildren().addAll((DialogBox.getSnomDialog(snom.getStartMessage(), snomImage)));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one to echo the input of the user and one for
+     * Snom to reply
      */
     @FXML
     private void handleUserInput() {
@@ -45,10 +53,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSnomDialog(response, snomImage)
         );
-        if (response.equals("bye")) {
-            System.exit(0);
-        }
+
         userInput.clear();
+
+        if (response.equals(snom.getExitMessage())) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> System.exit(0)));
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 
 
