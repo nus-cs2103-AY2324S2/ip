@@ -8,8 +8,7 @@
     {
       "type": "node",
       "name": "Debug (Launch) - Main",
-      "request": "launch",
-      "mainClass": "chatbot.Main",
+      "request": "launch"
     }
   ]
 }
