@@ -9,7 +9,7 @@ It is:
 - Easy to learn 
 - ~~Fast~~ _SUPER SUPER FAST_ to use
 
-  [Getting Started](#Getting Started)
+[Getting Started](#Getting Started)
 
 ## Getting Started 💻
 
