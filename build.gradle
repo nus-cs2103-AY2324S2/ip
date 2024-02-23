@@ -48,11 +48,11 @@ checkstyle {
 }
 
 application {
-    mainClass.set("duke.Stille")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Stille"
+    archiveBaseName = "stille"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
