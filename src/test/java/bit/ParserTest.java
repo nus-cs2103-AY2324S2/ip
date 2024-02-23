@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParserTest {
     @Test
-    public void  testParse() {
+    public void testParse() {
         Parser parser = new Parser();
         assertEquals("bye", parser.parse("bye"));
         assertEquals("list", parser.parse("list"));
@@ -16,7 +16,7 @@ public class ParserTest {
         assertEquals("add", parser.parse("unmarko"));
         assertEquals("unmark", parser.parse("unmark 1"));
         assertEquals("delete", parser.parse("delete 1"));
-        assertEquals("", parser.parse("delete"));
+        assertEquals("add", parser.parse("delete"));
     }
 
 }

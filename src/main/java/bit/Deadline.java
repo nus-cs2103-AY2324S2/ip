@@ -2,6 +2,7 @@ package bit;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -62,7 +63,8 @@ public class Deadline extends Task {
      * @return true or false depending on whether it is due in i days
      */
     public boolean isDueIn(int i) {
-        LocalDate current = LocalDate.now();
+        ZoneId singaporeZoneId = ZoneId.of("Asia/Singapore");
+        LocalDate current = LocalDate.now(singaporeZoneId);
         LocalDate dueDate = current.plusDays(i);
         return deadline.isBefore(dueDate);
     }
