@@ -1,4 +1,4 @@
-package eve;
+package eve.gui;
 
 import javafx.application.Application;
 
@@ -7,6 +7,6 @@ import javafx.application.Application;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Eve.class, args);
+        Application.launch(Main.class, args);
     }
 }
