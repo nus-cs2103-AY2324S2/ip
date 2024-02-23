@@ -2,29 +2,21 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.DukeException;
 
+
 /**
- * The TaskList class represents a collection of tasks in the Duke application.
- * It provides methods to manipulate the list of tasks, such as adding, deleting,
- * marking as done, listing, and finding tasks.
+ * Represents a list of tasks.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
-    /**
-     * Constructs an empty TaskList.
-     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Constructs a TaskList with the specified list of tasks.
-     *
-     * @param tasks The list of tasks to initialize the TaskList with.
-     */
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }
@@ -32,99 +24,102 @@ public class TaskList {
     /**
      * Adds a task to the task list.
      *
-     * @param task The task to be added.
+     * @param task The task to add.
+     * @return A message indicating the task has been added and the total number of tasks.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        System.out.println("Added: " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        return "Added: " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
      * Deletes a task from the task list.
      *
-     * @param taskNumber The number of the task to be deleted.
-     * @throws DukeException If the specified task number is out of range.
+     * @param taskNumber The index of the task to delete.
+     * @return A message indicating the task has been deleted and the total number of tasks.
+     * @throws DukeException if the task number is invalid.
      */
-    public void deleteTask(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("duke.task.Task with specified number does not exist.");
-        }
+    public String deleteTask(int taskNumber) throws DukeException {
+        validateTaskNumber(taskNumber);
         Task removedTask = tasks.remove(taskNumber - 1);
-        System.out.println("Deleted: " + removedTask);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        return "Deleted: " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
      * Marks a task as done.
      *
-     * @param taskNumber The number of the task to be marked as done.
-     * @throws DukeException If the specified task number is out of range.
+     * @param taskNumber The index of the task to mark as done.
+     * @return A message indicating the task has been marked as done.
+     * @throws DukeException if the task number is invalid.
      */
-    public void markTask(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("duke.task.Task with specified number does not exist.");
-        }
+    public String markTask(int taskNumber) throws DukeException {
+        validateTaskNumber(taskNumber);
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
-        System.out.println("Marked as done: " + task);
+        return "Marked as done: " + task;
     }
 
     /**
-     * Marks a task as not done.
+     * Marks a task as undone.
      *
-     * @param taskNumber The number of the task to be unmarked as done.
-     * @throws DukeException If the specified task number is out of range.
+     * @param taskNumber The index of the task to mark as undone.
+     * @return A message indicating the task has been marked as undone.
+     * @throws DukeException if the task number is invalid.
      */
-    public void unmarkTask(int taskNumber) throws DukeException {
-        if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("duke.task.Task with specified number does not exist.");
-        }
+    public String unmarkTask(int taskNumber) throws DukeException {
+        validateTaskNumber(taskNumber);
         Task task = tasks.get(taskNumber - 1);
         task.unmarkAsDone();
-        System.out.println("Unmarked as done: " + task);
+        return "Unmarked as done: " + task;
     }
+
 
     /**
      * Lists all tasks in the task list.
+     *
+     * @return A string representation of all tasks in the task list.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("Your task list is empty.");
+            return "Your task list is empty.";
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 
-
     /**
-     * Finds and displays tasks containing the specified keyword in their description.
+     * Finds tasks containing the specified keyword.
      *
-     * @param keyword The keyword to search for in task descriptions.
+     * @param keyword The keyword to search for.
+     * @return A string representation of tasks matching the keyword.
      */
-    public void findTask(String keyword) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTask(String keyword) {
+        List<Task> filteredTasks = tasks.stream()
+            .filter(task -> task.getDescription().contains(keyword))
+            .collect(Collectors.toList());
 
-        int taskNumber = 1;
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                System.out.println(taskNumber++ + "." + task);
+        if (filteredTasks.isEmpty()) {
+            return "No tasks match your search criteria.";
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < filteredTasks.size(); i++) {
+                sb.append(i + 1).append(". ").append(filteredTasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
-
-        System.out.println("____________________________________________________________");
     }
 
-    /**
-     * Gets the list of tasks.
-     *
-     * @return The list of tasks.
-     */
+    private void validateTaskNumber(int taskNumber) throws DukeException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new DukeException("Task with specified number does not exist.");
+        }
+    }
+
     public List<Task> getTasks() {
-        return this.tasks;
+        return tasks;
     }
 }

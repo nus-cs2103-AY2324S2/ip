@@ -93,7 +93,6 @@ public class Duke extends Application {
             DialogBox.getUserDialog(userText, new ImageView(user).getImage()),
             DialogBox.getDukeDialog(dukeResponse, new ImageView(duke).getImage())
         );
-
         userInput.clear();
     }
 
@@ -113,6 +112,10 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
 
+        String welcomeMessage = ui.showWelcome();
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(welcomeMessage, new ImageView(duke).getImage())
+        );
         stage.setScene(scene);
         stage.show();
 

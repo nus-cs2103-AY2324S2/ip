@@ -33,7 +33,8 @@ public class Parser {
             System.exit(0);
             break;
         case "list":
-            tasks.listTasks();
+            ui.showMessage(tasks.listTasks());
+
             break;
         case "mark":
             if (parts.length < 2) {
@@ -41,6 +42,7 @@ public class Parser {
             }
             int markIndex = Integer.parseInt(parts[1]) - 1;
             tasks.markTask(markIndex + 1);
+            ui.showMessage("Marked as done: " + tasks.getTasks().get(markIndex));
             break;
         case "unmark":
             if (parts.length < 2) {
@@ -48,6 +50,7 @@ public class Parser {
             }
             int unmarkIndex = Integer.parseInt(parts[1]) - 1;
             tasks.unmarkTask(unmarkIndex + 1);
+            ui.showMessage("Unmarked as done: " + tasks.getTasks().get(unmarkIndex));
             break;
         case "delete":
             if (parts.length < 2) {
@@ -55,6 +58,8 @@ public class Parser {
             }
             int deleteIndex = Integer.parseInt(parts[1]) - 1;
             tasks.deleteTask(deleteIndex + 1);
+            ui.showMessage("Deleted: " + tasks.getTasks().get(deleteIndex)
+                + "\nNow you have " + tasks.getTasks().size() + " tasks in the list.");
             break;
         case "todo":
         case "deadline":
@@ -66,6 +71,7 @@ public class Parser {
                 throw new DukeException("The keyword for find cannot be empty.");
             }
             tasks.findTask(parts[1]);
+            ui.showMessage(tasks.findTask(parts[1]));
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");

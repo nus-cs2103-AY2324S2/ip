@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        showWelcomeMessage();
     }
 
     /**
@@ -40,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -49,4 +50,13 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    /**
+     * Shows the welcome message from Duke.
+     */
+    public void showWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm Duke\nWhat can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
+    }
+
 }

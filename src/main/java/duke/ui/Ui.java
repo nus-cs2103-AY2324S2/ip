@@ -17,9 +17,10 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         String welcomeMessage = "Hello! I'm EchoPilot.\nWhat can I do for you?";
         collectResponse(welcomeMessage);
+        return getResponse();
     }
 
     /**
