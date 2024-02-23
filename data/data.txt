@@ -1,11 +1,6 @@
 [T][Y] read book
-[D][Y] return book | by: 30/09/2002
+[D][N] return book | by: 30/09/2002
 [E][N] project meeting | from: Aug 6th 2pm | to: 4pm
 [T][Y] join sports club
 [T][N] borrow book
 [E][N] project meeting | from: Mon 2pm | to: 4pm
-[T][N] read book
-[T][N] read book
-[D][N] return book | by: 30/09/2002
-[E][N] project meeting | from: Aug 6th 2pm | to: 4pm
-[T][N] join sports club

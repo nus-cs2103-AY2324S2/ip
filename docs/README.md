@@ -119,6 +119,12 @@ Examples:
 * `find book`
 * `find read`
 
+### Undoing the previous command: `undo`:
+
+Undos the previous **valid** command.
+
+Format: `undo`
+
 ### Saving then exiting the program: `bye`:
 
 Says bye~

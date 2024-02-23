@@ -24,10 +24,16 @@ public class Task {
         return isDone ? "[Y] " : "[N] ";
     }
 
+    /**
+     * Marks the task as completed.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as uncompleted.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }

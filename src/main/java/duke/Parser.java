@@ -102,6 +102,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Pushes the history command into history tasks.
+     *
+     * @param historyTask a list to storage the history tasks
+     */
     public static void pushHistoryCmd(HistoryTask historyTask) {
         String[] inputContent = historyTask.getCommand().split(" ", 2);
         String mainCommand = inputContent[0];

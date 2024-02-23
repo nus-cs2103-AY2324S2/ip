@@ -10,14 +10,13 @@ public class Deadline extends Task {
     protected String by;
     protected String date;
 
-
     public Deadline(String name, String by) {
         super(name);
         this.by = by;
         converter(by);
     }
 
-    public void converter(String by) {
+    private void converter(String by) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate inputDate = LocalDate.parse(by, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

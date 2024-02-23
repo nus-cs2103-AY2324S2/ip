@@ -12,6 +12,12 @@ import java.util.List;
  * Decodes the storage data file into an object.
  */
 public class TaskDecoder {
+    /**
+     * Decodes the strings to tasks for loading.
+     *
+     * @param lines every line in the data file
+     * @return the decoded tasks
+     */
     public static ArrayList<Task> decodeTask(List<String> lines) {
         ArrayList<Task> task = new ArrayList<>();
         for (String line : lines) {

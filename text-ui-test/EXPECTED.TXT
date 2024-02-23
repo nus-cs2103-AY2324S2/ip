@@ -1,64 +1,53 @@
-____________________________________________________________
-Hello! I'm [duke.duke]
-What can I do for you?
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[T][ ] read book
+---------------------------------------------
+Hello! I'm [Detective]
+What can I do for you? ovo
+---------------------------------------------
+Got it. I've added this task:
+[T][N] read book
 Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this duke.task as done:
-[T][X] read book
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[D][ ] return book (by: June 6th)
+---------------------------------------------
+Nice! I've marked this task as done:
+[T][Y] read book
+---------------------------------------------
+Got it. I've added this task:
+[D][N] return book | by: 30/09/2002
 Now you have 2 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+---------------------------------------------
+Got it. I've added this task:
+[E][N] project meeting | from: Aug 6th 2pm | to: 4pm
 Now you have 3 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[T][ ] join sports club
+---------------------------------------------
+Got it. I've added this task:
+[T][N] join sports club
 Now you have 4 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[T][ ] borrow book
+---------------------------------------------
+Got it. I've added this task:
+[T][N] borrow book
 Now you have 5 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this duke.task as done:
-[T][X] join sports club
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this duke.task as not done yet:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[D][ ] return book (by: Sunday)
+---------------------------------------------
+Nice! I've marked this task as done:
+[T][Y] join sports club
+---------------------------------------------
+No change in the task:
+[E][N] project meeting | from: Aug 6th 2pm | to: 4pm
+---------------------------------------------
+Got it. I've added this task:
+[D][N] return book | by: 24/08/2002
 Now you have 6 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this duke.task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+---------------------------------------------
+Got it. I've added this task:
+[E][N] project meeting | from: Mon 2pm | to: 4pm
 Now you have 7 tasks in the list.
-____________________________________________________________
-____________________________________________________________
+---------------------------------------------
+Got it. I've deleted this task:
+[D][N] return book | by: 24/08/2002
+Now you have 6 tasks in the list.
 Here are the tasks in your list:
-1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-4.[T][X] join sports club
-5.[T][ ] borrow book
-6.[D][ ] return book (by: Sunday)
-7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon!
-____________________________________________________________
+1.[T][Y] read book
+2.[D][N] return book | by: 30/09/2002
+3.[E][N] project meeting | from: Aug 6th 2pm | to: 4pm
+4.[T][Y] join sports club
+5.[T][N] borrow book
+6.[E][N] project meeting | from: Mon 2pm | to: 4pm
+---------------------------------------------
+Bye. Hope to see you again soon! >v<

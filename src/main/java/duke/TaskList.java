@@ -16,6 +16,13 @@ public class TaskList extends ArrayList<Task> {
         super(tasks);
     }
 
+    /**
+     * Finds all the tasks containing the keyword.
+     *
+     * @param tasks the task list
+     * @param keyword the keyword for searching
+     * @return all the matching tasks
+     */
     public TaskList findTasks(TaskList tasks, String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task task : tasks) {
