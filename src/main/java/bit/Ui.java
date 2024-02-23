@@ -25,9 +25,7 @@ public class Ui {
         String s;
         s = "Sure! Here is the list:\n";
         for (int i = 0; i < tasklist.getSize(); i++) {
-            if (tasklist.getTask(i) == null) {
-                break;
-            }
+            assert !(tasklist.getTask(i) == null) : "The task in task list should not be null";
             s += (i + 1) + "." + tasklist.getTask(i).toString() + "\n";
         }
         return s;
