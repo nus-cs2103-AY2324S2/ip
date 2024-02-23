@@ -52,7 +52,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "derek"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -68,4 +68,5 @@ checkstyleMain {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
