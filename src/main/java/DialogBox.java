@@ -47,10 +47,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox with the user's face and the specified text.
+     * @param text The text to be displayed.
+     * @param img The user's face.
+     * @return A DialogBox with the user's face and the specified text.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox with Joseph's face and the specified text.
+     * @param text The text to be displayed.
+     * @param img Joseph's face.
+     * @return A DialogBox with Joseph's face and the specified text.
+     */
     public static DialogBox getJosephDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

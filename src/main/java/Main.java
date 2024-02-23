@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Joseph joseph = new Joseph();
-
+    /**
+     * Starts the application.
+     * @param stage The stage to start the application on.
+     */
     @Override
     public void start(Stage stage) {
         try {
