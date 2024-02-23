@@ -53,14 +53,16 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.setStyle(dialog.getStyle() + "-fx-background-color: #383D4E;");
+
+        String podzChatBubbleColor = "-fx-background-color: #383D4E;";
+        dialog.setStyle(dialog.getStyle() + podzChatBubbleColor);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getPodzDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

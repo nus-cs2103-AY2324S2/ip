@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     private Podz podz;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/podz.png"));
+    private Image podzImage = new Image(this.getClass().getResourceAsStream("/images/podz.png"));
 
     @FXML
     public void initialize() {
@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
         assert podz != null : "Podz is not initialized";
 
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(podz.getGreeting(), dukeImage)
+            DialogBox.getPodzDialog(podz.getGreeting(), podzImage)
         );
     }
 
@@ -80,7 +80,7 @@ public class MainWindow extends AnchorPane {
     private void setDialog(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getPodzDialog(response, podzImage)
         );
     }
 
