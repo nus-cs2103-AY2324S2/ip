@@ -1,30 +1,56 @@
-# Duke User Guide
+# BotBot User Guide
 
-// Update the title above to match the actual product name
+![Screenshot](Ui.png)
 
-// Product screenshot goes here
+A Bot to manage events
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### Adding an event
 
-// Describe the action and its outcome.
+Add various types of events to the list
 
-// Give examples of usage
+ToDo: todo <name> | e.g. todo eat
+Deadline: deadline <name> /by yyyy-MM-dd HH:mm | e.g. deadline eat /by 1999-01-01 22:00
+Event: event <name> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm | e.g. event helloo /from 1999-01-01 10:00 /to 1999-01-01 22:00
 
-Example: `keyword (optional arguments)`
+### Deleting an event
 
-// A description of the expected outcome goes here
+Delete the nth event from the list
 
-```
-expected output
-```
+Delet: delete <int> | delete 1
 
-## Feature ABC
+### Listing all events 
 
-// Feature details
+Lists all current events in the list
+
+List: list | e.g. list
+
+### Customising events
+
+Various features to note down further details of events
+
+Marking as done: mark <int> |  e.g. mark 1
+Unmarking: unmark <int> | e.g. unmark 2
+Setting priority of event: togglePrio <int> | e.g. togglePrio 3
+
+### Deleting events
+
+remove an event from the list
+
+Delete: delete <int> | e.g. delete 2
+
+### Finding events
+
+Finding an event with certain names
+
+Find: find <name> | e.g. find Concert
+
+### Closing the chatbot
+
+Exit the chatbot once done
+
+Exit: bye | e.g. bye
 
 
-## Feature XYZ
 
-// Feature details
