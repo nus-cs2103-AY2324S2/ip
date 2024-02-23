@@ -1,7 +1,8 @@
 # Aether User Guide
 
 
-// Product screenshot goes here
+
+![Ui.png](Ui.png)
 
 Aether! The chatbot that helps you manage all your tasks in one place :)
 
