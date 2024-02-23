@@ -7,17 +7,17 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.layout.StackPane?>
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="267.0"
          type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          style="-fx-border-color: #14AAF5; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;
          -fx-background-color: snow;">
     <children>
-        <Text fx:id="dialog" text="Label" wrappingWidth="400.0"
-              style="-fx-fill: black; -fx-font-family: 'Times New Roman'; -fx-font-size: 14px;" />
-        <StackPane fx:id="imageContainer" maxHeight="95.0" maxWidth = "95.0"
+        <Text fx:id="dialog" text="Label" wrappingWidth="267.0"
+              style="-fx-fill: black; -fx-font-family: 'Times New Roman'; -fx-font-size: 11px;" />
+        <StackPane fx:id="imageContainer" maxHeight="50.0" maxWidth = "50.0"
                    style="-fx-padding: 0; -fx-border-color: gold;
                    -fx-border-width: 4;">
-            <ImageView fx:id="displayPicture" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true"
+            <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
                        preserveRatio="true" />
         </StackPane>
     </children>
