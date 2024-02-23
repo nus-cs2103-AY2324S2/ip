@@ -9,15 +9,17 @@ import duke.task.*;
 public class Parser {
     private TaskList taskList;
     private Ui ui;
+    private NotesList notesList;
 
     /**
      * Constructor for a new Parser object
      * @param taskList  container for new Tasks created by add commands
      * @param ui        interface for printing messages to user
      */
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList, Ui ui, NotesList notesList) {
         this.taskList = taskList;
         this.ui = ui;
+        this.notesList = notesList;
     }
 
     public boolean isExit(String input) {
@@ -30,7 +32,7 @@ public class Parser {
      * @param input                   Takes in user input as a String
      * @throws UnknownInputException  Throws exception if input is in list of recognised commands
      */
-    public String parse(String input) throws UnknownInputException {
+    public String parse(String input) {
         int taskEnd = input.indexOf(" ");
         String commandType = taskEnd > 0 ? input.substring(0, taskEnd) : "list";
         try {
@@ -61,9 +63,10 @@ public class Parser {
             case delete:
                 int deleteIndex = Integer.parseInt(details) - 1;
                 try {
-                    this.ui.printOnDelete(deleteIndex);
+                    String out = this.ui.printOnDelete(deleteIndex);
                     this.taskList.remove(deleteIndex);
-                    return this.ui.printTotal();
+                    out = out + "\n" + this.ui.printTotal();
+                    return out;
                 } catch (ArrayIndexOutOfBoundsException arrIndexEx) {
                     throw new InvalidIndexException();
                 }
@@ -87,11 +90,19 @@ public class Parser {
                 return this.ui.printOnFind(taskList.find(details));
             case list:
                 return this.ui.printList(taskList);
+            case write:
+                this.notesList.add(details);
+                return this.ui.printOnAddNote(details);
+            case notes:
+                return this.ui.printAllNotes();
+            case remove:
+                this.notesList.remove(Integer.parseInt(details) - 1);
+                return this.ui.printOnDeleteNote(Integer.parseInt(details));
             default:
                 throw new UnknownInputException();
             }
-        } catch (IllegalArgumentException | InvalidIndexException e) {
-            throw new UnknownInputException();
+        } catch (IllegalArgumentException | InvalidIndexException | UnknownInputException e) {
+            return this.ui.printException(e);
         }
     }
 }

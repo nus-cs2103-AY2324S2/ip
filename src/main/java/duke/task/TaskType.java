@@ -40,7 +40,10 @@ public enum TaskType {
          */
         event,
 
-        find
+        find,
+        write,
+        notes,
+        remove
 
         /*,
         exit */;

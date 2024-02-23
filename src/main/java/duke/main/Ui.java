@@ -12,13 +12,15 @@ public class Ui {
 
     private TaskList taskList;
     private Scanner scanner;
+    private NotesList notesList;
 
     /**
      * constructor for a new UI
      * @param taskList  container for current list of tasks
      */
-    public Ui(TaskList taskList) {
+    public Ui(TaskList taskList, NotesList noteslist) {
         this.taskList = taskList;
+        this.notesList = noteslist;
         this.scanner = new Scanner(System.in);
     }
 
@@ -114,4 +116,14 @@ public class Ui {
     public String printException(Exception exception) {
         return exception.toString();
     }
+    public String printOnAddNote(String note) {
+        return "New note added! \n '" + note + "'";
+    }
+    public String printAllNotes() {
+        return "List of stored notes: \n" + this.notesList.getAll();
+    }
+    public String printOnDeleteNote(int i) {
+        return "Removing note " + i + ". ";
+    }
+
 }

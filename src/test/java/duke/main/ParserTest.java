@@ -10,8 +10,9 @@ import duke.task.*;
 
 public class ParserTest {
     private TaskList tempList = new TaskList();
-    private Ui tempUI = new Ui(tempList);
-    private Parser tempParse = new Parser(tempList, tempUI);
+    private NotesList tempNotes = new NotesList();
+    private Ui tempUI = new Ui(tempList, tempNotes);
+    private Parser tempParse = new Parser(tempList, tempUI, tempNotes);
 
     @Test
     public void task_parse_success() throws Exception {

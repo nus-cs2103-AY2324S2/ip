@@ -3,15 +3,9 @@ import java.io.IOException;
 
 import duke.exception.*;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -22,27 +16,15 @@ public class TalkingBox extends Application {
     static final String PATH = "save.txt";
     private Storage storage;
     private TaskList taskList;
+    private NotesList notesList;
     Ui ui;
     Parser parser;
 
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private Scene scene;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image bot = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
-
-
     public TalkingBox() {
         taskList = new TaskList();
-        ui = new Ui(taskList);
-        parser = new Parser(this.taskList, this.ui);
+        notesList = new NotesList();
+        ui = new Ui(this.taskList, this.notesList);
+        parser = new Parser(this.taskList, this.ui, this.notesList);
         try {
             storage = new Storage(taskList, PATH);
         } catch (FileNotFoundException f) {
@@ -79,12 +61,7 @@ public class TalkingBox extends Application {
         while (!isExit && !isError) {
             String command = this.ui.readLine();
             isExit = this.parser.isExit(command);
-            try {
-                this.parser.parse(command);
-            } catch (UnknownInputException e) {
-                this.ui.printException(e);
-                isError = true;
-            }
+            this.parser.parse(command);
         }
         this.storage.store();
         this.ui.printExitMessage();

@@ -26,13 +26,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
 
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
+
 
     public void setProgramme(TalkingBox b) {
         main = b;
+    }
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**
@@ -40,13 +42,18 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws UnknownInputException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response;
-        try {
-            response = main.parser.parse(input);
-        } catch (UnknownInputException e) {
-            response = main.ui.printException(e);
+        if (main.parser.isExit(input)) {
+            response = main.ui.printExitMessage();
+            javafx.application.Platform.exit();
+        } else {
+            try {
+                response = main.parser.parse(input);
+            } catch (UnknownInputException e) {
+                response = main.ui.printException(e);
+            }
         }
 
         dialogContainer.getChildren().addAll(
@@ -55,5 +62,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+
 
 }
