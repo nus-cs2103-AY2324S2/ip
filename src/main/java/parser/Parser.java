@@ -274,7 +274,7 @@ public class Parser {
     public static String[] parseDeadline(String input) throws JuxException {
         if (input.length() >10) {
             if (!input.contains("/")) {
-                throw new JuxException("insert time after deadline such as deadline /monday");
+                throw new JuxException("insert date after task such as deadline task/monday");
             }
             String desc = input.substring(9, input.indexOf("/"));
             String date = input.substring(input.indexOf("/") + 1);
@@ -293,15 +293,15 @@ public class Parser {
      * @throws JuxException if invalid time or missing description
      */
     public static String[] parseEvent(String input) throws JuxException {
-        if (input.length() >7 ) {
+        if (input.length() > 7 ) {
             String regex = ".*" + '/'+ ".*" + '/' + ".*";
             if (!input.matches(regex)) {
-                throw new JuxException("insert time for event such as event /monday /sunday");
+                throw new JuxException("insert date after task such as event task/monday /sunday");
             }
             String desc = input.substring(6, input.indexOf("/"));
             String firstDate = input.substring(input.indexOf("/") + 1, input.lastIndexOf("/"));
             String endDate = input.substring(input.lastIndexOf("/") + 1);
-            String [] strings ={desc, firstDate, endDate};
+            String [] strings = {desc, firstDate, endDate};
             return strings;
         } else {
             throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR EVENT");
@@ -311,7 +311,7 @@ public class Parser {
     /**
      * Converts the input index provided by the user to an int
      * @param listStringNumber string index
-     * @return int indedx
+     * @return int index
      * @throws JuxException if invalid string index
      */
     public static int convertStringIndexToIntZeroIndex(String listStringNumber) throws JuxException {

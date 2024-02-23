@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
 public class DateTimeParser {
-    public static final String[] POSSIBLE_DAY_OF_WEEK_FORMATS = {"E", "EEE", "EEEEE"};
+    public static final String[] POSSIBLE_DAY_OF_WEEK_FORMATS = {"EEEE", "EEE", "EEEEE"};
     public static final String[] POSSIBLE_DATETIME_FORMATS = {
             "yyyy-MM-dd HH:mm",
             "dd-MM-yyyy HH:mm",
@@ -96,9 +96,16 @@ public class DateTimeParser {
         }
         return false;
     }
-    private static LocalDateTime getLocalDateTimeFromDayOfWeek(String dateString) throws DateTimeException {
-        String[] splitdateString = dateString.split("\\s+");
-        LocalTime chosenTime = LocalTime.parse(splitdateString[1], DateTimeFormatter.ofPattern("HH:mm"));
+    private static LocalDateTime getLocalDateTimeFromDayOfWeek(String dateString) throws JuxException {
+
+        String[] splitdateString;
+        LocalTime chosenTime;
+        try {
+            splitdateString = dateString.split("\\s+");
+            chosenTime = LocalTime.parse(splitdateString[1], DateTimeFormatter.ofPattern("HH:mm"));
+        } catch (Exception e) {
+            throw new JuxException("Invalid time, use the format of \"day HH:mm\"");
+        }
         for (String format : POSSIBLE_DAY_OF_WEEK_FORMATS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -114,10 +121,11 @@ public class DateTimeParser {
                 // If parsing fails, ignore the exception and try the next format
             }
         }
-        throw new DateTimeException("Invalid format for day of week");
+        throw new JuxException("Invalid format for day of week");
     }
 
-    private static LocalDate checkIfTimeHasPassedOnSameDayAsCurrent(LocalTime time, DayOfWeek dayOfWeek, LocalDate currentDay, LocalDate nextOccurrence) {
+    private static LocalDate checkIfTimeHasPassedOnSameDayAsCurrent(LocalTime time, DayOfWeek dayOfWeek,
+                                                                    LocalDate currentDay, LocalDate nextOccurrence) {
         if (nextOccurrence.with(dayOfWeek) == currentDay) {
             LocalTime currentTime = LocalTime.now();
             if (time.isBefore(currentTime)) {
