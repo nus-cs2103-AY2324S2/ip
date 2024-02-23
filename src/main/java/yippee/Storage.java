@@ -36,20 +36,8 @@ public class Storage {
      */
     public TaskList load() throws YippeeException {
         TaskList list = new TaskList();
-        //load previous tasks
-        File directory = new File("yippee/data");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        File file = new File(filePath);
+        File file = checkDir(filePath);
         Scanner fileSc = null;
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new YippeeFileException("Error creating the file : " + e.getMessage());
-            }
-        }
         try {
             fileSc = new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -59,6 +47,22 @@ public class Storage {
         fileSc.close();
 
         return list;
+    }
+
+    private File checkDir(String filePath) throws YippeeFileException {
+        File directory = new File(filePath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new YippeeFileException("Error creating the file : " + e.getMessage());
+            }
+        }
+        return file;
     }
 
     /**
@@ -71,29 +75,38 @@ public class Storage {
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
             String[] taskDetails = currentTask.split("\\|");
-            Task newTask = null;
-            switch (taskDetails[0]) {
-            case "T":
-                newTask = new ToDo(taskDetails[2]);
-                break;
-            case "D":
-                newTask = new Deadline(taskDetails[2], taskDetails[3]);
-                break;
-            case "E":
-                newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                break;
-            default:
-                newTask = null;
-            }
+            Task newTask = checkType(taskDetails);
             if (newTask != null) {
-                if (taskDetails[1].equals("true")) {
-                    newTask.markDone();
-                } else {
-                    newTask.markNotDone();
-                }
-                list.addStoredTask(newTask);
+                markStoredTasks(taskDetails, newTask, list);
             }
         }
+    }
+
+    private static Task checkType(String[] taskDetails) throws InvalidCommandException {
+        Task newTask = null;
+        switch (taskDetails[0]) {
+        case "T":
+            newTask = new ToDo(taskDetails[2]);
+            break;
+        case "D":
+            newTask = new Deadline(taskDetails[2], taskDetails[3]);
+            break;
+        case "E":
+            newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+            break;
+        default:
+            newTask = null;
+        }
+        return newTask;
+    }
+
+    private static void markStoredTasks(String[] taskDetails, Task newTask, TaskList list) {
+        if (taskDetails[1].equals("true")) {
+            newTask.markDone();
+        } else {
+            newTask.markNotDone();
+        }
+        list.addStoredTask(newTask);
     }
 
     /**

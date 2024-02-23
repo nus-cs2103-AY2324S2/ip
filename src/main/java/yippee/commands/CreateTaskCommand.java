@@ -58,8 +58,6 @@ public class CreateTaskCommand extends Command {
             String to = toSplit[1].trim();
             newTask = new Event(eventName, from, to);
         }
-
         tasks.addNewTask(newTask);
-
     }
 }
