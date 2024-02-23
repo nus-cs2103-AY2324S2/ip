@@ -36,8 +36,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(startMsg, timImage)
         );
-
-
     }
 
     public void setTim(Tim d) {
