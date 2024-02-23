@@ -28,7 +28,8 @@ All you need to do is:
  - [x] Manage deadlines
  - [ ] Reminders (coming soon)
 
-<ins> How to use: </ins>
+<ins> How to use: </ins>\
+
 Upon running the application, a chat window will pop up and you can interact with ChatBro through this window. Simply type 'help' and send the message (by clicking the 'send' button or hitting Enter) to see a list of commands that you can use.
 
 Follow the given instruction and message formats and start adding tasks to your task list! Some additional functionalities you may use are (un)marking tasks as done, searching for tasks, or deleting tasks.
