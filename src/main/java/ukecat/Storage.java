@@ -296,19 +296,6 @@ public class Storage {
         return recurType;
     }
 
-    public static String getRecurTypeString() {
-        switch (recurType) {
-        case DAILY:
-            return "day";
-        case WEEKLY:
-            return "week";
-        case MONTHLY:
-            return "month";
-        default:
-            return null;
-        }
-    }
-
     public static void setRecurType(String s) {
         switch (s) {
         case "day":

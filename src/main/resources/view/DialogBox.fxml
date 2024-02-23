@@ -12,7 +12,7 @@
     <children>
         <Label fx:id="dialog" text="Label" wrapText="true">
             <font>
-                <Font name="Consolas" size="14.0" />
+                <Font name="Consolas" size="13.5" />
             </font>
         </Label>
         <ImageView fx:id="displayPicture" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"

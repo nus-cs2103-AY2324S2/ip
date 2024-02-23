@@ -137,7 +137,6 @@ public class StorageAddTaskTest {
         Storage.setInput("buy bread");
         Storage.setDesc("buy bread");
         Storage.setWords(new String[]{"todo", "buy bread"});
-        System.out.println(Storage.getTaskCount());
         assertEquals("Error adding task: Wrong format, use: todo <desc>", Storage.addTask());
     }
 }

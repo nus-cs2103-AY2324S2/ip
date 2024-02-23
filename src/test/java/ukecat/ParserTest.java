@@ -83,7 +83,7 @@ public class ParserTest {
      * Test case for valid input in the {@link ukecat.Parser#parseTaskToCsv(Task)} method.
      */
     @Test
-    public void parseTaskToCsv_validInput_success() {
+    public void parseTaskToCsv_validInput_success() throws UkeCatException {
         assertEquals("T,NOT_DONE,watch lecture",
                 parseTaskToCsv(new ToDo(TaskStatus.NOT_DONE, "watch lecture")));
 

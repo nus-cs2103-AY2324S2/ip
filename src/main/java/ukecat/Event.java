@@ -17,9 +17,11 @@ public class Event extends Task {
      * @param description The description of the Event task.
      * @param start       The start date of the event.
      * @param end         The end date of the event.
+     * @throws UkeCatException If the end date is before the start date.
      */
-    public Event(String description, LocalDate start, LocalDate end) {
+    public Event(String description, LocalDate start, LocalDate end) throws UkeCatException {
         super(description);
+        validateDates(start, end);
         this.start = start;
         this.end = end;
     }
@@ -31,11 +33,19 @@ public class Event extends Task {
      * @param description The description of the Event task.
      * @param start       The start date of the event.
      * @param end         The end date of the event.
+     * @throws UkeCatException If the end date is before the start date.
      */
-    public Event(TaskStatus status, String description, LocalDate start, LocalDate end) {
+    public Event(TaskStatus status, String description, LocalDate start, LocalDate end) throws UkeCatException {
         super(status, description);
+        validateDates(start, end);
         this.start = start;
         this.end = end;
+    }
+
+    private void validateDates(LocalDate start, LocalDate end) throws UkeCatException {
+        if (end.isBefore(start)) {
+            throw new UkeCatException("End date cannot be before the start date for an Event task.");
+        }
     }
 
     /**
