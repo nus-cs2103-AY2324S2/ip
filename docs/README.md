@@ -136,35 +136,17 @@ The chatbot deletes the first task in the list.
     Now you have 2 tasks in the list.
 ```
 
-### 6. delete
-> What it does 
-
-The ```delete``` command helps you delete a task from the list.
-* The index number after the command is important.
-
-> Example
-
-```delete 1```
-
-The chatbot deletes the first task in the list.
-
-> Expected output
-```
-   Noted, I've removed this task:
-   [T][] get iP done
-    Now you have 2 tasks in the list.
-```
-
 ### 7. list
 > What it does 
 
-The ```list``` command displays the whole tasklist.
+The ```list``` command command displays the whole tasklist.
+* The index number after the command is important.
 
 > Example
 
 ```list```
 
-The chatbot then displays the whole task list.
+The chatbot deletes the first task in the list.
 
 > Expected output
 ```
