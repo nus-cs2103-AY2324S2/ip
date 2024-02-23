@@ -2,12 +2,13 @@ package friendlytool.process;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 import friendlytool.command.CommandTypes;
 
-public class DukeTest {
+public class TaskListTest {
     @Test
     public void addToDoTest() {
         TaskList list = new TaskList();
@@ -17,10 +18,12 @@ public class DukeTest {
             assertEquals(expected, list.get(0).getName());
         } catch (FtException e) {
             System.out.println(e.getMessage());
+            fail();
         }
 
         try {
             list.addTask("deadline /from 2014", CommandTypes.DEADLINE);
+            fail();
         } catch (Exception e) {
             assertEquals("Error: Please tell me your task and its deadline", e.getMessage());
         }
@@ -34,10 +37,12 @@ public class DukeTest {
             assertEquals("longEvent", list.get(0).getName());
         } catch (FtException e) {
             System.out.println(e.getMessage());
+            fail();
         }
 
         try {
             list.addTask("event longEvent2 /from 2014-02-03T16:00 /to 2019-03", CommandTypes.EVENT);
+            fail();
         } catch (FtException e) {
             assertEquals("Invalid date format. Please follow yyyy-mm-ddThh:mm format.", e.getMessage());
         }
