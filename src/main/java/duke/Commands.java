@@ -68,7 +68,12 @@ class AddDeadlineCommand extends AddTaskCommand {
     public Task parseTask(String argument) throws InvalidCommandException {
         String[] parts = argument.split(" /by ", 2);
         if (parts.length != 2) {
-            throw new InvalidCommandException("The deadline command should be in the format: deadline <description> /by <date>");
+            LocalDateTime today = LocalDateTime.now();
+            LocalDateTime oneHourLater = today.plusHours(1);
+            throw new InvalidCommandException(
+                    "The deadline command should be in the format: deadline <description> /by <date>\n" +
+                    "Example: deadline homework submission /by " + oneHourLater.format(Constants.INPUT_FORMATTER)
+                    );
         }
         if (parts[0].isEmpty()) {
             throw new InvalidCommandException("The description of a deadline cannot be empty.");
@@ -76,7 +81,14 @@ class AddDeadlineCommand extends AddTaskCommand {
         if (parts[1].isEmpty()) {
             throw new InvalidCommandException("The date of a deadline cannot be empty.");
         }
-        return new Deadline(parts[0], parts[1]);
+        LocalDateTime deadline;
+        try {
+            deadline = LocalDateTime.parse(parts[1], Constants.INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException("Invalid date format!\n" +
+                    e.getMessage());
+        }
+        return new Deadline(parts[0], deadline);
     }
 }
 
@@ -95,7 +107,7 @@ class AddEventCommand extends AddTaskCommand {
             LocalDateTime oneHourLater = today.plusHours(1);
             LocalDateTime twoHoursLater = today.plusHours(2);
             throw new InvalidCommandException("The event command should be in the format: " +
-                    "event <description> /from <starting time> /to <ending time>.\n" +
+                    "event <description> /from <starting time> /to <ending time>\n" +
                     "Example: event meeting /from " + oneHourLater.format(Constants.INPUT_FORMATTER) +
                     " /to " + twoHoursLater.format(Constants.INPUT_FORMATTER));
         }

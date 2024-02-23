@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
  * Represents a deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime deadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        this.by = LocalDateTime.parse(by, Constants.INPUT_FORMATTER);
+        this.deadline = deadline;
     }
 
     @Override
@@ -20,12 +20,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(Constants.OUTPUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.format(Constants.OUTPUT_FORMATTER) + ")";
     }
 
     @Override
     public String serializeToCommand(int taskIndex) {
-        return "deadline " + description + " /by " + by.format(Constants.INPUT_FORMATTER) + "\n"
+        return "deadline " + description + " /by " + deadline.format(Constants.INPUT_FORMATTER) + "\n"
             + serializeDoneMark(taskIndex);
     }
 }
