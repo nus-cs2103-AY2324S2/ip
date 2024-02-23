@@ -4,16 +4,20 @@ import tasklist.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Ui {
-    private static final String ALL_TASKS_HEADER = "Here are the tasks in your list!";
-    public static final String WELCOME_MESSAGE = "Welcome to Jux!";
-    public static final String RETURN_WELCOME_MESSAGE = "Previously on Jux....\n";
-    private static final String GOODBYE_MESSAGE = "____________________________________________________________\n" +
-            "Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________";
-    private static final String MARKED_TASK = "Nice! I've marked this task as done: \n";
-    private static final String UNMARKED_TASK = "OK, I've marked this task as not done yet: \n";
-    private static final String DELETE_TASK_HEADER = "Noted. I've removed this task: \n";
-    private static final String EMPTY_TASK_LIST = "your list is empty!";
+    private static final String ALL_TASKS_HEADER = "Here are the tasks in your list! Woof!";
+    public static final String FOUND_SOMETHING_RESPONSE = "Woof! I found what you were looking for. Here it is:\n";
+
+    public static final String WELCOME_MESSAGE = "Woof! Welcome to Jux, your loyal task companion! " +
+            "Ready to do some tasks?";
+    public static final String RETURN_WELCOME_MESSAGE = "Woof! Welcome back owner! Let's continue our adventure!\n";
+    private static final String MARKED_TASK = "Good Work! I've marked this task as done: \n";
+    private static final String UNMARKED_TASK = "Sure thing! I've marked this task as not done yet. " +
+            "Keep working hard! \n";
+    private static final String DELETE_TASK_HEADER = "Noted. I've removed this task. Have I been a good dog?\n";
+    private static final String EMPTY_TASK_LIST = "Woof! Your list is empty. " +
+            "Let's add some tasks to make it a good day!";
+    private static final String TASK_AFTERWORD = "Woof I added the task below! " +
+            "Did i do a great job? \n";
 
     /**
      * Ui class that contains the strings to be printed in the Gui
@@ -22,13 +26,6 @@ public class Ui {
     }
     public void showLoadingError(String error) {
         System.out.println(error);
-    }
-
-    /**
-     * Print goodbye message upon exiting the program
-     */
-    public String showGoodbye() {
-        return GOODBYE_MESSAGE;
     }
 
     /**
@@ -56,10 +53,11 @@ public class Ui {
      * @param taskList tasklist
      * @return String the task list
      */
-    public String printList(ArrayList<Task> taskList) {
-        String output = "";
+    public String printFindList(ArrayList<Task> taskList) {
+        String output = FOUND_SOMETHING_RESPONSE;
         for (int i = 0; i < taskList.size(); i++) {
-            output += (taskList.get(i)) + "\n";
+            int j = i + 1;
+            output += j + "." + (taskList.get(i)) + "\n";
         }
         return output;
     }
@@ -88,7 +86,7 @@ public class Ui {
      * @return the task string
      */
     public String printTaskAfterword(String task) {
-        String output = "You entered:" + "\n" ;
+        String output = TASK_AFTERWORD;
         assert task.length() != 0 : "task should not be empty";
         output += task;
         return output;

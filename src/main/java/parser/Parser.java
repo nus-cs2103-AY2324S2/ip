@@ -186,7 +186,7 @@ public class Parser {
         if (tasksFound.isEmpty()) {
             output = ui.printNotFound();
         } else {
-            output = ui.printList(tasksFound);
+            output = ui.printFindList(tasksFound);
         }
         return output;
     }

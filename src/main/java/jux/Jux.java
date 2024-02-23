@@ -40,7 +40,7 @@ public class Jux{
         String output = "";
         try {
             if (Parser.isExit(input)) {
-                output = ui.showGoodbye();
+                System.exit(0);
             } else {
                 output = Parser.parsingInput(input, tasks, ui);
                 storage.saveFile(tasks.getTaskList());
