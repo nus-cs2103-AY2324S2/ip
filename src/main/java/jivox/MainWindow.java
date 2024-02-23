@@ -1,8 +1,6 @@
 package jivox;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 
 /**
@@ -29,8 +28,7 @@ public class MainWindow extends AnchorPane {
     private Jivox jivox;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Jivox.png"));
-    private Image backGround = new Image(this.getClass().getResourceAsStream("/images/Jivox.png"));
+    private Image jivoxImage = new Image(this.getClass().getResourceAsStream("/images/Jivox.png"));
 
     /**
      * Initialize the MainWindow for the GUI of the Application
@@ -40,11 +38,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = "Welcome! I'm Jivox.\nWhat can I do for you?";
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, dukeImage)
+                DialogBox.getJivoxDialog(greeting, jivoxImage)
         );
     }
 
-    public void setDuke(Jivox j) {
+    public void setJivox(Jivox j) {
         jivox = j;
     }
 
@@ -58,17 +56,15 @@ public class MainWindow extends AnchorPane {
         String response = jivox.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getJivoxDialog(response, jivoxImage)
         );
         userInput.clear();
-        if (input.equals("bye")) {
-            TimerTask task = new TimerTask() {
-                public void run() {
-                    Platform.exit();
-                }
-            };
-            Timer timer = new Timer("Delay");
-            timer.schedule(task, 1000L);
+        if (input.equalsIgnoreCase("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> {
+                Platform.exit();
+            });
+            delay.play();
         }
     }
 }

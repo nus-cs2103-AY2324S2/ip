@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import jivox.task.Event;
 
-
-
-
 public class EventTest {
 
     private Event event;

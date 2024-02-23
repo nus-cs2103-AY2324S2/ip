@@ -3,7 +3,9 @@ package jivox;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+import jivox.exception.JivoxDatabaseException;
 import jivox.exception.JivoxDuplicateTaskException;
 import jivox.exception.JivoxException;
 import jivox.exception.JivoxInvalidDateException;
@@ -26,7 +28,7 @@ public class Jivox {
 
     private final DatabaseHandler dbHandler;
     private final Ui ui;
-    private final TaskList tasks;
+    private TaskList tasks;
     private final Parser parser;
     private boolean isRunning = true;
 
@@ -39,8 +41,13 @@ public class Jivox {
      */
     public Jivox(String filePath) {
         this.dbHandler = new DatabaseHandler(filePath);
-        this.tasks = new TaskList(dbHandler.load());
         this.ui = new Ui();
+        this.tasks = new TaskList(new ArrayList<>());
+        try {
+            this.tasks = new TaskList(dbHandler.load());
+        } catch (JivoxException e) {
+            this.ui.showException(e.getMessage());
+        }
         this.parser = new Parser();
     }
 
@@ -238,6 +245,13 @@ public class Jivox {
         }
     }
 
+    private String exit() throws JivoxDatabaseException {
+        isRunning = false;
+        this.ui.close();
+        dbHandler.save(tasks);
+        return ui.exit();
+    }
+
     private void validateInput(Commands type, String[] input) throws JivoxMissingArgumentException {
         if (type != Commands.LIST && type != Commands.BYE && input.length == 1) {
             throw new JivoxMissingArgumentException();
@@ -248,10 +262,7 @@ public class Jivox {
         validateInput(type, input);
         switch (type) {
         case BYE:
-            isRunning = false;
-            this.ui.close();
-            dbHandler.save(tasks);
-            return ui.exit();
+            return this.exit();
         case DEADLINE:
             return this.add("deadline", input[1]);
         case EVENT:
@@ -288,10 +299,4 @@ public class Jivox {
             System.out.println(this.getResponse(rawInput));
         }
     }
-
-    public static void main(String[] args) {
-        Jivox jivox = new Jivox("./data/jivox.txt");
-        jivox.run();
-    }
-
 }

@@ -83,7 +83,7 @@ public class DatabaseHandler {
      *
      * @return The list of tasks loaded from the file.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws JivoxDatabaseException {
         ArrayList<Task> list = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -117,7 +117,7 @@ public class DatabaseHandler {
                     }
                     break;
                 default:
-                    System.out.println("Invalid Entry");
+                    throw new JivoxDatabaseException();
                 }
             }
         } catch (IOException e) {

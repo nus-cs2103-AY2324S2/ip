@@ -10,12 +10,18 @@ import javafx.stage.Stage;
 
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jivox using FXML and JavaFX.
  */
 public class Main extends Application {
 
+    /**
+     * Jivox Bot Instance to be Excuted
+     */
     private Jivox jivox = new Jivox("./data/jivox.txt");
 
+    /**
+     * Entry point for the GUI of the Application
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -24,7 +30,8 @@ public class Main extends Application {
             stage.setTitle("Jivox - The ChatBot!");
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(jivox);
+            fxmlLoader.<MainWindow>getController().setJivox(jivox);
+            stage.setResizable(false);
             stage.setOnCloseRequest(event -> {
                 this.jivox.saveDb();
             });

@@ -49,11 +49,23 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns the UserDialog Box
+     * @param text userInput
+     * @param img Users avatar
+     * @return a DialogBox for the User in the UI
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Returns the Jivox DialogBox
+     * @param text Bot response
+     * @param img Bot avatar
+     * @return a DialogBox for the Bot in the UI
+     */
+    public static DialogBox getJivoxDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
