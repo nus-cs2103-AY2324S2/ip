@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import duke.commons.exceptions.DukeException;
@@ -23,9 +22,6 @@ public class PersistentStorageHandler {
 
     private static final String TASKLIST_PATH = "./tasklist.dat";
 
-    public PersistentStorageHandler() {
-    }
-
     /**
      * Ensures the existence of the task file and initializes it if not present.
      * 
@@ -33,7 +29,7 @@ public class PersistentStorageHandler {
      *         file did not exist and was created.
      * @throws DukeException If creating the file fails.
      */
-    public boolean ensureTaskFileExists() throws DukeException {
+    public static boolean taskFileFound() throws DukeException {
         File file = new File(TASKLIST_PATH);
 
         if (!file.exists()) {
@@ -55,7 +51,7 @@ public class PersistentStorageHandler {
      * @return The decoded task list.
      * @throws DukeException If an error occurs during decoding.
      */
-    private TaskList decodeObjectInputStream(ObjectInputStream ois) throws DukeException {
+    private static TaskList decodeObjectInputStream(ObjectInputStream ois) throws DukeException {
         try {
             TaskList taskList = (TaskList) ois.readObject();
             return taskList;
@@ -71,15 +67,13 @@ public class PersistentStorageHandler {
      * @throws DukeException If the file does not exist or an error occurs during
      *                       reading.
      */
-    public TaskList readTaskFileFromDisc() throws DukeException {
+    public static TaskList readTaskFileFromDisc() throws DukeException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TASKLIST_PATH));
             return decodeObjectInputStream(ois);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             throw new TaskDataNotFoundException(
                     "File: " + TASKLIST_PATH + " not found.\nWelcome to your new productivity journey.");
-        } catch (Exception e) {
-            throw new DukeException("Failed to read file: " + TASKLIST_PATH);
         }
     }
 
@@ -89,7 +83,7 @@ public class PersistentStorageHandler {
      * @param taskList The task list to be written to disk.
      * @throws DukeException If an error occurs during writing.
      */
-    public void writeTaskFileToDisc(TaskList taskList) throws DukeException {
+    public static void writeTaskFileToDisc(TaskList taskList) throws DukeException {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TASKLIST_PATH));
             oos.writeObject(taskList);

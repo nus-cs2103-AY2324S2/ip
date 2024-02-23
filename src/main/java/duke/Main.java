@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private TaskList taskList;
-    private PersistentStorageHandler persistentStorageHandler = new PersistentStorageHandler();
     private LogicController logicController = new LogicController();
     private AppUI appUI;
 
@@ -35,8 +34,8 @@ public class Main extends Application {
 
     private void initLoadStorage() {
         try {
-            if (persistentStorageHandler.ensureTaskFileExists()) {
-                taskList = persistentStorageHandler.readTaskFileFromDisc();
+            if (PersistentStorageHandler.taskFileFound()) {
+                taskList = PersistentStorageHandler.readTaskFileFromDisc();
                 int numTasks = taskList.getNumberTasks();
                 String response = "Read existing tasks (" + numTasks + ") from disc";
                 appUI.createAgentDialog(response);

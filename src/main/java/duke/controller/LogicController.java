@@ -9,6 +9,7 @@ import duke.command.CommandParser;
 import duke.command.CommandType;
 import duke.commons.exceptions.DukeException;
 import duke.commons.utils.DateUtils;
+import duke.storage.PersistentStorageHandler;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
@@ -85,6 +86,7 @@ public class LogicController {
                 default:
                     response = "Invalid Command" + commandType;
             }
+            PersistentStorageHandler.writeTaskFileToDisc(taskList);
         } catch (DukeException e) {
             response = e.getMessage();
         }
