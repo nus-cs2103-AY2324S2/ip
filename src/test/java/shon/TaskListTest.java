@@ -13,7 +13,7 @@ public class TaskListTest {
 
     @Test
     public void getList_emptyList() {
-        assertArrayEquals(new String[]{"Your list is currently empty."}, new TaskList().getTasks());
+        assertArrayEquals(new String[]{"Your list of tasks is currently empty."}, new TaskList().getTasks());
     }
 
     @Test
