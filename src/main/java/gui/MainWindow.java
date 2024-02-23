@@ -38,6 +38,9 @@ public class MainWindow extends AnchorPane {
         startingDialog();
     }
 
+    /**
+     * Starts conversation.
+     */
     public void startingDialog() {
         String greeting = wei.greet();
         String reminder = wei.remind();

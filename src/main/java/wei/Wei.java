@@ -26,7 +26,7 @@ public class Wei {
         ui = new Ui();
         parser = new Parser();
         try {
-            storage = new Storage("./data/history.txt");
+            storage = new Storage("./src/main/resources/data/history.txt");
             tasks = storage.read();
         } catch (FileNotFoundException e) {
             System.out.println("error reading tasks file");
@@ -46,6 +46,11 @@ public class Wei {
         return ui.greet();
     }
 
+    /**
+     * Reminds user to complete tasks.
+     *
+     * @return list of tasks.
+     */
     public String remind() {
         String remindList = tasks.getRemindList();
         return ui.showReminder(remindList);

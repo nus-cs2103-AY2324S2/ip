@@ -44,10 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("Wei")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
+    archiveFileName = "Wei.jar"
     archiveBaseName = "Wei"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 import exceptions.WeiException;
@@ -30,6 +31,7 @@ public class Storage {
         this.filePath = filePath;
         this.file = new File(filePath);
         if (!file.exists()) {
+            Files.createDirectories(file.toPath().getParent());
             file.createNewFile();
         }
     }
