@@ -22,3 +22,4 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(text, displayPicture);
     }
 }
+

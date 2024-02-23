@@ -1,19 +1,20 @@
 package bentley;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.Scanner;
+
 
 /**
  * The main class representing the Duke application.
@@ -22,15 +23,16 @@ import javafx.scene.image.ImageView;
  */
 public class Duke extends Application {
 
-    private static Storage storage;
-    private static TaskList taskList;
-    private static Ui ui;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -38,8 +40,6 @@ public class Duke extends Application {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadTasks());
-
-        
     }
 
     public void run() {
@@ -59,46 +59,10 @@ public class Duke extends Application {
                 storage.writeTasks(taskList.getTasks());
             }
         }
+        scanner.close();
     }
-
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
-        storage = new Storage("data/duke.txt");
-        taskList = new TaskList();
-        ui = new Ui();
-
-        // Load existing tasks from file
-        storage.loadTasks();
-
-        ui.showWelcomeMessage();
-
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            while (true) {
-                String userInput = scanner.nextLine();
-
-                if (userInput.equals("Bye")) {
-                    ui.showByeMessage();
-                    storage.writeTasks(taskList.getTasks());
-                    break;
-                } else {
-                    Parser.parseCommand(userInput, taskList, ui, storage);
-                    storage.writeTasks(taskList.getTasks());
-                }
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            scanner.close();
-        }
-    }
-
     @Override
     public void start(Stage stage) {
-        // Step 1. Setting up required components
-
-        // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -114,7 +78,6 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -129,8 +92,9 @@ public class Duke extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
+        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         userInput.setPrefWidth(325.0);
 
@@ -141,10 +105,9 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -157,7 +120,6 @@ public class Duke extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
-     * 
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -169,18 +131,13 @@ public class Duke extends Application {
         return textToAdd;
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing
-     * Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke)));
+                new DialogBox(dukeText, new ImageView(duke))
+        );
         userInput.clear();
     }
 
@@ -192,8 +149,13 @@ public class Duke extends Application {
         return "Duke heard: " + input;
     }
 
-
     public Duke() {
         // ...
     }
+
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
+    }
 }
+
+
