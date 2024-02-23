@@ -5,8 +5,10 @@ import ally.utils.TaskList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -41,7 +43,7 @@ public class TaskListTest {
     public void testAddToListWithTask() {
         TaskList list = new TaskList();
         Task newTask = new Task("new task");
-        String expectedOutput = "Got it. I've added this duke.task:\n" + newTask.toString() + "\n" +
+        String expectedOutput = "Got it. I've added this task:\n" + newTask.toString() + "\n" +
                 "Now you have 1 tasks in the list.";
         assertEquals(expectedOutput, list.addToList(newTask));
     }

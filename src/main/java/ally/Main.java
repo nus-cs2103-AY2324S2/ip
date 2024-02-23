@@ -1,6 +1,5 @@
 package ally;
 
-import ally.ui.Ally;
 import ally.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

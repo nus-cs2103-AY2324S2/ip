@@ -1,5 +1,6 @@
 package ally.ui;
 
+import ally.Ally;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

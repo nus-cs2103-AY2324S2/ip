@@ -21,19 +21,19 @@ public class Finder {
      * @return String response from Duke
      */
     public String find(String s) {
-        boolean found = false;
+        boolean isFound = false;
         StringBuilder sb = new StringBuilder();
         int ctr = 1;
         TaskList resultList = new TaskList();
         for (Task t : this.lst) {
             if (t.toString().contains(s)) {
                 sb.append(ctr + ": " + t.toString());
-                found = true;
+                isFound = true;
             }
             ctr++;
         }
-        if (!found) {
-            sb.append("No results found.");
+        if (!isFound) {
+            sb.append("No results Found.");
         } else {
             sb.append("\nAll results shown.");
         }

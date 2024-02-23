@@ -1,19 +1,14 @@
-package ally.ui;
+package ally;
 
-import ally.utils.Finder;
-import ally.utils.Storage;
-import ally.utils.TaskList;
 import ally.exception.AllyException;
 import ally.parser.Parser;
 import ally.task.Deadline;
 import ally.task.Event;
 import ally.task.Todo;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+import ally.ui.MainWindow;
+import ally.utils.Finder;
+import ally.utils.Storage;
+import ally.utils.TaskList;
 
 
 /**
@@ -23,15 +18,7 @@ import javafx.scene.layout.VBox;
 public class Ally {
 
     public static TaskList lst = new TaskList();
-    protected static Storage storage = new Storage();
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image allyImage = new Image(this.getClass().getResourceAsStream("/images/ally.png"));
+    protected static Storage storage = new Storage("./data/duke.txt");
     private MainWindow mainWindow;
 
     public Ally() {
@@ -43,7 +30,7 @@ public class Ally {
         mw.addMessage("Hello from Ally!\nHow can I help you today?");
     }
 
-    protected String getResponse(String s) {
+    public String getResponse(String s) {
         try {
             Parser.Command command = Parser.parseCommand(s);
             String taskDetail = Parser.parseTaskDetail(s);
@@ -51,7 +38,7 @@ public class Ally {
             case LIST:
                 return lst.getTasks(taskDetail);
             case BYE:
-                Storage.saveTasks();
+                storage.saveTasks();
                 mainWindow.addMessage("Bye. Hope to see you again soon!");
                 System.exit(0);
                 // will not fall through

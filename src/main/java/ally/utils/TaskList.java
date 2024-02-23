@@ -19,19 +19,8 @@ public class TaskList extends ArrayList<Task> {
      */
     public String addToList(Task t) {
         this.add(t);
-        return "Got it. I've added this duke.task:" + "\n" + t + "\n" + countTasks();
+        return "Got it. I've added this task:" + "\n" + t + "\n" + countTasks();
 
-    }
-
-    /**
-     * Displays the tasks in the task list.
-     * Tasks are numbered and each begin on a new line
-     */
-    public void displayList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.size(); i++) {
-            System.out.println(i + 1 + ":" + this.get(i));
-        }
     }
 
     /**
