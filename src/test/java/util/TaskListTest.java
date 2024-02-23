@@ -1,6 +1,6 @@
 package util;
 
-import exceptions.DukeException;
+import exceptions.ChillChiefException;
 import org.junit.jupiter.api.Test;
 import tasks.Deadline;
 import tasks.Task;
@@ -26,7 +26,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void getTask_taskObject_success() throws DukeException {
+    public void getTask_taskObject_success() throws ChillChiefException {
         ArrayList<Task> tasks = new ArrayList<>();
         Todo todoTask = new Todo("eat", false);
         LocalDateTime by = LocalDateTime.of(2024, 6, 1, 16, 30);

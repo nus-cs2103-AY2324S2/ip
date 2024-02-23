@@ -1,6 +1,6 @@
 package util;
 
-import exceptions.DukeException;
+import exceptions.ChillChiefException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -11,11 +11,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * A parser class to parse user input and executing corresponding actions.
+ */
 public class Parser {
 
-    // to parse user input and perform corresponding actions
-    public static String parseInput(String userInput, TaskList tasks, TextUi textUi, Storage storage) throws DukeException, IOException {
+    /**
+     * Parses the user input and performs corresponding actions.
+     *
+     * @param userInput The text input by the user.
+     * @param tasks     The TaskList containing tasks.
+     * @param textUi    The TextUi for user interface interactions.
+     * @param storage   The Storage for saving and loading tasks to and from file.
+     * @return The string message based on the user input.
+     * @throws ChillChiefException If user input is invalid.
+     * @throws IOException         if user input is invalid.
+     */
+    public static String parseInput(String userInput, TaskList tasks, TextUi textUi, Storage storage) throws ChillChiefException, IOException {
         String[] tokens = userInput.split(" ", 2);
         String command = tokens[0].toLowerCase();
 
@@ -41,21 +53,19 @@ public class Parser {
             return handleDelete(tokens, tasks, textUi);
         default:
             try {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (DukeException e) {
+                throw new ChillChiefException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (ChillChiefException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-
-
-    private static LocalDateTime parseDate(String dateString) throws DukeException {
+    private static LocalDateTime parseDate(String dateString) throws ChillChiefException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Error Parsing!");
+            throw new ChillChiefException("Error Parsing!");
         }
 
     }
@@ -67,7 +77,7 @@ public class Parser {
         return textUi.showTaskAdded(todoTask, tasks.getTaskListLength());
     }
 
-    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
+    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
         String descriptionAndBy = tokens[1].trim();
         String deadlineDescription = descriptionAndBy.split(" /by ")[0].trim();
         String when = descriptionAndBy.split(" /by ")[1].trim();
@@ -77,7 +87,7 @@ public class Parser {
         return textUi.showTaskAdded(deadlineTask, tasks.getTaskListLength());
     }
 
-    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
+    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
         String descriptionAndStartAndEnd = tokens[1].trim();
         String[] parts = descriptionAndStartAndEnd.split(" /from | /to ");
         String eventDescription = parts[0].trim();
@@ -88,21 +98,21 @@ public class Parser {
         return textUi.showTaskAdded(eventTask, tasks.getTaskListLength());
     }
 
-    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
+    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToUnMark = tasks.getTask(index);
         tasks.getTask(index).markNotDone();
         return textUi.showMarkedOrUnmarkMessage(taskToUnMark);
     }
 
-    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
+    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToMark = tasks.getTask(index);
         taskToMark.markDone();
         return textUi.showMarkedOrUnmarkMessage(taskToMark);
     }
 
-    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) throws DukeException {
+    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);
@@ -110,9 +120,14 @@ public class Parser {
     }
 
 
-
-    // given a fileString representation of a task, returns the corresponding task object
-    public static Task parseFileFormattedTask(String fileString) throws DukeException {
+    /**
+     * Parses line from a file with tasks saved in file format, line by line.
+     *
+     * @param fileString The string representation of a task read from the file.
+     * @return The corresponding Task object from the input string.
+     * @throws ChillChiefException If tasks are formatted incorrectly in the file.
+     */
+    public static Task parseFileFormattedTask(String fileString) throws ChillChiefException {
         String[] splitFileString = fileString.split("\\|");
         // T|1|description
         // D|1|description|yyyy-MM-dd_HH:mm
@@ -142,7 +157,7 @@ public class Parser {
                 LocalDateTime endTime = LocalDateTime.parse(end, formatter);
                 return new Event(taskDescription, isDone, startTime, endTime);
             default:
-                throw new DukeException("Error parsing saved tasks!!");
+                throw new ChillChiefException("Error parsing saved tasks!!");
         }
     }
 }

@@ -1,6 +1,6 @@
 package chillchief;
 
-import exceptions.DukeException;
+import exceptions.ChillChiefException;
 import util.Parser;
 import util.Storage;
 import util.TaskList;
@@ -15,7 +15,7 @@ public class ChillChief {
     private TaskList taskList;
     private TextUi ui;
 
-    public ChillChief(String filePath) throws DukeException, IOException {
+    public ChillChief(String filePath) throws ChillChiefException, IOException {
         ui = new TextUi();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
@@ -32,7 +32,7 @@ public class ChillChief {
                 System.out.println(response);
                 isExit = userInput.trim().equalsIgnoreCase("bye");
                 storage.save(taskList.getAllTasks());
-            } catch (DukeException e) {
+            } catch (ChillChiefException e) {
                 System.out.println(ui.showErrorMessage("Error!"));
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred.");
@@ -40,7 +40,7 @@ public class ChillChief {
         }
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws ChillChiefException, IOException {
         new ChillChief("./data/chillchief.txt").run();
     }
 }
