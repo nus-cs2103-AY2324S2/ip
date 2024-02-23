@@ -27,16 +27,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {
-        return "Bye. Hope to see you again soon!\n";
-    }
-
-    /**
-     * States that this command represents termination of the program.
-     *
-     * @return True
-     */
-    @Override
-    public boolean isExit() {
-        return true;
+        return "Bye! Please click the \"X\" on the upper right to exit. I'm happy to answer to your" +
+                " requests if you keep typing in!\n";
     }
 }

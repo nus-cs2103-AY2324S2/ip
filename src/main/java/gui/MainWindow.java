@@ -18,17 +18,20 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
 
+    private void greeting() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Welcome to JerryGPT! What can I do for you?",
+                dukeImage));
+    }
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        greeting();
     }
 
     public void setDuke(Duke d) {
