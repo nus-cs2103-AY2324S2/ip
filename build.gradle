@@ -5,7 +5,6 @@ plugins {
     id 'checkstyle'
 }
 
-
 repositories {
     mavenCentral()
 }
@@ -30,15 +29,14 @@ test {
 }
 
 application {
-//    mainClass.set("seedu.duke.Duke")
-    mainClass.set("duke.Launcher")
+    mainClass.set("ally.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+//    archiveBaseName = "ally"
+//    archiveClassifier = null
+    archiveFileName = 'ally.jar'
 }
-
 
 run{
     standardInput = System.in
