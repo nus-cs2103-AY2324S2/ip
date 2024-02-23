@@ -64,7 +64,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getErrorDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.dialog.setTextFill(Paint.valueOf("#ff0000"));
+        db.dialog.setTextFill(Paint.valueOf("#CA0000"));
         db.flip();
         return db;
     }

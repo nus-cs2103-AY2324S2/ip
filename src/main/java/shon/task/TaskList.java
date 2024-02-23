@@ -118,7 +118,7 @@ public class TaskList {
         String[] outputs = new String[this.tasks.size() + 1];
         outputs[0] = "Here are the tasks in your list:";
         for (int i = 1; i < this.tasks.size() + 1; i++) {
-            outputs[i] = i + "." + this.tasks.get(i - 1);
+            outputs[i] = i + ". " + this.tasks.get(i - 1);
         }
         return outputs;
     }
