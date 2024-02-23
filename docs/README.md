@@ -4,7 +4,7 @@
 
 This is a **chatbot** application that allows you to _manage tasks_.
 
-  ## Installation
+## Installation
 
 1. Clone the repo
 2. Find the `Launcher.java` file
@@ -55,5 +55,5 @@ Example: `mark` index
   Example: `unmark` index
 
 
-- This site was built using [GitHub Pages](https://pages.github.com/).
+This site was built using [GitHub Pages](https://pages.github.com/).
 
