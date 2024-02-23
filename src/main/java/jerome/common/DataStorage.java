@@ -70,9 +70,6 @@ public class DataStorage {
      * @throws IndexOutOfBoundsException if the index is lesser than zero or greater than the task count.
      */
     public Task getTask(int index) {
-        // To check if there is an improper reduction in internal task count.
-        assert (this.taskCount >= 0);
-
         if (index < 0 || index > this.taskCount) {
             throw new IndexOutOfBoundsException();
         }
