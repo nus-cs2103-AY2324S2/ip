@@ -40,7 +40,7 @@ Sample output for first example:
 ----------------------------------------------
 Got it! I've added this task:
     [T][] say hello
-Now you have 1 task in the list...
+Now you have 1 task in the list
 ----------------------------------------------
 ```
 
@@ -99,7 +99,7 @@ A task can be deleted by typing `delete` followed by the task number. Example:
 ---------------------------------------------
 Noted. I've removed this task:
   [T][] say bye
-Now you have 0 tasks in the list...
+Now you have 0 tasks in the list.
 ---------------------------------------------
 ```
 

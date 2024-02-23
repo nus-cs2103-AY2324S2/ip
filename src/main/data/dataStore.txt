@@ -1,6 +1,0 @@
-todo say hello0
-deadline eat /by 2024-11-120
-todo a0
-todo b0
-todo c0
-todo d0

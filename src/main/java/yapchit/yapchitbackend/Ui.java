@@ -40,7 +40,7 @@ public class Ui {
      */
     public String printTasklistLoadError() {
         return "\tUnable to load existing list from file."
-                + "\n\tThis could be due to corrupted file data or missing file.";
+                + "\n\tThis could be due to missing file.";
     }
 
     /**

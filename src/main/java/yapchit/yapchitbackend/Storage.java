@@ -56,7 +56,8 @@ public class Storage {
                 YapchitBackend.Operations k = YapchitBackend.Operations.valueOf(parts[0].toUpperCase());
                 handler.handleOperation(input, k, tasks, ui, parser, false);
             } catch (Exception e) {
-                throw new FileListParseException("Error in parsing file. Some of the contents may be corrupted");
+                throw new FileListParseException("Error in parsing file. "
+                        + "Some of the contents may be corrupted");
             }
         }
 
