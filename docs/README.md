@@ -143,7 +143,9 @@ The ```list``` command displays the whole tasklist.
 
 > Example
 
-```list```
+```
+list
+```
 
 The chatbot displays all your tasks.
 
