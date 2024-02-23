@@ -34,16 +34,10 @@ public class Shon {
      * @param input Input given by the user.
      * @return String representing the result of the command.
      */
-    public String getResponse(String input) {
-        try {
-            Command command = Parser.parse(input, this.tasks, this.notes);
-            return executeCommand(command);
-        } catch (ParameterException | CommandException e) {
-            return e.getMessage();
-        } catch (DateTimeParseException e) {
-            return e.getParsedString() + " is not a valid date/time. "
-                    + "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.";
-        }
+    public String getResponse(String input)
+            throws ParameterException, CommandException, DateTimeParseException {
+        Command command = Parser.parse(input, this.tasks, this.notes);
+        return executeCommand(command);
     }
 
     /**

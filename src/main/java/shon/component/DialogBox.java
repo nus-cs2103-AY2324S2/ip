@@ -11,8 +11,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import shon.MainWindow;
 
 /**
@@ -24,7 +26,7 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private Circle circle;
 
     private DialogBox(String text, Image img) {
         try {
@@ -37,7 +39,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        circle.setFill(new ImagePattern(img));
     }
 
     /**
@@ -55,7 +57,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getShonDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.setTextFill(Paint.valueOf("#ff0000"));
         db.flip();
         return db;
     }

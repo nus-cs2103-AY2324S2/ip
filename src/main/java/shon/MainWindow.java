@@ -8,6 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import shon.component.DialogBox;
+import shon.exception.CommandException;
+import shon.exception.ParameterException;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,6 +36,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        // set auto scroll
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -51,11 +56,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText().strip();
-        String response = shon.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getShonDialog(response, shonImage)
-        );
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        try {
+            dialogContainer.getChildren().addAll(DialogBox.getShonDialog(shon.getResponse(input), shonImage));
+        } catch (ParameterException | CommandException e) {
+            dialogContainer.getChildren().addAll(DialogBox.getErrorDialog(e.getMessage(), shonImage));
+        } catch (DateTimeParseException e) {
+            String errorMsg = e.getParsedString() + " is not a valid date/time. "
+                    + "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.";
+            dialogContainer.getChildren().add(DialogBox.getErrorDialog(errorMsg, shonImage));
+        }
         userInput.clear();
     }
 }
