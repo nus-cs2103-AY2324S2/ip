@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'me.xdrop:fuzzywuzzy:1.4.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+javafx {
+    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
+}
+
+application {
+    mainClass.set("cvb.ConvoBot")
+}
+
+shadowJar {
+    archiveBaseName = "convobot"
+    archiveClassifier = null
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+runShadow {
+    standardInput = System.in
+    enableAssertions = false
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+javadoc {
+    destinationDir = file("$buildDir/docs/javadoc")
+}
+build.dependsOn javadoc
+
+checkstyle {
+    toolVersion = '10.12.5'
+}
+build.dependsOn 'checkstyleMain', 'checkstyleTest'
