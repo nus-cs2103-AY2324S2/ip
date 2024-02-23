@@ -1,1 +1,56 @@
+~~**~~
 Hi! Enter 'help' to view the available commands!
+
+~~**~~
+~~**~~
+Got it! I've added this task to your list:
+  T | 0 | read book
+Now you have 1 task in the list.
+
+
+~~**~~
+Got it! I've added this task to your list:
+  D | 0 | homework  | by: 23 Feb 2024
+Now you have 2 tasks in the list.
+
+
+~~**~~
+~~**~~
+Got it! I've added this task to your list:
+  E | 0 | birthday  | from: 12 Dec 2024 | to: 12 Dec 2024
+Now you have 3 tasks in the list.
+
+
+~~**~~
+~~**~~
+Here is your tasklist!
+1. T | 0 | read book
+2. D | 0 | homework  | by: 23 Feb 2024
+3. E | 0 | birthday  | from: 12 Dec 2024 | to: 12 Dec 2024
+
+
+~~**~~
+~~**~~
+OK, I've marked this task as undone:
+  T | 0 | read book
+
+
+~~**~~
+~~**~~
+This task is already done! Yay!
+  T | X | read book
+
+
+~~**~~
+~~**~~
+OK, I've marked this task as undone:
+  T | 0 | read book
+
+
+~~**~~
+~~**~~
+This task is not yet done! Best get on it :D
+  T | 0 | read book
+
+
+~~**~~

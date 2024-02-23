@@ -4,4 +4,6 @@ deadline homework /by 2024-02-23
 event birthday /from 2024-12-12 /to 2024-12-12
 list
 mark 1
+mark 1
+unmark 1
 unmark 1
