@@ -72,9 +72,9 @@ public class Parser {
                 throw new AnnaException(String.format(ferr1, command));
             }
             Integer idx = Integer.parseInt(idxString) - 1;
-            return command == "mark"
+            return command.equals("mark")
                 ? CommandFactory.createMark(idx)
-                : command == "unmark"
+                : command.equals("unmark")
                 ? CommandFactory.createUnmark(idx)
                 : CommandFactory.createDelete(idx);
         }
