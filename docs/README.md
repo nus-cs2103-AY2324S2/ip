@@ -13,8 +13,6 @@ Designed with simplicity and efficiency in mind, Jamie enables you to
 
 your tasks with ease. Whether you're planning your academic schedule, organizing work projects, or just keeping tabs on your to-do list, Jamie is here to help you stay organized and productive.
 
-> [!TIP]
-> Read through the bottom part for a more detailed undertstanding on how the features work!
 
 ## Adding tasks
 
