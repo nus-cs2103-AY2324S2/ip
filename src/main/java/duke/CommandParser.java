@@ -3,10 +3,12 @@ package duke;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
- * Processes user input according to available bot commands.
+ * Processes user input (user commands)
  */
 public class CommandParser {
     private TaskList taskList;
@@ -24,40 +26,39 @@ public class CommandParser {
 
     public boolean processCommand(String command) {
         try {
-            String cmd = command.split(" ")[0];
-            String para = command.substring(cmd.length()).trim();
-            switch(cmd) {
-            case "bye":
-                System.out.println("Au revoir! Till we meet again!");
-                Platform.exit();
-                return false;
+            String commands = command.split(" ")[0];
+            String para = command.substring(commands.length()).trim();
+            switch(commands) {
             case "list":
-                parseList();
-                break;
-            case "find":
-                parseFind(para);
-                break;
-            case "mark":
-                parseMark(para);
-                break;
-            case "unmark":
-                parseUnmark(para);
-                break;
-            case "delete":
-                parseDelete(para);
+                cmdList();
                 break;
             case "todo":
-                parseTodo(para);
+                cmdTodo(para);
                 break;
             case "deadline":
-                parseDeadline(para);
+                cmdDeadline(para);
                 break;
             case "event":
-                parseEvent(para);
+                cmdEvent(para);
+                break;
+            case "find":
+                cmdFind(para);
+                break;
+            case "mark":
+                cmdMark(para);
+                break;
+            case "unmark":
+                cmdUnmark(para);
+                break;
+            case "delete":
+                cmdDelete(para);
                 break;
             case "undo":
-                parseUndo();
+                cmdUndo();
                 break;
+            case "bye":
+                cmdExit();
+                return false;
             default:
                 throw new DukeBotException.UnknownException();
             }
@@ -70,27 +71,16 @@ public class CommandParser {
         return true;
     }
 
-    private void parseList() {
+    private void cmdList() {
         System.out.println("Here are the tasks:");
         taskList.printTasks();
     }
 
-    private void parseUndo() {
-        taskList.undo();
-    }
-
-    private void parseFind(String para) throws DukeBotException {
-        if (para.length() == 0) {
-            throw new DukeBotException.FindException();
-        }
-        String searchword = para.trim();
-        taskList.findTasks(searchword);
-    }
-
-    private void parseMark(String para) throws DukeBotException {
+    private void cmdMark(String para) throws DukeBotException {
         if (para.length() == 0) {
             throw new DukeBotException.MarkException();
         }
+
         int index = Integer.valueOf(para);
         taskList.markTask(index);
         Task task = taskList.getTask(index);
@@ -99,10 +89,11 @@ public class CommandParser {
         System.out.println(task);
     }
 
-    private void parseUnmark(String para) throws DukeBotException {
+    private void cmdUnmark(String para) throws DukeBotException {
         if (para.length() == 0) {
             throw new DukeBotException.MarkException();
         }
+
         int index = Integer.valueOf(para);
         taskList.unmarkTask(index);
         Task task = taskList.getTask(index);
@@ -111,10 +102,11 @@ public class CommandParser {
         System.out.println(task);
     }
 
-    private void parseDelete(String para) throws DukeBotException {
+    private void cmdDelete(String para) throws DukeBotException {
         if (para.length() == 0) {
             throw new DukeBotException.DeleteException();
         }
+
         int index = Integer.valueOf(para);
         Task toDelete = taskList.getTask(index);
         taskList.deleteTask(index);
@@ -123,7 +115,30 @@ public class CommandParser {
         System.out.println(toDelete);
     }
 
-    private void parseTodo(String para) throws DukeBotException {
+    private void cmdUndo() {
+        taskList.undo();
+    }
+
+    private void cmdFind(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.FindException();
+        }
+        String searchword = para.trim();
+        taskList.findTasks(searchword);
+    }
+
+    /**
+     * Creates a delay that allows user to see the exit message of the application
+     * @param response
+     */
+    private void cmdExit() {
+        System.out.println(" Au revoir! Till we meet again!");
+        PauseTransition exitDisplay = new PauseTransition(Duration.seconds(1));
+        exitDisplay.setOnFinished(event -> Platform.exit());
+        exitDisplay.play();
+    }
+
+    private void cmdTodo(String para) throws DukeBotException {
         Todo newTask;
         if (para.length() == 0) {
             throw new DukeBotException.TodoException();
@@ -139,7 +154,7 @@ public class CommandParser {
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
     }
 
-    private void parseDeadline(String params) throws DukeBotException {
+    private void cmdDeadline(String params) throws DukeBotException {
         DeadlineTask newTask;
         if (!params.contains("/by")) {
             throw new DukeBotException.DeadlineException();
@@ -163,7 +178,7 @@ public class CommandParser {
 
     }
 
-    private void parseEvent(String para) throws DukeBotException {
+    private void cmdEvent(String para) throws DukeBotException {
         EventTask newTask;
         if (!para.contains("/from") || !para.contains("/to")) {
             throw new DukeBotException.EventException();
@@ -174,9 +189,9 @@ public class CommandParser {
         String to = para.split("/to")[1].trim();
 
         if (DateHandler.isValidInputDate(from) && DateHandler.isValidInputDate(to)) {
-            LocalDateTime dateObjFrom = DateHandler.inputStringDateTime(from);
-            LocalDateTime dateObjTo = DateHandler.inputStringDateTime(to);
-            newTask = new EventTask(description, dateObjFrom, dateObjTo); // Create date object
+            LocalDateTime frDate = DateHandler.inputStringDateTime(from);
+            LocalDateTime toDate = DateHandler.inputStringDateTime(to);
+            newTask = new EventTask(description, frDate, toDate); // Create date object
         } else {
             newTask = new EventTask(description, from, to);
         }
