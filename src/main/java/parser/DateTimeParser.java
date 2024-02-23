@@ -11,9 +11,7 @@ public class DateTimeParser {
     public static final String[] POSSIBLE_DAY_OF_WEEK_FORMATS = {"E", "EEE", "EEEEE"};
     public static final String[] POSSIBLE_DATETIME_FORMATS = {
             "yyyy-MM-dd HH:mm",
-            "yyyy/MM/dd HH:mm",
             "dd-MM-yyyy HH:mm",
-            "dd/NN/yyyy HH:mm",
             "yyyyMMdd HH:mm",
             "yyyy MM dd HH:mm",
             "dd MM yyyy HH:mm",
