@@ -70,6 +70,9 @@ public class Parser {
         if (commandParts.length == 1) {
             throw new FluffyException("The description of a todo cannot be empty.");
         }
+        if (commandParts[1].isBlank()) {
+            throw new FluffyException("The description of a todo cannot be blank.");
+        }
         return new TodoCommand(commandParts[1]);
     }
 
