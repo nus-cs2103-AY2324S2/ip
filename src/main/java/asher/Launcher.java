@@ -1,6 +1,7 @@
 package asher;
 
 import asher.controller.Main;
+
 import javafx.application.Application;
 
 /**

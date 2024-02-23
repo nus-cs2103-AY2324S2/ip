@@ -44,7 +44,7 @@ public class DialogBox extends HBox {
         if (isUser) {
             dialog.setTranslateX(-7.0);
         } else {
-            dialog.setTranslateX(7.0);
+            dialog.setTranslateX(10.0);
         }
     }
 

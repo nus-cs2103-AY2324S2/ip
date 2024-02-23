@@ -39,7 +39,6 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String welcomeMsg = ui.showWelcomeMessage();
         dialogContainer.getChildren().add(DialogBox.getAsherDialog(welcomeMsg, asherImage));
-        // dialogContainer.setStyle("-fx-background-color: #a6acb8; ");
         dialogContainer.setPrefHeight(558.0);
     }
 

@@ -24,13 +24,11 @@ public class Ui {
     }
 
     public String showAddTaskMessage(Task task) {
-        String msg = "Got it. I've added this task:\n " + task;
-        return msg;
+        return "Got it. I've added this task:\n " + task;
     }
 
     public String showRemoveTaskMessage(Task removedTask) {
-        String msg = "Noted. I've removed this task:\n " + removedTask;
-        return msg;
+        return "Noted. I've removed this task:\n " + removedTask;
     }
 
     public String showNumberOfTaskInListMessage(int totalTasks) {
@@ -38,13 +36,11 @@ public class Ui {
     }
 
     public String showMarkTaskMessage(Task task) {
-        String msg = "Nice! I've marked this task as done:\n " + task;
-        return msg;
+        return "Nice! I've marked this task as done:\n " + task;
     }
 
     public String showUnmarkTaskMessage(Task task) {
-        String msg = "OK, I've marked this task as not done yet:\n " + task;
-        return msg;
+        return "OK, I've marked this task as not done yet:\n " + task;
     }
 
     public String showTaskList(TaskList taskList) {

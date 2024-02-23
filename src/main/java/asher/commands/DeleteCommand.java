@@ -2,7 +2,6 @@ package asher.commands;
 
 import asher.ui.Ui;
 import asher.tasks.TaskList;
-import asher.BotException;
 import asher.tasks.Task;
 
 /**

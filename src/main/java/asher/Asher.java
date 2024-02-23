@@ -11,7 +11,6 @@ import asher.ui.Ui;
  * Represents the main Asher class to run the program.
  */
 public class Asher {
-
     private final Ui ui;
     private final TaskList taskList;
     private Storage storage;
@@ -52,8 +51,7 @@ public class Asher {
     /**
      * Runs the Asher program.
      */
-    public void run() {
-    }
+    public void run() {}
 
     /**
      * Main method to start the Asher program.

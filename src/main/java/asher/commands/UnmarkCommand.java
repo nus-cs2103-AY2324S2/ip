@@ -10,7 +10,7 @@ import asher.ui.Ui;
 public class UnmarkCommand extends Command {
 
     /**
-     * Constructs a Unmark Command object with the given input string.
+     * Constructs an Unmark Command object with the given input string.
      *
      * @param input The input string for the Unmark Command.
      */

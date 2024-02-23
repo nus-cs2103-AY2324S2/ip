@@ -54,10 +54,10 @@ public class ToDoCommand extends Command {
             String addTaskMessage = ui.showAddTaskMessage(todo);
             int totalTask = taskList.getSize();
             String numberOfTaskMessage = ui.showNumberOfTaskInListMessage(totalTask);
+
             return addTaskMessage + "\n" + numberOfTaskMessage;
         } catch (BotException e) {
             return ui.showErrorMessage("Error:" + e.getMessage());
         }
-
     }
 }

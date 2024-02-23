@@ -1,7 +1,6 @@
 package asher.tasks;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Represents a list of tasks.
