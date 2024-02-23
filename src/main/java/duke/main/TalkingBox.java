@@ -26,7 +26,7 @@ public class TalkingBox extends Application {
         ui = new Ui(this.taskList, this.notesList);
         parser = new Parser(this.taskList, this.ui, this.notesList);
         try {
-            storage = new Storage();
+            storage = new Storage(taskList, notesList);
         } catch (FileNotFoundException f) {
             Ui.printException(f);
         }

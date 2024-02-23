@@ -97,7 +97,7 @@ public class Parser {
             case find:
                 return this.ui.printOnFind(this.taskList.find(details));
             case list:
-                return this.ui.printList(taskList);
+                return this.ui.printAll() + this.ui.printList(taskList);
             case write:
                 this.notesList.add(details);
                 return this.ui.printOnAddNote(details);

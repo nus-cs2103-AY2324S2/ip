@@ -70,9 +70,12 @@ public class Ui {
     /**
      * Iterates through the task list and prints out each task
      */
+
+    public String printAll() {
+        return "Current list of tasks: \n";
+    }
     public String printList(TaskList list) {
         StringBuilder out = new StringBuilder();
-        out.append("Current list of tasks: \n");
         for (int i = 0; i < list.getSize(); i++) {
             out.append(i + 1).append(": ").append(list.get(i).toString()).append("\n");
         }
