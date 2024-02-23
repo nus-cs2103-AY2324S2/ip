@@ -48,7 +48,7 @@ public class Ui {
      * Displays a goodbye message when the user exits the application.
      */
     public void showGoodbye() {
-        System.out.println(" \nBye! See you again!");
+        System.out.println("\nBye! See you again!");
     }
 
     /**
@@ -142,7 +142,7 @@ public class Ui {
         System.out.println("  - todo <task>: Add a todo task");
         System.out.println("  - deadline <task> /by <date>: Add a deadline task");
         System.out.println("  - event <task> /from <date> /to <date>: Add an event task");
-        System.out.println("    - date can be done by YYYY/MM/dd or YYYY/MM/dd HHmm ");
+        System.out.println("    - date can be done by YYYY/MM/dd or YYYY/MM/dd HHmm");
         System.out.println("    - today & tomorrow can be used for date");
     }
 }
