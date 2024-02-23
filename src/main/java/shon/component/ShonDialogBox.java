@@ -18,22 +18,26 @@ import javafx.scene.shape.Circle;
 import shon.MainWindow;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents the dialog box of Shon.
  */
-public class DialogBox extends HBox {
+public class ShonDialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private Circle circle;
 
-    private DialogBox(String text, Image img) {
+    /**
+     * Creates a dialog box for Shon.
+     * @param text The message to be displayed.
+     * @param img The image of Shon bot.
+     */
+    public ShonDialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/ShonDialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            this.flip();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,20 +56,9 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
-    }
-
-    public static DialogBox getShonDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
-        db.flip();
-        return db;
-    }
-
-    public static DialogBox getErrorDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
-        db.dialog.setTextFill(Paint.valueOf("#CA0000"));
-        db.flip();
+    public static ShonDialogBox getErrorDialog(String text, Image img) {
+        ShonDialogBox db = new ShonDialogBox(text, img);
+        db.dialog.setTextFill(Paint.valueOf("#E70000"));
         return db;
     }
 }

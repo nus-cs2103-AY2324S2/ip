@@ -9,7 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import shon.component.DialogBox;
+import shon.component.ShonDialogBox;
+import shon.component.UserDialogBox;
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
 
@@ -46,7 +47,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setShon(Shon s) {
         shon = s;
-        dialogContainer.getChildren().addAll(DialogBox.getShonDialog(this.shon.greet(), shonImage));
+        dialogContainer.getChildren().addAll(new ShonDialogBox(this.shon.greet(), shonImage));
     }
 
     /**
@@ -56,11 +57,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText().strip();
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        dialogContainer.getChildren().addAll(new UserDialogBox(input, userImage));
         try {
-            dialogContainer.getChildren().addAll(DialogBox.getShonDialog(shon.getResponse(input), shonImage));
+            dialogContainer.getChildren().addAll(new ShonDialogBox(shon.getResponse(input), shonImage));
         } catch (ParameterException | CommandException | DateTimeParseException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getErrorDialog(e.getMessage(), shonImage));
+            dialogContainer.getChildren().addAll(ShonDialogBox.getErrorDialog(e.getMessage(), shonImage));
         }
         userInput.clear();
     }
