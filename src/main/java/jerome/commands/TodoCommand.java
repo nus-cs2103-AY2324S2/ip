@@ -19,8 +19,8 @@ public class TodoCommand extends Command {
      * Represents the usage message for the To-do command.
      * Usage Example: todo eventName
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a todo task. \n"
-            + "Example: " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = "\t" + COMMAND_WORD + ": Adds a todo task. \n"
+            + "\t Example: " + COMMAND_WORD
             + " boil coconut milk";
 
     /**
@@ -34,7 +34,7 @@ public class TodoCommand extends Command {
     /**
      * Represents error message when the event name is blank.
      */
-    public static final String MESSAGE_BLANK_EVENT = "\t The event name cannot be empty!";
+    public static final String MESSAGE_BLANK_EVENT = "\t Error: The event name cannot be empty!\n" + MESSAGE_USAGE;
 
     /**
      * Represents the To-do object that is to be stored.

@@ -10,6 +10,7 @@ import jerome.tasklist.Deadline;
 
 /**
  * Represents the command to add a deadline task to the data storage.
+ *
  * @@author se-edu
  * Reuse from https://github.com/se-edu/addressbook-level2
  * with modifications to the format.
@@ -24,19 +25,19 @@ public class DeadlineCommand extends Command {
      * Represents the usage message for the Deadline command.
      * Usage Example: deadline boil hot water /by 2021-07-30.
      */
-    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an deadline. \n"
+    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an deadline.\n"
             + "\t Example: " + COMMAND_WORD
             + " boil hot water /by " + DATE_INPUT_FORMAT_STRING;
 
     /**
      * Represents the error message when the event name is blank.
      */
-    public static final String MESSAGE_BLANK_EVENT = "\t The event name cannot be empty!";
+    public static final String MESSAGE_BLANK_EVENT = "\t Error: The event name cannot be empty!\n" + MESSAGE_USAGE;
 
     /**
      * Represents the error message when the deadline's end time is blank.
      */
-    public static final String MESSAGE_BLANK_END_TIME = "\t The end time cannot be empty!";
+    public static final String MESSAGE_BLANK_END_TIME = "\t Error: The end time cannot be empty!\n" + MESSAGE_USAGE;
 
     /**
      * Represents the message after the deadline is successfully added.
@@ -61,7 +62,7 @@ public class DeadlineCommand extends Command {
      * Represents the DeadlineCommand, which adds a deadline task to the data storage.
      *
      * @param eventName the name of the deadline event.
-     * @param by the deadline's end time.
+     * @param by        the deadline's end time.
      * @throws MalformedUserInputException if the user input is dirty.
      */
     public DeadlineCommand(String eventName, String by) throws MalformedUserInputException {

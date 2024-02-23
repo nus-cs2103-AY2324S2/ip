@@ -41,15 +41,17 @@
 	 [T][ ] hello [Priority: MEDIUM]
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Invalid date time format.
-	 Please enter in format yyyy-MM-dd
+	 Error: The end time cannot be empty!
+	 deadline: Adds an deadline.
+	 Example: deadline boil hot water /by yyyy-MM-dd
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as done:
 	 [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 If you would like to list everything, please use the list command.
+	 Error: If you would like to list everything, please use the list command.
+	 Otherwise, please use the command: find 1234
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 2. [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
@@ -69,7 +71,9 @@
 	 Example: event go for CS2103 tutorial /from yyyy-MM-dd /to yyyy-MM-dd
 	 ____________________________________________________________
 	 ____________________________________________________________
- 	 This is an invalid index
+	 Error: Task does not exist
+	 Enter the command as such: mark 1
+	 This task is not created yet.
 	 There are 3 tasks available.
 	 ____________________________________________________________
 	 ____________________________________________________________
@@ -78,18 +82,28 @@
 	 Now you have 2 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please set a valid integer of 1 or larger.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please set a valid integer of 1 or larger.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please use a valid priority level: LOW, MEDIUM, HIGH.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: Invalid Index
+	 Enter the command as such: mark 1
 	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please enter a integer that is 1 or larger.
-	 ____________________________________________________________
-	 ____________________________________________________________
-	 Please enter a valid priority level.
-	 ____________________________________________________________
-	 ____________________________________________________________
-	 Please enter a integer that is 1 or larger.
-	 ____________________________________________________________
-	 ____________________________________________________________
+	 Error: Invalid Index
+	 Enter the command as such: mark 1
 	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
@@ -102,7 +116,8 @@
 
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please enter a integer that is 1 or larger.
+	 Enter the command as such: unmark 1
+	 Error: Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
  	 This is an invalid index

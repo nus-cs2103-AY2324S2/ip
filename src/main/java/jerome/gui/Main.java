@@ -34,6 +34,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            // Reference from: https://stackoverflow.com/questions/29055792/javafx-window-settitle
+            stage.setTitle("JeromeGpt");
             jeromeGpt.start();
             fxmlLoader.<MainWindow>getController().setJeromeGpt(jeromeGpt);
             stage.show();

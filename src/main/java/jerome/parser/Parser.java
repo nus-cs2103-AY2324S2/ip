@@ -173,7 +173,7 @@ public class Parser {
         try {
             return new DeadlineCommand(eventName, endTime);
         } catch (MalformedUserInputException e) {
-            return new IncorrectCommand(e.getMessage());
+            return new IncorrectCommand(DeadlineCommand.MESSAGE_BLANK_END_TIME);
         }
 
     }
@@ -199,7 +199,7 @@ public class Parser {
         try {
             return new EventCommand(eventName, startTime, endTime);
         } catch (MalformedUserInputException e) {
-            return new IncorrectCommand(e.getMessage());
+            return new IncorrectCommand(EventCommand.MESSAGE_USAGE);
         }
 
     }

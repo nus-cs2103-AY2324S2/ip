@@ -33,13 +33,16 @@ public class UnmarkCommand extends Command {
     /**
      * Represents what should be displayed when an error is met.
      */
-    public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
+    public static final String MESSAGE_INVALID_ID = "\t Enter the command as such: unmark 1\n"
+            + "\t Error: Please enter a integer that is 1 or larger.";
 
     /**
      * Represents an error message representing a valid, but not yet created index.
      */
-    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"
+    public static final String MESSAGE_TASK_NOT_CREATED_YET = "\t Enter the command as such: unmark 1"
+            + "\t Error: This task is not created yet.\n"
             + "\t There are %d tasks available.";
+
 
     private int targetIndex;
 
@@ -62,7 +65,7 @@ public class UnmarkCommand extends Command {
             dataStorage.setTaskStatus(targetIndex, false);
             return new CommandResult(String.format(MESSAGE_SUCCESS, dataStorage.getTask(targetIndex)));
         } catch (MalformedUserInputException e) {
-            return new CommandResult(e.getMessage());
+            return new CommandResult(MarkCommand.MESSAGE_INVALID_ID);
         } catch (IndexOutOfBoundsException iobe) {
             return new CommandResult(String.format(MESSAGE_TASK_NOT_CREATED_YET, dataStorage.getTaskCount()));
         }

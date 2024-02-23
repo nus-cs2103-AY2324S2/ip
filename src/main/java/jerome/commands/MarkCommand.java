@@ -31,12 +31,16 @@ public class MarkCommand extends Command {
     /**
      * Represents what should be displayed when an error is met.
      */
-    public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
+    public static final String MESSAGE_INVALID_ID = "\t Error: Invalid Index\n"
+            + "\t Enter the command as such: mark 1\n"
+            + "\t Please enter a integer that is 1 or larger.";
 
     /**
      * Represents an error message representing a valid, but not yet created index.
      */
-    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"
+    public static final String MESSAGE_TASK_NOT_CREATED_YET = "\t Error: Task does not exist\n"
+            + "\t Enter the command as such: mark 1\n"
+            + "\t This task is not created yet.\n"
             + "\t There are %d tasks available.";
 
     private int targetIndex;
@@ -60,7 +64,7 @@ public class MarkCommand extends Command {
             dataStorage.setTaskStatus(targetIndex, true);
             return new CommandResult(String.format(MESSAGE_SUCCESS, dataStorage.getTask(targetIndex)));
         } catch (MalformedUserInputException e) {
-            return new CommandResult(e.getMessage());
+            return new CommandResult(MarkCommand.MESSAGE_INVALID_ID);
         } catch (IndexOutOfBoundsException iobe) {
             return new CommandResult(String.format(MESSAGE_TASK_NOT_CREATED_YET, dataStorage.getTaskCount()));
         }

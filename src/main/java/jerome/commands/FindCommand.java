@@ -18,7 +18,8 @@ public class FindCommand extends Command {
      * Represents a message displayed when the search term is empty.
      */
     public static final String MESSAGE_EMPTY_SEARCH_TERM =
-            "\t If you would like to list everything, please use the list command.";
+            "\t Error: If you would like to list everything, please use the list command.\n"
+                    + "\t Otherwise, please use the command: find 1234";
 
     /**
      * Represents how each individual event should be formatted.

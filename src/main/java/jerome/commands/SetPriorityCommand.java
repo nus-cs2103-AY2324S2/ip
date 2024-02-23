@@ -31,9 +31,10 @@ public class SetPriorityCommand extends Command {
      * Represents the usage message for the Delete command.
      * Usage Example: delete 3.
      */
-    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Change priority level of a Task. \n"
+    public static final String MESSAGE_USAGE = "\t "
+            + COMMAND_WORD + ": Change priority level of a Task (LOW/MEDIUM/HIGH).\n"
             + "\t Example: " + COMMAND_WORD
-            + " 1 medium";
+            + " 1 MEDIUM";
 
     /**
      * Represents the message after the delete command is successfully executed.
@@ -45,12 +46,20 @@ public class SetPriorityCommand extends Command {
     /**
      * Represents an invalid message when user input is dirty.
      */
-    public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
+    public static final String MESSAGE_INVALID_ID = "\t "
+            + COMMAND_WORD + ": Change priority level of a Task (LOW/MEDIUM/HIGH).\n"
+            + "\t Error: Please set a valid integer of 1 or larger.\n"
+            + "\t Example: " + COMMAND_WORD
+            + " 1 MEDIUM";
 
     /**
      * Represents an error message indicating that an invalid priority value was provided.
      */
-    public static final String MESSAGE_INVALID_PRIORITY = "\t Please enter a valid priority level.";
+    public static final String MESSAGE_INVALID_PRIORITY = "\t "
+            + COMMAND_WORD + ": Change priority level of a Task (LOW/MEDIUM/HIGH).\n"
+            + "\t Error: Please use a valid priority level: LOW, MEDIUM, HIGH.\n"
+            + "\t Example: " + COMMAND_WORD
+            + " 1 MEDIUM";
 
     /**
      * Represents a message indicating that a task has not been created yet.
