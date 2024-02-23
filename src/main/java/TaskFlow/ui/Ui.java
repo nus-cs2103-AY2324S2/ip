@@ -137,6 +137,13 @@ public class Ui {
         return s;
     }
 
+    /**
+     * Prints a message indicating that a task has been archived successfully.
+     *
+     * @param task   The task that has been archived.
+     * @param index  The current number of tasks in the list.
+     * @return A message indicating that a task has been archived successfully.
+     */
     public String showArchiveMsg(Task task, int index) {
         return "This task has been archived successfully!\n"
                 + task.toString() + "\n"
@@ -144,6 +151,13 @@ public class Ui {
                 + "\n";
     }
 
+    /**
+     * Prints a message indicating that a task has been unarchived successfully.
+     *
+     * @param task   The task that has been unarchived.
+     * @param index  The current number of tasks in the list.
+     * @return A message indicating that a task has been unarchived successfully.
+     */
     public String showUnarchiveMsg(Task task, int index) {
         return "This task has been unarchived successfully!\n"
                 + task.toString() + "\n"

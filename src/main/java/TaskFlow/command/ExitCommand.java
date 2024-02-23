@@ -19,7 +19,7 @@ public class ExitCommand extends Command {
      * @param ui           The Ui to interact with the user.
      * @param storage      The Storage to save the tasks to a file.
      * @param archived     The storage to save the archived tasks to a file.
-     * @return
+     * @return The goodbye message.
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
