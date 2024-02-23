@@ -1,2 +1,1 @@
 T | 0 | read book | low
-T | 0 | deadline | high
