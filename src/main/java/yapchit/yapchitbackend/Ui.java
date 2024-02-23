@@ -19,16 +19,6 @@ public class Ui {
     }
 
     /**
-     * Wrapper over scanner method to read input from user.
-     *
-     * @return String User input
-     */
-    public String scanInput() {
-        String input = scanner.nextLine();
-        return input;
-    }
-
-    /**
      * Prints Yapchit intro message.
      */
     public String printIntro() {
@@ -45,7 +35,11 @@ public class Ui {
     public String printOutro() {
         String outro = Ui.printLine() + "\n"
                 + "\tBye. Hope to see you again soon!\n"
-                + Ui.printLine();
+                + Ui.printLine() + "\n"
+                + "\t You may:" + "\n"
+                + "\t\t 1. Press enter or " + "\n"
+                + "\t\t 2. click your OS' 'x' button " + "\n"
+                + "\t to close the window.";
         return outro;
     }
 
