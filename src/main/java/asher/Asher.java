@@ -28,6 +28,8 @@ public class Asher {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
+        String dataFile = "./taskLists.txt";
+        storage.getFileContents(dataFile, taskList);
     }
 
     /**
@@ -51,8 +53,6 @@ public class Asher {
      * Runs the Asher program.
      */
     public void run() {
-        String dataFile = "./taskList.txt";
-        storage.getFileContents(dataFile, taskList);
     }
 
     /**
