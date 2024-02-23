@@ -1,7 +1,46 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I'm lex.Lex
+What can I do for you?
+____________________________________________________________
+Got it. I've added this lex.tasks:
+  [T][ ] borrow book
+Now you have 1 lex.tasks in the list.
+____________________________________________________________
+1. [T][ ] borrow book
+____________________________________________________________
+Got it. I've added this lex.tasks:
+  [D][ ] return book (by: Sunday)
+Now you have 2 lex.tasks in the list.
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+____________________________________________________________
+Got it. I've added this lex.tasks:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 lex.tasks in the list.
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Nice! I've marked this lex.tasks as done:
+[D][X] return book (by: Sunday)
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Nice! I've marked this tasks as done:
+[T][X] borrow book
+____________________________________________________________
+1. [T][X] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+OK, I've marked this tasks as not done yet:
+[T][ ] borrow book
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
