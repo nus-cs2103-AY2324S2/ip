@@ -11,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 // Define project dependencies
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
