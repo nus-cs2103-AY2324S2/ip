@@ -1,6 +1,6 @@
 # Alfred chatbot User Guide
 
-// ![img.png](img.png)
+// ![img.png](Ui.png)
 
 // Alfred helps you keep track of all your tasks! (mainly 3 types)
 
