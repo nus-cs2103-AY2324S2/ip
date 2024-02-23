@@ -40,7 +40,7 @@ public class Duke {
      * Starts the Duke application. Enters a loop to read and execute commands until the user issues the 'bye' command.
      */
     public void run() {
-        ui.showHello();
+        System.out.println(ui.showHello());
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -48,11 +48,11 @@ public class Duke {
                 String command = fullCommand[0];
 
                 if (command.equals("bye")) {
-                    ui.showBye();
+                    System.out.println(ui.showBye());
                     isExit = true;
                     break;
                 } else if (command.equals("list")) {
-                    ui.showList(tasks);
+                    System.out.println(ui.showList(tasks));
                 } else if (command.equals("mark") || command.equals("unmark") || command.equals("todo")
                         || command.equals("deadline") || command.equals("event") || command.equals("delete")) {
                     if (fullCommand.length > 1) {
@@ -60,33 +60,34 @@ public class Duke {
                             int indexToMark = Integer.parseInt(fullCommand[1]) - 1;
                             Task task = tasks.getTasks().get(indexToMark);
                             task.markComplete();
-                            ui.showTask(" Nice! I've marked this task as done:", task);
+                            System.out.println(ui.showTask(" Nice! I've marked this task as done:", task));
                             storage.saveToFile(tasks.getTasks());
                         } else if (command.equals("unmark")) {
                             int indexToUnmark = Integer.parseInt(fullCommand[1]) - 1;
                             Task task = tasks.getTasks().get(indexToUnmark);
                             task.markIncomplete();
-                            ui.showTask(" OK, I've marked this task as not done yet:", task);
+                            System.out.println(ui.showTask(" OK, I've marked this task as not done yet:", task));
                             storage.saveToFile(tasks.getTasks());
                         } else if (command.equals("todo")) {
                             Task task = new ToDo(fullCommand[1]);
                             tasks.addTask(task);
-                            ui.showTaskWithNum(" Got it. I've added this task:\n  ", task, tasks);
+                            System.out.println(ui.showTaskWithNum(" Got it. I've added this task:\n  ", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else if (command.equals("deadline")) {
                             Task task = new Deadline(fullCommand[1]);
                             tasks.addTask(task);
-                            ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks);
+                            System.out.println(ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else if (command.equals("event")) {
                             Task task = new Event(fullCommand[1]);
                             tasks.addTask(task);
-                            ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks);
+                            System.out.println(ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else {
                             int deleteIndex = Integer.parseInt(fullCommand[1]) - 1;
                             Task deletedTask = tasks.deleteTask(deleteIndex);
-                            ui.showTaskWithNum(" Noted. I've removed this task:\n", deletedTask, tasks);
+                            String msg = " Noted. I've removed this task:\n";
+                            System.out.println(ui.showTaskWithNum(msg, deletedTask, tasks));
 
                             storage.saveToFile(tasks.getTasks());
                         }
@@ -104,12 +105,12 @@ public class Duke {
 
                     String keyword = fullCommand[1];
                     TaskList foundTasks = tasks.findTasks(keyword);
-                    ui.showMatchingList(foundTasks);
+                    System.out.println(ui.showMatchingList(foundTasks));
                 } else {
                     throw new DukeException(" OOPS! Turns out Your Only Friend does not know what that is :(\n");
                 }
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                System.out.println(ui.showError(e.getMessage()));
             }
         }
     }
@@ -119,7 +120,71 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Your Only Friend heard: " + input;
+        try {
+            String[] fullCommand = Parser.parse(input.trim().toLowerCase());
+            String command = fullCommand[0];
+
+            if (command.equals("bye")) {
+                return ui.showBye();
+            } else if (command.equals("list")) {
+                return ui.showList(tasks);
+            } else if (command.equals("mark") || command.equals("unmark") || command.equals("todo")
+                    || command.equals("deadline") || command.equals("event") || command.equals("delete")) {
+                if (fullCommand.length > 1) {
+                    if (command.equals("mark")) {
+                        int indexToMark = Integer.parseInt(fullCommand[1]) - 1;
+                        Task task = tasks.getTasks().get(indexToMark);
+                        task.markComplete();
+                        storage.saveToFile(tasks.getTasks());
+                        return ui.showTask(" Nice! I've marked this task as done:", task);
+                    } else if (command.equals("unmark")) {
+                        int indexToUnmark = Integer.parseInt(fullCommand[1]) - 1;
+                        Task task = tasks.getTasks().get(indexToUnmark);
+                        task.markIncomplete();
+                        storage.saveToFile(tasks.getTasks());
+                        return ui.showTask(" OK, I've marked this task as not done yet:", task);
+                    } else if (command.equals("todo")) {
+                        Task task = new ToDo(fullCommand[1]);
+                        tasks.addTask(task);
+                        storage.saveToFile(tasks.getTasks()); // Save after adding new task
+                        return ui.showTaskWithNum(" Got it. I've added this task:\n  ", task, tasks);
+                    } else if (command.equals("deadline")) {
+                        Task task = new Deadline(fullCommand[1]);
+                        tasks.addTask(task);
+                        storage.saveToFile(tasks.getTasks()); // Save after adding new task
+                        return ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks);
+                    } else if (command.equals("event")) {
+                        Task task = new Event(fullCommand[1]);
+                        tasks.addTask(task);
+                        storage.saveToFile(tasks.getTasks()); // Save after adding new task
+                        return ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks);
+                    } else {
+                        int deleteIndex = Integer.parseInt(fullCommand[1]) - 1;
+                        Task deletedTask = tasks.deleteTask(deleteIndex);
+                        storage.saveToFile(tasks.getTasks());
+                        return ui.showTaskWithNum(" Noted. I've removed this task:\n", deletedTask, tasks);
+                    }
+                } else {
+                    throw new DukeException("____________________________________________________________\n"
+                            + " OOPS! Your Only Friend cannot take in an empty "
+                            + command + "\n Make sure " + command + "has a description!\n"
+                            + "____________________________________________________________\n");
+                }
+
+            } else if (command.equals("find")) {
+                if (fullCommand.length < 2) {
+                    throw new DukeException("OOPS! Please make sure you enter a keyword");
+                }
+
+                String keyword = fullCommand[1];
+                TaskList foundTasks = tasks.findTasks(keyword);
+                return ui.showMatchingList(foundTasks);
+            } else {
+                throw new DukeException(" OOPS! Turns out Your Only Friend does not know what that is :(\n");
+            }
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 
     /**
