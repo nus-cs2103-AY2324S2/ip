@@ -1,17 +1,29 @@
-public class Task {
+public abstract class Task {
     /* Task is a class, what does it do??? */
-    private String name; 
-    private boolean isDone = false;
-    private char taskType;
+    public String name; 
+    public boolean isDone;
+    public char taskType;
+    static String COMPLETED_MESSAGE_END = " is complete!";
+    static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
 
-    public Task(String name, String task) {
+    public Task(String name) {
         this.name = name;
-        this.taskType = task.charAt(0);
+        this.isDone = false;
     }
 
-    public void doneTask() {
-        this.isDone = true;
-    }    
+    public Task(String name, String isDone) {
+        this.name = name;
+
+        if (isDone.equals("false")) {
+            this.isDone = false;
+        } else {
+            this.isDone = true;
+        }
+    }
+    
+    public Boolean checkDone() {
+        return this.isDone;
+    }
 
     public String getName() {
         return this.name;
@@ -24,6 +36,8 @@ public class Task {
             return "[" + this.taskType + "] " + this.name + " has yet to be completed.";
         }
     }
+
+    public abstract String getAttributes();
 
     public void completeTask() {
         this.isDone = true;

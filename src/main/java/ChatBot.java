@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ChatBot {
     private static final String INDENT = "    ";
@@ -16,35 +18,39 @@ public class ChatBot {
     private static final int FIVE = 5;
     private static final String EVENT = "event";
     private static final String ADD_TASK = " has been accounted for! \n" + NEW_LINE;
-    private static final String NORMAL = "normal";
     private static final String REMOVE = "remove";
     private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
+    private static final String FILE_PATH = "./data/saved_tasks.txt";
 
-    TaskList taskList = new TaskList();
+    Storage storage = new Storage(FILE_PATH);
+    TaskList taskList;
     Boolean isFinished = false;
     int idx;
     Task task;
 
-    public ChatBot() {
+    public ChatBot() throws FileNotFoundException, IOException {
         System.out.println(NEW_LINE + GREETING);
+        taskList = storage.load();
     }
 
     public Boolean hasFinished() {
         return isFinished;
     }
 
-    public String interact(String input) throws UnrecognizedException, MissingInputException {
+    public String interact(String input) throws UnrecognizedException, MissingInputException, IOException {
         if (input.contains(LIST)) {
             return NEW_LINE + taskList.showList() + NEW_LINE;
 
         } else if (input.contains(UNMARK)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.unmarkTask(idx);
+            this.storage.save(taskList);
             return ENCOURAGEMENT;
 
         } else if (input.contains(MARK)) {
             idx = Integer.valueOf(input.substring(FIVE));
             taskList.markTask(idx);
+            this.storage.save(taskList);
             return PRAISE;
         } else if (input.contains(BYE)) {
             this.isFinished = true;
@@ -52,23 +58,24 @@ public class ChatBot {
         } else if (input.contains(REMOVE)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.removeTask(idx - 1);
+            this.storage.save(taskList);
             return TASK_REMOVED;
         } else {
             if (input.contains(TODO)) {
                 try {
-                    task = new Task(input.substring(TODO.length() + 1), TODO);
+                    task = new Todo(input.substring(TODO.length() + 1));
                 } catch (StringIndexOutOfBoundsException e) {
                      throw new MissingInputException("Life is liddat");
                 }
             } else if (input.contains(DEADLINE)) {
                 try {
-                    task = new Task(input.substring(DEADLINE.length() + 1), DEADLINE);
+                    task = new Deadline(input.substring(DEADLINE.length() + 1));
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new MissingInputException("Bruh");
                 }
             } else if (input.contains(EVENT)) {
                 try {
-                    task = new Task(input.substring(EVENT.length() + 1), EVENT);
+                    task = new Event(input.substring(EVENT.length() + 1));
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new MissingInputException("Haiz");
                 }
@@ -77,6 +84,8 @@ public class ChatBot {
                 throw new UnrecognizedException("Yoyoyo");
             }
             taskList.addTask(task);
+            this.storage.save(taskList);
+            // System.out.println("What");
             return NEW_LINE + INDENT + task.getName() + ADD_TASK;
         }
     }
