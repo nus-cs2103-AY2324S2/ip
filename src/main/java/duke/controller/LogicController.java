@@ -13,18 +13,30 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.ToDo;
-import duke.ui.UserInterface;
+import duke.ui.UIFormatter;
 
 public class LogicController {
 
     private TaskList taskList;
 
+    public LogicController() {
+    }
+
     public LogicController(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
+    /** 
+     * Necessary for dependency injection in Main.
+     * @param taskList
+     */
+    public void setTaskList(TaskList taskList)  {
         this.taskList = taskList;
     }
 
     /**
      * Process user input by parsing the command and arguments.
+     * 
      * @param userInput Provided by the user.
      * @return String to be displayed on the GUI.
      * @throws DukeException if invalid command
@@ -86,7 +98,7 @@ public class LogicController {
      */
     private String handleList() throws DukeException {
         String response = taskList.getFormattedTasks();
-        return UserInterface.formatResponse(response);
+        return UIFormatter.formatResponse(response);
     }
 
     /**
@@ -99,7 +111,7 @@ public class LogicController {
     private String handleMark(String userInput) throws DukeException {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.markTaskDone(idx);
-        return UserInterface.formatResponse(response);
+        return UIFormatter.formatResponse(response);
     }
 
     /**
@@ -112,7 +124,7 @@ public class LogicController {
     private String handleUnmark(String userInput) throws DukeException {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.markTaskUndone(idx);
-        return UserInterface.formatResponse(response);
+        return UIFormatter.formatResponse(response);
     }
 
     /**
@@ -125,14 +137,14 @@ public class LogicController {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.deleteTask(idx);
         int totalTasks = taskList.getNumberTasks();
-        return UserInterface.formatTaskDeletedResponse(response, totalTasks);
+        return UIFormatter.formatTaskDeletedResponse(response, totalTasks);
     }
 
     private String handleFind(String userInput) throws DukeException {
         String[] keywords = CommandParser.parseFind(userInput);
         ArrayList<Integer> taskIndices = taskList.findTasksByKeywordsMatching(keywords);
         ArrayList<String> response = taskList.getTaskRepresentationsByIndices(taskIndices);
-        return UserInterface.formatTasksByIndicesResponse(response);
+        return UIFormatter.formatTasksByIndicesResponse(response);
     }
 
     /**
@@ -145,7 +157,7 @@ public class LogicController {
         String description = CommandParser.parseToDo(userInput);
         String response = taskList.addTask(new ToDo(description));
         int totalTasks = taskList.getNumberTasks();
-        return UserInterface.formatTaskAddedResponse(response, totalTasks);
+        return UIFormatter.formatTaskAddedResponse(response, totalTasks);
     }
 
     /**
@@ -161,7 +173,7 @@ public class LogicController {
         LocalDate due = DateUtils.parseDateString(deadlineDetails[1]);
         String response = taskList.addTask(new Deadline(description, due));
         int totalTasks = taskList.getNumberTasks();
-        return UserInterface.formatTaskAddedResponse(response, totalTasks);
+        return UIFormatter.formatTaskAddedResponse(response, totalTasks);
     }
 
     /**
@@ -177,7 +189,7 @@ public class LogicController {
         LocalDate end = DateUtils.parseDateString(eventDetails[2]);
         String response = taskList.addTask(new Event(description, start, end));
         int totalTasks = taskList.getNumberTasks();
-        return UserInterface.formatTaskAddedResponse(response, totalTasks);
+        return UIFormatter.formatTaskAddedResponse(response, totalTasks);
     }
 
     private String handleExit() throws DukeException {
@@ -188,6 +200,6 @@ public class LogicController {
             }
         }, 1000);
 
-        return UserInterface.formatExit();
+        return UIFormatter.formatExit();
     }
 }

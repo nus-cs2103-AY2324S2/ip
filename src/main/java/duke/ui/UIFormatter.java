@@ -1,22 +1,9 @@
 package duke.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-public class UserInterface {
+public class UIFormatter {
     public static final String INDENT = "     ";
-
-    public static final String LINE = "____________________________________________________________";
 
     private static final String WELCOME_MESSAGE = String.join(
             "\n",
@@ -24,12 +11,6 @@ public class UserInterface {
             INDENT + "What can I do for you?");
 
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
-
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public static String getUserInput() {
-        return scanner.nextLine();
-    }
 
     public static String formatResponse(String msg) {
         return msg;
