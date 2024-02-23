@@ -119,12 +119,14 @@ public class Parser {
                 output = cro.taskList.addEvent(res);
                 break;
             }
-            case "find": {
+            case "find":
                 output = cro.taskList.findKeyword(splitStr);
                 break;
-            }
             case "delete":
                 output = cro.taskList.deleteEvent(splitStr);
+                break;
+            case "tag":
+                output = cro.taskList.addTag(splitStr);
                 break;
             default:
                 throw new CroException("Unknown command. Please try again.");

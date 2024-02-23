@@ -20,6 +20,26 @@ public class TaskList {
     }
 
 
+    public String addTag(List<String> splitStr) throws CroException {
+        String output = "";
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(splitStr.get(0));
+        } catch (Exception e) {
+            throw new CroException("index must be a number");
+        }
+        if (taskNo > taskList.size()) {
+            throw new CroException("Task not found!");
+        } else {
+            output += "-----------------------------------\n";
+            output += String.format("%s to task %d\n",
+                    taskList.get(taskNo).addTag(splitStr.subList(1, splitStr.size())),
+                    taskNo);
+            output += "-----------------------------------";
+        }
+        return output;
+
+    }
     /**
      * Returns nothing. Adds a new task, newTask into the taskList. Displays a string output
      * upon successful addition of the task into taskList.
