@@ -38,7 +38,7 @@ public class Event extends Task {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         String formattedFrom = this.from.format(dateFormat);
         String formattedTo = this.to.format(dateFormat);
-        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to " + formattedTo + ")";
     }
 
     public LocalDateTime getFrom() {

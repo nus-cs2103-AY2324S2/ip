@@ -58,7 +58,7 @@ public class Ui {
      */
     public String showFindTaskResponse(int listCount) {
         if (listCount == 0) {
-            return "There are no matching tasks in your list.\n" + "Do yOO want to try again?\n";
+            return "Crikey mate, here are no matching tasks in your list.\n" + "Do yOO want to try again?\n";
         }
         return "Here are the matching tasks in your list:\n";
     }
