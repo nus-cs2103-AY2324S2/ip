@@ -27,9 +27,12 @@ public class Ui {
     public Ui(ArrayList<Task> taskList, Storage storage) {
         this.taskList = taskList;
         this.storeFiles = storage;
-
     }
 
+    public Ui() {
+        this.taskList = new ArrayList<Task>();
+        this.storeFiles = new Storage();
+    }
     /**
      * Converts an ArrayList to a String.
      *
@@ -193,6 +196,9 @@ public class Ui {
             throw new SignalException("Looks like you haven't added a deadline!");
         }
         int byIndex = finder("/by", inputParts);
+        if (byIndex == 1) {
+            throw new SignalException("Looks like you haven't entered a task description!");
+        }
         String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, byIndex));
         String by = String.join(" ", Arrays.copyOfRange(inputParts, byIndex + 1, inputParts.length));
         Task task = new Deadline(description, by);
@@ -218,6 +224,9 @@ public class Ui {
 
         int fromIndex = finder("/from", inputParts);
         int toIndex = finder("/to", inputParts);
+        if (fromIndex == 1) {
+            throw new SignalException("Looks like you haven't entered a task description!");
+        }
         String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, fromIndex));
         String start = String.join(" ", Arrays.copyOfRange(inputParts, fromIndex + 1, toIndex));
         String end = String.join(" ", Arrays.copyOfRange(inputParts, toIndex + 1, inputParts.length));
@@ -432,14 +441,15 @@ public class Ui {
     }
 
     public String commandFind(String[] inputParts) throws SignalException {
-        String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
-        if (toFind.length() == 0) {
+        if (inputParts.length == 1) {
             throw new SignalException("I don't know what you're looking for!");
         }
+        String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
+
         ArrayList<String> response = new ArrayList<String>();
         ArrayList<String> found = find(toFind);
         if (found.size() == 0) {
-            response.add("Looks like there's noting here. Try another keyword!");
+            response.add("Looks like there's nothing here. Try another keyword!");
         } else {
             response.add("Sure, here are the tasks containing '" + toFind + "':");
             response.addAll(find(toFind));
@@ -477,10 +487,10 @@ public class Ui {
         response.add("Note:");
         response.add("The round brackets indicate you can enter any text, square brackets indicate you should enter a number, without the brackets.");
         response.add("\nCREATING TASKS:");
-        response.add("* todo () -- creates a To Do task, which has no deadline. ");
-        response.add("* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'.");
-        response.add("* event () \\from () \\to () -- creates an Event task, indicate its start and end after '\\from' and '\\to'.");
-        response.add("Note: dates are formatted as yyyy-mm-dd. time is formatted as ");
+        response.add("* todo <task> -- creates a To Do task, which has no deadline. ");
+        response.add("* deadline <task> /by <date> <time> -- creates a Deadline task, indicate its deadline after '/by'. Adding the time is optional.");
+        response.add("* event <task> /from <date> <time> /to <date> <time> -- creates an Event task, indicate its start and end after '/from' and '/to'. Adding the time is optional.");
+        response.add("Note: dates and times are formatted as <yyyy-mm-dd> <hh:mm:ss>");
         response.add("\nCOMMANDS: ");
         response.add("* list -- prints a numbered list of the tasks created, in input order.");
         response.add("* mark [] -- marks the task at index [] as completed. ");
