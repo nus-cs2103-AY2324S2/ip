@@ -1,7 +1,7 @@
 package rick;
 
 import javafx.fxml.FXML;
-import rick.logic.Executer;
+import rick.logic.CommandExecutor;
 import rick.logic.Parser;
 import rick.logic.RickException;
 import rick.ui.Ui;
@@ -45,8 +45,8 @@ public class Rick {
     public String getResponse(String input) {
         try {
             Parser parser = new Parser(input);
-            Executer executer = new Executer(this.tasks, this.storage);
-            return executer.execute(parser.parse());
+            CommandExecutor commandExecutor = new CommandExecutor(this.tasks, this.storage);
+            return commandExecutor.execute(parser.parse());
         } catch (RickException e) {
             return e.getMessage();
         } catch (Exception e) {

@@ -27,6 +27,7 @@ public class Main extends Application {
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
             loader.<MainController>getController().setRick(rick);
+            loader.<MainController>getController().initialize();
             stage.setScene(scene);
             stage.setTitle("Rick");
             stage.getIcons().add(new Image("/images/icon.avif"));

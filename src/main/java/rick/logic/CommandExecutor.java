@@ -8,7 +8,7 @@ import rick.util.TaskList;
 /**
  * An executer for parsed commands regarding a designated task list.
  */
-public class Executer {
+public class CommandExecutor {
     private TaskList taskList;
     private Storage storage;
 
@@ -17,7 +17,7 @@ public class Executer {
      * @param taskList the task list to use.
      * @param storage the storage to use.
      */
-    public Executer(TaskList taskList, Storage storage) {
+    public CommandExecutor(TaskList taskList, Storage storage) {
         assert taskList != null && storage != null;
         this.taskList = taskList;
         this.storage = storage;
