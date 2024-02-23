@@ -2,6 +2,8 @@
 
 > "Hasta la vista, baby." — Arnold Schwarzenegger, in Terminator 2 ([source](https://youtu.be/dyt3dalRqXE?si=26olgWUW_a1XWXdX&t=481))
 
+### Please visit https://jimseah-0116.github.io/ip/ for the ChatBro User Guide!
+
 ChatBro helps you keep track of your tasks, bro! It's:
 
  - Text-based !
