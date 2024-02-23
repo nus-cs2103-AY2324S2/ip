@@ -83,6 +83,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites data in file data/sirduke.txt
+     */
     public void save() {
         try {
             FileWriter fw = new FileWriter(filePath);

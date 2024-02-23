@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 /** Class represents interacting with the user */
 public class Ui {
-
+    /** Represents scanner that takes in System.in **/
     private Scanner input;
-
+    /** Represents taskList used by SirDuke **/
     private TaskList tasks;
     public Ui() {
         input = new Scanner(System.in);
@@ -37,14 +37,25 @@ public class Ui {
         StdMsgs.LOADINGDONE.print();
     }
 
+    /**
+     * Prints welcome message and logo. For GUI, it only returns the welcome message as a String
+     */
     public String welcome() {
         StdMsgs.LOGO.print();
         StdMsgs.WELCOME.print();
         return StdMsgs.WELCOME.toString();
     }
+
+    /**
+     * Returns response when Archive Command is invoked
+     */
     public String ArchivedResponse() {
         return "All your contacts have been archived. You can view them in archive/archived.txt";
     }
+
+    /**
+     * Returns response when Bye Command is invoked
+     */
     public String bye() {
         StdMsgs.BYE.print();
         return StdMsgs.BYE.toString();
