@@ -36,7 +36,8 @@ by offering a wide range of features. Here's what Sophia can do for you:
 5. [Managing Tasks](#managing-tasks)
 6. [Finding Task]()
 7. [Defining Shortcut](#define-a-shortcut)
-8. [Basic Conversation]()
+8. [Basic Conversation](#basic-conversation)
+9. [Summary](#sophia-chatbot-commands)
 
 ## Getting Started 
 
@@ -108,6 +109,7 @@ faster to use.
 
 ## Viewing help
 Get assistance on how to use Sophia or clarification on commands.
+
 Format: `help` or `commands`
 
 ## Adding Tasks
@@ -337,3 +339,22 @@ __Expected Output__:
 ```
 Why don't skeletons fight each other? They don't have the guts.
 ```
+
+# Sophia ChatBot Commands
+
+Below is a table of commands you can use with Sophia, your AI ChatBot Assistant, along with descriptions of what each command does.
+
+| Command      | Description                                                                 |
+|--------------|-----------------------------------------------------------------------------|
+| `list`       | Displays all your current tasks.                                            |
+| `find`       | Searches for a specific task by keywords.                                   |
+| `delete`     | Removes a specific task from your list.                                     |
+| `delete all` | Clears all tasks from your list.                                            |
+| `todo`       | Adds a new to-do task.                                                      |
+| `event`      | Schedules a new event.                                                      |
+| `deadline`   | Sets a new deadline for a task.                                             |
+| `mark`       | Marks a task as completed.                                                  |
+| `unmark`     | Reverts a task to incomplete status.                                        |
+| `help`       | Provides assistance on how to use Sophia or clarification on commands.      |
+| `commands`   | Displays a list of all available commands.                                  |
+| `define`     | Creates a new shortcut or alias for a command                               |
