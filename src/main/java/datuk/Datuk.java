@@ -1,4 +1,4 @@
-package duke;
+package datuk;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
  * This Duke program is a chatbot that takes handles a list for the user.
  */
 
-public class Duke extends Application {
+public class Datuk extends Application {
 
     private UI ui;
     private Storage storage;
@@ -33,9 +33,9 @@ public class Duke extends Application {
     private Scene scene;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Datuk.jpg"));
+    private Image datuk = new Image(this.getClass().getResourceAsStream("/images/Datuk.jpg"));
 
-    public Duke() throws IOException {
+    public Datuk() throws IOException {
         ui = new UI();
         storage = new Storage();
         parser = new Parser();
@@ -93,7 +93,7 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         Label start = new Label(ui.startMsg(tasks.reminder()));
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(start, new ImageView(duke)));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(start, new ImageView(datuk)));
 
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -139,7 +139,7 @@ public class Duke extends Application {
         Label datukText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(datukText, new ImageView(duke))
+                DialogBox.getDukeDialog(datukText, new ImageView(datuk))
         );
         userInput.clear();
     }

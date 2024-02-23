@@ -1,4 +1,4 @@
-package duke.task;
+package datuk.task;
 
 /**
  * Implementation of Task. Each Todo comes with a description.

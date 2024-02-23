@@ -1,13 +1,11 @@
-package duke;
+package datuk;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
+import datuk.task.Task;
+import datuk.task.Todo;
+import datuk.task.Deadline;
+import datuk.task.Event;
 
 /**
  *  Keeps a list of tasks and handles addition or deletion of items in the list.

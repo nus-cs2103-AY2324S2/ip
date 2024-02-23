@@ -1,4 +1,4 @@
-package duke;
+package datuk;
 
 /**
  * A custom throwable exception class that returns a specified error message.

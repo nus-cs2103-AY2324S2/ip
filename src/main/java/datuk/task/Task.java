@@ -1,4 +1,4 @@
-package duke.task;
+package datuk.task;
 
 /**
  * An interface to get descriptions and status of task, and set task.

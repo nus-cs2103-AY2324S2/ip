@@ -1,10 +1,7 @@
-package duke;
+package datuk;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import duke.task.Task;
+import datuk.task.Task;
 
 /**
  * UI class handles interactions with the user.

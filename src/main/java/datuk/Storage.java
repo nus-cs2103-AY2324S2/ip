@@ -1,4 +1,4 @@
-package duke;
+package datuk;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,10 +11,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
+import datuk.task.Task;
+import datuk.task.Todo;
+import datuk.task.Deadline;
+import datuk.task.Event;
 
 /**
  * The class handles reading and writing to save the file.

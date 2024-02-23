@@ -1,4 +1,4 @@
-package duke.task;
+package datuk.task;
 
 /**
  * Implementation of Task. Each Event comes with a description, start and end date.

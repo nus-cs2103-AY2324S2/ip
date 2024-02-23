@@ -1,4 +1,4 @@
-package duke;
+package datuk;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.Todo;
+import datuk.task.Deadline;
+import datuk.task.Task;
+import datuk.task.Todo;
 
 public class DukeTest {
 
