@@ -1,4 +1,4 @@
-package kbot.main;
+package kbot.managers;
 
 import java.util.ArrayList;
 import java.util.Scanner;

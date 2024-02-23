@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("kbot.main.KBot")
+    mainClass.set("kbot.Launcher")
 }
 
 shadowJar {

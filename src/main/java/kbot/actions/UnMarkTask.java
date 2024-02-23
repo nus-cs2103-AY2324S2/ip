@@ -3,8 +3,8 @@ package kbot.actions;
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import kbot.main.TaskFileManager;
-import kbot.main.TaskManager;
+import kbot.managers.TaskFileManager;
+import kbot.managers.TaskManager;
 import kbot.tasks.Task;
 
 /**

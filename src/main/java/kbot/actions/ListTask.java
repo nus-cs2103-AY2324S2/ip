@@ -2,7 +2,7 @@ package kbot.actions;
 
 import java.lang.StringBuilder;
 
-import kbot.main.TaskManager;
+import kbot.managers.TaskManager;
 
 /**
  * A list command that gives the user a list of all Tasks in the array.

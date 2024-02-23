@@ -1,4 +1,4 @@
-package kbot.main;
+package kbot.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

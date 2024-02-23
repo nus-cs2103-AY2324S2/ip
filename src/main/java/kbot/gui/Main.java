@@ -1,4 +1,4 @@
-package kbot.main;
+package kbot.gui;
 
 import java.io.IOException;
 
@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import kbot.actions.Command;
 import kbot.exceptions.InvalidCommandException;
 import kbot.exceptions.InvalidInputException;
+import kbot.managers.Parser;
+import kbot.managers.TaskManager;
 
 /**
  * Encapsulate a chatbot names kaipybara that takes in input from the user and
@@ -28,7 +30,7 @@ import kbot.exceptions.InvalidInputException;
  * @author: CHEN WENLONG
  * @version: CS2103T AY23/24 Semester 2
  */
-public class KBot extends Application {
+public class Main extends Application {
     /** Image used to represent user. */
     private Image user = new Image(this.getClass().getResourceAsStream("/images/aaron.png"));
 
@@ -49,6 +51,9 @@ public class KBot extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        // Load any local files
+        TaskManager.loadLocalSavedTasks();
+
         // set up main diaplay
         ScrollPane scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -178,10 +183,5 @@ public class KBot extends Application {
                 return ("Error: " + e.getMessage());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        TaskManager.loadLocalSavedTasks(); // checking if there are local files to load
-        Application.launch(KBot.class, args);
     }
 }

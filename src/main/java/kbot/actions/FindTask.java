@@ -2,7 +2,7 @@ package kbot.actions;
 
 import java.util.ArrayList;
 
-import kbot.main.TaskManager;
+import kbot.managers.TaskManager;
 import kbot.tasks.Task;
 
 /**

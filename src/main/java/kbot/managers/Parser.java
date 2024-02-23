@@ -1,4 +1,4 @@
-package kbot.main;
+package kbot.managers;
 
 import kbot.actions.AddTask;
 import kbot.actions.Command;

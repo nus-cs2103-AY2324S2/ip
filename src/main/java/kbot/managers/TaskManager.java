@@ -1,4 +1,4 @@
-package kbot.main;
+package kbot.managers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

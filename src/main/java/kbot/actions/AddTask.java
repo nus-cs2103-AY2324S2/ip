@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import kbot.exceptions.InvalidInputException;
-import kbot.main.TaskFileManager;
-import kbot.main.TaskManager;
+import kbot.managers.TaskFileManager;
+import kbot.managers.TaskManager;
 import kbot.tasks.Deadline;
 import kbot.tasks.Event;
 import kbot.tasks.Task;
