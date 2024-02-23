@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import oak.task.model.Deadline;
 import oak.task.model.Event;
 import oak.task.model.Task;
-import oak.task.model.Todo;
 
+/**
+ * Reminder Service to determine what tasks should be reminded to the user about
+ */
 public class ReminderService {
     /**
      * Checks all tasks currently in the system and formats a return String of all tasks
@@ -18,7 +20,7 @@ public class ReminderService {
     public String getReminders() {
         StringBuilder result = new StringBuilder();
 
-        ArrayList<Task> allTasks = TaskService.tasks;
+        ArrayList<Task> allTasks = TaskService.TASKS;
 
         for (Task task : allTasks) {
             // Note: No need to check Todo since we do not have set deadlines for them
@@ -34,8 +36,7 @@ public class ReminderService {
         }
         if (result.length() > 1) {
             result.append("Here are your daily reminders! \n").append(result);
-        }
-        else {
+        } else {
             result.append("Congratulations! You have no reminders for any tasks!");
         }
 

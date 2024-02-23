@@ -35,6 +35,9 @@ public class MainWindow extends VBox {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
     private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/Oak.png"));
 
+    /**
+     * Initialises the main window and the dialog boxes, as well as gets and shows the welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

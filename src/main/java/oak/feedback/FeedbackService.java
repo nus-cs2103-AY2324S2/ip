@@ -255,8 +255,8 @@ public class FeedbackService {
 
         if (temp.length <= 1) {
             throw new InvalidInputException(
-                    "No Due Date for Deadline detected. Please provide a Due Date by using '/by'\n" +
-                            "in the format: YYYY-MM-dd @ HH:mm");
+                    "No Due Date for Deadline detected. Please provide a Due Date by using '/by'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         return new String[] { temp[0].strip(), temp[1].strip() };
@@ -279,15 +279,15 @@ public class FeedbackService {
         String[] temp = fullInput.split("/from");
         if (temp.length <= 1) {
             throw new InvalidInputException(
-                    "No From Datetime for Event detected. Please provide a From Datetime by using '/from'\n" +
-                            "in the format: YYYY-MM-dd @ HH:mm");
+                    "No From Datetime for Event detected. Please provide a From Datetime by using '/from'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         String[] datetimes = temp[1].split("/to");
         if (datetimes.length <= 1) {
             throw new InvalidInputException(
-                    "No To Datetime for Event detected. Please provide a To Datetime by using '/to'\n" +
-                            "in the format: YYYY-MM-dd @ HH:mm");
+                    "No To Datetime for Event detected. Please provide a To Datetime by using '/to'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };
@@ -306,7 +306,12 @@ public class FeedbackService {
         return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
     }
 
+    /**
+     * Returns the welcome message for Oak-Dex
+     *
+     * @return the formatted String of the welcome message
+     */
     public static String getWelcomeMessage() {
-       return "Welcome to Oak-Dex! How can I help you today?";
+        return "Welcome to Oak-Dex! How can I help you today?";
     }
 }

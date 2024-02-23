@@ -1,8 +1,6 @@
 package oak.utility;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FileUtilityTest {
     private static final String DIRPATH = "/src/test/java";
@@ -61,7 +61,7 @@ public class FileUtilityTest {
             numLines++;
             if (scanner.nextLine().strip().equals(testData)) {
                 contentExists = true;
-            };
+            }
         }
 
         assertEquals(contentExists, true);
