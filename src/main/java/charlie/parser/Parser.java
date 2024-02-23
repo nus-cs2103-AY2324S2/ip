@@ -2,7 +2,6 @@ package charlie.parser;
 
 import charlie.commands.*;
 import charlie.exceptions.CharlieException;
-
 public class Parser {
 
     /**

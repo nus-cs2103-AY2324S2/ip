@@ -1,15 +1,16 @@
 package charlie.commands;
 
+import java.util.ArrayList;
 import charlie.exceptions.CharlieException;
+import charlie.ui.Ui;
+
+import charlie.storage.Storage;
+import charlie.storage.TaskList;
+
 import charlie.models.Deadline;
 import charlie.models.Event;
 import charlie.models.Task;
 import charlie.models.Todo;
-import charlie.storage.Storage;
-import charlie.storage.TaskList;
-import charlie.ui.Ui;
-
-import java.util.ArrayList;
 
 public class AddCommand extends Command {
 

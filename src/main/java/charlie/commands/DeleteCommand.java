@@ -2,9 +2,9 @@ package charlie.commands;
 
 import charlie.exceptions.CharlieException;
 import charlie.models.Task;
+import charlie.ui.Ui;
 import charlie.storage.Storage;
 import charlie.storage.TaskList;
-import charlie.ui.Ui;
 
 public class DeleteCommand extends Command {
 

@@ -1,15 +1,15 @@
 package charlie.commands;  //same package as the class being tested
 
-import charlie.exceptions.CharlieException;
 import charlie.models.*;
-import charlie.storage.TaskList;
 import charlie.ui.Ui;
+import charlie.exceptions.CharlieException;
 import charlie.storage.Storage;
-import charlie.models.Task;
+import charlie.storage.TaskList;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;

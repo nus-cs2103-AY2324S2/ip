@@ -1,7 +1,6 @@
 package charlie.ui;
 
 import java.util.Scanner;
-
 public class Ui {
 
     private Scanner scanner = new Scanner(System.in);
