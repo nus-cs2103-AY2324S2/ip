@@ -47,7 +47,7 @@ Now you have 2 tasks in the list.
 
 ### Notice
 
-It is recommanded you input the **due date** with format: `yyyy-mm-dd` such as `2019-10-15` (Be caution, Feburary should be 02 not 2, and 3rd day should be 03 not 3).
+It is recommended you input the **due date** with format: `yyyy-mm-dd` such as `2019-10-15` (Be caution, February should be 02 not 2, and 3rd day should be 03 not 3).
 
 However, it is OK if you don't, in that case, the program will treat it as plain text not date, and will be displayed as what it is.
 
@@ -82,7 +82,7 @@ Now you have 1 tasks in the list.
 
 ### Notice
 
-It is recommanded you input the **start time** and **end time** with format: `yyyy-mm-dd` such as `2019-10-15` (Be caution, Feburary should be 02 not 2, and 3rd day should be 03 not 3).
+It is recommended you input the **start time** and **end time** with format: `yyyy-mm-dd` such as `2019-10-15` (Be cautions, February should be 02 not 2, and 3rd day should be 03 not 3).
 
 However, it is OK if you don't, if any one of input date doesn't follow the format, the program will treat both date as plain text.
 
@@ -98,7 +98,7 @@ Now you have 1 tasks in the list.
 
 ## Mark a task: `mark`
 
-Mark the task with specified index.
+Mark the task with specified index (you can find the index using `list` input).
 
 Format: `mark [task index]`.
 
@@ -113,11 +113,11 @@ Nice! I've marked this task as done:
 
 ## Unmark a task: `unmark`
 
-Unmark the task with specified index.
+Unmark the task with specified index (you can find the index using `list` input).
 
-Format: `Unmark [task index]`.
+Format: `unmark [task index]`.
 
-Example: `Unmark 1`.
+Example: `unmark 1`.
 
 Output:
 
@@ -128,7 +128,7 @@ Nice! I've marked this task as not done yet:
 
 ## Delete a task: `delete`
 
-Unmark the task with specified index.
+Delete the task with specified index (you can find the index using `list` input).
 
 Format: `delete [task index]`.
 
@@ -160,11 +160,11 @@ Here are the matching tasks in your list:
 
 ## Tag a task: `tag`
 
-Tag the task with specified index.
+Tag the task with specified index (you can find the index using `list` input).
 
 Format: `tag [task index] [tag]`.
 
-Example: `tag 1 good task`.
+Example: `tag 1 emergent`.
 
 Output:
 
