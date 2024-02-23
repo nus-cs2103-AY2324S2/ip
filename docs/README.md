@@ -71,7 +71,7 @@ Format: `event DESCRIPTION /from DATE /to DATE`
 * `DESCRIPTION` cannot be blank and can be any value.
 * Both of the `DATE` cannot be blank and must be in the format YYYY-MM-DD.
 
-Example: `event hackathon /every 2024-07-12 /to 2024-07-15`
+Example: `event hackathon /from 2024-07-12 /to 2024-07-15`
 
 ## Adding recurring tasks: `recur`
 Adds a recurring task to the task list.
@@ -105,7 +105,7 @@ Format: `delete INDEX`
 
 Example: `delete 2` deletes the 2nd task in the task list.
 
-## Marking tasks: `mark` or `unmark`
+## Marking tasks: `mark` / `unmark`
 Marks or unmarks the specified task in the task list.
 
 * Marked tasks are represented with `[x]`
