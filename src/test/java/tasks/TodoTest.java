@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void testStringify_(){
+    public void testStringify() {
         ToDo todo = new ToDo("read book");
         assertEquals("[T][ ] read book", todo.stringify());
 
@@ -16,7 +16,7 @@ public class TodoTest {
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         ToDo todo = new ToDo("read book");
         assertEquals("T | O | read book | null", todo.toString());
 
