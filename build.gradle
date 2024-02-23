@@ -39,7 +39,7 @@ test {
 }
 
 application {
-    mainClass.set("roebot.Main")
+    mainClass.set("roebot.Launcher")
 }
 
 shadowJar {
