@@ -46,6 +46,7 @@ public class TaskList implements Serializable {
      * @throws DukeException If the specified index is invalid.
      */
     public String markTaskDone(int idx) throws DukeException {
+        assert idx >= 0 : "Negative indices to be handled in parser";
         if (idx >= 0 && idx < tasks.size()) {
             tasks.get(idx).markDone();
             return tasks.get(idx).toString();
@@ -62,6 +63,7 @@ public class TaskList implements Serializable {
      * @throws DukeException If the specified index is invalid.
      */
     public String markTaskUndone(int idx) throws DukeException {
+        assert idx >= 0 : "Negative indices to be handled in parser";
         if (idx >= 0 && idx < tasks.size()) {
             tasks.get(idx).markUndone();
             return tasks.get(idx).toString();
@@ -78,6 +80,7 @@ public class TaskList implements Serializable {
      * @throws DukeException If the specified index is invalid.
      */
     public String deleteTask(int idx) throws DukeException {
+        assert idx >= 0 : "Negative indices to be handled in parser";
         if (idx >= 0 && idx < tasks.size()) {
             String taskDescription = tasks.get(idx).toString();
             tasks.remove(idx);
