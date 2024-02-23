@@ -51,11 +51,13 @@ test {
     }
 }
 
+// Credits to my teammate Lifu for helping me figure out that I need to edit mainClassName here.
+// Thank you :D!
 application {
-    mainClass.set("Launcher")
+    mainClass.set("duke.Launcher")
 }
 
-mainClassName = 'Launcher'
+mainClassName = 'duke.Launcher'
 
 shadowJar {
     archiveBaseName = "refinement"
