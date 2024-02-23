@@ -1,15 +1,24 @@
 package bob;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import bob.command.Command;
 import bob.exception.BobException;
 
 /**
  * Represents Bob itself. A <code>Bob</code> object corresponds to an instance of the program.
  */
-public class Bob {
-    private final Storage storage;
+public class Bob extends Application  {
+    private Storage storage;
     private TaskList tasks;
-    private final Ui ui;
+    private Ui ui;
+
+    public Bob() {
+        // ...
+    }
 
     /**
      * Returns an instance of the program with its own storage, task list and UI.
@@ -52,12 +61,14 @@ public class Bob {
         runCommandLoopUntilExitCommand();
     }
 
-    /**
-     * The entry point for the program.
-     *
-     * @param args The arguments passed to the <code>main</code> function.
-     */
-    public static void main(String[] args) {
+    @Override
+    public void start(Stage stage) {
         new Bob(Storage.DATA_PATH).run();
+
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
