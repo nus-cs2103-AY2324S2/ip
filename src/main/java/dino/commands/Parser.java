@@ -15,8 +15,10 @@ public class Parser {
      */
     public static Command processInput(String input) throws DinoException {
         try {
+            assert input != null && !input.isEmpty() : "Input string must not be null or empty";
             String[] parsedInput = input.split(" ", 2);
-            Parser.Instruction ins = toInstruction(parsedInput[0]);
+            Instruction ins = toInstruction(parsedInput[0]);
+            assert ins != null : "Instruction enum must not be null";
             String details = parsedInput.length > 1 ? parsedInput[1] : "";
 
             switch (ins) {
