@@ -430,6 +430,7 @@ public class Ui {
     }
 
 
+
     public ArrayList<String> find(String key) {
         ArrayList<String> result = new ArrayList<>();
         for (Task i : taskList) {
@@ -493,13 +494,14 @@ public class Ui {
         response.add("Note: dates and times are formatted as <yyyy-mm-dd> <hh:mm:ss>");
         response.add("\nCOMMANDS: ");
         response.add("* list -- prints a numbered list of the tasks created, in input order.");
-        response.add("* mark [] -- marks the task at index [] as completed. ");
-        response.add("* unmark [] -- marks the task at index [] as uncompleted. ");
+        response.add("* mark <task_number> -- marks the task at index <task_number> as completed. ");
+        response.add("* unmark <task_number> -- marks the task at index <task_number> as uncompleted. ");
         response.add("* notdonelist -- show the list of tasks that are uncompleted.");
-        response.add("* prioritise [] -- sets the task at index [] as priority.");
-        response.add("* unprioritise [] -- sets the task at index [] as non priority");
+        response.add("* prioritise <task_number> -- sets the task at index <task_number> as priority.");
+        response.add("* unprioritise <task_number> -- sets the task at index <task_number> as non priority");
         response.add("* prioritylist -- show the list of prioritised tasks");
-        response.add("* delete [] -- removes the task at index [] from the list.");
+        response.add("* find <text> -- show a list of tasks which contain <text> in their description");
+        response.add("* delete <task_number> -- removes the task at index [] from the list.");
         response.add("* bye -- exits the program.");
         String reply = listToString(response);
 

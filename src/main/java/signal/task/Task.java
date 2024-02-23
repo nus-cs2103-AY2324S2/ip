@@ -42,7 +42,7 @@ public class Task {
     }
 
     public String getPriorityIcon() {
-        return (this.isPriority ? "*" : "0"); // mark priority with P
+        return (this.isPriority ? "* " : ""); // mark priority with P
     }
 
     /**
@@ -76,7 +76,7 @@ public class Task {
      * @return The string representation of the task.
      */
     public String toString() {
-        return " | " + getStatusIcon() + " | " + this.description + " " + (isPriority ? getPriorityIcon() : "");
+        return " | " + getStatusIcon() + " | " + this.description + " " + getPriorityIcon();
     }
 
 

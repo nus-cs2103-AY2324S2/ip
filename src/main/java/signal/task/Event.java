@@ -53,7 +53,7 @@ public class Event extends Task {
     public String toString() {
         return "E" + super.toString()
                 + "| from: " + timeManager.formatDate(startDate) + (startTime != null ? " " + timeManager.formatTime(startTime) : "")
-                +  "| to: " + timeManager.formatDate(endDate) + (endTime != null ? " " + timeManager.formatTime(endTime) : "");
+                +  " | to: " + timeManager.formatDate(endDate) + (endTime != null ? " " + timeManager.formatTime(endTime) : "");
     }
 
     @Override
