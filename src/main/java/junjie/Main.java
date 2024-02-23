@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJunjie(junjie);
+            stage.setTitle("Jun Jie the Chatbot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
