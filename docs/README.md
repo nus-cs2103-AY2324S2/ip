@@ -126,6 +126,7 @@ in the **full** task list.
 
 Examples:
 - `todo User Guide` followed by `delete 1` will result in the following output:
+
 ```
 ...
 I have removed this taaask:
@@ -140,6 +141,7 @@ Format: `list`
 
 Examples:
 - `list` after `todo User Guide` will result in the following:
+
 ```
 Here aaaaare the taaaasks in your list:
     1. [T][ ] User Guide
