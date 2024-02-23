@@ -39,23 +39,30 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
+    private void applyBotStyle() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        setStyle("-fx-background-color: black;");
+        dialog.setStyle("-fx-text-fill: #00fffb;");
+    }
+
+    private void applyUserStyle() {
+        setAlignment(Pos.TOP_RIGHT);
+        setStyle("-fx-background-color: black;");
+        dialog.setStyle("-fx-text-fill: #ff8fdd;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.applyUserStyle();
+        return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.applyBotStyle();
         return db;
     }
 }

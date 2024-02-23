@@ -2,6 +2,7 @@ package ukecat;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,6 +21,8 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button  sendButton;
     private UkeCat ukeCat;
     private final Image userImg = new Image("/images/User.png");
     private final Image botImg = new Image("/images/UkeCat.png");
@@ -41,11 +44,20 @@ public class MainWindow extends AnchorPane {
         assert scrollPane != null : "ScrollPane not initialized";
         assert dialogContainer != null : "DialogContainer not initialized";
         assert userInput != null : "UserInput not initialized";
+        assert sendButton != null : "Button not initialized";
+
+        dialogContainer.setStyle("-fx-background-color: black; -fx-border-color: #00ff29;" );
+        userInput.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; " +
+                "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
+        sendButton.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; " +
+                "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
+        scrollPane.setStyle("-fx-background-color: #00ff29; -fx-border-color: green; -fx-border-width: 2px;");
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Ui.WELCOME_GUI, botImg)
+                DialogBox.getBotDialog(Ui.WELCOME_GUI, botImg)
         );
+
     }
 
     public void setUkeCat(UkeCat u) {
@@ -70,7 +82,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input + "  ", userImg),
-                DialogBox.getDukeDialog(response, botImg)
+                DialogBox.getBotDialog(response, botImg)
         );
         userInput.clear();
 
