@@ -10,7 +10,7 @@ It is:
 - ~~Fast~~ _SUPER SUPER FAST_ to use
 
 # Header
-[Getting Started](#Getting Started)
+[Getting Started](#Features)
 
 ## Getting Started 💻
 
