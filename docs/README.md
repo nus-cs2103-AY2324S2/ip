@@ -10,7 +10,7 @@ It utilizes a graphical user interface (GUI) and executes actions based on speci
 2. Download the latest release from [here](https://github.com/DhiraPT/ip/releases).
 3. Copy the jar file into an empty folder.
 4. Open a command window in that folder.
-5. Run the command `java -jar Eggy-v{version}.jar` (i.e., `java -jar Eggy-v0.2.jar`).
+5. Run the command `java -jar Eggy-v{version}.jar` (i.e., `java -jar Eggy-v0.3.jar`).
 
 ## Features
 
@@ -48,7 +48,7 @@ Shows a list of all the tasks in your task list.
 
 Format: `list`
 
-### Marking a task as done: `done`
+### Marking a task as done: `mark`
 
 Marks a task as done.
 
@@ -56,7 +56,7 @@ Format: `mark TASK_NUMBER`
 
 Example: `mark 1`
 
-### Marking a task as not yet done: `undone`
+### Marking a task as not yet done: `unmark`
 
 Marks a task as not yet done.
 
