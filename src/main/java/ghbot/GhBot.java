@@ -37,8 +37,8 @@ public class GhBot {
     public String getResponse(String input) {
         this.ui = new Ui(input);
         try {
-            String[] subStr = this.ui.validateInput();
-            Executor executor = Parser.parse(subStr);
+            String[] inputDetails = this.ui.validateInput();
+            Executor executor = Parser.parse(inputDetails);
 
             if (executor instanceof ByeExecutor) {
                 this.storage.writeDataToFile(taskList.toList());

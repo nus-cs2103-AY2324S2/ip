@@ -14,7 +14,7 @@ public class DeadlineExecutor extends Executor {
     /**
      * DeadlineExecutor Constructor.
      * @param description A description of the deadline.
-     * @param deadlineTime The time of the dateline.
+     * @param deadlineTime The time of the deadline.
      */
     public DeadlineExecutor(String description, String deadlineTime) {
         this.description = description;

@@ -19,28 +19,28 @@ class UiTest {
     @Test
     public void validateInput_validTodoInstruction_success() throws UiException {
         Ui todo = new Ui("todo gym");
-        String[] todoArr = new String[2];
-        todoArr[0] = "todo";
-        todoArr[1] = "gym";
-        assertArrayEquals(todoArr, todo.validateInput());
+        String[] todoDetails = new String[2];
+        todoDetails[0] = "todo";
+        todoDetails[1] = "gym";
+        assertArrayEquals(todoDetails, todo.validateInput());
     }
 
     @Test
     public void validateInput_validDeadlineInstruction_success() throws UiException {
         Ui deadline = new Ui("deadline assignment /by 2024-03-23 0900");
-        String[] deadlineArr = new String[2];
-        deadlineArr[0] = "deadline";
-        deadlineArr[1] = "assignment /by 2024-03-23 0900";
-        assertArrayEquals(deadlineArr, deadline.validateInput());
+        String[] deadlineDetails = new String[2];
+        deadlineDetails[0] = "deadline";
+        deadlineDetails[1] = "assignment /by 2024-03-23 0900";
+        assertArrayEquals(deadlineDetails, deadline.validateInput());
     }
 
     @Test
     public void validateInput_validEventInstruction_success() throws UiException {
         Ui event = new Ui("event project meeting /from 2024-03-24 0700 /to 2024-03-24 0900");
-        String[] eventArr = new String[2];
-        eventArr[0] = "event";
-        eventArr[1] = "project meeting /from 2024-03-24 0700 /to 2024-03-24 0900";
-        assertArrayEquals(eventArr, event.validateInput());
+        String[] eventDetails = new String[2];
+        eventDetails[0] = "event";
+        eventDetails[1] = "project meeting /from 2024-03-24 0700 /to 2024-03-24 0900";
+        assertArrayEquals(eventDetails, event.validateInput());
     }
 
     @Test

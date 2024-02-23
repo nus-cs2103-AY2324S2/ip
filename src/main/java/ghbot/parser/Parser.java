@@ -25,30 +25,30 @@ public class Parser {
 
     /**
      * Creates specific executor instance corresponding to the different instructions.
-     * @param input User input.
+     * @param inputDetails User input.
      * @return Specific executor instance corresponding to the different instructions.
      */
-    public static Executor parse(String[] input) {
-        String instr = input[0];
+    public static Executor parse(String[] inputDetails) {
+        String instr = inputDetails[0];
 
         if (instr.equalsIgnoreCase(Instruction.BYE.name())) {
             return createNewByeExecutor();
         } else if (instr.equalsIgnoreCase(Instruction.LIST.name())) {
             return createNewListExecutor();
         } else if (instr.equalsIgnoreCase(Instruction.MARK.name())) {
-            return createNewMarkExecutor(input[1].trim());
+            return createNewMarkExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.UNMARK.name())) {
-            return createNewUnmarkExecutor(input[1].trim());
+            return createNewUnmarkExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.TODO.name())) {
-            return createNewTodoExecutor(input[1].trim());
+            return createNewTodoExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.name())) {
-            return createNewDeadlineExecutor(input[1].trim());
+            return createNewDeadlineExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.name())) {
-            return createNewEventExecutor(input[1].trim());
+            return createNewEventExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.DELETE.name())) {
-            return createNewDeleteExecutor(input[1].trim());
+            return createNewDeleteExecutor(inputDetails[1].trim());
         } else if (instr.equalsIgnoreCase(Instruction.FIND.name())) {
-            return createNewFindExecutor(input[1].trim());
+            return createNewFindExecutor(inputDetails[1].trim());
         } else {
             assert false : instr + " is a wrong instruction!";
             return null;
@@ -106,11 +106,11 @@ public class Parser {
      * @return A new instance of DeadlineExecutor.
      */
     public static DeadlineExecutor createNewDeadlineExecutor(String description) {
-        String[] subStr = description.split("/by");
-        LocalDateTime inputTime = LocalDateTime.parse(subStr[1].trim(), IN_TIME_FORMAT);
+        String[] descriptionDetails = description.split("/by");
+        LocalDateTime inputTime = LocalDateTime.parse(descriptionDetails[1].trim(), IN_TIME_FORMAT);
         String formattedTime = inputTime.format(OUT_TIME_FORMAT);
 
-        return new DeadlineExecutor(subStr[0], formattedTime);
+        return new DeadlineExecutor(descriptionDetails[0], formattedTime);
     }
 
     /**
@@ -119,13 +119,13 @@ public class Parser {
      * @return A new instance of EventExecutor.
      */
     public static EventExecutor createNewEventExecutor(String description) {
-        String[] subStr = description.split("/from");
-        String[] subStr2 = subStr[1].split("/to");
-        LocalDateTime inputFromTime = LocalDateTime.parse(subStr2[0].trim(), IN_TIME_FORMAT);
+        String[] descriptionDetails = description.split("/from");
+        String[] dateTimeDetails = descriptionDetails[1].split("/to");
+        LocalDateTime inputFromTime = LocalDateTime.parse(dateTimeDetails[0].trim(), IN_TIME_FORMAT);
         String formattedFromTime = inputFromTime.format(OUT_TIME_FORMAT);
-        LocalDateTime inputToTime = LocalDateTime.parse(subStr2[1].trim(), IN_TIME_FORMAT);
+        LocalDateTime inputToTime = LocalDateTime.parse(dateTimeDetails[1].trim(), IN_TIME_FORMAT);
         String formattedToTime = inputToTime.format(OUT_TIME_FORMAT);
-        return new EventExecutor(subStr[0], formattedFromTime, formattedToTime);
+        return new EventExecutor(descriptionDetails[0], formattedFromTime, formattedToTime);
     }
 
     /**

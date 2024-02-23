@@ -40,38 +40,44 @@ public class Storage {
      * @return A list of tasks.
      */
     public List<Task> getInputFromFile() {
-        List<Task> lst = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(this.fileName);
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
-                String str = sc.nextLine();
-                String[] subStr = str.split("\\| ");
-                if (subStr[0].trim().equalsIgnoreCase(TODO)) {
-                    Todo todo = getTodoTask(subStr);
-                    lst.add(todo);
-                } else if (subStr[0].trim().equalsIgnoreCase(DEADLINE)) {
-                    Deadline deadline = getDeadlineTask(subStr);
-                    lst.add(deadline);
-                } else if (subStr[0].trim().equalsIgnoreCase(EVENT)) {
-                    Event event = getEventTask(subStr);
-                    lst.add(event);
-                }
+                String input = sc.nextLine();
+                String[] inputDetails = input.split("\\| ");
+                addTaskToList(tasks, inputDetails);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Chat history are not present!");
         }
-        return lst;
+        return tasks;
+    }
+
+    /**
+     * Adds task from file to list.
+     * @param tasks List of tasks.
+     * @param inputDetails Contain input details from the file.
+     */
+    public void addTaskToList(List<Task> tasks, String[] inputDetails) {
+        if (inputDetails[0].trim().equalsIgnoreCase(TODO)) {
+            tasks.add(getTodoTask(inputDetails));
+        } else if (inputDetails[0].trim().equalsIgnoreCase(DEADLINE)) {
+            tasks.add(getDeadlineTask(inputDetails));
+        } else if (inputDetails[0].trim().equalsIgnoreCase(EVENT)) {
+            tasks.add(getEventTask(inputDetails));
+        }
     }
 
     /**
      * Returns a todo task.
-     * @param subStr A string array containing information about the task.
+     * @param inputDetails A string array containing information about the task.
      * @return A todo task.
      */
-    public Todo getTodoTask(String[] subStr) {
-        Todo todo = new Todo(subStr[2]);
-        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+    public Todo getTodoTask(String[] inputDetails) {
+        Todo todo = new Todo(inputDetails[2]);
+        if (inputDetails[1].trim().equalsIgnoreCase(COMPLETED)) {
             todo.isCompleted();
         } else {
             todo.isNotCompleted();
@@ -81,12 +87,12 @@ public class Storage {
 
     /**
      * Returns a deadline task.
-     * @param subStr A string array containing information about the task.
+     * @param inputDetails A string array containing information about the task.
      * @return A deadline task.
      */
-    public Deadline getDeadlineTask(String[] subStr) {
-        Deadline deadline = new Deadline(subStr[2], subStr[3]);
-        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+    public Deadline getDeadlineTask(String[] inputDetails) {
+        Deadline deadline = new Deadline(inputDetails[2], inputDetails[3]);
+        if (inputDetails[1].trim().equalsIgnoreCase(COMPLETED)) {
             deadline.isCompleted();
         } else {
             deadline.isNotCompleted();
@@ -96,12 +102,12 @@ public class Storage {
 
     /**
      * Returns an event task.
-     * @param subStr A string array containing information about the task.
+     * @param inputDetails A string array containing information about the task.
      * @return An event task.
      */
-    public Event getEventTask(String[] subStr) {
-        Event event = new Event(subStr[2], subStr[3], subStr[4]);
-        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+    public Event getEventTask(String[] inputDetails) {
+        Event event = new Event(inputDetails[2], inputDetails[3], inputDetails[4]);
+        if (inputDetails[1].trim().equalsIgnoreCase(COMPLETED)) {
             event.isCompleted();
         } else {
             event.isNotCompleted();
