@@ -38,12 +38,16 @@ public class TaskList {
      *                       being added into the list.
      */
     public void add(Task task) throws TaskFlowException {
-        for (int i = 0; i < getTaskSize(); i++) {
-            if (tasks.get(i).equals(task)) {
-                throw new TaskFlowException("Task with same details already exists.\n"
-                + "Please try again.\n");
-            } else {
-                tasks.add(task);
+        if (tasks.isEmpty()) {
+            tasks.add(task);
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).equals(task)) {
+                    throw new TaskFlowException("Task with the same details already exists.\n"
+                            + "Please try again.\n");
+                } else {
+                    tasks.add(task);
+                }
             }
         }
     }

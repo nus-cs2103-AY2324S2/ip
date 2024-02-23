@@ -39,6 +39,7 @@ public class ToDoCommand extends Command {
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
                           Storage storage, Storage archived) throws TaskFlowException {
         tasks.add(toDo);
+        System.out.println(tasks.list());
         storage.saveTask(tasks);
         return ui.showAddMsg(toDo, tasks.getTaskSize());
     }

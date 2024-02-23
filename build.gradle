@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("TaskFlow.Launcher")
 }
 
 checkstyle {
