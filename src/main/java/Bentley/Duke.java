@@ -1,9 +1,11 @@
-package Bentley;
+package bentley;
 
 import java.util.Scanner;
+
 /**
  * The main class representing the Duke application.
- * Duke is a simple task management application that allows users to manage their tasks through a command-line interface.
+ * Duke is a simple task management application that allows users to manage
+ * their tasks through a command-line interface.
  */
 public class Duke {
 
@@ -20,7 +22,7 @@ public class Duke {
         storage.loadTasks(taskList.getTasks());
 
         ui.showWelcomeMessage();
-        
+
         Scanner scanner = new Scanner(System.in);
 
         try {

@@ -1,5 +1,5 @@
 // Deadline.java
-package Bentley;
+package bentley;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * Extends the Task class.
  */
 public class Deadline extends Task {
-    
+
     /**
      * The deadline date of the task.
      */
@@ -19,11 +19,11 @@ public class Deadline extends Task {
      * Constructs a Deadline object with the given description and deadline date.
      *
      * @param description The description of the task.
-     * @param by The deadline date in the format "yyyy-MM-dd".
+     * @param by          The deadline date in the format "yyyy-MM-dd".
      */
     public Deadline(String description, String by) {
         super(description);
-        
+
         this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 

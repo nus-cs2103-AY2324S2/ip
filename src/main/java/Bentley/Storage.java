@@ -1,4 +1,4 @@
-package Bentley;
+package bentley;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,15 +1,16 @@
 // Event.java
-package Bentley;
+package bentley;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task that is an event with a specific start and end date and time.
+ * Represents a task that is an event with a specific start and end date and
+ * time.
  * Extends the Task class.
  */
 public class Event extends Task {
-    
+
     /**
      * The start date and time of the event.
      */
@@ -21,11 +22,14 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructs an Event object with the given description, start date, and end date.
+     * Constructs an Event object with the given description, start date, and end
+     * date.
      *
      * @param description The description of the event.
-     * @param from The start date and time of the event in the format "yyyy-MM-dd HHmm".
-     * @param to The end date and time of the event in the format "yyyy-MM-dd HHmm".
+     * @param from        The start date and time of the event in the format
+     *                    "yyyy-MM-dd HHmm".
+     * @param to          The end date and time of the event in the format
+     *                    "yyyy-MM-dd HHmm".
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -45,6 +49,6 @@ public class Event extends Task {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
         String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
 
-        return "E |" + super.toString() + " |" + " from: " + formattedFrom + "  to: " + formattedTo ;
+        return "E |" + super.toString() + " |" + " from: " + formattedFrom + "  to: " + formattedTo;
     }
 }

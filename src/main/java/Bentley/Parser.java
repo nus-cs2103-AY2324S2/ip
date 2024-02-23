@@ -1,7 +1,8 @@
-package Bentley;
+package bentley;
 
 /**
- * A class responsible for parsing user commands and executing corresponding actions.
+ * A class responsible for parsing user commands and executing corresponding
+ * actions.
  */
 public class Parser {
 
@@ -9,9 +10,9 @@ public class Parser {
      * Parses the user input and performs the corresponding action.
      *
      * @param userInput The user input command.
-     * @param taskList The TaskList object to manage tasks.
-     * @param ui The Ui object for handling user interface interactions.
-     * @param storage The Storage object for managing task data persistence.
+     * @param taskList  The TaskList object to manage tasks.
+     * @param ui        The Ui object for handling user interface interactions.
+     * @param storage   The Storage object for managing task data persistence.
      */
     public static void parseCommand(String userInput, TaskList taskList, Ui ui, Storage storage) {
         try {

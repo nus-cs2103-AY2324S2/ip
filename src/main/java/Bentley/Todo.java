@@ -1,7 +1,6 @@
-package Bentley;
-
 /**
- * Represents a task of type Todo, which is a generic task without a specific deadline or event time.
+ * Represents a task of type Todo, which is a generic task without a specific
+ * deadline or limited time.
  * Extends the Task class.
  */
 public class Todo extends Task {

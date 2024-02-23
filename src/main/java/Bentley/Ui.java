@@ -1,16 +1,15 @@
-package Bentley;
+package bentley;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
- * A class representing the user interface of the Bentley task management application.
+ * A class representing the user interface of the Bentley task management
+ * application.
  */
 public class Ui {
 
-    /**
-     * Scanner object to read user input.
-     */
+    // Scanner object to read user input.
     private Scanner scanner;
 
     /**
@@ -48,7 +47,7 @@ public class Ui {
      *
      * @param task The added task.
      * @param taskCount The total number of tasks after the addition.
-     */
+     */      
     public void showTaskAddedMessage(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);

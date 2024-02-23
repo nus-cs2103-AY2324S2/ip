@@ -1,4 +1,4 @@
-package Bentley;
+package bentley;
 
 /**
  * Represents a generic task with a description and completion status.
@@ -26,7 +26,8 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the completion status. "1" for done, "0" for not done.
+     * Returns a string representation of the completion status. "1" for done, "0"
+     * for not done.
      *
      * @return A string representation of the completion status.
      */

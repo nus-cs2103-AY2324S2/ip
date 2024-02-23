@@ -1,4 +1,4 @@
-package Bentley;
+package bentley;
 
 import java.util.ArrayList;
 
