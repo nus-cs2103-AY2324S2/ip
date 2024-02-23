@@ -39,7 +39,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialogText.setText(text);
         displayPicture.setImage(img);
     }

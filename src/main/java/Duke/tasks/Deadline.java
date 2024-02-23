@@ -4,11 +4,11 @@
  */
 package duke.tasks;
 
-import duke.exceptions.InvalidDeadlineException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.InvalidDeadlineException;
 
 /**
  * Class for deadline

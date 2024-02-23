@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.Color?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="pane" stylesheets="@MainWindow.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" styleClass="pane" stylesheets="@MainWindow.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
    <children>
-      <ScrollPane fx:id="dukeScrollPane" layoutX="27.0" layoutY="14.0" hbarPolicy="NEVER" prefHeight="463.0" prefWidth="530.0">
+      <ScrollPane fx:id="dukeScrollPane" layoutX="27.0" layoutY="14.0" hbarPolicy="NEVER" prefHeight="650.0" prefWidth="530.0">
          <content>
             <VBox fx:id="dialogContainer" alignment="CENTER" prefWidth="388.0">
                <padding>
@@ -34,7 +34,7 @@
             </DropShadow>
          </effect>
       </TextField>
-      <Button id="dukeSendButton" fx:id="dukeSendButton" layoutX="482.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="52.0" prefWidth="74.0" text="SEND" textFill="WHITE">
+      <Button id="dukeSendButton" fx:id="dukeSendButton" layoutX="482.0" layoutY="714" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="52.0" prefWidth="74.0" text="SEND" textFill="WHITE">
          <font>
             <Font name="Verdana Bold" size="13.0" />
          </font></Button>

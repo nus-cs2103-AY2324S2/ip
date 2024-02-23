@@ -41,6 +41,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().customisedInitialise();
 
             // Show the primary stage
+            stage.setTitle("ChinesePolicemanChatBot");
             stage.show();
         } catch (IOException e) {
             // Print the stack trace if an IOException occurs during loading
