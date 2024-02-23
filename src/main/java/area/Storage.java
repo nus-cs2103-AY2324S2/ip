@@ -29,7 +29,7 @@ public class Storage {
      * @param tasks
      */
     public Storage(TaskList tasks) {
-        file = new File("./data/duke.txt");
+        file = new File("./data/area.txt");
         folder = new File("./data");
         this.tasks = tasks;
         this.instructions = new ArrayList<String>();
@@ -68,7 +68,7 @@ public class Storage {
     }
 
     public void loadTasks() {
-        Path path = Paths.get("./data/duke.txt");
+        Path path = Paths.get("./data/area.txt");
         if (Files.exists(path)) {
             try {
                 List<String> lines = Files.readAllLines(path);
@@ -79,9 +79,7 @@ public class Storage {
                         tasks.addTask(line);
                     } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
                         tasks.modifyTask(line);
-                    } else if (command.equals("unmark")) {
-                        tasks.modifyTask(line);
-                    } else if (command.equals("delete")) {
+                    } else if (command.equals("priority")) {
                         tasks.modifyTask(line);
                     }
                 }
@@ -93,11 +91,27 @@ public class Storage {
 
     public void saveTask(String instruction) {
         try {
-            FileWriter writer = new FileWriter("./data/duke.txt", true);
+            FileWriter writer = new FileWriter("./data/area.txt", true);
                 writer.write(instruction + "\n");
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+
+    public void deleteIncorrectInstruction(){
+        Path path = Paths.get("./data/area.txt");
+        try {
+            List<String> lines = Files.readAllLines(path);
+            lines.remove(lines.size()-1);
+            FileWriter writer = new FileWriter("./data/area.txt", false);
+            for(String line:lines){
+                writer.write(line+"\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greetUser = area.greetUser();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greetUser, areaImage)
+                DialogBox.getAreaDialog(greetUser, areaImage)
         );
     }
 
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Area's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = area.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, areaImage)
+                DialogBox.getAreaDialog(response, areaImage)
         );
 
         if(input.equals("bye")){

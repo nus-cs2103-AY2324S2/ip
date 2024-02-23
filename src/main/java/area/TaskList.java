@@ -13,12 +13,7 @@ public class TaskList {
     private Ui ui;
     private Parser parser;
 
-    public TaskList(ArrayList<Task> tasks) throws Exception {
-        this.tasks = tasks;
-        this.taskCount = 0;
-        ui = new Ui();
-        parser = new Parser();
-    }
+    
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -131,6 +126,11 @@ public class TaskList {
             taskCount -= 1;
             assert taskCount >= 0 : "count cannot be negative";
             return ui.deleteTask(deletedTask, this);
+        }else if(command.equals("priority")){
+            int index = Integer.parseInt(parser.parseModify(instruction));
+            int prority = Integer.parseInt(parser.parsePriority(instruction));
+            Task prioritiseTask = tasks.get(index-1);
+            prioritiseTask.setPriority(prority);
         }
         return "";
     }

@@ -6,6 +6,7 @@ package area;
 public class Task {
     protected String description;
     protected boolean isDone;
+    private int priority;
 
     /**
      * Constructs a new task with the given description. The task is not done by
@@ -16,6 +17,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     /**
@@ -50,8 +52,16 @@ public class Task {
         isDone = false;
     }
 
+    public void setPriority(int p) {
+        this.priority = p;
+    }
+
+    public Integer getPriority() {
+        return this.priority;
+    }
+
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "] " + this.getDescription() + " " + this.getPriority();
     }
 }

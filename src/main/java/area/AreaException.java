@@ -8,7 +8,7 @@ public class AreaException extends Exception {
     protected String description;
 
     /**
-     * creates a DukeException object to store error
+     * creates a AreaException object to store error
      * @param description
      */
     public AreaException(String description) {

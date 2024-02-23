@@ -70,9 +70,13 @@ public class Area {
                 storage.saveTask(instruction);
                 String keyword = parser.parseKeyword(instruction);
                 result = tasks.findTask(keyword);
+            } else if(command.equals("priority")){
+                storage.saveTask(instruction);
+                tasks.modifyTask(instruction);
             }
         } catch (Exception e) {
-            System.out.println(e.toString() + "\n");
+            storage.deleteIncorrectInstruction();
+            return e.getMessage() + "\n";
         }
         return result;
     }

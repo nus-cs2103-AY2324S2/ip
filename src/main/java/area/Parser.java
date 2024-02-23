@@ -36,11 +36,10 @@ public class Parser {
      * @return String
      */
     public String parseModify(String instruction) {
-        String[] sentence = instruction.split(" ", 2);
+        String[] sentence = instruction.split(" ");
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Please enter an index.");
         } else {
-
             return sentence[1];
         }
     }
@@ -69,7 +68,6 @@ public class Parser {
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
         } else {
-
             String[] deadline = sentence[1].split(" /by ");
             return deadline;
         }
@@ -105,6 +103,15 @@ public class Parser {
             throw new IllegalArgumentException("Your input is incomplete. I need a keyword to start my search.");
         } else {
             return sentence[1];
+        }
+    }
+
+    public String parsePriority(String instruction){
+        String[] sentence = instruction.split(" ", 3);
+        if (sentence.length == 1) {
+            throw new IllegalArgumentException("Your input is incomplete. I need a priority for this task.");
+        } else {
+            return sentence[2];
         }
     }
 
