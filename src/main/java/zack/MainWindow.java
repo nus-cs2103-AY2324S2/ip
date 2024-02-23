@@ -1,5 +1,6 @@
 package zack;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,12 +8,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import zack.util.TaskList;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final int WAIT_TIME = 1;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -86,6 +91,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getZackDialog(response, zackImage)
         );
+        if (response.equals("Bye bye! Hope to see you again soon :)!")) {
+            // If the user entered "bye", add a pause before system exit
+            PauseTransition pause = new PauseTransition(Duration.seconds(WAIT_TIME));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
         userInput.clear();
     }
 }
