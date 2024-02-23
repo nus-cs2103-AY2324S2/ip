@@ -41,7 +41,7 @@ Where Haro should reply with:
 ```
 Got it I've added this task:
 [D][] submit proposal (by: today)
-You no have 1 task in the list
+You now have 1 task in the list
 ```
 **Using calendar dates**
 
@@ -56,7 +56,7 @@ Where Haro should reply with:
 ```
 Got it I've added this task:
 [D][] submit proposal (by: Feb 23 2024)
-You no have 1 task in the list
+You now have 1 task in the list
 ```
 ### Events
 To add an Event, with a start and end timing, simply type in the 
@@ -73,7 +73,7 @@ Haro should answer with:
 ```
 Got it I've added this task:
 [E][] submit proposal (from: 2pm to: 3pm)
-You no have 1 task in the list
+You now have 1 task in the list
 ```
 
 Similarly, you can supply start and end timings in the form `YYYY/MM/DD`
@@ -113,7 +113,7 @@ Nice! I've marked this task as done
 ```
 Where the `[X]` signifies that the task has been marked.
 ### Unmarking tasks:
-Similarly to Unmark a task type: `unmark <Task index number>`
+Similarly, to Unmark a task, type: `unmark <Task index number>`
 
 For example:
 ````
@@ -162,7 +162,6 @@ Sorry there are no current matches in your list! :(
 ```
 It means that there are no matching tasks in your list.
 ## 2. Editing a task
-> [!NOTE]
 > Please take note that you can ***only edit 1 attribute per command***.
 ### Editing task name
 To edit the task name simply input:
@@ -192,11 +191,10 @@ Haro should reply with:
 Got it I've edited this task:
 2. [D][] submit proposal (by: tomorrow)
 ```
-and your changes should be reflected when you call the `list` command.
 ### Editing start and end date
 **Editing Start date**
 
-To edit the **start** date type in:
+To edit the **start** date of an event task, type in:
 `edit <Task index number> /from <new start date>`
 
 For example:
@@ -209,11 +207,10 @@ Haro should reply with something like:
 Got it I've edited this task:
 3. [E][] tutorial (from: 1pm to: 3pm)
 ```
-and your changes should be reflected when you call the `list` command.
 
 ***Editing end date***
 
-To edit the **end** date type in:
+To edit the **end** date of a event task, type in:
 `edit <Task index number> /to <new end date>`
 
 For example:
@@ -236,3 +233,4 @@ Haro will bid you farewell with the following message:
 ```
 Bye. Hope to see you some time soon!
 ```
+And you will exit the application.
