@@ -91,7 +91,6 @@ public class RandomAccessQueue<E> {
      * @throws IllegalStateException if the queue is full
      */
     public void addLast(E e) {
-        System.out.println("tail: " + tail + " head: " + head + " size: " + size + " cur: " + cur);
         if (size == capacity) {
             pollFirst();
         }
