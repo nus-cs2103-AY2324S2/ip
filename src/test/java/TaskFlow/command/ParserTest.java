@@ -2,10 +2,10 @@ package TaskFlow.command;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import TaskFlow.exception.TaskFlowException;
 import org.junit.jupiter.api.Test;
 
 import TaskFlow.Parser;
+import TaskFlow.exception.TaskFlowException;
 
 /**
  * A test class for testing the functionality of the Parser class.
