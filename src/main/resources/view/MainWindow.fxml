@@ -9,14 +9,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TaskFlow.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="363.0" promptText="Please enter your command!" AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="363.0" promptText="Please enter your command!" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="77.0">
          <font>
             <Font size="13.0" />
          </font></TextField>
-        <Button fx:id="sendButton" layoutX="364.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #F8F2DA;" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" hvalue="1.0" prefHeight="558.0" prefWidth="440.0" vvalue="1.0">
+        <Button fx:id="sendButton" layoutX="364.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #F8F2DA;" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" hvalue="1.0" prefHeight="558.0" prefWidth="440.0" vvalue="1.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" accessibleRole="NODE" prefHeight="546.0" prefWidth="426.0" style="-fx-background-color: #C0C0C0;" />
+                <VBox fx:id="dialogContainer" accessibleRole="NODE" prefHeight="546.0" prefWidth="426.0" style="-fx-background-color: #dadbc0;" />
             </content>
         </ScrollPane>
     </children>

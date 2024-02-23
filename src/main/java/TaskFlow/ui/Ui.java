@@ -91,12 +91,16 @@ public class Ui {
     public String showHelpMsg() {
         return "bye: Terminate the program.\n"
                 + "list: Display the list of tasks.\n"
+                + "list <archive>: Display the list of archived tasks.\n"
                 + "mark <index>: Mark a task as done.\n"
                 + "unmark <index>: Mark a task as not done.\n"
                 + "todo <description>: Add a todo task.\n"
-                + "deadline <description> /by <yyyy-MM-dd hh:mma>: Add a deadline task.\n"
-                + "event <description> /from <startDate> /to <endDate>: Add an event task.\n"
-                + "find <keyword>: Find a list of tasks that match with the keyword.\n";
+                + "deadline <description> /by <yyyy-MM-dd hh:mma>:\n"
+                + "Add a deadline task.\n"
+                + "event <description> /from <startDate> /to <endDate>:\n"
+                + "Add an event task.\n"
+                + "find <keyword>: Find a list of tasks that match\n"
+                + "with the keyword.\n";
     }
 
     /**
@@ -116,16 +120,6 @@ public class Ui {
      */
     public String showList() {
         return "Here are the tasks in your list:\n";
-    }
-
-    /**
-     * Prints a line separator.
-     *
-     * @return A line separator.
-     */
-    public String showLine() {
-        return "----------------------------------------------------"
-                + "\n";
     }
 
     /**

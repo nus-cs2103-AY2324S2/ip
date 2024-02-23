@@ -30,7 +30,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene sc = new Scene(ap);
             stage.setScene(sc);
-            fxmlLoader.<MainWindow>getController().setDuke(taskFlow);
+            fxmlLoader.<MainWindow>getController().setTaskie(taskFlow);
             stage.setTitle("TaskFlow");
             stage.show();
             fxmlLoader.<MainWindow>getController().greet();
