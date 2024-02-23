@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
      */
     private void sendWelcome() {
         if (!isWelcomeSent) {
-            String welcomeMsg = "Vandanemmmmmmmmm! I'm BernardBot\nWhat can I do for you?";
+            String welcomeMsg = "Hi! I'm BernardBot\nWhat can I do for you?";
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(welcomeMsg, dukeImage)
             );
