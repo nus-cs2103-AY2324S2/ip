@@ -14,6 +14,10 @@ import java.io.FileReader;
 import java.util.Objects;
 import java.nio.file.Files;
 
+/**
+ * The Storage class manages reading from and writing to a data store txt file.
+ * It handles tasks related to file operations and task data persistence.
+ */
 public class Storage {
     private String filePath;
     private int lastIdx = 0;
@@ -32,6 +36,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the data store file and populates an ArrayList with Task objects.
+     *
+     * @return An ArrayList containing Task objects read from the data store.
+     */
     public ArrayList<Task> readDataStore() {
         Path path = Paths.get(filePath);
         ArrayList<Task> taskArrayList = new ArrayList<>();
@@ -50,6 +59,11 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Adds a task to the data store file.
+     *
+     * @param task The task to add to the data store.
+     */
     public void addToDataStore(Task task) {
         String newTaskLine = task.convertToDataStoreLine();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath, true))) {
@@ -62,6 +76,11 @@ public class Storage {
         this.lastIdx++;
     }
 
+    /**
+     * Removes a task from the data store file by its index.
+     *
+     * @param idx The index of the task to remove.
+     */
     public void removeFromDataStore(int idx) {
         String tempFilePathString = this.filePath + ".temp";
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
@@ -89,6 +108,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task data store line to a Task object.
+     *
+     * @param line The task data store line to convert.
+     * @return The Task object represented by the input line.
+     */
     private Task convertTaskLineToTask(String line) {
         String[] splitLine = line.split("\\|");
         String taskAlphabet = splitLine[0];
@@ -104,6 +129,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks the status of a task in the data store as done.
+     *
+     * @param task     The task to mark as done.
+     * @param taskLine The task data store line containing the task.
+     */
     private static void markDataStoreTaskStatus(Task task, String taskLine) {
         String[] splitLine = taskLine.split("\\|");
         if (Objects.equals(splitLine[1], "1")) {
@@ -111,6 +142,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Edits the status of a task in the data store to mark it as done.
+     *
+     * @param i The index of the task to mark as done.
+     */
     public void editDataStoreTaskAsDone(int i) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
@@ -139,6 +175,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Edits the status of a task in the data store to mark it as undone.
+     *
+     * @param i The index of the task to mark as undone.
+     */
     public void editDataStoreTaskAsUndone(int i) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.filePath));

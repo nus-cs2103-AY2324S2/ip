@@ -20,6 +20,12 @@ public class BotChat {
     private static Pattern markPattern = Pattern.compile("mark \\d+");
     private static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
 
+    /**
+     * Adds a new task based on the user input command.
+     *
+     * @param s The user input command containing the task details.
+     * @throws Exception If the command is invalid or incomplete.
+     */
     public static void addTask(String s) throws Exception {
         String taskDescription;
         switch (parser.extractCommand(s)) {
@@ -58,6 +64,12 @@ public class BotChat {
         }
     }
 
+    /**
+     * Generates a response based on the user input command.
+     *
+     * @param s The user input command.
+     * @return The response message.
+     */
     public static String response(String s) {
         Matcher markMatcher = markPattern.matcher(s);
         Matcher unmarkMatcher = unmarkPattern.matcher(s);
@@ -108,11 +120,25 @@ public class BotChat {
         }
     }
 
+    /**
+     * Marks the specified task as done.
+     *
+     * @param taskNum The number of the task to mark as done.
+     * @return The message indicating the task was marked as done.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public static String markTaskAsDone(int taskNum) throws InvalidTaskNumberException {
         taskArrayList.getTaskByIdx(taskNum - 1).markAsDone();
         return Ui.markTaskAsDoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
+    /**
+     * Converts the task number string to an integer.
+     *
+     * @param s The task number string.
+     * @return The integer representation of the task number.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     private static int convertTaskNumStringToInt(String s) throws InvalidTaskNumberException {
         String taskNumString = s.split("\\s+")[1];
         int taskNum = Integer.parseInt(taskNumString);
@@ -122,11 +148,25 @@ public class BotChat {
         return taskNum;
     }
 
+    /**
+     * Marks the specified task as undone.
+     *
+     * @param taskNum The number of the task to mark as undone.
+     * @return The message indicating the task was marked as undone.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public static String unmarkTaskAsDone(int taskNum) throws InvalidTaskNumberException {
         taskArrayList.getTaskByIdx(taskNum - 1).markAsUndone();
         return Ui.markTaskAsUndoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
+    /**
+     * Deletes the specified task.
+     *
+     * @param requestedDeletion The number of the task to delete.
+     * @return The message indicating the task was deleted.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public static String deleteTask(String requestedDeletion) throws InvalidTaskNumberException {
         try {
             int taskNum = Integer.parseInt(requestedDeletion);
