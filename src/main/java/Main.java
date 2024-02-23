@@ -24,6 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("SIGNAL :3");
             stage.setResizable(true);
             fxmlLoader.<GUI.MainWindow>getController().setDuke(signal);
             stage.show();
