@@ -147,6 +147,11 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Returns a String representation of the list of tasks with name containing the specified string.
+     * @param match The string to check which tasks contain it
+     * @return a string that represents the list of tasks that contain the specified string
+     */
     public String find(String match) {
         String output = "Here are the matching tasks in your list:\n";
         for (Task item : list) {
@@ -156,6 +161,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Returns a String representation of the list of tasks happening within the next 7 days.
+     * @return a string that represents the list of tasks that will happen in the next 7 days.
+     */
     public String remind() {
         String output = "Here are the tasks happening within the next 7 days:\n";
         for (Task item : list) {

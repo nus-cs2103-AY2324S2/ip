@@ -107,6 +107,11 @@ public class Task {
         isDone = false;
         return "OK, I've marked this task as not done yet:" + this.taskInfo();
     }
+
+    /**
+     * Returns a string representation of the task if the task is happening within the next 7 days.
+     * @return the string representation of task if date is within the next 7 days, or an empty string if it is not
+     */
     public String happenSoon() {
         return "";
     }
