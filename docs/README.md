@@ -21,7 +21,7 @@ Sections:
 <br>
 
 # Features
->[!NOTE]
+> [!NOTE]
 >- Words in `UPPER_CASE` are parameters to be supplied by the user
 >  e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo buy groceries`
 >- Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `bye`) will be ignored.
