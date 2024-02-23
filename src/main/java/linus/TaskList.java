@@ -1,18 +1,26 @@
 package linus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents the ArrayList of Tasks.
  */
 public class TaskList {
     private final ArrayList<Task> taskList;
+    private static final String FILE_PATH = "./data/linus.txt";
 
     /**
      * Constructs a TaskList.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.taskList = tasks;
     }
 
     /**
