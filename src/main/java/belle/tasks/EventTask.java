@@ -46,8 +46,13 @@ public class EventTask extends Task {
         return "E";
     }
 
-    public void setDeadline(String newdeadline) {
-        this.end = newdeadline;
+    public void setDeadline(String newDeadline) {
+        DateFormatter dateFormatter = new DateFormatter(newDeadline);
+        if (dateFormatter.hasValidDate()) {
+            this.end = dateFormatter.convertDate();
+        } else {
+            this.end = newDeadline;
+        }
     }
     @Override
     public String toString() {
