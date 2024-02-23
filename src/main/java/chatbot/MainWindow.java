@@ -37,6 +37,10 @@ public class MainWindow extends AnchorPane {
   @FXML
   public void initialize() {
     scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    String dukeGreeting = "Hi! I'm Tfamily bot. How can I assist you today?";
+    dialogContainer
+      .getChildren()
+      .add(DialogBox.getDukeDialog(dukeGreeting, dukeImage));
     assert scrollPane != null : "FXML failed to load ScrollPane";
     assert dialogContainer != null : "FXML failed to load VBox";
     assert userInput != null : "FXML failed to load TextField";

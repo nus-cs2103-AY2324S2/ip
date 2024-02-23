@@ -23,6 +23,7 @@ public class Main extends Application {
       assert Main.class.getResource("/view/MainWindow.fxml") !=
       null : "FXML file not found";
       AnchorPane ap = fxmlLoader.load();
+      stage.setTitle("Tfamily bot");
       assert ap != null : "AnchorPane could not be loaded from FXML file";
       Scene scene = new Scene(ap);
       stage.setScene(scene);

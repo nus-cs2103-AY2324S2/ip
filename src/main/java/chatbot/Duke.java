@@ -154,9 +154,7 @@ class Event extends Task {
 
   @Override
   public String toString() {
-    return (
-      "[E]" + super.toString() + " (from: " + from + ") " + "to: " + to + ")"
-    );
+    return ("[E]" + super.toString() + " (from: " + from + "to: " + to + ")");
   }
 }
 
@@ -184,8 +182,9 @@ public class Duke {
   );
 
   public Duke() {
-    this.st = new Storage("./data/tasks.txt");
-    this.myList = new TaskList(new ArrayList<Task>());
+    this.st = new Storage("./data/task.txt");
+    ArrayList<Task> tasks = st.loadTasks();
+    this.myList = new TaskList(tasks);
     this.p = new Parser();
     this.ui = new Ui(this.myList);
   }
