@@ -192,7 +192,9 @@ public class Parser {
         }
     }
 
-    private static List<StringBuilder> parseEventAlgorithm(StringBuilder rest, StringBuilder dateFromString, StringBuilder dateToString, String[] evCommand) {
+    private static List<StringBuilder> parseEventAlgorithm(StringBuilder rest, StringBuilder dateFromString,
+                                                           StringBuilder dateToString,
+                                                           String[] evCommand) {
         int idx = 0;
         int idxForTo = 0;
         for (int i = 1; i < evCommand.length; i++) {

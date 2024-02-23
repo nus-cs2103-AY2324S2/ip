@@ -1,5 +1,5 @@
 package ping.gui;
-
+//// Solution below adapted by javaFX tutorial in se-edu
 import java.io.IOException;
 import java.util.Collections;
 

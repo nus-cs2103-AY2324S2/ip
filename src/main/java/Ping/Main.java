@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import ping.exceptions.PingException;
 import ping.gui.MainWindow;
 
-
+//// Solution below adapted by javaFX tutorial in se-edu
 /**
  * A GUI for Duke using FXML.
  */
