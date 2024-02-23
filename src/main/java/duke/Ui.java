@@ -112,7 +112,7 @@ public class Ui {
      * @return The invalid message
      */
     public String showInvalidDeadline() {
-        return "That's not a valid task!\n";
+        return "That's not a valid deadline!\n";
     }
 
     /**
@@ -121,7 +121,16 @@ public class Ui {
      * @return The invalid message
      */
     public String showInvalidEvent() {
-        return "That's not a valid task!\n";
+        return "That's not a valid event!\n";
+    }
+
+    /**
+     * Returns a message indicating that the user input for fixed duration task is invalid
+     *
+     * @return The invalid message
+     */
+    public String showInvalidFixed() {
+        return "That's not a valid fixed duration task!\n";
     }
 
     /**

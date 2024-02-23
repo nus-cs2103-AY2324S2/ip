@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private boolean isWelcomeSent = false;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/img_5562.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/img_7470.png"));
 
     @FXML

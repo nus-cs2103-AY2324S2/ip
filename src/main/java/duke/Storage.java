@@ -101,6 +101,9 @@ public class Storage {
         case "E":
             task = new Event(description, parts.length > 3 ? parts[3] : "", parts.length > 4 ? parts[4] : "");
             break;
+        case "F":
+            task = new FixedDuration(description, parts.length > 3 ? parts[3] : "");
+            break;
         }
         if (task != null && isDone) {
             task.markAsDone();
@@ -118,7 +121,8 @@ public class Storage {
     private static String taskToFileString(Task task) {
         String type = task instanceof ToDo ? "T" :
                 task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "";
+                        task instanceof Event ? "E" :
+                                task instanceof FixedDuration ? "F" : "";
         String status = task.isDone ? "1" : "0";
         String details = type + " | " + status + " | " + task.description;
 
@@ -128,6 +132,9 @@ public class Storage {
         } else if (task instanceof Event) {
             Event event = (Event) task;
             details += " | " + event.getStartForFile() + " | " + event.getEndForFile();
+        } else if (task instanceof FixedDuration) {
+            FixedDuration fixed = (FixedDuration) task;
+            details += " | " + fixed.duration;
         }
 
         return details;

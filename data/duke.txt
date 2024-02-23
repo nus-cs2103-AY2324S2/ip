@@ -1,3 +1,4 @@
 D | 1 | return book | 2024-02-24
-E | 1 | project meeting | 2024-02-24 14:00 | 2024-02-24 16:00
+E | 0 | project meeting | 2024-02-24 14:00 | 2024-02-24 16:00
 T | 0 | read book
+F | 1 | reading the sales report | 2 hours

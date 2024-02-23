@@ -58,9 +58,15 @@ public class Parser {
             return handleDeadline(input);
         } else if (input.startsWith("event")) {
             return handleEvent(input);
-        } else if (input.startsWith("find ")){
+        } else if (input.startsWith("find ")) {
             String keyword = input.substring(5).trim();
             return handleFind(keyword);
+        } else if (input.startsWith("fixed")) {
+            return handleFixed(input);
+        } else if (input.startsWith("koyil veppathil")) {
+            return "koyil veppathil";
+        } else if (input.startsWith("yeralaam")) {
+            return "yeralaammmmm";
         } else {
             return "That's not a valid task!\n";
         }
@@ -68,6 +74,22 @@ public class Parser {
 
     private String handleInvalidTask() {
         return ui.showInvalidTask();
+    }
+    private String handleFixed(String input) {
+        if (input.length() <= 6) {
+            return ui.showInvalidFixed();
+        } else {
+            String[] parts = input.substring(6).split(" /time ");
+            if (parts.length == 2) {
+                try {
+                    return handleAdd(new FixedDuration(parts[0], parts[1]));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
+            } else {
+                return ui.showInvalidFixed();
+            }
+        }
     }
     private String handleToDo(String input) {
         if (input.length() <= 5) {
