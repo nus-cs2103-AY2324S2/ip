@@ -1,4 +1,6 @@
 package joy;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import joy.task.Deadline;
 import joy.task.Event;
 
@@ -50,6 +52,9 @@ public class Parser {
         case "BYE":
             // Handle BYE command
             //System.exit(0);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1)); // Adjust the delay as needed
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
             return ui.showGoodbyeMessage();
 
         case "LIST":
