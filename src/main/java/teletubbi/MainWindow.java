@@ -28,12 +28,20 @@ public class MainWindow extends AnchorPane {
             .getResourceAsStream("/images/Screenshot 2024-02-17 at 5.12.09 PM.png"));
     private Image teletubbiImage = new Image(this.getClass().getResourceAsStream("/images/teletubbi.png"));
 
+    /**
+     * Initializes the JavaFX app.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
     }
 
+    /**
+     * Sets teletubbi as teletubbi given.
+     *
+     * @param t Teletubbi to be set.
+     */
     public void setTeletubbi(Teletubbi t) {
         teletubbi = t;
     }
