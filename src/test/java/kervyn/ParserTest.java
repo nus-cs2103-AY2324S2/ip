@@ -21,21 +21,21 @@ public class ParserTest {
     public void parseCommand_caseList() {
         tasklist.addTask(todo);
         tasklist.addTask(todo2);
-//        assertEquals(1, tasklist.listTasks(tasklist.getTaskList()));
+        assertEquals(1, tasklist.listTasks(tasklist.getTaskList()));
     }
 
     @Test
     public void parseCommand_markTask() {
         tasklist.addTask(todo);
         tasklist.addTask(todo2);
-//        assertEquals(1, tasklist.markTask(tasklist.getTaskList(), markTaskUserInput));
+        assertEquals(1, tasklist.markTask(tasklist.getTaskList(), markTaskUserInput));
     }
 
     @Test
     public void parseCommand_unMarkTask() {
         tasklist.addTask(todo);
         tasklist.addTask(todo2);
-//        assertEquals(1, tasklist.unMarkTask(tasklist.getTaskList(), unMarkTaskUserInput));
+        assertEquals(1, tasklist.unMarkTask(tasklist.getTaskList(), unMarkTaskUserInput));
     }
 
 }

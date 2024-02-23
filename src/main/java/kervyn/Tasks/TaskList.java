@@ -92,6 +92,39 @@ public class TaskList {
         return 1;
     }
 
+    public short listTasks(ArrayList<Task> userTasks) {
+        StringBuilder textToOutput = new StringBuilder();
+        textToOutput.append("\tHere are the tasks on your list:\n");
+        for (int i = 0; i < userTasks.size(); i++) {
+            Task task = userTasks.get(i);
+            char check = task.getCompleted() ? 'X' : ' ';
+            char type = task.getCapitalType();
+            switch (type) {
+                case 'T':
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription() + "\n");
+                    break;
+                case 'D':
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask == null) {
+                        return 0;
+                    }
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")\n");
+                    break;
+                case 'E':
+                    Event eventTask = (Event) task;
+                    if (eventTask == null) {
+                        return 0;
+                    }
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")\n");
+                    break;
+                default:
+                    textToOutput.append("\tNo tasks to display :(");
+                    break;
+            }
+        }
+        return 1;
+    }
+
     /**
      * Marks a task as completed in the task list.
      *
@@ -121,6 +154,32 @@ public class TaskList {
             dialogContainer.getChildren().add(
                     DialogBox.getKervynDialog("\tTask number provided doesn't exist. Please try again.", kervynImage)
             );
+        }
+        return 0;
+    }
+
+    /**
+     * Marks a task for JUnit tests as not completed in the task list.
+     *
+     * @param userTasks The ArrayList of Task objects.
+     * @return Returns 1 if the mark operation was successful, 0 otherwise.
+     */
+    public short markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+        try {
+            Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
+            if (task.getCompleted()) {
+                taskAlreadyMarked();
+            } else {
+                System.out.println("\tNice! I've marked this task as done:");
+                task.updateStatus();
+                System.out.println(task.toString());
+            }
+
+            return 1;
+        }
+        catch (IndexOutOfBoundsException e) {
+            // Need to account for trying to mark a task that doesn't exist
+            System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
         return 0;
     }
@@ -159,6 +218,33 @@ public class TaskList {
     }
 
     /**
+     * Unmarks a task for JUnit Tests as not completed in the task list.
+     *
+     * @param userTasks The ArrayList of Task objects.
+     * @param processedUserInput The user input processed into an array of Strings.
+     * @return Returns 1 if the unmark operation was successful, 0 otherwise.
+     */
+    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+        try {
+            Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
+            if (!task.getCompleted()) {
+                taskAlreadyUnMarked();
+            } else {
+                System.out.println("\tOK, I've marked this task as not done yet:");
+                task.updateStatus();
+                System.out.println(task.toString());
+            }
+
+            return 1;
+        }
+        catch (IndexOutOfBoundsException e) {
+            // Need to account for trying to unmark a task that doesn't exist
+            System.out.println("\tTask number provided doesn't exist. Please try again.");
+        }
+        return 0;
+    }
+
+    /**
      * Private method to handle the scenario when a task is already marked.
      */
     private void taskAlreadyMarked(VBox dialogContainer, Image kervynImage) {
@@ -168,12 +254,26 @@ public class TaskList {
     }
 
     /**
+     * Private method used for JUnit tests to handle the scenario when a task is already marked.
+     */
+    private void taskAlreadyMarked() {
+        System.out.println("\tUh oh! It looks like this task is already marked as done, please try again with another task!");
+    }
+
+    /**
      * Private method to handle the scenario when a task is already unmarked.
      */
     private static void taskAlreadyUnMarked(VBox dialogContainer, Image kervynImage) {
         dialogContainer.getChildren().add(
                 DialogBox.getKervynDialog("\tUh oh! It looks like this task is already marked as not done, please try again with another task!", kervynImage)
         );
+    }
+
+    /**
+     * Private method used for JUnit tests to handle the scenario when a task is already unmarked.
+     */
+    private static void taskAlreadyUnMarked() {
+            System.out.println("\tUh oh! It looks like this task is already marked as not done, please try again with another task!");
     }
 
     /**

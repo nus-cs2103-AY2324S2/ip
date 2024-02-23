@@ -37,6 +37,10 @@ public class Storage {
         this.kervynImage = kervynImage;
     }
 
+    public Storage(String path) {
+        this.path = path;
+    }
+
     /**
      * Writes the content to the file specified by this.path. If the file or directory does not exist, they will be created.
      *
@@ -53,7 +57,7 @@ public class Storage {
             }
 
             File file = new File(this.path);
-            assert(this.path.equals("data/tasks.txt"));
+            assert(this.path.equals("data/tasks.txt") || this.path.equals("testData/tasks.txt"));
 
             if (!file.exists()) {
                 file.createNewFile();
@@ -88,7 +92,7 @@ public class Storage {
         }
 
         File file = new File(this.path);
-        assert(this.path.equals("data/tasks.txt"));
+        assert(this.path.equals("data/tasks.txt") || this.path.equals("testData/tasks.txt"));
 
         if (!file.exists()) {
             file.createNewFile();

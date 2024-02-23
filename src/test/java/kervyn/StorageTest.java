@@ -9,27 +9,23 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 public class StorageTest {
-//    private ArrayList<Task> testArr = new Storage("testData/tasks.txt").readTasks();
-
+    ArrayList<Task> testArr = new Storage("testData/tasks.txt").readTasks();
     public StorageTest() throws IOException {
     }
 
     @Test
     public void writeToFile_withoutFileExisting() {
-//        short result = new Storage("testData/tasks.txt").writeToFile("[T] [ ] software engineering");
-//        assertEquals(1, result);
+        short result = new Storage("testData/tasks.txt").writeToFile("[T] [ ] software engineering");
+        assertEquals(1, result);
     }
 
-//    @Test
-//    public void readTasks_withoutFileExisting_throwsException() throws IOException {
-//        try {
-//            ArrayList<Task> result = new Storage("testData/tasks.txt").readTasks();
-//            ToDo testToDo = new ToDo("software engineering", false);
-//            this.testArr.add(testToDo);
-//            assertEquals(testArr.size(), result.size());
-//            fail("Expected IOException not thrown");
-//        } catch (IOException e) {
-//            assertEquals("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!", e.getMessage());
-//        }
-//    }
+    @Test
+    public void readTasks_withoutFileExisting_throwsException() throws IOException {
+        try {
+            ArrayList<Task> result = new Storage("testData/tasks.txt").readTasks();
+            assertEquals(this.testArr.size(), result.size());
+        } catch (IOException e) {
+            assertEquals("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!", e.getMessage());
+        }
+    }
 }
