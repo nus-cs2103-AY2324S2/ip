@@ -40,14 +40,4 @@ public class Gui extends Application {
     public void stop() {
         simpli.stop();
     }
-
-    /**
-     * Returns the output from the processed commands.
-     *
-     * @param commandString Command string to be processed.
-     * @return String to be displayed.
-     */
-    public String getResponse(String commandString) {
-        return simpli.processInput(commandString);
-    }
 }

@@ -3,11 +3,11 @@ package simpli.exceptions;
 /**
  * Thrown when no such chatbot action exists.
  */
-public class ActionException extends SimpliException {
+public class CommandException extends SimpliException {
     /**
      * Initializes the exception without a message.
      */
-    public ActionException() {
+    public CommandException() {
         super();
     }
 
@@ -16,7 +16,7 @@ public class ActionException extends SimpliException {
      *
      * @param errorMsg Error message String to be thrown.
      */
-    public ActionException(String errorMsg) {
+    public CommandException(String errorMsg) {
         super(errorMsg);
     }
 }
