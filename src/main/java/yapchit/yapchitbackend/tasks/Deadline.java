@@ -30,11 +30,13 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String tag = super.getDone() ? "[X]" : "[ ]";
-        return "[D]"
+        String ret =  "[D]"
                 + tag
                 + " " + super.getName().strip()
                 + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + ")";
+
+        return super.wrapToString(ret);
     }
 
     /**

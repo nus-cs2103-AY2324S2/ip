@@ -42,4 +42,21 @@ public class Task {
     public boolean getDone(){
         return this.isDone;
     }
+
+    protected String wrapToString(String input) {
+        String result = "";
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            result = result + (input.charAt(i));
+            count++;
+
+            if (count == 38) {
+                result = result + "\n\t\t";
+                count = 0; // Reset the count after inserting
+            }
+        }
+
+        return result;
+    }
 }

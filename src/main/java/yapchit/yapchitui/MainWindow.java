@@ -63,11 +63,28 @@ public class MainWindow extends AnchorPane {
         String response = yapchit.getResponse(input);
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog(wrapToString(input), userImage),
                 DialogBox.getYapchitDialog(response, yaphitImage)
         );
 
         userInput.clear();
+    }
+
+    private String wrapToString(String input) {
+        String result = "";
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            result = result + (input.charAt(i));
+            count++;
+
+            if (count == 38) {
+                result = result + "\n";
+                count = 0; // Reset the count after inserting
+            }
+        }
+
+        return result;
     }
 
     private void checkAndCloseStage() {

@@ -111,11 +111,11 @@ public class Handler {
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
         if (fromStart == -1 || toStart == -1 || fromStart >= toStart) {
-            throw new InvalidDetailException("invalid /from and /to parameters. Please retry");
+            throw new InvalidDetailException("invalid /from and /to parameters.");
         }
 
         if (6 == fromStart || fromStart + 6 == toStart || toStart + 4 >= input.length()) {
-            throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
+            throw new InvalidDetailException("Event description/parameters error");
         }
 
         String desc = input.substring(6, fromStart).strip();
@@ -175,7 +175,7 @@ public class Handler {
         }
 
         if (9 == byStart || byStart + 4 >= input.length()) {
-            throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
+            throw new InvalidDetailException("Deadline description/parameter issue");
         }
         String desc = input.substring(9, byStart).strip();
         if (!desc.equals("*")) {
@@ -380,7 +380,8 @@ public class Handler {
      * @return boolean indicating if input is 'bye' or not.
      */
     public boolean checkIsBye(String input) {
-        return input.toLowerCase().equals("bye");
+        String testStr = input.strip();
+        return testStr.toLowerCase().equals("bye");
     }
 
     private String getTaskOutput(Task t, TaskList tasks, Ui ui, char isDone, boolean isNewTask) {

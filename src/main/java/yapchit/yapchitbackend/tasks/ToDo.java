@@ -23,6 +23,6 @@ public class ToDo extends Task{
     @Override
     public String toString(){
         String tag = super.getDone() ? "[X]" : "[ ]";
-        return "[T]" + tag + " " + super.getName();
+        return super.wrapToString("[T]" + tag + " " + super.getName());
     }
 }
