@@ -15,7 +15,7 @@ Click on the underlined features to jump to the respective section!
 1. [Adding Tasks](#exit):
    
 | [To-Do](#todo) | [Deadline](#deadline) | [Interval Deadline](#interval) | [Event](#event) |
-|------|----------|-------------------|-------|
+|----------------|-----------------------|--------------------------------|-----------------|
 
 2. [Viewing your task list](#view-list)
 3. [Marking / Unmarking tasks as "done"](#mark)
