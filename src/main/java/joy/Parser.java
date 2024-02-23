@@ -117,12 +117,12 @@ public class Parser {
 
 
         if (words.length < 4) {
-            throw new JoyException("Insufficient information for creating a deadline task.");
+            throw new JoyException.DeadlineException("Insufficient information for creating a deadline task.");
         }
 
         if (words[1].isEmpty() || words[3].isEmpty()) {
             try {
-                throw new JoyException("OOPS!!! The description and deadline time cannot be empty.");
+                throw new JoyException.DeadlineException("OOPS!!! The description and deadline time cannot be empty.");
             } catch (JoyException e) {
                 System.out.println(e.getMessage());
                 //return;
@@ -130,7 +130,7 @@ public class Parser {
         }
         if (!words[2].equals("/by")) {
             try {
-                throw new JoyException("OOPS!!! Please provide a deadline time using '/by'.");
+                throw new JoyException.DeadlineException("OOPS!!! Please provide a deadline time using '/by'.");
             } catch (JoyException e) {
                 System.out.println(e.getMessage());
                 //return;
@@ -172,7 +172,7 @@ public class Parser {
 
 
         if (words.length < 6) {
-            throw new JoyException("Insufficient information for creating a event task.");
+            throw new JoyException.EventException("Insufficient information for creating a event task.");
         }
 
         // Check if '/from' and '/to' are present
@@ -188,7 +188,7 @@ public class Parser {
         }
 
         if (!hasFrom || !hasTo) {
-            throw new JoyException("Event timing information is missing."
+            throw new JoyException.EventException("Event timing information is missing."
                     +
                     " Please provide event timing using '/from' and '/to'.");
         }

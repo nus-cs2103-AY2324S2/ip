@@ -23,8 +23,9 @@ public class Ui {
     /**
      * Displays the welcome message.
      */
-    public void showWelcomeMessage() {
+    public String showWelcomeMessage() {
         System.out.println("Hello! I'm Duke. What can I do for you?");
+        return "Hi";
     }
 
 

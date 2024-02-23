@@ -28,6 +28,7 @@ public class Joy extends Application {
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
+            ui.showWelcomeMessage();
         } catch (JoyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -66,6 +67,10 @@ public class Joy extends Application {
         } catch (JoyException e) {
             return ui.showError(e.getMessage());
         }
+    }
+
+    public String getGreeting() {
+        return ui.showWelcomeMessage();
     }
 
     /**

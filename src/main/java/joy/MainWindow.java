@@ -30,9 +30,13 @@ public class MainWindow extends AnchorPane {
     private Image joyImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/joy.png")));
 
+    /**
+     * Initializes the mainwindow
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     public void setDuke(Joy j) {
