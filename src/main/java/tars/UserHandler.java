@@ -11,11 +11,11 @@ import java.time.LocalDate;
 public class UserHandler {
 
     /**
-     * This method processes the user commands
+     * This method processes the various user commands
      * @param input User command
      * @param taskList The class that handles task actions
      * @param storage The class that handles file updating
-     * @return The messaage the user sees
+     * @return The message the user sees
      * @throws TarsException
      */
     public static String chat(String input, TaskList taskList, Storage storage) throws TarsException {

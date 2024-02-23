@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(tars);
             stage.show();
+            stage.setTitle("tars Chatbot");
             fxmlLoader.<MainWindow>getController().Welcome(Ui.greet());
         } catch (IOException e) {
             e.printStackTrace();

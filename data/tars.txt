@@ -1,3 +1,4 @@
-[T][ ] another
-[T][ ] ha
-[T][X] new
+[T][X] Groceries
+[T][X] Essay
+[T][ ] accident
+[D][ ] CS assignment (by: Feb 25 2024)

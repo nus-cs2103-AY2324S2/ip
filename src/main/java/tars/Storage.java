@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class handles the file saving and loading
+ */
+
 public class Storage {
 
     private static final String FILE_PATH = "data/tars.txt";
@@ -36,22 +40,6 @@ public class Storage {
         }
     }
 
-    public List<Task> retrieveData(File file) throws IOException {
-        List<Task> loadedList = new ArrayList<>();
-
-        try (Scanner fileScanner = new Scanner(file)) {
-            while(fileScanner.hasNextLine()) {
-                String taskData = fileScanner.nextLine();
-                loadedList.add(Task.parser(taskData));
-            }
-        }
-
-        if (loadedList.isEmpty()) {
-            loadedList = new ArrayList<>();
-        }
-
-        return loadedList;
-    }
 
     public void write(String filePath, List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
