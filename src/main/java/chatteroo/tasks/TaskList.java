@@ -87,7 +87,7 @@ public class TaskList {
     }
 
     /**
-     * Removes the tasks that are done in the list of tasks.
+     * Removes the tasks that are marked as done in the task list.
      */
     public void clearDoneTasks() {
         listStore.removeIf(task -> task.getIsDone());

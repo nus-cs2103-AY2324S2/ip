@@ -101,6 +101,7 @@ public class Ui {
 
     /**
      * Shows the response when an error occurs.
+     * @param e The error that occurred.
      * @return The response when an error occurs.
      */
     public String showErrorResponse(ChatterooException e) {

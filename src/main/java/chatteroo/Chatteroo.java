@@ -19,7 +19,7 @@ public class Chatteroo {
 
     /**
      * Constructor for the Chatteroo class.
-     * @throws IOException If an I/O error occurs.
+     * @throws Exception If an I/O error occurs.
      */
     public Chatteroo() throws Exception {
         ui = new Ui();
