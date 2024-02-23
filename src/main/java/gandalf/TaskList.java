@@ -45,6 +45,7 @@ public class TaskList {
             System.out.println("added new task: " + currentTask);
         }
         else{
+            assert(!taskType.equals("todo"));
             throw new GandalfException("I do not recognize this command");
         }
     }
@@ -53,8 +54,12 @@ public class TaskList {
      *
      * @param taskName
      */
-    public void delete(String taskName) {
+    public void delete(String taskName) throws GandalfException {
         int deleteNumber = Integer.parseInt(taskName);
+        if(deleteNumber > list.size()) {
+            throw new GandalfException("This task does not exist");
+        }
+        assert(deleteNumber <= list.size());
         System.out.println("removed task: " + this.list.get(deleteNumber - 1));
         this.list.remove(deleteNumber - 1);
         System.out.println("Total number of tasks so far: " + this.list.size());
@@ -63,12 +68,14 @@ public class TaskList {
     public void mark(int taskIndex) {
         Task correspondingTask = list.get(taskIndex - 1);
         correspondingTask.markStatus(true);
+        assert(correspondingTask.getStatus());
         System.out.println(correspondingTask);
     }
 
     public void unmark(int taskIndex) {
         Task correspondingTask = list.get(taskIndex - 1);
         correspondingTask.markStatus(false);
+        assert(!correspondingTask.getStatus());
         System.out.println(correspondingTask);
     }
 }
