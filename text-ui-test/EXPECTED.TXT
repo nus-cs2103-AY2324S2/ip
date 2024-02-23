@@ -11,13 +11,11 @@ Here are the available commands:
     - date can be done by YYYY/MM/dd or YYYY/MM/dd HHmm
     - today & tomorrow can be used for date
 _________________________
-todo Coding
  Sure. I have added this task:
    [T][ ] Coding
  Now you have 1 tasks in the list.
 _________________________
 _________________________
-bye
 
 Bye! See you again!
 _________________________
