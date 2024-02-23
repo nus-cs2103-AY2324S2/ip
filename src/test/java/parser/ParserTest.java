@@ -44,7 +44,7 @@ public class ParserTest {
             assertArrayEquals(expected, Parser.parseEvent("event return book 2024-05-05 2024-06-06"));
             fail();
         } catch (JuxException e) {
-            assertEquals("insert time for event such as event /monday /sunday", e.getMessage());
+            assertEquals("insert date after task such as event task/monday /sunday", e.getMessage());
         }
     }
 }
