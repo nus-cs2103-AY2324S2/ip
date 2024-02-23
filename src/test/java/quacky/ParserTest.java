@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
-    void parseListCommand_success() {
+    void parseCommand_listCommand_success() {
         try {
             TaskList tasks = new TaskList();
             tasks.addTask(new Todo("Survive"));
@@ -19,24 +19,52 @@ public class ParserTest {
             String actualOutput = Parser.parseCommand(command, tasks, ui);
             assertEquals(expectedOutput, actualOutput);
         } catch (QuackyException e) {
-            //This should never happen as the list case does not throw an exception
-            QuackyException wrongCommandException = new QuackyException(
-                    "Quack? (Please use the correct date format for events: YYYY-MM-DD)");
-            assert !(wrongCommandException.equals(e)): "list command may have been deleted";
             fail();
         }
     }
 
     @Test
-    void parseCommand_deadlineWithNoDate_throwsException() {
+    void parseCommand_deadlineWithNoDate_handlesError() {
         try {
             TaskList tasks = new TaskList();
             UI ui = new UI();
             String command = "deadline /by";
-
-        } catch (Exception e) {
-            assertEquals("Quack? (Please provide a date for the deadline)", e.getMessage());
+            String expectedOutput = "Quack? (Please provide a date for the deadline)";
+            String actualOutput = Parser.parseCommand(command, tasks, ui);
+            assertEquals(expectedOutput, actualOutput);
+        } catch (QuackyException e) {
+            fail();
         }
     }
 
+    @Test
+    void parseCommand_deleteTaskOutOfBounds_handlesError() {
+        try {
+            TaskList tasks = new TaskList();
+            UI ui = new UI();
+            String command = "delete 1";
+            Parser.parseCommand(command, tasks, ui);
+            String expectedOutput = "Quack. The task is not found";
+            String actualOutput = Parser.parseCommand(command, tasks, ui);
+            assertEquals(expectedOutput, actualOutput);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void parseCommand_unknownCommand_throwsException() {
+        try {
+            TaskList tasks = new TaskList();
+            UI ui = new UI();
+            String command = "sort";
+            Parser.parseCommand(command, tasks, ui);
+            String actualOutput = Parser.parseCommand(command, tasks, ui);
+            fail();
+        } catch (QuackyException e) {
+            String expectedErrorMessage = "Quack? (I dont know what that means. Try another command)";
+            String actualErrorMessage = e.getMessage();
+            assertEquals(expectedErrorMessage,actualErrorMessage);
+        }
+    }
 }
