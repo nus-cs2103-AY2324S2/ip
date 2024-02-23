@@ -93,12 +93,5 @@ public class Ui {
         System.out.println(error.toString());
     }
 
-    /**
-     * return a statement when run that the file user is looking for does not exist
-     * 
-     * @throws Exception
-     */
-    public void showLoadingError() throws Exception {
-        System.out.println("Loading Error: Your file does not exist");
-    }
+    
 }
