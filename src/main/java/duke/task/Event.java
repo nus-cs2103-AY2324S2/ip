@@ -40,4 +40,21 @@ public class Event extends Task {
     public String toString() {
         return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (!(other instanceof Event)) {
+            return -1;
+        }
+        Event o = (Event) other;
+        int startComp = this.start.compareTo(o.start);
+        if (startComp != 0) {
+            return startComp;
+        }
+        int endComp = this.end.compareTo(o.end);
+        if (endComp != 0) {
+            return endComp;
+        }
+        return super.compareTo(o);
+    }
 }

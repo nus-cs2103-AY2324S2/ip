@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Represents a generic task, providing a common structure and functionality for
  * tasks.
  */
-public abstract class Task implements Serializable {
+public abstract class Task implements Serializable, Comparable<Task> {
     private String description;
     private boolean isDone;
 
@@ -54,6 +54,10 @@ public abstract class Task implements Serializable {
         return found;
     }
 
+    public String getRepresentation() {
+        return this.toString();
+    }
+
     /**
      * Generates a string representation of the task, including its completion
      * status and description.
@@ -66,7 +70,8 @@ public abstract class Task implements Serializable {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 
-    public String getRepresentation() {
-        return this.toString();
+    @Override
+    public int compareTo(Task other) {
+        return this.description.compareTo(other.description);
     }
 }
