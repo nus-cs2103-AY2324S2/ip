@@ -64,7 +64,7 @@ Lists all the tasks.
 
 Format: `list`
 
-## Marking tasks: "mark"
+## Marking tasks: `mark`
 
 Marks a task as completed.
 
@@ -76,7 +76,7 @@ Example:
 
 - `mark 3` would mark task 
 
-## Unmarking tasks: "unmark"                                                               
+## Unmarking tasks: `unmark`                                                               
                                                                                        
 UnMarks a task as incomplete.                                                
                                                                                        
