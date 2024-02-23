@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getDukeDialog(ArrayList<String> texts, Image img) {
-        var db = new DialogBox(texts, img, "Duke");
+        var db = new DialogBox(texts, img, "Alfred");
         db.flip();
         return db;
     }

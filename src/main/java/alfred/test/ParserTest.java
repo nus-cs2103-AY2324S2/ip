@@ -1,9 +1,9 @@
-package duke.test;
+package alfred.test;
 
-import duke.task.TaskException;
-import duke.task.TaskList;
-import duke.util.Parser;
-import duke.util.Ui;
+import alfred.task.TaskException;
+import alfred.task.TaskList;
+import alfred.util.Parser;
+import alfred.util.Ui;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertEquals;
 

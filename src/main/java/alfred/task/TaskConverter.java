@@ -1,4 +1,4 @@
-package duke.task;
+package alfred.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,7 @@
-package duke.util;
+package alfred.util;
 
-import duke.task.Task;
-import duke.task.TaskConverter;
+import alfred.task.Task;
+import alfred.task.TaskConverter;
 
 import java.io.File;
 import java.io.FileWriter;

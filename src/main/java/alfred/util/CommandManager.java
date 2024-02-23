@@ -1,6 +1,6 @@
-package duke.util;
+package alfred.util;
 
-import duke.task.*;
+import alfred.task.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,31 +33,70 @@ public class CommandManager {
         return this.ui.bye();
     }
 
+    /**
+     * Displays the current list of tasks.
+     *
+     * @return A list of strings representing the tasks to be displayed.
+     */
     public ArrayList<String> showListCommand() {
         return this.ui.showList(tasks.showList());
     }
 
+    /**
+     * Marks a specified task as done.
+     *
+     * @param index The index of the task in the task list to be marked as done.
+     * @return A message list confirming the task has been marked as done.
+     */
     public ArrayList<String> markTaskCommand(int index) {
         Task curr = tasks.getTask(index);
         curr.makeDone();
         return ui.markTask(curr);
     }
 
+    /**
+     * Marks a specified task as not done.
+     *
+     * @param index The index of the task in the task list to be marked as not done.
+     * @return A message list confirming the task has been marked as not done.
+     */
     public ArrayList<String> unmarkTaskCommand(int index) {
         Task curr = tasks.getTask(index);
         curr.makeUndone();
         return ui.unmarkTask(curr);
     }
 
+    /**
+     * Deletes a specified task from the task list.
+     *
+     * @param index The index of the task in the task list to be deleted.
+     * @return A message list confirming the task has been deleted.
+     */
     public ArrayList<String> deleteTaskCommand(int index) {
         return ui.delete(index, tasks);
     }
 
+    /**
+     * Finds tasks that match the specified keyword(s).
+     *
+     * @param reqParts The command parts containing the keywords to search for.
+     * @return A list of tasks matching the search criteria or an error message if no keywords are provided.
+     */
     public ArrayList<String> findTaskCommand(String[] reqParts) {
+        if (reqParts.length < 2) {
+            return ui.showError("What do you want me to find? Please specify");
+        }
         String keyword = String.join(" ", Arrays.copyOfRange(reqParts, 1, reqParts.length));
         return ui.showFilteredList(keyword, tasks);
     }
 
+    /**
+     * Creates a new Todo task.
+     *
+     * @param reqParts The command parts containing the description of the Todo task.
+     * @return The newly created Todo task.
+     * @throws TaskException if the description is empty.
+     */
     public Todo createTodoCommand(String[] reqParts) throws TaskException{
         if (reqParts.length < 2) {
             throw new TaskException("What do you want to do? Description of todo cannot be empty.");
@@ -67,6 +106,13 @@ public class CommandManager {
         return current;
     }
 
+    /**
+     * Creates a new Deadline task.
+     *
+     * @param reqParts The command parts containing the description and the deadline.
+     * @return The newly created Deadline task.
+     * @throws TaskException if the deadline is not specified.
+     */
     public Deadline createDeadlineCommand(String[] reqParts) throws TaskException{
         if (!Arrays.asList(reqParts).contains("/by")) {
             throw new TaskException("Please specify when is the deadline.");
@@ -78,6 +124,13 @@ public class CommandManager {
         return current;
     }
 
+    /**
+     * Creates a new Event task.
+     *
+     * @param reqParts The command parts containing the description, start time, and end time of the event.
+     * @return The newly created Event task.
+     * @throws TaskException if the event timeframe is not properly specified.
+     */
     public Event createEventCommand(String[] reqParts) throws TaskException{
         if (!Arrays.asList(reqParts).contains("/from") && !Arrays.asList(reqParts).contains("/to")){
             throw new TaskException("Please specify when the event timeframe");
@@ -97,6 +150,12 @@ public class CommandManager {
         return current;
     }
 
+    /**
+     * Snoozes a task by a day.
+     *
+     * @param index The index of the task in the task list to be snoozed.
+     * @return A message list confirming the task has been snoozed or an error message if the task cannot be snoozed.
+     */
     public ArrayList<String> snoozeCommand(int index){
         Task curr = tasks.getTask(index);
         if (curr instanceof Todo) {
@@ -106,6 +165,14 @@ public class CommandManager {
         curr.snooze();
         return ui.snooze(curr);
     }
+
+    /**
+     * Postpones a task to a later date.
+     *
+     * @param index The index of the task in the task list to be postponed.
+     * @param days The number of days to postpone the task.
+     * @return A message list confirming the task has been postponed or an error message if the task cannot be postponed.
+     */
     public ArrayList<String> postponeCommand(int index, int days){
         Task curr = tasks.getTask(index);
         if (curr instanceof Todo) {
@@ -115,6 +182,13 @@ public class CommandManager {
         curr.postpone(days);
         return ui.postpone(curr, days);
     }
+
+    /**
+     * Reschedules an event or deadline to a new time.
+     *
+     * @param reqParts The command parts containing the new schedule information.
+     * @return A message list confirming the task has been rescheduled or an error message if the rescheduling is not possible.
+     */
     public ArrayList<String> rescheduleCommand(String[] reqParts){
         int position;
         try {

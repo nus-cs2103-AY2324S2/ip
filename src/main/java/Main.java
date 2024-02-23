@@ -1,5 +1,5 @@
 import GUI.MainWindow;
-import duke.Duke;
+import alfred.Alfred;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Alfred alfred = new Alfred();
 
     @Override
     public void start(Stage stage) {
@@ -18,7 +18,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setAlfred(alfred);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,33 +1,22 @@
-package duke;
+package alfred;
 
-import duke.task.TaskException;
-import duke.task.TaskList;
-import duke.util.FileManager;
-import duke.util.Parser;
-import duke.util.Ui;
+import alfred.task.TaskException;
+import alfred.task.TaskList;
+import alfred.util.FileManager;
+import alfred.util.Parser;
+import alfred.util.Ui;
 
 import java.util.ArrayList;
 
 
-public class Duke{
+public class Alfred {
     private String filePath = "./data/saveData.txt";
     private FileManager storage;  // This is the storage class just named duke.util.FileManager
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
-    public Duke(String filePath) {
-        this.filePath = filePath;
-        this.storage = new FileManager(filePath);
-        this.ui = new Ui();
-        try {
-            tasks = new TaskList(storage.loadFile());
-        } catch (Exception e) {
-            tasks = new TaskList();
-        }
-        this.parser = new Parser(this.tasks, this.ui);
-    }
-    public Duke() {
+    public Alfred() {
         this.filePath = "./data/saveData.txt";
         this.storage = new FileManager(filePath);
         this.ui = new Ui();

@@ -1,8 +1,8 @@
-package duke.util;
+package alfred.util;
 
-import duke.task.Task;
-import duke.task.TaskException;
-import duke.task.TaskList;
+import alfred.task.Task;
+import alfred.task.TaskException;
+import alfred.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,9 +78,6 @@ public class Parser {
             return commander.deleteTaskCommand(position);
         } else if (current.startsWith("find")) {
             String[] reqList = current.split(" ");
-            if (reqList.length < 2) {
-                return ui.showError("What do you want me to find? Please specify");
-            }
             return commander.findTaskCommand(reqList);
         } else if (current.startsWith("snooze")) {
             String[] marking = current.split(" ");
@@ -95,10 +92,13 @@ public class Parser {
             String[] marking = current.split(" ");
             String[] input = Arrays.copyOfRange(marking, 1, marking.length);
             return commander.rescheduleCommand(input);
-        } else {
+        }
+        try {
             Task curr = identify(current);
             tasks.addTask(curr);
             return ui.addTask(curr, tasks);
+        } catch (TaskException e) {
+            return ui.showError(e.getMessage());
         }
     }
 }

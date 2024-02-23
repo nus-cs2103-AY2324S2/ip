@@ -1,10 +1,8 @@
-package duke.test;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
+package alfred.test;
+import alfred.task.Deadline;
+import alfred.task.Todo;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

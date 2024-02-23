@@ -1,7 +1,7 @@
-package duke.util;
+package alfred.util;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import alfred.task.Task;
+import alfred.task.TaskList;
 
 import java.util.ArrayList;
 

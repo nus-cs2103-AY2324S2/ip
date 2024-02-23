@@ -1,6 +1,6 @@
-package duke.util;
+package alfred.util;
 
-import duke.task.TaskException;
+import alfred.task.TaskException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
