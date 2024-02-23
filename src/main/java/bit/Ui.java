@@ -107,14 +107,11 @@ public class Ui {
         String s = "Sure! Here are the matches:\n";
         int j = 1;
         for (int i = 0; i < tasklist.getSize(); i++) {
-            if (tasklist.getTask(i) == null) {
-                break;
-            }
+            assert !(tasklist.getTask(i) == null) : "The task should not be null!";
             Task task = tasklist.getTask(i);
-            if (task.containsKeyword(key)) {
-                s += (j) + "." + tasklist.getTask(i).toString() + "\n";
-                j++;
-            }
+            boolean hasKeyWord = task.containsKeyword(key);
+            s = addToStringIf(hasKeyWord, s, j, task);
+            j = increaseIndexIf(hasKeyWord, j);
         }
         return s;
     }
@@ -132,12 +129,32 @@ public class Ui {
         for (int i = 0; i < tasklist.getSize(); i++) {
             Task task = tasklist.getTask(i);
             if (task instanceof Deadline) {
-                if (((Deadline) task).isDueIn(daysLeft)) {
-                    dueMessage += index + task.toString() + "\n";
-                    index++;
-                }
+                Boolean isDue = (((Deadline) task).isDueIn(daysLeft));
+                dueMessage = addToStringIf(isDue, dueMessage, index, task);
+                index = increaseIndexIf(isDue, index);
             }
         }
         return dueMessage;
+    }
+
+    /**
+     * This is a helper function that adds to string represenation of list if isAdd is true
+     * @param isAdd Should the task be added to the list
+     * @param s The string being added to
+     * @param index index number of task should it be added
+     * @param task the task in question
+     * @return updated string if predicate is true, if not return s
+     */
+    private String addToStringIf(boolean isAdd, String s, int index, Task task) {
+        if (isAdd) {
+            s += index + ". " + task.toString() + "\n";
+        }
+        return s;
+    }
+    private int increaseIndexIf(boolean isIncreased, int index) {
+        if (isIncreased) {
+            index++;
+        }
+        return index;
     }
 }

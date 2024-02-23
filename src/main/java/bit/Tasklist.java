@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 public class Tasklist {
     private ArrayList<Task> taskList = new ArrayList<>();
-    private Ui UI;
+    private Ui ui;
     private Storage storage;
     /**
      * Initialize a tasklist
      */
     public Tasklist() {
-        this.UI = new Ui();
+        this.ui = new Ui();
         storage = new Storage();
     }
 
@@ -57,7 +57,7 @@ public class Tasklist {
                 Task t = taskList.get(i - 1);
                 storage.cleanList();
                 storage.saveAll(this);
-                return UI.sayAdded(i, "todo", t);
+                return ui.sayAdded(i, "todo", t);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Hmmm, that todo is empty!");
             }
@@ -79,7 +79,7 @@ public class Tasklist {
                 Event e = (Event) taskList.get(i - 1);
                 storage.cleanList();
                 storage.saveAll(this);
-                return UI.sayAdded(i, "event", taskList.get(i - 1));
+                return ui.sayAdded(i, "event", taskList.get(i - 1));
 
 
 
@@ -101,22 +101,22 @@ public class Tasklist {
                     }
                     Deadline d = new Deadline(compo[0], compo[1]);
                     if (!d.getValid()) {
-                        return UI.handleErrorMessage("NotaDate");
+                        return ui.handleErrorMessage("NotaDate");
                     }
                     taskList.add(d);
                     int i = taskList.size();
                     storage.cleanList();
                     storage.saveAll(this);
-                    return UI.sayAdded(i, "deadline", taskList.get(i - 1));
+                    return ui.sayAdded(i, "deadline", taskList.get(i - 1));
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
                 throw new DukeException("Did you miss something?");
             }
 
         } else {
-            return UI.handleErrorMessage("");
+            return ui.handleErrorMessage("");
         }
-        return UI.handleErrorMessage("");
+        return ui.handleErrorMessage("");
     }
 
     /**
@@ -130,9 +130,9 @@ public class Tasklist {
             taskList.remove(i);
             storage.cleanList();
             storage.saveAll(this);
-            return UI.sayDeleted(s);
+            return ui.sayDeleted(s);
         } catch (IndexOutOfBoundsException x) {
-            return UI.handleErrorMessage("absent");
+            return ui.handleErrorMessage("absent");
         }
     }
 
@@ -146,9 +146,9 @@ public class Tasklist {
             taskList.get(i).complete();
             storage.cleanList();
             storage.saveAll(this);
-            return UI.sayMarked(taskList.get(i));
+            return ui.sayMarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
-            return UI.handleErrorMessage("absent");
+            return ui.handleErrorMessage("absent");
         }
     }
 
@@ -162,9 +162,9 @@ public class Tasklist {
             taskList.get(i).incomplete();
             storage.cleanList();
             storage.saveAll(this);
-            return UI.sayUnmarked(taskList.get(i));
+            return ui.sayUnmarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
-            return UI.handleErrorMessage("absent");
+            return ui.handleErrorMessage("absent");
         }
     }
 

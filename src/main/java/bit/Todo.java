@@ -12,9 +12,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[T][X] " + DESCRIPTION;
+            return "[T][X] " + description;
         } else {
-            return "[T][ ] " + DESCRIPTION;
+            return "[T][ ] " + description;
         }
     }
 }

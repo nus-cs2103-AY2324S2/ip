@@ -1,12 +1,20 @@
 package bit;
 
+/**
+ * The parent class for todos, deadlines and events
+ */
 public class Task {
 
     protected boolean isDone;
-    protected final String DESCRIPTION;
+    protected final String description;
+
+    /**
+     * The constructor for Tasks
+     * @param description description of task
+     */
     public Task(String description) {
         isDone = false;
-        this.DESCRIPTION = description;
+        this.description = description;
 
     }
 
@@ -30,14 +38,14 @@ public class Task {
      */
     @Override
     public String toString() {
-        if(this.isDone) {
-            return "[X] " + DESCRIPTION;
+        if (this.isDone) {
+            return "[X] " + description;
         } else {
-            return "[ ] " + DESCRIPTION;
+            return "[ ] " + description;
         }
     }
     public boolean containsKeyword(String key) {
-        return DESCRIPTION.contains(key);
+        return description.contains(key);
     }
 
 }

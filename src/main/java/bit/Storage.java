@@ -101,11 +101,11 @@ public class Storage {
         for (int i = 0; i < tasklist.getSize(); i++) {
             Task t = tasklist.getTask(i);
             if (t instanceof Todo) {
-                saveToFile(t.isDone, t.DESCRIPTION);
+                saveToFile(t.isDone, t.description);
             } else if (t instanceof Deadline) {
-                saveToFile(t.isDone, t.DESCRIPTION, ((Deadline) t).getDeadline());
+                saveToFile(t.isDone, t.description, ((Deadline) t).getDeadline());
             } else if (t instanceof Event) {
-                saveToFile(t.isDone, t.DESCRIPTION, ((Event) t).getStart(), ((Event) t).getEnd());
+                saveToFile(t.isDone, t.description, ((Event) t).getStart(), ((Event) t).getEnd());
             }
 
         }

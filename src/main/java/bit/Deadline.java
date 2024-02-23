@@ -36,10 +36,10 @@ public class Deadline extends Task {
         assert isValid : "The deadline being printed is invalid!";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         if (this.isDone) {
-            return "[D][X] " + DESCRIPTION + " (by: " + deadline.format(formatter) + ")";
+            return "[D][X] " + description + " (by: " + deadline.format(formatter) + ")";
         }
 
-        return "[D][ ] " + DESCRIPTION + " (by: " + deadline.format(formatter) + ")";
+        return "[D][ ] " + description + " (by: " + deadline.format(formatter) + ")";
     }
 
     public String getDeadline() {
