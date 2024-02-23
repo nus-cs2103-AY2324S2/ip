@@ -2,6 +2,8 @@ package duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import duke.command.CommandParser;
 import duke.command.CommandType;
@@ -42,7 +44,7 @@ public class Main extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
-    private TextField userInput;
+    private TextField userInputField;
     private Button sendButton;
     private Scene scene;
 
@@ -51,17 +53,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        initGui(stage);
+        initEventHandlers();
+        initLoadStorage();
+    }
 
+    private void initGui(Stage stage) {
         // Component Setup
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
-        userInput = new TextField();
+        userInputField = new TextField();
         sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.getChildren().addAll(scrollPane, userInputField, sendButton);
 
         scene = new Scene(mainLayout);
 
@@ -71,12 +78,12 @@ public class Main extends Application {
         // Formatting
         stage.setTitle("Derek");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(800.0);
+        stage.setMinWidth(600.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(600.0, 800.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(585, 735);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -85,120 +92,121 @@ public class Main extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInputField.setPrefWidth(525.0);
 
-        sendButton.setPrefWidth(55.0);
+        sendButton.setPrefWidth(70.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInputField, 1.0);
+        AnchorPane.setBottomAnchor(userInputField, 1.0);
+    }
 
+    private void initEventHandlers() {
         // Functionality
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
 
-        userInput.setOnAction((event) -> {
+        userInputField.setOnAction((event) -> {
             handleUserInput();
         });
 
         // Scrolls to the bottom whenever height changes
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
     }
 
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label agentText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.createUserDialog(userText, new ImageView(user)),
-                DialogBox.createAgentDialog(agentText, new ImageView(derek))
-        );
-        userInput.clear();
-    }
-
-    private String getResponse(String text) {
-        return "Agent Heard" + text;
-    }
-
-    /**
-     * Processes and responds to user commands until exit is requested.
-     * 
-     * @param args Command line arguments (not used)
-     */
-    public static void main(String[] args) {
-
-        UserInterface.printWelcome();
-
+    private void initLoadStorage() {
         try {
             if (persistentStorageHandler.ensureTaskFileExists()) {
                 taskList = persistentStorageHandler.readTaskFileFromDisc();
                 int numTasks = taskList.getNumberTasks();
-                UserInterface.print("Read existing tasks (" + numTasks + ") from disc");
+                String response = "Read existing tasks (" + numTasks + ") from disc";
+                createAgentDialog(response);
             }
         } catch (DukeException e) {
-            UserInterface.showError(e.getMessage());
+            createAgentDialog(e.getMessage());
         }
+    }
 
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = UserInterface.getUserInput();
-                CommandType commandType = CommandParser.parseCommand(userInput);
+    private void handleUserInput() {
+        try {
+            String userInput = userInputField.getText();
+            createUserDialog(userInput);
 
-                switch (commandType) {
-                    case LIST:
-                        handleList();
-                        break;
+            String response = getResponse(userInput);
+            createAgentDialog(response);
 
-                    case MARK:
-                        handleMark(userInput);
-                        break;
+            persistentStorageHandler.writeTaskFileToDisc(taskList);
 
-                    case UNMARK:
-                        handleUnmark(userInput);
-                        break;
+        } catch (DukeException e) {
+            createAgentDialog(e.getMessage());
+        } finally {
+            userInputField.clear();
+        }
+    }
 
-                    case DELETE:
-                        handleDelete(userInput);
-                        break;
+    private String getResponse(String userInput) throws DukeException {
+        CommandType commandType = CommandParser.parseCommand(userInput);
+        String response = "Invalid Command";
+        try {
+            switch (commandType) {
+                case LIST:
+                    response = handleList();
+                    break;
 
-                    case FIND:
-                        handleFind(userInput);
-                        break;
+                case MARK:
+                    response = handleMark(userInput);
+                    break;
 
-                    case TODO:
-                        handleToDo(userInput);
-                        break;
+                case UNMARK:
+                    response = handleUnmark(userInput);
+                    break;
 
-                    case DEADLINE:
-                        handleDeadline(userInput);
-                        break;
+                case DELETE:
+                    response = handleDelete(userInput);
+                    break;
 
-                    case EVENT:
-                        handleEvent(userInput);
-                        break;
+                case FIND:
+                    response = handleFind(userInput);
+                    break;
 
-                    case BYE:
-                        isExit = true;
-                        break;
+                case TODO:
+                    response = handleToDo(userInput);
+                    break;
 
-                    default:
-                        throw new DukeException("Invalid Command" + commandType);
-                }
+                case DEADLINE:
+                    response = handleDeadline(userInput);
+                    break;
 
-                persistentStorageHandler.writeTaskFileToDisc(taskList);
-            } catch (DukeException e) {
-                UserInterface.showError(e.getMessage());
+                case EVENT:
+                    response = handleEvent(userInput);
+                    break;
+
+                case BYE:
+                    response = handleExit();
+                    break;
+
+                default:
+                    throw new DukeException("Invalid Command" + commandType);
             }
+        } catch (DukeException e) {
+            response = e.getMessage();
         }
+        return response;
+    }
 
-        UserInterface.printExit();
-        return;
+    private void createUserDialog(String text) {
+        dialogContainer.getChildren().add(
+                DialogBox.createUserDialog(new Label(text), new ImageView(user)));
+    }
+
+    private void createAgentDialog(String text) {
+        dialogContainer.getChildren().add(
+                DialogBox.createAgentDialog(new Label(text), new ImageView(derek)));
     }
 
     /**
@@ -206,8 +214,9 @@ public class Main extends Application {
      * 
      * @throws DukeException If an error during task listing.
      */
-    private static void handleList() throws DukeException {
-        taskList.printTasks();
+    private static String handleList() throws DukeException {
+        String response = taskList.getFormattedTasks();
+        return UserInterface.formatResponse(response);
     }
 
     /**
@@ -217,10 +226,10 @@ public class Main extends Application {
      *                  done.
      * @throws DukeException If the task index is invalid.
      */
-    private static void handleMark(String userInput) throws DukeException {
+    private static String handleMark(String userInput) throws DukeException {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.markTaskDone(idx);
-        UserInterface.print(response);
+        return UserInterface.formatResponse(response);
     }
 
     /**
@@ -230,10 +239,10 @@ public class Main extends Application {
      *                  not done.
      * @throws DukeException If the task index is invalid.
      */
-    private static void handleUnmark(String userInput) throws DukeException {
+    private static String handleUnmark(String userInput) throws DukeException {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.markTaskUndone(idx);
-        UserInterface.print(response);
+        return UserInterface.formatResponse(response);
     }
 
     /**
@@ -242,18 +251,18 @@ public class Main extends Application {
      * @param userInput The user input containing the index of the task to delete.
      * @throws DukeException If the task index is invalid.
      */
-    private static void handleDelete(String userInput) throws DukeException {
+    private static String handleDelete(String userInput) throws DukeException {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.deleteTask(idx);
         int totalTasks = taskList.getNumberTasks();
-        UserInterface.printTaskDeleted(response, totalTasks);
+        return UserInterface.formatTaskDeletedResponse(response, totalTasks);
     }
 
-    private static void handleFind(String userInput) throws DukeException {
+    private static String handleFind(String userInput) throws DukeException {
         String[] keywords = CommandParser.parseFind(userInput);
         ArrayList<Integer> taskIndices = taskList.findTasksByKeywordsMatching(keywords);
         ArrayList<String> response = taskList.getTaskRepresentationsByIndices(taskIndices);
-        UserInterface.printTasksByIndices(response);
+        return UserInterface.formatTasksByIndicesResponse(response);
     }
 
     /**
@@ -262,11 +271,11 @@ public class Main extends Application {
      * @param userInput The user input containing the description of the ToDo task.
      * @throws DukeException If the description is invalid or other errors occur.
      */
-    private static void handleToDo(String userInput) throws DukeException {
+    private static String handleToDo(String userInput) throws DukeException {
         String description = CommandParser.parseToDo(userInput);
         String response = taskList.addTask(new ToDo(description));
         int totalTasks = taskList.getNumberTasks();
-        UserInterface.printTaskAdded(response, totalTasks);
+        return UserInterface.formatTaskAddedResponse(response, totalTasks);
     }
 
     /**
@@ -276,13 +285,13 @@ public class Main extends Application {
      *                  task.
      * @throws DukeException If the description is invalid or other errors occur.
      */
-    private static void handleDeadline(String userInput) throws DukeException {
+    private static String handleDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = CommandParser.parseDeadline(userInput);
         String description = deadlineDetails[0];
         LocalDate due = DateUtils.parseDateString(deadlineDetails[1]);
         String response = taskList.addTask(new Deadline(description, due));
         int totalTasks = taskList.getNumberTasks();
-        UserInterface.printTaskAdded(response, totalTasks);
+        return UserInterface.formatTaskAddedResponse(response, totalTasks);
     }
 
     /**
@@ -291,13 +300,25 @@ public class Main extends Application {
      * @param userInput The user input containing the description of the Event task.
      * @throws DukeException If the description is invalid or other errors occur.
      */
-    private static void handleEvent(String userInput) throws DukeException {
+    private static String handleEvent(String userInput) throws DukeException {
         String[] eventDetails = CommandParser.parseEvent(userInput);
         String description = eventDetails[0];
         LocalDate start = DateUtils.parseDateString(eventDetails[1]);
         LocalDate end = DateUtils.parseDateString(eventDetails[2]);
         String response = taskList.addTask(new Event(description, start, end));
         int totalTasks = taskList.getNumberTasks();
-        UserInterface.printTaskAdded(response, totalTasks);
+        return UserInterface.formatTaskAddedResponse(response, totalTasks);
     }
+
+    private static String handleExit() throws DukeException {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.exit(0);
+            }
+        }, 1000);
+
+        return UserInterface.formatExit();
+    }
+
 }

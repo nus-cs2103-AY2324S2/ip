@@ -16,12 +16,12 @@ public class DialogBox extends HBox {
         text = l;
         displayPicture = iv;
 
-        text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+        this.setSpacing(10);
     }
 
     private void flip() {
