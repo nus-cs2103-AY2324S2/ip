@@ -59,7 +59,7 @@ public class Ui {
      */
     public String intro() {
         ArrayList<String> response = new ArrayList<>();
-        response.add("Hello! My name is\n" + LOGO);
+        response.add("Hello! My name is SIGNAL :3 \n");
         response.add("How can I help?");
         response.add(("Enter 'help' to see the list of commands available :D"));
         String reply = listToString(response);

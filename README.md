@@ -2,7 +2,7 @@
 
 This is a project based on the template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-<img src="./src/main/resources/images/signal.png" alt="A screenshot of the chatbot" />
+<img src="./docs/Ui.png" alt="A screenshot of the chatbot" />
 
 # Features
 * Create tasks, set deadlines and create events
