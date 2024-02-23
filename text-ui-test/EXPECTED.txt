@@ -1,0 +1,40 @@
+-------------------------
+hi bro, im jun jie
+what you want me to do?
+-------------------------
+-------------------------
+junjie.exceptions.DukeException: oi the task needs a name la 😡😡
+-------------------------
+-------------------------
+what are u saying
+-------------------------
+-------------------------
+added this task for you liao:
+[T][ ] borrow book
+-------------------------
+-------------------------
+added this task for you liao:
+[D][ ] return book (by: Sunday)
+-------------------------
+-------------------------
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+-------------------------
+-------------------------
+good job bro, marked this task as done:
+[T][X] borrow book
+-------------------------
+-------------------------
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+-------------------------
+-------------------------
+ok deleted this one:
+[T][X] borrow book
+-------------------------
+-------------------------
+1. [D][ ] return book (by: Sunday)
+-------------------------
+-------------------------
+ok see you bro
+-------------------------
