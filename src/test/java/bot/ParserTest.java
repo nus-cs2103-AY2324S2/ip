@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 /**
  * The Duke class represents a task manager bot.
  */
-public class Duke extends Application {
-    protected TaskList taskList;
+public class Bot extends Application {
+    protected TaskList taskList; 
     private Storage storage;
     private Ui ui;
 
@@ -21,7 +21,7 @@ public class Duke extends Application {
      *
      * @param filePath The path of the file where tasks are stored.
      */
-    public Duke(String filePath) {
+    public Bot(String filePath) {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filePath);
@@ -31,7 +31,7 @@ public class Duke extends Application {
         }
     }
 
-    public Duke() {
+    public Bot() {
         this.ui = new Ui();
         try {
             this.storage = new Storage("./data/duke.txt");
@@ -47,7 +47,7 @@ public class Duke extends Application {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        Duke bot = new Duke("./data/duke.txt");
+        Bot bot = new Bot("./data/duke.txt");
         bot.ui.showWelcome();
 
         String input = bot.ui.readCommand();
@@ -68,7 +68,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Bot.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

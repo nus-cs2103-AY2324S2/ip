@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 /**
  * The Task class represents a task with a description and a completion status.

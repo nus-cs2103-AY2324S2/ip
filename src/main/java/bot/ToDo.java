@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 /**
  * The ToDo class represents a to-do task.

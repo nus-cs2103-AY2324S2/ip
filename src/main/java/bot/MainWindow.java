@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Bot duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
         displayWelcomeMessage();
     }
 
-    public void setDuke(Duke d) {
+    public void setDuke(Bot d) {
         duke = d;
     }
 

@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 /**
  * The DukeException class represents an exception that is thrown when an error

@@ -1,4 +1,4 @@
-package duke;
+package bot;
 
 /**
  * The Parser class is responsible for parsing user input into commands,
