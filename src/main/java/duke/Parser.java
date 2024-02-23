@@ -37,7 +37,7 @@ public class Parser {
             return new ExitTaskCommand();
         case "list":
             return new ListTasksCommand();
-        case "done":
+        case "complete":
             return parseCompleteTaskCommand(commandArgs);
         case "delete":
             return parseDeleteTaskCommand(commandArgs);
@@ -91,10 +91,10 @@ public class Parser {
     }
 
     private static Command parseAddEventCommand(String details) throws JamieException {
-        String[] eventDetails = details.split(" /at ", 2);
+        String[] eventDetails = details.split(" /from ", 2);
         if (eventDetails.length < 2 || eventDetails[0].isBlank() || eventDetails[1].isBlank()) {
             throw new JamieException("OOPS!!! Invalid format for event. "
-                    + "Please use: event <description> /at <date/time>");
+                    + "Please use: event <description> /from <date/time> /to <data/time>");
         }
         String[] eventTiming = eventDetails[1].split(" /to ");
         return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));

@@ -5,7 +5,7 @@ package duke.task;
  * This class serves as a base for different types of tasks that can be created, tracked, and managed.
  */
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -74,13 +74,6 @@ public abstract class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-    }
-
-    /*
-     * Marks the task as not done.
-     */
-    public void markAsUndone() {
-        this.isDone = false;
     }
 
     /**

@@ -47,9 +47,8 @@ public class TaskList {
      * @param taskIndex The one-based index of the task to be removed.
      */
     public void deleteTask(int taskIndex) {
-        int zeroBasedIndex = taskIndex - 1;
-        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
-        tasks.remove(zeroBasedIndex);
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
+        tasks.remove(taskIndex);
     }
 
     /**
@@ -59,9 +58,8 @@ public class TaskList {
      * @param taskIndex The one-based index of the task to be marked as done.
      */
     public void completeTask(int taskIndex) {
-        int zeroBasedIndex = taskIndex - 1;
-        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
-        Task task = tasks.get(zeroBasedIndex);
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
+        Task task = tasks.get(taskIndex);
         task.markAsDone();
     }
 
@@ -90,9 +88,8 @@ public class TaskList {
      * @return The task at the specified index, or null if the index is invalid.
      */
     public Task getTask(int index) {
-        int zeroBasedIndex = index - 1;
-        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
-        return tasks.get(zeroBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds";
+        return tasks.get(index);
     }
 
     /**

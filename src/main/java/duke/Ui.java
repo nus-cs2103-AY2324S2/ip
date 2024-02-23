@@ -14,7 +14,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        return "Hello! I'm Duke\nWhat can I do for you?";
+        return "Hello! I'm Jamie\nWhat can I do for you?";
     }
 
     /**
@@ -24,13 +24,6 @@ public class Ui {
      */
     public String showError(String errorMessage) {
         return "Error: " + errorMessage;
-    }
-
-    /**
-     * Displays a message indicating an error loading tasks from file.
-     */
-    public String showLoadingError() {
-        return "Error loading tasks from file. Starting with an empty task list.";
     }
 
     /**
@@ -91,15 +84,6 @@ public class Ui {
      */
     public String showMarkAsDoneMessage(Task task) {
         return "Nice! I've marked this task as done:\n" + task;
-    }
-
-    /**
-     * Displays a message indicating a task has been marked as not done.
-     *
-     * @param task The task that has been marked as not done yet.
-     */
-    public String showMarkAsUndoneMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**

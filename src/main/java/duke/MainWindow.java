@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserPhoto.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/JamiePhoto.png"));
 
     /**
      * Initializes the controller class. This method is automatically called

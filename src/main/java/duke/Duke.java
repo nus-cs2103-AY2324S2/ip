@@ -6,7 +6,6 @@ import duke.command.Command;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -24,20 +23,13 @@ public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Parser parser;
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    public Duke() {
-        this("./data/jamie.txt");
-    }
-
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserPhoto.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/JamiePhoto.png"));
     public Duke(String filePath) {
         initializeComponents(filePath);
     }
@@ -48,7 +40,6 @@ public class Duke extends Application {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (JamieException e) {
-            ui.showLoadingError();
             tasks = new TaskList(); // Start with an empty task list if there's an error
         }
     }
@@ -108,13 +99,6 @@ public class Duke extends Application {
         userInput.setOnAction(event -> handleUserInput());
         dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
     }
-
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
-    }
-
     private void handleUserInput() {
         String userMessage = userInput.getText();
         String response = getResponse(userMessage);
@@ -126,6 +110,7 @@ public class Duke extends Application {
 
     public String getResponse(String input) {
         try {
+            Parser parser = new Parser();
             Command command = parser.parse(input);
             return command.execute(tasks, ui, storage);
         } catch (JamieException e) {
