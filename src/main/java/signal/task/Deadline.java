@@ -1,8 +1,13 @@
 package signal.task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
+import signal.SignalException;
 import signal.util.TimeManager;
 
 /**
@@ -20,14 +25,19 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param by The time that the task is due.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws SignalException {
         super(description);
-        String[] parseBy = by.split(" ");
-        if (parseBy.length > 1) {
-            this.byTime = LocalTime.parse(parseBy[1]);
+        try {
+            String[] parseBy = by.split(" ");
+            if (parseBy.length > 1) {
+                this.byTime = LocalTime.parse(parseBy[1]);
+            }
+            this.byDate = LocalDate.parse(parseBy[0]);
+        } catch (DateTimeParseException e) {
+            throw new SignalException("Oops, I can't read the date or time like that! Please use yyyy-mm-dd for date and hh:mm:ss for time.");
         }
-        this.byDate = LocalDate.parse(parseBy[0]);
     }
+
 
     @Override
     public LocalDate getDue() {
@@ -41,7 +51,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "D" + super.toString()
-                + " | by: " + timeManager.formatDate(byDate) + (byTime != null ? " " + timeManager.formatTime(byTime) : "");
+                + "| by: " + timeManager.formatDate(byDate) + (byTime != null ? " " + timeManager.formatTime(byTime) : "");
     }
 
     @Override
