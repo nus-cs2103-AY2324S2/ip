@@ -60,8 +60,12 @@ public class Tim {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generate a response to user input.
+     *
+     * @param input
+     * @return String response based on user input
+     * @throws IOException
+     * @throws DukeException
      */
     @FXML
     String getResponse(String input) throws IOException, DukeException {

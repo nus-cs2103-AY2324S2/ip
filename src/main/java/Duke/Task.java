@@ -21,7 +21,6 @@ public abstract class Task {
     }
 
     public boolean compareMsg(Task task) {
-//        System.out.println(this.msg + "\n" + task.msg);
         return this.msg.equals(task.msg);
     }
 

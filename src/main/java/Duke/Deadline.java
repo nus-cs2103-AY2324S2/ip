@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Deadline extends SpecialTask {
     String label = "[D]";
-//    private final LocalDate date;
 
     /**
      * Constructs Deadline Object with specified String and LocalDate
@@ -14,9 +13,14 @@ public class Deadline extends SpecialTask {
      */
     public Deadline(String msg, LocalDate date) {
         super(msg, date);
-//        this.date = date;
     }
 
+    /**
+     * Check if input task is a duplicate of this task
+     *
+     * @param task
+     * @return boolean value
+     */
     @Override
     public boolean isDuplicate(Task task) {
         if (task instanceof Deadline) {
@@ -26,9 +30,14 @@ public class Deadline extends SpecialTask {
         return false;
     }
 
+    /**
+     * Check if dates of the two task are same
+     *
+     * @param task
+     * @return boolean
+     */
     @Override
     public boolean compareDates(SpecialTask task) {
-        System.out.println(this.date.equals(task.date));
         return this.date.equals(task.date);
     }
 

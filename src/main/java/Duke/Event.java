@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 public class Event extends SpecialTask {
     String label = "[E]";
-//    LocalDate fromDate;
-//    LocalDate toDate;
 
     /**
      * Constructs Event object with specified String and the start and end LocalDate.
@@ -16,10 +14,14 @@ public class Event extends SpecialTask {
      */
     public Event(String msg, LocalDate fromDate, LocalDate toDate) {
         super(msg, fromDate, toDate);
-//        this.fromDate = fromDate;
-//        this.toDate = toDate;
     }
 
+    /**
+     * Check if input task is a duplicate of this task
+     *
+     * @param task
+     * @return boolean value
+     */
     @Override
     public boolean isDuplicate(Task task) {
         if (task instanceof Event) {
@@ -29,6 +31,12 @@ public class Event extends SpecialTask {
         return false;
     }
 
+    /**
+     * Check if dates of the two task are same
+     *
+     * @param task
+     * @return boolean
+     */
     @Override
     public boolean compareDates(SpecialTask task) {
         return this.fromDate.equals(task.fromDate) && this.toDate.equals(task.toDate);

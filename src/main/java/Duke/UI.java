@@ -31,15 +31,19 @@ public class UI {
     public static void showAvailCommands() {
         String commands = """
                 __________________________________
-                1. list
-                2. bye
-                3. deadline {task} /by {date}
-                4. todo {task}
-                5. event {task} /from {date} /to {date}
-                6. check dates
-                7. find
-                8. help
-                __________________________________
+                Here are the list of commands:
+                    1. list
+                    2. bye
+                    3. deadline {task} /by {date}
+                    4. todo {task}
+                    5. event {task} /from {date} /to {date}
+                    6. check dates {date} {date}
+                    7. find
+                    8. help
+                    9. mark {task_num}
+                   10. unmark {task_num}
+                   __________________________________
+
                 """;
         System.out.println(commands);
     }
