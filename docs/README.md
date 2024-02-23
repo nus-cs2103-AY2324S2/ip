@@ -1,7 +1,7 @@
 # Guide To ChinesePoliceMan
 
 ## Marvel in its Beauty
-![Screenshot of GUI Window, added in Markdown demo of Chatbot](./UI.png)
+![Screenshot of GUI Window, added in Markdown demo of Chatbot](./Ui.png)
 
 > [NOTE]
 >
