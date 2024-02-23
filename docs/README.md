@@ -152,4 +152,4 @@ Task list data are saved in the hard disk automatically after any command that c
 | Exit program | `bye` | `bye` |
 
 ## Credits
-This user guide was inspired by the user guide of [AB3](https://se-education.org/addressbook-level3/UserGuide.html#features).
+This user guide was inspired by the user guide of [AB3](https://se-education.org/addressbook-level3/).
