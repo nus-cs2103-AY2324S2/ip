@@ -14,6 +14,7 @@ public class Task {
      * false.
      *
      * @param name The name of the task.
+     * @throws XiaoBaiException If the task name is empty or null.
      */
     Task(String name) throws XiaoBaiException {
         this.isDone = false;
@@ -28,6 +29,7 @@ public class Task {
      *
      * @param name   The name of the task.
      * @param isDone The completion status of the task.
+     * @throws XiaoBaiException If the task name is empty or null.
      */
     Task(String name, boolean isDone) throws XiaoBaiException {
         this.isDone = isDone;
@@ -58,6 +60,15 @@ public class Task {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Retrieves the status of the task.
+     * 
+     * @return the status of the task.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**

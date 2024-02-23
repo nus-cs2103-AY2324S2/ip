@@ -19,6 +19,7 @@ public class TaskList {
 
     /**
      * Sorts the list of tasks based on their names in alphabetical order.
+     * This method uses a comparator to perform the sorting operation.
      */
     public void sort() {
         listOfTasks.sort(new TaskComparator<>());

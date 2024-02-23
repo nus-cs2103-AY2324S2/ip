@@ -72,21 +72,21 @@ public class XiaoBai {
                     storage.writeArrayListToFile(taskList);
                     return ui.showExitMessage();
                 case TODO:
-                    processTodoCommand(input);
+                    return processTodoCommand(input);
                 case LIST:
                     return ui.showPrintListMessage(taskList);
                 case DEADLINE:
-                    processDeadlineCommand(input);
+                    return processDeadlineCommand(input);
                 case EVENT:
-                    processEventCommand(input);
+                    return processEventCommand(input);
                 case MARK:
-                    processMarkCommand(input);
+                    return processMarkCommand(input);
                 case UNMARK:
-                    processUnmarkCommand(input);
+                    return processUnmarkCommand(input);
                 case DELETE:
-                    processDeleteCommand(input);
+                    return processDeleteCommand(input);
                 case FIND:
-                    processFindCommand(input);
+                    return processFindCommand(input);
                 case UNKNOWN:
                     throw new XiaoBaiException("Unknown input");
                 default:

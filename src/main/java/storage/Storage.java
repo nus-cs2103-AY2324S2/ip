@@ -62,26 +62,17 @@ public class Storage {
                     isDone = false;
                 }
                 String entireTask = task.substring(7);
-                String taskDetail;
                 switch (taskType) {
                     case 'T':
                         taskList.add(new Todo(entireTask, isDone));
                         break;
                     case 'D':
-                        int startIndex = entireTask.indexOf("(by:");
-                        int endIndex = entireTask.length() - 1;
-                        String byDetails = entireTask.substring(startIndex + 5, endIndex);
-                        taskDetail = entireTask.substring(0, startIndex - 1);
-                        taskList.add(new Deadline(taskDetail, byDetails, isDone));
+                        Deadline newDeadline = processLoadingDeadline(entireTask, isDone);
+                        taskList.add(newDeadline);
                         break;
                     case 'E':
-                        int toIndex = entireTask.indexOf("to:");
-                        int fromIndex = entireTask.indexOf("(from:");
-                        int toLastIndex = entireTask.length() - 1;
-                        taskDetail = entireTask.substring(0, fromIndex - 1);
-                        String toText = entireTask.substring(toIndex + 4, toLastIndex);
-                        String fromText = entireTask.substring(fromIndex + 7, toIndex - 1);
-                        taskList.add(new Event(taskDetail, fromText, toText, isDone));
+                        Event newEvent = processLoadingEvent(entireTask, isDone);
+                        taskList.add(newEvent);
                         break;
                 }
             }
@@ -89,5 +80,43 @@ public class Storage {
             throw new XiaoBaiException("Unable to load txt file");
         }
         return taskList;
+    }
+
+    /**
+     * Processes a string representing a deadline task loaded from storage.
+     * Extracts the task details and deadline information, then constructs a
+     * Deadline object.
+     *
+     * @param entireTask The entire string representing the deadline task.
+     * @param isDone     The completion status of the task.
+     * @return A Deadline object representing the loaded deadline task.
+     * @throws XiaoBaiException If there is an error parsing the task details.
+     */
+    public Deadline processLoadingDeadline(String entireTask, boolean isDone) throws XiaoBaiException {
+        int startIndex = entireTask.indexOf("(by:");
+        int endIndex = entireTask.length() - 1;
+        String byDetails = entireTask.substring(startIndex + 5, endIndex);
+        String taskDetail = entireTask.substring(0, startIndex - 1);
+        return new Deadline(taskDetail, byDetails, isDone);
+    }
+
+    /**
+     * Processes a string representing an event task loaded from storage.
+     * Extracts the task details and event timing information, then constructs an
+     * Event object.
+     *
+     * @param entireTask The entire string representing the event task.
+     * @param isDone     The completion status of the task.
+     * @return An Event object representing the loaded event task.
+     * @throws XiaoBaiException If there is an error parsing the task details.
+     */
+    public Event processLoadingEvent(String entireTask, boolean isDone) throws XiaoBaiException {
+        int toIndex = entireTask.indexOf("to:");
+        int fromIndex = entireTask.indexOf("(from:");
+        int toLastIndex = entireTask.length() - 1;
+        String taskDetail = entireTask.substring(0, fromIndex - 1);
+        String toText = entireTask.substring(toIndex + 4, toLastIndex);
+        String fromText = entireTask.substring(fromIndex + 7, toIndex - 1);
+        return new Event(taskDetail, fromText, toText, isDone);
     }
 }

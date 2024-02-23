@@ -24,6 +24,8 @@ public class Ui {
 
     /**
      * Displays a farewell message.
+     *
+     * @return A string representing the farewell message.
      */
     public String showExitMessage() {
         StringBuilder outputString = new StringBuilder();
@@ -58,11 +60,11 @@ public class Ui {
     }
 
     /**
-     * Displays a repeated message of the input by the user and number of task in
-     * list.
-     * 
-     * @param task        Task input
-     * @param listOfTasks List of all tasks
+     * Displays a message confirming the addition of a task.
+     *
+     * @param task     The task that was added.
+     * @param taskList The updated task list after addition.
+     * @return The addition confirmation message as a string.
      */
     public String showAddTaskMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
@@ -93,43 +95,58 @@ public class Ui {
     }
 
     /**
-     * Marks task as done.
-     * 
-     * @param task Task input
+     * Generates a message indicating that the specified task has been marked as
+     * done.
+     * If the task is already marked as done, the message reflects this status.
+     *
+     * @param task The task to be marked as done.
+     * @return A string message indicating the status of the task after marking.
      */
     public String showMarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Nice! I've marked this task as done:\n");
+        if (task.getIsDone()) {
+            outputString.append("This task has already been marked as done:\n");
+        } else {
+            outputString.append("WOOF! I've marked this task as done:\n");
+        }
         outputString.append(task.toString());
         return outputString.toString();
     }
 
     /**
-     * Marks task as not done.
-     * 
-     * @param task Task input
+     * Generates a message indicating that the specified task has been marked as not
+     * done.
+     * If the task is already marked as not done, the message reflects this status.
+     *
+     * @param task The task to be marked as not done.
+     * @return A string message indicating the status of the task after marking.
      */
     public String showUnmarkMessage(Task task) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("OK, I've marked this task as not done yet:\n");
+        if (task.getIsDone()) {
+            outputString.append("WOOF, I've marked this task as not done yet:\n");
+        } else {
+            outputString.append("This task has already been marked as not done:\n");
+        }
         outputString.append(task.toString());
         return outputString.toString();
     }
 
     /**
-     * Displays the list of Strings.
-     * 
-     * @param listOfStrings list of Strings.
+     * Displays the list of tasks in the task list.
+     *
+     * @param taskList The TaskList containing the list of tasks to be displayed.
+     * @return A formatted string displaying the list of tasks.
      */
     public String showPrintListMessage(TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        finalString.append("Here are the tasks in your list:\n");
         int counter = 1;
         for (Task c : taskList.getList()) {
             finalString.append(String.format("%d. %s\n", counter, c.toString()));
             counter++;
         }
+        outputString.append(String.format("Here are the %s tasks in your list:\n", counter - 1));
         outputString.append(finalString.toString());
         return outputString.toString();
     }
