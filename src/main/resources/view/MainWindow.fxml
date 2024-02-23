@@ -7,18 +7,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="432.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="baron.views.MainWindow">
+<AnchorPane prefHeight="400" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="baron.views.MainWindow">
    <children>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+      <VBox minHeight="600" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
          <children>
-            <ScrollPane fx:id="scrollPane" prefHeight="406.0" prefWidth="600.0">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        AnchorPane.leftAnchor="0"
+                        AnchorPane.rightAnchor="0">
                <content>
-                  <VBox fx:id="dialogContainer" prefHeight="403.0" prefWidth="602.0" />
+                  <VBox fx:id="dialogContainer" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
                </content>
             </ScrollPane>
-            <HBox>
+            <HBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" >
                <children>
-                  <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="26.0" prefWidth="551.0" />
+                  <TextField fx:id="userInput" onAction="#handleUserInput" HBox.hgrow="ALWAYS" />
                   <Button fx:id="sendButton" onAction="#handleUserInput" mnemonicParsing="false" text="Send" />
                </children>
             </HBox>

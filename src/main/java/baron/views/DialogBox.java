@@ -30,6 +30,7 @@ public class DialogBox extends HBox {
             loader.setController(this);
             loader.setRoot(this);
             this.setSpacing(8);
+            this.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
             loader.load();
         } catch (IOException ex) {
             ex.printStackTrace();
