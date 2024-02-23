@@ -38,7 +38,7 @@ public class SomeBoty {
      * Prints out a greeting message from the bot to user.
      */
     public static String Greeting() {
-        String message = "おかえりなさい、主殿！ イズナはここにお待ちしておりましたよ！\n"
+        String message = "おかえりなさい、主殿！ イズナはここにお待ちしておりましたよ！"
                        + "何かお困りことはありませんか！";
 
         return message;

@@ -34,7 +34,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialogLabel.setText(text);
+        dialogLabel.setText(text + "\n");
         dialogLabel.setBackground(new Background(new BackgroundFill(color, null, null)));
         circle.setFill(new ImagePattern(img));
     }
