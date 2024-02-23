@@ -50,13 +50,17 @@ public class Parser {
         st.nextToken();
         StringBuilder sbDl = new StringBuilder();
         StringBuilder sbBy = new StringBuilder();
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
+        String[] tokens = s.split(" ");
+        boolean isBy = false;
+
+        for (int i = 1; i < tokens.length; i++) {
+            String token = tokens[i].trim();
             if (token.equals("/by")) {
-                while (st.hasMoreTokens()) {
-                    sbBy.append(" ").append(st.nextToken());
-                }
-                break;
+                isBy = true;
+                continue;
+            }
+            if (isBy) {
+                sbBy.append(" ").append(token);
             } else {
                 sbDl.append(" ").append(token);
             }
@@ -74,27 +78,39 @@ public class Parser {
      */
     public static String[] parseEvent(String s) {
         StringTokenizer st = new StringTokenizer(s);
-        st.nextToken();
         StringBuilder sb = new StringBuilder();
         StringBuilder sbFrom = new StringBuilder();
         StringBuilder sbTo = new StringBuilder();
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
+        String[] tokens = s.split(" ");
+        String currFrag = "name";
+        for (int i = 1; i < tokens.length; i++) {
+
+            String token = tokens[i].trim();
+
             if (token.equals("/from")) {
-                while (st.hasMoreTokens()) {
-                    String curr = st.nextToken().trim();
-                    if (curr.equals("/to")) {
-                        while (st.hasMoreTokens()) {
-                            sbTo.append(" ").append(st.nextToken());
-                        }
-                    } else {
-                        sbFrom.append(" ").append(curr);
-                    }
-                }
-            } else {
+                currFrag = "from";
+                continue;
+            }
+
+            if (token.equals("/to")) {
+                currFrag = "to";
+                continue;
+            }
+
+            switch (currFrag) {
+            case "name":
                 sb.append(" ").append(token);
+                break;
+            case "from":
+                sbFrom.append(" ").append(token);
+                break;
+            case "to":
+                sbTo.append(" ").append(token);
+                break;
+            default:
             }
         }
+
         String name = sb.toString().trim();
         String from = sbFrom.toString().trim();
         String to = sbTo.toString().trim();
