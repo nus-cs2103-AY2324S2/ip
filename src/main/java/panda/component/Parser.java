@@ -21,6 +21,9 @@ public class Parser {
             if(commandWord.equals(("list"))) {
                 return new PrintListCommand();
             }
+            if(commandWord.equals("help")) {
+                return new CommandListCommand();
+            }
             if(commandWord.equals("mark")) {
                 int target;
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);

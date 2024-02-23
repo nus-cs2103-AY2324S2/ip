@@ -18,7 +18,8 @@ public class ExitCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!\n"
+            + "Panda will exit in 3 seconds.";
     }
 
 

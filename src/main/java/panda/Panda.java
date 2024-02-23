@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -17,6 +18,7 @@ public class Panda extends Application {
     private TaskList tlist;
     private static final String FILEPATH = "list.txt";
     private Storage cacheFile;
+    public boolean isExit = false;
 
     /**
      * Constructs a new Panda instance.
@@ -40,10 +42,15 @@ public class Panda extends Application {
     public String getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
+            isExit = c.isExit();
             return c.execute(tlist, cacheFile);
         } catch (PandaException e) {
             return e.getMessage();
         }
+    }
+
+    public String welcomeMessage() {
+        return "Hi! I'm Panda. Type \"help\" for a list of commands.";
     }
 
     @Override
@@ -54,6 +61,8 @@ public class Panda extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setPanda(this);
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/Logo.png")));
+            stage.setTitle("Panda");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

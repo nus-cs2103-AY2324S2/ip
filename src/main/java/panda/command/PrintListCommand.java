@@ -5,7 +5,6 @@ import panda.component.*;
 import panda.exception.PandaException;
 
 public class PrintListCommand extends Command {
-
     public void execute(TaskList tlist) {
         return;
     }
