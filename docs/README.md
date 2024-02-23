@@ -1,6 +1,6 @@
 # ELIAS User Guide
 
-![Screenshot of UI](./UI.png)
+![Screenshot of UI](./Ui.png)
 
 # Elias is here to serve  you! 🤵‍♂️
 
