@@ -23,7 +23,7 @@ Add tasks, remove tasks, mark them as done or undone, all with just your keyboar
 > - Words in `[]` are the parameters supplied by the user (omit these square brackets when you fill your own information)
     e.g. in `todo [DESCRIPTION]`, `[DESCRIPTION]` is a parameter which can be used as `todo read book`.
 > - Commands with multiple parameters must be specified in the correct order.
-  e.g. `event <task description> /from [DATE] /to [DATE]` must be specified in that exact order.
+  e.g. `event [DESCRIPTION] /from [DATE] /to [DATE]` must be specified in that exact order.
 > - Dates must be in YYYY-MM-DD format
   e.g. 24th February 2024 is 2024-02-24
 > - The symbol `|` cannot be used in any of the command descriptions.
