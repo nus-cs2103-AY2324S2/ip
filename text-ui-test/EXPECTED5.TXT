@@ -1,0 +1,12 @@
+Hello! I'm Bob
+What can I do for you?
+
+added: wash dishes
+No task at that index! you fool
+Invalid Index, is that a typo??
+Noted. The following task is removed, you careless human being!
+[T] [ ] wash dishes
+
+Now you only have 0 tasks left. Wow!! i didn't expect you to actually do work.... great job i guess..
+Bye. Hope to see you again soon!
+

@@ -1,0 +1,14 @@
+Hello! I'm Bob
+What can I do for you?
+
+added: wash dishes
+1. [T] [ ] wash dishes
+Wow! you finally did it huh ..:
+ [X] wash dishes
+Hurry up and do it!:
+ [ ] wash dishes
+Invalid Index, is that a typo??
+Invalid Index, is that a typo??
+No task at that index! you fool
+Bye. Hope to see you again soon!
+

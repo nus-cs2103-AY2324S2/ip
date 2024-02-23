@@ -1,0 +1,6 @@
+event birthday             /from today             /to today
+false
+deadline this       /by 2024-01-01
+false
+event birthday2      /from today      /to tomorrow
+false

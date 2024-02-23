@@ -1,0 +1,7 @@
+Hello! I'm Bob
+What can I do for you?
+
+Please write a description for your task!
+added: wash dishes
+Bye. Hope to see you again soon!
+

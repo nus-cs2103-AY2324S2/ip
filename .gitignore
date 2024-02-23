@@ -15,3 +15,15 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/src/main/duke.txt
+/duke.txt
+text-ui-test/ACTUAL1.TXT
+text-ui-test/ACTUAL2.TXT
+text-ui-test/ACTUAL3.TXT
+text-ui-test/ACTUAL4.TXT
+text-ui-test/ACTUAL5.TXT
+text-ui-test/EXPECTED-UNIX1.TXT
+text-ui-test/EXPECTED-UNIX2.TXT
+text-ui-test/EXPECTED-UNIX3.TXT
+text-ui-test/EXPECTED-UNIX4.TXT
+text-ui-test/EXPECTED-UNIX5.TXT
