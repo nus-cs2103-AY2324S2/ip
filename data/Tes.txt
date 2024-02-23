@@ -1,13 +1,4 @@
 D |   | submit quiz | by: Feb 28 2023 08:00 PM
 E | X | gathering | from: Feb 28 2024 07:00 PM to: Feb 28 2024 11:00 PM
 T | X | laundry
-D |   | asdasda | by: Oct 10 2000 12:01 AM
-D |   | asda | by: Oct 10 2000 11:59 PM
-D |   | asda | by: Oct 11 2000 12:00 AM
-D |   | asda | by: Oct 10 2000 12:00 AM
-E |   | asdasdad | from: Oct 10 2000 12:00 AM to: Oct 10 2000 11:58 PM
-E |   | asdasdad | from: Oct 10 2000 12:00 AM to: Oct 10 2000 11:59 PM
-E |   | asdasdad | from: Oct 10 2025 12:00 AM to: Oct 10 2000 11:58 PM
-E |   | asdasdad | from: Oct 10 2100 11:59 PM to: Oct 10 2000 11:59 PM
-D |   | asdasd | by: Oct 10 2000 08:00 PM
-E | X | dasdadsa | from: Oct 10 2000 08:00 PM to: Oct 10 2000 04:00 AM
+T |   | revision on algebra
