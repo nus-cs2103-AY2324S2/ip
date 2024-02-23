@@ -2,6 +2,7 @@ package asher.commands;
 
 import asher.ui.Ui;
 import asher.tasks.TaskList;
+import asher.BotException;
 import asher.tasks.Task;
 
 /**
@@ -30,21 +31,26 @@ public class DeleteCommand extends Command {
     public String execute(Ui ui, TaskList taskList, Storage storage) {
         try {
             String[] words = input.split(" ");
-            assert words.length >= 2 : "Invalid format of input!";
+            assert words.length >= 2 : "Please specify a task number you want to delete!";
 
+            if (words.length < 2) {
+                throw new BotException("Please specify a task number you want to delete!");
+            }
             int taskId = Integer.parseInt(words[1]);
-            assert taskId >= 0 : "Invalid task ID!";
-
             int taskIndex = taskList.getTaskIndexById(taskId);
-            assert taskIndex != -1 : "Task not found";
-
-            Task removedTask = taskList.deleteTask(taskIndex);
-            assert removedTask != null : "Task not found";
-
-            taskList.updateTaskIds();
-            String removeTaskMessage = ui.showRemoveTaskMessage(removedTask);
-            String numberOfTaskMessage = ui.showNumberOfTaskInListMessage(taskList.getTasks().size());
-            return removeTaskMessage + "\n" + numberOfTaskMessage;
+            if (taskIndex != -1) {
+                Task removedTask = taskList.deleteTask(taskIndex);
+                if (removedTask != null) {
+                    taskList.updateTaskIds();
+                    String removeTaskMessage = ui.showRemoveTaskMessage(removedTask);
+                    String numberOfTaskMessage = ui.showNumberOfTaskInListMessage(taskList.getTasks().size());
+                    return removeTaskMessage + "\n" + numberOfTaskMessage;
+                } else {
+                    throw new BotException("Task Number not found!");
+                }
+            } else {
+                throw new BotException("Task Number not found!");
+            }
         } catch (Exception e) {
             return ui.showErrorMessage("Error: " + e.getMessage());
         }

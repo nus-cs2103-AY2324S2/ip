@@ -29,9 +29,16 @@ public class DeadlineCommand extends Command {
      * @throws BotException BotException is thrown if due date and description is invalid, or if the input format is wrong.
      */
     public Deadline createDeadlineCommand() throws BotException {
+        if (input.length() < 10) {
+            throw new BotException("Deadline description not found!");
+        }
         int split = input.indexOf("/by");
-        assert split != -1 : "Due date not found!";
-        assert split + 4 < input.length() : "No such deadline!";
+        if (split == -1) {
+            throw new BotException("Due date not found!");
+        }
+        if (split + 4 >= input.length()) {
+            throw new BotException("No such deadline!");
+        }
 
         String[] parts = input.substring(9).split("/by", 2);
         String description = parts[0].trim();

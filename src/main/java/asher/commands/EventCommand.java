@@ -29,12 +29,25 @@ public class EventCommand extends Command {
      * @throws BotException BotException is thrown if there is invalid input found.
      */
     public Event createEventCommand() throws BotException {
+        if (input.length() < 7) {
+            throw new BotException("Event description cannot be empty!");
+        }
+
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
-        assert split1 != -1 && split2 != -1 : "Start and End time not found!";
-        assert split2 + 4 < input.length() : "End time not found!";
+        if (split1 == -1 || split2 == -1) {
+            throw new BotException("Start time cannot be empty!");
+        }
+
+        if (split2 + 4 >= input.length()) {
+            throw new BotException("End time cannot be empty!");
+        }
 
         String description = input.substring(6, split1).trim();
+
+        if (description.isEmpty()) {
+            throw new BotException("Description not found!");
+        }
 
         String start = input.substring(split1 + 6, split2).trim();
         String[] startParts = start.split(" ", 2);
@@ -50,16 +63,17 @@ public class EventCommand extends Command {
         String endTimeInString = endParts[1].trim();
         LocalTime endTime = LocalTime.parse(endTimeInString);
 
-        if ((endDate.isBefore(startDate)) || ((endDate.isEqual(startDate)) && (endTime.isBefore(startTime)))) {
-            throw new BotException("Start Date/Time is after End Date/Time!");
+        if (start.isEmpty() || end.isEmpty()) {
+            throw new BotException("Description, StartTiming or EndTiming not found!");
         }
 
-        if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
-            throw new BotException("Description, StartTiming or EndTiming not found!");
+        if ((endDate.isBefore(startDate)) || ((endDate.isEqual(startDate)) && (endTime.isBefore(startTime)))) {
+            throw new BotException("Start Date/Time should be before End Date/Time!");
         }
 
         return new Event(description, startDate, startTime, endDate, endTime);
     }
+
 
     /**
      * Executes the Event Command.

@@ -1,5 +1,6 @@
 package asher.commands;
 
+import asher.BotException;
 import asher.tasks.TaskList;
 import asher.tasks.Task;
 import asher.ui.Ui;
@@ -30,8 +31,15 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskList taskList, Storage storage) {
-        String keyword = input.substring(5).trim();
-        ArrayList<Task> matchingTasks = taskList.searchKeyword(keyword);
-        return ui.showMatchingTasks(matchingTasks);
+        try {
+            if (input.length() <= 5) {
+                throw new BotException("Keyword not specified!");
+            }
+            String keyword = input.substring(5).trim();
+            ArrayList<Task> matchingTasks = taskList.searchKeyword(keyword);
+            return ui.showMatchingTasks(matchingTasks);
+        } catch (Exception e) {
+            return ui.showErrorMessage("Error: " + e.getMessage());
+        }
     }
 }

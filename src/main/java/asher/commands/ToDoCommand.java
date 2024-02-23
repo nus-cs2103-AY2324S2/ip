@@ -27,14 +27,11 @@ public class ToDoCommand extends Command {
      */
     public Todo createToDoCommand() throws BotException {
         String[] parts = input.split(" ", 2);
-        assert parts.length >= 2 : "Input should contain at least two parts!";
-
-        String description = parts[1].trim();
-        assert description != null : "Description should not be null!";
-
-        if (description.isEmpty()) {
+        if (parts.length < 2) {
             throw new BotException("Todo description cannot be empty!");
         }
+        String description = parts[1].trim();
+
         return new Todo(description);
     }
 
@@ -57,7 +54,7 @@ public class ToDoCommand extends Command {
 
             return addTaskMessage + "\n" + numberOfTaskMessage;
         } catch (BotException e) {
-            return ui.showErrorMessage("Error:" + e.getMessage());
+            return ui.showErrorMessage("Error: " + e.getMessage());
         }
     }
 }
