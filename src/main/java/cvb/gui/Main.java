@@ -15,6 +15,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private static final int FONT_SIZE = 16;
+
     @Override
     public void start(Stage stage) {
         stage.setTitle("ConvoBot");
@@ -24,8 +26,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            Font.loadFont(getClass().getResourceAsStream("/styles/SourceSans3-Regular.otf"), 16);
-            Font.loadFont(getClass().getResourceAsStream("/styles/PeaxHandwritingbold.ttf"), 16);
+            Font.loadFont(getClass().getResourceAsStream("/styles/SourceSans3-Regular.otf"), FONT_SIZE);
+            Font.loadFont(getClass().getResourceAsStream("/styles/PeaxHandwritingbold.ttf"), FONT_SIZE);
             scene.getStylesheets().add(getClass().getResource("/styles/dark-theme.css").toExternalForm());
             stage.setScene(scene);
             stage.show();
