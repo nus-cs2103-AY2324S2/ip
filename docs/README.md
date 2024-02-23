@@ -34,7 +34,7 @@ Example: `todo finish cs2103T iP`
 
 ## Examples
 
-1. List unarchived tasks
+List unarchived tasks
 ---
 List out all the task stored currently that are unarchived. 
 
@@ -47,7 +47,7 @@ Here are the tasks in your list.
 2.[E][]project meeting (from: Mon 2pm to: 4pm)
 ```
 
-2. List all archived and unarchived tasks.
+List all archived and unarchived tasks.
 ---
 List out all the task stored, including those archived.
 
@@ -62,7 +62,7 @@ Here are the tasks that are archived.
 1.[T][] Finish CS3230 Assignment
 ```
 
-3. Mark Task
+Mark Task
 ---
 Marks a task as done.
 
@@ -72,7 +72,7 @@ Marks a task as done.
 
 **Use the specific number as shown in the list**
 
-4. Unmark Task
+Unmark Task
 ---
 Unmarks a task as done.
 
@@ -82,7 +82,7 @@ Unmarks a task as done.
 
 **Use the specific number as shown in the list**
 
-5. Add Todo
+Add Todo
 ---
 
 **Example**: `todo eat dinner`
@@ -91,7 +91,7 @@ Unmarks a task as done.
 
 - **Use the specific formats for date and time as shown above.**
 
-6. Add Deadline
+Add Deadline
 ---
 
 **Example**: `deadline submit iP /by 2023-02-23`
@@ -100,7 +100,7 @@ Unmarks a task as done.
 
 - **Use the specific formats for date and time as shown above.**
 
-7. Add Event
+Add Event
 ---
 
 **Example**: `event hack and roll /from Mon 12pm /to Tues 12pm`
@@ -108,7 +108,7 @@ Unmarks a task as done.
 **Format**: `event [TASK NAME] /from [START DATE] to [END DATE]`
 - **Use the specific formats for date and time as shown above.**
 
-8. Delete task
+Delete task
 ---
 Delete a task so that it will be removed from task list
 
@@ -117,7 +117,7 @@ Delete a task so that it will be removed from task list
 **Format**: `delete [TASK NUMBER]`
 - **Use the specific number as shown in the list**
 
-9. Archive task
+Archive task
 ---
 To unmark a task that has been previously marked.
 
@@ -127,7 +127,8 @@ To unmark a task that has been previously marked.
 **Format**: `unmark [TASK NUMBER]`
 - To view archived tasks, you can use `list all` as mentioned in (2)
 - **Use the specific number as shown in the list**
-10. Find task
+
+Find task
 ---
 Delete a task from a task list.
 
@@ -136,7 +137,7 @@ Delete a task from a task list.
 
 **Format**: `delete [TASK NUMBER]`
 
-11. Exit the Program
+Exit the Program
 ---
 **Format**: `bye`
 
