@@ -75,14 +75,6 @@ After entering this command, Riri will search your task list for tasks containin
 
 Feel free to experiment with different keywords to quickly locate the tasks you are looking for.
 
-## Exit program
-
-We can exit the chatbot and save messages by writing `bye`
-
-Example: `bye`
-
-The chatbot will exit.
-
 ## Deleting a task
 
 In Riri, you have the ability to delete tasks from your task list.
@@ -90,3 +82,17 @@ In Riri, you have the ability to delete tasks from your task list.
 Example: `delete 3`
 
 This would result in the 3rd task in your task list to be deleted
+
+
+## Saving tasks
+
+Your task list is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+
+## Exit program
+
+We can exit the chatbot and save messages by writing `bye`
+
+Example: `bye`
+
+The chatbot will exit.
