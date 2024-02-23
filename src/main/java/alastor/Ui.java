@@ -117,7 +117,7 @@ public class Ui {
         return "Here are the commands you can use:\n"
                 + "1. todo <description> - Adds a todo task to the list.\n"
                 + "2. deadline <description> /by <date> - Adds a deadline task to the list.\n"
-                + "3. event <description> /at <date> - Adds an event task to the list.\n"
+                + "3. event <description> /from <date> /to <date>  - Adds an event task to the list.\n"
                 + "4. list - Lists all the tasks in the list.\n"
                 + "5. mark <index> - Marks the task at the specified index as done.\n"
                 + "6. unmark <index> - Marks the task at the specified index as undone.\n"
