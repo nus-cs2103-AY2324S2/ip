@@ -5,14 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Parent class that deadline, todo and event inherit from.
+ * Parent class that represents tasks with deadlines, todos, and events.
  */
 public class Task {
     private String task;
     private boolean isDone;
     /**
      * Constructor for the Task object.
-     * @param task task inputted by user
+     *
+     * @param task The task inputted by the user.
      */
     public Task(String task) {
         this.task = task;
@@ -23,7 +24,6 @@ public class Task {
      */
     public void markDone() {
         this.isDone = true;
-        return;
     }
     /**
      * Marks the task as undone if incomplete
@@ -32,22 +32,26 @@ public class Task {
         this.isDone = false;
     }
     /**
-     * Function to help check if a task is done
-     * @return true if task is done, false otherwise
+     * Checks if the task is done.
+     *
+     * @return True if the task is done, false otherwise.
      */
     public boolean getIsDone() {
         return this.isDone;
     }
     /**
-     * Function returns the status of the object
-     * @return X if task is done, otherwise " "
+     * Returns the status of the task.
+     *
+     * @return "X" if the task is done, otherwise " ".
      */
     public String getStatus() {
         return (this.getIsDone()) ? "X" : " ";
     }
     /**
-     * Function takes a String and parses it into a LocalDate format
-     * @param date String to be parsed as a LocalDate
+     * Parses a string into a LocalDate object using multiple date formats.
+     *
+     * @param date The string to be parsed as a LocalDate.
+     * @return The LocalDate object parsed from the string.
      */
     public LocalDate parseDate(String date) {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
@@ -64,11 +68,13 @@ public class Task {
                 // Parsing failed for this pattern, try the next one
             }
         }
-
         throw new IllegalArgumentException("Try writing the date in this format: M/d/yyyy HHmm");
     }
     /**
-     * Convert the LocalDate object to a string in a particular format
+     * Converts a LocalDate object to a string in a particular format.
+     *
+     * @param date The LocalDate object to be converted.
+     * @return The string representation of the date in the format "MMM d yyyy".
      */
     public String stringifyDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

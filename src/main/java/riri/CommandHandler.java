@@ -16,7 +16,6 @@ public class CommandHandler {
      * @return A string representing the response or action taken based on the user's input.
      */
     public String chat(String input, TaskList taskList) throws RiriException, IOException {
-
         if (input.matches("bye")) {
             return exitMessage;
         } else if (input.toLowerCase().matches("\\blist\\b")) {
@@ -43,7 +42,6 @@ public class CommandHandler {
             String date2 = from[1].trim();
             return taskList.addTask(new Event(words[0].substring(5).trim(), date1, date2));
         } else if (input.toLowerCase().matches("\\btodo\\b.*")) {
-            // Add todo task to task list
             String[] words = input.split("todo");
             if (words[1].trim().equals("")) {
                 throw new RiriException("You are adding nothing to your list");

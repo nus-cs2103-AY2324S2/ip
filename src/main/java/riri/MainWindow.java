@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Arrays;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private Riri riri;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image ririImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image ririImage = new Image(this.getClass().getResourceAsStream("/images/DaRiri.png"));
 
     @FXML
     public void initialize() {
@@ -43,7 +45,7 @@ public class MainWindow extends AnchorPane {
      */
     public void welcome() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(riri.welcome(), ririImage)
+                DialogBox.getRiriDialog(riri.welcome(), ririImage)
         );
         userInput.clear();
     }
@@ -58,7 +60,7 @@ public class MainWindow extends AnchorPane {
         String response = riri.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, ririImage)
+                DialogBox.getRiriDialog(response, ririImage)
         );
         userInput.clear();
 
@@ -66,7 +68,7 @@ public class MainWindow extends AnchorPane {
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
-                System.out.println(e.getStackTrace());
+                System.out.println(Arrays.toString(e.getStackTrace()));
             } finally {
                 Platform.exit();
             }

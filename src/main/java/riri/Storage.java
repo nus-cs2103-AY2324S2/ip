@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Class responsible for storing and loading up task lists from local storage, once the chatbot is turned off.
+ * Class responsible for storing and loading up task lists from local storage when the chatbot is turned off.
  */
 public class Storage {
     /**
      * Reads the contents of the previously saved file that contains the tasks previously added by the user.
-     * @return string of tasks previously added by user
-     * */
+     *
+     * @return ArrayList of tasks previously added by the user
+     * @throws IOException if an I/O error occurs
+     */
     public ArrayList<String> load() throws IOException {
         ArrayList<String> contents = new ArrayList<>();
 
@@ -34,15 +36,14 @@ public class Storage {
         while (sc.hasNext()) {
             contents.add(sc.nextLine());
         }
-        for (String c : contents) {
-            System.out.println(contents);
-        }
         return contents;
     }
     /**
-     * Function writes the tasks the user has created to a file.
+     * Writes the tasks the user has created to a file.
+     *
      * @param textToAdd the tasks to add to the to-do list
-     * */
+     * @throws IOException if an I/O error occurs
+     */
     public void writeToFile(String textToAdd) throws IOException {
         String dirName = "data";
         // Create data directory if it does not exist

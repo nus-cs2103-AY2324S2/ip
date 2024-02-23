@@ -6,7 +6,7 @@ import java.io.IOException;
  * This class holds the main logic for the chatbot.
  */
 public class Riri {
-    private CommandHandler commandHandler;
+    private final CommandHandler commandHandler;
     private TaskList tasks;
     private Storage storage;
 
@@ -21,7 +21,7 @@ public class Riri {
             tasks = new TaskList(storage.load());
             System.out.println("Able to load tasks");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
         }
     }
     /**
