@@ -1,3 +1,4 @@
+
 # Destiny User Guide
 
 ![Screenshot of Destiny](Ui.png)
