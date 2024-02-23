@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import jerome.commands.FindCommand;
+import jerome.commands.ListCommand;
 import jerome.exception.MalformedUserInputException;
 import jerome.tasklist.Deadline;
 import jerome.tasklist.Event;
@@ -108,6 +110,25 @@ public class DataStorage {
             System.out.println("An error occurred while writing to the file.");
         }
     }
+
+
+    /**
+     * Deletes everything in the storage file.
+     * Used before re-building to ensure that the last
+     * item is properly deleted.
+     */
+    public void deleteAllTasksFromFile() {
+        try {
+            // False for not append, which means delete.
+            // Solution below adapted from: https://www.w3schools.com/java/java_files_create.asp
+            FileWriter myWriter = new FileWriter(this.file, false);
+            myWriter.write("");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while clearing the file.");
+        }
+    }
+
 
     /**
      * Reads tasks from the database if it has already been created.
@@ -225,11 +246,12 @@ public class DataStorage {
     /**
      * Rebuilds the storage file by iterating through all the tasks in the task list
      * and adding them to the storage file again.
-     *
+     * <p>
      * Uses the addTaskToTextFile method to add a task to the storage file.
-     *
      */
     public void rebuildStorage() {
+        deleteAllTasksFromFile();
+
         for (int i = 0; i < this.taskCount; i++) {
             // i != 0 means that refresh the whole file.
             addTaskToTextFile(tasksList.get(i).toStorageString(), i != 0);
@@ -274,17 +296,31 @@ public class DataStorage {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
-        this.tasksList.stream()
-                // Ignore the case during the search by converting searchTerm
-                // and item stored to lowercase.
-                .filter(task -> task.getDescription().toLowerCase().contains(searchTerm.toLowerCase()))
-                .forEach(task -> {
-                    // Gets the index of the particular item.
-                    int indexNumber = this.tasksList.indexOf(task) + 1;
-                    arrayList.add("\t " + indexNumber + ". " + task.toString());
-                }); // Append the description of each filtered task to the StringBuilder
+        if (this.taskCount == 0) {
+            return ListCommand.MESSAGE_NO_EVENTS;
+        } else {
 
-        return convertArrayListToLineSeparatedString(arrayList);
+            // Create the list that contains all the items that matches the search term.
+            this.tasksList.stream()
+                    // Ignore the case during the search by converting searchTerm
+                    // and item stored to lowercase.
+                    .filter(task -> task.getDescription().toLowerCase().contains(searchTerm.toLowerCase()))
+                    .forEach(task -> {
+                        // Gets the index of the particular item.
+                        int indexNumber = this.tasksList.indexOf(task) + 1;
+                        arrayList.add("\t " + indexNumber + ". " + task.toString());
+                    }); // Append the description of each filtered task to the StringBuilder
+
+
+            // Return no elements found message, otherwise return all rows that matches the search term.
+            if (arrayList.size() == 0) {
+                return FindCommand.MESSAGE_EMPTY_SEARCH_RESULTS;
+            } else {
+                return convertArrayListToLineSeparatedString(arrayList);
+            }
+        }
+
+
     }
 
     /**
