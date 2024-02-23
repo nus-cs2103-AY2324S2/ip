@@ -191,27 +191,31 @@ public class Parser {
     private static LocalDate getByDate(String fullCommand)
             throws DateTimeParseException, IndexOutOfBoundsException {
         String[] details = fullCommand.split("/");
-        String byString = details[1].substring(2).trim();
+        int lengthOfBy = 2;
+        String byString = details[1].substring(lengthOfBy).trim();
         return LocalDate.parse(byString, Parser.INPUT_FORMAT);
     }
 
     private static LocalDate getAfterDate(String fullCommand)
             throws DateTimeParseException, IndexOutOfBoundsException {
         String[] details = fullCommand.split("/");
-        String afterString = details[1].substring(5).trim();
+        int lengthOfAfter = 5;
+        String afterString = details[1].substring(lengthOfAfter).trim();
         return LocalDate.parse(afterString, Parser.INPUT_FORMAT);
     }
     private static LocalDate getStartDate(String fullCommand)
             throws DateTimeParseException, IndexOutOfBoundsException {
         String[] details = fullCommand.split("/");
-        String startString = details[1].substring(4).trim();
+        int lengthOfFrom = 4;
+        String startString = details[1].substring(lengthOfFrom).trim();
         return LocalDate.parse(startString, Parser.INPUT_FORMAT);
     }
 
     private static LocalDate getEndDate(String fullCommand)
             throws DateTimeParseException, IndexOutOfBoundsException {
         String[] details = fullCommand.split("/");
-        String endString = details[2].substring(2).trim();
+        int lengthOfTo = 2;
+        String endString = details[2].substring(lengthOfTo).trim();
         return LocalDate.parse(endString, Parser.INPUT_FORMAT);
     }
 }
