@@ -7,10 +7,9 @@ import tasks.Todo;
 import ui.Parser;
 import ui.Ui;
 
-import java.util.HashSet;
 import java.util.List;
 
-public class Duke {
+public class Duc {
 
     private final Storage storage;
     private final Ui ui;
@@ -18,7 +17,7 @@ public class Duke {
     private final List<Task> tasks;
 
 
-    public Duke() {
+    public Duc() {
         storage = new Storage();
         ui = new Ui();
         parser = new Parser();
@@ -97,14 +96,14 @@ public class Duke {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.printError("Error! Description to command not found!");
+            response.append("Error! Description not in correct format!");
         }
         return response.toString();
     }
 
 
     public static void main(String[] args) throws DukeException {
-        Duke duke = new Duke();
+        Duc duc = new Duc();
 
 
     }

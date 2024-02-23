@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Duc duc;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
         displayWelcomeMessage();
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Duc d) {
+        duc = d;
     }
 
     /**
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         assert input.length() > 0 : "input set by user must not be empty";
-        String response = duke.getResponse(input);
+        String response = duc.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void displayWelcomeMessage() {
-        String welcomeMessage = "Hello! I'm Duke, your personal assistant. How can I help you today?";
+        String welcomeMessage = "Hello! I'm Duc, your personal assistant. How can I help you today?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 }
