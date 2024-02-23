@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.setFitToHeight(true);
 
         // Add background to Vbox
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(700, 400, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(background, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);

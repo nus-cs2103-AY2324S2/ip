@@ -36,7 +36,8 @@ public class FindCommand implements Command {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof FindCommand command) {
+        } else if (obj instanceof FindCommand) {
+            FindCommand command = (FindCommand) obj;
             return keyword.equals(command.keyword);
         } else {
             return false;

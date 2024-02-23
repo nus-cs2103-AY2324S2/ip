@@ -3,6 +3,7 @@ package tofu.task;
 import java.util.ArrayList;
 
 import tofu.TofuException;
+import tofu.command.AddCommand;
 import tofu.ui.Ui;
 
 import java.util.List;
@@ -67,7 +68,8 @@ public class TaskList {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof TaskList taskList) {
+        } else if (obj instanceof TaskList) {
+            TaskList taskList = (TaskList) obj;
             boolean isEqual = true;
             for (int i = 0; i < tasks.size(); i++) {
                 if (!tasks.get(i).equals(taskList.get(i))) {

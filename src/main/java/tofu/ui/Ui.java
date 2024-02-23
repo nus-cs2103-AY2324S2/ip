@@ -8,7 +8,8 @@ public class Ui {
     static String LINE = "_____________________________________________";
 
     public static String welcomeMessage() {
-        return "\uD83D\uDC3E Hi there! It's me, Tofu the cat! How can I make your day purr-fect? \uD83D\uDE3A\u201D";
+        return "\uD83D\uDC3E Hi there! It's me, Tofu the cat! How can I make your day purr-fect? \uD83D\uDE3A\u201D\n" +
+                Ui.availableCommands();
     }
 
     public static String close() {
@@ -83,6 +84,20 @@ public class Ui {
                 "I will use a new empty list for you this time.";
     }
 
+    public static String availableCommands() {
+        return "You can choose from the following available commands:\n" +
+                "   \uD83D\uDC3E todo [desc]\n" +
+                "   \uD83D\uDC3E event [desc] /from [yyyy-MM-dd] /to [yyyy-MM-dd]\n" +
+                "   \uD83D\uDC3E deadline [desc] /by [yyyy-MM-dd]\n" +
+                "   \uD83D\uDC3E mark [integer]\n" +
+                "   \uD83D\uDC3E unmark [integer]\n" +
+                "   \uD83D\uDC3E delete [integer]\n" +
+                "   \uD83D\uDC3E find [keyword(s)]\n" +
+                "   \uD83D\uDC3E list\n" +
+                "   \uD83D\uDC3E help";
+
+    }
+
     public static String indexTooBigError(TaskList tasks) {
         return "\uD83D\uDC3E Paws for a moment! You only have " + tasks.size() + " tasks in your list. " +
                 "Isn't it nice to have such a manageable list? \uD83D\uDE3A";
@@ -90,15 +105,8 @@ public class Ui {
 
     public static String unknownCommandError() {
         String errorMessage = "I'm sorry, but I'm a bit confused. \uD83D\uDE40\n" +
-                "Please input valid commands (i.e. [command] [description]).\n";
-        String availableCommands = "You can choose from the following available commands:\n" +
-                "   \uD83D\uDC3E todo [desc]\n" +
-                "   \uD83D\uDC3E event [desc] /from [yyyy-MM-dd] /to [yyyy-MM-dd]\n" +
-                "   \uD83D\uDC3E deadline [desc] /by [yyyy-MM-dd]\n" +
-                "   \uD83D\uDC3E list\n" +
-                "   \uD83D\uDC3E mark [integer]\n" +
-                "   \uD83D\uDC3E unmark [integer]\n" +
-                "   \uD83D\uDC3E delete [integer]";
-        return errorMessage + availableCommands;
+                "Please input valid commands (i.e. [command] [description]).\n" +
+                "If you are unsure about the commands, type help for the help page!";
+        return errorMessage;
     }
 }

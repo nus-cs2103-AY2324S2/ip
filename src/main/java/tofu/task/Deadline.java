@@ -1,6 +1,7 @@
 package tofu.task;
 
 import tofu.TofuException;
+import tofu.command.AddCommand;
 import tofu.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -50,7 +51,8 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof Deadline deadline) {
+        } else if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
             return super.equals(deadline) && by.equals(deadline.by);
         } else {
             return false;

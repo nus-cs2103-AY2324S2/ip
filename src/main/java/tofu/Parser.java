@@ -56,6 +56,8 @@ class Parser {
 
         if (commandWord.equals("list")) {
             command = new ListCommand();
+        } else if (commandWord.equals("help")) {
+            command = new HelpCommand();
         } else {
             switch (commandWord) {
             case "mark":

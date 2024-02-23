@@ -79,16 +79,16 @@ public class Tofu {
     public void run() {
         System.out.println(ui.welcomeMessage());
         boolean isExit = false;
-        while (!isExit) {
-            try {
+        try {
+            while (!isExit) {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parseToCommand(fullCommand);
                 System.out.println(c.execute(tasks, ui));
                 isExit = c.isExit();
-                storage.save(tasks);
-            } catch (TofuException ex) {
-                System.out.println(ex.getMessage());
             }
+            storage.save(tasks);
+        } catch (TofuException ex) {
+            System.out.println(ex.getMessage());
         }
         System.out.println(ui.close());
     }

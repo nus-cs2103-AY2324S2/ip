@@ -1,5 +1,7 @@
 package tofu.task;
 
+import tofu.command.AddCommand;
+
 public class Task {
     private String desc;
     private boolean isDone;
@@ -18,7 +20,8 @@ public class Task {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof Task task) {
+        } else if (obj instanceof Task) {
+            Task task = (Task) obj;
             return desc.equals(task.desc);
         } else {
             return false;

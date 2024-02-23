@@ -1,6 +1,7 @@
 package tofu.task;
 
 import tofu.TofuException;
+import tofu.command.AddCommand;
 import tofu.ui.Ui;
 
 import java.time.LocalDate;
@@ -56,7 +57,8 @@ public class Event extends Task {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof Event event) {
+        } else if (obj instanceof Event) {
+            Event event = (Event) obj;
             return super.equals(event) && from.equals(event.from) && to.equals(event.to);
         } else {
             return false;

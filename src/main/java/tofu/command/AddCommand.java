@@ -69,7 +69,8 @@ public class AddCommand implements Command {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof AddCommand command) {
+        } else if (obj instanceof AddCommand) {
+            AddCommand command = (AddCommand) obj;
             return commandWord.equals(command.commandWord) && description.equals(command.description);
         } else {
             return false;

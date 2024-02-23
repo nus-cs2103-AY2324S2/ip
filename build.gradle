@@ -9,6 +9,9 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
 repositories {
     mavenCentral()
 }

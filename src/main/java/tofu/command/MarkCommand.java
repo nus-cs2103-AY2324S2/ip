@@ -47,7 +47,8 @@ public class MarkCommand implements Command {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof MarkCommand command) {
+        } else if (obj instanceof MarkCommand) {
+            MarkCommand command = (MarkCommand) obj;
             return index == command.index && isDone == command.isDone;
         } else {
             return false;

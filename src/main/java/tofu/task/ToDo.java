@@ -1,5 +1,7 @@
 package tofu.task;
 
+import tofu.command.AddCommand;
+
 public class ToDo extends Task {
 
     public ToDo(String desc) {
@@ -19,7 +21,8 @@ public class ToDo extends Task {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj instanceof ToDo todo) {
+        } else if (obj instanceof ToDo) {
+            ToDo todo = (ToDo) obj;
             return super.equals(todo);
         } else {
             return false;
