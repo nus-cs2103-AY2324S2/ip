@@ -24,6 +24,7 @@ Sylvia is a **chatbot app for managing tasks and reminders**, designed for use v
   - [Redoing the last undone command: `redo`](#10-redoing-the-last-undone-command-redo)
   - [Showing manual: `help`](#11-showing-manual-help)
   - [Exiting the chatbot: `bye`](#12-exiting-the-chatbot-bye)
+  - [Naviagating through the chat history](#13-naviagating-through-the-chat-history)
 
 ## Installation
 
@@ -209,3 +210,15 @@ Exit the chatbot.
 **Usage**: `bye`
 
 **Aliases**: `bye`, `exit`, `ex`
+
+<br>
+
+### 13. Naviagating through the chat history
+
+You can navigate through the chat history by using the up and down arrow keys, similar to how you would in a terminal. Use the **up arrow** key to go _back_ (to older messages) and the down **arrow key** to go _forward_ (to newer messages).
+
+## Acknowledgements
+
+Sylvia is an adaptation of the Duke chatbot project from the [NUS CS2103T](https://nus-cs2103-ay2324s2.github.io/website/se-book-adapted/projectDuke/index.html) module. The original project was created by the [SE-EDU initiative](https://se-education.org/).
+
+This user guide was adapted from the [AB3 user guide](https://se-education.org/addressbook-level3/UserGuide.html) by the [SE-EDU initiative](https://se-education.org/).

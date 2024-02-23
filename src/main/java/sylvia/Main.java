@@ -28,7 +28,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle(Info.CHATBOT_NAME);
         stage.setResizable(false);
-        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/image/icon.jpg")));
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/image/icon.png")));
         stage.show();
     }
 
