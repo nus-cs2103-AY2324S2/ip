@@ -23,16 +23,16 @@ command to run the application. A GUI similar to the below should appear in a fe
 
 ## Command summary
 
-| Action                          | Format, Examples                                                                                                                         |
-|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| Add todo                        | `todo <description>` <br> e.g. `todo read book`                                                                                          |
-| Add deadline                    | `deadline <description> /by <date>` <br> e.g. `deadline return book /by 1/12/2024`                                                       |
-| Add event                       | `event <description> /from <start date> /to <end date>` <br> e.g. `event project <br/>meeting /from 12/12/2024 0900 /to 12/12/2024 1800` |
-| List all tasks                  | `list`                                                                                                                                   |
-| Mark as done                    | `mark <task number>` <br> e.g. `mark 1`                                                                                                  |
-| Unmark as not done              | `unmark <task number>` <br> e.g. `unmark 1`                                                                                              |
-| Find matching tasks by keywords | `find <keyword>` <br> e.g. `find meeting project`                                                                                        |
-| Delete task                     | `delete <task number>` <br> e.g. `delete 1`                                                                                              |
+| Action                          | Format, Examples                                                                                                                    |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Add todo                        | `todo <description>` <br> e.g. `todo read book`                                                                                     |
+| Add deadline                    | `deadline <description> /by <date>` <br> e.g. `deadline return book /by 1/12/2024`                                                  |
+| Add event                       | `event <description> /from <start date> /to <end date>` <br> e.g. `event project meeting /from 12/12/2024 0900 /to 12/12/2024 1800` |
+| List all tasks                  | `list`                                                                                                                              |
+| Mark as done                    | `mark <task number>` <br> e.g. `mark 1`                                                                                             |
+| Unmark as not done              | `unmark <task number>` <br> e.g. `unmark 1`                                                                                         |
+| Find matching tasks by keywords | `find <keyword>` <br> e.g. `find meeting project`                                                                                   |
+| Delete task                     | `delete <task number>` <br> e.g. `delete 1`                                                                                         |
 
 ---------------------------------------
 
