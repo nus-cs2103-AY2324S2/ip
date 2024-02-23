@@ -48,7 +48,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'pookie.jar'
+    archiveBaseName = "pookie"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -60,3 +61,6 @@ run{
 checkstyle {
     toolVersion = "10.4"
 }
+
+mainClassName = 'pookie.Launcher'
+

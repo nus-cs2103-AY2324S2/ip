@@ -18,7 +18,7 @@ public class Storage {
     /**
      * The file path of the file to be written to.
      */
-    public static final String FILE_PATH = "./data/pookie.Pookie.txt";
+    public static final String FILE_PATH = "./data/Pookie.txt";
 
     /**
      * Constructor for the storage of the task list.
@@ -68,7 +68,7 @@ public class Storage {
 
         switch (inputParts[0]) {
             case ("todo"):
-                String description = original.replace("todo", "");
+                String description = original.replace("todo ", "");
                 if (description.isEmpty()) {
                     throw new PookieException("oi todo what. todo WHATTTTTT!!!!!!!!");
                 }
@@ -76,7 +76,7 @@ public class Storage {
                 list.addTask(task);
                 break;
             case ("deadline"):
-                String[] parts = original.replace("deadline", "").split(" /");
+                String[] parts = original.replace("deadline ", "").split(" /");
                 Task deadlineTask = new Deadline(parts[0], parts[1].replace("by ", ""));
                 list.addTask(deadlineTask);
                 break;

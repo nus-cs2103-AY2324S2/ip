@@ -34,8 +34,8 @@ public class Pookie extends Application {
     private static TaskList list = new TaskList();
     private Parser parser = new Parser();
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/IMG_1297.jpg"));
-    private Image pookie = new Image(this.getClass().getResourceAsStream("/images/IMG_1296.jpg"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/IMG_1297.JPG"));
+    private Image pookie = new Image(this.getClass().getResourceAsStream("/images/IMG_1296.JPG"));
 
     @Override
     public void start(Stage stage) {
@@ -99,6 +99,8 @@ public class Pookie extends Application {
             handleUserInput();
         });
 
+
+
     }
 
     /**
@@ -124,9 +126,6 @@ public class Pookie extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        if (input.equals("bye")) {
-            return parser.showOutro();
-        }
         try {
             return parser.processLine(input, list);
         } catch (PookieException e) {

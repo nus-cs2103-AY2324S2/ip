@@ -28,6 +28,6 @@ public class ToDo extends Task {
      */
     @Override
     public String writeToFileString() {
-        return "todo" + this.description;
+        return "todo " + this.description;
     }
 }

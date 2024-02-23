@@ -41,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String writeToFileString() {
-        return "deadline" + this.description + " /by " + this.by;
+        return "deadline" + " " + this.description + " /by " + this.by;
     }
 
 }

@@ -40,6 +40,6 @@ public class Event extends Task {
      */
     @Override
     public String writeToFileString() {
-        return "event" + this.description + " /from " + this.start + " /to " + this.end;
+        return "event " + this.description + " /from " + this.start + " /to " + this.end;
     }
 }
