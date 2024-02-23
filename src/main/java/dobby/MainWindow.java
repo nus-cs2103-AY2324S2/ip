@@ -1,4 +1,4 @@
-package duke;
+package dobby;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,36 +20,35 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Dobby dobby;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dobbyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeMsg = "Hello! I'm Doye\n What can I do for you?\n";
+        String welcomeMsg = "Hello! I'm Dobby\n What can I do for you?\n";
         dialogContainer.getChildren().addAll(
-                        DialogBox.getDukeDialog(welcomeMsg, dukeImage)
+                        DialogBox.getDobbyDialog(welcomeMsg, dobbyImage)
                 );
-
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDobby(Dobby d) {
+        dobby = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Dobby's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = dobby.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDobbyDialog(response, dobbyImage)
         );
         userInput.clear();
     }

@@ -1,8 +1,8 @@
-package duke;
+package dobby;
 
 import java.util.Scanner;
 
-public class Duke {
+public class Dobby {
     /**
      * The main method for the Duke program.
      * Reads user commands and actions until the user enters "bye"
@@ -14,14 +14,14 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
-    private static String filePath = "/Users/leedoye/ip/src/data/duke_tasks.txt";
+    private static String filePath = "data/dobby_tasks.txt";
 
     /**
      * Constructs a Duke instance.
      *
      * @param filePath The file path for storing and saving the data.
      */
-    public Duke(String filePath) {
+    public Dobby(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -33,7 +33,7 @@ public class Duke {
         parser = new Parser();
     }
 
-    public Duke() {
+    public Dobby() {
         this(filePath);
     }
 
@@ -64,6 +64,7 @@ public class Duke {
 
         if (orders[0].equals("bye")) {
             response = ui.bye();
+            System.exit(0);
         } else if (orders[0].equals("list")) {
             response = ui.list(tasks.getTasks());
         } else if (orders[0].equals("unmark")) {
@@ -114,7 +115,7 @@ public class Duke {
                 int number = parser.parseDelete(input, tasks.getSize());
                 response = ui.deletedMessage(tasks.getTask(number));
                 tasks.deleteTask(number);
-                response += ui.totalTask(tasks.getSize());
+                response += "\n" + ui.totalTask(tasks.getSize());
                 storage.save(tasks.getTasks());
             } catch (DukeException e) {
                 response = e.getMessage();
@@ -123,7 +124,7 @@ public class Duke {
             try {
                 String word = parser.parseFind(input);
                 TaskList newtasks = new TaskList(tasks.findTasks(word));
-                response = ui.findList(newtasks.getTasks());
+                response = "\n" + ui.findList(newtasks.getTasks());
             } catch (DukeException e) {
                 response = e.getMessage();
             }
@@ -139,6 +140,7 @@ public class Duke {
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        new Duke("/Users/leedoye/ip/src/data/duke_tasks.txt").run();
+        String filePath = "data/dobby_tasks.txt"; // Default file path
+        new Dobby(filePath).run();
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package dobby;
 
 import java.util.List;
 import java.util.Scanner;
@@ -15,12 +15,12 @@ public class Ui {
     }
 
     public String printLine() {
-        return "____________________________________________________________";
+        return "______________________________________";
     }
 
     public String welcome() {
         return printLine() + "\n" +
-               "Hello! I'm Doye\n" + 
+               "Hello! I'm Dobby\n" + 
                "What can I do for you?\n" +
                printLine();
     }

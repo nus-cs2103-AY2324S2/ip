@@ -1,4 +1,4 @@
-package duke;
+package dobby;
 /**
  * DukeException is a custom exception class for errors.
  * It extends the Exception class and prints a message for each error case.

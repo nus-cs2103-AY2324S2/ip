@@ -1,4 +1,4 @@
-package duke;
+package dobby;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.List;
  *
  */
 public class Storage {
-    private String filePath = "/Users/leedoye/ip/src/data/duke_tasks.txt";
+    private static String filePath = "data/dobby_tasks.txt";
 
     /**
      * Constructs a Storage instance with a specified file path.
@@ -33,7 +33,6 @@ public class Storage {
         try (ObjectInputStream intput = new ObjectInputStream(new FileInputStream("filePath"))) {
             return (List<Task>) intput.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("No existing tasks or file.");
             throw new DukeException("Error loading tasks from storage");
         }
     }

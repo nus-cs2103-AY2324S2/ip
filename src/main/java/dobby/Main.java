@@ -1,4 +1,4 @@
-package duke;
+package dobby;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -8,11 +8,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Dobby using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Dobby dobby = new Dobby();
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDobby(dobby);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

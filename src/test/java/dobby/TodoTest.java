@@ -1,6 +1,8 @@
-package duke;  //same package as the class being tested
+package dobby;  //same package as the class being tested
 
 import org.junit.jupiter.api.Test;
+
+import dobby.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
