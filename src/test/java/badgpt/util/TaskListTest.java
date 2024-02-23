@@ -51,14 +51,15 @@ public class TaskListTest {
 
         TaskList taskList = new TaskList(new TasksUi(out, new ByteArrayOutputStream()));
         taskList.store(new Task("return book"));
+        out.reset();
 
         taskList.listTasks();
 
         // Lists the newly added task
-        assertEquals("____________________________________________________________\r\n" +
+        assertEquals("_____________________________________________________\r\n" +
                 "Here are the tasks in your list:\r\n" +
-                "1. [ ] return book\r\n" +
-                "____________________________________________________________\r\n", out.toString());
+                "[ ] return book\r\n" +
+                "_____________________________________________________\r\n", out.toString());
     }
 
     @Test

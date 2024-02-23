@@ -26,20 +26,21 @@ public class ParserTest {
         BadGpt bot = new BadGpt(new Gui());
         TaskList taskList = new TaskList(new TasksUi(out, new ByteArrayOutputStream()));
         taskList.store(new Task("return book"));
+        out.reset();
 
         Parser.parse("mark 1", bot, taskList);
-        assertEquals("____________________________________________________________\r\n" +
+        assertEquals("_____________________________________________________\r\n" +
                 "Nice! I've marked this task as done:\n" +
                 "[X] return book\r\n" +
-                "____________________________________________________________\r\n", out.toString());
+                "_____________________________________________________\r\n", out.toString());
 
         out.reset();
 
         Parser.parse("unmark 1", bot, taskList);
-        assertEquals("____________________________________________________________\r\n" +
+        assertEquals("_____________________________________________________\r\n" +
                 "wyd bro why undo\n" +
                 "[ ] return book\r\n" +
-                "____________________________________________________________\r\n", out.toString());
+                "_____________________________________________________\r\n", out.toString());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ParserTest {
             fail();
         } catch (BadException e) {
             assertEquals("Please type in the command as follows: mark taskNum\n" +
-                    "Example: mark 2", e.toString());
+                    "Example usage: mark 2", e.toString());
         }
 
         // Try unmark command without a number
@@ -61,7 +62,7 @@ public class ParserTest {
             Parser.parse("unmark", bot, taskList);
         } catch (BadException e) {
             assertEquals("Please type in the command as follows: unmark taskNum\n" +
-                    "Example: unmark 2", e.toString());
+                    "Example usage: unmark 2", e.toString());
         }
     }
 }
