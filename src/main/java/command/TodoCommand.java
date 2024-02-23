@@ -42,6 +42,7 @@ public class TodoCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new ToDo(description, isDone);
         tasks.addToList(task);
+        storage.storeToLocal(tasks);
         return ui.addedTaskPrinter(task, tasks.taskNum());
     }
 

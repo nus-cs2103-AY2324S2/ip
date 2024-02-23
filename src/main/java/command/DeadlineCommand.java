@@ -50,6 +50,7 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new Deadline(description, isDone, deadline);
         tasks.addToList(task);
+        storage.storeToLocal(tasks);
 
         return ui.addedTaskPrinter(task, tasks.taskNum());
     }

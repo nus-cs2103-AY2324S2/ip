@@ -38,6 +38,7 @@ public class UnmarkCommand extends Command {
                 + System.lineSeparator()
                 + Ui.printDivider();
 
+        storage.storeToLocal(tasks);
         return result;
     }
 

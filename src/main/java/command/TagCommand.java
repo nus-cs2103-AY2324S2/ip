@@ -43,6 +43,8 @@ public class TagCommand extends Command {
                 + System.lineSeparator()
                 + Ui.printDivider();
 
+        storage.storeToLocal(tasks);
+
         return result;
     }
 
