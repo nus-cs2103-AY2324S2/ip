@@ -1,6 +1,6 @@
 # Tiny User Guide
 
-Meet Tiny, your all-in-one desktop app designed to streamline your daily life. Whether you're juggling tasks, keeping track of contacts, brushing up on trivia, jotting down notes, managing clients, organizing merchandise, handling loans, tracking expenses, or exploring new places, Tiny has you covered. With the ability to save, delete, find, and load your saved items seamlessly, Tiny simplifies your workflow, making it easier than ever to stay organized and productive. Say goodbye to scattered to-do lists and scattered information—Tiny puts everything you need at your fingertips, helping you tackle each day with confidence and efficiency.
+Meet Tiny, your all-in-one desktop chatbot designed to streamline your daily life. Whether you're juggling tasks, keeping track of contacts, brushing up on trivia, jotting down notes, managing clients, organizing merchandise, handling loans, tracking expenses, or exploring new places, Tiny has you covered. With the ability to save, delete, find, and load your saved items seamlessly, Tiny simplifies your workflow, making it easier than ever to stay organized and productive. Say goodbye to scattered to-do lists and scattered information—Tiny puts everything you need at your fingertips, helping you tackle each day with confidence and efficiency.
 
 
 ## Quick Start
