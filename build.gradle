@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("riri.Riri")
+    mainClass.set("riri.Main")
 }
 
 shadowJar {
@@ -58,8 +58,7 @@ shadowJar {
     archiveFileName = 'riri.jar'
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
-
 }
