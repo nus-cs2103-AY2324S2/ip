@@ -238,6 +238,8 @@ Format: `list trivia`
 
 ### Deleting a todo, deadline or event: `delete task`
 Deletes the specified task from the program.
+You can use the `list task` command to find the specific task to delete.
+
 Format: `delete task <number>`
 
 Example: 
@@ -247,6 +249,8 @@ Example:
 
 ### Deleting a client: `delete client`
 Deletes the specified client from the program.
+You can use the `list client` command to find the specific client to delete.
+
 Format: `delete client <number>`
 Example: 
 `delete client 1`
@@ -255,6 +259,8 @@ Example:
 
 ### Deleting a contact: `delete contact`
 Deletes the specified contact from the program.
+You can use the `list contact` command to find the specific contact to delete.
+
 Format: `delete contact <number>`
 
 Example: 
@@ -264,6 +270,8 @@ Example:
 
 ### Deleting an expense: `delete expense`
 Deletes the specified expense from the program.
+You can use the `list expense` command to find the specific expense to delete.
+
 Format: `delete expense <number>`
 
 Example: 
@@ -273,6 +281,8 @@ Example:
 
 ### Deleting a loan given: `delete loan given`
 Deletes the specified loan given from the program.
+You can use the `list loan given` command to find the specific loan given to delete.
+
 Format: `delete loan given <number>`
 
 Example: 
@@ -282,6 +292,8 @@ Example:
 
 ### Deleting a loan taken: `delete loan taken`
 Deletes the specified loan taken from the program.
+You can use the `list loan taken` command to find the specific loan taken to delete.
+
 Format: `delete loan taken <number>`
 
 Example: 
@@ -291,6 +303,8 @@ Example:
 
 ### Deleting a expense: `delete merchandise`
 Deletes the specified merchandise from the program.
+You can use the `list merchandise` command to find the specific merchandise to delete.
+
 Format: `delete merchandise <number>`
 
 Example: 
@@ -300,6 +314,8 @@ Example:
 
 ### Deleting a note: `delete note`
 Deletes the specified note from the program.
+You can use the `list note` command to find the specific note to delete.
+
 Format: `delete note <number>`
 
 Example: 
@@ -309,6 +325,8 @@ Example:
 
 ### Deleting a place: `delete place`
 Deletes the specified place from the program.
+You can use the `list place` command to find the specific place to delete.
+
 Format: `delete place <number>`
 
 Example: 
@@ -318,6 +336,8 @@ Example:
 
 ### Deleting a trivia: `delete trivia`
 Deletes the specified trivia from the program.
+You can use the `list trivia` command to find the specific trivia to delete.
+
 Format: `delete trivia <number>`
 
 Example: 
