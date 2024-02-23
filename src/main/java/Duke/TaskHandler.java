@@ -230,20 +230,12 @@ public class TaskHandler{
      * @param storage
      * @return ArrayList<Task> containing task in the date range
      */
-    public static TaskList checkSchedule(String start, String end, ArrayList<Task> storage) {
+    public static TaskList checkSchedule(String start, String end, TaskList storage) {
         TaskList tasks = new TaskList();
         try {
             LocalDate fromDate = getDate(start);
             LocalDate toDate = getDate(end);
-            for (Task task : storage) {
-                if (task instanceof Deadline || task instanceof Event) {
-                    SpecialTask specialTask = (SpecialTask) task;
-                    if (specialTask.inRange(fromDate, toDate)) {
-                        tasks.add(specialTask);
-                    }
-                }
-            }
-            return tasks;
+            return storage.checkInRange(tasks, fromDate, toDate);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

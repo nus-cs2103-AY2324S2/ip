@@ -1,6 +1,8 @@
 package Duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList extends ArrayList<Task> {
     public TaskList() {
@@ -51,6 +53,18 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         this.remove(index);
         return task;
+    }
+    public TaskList checkInRange(TaskList tasks, LocalDate fromDate, LocalDate toDate) {
+
+        for (Task task : this) {
+            if (task instanceof Deadline || task instanceof Event) {
+                SpecialTask specialTask = (SpecialTask) task;
+                if (specialTask.inRange(fromDate, toDate)) {
+                    tasks.add(specialTask);
+                }
+            }
+        }
+        return tasks;
     }
 
 }

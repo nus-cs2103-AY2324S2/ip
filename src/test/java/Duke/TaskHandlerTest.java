@@ -15,8 +15,8 @@ public class TaskHandlerTest {
                 LocalDate.of(2022, 3,1));
         Deadline deadline2 = new Deadline("Test", LocalDate.of(2020, 1, 1));
         ToDo todo = new ToDo("Test");
-        ArrayList<Task> output = new ArrayList<Task>();
-        ArrayList<Task> input = new ArrayList<Task>();
+        TaskList output = new TaskList();
+        TaskList input = new TaskList();
         output.add(deadline1);
         output.add(event);
         input.add(deadline1);
