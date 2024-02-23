@@ -30,13 +30,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("hal.Hal9000")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "hal"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveVersion = "0.2"
 }
 
 run {

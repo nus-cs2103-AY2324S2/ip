@@ -162,7 +162,20 @@ Example: `bye`
 - ### Unrecognised commands
   - If an unrecognised command was inputted, the response would be
   `You inputted an unrecognizable command` In that scenario, just try again with a correct input.
-
+- ### Incorrect Formatting of parameters
+  - If there are any errors in processing commands, the response would be 
+    `Something went wrong went parsing your COMMAND command please check your input again`
+    In that scenario, just try again with a correct command
+- ### Undoing/Redoing Commands
+  - You can only undo and redo commands that alter the state of the application, such as `DELETE`,
+    `MARK`, `UNMARK`, `DEADLINE`, `TODO`, `EVENT`. 
+  - When trying to undo/redo past the limits of history, the response would be 
+    `You can't rollback/rollforward the state any more!`
+  - History is cleared upon exit of the application
+- ### Time formatting
+  - The time parameters (`BY-TIME`, `FROM-TIME`, `TO-TIME`) must be formatted in the following way
+    - `dd-MM-yyyy HH:mm`
+    - `dd-MM-yyyy` (the time component will be automatically set to 00:00)
 
 
 --- 
