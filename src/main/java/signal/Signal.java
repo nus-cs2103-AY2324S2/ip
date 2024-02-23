@@ -24,7 +24,10 @@ public class Signal {
     public Signal() {
 
     }
-    
+
+    public static void main(String[] args) {
+
+    }
 
 
     /**

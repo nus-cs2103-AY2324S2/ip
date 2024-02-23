@@ -25,14 +25,14 @@ public class MainWindow extends AnchorPane {
     private Signal signal;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userBlueOct.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/signalPinkOct.jpg"));
+    private Image signalImage = new Image(this.getClass().getResourceAsStream("/images/signalPinkOct.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Signal d) {
+    public void setSignal(Signal d) {
         signal = d;
     }
 
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
      */
     public void handleSignalIntro() {
         String introMessage = signal.getIntro(); // Assuming Signal has a method to retrieve the intro message
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(introMessage, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getSignalDialog(introMessage, signalImage));
     }
 
     /**
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = signal.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSignalDialog(response, signalImage)
         );
         userInput.clear();
     }

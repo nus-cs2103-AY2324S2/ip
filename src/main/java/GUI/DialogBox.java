@@ -72,7 +72,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img, "USER");
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getSignalDialog(String text, Image img) {
         var db = new DialogBox(text, img, "");
         db.flip();
         return db;

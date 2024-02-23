@@ -1,6 +1,6 @@
 # Signal: A task helper
 
-This is a project based on the template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project based on the template for a greenfield Java project. Given below are instructions on how to use it.
 
 <img src="./docs/Ui.png" alt="A screenshot of the chatbot" />
 

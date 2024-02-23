@@ -26,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("SIGNAL :3");
             stage.setResizable(true);
-            fxmlLoader.<GUI.MainWindow>getController().setDuke(signal);
+            fxmlLoader.<GUI.MainWindow>getController().setSignal(signal);
             stage.show();
 
             fxmlLoader.<GUI.MainWindow>getController().handleSignalIntro();
