@@ -139,8 +139,6 @@ Here are the tasks in your list:
 
 To mark a task as done, you can type `mark [TASK_INDEX]`
 
-Please note that the format for both `START_DATE` and `END_DATE` is **'YYYY-MM-DD'**
-
 > [!IMPORTANT]
 > Please note that the `[TASK_INDEX]` is **1-based**.
 

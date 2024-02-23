@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("dibo.Main")
+    mainClass.set("dibo.Launcher")
 }
 
 shadowJar {

@@ -21,7 +21,7 @@ If you have used Dibo before, you can jump straight to Dibo's [Features and Comm
 ## Getting Started 
 
 1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
-2. Download the latest  from [here](https://github.com/ziyang27/ip/releases/tag/v0.2).
+2. Download the latest  from [here](https://github.com/ziyang27/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for your Dibo.
 4. Open a command terminal.
 5. Change the working directory to the folder you put the .jar in, by typing and running `cd {directory}`
@@ -66,6 +66,7 @@ Good news sir! I've added this task:
 [D][ ] cs2109s ps4 (by: Feb 24 2024) 
 Now you have 2 tasks in the list.
 ```
+
 Dibo will also let you know how many tasks you have in the list after adding this task.
 
 ---
@@ -132,8 +133,6 @@ Here are the tasks in your list:
 ### `mark` - Mark a task as done
 
 To mark a task as done, you can type `mark [TASK_INDEX]`
-
-Please note that the format for both `START_DATE` and `END_DATE` is **'YYYY-MM-DD'**
 
 > [!IMPORTANT]
 > Please note that the `[TASK_INDEX]` is **1-based**.
