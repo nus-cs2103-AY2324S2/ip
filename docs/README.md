@@ -14,9 +14,7 @@ The O.G Maverick here keeps track of the tasks you have to get done.
 
 To give it a try, follow the steps given below:
   1. Download the ```.jar``` file [here](https://github.com/Teee728/ip/releases/tag/A-Release)
-  2. Place the ```.jar``` file in a folder or directory on your local machine.
-  3. Open up the terminal from that directory and run ```java -jar cruisey.ui.Launcher.jar```.
-  4. You will now see your application running. Have fun! 😄
+  2. Click on it once downloaded and you will see your application running. Have fun! 😄
 
 ## Features
  Here is a list of features Cruisey can do:
