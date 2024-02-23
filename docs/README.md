@@ -42,8 +42,6 @@ Adds a todo into the task list
 
 Format: `todo NAME`
 
-// Give examples of usage
-
 Example: `todo buy groceries`
 
 - Creates a todo task with `NAME` : 'Buy groceries'
@@ -52,14 +50,11 @@ Example: `todo buy groceries`
 
 ## Adding deadline `deadline`
 
-// Describe the action and its outcome.
 Adds a deadline into the task list 
 
 Format: `deadline NAME /by DEADLINE` 
 
 - `DEADLINE` must be in the format of yyyy-mm-dd
-
-// Give examples of usage
 
 Example: `deadline linear algebra assignment 1 /by 2024-03-01`
 
@@ -73,8 +68,6 @@ Adds an event into the task list
 Format: `event NAME /from START_DATE /to END_DATE`
 
 - `START_DATE` and `END_DATE` must be in the format of yyyy-mm-dd
-
-// Give examples of usage
 
 Example: `event blockchain hackathon /from 2024-05-01 /to 2024-05-03`
 
@@ -133,16 +126,14 @@ Format: `bye`
 
 ## Saving data
 
-// Feature details
 Poe program automatically saves data into hard disk any time changes occur
 
 <br>
 
 ## Reminder feature
 
-// Feature details
 Upon booting, any saved tasks which are upcoming (<= 2 days from current date) would display as a greeting screen
 
 Example : Today's date is 23 February 2024, there is a deadline task `NAME` : homework 1 `DEADLINE` : 24 February 2024
 
-<img width="744" alt="image" src="https://github.com/leepoeaik/ip/assets/99176866/dc043f03-d2e3-47db-9ec4-64804e5afeee">
+<img width="650" alt="image" src="https://github.com/leepoeaik/ip/assets/99176866/dc043f03-d2e3-47db-9ec4-64804e5afeee">
