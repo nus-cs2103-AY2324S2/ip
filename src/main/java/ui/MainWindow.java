@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
 /**
@@ -57,6 +59,7 @@ public class MainWindow extends AnchorPane {
 
     private void initialize() {
         this.setPrefSize(400.0, 600.0);
+        this.setStyle("-fx-background-color: grey;");
 
         setDialogContainer();
         setScrollPane();
@@ -75,7 +78,7 @@ public class MainWindow extends AnchorPane {
     private void setScrollPane() {
         this.scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(400, 572);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
@@ -85,7 +88,7 @@ public class MainWindow extends AnchorPane {
 
     private void setSendButton() {
         this.sendButton = new Button("Send");
-        sendButton.setPrefWidth(55.0);
+        sendButton.setPrefWidth(70.0);
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -93,6 +96,7 @@ public class MainWindow extends AnchorPane {
 
     private void setTextField() {
         this.userInput = new TextField();
+        userInput.setPromptText("Input");
         userInput.setPrefWidth(325.0);
         userInput.setOnAction((event) -> {
             handleUserInput();
@@ -100,7 +104,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void setAnchors() {
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
         AnchorPane.setLeftAnchor(userInput , 1.0);
