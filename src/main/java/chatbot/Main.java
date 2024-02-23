@@ -33,8 +33,4 @@ public class Main extends Application {
       e.printStackTrace();
     }
   }
-
-  public static void main(String[] args) throws IOException {
-    Application.launch(Main.class, args);
-  }
 }

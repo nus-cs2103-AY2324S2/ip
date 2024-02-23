@@ -45,11 +45,11 @@ test {
 }
 
 application {
-    mainClass.set("chatbot.Main")
+    mainClass.set("chatbot.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "tfamily-final"
+    archiveBaseName = "tfamily-final-2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
