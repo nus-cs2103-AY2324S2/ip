@@ -13,7 +13,7 @@ import main.Ui;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends VBox {
     @FXML
     private ScrollPane scrollPane;
     @FXML

@@ -102,7 +102,7 @@ public class TaskList {
      * @param index index of list
      */
     public Pair<Boolean, String> mark(int index) {
-        assert index >= 0 && index < list.size() : "Invalid index provided";
+//        assert index >= 0 && index < list.size() : "Invalid index provided";
         try {
             Task curr = list.get(index);
             curr.markMark();
@@ -119,7 +119,7 @@ public class TaskList {
      * @param index index of list
      */
     public Pair<Boolean, String> unmark(int index) {
-        assert index >= 0 && index < list.size() : "Invalid index provided";
+//        assert index >= 0 && index < list.size() : "Invalid index provided";
         try {
             Task curr = list.get(index);
             curr.unmarkMark();
