@@ -53,7 +53,7 @@ Format: `deadline <task> /by <date> <time>`
 
 Example: `deadline homework /by 2024-02-23 23:59:59`
 
-> Tip! dates and times are formatted as `<yyyy-mm-dd> <\hh:mm:ss>`. It is optional to include the time.
+> Tip! dates and times are formatted as `<dd-mm-yyyy> \<hhmm>`. It is optional to include the year or time.
 
 Output: The task description, type and deadline are shown.
 
