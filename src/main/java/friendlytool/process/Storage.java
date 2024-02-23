@@ -23,6 +23,7 @@ public class Storage {
      * @throws FtException if file is corrupted or missing
      */
     public static void loadTask(TaskList myList) throws FtException {
+        Scanner s;
         try {
             File save = new File("./data/myTask.txt");
             if (!save.exists()) {
@@ -32,29 +33,29 @@ public class Storage {
             } else {
                 Ui.getLoadSaveMsg();
             }
-            Scanner s = new Scanner(save);
-            while (s.hasNext()) {
-                String[] parsedSave = Parser.parseSave(s.nextLine());
-                String taskType = parsedSave[0];
-                switch (taskType) {
-                case "T":
-                    myList.add(new ToDo(parsedSave[2], Parser.parseBool(parsedSave[1])));
-                    break;
-                case "D":
-                    myList.add(new Deadline(parsedSave[2], Parser.parseBool(parsedSave[1]),
-                            new Date(parsedSave[3])));
-                    break;
-                case "E":
-                    myList.add(new Event(parsedSave[2], Parser.parseBool(parsedSave[1]), new Date(parsedSave[3]),
-                            new Date(parsedSave[4])));
-                    break;
-                default:
-                    throw new FtException("    Warning: The file is corrupted. Please delete the file");
-                }
-                s.nextLine();
-            }
+            s = new Scanner(save);
         } catch (IOException e) {
             throw new FtException("File not found");
+        }
+        while (s.hasNext()) {
+            String[] parsedSave = Parser.parseSave(s.nextLine());
+            String taskType = parsedSave[0];
+            switch (taskType) {
+            case "T":
+                myList.add(new ToDo(parsedSave[2], Parser.parseBool(parsedSave[1])));
+                break;
+            case "D":
+                myList.add(new Deadline(parsedSave[2], Parser.parseBool(parsedSave[1]),
+                        new Date(parsedSave[3])));
+                break;
+            case "E":
+                myList.add(new Event(parsedSave[2], Parser.parseBool(parsedSave[1]), new Date(parsedSave[3]),
+                        new Date(parsedSave[4])));
+                break;
+            default:
+                throw new FtException("    Warning: The file is corrupted. Please delete the file");
+            }
+            s.nextLine();
         }
     }
 
