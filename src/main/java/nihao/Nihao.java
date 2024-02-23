@@ -1,21 +1,30 @@
 package nihao;
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import nihao.action.Action;
 import nihao.action.ExitAction;
 import nihao.handler.InputHandler;
 import nihao.handler.PrintHandler;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import nihao.ui.MainWindowController;
 
 /**
  * Contains the main application logic for the Nihao app.
  */
-public final class Nihao {
+public class Nihao extends Application{
     public static final Nihao instance = new Nihao();
-    private Nihao() {}
+    public Nihao() {}
 
     /**
-     * Reads use input and executes the main logic.
+     * Reads user input and executes the main logic.
      */
     public void run() {
         PrintHandler.printInit();
@@ -41,4 +50,48 @@ public final class Nihao {
 //            PrintHandler.printWithDivider("File not found");
 //        }
     }
+
+    public void start(Stage stage) {
+        try {
+            stage.setTitle("Nihao");
+            stage.setResizable(false);
+            stage.setMinHeight(600);
+            stage.setMinWidth(400);
+            stage.getIcons().add(new javafx.scene.image.Image(this.getClass().getResourceAsStream("/images/logo_600.png")));
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Nihao.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            String css = this.getClass().getResource("/styles/cupertino-dark.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindowController>getController().setNihao(Nihao.instance);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getResponse(String text) {
+        try {
+            Action action = InputHandler.handleInput(text);
+            if (action instanceof ExitAction) {
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                Platform.exit();
+                                System.exit(0);
+                            }
+                        },
+                        3000
+                );
+
+            }
+            return action.execute();
+        } catch (Exception e) {
+            return PrintHandler.printException(e);
+        }
+    }
+
 }

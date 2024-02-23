@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+
+<fx:root fx:id="dialogueContainer" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="380.0" styleClass="hbox-default" stylesheets="@../styles/cupertino-dark.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="text" styleClass="tile" text="Label" wrapText="true" />
+      <Separator orientation="VERTICAL" />
+        <ImageView id="image" fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="imageview" HBox.hgrow="ALWAYS" />
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</fx:root>

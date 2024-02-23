@@ -12,8 +12,8 @@ public class FindAction implements Action{
         this.keyword = keyword;
     }
     @Override
-    public void execute() throws Exception {
+    public String execute() throws Exception {
         ArrayList<Task> result = DataHandler.findTasks(keyword);
-        PrintHandler.printNumberedDivider(result);
+        return PrintHandler.printNumberedDivider(result);
     }
 }

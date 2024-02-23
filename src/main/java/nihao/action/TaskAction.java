@@ -20,10 +20,10 @@ public class TaskAction implements Action{
      * Adds the Task to the tasks ArrayList.
      */
     @Override
-    public void execute() {
+    public String execute() {
         DataHandler.addTask(task);
         int noOfTasks = DataHandler.size();
-        PrintHandler.printWithDivider("Ok.. I've added this task to your list:\n" +
+        return PrintHandler.printWithDivider("Ok.. I've added this task to your list:\n" +
                 "   " + task.toString() + "\n" +
                 "Now you have " + noOfTasks + " tasks.");
     }

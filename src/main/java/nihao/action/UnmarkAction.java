@@ -23,10 +23,10 @@ public class UnmarkAction implements Action{
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
      */
     @Override
-    public void execute() throws IndexOutOfBoundsException {
+    public String execute() throws IndexOutOfBoundsException {
         DataHandler.unmarkTask(index);
         Task task = DataHandler.getTask(index);
-        PrintHandler.printWithDivider("Fine. I've marked this as uncompleted:\n" +
+        return PrintHandler.printWithDivider("Fine. I've marked this as uncompleted:\n" +
                 "   " + task);
     }
 
