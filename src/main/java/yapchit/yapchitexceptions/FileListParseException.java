@@ -1,8 +1,8 @@
 package yapchit.yapchitexceptions;
 
-public class FileListParseException extends YapchitException{
+public class FileListParseException extends YapchitException {
 
-    public FileListParseException(String errorMsg){
+    public FileListParseException(String errorMsg) {
         super(errorMsg);
     }
     

@@ -16,22 +16,22 @@ import java.time.LocalDate;
 public class Handler {
 
     /**
-     * creates new handler instance
+     * Creates new handler instance.
      */
     public Handler() {
     }
 
     /**
-     * Primary function is to accept an input and operation and redirect it to appropriate handler function
-     * for handling.
+     * Accepts an input and operation and redirects it to appropriate handler function.
      *
-     * @param input user input
-     * @param op parsed operation from parser
-     * @param tasks the full tasklist
-     * @param ui the ui to interact with user
-     * @param parser the parser to perform additional parsing
-     * @param isNewTask determines whether task is created for the first time or imported from file
-     * @throws YapchitException if there is conflict in terms of user input and operation to perform
+     * @param input user input.
+     * @param op parsed operation from parser.
+     * @param tasks the full tasklist.
+     * @param ui the ui to interact with user.
+     * @param parser the parser to perform additional parsing.
+     * @param isNewTask determines whether task is created for the first time or imported from file.
+     * @return String containing handled response.
+     * @throws YapchitException if there is conflict in terms of user input and operation to perform.
      */
     public String handleOperation(String input, YapchitBackend.Operations op, TaskList tasks,
                                   Ui ui, Parser parser, boolean isNewTask) throws YapchitException {
@@ -75,9 +75,7 @@ public class Handler {
             break;
 
         default:
-            throw new InvalidKeywordException("You have entered an invalid keyword. " +
-                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', " +
-                    "'event', 'bye', 'list', 'delete', 'update']");
+            throw new InvalidKeywordException("You have entered an invalid keyword.");
         }
 
         return output;
@@ -86,10 +84,11 @@ public class Handler {
     /**
      * Creates a new event object based on details in provided input.
      *
-     * @param inputParam containing details of the event
-     * @param isNewTask boolean which identifies if this is a task being added to list for the first time
-     * @param tasks list of tasks
-     * @param ui ui object to interact with the user
+     * @param inputParam containing details of the event.
+     * @param isNewTask boolean which identifies if this is a task being added to list for the first time.
+     * @param tasks list of tasks.
+     * @param ui ui object to interact with the user.
+     * @return String containing handled response.
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
     public String handleEvent(
@@ -135,7 +134,7 @@ public class Handler {
         }
 
         if (desc.length() == 0 || from.length() == 0 || to.length() == 0) {
-            throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
+            throw new InvalidDetailException("Event description or parameters cannot be empty");
         }
 
         return t;
@@ -144,11 +143,12 @@ public class Handler {
     /**
      * Creates a new deadline object based on details in provided input.
      *
-     * @param inputParam containing details of the deadline
-     * @param isNewTask boolean which identifies if this is a task being added to list for the first time
-     * @param tasks list of tasks
-     * @param ui ui object to interact with the user
-     * @param parser parser object to parse input
+     * @param inputParam containing details of the deadline.
+     * @param isNewTask boolean which identifies if this is a task being added to list for the first time.
+     * @param tasks list of tasks.
+     * @param ui ui object to interact with the user.
+     * @param parser parser object to parse input.
+     * @return String containing handled response.
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
     public String handleDeadline(
@@ -166,7 +166,8 @@ public class Handler {
         return output;
     }
 
-    private Deadline interpretAndUpdateDeadline(Deadline t, String input, Parser parser) throws InvalidDetailException {
+    private Deadline interpretAndUpdateDeadline(
+            Deadline t, String input, Parser parser) throws InvalidDetailException {
 
         int byStart = input.indexOf("/by");
         if (byStart == -1) {
@@ -190,7 +191,7 @@ public class Handler {
         }
 
         if (desc.length() == 0 || by == null) {
-            throw new InvalidDetailException("Invalid or empty deadline description and/or by parameter");
+            throw new InvalidDetailException("Invalid or empty deadline description or parameter");
         }
 
         return t;
@@ -199,13 +200,15 @@ public class Handler {
     /**
      * Creates a new todo object based on details in provided input.
      *
-     * @param inputParam containing details of the todo
-     * @param isNewTask boolean which identifies if this is a task being added to list for the first time
-     * @param tasks list of tasks
-     * @param ui ui object to interact with the user
+     * @param inputParam containing details of the todo.
+     * @param isNewTask boolean which identifies if this is a task being added to list for the first time.
+     * @param tasks list of tasks.
+     * @param ui ui object to interact with the user.
+     * @return String containing handled response.
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
-    public String handleTodo(String inputParam, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleTodo(
+            String inputParam, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
 
         String input = inputParam;
         char isDone = getIsDone(input,isNewTask);
@@ -221,12 +224,12 @@ public class Handler {
     private ToDo interpretAndUpdateTodo(ToDo task, String input) throws InvalidDetailException {
 
         if (5 >= input.length()) {
-            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+            throw new InvalidDetailException("todo description cannot be empty. Please retry");
         }
 
         String desc = input.substring(5).strip();
         if (desc.length() == 0) {
-            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+            throw new InvalidDetailException("todo description cannot be empty. Please retry");
         }
 
         if (!desc.equals("*")) {
@@ -236,8 +239,17 @@ public class Handler {
         return task;
     }
 
+    /**
+     * Handles finding of objects in list by calling the findSublist function of list instance.
+     *
+     * @param parts String array of parts of the input.
+     * @param tasks list of tasks.
+     * @param ui ui instance.
+     * @return String with handled response.
+     * @throws InvalidDetailException if detail after command is invalid.
+     */
     public String handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
-        if(parts.length != 2){
+        if (parts.length != 2) {
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         }
 
@@ -251,13 +263,14 @@ public class Handler {
     /**
      * Handles the printing of all the tasks in the tasks list.
      *
-     * @param parts The user input split into parts
-     * @param tasks the list of tasks to print
-     * @param ui the ui object to interact with the user
-     * @throws InvalidDetailException if the input does not provide the necessary details
+     * @param parts The user input split into parts.
+     * @param tasks the list of tasks to print.
+     * @param ui the ui object to interact with the user.
+     * @return String containing handled response.
+     * @throws InvalidDetailException if the input does not provide the necessary details.
      */
-    public String handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
-        if(parts.length != 1){
+    public String handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+        if (parts.length != 1) {
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         }
 
@@ -270,10 +283,11 @@ public class Handler {
     /**
      * Handles the deleting of the tasks in the tasks list.
      *
-     * @param parts The user input split into parts
-     * @param tasks the list of tasks to delete from
-     * @param ui the ui object to interact with the user
-     * @throws InvalidDetailException if the input does not provide the necessary details
+     * @param parts The user input split into parts.
+     * @param tasks the list of tasks to delete from.
+     * @param ui the ui object to interact with the user.
+     * @return String containing handled response.
+     * @throws InvalidDetailException if the input does not provide the necessary details.
      */
     public String handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
         String output = "";
@@ -297,10 +311,11 @@ public class Handler {
     /**
      * Handles the marking of the tasks in the tasks list.
      *
-     * @param parts The user input split into parts
-     * @param tasks the list of tasks to mark from
-     * @param ui the ui object to interact with the user
-     * @throws InvalidDetailException if the input does not provide the necessary details
+     * @param parts The user input split into parts.
+     * @param tasks the list of tasks to mark from.
+     * @param ui the ui object to interact with the user.
+     * @return String containing handled response.
+     * @throws InvalidDetailException if the input does not provide the necessary details.
      */
     public String handleMark(String[] parts, TaskList tasks, Ui ui, boolean isDone) throws InvalidDetailException {
 
@@ -322,15 +337,13 @@ public class Handler {
     }
 
     /**
-     * Handles update of tasks. To update task name use the '/name' tag
+     * Handles update of tasks. Update format is in readme. '*' is reserved keyword.
      *
-     * update 1 * /from * /to hello
-     *
-     * @param parts
-     * @param tasks
-     * @param ui
-     * @return
-     * @throws InvalidDetailException
+     * @param parts String[] of parts of the input.
+     * @param tasks list of tasks.
+     * @param ui ui instance.
+     * @return String containing handled response.
+     * @throws InvalidDetailException if detail after keyword is invalid.
      */
     public String handleUpdate(String[] parts, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException {
         if (parts.length < 3) {
@@ -361,10 +374,10 @@ public class Handler {
     }
 
     /**
-     * checks if the user input is equivalent to 'bye'
+     * Checks if the user input is equivalent to 'bye'.
      *
-     * @param input user input
-     * @return boolean indicating if input is 'bye' or not
+     * @param input user input.
+     * @return boolean indicating if input is 'bye' or not.
      */
     public boolean checkIsBye(String input) {
         return input.toLowerCase().equals("bye");

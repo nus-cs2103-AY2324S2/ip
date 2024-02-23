@@ -102,6 +102,19 @@ Noted. I've removed this task:
 Now you have 0 tasks in the list...
 ---------------------------------------------
 ```
+
+### 6. Finding a task
+Finds tasks which contain the search term in their names. 
+Type `find` followed by the search term.
+- `find say`
+
+Example output:
+```
+---------------------------------------------
+Here are the matching tasks in your list:
+1. [T][] say hello
+---------------------------------------------
+```
 ## Bot Commands
 
 ### 1. Ending the Chat with the Bot

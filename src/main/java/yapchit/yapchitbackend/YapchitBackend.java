@@ -1,13 +1,12 @@
 package yapchit.yapchitbackend;
 
 import yapchit.yapchitexceptions.YapchitException;
-import yapchit.yapchitui.Yapchit;
 
 public class YapchitBackend {
 
     /**
-     * List of operations that the Yapchit functionality can handle. Operations
-     * are keywords that the user can enter as Yapchit input.
+     * List of operations that the Yapchit functionality can handle.
+     * Operations are keywords that the user can enter as Yapchit input.
      * Yapchit additionally stores tasks across restarts.
      */
     public enum Operations {
@@ -31,14 +30,14 @@ public class YapchitBackend {
     private String filePath;
 
     /**
-     * Constructor of a YapchitBackend object. Initiates instance of components of YapchitBackend and loads
-     * tasks from existing file (if any).
+     * Constructs a YapchitBackend object.
+     * Initiates instance of components of YapchitBackend and loads tasks from existing file (if any).
      *
      * @param filePath The file path to the storage file used to keep track of tasks.
      */
     public YapchitBackend(String filePath) {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage();
         this.isBye = false;
         this.parser = new Parser();
         this.handler = new Handler();
@@ -47,10 +46,11 @@ public class YapchitBackend {
 
 
     /**
-     * Initiates core functionality of the bot by running a main loop that harnesses relevant components
-     * to accept, handle inputs and output a response.
+     * Initiates core functionality of the bot.
+     * Harnesses relevant components to accept, handle inputs and output a response.
      *
-     * Main loop ends when the 'bye' command is entered by the user.
+     * @param input the input to the method.
+     * @return String the response.
      */
     public String run(String input) {
         assert this.ui != null;
@@ -69,7 +69,12 @@ public class YapchitBackend {
         return retVal;
     }
 
-    public String getIntro(){
+    /**
+     * Returns intro message of yapchit.
+     *
+     * @return String intro message.
+     */
+    public String getIntro() {
         String errorMsg = "";
 
         try{
@@ -83,12 +88,23 @@ public class YapchitBackend {
         return errorMsg == "" ? ui.printIntro() : errorAndIntro;
     }
 
+    /**
+     * Returns outro message of yapchit.
+     *
+     * @return String outro message.
+     */
     public String getOutro(){
         storage.updateFile(filePath, this.tasks);
         return ui.printOutro();
     }
 
-    public boolean checkIsBye(String input){
+    /**
+     * Checks if input is the command 'bye'.
+     *
+     * @param input text to check.
+     * @return Boolean indicating if it's a 'bye' or not.
+     */
+    public boolean checkIsBye(String input) {
 
         assert input instanceof String : "input should be a String instance";
 

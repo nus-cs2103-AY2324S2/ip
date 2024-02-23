@@ -8,8 +8,9 @@ import yapchit.yapchitui.Main;
 public class Launcher {
 
     /**
-     * Entry point into the program
-     * @param args
+     * Entry point into the program.
+     *
+     * @param args command line arguments.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);

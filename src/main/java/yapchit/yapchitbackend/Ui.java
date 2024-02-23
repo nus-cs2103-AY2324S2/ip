@@ -2,24 +2,19 @@ package yapchit.yapchitbackend;
 
 import yapchit.yapchitbackend.tasks.Task;
 
-import java.util.Scanner;
 
 /**
- * Ui class is responsible for providing an interface to interact with users, including via accepting
- * input and outputting updates on the screen.
+ * Ui class is responsible for providing an interface to interact with users.
  */
 public class Ui {
-    Scanner scanner;
-
     /**
-     * Constructor of new Ui instance. Initiates the in built scanner class.
+     * Constructs a new Ui instance.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Prints Yapchit intro message.
+     * Returns Yapchit intro message.
      */
     public String printIntro() {
         String intro = Ui.printLine() + "\n"
@@ -30,7 +25,7 @@ public class Ui {
     }
 
     /**
-     * Prints Yapchit outro message.
+     * Returns Yapchit outro message.
      */
     public String printOutro() {
         String outro = Ui.printLine() + "\n"
@@ -41,16 +36,17 @@ public class Ui {
     }
 
     /**
-     * Prints error message if there is an issue in loading tasks from existing file.
+     * Returns error message if there is an issue in loading tasks from existing file.
      */
     public String printTasklistLoadError() {
-        return "\tUnable to load existing list from file.\n\tThis could be due to corrupted file data or missing file.";
+        return "\tUnable to load existing list from file."
+                + "\n\tThis could be due to corrupted file data or missing file.";
     }
 
     /**
-     * Prints message to signal that task has been added to a list.
+     * Returns message to signal that task has been added to a list.
      *
-     * @param t    The added task.
+     * @param t The added task.
      * @param size Size of task list to be printed.
      */
     public String printTaskAdd(Task t, int size) {
@@ -66,7 +62,7 @@ public class Ui {
     }
 
     /**
-     * Prints message to signal that task has been deleted from a list.
+     * Returns message to signal that task has been deleted from a list.
      *
      * @param t    The deleted task.
      * @param size Size of task list to be printed.
@@ -84,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * Prints message to signal that task has been marked or unmarked .
+     * Returns message to signal that task has been marked or unmarked.
      *
      * @param t    The task in question
      * @param isDone Boolean that indicates whether the task is completed or not.
@@ -105,24 +101,27 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints message that task has been updated.
+     *
+     * @param t the task that is updated.
+     * @return String the returned message.
+     */
     public String printTaskUpdate(Task t) {
         String output = Ui.printLine() + "\n";
 
-
         output = output + "\t" + "Ok! I've updated this task:\n"
                 + "\t\t" + t.toString();
-
-
         output = output + "\n" + Ui.printLine();
 
         return output;
     }
 
     /**
-     * Prints the list of tasks currently stored in the TaskList (both completed or incomplete).
+     * Returns the list of tasks currently stored in the TaskList (both completed or incomplete).
      *
      * @param tasks The TaskList in question.
-     * @param message the message to print above the list
+     * @param message the message to print above the list.
      */
     public String printList(TaskList tasks, String message) {
         String output = Ui.printLine() + "\n"
@@ -138,12 +137,18 @@ public class Ui {
 
         return output;
     }
+
+    /**
+     * Returns a line of dashes.
+     *
+     * @return line of dashes.
+     */
     public static String printLine() {
         return "\t--------------------------------------------------";
     }
 
     /**
-     * Wrapper over System print functionality for ease of use.
+     * Wraps over System print functionality for ease of use.
      *
      * @param o Object to be printed.
      */

@@ -49,10 +49,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a new instance of a user dialog.
+     *
+     * @param text Text to be included in the dialog.
+     * @param img Image to be included in the dialog.
+     * @return DialogBox with text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a new instance of a yapchit dialog.
+     *
+     * @param text text Text to be included in the dialog.
+     * @param img Image to be included in the dialog.
+     * @return DialogBox with text and image.
+     */
     public static DialogBox getYapchitDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

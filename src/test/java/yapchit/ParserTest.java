@@ -1,26 +1,35 @@
 package yapchit;
 
-import yapchit.yapchitbackend.YapchitBackend;
+import org.junit.jupiter.api.Test;
 import yapchit.yapchitbackend.Parser;
+import yapchit.yapchitbackend.YapchitBackend;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
-import org.junit.jupiter.api.Test;
-import yapchit.yapchitui.Yapchit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
+/**
+ * Class to test parser class.
+ */
 public class ParserTest {
 
     private Parser parser;
 
+    /**
+     * Creates new parser test instance.
+     */
     public ParserTest() {
         parser = new Parser();
     }
 
+    /**
+     * Tests success condition of parseInputOperation method of the parser class.
+     *
+     * @throws YapchitException if test fails.
+     */
     @Test
-    void testParseInputOperationSuccess() throws YapchitException {
+    public void testParseInputOperationSuccess() throws YapchitException {
         String input = "deadline";
         YapchitBackend.Operations op = YapchitBackend.Operations.DEADLINE;
         assertEquals(op, parser.parseInputOperation(input));
@@ -62,32 +71,52 @@ public class ParserTest {
         assertEquals(op, parser.parseInputOperation(input));
     }
 
+    /**
+     * Tests missing input fail condition of parseInputOperation method of the parser class.
+     *
+     * @throws YapchitException if test fails.
+     */
     @Test
-    void testParseInputMissingInput() {
+    public void testParseInputMissingInput() {
         String input = "";
         assertThrows(InvalidKeywordException.class, () -> {
             parser.parseInputOperation(input);
         });
     }
 
+    /**
+     * Tests wrong keyword fail condition of parseInputOperation method of the parser class.
+     *
+     * @throws YapchitException if test fails.
+     */
     @Test
-    void testParseInputWrongKeyword() {
+    public void testParseInputWrongKeyword() {
         String input = "blah";
         assertThrows(InvalidKeywordException.class, () -> {
             parser.parseInputOperation(input);
         });
     }
 
+    /**
+     * Tests space in keyword fail condition of parseInputOperation method of the parser class.
+     *
+     * @throws YapchitException if test fails.
+     */
     @Test
-    void testParseInputSpaceInKeyword() {
+    public void testParseInputSpaceInKeyword() {
         String input = "dele te";
         assertThrows(InvalidKeywordException.class, () -> {
             parser.parseInputOperation(input);
         });
     }
 
+    /**
+     * Tests invalid character after keyword fail condition of parseInputOperation method of the parser class.
+     *
+     * @throws YapchitException if test fails.
+     */
     @Test
-    void testParseInputInvalidCharacterAfterKeyword() {
+    public void testParseInputInvalidCharacterAfterKeyword() {
         String input = "mark6";
         assertThrows(InvalidKeywordException.class, () -> {
             parser.parseInputOperation(input);

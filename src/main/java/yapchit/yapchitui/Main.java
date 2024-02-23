@@ -9,11 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Yapchit using FXML.
  */
 public class Main extends Application {
 
     private Yapchit yapchit = new Yapchit();
+
+    /**
+     * Starts the application by adding parts to the stage and then showing the stage.
+     *
+     * @param stage the primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {

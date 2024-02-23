@@ -31,11 +31,19 @@ public class MainWindow extends AnchorPane {
     private Image yaphitImage = new Image(this.getClass().getResourceAsStream("/images/DaYapchit.png"));
 
 
+    /**
+     * Initialises main window by binding the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets yapchit attribute of MainWindow instance.
+     *
+     * @param d yapchit instance.
+     */
     public void setYapchit(Yapchit d) {
         yapchit = d;
         DialogBox yapchitIntro = DialogBox.getYapchitDialog(yapchit.getIntro(), yaphitImage);
@@ -43,8 +51,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Yapchits's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
+     * Checks if the stage should be closed before executing the command.
      */
     @FXML
     private void handleUserInput() {
@@ -67,6 +76,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Sets stage attribute of class.
+     *
+     * @param s stage instance.
+     */
     protected void setStage(Stage s) {
         this.stage = s;
     }
