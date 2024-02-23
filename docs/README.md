@@ -135,7 +135,7 @@ Podz can recognize shorter aliases for commands.<br>
 Example: `t` can be shorter alias for `todo`.
 
 ## Saving the data
-Task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. let us know.
+Task list data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ## Command Summary
 
