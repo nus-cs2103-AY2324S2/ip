@@ -1,5 +1,10 @@
 package rick;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,11 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import rick.ui.DialogBox;
 
-
 /**
  * A controller for the main window.
  */
 public class MainController {
+    private static final long EXIT_DELAY = 1;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -50,7 +55,14 @@ public class MainController {
             userInput.clear();
         }
         if (input.equalsIgnoreCase("bye")) {
-            Platform.exit();
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            Runnable exitTask = new Runnable() {
+                @Override
+                public void run() {
+                    Platform.exit();
+                }
+            };
+            ScheduledFuture<?> exitFuture = scheduler.schedule(exitTask, EXIT_DELAY, TimeUnit.SECONDS);
         }
     }
 
