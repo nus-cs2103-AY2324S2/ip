@@ -46,7 +46,5 @@ public class FindCommand extends Command {
         }
         printStatement += "--------------------------";
         return printStatement;
-
     }
-
 }

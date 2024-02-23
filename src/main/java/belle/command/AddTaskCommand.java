@@ -16,7 +16,7 @@ public class AddTaskCommand extends Command {
     private String type;
     private String msg;
 
-    enum Type {
+    private enum Type {
         T,
         D,
         E

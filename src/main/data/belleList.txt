@@ -1,4 +1,4 @@
 D , false , feed dog , 8pm
-E , false , pet cat , tues 9pm , 9pm
-T , false , add math
+E , true , pet cat , tues 9pm , 9pm
+T , true , add math
 D , true , feed alicia , tues 7pm

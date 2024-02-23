@@ -41,7 +41,7 @@ public class Ui {
         this.sc.close();
         return "--------------------------"
                 + "\n" + "Till next time!! Goodbye."
-                + "--------------------------";
+                + "\n" + "--------------------------";
     }
 
     /**
@@ -51,4 +51,3 @@ public class Ui {
         System.out.println(msg);
     }
 }
-

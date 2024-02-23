@@ -8,7 +8,6 @@ import belle.run.Ui;
  * Exits the program.
  */
 public class ByeCommand extends Command {
-
     /**
      * Constructs ByeCommand.
      */
@@ -29,5 +28,4 @@ public class ByeCommand extends Command {
     public String execute(Storage storage, TaskList taskList, Ui ui) {
         return ui.bye();
     }
-
 }

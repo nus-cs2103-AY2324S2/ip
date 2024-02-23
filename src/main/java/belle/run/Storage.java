@@ -18,11 +18,12 @@ import belle.tasks.TodoTask;
 public class Storage {
     private String filePath;
 
-    enum Type {
+    private enum Type {
         T,
         D,
         E
     }
+
     /**
      * Constructs Storage.
      *
@@ -105,7 +106,6 @@ public class Storage {
         } catch (IOException e) {
             throw new BelleException("Sorry!! I'm having trouble saving the list.");
         }
-
     }
 
 

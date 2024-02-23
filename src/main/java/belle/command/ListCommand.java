@@ -36,6 +36,5 @@ public class ListCommand extends Command {
         }
         printStatement += "--------------------------";
         return printStatement;
-
     }
 }

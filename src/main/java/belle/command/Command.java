@@ -9,7 +9,6 @@ import belle.run.Ui;
  * Performs different functions based on type of command.
  */
 public abstract class Command {
-
     /**
      * Runs the command to complete its
      * specific function.
@@ -20,7 +19,8 @@ public abstract class Command {
      * @param ui Ui that handles user interactions.
      * @return Print statement for each specific
      *         command.
+     * @throws BelleException if there is an
+     *         exception related to belle.
      */
     public abstract String execute(Storage storage, TaskList taskList, Ui ui) throws BelleException;
-
 }

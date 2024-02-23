@@ -33,7 +33,7 @@ public class TaskList {
      * Removes task at a specific index from
      * TaskList.
      *
-     * @param  i Index of item to remove.
+     * @param i Index of item to remove.
      */
     public void removeTask(int i) {
         list.remove(i);

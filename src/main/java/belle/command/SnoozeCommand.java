@@ -7,7 +7,7 @@ import belle.run.Ui;
 import belle.tasks.Task;
 
 /**
- * Snooze item in list meaning
+ * Snoozes item in list meaning
  * it allows deadlines to be edited.
  */
 public class SnoozeCommand extends Command {
@@ -65,5 +65,4 @@ public class SnoozeCommand extends Command {
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
-
 }
