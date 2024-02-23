@@ -66,6 +66,16 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Updates the task indicated by the task number and modifies the attribute to the
+     * updated information.
+     * @param num the task number
+     * @param attribute the task attribute to be updated
+     * @param toUpdate the new information to update the specified task attribute
+     * @return String of the updated task description
+     * @throws BobbyException
+     * @throws IOException
+     */
     public String update(int num, String attribute, String toUpdate) throws BobbyException, IOException {
         assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {

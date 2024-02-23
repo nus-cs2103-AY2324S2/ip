@@ -48,7 +48,7 @@ public class Parser {
         if (items.length == 1) {
             UI.emptyDesc("todo");
         }
-        return items[1];
+        return items[1].trim();
     }
 
     /**
@@ -67,13 +67,13 @@ public class Parser {
             UI.emptyDesc("deadline");
         }
         String[] parts = input.split("/by ");
-        task = parts[0].replaceFirst("deadline ", "");
+        task = parts[0].replaceFirst("deadline ", "").trim();
         return task;
     }
 
     /**
-     * Returns a string array of the description of the deadline and the deadline, which is then used
-     * to initialise a Deadlines task and add it to the TaskList
+     * Returns LocalDateTime to be used as argument for creating Deadline object.
+     * Called when creating a deadline task.
      *
      * @param input the user input from system (command)
      * @return String array which contains elements parsed from the user input, extracting
@@ -96,6 +96,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns LocalDateTime after parsing the input string. Called when updating deadline information.
+     *
+     * @param input user input from system
+     * @return LocalDateTime parsed from String
+     * @throws BobbyException
+     */
     public static LocalDateTime parseDeadline(String input) throws BobbyException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -136,7 +143,7 @@ public class Parser {
     }
 
     /**
-     * Returns a string of the description of the task to be found in task list.
+     * Returns a string of the description or keyword of the task to be found in task list.
      *
      * @param input the user input from system (command)
      * @return String parsed from the user input
@@ -151,12 +158,14 @@ public class Parser {
         return items[1];
     }
 
-    public static int parseUpdateNum(String input) throws BobbyException {
-        assert !input.isEmpty() : "unable to parse empty input";
-        String[] items = input.split("/", 2);
-        return parseNum(items[0]);
-    }
-
+    /**
+     * Returns an array of Strings where the first element is the task attribute and the
+     * second element is the new information to be updated. These information are then
+     * used to call TaskList's update method
+     * @param input user input from the system
+     * @return String array of information parsed from the user input
+     * @throws BobbyException
+     */
     public static String[] parseUpdate(String input) throws BobbyException {
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split("/", 2);

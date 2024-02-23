@@ -1,4 +1,4 @@
  E | 0 | project meeting | Mon 2pm | 4pm
- D | 0 | cs2109s ps3 | 21 Feb 2024 2359
+ D | 1 | cs2109s ps3 | 21 Feb 2024 2359
  T | 0 | eat strawberry shortcake
  D | 0 | cs2109s ps4 | 24 Feb 2024 2359

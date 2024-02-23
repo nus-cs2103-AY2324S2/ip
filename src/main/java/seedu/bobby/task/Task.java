@@ -21,6 +21,13 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Marks the attribute isDone of the Task and returns the string of the task description
+     * and the updated marking
+     * @param isNew boolean to indicate whether it is a new task marked or it is loading the
+     *              tasks from the data file
+     * @return String of the task description and the updated marking
+     */
     public String markDone(boolean isNew) {
         isDone = true;
         if (isNew) {
@@ -29,6 +36,12 @@ public class Task {
         return "";
     }
 
+    /**
+     * Unmarks the attribute isDone of the Task and returns the string of the task description
+     * and the updated marking
+     *
+     * @return String of the task description and the updated marking
+     */
     public String unmark() {
         isDone = false;
         return printMarking(this, getTag());
@@ -57,6 +70,12 @@ public class Task {
         return "T";
     }
 
+    /**
+     * Updates the task attribute of the task object specified to the new information
+     * @param attribute String of the task attribute to be updated, todo task only has description attribute.
+     * @param toUpdate String of the new information to be updated
+     * @throws BobbyException
+     */
     public void update(String attribute, String toUpdate) throws BobbyException {
         if (attribute.equalsIgnoreCase("desc")) {
             description = toUpdate.trim();
@@ -65,6 +84,12 @@ public class Task {
         }
     }
 
+    /**
+     * Returns a String of the full task description. Called in TaskList's printList method,
+     * called for each task in the list.
+     * @param num the number of the task in the task list
+     * @return String of the task description of the Deadline object.
+     */
     public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
@@ -75,10 +100,22 @@ public class Task {
         }
     }
 
+    /**
+     * Returns a string of the full description of task without any specified task number.
+     * Called when updating, adding or deleting tasks to show the user the details of the task that
+     * has been added, updated or deleted.
+     * @return String of the full description of the task
+     */
     public String printFullDesc() {
         return String.format(" [%s][%s] %s\n", getTag(), getStatusIcon(), getDescription());
     }
 
+    /**
+     * Returns a String of the description with the number of the matching task.
+     * Called by the Storage findFromFile method.
+     * @param num number of the task in the matching task list.
+     * @return a String of the matching task description with the specified task number
+     */
     public String printMatchDesc(int num) {
         assert num >= 1 : "task number should be more than or equals to 1";
         return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());

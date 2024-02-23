@@ -52,8 +52,9 @@ public class Bobby {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns String of Bobby's response to commands, to be printed out in GUI.
+     * @param input
+     * @return String of response to various commands
      */
     public String getResponse(String input) {
         try {
@@ -77,7 +78,7 @@ public class Bobby {
             } else if (input.startsWith("find")) {
                 return Storage.findFromFile(Parser.parseFind(input));
             } else if (input.startsWith("update")) {
-                int taskNum = Parser.parseUpdateNum(input);
+                int taskNum = Parser.parseNum(input);
                 String[] parts = Parser.parseUpdate(input);
                 return taskList.update(taskNum, parts[0], parts[1]);
             } else if (input.equalsIgnoreCase("bye")){
@@ -91,6 +92,11 @@ public class Bobby {
         }
     }
 
+    /**
+     * Schedules a 1 second timer. Starts the timer when user enters a "bye" command
+     * and exits the program when the timer runs out. This 1 second timer is to ensure that the
+     * user can see the bye message by Bobby before it shuts down.
+     */
     public void scheduleShutdown() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

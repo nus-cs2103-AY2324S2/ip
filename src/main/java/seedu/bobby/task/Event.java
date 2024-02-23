@@ -28,6 +28,13 @@ public class Event extends Task{
         return "E";
     }
 
+    /**
+     * Updates the task attribute of the event object specified to the new information
+     * @param attribute String of the task attribute to be updated, possible attributes for event task
+     *                  are description, from (start timing) and to (end timing).
+     * @param toUpdate String of the new information to be updated
+     * @throws BobbyException
+     */
     @Override
     public void update(String attribute, String toUpdate) throws BobbyException {
         if (attribute.equalsIgnoreCase("desc")) {
@@ -53,6 +60,12 @@ public class Event extends Task{
                     + " | " + to + "\n";
     }
 
+    /**
+     * Returns a String of the full task description. Called in TaskList's printList method,
+     * called for each task in the list.
+     * @param num the number of the task in the task list
+     * @return String of the task description of the Deadline object.
+     */
     @Override
     public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
@@ -65,6 +78,12 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Returns a String of the description with the number of the matching task.
+     * Called by the Storage findFromFile method.
+     * @param num number of the task in the matching task list.
+     * @return a String of the matching task description with the specified task number
+     */
     @Override
     public String printMatchDesc(int num) {
         assert num >= 1 : "task number should be more than or equals to 1";
@@ -72,6 +91,12 @@ public class Event extends Task{
                 num, getTag(), getStatusIcon(), getDescription(), from, to);
     }
 
+    /**
+     * Returns a string of the full description of task without any specified task number.
+     * Called when updating, adding or deleting tasks to show the user the details of the task that
+     * has been added, updated or deleted.
+     * @return String of the full description of the task
+     */
     @Override
     public String printFullDesc() {
         return String.format(" [%s][%s] %s (from: %s to: %s)\n",

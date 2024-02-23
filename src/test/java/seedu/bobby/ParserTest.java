@@ -17,8 +17,7 @@ public class ParserTest {
             assertEquals(0, Parser.parseNum("mark"));
             fail();
         } catch (BobbyException e) {
-            assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the task number."
-                    + "\n      ______________________________________________________________________________________\n", e.getMessage());
+            assertEquals("Oops! Please state the task number.", e.getMessage());
         }
     }
 
@@ -34,28 +33,23 @@ public class ParserTest {
             assertEquals("", Parser.parseTodo("todo"));
             fail();
         } catch (BobbyException e) {
-            assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your todo task."
-                    + "\n      ______________________________________________________________________________________\n", e.getMessage());
+            assertEquals("Oops! Please state the description of your todo task.", e.getMessage());
         }
     }
 
     @Test
-    public void parseDeadline_success() throws Exception{
-        String[] expected = new String[2];
-        expected[0] = "cs2109s ps2 ";
-        expected[1] = "10-02-2024 2359";
-        assertArrayEquals(expected, Parser.parseDeadlineCommand("deadline cs2109s ps2 /by 10-02-2024 2359"));
+    public void parseDeadlineTask_success() throws Exception{
+        assertEquals("cs2109s ps2", Parser.parseDeadlineTask("deadline cs2109s ps2 /by 10-02-2024 2359"));
     }
 
     @Test
-    public void parseDeadline_emptyDesc() {
+    public void parseDeadlineTask_emptyDesc() {
         try {
-            String[] expected = new String[2];
-            assertEquals(expected, Parser.parseDeadlineCommand("deadline"));
+            assertEquals("deadline cs2109s ps2 /by 10-02-2024 2359",
+                    Parser.parseDeadlineTask("deadline"));
             fail();
         } catch (BobbyException e) {
-            assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your task and the deadline."
-                    + "\n      ______________________________________________________________________________________\n", e.getMessage());
+            assertEquals("Oops! Please state the description of your task and the deadline.", e.getMessage());
         }
     }
 
@@ -75,8 +69,8 @@ public class ParserTest {
             assertEquals(expected, Parser.parseEvent("event"));
             fail();
         } catch (BobbyException e) {
-            assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your event and provide the start and end timing."
-                    + "\n      ______________________________________________________________________________________\n", e.getMessage());
+            assertEquals("Oops! Please state the description of your event and provide the start " +
+                    "and end timing.", e.getMessage());
         }
     }
     @Test
@@ -86,8 +80,8 @@ public class ParserTest {
             assertEquals(expected, Parser.parseEvent("event career fest /from 2pm"));
             fail();
         } catch (BobbyException e) {
-            assertEquals("      ______________________________________________________________________________________\n      Please state the details like this: event event_name /from timing /to timing."
-                    + "\n      ______________________________________________________________________________________\n", e.getMessage());
+            assertEquals("Please state the details like this: event event_name /from timing /to timing.",
+                    e.getMessage());
         }
     }
 

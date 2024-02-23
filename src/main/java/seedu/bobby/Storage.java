@@ -126,6 +126,14 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Returns string response of the matching tasks in the task list that match the keyword
+     * by looping through the stored data and checking for the keyword
+     * @param input user input of the keyword to find matching tasks
+     * @return String of the list of matching tasks
+     * @throws FileNotFoundException
+     * @throws BobbyException
+     */
     public static String findFromFile(String input) throws FileNotFoundException, BobbyException {
         Scanner s = new Scanner(f);
         String lowercaseInput = input.toLowerCase();

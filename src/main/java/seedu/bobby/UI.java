@@ -11,7 +11,8 @@ package seedu.bobby;
 public class UI {
 
     /**
-     * Prints out the introduction of the program and the name of the chatbot, Bobby.
+     * Returns a string of the introduction to Bobby to be printed out in GUI
+     * @return String of introduction of Bobby
      */
     public static String intro() {
         return "Hello, I'm Bobby!\n" + "What can I do for you today? :)\n";
