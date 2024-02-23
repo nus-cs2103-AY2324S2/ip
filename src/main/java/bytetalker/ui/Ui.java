@@ -143,4 +143,15 @@ public class Ui {
         }
         return foundTasksMessage;
     }
+
+    public String showUpdatedTask(Task task) {
+        String message = "Updated the chosen task! \n   " + task.toString();
+        return message;
+    }
+
+    public String showWrongFormatUpdate() {
+        String message = "The chosen task does not have the parameter to be updated " +
+                "\nPlease update the correct parameter of the chosen task";
+        return message;
+    }
 }

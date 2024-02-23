@@ -66,4 +66,8 @@ public abstract class Task {
     public TaskType getTaskType() {
         return this.taskType;
     }
+
+    public void updateTask(String content) {
+        this.task = content;
+    }
 }

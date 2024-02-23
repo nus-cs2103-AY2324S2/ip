@@ -5,7 +5,9 @@ import bytetalker.parser.Parser;
 import bytetalker.storage.Storage;
 import bytetalker.ui.Ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -81,7 +83,7 @@ public class TaskList {
 
     public String addTask(String[] messageContainer, Storage storage, Ui ui) {
         try {
-            Task task = determineTask(messageContainer);
+            Task task = determineTaskToBeAdded(messageContainer);
             try {
                 if (task != null) {
                     this.tasks.add(task);
@@ -100,7 +102,7 @@ public class TaskList {
         }
     }
 
-    private Task determineTask(String[] messageContainer) throws ByteTalkerException.UnsupportedTaskException {
+    private Task determineTaskToBeAdded(String[] messageContainer) throws ByteTalkerException.UnsupportedTaskException {
         boolean isTodo = messageContainer[0].equals("todo");
         boolean isDeadline = messageContainer[0].equals("deadline");
         boolean isEvent = messageContainer[0].equals("event");
@@ -129,7 +131,7 @@ public class TaskList {
 
         Todo task = null;
         try {
-            ArrayList<String> parsedTodoInputs = Parser.parseTodoInput(splitMessage);
+            ArrayList<String> parsedTodoInputs = Parser.parseTodoAddInput(splitMessage);
             task = new Todo(parsedTodoInputs.get(0));
         } catch (ByteTalkerException.TodoNoTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
@@ -151,7 +153,7 @@ public class TaskList {
 
         Deadline task = null;
         try {
-            ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineInput(splitMessage);
+            ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineAddInput(splitMessage);
             task = new Deadline(parsedDeadlineInput.get(0), Parser.parseDateTime(parsedDeadlineInput.get(1)));
         } catch (ByteTalkerException.DeadlineUnsupportedFormatException e) {
             System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
@@ -173,7 +175,7 @@ public class TaskList {
 
         Event task = null;
         try {
-            ArrayList<String> parsedEventInput = Parser.parseEventInput(splitMessage);
+            ArrayList<String> parsedEventInput = Parser.parseEventAddInput(splitMessage);
             task = new Event(parsedEventInput.get(0), Parser.parseDateTime(parsedEventInput.get(1)),
                     Parser.parseDateTime(parsedEventInput.get(2)));
         } catch (ByteTalkerException.EventWrongFormatException e) {
@@ -185,15 +187,20 @@ public class TaskList {
     /**
      * Deletes the specified task from the list
      *
-     * @param position Position of the task in the list
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into hard disk.
      * @param ui Utility object to print out the message to user to inform the process of the method.
      */
-    public String deleteTask(int position, Storage storage, Ui ui) {
+    public String deleteTask(String[] splitMessages, Storage storage, Ui ui) {
         assert tasks != null;
-        assert position >= 0;
         assert ui != null;
         assert storage != null;
+        int position = Integer.parseInt(splitMessages[1]);
+        assert position > 0;
+
+        if (position > this.tasks.size() && position > 0) {
+            return "Please enter valid index";
+        }
 
         Task task = this.tasks.get(position - 1);
         try {
@@ -201,7 +208,7 @@ public class TaskList {
             storage.storeTasks(this.tasks);
             return ui.showDeleteTaskMsg(task, this.tasks.size());
         } catch (IOException e) {
-            this.tasks.add(task);
+            this.tasks.add(position - 1, task);
             return ui.showStoreTaskErrorMessage();
         }
     }
@@ -229,5 +236,63 @@ public class TaskList {
             }
         }
         return ui.displayFoundTasks(foundTasks);
+    }
+
+    // update 2 /content read book || /by 2/10/2019 5:00
+    public String editTask(String[] splitMessages, Storage storage, Ui ui) {
+        int index = Integer.parseInt(splitMessages[1]) - 1;
+
+        Task task = this.tasks.get(index);
+        try {
+            String message = "";
+            if (splitMessages[2].equals("/content")) {
+                message = editContent(splitMessages, task, ui);
+            } else if (splitMessages[2].equals("/by")) {
+                message = editDeadline(splitMessages, task, ui);
+            } else if (splitMessages[2].equals("/from")) {
+                message = editFrom(splitMessages, task, ui);
+            } else if (splitMessages[2].equals("/to")) {
+                message = editTo(splitMessages, task, ui);
+            } else {
+                message = "Unsupported Task";
+            }
+            storage.storeTasks(this.tasks);
+            return message;
+        } catch (IOException e) {
+            return "Failed saving changes into the file. Please restart the program";
+        }
+    }
+
+    public String editContent(String[] splitMessages, Task task, Ui ui) {
+        String content = Parser.parseContentUpdateInput(splitMessages);
+        task.updateTask(content);
+        return ui.showUpdatedTask(task);
+    }
+
+    public String editDeadline(String[] splitMessages, Task task, Ui ui) {
+        LocalDateTime deadline = Parser.parseDateTimeUpdateInput(splitMessages);
+        if (task.getTaskType() == TaskType.DEADLINE) {
+            ((Deadline) task).updateDeadline(deadline);
+            return ui.showUpdatedTask(task);
+        }
+        return ui.showWrongFormatUpdate();
+    }
+
+    public String editFrom(String[] splitMessages, Task task, Ui ui) {
+        LocalDateTime time = Parser.parseDateTimeUpdateInput(splitMessages);
+        if (task.getTaskType() == TaskType.EVENT) {
+            ((Event) task).updateFrom(time);
+            return ui.showUpdatedTask(task);
+        }
+        return ui.showWrongFormatUpdate();
+    }
+
+    public String editTo(String[] splitMessages, Task task, Ui ui) {
+        LocalDateTime time = Parser.parseDateTimeUpdateInput(splitMessages);
+        if (task.getTaskType() == TaskType.EVENT) {
+            ((Event) task).updateTo(time);
+            return ui.showUpdatedTask(task);
+        }
+        return ui.showWrongFormatUpdate();
     }
 }

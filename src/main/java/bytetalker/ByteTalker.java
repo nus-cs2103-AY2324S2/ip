@@ -8,10 +8,10 @@ import bytetalker.parser.Parser;
 import graphics.DialogBox;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -69,9 +69,11 @@ public class ByteTalker extends Application {
         } else if (splitMessages[0].equals("unmark")) {
             return this.tasks.unmarkTask(splitMessages, storage, ui);
         } else if (splitMessages[0].equals("delete")) {
-            return this.tasks.deleteTask(Integer.parseInt(splitMessages[1]), storage, ui);
+            return this.tasks.deleteTask(splitMessages, storage, ui);
         } else if (splitMessages[0].equals("find")) {
             return this.tasks.findTask(splitMessages, ui);
+        } else if (splitMessages[0].equals("update")) {
+            return this.tasks.editTask(splitMessages, storage, ui);
         } else {
             return this.tasks.addTask(splitMessages, storage, ui);
         }

@@ -64,4 +64,12 @@ public class Event extends Task {
         String formattedDateTime = this.to.format(outputFormatter);
         return formattedDateTime;
     }
+
+    public void updateFrom(LocalDateTime from) {
+        this.from = from;
+    }
+
+    public void updateTo(LocalDateTime to) {
+        this.to = to;
+    }
 }

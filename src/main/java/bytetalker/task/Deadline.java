@@ -45,4 +45,8 @@ public class Deadline extends Task {
     public LocalDateTime getDeadline() {
         return this.deadline;
     }
+
+    public void updateDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
 }
