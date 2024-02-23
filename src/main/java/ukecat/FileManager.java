@@ -19,18 +19,28 @@ public class FileManager {
      */
     public static void loadTasks() {
         File file = new File("data/taskData.txt");
+
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 Storage.loadTask(scanner.nextLine());
             }
         } catch (FileNotFoundException fileNotFoundException) {
             try {
+                File parentDir = file.getParentFile();
+
+                if (!parentDir.exists() && !parentDir.mkdirs()) {
+                    System.out.println("Failed to create parent directories for the file.");
+                }
+
                 boolean isCreated = file.createNewFile();
+
                 if (isCreated) {
                     System.out.println("File not found, I created one for you!");
+                } else {
+                    System.out.println("Failed to create the file.");
                 }
             } catch (IOException ioException) {
-                System.out.println("IO error occurred when creating the file.");
+                System.out.println("IO error occurred when creating the file: " + ioException.getMessage());
             }
         }
     }
