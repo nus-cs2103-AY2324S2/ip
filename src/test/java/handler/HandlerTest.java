@@ -17,13 +17,13 @@ public class HandlerTest {
 
     @Test
     public void parseDateTime() throws AnxiException {
-        assertEquals(LocalDateTime.parse("2024-02-12 1500", DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm")),
+        assertEquals(LocalDateTime.parse("2024-02-12 1500", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
                handler.parseDateTime("2024-02-12 1500"));
 
-        assertEquals(LocalDateTime.parse("2024-02-12 1500", DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm")),
+        assertEquals(LocalDateTime.parse("2024-02-12 1500", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
                 handler.parseDateTime("2024/02/12 15:00"));
 
-        assertEquals(LocalDateTime.parse("2024-02-12 03:00 PM", DateTimeFormatter.ofPattern("yyyy-dd-MM hh:mm a")),
+        assertEquals(LocalDateTime.parse("2024-02-12 03:00 PM", DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a")),
                 handler.parseDateTime("2024/02/12 03:00 PM"));
     }
 
@@ -41,16 +41,16 @@ public class HandlerTest {
 
     @Test
     public void parseDateTest() throws AnxiException {
-        assertEquals(LocalDate.parse("2025-02-12", DateTimeFormatter.ofPattern("yyyy-dd-MM")),
+        assertEquals(LocalDate.parse("2025-02-12", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 handler.parseDate("2025-02-12"));
 
-        assertEquals(LocalDate.parse("2025/02/12", DateTimeFormatter.ofPattern("yyyy/dd/MM")),
+        assertEquals(LocalDate.parse("2025/02/12", DateTimeFormatter.ofPattern("yyyy/MM/dd")),
                 handler.parseDate("2025/02/12"));
 
-        assertEquals(LocalDate.parse("02-12-2025", DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+        assertEquals(LocalDate.parse("02-12-2025", DateTimeFormatter.ofPattern("MM-dd-yyyy")),
                 handler.parseDate("02-12-2025"));
 
-        assertEquals(LocalDate.parse("02/12/2025", DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+        assertEquals(LocalDate.parse("02/12/2025", DateTimeFormatter.ofPattern("MM/dd/yyyy")),
                 handler.parseDate("02/12/2025"));
     }
 

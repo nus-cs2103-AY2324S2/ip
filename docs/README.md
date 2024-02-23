@@ -215,7 +215,7 @@ Deadlines on :
 
 ## Accepted date and time formats
 Date formats:
-+ `dd-MM-yyyy, yyyy-dd-MM, dd/MM/yyyy, yyyy/dd/MM`
++ `MM-dd-yyyy, yyyy-MM-dd, MM/dd/yyyy, yyyy/MM/dd`
 
 Time formats:
 + `HH:mm, HHmm, hh:mm a`
