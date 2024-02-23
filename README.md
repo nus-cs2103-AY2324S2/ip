@@ -1,4 +1,4 @@
-# Aurora: Your personal scheduling assistant 
+# Aurora: Your personal scheduling assistant
 <img src="/docs/Ui.png" alt="AuroraUi" style="zoom:50%;" />
 
 ## Introduction
@@ -9,7 +9,7 @@ Welcome to Aurora, a desktop *companion* for managing your future tasks, be it t
 isn't just a lifeless task list, it is a friend to you as well!
 
 ## Getting started
-Getting started with Aurora is as easy as 1, 2 and 3:
+Getting started with Aurora is as easy as **1, 2 and 3**:
 1. Ensure that you have Java 11 installed on your device. (Aurora has been tested for both Windows and Mac!)
 2. Download the jar file into an empty folder.
 3. Double click to launch the application!
