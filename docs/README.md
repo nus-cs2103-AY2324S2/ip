@@ -209,7 +209,7 @@ Got it I've edited this task:
 3. [E][] tutorial (from: 1pm to: 3pm)
 ```
 
-***Editing end date***
+**Editing end date**
 
 To edit the **end** date of a event task, type in:
 `edit <Task index number> /to <new end date>`
