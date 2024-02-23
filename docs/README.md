@@ -1,5 +1,5 @@
 # Leo User Guide
-![Ui.png](/Ui.png)
+![Ui.png](docs/Ui.png)
 
 Welcome to Leo, a task management application that helps you stay organized and keep track of your tasks. This user guide will walk you through the various features and functionalities of Leo.
 
