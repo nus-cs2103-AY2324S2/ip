@@ -5,6 +5,7 @@ Introducing **Squid**! No, he's not seafood ğŸ¦‘. Instead, he's a black cat! ğŸ
 He seems grumpy and too cool for you, but deep inside he's just a cuddly cat.
 > I'll handle your tasks for you... Just feed me after. - Squid
 
+<img src="./Ui.png">
 
 ## Features
 
