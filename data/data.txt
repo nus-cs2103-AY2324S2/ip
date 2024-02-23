@@ -1,1 +1,4 @@
-T | 0 | submit cs2103t ip
+T | 1 | submit cs2103t ip
+E | 1 | event Friday Hacks | 2024-03-01 | 2024-03-02
+T | 1 | clean room
+D | 1 | deadline submit CS2103T IP | 2024-02-23
