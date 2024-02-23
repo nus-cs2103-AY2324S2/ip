@@ -7,7 +7,7 @@ Meet Tiny, your all-in-one desktop app designed to streamline your daily life. W
 
 Prerequisites: Ensure you have Java 11 or above installed in your Computer.
 
-1. Download the entire folder from here.
+1. Download the entire folder from [here](https://github.com/Yskie/ip/releases/).
 2. Open double click to open the JAR file.
 3. Use the program!
 
