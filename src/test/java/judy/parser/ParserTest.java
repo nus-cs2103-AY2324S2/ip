@@ -1,24 +1,29 @@
 package judy.parser;
 
-import judy.commands.*;
-import judy.exceptions.DukeException;
-import judy.storage.Storage;
-import judy.task.TaskList;
-import judy.task.Deadline;
-import judy.task.Todo;
-import judy.ui.Ui;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import judy.commands.AddTaskCommand;
+import judy.commands.Command;
+import judy.commands.DeleteTaskCommand;
+import judy.commands.MarkTaskCommand;
+import judy.commands.UnmarkTaskCommand;
+import judy.exceptions.DukeException;
+import judy.storage.Storage;
+import judy.task.Deadline;
+import judy.task.TaskList;
+import judy.task.Todo;
+import judy.ui.Ui;
 
 public class ParserTest {
+    private static TaskList taskList;
     private Parser parser;
     private Command command;
-    private static TaskList taskList;
 
     private void createList() {
         Ui ui = new Ui();
@@ -33,7 +38,7 @@ public class ParserTest {
         new AddTaskCommand(d, taskList).execute(storage, ui);
     }
     @Test
-    public void markTaskCommand_parseSuccessfully() throws DukeException{
+    public void markTaskCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(MarkTaskCommand.COMMAND_WORD + " 2", taskList);
         command = parser.parse();
@@ -41,7 +46,7 @@ public class ParserTest {
     }
     @Test
     public void markTaskCommand_invalidIndex_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(MarkTaskCommand.COMMAND_WORD + " 6", taskList);
             command = parser.parse();
@@ -51,7 +56,7 @@ public class ParserTest {
     }
     @Test
     public void markTaskCommand_emptyInput_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(MarkTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
@@ -61,7 +66,7 @@ public class ParserTest {
     }
     @Test
     public void markTaskCommand_wrongIndexFormat_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(MarkTaskCommand.COMMAND_WORD + " abc", taskList);
             command = parser.parse();
@@ -70,7 +75,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void unmarkTaskCommand_parseSuccessfully() throws DukeException{
+    public void unmarkTaskCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(UnmarkTaskCommand.COMMAND_WORD + " 2", taskList);
         command = parser.parse();
@@ -78,7 +83,7 @@ public class ParserTest {
     }
     @Test
     public void unmarkTaskCommand_invalidIndex_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD + " 6", taskList);
             command = parser.parse();
@@ -88,7 +93,7 @@ public class ParserTest {
     }
     @Test
     public void unmarkTaskCommand_emptyInput_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
@@ -98,7 +103,7 @@ public class ParserTest {
     }
     @Test
     public void unmarkTaskCommand_wrongIndexFormat_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD + " abc", taskList);
             command = parser.parse();
@@ -107,7 +112,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void deleteTaskCommand_parseSuccessfully() throws DukeException{
+    public void deleteTaskCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(DeleteTaskCommand.COMMAND_WORD + " 2", taskList);
         command = parser.parse();
@@ -115,7 +120,7 @@ public class ParserTest {
     }
     @Test
     public void deleteTaskCommand_invalidIndex_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(DeleteTaskCommand.COMMAND_WORD + " 6", taskList);
             command = parser.parse();
@@ -125,7 +130,7 @@ public class ParserTest {
     }
     @Test
     public void deleteTaskCommand_emptyInput_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(DeleteTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
@@ -135,7 +140,7 @@ public class ParserTest {
     }
     @Test
     public void deleteTaskCommand_wrongIndexFormat_exceptionThrown() {
-        try{
+        try {
             createList();
             parser = new Parser(DeleteTaskCommand.COMMAND_WORD + " abc", taskList);
             command = parser.parse();
@@ -144,7 +149,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void AddTodoCommand_parseSuccessfully() throws DukeException{
+    public void addTodoCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(AddTaskCommand.TODO + " read book", taskList);
         command = parser.parse();
@@ -157,12 +162,12 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.TODO, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(" The description of a todo cannot be empty :c \n" +
-                    " (Eg format: todo <Description> )", e.getMessage());
+            assertEquals(" The description of a todo cannot be empty :c \n"
+                    + " (Eg format: todo <Description> )", e.getMessage());
         }
     }
     @Test
-    public void AddDeadlineCommand_parseSuccessfully() throws DukeException{
+    public void addDeadlineCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(AddTaskCommand.DEADLINE + " project /by 2024-06-06 2359", taskList);
         command = parser.parse();
@@ -185,12 +190,12 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.DEADLINE + " 2024-12-31 0000", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(" Invalid format :c \n" +
-                    " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)", e.getMessage());
+            assertEquals(" Invalid format :c \n"
+                    + " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)", e.getMessage());
         }
     }
     @Test
-    public void AddEventCommand_parseSuccessfully() throws DukeException{
+    public void addEventCommand_parseSuccessfully() throws DukeException {
         createList();
         parser = new Parser(AddTaskCommand.EVENT + " event /from 2026-06-06 0000 /to 2026-08-08 0000", taskList);
         command = parser.parse();
@@ -214,8 +219,8 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.EVENT + " /from 2024-12-31 0000", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(" Oops! Invalid format :c \n " +
-                    "(Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)", e.getMessage());
+            assertEquals(" Oops! Invalid format :c \n "
+                    + " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)", e.getMessage());
         }
     }
 }

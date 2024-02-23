@@ -6,7 +6,7 @@ import judy.ui.Ui;
 /**
  * The ExitCommand class represents a command to close and terminate the application.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 
     /**

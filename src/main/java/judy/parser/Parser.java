@@ -1,13 +1,25 @@
 package judy.parser;
 
-import judy.exceptions.DukeException;
-import judy.commands.Command;
-import judy.task.*;
-import judy.commands.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import judy.commands.AddTaskCommand;
+import judy.commands.Command;
+import judy.commands.DeleteTaskCommand;
+import judy.commands.ExitCommand;
+import judy.commands.FindTaskCommand;
+import judy.commands.HelpCommand;
+import judy.commands.InvalidCommand;
+import judy.commands.ListTaskCommand;
+import judy.commands.MarkTaskCommand;
+import judy.commands.UnmarkTaskCommand;
+import judy.exceptions.DukeException;
+import judy.task.Deadline;
+import judy.task.Event;
+import judy.task.Task;
+import judy.task.TaskList;
+import judy.task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into corresponding Command objects.
@@ -34,43 +46,43 @@ public class Parser {
      * @throws DukeException If an error occurs during the parsing process.
      */
     public Command parse() throws DukeException {
-        String[] commandParts = userInput.split(" ",2);
+        String[] commandParts = userInput.split(" ", 2);
         Command command;
         switch (commandParts[0]) {
-            case ListTaskCommand.COMMAND_WORD:
-                command = new ListTaskCommand(taskList);
-                break;
-            case MarkTaskCommand.COMMAND_WORD:
-                command = handleMark(commandParts);
-                break;
-            case UnmarkTaskCommand.COMMAND_WORD:
-                command = handleUnmark(commandParts);
-                break;
-            case DeleteTaskCommand.COMMAND_WORD:
-                return handleDelete(commandParts);
-            case AddTaskCommand.TODO:
-                Task todo = handleTodo(commandParts);
-                command = new AddTaskCommand(todo, this.taskList);
-                break;
-            case AddTaskCommand.DEADLINE:
-                Task deadline = handleDeadline(commandParts);
-                command = new AddTaskCommand(deadline, this.taskList);
-                break;
-            case AddTaskCommand.EVENT:
-                Task event = handleEvent(commandParts);
-                command = new AddTaskCommand(event, this.taskList);
-                break;
-            case FindTaskCommand.COMMAND_WORD:
-                command = handleFind(commandParts);
-                break;
-            case ExitCommand.COMMAND_WORD:
-                command = new ExitCommand();
-                break;
-            case HelpCommand.COMMAND_WORD:
-                command = new HelpCommand();
-                break;
-            default:
-                command = new InvalidCommand();
+        case ListTaskCommand.COMMAND_WORD:
+            command = new ListTaskCommand(taskList);
+            break;
+        case MarkTaskCommand.COMMAND_WORD:
+            command = handleMark(commandParts);
+            break;
+        case UnmarkTaskCommand.COMMAND_WORD:
+            command = handleUnmark(commandParts);
+            break;
+        case DeleteTaskCommand.COMMAND_WORD:
+            return handleDelete(commandParts);
+        case AddTaskCommand.TODO:
+            Task todo = handleTodo(commandParts);
+            command = new AddTaskCommand(todo, this.taskList);
+            break;
+        case AddTaskCommand.DEADLINE:
+            Task deadline = handleDeadline(commandParts);
+            command = new AddTaskCommand(deadline, this.taskList);
+            break;
+        case AddTaskCommand.EVENT:
+            Task event = handleEvent(commandParts);
+            command = new AddTaskCommand(event, this.taskList);
+            break;
+        case FindTaskCommand.COMMAND_WORD:
+            command = handleFind(commandParts);
+            break;
+        case ExitCommand.COMMAND_WORD:
+            command = new ExitCommand();
+            break;
+        case HelpCommand.COMMAND_WORD:
+            command = new HelpCommand();
+            break;
+        default:
+            command = new InvalidCommand();
         }
         return command;
     }
@@ -128,18 +140,18 @@ public class Parser {
      * @throws DukeException if user entered empty or invalid index.
      */
     private Command handleDelete(String[] commandParts) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(commandParts[1].trim()) - 1;
             try {
-                int taskIndex = Integer.parseInt(commandParts[1].trim()) - 1;
-                try {
-                    return new DeleteTaskCommand(taskIndex, taskList);
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException(" Invalid task index. Type 'list' to list out your tasks. ");
-                }
+                return new DeleteTaskCommand(taskIndex, taskList);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(" The index of task cannot be empty. ");
-            } catch (NumberFormatException e) {
-                throw new DukeException(" The task index you've input is not an integer. ");
+                throw new DukeException(" Invalid task index. Type 'list' to list out your tasks. ");
             }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(" The index of task cannot be empty. ");
+        } catch (NumberFormatException e) {
+            throw new DukeException(" The task index you've input is not an integer. ");
+        }
     }
 
     /**
@@ -149,9 +161,9 @@ public class Parser {
      * @throws DukeException if user left the description empty.
      */
     private static Todo handleTodo(String[] todo) throws DukeException {
-        if(todo.length != 2 || todo[1].isEmpty()) {
-            throw new DukeException(" The description of a todo cannot be empty :c \n" +
-                    " (Eg format: todo <Description> )");
+        if (todo.length != 2 || todo[1].isEmpty()) {
+            throw new DukeException(" The description of a todo cannot be empty :c \n"
+                    + " (Eg format: todo <Description> )");
         }
         return new Todo(todo[1]);
     }
@@ -179,8 +191,8 @@ public class Parser {
                 }
                 return new Deadline(taskDescription, byDateTime);
             } else {
-                throw new DukeException(" Invalid format :c \n" +
-                        " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)");
+                throw new DukeException(" Invalid format :c \n"
+                        + " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)");
             }
         }
     }
@@ -213,12 +225,12 @@ public class Parser {
                     }
                     return new Event(taskDescription, fromDateTime, toDateTime);
                 } else {
-                    throw new DukeException(" Oops! Invalid format :c \n " +
-                            "(Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
+                    throw new DukeException(" Oops! Invalid format :c \n "
+                            + " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
                 }
             } else {
-                throw new DukeException(" Oops! Invalid format :c \n " +
-                        " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
+                throw new DukeException(" Oops! Invalid format :c \n "
+                        + " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
             }
         }
     }

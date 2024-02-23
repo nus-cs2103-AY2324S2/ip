@@ -1,19 +1,24 @@
 package judy.command;
 
-import judy.commands.AddTaskCommand;
-import judy.storage.Storage;
-import judy.task.*;
-import judy.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import judy.commands.AddTaskCommand;
+import judy.storage.Storage;
+import judy.task.Deadline;
+import judy.task.Event;
+import judy.task.Task;
+import judy.task.TaskList;
+import judy.task.Todo;
+import judy.ui.Ui;
 
 public class AddTaskCommandTest {
     @AfterEach

@@ -6,7 +6,7 @@ import judy.ui.Ui;
 /**
  * The HelpCommand class represents a command to display available commands in the user interface.
  */
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     /**

@@ -8,7 +8,7 @@ import judy.ui.Ui;
 /**
  * The FindCommand class represents a command to find tasks in the task list that match a given keyword.
  */
-public class FindTaskCommand extends Command{
+public class FindTaskCommand extends Command {
     public static final String COMMAND_WORD = "find";
     private final TaskList taskList;
     private final String keyword;

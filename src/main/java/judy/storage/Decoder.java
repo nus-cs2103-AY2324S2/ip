@@ -1,13 +1,13 @@
 package judy.storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import judy.task.Deadline;
 import judy.task.Event;
 import judy.task.Task;
 import judy.task.TaskList;
 import judy.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Decoder class is to decodes the storage into TaskList objects.
@@ -46,24 +46,24 @@ public class Decoder {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
         switch (taskType) {
-            case "T":
-                decodedTask = new Todo(description);
-                break;
-            case "D":
-                String by = parts[3].trim();
-                LocalDateTime byDateTime = LocalDateTime.parse(by, pattern);
-                decodedTask = new Deadline(description, byDateTime);
-                break;
-            case "E":
-                String[] eventTimings = parts[3].split(" - ");
-                String from = eventTimings[0].trim();
-                String to = eventTimings[1].trim();
-                LocalDateTime fromDateTime = LocalDateTime.parse(from, pattern);
-                LocalDateTime toDateTime = LocalDateTime.parse(to, pattern);
-                decodedTask = new Event(description, fromDateTime, toDateTime);
-                break;
-            default:
-                decodedTask = null;
+        case "T":
+            decodedTask = new Todo(description);
+            break;
+        case "D":
+            String by = parts[3].trim();
+            LocalDateTime byDateTime = LocalDateTime.parse(by, pattern);
+            decodedTask = new Deadline(description, byDateTime);
+            break;
+        case "E":
+            String[] eventTimings = parts[3].split(" - ");
+            String from = eventTimings[0].trim();
+            String to = eventTimings[1].trim();
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, pattern);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, pattern);
+            decodedTask = new Event(description, fromDateTime, toDateTime);
+            break;
+        default:
+            decodedTask = null;
         }
         decodedTask.setIsDone(isDone);
         return decodedTask;
