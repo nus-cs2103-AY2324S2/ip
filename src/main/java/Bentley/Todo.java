@@ -3,6 +3,8 @@
  * deadline or limited time.
  * Extends the Task class.
  */
+package bentley;
+
 public class Todo extends Task {
 
     /**

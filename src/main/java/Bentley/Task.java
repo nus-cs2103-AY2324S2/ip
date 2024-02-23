@@ -50,6 +50,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
+        return taskDescription;
+    }
+
+    /**
      * Returns a formatted string representation of the Task object.
      *
      * @return A string containing the completion status and task description.
