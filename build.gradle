@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("lilybot.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "lilybot"
     archiveClassifier = null
 
 }

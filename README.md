@@ -7,8 +7,8 @@ LilyBot frees your mind of having to remember things you intend to do. It's,
 * ~~FAST~~ ***SUPER FAST*** to use
 
 All you need to do is,
-1. download it from [here](https://github.com/yespiggy/ip/releases/tag/v0.1)
-2. run `java -jar duke.jar` in your terminal
+1. download it from [here](https://github.com/yespiggy/ip/releases/tag/v0.2)
+2. run `java -jar lilybot.jar` in your terminal
 3. add your tasks
 4. let it manage your tasks for you 🧚 
 
