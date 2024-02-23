@@ -105,8 +105,7 @@ public class Handler {
             }
         }
 
-        throw new AnxiException("Wrong date input... try again"
-                + "\n<yyyy/MM/dd> or <MM-dd-yyyy>, forward slashes or hyphens and the 24hr clock");
+        throw new AnxiException("Wrong date input... try again\n<yyyy/MM/dd> or <MM-dd-yyyy>");
     }
 
     /**
