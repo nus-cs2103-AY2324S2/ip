@@ -28,6 +28,6 @@ public class StorageTest {
         storage.saveList(taskList);
         TaskList loadedTaskList = storage.loadData();
         assertEquals(1, loadedTaskList.size());
-        assertEquals("[T][ ] read book\n", loadedTaskList.getTask(1).toString());
+        assertEquals("[T][ ] read book - low\n", loadedTaskList.getTask(1).toString());
     }
 }
