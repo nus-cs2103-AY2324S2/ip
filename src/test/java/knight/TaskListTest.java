@@ -22,9 +22,14 @@ public class TaskListTest {
         public String toString() {
             return "anima mea " + name;
         }
+
+        @Override
+        void update(String updateMessage) {
+            return;
+        }
     }
     @Test
-    public void toStringTest1(){
+    public void toStringTest1() {
         List<Task> tasks = new ArrayList<Task>();
         tasks.add(new DummyTask("gloria"));
         tasks.add(new DummyTask("in excelsis deo"));
@@ -33,7 +38,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void getCommandsTest1(){
+    public void getCommandsTest1() {
         List<Task> tasks = new ArrayList<Task>();
         tasks.add(new DummyTask("gloria"));
         tasks.add(new DummyTask("in excelsis deo"));
