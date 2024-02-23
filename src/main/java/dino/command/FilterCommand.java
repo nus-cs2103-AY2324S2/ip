@@ -27,7 +27,7 @@ public class FilterCommand extends Command {
         StringBuilder result = new StringBuilder();
 
         try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
             LocalDate date = LocalDate.parse(argument, dateFormatter);
 
             result.append("Tasks for ").append(date).append(":\n");

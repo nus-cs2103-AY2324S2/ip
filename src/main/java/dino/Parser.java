@@ -12,6 +12,7 @@ import dino.command.DeleteCommand;
 import dino.command.ExitCommand;
 import dino.command.FilterCommand;
 import dino.command.FindCommand;
+import dino.command.HelpCommand;
 import dino.command.ListCommand;
 import dino.command.MarkCommand;
 import dino.command.TaskCommand;
@@ -87,7 +88,7 @@ public class Parser {
             return new FindCommand(argument);
 
         default:
-            throw new DinoException("I don't understand ;;");
+            return new HelpCommand();
         }
     }
 

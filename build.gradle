@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("dino.Main")
+    mainClass.set("dino.Launcher")
 }
 
 shadowJar {
