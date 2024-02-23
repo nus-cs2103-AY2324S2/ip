@@ -1,7 +1,5 @@
 # Aether User Guide
 
-
-
 ![Ui.png](Ui.png)
 
 Aether! The chatbot that helps you manage all your tasks in one place :)
@@ -108,17 +106,6 @@ The list of all tasks present, both unmarked and marked will be shown
 1.[D][]write reflection (by: Jan 01 2024 1200)
 2.[T][X]read a book
 ```
-## Saying Bye!
-The conversation with Aether can be ended by saying bye
-
-
-Example: `bye`
-
-Aether will send a goodbye message and the window will close
-
-```
-Goodbye! Hope to see you again soon!
-```
 # Additional Features
 
 ## Mark task as done
@@ -192,3 +179,14 @@ This task was not added to the list
 ```
 If either one of the description or timing are different, 
 then those tasks will be added
+## Saying Bye!
+The conversation with Aether can be ended by saying bye
+
+
+Example: `bye`
+
+Aether will send a goodbye message and the window will close
+
+```
+Goodbye! Hope to see you again soon!
+```
