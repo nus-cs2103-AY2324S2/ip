@@ -75,7 +75,7 @@ public class Logic {
                 return cmd.processData(command, input);
             }
         } catch (HalException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return e.getMessage();
         }
     }

@@ -48,43 +48,33 @@ public class CommandProcessor {
         case DELETE:
             result = storage.delete(processDelete(input));
             break;
-
         case LIST:
             result = storage.displayList();
             break;
-
         case MARK:
             result = storage.mark(processMark(input, Command.MARK));
             break;
-
         case UNMARK:
             result = storage.unmark(processMark(input, Command.UNMARK));
             break;
-
         case DEADLINE:
             result = storage.add(processDeadline(input));
             break;
-
         case EVENT:
             result = storage.add(processEvent(input));
             break;
-
         case TODO:
             result = storage.add(processTodo(input));
             break;
-
         case FIND:
             result = storage.displaySearchList(processFind(input));
             break;
-
         case UNDO:
             result = historyManager.undo(storage);
             break;
-
         case REDO:
             result = historyManager.redo(storage);
             break;
-
         default:
             assert false : command;
             break;
@@ -122,6 +112,9 @@ public class CommandProcessor {
             String[] splitInput = restOfInput.split(" /by ");
 
             String taskName = splitInput[0];
+            if (taskName.equals("")) {
+                throw new InputException("Your Task name cannot be empty!");
+            }
             LocalDateTime by = TimeProcessor.fromString(splitInput[1]);
 
             return new Deadline(taskName, by);
@@ -141,6 +134,9 @@ public class CommandProcessor {
     public Task processTodo(String input) throws InputException {
         try {
             String taskName = input.substring(5);
+            if (taskName.equals("")) {
+                throw new InputException("Your Task name cannot be empty!");
+            }
             return new Todo(taskName);
         } catch (IndexOutOfBoundsException e) {
             throw InputException.exceptionCommandParsing(Command.TODO, input, e);
@@ -159,7 +155,12 @@ public class CommandProcessor {
             String restOfInput = input.substring(6);
             String[] splitFrom = restOfInput.split(" /from ");
             String[] fromTo = splitFrom[1].split(" /to ");
+
             String taskName = splitFrom[0];
+            if (taskName.equals("")) {
+                throw new InputException("Your Task name cannot be empty!");
+            }
+
             LocalDateTime from = TimeProcessor.fromString(fromTo[0]);
             LocalDateTime to = TimeProcessor.fromString(fromTo[1]);
             return new Event(taskName, from, to);
@@ -195,7 +196,11 @@ public class CommandProcessor {
      */
     public String processFind(String input) throws InputException {
         try {
-            return input.split(" ")[1];
+            String keyword = input.split(" ")[1];
+            if (keyword.equals("")) {
+                throw new InputException("Your keyword cannot be empty!");
+            }
+            return keyword;
 
         } catch (IndexOutOfBoundsException e) {
             throw InputException.exceptionCommandParsing(Command.FIND, input, e);

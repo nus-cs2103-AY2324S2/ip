@@ -187,7 +187,8 @@ Example: `bye`
 
 
 ## Notes
-
+- ### Error Handling
+  - Errors are displayed in the terminal when the jar file is executed
 - ### Unrecognised commands
   - If an unrecognised command was inputted, the response would be
   `You inputted an unrecognizable command` In that scenario, just try again with a correct input.
