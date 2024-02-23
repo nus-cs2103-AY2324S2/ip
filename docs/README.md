@@ -2,6 +2,8 @@
 
 Henry is a desktop chatbot app for managing tasks, optimized for use via Command Line Interface (CLI).
 
+![](./Ui.png)
+
 Here's what Henry can do:
 - Adding a `todo` task that has only description.
 - Adding a `deadline` task that has description, and a deadline datetime (`by`).
@@ -112,12 +114,20 @@ This task is deleted :)
 
 You can update a task that is already added into the list. Other than the index, you can only specify the information that you want to change.
 
-Example: `update 1 /d new description`
+Example 1: `update 1 /d new description`
 - This updates the description of task of index 1 into "new description" 
 
 Expected outcome:
 ```
 Edited task: [T][] new description
+```
+
+Example 2: `update 1 /by 08/02/2024 1400`
+- This updates the deadline of task of index 1 into "new description"
+
+Expected outcome:
+```
+Edited task: [D][] return book (by Feb 08 2024 14:00)
 ```
 
 ## Exit Henry: `bye`
