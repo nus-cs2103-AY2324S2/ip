@@ -6,6 +6,8 @@ package duke;
  * This includes file not found errors, I/O errors, and number format errors.
  */
 public class ErrorHandler {
+    // Define a static Consumer that accepts a String message
+    private static MainWindow mainWindow;
 
     /**
      * Handles cases where a file cannot be found.
@@ -14,7 +16,7 @@ public class ErrorHandler {
      * @param filePath The path to the file that was not found.
      */
     public static void handleFileNotFoundException(String filePath) {
-        System.out.println("File not found: " + filePath);
+        mainWindow.handleFileError(ErrorMessage.FILE_NOT_FOUND + filePath);
     }
 
     /**
@@ -22,6 +24,10 @@ public class ErrorHandler {
      * Prints a general error message indicating an issue with file access.
      */
     public static void handleIOException() {
-        System.out.println("An error occurred while accessing the file.");
+        mainWindow.handleFileError(ErrorMessage.IO_EXCEPTION);
+    }
+
+    public static void setWindow(MainWindow mainWindow) {
+        ErrorHandler.mainWindow = mainWindow;
     }
 }
