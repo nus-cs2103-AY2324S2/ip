@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * It initializes the necessary components and starts the application.
  */
 public class Main extends Application {
-    private Duke duke = new Duke("./data/duke.txt");
+    private Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {
@@ -26,6 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            assert duke != null;
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().introMessage();
             stage.show();

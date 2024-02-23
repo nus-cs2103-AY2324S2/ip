@@ -118,14 +118,12 @@ public class Duke {
         try {
             String userInputWithoutSpace = userInput.trim();
             Command userCommand = parseCommand(userInputWithoutSpace);
+            assert userCommand instanceof Command;
             result = userCommand.executeForString(this.tasks, this.ui, this.storage);
         } catch (DukeException e) {
             result = this.ui.exceptionMsg(e);
         }
         return result;
-    }
-    public String getUserName() {
-        return ui.getName();
     }
     public String getIntroMessage() {
         return ui.introMessage();
