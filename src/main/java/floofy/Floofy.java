@@ -8,10 +8,15 @@ import floofy.task.ToDo;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Represents the main class of the Floofy chat-bot application.
  */
-public class Floofy {
+public class Floofy extends Application{
     /** The storage object to handle the loading and saving of tasks. */
     private Storage storage;
 
@@ -35,6 +40,22 @@ public class Floofy {
     public Floofy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        parser = new Parser();
+        try {
+            tasks = new TaskList();
+            storage.loadTasks(tasks);
+        } catch (FloofyException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    /**
+     * Constructs a Floofy object with no arguments.
+     * */
+    public Floofy() {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
         parser = new Parser();
         try {
             tasks = new TaskList();
@@ -125,5 +146,14 @@ public class Floofy {
      */
     public static void main(String[] args) {
         new Floofy(FILE_PATH).run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }

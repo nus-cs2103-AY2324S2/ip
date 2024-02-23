@@ -64,7 +64,7 @@ public class Ui {
     public void showMatchingTasks(TaskList list) {
         System.out.println(line);
         System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.getSize(); i++) {
             String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
             System.out.println(numberedOutput);
         }
