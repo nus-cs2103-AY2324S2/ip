@@ -3,7 +3,6 @@
 
 Welcome to Leo, a task management application that helps you stay organized and keep track of your tasks. This user guide will walk you through the various features and functionalities of Leo.
 
-##Product Introduction
 Leo is a simple and intuitive task management application designed to assist you in managing your tasks effectively. With Leo, you can easily add, mark, unmark, delete, and find tasks, making task management a breeze.
 
 ## Adding Tasks, deadlines and events
