@@ -1,15 +1,22 @@
 package lilybot;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
+//@@author SE-EDU
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
 public class MainWindow extends AnchorPane{
     @FXML
     private ScrollPane scrollPane;
@@ -48,11 +55,20 @@ public class MainWindow extends AnchorPane{
         DialogBox user = DialogBox.getUserDialog(input, userImage);
         DialogBox bot = DialogBox.getBotDialog(response, botImage);
 
-
         dialogContainer.getChildren().addAll(user, bot);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
         this.lastCommand = input;
 
-        userInput.clear();
+        if (input.equalsIgnoreCase("bye")) {
+            //Solution below inspired by https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        } else {
+            userInput.clear();
+        }
     }
 
 }
+//@@author

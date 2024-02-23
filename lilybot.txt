@@ -1,4 +1,4 @@
 D<>0<>return bk <>2019-10-15
 T<>1<>preToday
 T<>0<>find bk for friends
-T<>0<>read bk
+E<>1<>project meeting <>from to day to tmr

@@ -8,9 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+//@@author SE-EDU
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
+
 /**
  * A GUI for LilyBot using FXML.
  */
+
 public class Main extends Application {
 
     private LilyBot lilyBot = new LilyBot(Storage.getFilePathToLilyBotTxt());
@@ -34,3 +39,4 @@ public class Main extends Application {
         }
     }
 }
+//@@author
