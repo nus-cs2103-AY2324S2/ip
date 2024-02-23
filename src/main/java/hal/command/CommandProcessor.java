@@ -104,7 +104,6 @@ public class CommandProcessor {
     public Integer processDelete(String input) throws InputException {
         try {
             return Integer.parseInt(input.split(" ")[1]) - 1;
-
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw InputException.exceptionCommandParsing(Command.DELETE, input, e);
         }

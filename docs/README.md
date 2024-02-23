@@ -20,6 +20,8 @@ Got it. I've added this task:
 Now you have 1 tasks in list.
 ```
 
+> Note: Name can contain spaces
+
 ## Adding Events
 
 Adds a event task to your task list.
@@ -33,6 +35,8 @@ Got it. I've added this task:
 [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 Now you have 2 tasks in list.
 ```
+
+> Note: Name can contain spaces
 
 ## Adding Todos
 
@@ -48,6 +52,8 @@ Got it. I've added this task:
 Now you have 3 tasks in list.
 ```
 
+> Note: Name can contain spaces
+
 ## Deleting Tasks
 
 Deletes a task from your task list.
@@ -60,7 +66,10 @@ Example: `delete 1`
 I have deleted this:
 [D] [ ] Math Homework by: 12-12-2021 00:00
 ```
-
+> Note: Any additional arguments will be ignored
+>
+> (ie `delete INDEX param2` will be executed exactly the same as `delete INDEX`
+> 
 ## Marking Tasks
 
 Marks a task on your task list.
@@ -74,6 +83,9 @@ Successful Response:
 I have marked this:
 [E] [X] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 ```
+> Note: Any additional arguments will be ignored
+>
+> (ie `mark INDEX param2` will be executed exactly the same as `mark INDEX`
 
 ## Unmarking Tasks
 
@@ -88,6 +100,10 @@ Successful Response:
 I have unmarked this:
 [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 ```
+> Note: Any additional arguments will be ignored
+>
+> (ie `unmark INDEX param2` will be executed exactly the same as `unmark INDEX`
+
 ## Listing Tasks
 
 Lists all tasks in your task list.
@@ -102,6 +118,10 @@ Successful Response:
 2. [T] [ ] Geography Homework
 ```
 
+> Note: Any additional arguments will be ignored
+>
+> (ie `list param1 param2` will be executed exactly the same as `list`
+
 ## Searching Tasks
 
 Finds a task in your task list.
@@ -115,7 +135,9 @@ Successful Response:
 Here are your matching search results:
 1. [T] [ ] Geography Homework
 ```
-
+> Note: Any additional arguments will be ignored and keyword MUST be one word
+>
+> (ie `find KEYWORD param2` will be executed exactly the same as `find KEYWORD`
 
 ## Undoing Commands
 
@@ -132,6 +154,9 @@ This is your current list:
 1. [E] [X] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 2. [T] [ ] Geography Homework
 ```
+> Note: Any additional arguments will be ignored
+>
+> (ie `undo param1 param2` will be executed exactly the same as `undo`
 
 ## Redoing Commands
 
@@ -148,7 +173,9 @@ This is your current list:
 1. [E] [ ] Chemistry Homework from: 12-12-2021 00:00 to: 13-12-2021 00:00
 2. [T] [ ] Geography Homework
 ```
-
+> Note: Any additional arguments will be ignored
+>
+> (ie `redo param1 param2` will be executed exactly the same as `redo`
 ## Exiting the Application
 Exits and closes the application.
 
@@ -176,7 +203,6 @@ Example: `bye`
   - The time parameters (`BY-TIME`, `FROM-TIME`, `TO-TIME`) must be formatted in the following way
     - `dd-MM-yyyy HH:mm`
     - `dd-MM-yyyy` (the time component will be automatically set to 00:00)
-
 
 --- 
 ## Command summary
