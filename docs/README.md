@@ -29,9 +29,7 @@ If you can type fast, Toothless can get your tasks managed faster than tradition
 3. Copy the file to the folder you want to use as the home folder for your Toothless.
 4. Open a command terminal and `cd` to the home folder. Then run `java -jar toothless.jar` to start the app.
 5. A GUI similar to the below should appear in a few seconds. Note that the GUI is not interactive and is for illustration purposes only.
-
 ![Screenshot of Toothless application](Ui.png)
-
 6. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all the tasks in the task list.
 
 ## Features
