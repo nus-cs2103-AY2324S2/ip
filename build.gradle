@@ -47,7 +47,7 @@ test {
 
 application {
 //    The base path is already set to src.main.java
-    mainClass.set("Oak.Oak")
+    mainClass.set("oak.Launcher")
 }
 
 shadowJar {
