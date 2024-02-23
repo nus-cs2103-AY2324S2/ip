@@ -22,6 +22,12 @@ public class FindCommand extends Command {
                     + "\t Otherwise, please use the command: find 1234";
 
     /**
+     * Represents a message displayed when nothing is found.
+     */
+    public static final String MESSAGE_EMPTY_SEARCH_RESULTS =
+            "\t Sorry, the search results did not yield anything useful.\n";
+
+    /**
      * Represents how each individual event should be formatted.
      */
     private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "\t %d. %s";

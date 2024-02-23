@@ -10,6 +10,12 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     /**
+     * Represents message when there are no events available.
+     */
+    public static final String MESSAGE_NO_EVENTS = "\t You have not added any tasks!\n"
+            + "\t Checkout the todo/event/deadline commands!";
+
+    /**
      * Represents how each individual event should be formatted.
      */
     private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "\t %d. %s";
