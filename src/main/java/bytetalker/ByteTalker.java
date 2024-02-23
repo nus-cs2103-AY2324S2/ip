@@ -57,18 +57,6 @@ public class ByteTalker extends Application {
         }
     }
 
-    public ByteTalker(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        storage.setupDirectoryAndFile();
-        try {
-            tasks = new TaskList(storage.loadTasks());
-        } catch (FileNotFoundException e) {
-            ui.showFileNotFoundErrorMsg();
-            isExit = true;
-        }
-    }
-
     private String getResponse(String input) {
         String[] splitMessages = Parser.parse(input);
         if (input.equals("bye")) {
@@ -146,19 +134,6 @@ public class ByteTalker extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         dialogContainer.getChildren().add(DialogBox.getByteTalkerDialog(new Label(this.ui.showWelcome()),
                 new ImageView(byteTalker)));
-    }
-
-    /**
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     /**
