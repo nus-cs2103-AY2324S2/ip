@@ -144,7 +144,7 @@ The ```list``` command displays the whole tasklist.
 > Example
 
 ```
-list works?
+list
 ```
 
 The chatbot displays all your tasks.
@@ -202,7 +202,9 @@ The ```bye``` command helps you exit from the application.
 
 > Example
 
-```exit```
+```
+exit
+```
 
 The chatbot closes after a 2 second delay.
 
