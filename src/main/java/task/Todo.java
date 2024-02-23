@@ -1,6 +1,8 @@
-import java.time.format.DateTimeFormatter;
+package task;
 
-public class Todo extends Task{
+import task.Task;
+
+public class Todo extends Task {
 
     public Todo(String name, boolean isDone) {
         super(name, isDone);

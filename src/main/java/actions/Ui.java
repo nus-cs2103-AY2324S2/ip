@@ -1,3 +1,7 @@
+package actions;
+
+import task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -11,7 +15,7 @@ public class Ui {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n" + "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
+                " Hello! I'm Duke.Duke\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n";
     }

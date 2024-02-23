@@ -1,7 +1,13 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package Duke;
+
+import task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import actions.Parser;
+import actions.Ui;
+import actions.TaskList;
+import actions.DataManager;
 public class Duke {
 
     private static final String FILE_PATH = "./data/duke.txt";
@@ -47,7 +53,7 @@ public class Duke {
 //                + "| | | | | | | |/ / _ \\\n"
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n" + "____________________________________________________________\n" +
-//                " Hello! I'm Duke\n" +
+//                " Hello! I'm Duke.Duke\n" +
 //                " What can I do for you?\n" +
 //                "____________________________________________________________\n";
 //    }
@@ -58,7 +64,7 @@ public class Duke {
 //                "____________________________________________________________\n";
 //    }
 //
-//    public static String list(ArrayList<Task> a, int counter) {
+//    public static String list(ArrayList<task.Task> a, int counter) {
 //        String x = ("Here are the tasks in your list: " + "\n" +
 //                "____________________________________________________________\n");
 //        String result = "";
@@ -69,7 +75,7 @@ public class Duke {
 //        return x + result + y;
 //    }
 //
-//    public static String printMark(Task task) {
+//    public static String printMark(task.Task task) {
 //        if (task.getStatus()) {
 //            return "____________________________________________________________\n" +
 //                    "Nice! I've marked this task as done:" + "\n" + task.toString() + "\n" +
@@ -81,7 +87,7 @@ public class Duke {
 //        }
 //    }
 //
-//    public static String added(Task task, int count) {
+//    public static String added(task.Task task, int count) {
 //        return "____________________________________________________________\n" +
 //                "Got it.I've added this task:" + "\n" + task.toString() + "\n" +
 //                "Now you have " + count + " tasks in the list." + "\n" +
@@ -105,7 +111,7 @@ public class Duke {
 //        return time;
 //    }
 //
-//    public static String deleteMessage(Task task, int count) {
+//    public static String deleteMessage(task.Task task, int count) {
 //        return "____________________________________________________________\n" +
 //                "Noted. I've removed this task:" + "\n" + task.toString() + "\n" +
 //                "Now you have " + count + " tasks in the list." + "\n" +
@@ -128,7 +134,7 @@ public class Duke {
 //        Scanner input = new Scanner(System.in);
 //        System.out.println("Enter Message");
 //
-//        ArrayList<Task> tasks = file.retrieveTasks();
+//        ArrayList<task.Task> tasks = file.retrieveTasks();
 //        int counter = tasks.size();
 //
 //        while (true) {
@@ -145,7 +151,7 @@ public class Duke {
 //                } else if (message.startsWith("mark") || message.startsWith("unmark") || message.startsWith("delete")) {
 //                    String[] parts = message.split(" ");
 //                    int num = Integer.parseInt(parts[1]);
-//                    Task current = tasks.get(num - 1);
+//                    task.Task current = tasks.get(num - 1);
 //
 //                    if (message.startsWith("mark")) {
 //                        current.markAsDone();
@@ -167,8 +173,8 @@ public class Duke {
 //                    String[] parts = message.split(" ", 2);
 //                    if (message.startsWith("todo")) {
 //                        String task = parts[1];
-////                        tasks[counter] = new Todo(task);
-//                        tasks.add(new Todo(task, false));
+////                        tasks[counter] = new task.Todo(task);
+//                        tasks.add(new task.Todo(task, false));
 //                        counter++;
 //                        System.out.println(added(tasks.get(counter - 1), counter));
 //                        file.saveTasks(tasks);
@@ -176,7 +182,7 @@ public class Duke {
 //                        String task = getTask(parts[1]);
 //                        String[] timeparts = time.split("by");
 //                        LocalDateTime by = parseToLocalDate(timeparts[1].trim());
-//                        tasks.add(new Deadline(task, false, by) );
+//                        tasks.add(new task.Deadline(task, false, by) );
 //                        counter++;
 //                        System.out.println(added(tasks.get(counter - 1), counter));
 //                        file.saveTasks(tasks);
@@ -186,7 +192,7 @@ public class Duke {
 //                        String[] dateParts = timeparts[1].trim() .split("/to");
 //                        LocalDateTime from = parseToLocalDate(dateParts[0].trim());
 //                        LocalDateTime to = parseToLocalDate(dateParts[1].trim());
-//                        tasks.add(new Event(task, false, from, to));
+//                        tasks.add(new task.Event(task, false, from, to));
 //                        counter++;
 //                        System.out.println(added(tasks.get(counter - 1), counter));
 //                        file.saveTasks(tasks);
