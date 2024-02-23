@@ -60,7 +60,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(userText, userPic),
                 DialogBox.getDukeDialog(duneText, dunePic)
         );
-        if (userText.equals("bye")) {
+        if (userText.toLowerCase().startsWith("bye")) {
             // Create a PauseTransition to introduce a delay
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> Platform.exit());

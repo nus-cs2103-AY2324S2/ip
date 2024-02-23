@@ -1,4 +1,4 @@
-T|1|wash dishes
-T|0|read book
-E|0|sleep|2024-02-02T05:05|2024-02-02T05:06
-T|0|
+T|0|next
+E|0||2001-09-11T06:06|2001-09-11T09:09
+T|0|urbaba
+T|0|ttt
