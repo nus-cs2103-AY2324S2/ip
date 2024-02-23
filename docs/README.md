@@ -1,16 +1,17 @@
 # Stille User Guide
 
 
-![](UI.png)
+![](Ui.png)
 
 Stille is a chatbot for managing tasks via a **Command Line Interface** (CLI).
 It supports basic features such as adding, finding, deleting tasks, and more.
+
 ---
 # Quickstart
-1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest stille.jar from the repository.
-3. Copy the file to the folder you want to use as the home folder.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar stille.jar command to run the application.
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest `stille.jar` from the repository.
+3. Copy the file to the folder you want to use as the _home folder_.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar stille.jar` command to run the application.
 5. Start typing commands in the input field and press Enter on your keyboard or the send button on the window. See below for the 
 list of commands available.
 
