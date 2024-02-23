@@ -109,4 +109,44 @@ delete 2
 ```
 
 An image example:
+
 <img src="images/images_delete.png">
+
+## See current all tasks: `list`
+list out all the tasks
+
+**Format**: `list`
+
+Examples:
+```
+list
+```
+
+An image example:
+<img src="images/images_list.png">
+
+## Find a task: `find`
+Find a task in the list
+
+**Format**: `Find Task`
+
+Examples:
+```
+find apple
+```
+```
+find Meeting
+```
+
+An image example:
+<img src="images/image_find.png">
+
+## Exit: `bye`
+Type bye to exit window
+
+**Format**: `exit`
+
+Examples:
+```
+exit
+```
