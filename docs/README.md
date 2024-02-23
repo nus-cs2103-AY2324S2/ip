@@ -15,9 +15,6 @@ Examples:
 - `todo write user guide`
 - `todo submit ip`
 
-Expected output:
-
-
 ## 2. Add event
 
 Adds an event task that contains a start and end time
