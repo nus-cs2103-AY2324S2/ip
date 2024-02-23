@@ -1,10 +1,12 @@
-# Duke User Guide
+# Bit User Guide
+
+
 
 // Update the title above to match the actual product name
 
 // Product screenshot goes here
 
-// Product intro goes here
+### Bit is a **chat bot made to manage your tasks, made simple with a Command Line Interface (CLI)**, while retaining benefits of GUI
 
 ## Adding deadlines
 
@@ -20,7 +22,7 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Adding tasks
 
 // Feature details
 
