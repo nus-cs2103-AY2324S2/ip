@@ -10,71 +10,68 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    public void showLoadingError() {
-        System.out.println(line);
-        System.out.println("An error occurred while loading tasks from file.");
-        System.out.println(line);
-    }
-    public void showWelcomeMsg() {
-        System.out.println(line);
-        System.out.println("Hello! I'm floofy.Floofy!");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
+    public String wrapWithlines(String str) {
+        return line + "\n" + str + "\n" + line;
     }
 
-    public void showMarkedTask(Task task) {
-        System.out.println(line);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        System.out.println(line);
+    public String showLoadingError() {
+        String s = "An error occurred while loading tasks from file.";
+        return wrapWithlines(s);
+    }
+    public String showWelcomeMsg() {
+        String s1 = "Hello! I'm floofy.Floofy!";
+        String s2 = "What can I do for you?";
+        return wrapWithlines(s1 + "\n" + s2);
     }
 
-    public void showUnmarkedTask(Task task) {
-        System.out.println(line);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        System.out.println(line);
+    public String showMarkedTask(Task task) {
+        String msg = "Nice! I've marked this task as done:";
+        String markedTask = task.toString();
+        return wrapWithlines(msg + "\n" + markedTask);
     }
 
-    public void showAddedTask(Task task, int len) {
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + len + " tasks in the list.");
-        System.out.println(line);
+    public String showUnmarkedTask(Task task) {
+        String msg = "OK, I've marked this task as not done yet:";
+        String unmarkedTask = task.toString();
+        return wrapWithlines(msg + "\n" + unmarkedTask);
     }
 
-    public void showDeletedTask(Task task, int len) {
-        System.out.println(line);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + len + " tasks in the list.");
-        System.out.println(line);
+    public String showAddedTask(Task task, int len) {
+        String startMsg = "Got it. I've added this task:";
+        String addedTask = task.toString();
+        String endMsg = "Now you have " + len + " tasks in the list.";
+        return wrapWithlines(startMsg + "\n" + addedTask + "\n" + endMsg);
     }
 
-    public void showTaskList(TaskList list) {
-        System.out.println(line);
+    public String showDeletedTask(Task task, int len) {
+        String startMsg = "Noted. I've removed this task:";
+        String deletedTask = task.toString();
+        String endMsg = "Now you have " + len + " tasks in the list.";
+        return wrapWithlines(startMsg + "\n" + deletedTask + "\n" + endMsg);
+    }
+
+    public String showTaskList(TaskList list) {
+        String output = "";
         for (int i = 0; i < list.getSize(); i++) {
             String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
-            System.out.println(numberedOutput);
+            output += numberedOutput + "\n";
         }
-        System.out.println(line);
+        return wrapWithlines(output);
     }
 
-    public void showMatchingTasks(TaskList list) {
-        System.out.println(line);
-        System.out.println("Here are the matching tasks in your list:");
+    public String showMatchingTasks(TaskList list) {
+        String msg = "Here are the matching tasks in your list:";
+        String output = "";
         for (int i = 0; i < list.getSize(); i++) {
             String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
-            System.out.println(numberedOutput);
+            output += numberedOutput + "\n";
         }
-        System.out.println(line);
+        return wrapWithlines(msg + "\n" + output);
     }
 
-    public void showGoodbyeMsg() {
-        System.out.println(line);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+    public String showGoodbyeMsg() {
+        String msg = "Bye. Hope to see you again soon!";
+        return wrapWithlines(msg);
     }
 
 }
