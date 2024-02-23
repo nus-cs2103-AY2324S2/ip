@@ -39,7 +39,7 @@ public class TaskList {
         int previousTasks = storageFill;
         tasks.remove(index);
         TaskList.storageFill--; // Update task count
-        assert previousTasks == storageFill++ : "Task list size should decrease by 1";
+        assert previousTasks == storageFill + 1 : "Task list size should decrease by 1";
     }
 
     /**
@@ -111,10 +111,13 @@ public class TaskList {
         int previousTasks = storageFill;
         tasks.add(task);
         storageFill++;
-        assert previousTasks == storageFill-- : "Task list size should increase by 1";
+        assert previousTasks == storageFill - 1 : "Task list size should increase by 1";
     }
 
     protected static boolean checkNoEventOverlap(LocalDate from, LocalDate to) {
+        if (tasks == null) {
+            return true;
+        }
         for (Task task: tasks) {
             if (task instanceof Event) {
                 Event event = (Event)task;
