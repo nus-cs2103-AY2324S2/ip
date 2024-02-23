@@ -3,7 +3,7 @@ import java.util.Scanner;
 import commands.Command;
 import parser.Parser;
 import storage.StorageManager;
-import tasklist.TaskList; 
+import tasklist.TaskList;
 import ui.Ui;
 
 public class Cal {
@@ -39,6 +39,6 @@ public class Cal {
     public static void main(String[] args) {
         init();
         Ui.showGreeting();
-        run();
+        run(); 
     }
 }

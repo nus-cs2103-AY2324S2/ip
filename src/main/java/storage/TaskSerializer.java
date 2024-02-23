@@ -1,5 +1,6 @@
 package storage;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import tasks.Task;
@@ -10,7 +11,7 @@ import tasks.Todo;
 public class TaskSerializer {
     private final static String DELIMITER = ", ";
 
-    // localDateTime --> String in 12/02/2023 1800 format
+    // localDateTime --> String
     public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         for (Task t : tasks) {
@@ -25,14 +26,14 @@ public class TaskSerializer {
                 taskFields[0] = "D";
                 taskFields[1] = deadline.getStatus() ? "1" : "0";
                 taskFields[2] = deadline.getDescription();
-                taskFields[4] = deadline.getDueDate().format(Task.INPUT_DATE_FORMAT);
+                taskFields[4] = deadline.getDueDate().toString();
             } else if (t instanceof Event) {
                 Event event = (Event) t;
                 taskFields[0] = "E";
                 taskFields[1] = event.getStatus() ? "1" : "0";
                 taskFields[2] = event.getDescription();
-                taskFields[3] = event.getStartDate().format(Task.INPUT_DATE_FORMAT);
-                taskFields[4] = event.getEndDate().format(Task.INPUT_DATE_FORMAT);
+                taskFields[3] = event.getStartDate().toString();
+                taskFields[4] = event.getEndDate().toString();
             } else {
                 throw new RuntimeException("Unable to cast Task class into any of its subclasses.");
             }
@@ -56,11 +57,14 @@ public class TaskSerializer {
                 t.setStatus(status);
                 break;
             case "D":
-                t = new Deadline(fields[2], fields[4]);
+                LocalDateTime by = LocalDateTime.parse(fields[4]);
+                t = new Deadline(fields[2], by);
                 t.setStatus(status);
                 break;
             case "E":
-                t = new Event(fields[2], fields[3], fields[4]);
+                LocalDateTime startDate = LocalDateTime.parse(fields[3]);
+                LocalDateTime endDate = LocalDateTime.parse(fields[4]);
+                t = new Event(fields[2], startDate, endDate);
                 t.setStatus(status);
                 break;
             default:

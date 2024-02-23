@@ -1,4 +1,5 @@
 package parser;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import commands.AddCommand;
@@ -9,6 +10,7 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.UnmarkCommand;
 import exceptions.CalException;
+import tasks.Task;
 
 public class Parser {
     public static Command parseCommand(String line) throws CalException {
@@ -46,49 +48,55 @@ public class Parser {
                     return new AddCommand(description);
                 case "deadline":
                     int byIndex = line.indexOf("/by");
-                    String by;
+                    LocalDateTime dueDate;
 
                     try {
                         description = line.substring(8, byIndex).strip();
                         if (description.isBlank()) {
                             throw new CalException("Task description not provided");
                         }
-                        by = line.substring(byIndex + 4).strip();
+
+                        String by = line.substring(byIndex + 4).strip();
                         if (by.isBlank()) {
                             throw new CalException("Task due date not provided");
                         }
+                        dueDate = LocalDateTime.parse(by, Task.INPUT_DATE_FORMAT);
                     } catch (StringIndexOutOfBoundsException e) {
                         throw new CalException("Deadline Task is not in the format: " +
                             "deadline (description) /by (due date)!");
                     } catch(DateTimeParseException e) {
-                        throw new CalException(e.getMessage());
+                        throw new CalException("Date should be written in the format (2/12/2019 1800)");
                     }
 
-                    return new AddCommand(description, by);
+                    return new AddCommand(description, dueDate);
                 case "event":
                     int fromIndex = line.indexOf("/from");
                     int toIndex = line.indexOf("/to");
-                    String startDate;
-                    String endDate;
+                    LocalDateTime startDate;
+                    LocalDateTime endDate;
 
                     try {
                         description = line.substring(5, fromIndex).strip();
                         if (description.isBlank()) {
                             throw new CalException("Event description not provided");
                         }
-                        startDate = line.substring(fromIndex + 5, toIndex).strip();
-                        if (startDate.isBlank()) {
+
+                        String startDateStr = line.substring(fromIndex + 5, toIndex).strip();
+                        if (startDateStr.isBlank()) {
                             throw new CalException("Event start date not provided");
                         }
-                        endDate = line.substring(toIndex + 3).strip();
-                        if (endDate.isBlank()) {
+                        startDate = LocalDateTime.parse(startDateStr, Task.INPUT_DATE_FORMAT);
+
+                        String endDateStr = line.substring(toIndex + 3).strip();
+                        if (endDateStr.isBlank()) {
                             throw new CalException("Event end date not provided");
                         }
+                        endDate = LocalDateTime.parse(endDateStr, Task.INPUT_DATE_FORMAT);
                     } catch (StringIndexOutOfBoundsException e){
                         throw new CalException("Event Task is not in the format: " + 
                             "event (description) /from (startDate) /to (endDate)!");
                     } catch(DateTimeParseException e) {
-                        throw new CalException(e.getMessage());
+                        throw new CalException("Date should be written in the format (2/12/2019 1800)");
                     }
 
                     return new AddCommand(description, startDate, endDate);

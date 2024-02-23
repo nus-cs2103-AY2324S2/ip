@@ -7,10 +7,10 @@ public class Event extends Task {
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
 
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.startDate = LocalDateTime.parse(startDate, INPUT_DATE_FORMAT);
-        this.endDate = LocalDateTime.parse(endDate, INPUT_DATE_FORMAT);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public LocalDateTime getStartDate() {
