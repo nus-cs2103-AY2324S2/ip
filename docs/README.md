@@ -1,6 +1,6 @@
 # Duc - Personal Task Management Assistant User Guide
 
-![Task List Example](./docs/ui.PNG)
+![Task List Example](ui.PNG)
 
 Welcome to Duc, your personal task management assistant. This guide will help you navigate through Duc's features and functions to enhance your productivity.
 
