@@ -1,7 +1,8 @@
-package eve;
+package eve.parser;
 import java.io.IOException;
 import java.util.*;
 
+import eve.TaskList;
 import eve.exceptions.EveExceptions;
 import eve.fileStorage.Storage;
 import eve.tasks.Task;
@@ -47,58 +48,14 @@ public class Commands {
         ArrayList<Task> list = new ArrayList<>();
         // Storage storeFile = new Storage();
 
-        try {
-            Storage.loadFileContents(list);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+       
         // refactor into cases
         while (!input.equals("bye")) {
             input = sc.nextLine();
 
             String[] tempyArr = input.split(" ", 2);
             String commandCheck = tempyArr[0];
-            try {
-                switch (commandCheck) {
-                case "bye":
-                    Commands.commandBye(list);
-                    break;
-                case "list":
-                    TaskList.commandList(list);
-                    break;
-                case "mark":
-                    TaskList.commandMark(tempyArr, list);
-                    break;
-                case "unmark":
-                    TaskList.commandUnMark(tempyArr, list);
-                    break;
-                case "delete":
-                    TaskList.commandDelete(tempyArr, list);
-                    break;
-                case "todo":
-                    TaskList.commandTodo(tempyArr, list);
-                    break;
-                case "deadline":
-                    TaskList.commandDeadline(tempyArr, list);
-                    break;
-                case "event":
-                    TaskList.commandEvent(tempyArr, list);
-                    break;
-
-
-                case "find":
-                    TaskList.commandFind(tempyArr, list);
-                    break;
-
-                default:
-                    throw new EveExceptions("OOPS!!! I'm sorry, but I don't know what that means, please try again");
-
-                }
-            } catch (EveExceptions e) {
-                System.out.println(e.getMessage());
-            }
-
-        }
+           
 
 
         sc.close();
