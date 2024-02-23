@@ -23,7 +23,7 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute() {
         super.taskList.addTask(deadline);
-        super.response = "Got it. I've added this task:\n"
+        super.response = "Got it! A new deadline task has been added:\n"
                         + this.deadline + "\n"
                         + super.taskList.getListCounter();
         return super.response;

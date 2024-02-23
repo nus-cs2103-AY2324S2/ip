@@ -9,7 +9,8 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute() {
-        super.response = "Bye. Hope to see you again soon!";
+        super.response = "Goodbye for now!\n"
+                + "It was a pleasure assisting you, Podz is here whenever you need help.";
         return super.response;
     }
 }

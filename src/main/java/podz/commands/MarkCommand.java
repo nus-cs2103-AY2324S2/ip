@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
             throw new PodzException("Oh no!!! Invalid task index!");
         }
         super.taskList.markTask(index);
-        super.response = "Nice! I've marked this task as done:\n"
+        super.response = "Great job! I've marked the task as complete. Keep up the good work!\n"
                         + super.taskList.getTask(index);
         return super.response;
     }
