@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException {
         if (index < 1 || index > tasks.size()) {
-            throw new AlastorException("I'm afraid the task number you've entered is invalid, my dear.");
+            throw new AlastorException("I'm afraid the task number you've entered is invalid.");
         }
         Task task = tasks.get(index - 1);
         if (isMark) {

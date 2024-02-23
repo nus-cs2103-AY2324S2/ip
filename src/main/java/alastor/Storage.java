@@ -53,18 +53,18 @@ public class Storage {
                     Ui.dirCreated = true;
                 } else {
                     throw new AlastorException("I'm afraid I've encountered an error while creating a directory for"
-                            + " your tasks, my dear.\n");
+                            + " your tasks.\n");
                 }
             }
             try {
                 if (storageFile.createNewFile()) {
                     Ui.fileCreated = true;
                 } else {
-                    throw new AlastorException("I'm afraid the file I tried creating already exists, my dear.\n");
+                    throw new AlastorException("I'm afraid the file I tried creating already exists.\n");
                 }
             } catch (IOException newException) {
-                throw new AlastorException("I'm afraid I've encountered an error while creating a file for your tasks,"
-                        + " my dear.\n");
+                throw new AlastorException("I'm afraid I've encountered an error while creating a file for your tasks."
+                        + "\n");
             }
         }
         return list;
@@ -83,7 +83,7 @@ public class Storage {
             writer.write(task.toFile() + "\n");
             writer.close();
         } catch (IOException e) {
-            throw new AlastorException("I'm afraid I've encountered an error while saving your tasks, my dear.\n");
+            throw new AlastorException("I'm afraid I've encountered an error while saving your tasks.\n");
         }
     }
 
@@ -102,7 +102,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new AlastorException("I'm afraid I've encountered an error while saving your tasks, my dear.\n");
+            throw new AlastorException("I'm afraid I've encountered an error while saving your tasks.\n");
         }
     }
 }

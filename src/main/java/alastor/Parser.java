@@ -31,13 +31,13 @@ public class Parser {
         FILE {
             @Override
             public String getErrorMessage() {
-                return "I'm afraid the file I tried reading is corrupted, my dear.\n";
+                return "I'm afraid the file I tried reading is corrupted.\n";
             }
         },
         COMMAND {
             @Override
             public String getErrorMessage() {
-                return "I'm afraid I've encountered an error while parsing the command, my dear.\n";
+                return "I'm afraid I've encountered an error while parsing the command.\n";
             }
         };
 

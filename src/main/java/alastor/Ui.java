@@ -24,14 +24,13 @@ public class Ui {
      * Shows the greeting message.
      */
     public String showGreet() {
-        String temp = "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
-                + "What desires or inquiries do you bring to my infernal realm?\n";
+        String temp = "Hello there! Alastor speaking. What devilish deeds can I assist you with today.\n";
         if (dirCreated) {
-            temp += "I've created a new directory for your tasks, my dear.\n";
+            temp += "Couldn't locate the directory, so I took the liberty of crafting one for you.\n";
             dirCreated = false;
         }
         if (fileCreated) {
-            temp += "I've created a new file for your tasks, my dear.\n";
+            temp += "Couldn't locate the file, so I took the liberty of crafting one for you.\n";
             fileCreated = false;
         }
         return temp;
@@ -43,7 +42,7 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public String showList(TaskList tasks) {
-        String temp = "Behold, my dear! Here unfurls the tasks in your list:\n";
+        String temp = "Behold! Here unfurls the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             temp += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
@@ -57,7 +56,7 @@ public class Ui {
      */
     public String showFind(TaskList tasks) {
         if (tasks.size() == 0) {
-            return "I'm afraid I couldn't find any tasks that match your keyword, my dear.\n";
+            return "I'm afraid I couldn't find any tasks that match your keyword.\n";
         }
         String temp = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -74,10 +73,10 @@ public class Ui {
      */
     public String showMark(Task task, boolean isMark) {
         if (isMark) {
-            return "Well, isn't this delightful! I've marked this task as done, my dear.\n"
+            return "Well, isn't this delightful! I've marked this task as done.\n"
                     + "  " + task.toString() + "\n";
         } else {
-            return "Very well, my dear! I've noted this task as yet untouched.\n"
+            return "Very well! I've noted this task as yet untouched.\n"
                     + "  " + task.toString() + "\n";
         }
     }
@@ -100,7 +99,7 @@ public class Ui {
      * @param task The task to be deleted.
      */
     public String showDelete(Task task) {
-        return "Very well, my dear! I've removed this task from our list:\n"
+        return "Very well! I've removed this task from our list:\n"
                 + "  " + task.toString() + "\n";
     }
 
@@ -108,7 +107,7 @@ public class Ui {
      * Shows the exit message.
      */
     public String showExit() {
-        return "Farewell, mortal! Should you ever require my services again, simply summon me.\n";
+        return "Farewell! Should you ever require my services again, simply summon me.\n";
     }
 
     /**
