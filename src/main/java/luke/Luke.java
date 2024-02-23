@@ -3,6 +3,7 @@ package luke;
 import java.util.Objects;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -143,6 +144,10 @@ public class Luke extends Application {
         );
 
         userInput.clear();
+
+        if (lukeText.equals("File saved. Hope to see you again soon!")) {
+            Platform.exit();
+        }
     }
 
     String getResponse(String input) {
