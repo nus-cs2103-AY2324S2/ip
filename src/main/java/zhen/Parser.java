@@ -1,6 +1,5 @@
 package zhen;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -52,16 +51,16 @@ public class Parser {
         }
     }
     private static Command parseAddCommand(String userInput) {
-        if (userInput.length() >= 4 && userInput.substring(0, 4).equals("todo")) {
+        if (userInput.length() >= 5 && userInput.substring(0, 5).equals("todo ")) {
             return new AddCommand(new Todos(userInput.substring(4)));
-        } else if (userInput.length() >= 8 && userInput.substring(0, 8).equals("deadline")) {
+        } else if (userInput.length() >= 9 && userInput.substring(0, 9).equals("deadline ")) {
             String[] strarr = processDeadlineMsg(userInput.substring(8));
             try {
                 return new AddCommand(new Deadline(strarr[0], parseDate(strarr[1])));
             } catch (Exception e) {
                 return new AddCommand(new Deadline(strarr[0], strarr[1]));
             }
-        } else if (userInput.length() >= 5 && userInput.substring(0, 5).equals("event")) {
+        } else if (userInput.length() >= 6 && userInput.substring(0, 6).equals("event ")) {
             String[] strarr = processEventMsg(userInput.substring(5));
             try {
                 return new AddCommand(new Event(strarr[0], parseDate(strarr[1]), parseDate(strarr[2])));
@@ -73,14 +72,14 @@ public class Parser {
     }
 
     private static Command parseMarkingCommands(String userInput) {
-        if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
+        if (userInput.length() >= 5 && userInput.substring(0, 5).equals("mark ")) {
             try {
                 int number = Integer.parseInt(userInput.substring(5));
                 return new MarkCommand(number);
             } catch (Exception E) {
                 return new ShowErrorCommand("Please follow the input format: mark [task index]");
             }
-        } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("unmark")) {
+        } else if (userInput.length() >= 7 && userInput.substring(0, 7).equals("unmark ")) {
             try {
                 int number = Integer.parseInt(userInput.substring(7));
                 return new UnmarkCommand(number);
@@ -92,7 +91,7 @@ public class Parser {
     }
 
     private static Command parseDeleteCommand(String userInput) {
-        if (userInput.length() > 6 && userInput.substring(0, 6).equals("delete")) {
+        if (userInput.length() >= 7 && userInput.substring(0, 7).equals("delete ")) {
             try {
                 int number = Integer.parseInt(userInput.substring(7));
                 return new DeleteCommand(number);
@@ -104,11 +103,12 @@ public class Parser {
     }
 
     private static Command parseTagCommand(String userInput) {
-        if (userInput.length() > 3 && userInput.substring(0, 3).equals("tag")) {
+        if (userInput.length() >= 4 && userInput.substring(0, 4).equals("tag ")) {
             try {
-                int number = Integer.parseInt(userInput.substring(4, 5));
-                String tagInfo = userInput.substring(5);
-                return new TagCommand(number, tagInfo);
+                String[] tagInfo = processTagMsg(userInput);
+                int number = Integer.parseInt(tagInfo[0]);
+                String tagMessage = tagInfo[1];
+                return new TagCommand(number, tagMessage);
             } catch (Exception e) {
                 return new ShowErrorCommand("Please follow the input format: tag [task index] [tag] ");
             }
@@ -117,7 +117,7 @@ public class Parser {
     }
 
     private static Command parseFindCommand(String userInput) {
-        if (userInput.length() > 4 && userInput.substring(0, 4).equals("find")) {
+        if (userInput.length() >= 5 && userInput.substring(0, 5).equals("find ")) {
             try {
                 String stringToFind = userInput.substring(5);
                 return new FindCommand(stringToFind);
@@ -189,5 +189,26 @@ public class Parser {
             deadlineDetails[1] = "";
         }
         return deadlineDetails;
+    }
+    /**
+     * Extracts important information in user's command and organizes them into a list of String.
+     *
+     * @param userInput User's full input.
+     * @return A list of String of two elements, the first element is the index of task to be tagged,
+     * the second element is the tag's message.
+     */
+    static String[] processTagMsg(String userInput) {
+        String[] tagDetails = new String[2];
+        String[] splitBySpace = userInput.split(" ");
+        if (!splitBySpace[0].equals("tag")) {
+            throw new RuntimeException();
+        }
+        if (splitBySpace.length == 3) {
+            tagDetails[0] = splitBySpace[1].trim();
+            tagDetails[1] = splitBySpace[2].trim();
+        } else {
+            throw new RuntimeException();
+        }
+        return tagDetails;
     }
 }

@@ -25,7 +25,7 @@ public class Zhen {
      * Starts the application, uses the loop to get user's input and process.
      */
     public void run() {
-        ui.showWelcome();
+        Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
