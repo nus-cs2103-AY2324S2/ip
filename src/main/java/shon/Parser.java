@@ -2,6 +2,7 @@ package shon;
 
 import shon.command.Command;
 import shon.command.ExitCommand;
+import shon.command.HelpCommand;
 import shon.command.note.AddNoteCommand;
 import shon.command.note.DeleteNoteCommand;
 import shon.command.note.ShowNotesCommand;
@@ -24,7 +25,7 @@ import shon.task.TaskList;
 public class Parser {
     /** The allowed set of actions that the user can do */
     private enum Action {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, NOTE, SHOW, DELNOTE
+        TLIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELTASK, FIND, BYE, NOTE, NLIST, DELNOTE, HELP
     }
 
     /**
@@ -40,7 +41,7 @@ public class Parser {
         Action action = Parser.getAction(input);
         assert action != null : "Action in Parser#parse is null";
         switch (action) {
-        case LIST:
+        case TLIST:
             return new ListCommand(tasks);
         case MARK:
             return new MarkCommand(tasks, Parser.getIdx(input));
@@ -52,7 +53,7 @@ public class Parser {
             return new AddDeadlineCommand(tasks, Parser.getDescription(input), Parser.getBy(input));
         case EVENT:
             return new AddEventCommand(tasks, Parser.getDescription(input), Parser.getFrom(input), Parser.getTo(input));
-        case DELETE:
+        case DELTASK:
             return new DeleteTaskCommand(tasks, Parser.getIdx(input));
         case FIND:
             return new FindCommand(tasks, Parser.getKeyword(input));
@@ -60,10 +61,12 @@ public class Parser {
             return new ExitCommand();
         case NOTE:
             return new AddNoteCommand(notes, Parser.getText(input));
-        case SHOW:
+        case NLIST:
             return new ShowNotesCommand(notes);
         case DELNOTE:
             return new DeleteNoteCommand(notes, Parser.getIdx(input));
+        case HELP:
+            return new HelpCommand();
         default:
             throw new CommandException("Sorry. I have a problem with that command.");
         }
