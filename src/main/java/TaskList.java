@@ -4,7 +4,7 @@ public class TaskList {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
     String indent = "    ";
 
-    public void addTask(Task task) {
+    public void addTask(Task task)  {
         taskList.add(task);
     }
 
@@ -12,6 +12,14 @@ public class TaskList {
         int length = taskList.size();
         Task task = taskList.get(length - 1);
         return task.getName();
+    }
+
+    public int getLength() {
+        return taskList.size();
+    }
+
+    public Task getTask(int idx) {
+        return taskList.get(idx);
     }
 
     public String showList() {
@@ -40,5 +48,6 @@ public class TaskList {
     public void removeTask(int idx) {
         taskList.remove(idx);
     }
+
 
 }
