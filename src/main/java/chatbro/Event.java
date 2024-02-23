@@ -28,7 +28,7 @@ public class Event extends Task {
      * @param endTime The ending time of the Event object.
      * @param isDone Boolean indicating whether the task is done.
      */
-    public Event(String description, String startTime, String endTime, boolean isDone) { // Overloaded constructor: loading from file
+    public Event(String description, String startTime, String endTime, boolean isDone) {
         super(description, isDone);
         type = "E";
         this.startTime = startTime;
