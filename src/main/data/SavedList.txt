@@ -1,4 +1,2 @@
-T|0|this
-T|0|todo THAT
-T|0|this
-T|0|TOODOO
+T|0|Homework
+E|0|Camp|2024-02-23|2024-02-25
