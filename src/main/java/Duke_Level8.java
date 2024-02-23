@@ -1,16 +1,17 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Duke_Level7 {
+public class Duke_Level8 {
     private static final String FILE_PATH = "D:\\Samuel\\NUS\\2324Sem2\\CS2103T\\ip";
     private List<Task> taskList;
 
-    public Duke_Level7() {
+    public Duke_Level8() {
         this.taskList = new ArrayList<>();
         loadTasksFromFile();
     }
@@ -32,11 +33,13 @@ public class Duke_Level7 {
                             break;
                         case "D":
                             String by = parts[3].trim();
+                            LocalDate deadlineDate = LocalDate.parse(by);
                             taskList.add(new Deadline(description, by));
                             break;
                         case "E":
                             String from = parts[3].trim();
                             String to = parts[4].trim();
+                            // Parse your event date/times if needed
                             taskList.add(new Event(description, from, to));
                             break;
                         default:
@@ -241,7 +244,8 @@ public class Duke_Level7 {
     }
 
     public static void main(String[] args) {
-        Duke_Level7 duke = new Duke_Level7();
+        Duke_Level8 duke = new Duke_Level8();
         duke.run();
     }
 }
+
