@@ -43,7 +43,7 @@ public class TaskListTest {
     public void testAddToListWithTask() {
         TaskList list = new TaskList();
         Task newTask = new Task("new task");
-        String expectedOutput = "Got it. I've added this task:\n" + newTask.toString() + "\n" +
+        String expectedOutput = "Got it. I've added this task:\n" + newTask + "\n" +
                 "Now you have 1 tasks in the list.";
         assertEquals(expectedOutput, list.addToList(newTask));
     }

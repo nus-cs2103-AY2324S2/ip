@@ -27,7 +27,7 @@ public class Finder {
         TaskList resultList = new TaskList();
         for (Task t : this.lst) {
             if (t.toString().contains(s)) {
-                sb.append(ctr + ": " + t.toString());
+                sb.append(ctr + ": " + t);
                 isFound = true;
             }
             ctr++;
