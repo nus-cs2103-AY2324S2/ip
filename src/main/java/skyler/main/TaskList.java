@@ -217,4 +217,83 @@ public class TaskList {
             throw new SkylerException("Invalid 'view' command. Please provide a valid date in yyyy-MM-dd format.");
         }
     }
+
+    /**
+     * Displays a user guide explaining how to use the TaskList features.
+     *
+     * @return A string containing the user guide.
+     */
+    public static String help() {
+        StringBuilder guide = new StringBuilder("# Skyler TaskList User Guide\n\n");
+        guide.append("Welcome to Skyler, your personal task management chatbot!\n\n");
+
+        // 1. Adding Tasks
+        guide.append("## 1. Adding Tasks\n");
+        guide.append("To add a new task, use one of the following commands:\n\n");
+        guide.append("```\n");
+        guide.append("todo Buy groceries\n");
+        guide.append("deadline Submit report /by 2024-02-29\n");
+        guide.append("event Team meeting /from 2024-03-01 /to 2024-03-01\n");
+        guide.append("```\n");
+        guide.append("Skyler will confirm the addition and update you on the total number of tasks in your list.\n\n");
+
+        // 2. Listing Tasks
+        guide.append("## 2. Listing Tasks\n");
+        guide.append("To view all tasks in your list, use the following command:\n\n");
+        guide.append("```\n");
+        guide.append("list\n");
+        guide.append("```\n");
+        guide.append("Skyler will provide a numbered list of all your tasks.\n\n");
+
+        // 3. Deleting Tasks
+        guide.append("## 3. Deleting Tasks\n");
+        guide.append("You can delete a task by specifying its number in the list. For example:\n\n");
+        guide.append("```\n");
+        guide.append("delete 2\n");
+        guide.append("```\n");
+        guide.append("This will remove the task at position 2 in your list. Skyler will confirm the deletion and update you on the total number of tasks remaining.\n\n");
+
+        // 4. Undoing Tasks
+        guide.append("## 4. Undoing Tasks\n");
+        guide.append("Undo the last add operation with the following command:\n\n");
+        guide.append("```\n");
+        guide.append("undo\n");
+        guide.append("```\n");
+        guide.append("Skyler will confirm the undone operation and update you on the current state of your task list.\n\n");
+
+        // 5. Marking Tasks as Done
+        guide.append("## 5. Marking Tasks as Done\n");
+        guide.append("To mark a task as done, use the following command:\n\n");
+        guide.append("```\n");
+        guide.append("mark 3\n");
+        guide.append("```\n");
+        guide.append("This will mark the task at position 3 as done. Skyler will confirm the action.\n\n");
+
+        // 6. Marking Tasks as Not Done
+        guide.append("## 6. Marking Tasks as Not Done\n");
+        guide.append("To mark a task as not done (undoing a previous mark), use the following command:\n\n");
+        guide.append("```\n");
+        guide.append("unmark 3\n");
+        guide.append("```\n");
+        guide.append("This will unmark the task at position 3. Skyler will confirm the action.\n\n");
+
+        // 7. Finding Tasks
+        guide.append("## 7. Finding Tasks\n");
+        guide.append("You can search for tasks containing a specific keyword:\n\n");
+        guide.append("```\n");
+        guide.append("find groceries\n");
+        guide.append("```\n");
+        guide.append("Skyler will provide a list of tasks that match the keyword.\n\n");
+
+        // 8. Viewing Tasks on a Specific Date
+        guide.append("## 8. Viewing Tasks on a Specific Date\n");
+        guide.append("To view tasks scheduled for a particular date, use the following command:\n\n");
+        guide.append("```\n");
+        guide.append("view 2024-02-29\n");
+        guide.append("```\n");
+        guide.append("Skyler will display tasks with deadlines or events on the specified date.\n\n");
+
+        return guide.toString();
+    }
+
 }

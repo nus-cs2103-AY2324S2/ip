@@ -65,6 +65,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void showWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getSkylerDialog("Welcome to Skyler!", teddyImage));
+                DialogBox.getSkylerDialog("Welcome to Skyler!\nType 'help' for a list of possible commands. ", teddyImage));
     }
 }

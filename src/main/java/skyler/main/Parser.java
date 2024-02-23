@@ -61,7 +61,9 @@ public class Parser {
             result = TaskList.findTasks(userInput.substring(5).trim());
         } else if (userInput.startsWith("view")) {
             result = TaskList.viewTasksOnDate(userInput);
-        } else {
+        } else if (userInput.startsWith("help")) {
+            result = TaskList.help();
+    }else {
             throw new SkylerException("I'm sorry, I don't understand that command.");
         }
 

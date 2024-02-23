@@ -39,15 +39,4 @@ public class Ui {
     public static String getByeMessage() {
         return "Skyler: Bye. Hope to see you again soon!\n";
     }
-
-    /**
-     * Returns an error message with a customized prefix indicating it's from the
-     * chatbot.
-     *
-     * @param message The error message to be returned.
-     * @return An error message.
-     */
-    public static String getErrorMessage(String message) {
-        return "Skyler: Woof, " + message + "\n";
-    }
 }
