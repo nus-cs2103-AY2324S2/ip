@@ -28,10 +28,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-application {
-    mainClass.set("Duke.UI.Launcher")
-}
-
 test {
     useJUnitPlatform()
 
