@@ -31,7 +31,7 @@ Add an event task to the list.<br>
 Format: `event [DESCRIPTION] /from [TIME] /to [TIME]` <br>
 Examples:<br>
 ```
-event watch CS2103T lecture videos /from 20/02/2024 0000 /to 20/02/2024 0230<br>
+event watch CS2103T lecture videos /from 20/02/2024 0000 /to 20/02/2024 0230
 ```
 `[TIME]` can be provided/recommended to be in the `dd/mm/yy hhmm` format.
 
