@@ -256,11 +256,11 @@ public class Ui {
      * @param current The task to mark.
      */
     public String commandMark(Task current) {
-        current.markDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is already done! Yay!"
                 : "Nice! I've marked this task as done:");
+        current.markDone();
         response.add("  " + current.toString());
         String reply = listToString(response);
         return reply;
@@ -282,11 +282,11 @@ public class Ui {
      * @param current The task to unmark.
      */
     public String commandUnmark(Task current) {
-        current.markUnDone();
         ArrayList<String> response = new ArrayList<>();
         response.add(current.checkDone()
                 ? "This task is not yet done! Best get on it :D"
                 : "OK, I've marked this task as undone:");
+        current.markUnDone();
         response.add("  " + current.toString());
         String reply = listToString(response);
 
