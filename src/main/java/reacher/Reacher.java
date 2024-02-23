@@ -14,8 +14,9 @@ public class Reacher {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadList());
     }
-    public static void main(String[] args) {
-        new Reacher("./storage.txt").run();
+
+    public String getResponse(String text) {
+        return "reacher says " + text;
     }
 
     /**
