@@ -65,7 +65,7 @@ public class Ui {
             if (TaskManager.getList().get(i) == null) {
                 break;
             }
-            sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n");
+            sb.append(i + "." + TaskManager.getList().get(i).toString() + "\n\n");
         }
         return sb.toString();
     }

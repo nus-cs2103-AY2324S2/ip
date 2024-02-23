@@ -5,9 +5,13 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+sourceCompatibility = 11
+targetCompatibility = 11
+
 repositories {
     mavenCentral()
 }
+
 dependencies {
     String javaFxVersion = '17.0.7'
 

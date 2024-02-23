@@ -19,7 +19,7 @@ public class Finder {
                     sb.append("Here are the matching tasks in your list bro:" + "\n");
                 }
                 count++;
-                sb.append(count + ". " + TaskManager.getTask(i).toString() + "\n");
+                sb.append(count + ". " + TaskManager.getTask(i).toString() + "\n\n");
             }
         }
         if (count == 0) {
