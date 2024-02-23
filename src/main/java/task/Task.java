@@ -7,7 +7,7 @@ import util.CsvUtil;
 /**
  * Represents a task.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected final String description;
     protected boolean isMarked;
     protected LocalDateTime startDate;
@@ -45,6 +45,19 @@ public abstract class Task {
         this.description = description;
         this.isMarked = false;
         this.startDate = startDate;
+    }
+
+    @Override
+    public int compareTo(Task t) {
+        if (this.startDate == t.startDate) {
+            return this.description.compareTo(t.description);
+        } else if (this.startDate == null) {
+            return 1;
+        } else if (t.startDate == null) {
+            return -1;
+        } else {
+            return this.startDate.compareTo(t.startDate);
+        }
     }
 
     /**

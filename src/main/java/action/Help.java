@@ -19,15 +19,15 @@ public class Help implements Action {
      */
     @Override
     public String execute() throws IOException {
-        return "Commands:\ntd: add a todo"
-                + "\ndl: add a deadline"
-                + "\ne: add an event"
-                + "\nrm <index>: remove a task"
-                + "\nfind <keywords>: search for tasks"
+        return "Commands:\ntd [DESCRIPTION]: add a todo"
+                + "\ndl [DESCRIPTION] /by DD/MM/YYYY HHMM: add a deadline"
+                + "\ne [DESCRIPTION] /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM: add an event"
+                + "\nrm [INDEX]: remove a task"
+                + "\nfind [KEYWORDS]: search for tasks"
                 + "\nls: list all tasks"
                 + "\nsort: sort all tasks by chronological order"
-                + "\nmk <index>: mark a task as done"
-                + "\num <index>: unmark a task"
+                + "\nmk [INDEX]: mark a task as done"
+                + "\num [INDEX]: unmark a task"
                 + "\nbb: exit Naruto";
     }
 }

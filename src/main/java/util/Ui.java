@@ -42,7 +42,7 @@ public class Ui {
             return new Goodbye();
         case "list":
         case "ls":
-            return new List(taskList);
+            return parseList(taskList);
         case "mark":
         case "mk":
             return parseMark(taskList, restOfLine);
@@ -59,20 +59,35 @@ public class Ui {
         case "e":
             return parseEvent(taskList, restOfLine);
         case "delete":
-        case "d":
+        case "rm":
             return parseDelete(taskList, restOfLine);
         case "find":
         case "f":
             return parseFind(restOfLine);
         case "sort":
         case "s":
-            return new Sort(taskList);
+            return parseSort(taskList);
         case "help":
             return new Help();
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }
     }
+
+    private static Action parseList(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return new HandleError(NarutoException.createEmptyListException());
+        }
+        return new List(taskList);
+    }
+
+    private static Action parseSort(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return new HandleError(NarutoException.createEmptyListException());
+        }
+        return new Sort(taskList);
+    }
+
     private static Action parseMark(TaskList taskList, String restOfLine) {
         try {
             int idx = Parser.parseIdx(restOfLine, taskList);

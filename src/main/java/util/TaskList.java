@@ -111,7 +111,7 @@ public class TaskList {
      * Sorts the tasks in the task list based on their date and time.
      */
     public static void sort() {
-        tasks.sort(Comparator.comparing(Task::getDateTime));
+        tasks.sort(Comparator.naturalOrder());
     }
 
     /**

@@ -22,14 +22,18 @@ public class Parser {
     static int parseIdx(String input, TaskList taskList) throws NarutoException {
         assert input != null : "Input string cannot be null";
         assert taskList != null : "TaskList cannot be null";
-
         int idx;
+        if (taskList.isEmpty()) {
+            throw NarutoException.createEmptyListException();
+        }
         try {
             idx = Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw NarutoException.createInvalidIndexException();
         }
-        assert idx > 0 && idx <= taskList.getSize() : "Index out of range";
+        if (!(idx > 0 && idx <= taskList.getSize())) {
+            throw NarutoException.createInvalidIndexException();
+        }
         return idx;
     }
 

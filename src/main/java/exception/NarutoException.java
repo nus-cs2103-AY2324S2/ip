@@ -19,7 +19,8 @@ public abstract class NarutoException extends Exception {
         INVALID_INDEX,
         FILE_CORRUPTED,
         INVALID_ACTION,
-        DUPLICATE_TASK
+        DUPLICATE_TASK,
+        EMPTY_LIST
     }
 
     /**
@@ -105,7 +106,8 @@ public abstract class NarutoException extends Exception {
      * @return the NarutoException for an invalid index
      */
     public static NarutoException createInvalidIndexException() {
-        return new InvalidIndexException("Sorry, I couldn't find the task you indicated...");
+        return new InvalidIndexException("Sorry, I couldn't find the task you indicated... "
+                + "Make sure you enter a valid task number!");
     }
 
     /**
@@ -135,5 +137,14 @@ public abstract class NarutoException extends Exception {
     public static NarutoException createDuplicateTaskException() {
         return new DuplicateTaskException("You already added that task... Try adding "
                 + "something else!");
+    }
+
+    /**
+     * Creates a new instance of NarutoException with an empty list error message.
+     *
+     * @return a NarutoException with an empty list error message
+     */
+    public static NarutoException createEmptyListException() {
+        return new EmptyListException("You don't have any tasks!");
     }
 }
