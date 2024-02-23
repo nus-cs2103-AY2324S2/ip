@@ -135,7 +135,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             ui.informWrongDateFormat();
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.informWrongInputFormat();
+            ui.informInvalidCommand();
         }
         return command;
     }
