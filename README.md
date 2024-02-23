@@ -11,10 +11,8 @@ This is a **chatbot** application that allows you to _manage tasks_.
 
 1. Clone the repo
 2. Compile all java files
-
-   `public static void main(String[] args) throws DukeException {
-        new Duke().run();
-    }`
+3. Run
+   `Launcher.java`
 
 It's that easy :+1:
 
