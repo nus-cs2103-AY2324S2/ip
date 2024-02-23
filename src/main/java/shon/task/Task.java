@@ -19,6 +19,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the string representation of the completion status of the task.
+     * @return "X" if the task is done, " " otherwise.
+     */
     private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

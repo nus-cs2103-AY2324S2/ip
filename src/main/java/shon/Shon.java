@@ -48,11 +48,22 @@ public class Shon {
      * @throws DateTimeParseException If date/time passed into command is in invalid format.
      */
     private String executeCommand(Command command) throws ParameterException, DateTimeParseException {
-        String output = command.execute();
-        this.storage.updateData(this.tasks, this.notes);
-        return output;
+        try {
+            String output = command.execute();
+            this.storage.updateData(this.tasks, this.notes);
+            return output;
+        } catch (DateTimeParseException e) {
+            String parsedString = e.getParsedString();
+            String errorMsg = parsedString + " is not a valid date/time. "
+                    + "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.";
+            throw new DateTimeParseException(errorMsg, parsedString, e.getErrorIndex());
+        }
     }
 
+    /**
+     * Returns greeting message.
+     * @return Greeting message as a String.
+     */
     public String greet() {
         return "Hello! I'm Shon, your friendly bot that keeps track of your tasks and notes. What can I do for you?";
     }

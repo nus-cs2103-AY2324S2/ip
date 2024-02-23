@@ -1,17 +1,18 @@
 package shon.command;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import shon.exception.ParameterException;
 
 /**
  * Represents the command that displays the list of available commands.
  */
 public class HelpCommand extends Command {
+    /**
+     * Shows the list of available commands.
+     * @return The result of the command.
+     */
     @Override
-    public String execute() throws ParameterException, DateTimeParseException {
+    public String execute() {
         List<String> outputs = new ArrayList<>();
         outputs.add("The following command are available:");
         outputs.add("help: displays this current list of commands available");

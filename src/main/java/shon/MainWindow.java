@@ -1,5 +1,7 @@
 package shon;
 
+import java.time.format.DateTimeParseException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,8 +12,6 @@ import javafx.scene.layout.VBox;
 import shon.component.DialogBox;
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -59,12 +59,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
         try {
             dialogContainer.getChildren().addAll(DialogBox.getShonDialog(shon.getResponse(input), shonImage));
-        } catch (ParameterException | CommandException e) {
+        } catch (ParameterException | CommandException | DateTimeParseException e) {
             dialogContainer.getChildren().addAll(DialogBox.getErrorDialog(e.getMessage(), shonImage));
-        } catch (DateTimeParseException e) {
-            String errorMsg = e.getParsedString() + " is not a valid date/time. "
-                    + "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.";
-            dialogContainer.getChildren().add(DialogBox.getErrorDialog(errorMsg, shonImage));
         }
         userInput.clear();
     }

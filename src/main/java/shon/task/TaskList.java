@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shon.exception.ParameterException;
-import shon.task.Deadline;
-import shon.task.Event;
-import shon.task.Task;
-import shon.task.Todo;
 
 /**
  * Represents the todo list of the user.
