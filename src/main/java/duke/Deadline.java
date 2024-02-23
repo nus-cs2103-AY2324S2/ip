@@ -14,6 +14,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean isClashingWith(Task otherTask) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(Constants.OUTPUT_FORMATTER) + ")";
     }

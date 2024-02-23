@@ -2,6 +2,8 @@ package duke;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 class ClearCommand extends Command {
     public ClearCommand() {}
@@ -29,7 +31,11 @@ abstract class AddTaskCommand extends Command {
     public String execute(TaskList tasks) throws DukeException {
         assert task != null : "execute() can only be called once";
         int oldTaskCount = tasks.getTaskCount();
-        tasks.addTask(task);
+        AddTaskResult additionResult = tasks.addTask(task);
+        if (!additionResult.isSuccessful()) {
+            throw new DukeException("Failed to add task: " + task + "\n" +
+                    "It is clashing with the existing task: " + additionResult.getClashingTask());
+        }
         assert oldTaskCount + 1 == tasks.getTaskCount();
         String result = "Got it. I've added this task:\n" +
             task + "\n" +
@@ -85,21 +91,39 @@ class AddEventCommand extends AddTaskCommand {
     public Task parseTask(String argument) throws InvalidCommandException {
         Matcher matcher = EVENT_PATTERN.matcher(argument);
         if (!matcher.matches()) {
-            throw new InvalidCommandException("The event command should be in the format: event <description> /from <start date> /to <end date>");
+            LocalDateTime today = LocalDateTime.now();
+            LocalDateTime oneHourLater = today.plusHours(1);
+            LocalDateTime twoHoursLater = today.plusHours(2);
+            throw new InvalidCommandException("The event command should be in the format: " +
+                    "event <description> /from <starting time> /to <ending time>.\n" +
+                    "Example: event meeting /from " + oneHourLater.format(Constants.INPUT_FORMATTER) +
+                    " /to " + twoHoursLater.format(Constants.INPUT_FORMATTER));
         }
         String description = matcher.group(1);
-        String start = matcher.group(2);
-        String end = matcher.group(3);
+        String startingTimeStringRepr = matcher.group(2);
+        String endingTimeStringRepr = matcher.group(3);
         if (description.isEmpty()) {
             throw new InvalidCommandException("The description of an event cannot be empty.");
         }
-        if (start.isEmpty()) {
-            throw new InvalidCommandException("The start date of an event cannot be empty.");
+        if (startingTimeStringRepr.isEmpty()) {
+            throw new InvalidCommandException("The starting time of an event cannot be empty.");
         }
-        if (end.isEmpty()) {
-            throw new InvalidCommandException("The end date of an event cannot be empty.");
+        if (endingTimeStringRepr.isEmpty()) {
+            throw new InvalidCommandException("The ending time of an event cannot be empty.");
         }
-        return new Event(description, start, end);
+        LocalDateTime startingTime, endingTime;
+        try {
+            startingTime = LocalDateTime.parse(startingTimeStringRepr, Constants.INPUT_FORMATTER);
+            endingTime = LocalDateTime.parse(endingTimeStringRepr, Constants.INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException(
+                    "Invalid date format!\n" +
+                    e.getMessage());
+        }
+        if (!startingTime.isBefore(endingTime)) {
+            throw new InvalidCommandException("The starting time of an event must be before the ending time.");
+        }
+        return new Event(description, startingTime, endingTime);
     }
 }
 
