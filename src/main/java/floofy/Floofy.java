@@ -47,7 +47,7 @@ public class Floofy extends Application{
     private Scene scene;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/Floofer.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/FloofBoss.png"));
+    private Image floofy = new Image(this.getClass().getResourceAsStream("/images/FloofBoss.png"));
 
     /**
      * Constructs a new object of the Floofy class.
@@ -246,11 +246,11 @@ public class Floofy extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String floofyText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getFloofyDialog(floofyText, floofy)
         );
         userInput.clear();
     }
@@ -259,7 +259,7 @@ public class Floofy extends Application{
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         return "FLOOFED: " + input;
     }
 }
