@@ -33,7 +33,7 @@ public class Handler {
      */
     public LocalDateTime parseDateTime(String dateTime) throws AnxiException {
         List<String> separators = Arrays.asList("-", "/");
-        List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
+        List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "yyyy_dd_MM ");
         List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
 
         ArrayList<String> allDates = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Handler {
         }
 
         throw new AnxiException("Invalid date or time... well hard to help you here\n"
-                + "Forward slashes or hyphens and the 24hr clock");
+                + "\n\n<yyyy/dd/MM> or <dd-MM-yyyy>, forward slashes or hyphens and the 24hr clock");
     }
 
     /**
@@ -87,7 +87,7 @@ public class Handler {
      * */
     public LocalDate parseDate(String date) throws AnxiException {
         List<String> separators = Arrays.asList("-", "/");
-        List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
+        List<String> dateCombinations = Arrays.asList("dd_MM_yyyy", "yyyy_dd_MM");
 
         ArrayList<String> allDates = new ArrayList<>();
         for (String d : dateCombinations) {
@@ -105,7 +105,8 @@ public class Handler {
             }
         }
 
-        throw new AnxiException("Wrong date input... try again\n Psst.. only hyphens and forward slashes");
+        throw new AnxiException("Wrong date input... try again"
+                + "\n\n<yyyy/dd/MM> or <dd-MM-yyyy>, forward slashes or hyphens and the 24hr clock");
     }
 
     /**
