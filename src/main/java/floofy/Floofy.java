@@ -5,13 +5,15 @@ import floofy.task.Event;
 import floofy.task.Task;
 import floofy.task.ToDo;
 
-import java.util.Scanner;
 import java.time.LocalDate;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Represents the main class of the Floofy chat-bot application.
  */
-public class Floofy {
+public class Floofy extends Application {
     /** The storage object to handle the loading and saving of tasks. */
     private Storage storage;
 
@@ -28,13 +30,11 @@ public class Floofy {
     private static final String FILE_PATH = "./data/duke.txt";
 
     /**
-     * Constructs a new object of the Floofy class.
-     *
-     * @param filePath The file path of the file to store the tasks.
-     */
-    public Floofy(String filePath) {
+     * Constructs a Floofy object with no arguments.
+     * */
+    public Floofy() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         parser = new Parser();
         try {
             tasks = new TaskList();
@@ -46,84 +46,106 @@ public class Floofy {
     }
 
     /**
-     * Runs the Floofy chat-bot application.
+     * Runs Floofy for each command input.
+     *
+     * @param userInput The user input command.
+     * @return The result of the command.
      */
-    public void run() {
-        ui.showWelcomeMsg();
-        Scanner scanner = new Scanner(System.in);
-        loop:
-        while (true) {
-            try {
-                String userInput = scanner.nextLine();
-                String[] input = parser.parse(userInput);
-                switch (input[0]) {
-                case "mark":
-                    int idx = Integer.parseInt(input[1]) - 1;
-                    tasks.markTaskAsDone(idx);
-                    ui.showMarkedTask(this.tasks.getTask(idx));
-                    storage.saveTasks(tasks);
-                    continue;
-                case "unmark":
-                    int unmarkIdx = Integer.parseInt(input[1]) - 1;
-                    tasks.markTaskAsUndone(unmarkIdx);
-                    ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
-                    storage.saveTasks(tasks);
-                    continue;
-                case "find":
-                    TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
-                    ui.showMatchingTasks(matchingTasks);
-                    continue;
-                case "todo":
-                    String todoTask = input[1];
-                    ToDo newTodo = new ToDo(todoTask);
-                    tasks.addTask(newTodo);
-                    ui.showAddedTask(newTodo, tasks.getSize());
-                    storage.saveTasks(tasks);
-                    continue;
-                case "deadline":
-                    String deadlineTask = input[1];
-                    LocalDate deadlineBy = LocalDate.parse(input[2]);
-                    Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
-                    tasks.addTask(newDeadline);
-                    ui.showAddedTask(newDeadline, tasks.getSize());
-                    storage.saveTasks(tasks);
-                    continue;
-                case "event":
-                    String eventTask = input[1];
-                    LocalDate eventDateFrom = LocalDate.parse(input[2]);
-                    LocalDate eventDateTo = LocalDate.parse(input[3]);
-                    Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
-                    tasks.addTask(newEvent);
-                    ui.showAddedTask(newEvent, tasks.getSize());
-                    storage.saveTasks(tasks);
-                    continue;
-                case "delete":
-                    int deleteIdx = Integer.parseInt(input[1]) - 1;
-                    Task deletedTask = tasks.getTask(deleteIdx);
-                    tasks.deleteTask(deleteIdx);
-                    ui.showDeletedTask(deletedTask, tasks.getSize());
-                    storage.saveTasks(tasks);
-                    continue;
-                case "list":
-                    ui.showTaskList(tasks);
-                    continue;
-                case "bye":
-                    ui.showGoodbyeMsg();
-                    scanner.close();
-                    break loop;
-                case "invalid":
-                    throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
-                }
-            } catch (FloofyException e) {
-                System.out.println(e.getMessage());
+    public String runCommand(String userInput) {
+        String result = "";
+        try {
+            String[] input = parser.parse(userInput);
+            switch (input[0]) {
+            case "mark":
+                int idx = Integer.parseInt(input[1]) - 1;
+                tasks.markTaskAsDone(idx);
+                result = ui.showMarkedTask(this.tasks.getTask(idx));
+                storage.saveTasks(tasks);
+                break;
+            case "unmark":
+                int unmarkIdx = Integer.parseInt(input[1]) - 1;
+                tasks.markTaskAsUndone(unmarkIdx);
+                result = ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
+                storage.saveTasks(tasks);
+                break;
+            case "find":
+                TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
+                result = ui.showMatchingTasks(matchingTasks);
+                break;
+            case "todo":
+                String todoTask = input[1];
+                ToDo newTodo = new ToDo(todoTask);
+                tasks.addTask(newTodo);
+                result = ui.showAddedTask(newTodo, tasks.getSize());
+                storage.saveTasks(tasks);
+                break;
+            case "deadline":
+                String deadlineTask = input[1];
+                LocalDate deadlineBy = LocalDate.parse(input[2]);
+                Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
+                tasks.addTask(newDeadline);
+                result = ui.showAddedTask(newDeadline, tasks.getSize());
+                storage.saveTasks(tasks);
+                break;
+            case "event":
+                String eventTask = input[1];
+                LocalDate eventDateFrom = LocalDate.parse(input[2]);
+                LocalDate eventDateTo = LocalDate.parse(input[3]);
+                Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
+                tasks.addTask(newEvent);
+                result = ui.showAddedTask(newEvent, tasks.getSize());
+                storage.saveTasks(tasks);
+                break;
+            case "delete":
+                int deleteIdx = Integer.parseInt(input[1]) - 1;
+                Task deletedTask = tasks.getTask(deleteIdx);
+                tasks.deleteTask(deleteIdx);
+                result = ui.showDeletedTask(deletedTask, tasks.getSize());
+                storage.saveTasks(tasks);
+                break;
+            case "list":
+                result = ui.showTaskList(tasks);
+                break;
+            case "bye":
+                result = ui.showGoodbyeMsg();
+                break;
+            case "invalid":
+                result = ui.showInvalidInput();
+                throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
+            return result;
+        } catch (FloofyException e) {
+            System.out.println(e.getMessage());
         }
+        return result;
     }
 
     /**
-     * The main method of the Floofy chat-bot application.
+     * Gets the welcome message from Ui for special case of starting the application.
+     *
+     * @return The welcome message.
      */
-    public static void main(String[] args) {
-        new Floofy(FILE_PATH).run();
+    public String getWelcomeMessage() {
+        return ui.showWelcomeMsg();
+    }
+
+    /**
+     * Starts the Floofy chat-bot application.
+     *
+     * @param stage The stage to display the application.
+     */
+    @Override
+    public void start(Stage stage) {
+
+    }
+
+    /**
+     * Returns the response of Floofy to the user input.
+     *
+     * @param inputCommand The user input command.
+     * @return The response of Floofy to the user input.
+     */
+    public String getResponse(String inputCommand) {
+        return "FLOOFED: " + "\n" + runCommand(inputCommand);
     }
 }
