@@ -1,6 +1,6 @@
 # Wis User Guide
 
-![UI Image](./Ui.png)
+![UI Image](https://github.com/0-yibai/ip/docs/Wis.png)
 
 Wis is a Command-Line-based task manager. You can use it to manage tasks todo, deadlines and events.
 
