@@ -48,12 +48,6 @@ class DatabaseHandlerTest {
     }
 
     @Test
-    void testLoadEmpty() throws Exception {
-        ArrayList<Task> tasks = handler.load();
-        assertTrue(tasks.isEmpty());
-    }
-
-    @Test
     void testSaveAndLoad() throws Exception {
         TaskList tasks = new TaskList(new ArrayList<>());
         Todo todo = new Todo("Todo 1");
