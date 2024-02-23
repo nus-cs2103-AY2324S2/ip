@@ -66,7 +66,7 @@ public class TaskList {
      */
     public String printTaskMarked(Ui ui, int num) {
         Task task = taskList.get(num);
-        assert task.getStatusIcon().equals("X"):"task should already be marked" ;
+        assert task.getStatusIcon().equals("X"): "task should already be marked" ;
         return ui.printTaskMarked(task.toString());
     }
 
@@ -78,7 +78,7 @@ public class TaskList {
      */
     public String printTaskUnMarked(Ui ui, int num) {
         Task task = taskList.get(num);
-        assert task.getStatusIcon().equals(" "):"task should be unmarked" ;
+        assert task.getStatusIcon().equals(" "): "task should be unmarked" ;
         return ui.printTaskUnMarked(task.toString());
     }
 
@@ -114,7 +114,7 @@ public class TaskList {
      * @param typeOfTask the type of task
      * @param task the task information to add
      * @return the task added
-     * @throws JuxException
+     * @throws JuxException if invalid input
      */
     public String addTask(Ui ui, String typeOfTask, String task) throws JuxException {
         if (typeOfTask.equals(Parser.TASK_TODO)) {

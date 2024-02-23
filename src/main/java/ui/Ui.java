@@ -4,7 +4,16 @@ import tasklist.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Ui {
-    private static final String ALLTASKSHEADER = "Here are the tasks in your list!";
+    private static final String ALL_TASKS_HEADER = "Here are the tasks in your list!";
+    public static final String WELCOME_MESSAGE = "Welcome to Jux!";
+    public static final String RETURN_WELCOME_MESSAGE = "Previously on Jux....\n";
+    private static final String GOODBYE_MESSAGE = "____________________________________________________________\n" +
+            "Bye. Hope to see you again soon!\n" +
+            "____________________________________________________________";
+    private static final String MARKED_TASK = "Nice! I've marked this task as done: \n";
+    private static final String UNMARKED_TASK = "OK, I've marked this task as not done yet: \n";
+    private static final String DELETE_TASK_HEADER = "Noted. I've removed this task: \n";
+    private static final String EMPTY_TASK_LIST = "your list is empty!";
 
     /**
      * Ui class that contains the strings to be printed in the Gui
@@ -19,36 +28,33 @@ public class Ui {
      * Print goodbye message upon exiting the program
      */
     public String showGoodbye() {
-        String end = "____________________________________________________________\n" +
-                "Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
-        return end;
+        return GOODBYE_MESSAGE;
     }
 
     /**
      * Print the task as marked
-     * @param task
+     * @param task task to be marked
      * @return the marked task
      */
     public String printTaskMarked(String task) {
-        String output = "Nice! I've marked this task as done:";
-        return output + "\n" + task;
+        String output = MARKED_TASK;
+        return output + task;
     }
 
     /**
      * Print the task as unmarked
-     * @param task
+     * @param task task to be unmarked
      * @return the unmarked task
      */
     public String printTaskUnMarked(String task) {
-        String output = "OK, I've marked this task as not done yet:";
-        return output + "\n" +task;
+        String output = UNMARKED_TASK;
+        return output + task;
     }
 
     /**
      * Print the task list
-     * @param taskList
-     * @String the task list
+     * @param taskList tasklist
+     * @return String the task list
      */
     public String printList(ArrayList<Task> taskList) {
         String output = "";
@@ -60,11 +66,11 @@ public class Ui {
 
     /**
      * Print the deleted task
-     * @param task
+     * @param task the deleted task
      * @return the deleted task string
      */
     public String printDeletedTask(String task) {
-        String output = "Noted. I've removed this task:" + "\n" + task;
+        String output = DELETE_TASK_HEADER + task;
         return output;
     }
 
@@ -73,7 +79,7 @@ public class Ui {
      * @return the string
      */
     public String printEmptyTaskList() {
-        return ("Now, your list is empty!");
+        return EMPTY_TASK_LIST;
     }
 
     /**
@@ -114,7 +120,7 @@ public class Ui {
      * @param taskList
      */
     public String printListWithIndexing(ArrayList<Task> taskList) {
-        String output = ALLTASKSHEADER;
+        String output = ALL_TASKS_HEADER;
         for (int i = 0; i < taskList.size();i++) {
             int j = i + 1;
             output +="\n" + j + "." +  taskList.get(i);

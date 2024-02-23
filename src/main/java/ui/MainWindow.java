@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import jux.Jux;
 
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -46,11 +45,11 @@ public class MainWindow extends AnchorPane {
      */
 
     public void welcomeMessage(){
-        String message = "Hello! I'm Jux\n" +
-                "What can I do for you?\n";
+        String message = ui.Ui.WELCOME_MESSAGE;
         if (!jux.isNewStart()) {
-            message = "Previously on Jux...." + "\n";
-            message += jux.getStorageList();
+            String returningUserWelcomeMessage = Ui.RETURN_WELCOME_MESSAGE;
+            returningUserWelcomeMessage += jux.getStorageList();
+            message = returningUserWelcomeMessage;
         }
         dialogContainer.getChildren().add(DialogBox.getJuxDialog(message, juxImage));
     }
