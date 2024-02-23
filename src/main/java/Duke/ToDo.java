@@ -11,9 +11,18 @@ public class ToDo extends Task {
     public ToDo(String msg) {
         super(msg);
     }
+
+    @Override
+    public boolean isDuplicate(Task task) {
+        if (task instanceof ToDo) {
+            return this.compareMsg(task);
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
-        return label + super.toString() + " ";
+        return label + super.toString();
     }
 
 }

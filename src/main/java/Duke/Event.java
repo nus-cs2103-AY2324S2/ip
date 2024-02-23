@@ -4,9 +4,8 @@ import java.time.LocalDate;
 
 public class Event extends SpecialTask {
     String label = "[E]";
-    LocalDate fromDate;
-    LocalDate toDate;
-    boolean hasDate;
+//    LocalDate fromDate;
+//    LocalDate toDate;
 
     /**
      * Constructs Event object with specified String and the start and end LocalDate.
@@ -16,11 +15,25 @@ public class Event extends SpecialTask {
      * @param toDate
      */
     public Event(String msg, LocalDate fromDate, LocalDate toDate) {
-        super(msg);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-        this.hasDate = true;
+        super(msg, fromDate, toDate);
+//        this.fromDate = fromDate;
+//        this.toDate = toDate;
     }
+
+    @Override
+    public boolean isDuplicate(Task task) {
+        if (task instanceof Event) {
+            Event eTask = (Event) task;
+            return compareMsg(task) && compareDates(eTask);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean compareDates(SpecialTask task) {
+        return this.fromDate.equals(task.fromDate) && this.toDate.equals(task.toDate);
+    }
+
 
     /**
      * Checks if event occurs within date range specified.
