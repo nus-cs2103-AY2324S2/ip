@@ -3,6 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
@@ -58,6 +61,11 @@ public class TaskList {
         return "Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.";
     }
 
+    /**
+     * Finds tasks that contain the given keyword.
+     * @param query The keyword to search for.
+     * @return A list of tasks that contain the keyword.
+     */
     public TaskList findTasks(String query) {
         TaskList foundTasks = new TaskList();
         for (Task task : tasks) {

@@ -1,26 +1,47 @@
 package duke;
 
-abstract public class Task {
+/**
+ * Represents a task.
+ */
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Default provided constructor for Task.
+     * <p>
+     * Subclasses should call this constructor to initialize the description and {@code isDone} field.
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     */
     public String getDescription() {
         return this.description;
     }

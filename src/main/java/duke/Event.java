@@ -6,8 +6,12 @@ import java.time.LocalDateTime;
  * Represents an event task.
  */
 public class Event extends Task {
-    protected LocalDateTime startingTime, endingTime;
+    private LocalDateTime startingTime;
+    private LocalDateTime endingTime;
 
+    /**
+     * Constructor for Event class.
+     */
     public Event(String description, LocalDateTime startingTime, LocalDateTime endingTime) {
         super(description);
         this.startingTime = startingTime;
@@ -18,7 +22,8 @@ public class Event extends Task {
     public boolean isClashingWith(Task otherTask) {
         if (otherTask instanceof Event) {
             Event otherEvent = (Event) otherTask;
-            return this.startingTime.isBefore(otherEvent.endingTime) && this.endingTime.isAfter(otherEvent.startingTime);
+            return this.startingTime.isBefore(otherEvent.endingTime)
+                && this.endingTime.isAfter(otherEvent.startingTime);
         } else {
             return false;
         }

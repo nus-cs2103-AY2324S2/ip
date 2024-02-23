@@ -1,9 +1,9 @@
 package duke;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class ClearCommand extends Command {
     public ClearCommand() {}
@@ -19,13 +19,13 @@ class ClearCommand extends Command {
 abstract class AddTaskCommand extends Command {
     private Task task;
 
-    public abstract Task parseTask(String argument) throws InvalidCommandException;
-
     public AddTaskCommand(String argument) throws InvalidCommandException {
         argument = argument.trim();
         this.task = parseTask(argument);
         assert task != null : "Task should not be null";
     }
+
+    public abstract Task parseTask(String argument) throws InvalidCommandException;
 
     @Override
     public String execute(TaskList tasks) throws DukeException {
@@ -33,13 +33,13 @@ abstract class AddTaskCommand extends Command {
         int oldTaskCount = tasks.getTaskCount();
         AddTaskResult additionResult = tasks.addTask(task);
         if (!additionResult.isSuccessful()) {
-            throw new DukeException("Failed to add task: " + task + "\n" +
-                    "It is clashing with the existing task: " + additionResult.getClashingTask());
+            throw new DukeException("Failed to add task: " + task + "\n"
+                    + "It is clashing with the existing task: " + additionResult.getClashingTask());
         }
         assert oldTaskCount + 1 == tasks.getTaskCount();
-        String result = "Got it. I've added this task:\n" +
-            task + "\n" +
-            tasks.getDisplayTaskCount();
+        String result = "Got it. I've added this task:\n"
+            + task + "\n"
+            + tasks.getDisplayTaskCount();
         task = null;
         return result;
     }
@@ -71,8 +71,10 @@ class AddDeadlineCommand extends AddTaskCommand {
             LocalDateTime today = LocalDateTime.now();
             LocalDateTime oneHourLater = today.plusHours(1);
             throw new InvalidCommandException(
-                    "The deadline command should be in the format: deadline <description> /by <date>\n" +
-                    "Example: deadline homework submission /by " + oneHourLater.format(Constants.INPUT_FORMATTER)
+                    "The deadline command should be in the format: "
+                    + "deadline <description> /by <date>\n"
+                    + "Example: deadline homework submission /by "
+                    + oneHourLater.format(Constants.INPUT_FORMATTER)
                     );
         }
         if (parts[0].isEmpty()) {
@@ -85,19 +87,19 @@ class AddDeadlineCommand extends AddTaskCommand {
         try {
             deadline = LocalDateTime.parse(parts[1], Constants.INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidCommandException("Invalid date format!\n" +
-                    e.getMessage());
+            throw new InvalidCommandException("Invalid date format!\n"
+                    + e.getMessage());
         }
         return new Deadline(parts[0], deadline);
     }
 }
 
 class AddEventCommand extends AddTaskCommand {
+    private static final Pattern EVENT_PATTERN = Pattern.compile("(.*) /from (.*) /to (.*)");
+
     public AddEventCommand(String argument) throws InvalidCommandException {
         super(argument);
     }
-
-    private static final Pattern EVENT_PATTERN = Pattern.compile("(.*) /from (.*) /to (.*)");
 
     @Override
     public Task parseTask(String argument) throws InvalidCommandException {
@@ -106,10 +108,11 @@ class AddEventCommand extends AddTaskCommand {
             LocalDateTime today = LocalDateTime.now();
             LocalDateTime oneHourLater = today.plusHours(1);
             LocalDateTime twoHoursLater = today.plusHours(2);
-            throw new InvalidCommandException("The event command should be in the format: " +
-                    "event <description> /from <starting time> /to <ending time>\n" +
-                    "Example: event meeting /from " + oneHourLater.format(Constants.INPUT_FORMATTER) +
-                    " /to " + twoHoursLater.format(Constants.INPUT_FORMATTER));
+            throw new InvalidCommandException("The event command should be in the format: "
+                    + "event <description> /from <starting time> /to <ending time>\n"
+                    + "Example: event meeting /from "
+                    + oneHourLater.format(Constants.INPUT_FORMATTER)
+                    + " /to " + twoHoursLater.format(Constants.INPUT_FORMATTER));
         }
         String description = matcher.group(1);
         String startingTimeStringRepr = matcher.group(2);
@@ -123,14 +126,15 @@ class AddEventCommand extends AddTaskCommand {
         if (endingTimeStringRepr.isEmpty()) {
             throw new InvalidCommandException("The ending time of an event cannot be empty.");
         }
-        LocalDateTime startingTime, endingTime;
+        LocalDateTime startingTime;
+        LocalDateTime endingTime;
         try {
             startingTime = LocalDateTime.parse(startingTimeStringRepr, Constants.INPUT_FORMATTER);
             endingTime = LocalDateTime.parse(endingTimeStringRepr, Constants.INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new InvalidCommandException(
-                    "Invalid date format!\n" +
-                    e.getMessage());
+                    "Invalid date format!\n"
+                    + e.getMessage());
         }
         if (!startingTime.isBefore(endingTime)) {
             throw new InvalidCommandException("The starting time of an event must be before the ending time.");
@@ -177,8 +181,8 @@ class MarkDoneCommand extends CommandTakingTaskIndex {
     @Override
     public String execute(TaskList tasks) throws DukeException {
         tasks.markTaskAsDone(index);
-        return "Nice! I've marked this task as done:\n" +
-            tasks.getTaskDescription(index);
+        return "Nice! I've marked this task as done:\n"
+            + tasks.getTaskDescription(index);
     }
 }
 
@@ -190,8 +194,8 @@ class UnmarkDoneCommand extends CommandTakingTaskIndex {
     @Override
     public String execute(TaskList tasks) throws DukeException {
         tasks.unmarkTaskAsDone(index);
-        return "OK, I've unmarked this task as not done yet:\n" +
-            tasks.getTaskDescription(index);
+        return "OK, I've unmarked this task as not done yet:\n"
+            + tasks.getTaskDescription(index);
     }
 }
 
@@ -206,9 +210,9 @@ class DeleteCommand extends CommandTakingTaskIndex {
         int oldTaskCount = tasks.getTaskCount();
         tasks.deleteTask(index);
         assert oldTaskCount - 1 == tasks.getTaskCount();
-        return "Noted. I've removed this task:\n" +
-            taskToDelete + "\n" +
-            tasks.getDisplayTaskCount();
+        return "Noted. I've removed this task:\n"
+            + taskToDelete + "\n"
+            + tasks.getDisplayTaskCount();
     }
 }
 
@@ -229,6 +233,9 @@ class FindCommand extends Command {
  * A helper class that registers commands with {@link Parser}.
  */
 public class Commands {
+    /**
+     * Registers all commands with {@link Parser}.
+     */
     public static void registerCommands() {
         Parser.registerCommand("clear", s -> new ClearCommand());
         Parser.registerCommand("todo", s -> new AddTodoCommand(s));

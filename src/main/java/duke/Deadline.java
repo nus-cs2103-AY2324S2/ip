@@ -8,6 +8,11 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     protected LocalDateTime deadline;
 
+    /**
+     * Constructor for Deadline.
+     * @param description Description of the deadline.
+     * @param deadline Deadline of the task.
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;

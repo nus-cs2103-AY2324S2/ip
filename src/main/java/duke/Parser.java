@@ -2,6 +2,9 @@ package duke;
 
 import java.util.HashMap;
 
+/**
+ * Parser class to parse user commands.
+ */
 public class Parser {
     private static HashMap<String, CommandBuilder> registeredCommands = new HashMap<>();
 
@@ -17,15 +20,12 @@ public class Parser {
         registeredCommands.put(commandName, commandBuilder);
     }
 
-    public Parser() {
-    }
-
     /**
      * Parses a command.
      *
      * @param command The command to parse.
-     * @throws InvalidCommandException if the command is invalid.
      * @return the parsed command.
+     * @throws InvalidCommandException if the command is invalid.
      */
     public Command parse(String command) throws InvalidCommandException {
         command = command.trim();

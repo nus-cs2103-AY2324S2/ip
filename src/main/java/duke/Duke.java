@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +8,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The Duke class is the main class for the application.
+ */
 public class Duke extends Application {
-    Parser parser = new Parser();
-    TaskList tasks = new TaskList();
-    Storage storage = new Storage();
+    private Parser parser = new Parser();
+    private TaskList tasks = new TaskList();
+    private Storage storage = new Storage();
 
+    /**
+     * Starts the application.
+     * @param stage The stage to start the application on.
+     */
     @Override
     public void start(Stage stage) {
         Commands.registerCommands();
@@ -36,6 +42,11 @@ public class Duke extends Application {
         }
     }
 
+    /**
+     * Gets the response from the user input.
+     * @param input The user input.
+     * @return The program's response.
+     */
     public String getResponse(String input) {
         Command command;
         try {
