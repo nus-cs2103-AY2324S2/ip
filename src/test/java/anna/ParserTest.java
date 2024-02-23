@@ -30,7 +30,7 @@ public class ParserTest {
     @Test
     public void test4() throws AnnaException {
         Command cmd = Parser.parseCommand("mark 100");
-        assertEquals(cmd.toString(), "CommandDelete:[99]");
+        assertEquals(cmd.toString(), "CommandMark:[99]");
     }
 
     @Test
