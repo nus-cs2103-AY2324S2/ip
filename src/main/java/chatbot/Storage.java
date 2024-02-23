@@ -141,7 +141,8 @@ public class Storage {
     }
 
     private void appendToDoData(ToDo todo, StringBuilder stringBuilder) {
-        stringBuilder.append("T | ").append(todo.isDone() ? 1 : 0).append(" | ").append(todo.getDescription()).append("\n");
+        stringBuilder.append("T | ").append(todo.isDone() ? 1 : 0).append(" | ")
+                .append(todo.getDescription()).append("\n");
     }
 
     private void appendDeadlineData(Deadline deadline, StringBuilder stringBuilder) {

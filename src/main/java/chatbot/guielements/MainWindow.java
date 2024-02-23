@@ -7,11 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.awt.geom.Rectangle2D;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,12 +35,16 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/batman.png"));
     private final Image alfredImage = new Image(this.getClass().getResourceAsStream("/images/alfred.png"));
+    /**
+     * Initializes the controller.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         Image image = new Image("/images/bg.png");
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         dialogContainer.setBackground(new Background(backgroundImage));
     }
 

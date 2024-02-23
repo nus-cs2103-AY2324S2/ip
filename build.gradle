@@ -37,7 +37,7 @@ test {
 }
 
 application {
-    mainClassName = 'chatbot.Alfred'
+    mainClassName = 'chatbot.Launcher'
 }
 
 shadowJar {

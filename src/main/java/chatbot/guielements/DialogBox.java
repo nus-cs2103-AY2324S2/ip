@@ -36,10 +36,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
         dialog.setText(text);
-        dialog.setStyle("-fx-text-fill: #c4e0ed; -fx-background-color: rgba(128, 128, 128, 0.5);-fx-font-weight: bold;"); // Add this line
+        dialog.setStyle("-fx-text-fill: #c4e0ed; -fx-background-color: rgba(128, 128, 128, 0.5);"
+                + "-fx-font-weight: bold;");
         displayPicture.setImage(img);
         displayPicture.setClip(new Circle(50, 50, 50));
-        displayPicture.setStyle("-fx-border-color: white; -fx-border-width: 5; -fx-padding: 10;"); // Add this line
+        displayPicture.setStyle("-fx-border-color: white; -fx-border-width: 5; -fx-padding: 10;");
     }
 
     /**

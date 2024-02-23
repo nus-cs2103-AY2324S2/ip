@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
  * Represents a list of tasks.
  */
 public class TaskList {
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     protected ArrayList<Task> taskList = new ArrayList<Task>();
     public TaskList() {
     }
@@ -93,11 +94,16 @@ public class TaskList {
         input = input.substring(9).trim();
         String[] splitResult = input.split("/by", 2);
         String description = splitResult[0].trim();
+        if (description.isEmpty()) {
+            throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
+        }
         String by = null;
         try {
             by = splitResult[1].trim();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+            if (by.isEmpty()) {
+                throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by.");
+            }
+            LocalDateTime dateTime = LocalDateTime.parse(by, FORMATTER);
             return new Deadline(description, dateTime);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AlfredException("Sorry Master Bruce. "
@@ -135,19 +141,15 @@ public class TaskList {
         if (toMatcher.find()) {
             endTime = toMatcher.group(1);
         }
-        if (descriptionEvent.isEmpty()) {
-            throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
-        }
-        // Check if description, start time, and end time are found
         if (descriptionEvent == null || startTime == null || endTime == null) {
             throw new AlfredException("Sorry Master Bruce."
                     + "Please specify both description, start time, and end time.");
         }
-        // Parse start time and end time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
-        LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
-        // Create Event object and add it to the list
+        if (descriptionEvent.isEmpty()) {
+            throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
+        }
+        LocalDateTime startDateTime = LocalDateTime.parse(startTime, FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(endTime, FORMATTER);
         return new Event(descriptionEvent, startDateTime, endDateTime);
     }
 
@@ -287,9 +289,8 @@ public class TaskList {
      */
     public TaskList getUrgentTasks() {
         TaskList result = new TaskList();
-        TaskList todos = new TaskList(); // Initialize a new TaskList for todos
+        TaskList todos = new TaskList();
         TaskList sortedTasks = new TaskList();
-        // Separate tasks into their respective lists and add todos directly to result
         for (Task task : taskList) {
             if (task.isDone()) {
                 continue;
@@ -302,9 +303,7 @@ public class TaskList {
                 todos.addTask(task);
             }
         }
-        // Sort the deadlines and events within sortedTasks
         sortDeadlinesAndEvents(sortedTasks);
-        // Add sorted tasks and todos back to the result after sorted tasks
         sortedTasks.forEach(result::addTask);
         todos.forEach(result::addTask);
         return result;
@@ -321,11 +320,9 @@ public class TaskList {
             } else if (t1 instanceof Event && t2 instanceof Event) {
                 return ((Event) t1).getStartTime().compareTo(((Event) t2).getStartTime());
             }
-            return 0; // For any other type of tasks, maintain their order
+            return 0;
         });
     }
-
-
     @Override
     public String toString() {
         String output = "";
