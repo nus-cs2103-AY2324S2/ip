@@ -14,9 +14,9 @@ public class Ui {
         return line + "\n" + str + "\n" + line;
     }
 
-    public String showLoadingError() {
+    public void showLoadingError() {
         String s = "An error occurred while loading tasks from file.";
-        return wrapWithlines(s);
+        System.out.println(wrapWithlines(s));
     }
     public String showWelcomeMsg() {
         String s1 = "Hello! I'm floofy.Floofy!";

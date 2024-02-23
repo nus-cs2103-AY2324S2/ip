@@ -13,8 +13,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /** The Floofy application. */
     private Floofy floofy = new Floofy();
 
+    /**
+     * Starts the chat-bot while bridging the gap between the GUI and the chat-bot.
+     *
+     * @param stage The stage to start the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -5,26 +5,15 @@ import floofy.task.Event;
 import floofy.task.Task;
 import floofy.task.ToDo;
 
-import java.util.Scanner;
 import java.time.LocalDate;
 
 import javafx.application.Application;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
  * Represents the main class of the Floofy chat-bot application.
  */
-public class Floofy extends Application{
+public class Floofy extends Application {
     /** The storage object to handle the loading and saving of tasks. */
     private Storage storage;
 
@@ -39,33 +28,6 @@ public class Floofy extends Application{
 
     /** The file path of the file to store the tasks. */
     private static final String FILE_PATH = "./data/duke.txt";
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/Floofer.png"));
-    private Image floofy = new Image(this.getClass().getResourceAsStream("/images/FloofBoss.png"));
-
-    /**
-     * Constructs a new object of the Floofy class.
-     *
-     * @param filePath The file path of the file to store the tasks.
-     */
-    public Floofy(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        parser = new Parser();
-        try {
-            tasks = new TaskList();
-            storage.loadTasks(tasks);
-        } catch (FloofyException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
-    }
 
     /**
      * Constructs a Floofy object with no arguments.
@@ -84,7 +46,10 @@ public class Floofy extends Application{
     }
 
     /**
-     * Runs the Floofy chat-bot application.
+     * Runs Floofy for each command input.
+     *
+     * @param userInput The user input command.
+     * @return The result of the command.
      */
     public String runCommand(String userInput) {
         String result = "";
@@ -164,16 +129,23 @@ public class Floofy extends Application{
         return ui.showWelcomeMsg();
     }
 
+    /**
+     * Starts the Floofy chat-bot application.
+     *
+     * @param stage The stage to display the application.
+     */
     @Override
     public void start(Stage stage) {
 
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response of Floofy to the user input.
+     *
+     * @param inputCommand The user input command.
+     * @return The response of Floofy to the user input.
      */
-    public String getResponse(String input) {
-        return "FLOOFED: " + "\n" + runCommand(input);
+    public String getResponse(String inputCommand) {
+        return "FLOOFED: " + "\n" + runCommand(inputCommand);
     }
 }
