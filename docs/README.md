@@ -123,16 +123,7 @@ To delete a task, simply type `delete 2` where you want to remove a task at inde
 
 ### 10. Goodbye command
 Enter `bye` to end your session. Your data is always automatically saved.
-- **Expected Output**:
-
-```
-	 ____________________________________________________________
-	 Exiting as requested ...
-	 ____________________________________________________________
-	 ____________________________________________________________
-	 Bye. Hope to see you again soon!
-	 ____________________________________________________________
-```
+To save you time ⏰, the app is instantly closed!
 
 > **Pro-Tip 🎩:** You can simply delete and re-create the task that you intend to modify.
 
