@@ -12,7 +12,7 @@ basic Graphical User Interface (GUI).
 * [User commands](#user-commands)
   * [Notes about the command format](#notes-about-the-command-format)
   * [Adding a todo: `todo`](#adding-a-todo)
-  * [Adding a deadline: `deadline`](#adding-a-deadline)
+  * [Adding a deadline: `deadline`](#adding-a-deadline:-`deadline`)
   * [Adding a plan: `plan`](#adding-a-plan)
   * [Adding an event: `event`](#adding-an-event)
   * [Marking a task: `mark`](#marking-a-task)
@@ -73,7 +73,7 @@ Expected output:
 added: [T][ ] not stay up until 3am
 ```
 
-## Adding a deadline
+## Adding a deadline: `deadline`
 
 Adds a deadline to the list.
 
