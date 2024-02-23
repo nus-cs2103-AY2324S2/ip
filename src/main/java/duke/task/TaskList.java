@@ -20,6 +20,7 @@ public class TaskList extends ArrayList<Task> {
     }
     public static void addTask(Task t) {
         tasks.add(t);
+        assert tasks.get(0) != null;
     }
 
     public void deleteTask(int taskNo) {
@@ -29,11 +30,13 @@ public class TaskList extends ArrayList<Task> {
     public void markTask(int taskNo) {
         Task t = tasks.get(taskNo);
         t.done();
+        assert tasks.get(0) != null;
     }
 
     public static void unmarkTask(int taskNo) {
         Task t = tasks.get(taskNo);
         t.undone();
+        assert tasks.get(0) != null;
     }
 
     public TaskList filterTasksByKeyword(String keyword) {
