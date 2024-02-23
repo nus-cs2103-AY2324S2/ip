@@ -3,6 +3,8 @@ package Bentley;
 
 import org.junit.jupiter.api.Test;
 
+import bentley.Deadline;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
