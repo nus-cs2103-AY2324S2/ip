@@ -19,26 +19,6 @@ public class DataManager {
         return LocalDateTime.parse(time,formatter);
     }
 
-//    private static String convertToFile(Task task) {
-//        String symbol = " ";
-//        String time = " ";
-//        String status = " ";
-//        if(task instanceof Todo) {
-//            symbol = "T";
-//        }else if(task instanceof Deadline) {
-//            symbol = "D";
-//            time = ((Deadline) task).getTime().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm"));
-//        }else{
-//            symbol = "E";
-//            time = ((Event)task).getFrom().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm")) + " - " + ((Event)task).getTo().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm"));
-//        }
-//        if(task.getStatus()) {
-//            status = "1";
-//        }else{
-//            status = "0";
-//        }
-//        return symbol + " | " + status + " | " + task.name + " | " + time;
-//    }
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try{
