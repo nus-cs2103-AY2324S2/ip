@@ -21,6 +21,12 @@ public class CommandProcessor {
             String operation = splitCommand[0].toLowerCase();
 
             switch (operation) {
+                case "hello":
+                    ui.showWelcomeMessage();
+                    break;
+                case "bye":
+                    ui.showGoodbyeMessage();
+                    break;
                 case "list":
                     ui.showTaskList(tasks.getAllTasks());
                     break;
@@ -45,6 +51,7 @@ public class CommandProcessor {
                 case "find":
                     processFindCommand(input, tasks, ui);
                     break;
+
                 default:
                     ui.showUnknownCommandError();
             }
@@ -82,7 +89,7 @@ public class CommandProcessor {
             // Splitting the description and deadline by "/by"
             String[] parts = descriptionWithDate.split("/by");
             if (parts.length != 2) {
-                throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
+                throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task. ");
             }
             String description = parts[0].trim();
             String deadline = parts[1].trim();

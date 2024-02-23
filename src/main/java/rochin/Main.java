@@ -13,19 +13,17 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private RochinBot rochin = new RochinBot();
+    private RochinBot rochin = new RochinBot("./data/rochin.txt", new Response());
 
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            MainWindow mainWindow = fxmlLoader.getController();
-            RochinBot rochin = new RochinBot();
-            mainWindow.setRochin(rochin);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("RochinBot");
+            fxmlLoader.<MainWindow>getController().setRochin(rochin);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

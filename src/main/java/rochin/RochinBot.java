@@ -20,6 +20,12 @@ public class RochinBot {
         tasks = new TaskList();
     }
 
+    public RochinBot(String FILE_PATH, Ui ui) {
+        this.ui = ui;
+        this.storage = new Storage(FILE_PATH);
+        this.tasks = new TaskList();
+    }
+
     /**
      * Method to start the RochinBot application.
      */
@@ -97,6 +103,12 @@ public class RochinBot {
             ui.showError(e.getMessage());
         }
         return ui.getTextOutput();
+    }
+
+    String getWelcomeMsg() {
+        return "Hello! I'm Rochin.\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________\n";
     }
 
 }

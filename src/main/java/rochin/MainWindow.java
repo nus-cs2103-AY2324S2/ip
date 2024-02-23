@@ -34,13 +34,17 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
     private void showWelcomeMessage() {
         String welcomeMsg = "Hello! I'm Rochin.\n" + " What can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getRochinDialog(welcomeMsg, rochinImage));
     }
+     */
 
     public void setRochin(RochinBot r) {
         rochin = r;
+        dialogContainer.getChildren().add(
+                DialogBox.getRochinDialog(r.getWelcomeMsg(), rochinImage));
     }
 
     /**
