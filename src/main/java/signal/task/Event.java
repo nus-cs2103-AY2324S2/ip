@@ -29,12 +29,9 @@ public class Event extends Task {
         }
         this.startDate = LocalDate.parse(parseStart[0]);
         if (parseEnd.length > 1) {
-            this.endDate = LocalDate.parse(parseEnd[0]);
             this.endTime = LocalTime.parse(parseEnd[1]);
-        } else {
-            this.endTime = LocalTime.parse(parseEnd[0]);
         }
-
+        this.endDate = LocalDate.parse(parseEnd[0]);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class Event extends Task {
     public String toString() {
         return "E" + super.toString()
                 + " | from: " + timeManager.formatDate(startDate) + (startTime != null ? " " + timeManager.formatTime(startTime) : "")
-                +  " | to: " + (endDate != null ? " " + timeManager.formatDate(endDate) : "") + timeManager.formatTime(endTime);
+                +  " | to: " + timeManager.formatDate(endDate) + (endTime != null ? " " + timeManager.formatTime(endTime) : "");
     }
 
     @Override
