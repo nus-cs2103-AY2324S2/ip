@@ -9,4 +9,15 @@ public class ToDoTest {
     public void testToString() {
         assertEquals("[T][ ]read book", new ToDo("read book").toString());
     }
+
+    @Test
+    public void testWriteToFileString() {
+        assertEquals("todo read book", new ToDo("read book").writeToFileString());
+    }
+
+    @Test
+    public void testToDo() {
+        ToDo todo = new ToDo("read book");
+        assertEquals("[T][ ]read book", todo.toString());
+    }
 }
