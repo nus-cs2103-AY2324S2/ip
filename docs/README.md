@@ -69,7 +69,8 @@ I have deleted this:
 > Note: Any additional arguments will be ignored
 >
 > (ie `delete INDEX param2` will be executed exactly the same as `delete INDEX`
-> 
+
+
 ## Marking Tasks
 
 Marks a task on your task list.
@@ -176,6 +177,7 @@ This is your current list:
 > Note: Any additional arguments will be ignored
 >
 > (ie `redo param1 param2` will be executed exactly the same as `redo`
+
 ## Exiting the Application
 Exits and closes the application.
 
