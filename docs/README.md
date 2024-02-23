@@ -12,7 +12,7 @@ management done faster than traditional GUI apps.
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `banter.jar`
+2. Download the latest `banter.jar` from [here](https://github.com/solomonng2001/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for Banter.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` 
 command to run the application. A GUI similar to the below should appear in a few seconds.
