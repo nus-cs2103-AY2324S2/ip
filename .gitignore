@@ -13,5 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# java class files
+*.class
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
