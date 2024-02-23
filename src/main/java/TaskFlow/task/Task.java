@@ -124,7 +124,7 @@ public class Task {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Task otherTask = (Task) obj;
-        return Objects.equals(description, otherTask.description);
+        Task t = (Task) obj;
+        return Objects.equals(description, t.description);
     }
 }
