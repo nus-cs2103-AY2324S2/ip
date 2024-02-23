@@ -148,7 +148,7 @@ public class Parser {
     static String[] processEventMsg(String userInput) {
         String[] eventDetails = new String[3];
         String[] splitByFrom = userInput.split("/from");
-        if (splitByFrom.length == 2) {
+        if (splitByFrom.length >= 2) {
             eventDetails[0] = splitByFrom[0].trim();
             String[] strArr = splitByFrom[1].split("/to");
             eventDetails[1] = strArr[0].trim();
@@ -159,7 +159,7 @@ public class Parser {
             }
         } else {
             String[] strArr = splitByFrom[0].split("/to");
-            if (strArr.length == 2) {
+            if (strArr.length >= 2) {
                 eventDetails[0] = strArr[0].trim();
                 eventDetails[1] = "";
                 eventDetails[2] = strArr[1].trim();
@@ -181,7 +181,7 @@ public class Parser {
     static String[] processDeadlineMsg(String userInput) {
         String[] deadlineDetails = new String[2];
         String[] splitByBy = userInput.split("/by");
-        if (splitByBy.length == 2) {
+        if (splitByBy.length >= 2) {
             deadlineDetails[0] = splitByBy[0].trim();
             deadlineDetails[1] = splitByBy[1].trim();
         } else {
@@ -203,7 +203,7 @@ public class Parser {
         if (!splitBySpace[0].equals("tag")) {
             throw new RuntimeException();
         }
-        if (splitBySpace.length == 3) {
+        if (splitBySpace.length >= 3) {
             tagDetails[0] = splitBySpace[1].trim();
             tagDetails[1] = splitBySpace[2].trim();
         } else {

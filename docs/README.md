@@ -60,7 +60,20 @@ Got it. I've added this task:[D][]
 buy fish (by: 2019/10/15) 
 Now you have 2 tasks in the list.
 ```
+It is also recommended you contain one **due date** in your input.
 
+However, it is OK if you don't. The program has optimization for that flexibility:
+- You can choose not to contain **due date**. It will be treated as empty text.
+- If multiple **due date** are detected, only the first one will be noted.
+
+Example: `deadline buy fish /by tomorrow /by today`.
+
+Output:
+```
+Got it. I've added this task:
+  [D][ ] buy fish (by: tomorrow)
+Now you have 1 tasks in the list.
+```
 
 ## Adding event: `event`
 
@@ -96,6 +109,20 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
+It is also recommended you contain one **start time** and one **end time** in your input.
+
+However, it is OK if you don't. The program has optimization for that flexibility:
+- You can choose to contain only **start time** or **end time** or **none** of them. If you don't include them, they will be treated as empty.
+- If multiple **start time** or **end time** are detected, only the first one will be noted.
+
+Example: `event buy fish /from today /from tomorrow`.
+
+Output:
+```
+Got it. I've added this task:
+  [E][ ] buy fish (from: today to: )
+Now you have 1 tasks in the list.
+```
 ## Mark a task: `mark`
 
 Mark the task with specified index (you can find the index using `list` input).
@@ -162,7 +189,7 @@ Here are the matching tasks in your list:
 
 Tag the task with specified index (you can find the index using `list` input).
 
-Format: `tag [task index] [tag]`.
+Format: `tag [task index] [tag]`. (Caution, tag shouldn't contain space, if it does, content after space will be discarded)
 
 Example: `tag 1 emergent`.
 
