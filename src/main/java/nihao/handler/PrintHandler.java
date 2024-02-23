@@ -37,12 +37,12 @@ public final class PrintHandler {
      * @param tasks ArrayList of Tasks that is to be printed.
      */
     public static String printNumberedDivider(ArrayList<Task> tasks) {
-        StringBuilder msg = new StringBuilder();
+        String msg = "";
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
-            msg.append(print(index + ". " + tasks.get(i)));
+            msg += print(index + ". " + tasks.get(i));
         }
-        return msg.toString();
+        return msg;
     }
 
     /**

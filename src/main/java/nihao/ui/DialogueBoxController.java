@@ -29,15 +29,6 @@ public class DialogueBoxController extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
 
-//            dialogueContainer.hoverProperty().addListener((observable, oldValue, newValue) -> {
-//                String style = dialogueContainer.getStyle();
-//                if (newValue) {
-//                    dialogueContainer.setStyle("-fx-background-color: #f0f0f0;");
-//                } else {
-//                    dialogueContainer.setStyle(style);
-//                }
-//            });
-
         } catch (IOException e) {
             e.printStackTrace();
         }

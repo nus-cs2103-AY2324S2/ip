@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -31,7 +32,11 @@
               </ScrollPane>
               <HBox fx:id="inputBox" spacing="3.0">
                   <children>
-                      <TextField fx:id="inputField" onAction="#handleUserInput" prefHeight="40.0" prefWidth="320.0" styleClass="rounded" />
+                      <TextField fx:id="inputField" onAction="#handleUserInput" prefHeight="40.0" prefWidth="320.0">
+                     <styleClass>
+                        <String fx:value="rounded" />
+                        <String fx:value="text-field" />
+                     </styleClass></TextField>
                       <Button fx:id="inputButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="40.0" prefWidth="70.0" styleClass="rounded" text="Send" />
                   </children>
                <VBox.margin>

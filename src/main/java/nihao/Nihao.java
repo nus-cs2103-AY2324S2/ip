@@ -1,5 +1,6 @@
 package nihao;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import nihao.action.Action;
@@ -74,9 +75,20 @@ public class Nihao extends Application{
     public String getResponse(String text) {
         try {
             Action action = InputHandler.handleInput(text);
+            if (action instanceof ExitAction) {
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                Platform.exit();
+                                System.exit(0);
+                            }
+                        },
+                        3000
+                );
+
+            }
             return action.execute();
-//            if (action instanceof ExitAction) {
-//            }
         } catch (Exception e) {
             return PrintHandler.printException(e);
         }
