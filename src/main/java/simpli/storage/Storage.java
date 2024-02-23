@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import simpli.exceptions.ActionException;
+import simpli.exceptions.CommandException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
@@ -61,9 +61,9 @@ public class Storage {
      *
      * @param path String containing the file path.
      * @throws IOException When file is not found.
-     * @throws ActionException When the action or task does not exist.
+     * @throws CommandException When the action or task does not exist.
      */
-    public void loadTasksFromFile(String path) throws IOException, ActionException, TaskException {
+    public void loadTasksFromFile(String path) throws IOException, CommandException, TaskException {
 
         File f = new File(path);
 

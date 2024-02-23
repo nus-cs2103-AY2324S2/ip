@@ -3,8 +3,8 @@ package simpli.parser;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import simpli.actions.Action;
-import simpli.exceptions.ActionException;
+import simpli.commands.base.CommandWord;
+import simpli.exceptions.CommandException;
 
 
 /**
@@ -21,13 +21,13 @@ public final class Parser {
      * 4 - toDate (Event task)
      * */
     private static final int MAX_TOKENS = 5;
-    private HashSet<Action> singleCommands;
+    private HashSet<CommandWord> singleCommands;
 
     public Parser() {
         this.singleCommands = new HashSet<>();
-        singleCommands.add(Action.LIST);
-        singleCommands.add(Action.GREET);
-        singleCommands.add(Action.BYE);
+        singleCommands.add(CommandWord.LIST);
+        singleCommands.add(CommandWord.GREET);
+        singleCommands.add(CommandWord.BYE);
     }
 
     /**
@@ -35,9 +35,9 @@ public final class Parser {
      *
      * @param content A command String.
      * @return An Array of tokens.
-     * @throws ActionException if there are unknown tokens or invalid commands.
+     * @throws CommandException if there are unknown tokens or invalid commands.
      */
-    public String[] parseCommand(String content) throws ActionException {
+    public String[] parseCommand(String content) throws CommandException {
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");
 
@@ -47,18 +47,18 @@ public final class Parser {
         parsedTokens[0] = taskInfo[0];
         parsedTokens[1] = "0";
 
-        Action actionType;
+        CommandWord actionType;
         try {
-            actionType = Action.valueOf(taskInfo[0].toUpperCase());
+            actionType = CommandWord.valueOf(taskInfo[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new ActionException("No such command!");
+            throw new CommandException("No such command!");
         }
 
         parsedTokens[2] = !singleCommands.contains(actionType) ? taskInfo[1] : "";
         System.arraycopy(tokens, 1, parsedTokens, 3, tokens.length - 1);
 
         if (!isValidCommand(parsedTokens)) {
-            throw new ActionException();
+            throw new CommandException();
         }
 
         return parsedTokens;
@@ -72,7 +72,7 @@ public final class Parser {
      */
     public boolean isValidCommand(String[] tokens) {
         try {
-            Action.valueOf(tokens[0].toUpperCase());
+            CommandWord.valueOf(tokens[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             return false;
         }

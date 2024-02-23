@@ -2,8 +2,10 @@ package simpli.core;
 
 import java.io.IOException;
 
-import simpli.configs.SimpliConfiguration;
-import simpli.exceptions.ActionException;
+import simpli.commands.base.CommandResult;
+import simpli.commands.base.CommandWord;
+import simpli.configs.Config;
+import simpli.exceptions.CommandException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
@@ -14,10 +16,10 @@ import simpli.tasks.TaskList;
  * Main chatbot.
  */
 public class Simpli {
-    private TaskList taskList;
-    private Parser parser;
-    private Interpreter intrpr;
-    private Storage storage;
+    private final TaskList taskList;
+    private final Parser parser;
+    private final Interpreter intrpr;
+    private final Storage storage;
 
     /**
      * Initializes the chatbot and its components.
@@ -34,10 +36,10 @@ public class Simpli {
      */
     public void start() {
         try {
-            storage.loadTasksFromFile(SimpliConfiguration.DATAPATH);
+            storage.loadTasksFromFile(Config.DATAPATH);
         } catch (TaskException e) {
             System.out.println("Error in task.");
-        } catch (ActionException e) {
+        } catch (CommandException e) {
             System.out.println("Error in actions");
         } catch (IOException e) {
             System.out.println("Error in opening file.");
@@ -49,20 +51,10 @@ public class Simpli {
      */
     public void stop() {
         try {
-            storage.saveTasksToFile(SimpliConfiguration.DATAPATH);
+            storage.saveTasksToFile(Config.DATAPATH);
         } catch (IOException e) {
             System.out.println("Error in opening file.");
         }
-    }
-
-    /**
-     * Returns a greeting message.
-     *
-     * @return goodbye message.
-     */
-    public String greet() {
-        return "Hello! I'm SIMP-LI\n"
-            + "How can I simp-lify your life?";
     }
 
     /**
@@ -74,22 +66,39 @@ public class Simpli {
         return "Bye. Hope to simp for you again soon!";
     }
 
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
     /**
      * Processes the user input string from start to end.
      *
      * @param input User input String.
      * @return resposne String.
      */
-    public String processInput(String input) {
+    public CommandResult processInput(String input) {
         try {
             String[] tokens = parser.parseCommand(input);
             return intrpr.interpret(tokens);
         } catch (TaskException e) {
-            return "Invalid task parameters, cannot simp :(";
+            return new CommandResult(
+                    CommandWord.INVALID,
+                    "Invalid task parameters, cannot simp :("
+            );
         } catch (IndexOutOfBoundsException e) {
-            return "Please enter a valid task number for me to simp :(";
-        } catch (ActionException e) {
-            return "No such action to simp for :(";
+            return new CommandResult(
+                    CommandWord.INVALID,
+                    "Please enter a valid task number for me to simp :("
+            );
+        } catch (CommandException e) {
+            return new CommandResult(
+                    CommandWord.INVALID,
+                    "No such action to simp for :("
+            );
         }
     }
 

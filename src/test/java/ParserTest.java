@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import simpli.exceptions.ActionException;
+import simpli.exceptions.CommandException;
 
 public class ParserTest {
     @Test
-    public void parseCommandSuccessTest() throws ActionException {
+    public void parseCommandSuccessTest() throws CommandException {
         Parser parser = new Parser();
 
         assertArrayEquals(new String[]{"list", "0", "", "", ""},
@@ -34,7 +34,7 @@ public class ParserTest {
 
         try {
             parser.parseCommand("yaba");
-        } catch (ActionException e) {
+        } catch (CommandException e) {
             assertNotNull(e);
         }
     }

@@ -2,7 +2,6 @@ package simpli.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * To manage and manipulate tasks and task actions.
@@ -96,7 +95,7 @@ public class TaskList {
         return removedTask;
     }
 
-    public void sortTask() {
+    public void sort() {
         tasks.sort(Task::compareTo);
     }
 
