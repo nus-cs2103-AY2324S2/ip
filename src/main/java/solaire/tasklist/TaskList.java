@@ -172,6 +172,9 @@ public class TaskList {
         int bufferDays = 1;
         if (buffer.length != 0) {
             bufferDays = Integer.parseInt(buffer[0]);
+            if (bufferDays < 0) {
+                return "Please enter a non-negative number of days\n";
+            }
         }
         String output = "Here's what's due in " + bufferDays + " days:\n ";
         int reminderIndex = 1;
