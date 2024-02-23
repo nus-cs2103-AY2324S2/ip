@@ -28,32 +28,21 @@ import duke.util.UI;
  * It provides functionalities such as adding, deleting, listing, and marking tasks as done.
  */
 public class Duke {
+    private static final String filepath = "./duke.txt";
     private Storage storage;
     private UI ui;
     private TaskList tasks;
 
     /**
-     * No argument constructor to be used in GUI
+     * Constructs a Duke object with the default file path.
      */
     public Duke() {
-        try {
-            // Create directory if it does not exist
-            Path path = Paths.get("./data");
-            if (!Files.exists(path)) {
-                Files.createDirectory(path);
-            }
-            // Create data file if it does not exist
-            Path filePath = Paths.get("./data/duke.txt");
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            }
-            this.storage = new Storage(filePath.toString());
-            this.ui = new UI();
-            this.tasks = new TaskList(storage.readFile());
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading file");
-        }
+        createTextFileIfNotExist();
+        this.storage = new Storage(filepath);
+        this.ui = new UI();
+        this.tasks = new TaskList(storage.readFile());
     }
+
     /**
      * Constructs a Duke object with the specified file path.
      * @param filePath The file path to store task data.
@@ -63,6 +52,27 @@ public class Duke {
         this.ui = new UI();
         this.tasks = new TaskList(storage.readFile());
     }
+
+    /**
+     * Private method to create a text file if it doesn't exist.
+     */
+    private static void createTextFileIfNotExist() {
+        try {
+            Path filePath = Paths.get(filepath);
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+        } catch (IOException e) {
+            System.out.println("error loading file");
+        }
+    }
+
+    /**
+     * Parses the user input and returns the corresponding command object.
+     * @param s The user input.
+     * @return The command object.
+     * @throws DukeException If the user input is unknown or invalid.
+     */
     private static Command parseCommand(String s) throws DukeException {
         String[] commandAndDescription = s.split(" ", 2);
         String lowerCaseCommandWithoutSpace = commandAndDescription[0].trim().toLowerCase();
@@ -108,10 +118,11 @@ public class Duke {
         }
         return result;
     }
+
     /**
-     * Method to be called by GUI to respond to user message
-     * @param userInput message keyed in by user
-     * @return duke response to be displayed to user by gui
+     * Runs the Duke application with the given user input.
+     * @param userInput The user input.
+     * @return The response to be displayed to the user.
      */
     public String run(String userInput) {
         String result;
@@ -125,6 +136,10 @@ public class Duke {
         }
         return result;
     }
+    /**
+     * Returns the introduction message of the Duke application.
+     * @return The introduction message.
+     */
     public String getIntroMessage() {
         return ui.introMessage();
     }
