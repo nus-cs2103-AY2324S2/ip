@@ -15,6 +15,3 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-src/main/java/*.class
-src/main/java/*.jar
-src/main/java/*.exe

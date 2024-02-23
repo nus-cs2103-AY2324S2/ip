@@ -1,0 +1,39 @@
+[?1049h[>4;2m[?1h=[?2004h[?1004h[1;67r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[67;1H"runtest.sh" [noeol] 38L, 848B[1;1H[96m#!/usr/bin/env bash
+
+# create bin directory if it doesn't exist[m
+[93mif [[m [93m![m [93m-d[m [93m"[m[95m../bin[m[93m"[m [93m]
+then
+[m    [93mmkdir[m ../bin
+[93mfi[m
+
+[96m# delete output from previous run[m
+[93mif [[m [93m-e[m [93m"[m[95m./ACTUAL.TXT[m[93m"[m [93m]
+then
+[m    [93mrm[m ACTUAL.TXT
+[93mfi[m
+
+[96m# compile the code into the bin folder, terminates if error occurred[m
+[93mif ![m javac [38;5;224m-cp[m ../src/main/java [38;5;224m-Xlint[m:none [93m-d[m ../bin ../src/main/java/*.java
+[93mthen
+[m    [93mecho[m[95m [m[93m"[m[95m********** BUILD FAILURE **********[m[93m"
+[m    [93mexit[m [95m1[m
+[93mfi[m
+
+[96m# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT[m
+java [38;5;224m-classpath[m ../bin Duke [93m<[m input.txt [93m>[m ACTUAL.TXT
+
+[96m# convert to UNIX format[m
+cp EXPECTED.TXT EXPECTED-UNIX.TXT
+dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+
+[96m# compare the output to the expected output[m
+diff ACTUAL.TXT EXPECTED-UNIX.TXT
+[93mif [[m [38;5;81m$?[m [93m-eq[m [95m0[m [93m]
+then
+[m    [93mecho[m[95m [m[93m"[m[95mTest result: PASSED[m[93m"
+[m    [93mexit[m [95m0[m
+[93melse
+[m    [93mecho[m[95m [m[93m"[m[95mTest result: FAILED[m[93m"
+[m    [93mexit[m [95m1[m
+[93mfi[m
+[94m~                                                                                                                                                                                                                     [40;1H~                                                                                                                                                                                                                     [41;1H~                                                                                                                                                                                                                     [42;1H~                                                                                                                                                                                                                     [43;1H~                                                                                                                                                                                                                     [44;1H~                                                                                                                                                                                                                     [45;1H~                                                                                                                                                                                                                     [46;1H~                                                                                                                                                                                                                     [47;1H~                                                                                                                                                                                                                     [48;1H~                                                                                                                                                                                                                     [49;1H~                                                                                                                                                                                                                     [50;1H~                                                                                                                                                                                                                     [51;1H~                                                                                                                                                                                                                     [52;1H~                                                                                                                                                                                                                     [53;1H~                                                                                                                                                                                                                     [54;1H~                                                                                                                                                                                                                     [55;1H~                                                                                                                                                                                                                     [56;1H~                                                                                                                                                                                                                     [57;1H~                                                                                                                                                                                                                     [58;1H~                                                                                                                                                                                                                     [59;1H~                                                                                                                                                                                                                     [60;1H~                                                                                                                                                                                                                     [61;1H~                                                                                                                                                                                                                     [62;1H~                                                                                                                                                                                                                     [63;1H~                                                                                                                                                                                                                     [64;1H~                                                                                                                                                                                                                     [65;1H~                                                                                                                                                                                                                     [66;1H~                                                                                                                                                                                                                     [m[67;197H1,1[11CAll[1;1H[?25h[?4m[?25l[67;197H2,0-1[2;1H[?25h[67;1H[?2004l[>4;m[23;2t[23;1t[67;1H[K[67;1H[?1004l[?2004l[?1l>[?1049l[>4;m
