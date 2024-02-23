@@ -18,7 +18,7 @@ public class Storage {
     /**
      * The file path of the file to be written to.
      */
-    public static final String FILE_PATH = "./data/Pookie.txt";
+    public static final String FILE_PATH = "src/main/data/Pookie.txt";
 
     /**
      * Constructor for the storage of the task list.
@@ -101,7 +101,12 @@ public class Storage {
      */
     public static void writeToFile(TaskList list) throws PookieException {
         assert list != null : "Task list should not be null";
+        File f = new File(FILE_PATH);
         try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            }
             FileWriter fw = new FileWriter(FILE_PATH);
             for (int i = 0; i < list.getSize(); i++) {
                 fw.write(list.getTask(i).writeToFileString() + "\n");
