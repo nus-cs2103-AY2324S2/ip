@@ -3,6 +3,7 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.InvalidCommand;
 import duke.command.bye.ByeCommand;
+import duke.command.sort.SortCommand;
 import duke.command.taskNo.DeleteCommand;
 import duke.command.find.FindCommand;
 import duke.command.list.ListCommand;
@@ -69,6 +70,9 @@ public class Parser {
 
             case ListCommand.COMMAND:
                 return new ListCommand();
+
+            case SortCommand.COMMAND:
+                return parseSortCommand(args);
 
             case ByeCommand.COMMAND:
                 return new ByeCommand();
@@ -208,5 +212,13 @@ public class Parser {
         return new FindCommand(keyword);
     }
 
+    private Command parseSortCommand(String args) {
+        String type = args.trim();
+        if (type.isEmpty()) {
+            return new InvalidCommand(SortCommand.INVALID_COMMAND);
+        }
+
+        return new SortCommand(type);
+    }
 
 }

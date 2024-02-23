@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.command.bye.ByeCommand;
+import duke.command.sort.SortCommand;
 import duke.command.taskNo.DeleteCommand;
 import duke.command.find.FindCommand;
 import duke.command.list.ListCommand;
@@ -24,6 +25,7 @@ public enum CommandEnum {
     UNMARK(UnmarkCommand.COMMAND, "unmark <task_number>"),
     DELETE(DeleteCommand.COMMAND, "delete <task_number>"),
     FIND(FindCommand.COMMAND, "find <keyword>"),
+    SORT(SortCommand.COMMAND, "sort <type>"),
     BYE(ByeCommand.COMMAND, "bye");
 
     public final String COMMAND_NAME; // the command keyword

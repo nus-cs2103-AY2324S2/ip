@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.DukeException;
 import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -184,5 +185,10 @@ public class Storage {
      */
     public TaskList filterListByKeyword(String keyword) {
         return taskList.filterTasksByKeyword(keyword);
+    }
+
+
+    public void sortTasksByType(String type) throws DukeException {
+        taskList.sortTasks(type);
     }
 }

@@ -1,7 +1,11 @@
 package duke.task;
+import duke.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class TaskList extends ArrayList<Task> {
 
     private static ArrayList<Task> tasks;
@@ -130,5 +134,13 @@ public class TaskList extends ArrayList<Task> {
      */
     public int getNoOfTasks() {
         return tasks.size();
+    }
+
+    public void sortTasks(String type) throws DukeException {
+        if (type.equals("name")) {
+            tasks.sort(Comparator.comparing(Task::getTaskName));
+        } else {
+            throw new DukeException();
+        }
     }
 }
