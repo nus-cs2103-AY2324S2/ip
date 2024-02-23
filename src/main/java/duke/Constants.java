@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
  * This class should not be instantiated.
  */
 public class Constants {
-    public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public static final DateTimeFormatter INPUT_FORMATTER =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static final DateTimeFormatter OUTPUT_FORMATTER =
-        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
+        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 }

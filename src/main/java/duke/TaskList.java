@@ -10,9 +10,17 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task Task to be added.
+     * @return the status of the task addition.
      */
-    public void addTask(Task task) {
+    public AddTaskResult addTask(Task task) {
+        // check if it doesn't clash first
+        for (Task t : tasks) {
+            if (t.isClashingWith(task)) {
+                return AddTaskResult.buildClashingResult(t);
+            }
+        }
         tasks.add(task);
+        return AddTaskResult.buildSuccessfulResult();
     }
 
     /**
@@ -37,8 +45,6 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     *
-     * @return The number of tasks in the list.
      */
     public int getTaskCount() {
         return tasks.size();
@@ -56,7 +62,8 @@ public class TaskList {
         TaskList foundTasks = new TaskList();
         for (Task task : tasks) {
             if (task.getDescription().contains(query)) {
-                foundTasks.addTask(task);
+                AddTaskResult additionResult = foundTasks.addTask(task);
+                assert additionResult.isSuccessful() : "This task list should not have clashing tasks.";
             }
         }
         return foundTasks;

@@ -42,10 +42,17 @@ abstract public class Task {
      * then after executing the string representation,
      * there will be taskIndex + 1 tasks in the list.
      *
-     * @param taskIndex the 0-indexed index of this task
-     * @return the serialized string
+     * @param taskIndex the 0-indexed index of this task.
+     * @return the serialized string.
      */
     public abstract String serializeToCommand(int taskIndex);
+
+    /**
+     * Determines if the current task clashes with the other given task.
+     *
+     * @param otherTask the other task.
+     */
+    public abstract boolean isClashingWith(Task otherTask);
 
     protected String serializeDoneMark(int taskIndex) {
         if (this.isDone) {

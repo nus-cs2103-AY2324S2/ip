@@ -6,23 +6,33 @@ import java.time.LocalDateTime;
  * Represents an event task.
  */
 public class Event extends Task {
-    protected LocalDateTime from, to;
+    protected LocalDateTime startingTime, endingTime;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime startingTime, LocalDateTime endingTime) {
         super(description);
-        this.from = LocalDateTime.parse(from, Constants.INPUT_FORMATTER);
-        this.to = LocalDateTime.parse(to, Constants.INPUT_FORMATTER);
+        this.startingTime = startingTime;
+        this.endingTime = endingTime;
+    }
+
+    @Override
+    public boolean isClashingWith(Task otherTask) {
+        if (otherTask instanceof Event) {
+            Event otherEvent = (Event) otherTask;
+            return this.startingTime.isBefore(otherEvent.endingTime) && this.endingTime.isAfter(otherEvent.startingTime);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(Constants.OUTPUT_FORMATTER)
-            + " to: " + to.format(Constants.OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + startingTime.format(Constants.OUTPUT_FORMATTER)
+            + " to: " + endingTime.format(Constants.OUTPUT_FORMATTER) + ")";
     }
 
     @Override
     public String serializeToCommand(int taskIndex) {
-        return "event " + description + " /from " + from.format(Constants.INPUT_FORMATTER)
-            + " /to " + to.format(Constants.INPUT_FORMATTER) + "\n" + serializeDoneMark(taskIndex);
+        return "event " + description + " /from " + startingTime.format(Constants.INPUT_FORMATTER)
+            + " /to " + endingTime.format(Constants.INPUT_FORMATTER) + "\n" + serializeDoneMark(taskIndex);
     }
 }

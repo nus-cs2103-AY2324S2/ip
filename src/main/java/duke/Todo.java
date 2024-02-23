@@ -6,6 +6,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean isClashingWith(Task otherTask) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
