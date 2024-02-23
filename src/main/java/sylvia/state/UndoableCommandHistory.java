@@ -6,28 +6,29 @@ import java.util.Deque;
 import sylvia.command.Undoable;
 
 /**
- * Represents the history of commands that have been executed.
+ * Represents the history of undoable commands that have been executed.
  */
-public class CommandHistory {
+public class UndoableCommandHistory {
     private static final int MAX_HISTORY_SIZE = 100;
     private Deque<Undoable> history;
     private Deque<Undoable> future; // for redo
 
     /**
-     * Constructs a CommandHistory object with the given history and future.
+     * Constructs a UndoableCommandHistory object with the given history and future.
      *
      * @param history The history of commands that have been executed.
      * @param future  The future of commands that have been undone.
      */
-    public CommandHistory(Deque<Undoable> history, Deque<Undoable> future) {
+    public UndoableCommandHistory(Deque<Undoable> history, Deque<Undoable> future) {
         this.history = history;
         this.future = future;
     }
 
     /**
-     * Constructs a CommandHistory object with the default empty history and future.
+     * Constructs a UndoableCommandHistory object with the default empty history and
+     * future.
      */
-    public CommandHistory() {
+    public UndoableCommandHistory() {
         this.history = new ArrayDeque<>(MAX_HISTORY_SIZE);
         this.future = new ArrayDeque<>(MAX_HISTORY_SIZE);
     }
