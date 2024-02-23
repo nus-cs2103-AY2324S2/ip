@@ -50,6 +50,7 @@ public class TaskList extends ArrayList<Task> {
             case "D": {
                 String deadline = taskDetails[3];
                 String[] tags = Parser.splitTags(taskDetails[4]);
+
                 Task task = new DeadlineTask(taskContent, deadline, tags);
                 task.markDone(isDone);
                 this.add(task);

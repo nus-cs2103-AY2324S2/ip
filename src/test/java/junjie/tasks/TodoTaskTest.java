@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import junjie.exceptions.InvalidArgumentException;
 
+import java.time.DateTimeException;
+
 /**
  * Tests the TodoTask class.
  */
@@ -63,4 +65,27 @@ public class TodoTaskTest {
         assertEquals("T | 0 | read book | ", todo.toFileString());
     }
 
+    @Test
+    public void testSingleTag() throws InvalidArgumentException, DateTimeException {
+        TodoTask todo = new TodoTask("read book", new String[]{"school"});
+        assertEquals("[T][ ] read book (Tags: school)", todo.toString());
+    }
+
+    @Test
+    public void testMultipleTags() throws InvalidArgumentException, DateTimeException {
+        TodoTask todo = new TodoTask("read book", new String[]{"school", "urgent"});
+        assertEquals("[T][ ] read book (Tags: school, urgent)", todo.toString());
+    }
+
+    @Test
+    public void testSingleTagAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        TodoTask todo = new TodoTask("read book", new String[]{"school"});
+        assertEquals("T | 0 | read book | school", todo.toFileString());
+    }
+
+    @Test
+    public void testMultipleTagsAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        TodoTask todo = new TodoTask("read book", new String[]{"school", "urgent"});
+        assertEquals("T | 0 | read book | school urgent", todo.toFileString());
+    }
 }

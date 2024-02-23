@@ -99,4 +99,28 @@ public class EventTaskTest {
         event.markDone(false);
         assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26 | ", event.toFileString());
     }
+
+    @Test
+    public void testSingleTag() throws InvalidArgumentException, DateTimeException {
+        EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26", new String[] {"important"});
+        assertEquals("[E][ ] project meeting (Tags: important) (from: Aug 25 2021 to: Aug 26 2021)", event.toString());
+    }
+
+    @Test
+    public void testMultipleTags() throws InvalidArgumentException, DateTimeException {
+        EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26", new String[] {"important", "urgent"});
+        assertEquals("[E][ ] project meeting (Tags: important, urgent) (from: Aug 25 2021 to: Aug 26 2021)", event.toString());
+    }
+
+    @Test
+    public void testSingleTagAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26", new String[] {"important"});
+        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26 | important", event.toFileString());
+    }
+
+    @Test
+    public void testMultipleTagsAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26", new String[] {"important", "urgent"});
+        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26 | important urgent", event.toFileString());
+    }
 }

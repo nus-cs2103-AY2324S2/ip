@@ -82,7 +82,6 @@ public class DeadlineTaskTest {
         DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
         deadline.markDone(true);
         assertEquals("[D][X] return book (by: Dec 12 2020)", deadline.toString());
-
     }
 
     @Test
@@ -106,5 +105,29 @@ public class DeadlineTaskTest {
         deadline.markDone(true);
         deadline.markDone(false);
         assertEquals("D | 0 | return book | 2020-12-12 | ", deadline.toFileString());
+    }
+
+    @Test
+    public void testSingleTag() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12", new String[]{"school"});
+        assertEquals("[D][ ] return book (Tags: school) (by: Dec 12 2020)", deadline.toString());
+    }
+
+    @Test
+    public void testMultipleTags() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12", new String[]{"school", "urgent"});
+        assertEquals("[D][ ] return book (Tags: school, urgent) (by: Dec 12 2020)", deadline.toString());
+    }
+
+    @Test
+    public void testFileConversionWithOneTag() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12", new String[]{"school"});
+        assertEquals("D | 0 | return book | 2020-12-12 | school", deadline.toFileString());
+    }
+
+    @Test
+    public void testFileConversionWithTags() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12", new String[]{"school", "urgent"});
+        assertEquals("D | 0 | return book | 2020-12-12 | school urgent", deadline.toFileString());
     }
 }

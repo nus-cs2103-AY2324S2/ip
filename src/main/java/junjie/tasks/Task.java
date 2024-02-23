@@ -72,7 +72,7 @@ public abstract class Task {
         if (tags.length == 0) {
             return String.format("[%s] %s", done ? "X" : " ", name);
         } else {
-            return String.format("[%s] %s (Tags:%s)", done ? "X" : " ", name, String.join(", ", tags));
+            return String.format("[%s] %s (Tags: %s)", done ? "X" : " ", name, String.join(", ", tags));
         }
     }
 

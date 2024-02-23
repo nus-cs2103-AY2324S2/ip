@@ -43,4 +43,26 @@ public class ParserTest {
         expected.put("to", "2021-08-26");
         assertEquals(expected, Parser.splitInput(input));
     }
+
+    @Test
+    public void testSplitInputWithTag() {
+        String input = "todo read book /tag important";
+        HashMap<String, String> expected = new HashMap<>();
+
+        expected.put("command", "todo");
+        expected.put("content", "read book");
+        expected.put("tag", "important");
+        assertEquals(expected, Parser.splitInput(input));
+    }
+
+    @Test
+    public void testSplitInputWithMultipleTags() {
+        String input = "todo read book /tag important urgent";
+        HashMap<String, String> expected = new HashMap<>();
+
+        expected.put("command", "todo");
+        expected.put("content", "read book");
+        expected.put("tag", "important urgent");
+        assertEquals(expected, Parser.splitInput(input));
+    }
 }
