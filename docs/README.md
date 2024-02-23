@@ -26,14 +26,7 @@ Add tasks, remove tasks, mark them as done or undone, all with just your keyboar
   e.g. `event <task description> /from [DATE] /to [DATE]` must be specified in that exact order.
 > - Dates must be in YYYY-MM-DD format
   e.g. 24th February 2024 is 2024-02-24
-> - Commands are case-insensitive.
-  e.g. `todo` and `ToDo` are equivalent.
-> - Commands must be mentioned in full.
-  e.g. `t` is not a valid command.
-> - Commands that are not recognized will be ignored.
-  e.g. `blah` is not a valid command.
-> - Commands with invalid parameters will be ignored.
-  e.g. `todo` without a description will be ignored.
+> - The symbol `|` cannot be used in any of the command descriptions.
 
 
 ### Adding todos: `todo`
