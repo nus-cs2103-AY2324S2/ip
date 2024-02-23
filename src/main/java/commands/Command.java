@@ -14,6 +14,7 @@ public abstract class Command {
      *
      * @param tasks All the tasks of the user.
      * @param ui Gives reply to the user.
+     * @return execution results.
      * @throws WeiException If the command is incomplete.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException;
