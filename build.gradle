@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("podz.Podz")
+    mainClass.set("podz.gui.Launcher")
 }
 
 shadowJar {
