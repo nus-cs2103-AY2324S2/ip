@@ -1,30 +1,85 @@
-# Duke User Guide
+# Iris User Guide
 
-// Update the title above to match the actual product name
+Iris is a chatbot that helps you manage your tasks. It is a simple and easy-to-use chatbot that can help you keep track of your tasks and deadlines.
 
-// Product screenshot goes here
+## Quick Start
 
-// Product intro goes here
+1. Download the latest version of Iris from [here](https://github.com/jxunze/ip/releases/tag/Level-10).
+2. Run the following command in the terminal to start Iris:
+   ```
+   java -jar iris.jar
+   ```
+## Table of Contents
+
+1. [Adding events](#adding-events)
+2. [Adding deadlines](#adding-deadlines)
+3. [Adding todos](#adding-todos)
+4. [Listing all tasks](#listing-all-tasks)
+5. [Marking tasks as done](#marking-tasks-as-done)
+6. [Unmarking tasks as done](#unmarking-tasks-as-done)
+6. [Deleting tasks](#deleting-tasks)
+7. [Finding tasks](#finding-tasks)
+8. [Exiting the program](#exiting-the-program)
+9. [Create a folder](#create-a-folder)
+10. [List all folders](#list-all-folders)
+11. [Switch to a folder](#switch-to-a-folder)
+
+## Adding events
+Adds an event to the task list.
+
+```event <description> /from <datetime> /to <datetime>```
 
 ## Adding deadlines
+Adds a deadline to the task list.
 
-// Describe the action and its outcome.
+```deadline <description> /by <datetime>```
 
-// Give examples of usage
+## Adding todos
+Adds a todo to the task list.
 
-Example: `keyword (optional arguments)`
+```todo <description>```
 
-// A description of the expected outcome goes here
+## Listing all tasks
+Lists all tasks in the task list.
 
-```
-expected output
-```
+```list```
 
-## Feature ABC
+## Marking tasks as done
+Marks a task as done.
 
-// Feature details
+```mark <task number>```
 
+## Unmarking tasks as done
+Unmarks a task as done.
 
-## Feature XYZ
+```unmark <task number>```
 
-// Feature details
+## Deleting tasks
+Deletes a task from the task list.
+
+```delete <task number>```
+
+## Finding tasks
+Finds tasks that match the given keyword.
+
+```find <keyword>```
+
+## Exiting the program
+Exits the program.
+
+```bye```
+
+## Create a folder
+Creates a folder to store the task list.
+
+```mkdir <folder name>```
+
+## List all folders
+Lists all folders in the current directory.
+
+```ls```
+
+## Switch to a folder
+Switches to a folder to store the task list.
+
+```cd <folder name>```
