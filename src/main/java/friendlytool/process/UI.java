@@ -157,6 +157,7 @@ public class UI {
 
     /**
      * Prints out a dotted line.
+     *
      * @return dotted line
      */
     public static String getFound() {
@@ -165,6 +166,8 @@ public class UI {
     }
 
     /**
+     * Provides Error message.
+     *
      * @param e error given
      * @return error message
      */
@@ -172,6 +175,18 @@ public class UI {
         assert e != null : "Error should not be null";
         sb.append("____________________________________________________________\n")
                 .append(e.getMessage()).append("\n")
+                .append("____________________________________________________________\n");
+        return UI.getResponse();
+    }
+
+    /**
+     * Provides a message that task is sorted.
+     *
+     * @return a message that task is sorted
+     */
+    public static String getSortTaskMsg() {
+        sb.append("____________________________________________________________\n")
+                .append("    OK, I've sorted your tasks!\n")
                 .append("____________________________________________________________\n");
         return UI.getResponse();
     }

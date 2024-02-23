@@ -41,4 +41,9 @@ public class Deadline extends Task {
     public String toSaveFormat() {
         return "D " + super.toSaveFormat() + " | " + by.toSaveFormat() + "\n";
     }
+
+    @Override
+    public Date getEndTime() {
+        return by;
+    }
 }
