@@ -7,7 +7,6 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -129,10 +128,14 @@ public class TaskHandler{
                 checkTaskInput(test, storage, UI.errorMsg("todo"));
                 String msg = input.substring(5);
                 ToDo task = new ToDo(msg);
-                storage.add(task);
-                saveTasks(storage, filePath);
-                UI.printAddMsg(task, taskNum);
-                return GUI.printAddMsg(task, taskNum);
+                if (!hasDuplicates(task, storage)) {
+                    storage.add(task);
+                    saveTasks(storage, filePath);
+                    UI.printAddMsg(task, taskNum);
+                    return GUI.printAddMsg(task, taskNum);
+                } else {
+                    throw new DukeException(GUI.duplicatesMsg());
+                }
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -153,10 +156,14 @@ public class TaskHandler{
                 } else {
                     throw new DukeException("Need a deadline!!");
                 }
-                UI.printAddMsg(task, taskNum);
-                storage.add(task);
-                saveTasks(storage, filePath);
-                return GUI.printAddMsg(task, taskNum);
+                if (!hasDuplicates(task, storage)) {
+                    UI.printAddMsg(task, taskNum);
+                    storage.add(task);
+                    saveTasks(storage, filePath);
+                    return GUI.printAddMsg(task, taskNum);
+                } else {
+                    throw new DukeException(GUI.duplicatesMsg());
+                }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 return e.getMessage();
@@ -177,10 +184,14 @@ public class TaskHandler{
                 } else {
                     throw new DukeException("Need a period for the event!!");
                 }
-                UI.printAddMsg(task, taskNum);
-                storage.add(task);
-                saveTasks(storage, filePath);
-                return GUI.printAddMsg(task, taskNum);
+                if (!hasDuplicates(task, storage)) {
+                    UI.printAddMsg(task, taskNum);
+                    storage.add(task);
+                    saveTasks(storage, filePath);
+                    return GUI.printAddMsg(task, taskNum);
+                } else {
+                    throw new DukeException(GUI.duplicatesMsg());
+                }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 return e.getMessage();
@@ -312,6 +323,15 @@ public class TaskHandler{
         }
         return matchedTasks;
 
+    }
+
+    private static boolean hasDuplicates(Task task, TaskList storage) {
+        for (Task t: storage) {
+            if (task.isDuplicate(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

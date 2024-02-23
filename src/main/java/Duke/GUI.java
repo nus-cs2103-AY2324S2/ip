@@ -23,7 +23,7 @@ public class GUI {
      * @return exit message
      */
     public static String exitMsg() {
-        String msg = "Bye!!" +
+        String msg = "Bye!!\n" +
                 "Hope to see you again soon!";
         return msg;
     }
@@ -92,6 +92,11 @@ public class GUI {
     public static String scheduledTaskMsg(String contents) {
         String output = "This are the tasks within the period you stated:\n" +
                 contents;
+        return output;
+    }
+
+    public static String duplicatesMsg() {
+        String output = "The task had already been added to the list previously!";
         return output;
     }
 
