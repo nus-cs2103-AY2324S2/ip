@@ -44,15 +44,15 @@ public class EventCommand extends Command {
     public String handle() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
-        validateFormatFirst(descriptionAndDateSplit);
+        validateFormatForDescription(descriptionAndDateSplit);
 
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] descriptionSplit = Parser.splitAtFirstFrom(descriptionAndDate);
-        validateFormatSecond(descriptionSplit);
+        validateFormatForComponents(descriptionSplit);
 
         String startEnd = descriptionSplit[1];
         String[] startEndSplit = Parser.splitAtFirstTo(startEnd);
-        validateFormatSecond(startEndSplit);
+        validateFormatForComponents(startEndSplit);
 
         LocalDateTime startDate = parseDate(startEndSplit[0].trim());
         LocalDateTime endDate = parseDate(startEndSplit[1].trim());
@@ -70,7 +70,7 @@ public class EventCommand extends Command {
      * @param parts String array containing "event" at index 0 and the other inputs at index 1.
      * @throws AuroraException If index 1 does not exist.
      */
-    private void validateFormatFirst(String[] parts) throws AuroraException {
+    private void validateFormatForDescription(String[] parts) throws AuroraException {
         if (parts.length < 2) {
             throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
         }
@@ -82,7 +82,7 @@ public class EventCommand extends Command {
      * @param parts String array containing parts of the event command input to validate.
      * @throws AuroraException If an incorrect number of components is detected in the input.
      */
-    private void validateFormatSecond(String[] parts) throws AuroraException {
+    private void validateFormatForComponents(String[] parts) throws AuroraException {
         if (parts.length != 2) {
             throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
         }
