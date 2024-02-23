@@ -164,7 +164,7 @@ Here are the matching tasks in your list
 If no tasks are present with the relevant word, Aether sends a no 
 matching tasks found message
 ## Detect Duplicate tasks
-Duplicate tasks of any kind will not be added 
+Duplicate tasks of any kind will not be added to the list
 
 Example: `event run in school /from 2024-01-09 1200 /to 2024-01-09 1300`
 
