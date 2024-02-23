@@ -83,6 +83,8 @@ abstract class Parser {
             }
             return new FindKeywordCommand(order[1]);
         case "bye":
+        case "goodbye":
+        case "quit":
             try {
                 assert order.length <= 1;
             } catch (AssertionError e1) {

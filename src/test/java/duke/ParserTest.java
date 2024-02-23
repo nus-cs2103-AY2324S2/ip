@@ -23,6 +23,6 @@ public class ParserTest {
 
     @Test
     public void parse_SearchDateCommandCreated_successfully() throws DukeException {
-        assertEquals(new SearchDateCommand("2019-12-02"),Parser.parse("search 2-12-2019"));
+        assertEquals(new SearchDateCommand("2019-12-02"),Parser.parse("view 2-12-2019"));
     }
 }

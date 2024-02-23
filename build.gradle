@@ -47,8 +47,8 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
-    archiveBaseName = "duke"
+    archiveFileName = 'JerryGPT.jar'
+    archiveBaseName = "JerryGPT"
     archiveClassifier = null
 }
 
