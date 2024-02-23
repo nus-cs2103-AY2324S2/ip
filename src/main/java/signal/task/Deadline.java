@@ -30,9 +30,9 @@ public class Deadline extends Task {
         try {
             String[] parseBy = by.split(" ");
             if (parseBy.length > 1) {
-                this.byTime = LocalTime.parse(parseBy[1]);
+                this.byTime = timeManager.convertTime(parseBy[1]);
             }
-            this.byDate = LocalDate.parse(parseBy[0]);
+            this.byDate = timeManager.convertDate(parseBy[0]);
         } catch (DateTimeParseException e) {
             throw new SignalException("Oops, I can't read the date or time like that! Please use yyyy-mm-dd for date and hh:mm:ss for time.");
         }

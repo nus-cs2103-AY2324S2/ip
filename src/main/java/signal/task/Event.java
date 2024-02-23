@@ -28,15 +28,16 @@ public class Event extends Task {
             String[] parseStart = start.split(" ");
             String[] parseEnd = end.split(" ");
             if (parseStart.length > 1) {
-                this.startTime = LocalTime.parse(parseStart[1]);
+                this.startTime = timeManager.convertTime(parseStart[1]);
             }
-            this.startDate = LocalDate.parse(parseStart[0]);
+            this.startDate = timeManager.convertDate(parseStart[0]);
             if (parseEnd.length > 1) {
-                this.endTime = LocalTime.parse(parseEnd[1]);
+                this.endTime = timeManager.convertTime(parseEnd[1]);
             }
-            this.endDate = LocalDate.parse(parseEnd[0]);
+            this.endDate = timeManager.convertDate(parseEnd[0]);
         } catch (DateTimeParseException e) {
-            throw new SignalException("Oops, I can't read the date or time like that! Please use yyyy-mm-dd for date and hh:mm:ss for time.");
+            throw new SignalException("Oops, I can't read the date or time like that! Please use dd-mm-yyyy for date " +
+                    "(year is optional) and hhmm for time (time is optional).");
         }
     }
 

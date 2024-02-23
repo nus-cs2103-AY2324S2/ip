@@ -491,7 +491,7 @@ public class Ui {
         response.add("* todo <task> -- creates a To Do task, which has no deadline. ");
         response.add("* deadline <task> /by <date> <time> -- creates a Deadline task, indicate its deadline after '/by'. Adding the time is optional.");
         response.add("* event <task> /from <date> <time> /to <date> <time> -- creates an Event task, indicate its start and end after '/from' and '/to'. Adding the time is optional.");
-        response.add("Note: dates and times are formatted as <yyyy-mm-dd> <hh:mm:ss>");
+        response.add("Note: dates and times are formatted as <dd-mm-yyyy> <hhmm>. Dates added are always in the current year if not specified.");
         response.add("\nCOMMANDS: ");
         response.add("* list -- prints a numbered list of the tasks created, in input order.");
         response.add("* mark <task_number> -- marks the task at index <task_number> as completed. ");
