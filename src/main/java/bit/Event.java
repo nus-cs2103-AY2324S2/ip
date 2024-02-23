@@ -9,10 +9,11 @@ public class Event extends Task {
     private final String end;
 
     /**
-     * Initialise an event
+     * Initialises an event
+     *
      * @param description the description of an task
-     * @param start a string that gives start of event
-     * @param end a string that gives end of event
+     * @param start a string that gives start of event.
+     * @param end a string that gives end of event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -30,16 +31,18 @@ public class Event extends Task {
     }
 
     /**
-     * Use to get start time of event
-     * @return start time
+     * returns start time of event
+     *
+     * @return start time.
      */
     public String getStart() {
         return this.start;
     }
 
     /**
-     * Use to get end time of event
-     * @return end time
+     * returns end time of event
+     *
+     * @return end time.
      */
     public String getEnd() {
         return this.end;

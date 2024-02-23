@@ -10,7 +10,7 @@ public class Tasklist {
     private Ui ui;
     private Storage storage;
     /**
-     * Initialize a tasklist
+     * Initializes a tasklist
      */
     public Tasklist() {
         this.ui = new Ui();
@@ -18,17 +18,19 @@ public class Tasklist {
     }
 
     /**
-     * Return current size of taskList
-     * @return size of tasklist
+     * Returns current size of taskList
+     *
+     * @return size of tasklist.
      */
     public int getSize() {
         return taskList.size();
     }
 
     /**
-     * Return task stored at index i of list
-     * @param i the index of the task to be retrieved
-     * @return task stored at i
+     * Returns task stored at index i of list
+     *
+     * @param i the index of the task to be retrieved.
+     * @return task stored at i.
      */
 
     public Task getTask(int i) {
@@ -38,7 +40,8 @@ public class Tasklist {
     /**
      * Adds tasks to the list. Takes in String that it parses. Will throw various errors based on input.
      * It accepts todds, deadlines and events.
-     * @param input String commmand from user
+     *
+     * @param input String commmand from user.
      * @throws DukeException
      */
     public String addTo(String input) throws DukeException {
@@ -137,7 +140,8 @@ public class Tasklist {
     }
 
     /**
-     * Mark task found at i - 1 as complete.
+     * Marks task found at i - 1 as complete.
+     *
      * @param i index of task to be marked.
      */
     public String mark(int i) {
@@ -153,7 +157,8 @@ public class Tasklist {
     }
 
     /**
-     * Remove mark from task found at i - 1
+     * Removes mark from task found at i - 1
+     *
      * @param i index of task to be unmarked.
      */
     public String unmark(int i) {
@@ -169,7 +174,8 @@ public class Tasklist {
     }
 
     /**
-     * Used by main to add tasks from harddisk to this list
+     *  adds tasks from harddisk to this list
+     *
      * @param task The task being added from harddisk.
      */
     public void addFromStorage(Task task) {

@@ -18,7 +18,8 @@ public class Ui {
     }
 
     /**
-     * Print out all tasks in task list.
+     * Prints out all tasks in task list.
+     *
      * @param tasklist list to be printed out.
      */
     public String listOut(Tasklist tasklist) {
@@ -32,7 +33,8 @@ public class Ui {
     }
 
     /**
-     * Used to acknowledge that mark command was successful.
+     * Returns string that acknowledges that mark command was successful.
+     *
      * @param task task that was marked.
      */
     public String sayMarked(Task task) {
@@ -40,18 +42,20 @@ public class Ui {
     }
 
     /**
-     * Used to acknowledge that unmark command was successful.
-     * @param task task that was unmarked
+     * Returns string that acknowledges that unmark command was successful.
+     *
+     * @param task task that was unmarked.
      */
     public String sayUnmarked(Task task) {
         return "Alright, let me uncheck that for you: " + task.toString();
     }
 
     /**
-     * Acknowledge to user that task was successfully added
-     * @param i index of added task
-     * @param string type of task
-     * @param task the task itself
+     * returns string that acknowledges to user that task was successfully added
+     *
+     * @param i index of added task.
+     * @param string type of task.
+     * @param task the task itself.
      */
     public String sayAdded(int i, String string, Task task) {
         switch (string) {
@@ -99,7 +103,8 @@ public class Ui {
     }
 
     /**
-     * List all items in tasklist containing the keyword.
+     * Lists all items in tasklist containing the keyword.
+     *
      * @param key the keyword for the search.
      * @param tasklist the tasklist being searched.
      */
@@ -117,11 +122,12 @@ public class Ui {
     }
 
     /**
-     *  This method returns a list of all deadlines due in the specified amount
-     *  of days as a string
-     * @param daysLeft the number of days the deadlines we are looking for are due in at max
-     * @param tasklist the list we are searching
-     * @return the list of deadlines due in specified number of days
+     *  returns a list of all deadlines due in the specified amount
+     *  of days as a string.
+     *
+     * @param daysLeft the number of days the deadlines we are looking for are due in at max.
+     * @param tasklist the list we are searching.
+     * @return the list of deadlines due in specified number of days.
      */
     public String listDueSoon(int daysLeft, Tasklist tasklist) {
         String dueMessage = "Hmmm, this tasks are due soon:\n";
@@ -138,12 +144,13 @@ public class Ui {
     }
 
     /**
-     * This is a helper function that adds to string represenation of list if isAdd is true
-     * @param isAdd Should the task be added to the list
-     * @param s The string being added to
-     * @param index index number of task should it be added
-     * @param task the task in question
-     * @return updated string if predicate is true, if not return s
+     * adds to string represenation of list if isAdd is true
+     *
+     * @param isAdd Should the task be added to the list.
+     * @param s The string being added to.
+     * @param index index number of task should it be added.
+     * @param task the task in question.
+     * @return updated string if predicate is true, if not return s.
      */
     private String addToStringIf(boolean isAdd, String s, int index, Task task) {
         if (isAdd) {

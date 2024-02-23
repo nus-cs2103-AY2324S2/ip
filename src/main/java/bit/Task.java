@@ -9,7 +9,8 @@ public class Task {
     protected final String description;
 
     /**
-     * The constructor for Tasks
+     * Initializes a task.
+     *
      * @param description description of task
      */
     public Task(String description) {
@@ -19,21 +20,22 @@ public class Task {
     }
 
     /**
-     * Mark task as complete
+     * Marks task as complete
      */
     public void complete() {
         this.isDone = true;
     }
 
     /**
-     * Uncheck task as incomplete.
+     * Unchecks task as incomplete.
      */
     public void incomplete() {
         this.isDone = false;
     }
 
     /**
-     * Return String format of task.
+     * Returns String format of task.
+     *
      * @return task in string format.
      */
     @Override

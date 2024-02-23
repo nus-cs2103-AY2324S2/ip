@@ -4,7 +4,7 @@ package bit;
 import java.util.Scanner;
 
 /**
- * This class parses through inputs of users and
+ * Parses through inputs of users and
  * translate them to string instructions for chatbot
  */
 public class Parser {
@@ -23,7 +23,8 @@ public class Parser {
     /**
      * Returns index number stored in this object
      * This is usually index of Task you wish to access
-     * @return index number stored
+     *
+     * @return index number stored.
      */
     public int getIndex() {
         return index;
@@ -31,9 +32,12 @@ public class Parser {
 
     /**
      * Returns user's command in string format
-     * If there is an error, it will be funneled towards add method, which will handle them
-     * @param input
-     * @return command
+     * If there is an error,
+     * it will be funneled towards add method,
+     * which will handle them
+     *
+     * @param input the input to be parsed.
+     * @return command to be executed.
      */
     public String parse(String input) {
         if (input.equals("bye")) {
@@ -54,7 +58,9 @@ public class Parser {
     }
 
     /**
-     * Get string stored in this object. This is used with find command.
+     * Gets string stored in this object.
+     * This is used with find command.
+     *
      * @return string stored in object.
      */
     public String getWord() {

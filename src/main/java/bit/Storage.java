@@ -16,7 +16,7 @@ public class Storage {
     private final File file = new File(filePath);
 
     /**
-     * Initialize storage according to file path
+     * Initializes storage according to file path
      */
     public Storage() {
         boolean isCreated = createFile(file);
@@ -24,8 +24,10 @@ public class Storage {
     }
 
     /**
-     * Create a file myFile if it does not exist. If file exists after this method, return true.
+     * Creates a file myFile if it does not exist.
+     * If file exists after this method, return true.
      * Otherwise, return false.
+     *
      * @param myFile file to be created
      * @return true or false based on whether file exists after method is run.
      */
@@ -44,7 +46,8 @@ public class Storage {
     }
 
     /**
-     * Load all tasks stored in text file to Tasklist.
+     * Loads all tasks stored in text file to Tasklist.
+     *
      * @param list list of tasks to be loaded
      */
     public void loadFile(Tasklist list) {
@@ -93,7 +96,8 @@ public class Storage {
     }
 
     /**
-     * Save all tasks in the list to a text file.
+     * Saves all tasks in the list to a text file.
+     *
      * @param tasklist the tasks to be stored.
      */
     public void saveAll(Tasklist tasklist) {
@@ -112,7 +116,8 @@ public class Storage {
     }
 
     /**
-     * Save a todo to text file.
+     * Saves a todo to text file.
+     *
      * @param marked completion status of todo
      * @param description the description of the task
      */
@@ -132,7 +137,8 @@ public class Storage {
     }
 
     /**
-     * Save a deadline to text file.
+     * Saves a deadline to text file.
+     *
      * @param marked completion status of task.
      * @param description body of task.
      * @param deadline deadline of the task.
@@ -153,7 +159,8 @@ public class Storage {
     }
 
     /**
-     * Save an event to textfile.
+     * Saves an event to textfile.
+     *
      * @param marked Completion status of task.
      * @param description Body of task.
      * @param start Start time of event
@@ -175,7 +182,7 @@ public class Storage {
     }
 
     /**
-     * Clear file after extracting tasks.
+     * Clears file after extracting tasks.
      */
     public void cleanList() {
         try {
