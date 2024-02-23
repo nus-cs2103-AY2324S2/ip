@@ -305,4 +305,8 @@ public class FeedbackService {
         // with minor modifications
         return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
     }
+
+    public static String getWelcomeMessage() {
+       return "Welcome to Oak-Dex! How can I help you today?";
+    }
 }

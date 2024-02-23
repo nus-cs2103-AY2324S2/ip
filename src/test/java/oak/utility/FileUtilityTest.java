@@ -66,5 +66,7 @@ public class FileUtilityTest {
 
         assertEquals(contentExists, true);
         assertEquals(numLines, 2);
+
+        scanner.close();
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oak.controller.OakController;
+import oak.feedback.FeedbackService;
 import oak.feedback.enums.CommandEnum;
 import oak.task.ReminderService;
 
@@ -38,8 +39,7 @@ public class MainWindow extends VBox {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcomeMessage = "Welcome to Oak-Dex! How can I help you today?";
-        dialogContainer.getChildren().add(DialogBox.getOakDialog(welcomeMessage, oakImage));
+        dialogContainer.getChildren().add(DialogBox.getOakDialog(FeedbackService.getWelcomeMessage(), oakImage));
     }
 
     public void setOak(OakController d) {
