@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Jux");
             fxmlLoader.<MainWindow>getController().setJux(jux);
             fxmlLoader.<MainWindow>getController().welcomeMessage(); // initialise the task list here instead of main window
             stage.show();
