@@ -77,7 +77,7 @@ public class IOHandler {
      */
     public String echoAdd(Task t, TaskList taskList) {
         StringBuilder result = new StringBuilder();
-        result.append("Got it. I've added this task:\n");
+        result.append("Boss!! I have added this task\n");
         result.append("  ").append(t).append("\n");
         result.append("Now you have ").append(taskList.size()).append(" tasks in the list.\n");
         return result.toString();
@@ -88,7 +88,7 @@ public class IOHandler {
         if (list.isEmpty()) {
             return "I couldn't find any matching tasks in your lists.";
         }
-        result.append("Here are the matching tasks in your list: \n");
+        result.append("Here are the tasks which matched Boss! : \n");
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1).append(".").append(list.get(i)).append("\n");
         }

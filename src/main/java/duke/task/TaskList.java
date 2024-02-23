@@ -105,7 +105,7 @@ public class TaskList {
             if (string.length != 2) {
                 throw new SyntaxException("Need only index number after delete");
             }
-            int index = Integer.parseInt(string[1]);
+            int index = Integer.parseInt(string[1]) - 1;
             return taskList.removeIndex(index);
         } catch (NumberFormatException e) {
             throw new SyntaxException("Need only index number after delete");

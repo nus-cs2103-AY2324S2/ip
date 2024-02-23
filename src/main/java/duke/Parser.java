@@ -23,7 +23,7 @@ public class Parser {
      */
     public String identify(String command) {
         String[] strings = command.split(" ");
-        assert strings.length != 0 : "command should not be empty";
+        assert strings.length != 0 : "Sorry Boss! The commands can not be empty.";
         return strings[0];
     }
 
@@ -63,16 +63,16 @@ public class Parser {
                     Task tempDelete = taskList.deleteTask(str, taskList);
                     storage.saveInFile(taskList);
                     StringBuilder deleteResult = new StringBuilder();
-                    deleteResult.append("Noted. I've removed this task:\n");
+                    deleteResult.append("Okay boss! Task removed.\n");
                     deleteResult.append(" ").append(tempDelete.toString()).append("\n");
-                    deleteResult.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+                    deleteResult.append("Boss you have ").append(taskList.size()).append(" tasks in the list.");
                     result = deleteResult.toString();
                     break;
                 case "mark":
                     Task tempMark = taskList.setDone(str, taskList);
                     StringBuilder markResult = new StringBuilder();
                     storage.saveInFile(taskList);
-                    markResult.append("Nice! I've marked this task as done:\n");
+                    markResult.append("Okay Boss! Task marked as done\n");
                     markResult.append("  ").append(tempMark);
                     result = markResult.toString();
                     break;
@@ -80,7 +80,7 @@ public class Parser {
                     Task tempUnmark = taskList.setUndone(str, taskList);
                     StringBuilder unmarkResult = new StringBuilder();
                     storage.saveInFile(taskList);
-                    unmarkResult.append("I've marked this task as undone:\n");
+                    unmarkResult.append("Okay Boss! Task marked as undone\n");
                     unmarkResult.append("  ").append(tempUnmark);
                     result = unmarkResult.toString();
                     break;

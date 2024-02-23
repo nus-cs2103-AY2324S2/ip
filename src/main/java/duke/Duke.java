@@ -50,13 +50,7 @@ public class Duke extends Application {
      * It runs the Duck Application.
      * Displays Contents, handle the user inputs and commands until user exits.
      */
-    public void run() {
-//        ioHandler.welcomeMessage();
-//        boolean exit = false;
-//        while (!exit) {
-//            exit = !parser.parse(ioHandler.typeMessage(), ioHandler, taskList, storage);
-//        }
-    }
+
 
     @Override
     public void start(Stage stage) {
@@ -168,7 +162,5 @@ public class Duke extends Application {
         return parser.parse(input, ioHandler, taskList, storage).replace("\n", "\n\n");
     }
 
-    public static void main(String[] args) {
-        new Duke().run();
-    }
+
 }
