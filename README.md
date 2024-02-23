@@ -7,7 +7,7 @@ Wis is a Command-Line-based task manager. You can use it to manage tasks todo, d
 Tasks added will be saved automatically even after closing the app. You
 will not lose data by restarting out app.
 
-To use Wis chatbot, download `Wis.jar` from our lastest github release,
+To use Wis chatbot, download `wis.jar` from our lastest github release,
 and type the following line in terminal at the directory containing
 `wis.jar` to start the app:
 ```
