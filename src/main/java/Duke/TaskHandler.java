@@ -24,6 +24,9 @@ public class TaskHandler{
      * @throws IOException
      */
     public static String doTasks(String input, TaskList storage, Path filePath) throws IOException, DukeException {
+        assert input != null : "Input string must not be null";
+        assert storage != null : "TaskList must not be null";
+        assert filePath != null : "File path must not be null";
         int taskNum = storage.size() + 1;
         if (input.equals("bye")) {
             UI.showExitMsg();
