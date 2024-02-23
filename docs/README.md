@@ -1,7 +1,8 @@
 # Joy User Guide
 
+<img width="300" alt="Ui" src="https://github.com/yashma-sonara/ip/assets/44407952/b8b4bee2-507b-4574-b678-8242abc0071b">
 
-<img width="295" alt="Ui" src="https://github.com/yashma-sonara/ip/assets/44407952/33c49227-94e3-461a-87f4-e49c8e1f75a3">
+
 
 
 
@@ -14,7 +15,13 @@
 Joy is a task managing chatbot. Use Joy to store your daily tasks and manage your life!
 
 # Features
-
+ - [x] Adding tasks
+ - [X] Viewing task list 
+ - [X] Finding tasks
+ - [X] Marking tasks
+ - [X] Deleting tasks
+ - [X] No duplicate tasks
+    
 
 ## Adding deadlines
 
@@ -93,4 +100,15 @@ Usage Example: `delete 3`
 Expected Outcome: 
 ```
 I have deleted the below command: [T][ ] cleaning
+```
+
+## No duplicate tasks
+
+Action: Not allowing a duplicate task to be added.
+
+Usage Example: `event conference /from 3pm /to 5pm`
+
+Expected Outcome: 
+```
+Duplicate task found. Task not added.
 ```
