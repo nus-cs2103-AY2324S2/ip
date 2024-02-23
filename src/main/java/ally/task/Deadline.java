@@ -23,7 +23,7 @@ public class Deadline extends Task {
             String[] splitDesc = desc.split(" /by ");
             this.description = splitDesc[0];
             this.by = LocalDate.parse(splitDesc[1]);
-        } catch (AllyException e) {
+        } catch (Exception e) {
             throw new AllyException();
         }
     }
