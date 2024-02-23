@@ -52,6 +52,9 @@ shadowJar {
 //    archiveBaseName = "Friday"
 //    archiveClassifier = null
 //    dependsOn("distZip", "distTar")
+    from('src/main.java/data') {
+        include 'Friday.txt' // Include all .txt files
+    }
     archiveFileName = 'Friday.jar'
 }
 

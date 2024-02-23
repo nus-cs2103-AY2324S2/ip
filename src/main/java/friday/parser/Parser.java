@@ -78,9 +78,21 @@ public class Parser {
                 return tasks.addTodo(userInput);
             }
         case "deadline":
-            return tasks.addDeadline(userInput);
+            if (storage == null) {
+                return "Storage is not initialized.";
+            } else if (tasks == null) {
+                return "Tasks is not initialized.";
+            } else {
+                return tasks.addDeadline(userInput);
+            }
         case "event":
-            return tasks.addEvent(userInput);
+            if (storage == null) {
+                return "Storage is not initialized.";
+            } else if (tasks == null) {
+                return "Tasks is not initialized.";
+            } else {
+                return tasks.addEvent(userInput);
+            }
         case "delete":
             assert tasks != null : "TaskList must not be null";
             assert storage != null : "Storage must not be null";
