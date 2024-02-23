@@ -58,14 +58,15 @@ public class Ui {
 
     public String sayHelp() {
         return "Here are the commands you can use:\n"
-                + "1. list - list all tasks\n"
-                + "2. bye - exit the program\n"
-                + "3. mark - mark a task as done\n"
-                + "4. unmark - unmark a task as done\n"
-                + "5. todo - add a todo task\n"
-                + "6. event - add an event task\n"
-                + "7. deadline - add a deadline task\n"
-                + "8. delete - delete a task\n"
-                + "9. find - find tasks with a keyword\n";
+                + "1. todo - add a todo task\n"
+                + "2. deadline - add a deadline task\n"
+                + "3. event - add an event task\n"
+                + "4. list - list all tasks\n"
+                + "5. mark - mark a task as done\n"
+                + "6. unmark - unmark a task as done\n"
+                + "7. delete - delete a task\n"
+                + "8. find - find tasks with a keyword\n"
+                + "9. help - display help information\n"
+                + "10. bye - exit the program\n";
     }
 }
