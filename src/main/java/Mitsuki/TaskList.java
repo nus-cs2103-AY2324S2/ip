@@ -43,6 +43,7 @@ public class TaskList {
      */
     public static String deadline(String fullString) {
         String[] tokens = fullString.split("/");
+
         try {
             EmptyTaskException.timedValidate(tokens);
         } catch(EmptyTaskException ex) {
@@ -50,6 +51,11 @@ public class TaskList {
         }
 
         int endOfDesc = fullString.indexOf("/by");
+        if (endOfDesc == -1) {
+            return "Please give a deadline for your deadline item. Try again! XD"
+                    + "E.g. Type 'deadline return book /by 20/12/2024' to add the task 'return book' "
+                    + "\nwith a deadline of '20 Dec 2024' to your list.";
+        }
         String description = fullString.substring(1, endOfDesc - 1);
         String deadline = fullString.substring(endOfDesc + 4);
         String[] parts = {description, deadline};
@@ -88,7 +94,7 @@ public class TaskList {
         String trimmed1 = description1.trim();
         Task task1 = new Todo(trimmed1);
         list.add(task1);
-        return "OK, I have added the task '" + trimmed1 + "' to your list! :)"
+        return "OK, I have added the task '" + trimmed1 + "' to your list! :)\n"
                 + "Now you have " + list.size() + " task(s) in the list.";
     }
 
@@ -111,7 +117,7 @@ public class TaskList {
         } catch(EmptyTaskException ex) {
             return "Please give a description for your event item. Try again!";
         } catch(MissingEventTimingException ex) {
-            return "Please give a time period for your event item. Try again! XD"
+            return "Please give a time period for your event item. Try again! XD\n"
             + "E.g. Type 'event meeting /From Monday 10am /to 12pm' to add the task 'meeting' \n"
                     + "with a time period 'From Monday 10am to 12pm' to your list.";
         }
@@ -123,7 +129,7 @@ public class TaskList {
         String toTrimmed = to.trim();
         Task task2 = new Event(trimmed2, from, toTrimmed);
         list.add(task2);
-        return "OK, I have added the task '" + trimmed2 + "' to your list! :)"
+        return "OK, I have added the task '" + trimmed2 + "' to your list! :)\n"
         + "Now you have " + list.size() + " task(s) in the list.";
     }
 
@@ -179,7 +185,7 @@ public class TaskList {
         try {
             WasNotDoneException.validate(aTask);
         } catch(WasNotDoneException ex) {
-            return "You had not completed this task! :O" + aTask;
+            return "You had not completed this task! :O\n" + aTask;
         }
 
         aTask.markAsNotDone();
@@ -198,7 +204,7 @@ public class TaskList {
         list.remove(goneTask);
 
         return "Alright, I have removed the following task from your list:\n" + goneTask
-                + "Now you have " + list.size() + " task(s) in the list.";
+                + "\nNow you have " + list.size() + " task(s) in the list.";
     }
 
     /**

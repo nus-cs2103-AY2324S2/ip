@@ -95,7 +95,6 @@ public class Storage {
             saver.write(Mitsuki.toDoList.get(i).toString() + System.lineSeparator());
         }
 
-        System.out.println("I have saved your list for your future reference. :D");
         saver.close();
     }
 }

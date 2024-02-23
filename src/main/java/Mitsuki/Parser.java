@@ -39,7 +39,7 @@ public class Parser {
 
     /**
      * Processes user input and calls the relevant method based
-     * on what user comand is.
+     * on what user command is.
      *
      * @param userInput the user's input.
      */
@@ -48,58 +48,65 @@ public class Parser {
                 ? userInput
                 : userInput.substring(0, userInput.indexOf(' '));
 
-            // Making sure user is giving a valid command.
+        // Making sure user is giving a valid command.
+        try {
+            MitsukiException.validate(command, commands);
+        } catch (MitsukiException ex) {
+            return ui.invalidCommandMessage();
+        }
+
+        String description;
+
+        // Calling the method based on what the user input is.
+        switch (command) {
+        case "help":
+            return ui.printHelpList(commands);
+
+        case "deadline":
+            description = userInput.substring(userInput.indexOf(' '));
+            return TaskList.deadline(description);
+
+        case "todo":
+            description = userInput.substring(userInput.indexOf(' '));
+            return TaskList.todo(description);
+
+        case "event":
+            description = userInput.substring(userInput.indexOf(' '));
+            return TaskList.event(description);
+
+        case "list":
+            return TaskList.list();
+
+        case "mark":
+            description = userInput.substring(userInput.indexOf(' ') + 1);
+            int index = Integer.parseInt(description);
+            return TaskList.mark(index);
+
+        case "unmark":
+            description = userInput.substring(userInput.indexOf(' ') + 1);
+            int index1 = Integer.parseInt(description);
+            return TaskList.unmark(index1);
+
+        case "delete":
+            description = userInput.substring(userInput.indexOf(' ') + 1);
+            int index2 = Integer.parseInt(description);
+            return TaskList.delete(index2);
+
+        case "bye":
             try {
-                MitsukiException.validate(command, commands);
-            } catch (MitsukiException ex) {
-                return ui.invalidCommandMessage();
+                Storage.save("list.txt");
+            } catch (IOException ex) {
+                return ui.printErrorMessage(ex);
             }
+            return ui.printByeMessage();
 
-            String description = userInput.substring(userInput.indexOf(' ') + 1);
+        case "find":
+            description = userInput.substring(userInput.indexOf(' '));
+            return TaskList.find(description);
 
-            // Calling the method based on what the user input is.
-            switch (command) {
-            case "help":
-                return ui.printHelpList(commands);
-
-            case "deadline":
-                return TaskList.deadline(description);
-
-            case "todo":
-                return TaskList.todo(description);
-
-            case "event":
-                return TaskList.event(description);
-
-            case "list":
-                return TaskList.list();
-
-            case "mark":
-                int index = Integer.parseInt(description);
-                return TaskList.mark(index);
-
-            case "unmark":
-                int index1 = Integer.parseInt(description);
-                return TaskList.unmark(index1);
-
-            case "delete":
-                int index2 = Integer.parseInt(description);
-                return TaskList.delete(index2);
-
-            case "bye":
-                try {
-                    Storage.save("list.txt");
-                } catch (IOException ex) {
-                    return ui.printErrorMessage(ex);
-                }
-                return ui.printByeMessage();
-
-            case "find":
-                return TaskList.find(description);
-
-            default:
-                return " ";
-            }
+        default:
+            return " ";
         }
     }
+}
 

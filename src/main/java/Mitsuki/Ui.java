@@ -39,7 +39,7 @@ public class Ui {
      * Prints message to inform user their command is invalid.
      */
     public String invalidCommandMessage() {
-        return "Sorry, I am unable to do that at the current moment. "
+        return "Sorry, I am unable to do that at the current moment.\n"
                 + "Please type 'help' for a list of commands you can give me! :)";
     }
 
@@ -58,15 +58,14 @@ public class Ui {
      * @param commands the list of commands
      */
     public String printHelpList(ArrayList<String> commands) {
-         //Lists all the commands the user can give Mitsuki.
-
-            String message = "Here is a list of commands you can give me:\n";
-            for (int i = 0; i < commands.size(); i++) {
-                int j = i + 1;
-                message = message + j + ". " + commands.get(i) + "\n";
-            }
-            return message;
+        //Lists all the commands the user can give Mitsuki.
+        String message = "Here is a list of commands you can give me:\n";
+        for (int i = 0; i < commands.size(); i++) {
+            int j = i + 1;
+            message = message + j + ". " + commands.get(i) + "\n";
         }
+        return message;
+    }
 
     /**
      * Prints the list of tasks related to keyWord in the user's current taskList.
@@ -75,7 +74,7 @@ public class Ui {
      * @param taskList the user's current todo list.
      */
     public String printFound(String keyWord, ArrayList<Task> taskList) {
-        String message = "Here are the tasks related to: " + keyWord;
+        String message = "Here are the tasks related to: " + keyWord + "\n";
         for (int i = 0; i < taskList.size(); i++) {
             int j = i + 1;
             String task = taskList.get(i).toString();
@@ -89,6 +88,7 @@ public class Ui {
      * Says goodbye to Mitsuki and exits the Chat bot.
      */
     public String printByeMessage() {
-        return "Bye! Hope to see you again soon!\n";
+        return "I have saved your list for your future reference. :D\n"
+                + "Bye! Hope to see you again soon!\n";
     }
 }
