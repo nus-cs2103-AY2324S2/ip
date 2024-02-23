@@ -1,21 +1,38 @@
-@ECHO OFF
+#!/usr/bin/env bash
 
-REM create bin directory if it doesn't exist
-if not exist ..\bin mkdir ..\bin
+# create bin directory if it doesn't exist
+if [ ! -d "../bin" ]
+then
+    mkdir ../bin
+fi
 
-REM delete output from previous run
-if exist ACTUAL.TXT del ACTUAL.TXT
+# delete output from previous run
+if [ -e "./ACTUAL.TXT" ]
+then
+    rm ACTUAL.TXT
+fi
 
-REM compile the code into the bin folder
-javac  -cp ..\src\main\java\ficin -Xlint:none -d ..\bin ..\src\main\java\ficin\*.java
-IF ERRORLEVEL 1 (
-    echo ********** BUILD FAILURE **********
-    exit /b 1
-)
-REM no error here, errorlevel == 0
+# compile the code into the bin folder, terminates if error occurred
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+then
+    echo "********** BUILD FAILURE **********"
+    exit 1
+fi
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin ficin.Ficin < input.txt > ACTUAL.TXT
+# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+java -classpath ../bin GuanGuan < input.txt > ACTUAL.TXT
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+# convert to UNIX format
+cp EXPECTED.TXT EXPECTED-UNIX.TXT
+dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+
+# compare the output to the expected output
+diff ACTUAL.TXT EXPECTED-UNIX.TXT
+if [ $? -eq 0 ]
+then
+    echo "Test result: PASSED"
+    exit 0
+else
+    echo "Test result: FAILED"
+    exit 1
+fi
