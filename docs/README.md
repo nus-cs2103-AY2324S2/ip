@@ -139,20 +139,19 @@ The chatbot deletes the first task in the list.
 ### 7. list
 > What it does 
 
-The ```list``` command command displays the whole tasklist.
-* The index number after the command is important.
+The ```list``` command displays the whole tasklist.
 
 > Example
 
 ```list```
 
-The chatbot deletes the first task in the list.
+The chatbot displays all your tasks.
 
 > Expected output
 ```
    Here are the tasks in your list:
    1.[D][] get iP done (by: Feb 23 2024 23:59)
-   2.[E][] project meeting (from: Dec 12 2024 12:00 to: Dec 12 2024 13:00)
+   2.[E][] project meeting (from: Dec 12 2024 12:00 to: Dec 12 2024 13:00) 
 ```
 
 ### 8. find
