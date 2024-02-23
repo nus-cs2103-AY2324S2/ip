@@ -35,15 +35,6 @@ public class BadGpt {
     }
 
     /**
-     * Starts running the bot.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        // new BadGpt().run();
-    }
-
-    /**
      * Runs the bot. The bot gives a greeting and loads the task list saved from the previous session, if there is one.
      * Then, the bot will take in commands until "bye" is entered.
      */

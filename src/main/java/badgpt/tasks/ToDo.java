@@ -5,7 +5,7 @@ package badgpt.tasks;
  */
 public class ToDo extends Task {
     /**
-     * @inheritDoc
+     * Creates a new ToDo task.
      */
     public ToDo(String description) {
         super(description);
