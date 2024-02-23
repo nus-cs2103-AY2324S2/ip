@@ -7,6 +7,7 @@ and plans**! It is **optimised for use for a Command Line Interface** (CLI) but 
 basic Graphical User Interface (GUI).
 
 <!-- TOC -->
+* [Sleepy User Guide](#sleepy-user-guide)
 * [Quick Start](#quick-start)
 * [User commands](#user-commands)
   * [Notes about the command format](#notes-about-the-command-format)
@@ -41,13 +42,12 @@ Some example commands you can try (not case-sensitive):
 
 # User commands
 
-<div markdown="block" class="alert alert-info">
 
 ## Notes about the command format
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which
-  can be used as `todo sleep`.
+  can be used, such as `todo sleep`.
 
 * Parameters **must** be in the specified order.<br>
   e.g. if the command specifies `event DESCRIPTION /from START_TIME /to END_TIME`,
@@ -58,7 +58,6 @@ Some example commands you can try (not case-sensitive):
   to `DD-MMM-YYYY` format.
   For example, `event study /from 2023-01-26 /to next Wednesday` will be converted to
   `[E][ ] study (from: 26 Jan 2023 to: next Wednesday)`
-</div>
 
 
 ## Adding a todo: `todo`
