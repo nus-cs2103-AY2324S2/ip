@@ -8,6 +8,12 @@ import java.util.regex.Pattern;
 class ClearCommand extends Command {
     public ClearCommand() {}
 
+    /**
+     * Executes the command.
+     *
+     * @param tasks The task list that the commands would be applied to.
+     * @return The response message.
+     */
     @Override
     public String execute(TaskList tasks) {
         tasks.clear();
@@ -42,6 +48,11 @@ abstract class AddTaskCommand extends Command {
             + tasks.getDisplayTaskCount();
         task = null;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "AddTaskCommand: " + task;
     }
 }
 

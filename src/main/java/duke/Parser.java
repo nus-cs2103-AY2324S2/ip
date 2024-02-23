@@ -10,7 +10,7 @@ public class Parser {
 
     /**
      * Registers a command with the parser.
-     * It must be called exactly once at program start, which is done by
+     * It must be called at least once at program start, which is done by
      * {@link Commands#registerCommands}.
      *
      * @param commandName the name of the command
