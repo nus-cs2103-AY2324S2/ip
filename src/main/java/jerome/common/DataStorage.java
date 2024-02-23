@@ -54,6 +54,7 @@ public class DataStorage {
                 this.tasksList = readTextFileIfAlreadyCreated();
             }
         } catch (IOException e) {
+            // The 100 MB is just based on my gut feeling.
             System.err.println("An error occurred while opening the file. \n"
                     + "An error occurred on your device; "
                     + "please check that there is at least 100 MB of free disk space.");
