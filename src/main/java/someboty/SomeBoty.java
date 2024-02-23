@@ -29,7 +29,7 @@ public class SomeBoty {
 
         } catch (TerminateException e) { 
             // re-wrap exception with a farewell message.
-            throw new TerminateException(e.getMessage() + "\n" + ExitMessage());
+            throw new TerminateException(ExitMessage());
         }
         
     }

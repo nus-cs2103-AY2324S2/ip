@@ -61,7 +61,7 @@ public class CommandManager {
             case "bye":
                 taskManager.update();
                 expenseManager.update();
-                throw new TerminateException("Izuna has saved your lists");
+                throw new TerminateException("Izuna has saved your lists!\n");
             
             case "list":
                 return printList(getDescription(input));
@@ -74,7 +74,8 @@ public class CommandManager {
 
             case "save":
                 taskManager.update();
-                return "Izuna has successfully saved the task list!";
+                expenseManager.update();
+                return "Izuna has successfully saved your lists!";
 
             case "find":
                 return findTasks(getDescription(input));
