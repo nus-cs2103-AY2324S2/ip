@@ -42,7 +42,7 @@ Some example commands you can try (not case-sensitive):
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+## Notes about the command format
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which
