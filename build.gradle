@@ -27,7 +27,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-
 }
 
 test {
@@ -45,13 +44,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("joy.Joy")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "joy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = "joy.Launcher"
 }
 
 checkstyle {

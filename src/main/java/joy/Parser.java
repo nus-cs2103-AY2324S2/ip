@@ -6,11 +6,8 @@ import joy.task.Event;
 
 import joy.task.Todo;
 
-
-
-
-
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -161,7 +158,16 @@ public class Parser {
                 isDeadline = true;
             }
         }
+
         String time = timeBuilder.toString().trim();
+
+        try {
+            // Validate the time format using a DateTimeFormatter
+            LocalDateTime parsedTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            String formattedTime = parsedTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (Exception e) {
+            throw new JoyException.DeadlineException("OOPS!!! Your time is of the wrong format.");
+        }
         return tasks.addTasks(new Deadline(description, time));
 
 
