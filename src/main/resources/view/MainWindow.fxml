@@ -38,7 +38,7 @@
             <content>
               <VBox fx:id="dialogContainer" prefHeight="480.0" prefWidth="388.0" style="-fx-background-color: #292F3F;">
                      <padding>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets left="5.0" right="3.0" />
                      </padding></VBox>
             </content>
                <effect>
