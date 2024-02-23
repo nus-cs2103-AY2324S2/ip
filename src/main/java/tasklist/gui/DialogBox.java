@@ -34,11 +34,7 @@ public class DialogBox extends HBox {
     @FXML 
     private Button actionButton; 
 
-<<<<<<< HEAD:src/main/java/tasklist/gui/DialogBox.java
     private DialogBox(String text, Image img, boolean isUser, TaskList taskList) {
-=======
-    private DialogBox(String text, Image img, boolean isUser) {
->>>>>>> branch-A-CodeQuality:src/main/java/tasklist/DialogBox.java
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -89,19 +85,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-<<<<<<< HEAD:src/main/java/tasklist/gui/DialogBox.java
         return new DialogBox(text, img, true, null);
     }
 
     public static DialogBox getDukeDialog(String text, Image img, TaskList tasklist) {
         var db = new DialogBox(text, img, false, tasklist);
-=======
-        return new DialogBox(text, img, true);
-    }
-
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img, false);
->>>>>>> branch-A-CodeQuality:src/main/java/tasklist/DialogBox.java
         db.flip();
         return db;
     }

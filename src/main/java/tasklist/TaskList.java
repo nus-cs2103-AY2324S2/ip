@@ -58,6 +58,7 @@ public class TaskList implements Serializable {
      * Delete a task from the TaskList.
      *
      * @param taskNo task index to be deleted.
+     * @return Task that was deleted.
      */
     public Task deleteTask(int taskNo) {
         try {

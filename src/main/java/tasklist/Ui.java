@@ -27,7 +27,6 @@ public class Ui {
     /** show Welcome Message */
     public static String showWelcomeMessage() {
         return("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)");
-        //System.out.println("____________________________________________________________");
     }
 
     /**
