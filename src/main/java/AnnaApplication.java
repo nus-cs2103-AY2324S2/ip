@@ -15,6 +15,7 @@ public class AnnaApplication extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Anna");
             FXMLLoader fxmlLoader = new FXMLLoader(
                 AnnaApplication.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
