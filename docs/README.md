@@ -19,7 +19,7 @@ Example:
 This will create a todo called "CS2103T IP Level-2".  
 By default, all tasks created will be unmarked.
 
-- Expected outcome:
+- Example outcome:
     ```
     Gotchu! I've added this task:
     [T][] CS2103T IP Level-2
@@ -37,7 +37,7 @@ Example:
 - `deadline CS2109S PS3 /by 2024-02-21 2359`  
 This will create a deadline task called "CS2109S PS3" with a due date on 2024-02-32 2359.
 
-- Expected outcome:  
+- Example outcome:  
     ```
     Gotchu! I've added this task:
     [D][] CS2109S PS3 (by: 2024-02-21 2359)
@@ -55,7 +55,7 @@ Syntax: `event <Description of Task> /from <YYYY-MM-DD HHMM> /to <YYYY-MM-DD HHM
 Example:  
 - `event Swiftie Concert /from 2024-03-03 2359 /to 2024-03-08 0000`
 
-- Expected outcome:
+- Example outcome:
     ```
     Gotchu! I've added this task:
     [E][] Swiftie Concert (from: 2024-03-03 2359 to: 2024-03-08 0000)
@@ -102,7 +102,7 @@ Example:
 - `unmark 2`  
 This will unmark the second task in the list.
 
-- Expected Output:
+- Example Output:
     ```
     Hey you! I've marked this task as not done, yet:
     [T][] homework
@@ -120,7 +120,7 @@ delete <index number from list command>
 Example:
 - `delete 2`  
 This will delete the second item in the list.
-- Expected Output:
+- Example Output:
     ```
     Alright-0, I have deleted the following task:  
     [T][] homework
@@ -154,11 +154,10 @@ find <the string you are looking for>
 ```
 
 This action will find and return the specified task.
-Expected outcome:
 
 Example: 
 - `find homework`
-- Expected Output:
+- Example Output:
     ```
     Found:  
     1.[T][] homework
