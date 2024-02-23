@@ -14,6 +14,7 @@ public class Event extends Task {
     /**
      * Create an instance of Events class which contains description of the task,
      * start date and end dates of the event
+     *
      * @param description
      * @param from
      * @param to
@@ -27,6 +28,7 @@ public class Event extends Task {
     /**
      * Returns String of task detail with type of Task (Events),
      * events date (from) and (to) - in form of MMM d yyyy -, description.
+     *
      * @return Task detail
      */
     @Override

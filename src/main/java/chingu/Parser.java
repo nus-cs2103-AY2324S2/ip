@@ -12,7 +12,6 @@ import chingu.exception.DeadlineException;
 import chingu.exception.NoCommandException;
 import chingu.exception.ToDosException;
 import chingu.exception.EventException;
-import chingu.task.TaskList;
 import chingu.task.Task;
 import chingu.task.Event;
 import chingu.task.Deadline;
@@ -41,6 +40,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Sorts the 1-word Command from the user
+     *
+     * @param fullCommand from the user
+     * @return Command that is constructed based on User's command
+     * @throws NoCommandException if no command is present
+     */
     public static Command parseOneWordCommand(String fullCommand) throws NoCommandException {
         if (fullCommand.equals("list")) {
             return new ListCommand();
@@ -72,6 +78,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse Command that adds ToDo
+     *
+     * @param description about ToDo
+     * @return ToDo Task that is created
+     * @throws ToDosException if necessary details are missing from the ToDo
+     */
     public static Task parseToDos(String description) throws ToDosException {
         if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
@@ -86,6 +99,14 @@ public class Parser {
         return new ToDo(description, priority);
     }
 
+    /**
+     * Parse Command that adds Deadline
+     *
+     * @param description about Deadline
+     * @return Deadline that is created
+     * @throws DeadlineException if necessary details are missing from the Deadline
+     * @throws DateException if format of the date given is wrong
+     */
     public static Task parseDeadline(String description) throws DeadlineException, DateException{
         if (description.isEmpty()) {
             throw new DeadlineException("What deadline do you need to record?");
@@ -107,6 +128,13 @@ public class Parser {
         return new Deadline(D, by, priority);
     }
 
+    /**
+     * Parse Command taht adds Event
+     *
+     * @param description about Event
+     * @return Event that is created
+     * @throws EventException if necessary details are missing from the Event
+     */
     public static Task parseEvent(String description) throws EventException {
         if (description.isEmpty()) {
             throw new EventException("What event do you need to record?");
@@ -127,6 +155,12 @@ public class Parser {
         return new Event(D, from, to, priority);
     }
 
+    /**
+     * Check if the description is splitted correctly
+     *
+     * @param length number of splitted descriptions
+     * @throws DeadlineException if necessary details are missing from the Deadline
+     */
     public static void checkDeadlineSplit(int length) throws DeadlineException {
         if (length < 2) {
             throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
@@ -139,6 +173,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Validate if the format of the event dates are correctly added by the user
+     *
+     * @param from - start date of the event
+     * @param to - end date of the event
+     */
     public static void validateDates(String from, String to) {
         boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
         assert !validateFromDate : "format of the event start date is WRONG!";

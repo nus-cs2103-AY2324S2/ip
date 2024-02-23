@@ -1,32 +1,31 @@
 package chingu;
 
 import chingu.command.Command;
+import chingu.exception.ChinguException;
 import chingu.exception.NoCommandException;
 import chingu.task.TaskList;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Class Duke that is the main class that helps to run the program
  */
 public class Chingu {
 
+    private static final String FILEPATH = "store/list.txt";
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    private InputStream filePath = Main.class.getResourceAsStream("/data/list.txt") ;
-
 
     public Chingu() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILEPATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,18 +44,28 @@ public class Chingu {
                 isExit = c.isExit();
             } catch (NoCommandException e) {
                 ui.showError(e.getMessage());
+            } catch (ChinguException e) {
+                throw new RuntimeException(e);
             } finally {
                 ui.showLine();
             }
         }
     }
 
+    /**
+     * Collect Command from the user each time and respond to user's command to Chingu
+     *
+     * @param userInput which consist of command
+     * @return string Response to the command of the user
+     */
     public String getResponse(String userInput) {
         String Response = "";
         try {
             Command newCommand = Parser.parse(userInput);
             Response = newCommand.execute(tasks, ui, storage);
         } catch (NoCommandException e) {
+            return ui.showError(e.getMessage());
+        } catch (ChinguException e) {
             throw new RuntimeException(e);
         }
         return Response;

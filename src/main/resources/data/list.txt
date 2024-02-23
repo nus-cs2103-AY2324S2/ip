@@ -1,4 +1,0 @@
-T | 1 | make a soup for Ryan/priority high
-E | 1 | Trip to Italy|2025/02/07 1200|2025/02/17 1900/priority High
-T | 0 | do home laundry/priority mid
-E | 0 | NUS Football ICG|2024/02/11 1200|2024/02/11 2100/priority High

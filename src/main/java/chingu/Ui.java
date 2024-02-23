@@ -5,6 +5,9 @@ import chingu.task.Task;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * This class deals with the Ui of the Chingu Program
+ */
 public class Ui {
     public final Scanner IN;
 

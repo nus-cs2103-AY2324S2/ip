@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * This class is implementation of Task which contains description and by.
+ *
  */
 public class Deadline extends Task {
     public LocalDate by;
@@ -12,6 +13,7 @@ public class Deadline extends Task {
     /**
      * Return an instance of the class Deadline with description of the Task
      * and deadline date by.
+     *
      * @param description that describe what the task is about.
      * @param by that is deadline date in form of yyyy/MM/dd
      */
@@ -23,6 +25,7 @@ public class Deadline extends Task {
     /**
      * Returns String of task detail with type of Task (Deadline),
      * deadline date (by) - in form of MMM d yyyy -, description.
+     *
      * @return Task detail
      */
     @Override

@@ -2,6 +2,7 @@ package chingu.task;
 
 /**
  * This class is Task that consist of different types such as ToDos, Deadline and Events
+ *
  */
 public class Task {
     protected String description;
@@ -11,6 +12,7 @@ public class Task {
 
     /**
      * Create instance of the Task which contains description and isDone
+     *
      * @param description
      */
     public Task(String description, String priority) {
@@ -21,6 +23,7 @@ public class Task {
 
     /**
      * Helps to check the status of Task (isDone)
+     *
      * @return "X" if task is done or " " otherwise
      */
 
@@ -35,6 +38,7 @@ public class Task {
 
     /**
      * Marks the task as done by making isDone to be true
+     *
      */
     public void markAsDone() {
         this.isDone = true;
@@ -42,15 +46,13 @@ public class Task {
 
     /**
      * Unmarks the task as undone by making isDone to be true
+     *
      */
     public void unmark() {
         this.isDone = false;
     }
 
-    /**
-     * Returns String of task detail with description of the task and whether it is done
-     * @return
-     */
+
 
     public String getPriority() {
         return priority;
@@ -64,6 +66,11 @@ public class Task {
         }
     }
 
+    /**
+     * Returns String of task detail with description of the task and whether it is done
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() +"] " + describeTask() + " Priority: " + getPriority();
