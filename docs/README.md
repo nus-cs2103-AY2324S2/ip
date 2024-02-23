@@ -10,6 +10,13 @@ Lamball is a helpful pal that you never knew you needed.
 - [x] Helps you take note of anything with memos!
 - [ ] Reminds you about them (coming soon!)
 
+## Setup
+- Ensure that you have **Java 11 or above** installed on your computer.
+- Download the latest release from [here](https://github.com/ongzhili/ip/releases)
+- Copy the file to the folder you want to house your friendly Lamb!
+- Open a command terminal, cd into the folder you put the jar file in, and use the java -jar lamball.jar command to run the application. <br>A GUI similar to the above should appear in a few seconds. 
+
+
 ## Features
 - Words in UPPER_CASE are parameters to be supplied by the user.<br>e.g in `todo DESCRIPTION`, `DESCRIPTION` is the parameter(s) in question, which can be used as `todo Task 1`
 
