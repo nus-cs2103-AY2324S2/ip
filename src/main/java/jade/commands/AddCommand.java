@@ -9,7 +9,7 @@ import jade.storage.Storage;
  * The <code>AddCommand</code> object represents the command to add a task.
  */
 public class AddCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "Noted, Te following task is added:\n\t %s\n"
+    private static final String RESULT_MSG_FORMATTED = "Noted, The following task is added:\n\t %s\n"
             + "Now there are %d task(s) in the list.";
     private final Task task; // the task to be added.
 
