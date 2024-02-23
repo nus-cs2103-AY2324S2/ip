@@ -16,8 +16,7 @@ import commands.FindCommand;
 import exceptions.ArgumentException;
 import exceptions.CommandException;
 
-
-
+// Test cases below inspired by https://github.com/ruiyangzh/ip/blob/master/src/test/java/duke/ParserTest.java
 public class ParserTest {
 
     @Test

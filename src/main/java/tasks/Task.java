@@ -12,11 +12,17 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Instantiates a Task object that is not done by default.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Instantiates a Task object with the given status.
+     */
     public Task(String description, String status) {
         this.description = description;
         this.isDone = false;
