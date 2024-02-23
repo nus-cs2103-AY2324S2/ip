@@ -11,6 +11,10 @@ public class Gandalf {
     private TaskList tasks;
     private Ui ui;
 
+    public Gandalf() {
+
+    }
+
     /**
      * Takes in two paths as it uses two files for its store/load feature. One file is for loading any existing lists,
      * and another file is meant to be readable in a .txt file
@@ -101,7 +105,9 @@ public class Gandalf {
             }
         }
     }
-
+    public String getResponse(String input) {
+        return "Gandalf heard: " + input;
+    }
     public static void main(String[] args) {
         new Gandalf("docs/gandalfMeta.txt", "docs/gandalfRead.txt").run();
     }
