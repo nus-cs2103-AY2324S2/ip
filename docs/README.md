@@ -94,7 +94,7 @@ Here are the tasks in your list:
 This command allows you find a matching task according to the keyword
 that you query with.
 
-> Format: `find <task description>`
+> Format: `find <keyword>`
 > **Note that the keyword to find is case-sensitive**
 
 Example: `list Consultation`
