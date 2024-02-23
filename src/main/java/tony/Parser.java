@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import tony.exceptions.BadDateException;
+import tony.exceptions.InvalidTaskException;
 
 /**
  * The Parser class provides methods for parsing user input and dates.
@@ -52,21 +53,25 @@ public class Parser {
      * @param input The user input string.
      * @return An array containing parsed update details
      */
-    public String[] parseUpdate(String input) {
+    public String[] parseUpdate(String input) throws InvalidTaskException {
         String[] words = input.split(" ");
-        String[] result = new String[3];
 
         if (words[2].equals("description")) {
+            String[] result = new String[2];
             String description = String.join(" ", Arrays.copyOfRange(words, 2, words.length));
             result[0] = words[1];
             result[1] = description;
+            return result;
         } else if (words[2].equals("from") || words[2].equals("to") || words[2].equals("by")) {
+            String[] result = new String[3];
             String date = words[3];
             result[0] = words[1];
             result[1] = words[2];
             result[2] = date;
+            return result;
+        } else {
+            throw new InvalidTaskException("Unable to understand command");
         }
-        return result;
     }
 
     /**

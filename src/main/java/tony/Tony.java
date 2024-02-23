@@ -119,7 +119,7 @@ public class Tony {
         return list.find(description);
     }
 
-    private String handleUpdateCommand(String input) {
+    private String handleUpdateCommand(String input) throws InvalidTaskException{
         String[] updateParts = parser.parseUpdate(input);
         return list.update(updateParts);
     }
