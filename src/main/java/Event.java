@@ -14,6 +14,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        return "E | " + super.toFileFormat() + " | " + this.start + " to " + this.end;
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (from " + start + " to " + end + ")";
     }

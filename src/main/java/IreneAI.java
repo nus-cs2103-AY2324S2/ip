@@ -7,12 +7,23 @@
  */
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class IreneAI {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+	private static final String FILE_PATH = "./data/duke.txt";
+	private static FileManager fileManager;
+    private static List<Task> tasks;
     private static final String LINE = "____________________________________________________________";
     public static void main(String[] args) throws DukeException {
+		fileManager = new FileManager(FILE_PATH);
+		try {
+			tasks = fileManager.loadTasks();
+		} catch (IOException e) {
+			System.out.println("Error loading tasks from file.");
+			tasks = new ArrayList<>();
+		}
         Scanner scanner = new Scanner(System.in);
 
         String chatbotName = "IreneAI";
@@ -32,6 +43,7 @@ public class IreneAI {
             try {
                 switch (command) {
                     case BYE:
+                        fileManager.saveTasks(tasks);
                         System.out.println(" Bye. Hope to see you again soon!");
                         dividingLine(LINE);
                         return;
