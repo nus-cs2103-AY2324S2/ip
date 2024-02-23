@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class FinderTest {
 
     TaskList lst;
@@ -22,7 +21,6 @@ class FinderTest {
     @Test
     void testFindPositive() {
         String result = this.finder.find("sleep");
-//        System.out.println(result);
         assertEquals(result, "2: [T][ ] sleep\n" +
                 "All results shown.");
     }
