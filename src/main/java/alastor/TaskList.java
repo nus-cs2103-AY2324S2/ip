@@ -51,7 +51,10 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void add(Task task) {
+    public void add(Task task) throws AlastorException {
+        if (this.tasks.contains(task)) {
+            throw new AlastorException("The task is already in the list.");
+        }
         this.tasks.add(task);
         assert this.tasks.contains(task) : "Task should be added to the list";
     }

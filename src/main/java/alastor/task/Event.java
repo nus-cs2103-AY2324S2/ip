@@ -3,6 +3,8 @@ package alastor.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import alastor.AlastorException;
+
 /**
  * Represents a Event task.
  */
@@ -18,10 +20,13 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws AlastorException {
         super(description);
         this.from = from;
         this.to = to;
+        if (!from.isBefore(to)) {
+            throw new AlastorException("The start time of the event should be before the end time.");
+        }
     }
 
     @Override
