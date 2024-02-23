@@ -1,14 +1,19 @@
-// Apply necessary plugins
 plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-// Configure repositories for dependencies
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    implementation 'me.xdrop:fuzzywuzzy:1.4.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
 }
 
 java {
@@ -16,43 +21,29 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-// Define project dependencies
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    testImplementation 'org.mockito:mockito-core:5.10.0'
-
-    String javaFxVersion = '17.0.10'
-    String javaFxPlatform = getJavaFXPlatform()
-    implementation "org.openjfx:javafx-base:$javaFxVersion:$javaFxPlatform"
-    implementation "org.openjfx:javafx-controls:$javaFxVersion:$javaFxPlatform"
-    implementation "org.openjfx:javafx-fxml:$javaFxVersion:$javaFxPlatform"
-    implementation "org.openjfx:javafx-graphics:$javaFxVersion:$javaFxPlatform"
-
-    implementation 'me.xdrop:fuzzywuzzy:1.4.0'
+javafx {
+    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
 
-// Configure application-related settings
 application {
     mainClass.set("cvb.ConvoBot")
 }
 
-// Configure settings for Shadow
 shadowJar {
     archiveBaseName = "convobot"
     archiveClassifier = null
 }
 
-// Configure run task settings
 run {
     standardInput = System.in
     enableAssertions = true
 }
+
 runShadow {
     standardInput = System.in
     enableAssertions = false
 }
 
-// Configure test task
 test {
     useJUnitPlatform()
     testLogging {
@@ -65,26 +56,12 @@ test {
     }
 }
 
-// Configure Javadoc generation
 javadoc {
     destinationDir = file("$buildDir/docs/javadoc")
 }
 build.dependsOn javadoc
 
-// Configure checkstyle
 checkstyle {
     toolVersion = '10.12.5'
 }
 build.dependsOn 'checkstyleMain', 'checkstyleTest'
-
-private static String getJavaFXPlatform() {
-    OperatingSystem currentOS = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem
-    if (currentOS.isWindows()) {
-        return 'win'
-    } else if (currentOS.isLinux()) {
-        return 'linux'
-    } else if (currentOS.isMacOsX()) {
-        return 'mac'
-    }
-    return null
-}
