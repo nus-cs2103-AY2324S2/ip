@@ -13,7 +13,7 @@ Free up space in your mind, and allow Scribbles to be the fish friend you need i
 #### preview:
 <p align="center">
   <img src=
-    "https://i.imgur.com/3jWp7Pi.png"
+    "https://danielleloh.github.io/ip/Ui.png"
     alt="ui preview" height="450">
 </p>
 
