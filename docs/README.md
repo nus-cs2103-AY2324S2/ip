@@ -43,6 +43,7 @@ A To-Do task is a task without any associated deadline, starting time or ending 
 A todo task is represented in your list as `[T][Status] <task description>`.
 
 **Command format:** `todo <task description>`
+
 **Example usage:** `todo buy new shoes`
 
 ### 1.2 Adding Deadline task <a id="deadline"></a>
@@ -50,6 +51,7 @@ A todo task is represented in your list as `[T][Status] <task description>`.
 A Deadline task is a task with an associated deadline. It has a `<date>` specifier `<due date>`.
 
 **Command format:** `deadline <task description> /by <due date>`
+
 **Example usage:** `deadline Complete Math assignment /by 10-04-2024`
 
 ### 1.3 Adding Interval Deadline task <a id="interval"></a>
@@ -65,6 +67,7 @@ If you have a task where the deadline is an interval of time, instead of an inst
 An event task with a starting time and ending time. Examples include meetings, classes, dinner reservations at a restaurant, etc. It has `<date>` specifiers `<start time>` and `<end time>`.
 
 **Command format:** `event <task description> /from <start time> /to <end time>`
+
 **Example usage:** `event Group project meeting /from 25-02-2024 1300 /to 25-02-2024 1530`
 
 ## 2. Viewing your task list <a id="view-list"></a>
@@ -89,6 +92,7 @@ For example, if the task "buy new shoes" is done but the task "(CS2100) Complete
 </p>
 
 **Command format:** `mark <task number>` or  `unmark <task number>`
+
 **Example usage:** `mark 3` or  `unmark 1`
 
 ## 4. Deleting tasks <a id="delete"></a>
@@ -96,6 +100,7 @@ For example, if the task "buy new shoes" is done but the task "(CS2100) Complete
 You may delete tasks as well, if you've made an error in some of the task details, or if the task is completed already and you no longer need to keep a record of it. To do this, you will need the task number of the task to be deleted, which you can find using the 'list' command.
 
 **Command format:** `delete <task number>`
+
 **Example usage:** `delete 2`
 
 ## 5. Searching for tasks <a id="search"></a>
@@ -105,6 +110,7 @@ As you start adding tasks to your list, you may find that the 'list' command wil
 In this case, you may use the 'find' command to search for tasks! ChatBro will fetch all tasks with the ***task description*** containing the given keyword and replies with a list of these tasks.
 
 **Command format:** `find <keyword>`
+
 **Example usage:** `find Timothy`
 
 Note that this command performs a *partial matching* of the keyword:
