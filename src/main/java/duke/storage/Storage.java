@@ -38,7 +38,7 @@ public class Storage {
     }
 
     /**
-     * Retrieve local file with a list of tasks.
+     * Retrieves local file with a list of tasks.
      * @return ArrayList<Task> taskList
      * @throws IOException
      */
@@ -78,47 +78,46 @@ public class Storage {
                     }
                 }
             } catch (IOException e) {
-                // System.out.println("LOG: File cannot be read, empty list");
+                System.out.println("LOG: File cannot be read, empty list");
             }
             return new TaskList(taskList);
         } else {
-            //System.out.println("LOG: File not found, empty list");
+            System.out.println("LOG: File not found, empty list");
             Ui.showLoadingError();
             return new TaskList();
         }
     }
 
     /**
-     * Update local file contents.
+     * Updates local file contents.
      */
     public static void updateFile() {
         createFile();
         ArrayList<String> taskContent = taskList.getTasksInStoreList();
         try {
             Files.write(FILEPATH, taskContent);
-            // System.out.println("LOG: Updated file contents.");
+            System.out.println("LOG: Updated file contents.");
         } catch (IOException e) {
-            // System.out.println("LOG: File cannot be found.");
+            System.out.println("LOG: File cannot be found.");
         }
 
     }
 
     /**
-     * Create new local file if it does not exist.
+     * Creates new local file if it does not exist.
      */
     public static void createFile() {
         try {
             Files.createFile(FILEPATH);
-            //  System.out.println("LOG: File created");
-        }
-        catch (IOException e) {
-            //  System.out.println("LOG: File already exists.");
+            System.out.println("LOG: File created");
+        } catch (IOException e) {
+            System.out.println("LOG: File already exists.");
         }
 
     }
 
     /**
-     * get task based on taskNo provided
+     * Gets task based on taskNo provided
      * @param taskNo
      * @return Task
      */
@@ -127,7 +126,7 @@ public class Storage {
     }
 
     /**
-     * add new Task (Todo, Deadline, Event)
+     * Adds new Task (Todo, Deadline, Event)
      * @param t
      */
     public void addTask(Task t) {
@@ -136,7 +135,7 @@ public class Storage {
     }
 
     /**
-     * mark task based on taskNo provided
+     * Marks task based on taskNo provided
      * @param taskNo
      */
     public void markTask(int taskNo) {
@@ -145,7 +144,7 @@ public class Storage {
     }
 
     /**
-     * unmark task based on taskNo provided
+     * Unmarks task based on taskNo provided
      * @param taskNo
      */
     public void unmarkTask(int taskNo) {
@@ -154,7 +153,7 @@ public class Storage {
     }
 
     /**
-     * delete task based on taskNo provided
+     * Deletes task based on taskNo provided
      * @param taskNo
      */
     public void deleteTask(int taskNo) {
@@ -162,7 +161,7 @@ public class Storage {
     }
 
     /**
-     * get num of tasks in the taskList
+     * Gets num of tasks in the taskList
      * @return noOfTasks
      */
     public int getNumOfTasks() {
@@ -170,7 +169,7 @@ public class Storage {
     }
 
     /**
-     * get tasks in string format
+     * Gets tasks in string format
      * @return taskList in String format
      */
     public String getTasksInString() {
@@ -178,7 +177,7 @@ public class Storage {
     }
 
     /**
-     * filtered taskList based on keyword
+     * Filters taskList based on keyword
      * @param keyword
      * @return taskList
      */
