@@ -3,7 +3,7 @@
 ## Marvel in its Beauty
 ![Screenshot of GUI Window, added in Markdown demo of Chatbot](./UI.png)
 
-> [ :grey_exclamation: NOTE]
+> [NOTE]
 >
 > Pay attention to the command format in the intro Messages otherwise
 > bot may function unexpectedly.
@@ -25,7 +25,7 @@ Adds a deadline task with the task description and the date to complete by
 #### Example Inputs:
 - `deadline eat food /by 20/03/2024 1800`
 - `deadline study /by 20/12/2024 0000`
->[!WARNING]
+>[WARNING]
 >
 > You need to have the exact dd/mm/yyyy HHmm format for deadline to be saved
 
@@ -38,7 +38,7 @@ Adds an event task with the task description and the date to commence and the da
 #### Example Inputs:
 - `event eat food /from 20/03/2024 1800 /to 20/03/2024 1900`
 - `event study /by 20/12/2024 0000 /to 21/12/2024 0000`
->[!WARNING]
+>[WARNING]
 >
 > - You need to have the exact dd/mm/yyyy HHmm format for deadline to be saved
 > - The end date will have to be after start date otherwise ChinesePoliceman is gonna scold you
@@ -51,7 +51,7 @@ Adds a todo task with task description with no designated end times
 #### Example Inputs:
 - `todo eat food`
 - `todo study`
->[!WARNING]
+>[WARNING]
 >
 > - While todo will still work if you add a date to it, we strongly advise you to use a deadline or event if there is a timing to meet
 
@@ -63,7 +63,7 @@ Searches through all current task and displays the list of related task with the
 #### Example Inputs:
 - `date 20/12/2024 0000`
 - `date 20/12/2024 0000`
->[!WARNING]
+>[WARNING]
 >
 > You need to have the exact dd/mm/yyyy HHmm format for the date command to execute
 
@@ -75,7 +75,7 @@ Marks the task with the given index on the list as done
 #### Example Inputs:
 - `mark 1`
 - `mark 2`
->[!WARNING]
+>[WARNING]
 >
 >We advise you look at the list before using mark to ensure that the index keyed in is valid
 
@@ -87,7 +87,7 @@ UnMarks the task with the given index on the list as done
 #### Example Inputs:
 - `unmark 1`
 - `unmark 2`
->[!WARNING]
+>[WARNING]
 >
 >We advise you look at the list before using unmark to ensure that the index keyed in is valid
 
@@ -99,7 +99,7 @@ removes the task at the given index from the list
 #### Example Inputs:
 - `delete 1`
 - `delete 2`
->[!WARNING]
+>[WARNING]
 >
 >We advise you look at the list before using delete to ensure that the index keyed in is valid
 
@@ -110,7 +110,7 @@ Searches through the current list of tasks to find task with the matching task d
 #### Example Inputs:
 - `find eat`
 - `find study `
->[!WARNING]
+>[WARNING]
 >
 >Returns an empty list if there no matching task
 
@@ -129,6 +129,6 @@ Empties the current list of task
 
 #### Example Inputs:
 - `clear`
->[!WARNING]
+>[WARNING]
 >
 >The command is irreversible so make sure it is what you want todo

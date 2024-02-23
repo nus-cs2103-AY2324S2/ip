@@ -77,6 +77,10 @@ public class UI {
      * @return The generated message.
      */
     public String displayListMessage(ArrayList<Task> l) {
+        boolean isListEmpty = l.size() == 0;
+        if (isListEmpty) {
+            return String.format("your list is empty. STOP LACKING AND ADD SOME TASK NOW!");
+        }
         StringBuilder result = new StringBuilder();
         result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < l.size(); i++) {
@@ -121,6 +125,10 @@ public class UI {
      * @return The generated message.
      */
     public String foundListMessage(ArrayList<Task> l) {
+        boolean isListEmpty = l.size() == 0;
+        if (isListEmpty) {
+            return "SORRY :( , there are no matching tasks";
+        }
         StringBuilder result = new StringBuilder();
         result.append("Here are the deadlines/events with specified date in your list:\n");
         for (int i = 0; i < l.size(); i++) {
@@ -135,6 +143,10 @@ public class UI {
      * @return The generated message.
      */
     public String foundTaskMessage(ArrayList<Task> l) {
+        boolean isListEmpty = l.size() == 0;
+        if (isListEmpty) {
+            return "SORRY :( , there are no matching tasks";
+        }
         StringBuilder result = new StringBuilder();
         result.append("Here are the deadlines/events with specified word in your list:\n");
         for (int i = 0; i < l.size(); i++) {

@@ -2,6 +2,7 @@ package duke.commands;
 
 import java.util.ArrayList;
 
+import duke.exceptions.EmptyDescriptionException;
 import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -22,7 +23,11 @@ public class FindCommand extends Command {
         this.words = words;
     }
     @Override
-    public String executeForString(TaskList tasks, UI ui, Storage storage) {
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws EmptyDescriptionException {
+        boolean hasEmptyDescription = words.length == 1;
+        if (hasEmptyDescription) {
+            throw new EmptyDescriptionException("find");
+        }
         String descriptionToFind = words[1].trim();
         ArrayList<Task> foundTasks = tasks.findTasksWithString(descriptionToFind);
         return ui.foundTaskMessage(foundTasks);
