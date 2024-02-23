@@ -115,7 +115,7 @@ public class TaskList {
 
     private void validateTaskNumber(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("Task with specified number does not exist.");
+            throw new DukeException("Task does not exist.");
         }
     }
 
