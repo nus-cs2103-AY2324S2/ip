@@ -64,7 +64,7 @@ public class Drake {
      */
     public Drake() {
         ui = new Ui();
-        storage = new Storage("./data/list.txt");
+        storage = new Storage("./data/list.dat");
         tasks = new TaskList(storage.loadTasks());
         contacts = new ArrayList<>();
     }
