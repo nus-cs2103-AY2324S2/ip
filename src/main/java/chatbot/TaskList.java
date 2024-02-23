@@ -36,6 +36,10 @@ public class TaskList {
             throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
         }
     }
+    /**
+     * Adds a task to the task list.
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         assert task != null : "Task should not be null";
         this.taskList.add(task);
@@ -56,7 +60,6 @@ public class TaskList {
             return e.toString();
         }
     }
-
     private Task parseTaskFromInput(String input) throws AlfredException {
         TaskType taskType = determineTaskType(input);
         switch (taskType) {

@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,13 +15,15 @@ import java.util.Scanner;
  */
 public class Storage {
     private File file;
+    private String filePath;
     /**
      * Constructs the storage.
      * @param filepath The filepath of the file.
      */
     public Storage(String filepath) {
         try {
-            this.file = new File(filepath);
+            filePath = filepath;
+            file = new File(filepath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -108,7 +109,7 @@ public class Storage {
     public String updateData(TaskList taskList) throws AlfredException {
         StringBuilder stringBuilder = new StringBuilder();
         taskList.forEach(task -> addToData(task, stringBuilder));
-        try (FileWriter fw = new FileWriter("data/alfred.txt")) {
+        try (FileWriter fw = new FileWriter(filePath)) {
             fw.write(stringBuilder.toString());
             return "Data has been updated successfully.";
         } catch (IOException e) {
