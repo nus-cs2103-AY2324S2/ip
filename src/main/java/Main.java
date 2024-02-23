@@ -1,7 +1,6 @@
 import java.io.IOException;
 
-import GUI.DialogBox;
-import signal.Duke;
+import signal.Signal;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Signal using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Signal signal = new Signal();
 
 
     @Override
@@ -25,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setResizable(true);
-            fxmlLoader.<GUI.MainWindow>getController().setDuke(duke);
+            fxmlLoader.<GUI.MainWindow>getController().setDuke(signal);
             stage.show();
 
             fxmlLoader.<GUI.MainWindow>getController().handleSignalIntro();

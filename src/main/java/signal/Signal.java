@@ -1,6 +1,7 @@
 package signal;
 
 
+import javafx.application.Platform;
 import signal.task.Task;
 
 import signal.util.Parser;
@@ -8,23 +9,11 @@ import signal.util.Storage;
 import signal.util.Ui;
 
 import java.util.ArrayList;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
-
-public class Duke {
+public class Signal {
 
 
     private static Storage fileManager = new Storage();
@@ -32,7 +21,7 @@ public class Duke {
     private static Ui ui = new Ui(taskList, fileManager);
     public static Parser parser = new Parser(taskList, ui);
 
-    public Duke() {
+    public Signal() {
 
     }
     
@@ -43,8 +32,21 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        if (input.equals("bye")) {
+            shutDown();
+        }
         return parser.parse(input);
-//        return "Signal heard: " + input;
+    }
+
+    public void shutDown() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                System.exit(0);
+            }
+        }, 1000);
     }
 
     public String getIntro() {

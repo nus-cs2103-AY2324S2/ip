@@ -1,10 +1,8 @@
 package signal.util;
 
-//import signal.DukeException;
-import signal.Duke;
-import signal.DukeException;
+//import signal.SignalException;
+import signal.SignalException;
 import signal.task.Task;
-import signal.task.TaskException;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class Parser {
     public String parse(String userInput) {
         try {
             return read(userInput);
-        } catch (DukeException e) {
+        } catch (SignalException e) {
             return e.getMessage();
         }
     }
@@ -41,7 +39,7 @@ public class Parser {
      *
      * @param userInput The string of input.
      */
-    public String read(String userInput) throws DukeException {
+    public String read(String userInput) throws SignalException {
         String[] inputParts = userInput.split(" ");
         String reply = "";
         if (userInput.equals("bye")) {
@@ -94,6 +92,8 @@ public class Parser {
         return reply;
     }
 
+
+
     /**
      * Handles the case where the user input may be a typo of 'mark'.
      *
@@ -137,19 +137,19 @@ public class Parser {
             } else {
                 reply = "What else can I help you with?";
             }
-        } catch (DukeException e) {
+        } catch (SignalException e) {
             reply = e.getMessage();
         }
 
         return reply;
     }
 
-    public String findTypo(String[] inputParts) throws DukeException {
+    public String findTypo(String[] inputParts) throws SignalException {
         String reply = "";
         if (ui.checkCommandTypo(inputParts[0], "find")) {
             try {
                 reply = ui.commandFind(inputParts);
-            } catch (DukeException e) {
+            } catch (SignalException e) {
                 reply = e.getMessage();
             }
         } else {
@@ -168,7 +168,7 @@ public class Parser {
         String reply = "";
         try {
             reply = ui.commandDelete(index - 1);
-        } catch (DukeException e) {
+        } catch (SignalException e) {
             reply = e.getMessage();
         }
         return reply;
@@ -196,7 +196,7 @@ public class Parser {
             } else {
                 reply = otherInputs(userInput);
             }
-        } catch (DukeException e) {
+        } catch (SignalException e) {
             reply = e.getMessage();
         }
         return reply;

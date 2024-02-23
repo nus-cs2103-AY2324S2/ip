@@ -1,10 +1,9 @@
 package signal.util;
 
 
-//import signal.DukeException;
-import signal.DukeException;
+//import signal.SignalException;
+import signal.SignalException;
 import signal.task.*;
-import signal.util.Storage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,9 +170,9 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public String commandToDo(String[] inputParts) throws DukeException {
+    public String commandToDo(String[] inputParts) throws SignalException {
         if (inputParts.length < 2) {
-            throw new DukeException("Looks like you haven't entered a task description!");
+            throw new SignalException("Looks like you haven't entered a task description!");
         } else {
             String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
             Task task = new ToDo(description);
@@ -188,11 +187,11 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public String commandDeadline(String[] inputParts) throws DukeException {
+    public String commandDeadline(String[] inputParts) throws SignalException {
         if (inputParts.length < 2) {
-            throw new DukeException("Looks like you haven't entered a task description!");
+            throw new SignalException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/by")) {
-            throw new DukeException("Looks like you haven't added a deadline!");
+            throw new SignalException("Looks like you haven't added a deadline!");
         }
         int byIndex = finder("/by", inputParts);
         String description = String.join(" ", Arrays.copyOfRange(inputParts, 1, byIndex));
@@ -207,15 +206,15 @@ public class Ui {
      *
      * @param inputParts The string array of the user input.
      */
-    public String commandEvent(String[] inputParts) throws DukeException {
+    public String commandEvent(String[] inputParts) throws SignalException {
         if (inputParts.length < 2) {
-            throw new DukeException("Looks like you haven't entered a task description!");
+            throw new SignalException("Looks like you haven't entered a task description!");
         } else if (!Arrays.asList(inputParts).contains("/from") && !Arrays.asList(inputParts).contains("/to")){
-            throw new DukeException("Please tell me the event timeframe!");
+            throw new SignalException("Please tell me the event timeframe!");
         } else if (!Arrays.asList(inputParts).contains("/from")){
-            throw new DukeException("Please tell me when the event starts.");
+            throw new SignalException("Please tell me when the event starts.");
         } else if (!Arrays.asList(inputParts).contains("/to")){
-            throw new DukeException("Please tell me when the event ends.");
+            throw new SignalException("Please tell me when the event ends.");
         }
 
         int fromIndex = finder("/from", inputParts);
@@ -232,12 +231,12 @@ public class Ui {
      * Prints the list of inputs collected from the user.
      *
      */
-    public String commandList() throws DukeException {
+    public String commandList() throws SignalException {
         String reply = "";
 
         if (taskList.size() == 0) {
             reply = "Oops, looks like you haven't added any tasks!";
-            throw new DukeException(reply);
+            throw new SignalException(reply);
         } else {
             ArrayList<String> response = new ArrayList<>();
             response.add("Here is your tasklist!");
@@ -295,12 +294,12 @@ public class Ui {
         return reply;
     }
 
-    public String commandNotDoneList() throws DukeException {
+    public String commandNotDoneList() throws SignalException {
         String reply = "";
 
         if (taskList.size() == 0) {
             reply = "Oops, looks like you haven't added any tasks!";
-            throw new DukeException(reply);
+            throw new SignalException(reply);
         }
         ArrayList<String> response = new ArrayList<>();
         response.add("Here are your tasks that are not yet completed!");
@@ -312,7 +311,7 @@ public class Ui {
 
         if (response.size() == 1) {
             reply = "Wow! Looks like you dont have any uncompleted tasks!";
-            throw new DukeException(reply);
+            throw new SignalException(reply);
         }
 
         reply = listToString(response);
@@ -331,12 +330,12 @@ public class Ui {
         return commandUnmark(taskList.get(index - 1));
     }
 
-    public String commandPriorityList() throws DukeException {
+    public String commandPriorityList() throws SignalException {
         String reply = "";
 
         if (taskList.size() == 0) {
             reply = "Oops, looks like you haven't added any tasks!";
-            throw new DukeException(reply);
+            throw new SignalException(reply);
         }
         ArrayList<String> response = new ArrayList<>();
         response.add("Here are your tasks marked as priority!");
@@ -348,7 +347,7 @@ public class Ui {
 
         if (response.size() == 1) {
             reply = "Oops, looks like you haven't marked any tasks as priority!";
-            throw new DukeException(reply);
+            throw new SignalException(reply);
         }
 
         reply = listToString(response);
@@ -396,19 +395,19 @@ public class Ui {
      *
      * @param x The index of the task to be deleted.
      */
-    public String commandDelete(int x) throws DukeException {
+    public String commandDelete(int x) throws SignalException {
         Task current = taskList.get(x);
         int initialSize = taskList.size();
         ArrayList<String> response = new ArrayList<>();
 
         if (initialSize == 0) {
             response.add("Looks like there's nothing here to remove. Better get on those tasks!");
-            throw new DukeException(listToString(response));
+            throw new SignalException(listToString(response));
         }
         if (x > initialSize) {
             response.add("I'd say shoot for the stars but in this case there are only "
                     + initialSize + (initialSize == 1 ? " item" : " items") + " in this list");
-            throw new DukeException(listToString(response));
+            throw new SignalException(listToString(response));
 
         } else {
             taskList.remove(x);
@@ -435,10 +434,10 @@ public class Ui {
         return result;
     }
 
-    public String commandFind(String[] inputParts) throws DukeException {
+    public String commandFind(String[] inputParts) throws SignalException {
         String toFind = String.join(" ", Arrays.copyOfRange(inputParts, 1, inputParts.length));
         if (toFind.length() == 0) {
-            throw new DukeException("I don't know what you're looking for!");
+            throw new SignalException("I don't know what you're looking for!");
         }
         ArrayList<String> response = new ArrayList<String>();
         ArrayList<String> found = find(toFind);

@@ -1,7 +1,5 @@
 import javafx.application.Application;
 
-import signal.Duke;
-
 /**
  * A launcher class to workaround classpath issues.
  */
