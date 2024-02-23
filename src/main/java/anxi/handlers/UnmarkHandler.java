@@ -54,7 +54,7 @@ public class UnmarkHandler extends Handler {
         checkOutOfBounds(index, numOfTasks);
 
         Task t = taskList.unmarkTask(index - 1);
-        updateTaskInStorge(storage, t, index, numOfTasks);
+        updateTaskInStorage(storage, t, index, numOfTasks);
 
         return ui.printUnmarkTask(t.toString());
     }

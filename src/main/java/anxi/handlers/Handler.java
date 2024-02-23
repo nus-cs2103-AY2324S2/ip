@@ -128,7 +128,7 @@ public class Handler {
     /**
      * Checks if index is in range of tasks.
      * @param index             Index of task being searched for.
-     * @param numOfTasks        Total number of tasks in tasklist currently.
+     * @param numOfTasks        Total number of tasks in task list currently.
      * @throws AnxiException    Throws if index is out of bounds.
      */
     public void checkOutOfBounds(int index, int numOfTasks) throws AnxiException {
@@ -148,7 +148,7 @@ public class Handler {
      * @param numOfTasks        Total number of tasks in task list.
      * @throws AnxiException    Throws if there is an error saving to file.
      */
-    public void updateTaskInStorge(Storage storage, Task t, int index, int numOfTasks) throws AnxiException {
+    public void updateTaskInStorage(Storage storage, Task t, int index, int numOfTasks) throws AnxiException {
         try {
             storage.updateTask(t, index, numOfTasks);
         } catch (IOException e) {

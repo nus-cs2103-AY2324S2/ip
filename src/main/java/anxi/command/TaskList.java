@@ -132,8 +132,11 @@ public class TaskList {
      */
     public String findMatchingTasks(String match) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Task t : tasks) {
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task t = tasks.get(i);
             if (t.isMatchingDescription(match)) {
+                stringBuilder.append(i + 1);
+                stringBuilder.append(". ");
                 stringBuilder.append(t);
                 stringBuilder.append("\n");
             }
@@ -147,13 +150,16 @@ public class TaskList {
      */
     public String findAllEventOnDate(LocalDate date) {
         StringBuilder results = new StringBuilder();
-        for (Task x : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task x = tasks.get(i);
             if (!(x instanceof Event)) {
                 continue;
             }
 
             LocalDate from = ((Event) x).getFromDate();
             if (from.isEqual(date)) {
+                results.append(i + 1);
+                results.append(". ");
                 results.append(x);
                 results.append("\n");
             }
@@ -168,13 +174,16 @@ public class TaskList {
      */
     public String findAllDeadlineOnDate(LocalDate date) {
         StringBuilder results = new StringBuilder();
-        for (Task x : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task x = tasks.get(i);
             if (!(x instanceof Deadline)) {
                 continue;
             }
 
             LocalDate from = ((Deadline) x).getByDate();
             if (from.isEqual(date)) {
+                results.append(i + 1);
+                results.append(". ");
                 results.append(x);
                 results.append("\n");
             }

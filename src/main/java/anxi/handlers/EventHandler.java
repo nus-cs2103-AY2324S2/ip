@@ -49,14 +49,16 @@ public class EventHandler extends Handler {
      */
     private String event(String input, Storage storage, TaskList taskList, Ui ui) throws AnxiException {
         if (input.isBlank()) {
-            throw new AnxiException("This event is the highlight of the social \"calen-darling.\""
-                    + "\r\nGot all the details?");
+            throw new AnxiException("This event is the highlight of the social calendar"
+                    + "\nGot all the details?"
+                    + "\n\nFormat: event <name> /from <date and time> /to <time>");
         }
 
         String[] event = input.split("/to | /from");
         if (event.length < 3) {
-            throw new AnxiException("This event is the highlight of the social \"calen-darling.\""
-                    + "\r\nGot all the details?");
+            throw new AnxiException("This event is the highlight of the social calendar"
+                    + "\nGot all the details?"
+                    + "\n\nFormat: event <name> /from <date and time> /to <time>");
         }
 
         LocalDateTime from = parseDateTime(event[1].strip());

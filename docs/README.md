@@ -8,7 +8,7 @@ Fear not! Anxi the Taskbot is here to help you manage your time!
 
 ## Set up
 1. Install java 11
-2. Download [Anxi.jar](/build/libs/Anxi.jar)
+2. Download Anxi.jar
 
 ## Running Anxi
 Launch by double-clicking Anxi.jar or call `java -jar Anxi.jar` from terminal.

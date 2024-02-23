@@ -54,7 +54,7 @@ public class MarkHandler extends Handler {
         checkOutOfBounds(index, numOfTasks);
 
         Task t = taskList.markTask(index - 1);
-        updateTaskInStorge(storage, t, index, numOfTasks);
+        updateTaskInStorage(storage, t, index, numOfTasks);
 
         return ui.printMarkTask(t.toString());
     }
