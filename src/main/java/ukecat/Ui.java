@@ -19,15 +19,25 @@ public class Ui {
             LINEW0, LINEW1, LINEW2, LINEW3, LINEW4, LINEW5);
 
 
-    public static final String LINEB0 = "  +--------------------+   /\\_/\\";
-    public static final String LINEB1 = "  |Meow~ See you again!|  =~.~=|";
-    public static final String LINEB2 = "  +--------------------+   c\\ c\\~~";
+    public static final String LINEB0 = "  +--------------------+   /\\_/\\    Z";
+    public static final String LINEB1 = "  |Meow~ See you again!|  =~.~=|   z";
+    public static final String LINEB2 = "  +--------------------+   c\\ c\\~z";
 
     public static final String BYE = String.format("%s%n%s%n%s%n", LINEB0, LINEB1, LINEB2);
 
-    public static final String HI = "Meow!";
 
 
+    public static final String H1 = "  Meow! Did you know that the ukulele \n  has these four strings:";
+    public static final String H2 = "  --A---";
+    public static final String H3 = "  --E---   /\\_/\\";
+    public static final String H4 = "  --C---  =^.^=| ~";
+    public static final String H5 = "  --G---   c\\ c\\/";
+    public static final String HI = String.format("%s%n%s%n%s%n%s%n%s%n", H1, H2, H3, H4, H5);
+
+    public static final String X1 = "  +-------------------+   /\\_/\\";
+    public static final String X2 = "  |I don't understand!|  =x.x=|";
+    public static final String X3 = "  +-------------------+   c\\ c\\--";
+    public static final String IDK = String.format("%s%n%s%n%s%n", X1, X2, X3);
 
     /**
      * Responds to user commands based on the provided array of words.
@@ -59,7 +69,7 @@ public class Ui {
         case "find":
             return Storage.findTask();
         default:
-            return "  I don't understand! Try adding a task!";
+            return IDK;
         }
     }
 }
