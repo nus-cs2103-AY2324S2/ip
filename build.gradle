@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Main")
+    mainClass.set("seedu.duke.Launcher")
 }
 
 shadowJar {
