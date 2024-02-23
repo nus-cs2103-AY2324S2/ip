@@ -2,7 +2,7 @@
 
 ![Screenshot of the Rick chatbot showing an image, added in the Markdown, 
 of Rick responding to the requests of Morty, in the garage of their house.]
-(/Ui.png)
+(./Ui.png)
 
 ## Task List
 A list that holds a collection of to-do tasks, deadlines, and event which 
