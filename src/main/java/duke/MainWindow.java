@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -43,6 +46,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        if (input.equals("bye")) {
+            close();
+        }
+
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -61,5 +69,19 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(ui.showWelcome(), dukeImage)
         );
+    }
+
+    /**
+     * Exits the program when entering bye.
+     */
+    private void close() {
+        userInput.setDisable(true);
+        // Exits after 1 seconds
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.exit(0);
+            }
+        }, 1000);
     }
 }
