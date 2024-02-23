@@ -2,18 +2,18 @@ package ghbot.executor;
 
 /**
  * MarkExecutor Class.
- * Executes "mark" command.
+ * Executes "mark" instruction.
  */
 public class MarkExecutor extends Executor {
-    private int lstNo;
+    private int listNo;
     private String executeStr;
 
     /**
      * MarkExecutor Constructor.
-     * @param lstNo The index of the task to mark.
+     * @param listNo The index of the task to mark.
      */
-    public MarkExecutor(int lstNo) {
-        this.lstNo = lstNo;
+    public MarkExecutor(int listNo) {
+        this.listNo = listNo;
         this.executeStr = "";
     }
 
@@ -23,10 +23,10 @@ public class MarkExecutor extends Executor {
      */
     @Override
     public String execute() {
-        for (int i = 0; i < this.taskList.taskSize(); i++) {
-            if (i + 1 == this.lstNo) {
-                this.taskList.getTask(i).isCompleted();
-                this.executeStr = "Nice! I've marked this task as done:\n" + this.taskList.getTask(i);
+        for (int i = 0; i < taskList.taskSize(); i++) {
+            if (i + 1 == this.listNo) {
+                taskList.getTask(i).isCompleted();
+                this.executeStr = "Nice! I've marked this task as done:\n" + taskList.getTask(i);
                 return this.executeStr;
             }
         }

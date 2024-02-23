@@ -2,18 +2,18 @@ package ghbot.executor;
 
 /**
  * UnmarkExecutor Class.
- * Executes "unmark" command.
+ * Executes "unmark" instruction.
  */
 public class UnmarkExecutor extends Executor {
-    private int lstNo;
+    private int listNo;
     private String executeStr;
 
     /**
      * UnmarkExecutor Constructor.
-     * @param lstNo The index of the task to unmark.
+     * @param listNo The index of the task to unmark.
      */
-    public UnmarkExecutor(int lstNo) {
-        this.lstNo = lstNo;
+    public UnmarkExecutor(int listNo) {
+        this.listNo = listNo;
         this.executeStr = "";
     }
 
@@ -23,10 +23,10 @@ public class UnmarkExecutor extends Executor {
      */
     @Override
     public String execute() {
-        for (int i = 0; i < this.taskList.taskSize(); i++) {
-            if (i + 1 == lstNo) {
-                this.taskList.getTask(i).isNotCompleted();
-                this.executeStr = "OK, I've marked this task as not done yet:\n" + this.taskList.getTask(i);
+        for (int i = 0; i < taskList.taskSize(); i++) {
+            if (i + 1 == this.listNo) {
+                taskList.getTask(i).isNotCompleted();
+                this.executeStr = "OK, I've marked this task as not done yet:\n" + taskList.getTask(i);
                 return this.executeStr;
             }
         }

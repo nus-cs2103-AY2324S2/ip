@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * FindExecutor Class.
- * Executes "Find" command.
+ * Executes "Find" instruction.
  */
 public class FindExecutor extends Executor {
     private String description;
@@ -27,11 +27,11 @@ public class FindExecutor extends Executor {
     @Override
     public String execute() {
         List<String> matchedList = new ArrayList<>();
-        for (int i = 0; i < this.taskList.taskSize(); i++) {
-            String[] words = this.taskList.getTask(i).toString().split(" ");
+        for (int i = 0; i < taskList.taskSize(); i++) {
+            String[] words = taskList.getTask(i).toString().split(" ");
             for (int j = 0; j < words.length; j++) {
                 if (words[j].toLowerCase().contains(this.description)) {
-                    matchedList.add(this.taskList.getTask(i).toString());
+                    matchedList.add(taskList.getTask(i).toString());
                     break;
                 }
             }

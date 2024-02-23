@@ -2,7 +2,7 @@ package ghbot.executor;
 
 /**
  * ListExecutor Class.
- * Executes "list" command.
+ * Executes "list" instruction.
  */
 public class ListExecutor extends Executor {
     private String executeStr;
@@ -24,8 +24,8 @@ public class ListExecutor extends Executor {
             return "Currently there is no task!";
         }
         this.executeStr = "Here are the tasks in your list:";
-        for (int i = 0; i < this.taskList.taskSize(); i++) {
-            this.executeStr = this.executeStr + "\n" + (i + 1) + "." + this.taskList.getTask(i);
+        for (int i = 0; i < taskList.taskSize(); i++) {
+            this.executeStr = this.executeStr + "\n" + (i + 1) + "." + taskList.getTask(i);
         }
         return this.executeStr;
     }

@@ -2,7 +2,7 @@ package ghbot.executor;
 
 /**
  * ByeExecutor Class.
- * Executes "bye" command.
+ * Executes "bye" instruction.
  */
 public class ByeExecutor extends Executor {
     private String executeStr;

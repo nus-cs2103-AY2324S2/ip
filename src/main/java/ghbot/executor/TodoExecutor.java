@@ -4,7 +4,7 @@ import ghbot.task.Todo;
 
 /**
  * TodoExecutor Class.
- * Executes "todo" command.
+ * Executes "todo" instruction.
  */
 public class TodoExecutor extends Executor {
     private String description;
@@ -25,9 +25,9 @@ public class TodoExecutor extends Executor {
     @Override
     public String execute() {
         Todo todo = new Todo(this.description);
-        this.taskList.addTask(todo);
+        taskList.addTask(todo);
         this.executeStr = "Got it. I've added this task:\n" + todo + "\n";
-        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        this.executeStr = this.executeStr + "Now you have " + taskList.taskSize() + " tasks in the list.";
         return this.executeStr;
     }
 }

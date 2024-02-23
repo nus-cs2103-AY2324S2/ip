@@ -17,8 +17,8 @@ public abstract class Executor {
     }
 
     /**
-     * Returns a string containing the output of the respective commands.
-     * @return A string containing the output of the respective commands.
+     * Returns a string containing the output of the respective instruction.
+     * @return A string containing the output of the respective instruction.
      */
     public abstract String execute();
 }

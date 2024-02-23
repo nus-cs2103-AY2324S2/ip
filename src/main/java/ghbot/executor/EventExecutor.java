@@ -4,7 +4,7 @@ import ghbot.task.Event;
 
 /**
  * EventExecutor Class.
- * Executes "event" command.
+ * Executes "event" instruction.
  */
 public class EventExecutor extends Executor {
     private String description;
@@ -32,9 +32,9 @@ public class EventExecutor extends Executor {
     @Override
     public String execute() {
         Event event = new Event(this.description, this.fromTime, this.toTime);
-        this.taskList.addTask(event);
+        taskList.addTask(event);
         this.executeStr = "Got it. I've added this task:\n" + event + "\n";
-        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        this.executeStr = this.executeStr + "Now you have " + taskList.taskSize() + " tasks in the list.";
         return this.executeStr;
     }
 }

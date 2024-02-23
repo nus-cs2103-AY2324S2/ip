@@ -4,7 +4,7 @@ import ghbot.task.Deadline;
 
 /**
  * DeadlineExecutor Class.
- * Executes "Deadline" command.
+ * Executes "Deadline" instruction.
  */
 public class DeadlineExecutor extends Executor {
     private String description;
@@ -29,9 +29,9 @@ public class DeadlineExecutor extends Executor {
     @Override
     public String execute() {
         Deadline deadline = new Deadline(this.description, this.deadlineTime);
-        this.taskList.addTask(deadline);
+        taskList.addTask(deadline);
         this.executeStr = "Got it. I've added this task:\n" + deadline + "\n";
-        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        this.executeStr = this.executeStr + "Now you have " + taskList.taskSize() + " tasks in the list.";
         return this.executeStr;
     }
 }
