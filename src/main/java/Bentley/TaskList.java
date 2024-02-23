@@ -1,95 +1,104 @@
 package Bentley;
-
 import java.util.ArrayList;
 
-/**
- * A class representing a list of tasks and providing methods to manage tasks.
- */
 public class TaskList {
 
-    /**
-     * The list of tasks.
-     */
     private ArrayList<Task> tasks;
+     
 
-    /**
-     * Constructs a TaskList object with an empty list of tasks.
-     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Lists all tasks in the task list along with their indices.
-     */
     public void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
-    /**
-     * Adds a Todo task to the task list based on user input.
-     *
-     * @param userInput The user input command for adding a Todo task.
-     * @throws IllegalArgumentException If the user input is incomplete.
-     */
     public void addTodoTask(String userInput) {
-        // Implementation
+        if (userInput.length() <= 5) {
+            throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
+        }
+        String description = userInput.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("looks like the description is missing");
+        }
+        tasks.add(new Todo(description));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    /**
-     * Adds a Deadline task to the task list based on user input.
-     *
-     * @param userInput The user input command for adding a Deadline task.
-     * @throws IllegalArgumentException If the user input is incomplete.
-     */
     public void addDeadlineTask(String userInput) {
-        // Implementation
+        if (userInput.length() <= 9) {
+            throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
+        }
+        String[] parts = userInput.substring(9).split("/by");
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
+        }
+        tasks.add(new Deadline(description, by));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    /**
-     * Adds an Event task to the task list based on user input.
-     *
-     * @param userInput The user input command for adding an Event task.
-     * @throws IllegalArgumentException If the user input is incomplete.
-     */
     public void addEventTask(String userInput) {
-        // Implementation
+        if (userInput.length() <= 6) {
+            throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
+        }
+        String[] parts = userInput.substring(6).split("/from");
+        String description = parts[0].trim();
+        String[] eventParts = parts[1].trim().split("/to");
+        String from = eventParts[0].trim();
+        String to = eventParts[1].trim();
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "looks like something is missing (description/ start date/ end date)");
+        }
+        tasks.add(new Event(description, from, to));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    
     }
 
-    /**
-     * Marks a task as done based on user input.
-     *
-     * @param userInput The user input command for marking a task as done.
-     */
     public void markAsDone(String userInput) {
-        // Implementation
-    }
+        System.out.println(" Nice! I've marked this task as done:");
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+        tasks.get(taskNumber - 1).markAsDone();
 
-    /**
-     * Marks a task as not done based on user input.
-     *
-     * @param userInput The user input command for marking a task as not done.
-     */
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
+    
+
     public void markAsUndone(String userInput) {
-        // Implementation
-    }
+        System.out.println(" OK, I've marked this task as not done yet:");
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+        tasks.get(taskNumber - 1).markAsUndone();
 
-    /**
-     * Deletes a task from the task list based on user input.
-     *
-     * @param userInput The user input command for deleting a task.
-     */
-    public void deleteTask(String userInput) {
-        // Implementation
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
     }
+    
 
-    /**
-     * Retrieves the list of tasks.
-     *
-     * @return The list of tasks.
-     */
+public void deleteTask(String userInput) {
+    
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+}
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }

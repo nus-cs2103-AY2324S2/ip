@@ -1,10 +1,7 @@
 package Bentley;
 
 import java.util.Scanner;
-/**
- * The main class representing the Duke application.
- * Duke is a simple task management application that allows users to manage their tasks through a command-line interface.
- */
+
 public class Duke {
 
     private static Storage storage;
