@@ -1,0 +1,2 @@
+T | 0 | borrow book
+E | 0 | lunch meeting | 2023-01-05T12:00 to 2023-01-05T14:00
