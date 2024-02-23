@@ -33,9 +33,23 @@ public class TaskList implements Serializable {
      * @param task The task to be added.
      * @return String The string representation of the added task.
      */
-    public String addTask(Task task) {
+    public String addTask(Task task) throws DukeException {
+        if (checkDuplicatedTask(task)) {
+            throw new DukeException("Task is duplicated.\n" + task.toString());
+        }
         tasks.add(task);
         return task.toString();
+    }
+
+    public boolean checkDuplicatedTask(Task task) {
+        boolean isDuplicated = false;
+        for (Task otherTask : tasks) {
+            if (task.compareTo(otherTask) == 0) {
+                isDuplicated = true;
+                break;
+            }
+        }
+        return isDuplicated;
     }
 
     /**
