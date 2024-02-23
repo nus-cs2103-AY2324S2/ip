@@ -57,6 +57,11 @@ public class Expense {
         }
     }
 
+    /**
+     * Formats its own expense instance into a csv string line.
+     * 
+     * @return A string in the format "name,amount\n".
+     */
     public String expenseToCsv() {
         return String.format("%s,%.2f\n", this.name, this.amount);
     }
