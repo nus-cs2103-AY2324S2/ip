@@ -10,7 +10,7 @@ public class Ui {
     }
 
     public void showWelcome(){
-        System.out.println("Hello, I'm Charlie.Charlie");
+        System.out.println("Hello, I'm Charlie.");
         System.out.println("What can I do for you?");
     }
 
