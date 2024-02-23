@@ -17,7 +17,7 @@ public class LocalListTest {
     @Test
     public void testWriteAndRead() throws IOException {
         // Arrange
-        String tempFilePath = "temp_test_file.txt";
+        String tempFilePath = "/data/temp_test_file.txt";
         LocalList localList = new LocalList(tempFilePath);
         ActivityList activityList = new ActivityList(tempFilePath);
 
@@ -37,9 +37,11 @@ public class LocalListTest {
         // Assert
         try (BufferedReader reader = new BufferedReader(new StringReader(read))) {
             String line;
+            int index = 1;
             while ((line = reader.readLine()) != null) {
                 // Process each line here
-                assertEquals("Task1", line);
+                assertEquals("[T] [ ] Task" + index, line);
+                index++;
             }
         } catch (IOException e) {
             fail("IOException should not have been thrown");
