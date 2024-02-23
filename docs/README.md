@@ -1,6 +1,6 @@
 # Unknown User Guide
 
-![Screenshot](docs/ProductScreenshot.png)
+![Screenshot](ProductScreenshot.PNG)
 
 Unknown allows you to track your task to keep you on track.
 
