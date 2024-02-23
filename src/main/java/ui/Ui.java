@@ -2,6 +2,9 @@ package ui;
 
 import java.util.Scanner;
 
+/**
+ * Handles text output to the CLI for Cal
+ */
 public class Ui {
     public static void showGreeting() {
         String name = "Cal";

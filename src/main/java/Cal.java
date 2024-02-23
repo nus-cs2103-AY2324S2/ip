@@ -6,18 +6,29 @@ import storage.StorageManager;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Cal is a chatbot that helps user to manage tasks.
+ */
 public class Cal {
     private static TaskList tasks;
     private static StorageManager storageManager;
     private static Ui ui;
 
-    public static void init() {
+    /**
+     * Constructs a new Cal instance.
+     */
+    public Cal() {
         storageManager = new StorageManager();
         tasks = storageManager.load();
+        ui = new Ui();
     }
 
-    public static void run() {
-        ui = new Ui();
+    /**
+     * Starts the chatbot. User enter command
+     * Cal will process each command until 'bye' is given.
+     */
+    public void run() {
+        Ui.showGreeting();
         boolean isExit = false;
         Scanner sc = new Scanner(System.in);
         while(!isExit) {
@@ -36,9 +47,12 @@ public class Cal {
         sc.close();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
-        init();
-        Ui.showGreeting();
-        run(); 
+        new Cal().run(); 
     }
 }
