@@ -25,6 +25,10 @@ public class Ally {
         lst = storage.loadTasks();
     }
 
+    /**
+     * Links Main Window to Ally for Ally to print messages
+     * @param mw
+     */
     public void linkMainWindow(MainWindow mw) {
         this.mainWindow = mw;
         mw.addMessage("Hello from Ally!\nHow can I help you today?");
@@ -67,10 +71,12 @@ public class Ally {
 
             case UNKNOWN:
                 throw new AllyException();
+
+            default:
+                throw new AllyException();
             }
         } catch (AllyException e) {
             return e.getMessage();
         }
-        return "";
     }
 }

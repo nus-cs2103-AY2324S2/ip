@@ -1,9 +1,8 @@
 package ally.utils;
 
-import ally.task.Task;
-
 import java.util.ArrayList;
 
+import ally.task.Task;
 /**
  * List of Archived Tasks
  */

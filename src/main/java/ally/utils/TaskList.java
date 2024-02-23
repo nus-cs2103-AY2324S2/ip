@@ -1,8 +1,8 @@
 package ally.utils;
 
-import ally.task.Task;
-
 import java.util.ArrayList;
+
+import ally.task.Task;
 
 /**
  * TaskList Class to manage and perform actions to Tasks
@@ -44,7 +44,7 @@ public class TaskList extends ArrayList<Task> {
      */
     public String markComplete(int i) {
         this.get(i - 1).markComplete();
-        assert this.get(i-1).isDone();
+        assert this.get(i - 1).isDone();
         return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i - 1);
     }
 
@@ -81,7 +81,7 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     public String archive(int i) {
-        Task t = this.remove(i-1);
+        Task t = this.remove(i - 1);
         archive.add(t);
         return "Noted. I've archived this duke.task: " + "\n" + t + "\n" + countTasks();
     }

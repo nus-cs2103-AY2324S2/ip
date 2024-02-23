@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -57,7 +59,7 @@ public class MainWindow extends AnchorPane {
      * Creates a Dialog Bog containing specified Message.
      * @param s String to be added
      */
-      public void addMessage(String s) {
+    public void addMessage(String s) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAllyDialog(s, allyImage)
         );

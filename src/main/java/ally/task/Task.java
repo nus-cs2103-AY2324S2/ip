@@ -46,13 +46,12 @@ public class Task implements Serializable {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-
     /**
      * Marks the task as complete.
      */
-     public void markComplete() {
+    public void markComplete() {
         this.isDone = true;
-     }
+    }
 
     /**
      * Marks the task as incomplete.

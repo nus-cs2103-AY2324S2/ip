@@ -1,10 +1,10 @@
 package ally.task;
 
-import ally.exception.AllyException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import ally.exception.AllyException;
 
 /**
  * Abstraction of Event Tasks.

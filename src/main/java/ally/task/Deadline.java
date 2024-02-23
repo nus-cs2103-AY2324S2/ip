@@ -1,9 +1,9 @@
 package ally.task;
 
-import ally.exception.AllyException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import ally.exception.AllyException;
 
 /**
  * Abstraction of Deadline Tasks.
