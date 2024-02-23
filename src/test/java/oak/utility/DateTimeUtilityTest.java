@@ -36,6 +36,4 @@ public class DateTimeUtilityTest {
                 DateTimeUtility.parseLocalDateTimeToString(validDateTime)
         );
     }
-
-    // TODO: Invalid Date Time
 }

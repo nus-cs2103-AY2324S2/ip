@@ -88,8 +88,7 @@ public class TaskService {
         } else if (task[0].equals(Event.EVENT_TYPEICON)) {
             newTask = new Event(task[2], isCompleted, task[3], task[4]);
         } else {
-            // TODO: Throw invalid task Oak.type exception
-            System.out.println("Invalid task detected");
+            System.err.println("Error processing tasklist.txt, skipping this line: " + line);
         }
 
         this.tasks.add(newTask);
