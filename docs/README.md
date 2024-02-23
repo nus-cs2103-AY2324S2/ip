@@ -9,13 +9,15 @@ It is:
 - Easy to learn 
 - ~~Fast~~ _SUPER SUPER FAST_ to use
 
+  [Getting Started](#Getting Started)
+
 ## Getting Started 💻
 
 To use  Andelu Bot, follow these steps:
 
 1. Ensure you have Java version `11` or above installed on your Computer.
-2. Download the `latest` jar file from [here](https://github.com/AndrewOng2066/ip/releases/tag/A-Jar) (`jar` File)
-3. Run the `jar` file (double click it) or Run it from the command line with `java -jar IndividualProject.jar`
+2. Download the `latest` jar file from [here](https://github.com/AndrewOng2066/ip/releases) (`jar` File)
+3. Run the `jar` file (double click it) or Open a command terminal and run the command `java -jar AndeluLauncher.jar` in the directory that contains the jar file.
 4. Add your tasks (Todo, Deadline, Event) via Command Line Interface (CLI)
 5. Let Andelu Bot manage your tasks😉
 ![Ui](https://github.com/AndrewOng2066/ip/assets/156929179/5edfabda-b64a-4fe0-8328-510581945530)
@@ -64,7 +66,7 @@ Format: `mark INDEX`<br>
 
 <br>
 
-### ▶️ Unmarking a task: `mark`
+### ▶️ Unmarking a task: `unmark`
 Unmark a task in the list as incomplete. <br>
 Format: `unmark INDEX`<br>
 📝The `INDEX` refers to the index number of a task in the list. <br>
