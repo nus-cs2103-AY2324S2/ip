@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shon.exception.ParameterException;
-import shon.note.Note;
 
 /**
  * Represents the list containing all the notes of the user.
@@ -58,7 +57,6 @@ public class NoteList {
         if (this.notes.size() == 0) {
             return new String[]{"Your list of notes is currently empty."};
         }
-
 
         List<String> outputs = new ArrayList<>();
         outputs.add("Here are your notes:");

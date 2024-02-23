@@ -5,8 +5,15 @@ package shon.note;
  * to record.
  */
 public class Note {
+    /**
+     * The text of the note.
+     */
     private String text;
 
+    /**
+     * Creates a new note with the given text.
+     * @param text The text of the note.
+     */
     public Note(String text) {
         this.text = text;
     }

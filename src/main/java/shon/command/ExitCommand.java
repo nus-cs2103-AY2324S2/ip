@@ -8,7 +8,6 @@ import javafx.application.Platform;
 public class ExitCommand extends Command {
     /**
      * Exits the chatbot.
-     *
      */
     @Override
     public String execute() {
