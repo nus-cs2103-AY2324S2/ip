@@ -46,7 +46,7 @@ test {
 
 application {
 
-    mainClass.set("bozo.Main")
+    mainClass.set("bozo.Launcher")
 }
 
 shadowJar {
