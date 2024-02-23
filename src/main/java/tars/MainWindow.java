@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Tars tars;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image tarsImage = new Image(this.getClass().getResourceAsStream("/images/robo.png"));
@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Tars d) {
+        tars = d;
     }
 
     /**
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
 
-        String response = duke.getResponse(input);
+        String response = tars.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, tarsImage)

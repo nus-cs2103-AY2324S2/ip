@@ -1,0 +1,3 @@
+[T][ ] another
+[T][ ] ha
+[T][X] new

@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 /**
  * The task class contains the functions to add,remove,find and mark tasks

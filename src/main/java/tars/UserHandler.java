@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 
 import java.io.IOException;
@@ -16,9 +16,9 @@ public class UserHandler {
      * @param taskList The class that handles task actions
      * @param storage The class that handles file updating
      * @return The messaage the user sees
-     * @throws DukeException
+     * @throws TarsException
      */
-    public static String chat(String input, TaskList taskList, Storage storage) throws DukeException {
+    public static String chat(String input, TaskList taskList, Storage storage) throws TarsException {
 
         assert input != null : "Empty message";
 
@@ -37,7 +37,7 @@ public class UserHandler {
             String r = taskList.markTask(input);
 
             try {
-                storage.write("data/duke.txt", taskList.getList());
+                storage.write("data/tars.txt", taskList.getList());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -50,7 +50,7 @@ public class UserHandler {
 
             String r = taskList.unmarkTask(input);
             try {
-                storage.write("data/duke.txt", taskList.getList());
+                storage.write("data/tars.txt", taskList.getList());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -61,7 +61,7 @@ public class UserHandler {
         } else if (input.toLowerCase().matches("\\bdeadline\\b.*")) {
 
             if (input.length() <= 9) {
-                throw new DukeException("Empty Description");
+                throw new TarsException("Empty Description");
             }
 
             String r = taskList.addTask(input);
@@ -74,7 +74,7 @@ public class UserHandler {
             Deadline d = new Deadline(task, deadlineDate);
 
             try {
-                storage.addData("data/duke.txt", d.toString() + System.lineSeparator());
+                storage.addData("data/tars.txt", d.toString() + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -85,7 +85,7 @@ public class UserHandler {
         } else if (input.toLowerCase().matches("\\bevent\\b.*")) {
 
             if (input.length() <= 6) {
-                throw new DukeException("Empty Description");
+                throw new TarsException("Empty Description");
             }
             String r = taskList.addTask(input);
             String[] data = input.split("/");
@@ -94,7 +94,7 @@ public class UserHandler {
             Event e = new Event(task, data[1].substring(5), data[2].substring(3));
 
             try {
-                storage.addData("data/duke.txt", e.toString() + System.lineSeparator());
+                storage.addData("data/tars.txt", e.toString() + System.lineSeparator());
             } catch (IOException err) {
                 System.out.println(err.getMessage());
             }
@@ -104,12 +104,12 @@ public class UserHandler {
 
         } else if (input.toLowerCase().matches("\\btodo\\b.*")) {
             if (input.length() <= 5) {
-                throw new DukeException("Empty Description");
+                throw new TarsException("Empty Description");
             }
             String r = taskList.addTask(input);
 
             try {
-                storage.addData("data/duke.txt", new Todo(input.substring(5)).toString() + System.lineSeparator());
+                storage.addData("data/tars.txt", new Todo(input.substring(5)).toString() + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -121,7 +121,7 @@ public class UserHandler {
 
             String r = taskList.deleteTask(input);
             try {
-                storage.write("data/duke.txt", taskList.getList());
+                storage.write("data/tars.txt", taskList.getList());
             } catch (IOException err) {
                 System.out.println(err.getMessage());
             }

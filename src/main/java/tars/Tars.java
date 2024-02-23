@@ -1,20 +1,12 @@
-package duke;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.List;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.time.LocalDate;
+package tars;
 
 
 /**
  * Main chatbot program
  */
 
-public class Duke{
-    private static final String FILE_PATH = "data/duke.txt";
+public class Tars {
+    private static final String FILE_PATH = "data/tars.txt";
     private Ui ui;
     //List<Task> list;
     private TaskList tlist;
@@ -26,7 +18,7 @@ public class Duke{
      * Constructs an instance of Duke
      */
 
-    public Duke() {
+    public Tars() {
         ui = new Ui();
         tlist = new TaskList();
         storage.load(tlist);
@@ -38,9 +30,9 @@ public class Duke{
     public String getResponse(String input) {
         try {
             return UserHandler.chat(input, tlist, storage);
-        } catch (DukeException e) {
+        } catch (TarsException e) {
             return e.getMessage();
         }
     }
-    
+
 }

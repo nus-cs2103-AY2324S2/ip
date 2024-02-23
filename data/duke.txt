@@ -1,3 +1,0 @@
-[T][X] new
-[E][ ] new (from: sun 2pm  to to: mon 3pm)
-[T][ ] another

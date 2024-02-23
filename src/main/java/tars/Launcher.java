@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 import javafx.application.Application;
 

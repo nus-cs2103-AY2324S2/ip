@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 import org.junit.jupiter.api.Test;
 

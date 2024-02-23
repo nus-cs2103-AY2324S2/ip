@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 /**
  * Represents Todo Task

@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 /**
  * Handles Chatbot UI

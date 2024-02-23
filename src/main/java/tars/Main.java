@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Tars tars = new Tars();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(tars);
             stage.show();
             fxmlLoader.<MainWindow>getController().Welcome(Ui.greet());
         } catch (IOException e) {

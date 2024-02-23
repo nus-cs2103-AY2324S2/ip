@@ -1,4 +1,4 @@
-package duke;
+package tars;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private static final String FILE_PATH = "data/duke.txt";
+    private static final String FILE_PATH = "data/tars.txt";
     File f = new File(FILE_PATH);
 
     public void load(TaskList tlist) {
