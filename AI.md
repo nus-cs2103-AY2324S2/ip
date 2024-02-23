@@ -7,7 +7,7 @@
 ### Level-3:
 
 1) Auto generate an isNumber() method in Bond class to iterate all chars to check that all are digits (0-9)  
-```
+```java
 private static Boolean isNumber(String input) {
     char[] digits = input.toCharArray();
     Boolean isNumber = true;
@@ -38,22 +38,21 @@ Similar to level 3, on the generation of suggested print statements which are so
 
 2) It auto-generated this switch-case alternative to the if-else block I had written earlier in handling deadline task creation. I decided to adopt this as well since it was more concise and readable as compared to a similar implementation with each `case` statement replaced by an `if` block.
 ```
-switch (state) {
-case 1:
-    if (!components[i].equals("/from")) {
-        start += components[i] + " ";
-    }
-    break;
-
-case 2:
-    if (!components[i].equals("/to")) {
-        end += components[i] + " ";
-    }
-    break;
-
-default:
-    break;
-}
+    switch (state) {
+    case 1:
+        if (!components[i].equals("/from")) {
+            start += components[i] + " ";
+        }
+        break;
+    
+    case 2:
+        if (!components[i].equals("/to")) {
+            end += components[i] + " ";
+        }
+        break;
+    
+    default:
+        break;
 ```
 
 ### Level-5:
@@ -110,7 +109,7 @@ for (int i = 0; i < components.length; i++) {
 
 ### Level-8:
 1) It helped me generate a date format converter in the form of a method called `changeDateFormat`:
-```
+```java
 private static String changeDateFormat(String month, String day, String year) {
     String newMonth = "";
     String newDay = "";
@@ -194,7 +193,7 @@ private static String changeDateFormat(String month, String day, String year) {
 
 
 * In addition, it once again helped me generate a for loop in the function `findTasks()` in `TaskList` class:
-```
+```java
 public TaskList findTasks(String keyword) {
     ArrayList<Task> foundTasks = new ArrayList<>();
 
@@ -218,7 +217,7 @@ public TaskList findTasks(String keyword) {
 ## Week 5 Uses:
 ### A-Assertions:
 1) Again, Co-pilot generated this month-mappings for me :
-```
+```java
 private static final HashMap<String, String> MONTH_FORMATS = new HashMap<>() {
     {
         put("Jan", "01");
@@ -240,7 +239,7 @@ private static final HashMap<String, String> MONTH_FORMATS = new HashMap<>() {
 
 
 2) It generated the certain aspects of this change in time format in the method `changeTimeFormat`:
-```
+```java
 public static String changeTimeFormat(String time) {
 
     String newTime;
@@ -285,7 +284,7 @@ public static String changeTimeFormat(String time) {
 
 ### BCD-Extension:
 1) Co-pilot helped me generate the helper function `isFoundIn()` in the `UpdateCommand` class:
-```
+```java
 private boolean isFoundIn(String element, String... elements) {
     for (String e : elements) {
         if (element.equals(e)) {

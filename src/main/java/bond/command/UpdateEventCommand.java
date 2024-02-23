@@ -40,9 +40,9 @@ public class UpdateEventCommand extends UpdateCommand {
         String newStart;
         String newEnd;
 
-        newTaskName = extractFieldValue(super.getUpdateInfo(), "/n", "/s", "/e");
-        newStart = extractFieldValue(super.getUpdateInfo(), "/s", "/n", "/e");
-        newEnd = extractFieldValue(super.getUpdateInfo(), "/e", "/n", "/s");
+        newTaskName = extractFieldValue(super.getUpdateInfo(), "/n", "/n", "/s", "/e");
+        newStart = extractFieldValue(super.getUpdateInfo(), "/s", "/s", "/n", "/e");
+        newEnd = extractFieldValue(super.getUpdateInfo(), "/e", "/e", "/n", "/s");
 
         if (newTaskName != null) {
             this.task.setName(newTaskName);

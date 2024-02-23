@@ -36,7 +36,7 @@ public class UpdateTodoCommand extends UpdateCommand {
             BondException.raiseException("update", "EMPTY_DESCRIPTION");
         }
 
-        String newTaskName = super.getUpdateInfo().replace("/n", "");
+        String newTaskName = super.extractFieldValue(super.getUpdateInfo(), "/n", "/n");
 
         this.task.setName(newTaskName.trim());
     }

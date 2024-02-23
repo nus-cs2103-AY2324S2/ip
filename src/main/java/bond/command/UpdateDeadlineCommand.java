@@ -38,8 +38,8 @@ public class UpdateDeadlineCommand extends UpdateCommand {
         String newTaskName;
         String newDeadline;
 
-        newTaskName = extractFieldValue(super.getUpdateInfo(), "/n", "/d");
-        newDeadline = extractFieldValue(super.getUpdateInfo(), "/d", "/n");
+        newTaskName = extractFieldValue(super.getUpdateInfo(), "/n", "/n", "/d");
+        newDeadline = extractFieldValue(super.getUpdateInfo(), "/d", "/d", "/n");
 
         if (newTaskName != null) {
             this.task.setName(newTaskName);

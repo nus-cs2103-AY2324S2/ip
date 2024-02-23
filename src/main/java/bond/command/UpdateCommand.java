@@ -106,16 +106,16 @@ public class UpdateCommand extends Command {
      *
      * @param input      The user input.
      * @param tag        The field type to be extracted.
-     * @param otherTags  The other tags that can possibly be extracted.
+     * @param tags  All the tags that can possibly be extracted.
      * @return The field value extracted from the user input given a tag.
      */
-    protected String extractFieldValue(String input, String tag, String... otherTags) {
+    protected String extractFieldValue(String input, String tag, String... tags) {
         String[] components = input.split(" ");
 
         Optional<String> fieldValue = Arrays.stream(components)
                 .dropWhile(s -> !s.equals(tag))
                 .skip(1)
-                .takeWhile(s -> !isFoundIn(s, otherTags))
+                .takeWhile(s -> !isFoundIn(s, tags))
                 .reduce((s1, s2) -> s1 + " " + s2);
 
         return fieldValue.orElse(null);
