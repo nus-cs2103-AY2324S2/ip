@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -16,37 +16,38 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Represents the main class of the Duke program.
+ * Represents the main class of the TALKTOMEORILLDIE program.
  */
-public class Duke extends Application {
+public class TALKTOMEORILLDIE extends Application {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
     private final Image user;
-    private final Image duke;
+    private final Image talktomeorilldie;
     private ScrollPane chatScrollPane;
     private VBox dialogContainer;
     private TextField userInputField;
     private Button sendButton;
 
     /**
-     * Constructor for Duke.
+     * Constructor for TALKTOMEORILLDIE.
      */
-    public Duke() {
+    public TALKTOMEORILLDIE() {
         ui = new Ui();
-        storage = new Storage("./data/duke.txt");
+        storage = new Storage("./data/talktomeorilldie.txt");
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (IOException e) {
             tasks = new TaskList();
         }
         user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-        duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+        talktomeorilldie =
+                new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
     }
 
     /**
-     * Main method to start the Duke program.
+     * Main method to start the TALKTOMEORILLDIE program.
      * @param args The arguments to start the program.
      */
     public static void main(String[] args) {
@@ -54,7 +55,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Starts the Duke program.
+     * Starts the TALKTOMEORILLDIE program.
      * @param stage The stage to start the program.
      */
     @Override
@@ -68,7 +69,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Initializes the layout of the Duke program.
+     * Initializes the layout of the TALKTOMEORILLDIE program.
      * @param stage The stage to initialize the layout.
      */
     private void initializeLayout(Stage stage) {
@@ -88,7 +89,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("TALKTOMEORILLDIE");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -97,7 +98,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Configures the scroll pane for the Duke program.
+     * Configures the scroll pane for the TALKTOMEORILLDIE program.
      */
     private void configureScrollPane() {
         chatScrollPane.setPrefSize(385, 535);
@@ -114,14 +115,14 @@ public class Duke extends Application {
     }
 
     /**
-     * Configures the user input field for the Duke program.
+     * Configures the user input field for the TALKTOMEORILLDIE program.
      */
     private void configureUserInput() {
         userInputField.setPrefWidth(325.0);
     }
 
     /**
-     * Configures the send button for the Duke program.
+     * Configures the send button for the TALKTOMEORILLDIE program.
      */
     private void configureSendButton() {
         sendButton.setPrefWidth(55.0);
@@ -137,11 +138,11 @@ public class Duke extends Application {
      * Greets the user with a welcome message.
      */
     private void greetUser() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.welcomeMessage(), duke));
+        dialogContainer.getChildren().add(DialogBox.getTALKTOMEORILLDIEDialog(ui.welcomeMessage(), talktomeorilldie));
     }
 
     /**
-     * Configures the event handlers for the Duke program.
+     * Configures the event handlers for the TALKTOMEORILLDIE program.
      */
     private void configureEventHandlers() {
         //Step 3. Add functionality to handle user input.
@@ -154,18 +155,18 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String userText = userInputField.getText();
-        String dukeText = getResponse(userInputField.getText());
+        String talktomeorilldieText = getResponse(userInputField.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getDukeDialog(dukeText, duke)
+                DialogBox.getTALKTOMEORILLDIEDialog(talktomeorilldieText, talktomeorilldie)
         );
         userInputField.clear();
     }
 
     /**
-     * Gets the response from Duke based on the user input.
+     * Gets the response from TALKTOMEORILLDIE based on the user input.
      * @param input User input.
-     * @return Duke's response based on the user input.
+     * @return TALKTOMEORILLDIE's response based on the user input.
      */
     String getResponse(String input) {
         try {
@@ -185,7 +186,7 @@ public class Duke extends Application {
                 }).start();
             }
             return result;
-        } catch (DukeException e) {
+        } catch (TALKTOMEORILLDIEException e) {
             return e.getMessage();
         }
     }

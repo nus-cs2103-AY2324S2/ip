@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +13,7 @@ public class ParserTest {
      * Tests the parse method of Parser.
      */
     @Test
-    public void testParseByeCommand() throws DukeException {
+    public void testParseByeCommand() throws TALKTOMEORILLDIEException {
         String userInput = "bye";
         TaskList tasks = new TaskList();
         Ui ui = new Ui();

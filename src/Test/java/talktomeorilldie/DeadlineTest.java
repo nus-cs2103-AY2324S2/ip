@@ -1,10 +1,11 @@
-package duke;
+package talktomeorilldie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
+import talktomeorilldie.Deadline;
 
 /**
  * JUnit test for Deadline class.

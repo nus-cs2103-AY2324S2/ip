@@ -1,0 +1,6 @@
+T | 0 | die
+T | 1 | read book
+T | 0 | something not so impt
+D | 0 | return book | 2019-12-02 1800
+E | 0 | project meeting | Mon 2pm - 4pm
+E | 0 | funeral | Wed 10am - 10pm

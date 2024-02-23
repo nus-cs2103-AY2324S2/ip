@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import java.io.IOException;
 
@@ -9,14 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for TALKTOMEORILLDIE using FXML.
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final TALKTOMEORILLDIE talktomeorilldie = new TALKTOMEORILLDIE();
 
     /**
-     * Starts the Duke program.
+     * Starts the TALKTOMEORILLDIE program.
      * @param stage The stage to start the program.
      */
     @Override
@@ -26,7 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTALKTOMEORILLDIE(talktomeorilldie);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

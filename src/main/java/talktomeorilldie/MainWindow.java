@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import java.util.Objects;
 
@@ -20,11 +20,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private Duke duke;
+    private TALKTOMEORILLDIE talktomeorilldie;
 
     private final Image userImage =
             new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage =
+    private final Image talktomeorilldieImage =
             new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     /**
@@ -36,24 +36,24 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets Duke to the current Duke object.
-     * @param d The Duke object to set.
+     * Sets TALKTOMEORILLDIE to the current TALKTOMEORILLDIE object.
+     * @param d The TALKTOMEORILLDIE object to set.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setTALKTOMEORILLDIE(TALKTOMEORILLDIE d) {
+        talktomeorilldie = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing TALKTOMEORILLDIE's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = talktomeorilldie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTALKTOMEORILLDIEDialog(response, talktomeorilldieImage)
         );
         userInput.clear();
     }

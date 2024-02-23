@@ -1,11 +1,11 @@
-package duke;
+package talktomeorilldie;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
- * Represents the user interface of the Duke program.
+ * Represents the user interface of the TALKTOMEORILLDIE program.
  */
 public class Ui {
 
@@ -146,7 +146,7 @@ public class Ui {
                 + "     1. todo <description> \n             - Adds a todo task\n\n"
                 + "     2. deadline <description> /by <date in dd/mm/yyyy> <time> \n"
                 + "             - Adds a deadline task\n\n"
-                + "     3. event <description> /at <date> <time> \n"
+                + "     3. event <description> /from <day NOT DATE> <time> /to <time> \n"
                 + "             - Adds an event task\n\n"
                 + "     4. list \n             - Lists all tasks\n\n"
                 + "     5. mark <task number> \n             - Marks a task as done\n\n"

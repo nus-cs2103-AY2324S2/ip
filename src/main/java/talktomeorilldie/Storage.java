@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents the storage class of the Duke program.
+ * Represents the storage class of the TALKTOMEORILLDIE program.
  */
 public class Storage {
     private final String filePath;

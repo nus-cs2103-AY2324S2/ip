@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 /**
  * Represents an event task.

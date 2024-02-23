@@ -1,11 +1,11 @@
-package duke;
+package talktomeorilldie;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a parser for Duke.
+ * Represents a parser for TALKTOMEORILLDIE.
  */
 public class Parser {
 
@@ -15,9 +15,9 @@ public class Parser {
      * @param tasks The list of tasks.
      * @param ui The user interface.
      * @return The response to the user input.
-     * @throws DukeException If an error occurs during parsing.
+     * @throws TALKTOMEORILLDIEException If an error occurs during parsing.
      */
-    public static String parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
+    public static String parse(String userInput, TaskList tasks, Ui ui) throws TALKTOMEORILLDIEException {
         String[] words = userInput.split(" ");
         String command = words[0].toLowerCase();
         int position = userInput.indexOf(" ");
@@ -43,8 +43,8 @@ public class Parser {
             assert position != -1 && position + 1 < userInput.length() : "Invalid position";
             String dateStr = userInput.substring(position + 1);
             // Validate the date format
-            if (isValidDateFormat(dateStr)) {
-                throw new DukeException("Please write the date in the format dd/mm/yyyy");
+            if (isValidDateFormat(dateStr, false)) {
+                throw new TALKTOMEORILLDIEException("Please write the date in the format dd/mm/yyyy");
             }
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
@@ -54,7 +54,8 @@ public class Parser {
         case "help":
             return ui.showHelp();
         default:
-            throw new DukeException("     Gurl I'm sorry, idk what that means :-(");
+            throw new TALKTOMEORILLDIEException("     Gurl I'm sorry, idk what that means :-(\n"
+                    + "     Type 'help' to see the list of possible commands!");
         }
     }
 
@@ -125,14 +126,14 @@ public class Parser {
      * @param ui The user interface.
      * @param position The position of the command in the user input.
      * @return The response to the user input.
-     * @throws DukeException If an error occurs during parsing.
+     * @throws TALKTOMEORILLDIEException If an error occurs during parsing.
      */
-    private static String handleTodo(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+    private static String handleTodo(String userInput, TaskList tasks, Ui ui, int position) throws TALKTOMEORILLDIEException {
         assert position != -1 && position + 1 < userInput.length() : "Invalid position";
         String taskStr = userInput.substring(position + 1);
 
         if (taskStr.isEmpty()) {
-            throw new DukeException("     Are you gonna be doing nothing?");
+            throw new TALKTOMEORILLDIEException("     Are you gonna be doing nothing?");
         }
 
         Task newTask = new Todo(taskStr);
@@ -152,9 +153,9 @@ public class Parser {
      * @param ui The user interface.
      * @param position The position of the command in the user input.
      * @return The response to the user input.
-     * @throws DukeException If an error occurs during parsing.
+     * @throws TALKTOMEORILLDIEException If an error occurs during parsing.
      */
-    private static String handleDeadline(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+    private static String handleDeadline(String userInput, TaskList tasks, Ui ui, int position) throws TALKTOMEORILLDIEException {
         assert position != -1 && position + 1 < userInput.length() : "Invalid position";
         int posBy = userInput.indexOf("/by");
         if (posBy != -1 && posBy + 1 < userInput.length()) {
@@ -162,8 +163,8 @@ public class Parser {
             String taskStrBy = userInput.substring(posBy + 4);
 
             // Validate the date format
-            if (isValidDateFormat(taskStrBy)) {
-                throw new DukeException("Please write the date in the format dd/mm/yyyy");
+            if (isValidDateFormat(taskStrBy, true)) {
+                throw new TALKTOMEORILLDIEException("Please write the date in the format dd/mm/yyyy");
             }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -177,16 +178,23 @@ public class Parser {
 
             return ui.showAddedTask(newTask, TaskList.getTaskNum());
         } else {
-            throw new DukeException("     Invalid command >:((");
+            throw new TALKTOMEORILLDIEException("     Invalid command >:((");
         }
     }
 
-    private static boolean isValidDateFormat(String dateString) {
-        // Define regex pattern for the date format dd/mm/yyyy
-        String regexPattern = "\\d{2}/\\d{2}/\\d{4}";
+    private static boolean isValidDateFormat(String dateString, boolean DeadlineorOn) {
+        if (!DeadlineorOn) {
+            // Define regex pattern for the date format dd/mm/yyyy
+            String regexPattern = "\\d{2}/\\d{2}/\\d{4}";
 
-        // Check if the date string matches the regex pattern
-        return !dateString.matches(regexPattern);
+            // Check if the date string matches the regex pattern
+            return !dateString.matches(regexPattern);
+        } else {
+            String regexPattern = "\\d{2}/\\d{2}/\\d{4} \\d{4}";
+
+            // Check if the date string matches the regex pattern
+            return !dateString.matches(regexPattern);
+        }
     }
 
     /**
@@ -196,9 +204,9 @@ public class Parser {
      * @param ui The user interface.
      * @param position The position of the command in the user input.
      * @return The response to the user input.
-     * @throws DukeException If an error occurs during parsing.
+     * @throws TALKTOMEORILLDIEException If an error occurs during parsing.
      */
-    private static String handleEvent(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+    private static String handleEvent(String userInput, TaskList tasks, Ui ui, int position) throws TALKTOMEORILLDIEException {
         int posFrom = userInput.indexOf("/from");
         int posTo = userInput.indexOf("/to");
 
@@ -210,7 +218,7 @@ public class Parser {
             String taskStrTo = userInput.substring(posTo + 4);
 
             if (taskStr.isEmpty() || taskStrFrom.isEmpty() || taskStrTo.isEmpty()) {
-                throw new DukeException("     Invalid command >:((");
+                throw new TALKTOMEORILLDIEException("     Invalid command >:((");
             }
 
             Task newTask = new Event(taskStr, taskStrFrom, taskStrTo);
@@ -221,7 +229,7 @@ public class Parser {
 
             return ui.showAddedTask(newTask, TaskList.getTaskNum());
         } else {
-            throw new DukeException("     Invalid command >:(");
+            throw new TALKTOMEORILLDIEException("     Invalid command >:(");
         }
     }
 
@@ -232,15 +240,15 @@ public class Parser {
      * @param ui The user interface.
      * @param position The position of the command in the user input.
      * @return The response to the user input.
-     * @throws DukeException If an error occurs during parsing.
+     * @throws TALKTOMEORILLDIEException If an error occurs during parsing.
      */
-    private static String handleDelete(String userInput, TaskList tasks, Ui ui, int position) throws DukeException {
+    private static String handleDelete(String userInput, TaskList tasks, Ui ui, int position) throws TALKTOMEORILLDIEException {
         assert position != -1 && position + 1 < userInput.length() : "Invalid position";
         String taskStr = userInput.substring(position + 1);
         int taskNumber = Integer.parseInt(taskStr) - 1;
 
         if (taskStr.isEmpty()) {
-            throw new DukeException("     You're deleting air");
+            throw new TALKTOMEORILLDIEException("     You're deleting air");
         }
 
         if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {

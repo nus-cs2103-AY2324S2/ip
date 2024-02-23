@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -43,6 +43,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        dialog.setMinSize(0,70);
 
         dialog.setText(text);
 
@@ -88,12 +89,12 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Gets a dialog box for Duke.
+     * Gets a dialog box for TALKTOMEORILLDIE.
      * @param text The text to display in the dialog box.
      * @param img The image to display in the dialog box.
-     * @return The dialog box for Duke.
+     * @return The dialog box for TALKTOMEORILLDIE.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getTALKTOMEORILLDIEDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         db.setBackgroundColor("LIGHTPINK");

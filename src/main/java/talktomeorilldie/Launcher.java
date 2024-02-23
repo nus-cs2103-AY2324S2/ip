@@ -1,4 +1,4 @@
-package duke;
+package talktomeorilldie;
 
 import javafx.application.Application;
 
@@ -8,10 +8,10 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Main method to launch the Duke program.
+     * Main method to launch the TALKTOMEORILLDIE program.
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        Application.launch(Duke.class, args);
+        Application.launch(TALKTOMEORILLDIE.class, args);
     }
 }
