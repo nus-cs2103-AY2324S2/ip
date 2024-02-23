@@ -1,30 +1,37 @@
-# Duke User Guide
+> One of the chatbots of all time
 
-// Update the title above to match the actual product name
+# Tars Chatbot
 
-// Product screenshot goes here
+This is a **chatbot** application that allows you to _manage tasks_.
 
-// Product intro goes here
+  ## Installation
+
+1. Clone the repo
+2. Compile all java files
+
+   `public static void main(String[] args) throws DukeException {
+        new Duke().run();
+    }`
+
+It's that easy :+1:
+
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+- Create a Todo task using the follow format
 
-// Give examples of usage
+Example: `todo taskname`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
 
 ```
-expected output
+Created todo task: taskname
 ```
 
-## Feature ABC
 
-// Feature details
+## Features
 
+- Task Management
+- Task loading and saving
 
-## Feature XYZ
+- This site was built using [GitHub Pages](https://pages.github.com/).
 
-// Feature details
