@@ -4,6 +4,12 @@
 of Rick responding to the requests of Morty, in the garage of their house.]
 (./Ui.png)
 
+## Installation
+1. Make sure you have Java SDK 11 or higher installed on your device.
+2. Download the Rick.jar file in the latest release.
+3. Open your terminal, run `java -jar path-to-Rick.jar` (make sure you DO NOT go INTO the directory which contains the jar file).
+4. Have fun with Rick!
+
 ## Task List
 A list that holds a collection of to-do tasks, deadlines, and event which 
 you want Rick to help you record.
