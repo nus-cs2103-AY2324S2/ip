@@ -43,7 +43,7 @@ public class MarkCommandTest {
         TaskList task = new TaskList(tasks);
         TaskList archiveTasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/duke.txt");
+        Storage storage = new Storage("./data/taskie.txt");
         Storage archived = new Storage("./data/archive.txt");
 
         // Create MarkCommand and execute, assert DukeException is thrown

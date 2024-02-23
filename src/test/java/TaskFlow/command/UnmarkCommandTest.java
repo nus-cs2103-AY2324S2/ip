@@ -25,7 +25,7 @@ public class UnmarkCommandTest {
         TaskList task = new TaskList(tasks);
         TaskList archiveTasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/duke.txt");
+        Storage storage = new Storage("./data/taskie.txt");
         Storage archived = new Storage("./data/archive.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(validIndex);
@@ -43,7 +43,7 @@ public class UnmarkCommandTest {
         TaskList task = new TaskList(tasks);
         TaskList archiveTasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/duke.txt");
+        Storage storage = new Storage("./data/taskie.txt");
         Storage archived = new Storage("./data/archive.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(invalidIndex);
@@ -51,7 +51,7 @@ public class UnmarkCommandTest {
         ) -> unmarkCommand.execute(task, archiveTasks, ui, storage, archived));
 
         // Verify that the exception message is as expected
-        assertEquals("Invalid index. Please provide a valid index within the range 1 to 1.",
-                dukeException.getMessage());
+        assertEquals("Invalid index. Please provide a valid index within"
+                        + " the range 1 to 1.", dukeException.getMessage());
     }
 }

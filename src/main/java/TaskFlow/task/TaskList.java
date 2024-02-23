@@ -1,10 +1,10 @@
 package TaskFlow.task;
 
-import TaskFlow.exception.DukeException;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import TaskFlow.exception.DukeException;
 
 /**
  * Represents a list of tasks in the Duke chatbot application.
