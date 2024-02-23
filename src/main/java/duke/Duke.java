@@ -198,7 +198,7 @@ public class Duke {
 
     /**
      * Serves as the entry point of the application.
-     * @param args Command line arguments (unused).
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         new Duke().run();
