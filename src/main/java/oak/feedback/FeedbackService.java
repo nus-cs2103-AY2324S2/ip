@@ -30,7 +30,7 @@ public class FeedbackService {
     public String run(String userInput) throws InvalidInputException, IOException {
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
-        String feedback = null;
+        String feedback;
 
         int taskId = -1;
 
@@ -38,78 +38,36 @@ public class FeedbackService {
             throw new InvalidInputException.InvalidCommandException(cur[0]);
         }
 
-        // TODO: Exception Handling for incorrect input
-        //  - [ ] DateTimeParseException
         switch (curCommand) {
         case REMINDER:
-            feedback = reminderService.getReminders();
+            feedback = handleReminderCommand();
             break;
         case BYE:
-            feedback = this.getExitMessage();
+            feedback = handleByeCommand();
             break;
         case LIST:
-            feedback = this.taskService.getAllTasks();
+            feedback = handleListCommand();
             break;
         case FIND:
-            String matchingValue = (this.parseFindInput(cur));
-            feedback = this.taskService.findTasks(matchingValue);
+            feedback = handleFindCommand(cur);
             break;
         case MARK:
-            if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "No TaskId detected, please provide a TaskId", cur[0]);
-            }
-
-            try {
-                taskId = Integer.parseInt(cur[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-            }
-
-            feedback = this.taskService.markTaskCompleted(taskId);
+            feedback = handleMarkCommand(cur);
             break;
         case UNMARK:
-            if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "No TaskId detected, please provide a TaskId", cur[0]);
-            }
-
-            try {
-                taskId = Integer.parseInt(cur[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-            }
-
-            feedback = this.taskService.markTaskUncompleted(taskId);
+            feedback = handleUnmarkCommand(cur);
             break;
         case TODO:
-            String taskName = this.parseTodoInput(cur);
-            feedback = this.taskService.addTodo(taskName);
+            feedback = handleTodoCommand(cur);
             break;
         case DEADLINE:
-            String[] deadLineValues = this.parseDeadlineInput(cur);
-            feedback = this.taskService.addDeadline(deadLineValues[0], deadLineValues[1]);
+            feedback = handleDeadlineCommand(cur);
             break;
         case EVENT:
-            String[] eventValues = this.parseEventInput(cur);
-            feedback = this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]);
+            feedback = handleEventCommand(cur);
             break;
         case DELETE:
-            if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "No TaskId detected, please provide a TaskId", cur[0]);
-            }
-
-            try {
-                taskId = Integer.parseInt(cur[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException(
-                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-            }
-
-            feedback = this.taskService.deleteTask(taskId);
+            feedback = handleDeleteCommand(cur);
             break;
         default:
             throw new InvalidInputException.InvalidCommandException(cur[0]);
@@ -118,27 +76,155 @@ public class FeedbackService {
         return feedback;
     }
 
-    public String getWelcomeMessage() {
-        // Logo generated from : https://patorjk.com/software/taag/#p=display&f=Sub-Zero&t=OAK
-        String logo =
-                " ______     ______     __  __    \n" +
-                        "/\\  __ \\   /\\  __ \\   /\\ \\/ /    \n" +
-                        "\\ \\ \\/\\ \\  \\ \\  __ \\  \\ \\  _-.    \n" +
-                        " \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \n" +
-                        "  \\/_____/   \\/_/\\/_/   \\/_/\\/_/ \n";
-
-        return "Hello from\n" + logo + "\n" +
-                "----------------------------------------------\n" +
-                "Welcome! I'm Professor Oak\n" +
-                "What can I do for you?";
-
+    /**
+     * Handles the reminder command, calling the appropriate method in Reminder Service to get all reminders
+     *
+     * @return the formatted String containing all reminders
+     */
+    private String handleReminderCommand() {
+        return reminderService.getReminders();
     }
 
-    public String getExitMessage() {
+    /**
+     * Handles the bye command, returning the exit message
+     *
+     * @return the formatted String of the exit message
+     */
+    private String handleByeCommand() {
         return "Goodbye! Hope to see you again!";
-
     }
 
+    /**
+     * Handles the list command, returning all marked and unmarked tasks stored in Oak-Dex
+     *
+     * @return the formatted String of all the tasks
+     */
+    private String handleListCommand() {
+        return this.taskService.getAllTasks();
+    }
+
+    /**
+     * Handles the find command, returning all tasks for which the input is a substring
+     *
+     * @return the formatted String of all the matching tasks
+     */
+    private String handleFindCommand(String[] input) {
+        String matchingValue = (this.parseFindInput(input));
+        return this.taskService.findTasks(matchingValue);
+    }
+
+    /**
+     * Handles the mark command, marking the task as completed
+     *
+     * @param input
+     * @return the formatted String of the status of marking the task
+     * @throws InvalidInputException
+     * @throws IOException
+     */
+    private String handleMarkCommand(String[] input) throws InvalidInputException, IOException {
+        if (input.length <= 1) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "No TaskId detected, please provide a TaskId", input[0]);
+        }
+
+        int taskId;
+        try {
+            taskId = Integer.parseInt(input[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", input[0]);
+        }
+
+        return this.taskService.markTaskCompleted(taskId);
+    }
+
+    /**
+     * Handles the unmark command, marking the task as not completed
+     *
+     * @param input
+     * @return the formatted String of the status of unmarking the task
+     * @throws InvalidInputException
+     * @throws IOException
+     */
+    private String handleUnmarkCommand(String[] input) throws InvalidInputException, IOException {
+        if (input.length <= 1) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "No TaskId detected, please provide a TaskId", input[0]);
+        }
+
+        int taskId;
+        try {
+            taskId = Integer.parseInt(input[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", input[0]);
+        }
+
+        return this.taskService.markTaskUncompleted(taskId);
+    }
+
+    /**
+     * Handles the todo command, adding the todo item to tasks
+     *
+     * @param input
+     * @return the formatted String of the status of adding the todo
+     * @throws IOException
+     */
+    private String handleTodoCommand(String[] input) throws IOException {
+        String taskName = this.parseTodoInput(input);
+        return this.taskService.addTodo(taskName);
+    }
+
+    /**
+     * Handles the Deadline command, adding the deadline item to tasks
+     *
+     * @param input
+     * @return the formatted String of the status of adding the Deadline
+     * @throws IOException
+     * @throws InvalidInputException
+     */
+    private String handleDeadlineCommand(String[] input) throws IOException, InvalidInputException {
+        String[] deadLineValues = this.parseDeadlineInput(input);
+        return this.taskService.addDeadline(deadLineValues[0], deadLineValues[1]);
+    }
+
+    /**
+     * Handles the Event command, adding the event item to tasks
+     *
+     * @param input
+     * @return the formatted String of the status of adding the Event
+     * @throws InvalidInputException
+     * @throws IOException
+     */
+    private String handleEventCommand(String[] input) throws InvalidInputException, IOException {
+        String[] eventValues = this.parseEventInput(input);
+        return this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]);
+    }
+
+    /**
+     * Handles the Delete Command, removing the task from tasks
+     *
+     * @param input
+     * @return the formatted String of the status of deleting the task
+     * @throws InvalidInputException
+     * @throws IOException
+     */
+    private String handleDeleteCommand(String[] input) throws InvalidInputException, IOException {
+        if (input.length <= 1) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "No TaskId detected, please provide a TaskId", input[0]);
+        }
+
+        int taskId;
+        try {
+            taskId = Integer.parseInt(input[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException.InvalidFormatException(
+                    "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", input[0]);
+        }
+
+        return this.taskService.deleteTask(taskId);
+    }
 
     /**
      * Parses the input provided by the user for the 'Todo' command
@@ -169,7 +255,8 @@ public class FeedbackService {
 
         if (temp.length <= 1) {
             throw new InvalidInputException(
-                    "No Due Date for Deadline detected. Please provide a Due Date by using '/by'");
+                    "No Due Date for Deadline detected. Please provide a Due Date by using '/by'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         return new String[] { temp[0].strip(), temp[1].strip() };
@@ -192,13 +279,15 @@ public class FeedbackService {
         String[] temp = fullInput.split("/from");
         if (temp.length <= 1) {
             throw new InvalidInputException(
-                    "No From Datetime for Event detected. Please provide a From Datetime by using '/from'");
+                    "No From Datetime for Event detected. Please provide a From Datetime by using '/from'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         String[] datetimes = temp[1].split("/to");
         if (datetimes.length <= 1) {
             throw new InvalidInputException(
-                    "No To Datetime for Event detected. Please provide a To Datetime by using '/to'");
+                    "No To Datetime for Event detected. Please provide a To Datetime by using '/to'\n"
+                            + "in the format: YYYY-MM-dd @ HH:mm");
         }
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };
@@ -215,5 +304,14 @@ public class FeedbackService {
         // Reused from https://stackoverflow.com/a/34440330
         // with minor modifications
         return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
+    }
+
+    /**
+     * Returns the welcome message for Oak-Dex
+     *
+     * @return the formatted String of the welcome message
+     */
+    public static String getWelcomeMessage() {
+        return "Welcome to Oak-Dex! How can I help you today?";
     }
 }

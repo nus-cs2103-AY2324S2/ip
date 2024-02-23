@@ -143,3 +143,16 @@ Syntax: `reminder`
 [E][ ] lecture (from: 01 12 2024 @ 1000 to: 01 12 2024 @ 1200)
 [D][ ] CS2103 Assignment (by: 23 02 2024 @ 2359)
 ```
+
+## Finding Tasks
+
+Finds all Tasks matching the string passed in by the user, that is, the string passed in is a substring of the Task Name.
+
+Syntax: `find <matching_string_value>`
+
+Example: `find CS2103`
+
+```
+1. [T][ ] CS2103 Week 6 Quiz
+3. [D][ ] CS2103 Assignment (by: 23 02 2024 @ 2359)
+```

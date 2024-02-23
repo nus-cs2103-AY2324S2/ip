@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The type Date time utility.
@@ -17,16 +16,18 @@ public class DateTimeUtility {
      * @return the local datetime
      */
     public static LocalDateTime parseStringToLocalDateTime(String rawDateTime) {
-        try {
-            return LocalDateTime.parse(rawDateTime);
-        } catch (DateTimeParseException e) {  }
+        if (rawDateTime.contains("@")) {
+            // NOTE: We expect the user-input format to be: "<date> @ <time>"
+            String[] rawDateTimeArr = rawDateTime.split("@");
+            LocalDate date = LocalDate.parse(rawDateTimeArr[0].strip());;
+            LocalTime time = rawDateTimeArr.length > 1
+                    ? LocalTime.parse(rawDateTimeArr[1].strip())
+                    : LocalTime.MIDNIGHT;
 
-        // NOTE: We expect the user-input format to be: "<date> @ <time>"
-        String[] rawDateTimeArr = rawDateTime.split("@");
-        LocalDate date = LocalDate.parse(rawDateTimeArr[0].strip());;
-        LocalTime time = rawDateTimeArr.length > 1 ? LocalTime.parse(rawDateTimeArr[1].strip()) : LocalTime.MIDNIGHT;
+            return LocalDateTime.of(date, time);
+        }
 
-        return LocalDateTime.of(date, time);
+        return LocalDateTime.parse(rawDateTime);
     }
 
     /**

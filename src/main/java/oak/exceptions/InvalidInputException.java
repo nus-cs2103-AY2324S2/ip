@@ -22,9 +22,11 @@ public class InvalidInputException extends Exception {
          * @param invalidCommand the invalid command
          */
         public InvalidCommandException(String invalidCommand) {
-            super("Invalid Command: " + invalidCommand + " received.\n" +
-                    "Only the following commands are accepted:\n" +
-                    Arrays.toString(CommandEnum.values()));
+            super("Invalid Command: "
+                    + invalidCommand
+                    + " received.\n"
+                    + "Only the following commands are accepted:\n"
+                    + Arrays.toString(CommandEnum.values()));
         }
     }
 

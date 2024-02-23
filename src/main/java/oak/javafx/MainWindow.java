@@ -8,8 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oak.controller.OakController;
+import oak.feedback.FeedbackService;
 import oak.feedback.enums.CommandEnum;
 import oak.task.ReminderService;
+
+// @@author SherisseTJW-reused
+// The contents of this file is mainly reused, with minor modifications from the JavaFX Tutorial as provided here
+// https://se-education.org/guides/tutorials/javaFxPart4.html
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,12 +35,14 @@ public class MainWindow extends VBox {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
     private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/Oak.png"));
 
+    /**
+     * Initialises the main window and the dialog boxes, as well as gets and shows the welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcomeMessage = "Welcome to Oak-Dex! How can I help you today?";
-        dialogContainer.getChildren().add(DialogBox.getOakDialog(welcomeMessage, oakImage));
+        dialogContainer.getChildren().add(DialogBox.getOakDialog(FeedbackService.getWelcomeMessage(), oakImage));
     }
 
     public void setOak(OakController d) {

@@ -14,9 +14,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+// @@author SherisseTJW-reused
+// The contents of this file is mainly reused, with minor modifications from the JavaFX Tutorial as provided here
+// https://se-education.org/guides/tutorials/javaFxPart4.html
+
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * The dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
@@ -49,12 +52,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets the user input and shows it on the DialogContainer
+     *
+     * @param text
+     * @param img
+     * @return the DialogBox
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 
+    /**
+     * Gets Oak's response to the user input and shows it on the DialogContainer
+     *
+     * @param text
+     * @param img
+     * @return the DialogBox
+     */
     public static DialogBox getOakDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

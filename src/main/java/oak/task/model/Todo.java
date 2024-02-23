@@ -5,7 +5,7 @@ package oak.task.model;
  */
 public class Todo extends Task {
     /** The icon this task is represented by */
-    public static String TODO_TYPEICON = "T";
+    public static final String ICON_TODO = "T";
 
     /**
      * Constructor method for Todo from user input (without the isCompleted)
@@ -13,7 +13,7 @@ public class Todo extends Task {
      * @param name
      */
     public Todo(String name) {
-        super(name, TODO_TYPEICON);
+        super(name, ICON_TODO);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Todo extends Task {
      * @param isCompleted
      */
     public Todo(String name, Boolean isCompleted) {
-        super(name, TODO_TYPEICON);
+        super(name, ICON_TODO);
 
         if (isCompleted) {
             super.markTaskCompleted();
@@ -33,11 +33,11 @@ public class Todo extends Task {
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s",
-                TODO_TYPEICON, super.toTaskListStringFormat());
+                ICON_TODO, super.toTaskListStringFormat());
     }
 
     @Override
     public String getTypeIcon() {
-        return TODO_TYPEICON;
+        return ICON_TODO;
     }
 }

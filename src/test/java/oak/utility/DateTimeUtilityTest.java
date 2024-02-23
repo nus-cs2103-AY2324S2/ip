@@ -1,9 +1,10 @@
 package oak.utility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateTimeUtilityTest {
     @Test
@@ -13,7 +14,7 @@ public class DateTimeUtilityTest {
         assertEquals(
                 LocalDateTime.parse("2019-12-12T10:20"),
                 DateTimeUtility.parseStringToLocalDateTime(validDateTimeString)
-                );
+        );
     }
 
     @Test

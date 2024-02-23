@@ -9,7 +9,7 @@ import oak.utility.DateTimeUtility;
  */
 public class Deadline extends Task {
     /** The icon this task is represented by */
-    public static String DEADLINE_TYPEICON = "D";
+    public static final String ICON_DEADLINE = "D";
     /** The datetime the task has to be completed by */
     private LocalDateTime byDateTime;
 
@@ -20,7 +20,7 @@ public class Deadline extends Task {
      * @param byDateTime
      */
     public Deadline(String name, String byDateTime) {
-        super(name, DEADLINE_TYPEICON);
+        super(name, ICON_DEADLINE);
 
         this.byDateTime = DateTimeUtility.parseStringToLocalDateTime(byDateTime);
     }
@@ -33,7 +33,7 @@ public class Deadline extends Task {
      * @param byDateTime
      */
     public Deadline(String name, Boolean isCompleted, String byDateTime) {
-        super(name, DEADLINE_TYPEICON);
+        super(name, ICON_DEADLINE);
 
         if (isCompleted) {
             super.markTaskCompleted();
@@ -49,7 +49,7 @@ public class Deadline extends Task {
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s",
-                DEADLINE_TYPEICON, super.toTaskListStringFormat(), this.byDateTime.toString());
+                ICON_DEADLINE, super.toTaskListStringFormat(), this.byDateTime.toString());
     }
 
     @Override

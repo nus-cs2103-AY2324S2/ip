@@ -16,7 +16,7 @@ import oak.utility.FileUtility;
  */
 public class TaskService {
     /** An Array of all the tasks in the system */
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static final ArrayList<Task> TASKS = new ArrayList<>();
     /** The relative file path to the tasklist.txt where all the tasks are stored  */
     private final String tasklistFilePath = "/src/main/resources/tasklist.txt";
     /** The separator for the tasklist.txt */
@@ -38,7 +38,8 @@ public class TaskService {
         try {
             fileData = this.fileUtility.loadFile(this.tasklistFilePath);
         } catch (FileNotFoundException e) {
-            System.out.println("Error reading file.. Unable to load tasks from " + this.tasklistFilePath);
+            System.out.println("Error reading file.. Unable to load tasks from "
+                    + this.tasklistFilePath);
         }
 
         for (String line : fileData) {
@@ -81,18 +82,18 @@ public class TaskService {
 
         Boolean isCompleted = task[1].equals("1");
 
-        if (task[0].equals(Todo.TODO_TYPEICON)) {
+        if (task[0].equals(Todo.ICON_TODO)) {
             newTask = new Todo(task[2], isCompleted);
-        } else if (task[0].equals(Deadline.DEADLINE_TYPEICON)) {
+        } else if (task[0].equals(Deadline.ICON_DEADLINE)) {
             newTask = new Deadline(task[2], isCompleted, task[3]);
-        } else if (task[0].equals(Event.EVENT_TYPEICON)) {
+        } else if (task[0].equals(Event.ICON_EVENT)) {
             newTask = new Event(task[2], isCompleted, task[3], task[4]);
         } else {
-            // TODO: Throw invalid task Oak.type exception
-            System.out.println("Invalid task detected");
+            System.err.println("Error processing tasklist.txt, skipping this line: "
+                    + line);
         }
 
-        this.tasks.add(newTask);
+        this.TASKS.add(newTask);
     }
 
 
@@ -106,12 +107,12 @@ public class TaskService {
     public String addTodo(String taskName) throws IOException {
         Todo newTodo = new Todo(taskName);
 
-        int expectedLength = this.tasks.size() + 1;
+        int expectedLength = this.TASKS.size() + 1;
 
-        this.tasks.add(newTodo);
+        this.TASKS.add(newTodo);
         this.saveTask(newTodo);
 
-        assert expectedLength == this.tasks.size();
+        assert expectedLength == this.TASKS.size();
 
         return String.format("Added new Todo: %s", taskName);
     }
@@ -127,12 +128,12 @@ public class TaskService {
     public String addDeadline(String taskName, String byDateTime) throws IOException {
         Deadline newDeadline = new Deadline(taskName, byDateTime);
 
-        int expectedLength = this.tasks.size() + 1;
+        int expectedLength = this.TASKS.size() + 1;
 
-        this.tasks.add(newDeadline);
+        this.TASKS.add(newDeadline);
         this.saveTask(newDeadline);
 
-        assert expectedLength == this.tasks.size();
+        assert expectedLength == this.TASKS.size();
 
         return String.format("Added new Deadline: %s with Due Date: %s", taskName, byDateTime);
     }
@@ -149,12 +150,12 @@ public class TaskService {
     public String addEvent(String taskName, String fromDateTime, String toDateTime) throws IOException {
         Event newEvent = new Event(taskName, fromDateTime, toDateTime);
 
-        int expectedLength = this.tasks.size() + 1;
+        int expectedLength = this.TASKS.size() + 1;
 
-        this.tasks.add(newEvent);
+        this.TASKS.add(newEvent);
         this.saveTask(newEvent);
 
-        assert expectedLength == this.tasks.size();
+        assert expectedLength == this.TASKS.size();
 
         return String.format("Added new Event: %s occurring from %s to %s", taskName, fromDateTime, toDateTime);
     }
@@ -167,17 +168,16 @@ public class TaskService {
      * @throws IOException the io exception
      */
     public String deleteTask(int taskId) throws IOException {
-        int expectedLength = this.tasks.size() - 1;
+        int expectedLength = this.TASKS.size() - 1;
 
-        Task removedTask = this.tasks.remove(taskId);
+        Task removedTask = this.TASKS.remove(taskId);
         this.removeTask(removedTask);
 
-        assert expectedLength == this.tasks.size();
+        assert expectedLength == this.TASKS.size();
 
-        return String.format("Are you giving up? Or is this task no longer needed?\n" +
-                "Hmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.",
-                taskId
-        );
+        return String.format("Are you giving up? Or is this task no longer needed?\n"
+                        + "Hmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.",
+                taskId + 1);
     }
 
     /**
@@ -187,13 +187,14 @@ public class TaskService {
      * @return the string
      */
     public String markTaskCompleted(int taskId) throws IOException {
-        // TODO: Exception handling for if task does not exist
-        String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
-        this.tasks.get(taskId).markTaskCompleted();
+        String originalTaskString = this.TASKS.get(taskId).toTaskListStringFormat();
+        this.TASKS.get(taskId).markTaskCompleted();
         this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
-                this.tasks.get(taskId).toTaskListStringFormat());
+                this.TASKS.get(taskId).toTaskListStringFormat());
 
-        return "Ok! I've marked Task " + (taskId + 1) + " as completed!";
+        return "Ok! I've marked Task "
+                + (taskId + 1)
+                + " as completed!";
     }
 
     /**
@@ -203,15 +204,16 @@ public class TaskService {
      * @return the string
      */
     public String markTaskUncompleted(int taskId) throws IOException {
-        // TODO: Exception handling for if task does not exist
-        String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
-        this.tasks.get(taskId).markTaskNotCompleted();
+        String originalTaskString = this.TASKS.get(taskId).toTaskListStringFormat();
+        this.TASKS.get(taskId).markTaskNotCompleted();
         this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
-                this.tasks.get(taskId).toTaskListStringFormat());
+                this.TASKS.get(taskId).toTaskListStringFormat());
 
-        return "Hmmm, were you teasing me?\n" +
-                "Well, I've marked Task " + (taskId + 1) + " as uncompleted,\n" +
-                "But don't do this again, you hear me?";
+        return "Hmmm, were you teasing me?\n"
+                + "Well, I've marked Task "
+                + (taskId + 1)
+                + " as uncompleted,\n"
+                + "But don't do this again, you hear me?";
     }
 
     /**
@@ -222,11 +224,11 @@ public class TaskService {
     public String getAllTasks() {
         StringBuilder returnVal = new StringBuilder();
 
-        for (int i = 0; i < this.tasks.size(); i++) {
-            returnVal.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
+        for (int i = 0; i < this.TASKS.size(); i++) {
+            returnVal.append(String.format("%d. %s", i + 1, this.TASKS.get(i)));
 
             // Only add new line if its not the last task
-            if (i < this.tasks.size() - 1) {
+            if (i < this.TASKS.size() - 1) {
                 returnVal.append("\n");
             }
         }
@@ -243,12 +245,12 @@ public class TaskService {
     public String findTasks(String matchingValue) {
         StringBuilder returnVal = new StringBuilder();
 
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).getName().contains(matchingValue)) {
-                returnVal.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
+        for (int i = 0; i < this.TASKS.size(); i++) {
+            if (this.TASKS.get(i).getName().contains(matchingValue)) {
+                returnVal.append(String.format("%d. %s", i + 1, this.TASKS.get(i)));
 
                 // Only add new line if its not the last task
-                if (i < this.tasks.size() - 1) {
+                if (i < this.TASKS.size() - 1) {
                     returnVal.append("\n");
                 }
             }
