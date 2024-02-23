@@ -15,7 +15,9 @@
 
 ### Adding todo to list
 Adds a todo to the list
-Format
+Format: todo DESCRIPTION
+Example: 'todo read book'
+
 
 ### Adding deadline to list
 Adds deadline to the list
