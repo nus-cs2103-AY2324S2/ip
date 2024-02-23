@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import podz.exceptions.PodzException;
 import podz.task.Deadline;
 import podz.task.Event;
 import podz.task.Task;
@@ -86,15 +87,24 @@ public class Storage {
     }
 
     private void addEvent(ArrayList<Task> tasks, String[] taskInfo) {
-        Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-        checkMarked(taskInfo, event);
-        tasks.add(event);
+        try {
+            Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+            checkMarked(taskInfo, event);
+            tasks.add(event);
+        } catch (PodzException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addDeadline(ArrayList<Task> tasks, String[] taskInfo) {
-        Deadline deadline = new Deadline(taskInfo[2], taskInfo[3]);
-        checkMarked(taskInfo, deadline);
-        tasks.add(deadline);
+        Deadline deadline;
+        try {
+            deadline = new Deadline(taskInfo[2], taskInfo[3]);
+            checkMarked(taskInfo, deadline);
+            tasks.add(deadline);
+        } catch (PodzException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addTodo(ArrayList<Task> tasks, String[] taskInfo) {

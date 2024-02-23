@@ -3,6 +3,9 @@ package podz.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import podz.exceptions.PodzException;
 
 /**
  * Represents an event task in the task manager.
@@ -17,8 +20,9 @@ public class Event extends Task {
      * @param description the description of the event.
      * @param from the start date and time of the event.
      * @param to the end date and time of the event.
+     * @throws PodzException 
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws PodzException {
         super(description);
         this.from = from;
         this.to = to;
@@ -36,23 +40,28 @@ public class Event extends Task {
      * 
      * @param dateAndTime the array containing date and time information.
      * @return the formatted date and time string.
+     * @throws PodzException 
      */
-    private String formatDT(String[] dateAndTime) {
+    private String formatDT(String[] dateAndTime) throws PodzException {
         String formattedString;
         boolean isEventWithDateAndTime = dateAndTime.length >= 2;
         
-        if (isEventWithDateAndTime) {
-            LocalDate d1 = LocalDate.parse(dateAndTime[0]);
-            int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
-            int minute = Integer.parseInt(dateAndTime[1].substring(2));
-            LocalDateTime dateTime = d1.atTime(hour, minute);
+        try {
+            if (isEventWithDateAndTime) {
+                LocalDate d1 = LocalDate.parse(dateAndTime[0]);
+                int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
+                int minute = Integer.parseInt(dateAndTime[1].substring(2));
+                LocalDateTime dateTime = d1.atTime(hour, minute);
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mm");
-            formattedString = dateTime.format(formatter);
-        } else {
-            LocalDate d1 = LocalDate.parse(dateAndTime[0]);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-            formattedString = d1.format(formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mm");
+                formattedString = dateTime.format(formatter);
+            } else {
+                LocalDate d1 = LocalDate.parse(dateAndTime[0]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+                formattedString = d1.format(formatter);
+            }
+        } catch (DateTimeParseException e) {
+            throw new PodzException("Oops!! You entered an invalid date/time format.");
         }
 
         return formattedString;
