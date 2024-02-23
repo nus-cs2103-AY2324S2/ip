@@ -14,7 +14,7 @@ public class TagCommand extends Command {
         if (tagIndex > taskList.getTaskCount() || tagIndex < 1) {
             throw new IndexOutOfBoundsException("Please only input index shown in the list");
         }
-        String markedTaskInfo = taskList.tag(tagIndex, tagInfo);
+        taskList.tag(tagIndex, tagInfo);
         String replyMessage = "Nice! I've add the tag to the task.";
         Ui.print_message(replyMessage);
         storage.writeDisk(taskList.getTasks());
