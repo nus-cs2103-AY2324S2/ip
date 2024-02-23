@@ -32,7 +32,7 @@ public class Ui {
     public String[] validateInput() throws UiException {
         checkEmptyInstruction();
 
-        String[] subStr = this.input.split(" ", 2);
+        String[] subStr = this.input.trim().split(" ", 2);
         checkInvalidInstruction(subStr);
         checkMissingDescription(subStr);
 
@@ -100,7 +100,7 @@ public class Ui {
         } else if (subStr[0].equalsIgnoreCase(Instruction.DELETE.name()) && subStr.length < 2) {
             throw new UiException("Sorry! You need to include a number to delete your task!");
         } else if (subStr[0].equalsIgnoreCase(Instruction.FIND.name()) && subStr.length < 2) {
-            throw new UiException("Sorry! You need to include a keyword that you want to find!");
+            throw new UiException("Sorry! You need to include a partial word or keyword that you want to find!");
         }
     }
 
@@ -171,10 +171,6 @@ public class Ui {
             } else if (e.getParsedString().equals(ss2[1].trim())) {
                 throw new DateTimeParseException("Your end date/time format is wrong.\n"
                         + "Please use yyyy-MM-dd HHmm format (e.g. 2024-01-01 1500).", ss2[1].trim(), 0);
-            } else {
-                throw new DateTimeParseException("Both your start and end date/time format is wrong.\n"
-                        + "Please use yyyy-MM-dd HHmm format (e.g. 2024-01-01 1500).",
-                        ss2[0].trim() + ss2[1].trim(), 0);
             }
         }
     }

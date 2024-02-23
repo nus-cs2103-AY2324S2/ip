@@ -1,10 +1,8 @@
-package ghbot;
+package ghbot.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-import ghbot.task.Event;
 
 /**
  * EventTest Class.

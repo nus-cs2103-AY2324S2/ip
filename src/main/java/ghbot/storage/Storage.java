@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,10 @@ public class Storage {
      * @throws IOException Throw exception if there is an issue updating the file.
      */
     public void writeDataToFile(List<Task> lst) throws IOException {
+        Path directory = Paths.get("./data");
+        if (!Files.exists(directory)) {
+            Files.createDirectories(directory);
+        }
         try {
             File file = new File(this.fileName);
             FileWriter fw = new FileWriter(file);
@@ -122,7 +127,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            Files.createDirectories(Paths.get("./data"));
+            System.out.println(e.getMessage());
         }
     }
 }

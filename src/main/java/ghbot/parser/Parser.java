@@ -50,9 +50,9 @@ public class Parser {
         } else if (instr.equalsIgnoreCase(Instruction.FIND.name())) {
             return createNewFindExecutor(input[1]);
         } else {
-            assert false : instr;
+            assert false : instr + " is a wrong instruction!";
+            return null;
         }
-        return null;
     }
 
     /**
