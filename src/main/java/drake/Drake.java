@@ -60,20 +60,20 @@ public class Drake {
     private final ArrayList<Contact> contacts;
 
     /**
-     * Constructs a new instance of the Drake application.
+     * Constructs a new instance of the Drake Bot application.
      */
     public Drake() {
         ui = new Ui();
-        storage = new Storage("./list.dat");
+        storage = new Storage("./data/list.txt");
         tasks = new TaskList(storage.loadTasks());
         contacts = new ArrayList<>();
     }
 
     /**
-     * Gets the response from Drake.
+     * Gets the response from Drake Bot.
      *
      * @param input the user's input.
-     * @return the response from Drake.
+     * @return the response from Drake Bot.
      */
     protected String getResponse(String input) {
         String[] words = input.split(" ", 2);

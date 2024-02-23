@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = drake.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, drakeImage)
+                DialogBox.getDrakeDialog(response, drakeImage)
         );
         userInput.clear();
     }
@@ -64,6 +64,6 @@ public class MainWindow extends AnchorPane {
      * @param message Welcome message.
      */
     public void setWelcomeMessage(String message) {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(message, drakeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getDrakeDialog(message, drakeImage));
     }
 }
