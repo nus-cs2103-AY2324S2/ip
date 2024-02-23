@@ -211,8 +211,6 @@ public class Handler {
         char isDone = getIsDone(input,isNewTask);
         input = getUpdatedInput(input, isNewTask);
 
-        Ui.print(input);
-
         Task t = interpretAndUpdateTodo(new ToDo("*"), input);
         tasks.addTask(t);
 
@@ -398,7 +396,6 @@ public class Handler {
     }
 
     private String partsToString(String[] parts, int start, int end) {
-        Ui.print(parts);
         String temp = "";
 
         for (int i = start; i < end; i++) {

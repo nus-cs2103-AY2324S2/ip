@@ -30,7 +30,6 @@ public class Yapchit {
     }
 
     protected String getResponse(String inputText) {
-        Ui.print(inputText);
         String yapchitText;
         if (yapchitBackend.checkIsBye(inputText)){
             yapchitText = yapchitBackend.getOutro();

@@ -35,8 +35,10 @@ public class Parser {
         try {
             k = YapchitBackend.Operations.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new InvalidKeywordException("You have entered an invalid keyword. " +
-                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
+            throw new InvalidKeywordException("You have entered an invalid keyword. "
+                    + "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event',"
+                    + " 'bye', 'list', 'delete', 'update']"
+            );
         }
 
         return k;

@@ -36,10 +36,7 @@ public class Ui {
         String outro = Ui.printLine() + "\n"
                 + "\tBye. Hope to see you again soon!\n"
                 + Ui.printLine() + "\n"
-                + "\t You may:" + "\n"
-                + "\t\t 1. Press enter or " + "\n"
-                + "\t\t 2. click your OS' 'x' button " + "\n"
-                + "\t to close the window.";
+                + "\t Press enter to close window.";
         return outro;
     }
 
