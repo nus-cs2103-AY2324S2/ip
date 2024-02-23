@@ -10,17 +10,17 @@ basic Graphical User Interface (GUI).
 * [Sleepy User Guide](#sleepy-user-guide)
 * [Quick Start](#quick-start)
 * [User commands](#user-commands)
-    * [Notes about the command format](#notes-about-the-command-format)
-    * [Adding a todo: `todo`](#adding-a-todo)
-    * [Adding a deadline: `deadline`](#adding-a-deadline)
-    * [Adding a plan: `plan`](#adding-a-plan)
-    * [Adding an event: `event`](#adding-an-event)
-    * [Marking a task: `mark`](#marking-a-task)
-    * [Unmarking a task: `unmark`](#unmarking-a-task)
-    * [Deleting a task: `delete`](#deleting-a-task)
-    * [Finding a task by keyword: `find`](#finding-a-task-by-keyword)
-    * [Listing all your tasks: `list`](#listing-all-your-tasks)
-    * [Exiting the chatbot: `bye`](#exiting-the-chatbot)
+  * [Notes about the command format](#notes-about-the-command-format)
+  * [Adding a todo: `todo`](#adding-a-todo--todo)
+  * [Adding a deadline: `deadline`](#adding-a-deadline--deadline)
+  * [Adding a plan: `plan`](#adding-a-plan--plan)
+  * [Adding an event: `event`](#adding-an-event--event)
+  * [Marking a task: `mark`](#marking-a-task--mark)
+  * [Unmarking a task `unmark`](#unmarking-a-task-unmark)
+  * [Deleting a task: `delete`](#deleting-a-task--delete)
+  * [Finding task(s) by keyword: `find`](#finding-task--s--by-keyword--find)
+  * [Listing all your tasks: `list`](#listing-all-your-tasks--list)
+  * [Exiting the chatbot: `bye`](#exiting-the-chatbot--bye)
 * [Features](#features)
 <!-- TOC -->
 
@@ -60,7 +60,7 @@ basic Graphical User Interface (GUI).
   `[E][ ] study (from: 26 Jan 2023 to: next Wednesday)`
 
 
-## Adding a todo
+## Adding a todo: `todo`
 
 Adds a todo to the list.
 
@@ -73,7 +73,7 @@ Expected output:
 added: [T][ ] not stay up until 3am
 ```
 
-## Adding a deadline
+## Adding a deadline: `deadline`
 
 Adds a deadline to the list.
 
@@ -86,7 +86,7 @@ Expected output:
 added: [D][ ] submit homework (by: this friday)
 ```
 
-## Adding a plan
+## Adding a plan: `plan`
 
 Adds a plan to the list.
 
@@ -99,7 +99,7 @@ Expected output:
 added: [P][ ] submit homework (after: this friday)
 ```
 
-## Adding an event
+## Adding an event: `event` 
 
 Adds an event to the list.
 
@@ -112,7 +112,7 @@ Expected output:
 added: [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Marking a task
+## Marking a task: `mark`
 
 Marks a task in the list.
 
@@ -126,7 +126,7 @@ Nice! I've marked this task as done:
 [E][X] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Unmarking a task
+## Unmarking a task `unmark`
 
 Marks a task in the list.
 
@@ -140,7 +140,7 @@ OK, I've marked this task as not done yet:
 [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Deleting a task
+## Deleting a task: `delete`
 
 Deletes a task in the list.
 
@@ -155,7 +155,7 @@ Noted. I've removed this task:
 Now you have 0 task(s) in the list.
 ```
 
-## Finding a task by keyword
+## Finding task(s) by keyword: `find`
 
 Finds all tasks whose description match a given user input.
 
@@ -176,7 +176,7 @@ There are no matching tasks in your list!
 *Yawn*
 ```
 
-## Listing all your tasks
+## Listing all your tasks: `list`
 
 Lists all your tasks in numerical order.
 
@@ -193,7 +193,7 @@ Expected output (list is empty):
 Your task list is empty! Looks like you can go back to sleep.
 ```
 
-## Exiting the chatbot
+## Exiting the chatbot: `bye`
 
 Exits Sleepy with a goodbye message, with a delay of around 2 seconds.
 
