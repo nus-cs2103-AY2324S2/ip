@@ -79,6 +79,43 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * @param emotion emotion used for image tagging
+     * @return an image corresponding to the emotion given
+     * @throws JellyException
+     */
+    public Image handleExpression(String emotion) throws JellyException {
+
+        switch(emotion.toLowerCase()) {
+
+        case "normal":
+            return jellyImage;
+        case "sad":
+            return jellySad;
+        case "confused":
+            return jellyConfused;
+        case "hardworking":
+            return jellyHardwork;
+        case "excited":
+            return jellyExcited;
+        default:
+            throw new JellyException("no matching emotion");
+        }
+    }
+
+    private void addContainers(String input, String response, Image mood) {
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        scaleAnimation(100, 0.5, 1.1, 0, userDialog);
+        scaleAnimation(100, 1.1, 1, 100, userDialog);
+        dialogContainer.getChildren().addAll(userDialog);
+        DialogBox jellyDialog = DialogBox.getJellyDialog(response, mood);
+        scaleAnimation(200, 0, 0, 0, jellyDialog);
+        scaleAnimation(100, 0.5, 1.1, 200, jellyDialog);
+        scaleAnimation(100, 1.1, 1, 300, jellyDialog);
+        dialogContainer.getChildren().addAll(jellyDialog);
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -86,69 +123,28 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
 
         String input = userInput.getText();
-
         String line = jelly.getResponse(input);
-
         String[] lines = line.split(" ", 2);
-
         String emotion = lines[0];
-
         if (lines.length == 1) {
 
             lines = new String[]{emotion, "I'm not sure what to say."};
         }
-
         assert(lines.length == 2);
-
         String response = lines[1];
-
         Image mood;
 
-        switch(emotion.toLowerCase()) {
-
-        case "normal":
-            mood = jellyImage;
-            break;
-        case "sad":
-            mood = jellySad;
-            break;
-        case "confused":
-            mood = jellyConfused;
-            break;
-        case "hardworking":
-            mood = jellyHardwork;
-            break;
-        case "excited":
-            mood = jellyExcited;
-            break;
-        default:
-            mood = jellyImage;
+        try {
+            mood = handleExpression(emotion);
+        } catch (JellyException e) {
             response = emotion + " " + response;
+            mood = jellyImage;
         }
-
-        System.out.println(emotion);
-
         if (response.equals("bye")) {
-
             jelly.saveStorage();
             response = jelly.getFarewell();
         }
-
-        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-
-        scaleAnimation(100, 0.5, 1.1, 0, userDialog);
-        scaleAnimation(100, 1.1, 1, 100, userDialog);
-
-        dialogContainer.getChildren().addAll(userDialog);
-
-        DialogBox jellyDialog = DialogBox.getJellyDialog(response, mood);
-
-        scaleAnimation(200, 0, 0, 0, jellyDialog);
-        scaleAnimation(100, 0.5, 1.1, 200, jellyDialog);
-        scaleAnimation(100, 1.1, 1, 300, jellyDialog);
-
-        dialogContainer.getChildren().addAll(jellyDialog);
-
+        addContainers(input, response, mood);
         userInput.clear();
     }
 }
