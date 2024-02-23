@@ -25,6 +25,12 @@ public class Parser {
         this.ui = ui;
     }
 
+    public Parser() {
+        this.tasks = new ArrayList<Task>();
+        this.ui = new Ui();
+    }
+
+
     public String parse(String userInput) {
         try {
             return read(userInput);

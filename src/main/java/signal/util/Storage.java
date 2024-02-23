@@ -1,5 +1,6 @@
 package signal.util;
 
+import signal.SignalException;
 import signal.task.*;
 
 import java.io.*;
@@ -49,7 +50,7 @@ public class Storage {
             }
 
             reader.close();
-        } catch (IOException e) {
+        } catch (IOException | SignalException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
 
@@ -62,7 +63,7 @@ public class Storage {
      * @param line The next line from the file.
      * @return The Task recorded by the line.
      */
-    public static Task parseTask(String line) {
+    public Task parseTask(String line) throws SignalException {
         // Parse each line to create Task objects
         // Example line format: "T | 1 | read book"
         String[] parts = line.split(" \\| ");
@@ -86,6 +87,7 @@ public class Storage {
         }
         return null;
     }
+
 
     /**
      * Writes the current list of tasks to the file specified by the path.
