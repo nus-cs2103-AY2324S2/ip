@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javassist.util.MainWindow">
+   <children>
+      <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#handleUserInput" style="-fx-background-color: #FBDCE7; -fx-border-color: #302931; -fx-border-radius: 5;" text="Send" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="565.0">
+         <font>
+            <Font name="Yu Gothic Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TextField fx:id="userInput" layoutX="64.0" layoutY="565.0" onAction="#handleUserInput" promptText="Enter message" style="-fx-border-color: #EEEEEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="565.0" />
+      <ScrollPane fx:id="scrollPane" layoutX="107.0" layoutY="100.0" style="-fx-background-color: #D7E9F9;" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox fx:id="dialogContainer" minWidth="490.0" prefHeight="555.0" spacing="3.0" style="-fx-background-color: #D0E7F9;">
+               <opaqueInsets>
+                  <Insets bottom="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="1.0" right="1.0" />
+               </padding></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
