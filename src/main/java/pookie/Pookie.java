@@ -1,5 +1,7 @@
 package pookie;
 
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.util.Duration;
 import pookie.tasks.TaskList;
 
 /**
@@ -119,7 +122,10 @@ public class Pookie extends Application {
                 DialogBox.getPookieDialog(pookieText, new ImageView(pookie))
         );
         if (input.equals("bye")) {
-            System.exit(0);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                System.exit(0);
+            }));
+            timeline.play();
         }
         userInput.clear();
     }
