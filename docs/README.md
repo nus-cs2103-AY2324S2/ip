@@ -14,7 +14,8 @@ The O.G Maverick here keeps track of the tasks you have to get done.
 
 To give it a try, follow the steps given below:
   1. Download the ```.jar``` file [here](https://github.com/Teee728/ip/releases/tag/A-Release)
-  2. Click on it once downloaded and you will see your application running. Have fun! 😄
+  2. Ensure you have ```JDK 11``` installed on your local machine. Otherwise, you can download it from [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html)
+  3. Click on the ```jar``` file once downloaded and you will see your application running. Have fun! 😄
 
 ## Features
  Here is a list of features Cruisey can do:
