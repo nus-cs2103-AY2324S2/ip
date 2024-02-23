@@ -52,10 +52,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "harper"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveVersion = "1.0"
+    archiveVersion = "2.0"
 }
 
 run{
