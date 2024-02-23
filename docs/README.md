@@ -1,6 +1,6 @@
 # GanAnWo User Guide
 
-![Product screenshot](/docs/Ui.png)
+![Product screenshot](./Ui.png)
 
 GanAnWo is a chatbot application that helps you to manage your tasks. By using GanAnWo, you will be
 able to easily add, edit, and delete your tasks. Therefore, if you need help on managing your tasks,
