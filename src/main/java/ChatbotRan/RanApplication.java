@@ -13,6 +13,7 @@ import java.io.IOException;
  * A GUI for Ran using FXML.
  */
 public class RanApplication extends Application {
+    static final String TITLE = "Chat with Ran!";
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +23,7 @@ public class RanApplication extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(TITLE);
             fxmlLoader.<MainWindow>getController().setRan(ran);
             stage.show();
         } catch (IOException e) {
