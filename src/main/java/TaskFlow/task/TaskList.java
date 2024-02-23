@@ -1,5 +1,7 @@
 package TaskFlow.task;
 
+import TaskFlow.exception.DukeException;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,12 +31,21 @@ public class TaskList {
 
 
     /**
-     * Adds a task to the task list.
+     * Adds a task to the task list and also handle duplicate tasks.
      *
      * @param task The task to be added.
+     * @throws DukeException throws an error when there is a same task
+     *                       being added into the list.
      */
-    public void add(Task task) {
-        tasks.add(task);
+    public void add(Task task) throws DukeException {
+        for (int i = 0; i < getTaskSize(); i++) {
+            if (tasks.get(i).equals(task)) {
+                throw new DukeException("Task with same details already exists.\n"
+                + "Please try again.\n");
+            } else {
+                tasks.add(task);
+            }
+        }
     }
 
     /**
