@@ -4,12 +4,14 @@ This is a project based on the template for a greenfield Java project. Given bel
 
 <img src="./docs/Ui.png" alt="A screenshot of the chatbot" />
 
-# Features
+## Features
 * Create tasks, set deadlines and create events
 * Mark some tasks as priority
 * Mark tasks done and un-done
 
-# Accepted inputs:
+Find the full feature list [here]()!
+
+## Accepted inputs:
 
 CREATING TASKS:
 * todo () -- creates a To Do task, which has no deadline.
