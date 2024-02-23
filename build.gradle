@@ -47,6 +47,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "botFinal.jar"
     archiveBaseName = "bot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
