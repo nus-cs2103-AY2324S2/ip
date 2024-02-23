@@ -51,7 +51,14 @@ public class UI {
     }
 
     public String showList(TaskList tasks) {
-        return this.say(tasks.toString());
+        String taskList = tasks.toString();
+
+        if (taskList.isEmpty()) {
+            String emptyList = "Quack. I have no tasks";
+            return this.say(emptyList);
+        }
+        //the taskList is either empty or not empty
+        return this.say(taskList);
     }
 
     public String showMarkDone(String task) {

@@ -7,7 +7,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Quacky quacky = new Quacky();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image quackyImage = new Image(this.getClass().getResourceAsStream("/images/quacky.jpg"));
+    private Image quackyImage = new Image(this.getClass().getResourceAsStream("/images/Quacky.jpg"));
 
     @FXML
     public void initialize() {

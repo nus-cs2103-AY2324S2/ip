@@ -26,27 +26,36 @@ public class TaskList {
     /*
     This method prints a given task at position i
      */
-    public String printTask(int i){
-        Task task = tasks.get(i);
+    public String printTask(int taskNum){
+        Task task = tasks.get(taskNum);
         return task.toString();
     }
     public int taskNumber() {
         return tasks.size();
     }
-    public void markCompleteTask(int i) throws QuackyException {
+    public void markCompleteTask(int taskNum) throws QuackyException {
         try {
-            Task task = tasks.get(i);
+            Task task = tasks.get(taskNum);
             task.markDone();
         } catch (IndexOutOfBoundsException e) {
             throw new QuackyException("Quack. The task is not found");
         }
     }
-    public void unmarkCompleteTask (int i){
-        Task task = tasks.get(i);
-        task.unmarkDone();
+    public void unmarkCompleteTask (int taskNum) throws QuackyException{
+        try {
+            Task task = tasks.get(taskNum);
+            task.unmarkDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new QuackyException("Quack. The task is not found");
+        }
     }
-    public void deleteTask(int i){
-        tasks.remove(i);
+    public void deleteTask(int taskNum) throws QuackyException {
+        try {
+            Task task = tasks.get(taskNum);
+            task.markDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new QuackyException("Quack. The task is not found");
+        }
     }
 
     @Override

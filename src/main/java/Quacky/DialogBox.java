@@ -35,7 +35,7 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         dialog.setWrapText(true);
-        dialog.setMaxWidth(250);
+        dialog.setMaxWidth(500);
         displayPicture.setImage(img);
     }
 

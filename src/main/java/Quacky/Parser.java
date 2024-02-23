@@ -54,7 +54,7 @@ public class Parser {
                     Deadline newDeadline = new Deadline(parts[0], byDate);
                     return handleTasks(newDeadline, tasks, ui);
                 } catch (DateTimeParseException e) {
-                    throw new QuackyException("Quack? (Please provide the correct format for the deadline: YYYY-MM-DD)");
+                    throw new QuackyException("Quack? (Please use the deadline format: YYYY-MM-DD)");
                 }
             } catch (QuackyException e) {
                 return ui.showErrorMessage(e);
@@ -74,7 +74,7 @@ public class Parser {
                     Event newEvent = new Event(parts[0], fromDate, toDate);
                     return handleTasks(newEvent, tasks, ui);
                 } catch (DateTimeParseException e) {
-                    throw new QuackyException("Quack? (Please use the correct date format for events: YYYY-MM-DD)");
+                    throw new QuackyException("Quack? (Please use the deadline format: YYYY-MM-DD");
                 }
             } catch (QuackyException e) {
                 return ui.showErrorMessage(e);
@@ -124,7 +124,6 @@ public class Parser {
      */
     public static String handleMark(int taskNumber, TaskList tasks, UI ui) {
         try {
-            assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
             tasks.markCompleteTask(taskNumber);
             return ui.showMarkDone(tasks.printTask(taskNumber));
         } catch (QuackyException e) {
@@ -140,9 +139,12 @@ public class Parser {
      * @return A string result of the unmark operation.
      */
     public static String handleUnmark(int taskNumber, TaskList tasks, UI ui) {
-        assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
-        tasks.unmarkCompleteTask(taskNumber);
-        return ui.showUnmarkDone(tasks.printTask(taskNumber));
+        try {
+            tasks.unmarkCompleteTask(taskNumber);
+            return ui.showUnmarkDone(tasks.printTask(taskNumber));
+        } catch (QuackyException e) {
+            return ui.showErrorMessage(e);
+        }
     }
 
     /**
@@ -153,9 +155,12 @@ public class Parser {
      * @return A string confirming the deletion of the task.
      */
     public static String handleDelete(int taskNumber, TaskList tasks, UI ui) {
-        assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
-        tasks.deleteTask(taskNumber);
-        return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
+        try {
+            tasks.deleteTask(taskNumber);
+            return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
+        } catch (QuackyException e) {
+            return ui.showErrorMessage(e);
+        }
     }
 
     /**
