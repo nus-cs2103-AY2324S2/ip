@@ -1,0 +1,7 @@
+#dialog {
+    -fx-padding: 10px;
+    -fx-background-color: #007ade;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #f5f5f5;
+    -fx-line-spacing: 3px;
+}
