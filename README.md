@@ -33,9 +33,9 @@ All you need to do is:
 Upon running the application, a chat window will pop up and you can interact with ChatBro through this window. Simply type 'help' and send the message (by clicking the 'send' button or hitting Enter) to see a list of commands that you can use.
 
 Follow the given instruction and message formats and start adding tasks to your task list! Some additional functionalities you may use are (un)marking tasks as done, searching for tasks, or deleting tasks.
-**(NOTE: You may only have up to 100 tasks in the task list at any instant - it is recommended that you delete old tasks that have been completed.)**
+**(NOTE: You may only have up to 100 tasks in the task list at any instant - it is recommended that you delete old tasks that have been completed if you do not need to record these tasks. If you need to record the tasks, simply use the 'mark' command.)**
 
-Send 'bye' to ChatBro to exit the program and save the state of your task list (at the moment you send 'bye') into a text file, `savedTasks.txt`. This file will be in the same folder that the ChatBro application is in. When you run ChatBro the next time, your tasks will all be still in the list!
+Send 'bye' to ChatBro to exit the program and save the state of your task list (at the moment you send 'bye') into a text file, `savedTasks.txt`. This file will be in the same folder that the ChatBro application is in. When you run ChatBro the next time, your tasks will all be still in the list! O
 If `savedTasks.txt` is in the wrong format, you will see this pop-up alert when you run ChatBro:
 <p align="center">
   <img width="415" height="150" src="https://cdn.discordapp.com/attachments/523125126540165121/1210286867006881906/image.png?ex=65ea027b&is=65d78d7b&hm=e7a5e69c3fec31607ee979692df955c815247f9d8b45f35f7af1d44d96ab3222&">
