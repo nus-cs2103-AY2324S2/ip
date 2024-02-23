@@ -96,4 +96,5 @@ You exit the program by using the bye command.
 
 Example: `bye`
 
-Jamie loves you too!
+
+Enjoy! Jamie loves you too:)
