@@ -244,7 +244,6 @@ public class Ui {
             }
             reply = listToString(response);
         }
-        signalSays(reply);
         return reply;
     }
 
@@ -282,13 +281,12 @@ public class Ui {
      */
     public String commandUnmark(Task current) {
         ArrayList<String> response = new ArrayList<>();
-        response.add(current.checkDone()
+        response.add(!current.checkDone()
                 ? "This task is not yet done! Best get on it :D"
                 : "OK, I've marked this task as undone:");
         current.markUnDone();
         response.add("  " + current.toString());
         String reply = listToString(response);
-
         signalSays(reply);
         return reply;
     }
