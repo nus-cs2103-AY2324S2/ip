@@ -40,7 +40,24 @@ public class Storage {
      * it is created.
      */
     protected void loadTasks() {
+        // Ensure data directory exists
+        File dataDir = new File(Ursa.DATA_DIRECTORY);
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }
+
+        // Ensure data file exists
         File file = new File(Ursa.DATA_FILE);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                ErrorHandler.handleIOException();
+                return;
+            }
+        }
+        
+        // Load from file
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
