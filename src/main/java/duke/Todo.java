@@ -11,22 +11,23 @@ public class Todo extends Task {
      *
      * @param description description of the Todo task
      */
-    public Todo(String description) {super(description);}
+    public Todo(String description) {
+        super(description);
+    }
 
     /**
      * Constructor for Todo task with specified completion status.
      *
      * @param description description of the Todo task
-     * @param isDone      completion status of the Todo task
+     * @param isComplete      completion status of the Todo task
      */
-    public Todo(String description, Boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, Boolean isComplete) {
+        super(description, isComplete);
     }
 
     /**
-     * Constructor used to clone a Todo object.
-     *
-     * @param todo the Todo object to clone
+     * Constructor used to duplicate a Todo object
+     * @param todo
      */
     public Todo(Todo todo) {
         super(todo);
@@ -38,37 +39,35 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the database representation of a Todo task to a Todo object.
+     * Converts a stored Todo task to a Todo object.
      *
-     * @param dbTodo the string representation of the Todo task in the database
+     * @param storeTodo string representation of a stored Todo task
      * @return the Todo object
      */
-    public static Todo db2Todo(String dbTodo) {
-        // T | 0 | Buy Bread
-        String[] para = dbTodo.split(" \\| ");
-        Boolean isDone = para[1].equals("1") ? true : false;
+    public static Todo todoOutput(String storeTodo) {
+        String[] para = storeTodo.split(" \\| ");
+        Boolean isCompleted = para[1].equals("1") ? true : false;
         String description = para[2];
-        return new Todo(description, isDone);
+        return new Todo(description, isCompleted);
     }
 
     /**
-     * Converts a Todo object to its database representation.
+     * Reverse of previous method - Converts a Todo object to a stored Todo task
      *
-     * @param todoTask the Todo task object
-     * @return the string representation of the Todo task in the database
+     * @param objTodo Todo task object
+     * @return the string representation of a Todo task that will be stored
      */
-    public static String todo2Db(Todo todoTask) {
-        // T | 0 | Buy Bread
-        String done = todoTask.isTaskDone ? "1" : "0";
-        String description = todoTask.taskDescription;
-        return "T | " + done + " | " + description;
+    public static String todoStorage(Todo objTodo) {
+        String done = objTodo.isComplete ? "1" : "0";
+        String description = objTodo.taskDescription;
+        return "T | " + done + " | " + description; //To follow the task format
     }
 
     public static void main(String[] args) {
-        String dbTodo = "T | 0 | Buy Bread";
-        Todo todoTask = Todo.db2Todo(dbTodo);
-        todoTask.markDone();
-        System.out.println(todoTask);
-        System.out.println(Todo.todo2Db(todoTask));
+        String store = "T | 0 | 1 | Testing Todo"; //Sample task for testing
+        Todo storeTask = Todo.todoOutput(store);
+        storeTask.markDone();
+        System.out.println(storeTask);
+        System.out.println(Todo.todoStorage(storeTask));
     }
 }

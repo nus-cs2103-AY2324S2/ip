@@ -1,68 +1,70 @@
 package duke;
 
 /**
- * Represents a task with a description and a boolean indicating its completion status.
+ * Represents a task object
  */
 public class Task {
     protected String taskDescription;
-    protected boolean isTaskDone;
+    protected boolean isComplete;
 
     /**
-     * Constructs a task with the specified description and sets its completion status to false.
+     * Constructs a task with the specified description
+     * Completion status by default is false
      *
      * @param taskDescription the description of the task
      */
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
-        this.isTaskDone = false;
+        this.isComplete = false;
     }
 
     /**
-     * Constructs a task with the specified description and completion status.
+     * Creates a task with the specified description and completion status.
      *
-     * @param taskDescription the description of the task
-     * @param isTaskDone      the completion status of the task
+     * @param taskDescription description of the task
+     * @param isComplete      completion status of the task
      */
-    public Task(String taskDescription, Boolean isTaskDone) {
+    public Task(String taskDescription, Boolean isComplete) {
         this.taskDescription = taskDescription;
-        this.isTaskDone = isTaskDone;
+        this.isComplete = isComplete;
     }
 
     /**
-     * Constructs a task by cloning another task object.
+     * Creates a task by duplicating another task object.
      *
      * @param task the task to be cloned
      */
     public Task(Task task) {
         this.taskDescription = task.taskDescription;
-        this.isTaskDone = task.isTaskDone;
+        this.isComplete = task.isComplete;
     }
 
-    /**
-     * Gets the status icon indicating the completion status of the task.
-     *
-     * @return "X" if the task is complete, otherwise " "
-     */
-    public String getStatusIcon() {
-        return (isTaskDone ? "X" : " ");
-    }
 
     /**
-     * Marks the task as complete.
+     * Marks a task as complete.
      */
     public void markDone() {
-        this.isTaskDone = true;
+        this.isComplete = true;
     }
 
     /**
-     * Marks the task as incomplete.
+     * Marks the previously marked task as incomplete.
      */
     public void unmarkDone() {
-        this.isTaskDone = false;
+        this.isComplete = false;
+    }
+
+    /**
+     * Gets the status icon to indicate the completion status of the task.
+     *
+     * @return "X" for completed tasks, otherwise it will be " "
+     */
+    public String getStat() {
+        return (isComplete ? "X" : " ");
     }
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + taskDescription;
+        return "[" + this.getStat() + "] " + taskDescription;
     }
 }
