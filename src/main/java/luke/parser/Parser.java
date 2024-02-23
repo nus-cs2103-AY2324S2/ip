@@ -40,6 +40,8 @@ public class Parser {
     public String parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
             return ui.goodbye();
+        } else if (this.input.equals("help")) {
+            return ui.help();
         } else if (this.input.equals("list")) {
             return ui.printList(list);
         } else if (this.input.startsWith("find")) {

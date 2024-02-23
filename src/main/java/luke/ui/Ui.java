@@ -148,4 +148,32 @@ public class Ui {
         return foundString.toString();
 
     }
+
+    /**
+     * Prints the help message when the user types "help".
+     *
+     * @return The help message as a String.
+     */
+    public String help() {
+        return "\nHere are the commands you can use:\n"
+                + "1. todo <description> - Adds a todo task to the list.\n"
+                + "2. deadline <description> /by <date> - Adds a deadline task to the list.\n"
+                + "3. event <description> /from <date> /to <date> - Adds an event task to the list.\n"
+                + "4. list - Lists all the tasks in the list.\n"
+                + "5. find <keyword> - Finds all the tasks with the keyword in the list.\n"
+                + "6. delete <index> - Deletes the task at the index from the list.\n"
+                + "7. mark <index> - Marks the task at the index as done.\n"
+                + "8. unmark <index> - Marks the task at the index as not done yet.\n"
+                + "9. bye - Exits the application.\n"
+                + "10. help - Shows the list of commands you can use.\n"
+                + "\nExamples of date and time formats:\n"
+                + "1. dd/MM/yyyy HH:mm\n"
+                + "2. yyyy-MM-dd HH:mm\n"
+                + "3. yyyy/MM/dd HH:mm\n"
+                + "4. dd-MM-yyyy HH:mm\n"
+                + "You can choose to enter the time or not, the default time is 00:00.\n"
+                + "If you wish to enter the time, "
+                + "please enter the time in 24-hour format such as HH[:mm] after the date.\n";
+
+    }
 }
