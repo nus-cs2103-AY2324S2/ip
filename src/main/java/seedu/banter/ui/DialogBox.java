@@ -58,7 +58,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.dialog.getStyleClass();
+        db.dialog.getStyleClass().add("label-background");
         return db;
     }
 
@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getBanterDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.dialog.getStyleClass();
+        db.dialog.getStyleClass().add("label-background");
         db.flip();
         return db;
     }
