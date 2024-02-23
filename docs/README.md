@@ -1,4 +1,4 @@
-> One of the chatbots of all time
+> Easy to use, task manager!
 
 # Tars Chatbot
 
