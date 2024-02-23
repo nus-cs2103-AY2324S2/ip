@@ -33,8 +33,8 @@ public class TaskList {
         } else {
             output += "-----------------------------------\n";
             output += String.format("%s to task %d\n",
-                    taskList.get(taskNo).addTag(splitStr.subList(1, splitStr.size())),
-                    taskNo);
+                    taskList.get(taskNo - 1).addTag(splitStr.subList(1, splitStr.size())),
+                    taskNo - 1);
             output += "-----------------------------------";
         }
         return output;
