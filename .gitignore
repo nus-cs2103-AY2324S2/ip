@@ -16,7 +16,7 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-.duke-cache
+.dino-cache
 
 #Compiled class file
 *.class
