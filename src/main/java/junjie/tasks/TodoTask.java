@@ -9,21 +9,6 @@ public class TodoTask extends Task {
     private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";
 
     /**
-     * Constructs a todo task with the specified name, tags and completion status.
-     *
-     * @param name The name of the task.
-     * @param tags The tags of the task.
-     * @param isDone The completion status of the task.
-     * @throws InvalidArgumentException If the name is empty.
-     */
-    public TodoTask(String name, String[] tags, boolean isDone) throws InvalidArgumentException {
-        super(name, tags, isDone);
-        if (name.isEmpty()) {
-            throw new InvalidArgumentException(INVALID_NAME);
-        }
-    }
-
-    /**
      * Constructs a todo task with the specified name and completion status.
      *
      * @param name The name of the task.
@@ -31,7 +16,17 @@ public class TodoTask extends Task {
      * @throws InvalidArgumentException If the name is empty.
      */
     public TodoTask(String name, String[] tags) throws InvalidArgumentException {
-        this(name, tags, false);
+        super(name, tags);
+        if (name.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_NAME);
+        }
+    }
+
+    public TodoTask(String name) throws InvalidArgumentException {
+        super(name);
+        if (name.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_NAME);
+        }
     }
 
     @Override

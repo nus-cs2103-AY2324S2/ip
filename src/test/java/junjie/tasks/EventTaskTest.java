@@ -27,7 +27,7 @@ public class EventTaskTest {
     @Test
     public void testFileConversion() throws DateTimeException, InvalidArgumentException {
         EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26");
-        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26", event.toFileString());
+        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26 | ", event.toFileString());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class EventTaskTest {
     public void testMarkAsDoneAndFileConversion() throws DateTimeException, InvalidArgumentException {
         EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26");
         event.markDone(true);
-        assertEquals("E | 1 | project meeting | 2021-08-25 | 2021-08-26", event.toFileString());
+        assertEquals("E | 1 | project meeting | 2021-08-25 | 2021-08-26 | ", event.toFileString());
     }
 
     @Test
@@ -97,6 +97,6 @@ public class EventTaskTest {
         EventTask event = new EventTask("project meeting", "2021-08-25", "2021-08-26");
         event.markDone(true);
         event.markDone(false);
-        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26", event.toFileString());
+        assertEquals("E | 0 | project meeting | 2021-08-25 | 2021-08-26 | ", event.toFileString());
     }
 }

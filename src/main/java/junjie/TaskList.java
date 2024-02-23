@@ -2,6 +2,7 @@ package junjie;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import junjie.exceptions.InvalidArgumentException;
 import junjie.tasks.DeadlineTask;
@@ -25,33 +26,44 @@ public class TaskList extends ArrayList<Task> {
         }
         String[] tasks = fileContents.split("\n");
         for (String task : tasks) {
-            String[] taskDetails = task.split(" \\| ");
+            String[] taskDetails = task.split(" \\| ", -1);
             createTaskFromDetails(taskDetails);
         }
     }
 
 
     private void createTaskFromDetails(String[] taskDetails) {
-        assert taskDetails.length == 4 : "Task details should have 4 parts";
+        assert taskDetails.length >= 4 : "Task details should have minimum 4 parts";
         try {
             String taskType = taskDetails[0];
             boolean isDone = taskDetails[1].equals("1");
             String taskContent = taskDetails[2];
-            String[] tags = Parser.splitTags(taskDetails[3]);
 
             switch (taskType) {
-            case "T":
-                this.add(new TodoTask(taskContent, tags, isDone));
+            case "T": {
+                String[] tags = Parser.splitTags(taskDetails[3]);
+                Task task = new TodoTask(taskContent, tags);
+                task.markDone(isDone);
+                this.add(task);
                 break;
-            case "D":
+            }
+            case "D": {
                 String deadline = taskDetails[3];
-                this.add(new DeadlineTask(taskContent, deadline, tags, isDone));
+                String[] tags = Parser.splitTags(taskDetails[4]);
+                Task task = new DeadlineTask(taskContent, deadline, tags);
+                task.markDone(isDone);
+                this.add(task);
                 break;
-            case "E":
+            }
+            case "E": {
                 String eventFrom = taskDetails[3];
                 String eventTo = taskDetails[4];
-                this.add(new EventTask(taskContent, eventFrom, eventTo, tags, isDone));
+                String[] tags = Parser.splitTags(taskDetails[5]);
+                Task task = new EventTask(taskContent, eventFrom, eventTo, tags);
+                task.markDone(isDone);
+                this.add(task);
                 break;
+            }
             default:
                 throw new InvalidArgumentException("Invalid task type in file.");
             }

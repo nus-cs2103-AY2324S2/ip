@@ -24,7 +24,7 @@ public class DeadlineTaskTest {
     @Test
     public void testFileConversion() throws InvalidArgumentException, DateTimeException {
         DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
-        assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
+        assertEquals("D | 0 | return book | 2020-12-12 | ", deadline.toFileString());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class DeadlineTaskTest {
     public void testMarkAsDoneAndFileConversion() throws InvalidArgumentException, DateTimeException {
         DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
         deadline.markDone(true);
-        assertEquals("D | 1 | return book | 2020-12-12", deadline.toFileString());
+        assertEquals("D | 1 | return book | 2020-12-12 | ", deadline.toFileString());
     }
 
     @Test
@@ -105,6 +105,6 @@ public class DeadlineTaskTest {
         DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
         deadline.markDone(true);
         deadline.markDone(false);
-        assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
+        assertEquals("D | 0 | return book | 2020-12-12 | ", deadline.toFileString());
     }
 }

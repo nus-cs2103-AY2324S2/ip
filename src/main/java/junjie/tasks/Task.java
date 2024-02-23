@@ -15,23 +15,20 @@ public abstract class Task {
      * @param tags The tags of the task.
      */
     public Task(String name, String[] tags) {
+        assert tags != null;
+
         this.name = name;
         this.tags = tags;
     }
 
     /**
-     * Constructs a task with the given name, tags, and done status.
+     * Constructs a task with the given name.
      *
      * @param name The name of the task.
-     * @param tags The tags of the task.
-     * @param isDone The done status of the task.
      */
-    public Task(String name, String[] tags, boolean isDone) {
-        assert name != null : "Task name cannot be null";
-
+    public Task(String name) {
         this.name = name;
-        this.tags = tags;
-        this.done = isDone;
+        this.tags = new String[0];
     }
 
     /**
@@ -72,10 +69,11 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s %s",
-                done ? "X" : " ",
-                name,
-                tags.length == 0 ? "" : String.format(" (%s)", String.join(", ", tags)));
+        if (tags.length == 0) {
+            return String.format("[%s] %s", done ? "X" : " ", name);
+        } else {
+            return String.format("[%s] %s (Tags:%s)", done ? "X" : " ", name, String.join(", ", tags));
+        }
     }
 
     /**

@@ -16,20 +16,16 @@ public class DeadlineTask extends Task {
     private final LocalDate deadline;
 
     /**
-     * Constructs a deadline task with the given name, deadline, tags, and done status.
+     * Constructs a deadline task with the given name and deadline.
      *
      * @param name The name of the deadline task.
      * @param deadline The deadline of the task.
      * @param tags The tags of the task.
-     * @param isDone The done status of the task.
      * @throws DateTimeException If the deadline is in an invalid format.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
-    public DeadlineTask(String name, String deadline, String[] tags, boolean isDone)
-            throws DateTimeException, InvalidArgumentException {
-        super(name, tags, isDone);
-
-        assert deadline != null : "Deadline cannot be null";
+    public DeadlineTask(String name, String deadline, String[] tags) throws DateTimeException, InvalidArgumentException {
+        super(name, tags);
 
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
@@ -43,7 +39,6 @@ public class DeadlineTask extends Task {
         } catch (DateTimeException e) {
             throw new DateTimeException(INVALID_DATE_FORMAT);
         }
-
     }
 
     /**
@@ -51,12 +46,24 @@ public class DeadlineTask extends Task {
      *
      * @param name The name of the deadline task.
      * @param deadline The deadline of the task.
-     * @param tags The tags of the task.
      * @throws DateTimeException If the deadline is in an invalid format.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
-    public DeadlineTask(String name, String deadline, String[] tags) throws DateTimeException, InvalidArgumentException {
-        this(name, deadline, tags, false);
+    public DeadlineTask(String name, String deadline) throws DateTimeException, InvalidArgumentException {
+        super(name);
+
+        if (name.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_NAME);
+        }
+        if (deadline.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_DEADLINE);
+        }
+
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeException e) {
+            throw new DateTimeException(INVALID_DATE_FORMAT);
+        }
     }
 
     @Override

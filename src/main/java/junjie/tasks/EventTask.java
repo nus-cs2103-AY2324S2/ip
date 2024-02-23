@@ -19,22 +19,17 @@ public class EventTask extends Task {
     private final LocalDate to;
 
     /**
-     * Constructs an event task with the specified name, start date, end date, tags and completion status.
+     * Constructs an event task with the specified name, start date, end date and tags.
      *
      * @param name The name of the task.
      * @param from The start date of the task.
      * @param to The end date of the task.
      * @param tags The tags of the task.
-     * @param isDone The completion status of the task.
      * @throws DateTimeException If the date format is invalid.
      * @throws InvalidArgumentException If the name, start date or end date is empty.
      */
-    public EventTask(String name, String from, String to, String[] tags, boolean isDone)
-            throws DateTimeException, InvalidArgumentException {
-        super(name, tags, isDone);
-
-        assert from != null : "Start date cannot be null";
-        assert to != null : "End date cannot be null";
+    public EventTask(String name, String from, String to, String[] tags) throws DateTimeException, InvalidArgumentException {
+        super(name, tags);
 
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
@@ -52,21 +47,36 @@ public class EventTask extends Task {
         } catch (DateTimeException e) {
             throw new DateTimeException(INVALID_DATE_FORMAT);
         }
-
     }
 
     /**
-     * Constructs an event task with the specified name, start date, end date and tags.
+     * Constructs an event task with the specified name, start date, end date.
      *
      * @param name The name of the task.
      * @param from The start date of the task.
      * @param to The end date of the task.
-     * @param tags The tags of the task.
      * @throws DateTimeException If the date format is invalid.
      * @throws InvalidArgumentException If the name, start date or end date is empty.
      */
-    public EventTask(String name, String from, String to, String[] tags) throws DateTimeException, InvalidArgumentException {
-        this(name, from, to, tags, false);
+    public EventTask(String name, String from, String to) throws DateTimeException, InvalidArgumentException {
+        super(name);
+
+        if (name.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_NAME);
+        }
+        if (from.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_FROM);
+        }
+        if (to.isEmpty()) {
+            throw new InvalidArgumentException(INVALID_TO);
+        }
+
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeException e) {
+            throw new DateTimeException(INVALID_DATE_FORMAT);
+        }
     }
 
     @Override

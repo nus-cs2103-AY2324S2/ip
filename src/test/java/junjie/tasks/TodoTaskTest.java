@@ -21,7 +21,7 @@ public class TodoTaskTest {
     @Test
     public void testFileConversion() throws InvalidArgumentException {
         TodoTask todo = new TodoTask("read book");
-        assertEquals("T | 0 | read book", todo.toFileString());
+        assertEquals("T | 0 | read book | ", todo.toFileString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TodoTaskTest {
     public void testMarkAsDoneAndFileConversion() throws InvalidArgumentException {
         TodoTask todo = new TodoTask("read book");
         todo.markDone(true);
-        assertEquals("T | 1 | read book", todo.toFileString());
+        assertEquals("T | 1 | read book | ", todo.toFileString());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class TodoTaskTest {
         TodoTask todo = new TodoTask("read book");
         todo.markDone(true);
         todo.markDone(false);
-        assertEquals("T | 0 | read book", todo.toFileString());
+        assertEquals("T | 0 | read book | ", todo.toFileString());
     }
 
 }

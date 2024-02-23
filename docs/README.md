@@ -22,16 +22,17 @@ There are 3 types of tasks you can add to Jun Jie.
 3. **Event**: A task that starts at a specific time and ends at a specific time.
 
 Format:
-1. `todo [taskname]` for todo tasks.
-2. `deadline [taskname] /by [date]` for deadlines tasks.
-3. `event [taskname] /from [date] /to [date]` for event tasks.
+1. `todo TASK_NAME [/tag TAGS]` for todo tasks.
+2. `deadline TASK_NAME /by DATE [/tag TAGS]` for deadlines tasks.
+3. `event TASK_NAME /from DATE /to DATE [/tag TAGS]` for event tasks.
 
-The datetime should be in the format `yyyy-mm-dd`.
+The date should be in the format `yyyy-mm-dd`.
 
 Examples:
 1. `todo read book`
 2. `deadline return book /by 2021-09-30`
 3. `event project meeting /from 2021-09-29 /to 2021-09-30`
+4. `todo buy milk /tag groceries`
 
 ## Deleting tasks: `delete`
 

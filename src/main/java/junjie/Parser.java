@@ -77,6 +77,9 @@ public class Parser {
      * @return array of strings containing tags
      */
     public static String[] splitTags(String input) {
+        if (input == null) {
+            return new String[0];
+        }
         return input.split(" ");
     }
 
