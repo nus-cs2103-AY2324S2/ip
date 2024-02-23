@@ -60,11 +60,11 @@ public class UI {
      * Prints an overview text of matching tasks found in the tasklist.
      */
     public void listMatchingText(ArrayList<Task> t) {
-        String toUserUponMatching = "Here are the matching tasks in your list:";
+        String toUserUponMatching = "Here are the matching tasks in your list: " + "\n";
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < t.size(); i++) {
             System.out.println((i + 1) + "." + t.get(i).toString());
-            toUserUponMatching += (i + 1) + "." + t.get(i).toString();
+            toUserUponMatching += (i + 1) + "." + t.get(i).toString() + "\n";
         }
         response.add(toUserUponMatching);
     }
