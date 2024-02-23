@@ -99,7 +99,7 @@ public class Handler {
 
         for (String d : allDates) {
             try {
-                return LocalDate.parse(date, DateTimeFormatter.ofPattern(d));
+                return LocalDate.parse(date.strip(), DateTimeFormatter.ofPattern(d));
             } catch (DateTimeParseException dt) {
                 // Don't catch exception as it is still trying different combinations
             }
