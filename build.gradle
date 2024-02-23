@@ -50,7 +50,7 @@ test {
 
 application {
     mainClassName = 'duck.Duck';
-    mainClass.set("duck.Duck")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
