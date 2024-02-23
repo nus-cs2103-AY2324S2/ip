@@ -147,19 +147,23 @@ public class Parser {
 
     private void handleEvent(TaskList tasks, String description, Ui ui, String[] dateFormats,
                              String[] elems, String line) {
-        String[] fromto = elems[1].split("/", 3);
+        //String[] fromto = elems[1].split("/", 3);
+        String[] fromto = elems[1].trim().split("/from", 2);
+        String[] from = fromto[1].trim().split("\\s*/to\\s*", 2);
+
+        //String[] to = from[1];
         LocalDate fromDate = null;
         LocalDate toDate = null;
         for (String format : dateFormats) {
             try {
-                fromDate = LocalDate.parse(fromto[1], DateTimeFormatter.ofPattern(format));
-                toDate = LocalDate.parse(fromto[2], DateTimeFormatter.ofPattern(format));
+                fromDate = LocalDate.parse(from[0], DateTimeFormatter.ofPattern(format));
+                toDate = LocalDate.parse(from[1], DateTimeFormatter.ofPattern(format));
                 break;
-            } catch (DateTimeParseException ignored) {
-                ;
+            } catch (DateTimeParseException e) {
+                System.out.println("Parsing error: " + e.getMessage());
             }
         }
-        if (toDate != null & fromDate != null) {
+        if (toDate != null && fromDate != null) {
             Task e = new Event(fromto[0], fromDate, toDate);
             ui.printMessage("Got it. I've added this task:");
             ui.printMessage(e.toString());
@@ -167,7 +171,7 @@ public class Parser {
             ui.printMessage("Now you have " + tasks.size() + " task(s) in your list!");
             ui.printMessage(line);
         } else {
-            ui.printMessage("Invalid date and time format -_-");
+            ui.printMessage("Invalid date and time format!! -_-");
         }
     }
 
