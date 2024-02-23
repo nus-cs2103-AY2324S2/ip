@@ -163,6 +163,7 @@ Sorry there are no current matches in your list! :(
 It means that there are no matching tasks in your list.
 ## 2. Editing a task
 > Please take note that you can ***only edit 1 attribute per command***.
+
 ### Editing task name
 To edit the task name simply input:
 `edit <Task index number> /task <new task name>`
