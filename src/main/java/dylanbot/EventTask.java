@@ -2,6 +2,7 @@ package dylanbot;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Represents a Task of type E == EventTask
@@ -24,6 +25,12 @@ class EventTask extends Task {
         this.to = to;
     }
 
+    public EventTask(String desc, ArrayList<String> tags, LocalDateTime from, LocalDateTime to) {
+        super("E", desc, tags);
+        this.from = from;
+        this.to = to;
+    }
+
     public LocalDateTime getFrom() {
         return from;
     }
@@ -37,6 +44,7 @@ class EventTask extends Task {
         return "[" + this.getType() + "] "
                 + (this.checkCompleted() ? "[X]" : "[ ]")
                 + " " + this.getDesc()
-                + " (from: " + from.format(printFormat) + " to: " + to.format(printFormat) + ")";
+                + " (from: " + from.format(printFormat) + " to: " + to.format(printFormat) + ")"
+                + "\n\ttag(s): " + this.getTags();
     }
 }

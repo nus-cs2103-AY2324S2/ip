@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ public class TaskListTest {
      */
     @Test
     public void createTodoTask_success() {
-        TaskList tl = new TaskList(new ArrayList<>(), new Ui());
+        TaskList tl = new TaskList(new ArrayList<>(), new HashMap<>(), new Ui());
         Task testTask = new TodoTask("testing");
         tl.createTodo("testing");
         assertEquals(tl.getSize(), 1);
@@ -30,7 +31,7 @@ public class TaskListTest {
      */
     @Test
     public void markTask_success() {
-        TaskList tl = new TaskList(new ArrayList<>(), new Ui());
+        TaskList tl = new TaskList(new ArrayList<>(), new HashMap<>(), new Ui());
         tl.createTodo("testing");
         assertFalse(tl.getTask(1).checkCompleted());
         tl.mark(1);
