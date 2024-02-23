@@ -5,6 +5,14 @@ plugins {
     id 'checkstyle'
 }
 
+//jar {
+//    manifest {
+//        attributes(
+//                'Main-Class': 'com.cruisey.ui.Launcher'
+//        )
+//    }
+//}
+
 checkstyle {
     toolVersion = '10.2'
 }
@@ -55,14 +63,14 @@ test {
 
 application {
     //mainClass.set("seedu.duke.ui.Launcher") //mainClassName
-    mainClassName = "seedu.duke.ui.Launcher"
+    mainClassName = "seedu.cruisey.ui.Launcher"
 }
 
 shadowJar {
-    archiveBaseName = "duke.ui.Launcher"
+    archiveBaseName = "cruisey.ui.Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.ui.Launcher.jar'
+    archiveFileName = 'cruisey.ui.Launcher.jar'
 }
 
 run{

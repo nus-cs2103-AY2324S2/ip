@@ -26,14 +26,18 @@ import cruisey.ui.Ui;
  * It uses a specific file format to store task details in a text file.
  */
 public class Storage {
-    /** The file path for saving and loading tasks. */
+    /**
+     * The file path for saving and loading tasks.
+     */
     static final String FILE_PATH = "./data/duke.txt";
     private static File file = new File(FILE_PATH);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    /** The TaskList used to store tasks during the program's execution. */
+    /**
+     * The TaskList used to store tasks during the program's execution.
+     */
     private Ui ui = new Ui();
-    private TaskList taskList = new TaskList(new ArrayList <Task>(), this.ui);
+    private TaskList taskList = new TaskList(new ArrayList<Task>(), this.ui);
 
     /**
      * Saves the tasks from the given TaskList to the data file specified by FILE_PATH.
@@ -86,8 +90,10 @@ public class Storage {
      */
     public String storeToDo(Task task) {
         return task.getType() + " | " + (task.getStatusIcon().equals("X") ? TaskStatus.DONE : TaskStatus.NOT_DONE)
-                + " | " + task.getDescription();
+                + " | " + task.getDescription() + " | " + (task.getPriority() != null ? "Priority: "
+                + task.getPriority() : " ");
     }
+
     /**
      * Generates a formatted string representation of a Deadline task for storage.
      *
@@ -105,6 +111,7 @@ public class Storage {
 
             text += " | " + formattedDateTime;
         }
+        text += " | " + (task.getPriority() != null ? "Priority: " + task.getPriority() : " ");
         return text;
     }
 
@@ -124,7 +131,8 @@ public class Storage {
         String toString = (event.getToTime() != null)
                 ? event.getToTime().format(formatter) : (event.getToString() != null ? event.getToString() : "");
 
-        return text += " | " + fromString + " - " + toString;
+        return text += " | " + fromString + " - " + toString
+                + " | " + (task.getPriority() != null ? "Priority: " + task.getPriority() : " ");
     }
 
 
@@ -155,7 +163,7 @@ public class Storage {
 
     /**
      * Parses a line from the data file and converts it into a Task object.
-     *
+     * <p>
      * The method splits the input line using the "|" delimiter and extracts the task type, description, and additional
      * information. It then uses a switch statement to determine the task type and delegates the parsing to specific
      * methods.
@@ -168,15 +176,15 @@ public class Storage {
         String[] parts = line.split("\\|");
         TaskType taskType = TaskType.valueOf(parts[0].trim());
         String description = parts[2].trim();
-        String additionalInfo = (parts.length > 3) ? parts[3].trim() : null;
-
+        String additionalInfo = (parts.length > 3 ) ? parts[3].trim() : null;
+        String priority = (parts.length > 4 ) ? parts[4].trim() : null;
         switch (taskType) {
         case T:
             return parseToDoTask(description, additionalInfo);
         case D:
-            return parseDeadlineTask(description, additionalInfo);
+            return parseDeadlineTask(description, additionalInfo, priority);
         case E:
-            return parseEventTask(description, additionalInfo);
+            return parseEventTask(description, additionalInfo, priority);
         default:
             return new Task(null, null, null);
         }
@@ -184,11 +192,11 @@ public class Storage {
 
     /**
      * Parses a ToDo task from the given description and additional information.
-     *
+     * <p>
      * The method extracts the priority from the additional information and creates a new ToDo task.
      *
-     * @param description     The description of the ToDo task.
-     * @param additionalInfo  The additional information containing priority.
+     * @param description    The description of the ToDo task.
+     * @param additionalInfo The additional information containing priority.
      * @return A ToDo task parsed from the description and additional information.
      * @throws CruiseyException If there is an issue parsing the ToDo task.
      */
@@ -199,43 +207,43 @@ public class Storage {
 
     /**
      * Parses a Deadline task from the given description and additional information.
-     *
+     * <p>
      * The method extracts the 'by' information and priority from the additional information and creates a new Deadline
      * task.
      *
-     * @param description     The description of the Deadline task.
-     * @param additionalInfo  The additional information containing 'by' and priority.
+     * @param description    The description of the Deadline task.
+     * @param additionalInfo The additional information containing 'by' and priority.
      * @return A Deadline task parsed from the description and additional information.
      * @throws CruiseyException If there is an issue parsing the Deadline task.
      */
-    private Task parseDeadlineTask(String description, String additionalInfo) throws CruiseyException {
+    private Task parseDeadlineTask(String description, String additionalInfo, String Priority) throws CruiseyException {
         String by = additionalInfo;
-        TaskPriority priority = parsePriority(by);
+        TaskPriority priority = parsePriority(Priority);
         return new Deadline(description, by, ui, priority);
     }
 
     /**
      * Parses an Event task from the given description and additional information.
-     *
+     * <p>
      * The method extracts the 'from,' 'to,' and priority information from the additional information and creates
      * a new Event task.
      *
-     * @param description     The description of the Event task.
-     * @param additionalInfo  The additional information containing 'from,' 'to,' and priority.
+     * @param description    The description of the Event task.
+     * @param additionalInfo The additional information containing 'from,' 'to,' and priority.
      * @return An Event task parsed from the description and additional information.
      * @throws CruiseyException If there is an issue parsing the Event task.
      */
-    private Task parseEventTask(String description, String additionalInfo) throws CruiseyException {
+    private Task parseEventTask(String description, String additionalInfo, String Priority) throws CruiseyException {
         String[] parts = additionalInfo.split("-");
         String from = parts[0].trim();
         String to = parts[1].trim();
-        TaskPriority priority = parsePriority(to);
+        TaskPriority priority = parsePriority(Priority);
         return new Event(description, from, to, ui, priority);
     }
 
     /**
      * Parses the priority information from the given string.
-     *
+     * <p>
      * The method checks if the input string starts with the priority marker ("/p"). If it does, it extracts the
      * priority
      * string and converts it into a TaskPriority enum value.
@@ -244,9 +252,15 @@ public class Storage {
      * @return The TaskPriority enum value parsed from the input string, or null if no priority is found.
      */
     private TaskPriority parsePriority(String info) {
-        if (info != null && info.startsWith(TaskPriority.PRIORITY_MARKER)) {
-            String priorityString = info.substring(TaskPriority.PRIORITY_MARKER.length()).trim();
-            return TaskPriority.valueOf(priorityString);
+        if (info != null && info.contains("Priority:")) {
+            String[] parts = info.split("Priority:");
+            String priorityString = parts[1].trim();
+            System.out.println("Priority String: " + priorityString);
+            try {
+                return TaskPriority.valueOf(priorityString.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
         }
         return null;
     }
