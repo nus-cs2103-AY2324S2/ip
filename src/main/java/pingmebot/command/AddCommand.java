@@ -35,7 +35,6 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws PingMeException {
         tasks.addTask(task);
-        tasks.updateTaskToStorage(storage);
         ui.additionToTasksText(task, tasks);
     }
 

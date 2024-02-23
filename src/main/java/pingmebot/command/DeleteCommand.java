@@ -34,7 +34,6 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws PingMeException {
         ui.deletionToTasksText(taskNumber, tasks);
-        tasks.updateTaskToStorage(storage);
     }
 
     /**

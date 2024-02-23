@@ -1,0 +1,6 @@
+todo | 0 | proj
+deadline | 0 | jkjk | May 05 2024 1800
+todo | 0 | dasds
+todo | 1 | dsadsa
+event | 0 | dsads | 1800 | 1900
+deadline | 0 | a | Jan 01 2000 1800

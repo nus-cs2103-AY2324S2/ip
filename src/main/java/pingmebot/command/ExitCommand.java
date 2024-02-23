@@ -20,6 +20,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws PingMeException {
+        tasks.updateTaskToStorage(storage);
         ui.sayGoodbye();
     }
 }

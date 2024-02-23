@@ -5,7 +5,7 @@ import pingmebot.PingMeException;
 import pingmebot.Storage;
 import pingmebot.TaskList;
 import pingmebot.UI;
-import pingmebot.task.Deadline;
+
 
 
 /**
@@ -47,7 +47,6 @@ public class PostponeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws PingMeException {
         tasks.postponeTask(taskNumber, timingStart, timingEnd, by);
-        tasks.updateTaskToStorage(storage);
         ui.postponeTaskText(taskNumber, tasks);
     }
 

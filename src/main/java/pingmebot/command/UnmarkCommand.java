@@ -30,7 +30,6 @@ public class UnmarkCommand extends Command {
      * @throws PingMeException If an error occurs during the execution process.
      */
     public void execute(TaskList tasks, Storage storage, UI ui) throws PingMeException {
-        tasks.updateTaskToStorage(storage);
         ui.unmarkTaskText(taskNumber, tasks);
     }
 

@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("pingmebot.PingMe")
+    mainClass.set("pingmebot.Launcher")
 }
 
 shadowJar {

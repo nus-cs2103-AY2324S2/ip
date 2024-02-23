@@ -135,6 +135,16 @@ public class TaskList {
                              String timingEnd, LocalDateTime by) throws PingMeException {
         Task t = tasks.get(taskNum);
 
+        if (t instanceof Deadline && by == null) {
+            throw new PingMeException("You might have keyed in the details meant for"
+                    + " events task as the deadline task");
+        }
+
+        if (t instanceof Events && timingStart.isEmpty() && timingEnd.isEmpty()) {
+            throw new PingMeException("You might have keyed in the details meant for"
+                    + " deadline task as the events task");
+        }
+
         if (t instanceof Deadline) {
             Deadline d = (Deadline) t;
             d.setDeadlineByTiming(by);

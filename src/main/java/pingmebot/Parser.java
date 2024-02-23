@@ -129,10 +129,6 @@ public class Parser {
             }
         }
 
-        System.out.println("By:" + by.toString());
-        System.out.println("Description:" + description.toString());
-
-
         if (by.toString().isEmpty() || description.toString().isEmpty()) {
             throw new PingMeException("You have missing fields! "
                     + "You need a task description & a deadline to finish your task, try again!");
@@ -186,7 +182,6 @@ public class Parser {
             throw new PingMeException("You having missing fields! "
                     + "You need a task description, start and end date/time for your task, try again!");
         }
-
         return new AddCommand(new Events(description.toString().strip(),
                 start.toString().strip(), end.toString().strip()));
     }
@@ -209,13 +204,17 @@ public class Parser {
                     + "Please specify the task you wish to mark and try again!");
         }
 
-        if (Integer.parseInt(words.get(1)) > currentNumOfTask
-                || Integer.parseInt(words.get(1)) <= 0) {
-            throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
-                    + "You cannot mark task larger or smaller than this!");
-
-        } else {
-            return new MarkCommand(Integer.parseInt(words.get(1)) - 1);
+        String taskNumberToMark = words.get(1);
+        try {
+            int taskNumber = Integer.parseInt(taskNumberToMark);
+            if (taskNumber > currentNumOfTask || taskNumber <= 0) {
+                throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                        + "You cannot mark a task larger than this or smaller than 1!");
+            } else {
+                return new MarkCommand(taskNumber - 1);
+            }
+        } catch (NumberFormatException e) {
+            throw new PingMeException("Invalid task number. '" + taskNumberToMark + "' is not a valid integer.");
         }
     }
 
@@ -237,15 +236,18 @@ public class Parser {
                     + "Please specify the task you wish to un-mark and try again!");
         }
 
-        if (Integer.parseInt(words.get(1)) > currentNumOfTask
-                || Integer.parseInt(words.get(1)) <= 0) {
-            throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
-                    + "You cannot un-mark task larger or smaller than this!");
-
-        } else {
-            return new UnmarkCommand(Integer.parseInt(words.get(1)) - 1);
+        String taskNumberToMark = words.get(1);
+        try {
+            int taskNumber = Integer.parseInt(taskNumberToMark);
+            if (taskNumber > currentNumOfTask || taskNumber <= 0) {
+                throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                        + "You cannot un-mark a task larger than this or smaller than 1!");
+            } else {
+                return new UnmarkCommand(taskNumber - 1);
+            }
+        } catch (NumberFormatException e) {
+            throw new PingMeException("Invalid task number. '" + taskNumberToMark + "' is not a valid integer.");
         }
-
     }
 
     /**
@@ -266,13 +268,19 @@ public class Parser {
                     + "you want to delete and try again!");
         }
 
-        if (Integer.parseInt(words.get(1)) > currentNumOfTask
-                || Integer.parseInt(words.get(1)) <= 0) {
-            throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
-                    + "You cannot delete task larger or smaller than this!");
-        } else {
-            return new DeleteCommand(Integer.parseInt(words.get(1)) - 1);
+        String taskNumberToMark = words.get(1);
+        try {
+            int taskNumber = Integer.parseInt(taskNumberToMark);
+            if (taskNumber > currentNumOfTask || taskNumber <= 0) {
+                throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                        + "You cannot delete task larger than this or smaller than 1!");
+            } else {
+                return new DeleteCommand(taskNumber - 1);
+            }
+        } catch (NumberFormatException e) {
+            throw new PingMeException("Invalid task number. '" + taskNumberToMark + "' is not a valid integer.");
         }
+
     }
 
     /**
@@ -319,18 +327,33 @@ public class Parser {
 
         if (indexOfFrom != -1) {
             if (indexOfTo == -1) {
-                throw new PingMeException("Make sure to include "
-                        + "/from ___ /to ___ for events object");
+                throw new PingMeException("Make sure to include /by ___ for deadline task"
+                        + " and /from ___  /to ___ for events task");
             }
         } else if (indexOfBy == -1) {
-            throw new PingMeException("Make sure to include /by ___ for deadline object"
-                    + "and /from ___ /to ___ for events object");
+            throw new PingMeException("Make sure to include /by ___ for deadline task"
+                    + " and /from ___  /to ___ for events task");
         }
+        PostponeCommand pc = userCommandToPostponeCommand(taskToPostpone, indexOfBy, indexOfFrom, indexOfTo);
+        return pc;
+    }
 
+
+    /**
+     * Returns a postpone command object after retrieving all the necessary timings from user input.
+     *
+     * @param taskToPostpone The task number the user wants to postpone.
+     * @param indexOfBy The index of the word 'by' from user input.
+     * @param indexOfFrom The index of the word 'from' from user input.
+     * @param indexOfTo The index of the word 'to' from user input.
+     * @return A postpone command.
+     * @throws PingMeException If the user inputs the deadline time format wrongly or has an invalid command.
+     */
+    public PostponeCommand userCommandToPostponeCommand(int taskToPostpone, int indexOfBy,
+                                                        int indexOfFrom, int indexOfTo) throws PingMeException {
         StringBuilder from = new StringBuilder();
         StringBuilder to = new StringBuilder();
         StringBuilder by = new StringBuilder();
-
         if (words.size() < 6) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             for (int i = 2; i < words.size(); i++) {
@@ -338,10 +361,14 @@ public class Parser {
                     by.append(" ").append(words.get(i));
                 }
             }
-            return new PostponeCommand(taskToPostpone - 1, " ", " ",
-                    LocalDateTime.parse(by.toString().trim(), formatter));
+            try {
+                return new PostponeCommand(taskToPostpone - 1, "", "",
+                        LocalDateTime.parse(by.toString().trim(), formatter));
+            } catch (DateTimeParseException e) {
+                throw new PingMeException("Input your deadline by time in the"
+                        + " d/M/yyyy HHmm format");
+            }
         }
-
         if (words.size() > 5) {
             for (int i = 2; i < words.size(); i++) {
                 if (i > indexOfFrom && i < indexOfTo) {
@@ -350,9 +377,10 @@ public class Parser {
                     to.append(words.get(i));
                 }
             }
-            return new PostponeCommand(taskToPostpone - 1, from.toString().trim()
-                    , to.toString().trim(), null);
+            return new PostponeCommand(taskToPostpone - 1, from.toString().trim(),
+                    to.toString().trim(), null);
         }
         throw new PingMeException("Try again with your command!");
     }
+
 }

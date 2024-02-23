@@ -58,6 +58,18 @@ Now you have X tasks in the list.
 
 where X is the current total number of tasks in your task list
 
+## Saving your task: `bye`
+
+This command will save all your tasks internally in a file. Bot will say bye to you.
+
+> Format: `bye`
+
+Example: `bye`
+
+```
+Bye. Hope to see you again soon!
+```
+
 
 ## Viewing all tasks: `list`
 

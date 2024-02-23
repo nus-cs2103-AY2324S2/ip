@@ -7,7 +7,7 @@ import pingmebot.command.Command;
  * It allows user to interact with it via command line interface.
  */
 public class PingMe {
-    protected static String filePath = "./data/dukeData.txt";
+    protected static String filePath = "./data/PingMeData.txt";
     private Storage storage;
     private TaskList tasks;
     private UI ui;
