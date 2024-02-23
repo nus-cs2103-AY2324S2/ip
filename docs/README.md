@@ -14,6 +14,21 @@
 
 Joy is a task managing chatbot. Use Joy to store your daily tasks and manage your life!
 
+To test out Joy, download her from [here](https://github.com/yashma-sonara/ip/releases/tag/A-Release)!
+
+
+Running the file
+
+1. Download the joy.jar
+2. Open cmd, and navigate to the directory in which you have downloaded the joy.jar file.
+3. Run the following command
+ 
+```
+java -jar joy.jar
+```
+
+
+
 # Features
  - [x] Adding tasks
  - [X] Viewing task list 
