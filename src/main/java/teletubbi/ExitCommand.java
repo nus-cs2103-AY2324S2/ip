@@ -23,6 +23,6 @@ public class ExitCommand extends Command {
         } catch (TeletubbiException e) {
             ui.showMessage("Unable to save :(");
         }
-        return "";
+        return "Bye! Hope to see u again <3";
     }
 }

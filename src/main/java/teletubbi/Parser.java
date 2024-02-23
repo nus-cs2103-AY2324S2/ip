@@ -21,6 +21,9 @@ public class Parser {
     public Command parse(String input) throws TeletubbiException {
         String cleanedInput = input.replaceAll(" ", "");
 
+        if (cleanedInput.equals("help")) {
+            return new HelpCommand();
+        }
         if (cleanedInput.equals("bye")) {
             return new ExitCommand();
         }
