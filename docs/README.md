@@ -113,7 +113,7 @@ Changes the priority of an existing task.
 
 Format: `change_priority <task index> <new priority>`
 
-- Task index needs to refer to an existing task in the list.
+- Task index needs to refer to an existing number in the displayed list when `list` is called.
 - New priority value should be in the range of 0 to 5.
 
 Example:
