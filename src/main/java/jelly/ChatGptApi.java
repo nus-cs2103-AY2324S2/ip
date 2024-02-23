@@ -7,8 +7,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Class containing code for ChatGPTApi response generation
+ */
 public class ChatGptApi {
 
+    /**
+     * @param prompt Prompt to generate response with
+     * @return String containing ChatGPT response
+     */
     public static String chatGptResponse(String prompt) {
 
         String url = "https://api.openai.com/v1/chat/completions";
@@ -88,6 +95,10 @@ public class ChatGptApi {
         }
     }
 
+    /**
+     * @param response Initial response given by ChatGPT API
+     * @return Extracted response from ChatGPT
+     */
     public static String extractResponse(String response) {
 
         int start = response.indexOf("content") + 11;

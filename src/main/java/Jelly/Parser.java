@@ -25,14 +25,6 @@ public class Parser {
     }
 
     /**
-     * Reads each input given by user until user sends a terminating message
-     */
-    public void loop() {
-
-
-    }
-
-    /**
      * Reads a single user command/message and parses it.
      *
      * @return initial message given by user (first word)

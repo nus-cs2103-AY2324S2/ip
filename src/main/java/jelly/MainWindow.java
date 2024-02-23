@@ -51,6 +51,13 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(initialDialog);
     }
 
+    /**
+     * @param duration Duration of animation
+     * @param from Starting scale
+     * @param to Ending scale
+     * @param delay Duration of delay
+     * @param dialog Dialog box to animate
+     */
     public void scaleAnimation(double duration, double from, double to, double delay, DialogBox dialog) {
 
         ScaleTransition r = new ScaleTransition();
@@ -85,6 +92,14 @@ public class MainWindow extends AnchorPane {
         String[] lines = line.split(" ", 2);
 
         String emotion = lines[0];
+
+        if (lines.length == 1) {
+
+            lines = new String[]{emotion, "I'm not sure what to say."};
+        }
+
+        assert(lines.length == 2);
+
         String response = lines[1];
 
         Image mood;

@@ -102,6 +102,10 @@ public class TaskList {
      */
     public String deleteTask(Integer index) {
 
+        if (index <= 0 || index > tasks.size()) {
+
+            return "Please input a valid index!";
+        }
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
         return "Noted, I've removed this task:\n" + task + "\n" + listSize();
@@ -112,8 +116,13 @@ public class TaskList {
      */
     public String markTask(Integer index) {
 
+        if (index <= 0 || index > tasks.size()) {
+
+            return "Please input a valid index!";
+        }
         Task task = tasks.get(index - 1);
         task.mark();
+        assert(task.isDone());
         return "Nice, I've marked this task as done:\n" + task;
     }
 
@@ -122,8 +131,13 @@ public class TaskList {
      */
     public String unmarkTask(Integer index) {
 
+        if (index <= 0 || index > tasks.size()) {
+
+            return "Please input a valid index!";
+        }
         Task task = tasks.get(index - 1);
         task.unmark();
+        assert(!task.isDone());
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 
