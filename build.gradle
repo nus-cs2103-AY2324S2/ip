@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("asher.Asher")
+    mainClass.set("asher.Asher.Launcher")
 }
 
 shadowJar {

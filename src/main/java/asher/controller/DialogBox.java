@@ -35,7 +35,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
         dialog.setStyle("-fx-background-color: #e1ecf4; "
             + "-fx-background-radius: 10; "
