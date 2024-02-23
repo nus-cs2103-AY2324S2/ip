@@ -15,6 +15,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private AtsisBot atsisBot = new AtsisBot();
 
+    /**
+     * This method is called when the application is launched.
+     * It initializes the main window by loading the FXML file,
+     * setting the scene, and displaying the stage.
+     *
+     * @param stage the primary stage for the application
+     */
     @Override
     public void start(Stage stage) {
         try {

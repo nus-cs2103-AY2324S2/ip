@@ -97,6 +97,9 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Represents a task.
+     */
     private static Task processTodo(String[] taskInfo) {
         if (taskInfo.length != 4) {
             System.out.println("Invalid todo format in the atsisbot.task list");
