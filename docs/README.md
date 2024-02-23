@@ -172,6 +172,8 @@ Great! There is no duplicates in the task list.
 ### 5. Find Tasks
 BotYue can help you find the tasks that contains the keyword you provided.
 
+This command is __case sensitive__, and __not full-text search__.
+
 __Command format__:
 
 ### `find <keyword>` 
