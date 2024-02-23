@@ -11,7 +11,7 @@ public class Parser {
     }
 
     /**
-     * Interprets the instance-level userInput field by checking for double spacing and structure it to the
+     * Interprets the instance-level userInput field by checking for double-spacing and structure it to the
      * different information types
      *
      * @return An array of stringbuilders containing the various information required

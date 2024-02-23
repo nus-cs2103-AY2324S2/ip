@@ -14,7 +14,6 @@ public class Gandalf {
     public Gandalf() {
 
     }
-
     /**
      * Takes in two paths as it uses two files for its store/load feature. One file is for loading any existing lists,
      * and another file is meant to be readable in a .txt file
@@ -42,6 +41,7 @@ public class Gandalf {
                 filteredList.add(numOfFiltered, action);
                 numOfFiltered++;
             }
+            assert(i != tasks.getList().size());
         }
         for(int i = 0; i < filteredList.size(); i++) {
             Task action = filteredList.get(i);
@@ -75,7 +75,11 @@ public class Gandalf {
                 System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
             }
             else if(parsedInput[0].toString().trim().equals("delete")){
-                tasks.delete(parsedInput[1].toString().trim());
+                try {
+                    tasks.delete(parsedInput[1].toString().trim());
+                } catch(GandalfException e) {
+                    //Prompt handled in target class
+                }
                 storage.store(tasks.getList());
             }
             else if(parsedInput[0].toString().trim().equals("mark")) {
