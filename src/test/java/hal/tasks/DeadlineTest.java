@@ -13,7 +13,7 @@ public class DeadlineTest {
     private Deadline deadline;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 1, 31, 12, 0);
         deadline = new Deadline("Finish Assignment", dateTime, false);
     }

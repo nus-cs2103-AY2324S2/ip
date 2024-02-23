@@ -16,7 +16,7 @@ public class EventTest {
     private Event event;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         LocalDateTime fromDateTime = LocalDateTime.of(2024, 1, 31, 10, 0);
         LocalDateTime toDateTime = LocalDateTime.of(2024, 1, 31, 12, 0);
         event = new Event("Meeting", fromDateTime, toDateTime, false);

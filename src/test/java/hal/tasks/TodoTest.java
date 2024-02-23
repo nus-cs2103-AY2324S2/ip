@@ -10,7 +10,7 @@ public class TodoTest {
     private Todo todo;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         todo = new Todo("Buy groceries", false);
     }
 

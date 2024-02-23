@@ -35,8 +35,6 @@ application {
 
 shadowJar {
     archiveBaseName = "hal"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
     archiveVersion = "0.2"
 }
 

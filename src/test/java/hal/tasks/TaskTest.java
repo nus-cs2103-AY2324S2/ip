@@ -16,7 +16,7 @@ public class TaskTest {
     private Task task;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         task = new ConcreteTask("Test Task", false);
     }
 
