@@ -11,7 +11,7 @@ import duke.tasks.Task;
  */
 public class UI {
     private static final String[] token = new String[]{
-        "Hello! I'm chinesepoliceman",
+        "Hello! I'm chinesePoliceman",
         "What can I do for you?",
         " Bye. Hope to see you again soon!"
     };
