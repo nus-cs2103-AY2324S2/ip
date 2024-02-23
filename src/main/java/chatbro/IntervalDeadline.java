@@ -20,7 +20,15 @@ public class IntervalDeadline extends Task {
         this.startInterval = startInterval;
         this.endInterval = endInterval;
     }
-    public IntervalDeadline(String description, String startInterval, String endInterval, boolean isDone) { // Overloaded constructor: loading from file
+
+    /**
+     * Overloaded constructor for loading from file, with extra 'isDone' parameter.
+     * @param description Description of IntervalDeadline object.
+     * @param startInterval the starting time of the interval deadline.
+     * @param endInterval the ending time of the interval deadline.
+     * @param isDone Status of IntervalDeadline object.
+     */
+    public IntervalDeadline(String description, String startInterval, String endInterval, boolean isDone) {
         super(description, isDone);
         type = "I";
         this.startInterval = startInterval;

@@ -1,5 +1,7 @@
 package chatbro;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,15 +13,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
 
+/**
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face and
+ * a Label containing text from the speaker.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
-    public DialogBox(String l, Image img) {
+    /**
+     * Constructor for chatbro.DialogBox.
+     * @param str Text to be displayed in the dialog box.
+     * @param img Image to be displayed in the dialog box.
+     */
+    public DialogBox(String str, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
                 MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -30,7 +40,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(l);
+        dialog.setText(str);
         displayPicture.setImage(img);
     }
     private void flip() {
@@ -40,12 +50,12 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(String l, Image iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(String str, Image img) {
+        return new DialogBox(str, img);
     }
 
-    public static DialogBox getChatbroDialog(String l, Image iv) {
-        var db = new DialogBox(l, iv);
+    public static DialogBox getChatbroDialog(String str, Image img) {
+        var db = new DialogBox(str, img);
         db.flip();
         return db;
     }

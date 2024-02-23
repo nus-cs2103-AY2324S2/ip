@@ -69,6 +69,15 @@ public class Ui {
         }
         return sb.toString();
     }
+    public static String taskDescEmptyMessage() {
+        return "Hey bro, task description cannot be empty.";
+    }
+    public static String startTimeEmptyMessage() {
+        return "Hey bro, start time cannot be empty.";
+    }
+    public static String endTimeEmptyMessage() {
+        return "Hey bro, end time cannot be empty.";
+    }
     public static String dueByInterval() { // returns String "(due by interval: " in bold and italics
         return " (\uD835\uDC85\uD835\uDC96\uD835\uDC86 \uD835\uDC83\uD835\uDC9A"
             + " \uD835\uDC8A\uD835\uDC8F\uD835\uDC95\uD835\uDC86\uD835\uDC93\uD835\uDC97\uD835\uDC82\uD835\uDC8D: ";

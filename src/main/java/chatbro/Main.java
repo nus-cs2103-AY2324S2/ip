@@ -27,8 +27,8 @@ public class Main extends Application {
             chatBro = new ChatBro();
             fxmlLoader.<MainWindow>getController().setChatBro(chatBro);
             stage.show();
-        } catch (WrongFileFormatException wffe) {
-            showAlert(wffe.getMessage());
+        } catch (WrongFileFormatException wfe) {
+            showAlert(wfe.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

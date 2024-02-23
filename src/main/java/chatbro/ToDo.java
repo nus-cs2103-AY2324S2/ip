@@ -13,7 +13,13 @@ public class ToDo extends Task {
         super(description);
         type = "T";
     }
-    public ToDo(String description, boolean isDone) { // Overloaded constructor: loading from file
+
+    /**
+     * Overloaded constructor for loading from file, with extra 'isDone' parameter.
+     * @param description Description of ToDo object.
+     * @param isDone Boolean indicating whether the task is done.
+     */
+    public ToDo(String description, boolean isDone) {
         super(description, isDone);
         type = "T";
     }

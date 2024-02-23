@@ -93,7 +93,7 @@ public enum Command {
             try {
                 String todoName = todoSplit[1];
                 if (todoName.trim().isEmpty()) { // Empty task description
-                    return "Hey bro, task description cannot be empty.";
+                    return Ui.taskDescEmptyMessage();
                 }
                 Task todo = new ToDo(todoName);
                 String addTaskOutput = TaskManager.addTask(todo);
@@ -115,7 +115,7 @@ public enum Command {
                 String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
                 String deadlineTime = deadlineSplit[1];
                 if (deadlineName.trim().isEmpty()) { // Empty task description (whitespace)
-                    return "Hey bro, task description cannot be empty.";
+                    return Ui.taskDescEmptyMessage();
                 }
                 if (deadlineTime.trim().isEmpty()) { // Empty deadlineTime (whitespace)
                     return "Hey bro, deadline cannot be empty.";
@@ -147,13 +147,13 @@ public enum Command {
                 String startTime = eventToSplit[0];
                 String endTime = eventToSplit[1];
                 if (eventName.trim().isEmpty()) { // Empty task description (whitespace)
-                    return "Hey bro, task description cannot be empty.";
+                    return Ui.taskDescEmptyMessage();
                 }
                 if (startTime.trim().isEmpty()) { // Empty start time (whitespace)
-                    return "Hey bro, the start time cannot be empty.";
+                    return Ui.startTimeEmptyMessage();
                 }
                 if (endTime.trim().isEmpty()) { // Empty end time (whitespace)
-                    return "Hey bro, the end time cannot be empty.";
+                    return Ui.endTimeEmptyMessage();
                 }
                 try {
                     Task event = new Event(eventName,
@@ -183,13 +183,13 @@ public enum Command {
                 String startTime = intervalToSplit[0];
                 String endTime = intervalToSplit[1];
                 if (intervalName.trim().isEmpty()) { // Empty task description (whitespace)
-                    return "Hey bro, task description cannot be empty.";
+                    return Ui.taskDescEmptyMessage();
                 }
                 if (startTime.trim().isEmpty()) { // Empty start time (whitespace)
-                    return "Hey bro, the start time cannot be empty.";
+                    return Ui.startTimeEmptyMessage();
                 }
                 if (endTime.trim().isEmpty()) { // Empty end time (whitespace)
-                    return "Hey bro, the end time cannot be empty.";
+                    return Ui.endTimeEmptyMessage();
                 }
                 try {
                     Task interval = new IntervalDeadline(intervalName,

@@ -20,7 +20,7 @@ public class ChatBro {
         if (!savedTasksSplit[0].isEmpty()) { // savedTasks is not empty, load tasks into taskList
             for (int i = 0; i < length; i++) {
                 String taskString = savedTasksSplit[i];
-                tm.addTask(Database.parseTask(taskString));
+                tm.addTask(Parser.parseTask(taskString));
             }
         }
     }

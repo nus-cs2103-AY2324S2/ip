@@ -11,6 +11,11 @@ import java.nio.file.Paths;
 public class Database {
     private static final String FILE_PATH = "./savedTasks.txt";
     //saveToFile and readFromFile methods adapted from ChatGPT output
+
+    /**
+     * Saves the task list to a file.
+     * @param tasks String representing the task list to be saved.
+     */
     public static void saveToFile(String tasks) {
         try {
             Files.write(Paths.get(FILE_PATH), tasks.getBytes());
@@ -18,7 +23,10 @@ public class Database {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Reads the task list from a file.
+     * @return String representing the task list.
+     */
     public static String readFromFile() {
         try {
             return Files.readString(Paths.get(FILE_PATH));
@@ -37,56 +45,6 @@ public class Database {
             Files.createFile(Paths.get(FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Parses a string into a Task object.
-     * @return chatbro.Task object.
-     */
-    public static Task parseTask(String taskString) throws WrongFileFormatException {
-        try {
-            assert taskString != null;
-            String[] splitString = taskString.split(";;");
-            for (String s : splitString) {
-                if (s.isEmpty()) { // if any information is missing
-                    throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                           + "Please delete the file and restart the program.");
-                }
-            }
-            String type = splitString[0];
-            String status = splitString[1];
-            String description = splitString[2];
-            boolean isDone;
-            if (status.equals("X")) {
-                isDone = true;
-            } else if (status.equals(" ")) {
-                isDone = false;
-            } else {
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                        + "Please delete the file and restart the program.");
-            }
-            switch (type) {
-            case "T":
-                return new ToDo(description, isDone);
-            case "D":
-                String by = splitString[3];
-                return new Deadline(description, by, isDone);
-            case "E":
-                String start = splitString[3];
-                String end = splitString[4];
-                return new Event(description, start, end, isDone);
-            case "I":
-                String startInterval = splitString[3];
-                String endInterval = splitString[4];
-                return new IntervalDeadline(description, startInterval, endInterval, isDone);
-            default:
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                        + "Please delete the file and restart the program.");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                    + "Please delete the file and restart the program.");
         }
     }
 }

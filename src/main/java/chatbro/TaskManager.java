@@ -9,9 +9,13 @@ public class TaskManager {
     private static ArrayList<Task> taskList;
     private static int taskCount = 0;
 
+    /**
+     * Constructor for TaskManager class, with taskList initialized with effective size 100.
+     * Index 0 is left empty (null) for easier 1-based indexing.
+     */
     public TaskManager() {
-        taskList = new ArrayList<>(101); // Index 0 left empty for 1-based indexing
-        taskList.add(null); // First element left empty for 1-based indexing
+        taskList = new ArrayList<>(101); // First index is empty, effective size is 100
+        taskList.add(null);
     }
     /**
      * Deletes a task from the list.

@@ -11,8 +11,8 @@ public class Event extends Task {
      * Constructor for Event class.
      *
      * @param description Description of ChatBro.Event object.
-     * @param startTime the starting time of the Event object.
-     * @param endTime the ending time of the Event object.
+     * @param startTime The starting time of the Event object.
+     * @param endTime The ending time of the Event object.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
@@ -20,6 +20,14 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    /**
+     * Overloaded constructor for loading from file, with extra 'isDone' parameter.
+     * @param description Description of Event object.
+     * @param startTime The starting time of the Event object.
+     * @param endTime The ending time of the Event object.
+     * @param isDone Boolean indicating whether the task is done.
+     */
     public Event(String description, String startTime, String endTime, boolean isDone) { // Overloaded constructor: loading from file
         super(description, isDone);
         type = "E";

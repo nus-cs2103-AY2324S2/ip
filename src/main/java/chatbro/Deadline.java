@@ -16,7 +16,14 @@ public class Deadline extends Task {
         type = "D";
         this.by = by;
     }
-    public Deadline(String description, String by, boolean isDone) { // Overloaded constructor: loading from file
+
+    /**
+     * Overloaded constructor for loading from file, with extra 'isDone' parameter.
+     * @param description Description of Deadline object.
+     * @param by The deadline of Deadline object.
+     * @param isDone Boolean indicating whether the task is done.
+     */
+    public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         type = "D";
         this.by = by;
