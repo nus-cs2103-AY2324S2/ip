@@ -169,9 +169,3 @@ Aurora into, and you will be able to access the same task list.
 
 **A**. Aurora will express that she doesn't understand what you are referring to and provide a list of valid 
 commands for you to use.
-
-## Built with
-
-1. Java
-2. JavaFX
-3. Gradle
