@@ -78,3 +78,35 @@ mark 2
 
 An image example:
 <img src="images/images_mark.png">
+
+## Unmark a task: `unmark`
+Unmark a task that is not done
+
+**Format**: `unmark NUMBER`
+
+Examples:
+```
+unmark 1
+```
+```
+unmark 2
+```
+
+An image example:
+<img src="images/images_unmark.png">
+
+## Delete a task in the list: `delete`
+delete a task in the list
+
+**Format**: `delete NUMBER`
+
+Examples:
+```
+delete 1
+```
+```
+delete 2
+```
+
+An image example:
+<img src="images/images_delete.png">
