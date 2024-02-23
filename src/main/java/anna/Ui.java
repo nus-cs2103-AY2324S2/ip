@@ -1,11 +1,11 @@
-package duke;
+package anna;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
-* The Ui class manages the user interface for the Duke chatbot application.
+* The Ui class manages the user interface for the Anna chatbot application.
 *
 * Provides methods for interacting with the user via stdin and stdout, displaying
 * messages, and processing user commands.
@@ -46,10 +46,10 @@ public class Ui {
     * @param arguments An array of strings representing the arguments for the command.
     * @return {@code true} if the chatbot should continue processing commands,
     *         {@code false} if it should exit.
-    * @throws DukeException
+    * @throws AnnaException
     */
     boolean handleCommand(TaskList tasks, Command command)
-            throws DukeException {
+            throws AnnaException {
         return command.execute(reply, tasks);
     }
 

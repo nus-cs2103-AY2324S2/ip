@@ -1,4 +1,4 @@
-package duke;
+package anna;
 
 import java.util.function.Consumer;
 
@@ -6,7 +6,7 @@ class CommandEnd implements Command {
 
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         reply.accept(BYE_MESSAGE);
         return false;
     }
@@ -21,7 +21,7 @@ class CommandList implements Command {
 
     private static final String LIST_MESSAGE = "Here are the tasks in your list:";
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         reply.accept(LIST_MESSAGE);
         for (int idx = 0; idx < tasks.numberOfTask(); idx++) {
             reply.accept(String.format("  %d.%s", idx + 1, tasks.peekTask(idx)));
@@ -44,10 +44,10 @@ class CommandMark implements Command {
         this.taskIdx = taskIdx;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         String ferr2 = "%s command: no such task numbered %d.";
         if (!tasks.checkTaskIdx(taskIdx)) {
-            throw new DukeException(
+            throw new AnnaException(
                 String.format(ferr2, "mark", taskIdx)
             );
         }
@@ -72,10 +72,10 @@ class CommandUnmark implements Command {
         this.taskIdx = taskIdx;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         String ferr2 = "%s command: no such task numbered %d.";
         if (!tasks.checkTaskIdx(taskIdx)) {
-            throw new DukeException(
+            throw new AnnaException(
                 String.format(ferr2, "unmark", taskIdx)
             );
         }
@@ -101,10 +101,10 @@ class CommandDelete implements Command {
         this.taskIdx = taskIdx;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         String ferr2 = "%s command: no such task numbered %d.";
         if (!tasks.checkTaskIdx(taskIdx)) {
-            throw new DukeException(
+            throw new AnnaException(
                 String.format(ferr2, "delete", taskIdx)
             );
         }
@@ -131,7 +131,7 @@ class CommandTodo implements Command {
         this.taskDesc = taskDesc;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         Task task = TaskFactory.createTodo(taskDesc, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
@@ -155,7 +155,7 @@ class CommandFind implements Command {
         this.query = query;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         reply.accept(FIND_MESSAGE);
         int[] count = { 1 };
         tasks
@@ -184,7 +184,7 @@ class CommandDeadline implements Command {
         this.deadline = deadline;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         Task task = TaskFactory.createDeadline(taskDesc, deadline, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
@@ -214,7 +214,7 @@ class CommandEvent implements Command {
         this.toTime = toTime;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         Task task = TaskFactory.createEvent(taskDesc, fromTime, toTime, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
@@ -242,7 +242,7 @@ class CommandFixedDuration implements Command {
         this.duration = duration;
     }
 
-    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws AnnaException {
         Task task = TaskFactory.createFixedDuration(taskDesc, duration, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);

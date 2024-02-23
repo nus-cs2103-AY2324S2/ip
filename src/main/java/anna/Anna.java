@@ -1,13 +1,13 @@
-package duke;
+package anna;
 
 /**
-* Represents a simple chatbot application called Duke.
+* Represents a simple chatbot application called Anna.
 *
-* Duke is designed to handle and manage tasks through a command-line interface.
+* Anna is designed to handle and manage tasks through a command-line interface.
 * It utilizes a {@link TaskList} to manage tasks, interacts with the user through a
 * {@link Ui} for input/output, and persists task data using a {@link Storage} object.
 *
-* The main functionality of Duke involves processing user commands to perform various
+* The main functionality of Anna involves processing user commands to perform various
 * operations on the task list, such as adding, deleting, and marking tasks as done.
 *
 * The chatbot's behavior is encapsulated within the {@code run} method, where it
@@ -18,7 +18,7 @@ package duke;
 * @see Ui
 * @see Storage
 */
-public class Duke {
+public class Anna {
 
     private TaskList tasks;
     private Ui ui;
@@ -26,17 +26,17 @@ public class Duke {
     private boolean isContinue;
 
     /**
-    * Constructs a Duke object with the specified folder path and file name for storage.
+    * Constructs a Anna object with the specified folder path and file name for storage.
     *
     * @param folderPath The folder path for storing task data.
     * @param fileName   The file name for storing task data.
     */
-    public Duke(String folderPath, String fileName) {
+    public Anna(String folderPath, String fileName) {
         ui = new Ui();
         storage = new Storage(folderPath, fileName);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (AnnaException e) {
             tasks = new TaskList();
         }
     }
@@ -54,14 +54,14 @@ public class Duke {
     }
 
     /**
-    * Runs the Duke chatbot application.
+    * Runs the Anna chatbot application.
     */
     public String getReply(String userInput) {
         try {
             Command cmd = Parser.parseCommand(userInput);
             isContinue = ui.handleCommand(tasks, cmd);
             storage.save(tasks.getStoredTasks());
-        } catch (DukeException e) {
+        } catch (AnnaException e) {
             ui.flushBuffer();
             ui.error(e.getMessage());
         }

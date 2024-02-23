@@ -8,15 +8,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Anna using FXML.
  */
-public class DukeApplication extends Application {
+public class AnnaApplication extends Application {
 
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                DukeApplication.class.getResource("/view/MainWindow.fxml"));
+                AnnaApplication.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

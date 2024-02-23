@@ -1,4 +1,4 @@
-package duke;
+package anna;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,9 +49,9 @@ public class Parser {
     * @param cmdString The command string to be parsed.
     * @return An array of strings representing the parsed command. The first element of the
     *             returned array is the command type, and the rest are the command arguments.
-    * @throws DukeException
+    * @throws AnnaException
     */
-    static Command parseCommand(String cmdString) throws DukeException {
+    static Command parseCommand(String cmdString) throws AnnaException {
         String[] cmdSplit = cmdString.split(" ");
         assert cmdSplit.length >= 1 : " Empty command!";
         String command = cmdSplit[0];
@@ -65,11 +65,11 @@ public class Parser {
         case "delete": {
             String ferr1 = "%s command: expected an integer argument.";
             if (cmdSplit.length != 2) {
-                throw new DukeException(String.format(ferr1, command));
+                throw new AnnaException(String.format(ferr1, command));
             }
             String idxString = cmdSplit[1];
             if (!isNumber(idxString)) {
-                throw new DukeException(String.format(ferr1, command));
+                throw new AnnaException(String.format(ferr1, command));
             }
             Integer idx = Integer.parseInt(idxString) - 1;
             return command == "mark"
@@ -82,7 +82,7 @@ public class Parser {
         case "todo": {
             String ferr1 = "%s command: %s cannot be empty.";
             if (cmdSplit.length < 2) {
-                throw new DukeException(String.format(
+                throw new AnnaException(String.format(
                     ferr1,
                     command,
                     command.equals("find") ? "query" : "description"
@@ -98,16 +98,16 @@ public class Parser {
             String ferr1 = "deadline command: expected `%s` argument.";
             String ferr2 = "deadline command: %s description cannot be empty.";
             if (!cmds.contains(BY_CMD)) {
-                throw new DukeException(String.format(ferr1, BY_CMD));
+                throw new AnnaException(String.format(ferr1, BY_CMD));
             }
             int byIdx = cmds.indexOf(BY_CMD);
             String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
             String deadline = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
             if (taskStr.length() == 0) {
-                throw new DukeException(String.format(ferr2, "task"));
+                throw new AnnaException(String.format(ferr2, "task"));
             }
             if (deadline.length() == 0) {
-                throw new DukeException(String.format(ferr2, "deadline"));
+                throw new AnnaException(String.format(ferr2, "deadline"));
             }
             return CommandFactory.createDeadline(taskStr, deadline);
         }
@@ -117,19 +117,19 @@ public class Parser {
             String ferr2 = "event command: %s description cannot be empty.";
             String ferr3 = "event command: `%s` argument expected before `%s` argument.";
             if (!cmds.contains(FROM_CMD)) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr1, FROM_CMD)
                 );
             }
             if (!cmds.contains(TO_CMD)) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr1, TO_CMD)
                 );
             }
             int fromIdx = cmds.indexOf(FROM_CMD);
             int toIdx = cmds.indexOf(TO_CMD);
             if (toIdx < fromIdx) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr3, FROM_CMD, TO_CMD)
                 );
             }
@@ -137,17 +137,17 @@ public class Parser {
             String fromStr = cmdJoin(range(cmdSplit, fromIdx + 1, toIdx));
             String toStr = cmdJoin(range(cmdSplit, toIdx + 1, cmds.size()));
             if (taskStr.length() == 0) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr2, "task")
                 );
             }
             if (fromStr.length() == 0) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr2, "from")
                 );
             }
             if (toStr.length() == 0) {
-                throw new DukeException(
+                throw new AnnaException(
                     String.format(ferr2, "to")
                 );
             }
@@ -158,21 +158,21 @@ public class Parser {
             String ferr1 = "duration command: expected `%s` argument.";
             String ferr2 = "duration command: %s description cannot be empty.";
             if (!cmds.contains(DURATION_CMD)) {
-                throw new DukeException(String.format(ferr1, DURATION_CMD));
+                throw new AnnaException(String.format(ferr1, DURATION_CMD));
             }
             int byIdx = cmds.indexOf(DURATION_CMD);
             String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
             String duration = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
             if (taskStr.length() == 0) {
-                throw new DukeException(String.format(ferr2, "task"));
+                throw new AnnaException(String.format(ferr2, "task"));
             }
             if (duration.length() == 0) {
-                throw new DukeException(String.format(ferr2, "duration"));
+                throw new AnnaException(String.format(ferr2, "duration"));
             }
             return CommandFactory.createFixedDuration(taskStr, duration);
         }
         default:
-            throw new DukeException(
+            throw new AnnaException(
                 String.format("Unhandled command: %s", command)
             );
         }

@@ -1,6 +1,6 @@
 package gui;
 
-import duke.Duke;
+import anna.Anna;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Class that handles a Duke instance
+ * Class that handles a Anna instance
  */
 public class MainWindow extends AnchorPane {
 
-    private Duke duke = new Duke("data", "tasks.txt");
+    private Anna anna = new Anna("data", "tasks.txt");
 
     @FXML
     private ScrollPane scrollPane;
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void greetUser() {
         dialogContainer.getChildren().add(
-            DialogBox.getAiDialog(duke.greet(), ai));
+            DialogBox.getAiDialog(anna.greet(), ai));
     }
 
     @FXML
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),
-                DialogBox.getAiDialog(duke.getReply(input), ai)
+                DialogBox.getAiDialog(anna.getReply(input), ai)
         );
         userInput.clear();
     }

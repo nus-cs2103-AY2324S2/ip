@@ -1,4 +1,4 @@
-package duke;
+package anna;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class TaskList {
 
     private ArrayList<Task> storedTasks;
 
-    TaskList(ArrayList<Task> storedTasks) throws DukeException {
+    TaskList(ArrayList<Task> storedTasks) throws AnnaException {
         this.storedTasks = storedTasks;
     }
 
@@ -29,11 +29,11 @@ public class TaskList {
         return storedTasks.size();
     }
 
-    public void addTask(Task t) throws DukeException {
+    public void addTask(Task t) throws AnnaException {
         storedTasks.add(t);
     }
 
-    public void setDone(int idx, boolean done) throws DukeException {
+    public void setDone(int idx, boolean done) throws AnnaException {
         storedTasks.get(idx).setDone(done);
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
      * @param idx
      * @return
      */
-    public Task popTask(int idx) throws DukeException {
+    public Task popTask(int idx) throws AnnaException {
         Task t = storedTasks.get(idx);
         storedTasks.remove(idx);
         return t;

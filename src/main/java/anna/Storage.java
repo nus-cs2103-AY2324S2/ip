@@ -1,4 +1,4 @@
-package duke;
+package anna;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,7 @@ public class Storage {
         this.folderPath = folderPath;
     }
 
-    private File getFileHandle() throws DukeException {
+    private File getFileHandle() throws AnnaException {
         try {
             Path baseFolder = Paths.get(System.getProperty("user.dir"));
             Path dataFolder = baseFolder.resolve(folderPath);
@@ -50,7 +50,7 @@ public class Storage {
             }
             return taskFile.toFile();
         } catch (IOException e) {
-            throw new DukeException("Storage.getFileHandle: %s" + e);
+            throw new AnnaException("Storage.getFileHandle: %s" + e);
         }
     }
 
@@ -58,9 +58,9 @@ public class Storage {
     * Loads tasks from the task data file.
     *
     * @return An ArrayList of Task objects representing the loaded tasks.
-    * @throws DukeException
+    * @throws AnnaException
     */
-    ArrayList<Task> load() throws DukeException {
+    ArrayList<Task> load() throws AnnaException {
         try {
             FileInputStream f = new FileInputStream(getFileHandle());
             String serialised = new String(f.readAllBytes());
@@ -72,7 +72,7 @@ public class Storage {
             .map(s -> TaskFactory.deserealiseTask(s))
             .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new DukeException("Storage.load: " + e.getMessage());
+            throw new AnnaException("Storage.load: " + e.getMessage());
         }
     }
 
@@ -80,9 +80,9 @@ public class Storage {
     * Saves the given ArrayList of tasks to the task data file.
     *
     * @param storedTasks The ArrayList of Task objects to be saved.
-    * @throws DukeException
+    * @throws AnnaException
     */
-    void save(ArrayList<Task> storedTasks) throws DukeException {
+    void save(ArrayList<Task> storedTasks) throws AnnaException {
         try {
             String serialised = storedTasks
                 .stream()
@@ -93,7 +93,7 @@ public class Storage {
             f.write(serialised);
             f.close();
         } catch (IOException e) {
-            throw new DukeException("Storage.save: " + e.getMessage());
+            throw new AnnaException("Storage.save: " + e.getMessage());
         }
     }
 }
