@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import commands.Command;
+import parser.Parser;
 import storage.StorageManager;
 import tasklist.TaskList; 
 import ui.Ui;
