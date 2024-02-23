@@ -43,14 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("ken.Main")
+    mainClass.set("ken.launcher.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "ken.jar"
     archiveFileName = 'Ken.jar'
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{

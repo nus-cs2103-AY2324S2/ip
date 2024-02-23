@@ -91,16 +91,6 @@ Your tasks for today:
 (from: Feb 24 2024 00:00 to: Feb 24 2024 23:59)
 ```
 
-## Leaving chatbot
-
-Leaves app.
-
-Example: `bye`
-
-```
-Beach off!
-```
-
 ## Finding tasks with Keyword
 
 Finds all tasks in list with keyword.
@@ -144,4 +134,14 @@ help
 bye
 -> I'll see you next time!
 So...what do you want to beach today?
+```
+
+## Leaving chatbot
+
+Leaves app.
+
+Example: `bye`
+
+```
+Beach off!
 ```
