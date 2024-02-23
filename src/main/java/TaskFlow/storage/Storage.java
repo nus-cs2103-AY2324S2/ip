@@ -88,25 +88,4 @@ public class Storage {
             throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }
-
-//    public void saveArchiveTask(ArrayList<Task> archiveTasks) throws DukeException {
-//        File directory = new File(DIRECTORY_PATH);
-//
-//        // Create a directory if it doesn't exist.
-//        if (!directory.exists()) {
-//            directory.mkdirs();
-//        }
-//
-//        // Write the tasks in the list into the file.
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-//            ArrayList<Task> taskList = archiveTasks;
-//            for (Task archiveTask : taskList) {
-//                writer.write(archiveTask.toString());
-//                writer.newLine();
-//            }
-//            System.out.println("Archive task saved successfully.");
-//        } catch (IOException e) {
-//            throw new DukeException("Error saving task to file: " + e.getMessage());
-//        }
-//    }
 }

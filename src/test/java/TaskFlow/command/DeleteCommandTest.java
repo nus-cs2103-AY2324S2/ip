@@ -11,8 +11,16 @@ import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
 
+/**
+ * A test class for testing the functionality of the DeleteCommand class.
+ */
 public class DeleteCommandTest {
 
+    /**
+     * To test that executing DeleteCommand with a valid index removes the task correctly.
+     *
+     * @throws DukeException If there is an unexpected Duke related exception during the test.
+     */
     @Test
     public void execute_validIndex_success() throws DukeException {
         TaskList tasks = new TaskList();
@@ -37,6 +45,11 @@ public class DeleteCommandTest {
 
     }
 
+    /**
+     * To test that executing DeleteCommand with an invalid index throws the expected exception.
+     *
+     * @throws DukeException If the expected DukeException is not thrown during the test.
+     */
     @Test
     public void execute_invalidIndex_exceptionThrown() throws DukeException {
         TaskList tasks = new TaskList();

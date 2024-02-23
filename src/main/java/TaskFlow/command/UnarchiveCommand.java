@@ -6,6 +6,10 @@ import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
 
+/**
+ * A class that inherits from Command class.
+ * Represents a command that unarchive a task.
+ */
 public class UnarchiveCommand extends Command {
 
     private int index;

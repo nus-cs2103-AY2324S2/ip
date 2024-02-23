@@ -6,6 +6,10 @@ import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
 
+/**
+ * A class that inherits from Command class.
+ * Represents a command that archive a task into another list.
+ */
 public class ArchiveCommand extends Command {
     private int index;
 

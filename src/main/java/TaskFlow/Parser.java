@@ -227,6 +227,13 @@ public class Parser {
         return new FindCommand(inputs[1]);
     }
 
+    /**
+     * Parses an archive command and returns the corresponding ArchiveCommand.
+     *
+     * @param inputs The string array containing the user input.
+     * @return A ArchiveCommand.
+     * @throws DukeException If the index of the task to archive is missing.
+     */
     public static Command parseArchiveCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
@@ -238,6 +245,13 @@ public class Parser {
         return new ArchiveCommand(index);
     }
 
+    /**
+     * Parses an unarchive command and returns the corresponding UnarchiveCommand.
+     *
+     * @param inputs The string array containing the user input.
+     * @return A UnarchiveCommand.
+     * @throws DukeException If the index of the task to unarchive is missing.
+     */
     public static Command parseUnarchiveCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
@@ -249,6 +263,13 @@ public class Parser {
         return new UnarchiveCommand(index);
     }
 
+    /**
+     * Parses a list command and returns the corresponding command.
+     *
+     * @param inputs The string array containing the user input.
+     * @return A ListArchiveCommand or a ListCommand.
+     * @throws DukeException If it is an invalid command.
+     */
     public static Command parseListCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             return new ListCommand();

@@ -13,8 +13,17 @@ import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
 
+/**
+ * A test class for testing the functionality of the UnmarkCommand class.
+ */
 public class UnmarkCommandTest {
 
+    /**
+     * To test that executing UnmarkCommand with a valid index unmarks the task as
+     * completed successfully.
+     *
+     * @throws DukeException If there is an unexpected Duke exception during the test.
+     */
     @Test
     public void execute_validIndex_taskUnmarkedSuccessfully() throws DukeException {
         int validIndex = 1;
@@ -34,6 +43,10 @@ public class UnmarkCommandTest {
         assertEquals(tasks, task.getTasks());
     }
 
+    /**
+     * To test that executing UnmarkCommand with an invalid index throws
+     * the expected DukeException.
+     */
     @Test
     public void execute_invalidIndex_exceptionThrown() {
         int invalidIndex = 0;

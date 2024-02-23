@@ -13,8 +13,17 @@ import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
 
+/**
+ * A test class for testing the functionality of the MarkCommand class.
+ */
 public class MarkCommandTest {
 
+    /**
+     * To test that executing MarkCommand with a valid index marks the task as
+     * completed successfully.
+     *
+     * @throws DukeException If there is an unexpected Duke exception during the test.
+     */
     @Test
     public void execute_validIndex_taskMarkedSuccessfully() throws DukeException {
         int validIndex = 1;
@@ -34,6 +43,10 @@ public class MarkCommandTest {
         assertEquals(tasks, task.getTasks());
     }
 
+    /**
+     * To test that executing MarkCommand with an invalid index throws
+     * the expected DukeException.
+     */
     @Test
     public void execute_invalidIndex_exceptionThrown() {
         int invalidIndex = 0;
