@@ -74,14 +74,12 @@ public class AddTaskCommand extends Command {
      */
     public Task generateTodo() throws BelleException {
         try {
-            assert (msg.length() >= 5) : "invalid input to generate todo task";
-
             int todoLength = 5; // as todo + 1 space is 5 characters.
             Task curr = new TodoTask(this.msg.substring(todoLength), false);
             return curr;
         } catch (StringIndexOutOfBoundsException e) {
             throw new BelleException("You did not specify a"
-                    + "title for this todo task");
+                    + " title for this todo task");
         }
     }
 

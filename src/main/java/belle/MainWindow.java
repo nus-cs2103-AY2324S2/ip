@@ -59,10 +59,10 @@ public class MainWindow extends AnchorPane {
 
         Ui ui = new Ui();
         if (response.equals(ui.bye())) {
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Timeline timer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 System.exit(0);
             }));
-            timeline.play();
+            timer.play();
         }
     }
 

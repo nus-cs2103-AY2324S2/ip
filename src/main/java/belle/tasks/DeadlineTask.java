@@ -35,7 +35,12 @@ public class DeadlineTask extends Task {
     }
 
     public void setDeadline(String newDeadline) {
-        this.deadline = newDeadline;
+        DateFormatter dateFormatter = new DateFormatter(newDeadline);
+        if (dateFormatter.hasValidDate()) {
+            this.deadline = dateFormatter.convertDate();
+        } else {
+            this.deadline = newDeadline;
+        }
     }
     @Override
     public String toString() {

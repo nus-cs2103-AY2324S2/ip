@@ -5,7 +5,7 @@
 </picture>
 
 Belle is a friendly chatbot that helps you to
-keep track of you many tasks.
+keep track of your many tasks.
 
 ## 1) Adding Deadline Tasks : `deadline`
 
@@ -53,7 +53,7 @@ Now you have 1 tasks in the list.
 ## 2) Adding Event Tasks : `event`
 
 Add event tasks to todo list.
-event tasks are tasks with a start date/time and an end date/time.
+Event tasks are tasks with a start date/time and an end date/time.
 
 ### Command:
 
@@ -71,7 +71,7 @@ Expected output is
 ```
 --------------------------
 Got it. I've added this task.
-[E] [] project meeting (from:Mon 2pm to:4pm) 
+[E] [] project meeting (from: Mon 2pm to: 4pm) 
 Now you have 1 tasks in the list.
 --------------------------
 ```
@@ -88,7 +88,7 @@ Expected output is
 ```
 --------------------------
 Got it. I've added this task.
-[E] [] project meeting (from:Feb 13 2003 to:Feb 14 2003) 
+[E] [] project meeting (from: Feb 13 2003 to: Feb 14 2003) 
 Now you have 1 tasks in the list.
 --------------------------
 ```
