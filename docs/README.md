@@ -1,6 +1,7 @@
 # Lamball User Guide 🐐
 
-![Ui](/docs/Ui.png)
+![Lamball UI](Ui.png)
+
 
 Lamball is a helpful pal that you never knew you needed. 
 
@@ -8,6 +9,13 @@ Lamball is a helpful pal that you never knew you needed.
 - [x] Guides you through the commands!
 - [x] Helps you take note of anything with memos!
 - [ ] Reminds you about them (coming soon!)
+
+## Setup
+- Ensure that you have **Java 11 or above** installed on your computer.
+- Download the latest release from [here](https://github.com/ongzhili/ip/releases)
+- Copy the file to the folder you want to house your friendly Lamb!
+- Open a command terminal, cd into the folder you put the jar file in, and use the java -jar lamball.jar command to run the application. <br>A GUI similar to the above should appear in a few seconds. 
+
 
 ## Features
 - Words in UPPER_CASE are parameters to be supplied by the user.<br>e.g in `todo DESCRIPTION`, `DESCRIPTION` is the parameter(s) in question, which can be used as `todo Task 1`
@@ -57,7 +65,7 @@ Format: `event DESCRIPTION /from DATE1 /to DATE2`
 - Events with the same description as other tasks on the list will not be added.
 
 Examples:
-- `Event User Guide /from 2024-02-24 /to 2024-02-25`
+- `event User Guide /from 2024-02-24 /to 2024-02-25`
 
 
 ```
@@ -118,6 +126,7 @@ in the **full** task list.
 
 Examples:
 - `todo User Guide` followed by `delete 1` will result in the following output:
+
 ```
 ...
 I have removed this taaask:
@@ -132,6 +141,7 @@ Format: `list`
 
 Examples:
 - `list` after `todo User Guide` will result in the following:
+
 ```
 Here aaaaare the taaaasks in your list:
     1. [T][ ] User Guide
@@ -217,19 +227,20 @@ Hence, it is recommended to take a backup of the file before editing it.
 it creates with the file that contains the data of your previous Lamball home folder.
 
 ## Command Summary
-Action | Format
-:----- | :-----
-Add todo | `todo DESCRIPTION`
-Add deadline | `deadline DESCRIPTION /by DATE`
-Add event | `event DESCRIPTION /from DATE1 /to DATE2`
-Mark | `mark INDEX`
-Unmark | `unmark INDEX`
-Delete task | `delete INDEX`
-Find | `find KEYWORD`
-List | `list`
-Add memo | `memo add DESCRIPTION`
-Delete memo | `memo del INDEX`
-Clear memos | `memo clear`
-List memos | `memo list`
-Exit | `bye`
+
+| Action       | Format                                   |
+| :----------  | :--------------------------------------- |
+| Add todo     | `todo DESCRIPTION`                       |
+| Add deadline | `deadline DESCRIPTION /by DATE`          |
+| Add event    | `event DESCRIPTION /from DATE1 /to DATE2`|
+| Mark         | `mark INDEX`                             |
+| Unmark       | `unmark INDEX`                           |
+| Delete task  | `delete INDEX`                           |
+| Find         | `find KEYWORD`                           |
+| List         | `list`                                   |
+| Add memo     | `memo add DESCRIPTION`                   |
+| Delete memo  | `memo del INDEX`                         |
+| Clear memos  | `memo clear`                             |
+| List memos   | `memo list`                              |
+| Exit         | `bye`                                    |
 
