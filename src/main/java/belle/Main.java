@@ -15,7 +15,6 @@ public class Main extends Application {
 
     private Belle belle = new Belle("src/main/data/belleList.txt");
 
-
     /**
      * Initiates application.
      *

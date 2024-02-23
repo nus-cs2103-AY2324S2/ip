@@ -43,7 +43,7 @@ public class Belle {
      * specified command.
      *
      * @param input Users input command to Belle.
-     * @return String Belle's string response.
+     * @return Belle's string response.
      */
     public String getResponse(String input) {
         try {
@@ -52,6 +52,5 @@ public class Belle {
         } catch (BelleException e) {
             return e.getMessage();
         }
-
     }
 }

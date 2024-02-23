@@ -15,11 +15,11 @@ public class EventTask extends Task {
      *
      * @param name Name of task.
      * @param isDone Boolean that indicates
-     *             whether task is done.
+     *               whether task is done.
      * @param start Start date/time of
      *              event.
      * @param end End date/time of
-     *              event.
+     *            event.
      */
     public EventTask(String name, boolean isDone, String start, String end) {
         super(name, isDone);

@@ -13,7 +13,7 @@ public class DeadlineTask extends Task {
      *
      * @param name Name of task.
      * @param isDone Boolean that indicates
-     *             whether task is done.
+     *               whether task is done.
      * @param deadline Deadline to be set
      *                 in deadlinetask.
      */

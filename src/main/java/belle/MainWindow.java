@@ -39,8 +39,8 @@ public class MainWindow extends AnchorPane {
         greetUser();
     }
 
-    public void setBelle(Belle d) {
-        belle = d;
+    public void setBelle(Belle b) {
+        belle = b;
     }
 
     /**
@@ -57,6 +57,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
+        //to exit program with bye command
         Ui ui = new Ui();
         if (response.equals(ui.bye())) {
             Timeline timer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {

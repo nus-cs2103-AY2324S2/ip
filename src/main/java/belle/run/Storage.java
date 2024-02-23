@@ -37,7 +37,7 @@ public class Storage {
      * Returns list that was saved previously.
      *
      * @return ArrayList that was saved previously.
-     * @throws BelleException  If an invalid item in HardDisk.
+     * @throws BelleException If an invalid item in HardDisk.
      */
     public ArrayList<Task> loadList() throws BelleException {
         ArrayList<Task> currList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Storage {
      *                 the current program.
      * @param listScanner Scanner to scan data from f.
      * @throws BelleException If tries to add a task
-     *      that is not an Event, Deadline or todotask.
+     *         that is not an Event, Deadline or todotask.
      */
     public void addToList(ArrayList<Task> currList, Scanner listScanner) throws BelleException {
         while (listScanner.hasNext()) {
@@ -88,7 +88,7 @@ public class Storage {
      * Saves list everytime it is updated.
      *
      * @param currList List to save to database.
-     * @throws BelleException  If an invalid item
+     * @throws BelleException If an invalid item
      *         that is being saved.
      */
     public void save(ArrayList<Task> currList) throws BelleException {
@@ -117,9 +117,9 @@ public class Storage {
      * @param fw FileWriter used to write to file
      *           used to store all task data.
      * @throws BelleException If tries to add a task
-     *     that is not an Event, Deadline or todotask.
+     *         that is not an Event, Deadline or todotask.
      * @throws IOException If filewritwe has an error
-     *     when trying to write to the file.
+     *         when trying to write to the file.
      */
     public void writeToList(ArrayList<Task> currList, FileWriter fw) throws IOException, BelleException {
         String currItem;

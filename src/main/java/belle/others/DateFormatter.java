@@ -13,7 +13,7 @@ public class DateFormatter {
     /**
      * Constructs DateFormatter.
      *
-     * @param date to convert.
+     * @param date Date to convert.
      */
     public DateFormatter(String date) {
         this.date = date;
@@ -24,7 +24,7 @@ public class DateFormatter {
      * returns false.
      *
      * @return Boolean indicating if it is in a
-     *     correct format.
+     *         correct format.
      */
     public Boolean hasValidDate() {
         try {

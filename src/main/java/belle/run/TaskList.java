@@ -15,7 +15,7 @@ public class TaskList {
      * Constructs TaskList.
      *
      * @param list List that represents
-     *          the programs tasklist.
+     *             the programs tasklist.
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;

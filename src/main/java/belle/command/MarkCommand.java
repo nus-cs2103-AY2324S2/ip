@@ -60,5 +60,4 @@ public class MarkCommand extends Command {
                 + "Nice! I have marked this task as done:" + "\n"
                 + doingTask.toString() + "\n" + "--------------------------";
     }
-
 }

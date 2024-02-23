@@ -27,7 +27,7 @@ public class Parser {
      *
      * @param input Users input.
      * @return Correct belle command.
-     * @throws BelleException  If an invalid belle command is entered.
+     * @throws BelleException If an invalid belle command is entered.
      */
     public Command parse(String input) throws BelleException {
         String[] inputList = input.split(" ");

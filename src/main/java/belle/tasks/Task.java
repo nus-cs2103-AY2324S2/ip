@@ -20,7 +20,7 @@ public class Task {
      *
      * @param name Name of task.
      * @param isDone Boolean that indicates
-     *             whether task is done.
+     *               whether task is done.
      */
     public Task(String name, boolean isDone) {
         this.name = name;
