@@ -5,9 +5,9 @@
 Shon is a chatbot application that helps you easily manage your tasks and your notes!
 
 There are 3 types of tasks it can help you track:
-1. Todo: tasks with a description
-2. Deadline: tasks with a description and a given date and time as deadline
-3. Event: tasks with a description, and a from and to date time of the event
+1. **Todo**: tasks with a description
+2. **Deadline**: tasks with a description and a given date and time as deadline
+3. **Event**: tasks with a description, and a from and to date time of the event
 
 ## General Commands
 
@@ -59,7 +59,7 @@ Here are the tasks in your list:
 3.[E][ ] meeting (from: 26 Feb 2024 0900 to: 26 Feb 2024 1100)
 ```
 
-> :information_source: The`[T]`, `[D]`, and `[E]` indicates that the task is a Todo task, Deadline task, and Event
+> The`[T]`, `[D]`, and `[E]` indicates that the task is a Todo task, Deadline task, and Event
 > task respectively.
 
 ### Adding a Todo task: `todo`
@@ -168,7 +168,7 @@ Finds tasks where their descriptions contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> :exclamation: Item(s) in square brackets are optional.
+> Item(s) in square brackets are optional.
 
 * The search is case-insensitive e.g. `book` will match `Book`.
 * Partial matching is allowed e.g. 'bo' search will yield 'book' as a result.
