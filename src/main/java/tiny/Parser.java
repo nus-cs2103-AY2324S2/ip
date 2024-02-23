@@ -414,7 +414,7 @@ public class Parser {
      */
     private String loanGiven() throws TinyException {
         try {
-            String[] onSplit = input.split("/on ");
+            String[] onSplit = input.split("/due ");
             String[] forSplit = onSplit[0].split("/for ");
             String[] toSplit = forSplit[0].split("/to ");
 
@@ -424,7 +424,7 @@ public class Parser {
                     loanGivenList.size());
         } catch (Exception e) {
             throw new TinyException("OOPS! You need to type \"loan given /to <name> /for "
-                    + "<amount> /on <yyyy-MM-dd>\" to add the loan given!");
+                    + "<amount> /due <yyyy-MM-dd>\" to add the loan given!");
         }
     }
 
@@ -436,7 +436,7 @@ public class Parser {
      */
     private String loanTaken() throws TinyException {
         try {
-            String[] onSplit = input.split("/on ");
+            String[] onSplit = input.split("/due ");
             String[] forSplit = onSplit[0].split("/for ");
             String[] fromSplit = forSplit[0].split("/from ");
             loanTakenList.add(new LoanTaken(fromSplit[1].trim(), Double.parseDouble(forSplit[1].trim()),
@@ -445,7 +445,7 @@ public class Parser {
                     loanTakenList.size());
         } catch (Exception e) {
             throw new TinyException("OOPS! You need to type \"loan taken /from <name> /for "
-                    + "<amount> /on <yyyy-MM-dd>\" to add the loan taken!");
+                    + "<amount> /due <yyyy-MM-dd>\" to add the loan taken!");
         }
     }
 
@@ -514,7 +514,7 @@ public class Parser {
      */
     private String trivia() throws TinyException {
         try {
-            String[] s = input.split(" ");
+            String[] s = input.split("trivia ");
             triviaList.add(new Trivia(s[1]));
             return addMessage("trivia", triviaList.get(triviaList.size() - 1).toString(), triviaList.size());
         } catch (Exception e) {

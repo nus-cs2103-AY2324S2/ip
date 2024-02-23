@@ -1,6 +1,8 @@
 package tiny.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tiny.Tiny;
 
 /**
@@ -24,8 +27,8 @@ public class Main extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/resources/images/duke.png"));
-    private Image tinyImage = new Image(this.getClass().getResourceAsStream("/resources/images/tiny.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private Image tinyImage = new Image(this.getClass().getResourceAsStream("/images/tiny.jpeg"));
 
     @Override
     public void start(Stage stage) {
@@ -85,10 +88,6 @@ public class Main extends Application {
 
         userInput.setOnAction((event) -> {
             handleUserInput();
-
-            if (tiny.isExit()) {
-                System.exit(0);
-            }
         });
 
         // Scroll down to the end every time dialogContainer's height changes.
@@ -107,6 +106,12 @@ public class Main extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
                 DialogBox.getTinyDialog(tinyText, new ImageView(tinyImage)));
         userInput.clear();
+
+        if (tiny.isExit()) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        }
     }
 
     private void startUi() {

@@ -36,8 +36,9 @@ test {
     useJUnitPlatform()
 }
 
+
 application {
-    mainClass.set("tiny.Tiny")
+    mainClass.set("tiny.gui.Launcher")
 }
 
 shadowJar {

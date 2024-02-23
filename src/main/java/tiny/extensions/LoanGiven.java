@@ -32,7 +32,7 @@ public class LoanGiven {
         int month = 0;
         int day = 0;
         String errorMsg = "Please ensure that you are using the format loan given /to <name> /for "
-                + "<amount> /on <yyyy-MM-dd>. eg. loan given /to Duke /for 10 /on 2024-01-29";
+                + "<amount> /due <yyyy-MM-dd>. eg. loan given /to Duke /for 10 /due 2024-01-29";
         // Processes the date
         try {
             String[] dateSplit = date.split("-");
