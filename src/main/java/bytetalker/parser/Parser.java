@@ -15,7 +15,7 @@ public class Parser {
         return tempMessages;
     }
 
-    public static ArrayList<String> parseTodoInput(String[] splitMessages) throws ByteTalkerException.TodoUnsupportedFormatException, ByteTalkerException.TodoNoTaskException {
+    public static ArrayList<String> parseTodoAddInput(String[] splitMessages) throws ByteTalkerException.TodoUnsupportedFormatException, ByteTalkerException.TodoNoTaskException {
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
             determineSupportedTodoTask(splitMessages[i]);
@@ -40,7 +40,7 @@ public class Parser {
         }
     }
 
-    public static ArrayList<String> parseDeadlineInput(String[] splitMessages) throws ByteTalkerException.DeadlineUnsupportedFormatException, ByteTalkerException.DeadlineWrongFormatException {
+    public static ArrayList<String> parseDeadlineAddInput(String[] splitMessages) throws ByteTalkerException.DeadlineUnsupportedFormatException, ByteTalkerException.DeadlineWrongFormatException {
         ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
@@ -71,7 +71,7 @@ public class Parser {
         }
     }
 
-    public static ArrayList<String> parseEventInput(String[] splitMessages) throws ByteTalkerException.EventWrongFormatException {
+    public static ArrayList<String> parseEventAddInput(String[] splitMessages) throws ByteTalkerException.EventWrongFormatException {
         ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
@@ -134,5 +134,21 @@ public class Parser {
         } else {
             return DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
         }
+    }
+
+    public static String parseContentUpdateInput(String[] splitMessages) {
+        String content = "";
+        for (int i = 3; i < splitMessages.length; i++) {
+            content += splitMessages[i] + " ";
+        }
+        return content.strip();
+    }
+
+    public static LocalDateTime parseDateTimeUpdateInput(String[] splitMessages) {
+        String time = "";
+        for (int i = 3; i < splitMessages.length; i++) {
+            time += splitMessages[i] + " ";
+        }
+        return parseDateTime(time.strip());
     }
 }
