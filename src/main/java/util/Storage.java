@@ -15,10 +15,21 @@ import java.util.ArrayList;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param filepath The file path to the file where the loading and saving is done.
+     */
     public Storage(String filepath) {
         this.filePath = filepath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return An Arraylist of tasks.
+     * @throws IOException If parsing file contents results in an error.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (Files.exists(Paths.get(filePath))) {
@@ -40,7 +51,13 @@ public class Storage {
         return tasks;
     }
 
-    // takes in an arraylist, then saves it based on each task's overridden toFileString
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The tasks that are to be saved.
+     * @throws ChillChiefException If there is an error saving tasks to the file.
+     * @throws IOException If there is an error saving tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws ChillChiefException, IOException {
         Path path = Paths.get(this.filePath);
         // Ensure the parent directories exist
