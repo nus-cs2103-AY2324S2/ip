@@ -34,7 +34,8 @@ Example: `todo finish cs2103T iP`
 
 ## Examples
 
-List unarchived tasks
+### 1. List unarchived tasks
+
 ---
 List out all the task stored currently that are unarchived. 
 
@@ -47,7 +48,9 @@ Here are the tasks in your list.
 2.[E][]project meeting (from: Mon 2pm to: 4pm)
 ```
 
-List all archived and unarchived tasks.
+- This is where you can find the index of the task (leftmost number) to perform actions on the task such as marking as done or deleting
+### 2. List all archived and unarchived tasks.
+
 ---
 List out all the task stored, including those archived.
 
@@ -62,7 +65,8 @@ Here are the tasks that are archived.
 1.[T][] Finish CS3230 Assignment
 ```
 
-Mark Task
+### 3. Mark Task as Done
+
 ---
 Marks a task as done.
 
@@ -72,7 +76,8 @@ Marks a task as done.
 
 **Use the specific number as shown in the list**
 
-Unmark Task
+### 4. Unmark Task as Done
+
 ---
 Unmarks a task as done.
 
@@ -82,7 +87,8 @@ Unmarks a task as done.
 
 **Use the specific number as shown in the list**
 
-Add Todo
+### 5. Add Todo
+
 ---
 
 **Example**: `todo eat dinner`
@@ -91,7 +97,8 @@ Add Todo
 
 - **Use the specific formats for date and time as shown above.**
 
-Add Deadline
+### 6. Add Deadline
+
 ---
 
 **Example**: `deadline submit iP /by 2023-02-23`
@@ -100,7 +107,8 @@ Add Deadline
 
 - **Use the specific formats for date and time as shown above.**
 
-Add Event
+### 7. Add Event
+
 ---
 
 **Example**: `event hack and roll /from Mon 12pm /to Tues 12pm`
@@ -108,7 +116,8 @@ Add Event
 **Format**: `event [TASK NAME] /from [START DATE] to [END DATE]`
 - **Use the specific formats for date and time as shown above.**
 
-Delete task
+### 8. Delete task
+
 ---
 Delete a task so that it will be removed from task list
 
@@ -117,7 +126,8 @@ Delete a task so that it will be removed from task list
 **Format**: `delete [TASK NUMBER]`
 - **Use the specific number as shown in the list**
 
-Archive task
+### 9. Archive task
+
 ---
 To unmark a task that has been previously marked.
 
@@ -128,7 +138,8 @@ To unmark a task that has been previously marked.
 - To view archived tasks, you can use `list all` as mentioned in (2)
 - **Use the specific number as shown in the list**
 
-Find task
+### 10. Find task
+
 ---
 Delete a task from a task list.
 
@@ -137,7 +148,8 @@ Delete a task from a task list.
 
 **Format**: `delete [TASK NUMBER]`
 
-Exit the Program
+### 11. Exit the Program
+
 ---
 **Format**: `bye`
 
