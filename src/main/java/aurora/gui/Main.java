@@ -31,6 +31,7 @@ public class Main extends Application {
         try {
             stage.setTitle("Aurora");
             stage.getIcons().add(auroraImage);
+            stage.setResizable(false);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Window.fxml"));
             AnchorPane ap = fxmlLoader.load();
             scene = new Scene(ap);
