@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 
 /**
  * Custom dialog box for displaying messages in the JavaFX application
@@ -36,9 +35,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        final Circle circle = new Circle(50, 50, 50);
         displayPicture.setImage(img);
-        displayPicture.setClip(circle);
     }
 
     /**
@@ -52,7 +49,6 @@ public class DialogBox extends HBox {
     }
 
     /**
-     *
      * @param text Text that will be displayed in the dialog box
      * @param img  Image to be displayed in a circle as the user image in the dialog box
      * @return Instance of DialogBox that captures and displays user's input
@@ -62,7 +58,6 @@ public class DialogBox extends HBox {
     }
 
     /**
-     *
      * @param text Text that will be displayed in the dialog box
      * @param img  Image to be displayed in a circle as the image of the chat bot in the dialog box
      * @return Instance of DialogBox that captures and displays Duke's response

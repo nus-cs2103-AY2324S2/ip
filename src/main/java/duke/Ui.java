@@ -15,8 +15,7 @@ public class Ui {
         return "Hey! I'm Hari!\nHow may I be of service today?";
     }
 
-    public void displayLoadError()
-    {
+    public void displayLoadError() {
         System.out.println("Error loading data from file! File may be corrupted or has format issues.");
     }
 
