@@ -1,7 +1,7 @@
 package duke.main;
 import java.util.ArrayList;
 
-import duke.task.*;
+import duke.task.Task;
 
 
 /**
@@ -29,6 +29,7 @@ public class TaskList {
      * @param index  index of task to be removed
      */
     public void remove(int index) {
+        assert index < this.taskList.size() && index >= 0;
         this.taskList.remove(index);
     }
 
@@ -38,6 +39,7 @@ public class TaskList {
      * @param index  index of task to be marked as done
      */
     public void mark(int index) {
+        assert index < this.taskList.size() && index >= 0;
         this.taskList.get(index).setComplete();
     }
 
@@ -48,6 +50,7 @@ public class TaskList {
      * @param index  index of task to be marked as not done
      */
     public void unmark(int index) {
+        assert index < this.taskList.size() && index >= 0;
         this.taskList.get(index).setInComplete();
     }
 

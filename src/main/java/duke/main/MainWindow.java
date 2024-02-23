@@ -49,11 +49,7 @@ public class MainWindow extends AnchorPane {
             response = main.ui.printExitMessage();
             javafx.application.Platform.exit();
         } else {
-            try {
-                response = main.parser.parse(input);
-            } catch (UnknownInputException e) {
-                response = main.ui.printException(e);
-            }
+            response = main.parser.parse(input);
         }
 
         dialogContainer.getChildren().addAll(

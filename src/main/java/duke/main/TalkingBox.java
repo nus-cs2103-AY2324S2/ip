@@ -61,7 +61,13 @@ public class TalkingBox extends Application {
         while (!isExit && !isError) {
             String command = this.ui.readLine();
             isExit = this.parser.isExit(command);
-            this.parser.parse(command);
+            if (isExit) {
+                this.storage.store();
+                this.ui.printExitMessage();
+                break;
+            } else {
+                this.parser.parse(command);
+            }
         }
         this.storage.store();
         this.ui.printExitMessage();

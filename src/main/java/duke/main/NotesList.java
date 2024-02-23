@@ -2,12 +2,16 @@ package duke.main;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list of notes generated from user inputs
+ */
 public class NotesList {
     private final ArrayList<String> notesList;
     public NotesList() {
         this.notesList = new ArrayList<>();
     }
     public void add(String note) {
+        assert !note.isEmpty();
         this.notesList.add(note);
     }
     public String get(int i) {

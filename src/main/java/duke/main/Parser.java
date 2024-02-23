@@ -34,7 +34,7 @@ public class Parser {
      */
     public String parse(String input) {
         int taskEnd = input.indexOf(" ");
-        String commandType = taskEnd > 0 ? input.substring(0, taskEnd) : "list";
+        String commandType = input.substring(0, taskEnd);
         try {
             TaskType type = TaskType.valueOf(commandType);
             String details = input.substring(taskEnd + 1);
@@ -72,6 +72,7 @@ public class Parser {
                 }
             case mark:
                 int markIndex = Integer.parseInt(details) - 1;
+                assert markIndex > 0;
                 try {
                     this.taskList.mark(markIndex);
                     return this.ui.printOnMark(markIndex);
@@ -80,6 +81,7 @@ public class Parser {
                 }
             case unmark:
                 int unmarkIndex = Integer.parseInt(details) - 1;
+                assert unmarkIndex > 0;
                 try {
                     this.taskList.unmark(unmarkIndex);
                     return this.ui.printOnUnmark(unmarkIndex);
