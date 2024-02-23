@@ -211,7 +211,7 @@ Got it I've edited this task:
 
 **Editing end date**
 
-To edit the **end** date of a event task, type in:
+To edit the **end** date of an event task, type in:
 `edit <Task index number> /to <new end date>`
 
 For example:
