@@ -2,10 +2,11 @@ package tasks;
 
 import java.util.List;
 
+import commands.AddCommand;
+
 public class TaskSerializer {
     private final static String DELIMITER = ", ";
 
-    // List<Task> --> .txt
     // localDateTime --> String in 12/02/2023 1800 format
     public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
@@ -39,32 +40,30 @@ public class TaskSerializer {
         return sb.toString();
     }
 
-    // .txt --> List<Task>
     public static Task parseText(String text) {
         String[] fields = text.split(DELIMITER);
         String taskType = fields[0];
-        Task task = null;
+        Task t = null;
         
         boolean status = fields[1].equals("0") ? false : true;
 
         switch (taskType) {
             case "T":
-                Todo todo = new Todo(fields[2]);
-                todo.setStatus(status);
-                task = todo;
+                t = new Todo(fields[2]);
+                t.setStatus(status);
                 break;
             case "D":
-                Deadline deadline = new Deadline(fields[2], fields[4]);
-                deadline.setStatus(status);
-                task = deadline;
+                t = new Deadline(fields[2], fields[4]);
+                t.setStatus(status);
                 break;
             case "E":
-                Event event = new Event(fields[2], fields[3], fields[4]);
-                event.setStatus(status);
-                task = event;
+                t = new Event(fields[2], fields[3], fields[4]);
+                t.setStatus(status);
                 break;
+            default:
+            break;
         }
 
-        return task;
+        return t;
     }
 }

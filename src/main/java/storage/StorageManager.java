@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import tasklist.TaskList;
+
 public class StorageManager {
-    private String taskSaveLocation;
+    protected String taskSaveLocation;
 
     public StorageManager() {
         // have to add src/main/resources folder the Java Source Code
@@ -30,7 +32,8 @@ public class StorageManager {
         this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
     }
 
-    public void saveTasksToStorage(List<Task> tasks) {
+    public void save(TaskList tasklist) {
+        List<Task> tasks  = tasklist.getTasks();
         String tasksSerialized = TaskSerializer.serialize(tasks);
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
             writer.write(tasksSerialized);
@@ -39,23 +42,24 @@ public class StorageManager {
         }
     }
 
-    public List<Task> loadTasksFromStorage() {
+    public TaskList load() {
         File dataFile = new File(this.taskSaveLocation);
         List<Task> tasks = new ArrayList<>();
 
         if (!dataFile.exists()) {
-            return tasks;
+            return new TaskList(tasks);
         }
 
         try (Scanner sc = new Scanner(dataFile)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                tasks.add(TaskSerializer.parseText(line));
+                Task t = TaskSerializer.parseText(line);
+                tasks.add(t);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tasks;
+        return new TaskList(tasks);
     }
 }
