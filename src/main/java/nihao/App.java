@@ -10,7 +10,7 @@ import nihao.handler.DataHandler;
  * Initializes the main components of the app.
  */
 public class App {
-    private static Nihao nihao = Nihao.instance;
+    private static Nihao nihao = Nihao.INSTANCE;
 
     /**
      * Runs the application.

@@ -3,7 +3,7 @@ package nihao.action.task;
 /**
  * Represents a to-do task.
  */
-public class TodoTask extends Task{
+public class TodoTask extends Task {
     /**
      * Constructor that specifies the name of the task.
      */

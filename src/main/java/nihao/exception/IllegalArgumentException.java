@@ -3,7 +3,7 @@ package nihao.exception;
 /**
  * Represents an Exception thrown when a command gets an illegal set of arguments.
  */
-public class IllegalArgumentException extends Exception{
+public class IllegalArgumentException extends Exception {
     /**
      * Constructor when the expected number of arguments is provided.
      *

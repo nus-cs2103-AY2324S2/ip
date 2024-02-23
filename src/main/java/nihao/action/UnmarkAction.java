@@ -7,7 +7,7 @@ import nihao.handler.PrintHandler;
 /**
  * Represents an unmark action.
  */
-public class UnmarkAction implements Action{
+public class UnmarkAction implements Action {
     private int index;
 
     /**
@@ -26,8 +26,8 @@ public class UnmarkAction implements Action{
     public String execute() throws IndexOutOfBoundsException {
         DataHandler.unmarkTask(index);
         Task task = DataHandler.getTask(index);
-        return PrintHandler.printWithDivider("Fine. I've marked this as uncompleted:\n" +
-                "   " + task);
+        return PrintHandler.printWithDivider("Fine. I've marked this as uncompleted:\n"
+                + "   " + task);
     }
 
     @Override

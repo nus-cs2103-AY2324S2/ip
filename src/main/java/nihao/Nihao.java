@@ -1,26 +1,26 @@
 package nihao;
 
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import nihao.action.Action;
-import nihao.action.ExitAction;
-import nihao.handler.InputHandler;
-import nihao.handler.PrintHandler;
-
 import java.io.IOException;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import nihao.action.Action;
+import nihao.action.ExitAction;
+import nihao.handler.InputHandler;
+import nihao.handler.PrintHandler;
 import nihao.ui.MainWindowController;
 
 /**
  * Contains the main application logic for the Nihao app.
  */
 public class Nihao extends Application{
-    public static final Nihao instance = new Nihao();
+    public static final Nihao INSTANCE = new Nihao();
     public Nihao() {}
 
     /**
@@ -29,26 +29,20 @@ public class Nihao extends Application{
     public void run() {
         PrintHandler.printInit();
 
-//        File myInput = new File("text-ui-test/input.txt");
-//        try {
-//            Scanner scanner = new Scanner(myInput);
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String input = scanner.nextLine();
-                try {
-                    Action action = InputHandler.handleInput(input);
-                    action.execute();
-                    if (action instanceof ExitAction) {
-                        break;
-                    }
-                } catch (Exception e) {
-                    PrintHandler.printException(e);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            try {
+                Action action = InputHandler.handleInput(input);
+                action.execute();
+                if (action instanceof ExitAction) {
+                    break;
                 }
+            } catch (Exception e) {
+                PrintHandler.printException(e);
             }
-            scanner.close();
-//        } catch (FileNotFoundException e) {
-//            PrintHandler.printWithDivider("File not found");
-//        }
+        }
+        scanner.close();
     }
 
     public void start(Stage stage) {
@@ -65,7 +59,7 @@ public class Nihao extends Application{
             String css = this.getClass().getResource("/styles/cupertino-dark.css").toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
-            fxmlLoader.<MainWindowController>getController().setNihao(Nihao.instance);
+            fxmlLoader.<MainWindowController>getController().setNihao(Nihao.INSTANCE);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -8,7 +8,7 @@ import nihao.handler.PrintHandler;
 /**
  * Represents the delete action.
  */
-public class DeleteAction implements Action{
+public class DeleteAction implements Action {
     private int index;
     private boolean isAll;
 

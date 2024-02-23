@@ -1,17 +1,18 @@
 package nihao.handler;
 
-import nihao.action.task.DeadlineTask;
-import nihao.action.task.EventTask;
-import nihao.action.task.Task;
-import nihao.exception.IndexOutOfBoundsException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import nihao.action.task.DeadlineTask;
+import nihao.action.task.EventTask;
+import nihao.action.task.Task;
+import nihao.exception.IndexOutOfBoundsException;
 
 class DataHandlerTest {
     private String dateTime = "10/02/2024 2000";
