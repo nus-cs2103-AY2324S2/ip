@@ -30,10 +30,12 @@ public class TodoCommand extends Command {
         if (details.isEmpty()) {
             throw new DinoException("Please enter tasks description");
         }
+
         tasks.add(new Todo(details));
         messages.add("Got it. I've added this tasks:");
         messages.add("added: " + tasks.get(tasks.size() - 1).toString());
         messages.add("Now you have " + tasks.size() + " tasks in the list.");
+        
         return messages;
     }
 }

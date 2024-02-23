@@ -17,35 +17,34 @@ public class Dino {
     private static final String TASKS_CACHE_PATH = ".dino-cache";
     private static final String HORIZONTAL_LINE = "---------------------------------\n";
 
+    private Storage storage;
+    private TaskList tasks;
 
-    public static void main(String[] args) {
-
-        Storage storage = new Storage(TASKS_CACHE_PATH);
-
-        TaskList tasks = new TaskList();
+    public Dino() {
+        this.storage = new Storage(TASKS_CACHE_PATH);
+        this.tasks = new TaskList();
         try {
             tasks = storage.load();
         } catch (Exception e) {
             System.out.println("Issues occurred while loading tasks: " + e.getMessage());
         }
+    }
 
+    public void start() {
         greet();
-
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         while (!input.equalsIgnoreCase("bye")) {
             System.out.println(HORIZONTAL_LINE);
-            String messages = Dino.getResponse(input, storage, tasks);
-            System.out.println(messages);
-            storage.save(tasks);
+            String response = getResponse(input);
+            System.out.println(response);
             System.out.println(HORIZONTAL_LINE);
             input = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
     }
-
     private static void greet() {
         String greet = "Hello! I'm Dino\n"
                 + "What can I do for you?\n"
@@ -59,18 +58,18 @@ public class Dino {
      * @param input A string representing the user's input command.
      * @return string message to be print out later.
      */
-    public static String getResponse(String input, Storage storage, TaskList tasks) {
+    public String getResponse(String input) {
         try {
             Command command = Parser.processInput(input);
-            List<String> messages = command.execute(tasks);
-            storage.save(tasks);
+            List<String> messages = command.execute(this.tasks);
+            storage.save(this.tasks);
             return String.join("\n", messages);
         } catch (Exception e) {
-            return e.getMessage();
+            return "Oops! Something went wrong: " + e.getMessage();
         }
     }
 
-    public String getResponse(String input) {
-        return "Dino heard: " + input;
+    public static void main(String[] args) {
+        new Dino().start();
     }
 }

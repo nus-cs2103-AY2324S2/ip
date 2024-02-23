@@ -27,19 +27,27 @@ public class DeleteCommand extends Command {
      * @return List of Strings messages which will be printed to user later.
      */
     public List<String> execute(TaskList tasks) throws DinoException {
-        if (details.length() < 1) {
-            throw new DinoException("Please enter the tasks number that you want to delete: ex. delete 2");
+        if (details.isEmpty()) {
+            throw new DinoException("Please enter the task number that you want to delete. Example: 'delete 2'");
         }
+        
         try {
             int index = Integer.parseInt(details) - 1;
-            Task task = tasks.get(index);
-            messages.add("Noted. I've removed this tasks:");
-            messages.add(task.toString());
-            tasks.remove(index);
+            if (index < 0 || index >= tasks.size()) {
+                throw new DinoException("The task number you provided is out of range.");
+            }
+
+            messages.add("Noted. I've removed this task:");
+            messages.add(tasks.get(index).toString());
             messages.add("Now you have " + tasks.size() + " tasks in the list.");
-        } catch(Exception e) {
-            throw new DinoException("Please enter the valid tasks number");
+            
+            tasks.remove(index);
+        } catch (NumberFormatException e) {
+            throw new DinoException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DinoException("The task number you provided is out of range.");
         }
+
         return messages;
     }
 }
