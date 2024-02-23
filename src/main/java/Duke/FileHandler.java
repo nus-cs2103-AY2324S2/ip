@@ -19,6 +19,7 @@ public class FileHandler {
      * @return boolean
      */
     public static boolean isMarked(String input) {
+        assert input != null : "Input string must not be null";
         return String.valueOf(input.charAt(4)).equals("X");
     }
 
@@ -32,6 +33,8 @@ public class FileHandler {
      * @throws IOException
      */
     public static Path handleFile(TaskList storage, Path filePath) throws IOException {
+        assert storage != null : "TaskList must not be null";
+        assert filePath != null : "File path must not be null";
         try {
             List<String> taskList = Files.readAllLines(filePath);
             for (String s : taskList) {
