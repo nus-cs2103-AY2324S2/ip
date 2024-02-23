@@ -1,9 +1,11 @@
 package duke;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -11,22 +13,19 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private Duke duke = new Duke();
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
-        Parent root = loader.load();
-        primaryStage.setTitle("EchoPilot");
-
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        MainWindow controller = loader.getController();
-        Duke duke = new Duke("./data/duke.txt");
-        controller.setDuke(duke);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,49 +1,33 @@
 package duke.ui;
 
-import java.util.Scanner;
-
 /**
  * The Ui class is responsible for handling user interface interactions
  * in the Duke application, including reading user input and displaying messages.
  */
 public class Ui {
-    private Scanner scanner;
+    private StringBuilder responses;
 
     /**
-     * Constructs a Ui object and initializes the scanner to read user input from the console.
+     * Constructs a Ui object.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads a command entered by the user.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine().trim();
+        this.responses = new StringBuilder();
     }
 
     /**
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        String welcomeMessage = "____________________________________________________________\n"
-                + "Hello! I'm EchoPilot.\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________";
-        System.out.println(welcomeMessage);
+        String welcomeMessage = "Hello! I'm EchoPilot.\nWhat can I do for you?";
+        collectResponse(welcomeMessage);
     }
-
 
     /**
      * Displays a goodbye message to the user.
      */
     public void showGoodbye() {
-        String goodbyeMessage = "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
-        System.out.println(goodbyeMessage);
+        String goodbyeMessage = "Bye. Hope to see you again soon!";
+        collectResponse(goodbyeMessage);
     }
 
     /**
@@ -52,12 +36,8 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        String errorMessage = "____________________________________________________________\n"
-                + message + "\n"
-                + "____________________________________________________________";
-        System.out.println(errorMessage);
+        collectResponse(message);
     }
-
 
     /**
      * Displays an error message indicating failure to load tasks from a file.
@@ -66,15 +46,51 @@ public class Ui {
         showError("Error loading tasks from file.");
     }
 
-
     /**
      * Displays a general message to the user.
      *
      * @param message The message to be displayed.
      */
     public void showMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
+        collectResponse(message);
+    }
+
+    /**
+     * Clears the accumulated responses, preparing for the next set of messages.
+     */
+    public void clearResponse() {
+        responses.setLength(0);
+    }
+
+    /**
+     * Adds a response message to the responses StringBuilder.
+     *
+     * @param response The response message to be added.
+     */
+    public void showResponse(String response) {
+        responses.append(response).append("\n");
+    }
+
+    /**
+     * Gets the accumulated response messages as a single string.
+     *
+     * @return The concatenated response messages.
+     */
+    public String getResponse() {
+        String response = responses.toString();
+        responses.setLength(0);
+        return response;
+    }
+
+    /**
+     * Adds a message to the responses StringBuilder, ensuring it's formatted for display.
+     *
+     * @param message The message to be added.
+     */
+    public void collectResponse(String message) {
+        if (responses.length() > 0) {
+            responses.append("\n\n");
+        }
+        responses.append(message);
     }
 }
