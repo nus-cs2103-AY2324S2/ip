@@ -10,6 +10,7 @@ import alastor.command.Command;
 import alastor.command.DeleteCommand;
 import alastor.command.ExitCommand;
 import alastor.command.FindCommand;
+import alastor.command.HelpCommand;
 import alastor.command.InvalidCommand;
 import alastor.command.ListCommand;
 import alastor.command.MarkCommand;
@@ -194,6 +195,10 @@ public class Parser {
         case "delete":
             checkParameters(parameters, 2, type);
             return new DeleteCommand(stringToInt(parameters[1]));
+            // Fallthrough
+        case "help":
+            checkParameters(parameters, 1, type);
+            return new HelpCommand();
             // Fallthrough
         case "bye":
             checkParameters(parameters, 1, type);
