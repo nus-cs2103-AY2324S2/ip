@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class DateTimePrinter {
 
     /** Months in the year. */
-    private String[] months = new String[] {
+    private static final String[] NAME_OF_MONTHS = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
@@ -32,6 +32,6 @@ public class DateTimePrinter {
         if (hour == 0) {
             hour = 12;
         }
-        return day + " " + months[month - 1] + " " + year + " " + hour + ":" + minute + " " + suffix;
+        return day + " " + NAME_OF_MONTHS[month - 1] + " " + year + " " + hour + ":" + minute + " " + suffix;
     }
 }

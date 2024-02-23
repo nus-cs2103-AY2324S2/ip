@@ -28,56 +28,56 @@ public class Parser {
             String firstWordText = text.split(" ")[0];
             Commands firstWord = Commands.valueOf(firstWordText.toUpperCase());
             switch(firstWord) {
-                case BYE:
-                    return "Bye. Hope to see you again soon!";
-                case DELETE:
-                    return taskList.deleteTask(text.substring(Commands.DELETE.name().length()), storage);
-                case LIST:
-                    return taskList.toString();
-                case MARK:
-                    try {
-                        return markTask(text, taskList, storage);
-                    } catch (IndexOutOfBoundsException i) {
-                        return "Give a valid index to mark\n";
-                    } catch (NumberFormatException n) {
-                        return "Remaining characters do not match an integer\n";
-                    } catch (DuneException d) {
-                        return d.toString();
-                    }
-                case UNMARK:
-                    try {
-                        return unmarkTask(text, taskList, storage);
-                    } catch (IndexOutOfBoundsException i) {
-                        return "Give a valid index to unmark\n";
-                    } catch (NumberFormatException n) {
-                        return "Remaining characters do not match an integer\n";
-                    } catch (DuneException d) {
-                        return d.toString();
-                    }
-                case FIND:
-                    return taskList.find(text.substring(Commands.FIND.name().length()).trim());
-                case TODO:
-                    return taskList.addTask(Commands.TODO,
-                            text.substring(Commands.TODO.name().length()).trim(), storage);
-                case DEADLINE:
-                    return taskList.addTask(Commands.DEADLINE,
-                            text.substring(Commands.DEADLINE.name().length()).trim(), storage);
-                case EVENT:
-                    return taskList.addTask(Commands.EVENT,
-                            text.substring(Commands.EVENT.name().length()).trim(), storage);
-                case HELP:
-                    return "Here are the commands I understand:\n" +
-                            "bye\n" +
-                            "delete\n" +
-                            "list\n" +
-                            "mark\n" +
-                            "unmark\n" +
-                            "find\n" +
-                            "todo\n" +
-                            "deadline\n" +
-                            "event\n";
-                default:
-                    return "I do not know of this command. Please try again.";
+            case BYE:
+                return "Bye. Hope to see you again soon!";
+            case DELETE:
+                return taskList.deleteTask(text.substring(Commands.DELETE.name().length()), storage);
+            case LIST:
+                return taskList.toString();
+            case MARK:
+                try {
+                    return markTask(text, taskList, storage);
+                } catch (IndexOutOfBoundsException i) {
+                    return "Give a valid index to mark\n";
+                } catch (NumberFormatException n) {
+                    return "Remaining characters do not match an integer\n";
+                } catch (DuneException d) {
+                    return d.toString();
+                }
+            case UNMARK:
+                try {
+                    return unmarkTask(text, taskList, storage);
+                } catch (IndexOutOfBoundsException i) {
+                    return "Give a valid index to unmark\n";
+                } catch (NumberFormatException n) {
+                    return "Remaining characters do not match an integer\n";
+                } catch (DuneException d) {
+                    return d.toString();
+                }
+            case FIND:
+                return taskList.find(text.substring(Commands.FIND.name().length()).trim());
+            case TODO:
+                return taskList.addTask(Commands.TODO,
+                        text.substring(Commands.TODO.name().length()).trim(), storage);
+            case DEADLINE:
+                return taskList.addTask(Commands.DEADLINE,
+                        text.substring(Commands.DEADLINE.name().length()).trim(), storage);
+            case EVENT:
+                return taskList.addTask(Commands.EVENT,
+                        text.substring(Commands.EVENT.name().length()).trim(), storage);
+            case HELP:
+                return "Here are the commands I understand:\n" +
+                        "bye\n" +
+                        "delete\n" +
+                        "list\n" +
+                        "mark\n" +
+                        "unmark\n" +
+                        "find\n" +
+                        "todo\n" +
+                        "deadline\n" +
+                        "event\n";
+            default:
+                return "I do not know of this command. Please try again.";
             }
         } catch (Exception e) {
             return "I do not know of this command. Please try again.";
