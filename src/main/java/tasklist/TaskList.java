@@ -45,6 +45,7 @@ public class TaskList implements Serializable {
      * @param task task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Should not add a null task";
         theTaskList.add(task);
         if (task instanceof Deadline) {
             deadlines.add((Deadline) task);
