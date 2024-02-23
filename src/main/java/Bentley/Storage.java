@@ -7,15 +7,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class responsible for loading tasks from and writing tasks to a file.
+ */
 public class Storage {
 
+    /**
+     * The name of the file used for storing tasks.
+     */
     private String fileName;
 
+    /**
+     * Constructs a Storage object with the specified file name.
+     *
+     * @param fileName The name of the file used for storing tasks.
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
     }
 
-    // Method to load tasks from file
+    /**
+     * Loads tasks from the file and adds them to the provided ArrayList of tasks.
+     *
+     * @param tasks The ArrayList to which loaded tasks will be added.
+     */
     public void loadTasks(ArrayList<Task> tasks) {
         try {
             File file = new File(fileName);
@@ -30,7 +45,11 @@ public class Storage {
         }
     }
 
-    // Method to write tasks to file
+    /**
+     * Writes tasks from the provided ArrayList to the file.
+     *
+     * @param tasks The ArrayList of tasks to be written to the file.
+     */
     public void writeTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(fileName);
