@@ -77,6 +77,8 @@ public class Ally {
             }
         } catch (AllyException e) {
             return e.getMessage();
+        } catch (NumberFormatException e) {
+            return "Please provide the index of the task on the list";
         }
     }
 }

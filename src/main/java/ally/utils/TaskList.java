@@ -2,6 +2,7 @@ package ally.utils;
 
 import java.util.ArrayList;
 
+import ally.exception.AllyException;
 import ally.task.Task;
 
 /**
@@ -43,9 +44,13 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     public String markComplete(int i) {
-        this.get(i - 1).markComplete();
-        assert this.get(i - 1).isDone();
-        return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i - 1);
+        try {
+            this.get(i - 1).markComplete();
+            assert this.get(i - 1).isDone();
+            return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AllyException();
+        }
     }
 
     /**
@@ -55,9 +60,13 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     public String unmarkComplete(int i) {
-        this.get(i - 1).unmarkComplete();
-        assert !this.get(i - 1).isDone();
-        return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i - 1);
+        try {
+            this.get(i - 1).unmarkComplete();
+            assert !this.get(i - 1).isDone();
+            return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AllyException();
+        }
     }
 
     /**
@@ -67,11 +76,15 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     public String delete(int i) {
-        int s0 = this.size();
-        Task t = this.remove(i - 1);
-        int s1 = this.size();
-        assert s1 == s0 - 1;
-        return "Noted. I've removed this duke.task:" + "\n" + t + "\n" + countTasks();
+        try {
+            int s0 = this.size();
+            Task t = this.remove(i - 1);
+            int s1 = this.size();
+            assert s1 == s0 - 1;
+            return "Noted. I've removed this duke.task:" + "\n" + t + "\n" + countTasks();
+        } catch (IndexOutOfBoundsException e) {
+            throw new AllyException();
+        }
     }
 
     /**
@@ -81,9 +94,13 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     public String archive(int i) {
-        Task t = this.remove(i - 1);
-        archive.add(t);
-        return "Noted. I've archived this duke.task: " + "\n" + t + "\n" + countTasks();
+        try {
+            Task t = this.remove(i - 1);
+            archive.add(t);
+            return "Noted. I've archived this duke.task: " + "\n" + t + "\n" + countTasks();
+        } catch (IndexOutOfBoundsException e) {
+            throw new AllyException();
+        }
     }
 
     /**
