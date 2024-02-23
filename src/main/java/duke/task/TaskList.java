@@ -27,6 +27,10 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     /**
      * Adds a task to the list.
      * 

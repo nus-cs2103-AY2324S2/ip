@@ -29,6 +29,19 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs Event with datetime Strings directly.
+     * 
+     * @param description The text description of the event task.
+     * @param start       The start date of the event.
+     * @param end         The end date of the event.
+     */
+    public Event(String description, String start, String end) {
+        super(description);
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
      * Generates a string representation of the event task, including its type
      * indicator "[E]",
      * completion status, description, and the start and end dates.
@@ -56,5 +69,10 @@ public class Event extends Task {
             return endComp;
         }
         return super.compareTo(o);
+    }
+
+    @Override
+    public String serialize() {
+        return super.serialize() + "🦫" + start + "🦫" + end;
     }
 }

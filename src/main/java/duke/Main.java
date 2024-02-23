@@ -28,17 +28,20 @@ public class Main extends Application {
         this.appUI = new AppUI(stage, logicController);
 
         initLoadStorage();
-        
+
         logicController.setTaskList(taskList);
     }
 
     private void initLoadStorage() {
         try {
+
             if (PersistentStorageHandler.taskFileFound()) {
                 taskList = PersistentStorageHandler.readTaskFileFromDisc();
                 int numTasks = taskList.getNumberTasks();
                 String response = "Read existing tasks (" + numTasks + ") from disc";
                 appUI.createAgentDialog(response);
+            } else {
+                throw new DukeException("No task history found.\nWelcome to your new productivity journey.");
             }
         } catch (DukeException e) {
             appUI.createAgentDialog(e.getMessage());

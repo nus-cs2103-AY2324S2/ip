@@ -1,15 +1,23 @@
 package duke.storage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.TaskDataNotFoundException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.ToDo;
 
 /**
  * Handles persistent storage operations for Duke application, including reading
@@ -20,7 +28,7 @@ import duke.task.TaskList;
  */
 public class PersistentStorageHandler {
 
-    private static final String TASKLIST_PATH = "./tasklist.dat";
+    private static final String TASKLIST_PATH = "./tasklist.txt";
 
     /**
      * Ensures the existence of the task file and initializes it if not present.
@@ -45,22 +53,6 @@ public class PersistentStorageHandler {
     }
 
     /**
-     * Decodes the task list from an ObjectInputStream.
-     * 
-     * @param ois The ObjectInputStream to read the task list from.
-     * @return The decoded task list.
-     * @throws DukeException If an error occurs during decoding.
-     */
-    private static TaskList decodeObjectInputStream(ObjectInputStream ois) throws DukeException {
-        try {
-            TaskList taskList = (TaskList) ois.readObject();
-            return taskList;
-        } catch (Exception e) { // todo: look into what exceptions can occur here
-            throw new DukeException("Failed to decode: " + TASKLIST_PATH);
-        }
-    }
-
-    /**
      * Reads the task list from disk.
      * 
      * @return The task list loaded from the file.
@@ -68,13 +60,59 @@ public class PersistentStorageHandler {
      *                       reading.
      */
     public static TaskList readTaskFileFromDisc() throws DukeException {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TASKLIST_PATH));
-            return decodeObjectInputStream(ois);
+        TaskList taskList = new TaskList();
+        try (BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTaskFromString(line);
+                if (task != null) {
+                    taskList.addTask(task);
+                }
+            }
         } catch (Exception e) {
             throw new TaskDataNotFoundException(
                     "File: " + TASKLIST_PATH + " not found.\nWelcome to your new productivity journey.");
         }
+        return taskList;
+    }
+
+    private static Task parseTaskFromString(String line) throws DukeException {
+        try {
+            String[] parts = line.split("🦫");
+            boolean isDone;
+            if (parts.length == 2) {
+                String description = parts[0];
+                isDone = Boolean.valueOf(parts[1]);
+                Task task = new ToDo(description);
+                if (isDone) {
+                    task.markDone();
+                }
+                return task;
+            } else if (parts.length == 3) {
+                String description = parts[0];
+                isDone = Boolean.valueOf(parts[1]);
+                String due = parts[2];
+                Task task = new Deadline(description, due);
+                if (isDone) {
+                    task.markDone();
+                }
+                return task;
+            } else if (parts.length == 4) {
+                String description = parts[0];
+                isDone = Boolean.valueOf(parts[1]);
+                String start = parts[2];
+                String end = parts[3];
+                Task task = new Event(description, start, end);
+                if (isDone) {
+                    task.markDone();
+                }
+            } else {
+                throw new DukeException("Unabe to parse Task from String: " + line);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Unabe to parse Task from String: " + line);
+        }
+        return null;
     }
 
     /**
@@ -84,13 +122,13 @@ public class PersistentStorageHandler {
      * @throws DukeException If an error occurs during writing.
      */
     public static void writeTaskFileToDisc(TaskList taskList) throws DukeException {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TASKLIST_PATH));
-            oos.writeObject(taskList);
-            oos.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_PATH))) {
+            for (Task task : taskList.getTasks()) {
+                writer.write(task.serialize());
+                writer.newLine();
+            }
         } catch (Exception e) {
-            System.out.println(">>: " + e.getMessage());
-            throw new DukeException("Failed to write to file: " + TASKLIST_PATH);
+            throw new DukeException("Failed to write tasks to file: " + TASKLIST_PATH);
         }
     }
 }

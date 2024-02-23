@@ -24,6 +24,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs Dealine with datetime Strings directly.
+     * 
+     * @param description The text description of the event task.
+     * @param start       The start date of the event.
+     * @param end         The end date of the event.
+     */
+    public Deadline(String description, String due) {
+        super(description);
+        this.due = due;
+    }
+
+    /**
      * Generates a string representation of the deadline task, including its type
      * indicator "[D]",
      * completion status, description, and due date.
@@ -47,5 +59,10 @@ public class Deadline extends Task {
             return dueComp;
         }
         return super.compareTo(o);
+    }
+
+    @Override
+    public String serialize() {
+        return super.serialize() + "🦫" + due;
     }
 }

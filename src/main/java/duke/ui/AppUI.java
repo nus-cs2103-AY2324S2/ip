@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.commons.exceptions.DukeException;
 import duke.controller.LogicController;
-import duke.storage.PersistentStorageHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

@@ -1,12 +1,10 @@
 package duke.task;
 
-import java.io.Serializable;
-
 /**
  * Represents a generic task, providing a common structure and functionality for
  * tasks.
  */
-public abstract class Task implements Serializable, Comparable<Task> {
+public abstract class Task implements Comparable<Task> {
     private String description;
     private boolean isDone;
 
@@ -73,5 +71,9 @@ public abstract class Task implements Serializable, Comparable<Task> {
     @Override
     public int compareTo(Task other) {
         return this.description.compareTo(other.description);
+    }
+
+    public String serialize() {
+        return this.getDescription() + "🦫" + isDone;
     }
 }
