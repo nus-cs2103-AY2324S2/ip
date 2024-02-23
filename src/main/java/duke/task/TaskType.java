@@ -43,8 +43,7 @@ public enum TaskType {
         find,
         write,
         notes,
-        remove
+        remove,
 
-        /*,
-        exit */;
+        bye;
 }

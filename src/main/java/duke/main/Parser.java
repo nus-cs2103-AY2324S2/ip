@@ -1,15 +1,20 @@
 package duke.main;
-import duke.exception.*;
-import duke.task.*;
+import duke.exception.DateFormatException;
+import duke.exception.InvalidIndexException;
+import duke.exception.UnknownInputException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskType;
+import duke.task.ToDo;
 
 
 /**
  * Represents a parser that interprets user inputs and carries out the interpreted commands
  */
 public class Parser {
-    private TaskList taskList;
-    private Ui ui;
-    private NotesList notesList;
+    private final TaskList taskList;
+    private final Ui ui;
+    private final NotesList notesList;
 
     /**
      * Constructor for a new Parser object
@@ -23,14 +28,13 @@ public class Parser {
     }
 
     public boolean isExit(String input) {
-        return input.equals("bye");
+        return input.equals("exit");
     }
 
     /**
      * Method for taking in user input and executing specified commands based on a pre-defined list
      *
      * @param input                   Takes in user input as a String
-     * @throws UnknownInputException  Throws exception if input is in list of recognised commands
      */
     public String parse(String input) {
         int taskEnd = input.indexOf(" ");
@@ -100,6 +104,8 @@ public class Parser {
             case remove:
                 this.notesList.remove(Integer.parseInt(details) - 1);
                 return this.ui.printOnDeleteNote(Integer.parseInt(details));
+            case bye:
+                return this.ui.printExitMessage();
             default:
                 throw new UnknownInputException();
             }

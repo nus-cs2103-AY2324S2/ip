@@ -90,7 +90,7 @@ public class Ui {
      */
 
     public String printExitMessage() {
-        return "Goodbye!";
+        return "Goodbye! \n(type 'exit' to close application)";
     }
 
     /**

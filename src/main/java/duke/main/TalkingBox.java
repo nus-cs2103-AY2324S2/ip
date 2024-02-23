@@ -1,7 +1,7 @@
 package duke.main;
 import java.io.IOException;
 
-import duke.exception.*;
+import duke.exception.FileNotFoundException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -54,26 +54,17 @@ public class TalkingBox extends Application {
      *
      * @throws IOException
      */
-    public void run() throws IOException {
-        this.ui.printWelcomeMessage();
-        boolean isExit = false;
-        boolean isError = false;
-        while (!isExit && !isError) {
-            String command = this.ui.readLine();
-            isExit = this.parser.isExit(command);
-            if (isExit) {
-                this.storage.store();
-                this.ui.printExitMessage();
-                break;
-            } else {
-                this.parser.parse(command);
-            }
+    public String getReply() throws IOException {
+        String command = this.ui.readLine();
+        boolean isExit = this.parser.isExit(command);
+        if (isExit) {
+            this.storage.store();
+            return this.ui.printExitMessage();
+        } else {
+            return this.parser.parse(command);
         }
-        this.storage.store();
-        this.ui.printExitMessage();
     }
 
     public static void main(String[] args) throws IOException {
-        new TalkingBox().run();
     }
 }
