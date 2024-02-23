@@ -1,6 +1,8 @@
 package reacher;
 
+import javafx.scene.layout.AnchorPane;
 import reacher.command.Command;
+import reacher.ui.MainWindow;
 
 import java.time.format.DateTimeParseException;
 
@@ -10,33 +12,20 @@ public class Reacher {
     private final Ui ui;
 
     public Reacher(String filePath) {
-        ui = new Ui();
+        this.ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadList());
     }
-    public static void main(String[] args) {
-        new Reacher("./storage.txt").run();
-    }
 
-    /**
-     * Prints welcome message and takes in user input, executes it until user exits.
-     */
-    public void run() {
-        ui.printWelcome();
-
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                ui.print("Enter a command:");
-                String input = ui.readString();
-                Command command = Parser.parse(input);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (ReacherException e) {
-                ui.print(e.getMessage());
-            } catch (DateTimeParseException e) {
-                ui.print("Pls provide correct format: yyyy-mm-dd");
-            }
+    public String handleInput(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(input, tasks, ui, storage);
+        } catch (ReacherException e) {
+            return (e.getMessage());
+        } catch (DateTimeParseException e) {
+            return("Pls provide correct format: yyyy-mm-dd");
         }
     }
+
 }
