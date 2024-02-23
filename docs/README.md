@@ -1,10 +1,9 @@
 # Banter User Guide
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling 
-and raising a tentacle.](./Ui.png)
+![Screenshot of the Banter GUI with tasks added](./Ui.png)
 
 Banter is an **app for managing tasks**, optimized for use via a **Command Line Interface (CLI)**, while still having 
-the benefits of a **chat-bot Graphical User Interface (GUI)**. If you can type fast, Banter can get your tasks 
+the benefits of a **chatbot Graphical User Interface (GUI)**. If you can type fast, Banter can get your tasks 
 management done faster than traditional GUI apps.
 
 ---------------------------------------
@@ -15,8 +14,8 @@ management done faster than traditional GUI apps.
 2. Download the latest `banter.jar` from [here](https://github.com/solomonng2001/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for Banter.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` 
-command to run the application. A GUI similar to the below should appear in a few seconds.
-![Screenshot of the Banter GUI](./Start.png)
+command to run the application. A GUI similar to the below should appear in a few seconds.<br>
+![Screenshot of the Banter GUI at the start](./Start.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will
 6. Refer to the [Features](#features) below for details of each command.
 
