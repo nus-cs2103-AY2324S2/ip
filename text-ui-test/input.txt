@@ -1,0 +1,10 @@
+hi
+deadline CS2103T quiz /by 23/02/2024 2359
+event watch lecture /from TBC /to TBC
+list
+mark 1
+unmark 1
+list
+undo
+list
+bye
