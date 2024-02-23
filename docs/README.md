@@ -9,6 +9,7 @@ It is:
 - Easy to learn 
 - ~~Fast~~ _SUPER SUPER FAST_ to use
 
+# Header
 [Getting Started](#Getting Started)
 
 ## Getting Started 💻
