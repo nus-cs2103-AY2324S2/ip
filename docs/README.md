@@ -7,7 +7,7 @@ Line Interface** (CLI). If u can type fast, Atlas can get help you manage
 your tasks much faster.
 
 ## Adding todos: `todo`
-Adds a todo to the list with a priority ranging from 0 to 5.
+Adds a todo task to the list with a priority ranging from 0 to 5.
 If no priority is specified, a default value of 3 is given.
 
 Format: `todo <task details> [/priority <value>]`
@@ -20,7 +20,7 @@ Example:
 
 ## Adding deadlines: `deadline`
 
-Adds a deadline to the list with a priority ranging from 0 to 5.
+Adds a deadline task to the list with a priority ranging from 0 to 5.
 If no priority is specified, a default value of 3 is given. **An end date
 and time must be specified in the format of YYYY-MM-DD HHmm**
 
@@ -33,7 +33,7 @@ Example:
 
 ## Adding events: `event`
 
-Adds an event to the list with a priority ranging from 0 to 5.
+Adds an event task to the list with a priority ranging from 0 to 5.
 If no priority is specified, a default value of 3 is given. **A start date
 and time must be specified in the format of YYYY-MM-DD HHmm. An end date and time
 must also be specified in the same format**
