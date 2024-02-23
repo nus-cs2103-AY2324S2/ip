@@ -56,7 +56,7 @@ public class Joseph {
             return parser.parseCommand(input, ui, storage, todolist);
         } catch (JosephException e) {
             ui.printMessage(e.getMessage());
-            return "Error";
+            return e.getMessage();
         }
     }
 }
