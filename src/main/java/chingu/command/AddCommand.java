@@ -71,7 +71,7 @@ public class AddCommand extends Command {
      * @param task contains list of tasks
      * @param ui that deals with Ui of the Chingu Program
      * @return response of the Chingu program from the command
-     * @throws ToDosException if
+     * @throws ToDosException if necessary details are missing from the ToDo
      */
     public String processToDos(String description, TaskList task, Ui ui) throws ToDosException {
         Task new_task = Parser.parseToDos(description);
@@ -80,6 +80,16 @@ public class AddCommand extends Command {
         return Response;
     }
 
+    /**
+     * Process Deadline that will be added to the tasklist
+     *
+     * @param description of Deadline
+     * @param task contains list of tasks
+     * @param ui that deals with Ui of the Chingu Program
+     * @return response of the Chingu program from the command
+     * @throws DeadlineException if necessary details are missing from the Deadline
+     * @throws DateException if format of the date given is wrong
+     */
     public String processDeadline(String description, TaskList task, Ui ui) throws DeadlineException, DateException {
         Task new_task = Parser.parseDeadline(description);
         task.add(new_task);
@@ -87,6 +97,16 @@ public class AddCommand extends Command {
         return Response;
     }
 
+    /**
+     * Process Deadline that will be added to the tasklist
+     *
+     * @param description of Event
+     * @param task contains list of tasks
+     * @param ui that deals with Ui of the Chingu Program
+     * @return response of the Chingu program from the command
+     * @throws EventException if necessary details are missing from the Event
+     * @throws DateException if format of the date given is wrong
+     */
     public String processEvents(String description, TaskList task, Ui ui) throws EventException, DateException {
         Task new_task = Parser.parseEvent(description);
         task.add(new_task);

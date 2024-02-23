@@ -32,7 +32,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert !(index < 0 || index >= tasks.getSizeNumber()) : "this task doesn't exist!";
         Task removed = tasks.tasks.remove(index);
         String Response = "Noted. I've removed this task:\n";
         Response = Response + removed.toString() + "\n" +

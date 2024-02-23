@@ -45,7 +45,7 @@ public class Parser {
      *
      * @param fullCommand from the user
      * @return Command that is constructed based on User's command
-     * @throws NoCommandException if no command is present
+     * @throws NoCommandException if no command is present or weird command is given
      */
     public static Command parseOneWordCommand(String fullCommand) throws NoCommandException {
         if (fullCommand.equals("list")) {
@@ -57,6 +57,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Sorts the more than 1-word Command from the user
+     *
+     * @param firstWord Main Command
+     * @param furtherDetails Description
+     * @return Command that is constructed based on User's command
+     * @throws NoCommandException if no command is present or weird command is given
+     */
     public static Command parseLongCommand(String firstWord, String furtherDetails) throws NoCommandException {
         assert !firstWord.equals("todos") : "You want to add 1 task at a time - todo";
         assert !firstWord.equals("events") : "You want to add 1 task at a time - event";
@@ -167,6 +175,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Check if the description is splitted correctly
+     *
+     * @param length number of splitted descriptions
+     * @throws EventException if necessary details are missing from the Event
+     */
     public static void checkEventSplit(int length) throws EventException{
         if (length < 2) {
             throw new EventException("There is no event timeline!");

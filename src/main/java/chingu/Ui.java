@@ -13,14 +13,11 @@ public class Ui {
 
     private static final String LINE = "_________________________________________________________";
 
-    private static final String LOADING_ERROR = "Your tasks are loaded wrongly " +
-            "- Please check your list.txt again, my friend!";
-
     private static final String ACKNOWLEDGEMENT = "Got it, my friend! I've added this task:\n";
 
     private static final String LIST_ANNOUNCEMENT = "Here are the tasks in your list:\n";
 
-    public static final String BYE = "Hope to see you again soon!";
+    public static final String BYE = "BYE, Friend! Hope to see you again soon!";
 
     public Ui() {
         this(System.in);
@@ -44,10 +41,6 @@ public class Ui {
         return "My dear friend, your date format is WRONG!\n" + message;
     }
 
-    public String showLoadingError() {
-        return LOADING_ERROR;
-    }
-
     public String showLine() {
         return LINE;
     }
@@ -65,16 +58,33 @@ public class Ui {
         return "Here are the matching tasks in your list:\n";
     }
 
+    /**
+     * Return a starting line that task is marked as Done.
+     *
+     * @param task that is marked as Done
+     * @return starting line in string form
+     */
     public String markedDone(Task task) {
         return "Nice! I've marked this task as done:\n" +
                 "\t" + task.toString();
     }
 
+    /**
+     * Return a starting line that task is marked as Undone.
+     *
+     * @param task that is marked as Undone
+     * @return starting line in string form
+     */
     public String markedUndone(Task task) {
         return "OK, I've marked this task as not done yet:\n" +
                 "\t" + task.toString();
     }
 
+    /**
+     * Says GoodBye to user to mark the end of the program
+     *
+     * @return Bye statement in String form
+     */
     public String sayGoodBye() {
         return BYE;
     }

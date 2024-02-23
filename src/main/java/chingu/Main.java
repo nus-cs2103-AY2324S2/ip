@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Chingu duke = new Chingu();
+    private Chingu chingu = new Chingu();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Chingu - Your Great Friend To Help You");
-            fxmlLoader.<MainWindow>getController().setDoummi(duke);
+            fxmlLoader.<MainWindow>getController().setDoummi(chingu);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

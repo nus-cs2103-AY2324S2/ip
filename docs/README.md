@@ -1,6 +1,6 @@
 # Chingu User Guide
 
-// Product screenshot goes here
+![img.png](Ui.png)
 
 Chingu (친구) means a friend in Korean. 
 Like a friend, it can help you to list your tasks 
@@ -143,6 +143,12 @@ Here are the matching tasks in your list:
 ## Credits
 
 I acknowledge that portions of the source code are 
-referenced from CS2103T and SE-EDU. 
-I have done my upmost best to add comments to parts of code
+referenced from CS2103T website, SE-EDU, Javatpoint, W3Schools website and my teammate 
+(Wang Lifu - Github Profile: @LifHoshi) for following purposes.
+- CS2103T website and SE-EDU: For most deliverable sample codes including Java FXML
+- JavaTpoint: Checking how exception classes are implemented
+- W3Schools: Writing and reading files that concerns saving and loading tasks from data
+- Wang Lifu: regarding the part on saving file correctly (especially for Jar file)
+
+I have done my upmost best to add comments to parts of code (except for CS2103T website and SE-EDU)
 where references to above sources have been made in this repository.

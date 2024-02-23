@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath where the file is located and the file where the tasks will be saved
      */
     public Storage(String filePath) {
-        this.store = new File(String.valueOf(filePath));
+        this.store = new File(filePath);
     }
 
     /**
@@ -38,6 +38,10 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> task = new ArrayList<Task>();
+        /**
+         * Some snippets here are taken from https://www.w3schools.com/java/java_files_read.asp.
+         * This was done to load tasks from data.
+         */
         if (this.store.exists()) {
             Scanner reader = new Scanner(store);
             sortTaskType(reader, task);
@@ -168,7 +172,11 @@ public class Storage {
      */
     public void save(TaskList tasks) {
         try {
-            File dir = new File("store");
+            /** First half portion of the code here was reused from @LifHoshi
+             *  This was done to ensure that Jar file store the data correctly
+             */
+
+            File dir = new File("data");
 
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -178,6 +186,10 @@ public class Storage {
                 store.createNewFile();
             }
 
+            /**
+             * some snippets here are taken from https://www.w3schools.com/java/java_files_create.asp
+             * This was done to save the tasks into the data.
+             */
             FileWriter data = new FileWriter(store);
             String to_record = "";
             for (int i = 0; i < tasks.getSizeNumber(); i++) {

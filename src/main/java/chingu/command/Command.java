@@ -1,7 +1,6 @@
 package chingu.command;
 
 import chingu.Storage;
-import chingu.exception.ChinguException;
 import chingu.task.TaskList;
 import chingu.Ui;
 
@@ -15,8 +14,8 @@ public abstract class Command {
      * @param storage that deals with loading or saving the file
      * @return the response of the Chingu program from the command
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChinguException {
-        throw new UnsupportedOperationException("This should only be implemented by child classes");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "This is an unknown Command!";
     }
 
     /**
@@ -25,7 +24,7 @@ public abstract class Command {
      * @return boolean that indicate if it is the last command from user
      */
     public boolean isExit() {
-        throw new UnsupportedOperationException("This should only be implemented by child classes");
+        return false;
     }
 
 }

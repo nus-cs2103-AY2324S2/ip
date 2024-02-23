@@ -1,7 +1,6 @@
 package chingu;
 
 import chingu.command.Command;
-import chingu.exception.ChinguException;
 import chingu.exception.NoCommandException;
 import chingu.task.TaskList;
 
@@ -44,8 +43,6 @@ public class Chingu {
                 isExit = c.isExit();
             } catch (NoCommandException e) {
                 ui.showError(e.getMessage());
-            } catch (ChinguException e) {
-                throw new RuntimeException(e);
             } finally {
                 ui.showLine();
             }
@@ -65,8 +62,6 @@ public class Chingu {
             Response = newCommand.execute(tasks, ui, storage);
         } catch (NoCommandException e) {
             return ui.showError(e.getMessage());
-        } catch (ChinguException e) {
-            throw new RuntimeException(e);
         }
         return Response;
     }

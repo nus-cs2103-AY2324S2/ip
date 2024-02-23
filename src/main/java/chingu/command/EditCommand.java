@@ -36,7 +36,6 @@ public class EditCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println(index >= tasks.getSizeNumber());
-        assert (index >= 0 && index < tasks.getSizeNumber()) : "this task doesn't exist!";
         Task task = tasks.getTask(index);
         if (editType.equals("mark")) {
             task.markAsDone();
