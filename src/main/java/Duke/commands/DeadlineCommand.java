@@ -40,6 +40,7 @@ public class DeadlineCommand extends Command {
         String deadlineDescription = words[1].substring(0, deadlineStartIdx);
         String deadlineDate = words[1].substring(deadlineStartIdx + 4);
         Task newDeadline = new Deadline(deadlineDescription, deadlineDate);
+        assert newDeadline != null;
         tasks.addTask(newDeadline);
         storage.addToWriteFile(newDeadline);
         int numberOfCurrentTasks = tasks.getNumberOfTasks();

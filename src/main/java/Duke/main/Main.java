@@ -33,7 +33,7 @@ public class Main extends Application {
 
             // Set the scene to the primary stage
             stage.setScene(scene);
-
+            assert duke != null;
             // Get the controller of the MainWindow.fxml file and set the Duke object
             fxmlLoader.<MainWindow>getController().setDuke(duke);
 

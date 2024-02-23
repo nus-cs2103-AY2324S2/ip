@@ -113,13 +113,9 @@ public class DateCommand extends Command {
         int day = Integer.parseInt(dateNumbers[0]);
         int hour = Integer.parseInt(dateNumbers[3].substring(0, 2));
         int min = Integer.parseInt(dateNumbers[3].substring(2));
-
         LocalDateTime toFind = LocalDateTime.of(
-                year,
-                month,
-                day,
-                hour,
-                min);
+            year, month, day, hour, min);
+        assert toFind != null;
         return ui.foundListMessage(tasks.findTaskWithDate(toFind));
     }
 }
