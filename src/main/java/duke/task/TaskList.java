@@ -112,21 +112,15 @@ public class TaskList implements Serializable {
         return taskRepresentations;
     }
 
-    /**
-     * Prints the list of tasks to the standard output, with indentation and line
-     * separators for readability.
-     */
-    public void printTasks() {
-        System.out.println(INDENT + LINE);
-
+    public String getFormattedTasks() {
+        StringBuilder sb = new StringBuilder();
         if (tasks.size() == 0) {
-            System.out.println(INDENT + "no tasks");
+            sb.append("no tasks");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1) + ". " + tasks.get(i) + "\n");
             }
         }
-
-        System.out.println(INDENT + LINE + "\n");
+        return sb.toString();
     }
 }

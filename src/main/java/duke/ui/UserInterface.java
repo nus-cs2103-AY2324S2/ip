@@ -3,6 +3,16 @@ package duke.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 public class UserInterface {
     public static final String INDENT = "     ";
 
@@ -21,65 +31,54 @@ public class UserInterface {
         return scanner.nextLine();
     }
 
-    public static void print(String msg) {
-        System.out.println(INDENT + LINE);
-        String[] lines = msg.split("\n");
-        System.out.println(INDENT + lines[0]);
-        for (int i = 1; i < lines.length; i++) {
-            System.out.println(INDENT + lines[i]);
-        }
-        System.out.println(INDENT + LINE + "\n");
+    public static String formatResponse(String msg) {
+        return msg;
     }
 
-    public static void printWelcome() {
-        System.out.println(INDENT + LINE);
-        System.out.println(INDENT + WELCOME_MESSAGE);
-        System.out.println(INDENT + LINE + "\n");
+    public static String formatWelcome() {
+        return WELCOME_MESSAGE;
     }
 
-    public static void printExit() {
-        scanner.close();
-        System.out.println(INDENT + LINE);
-        System.out.println(INDENT + EXIT_MESSAGE);
-        System.out.println(INDENT + LINE + "\n");
+    public static String formatExit() {
+        return EXIT_MESSAGE;
     }
 
-    public static void printTaskAdded(String msg, int numTasks) {
-        System.out.println(INDENT + LINE);
-        System.out.println(INDENT + "Added Task:");
-        System.out.println(INDENT + "  " + msg);
-        System.out.println(INDENT + "Now you have " + numTasks + " tasks in the list.");
-        System.out.println(INDENT + LINE + "\n");
+    public static String formatTaskAddedResponse(String msg, int numTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Added Task:\n");
+        sb.append(INDENT + msg + "\n");
+        sb.append("Now you have " + numTasks + " tasks in the list.");
+        return sb.toString();
     }
 
-    public static void printTaskDeleted(String msg, int numTasks) {
-        System.out.println(INDENT + LINE);
-        System.out.println(INDENT + "Deleted Task:");
-        System.out.println(INDENT + "  " + msg);
-        System.out.println(INDENT + "Now you have " + numTasks + " tasks in the list.");
-        System.out.println(INDENT + LINE + "\n");
+    public static String formatTaskDeletedResponse(String msg, int numTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Deleted Task:\n");
+        sb.append("  " + msg + "\n");
+        sb.append("Now you have " + numTasks + " tasks in the list.");
+        return sb.toString();
     }
 
-    public static void printTasksByIndices(ArrayList<String> taskRepresentations) {
-        System.out.println(INDENT + LINE);
+    public static String formatTasksByIndicesResponse(ArrayList<String> taskRepresentations) {
+        StringBuilder sb = new StringBuilder();
         if (taskRepresentations.size() == 0) {
-            System.out.println(INDENT + "No matching tasks found.");
+            sb.append("No matching tasks found.");
         } else {
-            System.out.println(INDENT + "Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (String t : taskRepresentations) {
-                System.out.println(INDENT + t);
+                sb.append(t + "\n");
             }
         }
-        System.out.println(INDENT + LINE + "\n");
+        return sb.toString();
     }
 
-    public static void showError(String error) {
-        System.out.println(INDENT + LINE);
+    public static String formatErrorResponse(String error) {
+        StringBuilder sb = new StringBuilder();
         String[] lines = error.split("\n");
-        System.out.println(INDENT + "Error: " + lines[0]);
+        sb.append("Error: " + lines[0] + "\n");
         for (int i = 1; i < lines.length; i++) {
-            System.out.println(INDENT + lines[i]);
+            sb.append(lines[i]);
         }
-        System.out.println(INDENT + LINE + "\n");
+        return sb.toString();
     }
 }
