@@ -2,6 +2,7 @@ package dylanbot;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents a list of tasks, with operations to add/delete tasks in the list
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
+    private HashMap<String, ArrayList<Integer>> tagList;
 
     /**
      * Creates a TaskList based on the given ArrayList of tasks and the given Ui
@@ -16,8 +18,9 @@ public class TaskList {
      * @param tasks The specified ArrayList
      * @param ui The Ui to be used
      */
-    public TaskList(ArrayList<Task> tasks, Ui ui) {
+    public TaskList(ArrayList<Task> tasks, HashMap<String, ArrayList<Integer>> tagList, Ui ui) {
         this.tasks = tasks;
+        this.tagList = tagList;
         this.ui = ui;
     }
 
@@ -28,6 +31,7 @@ public class TaskList {
      */
     public TaskList(Ui ui) {
         this.tasks = new ArrayList<>();
+        this.tagList = new HashMap<>();
         this.ui = ui;
     }
 
@@ -41,6 +45,10 @@ public class TaskList {
 
     public int getSize() {
         return this.tasks.size();
+    }
+
+    public HashMap<String, ArrayList<Integer>> getTagList() {
+        return this.tagList;
     }
 
     /**
@@ -148,9 +156,39 @@ public class TaskList {
         } else {
             StringBuilder response = new StringBuilder();
             response.append("Here you go, results from your search for: '" + term + "'");
-            response.append(ui.displayTasks(res));
+            response.append("\n").append(ui.displayTasks(res));
             assert response.length() > 0 : "Results should be non-zero if search term can be found";
             return response.toString();
         }
+    }
+
+    public String getTasksByTag(String tag) {
+        if (!this.tagList.containsKey(tag)) {
+            return "Shag no tasks tagged with " + tag;
+        } else {
+            ArrayList<Integer> indices = this.tagList.get(tag);
+            ArrayList<Task> taggedTasks = new ArrayList<>();
+            for (int idx : indices) {
+                taggedTasks.add(this.tasks.get(idx - 1));
+            }
+            StringBuilder response = new StringBuilder();
+            response.append("Here you go, results from your filter for: '" + tag + "'");
+            response.append("\n").append(ui.displayTasks(taggedTasks));
+            return response.toString();
+        }
+    }
+
+    /**
+     * Tags the task at the specified 1-based index with the specified tag
+     *
+     * @param idx 1-based index
+     * @param tag The specified tag
+     */
+    public String tagTask(int idx, String tag) {
+        tasks.get(idx - 1).addTag(tag);
+        ArrayList<Integer> tasksWithTag = tagList.getOrDefault(tag, new ArrayList<>());
+        tasksWithTag.add(idx - 1);
+        tagList.put(tag, tasksWithTag);
+        return "Tagged " + tasks.get(idx - 1).getDesc() + " with tag " + tag;
     }
 }

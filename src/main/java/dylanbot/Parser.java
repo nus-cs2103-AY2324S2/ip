@@ -27,24 +27,28 @@ public class Parser {
     public String parseCommand(String command) throws DylanBotException {
         try {
             switch (command.split(" ")[0]) {
-                case "list":
-                    return processListCommand();
-                case "find":
-                    return processFindCommand(command);
-                case "mark":
-                    return processMarkCommand(command, true);
-                case "unmark":
-                    return processMarkCommand(command, false);
-                case "todo":
-                    return processTodoCommand(command);
-                case "deadline":
-                    return processDeadlineCommand(command);
-                case "event":
-                    return processEventCommand(command);
-                case "delete":
-                    return processDeleteCommand(command);
-                default:
-                    throw new DylanBotException("HEY invalid input! Try again");
+            case "list":
+                return processListCommand();
+            case "find":
+                return processFindCommand(command);
+            case "mark":
+                return processMarkCommand(command, true);
+            case "unmark":
+                return processMarkCommand(command, false);
+            case "todo":
+                return processTodoCommand(command);
+            case "deadline":
+                return processDeadlineCommand(command);
+            case "event":
+                return processEventCommand(command);
+            case "delete":
+                return processDeleteCommand(command);
+            case "tag":
+                return processTagCommand(command);
+            case "filter":
+                return processFilterCommand(command);
+            default:
+                throw new DylanBotException("HEY invalid input! Try again");
             }
         } catch (DylanBotException e) {
             return e.getMessage();
@@ -172,4 +176,40 @@ public class Parser {
         }
         return tl.deleteTask(idx);
     }
- }
+
+    /**
+     * Processes the command to tag a Task
+     *
+     * @param command The command containing the Task to tag
+     * @return The tagged Task
+     * @throws DylanBotException If command is invalid
+     */
+    public String processTagCommand(String command) throws DylanBotException {
+        String[] inputArr = command.split(" ");
+        if (inputArr.length < 3) {
+            throw new DylanBotException("HEY provide both a task number and a tag!");
+        }
+        int idx = Integer.parseInt(inputArr[1]);
+        if (idx > tl.getSize() || idx < 0) {
+            throw new DylanBotException("HEY index requested is out of bounds");
+        }
+        String tag = inputArr[2];
+        return tl.tagTask(idx, tag);
+    }
+
+    /**
+     * Processes the command to filter tasks by tag
+     *
+     * @param command The command containing the tag to filter by
+     * @return The filtered list of tasks
+     * @throws DylanBotException If command is invalid
+     */
+    public String processFilterCommand(String command) throws DylanBotException {
+        String[] inputArr = command.split(" ");
+        if (inputArr.length < 2) {
+            throw new DylanBotException("HEY provide a tag to filter by!");
+        }
+        String tag = inputArr[1];
+        return tl.getTasksByTag(tag);
+    }
+}

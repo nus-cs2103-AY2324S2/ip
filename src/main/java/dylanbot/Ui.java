@@ -55,7 +55,7 @@ public class Ui { // deals with interactions with the user
         StringBuilder response = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
-            String currStr = "\t" + (i + 1) + ". " + curr.toString() + "\n";
+            String currStr = (i + 1) + ". " + curr.toString() + "\n";
             response.append(currStr);
         }
         assert response.length() > 0 : "List of tasks should not be empty";

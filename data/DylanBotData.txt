@@ -1,6 +1,0 @@
-T | true | read
-T | false | return
-E | false | meeting | 2001-12-13T08:09:10 | 2001-12-13T08:10:11
-T | true | write
-D | false | borrow | 2111-12-31T00:00
-T | false | read book
