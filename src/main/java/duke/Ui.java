@@ -89,6 +89,42 @@ public class Ui {
     }
 
     /**
+     * Returns a message indicating that the user input is invalid
+     *
+     * @return The invalid message
+     */
+    public String showInvalidTask() {
+        return "That's not a valid task!\n";
+    }
+
+    /**
+     * Returns a message indicating that the user input for Todo is invalid
+     *
+     * @return The invalid message
+     */
+    public String showInvalidTodo() {
+        return "That's not a valid task!\n";
+    }
+
+    /**
+     * Returns a message indicating that the user input for Deadline is invalid
+     *
+     * @return The invalid message
+     */
+    public String showInvalidDeadline() {
+        return "That's not a valid task!\n";
+    }
+
+    /**
+     * Returns a message indicating that the user input for Event is invalid
+     *
+     * @return The invalid message
+     */
+    public String showInvalidEvent() {
+        return "That's not a valid task!\n";
+    }
+
+    /**
      * Returns a string representation of all tasks in the task list.
      *
      * @param tasks The TaskList containing tasks to be displayed.

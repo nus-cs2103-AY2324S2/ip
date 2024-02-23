@@ -66,13 +66,16 @@ public class Parser {
         }
     }
 
+    private String handleInvalidTask() {
+        return ui.showInvalidTask();
+    }
     private String handleToDo(String input) {
         if (input.length() <= 5) {
-            return"That's not a valid todo!";
+            return ui.showInvalidTodo();
         } else {
             String description = input.substring(5).trim();
             if (description.isEmpty()) {
-                return"That's not a valid todo!";
+                return ui.showInvalidTodo();
             } else {
                 try {
                     return handleAdd(new ToDo(description));
@@ -85,7 +88,7 @@ public class Parser {
 
     private String handleDeadline(String input) {
         if (input.length() <= 9) {
-            return "That's not a valid Deadline!";
+            return ui.showInvalidDeadline();
         } else {
             String[] parts = input.substring(9).split(" /by ");
             if (parts.length == 2) {
@@ -95,7 +98,7 @@ public class Parser {
                     return e.getMessage();
                 }
             } else {
-                return "That's not a valid Deadline!";
+                return ui.showInvalidDeadline();
             }
         }
     }
@@ -109,7 +112,7 @@ public class Parser {
             String startTime = input.substring(fromIndex + 7, toIndex).trim();
             String endTime = input.substring(toIndex + 5).trim();
             if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-                return "The description, start time, and end time of an event cannot be empty.";
+                return ui.showInvalidEvent();
             } else {
                 try {
                     return handleAdd(new Event(description, startTime, endTime));
@@ -118,7 +121,7 @@ public class Parser {
                 }
             }
         } else {
-            return "That's not a valid Event!";
+            return ui.showInvalidEvent();
         }
     }
 
