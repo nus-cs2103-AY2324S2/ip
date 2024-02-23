@@ -33,3 +33,5 @@ Example: `todo finish cs2103T iP`
 - `find <keyword>`: Finds tasks containing the specified keyword.
 
 Feel free to contact [@4llysa](https://github.com/4llysa) for any enquiries, bug reports or suggestions for improvements.
+
+Inspiration for User Guide taken from [@jyztintan](https://github.com/jyztintan).
