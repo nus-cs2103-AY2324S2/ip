@@ -12,3 +12,4 @@ E | 0 | eat dinner with family | 22/2/2024 0000 | 22/2/2026 0000
 T | 0 | eat breakfast paylah
 D | 0 | submit cs2103t chatbot | 23/2/2024 0000
 E | 0 | submit cs2103t start | 1/1/2024 0000 | 23/2/2024 2300
+D | 0 | submit cs2103t chatbot | 23/2/2023 0000
