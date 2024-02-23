@@ -10,7 +10,7 @@ It is:
 - ~~Fast~~ _SUPER SUPER FAST_ to use
 
 # Content
-- [Getting Started](#Getting_Started
+- [Getting Started](#Getting_Started)
 - [Features](#Features)
     - [List down all tasks](#list)
     - [Add new ToDo](#Todo)
