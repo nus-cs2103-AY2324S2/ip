@@ -98,6 +98,7 @@ The chatbot marks the first task in the list.
    Way to go! I've marked this task as done:
    [T][X] get iP done
 ```
+
 ### 5. unmark
 > What it does 
 
@@ -115,6 +116,7 @@ The chatbot unmarks the first task in the list.
   Okayy, I've marked this task as not done yet:
    [T][] get iP done
 ```
+
 ### 6. delete
 > What it does 
 
@@ -133,6 +135,7 @@ The chatbot deletes the first task in the list.
    [T][] get iP done
     Now you have 2 tasks in the list.
 ```
+
 ### 7. list
 > What it does 
 
@@ -150,6 +153,7 @@ The chatbot then displays the whole task list.
    1.[D][] get iP done (by: Feb 23 2024 23:59)
    2.[E][] project meeting (from: Dec 12 2024 12:00 to: Dec 12 2024 13:00)
 ```
+
 ### 8. find
 > What it does 
 
@@ -166,6 +170,7 @@ The chatbot finds the tasks matching with "project" from the tasklist.
   Here are the tasks matching with "project" in your list:
    1.[E][] project meeting (from: Dec 12 2024 12:00 to: Dec 12 2024 13:00)
 ```
+
 ### 9. /p (priority)
 > What it does 
 
@@ -187,6 +192,7 @@ The chatbot creates the new task, "get iP done" with a priority "HIGH" into your
    [T][] get iP done [Priority: HIGH]
     Now you have 3 task in the list.
 ```
+
 ### 10. bye
 > What it does 
 
