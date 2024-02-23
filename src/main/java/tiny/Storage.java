@@ -31,8 +31,8 @@ public class Storage {
      */
     public ArrayList<String> loadData() throws TinyException {
         try {
-            if (!new File("../../../data").exists()) {
-                new File("../../../data").mkdirs();
+            if (!new File("../tinySaveFiles/data").exists()) {
+                new File("../tinySaveFiles/data").mkdirs();
             }
             File file = new File(filePath);
             Scanner sc = new Scanner(file);

@@ -54,7 +54,7 @@ public class Task {
     }
 
     /**
-     * Search the description of the task using the keyword.
+     * Searches the description of the task using the keyword.
      *
      * @param keyword Keyword to search for.
      * @return True if the description contains the keyword, otherwise False.

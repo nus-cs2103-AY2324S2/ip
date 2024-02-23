@@ -9,7 +9,7 @@ import tiny.lists.ControlList;
  * Represents the class of our program.
  */
 public class Tiny {
-    private static final String FILE_PATH = "../../../data/tasks.txt";
+    private static final String FILE_PATH = "../tinySaveFiles/data/tasks.txt";
     private Storage storage;
     private ControlList controlList;
     private Ui ui;

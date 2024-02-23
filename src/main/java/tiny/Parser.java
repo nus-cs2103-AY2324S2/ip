@@ -68,26 +68,8 @@ public class Parser {
         this.triviaList = controlList.getTriviaList();
 
         try {
-            if (isValidCommand("list task")) {
-                return listTask();
-            } else if (isValidCommand("list client")) {
-                return listClient();
-            } else if (isValidCommand("list contact")) {
-                return listContact();
-            } else if (isValidCommand("list expense")) {
-                return listExpense();
-            } else if (isValidCommand("list loan given")) {
-                return listLoanGiven();
-            } else if (isValidCommand("list loan taken")) {
-                return listLoanTaken();
-            } else if (isValidCommand("list merchandise")) {
-                return listMerchandise();
-            } else if (isValidCommand("list note")) {
-                return listNote();
-            } else if (isValidCommand("list place")) {
-                return listPlace();
-            } else if (isValidCommand("list trivia")) {
-                return listTrivia();
+            if (isValidCommand("list")) {
+                return listCommand();
             } else if (isValidCommand("mark")) {
                 return mark();
             } else if (isValidCommand("unmark")) {
@@ -116,26 +98,8 @@ public class Parser {
                 return place();
             } else if (isValidCommand("trivia")) {
                 return trivia();
-            } else if (isValidCommand("delete client")) {
-                return deleteClient();
-            } else if (isValidCommand("delete contact")) {
-                return deleteContact();
-            } else if (isValidCommand("delete expense")) {
-                return deleteExpense();
-            } else if (isValidCommand("delete loan given")) {
-                return deleteLoanGiven();
-            } else if (isValidCommand("delete loan taken")) {
-                return deleteLoanTaken();
-            } else if (isValidCommand("delete merchandise")) {
-                return deleteMerchandise();
-            } else if (isValidCommand("delete note")) {
-                return deleteNote();
-            } else if (isValidCommand("delete place")) {
-                return deletePlace();
-            } else if (isValidCommand("delete task")) {
-                return deleteTask();
-            } else if (isValidCommand("delete trivia")) {
-                return deleteTrivia();
+            } else if (isValidCommand("delete")) {
+                return deleteCommand();
             } else if (isValidCommand("find")) {
                 return find();
             } else if (input.equals("bye")) {
@@ -146,6 +110,58 @@ public class Parser {
             }
         } catch (TinyException e) {
             throw e;
+        }
+    }
+
+    private String listCommand() throws TinyException {
+        if (isValidCommand("list task")) {
+            return listTask();
+        } else if (isValidCommand("list client")) {
+            return listClient();
+        } else if (isValidCommand("list contact")) {
+            return listContact();
+        } else if (isValidCommand("list expense")) {
+            return listExpense();
+        } else if (isValidCommand("list loan given")) {
+            return listLoanGiven();
+        } else if (isValidCommand("list loan taken")) {
+            return listLoanTaken();
+        } else if (isValidCommand("list merchandise")) {
+            return listMerchandise();
+        } else if (isValidCommand("list note")) {
+            return listNote();
+        } else if (isValidCommand("list place")) {
+            return listPlace();
+        } else if (isValidCommand("list trivia")) {
+            return listTrivia();
+        } else {
+            throw new TinyException("Please input a valid list command!");
+        }
+    }
+
+    private String deleteCommand() throws TinyException {
+        if (isValidCommand("delete client")) {
+            return deleteClient();
+        } else if (isValidCommand("delete contact")) {
+            return deleteContact();
+        } else if (isValidCommand("delete expense")) {
+            return deleteExpense();
+        } else if (isValidCommand("delete loan given")) {
+            return deleteLoanGiven();
+        } else if (isValidCommand("delete loan taken")) {
+            return deleteLoanTaken();
+        } else if (isValidCommand("delete merchandise")) {
+            return deleteMerchandise();
+        } else if (isValidCommand("delete note")) {
+            return deleteNote();
+        } else if (isValidCommand("delete place")) {
+            return deletePlace();
+        } else if (isValidCommand("delete task")) {
+            return deleteTask();
+        } else if (isValidCommand("delete trivia")) {
+            return deleteTrivia();
+        } else {
+            throw new TinyException("Please input a valid delete command!");
         }
     }
 
@@ -516,7 +532,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete contact <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("client", clientList.get(ind - 1).toString(), clientList.size() - 1);
@@ -537,7 +553,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete contact <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("contact", contactList.get(ind - 1).toString(), contactList.size() - 1);
@@ -558,7 +574,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete expense <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("expense", expenseList.get(ind - 1).toString(), expenseList.size() - 1);
@@ -579,7 +595,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete loan given <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[3]);
             String output = deleteMessage("given loan", loanGivenList.get(ind - 1).toString(),
@@ -601,7 +617,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete loan taken <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[3]);
             String output = deleteMessage("taken loan", loanTakenList.get(ind - 1).toString(),
@@ -623,7 +639,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete merchandise <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("merchandise", merchandiseList.get(ind - 1).toString(),
@@ -645,7 +661,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete note <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("note", noteList.get(ind - 1).toString(), noteList.size() - 1);
@@ -666,7 +682,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete place <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("place", placeList.get(ind - 1).toString(), placeList.size() - 1);
@@ -687,7 +703,7 @@ public class Parser {
         try {
             String[] s = input.split(" ");
             if (!s[0].equals("delete")) {
-                return "OOPS! You need to type \"delete <number>\" to delete!";
+                return "OOPS! You need to type \"delete trivia <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
             String output = deleteMessage("trivia", triviaList.get(ind - 1).toString(), triviaList.size() - 1);
