@@ -1,2 +1,4 @@
+D | 0 | homework | 2023-05-06 | 18:00
 T | 0 | run
 T | 0 | run
+T | 0 | running

@@ -1,6 +1,7 @@
 package asher.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents a list of tasks.
@@ -106,6 +107,32 @@ public class TaskList {
             return null;
         }
         return tasks.remove(taskId);
+    }
+
+    public void sortByDeadline() {
+        ArrayList<Deadline> deadlines = new ArrayList<>();
+        ArrayList<Task> otherTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                deadlines.add((Deadline) task);
+            } else {
+                otherTasks.add(task);
+            }
+        }
+
+            Collections.sort(deadlines, (d1, d2) -> {
+            int compareDates = d1.getDueDate().compareTo(d2.getDueDate());
+            int compareTimes = d1.getDueTime().compareTo(d2.getDueTime());
+            if (compareDates != 0) {
+                return compareDates;
+            } else {
+                return compareTimes;
+            }
+        });
+
+            tasks.clear();
+            tasks.addAll(deadlines);
+            tasks.addAll(otherTasks);
     }
 
     /**
