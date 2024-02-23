@@ -68,9 +68,13 @@ public class Ui {
      * @param tasks
      */
     public String showList(ArrayList<Task> tasks) {
-        String result = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            result += i + 1 + "." + tasks.get(i).toString()+"\n";
+        String result = "Here are the tasks:\n";
+        if(tasks.size()>0){
+            for (int i = 0; i < tasks.size(); i++) {
+                result += i + 1 + "." + tasks.get(i).toString()+"\n";
+            }
+        } else{
+            result = "There are no tasks. Please add some tasks first!\n";
         }
         return result;
     }
@@ -97,5 +101,4 @@ public class Ui {
     public void showLoadingError() throws Exception {
         System.out.println("Loading Error: Your file does not exist");
     }
-
 }

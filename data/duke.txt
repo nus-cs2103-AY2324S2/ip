@@ -16,3 +16,8 @@ delete 3
 list
 delete 3
 list
+todo dinner
+list
+mark dinner
+list
+mark 3
