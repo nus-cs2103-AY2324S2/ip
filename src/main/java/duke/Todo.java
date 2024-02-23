@@ -16,6 +16,15 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor used to duplicate a Todo object
+     * Use case: For undo operations by recording and storing previous task
+     * @param todo
+     */
+    public Todo(Todo todo) {
+        super(todo);
+    }
+
+    /**
      * Constructor for Todo task with specified completion status.
      *
      * @param description description of the Todo task
@@ -25,17 +34,21 @@ public class Todo extends Task {
         super(description, isComplete);
     }
 
-    /**
-     * Constructor used to duplicate a Todo object
-     * @param todo
-     */
-    public Todo(Todo todo) {
-        super(todo);
-    }
-
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    /**
+     * Converts a Todo object to a stored Todo task
+     *
+     * @param objTodo Todo task object
+     * @return the string representation of a Todo task that will be stored
+     */
+    public static String todoStorage(Todo objTodo) {
+        String done = objTodo.isComplete ? "1" : "0";
+        String description = objTodo.taskDescription;
+        return "T | " + done + " | " + description; //To follow the task format
     }
 
     /**
@@ -49,18 +62,6 @@ public class Todo extends Task {
         Boolean isCompleted = para[1].equals("1") ? true : false;
         String description = para[2];
         return new Todo(description, isCompleted);
-    }
-
-    /**
-     * Reverse of previous method - Converts a Todo object to a stored Todo task
-     *
-     * @param objTodo Todo task object
-     * @return the string representation of a Todo task that will be stored
-     */
-    public static String todoStorage(Todo objTodo) {
-        String done = objTodo.isComplete ? "1" : "0";
-        String description = objTodo.taskDescription;
-        return "T | " + done + " | " + description; //To follow the task format
     }
 
     public static void main(String[] args) {

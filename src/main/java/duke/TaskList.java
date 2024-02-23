@@ -9,9 +9,9 @@ import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private ArrayList<Task> priorTaskList; // priorious taskList for undo method
-    private Task priorTask; // task from priorious operation
-    private ChangeOperation priorOp; // priorious operation
+    private ArrayList<Task> priorTaskList; // previous taskList for undo method
+    private Task priorTask; // task from previous operation
+    private ChangeOperation priorOp; // previous operation
 
     /**
      * Operations that affect the taskList.
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Creates the TaskList with list of tasks as strings in their stored form
+     * Creates the TaskList with list of tasks as strings to be stored in database
      *
      * @param stringTasksList List of strings representing tasks in storage
      * @throws DukeBotException.UnknownCommandException if an unknown command is encountered
@@ -45,19 +45,14 @@ public class TaskList {
     }
 
     /**
-     * Find operation - to find tasks containing a specific keyword
-     * @param keyword Specific word to search for
+     * Adds a task to the task list.
+     *
+     * @param task The task that is to be added
      */
-    public void findTasks(String keyword) {
-        int counter = 0;
-        System.out.println("Here's what we got");
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task t = this.taskList.get(i);
-            if (t.taskDescription.contains(keyword)) {
-                System.out.println((counter + 1) + ". " + t); //Formatting
-                counter++;
-            }
-        }
+    public void addTask(Task task) {
+        assert task != null;
+        priorTaskList = copyTaskList(taskList);
+        taskList.add(task);
     }
 
     /**
@@ -76,14 +71,30 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
+     * Gets the number of tasks in the task list.
      *
-     * @param task The task that is to be added
+     * @return The number of tasks in the task list
      */
-    public void addTask(Task task) {
-        assert task != null;
-        priorTaskList = copyTaskList(taskList);
-        taskList.add(task);
+    public int size() {
+        return this.taskList.size();
+    }
+
+    /**
+     * Gets a task list.
+     *
+     * @return The tasks in the task list
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    /**
+     * Prints out contents of the task list.
+     */
+    public void printTasks() {
+        for (int i = 0; i < this.taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + this.taskList.get(i));
+        }
     }
 
     /**
@@ -98,6 +109,22 @@ public class TaskList {
         } else {
             priorTaskList = copyTaskList(taskList);
             taskList.remove(index - 1);
+        }
+    }
+
+    /**
+     * Find operation - to find tasks containing a specific keyword
+     * @param keyword Specific word to search for
+     */
+    public void findTasks(String keyword) {
+        int counter = 0;
+        System.out.println("Here's what we got");
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task t = this.taskList.get(i);
+            if (t.taskDescription.contains(keyword)) {
+                System.out.println((counter + 1) + ". " + t); //Formatting
+                counter++;
+            }
         }
     }
 
@@ -147,64 +174,15 @@ public class TaskList {
         }
     }
 
-    /**
-     * Prints out contents of the task list.
-     */
-    public void printTasks() {
-        for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + this.taskList.get(i));
-        }
-    }
 
     /**
-     * Gets the number of tasks in the task list.
-     *
-     * @return The number of tasks in the task list
-     */
-    public int size() {
-        return this.taskList.size();
-    }
-
-    /**
-     * Gets a task list.
-     *
-     * @return The tasks in the task list
-     */
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
-    }
-
-    /**
-     * Converts the stored task to a Task object.
-     * @param dbTask Stored form of the task
-     * @return The Task object
-     * @throws DukeBotException.UnknownException if an unknown command is encountered
-     */
-    public static Task parseStringToTask(String dbTask) throws DukeBotException.UnknownException {
-        String[] param = dbTask.split(" \\| ");
-        String type = param[0];
-        switch (type) {
-        case "T": // To do
-            Todo todoTask = Todo.todoOutput(dbTask);
-            return todoTask;
-        case "D": // Deadline
-            DeadlineTask deadlineTask = DeadlineTask.storageDeadline(dbTask);
-            return deadlineTask;
-        case "E": // Event
-            EventTask eventTask = EventTask.storageEvent(dbTask);
-            return eventTask;
-        default:
-            System.out.println("Unrecognized task type");
-            throw new DukeBotException.UnknownException();
-        }
-    }
-
-    /**
-     * Converts a Task to its database representation.
+     * Converts a Task to its database form.
      *
      * @param task The Task object
-     * @return The string representation of the Task in the database
+     * @return The string form of the Task in the database
      */
+
+    //Use of instanceof inspired by team member code
     public static String taskToDbString(Task task) {
         if (task instanceof Todo) {
             Todo todoTask = (Todo) task;
@@ -222,11 +200,38 @@ public class TaskList {
     }
 
     /**
+     * Converts the stored task to a Task object.
+     * @param dbTask Stored form of the task
+     * @return The Task object
+     * @throws DukeBotException.UnknownException if an unknown command is encountered
+     */
+    public static Task parseStringToTask(String dbTask) throws DukeBotException.UnknownException {
+        String[] param = dbTask.split(" \\| ");
+        String type = param[0];
+        switch (type) {
+        case "T": // To do
+            Todo todoTask = Todo.todoOutput(dbTask);
+            return todoTask;
+        case "E": // Event
+            EventTask eventTask = EventTask.storageEvent(dbTask);
+            return eventTask;
+        case "D": // Deadline
+            DeadlineTask deadlineTask = DeadlineTask.storageDeadline(dbTask);
+            return deadlineTask;
+        default:
+            System.out.println("Unrecognized task type");
+            throw new DukeBotException.UnknownException();
+        }
+    }
+
+    /**
      * Duplicates the task list to save the previous state (undo operation).
      *
      * @param taskList The task list to copy
      * @return Copy of the task list
      */
+
+    //Use of instanceof inspired by team member code
     private ArrayList<Task> copyTaskList(ArrayList<Task> taskList) {
         ArrayList<Task> newPriorTaskList = new ArrayList<>();
         for (Task task : taskList) {

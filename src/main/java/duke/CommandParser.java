@@ -17,63 +17,30 @@ public class CommandParser {
         this.taskList = taskList;
     }
 
-    /**
-     * Processes a command.
-     *
-     * @param command input command
-     * @return boolean indicates if processing should continue
-     */
-
-    public boolean processCommand(String command) {
-        try {
-            String commands = command.split(" ")[0];
-            String para = command.substring(commands.length()).trim();
-            switch(commands) {
-            case "list":
-                cmdList();
-                break;
-            case "todo":
-                cmdTodo(para);
-                break;
-            case "deadline":
-                cmdDeadline(para);
-                break;
-            case "event":
-                cmdEvent(para);
-                break;
-            case "find":
-                cmdFind(para);
-                break;
-            case "mark":
-                cmdMark(para);
-                break;
-            case "unmark":
-                cmdUnmark(para);
-                break;
-            case "delete":
-                cmdDelete(para);
-                break;
-            case "undo":
-                cmdUndo();
-                break;
-            case "bye":
-                cmdExit();
-                return false;
-            default:
-                throw new DukeBotException.UnknownException();
-            }
-        } catch (DukeBotException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Oops! An error occurred");
-        }
-        return true;
-    }
-
     private void cmdList() {
         System.out.println("Here are the tasks:");
         taskList.printTasks();
+    }
+
+    private void cmdDelete(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.DeleteException();
+        }
+
+        int count = Integer.valueOf(para);
+        Task toDelete = taskList.getTask(count);
+        taskList.deleteTask(count);
+
+        System.out.println("Task has been deleted!");
+        System.out.println(toDelete);
+    }
+
+    private void cmdFind(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.FindException();
+        }
+        String searchword = para.trim();
+        taskList.findTasks(searchword);
     }
 
     private void cmdMark(String para) throws DukeBotException {
@@ -102,29 +69,8 @@ public class CommandParser {
         System.out.println(task);
     }
 
-    private void cmdDelete(String para) throws DukeBotException {
-        if (para.length() == 0) {
-            throw new DukeBotException.DeleteException();
-        }
-
-        int index = Integer.valueOf(para);
-        Task toDelete = taskList.getTask(index);
-        taskList.deleteTask(index);
-
-        System.out.println("Task DELETE DELETE DELETE");
-        System.out.println(toDelete);
-    }
-
     private void cmdUndo() {
         taskList.undo();
-    }
-
-    private void cmdFind(String para) throws DukeBotException {
-        if (para.length() == 0) {
-            throw new DukeBotException.FindException();
-        }
-        String searchword = para.trim();
-        taskList.findTasks(searchword);
     }
 
     /**
@@ -202,4 +148,59 @@ public class CommandParser {
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
     }
 
+    /**
+     * Processes a command.
+     *
+     * @param command input command
+     * @return boolean indicates if processing should continue
+     */
+
+    //Use of switch structure below inspired by team member code
+
+    public boolean processCommand(String command) {
+        try {
+            String commands = command.split(" ")[0];
+            String para = command.substring(commands.length()).trim();
+            switch(commands) {
+            case "list":
+                cmdList();
+                break;
+            case "todo":
+                cmdTodo(para);
+                break;
+            case "deadline":
+                cmdDeadline(para);
+                break;
+            case "event":
+                cmdEvent(para);
+                break;
+            case "find":
+                cmdFind(para);
+                break;
+            case "mark":
+                cmdMark(para);
+                break;
+            case "unmark":
+                cmdUnmark(para);
+                break;
+            case "delete":
+                cmdDelete(para);
+                break;
+            case "undo":
+                cmdUndo();
+                break;
+            case "bye":
+                cmdExit();
+                return false;
+            default:
+                throw new DukeBotException.UnknownException();
+            }
+        } catch (DukeBotException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Oops! An error occurred");
+        }
+        return true;
+    }
 }

@@ -33,7 +33,7 @@ public class DukeBotException extends Exception {
      */
     public static class TodoException extends DukeBotException {
         public TodoException() {
-            super("Oops! Description for a todo task cannot be empty");
+            super("Oops! Missing todo's description");
         }
     }
 
@@ -42,7 +42,7 @@ public class DukeBotException extends Exception {
      */
     public static class EventException extends DukeBotException {
         public EventException() {
-            super("Oops! An event must have a description and a duration!");
+            super("Oops! Missing event details and/or duration!");
         }
     }
 
@@ -51,7 +51,7 @@ public class DukeBotException extends Exception {
      */
     public static class DeadlineException extends DukeBotException {
         public DeadlineException() {
-            super("Oops! A deadline must have a description and deadline!");
+            super("Oops! Missing deadline details and/or date!");
         }
     }
 
@@ -60,7 +60,7 @@ public class DukeBotException extends Exception {
      */
     public static class DeleteException extends DukeBotException {
         public DeleteException() {
-            super("Oops! You need to enter an integer for deleting!");
+            super("Oops! Please enter an integer for deleting!");
         }
     }
 
@@ -69,7 +69,7 @@ public class DukeBotException extends Exception {
      */
     public static class MarkException extends DukeBotException {
         public MarkException() {
-            super("Oops! You need to enter an integer!");
+            super("Oops! Please enter an integer!");
         }
     }
 
@@ -78,7 +78,7 @@ public class DukeBotException extends Exception {
      */
     public static class FindException extends DukeBotException {
         public FindException() {
-            super("Oops! You need to enter a string to find!");
+            super("Oops! Please enter a string to find!");
         }
     }
 }

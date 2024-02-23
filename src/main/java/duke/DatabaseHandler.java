@@ -47,6 +47,16 @@ public class DatabaseHandler {
     }
 
     /**
+     * Loads data from the database file and returns it as a list of strings.
+     *
+     * @return a list of strings representing data loaded from storage
+     */
+    public List<String> loadOps() {
+        List<String> stringTasksList = this.readOps();
+        return stringTasksList;
+    }
+
+    /**
      * Writes provided list of strings to the database file.
      *
      * @param stringList the list of strings to be written to the file
@@ -68,16 +78,6 @@ public class DatabaseHandler {
             System.out.println("Oops! Failed to write to the file: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Loads data from the database file and returns it as a list of strings.
-     *
-     * @return a list of strings representing data loaded from storage
-     */
-    public List<String> loadOps() {
-        List<String> stringTasksList = this.readOps();
-        return stringTasksList;
     }
 
     /**

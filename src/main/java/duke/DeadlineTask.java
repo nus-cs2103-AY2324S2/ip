@@ -10,6 +10,25 @@ public class DeadlineTask extends Task {
     protected String deadline;
 
     /**
+     * Constructor for creating a deadline task with LocalDateTime deadline.
+     *
+     * @param description description of the deadline task
+     * @param deadline    the deadline of the task as LocalDateTime
+     */
+    public DeadlineTask(String description, LocalDateTime deadline) {
+        super(description);
+        this.deadline = DateHandler.objDateTime(deadline);
+    }
+
+    /**
+     * Copy constructor to duplicate a DeadlineTask object.
+     */
+    public DeadlineTask(DeadlineTask deadlineTask) {
+        super(deadlineTask);
+        this.deadline = deadlineTask.deadline;
+    }
+
+    /**
      * Constructor with completion status set to false.
      *
      * @param description description of the deadline task
@@ -32,46 +51,13 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
-    /**
-     * Constructor for creating a deadline task with LocalDateTime deadline.
-     *
-     * @param description description of the deadline task
-     * @param deadline    the deadline of the task as LocalDateTime
-     */
-    public DeadlineTask(String description, LocalDateTime deadline) {
-        super(description);
-        this.deadline = DateHandler.objDateTime(deadline);
-    }
-
-    /**
-     * Copy constructor to duplicate a DeadlineTask object.
-     */
-    public DeadlineTask(DeadlineTask deadlineTask) {
-        super(deadlineTask);
-        this.deadline = deadlineTask.deadline;
-    }
-
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 
     /**
-     * Converts stored deadline task to DeadlineTask object.
-     *
-     * @param dbDeadline the string representation of the deadline task in the database
-     * @return DeadlineTask the DeadlineTask object
-     */
-    public static DeadlineTask storageDeadline(String dbDeadline) {
-        String[] para = dbDeadline.split(" \\| ");
-        Boolean isCompleted = para[1].equals("1") ? true : false;
-        String description = para[2];
-        String deadline = para[3];
-        return new DeadlineTask(description, isCompleted, deadline);
-    }
-
-    /**
-     * Converts DeadlineTask object to database representation.
+     * Converts DeadlineTask object to database form.
      *
      * @param deadlineTask the DeadlineTask object
      * @return String the database representation of the DeadlineTask
@@ -83,8 +69,22 @@ public class DeadlineTask extends Task {
         return "D" + " | " + done + " | " + description + " | " + deadline;
     }
 
+    /**
+     * Converts stored deadline task to DeadlineTask object.
+     *
+     * @param dbDeadline the string form of the deadline task in the database storage
+     * @return DeadlineTask the DeadlineTask object
+     */
+    public static DeadlineTask storageDeadline(String dbDeadline) {
+        String[] para = dbDeadline.split(" \\| ");
+        Boolean isCompleted = para[1].equals("1") ? true : false;
+        String description = para[2];
+        String deadline = para[3];
+        return new DeadlineTask(description, isCompleted, deadline);
+    }
+
     public static void main(String[] args) {
-        String taskDeadline = "D | 0 | test task | July 30th";
+        String taskDeadline = "D | 0 | test task | July 30th"; // Sample deadline task
         DeadlineTask deadlineTask = DeadlineTask.storageDeadline(taskDeadline);
         deadlineTask.markDone();
         System.out.println(deadlineTask);

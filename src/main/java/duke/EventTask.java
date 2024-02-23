@@ -11,6 +11,19 @@ public class EventTask extends Task {
     protected String endTime;
 
     /**
+     * Constructor for creating an event task with LocalDateTime start and end time.
+     *
+     * @param description description of the event
+     * @param startTime   the start time of the event
+     * @param endTime     the end time of the event
+     */
+    public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
+        super(description);
+        this.startTime = DateHandler.objDateTime(startTime);
+        this.endTime = DateHandler.objDateTime(endTime);
+    }
+
+    /**
      * Constructor with completion status set to false.
      *
      * @param description description of the event
@@ -38,19 +51,6 @@ public class EventTask extends Task {
     }
 
     /**
-     * Constructor for creating an event task with LocalDateTime start and end time.
-     *
-     * @param description description of the event
-     * @param startTime   the start time of the event
-     * @param endTime     the end time of the event
-     */
-    public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
-        super(description);
-        this.startTime = DateHandler.objDateTime(startTime);
-        this.endTime = DateHandler.objDateTime(endTime);
-    }
-
-    /**
      * Copy constructor for duplicating an EventTask object.
      */
     public EventTask(EventTask event) {
@@ -62,6 +62,20 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+    }
+
+    /**
+     * Converts an EventTask object to its stored form.
+     *
+     * @param eventTask the EventTask object
+     * @return String the database representation of the EventTask
+     */
+    public static String outputEvent(EventTask eventTask) {
+        String done = eventTask.isComplete ? "1" : "0";
+        String description = eventTask.taskDescription;
+        String startTime = eventTask.startTime;
+        String endTime = eventTask.endTime;
+        return "E" + " | " + done + " | " + description + " | " + startTime + " | " + endTime;
     }
 
     /**
@@ -79,23 +93,9 @@ public class EventTask extends Task {
         return new EventTask(desc, isDone, startTime, endTime);
     }
 
-    /**
-     * Converts an EventTask object to its stored form.
-     *
-     * @param eventTask the EventTask object
-     * @return String the database representation of the EventTask
-     */
-    public static String outputEvent(EventTask eventTask) {
-        String done = eventTask.isComplete ? "1" : "0";
-        String description = eventTask.taskDescription;
-        String startTime = eventTask.startTime;
-        String endTime = eventTask.endTime;
-        return "E" + " | " + done + " | " + description + " | " + startTime + " | " + endTime;
-    }
-
     public static void main(String[] args) {
-        String dbEvent = "E | 0 | assignment | Feb 1st 2 | 2pm";
-        EventTask eventTask = EventTask.storageEvent(dbEvent);
+        String taskEvent = "E | 0 | assignment | Feb 1st 2 | 2pm"; // Sample event
+        EventTask eventTask = EventTask.storageEvent(taskEvent);
         eventTask.markDone();
         System.out.println(eventTask);
         System.out.println(EventTask.outputEvent(eventTask));

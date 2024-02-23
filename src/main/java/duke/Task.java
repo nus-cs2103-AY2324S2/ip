@@ -8,6 +8,16 @@ public class Task {
     protected boolean isComplete;
 
     /**
+     * Creates a task by duplicating another task object.
+     *
+     * @param task the task to be cloned
+     */
+    public Task(Task task) {
+        this.taskDescription = task.taskDescription;
+        this.isComplete = task.isComplete;
+    }
+
+    /**
      * Constructs a task with the specified description
      * Completion status by default is false
      *
@@ -28,17 +38,6 @@ public class Task {
         this.taskDescription = taskDescription;
         this.isComplete = isComplete;
     }
-
-    /**
-     * Creates a task by duplicating another task object.
-     *
-     * @param task the task to be cloned
-     */
-    public Task(Task task) {
-        this.taskDescription = task.taskDescription;
-        this.isComplete = task.isComplete;
-    }
-
 
     /**
      * Marks a task as complete.
@@ -67,4 +66,5 @@ public class Task {
     public String toString() {
         return "[" + this.getStat() + "] " + taskDescription;
     }
+
 }

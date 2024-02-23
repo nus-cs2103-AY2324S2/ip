@@ -1,6 +1,6 @@
 package duke;
 
-import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,37 +33,6 @@ public class Duke {
     }
 
     /**
-     * Given a user input, this calls the command parser and returns the output
-     */
-    String userOps(String input) {
-        StringBuilder outputBuilder = new StringBuilder();
-
-        PrintStream stream = new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) {
-                outputBuilder.append((char) b);
-            }
-        }); // Writes to the StringBuilder
-
-        PrintStream og = System.out; // Save the original output
-
-        System.setOut(stream); // Set the output to the custom PrintStream
-
-        // Process the user input
-        try {
-            this.commandParser.processCommand(input);
-            this.saveOps();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            // Restore the original output
-            System.setOut(og);
-        }
-        // Return the captured output
-        return outputBuilder.toString();
-    }
-
-    /**
      * Saves the current task list
      */
     private void saveOps() {
@@ -73,6 +42,30 @@ public class Duke {
             lines.add(stringTask);
         }
         this.databaseHandler.writeOps(lines);
+    }
+
+    /**
+     * Given a user input, this calls the command parser and returns the output
+     */
+    String userOps(String input) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        PrintStream originalOut = System.out; // Save the original output
+        System.setOut(printStream); // Redirect output to the ByteArrayOutputStream
+
+        try {
+            this.commandParser.processCommand(input);
+            this.saveOps();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            // Restore the original output
+            System.setOut(originalOut);
+        }
+
+        // Return the captured output
+        return outputStream.toString();
     }
 
     /**
