@@ -189,3 +189,8 @@ Action | Format, Examples
 **Unmark** | `unmark INDEX` or `um INDEX`<br> e.g., `unmark 2`
 **Sort** | `sort`
 **Help** | `help`
+<<<<<<< HEAD
+=======
+
+The structure of this user guide took heavy reference from the user guide of AB3, which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
+>>>>>>> a8da00a6d1708f45063e05ec64340f682bb3f596

@@ -8,15 +8,16 @@ Naruto is a **desktop app for managing todos, events, and deadlines, optimized f
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `naruto.jar` from [here](https://github.com/itstrueitstrueitsrealitsreal/ip/releases).
+2. Download the latest `naruto.jar` from [here](https://github.
+com/itstrueitstrueitsrealitsreal/ip/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for Naruto.
+3. Copy the file to the folder you want to use as the _home folder_ for Naruto.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar naruto.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar naruto.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](./docs/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` or `ls` : Lists all contacts.
@@ -27,15 +28,13 @@ Naruto is a **desktop app for managing todos, events, and deadlines, optimized f
 
    * `bye` or `bb` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `deadline DESCRIPTION /by DD/MM/YYYY HHMM`, `NAME` is a parameter which can be used as `deadline naruto marathon /by 02/02/2020 0200`.
@@ -44,11 +43,10 @@ Naruto is a **desktop app for managing todos, events, and deadlines, optimized f
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-</div>
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](./docs/helpMessage.png)
 
@@ -99,7 +97,7 @@ Finds tasks whose descriptions contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-sensitive. e.g `return` will not match `Return`
+* The search is case-sensitive. e.g. `return` will not match `Return`
 * The order of the keywords does not matter. e.g. `return book` will match `book return`
 * Only the description is searched.
 * Partial words will be matched e.g. `ret` will match `return`
@@ -136,19 +134,19 @@ Examples:
 
 * `mark 2` marks the 2nd task in the task list.
 
-### Unmarking a task : `unmark` or `um`
+### Unmark a task : `unmark` or `um`
 
-Unmarks a previously marked task at the specified index.
+Unmark a previously marked task at the specified index.
 
 Format: `unmark INDEX` or `um INDEX`
 
-* Unmarks the task at the specified `INDEX`.
+* Unmark the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 
-* `unmark 2` unmarks the 2nd task in the task list.
+* `unmark 2` unmark the 2nd task in the task list.
 
 ### Sorting all tasks : `sort`
 
@@ -172,20 +170,21 @@ Naruto's data is saved automatically as a `.txt` file `[JAR file location]/src/l
 
 **Caution:**
 If your changes to the data file makes its format invalid, Naruto will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause Naruto to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+Furthermore, certain edits can cause Naruto to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Todo** | `todo DESCRIPTION` or `td DESCRIPTION`<br> e.g., `todo return book`
-**Deadline** | `deadline DESCRIPTION /by DD/MM/YYYY HHMM` or `dl DESCRIPTION /by DD/MM/YYYY HHMM`<br> e.g., `deadline return book /by 2/12/2019 1800`
-**Event** | `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM` or `e DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`<br> e.g., `event CS2103 Tutorial /from 2/02/2024 0800 /to 2/02/2024 0900`
-**List** | `list` or `ls`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find return book`
-**Delete** | `delete INDEX` or `rm INDEX`<br> e.g., `delete 3`
-**Mark** | `mark INDEX` or `mk INDEX`<br> e.g., `mark 2`
-**Unmark** | `unmark INDEX` or `um INDEX`<br> e.g., `unmark 2`
-**Sort** | `sort`
-**Help** | `help`
+| Action       | Format, Examples                                                                                                                                                                                     |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Todo**     | `todo DESCRIPTION` or `td DESCRIPTION`<br> e.g., `todo return book`                                                                                                                                  |
+| **Deadline** | `deadline DESCRIPTION /by DD/MM/YYYY HHMM` or `dl DESCRIPTION /by DD/MM/YYYY HHMM`<br> e.g., `deadline return book /by 2/12/2019 1800`                                                               |
+| **Event**    | `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM` or `e DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`<br> e.g., `event CS2103 Tutorial /from 2/02/2024 0800 /to 2/02/2024 0900` |
+| **List**     | `list` or `ls`                                                                                                                                                                                       |
+| **Find**     | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find return book`                                                                                                                                          |
+| **Delete**   | `delete INDEX` or `rm INDEX`<br> e.g., `delete 3`                                                                                                                                                    |
+| **Mark**     | `mark INDEX` or `mk INDEX`<br> e.g., `mark 2`                                                                                                                                                        |
+| **Unmark**   | `unmark INDEX` or `um INDEX`<br> e.g., `unmark 2`                                                                                                                                                    |
+| **Sort**     | `sort`                                                                                                                                                                                               |
+| **Help**     | `help`                                                                                                                                                                                               |
+
+The structure of this user guide took heavy reference from the user guide of AB3, which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
