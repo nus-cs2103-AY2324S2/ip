@@ -2,6 +2,7 @@ package TaskFlow.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import TaskFlow.exception.TaskFlowException;
 
@@ -113,5 +114,17 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " | " + description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Task otherTask = (Task) obj;
+        return Objects.equals(description, otherTask.description);
     }
 }
