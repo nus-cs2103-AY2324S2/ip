@@ -30,7 +30,7 @@ public enum CommandEnum {
     public final String COMMAND_SIGNATURE; // the command format
 
     /**
-     * Create a command with a keyword and its format
+     * Creates a command with a keyword and its format
      * @param commandName
      * @param commandSignature
      */
