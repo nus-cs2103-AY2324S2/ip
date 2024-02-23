@@ -1,6 +1,0 @@
-todo read book
-deadline finish homework /by Monday
-event Group project meeting /from Friday 3pm /to 6pm
-mark 2
-list
-bye
