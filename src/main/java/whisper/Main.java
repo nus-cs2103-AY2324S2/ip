@@ -4,9 +4,8 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 /**
@@ -35,13 +34,10 @@ public class Main extends Application {
 
             // Create a new scene with the loaded AnchorPane
             Scene scene = new Scene(ap);
-//            scene.setFill(Color.AQUAMARINE);
 
             // Set the scene to the primary stage
             stage.setScene(scene);
-
             stage.setTitle("Whisper");
-
 
             // Set the Whisper instance in the controller
             fxmlLoader.<MainWindow>getController().setWhisper(whisper);
