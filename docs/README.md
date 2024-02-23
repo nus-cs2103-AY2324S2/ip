@@ -77,6 +77,13 @@ Command Format: `find <keyword>`
 
 Example Format: `find run`
 
+## Sorting Your Deadlines
+> Asher is able to sort your deadlines with the earliest deadline at the top.
+
+Here is how you can sort your deadlines:
+
+Command Format: `sort`
+
 ## Exiting from the Bot
 > Asher is able to close and successfully write your tasks into your task list such that you will be able to access it the next time.
 
