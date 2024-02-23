@@ -109,6 +109,7 @@ Here are the matching tasks in your list:
 This command allows you to mark task as completed.
 
 > Format: `mark <task number>`
+
 Example: `mark 1`
 
 ```
