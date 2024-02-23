@@ -19,6 +19,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * loads tasks using the given filePath
+     * @return tasks loaded from the filePath
+     * @throws CharlieException
+     */
     public ArrayList<Task> loadTasks() throws CharlieException{
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
@@ -38,6 +43,14 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * The parseTaskFromFile method converts a single line of text into a specific Task object
+     * (to-Do, Deadline, or Event) based on the line's format, throwing an exception for unrecognized
+     * task types
+     * @param line line read from the storage file
+     * @return the task object
+     * @throws IllegalArgumentException
+     */
     private Task parseTaskFromFile(String line) throws IllegalArgumentException {
         String[] parts = line.split(" \\| ");
         Task task = null;
@@ -60,6 +73,11 @@ public class Storage {
         return task;
     }
 
+    /**
+     * saves the list of tasks to the storage file
+     * @param taskList lists of tasks to be saved
+     * @throws CharlieException
+     */
     public void saveTasks(ArrayList<Task> taskList) throws CharlieException {
         try {
             Files.createDirectories(Paths.get("./data"));
@@ -76,6 +94,11 @@ public class Storage {
         }
     }
 
+    /**
+     * converts tasks to format required to be written within files
+     * @param task task to be converted into format for saving within the file
+     * @return string of how the task should appear in file format
+     */
     private String taskToFileFormat(Task task) {
         String type = task instanceof Todo ? "T" :
                 task instanceof Deadline ? "D" :

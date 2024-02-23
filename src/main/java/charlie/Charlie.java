@@ -13,6 +13,10 @@ public class Charlie {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * starts the program, creates a UI, a storage file, and catches a loading exception
+     * @param filePath storage file in which past tasks will be saved
+     */
     public Charlie(String filePath) {
         try {
             ui = new Ui();
@@ -25,6 +29,9 @@ public class Charlie {
     }
 
 
+    /**
+     * method to run the program, uses the ui and parser methods
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

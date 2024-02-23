@@ -15,10 +15,22 @@ public class AddCommand extends Command {
 
     private String fullCommand;
 
+    /**
+     * constructor for AddCommand
+     * @param fullCommand the user command in its full string form
+     */
     public AddCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * executes an add command, the method decides between tasks to-do, event and deadline, and
+     * saves the tasks to storage
+     * @param taskList - task list loaded at the start of the program.
+     * @param ui       - class responsible for user interface interactions
+     * @param storage  - class responsible for adding and loading tasks from and into the file
+     * @throws CharlieException
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieException {
         if (fullCommand.startsWith("todo")) {
@@ -32,6 +44,12 @@ public class AddCommand extends Command {
         isExit = false;
     }
 
+    /**
+     * adds the to-do task to the current task list, and returns intended generated output
+     * @param taskList task list loaded at the start of the program.
+     * @param input to-do string which specifies the task saved
+     * @throws CharlieException
+     */
     private static void handleTodo(ArrayList<Task> taskList, String input) throws CharlieException {
         if (input.trim().equals("todo")) {
             throw new CharlieException("Sorry, the description of a todo cannot be empty.");
@@ -43,6 +61,12 @@ public class AddCommand extends Command {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * adds the deadline task to the current task list, and returns intended generated output
+     * @param taskList task list loaded at the start of the program.
+     * @param input to-do string which specifies the task saved
+     * @throws CharlieException
+     */
     private static void handleDeadline(ArrayList<Task> taskList, String input) throws CharlieException {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -54,6 +78,12 @@ public class AddCommand extends Command {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * adds the event task to the current task list, and returns intended generated output
+     * @param taskList task list loaded at the start of the program.
+     * @param input to-do string which specifies the task saved
+     * @throws CharlieException
+     */
     private static void handleEvent(ArrayList<Task> taskList, String input) throws CharlieException {
         String[] parts = input.substring(6).split(" /from ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || !parts[1].contains(" /to ")) {

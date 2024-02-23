@@ -5,6 +5,12 @@ import charlie.exceptions.CharlieException;
 
 public class Parser {
 
+    /**
+     * takes in the user full command, and returns the appropiate type of command based on user input
+     * @param fullCommand the user command in its full string form
+     * @return the command to be executed
+     * @throws CharlieException
+     */
     public static Command parse(String fullCommand) throws CharlieException {
 
         if (fullCommand.startsWith("delete")) {

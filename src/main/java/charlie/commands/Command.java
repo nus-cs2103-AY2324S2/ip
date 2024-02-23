@@ -18,6 +18,10 @@ public abstract class Command {
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws CharlieException;
 
+    /**
+     * getter method for the boolean value, which decides if the program exits or not, used in ExitCommand
+     * @return isExit
+     */
     public boolean isExit() {
         return isExit;
     }
