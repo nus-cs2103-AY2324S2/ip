@@ -2,6 +2,9 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+## Note
+The project has been renamed to Felix. Refer to the User Guide in docs/README.MD for more information.
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
