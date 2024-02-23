@@ -1,8 +1,8 @@
 package util;
 
-import exceptions.ChillChiefException;
 import tasks.Task;
 
+import exceptions.ChillChiefException;
 /**
  * A TextUi class to represent the user interface for the ChillChief application.
  */
@@ -44,12 +44,22 @@ public class TextUi {
     public String showTaskAdded(Task task, int n) {
         if (n == 1) {
             return DIVIDER_DOUBLE +
-                    " Got it, I have added this task:\n" + "    "+ task + "\n" + " Now you have " + n + " task in the list.\n" +
-                    DIVIDER_DOUBLE;
+                    " Got it, I have added this task:\n"
+                    + "    "+ task + "\n"
+                    + " Now you have "
+                    + n
+                    + " task in the list.\n"
+                    + DIVIDER_DOUBLE;
         }
         return DIVIDER_DOUBLE +
-                " Got it, I have added this task:\n" + "    "+ task + "\n" + " Now you have " + n + " tasks in the list.\n" +
-                DIVIDER_DOUBLE;
+                " Got it, I have added this task:\n"
+                + "    "
+                + task
+                + "\n"
+                + " Now you have "
+                + n
+                + " tasks in the list.\n"
+                + DIVIDER_DOUBLE;
     }
 
 

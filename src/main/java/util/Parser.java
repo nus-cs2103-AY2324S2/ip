@@ -1,14 +1,15 @@
 package util;
 
-import exceptions.ChillChiefException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.ChillChiefException;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -27,7 +28,8 @@ public class Parser {
      * @throws ChillChiefException If user input is invalid.
      * @throws IOException         if user input is invalid.
      */
-    public static String parseInput(String userInput, TaskList tasks, TextUi textUi, Storage storage) throws ChillChiefException, IOException {
+    public static String parseInput(String userInput, TaskList tasks, TextUi textUi, Storage storage)
+            throws ChillChiefException, IOException {
         String[] tokens = userInput.split(" ", 2);
         String command = tokens[0].toLowerCase();
 
@@ -77,7 +79,8 @@ public class Parser {
         return textUi.showTaskAdded(todoTask, tasks.getTaskListLength());
     }
 
-    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+    private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi)
+            throws ChillChiefException {
         String descriptionAndBy = tokens[1].trim();
         String deadlineDescription = descriptionAndBy.split(" /by ")[0].trim();
         String when = descriptionAndBy.split(" /by ")[1].trim();
@@ -87,7 +90,8 @@ public class Parser {
         return textUi.showTaskAdded(deadlineTask, tasks.getTaskListLength());
     }
 
-    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+    private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi)
+            throws ChillChiefException {
         String descriptionAndStartAndEnd = tokens[1].trim();
         String[] parts = descriptionAndStartAndEnd.split(" /from | /to ");
         String eventDescription = parts[0].trim();
@@ -98,21 +102,24 @@ public class Parser {
         return textUi.showTaskAdded(eventTask, tasks.getTaskListLength());
     }
 
-    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+    private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi)
+            throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToUnMark = tasks.getTask(index);
         tasks.getTask(index).markNotDone();
         return textUi.showMarkedOrUnmarkMessage(taskToUnMark);
     }
 
-    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+    private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi)
+            throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToMark = tasks.getTask(index);
         taskToMark.markDone();
         return textUi.showMarkedOrUnmarkMessage(taskToMark);
     }
 
-    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+    private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi)
+            throws ChillChiefException {
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);

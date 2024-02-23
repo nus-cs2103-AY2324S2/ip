@@ -1,13 +1,14 @@
 package chillchief;
 
-import exceptions.ChillChiefException;
 import util.Parser;
 import util.Storage;
 import util.TaskList;
 import util.TextUi;
 
-import java.io.IOException;
 import java.util.Scanner;
+
+import java.io.IOException;
+import exceptions.ChillChiefException;
 
 public class ChillChief {
 
@@ -15,7 +16,7 @@ public class ChillChief {
     private TaskList taskList;
     private TextUi ui;
 
-    public ChillChief(String filePath) throws ChillChiefException, IOException {
+    public ChillChief(String filePath) throws IOException {
         ui = new TextUi();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
@@ -40,7 +41,7 @@ public class ChillChief {
         }
     }
 
-    public static void main(String[] args) throws ChillChiefException, IOException {
+    public static void main(String[] args) throws IOException {
         new ChillChief("./data/chillchief.txt").run();
     }
 }

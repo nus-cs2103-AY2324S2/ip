@@ -1,10 +1,10 @@
 package util;
 
-import exceptions.ChillChiefException;
 import tasks.Task;
 
 import java.util.ArrayList;
 
+import exceptions.ChillChiefException;
 /**
  * Represents a list of tasks in the ChillChief application.
  */
