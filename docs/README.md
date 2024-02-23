@@ -1,29 +1,59 @@
-# User Guide
+# Bozo User Guide
 
-## Features 
+![Screenshot of Ui.](Ui.png)
 
-### Feature-ABC
+Bozo is a reliable chatbot that helps you to keep track of your tasks!
 
-Description of the feature.
+## Features
 
-### Feature-XYZ
+_1 . Get a list of available **commands**._
 
-Description of the feature.
+Example:
+* `help`
 
-## Usage
+_2 . Add a **To-do** task. `todo <description>`_
 
-### `Keyword` - Describe action
+Examples:
+* `todo literally anything`
+* `t literally anything`
 
-Describe the action and its outcome.
+_3 . Add a **Deadline** task. `deadline <description> /by <date> <time>`_
 
-Example of usage: 
+Examples:
+* `deadline literally everything /by 2024-02-23 2359`
+* `d literally everything /by 2024-02-23 2359`
 
-`keyword (optional arguments)`
+_4 . Add an **Event** task. `event <description> /from <date> <time> /to <date> <time>`_
 
-Expected outcome:
+Examples:
+* `event project meeting /from 2024-02-23 1400 /to 2024-02-23 1600`
+* `e project meeting /from 2024-02-23 1400 /to 2024-02-23 1600`
 
-Description of the outcome.
+_5 . **List** out all tasks and their statuses._
 
-```
-expected output
-```
+Example:
+* `list`
+
+_6 . **Mark** a task as done. `mark <task index>`_
+
+Example:
+* `mark 1`
+
+_7 . **Unmark** a task as not done. `unmark <task index>`_
+
+Example:
+* `unmark 1`
+
+_8 . **Delete** a task. `delete <task index>`_
+
+Example:
+* `delete 1`
+
+_9 . **Find** tasks by keyword. `find <keyword>`_
+
+Example:
+* `find meeting`
+* `find everything`
+
+_9 . Say **bye** to exit the chatbot application_
+* `bye`
