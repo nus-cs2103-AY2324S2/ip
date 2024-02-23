@@ -19,3 +19,10 @@ list
 todo lunch
 priority 3 2
 list
+todo brunch
+delete 2
+todo breakfast 
+delete 3
+list
+todo brunch
+delete 3
