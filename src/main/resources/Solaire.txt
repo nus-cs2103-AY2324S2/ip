@@ -2,3 +2,4 @@ D | 1 | return book | 2024-02-24
 E | 0 | career fair | 12pm | 6pm
 E | 0 | project meeting | 2021-09-17 | 2021-09-18
 T | 0 | read book
+D | 0 | build new app | 2024-02-23
