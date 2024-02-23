@@ -66,6 +66,9 @@ public class XiaoBai {
         try {
             Command command = Parser.parseCommand(input);
             switch (command.getInputType()) {
+                case SORT:
+                    taskList.sort();
+                    return ui.showSortMessage(taskList);
                 case BYE:
                     storage.writeArrayListToFile(taskList);
                     return ui.showExitMessage();
@@ -124,6 +127,6 @@ public class XiaoBai {
      * Represents the types of commands that XiaoBai can process.
      */
     public enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN, FIND
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN, FIND, SORT
     }
 }
