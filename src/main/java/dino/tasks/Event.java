@@ -19,6 +19,14 @@ public class Event extends Task implements Serializable {
         this.end = end;
     }
 
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription()

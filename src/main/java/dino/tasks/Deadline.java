@@ -15,6 +15,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public LocalDateTime getDate() {
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return "[D]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription() + "(by: "
