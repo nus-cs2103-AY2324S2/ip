@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Dino using FXML.
+ * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<dino.MainWindow>getController().setDino(dino);
+            fxmlLoader.<dino.MainWindow>getController().setDuke(dino);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
