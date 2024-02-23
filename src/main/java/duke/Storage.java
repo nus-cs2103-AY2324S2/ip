@@ -27,7 +27,7 @@ public class Storage {
     //CHECKSTYLE.OFF:
     protected final String filePath;
     //CHECKSTYLE.ON:
-    protected ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new Storage object with the specified filePath value.
@@ -36,7 +36,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -221,10 +221,10 @@ public class Storage {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
             bw.write(line);
             bw.newLine();
+            this.tasks.add(task);
         } catch (IOException e) {
             System.out.println("Error writing to file: " + filePath);
         }
-        tasks.add(task);
     }
 
     /**
@@ -239,9 +239,10 @@ public class Storage {
                 bw.write(task.getData());
                 bw.newLine();
             }
+            ArrayList<Task> temp = new ArrayList<Task>(newTasks);
+            tasks = temp;
         } catch (IOException e) {
             System.out.println("Error writing to file: " + filePath);
         }
-        tasks = newTasks;
     }
 }

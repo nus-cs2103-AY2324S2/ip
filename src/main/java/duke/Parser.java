@@ -95,7 +95,7 @@ public class Parser {
                 String[] tempArray = tempString.split("/from", 0);
                 if (tempArray.length == 1) {
                     throw new IllegalArgumentException("Blunder! "
-                            + "Declare yer event as such: 'deadline * /from * /to *', "
+                            + "Declare yer event as such: 'event * /from * /to *', "
                             + "ye scurvy dog!");
                 }
                 String description = tempArray[0].trim();
@@ -103,7 +103,7 @@ public class Parser {
                 tempArray = tempString.split("/to", 0);
                 if (tempArray.length == 1) {
                     throw new IllegalArgumentException("Blunder! "
-                            + "Declare yer event as such: 'deadline * /from * /to *', "
+                            + "Declare yer event as such: 'event * /from * /to *', "
                             + "ye scurvy dog!");
                 }
                 LocalDateTime from = parseDate(tempArray[0].trim());

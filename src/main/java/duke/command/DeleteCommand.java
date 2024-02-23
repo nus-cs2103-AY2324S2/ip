@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param ui The Ui object that handles displaying messages
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
@@ -40,6 +40,6 @@ public class DeleteCommand extends Command {
         String message = "As ye command, this one has walked the plank:\n"
                 + tempTask + "\nOnly "
                 + super.tasks.getTaskCount() + " tasks remain, captain!";
-        super.ui.printMessage(message);
+        return super.ui.printMessage(message);
     }
 }

@@ -28,8 +28,9 @@ public abstract class Command {
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
      * @param ui The Ui object that handles displaying messages
+     * @return Returns a String message to be displayed to the user
      */
-    public abstract void execute(TaskList tasks, Storage storage, Ui ui);
+    public abstract String execute(TaskList tasks, Storage storage, Ui ui);
 
     /**
      * Method returns false by default to keep the chatbot loop running.

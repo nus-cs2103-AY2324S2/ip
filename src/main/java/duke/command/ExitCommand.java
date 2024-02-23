@@ -26,11 +26,11 @@ public class ExitCommand extends Command {
      * @param ui The Ui object that handles displaying messages
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
-        ui.printMessage("Fair winds to ye, me hearty! "
+        return ui.printMessage("Fair winds to ye, me hearty! "
                 + "May the tide carry ye safely until our paths cross again.");
     }
 

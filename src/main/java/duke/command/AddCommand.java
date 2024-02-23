@@ -31,13 +31,13 @@ public class AddCommand extends Command {
      * @param ui The Ui object that handles displaying messages
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
         super.tasks.addTask(this.task);
         super.storage.appendTaskToFile(this.task);
         String message = "I've appended this to yer list:\n" + this.task.toString();
-        super.ui.printMessage(message);
+        return super.ui.printMessage(message);
     }
 }

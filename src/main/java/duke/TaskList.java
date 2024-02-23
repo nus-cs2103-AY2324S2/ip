@@ -10,8 +10,7 @@ import duke.task.Task;
  * to manage and manipulate those tasks.
  */
 public class TaskList {
-    protected static ArrayList<Task> tasks;
-    protected static int taskCount = 0;
+    private static ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList and instantiates tasks as an empty ArrayList.
@@ -27,7 +26,6 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> loadedTasks) {
         this.tasks = loadedTasks;
-        taskCount = loadedTasks.size();
     }
 
     /**
@@ -36,8 +34,7 @@ public class TaskList {
      * @param task a Task object to be added to the task list
      */
     public void addTask(Task task) {
-        tasks.add(task);
-        taskCount += 1;
+        this.tasks.add(task);
     }
 
     /**
@@ -46,19 +43,18 @@ public class TaskList {
      * @param taskNum an int representing the 1-indexed location of the task to be deleted
      */
     public void deleteTask(int taskNum) {
-        if (taskNum > taskCount || taskNum < 1) {
-            throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount
+        if (taskNum > tasks.size() || taskNum < 1) {
+            throw new IllegalArgumentException("Blunder! Ye only be havin' " + tasks.size()
                     + " tasks on the chart, matey!");
         }
         tasks.remove(taskNum - 1);
-        taskCount -= 1;
     }
 
     /**
      * Method to print all current tasks in the task list.
      */
     public void listTasks() {
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
@@ -69,8 +65,8 @@ public class TaskList {
      * @param taskNum an int representing the 1-indexed location of the task in the task list
      */
     public void markTask(int taskNum) {
-        if (taskNum > taskCount || taskNum < 1) {
-            throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount
+        if (taskNum > tasks.size() || taskNum < 1) {
+            throw new IllegalArgumentException("Blunder! Ye only be havin' " + tasks.size()
                     + " tasks on the chart, matey!");
         }
         tasks.get(taskNum - 1).markAsDone();
@@ -82,8 +78,8 @@ public class TaskList {
      * @param taskNum an int representing the 1-indexed location of the task in the task list
      */
     public void unmarkTask(int taskNum) {
-        if (taskNum > taskCount || taskNum < 1) {
-            throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount
+        if (taskNum > tasks.size() || taskNum < 1) {
+            throw new IllegalArgumentException("Blunder! Ye only be havin' " + tasks.size()
                     + " tasks on the chart, matey!");
         }
         tasks.get(taskNum - 1).markAsNotDone();
@@ -95,8 +91,8 @@ public class TaskList {
      * @param taskNum an int representing the 1-indexed location of the task in the task list
      */
     public String printTask(int taskNum) {
-        if (taskNum > taskCount || taskNum < 1) {
-            throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount
+        if (taskNum > tasks.size() || taskNum < 1) {
+            throw new IllegalArgumentException("Blunder! Ye only be havin' " + tasks.size()
                     + " tasks on the chart, matey!");
         }
         return tasks.get(taskNum - 1).toString();
@@ -106,7 +102,7 @@ public class TaskList {
      * Method to get the current number of tasks in the task list.
      */
     public int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     /**

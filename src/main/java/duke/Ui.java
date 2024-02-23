@@ -39,11 +39,12 @@ public class Ui {
      * Method to print the logo and welcome message at program startup.
      */
 
-    public void showWelcome() {
+    public String showWelcome() {
         System.out.println(logo);
         printDivider();
         System.out.println("Ahoy! I be Yarr \nWhat be yer command, me heartie?");
         printDivider();
+        return "Ahoy! I be Yarr \nWhat be yer command, me heartie?";
     }
 
     /**
@@ -51,10 +52,11 @@ public class Ui {
      *
      * @param message a String representing the message to be printed
      */
-    public void printMessage(String message) {
+    public String printMessage(String message) {
         printDivider();
         System.out.println(message);
         printDivider();
+        return message;
     }
 
     /**
@@ -63,14 +65,18 @@ public class Ui {
      * @param message a String containing the message to be printed before the list
      * @param tasks an ArrayList of Task objects to be printed as a numbered list
      */
-    public void displayList(String message, ArrayList<Task> tasks) {
+    public String displayList(String message, ArrayList<Task> tasks) {
+        String response = "";
         printDivider();
         System.out.println(message);
+        response += message + "\n";
         int count = 1;
         for (Task task : tasks) {
             System.out.println(count + "." + task.toString());
+            response += count + "." + task.toString() + "\n";
             count += 1;
         }
         printDivider();
+        return response;
     }
 }

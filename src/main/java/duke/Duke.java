@@ -1,8 +1,9 @@
 package duke;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 import duke.command.Command;
+import duke.task.Task;
 
 /**
  * Duke is a simple chatbot application that allows users to manage tasks.
@@ -23,48 +24,44 @@ public class Duke {
 
     /** Storage object for handling reading and writing to the hard disk. */
     private Storage storage;
+    /** Boolean to check if the program should exit. */
+    private boolean isExit;
 
     /**
      * Constructor for Duke class. Instantiates Ui and Storage.
      * Loads TaskList from filepath or makes relevant directory and file if required.
-     *
-     * @param filePath Filepath for loading and saving TaskList data.
      */
-    public Duke(String filePath) {
+    public Duke() {
+        String filePath = FILE_PATH;
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.loadData());
+            ArrayList<Task> temp = new ArrayList<Task>(storage.loadData());
+            tasks = new TaskList(temp);
         } catch (IllegalArgumentException e) {
-            System.out.println("Couldn't read from file");
+            //System.out.println("Couldn't read from file");
             tasks = new TaskList();
         }
     }
 
     /**
-     * Helper function that manages the running of the chatbot.
+     * Method to generate a response to user input.
      */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                Command c = Parser.handleInput(scanner.nextLine());
-                c.execute(tasks, storage, ui);
-                isExit = c.isExit();
-            } catch (IllegalArgumentException e) {
-                ui.printMessage(e.getMessage());
-            }
+    protected String getResponse(String input) {
+        try {
+            Command c = Parser.handleInput(input);
+            isExit = c.isExit();
+            return c.execute(this.tasks, this.storage, this.ui);
+        } catch (IllegalArgumentException e) {
+            return ui.printMessage(e.getMessage());
         }
     }
 
     /**
-     * The entry point of the Duke application.
-     *
-     * @param args command-line arguments (not used in this application)
+     * Method to check if the program should exit.
+     * @return boolean representing whether the program should exit
      */
-    public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+    protected boolean isExit() {
+        return isExit;
     }
 }
