@@ -32,6 +32,7 @@ public class MainWindow extends AnchorPane {
 
     public void setFloofy(Floofy f) {
         floofy = f;
+        dialogContainer.getChildren().addAll(DialogBox.getFloofyDialog(f.getWelcomeMessage(), floofBossImage));
     }
 
     /**

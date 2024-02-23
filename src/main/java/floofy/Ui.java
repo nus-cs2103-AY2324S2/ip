@@ -5,7 +5,7 @@ import floofy.task.Task;
 import java.util.Scanner;
 public class Ui {
     protected Scanner scanner;
-    private final String line = "__________________________________________________";
+    private final String line = "---------------------------";
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -67,6 +67,12 @@ public class Ui {
             output += numberedOutput + "\n";
         }
         return wrapWithlines(msg + "\n" + output);
+    }
+
+    public String showInvalidInput() {
+        String msg1 = "You have input an invalid command!";
+        String msg2 = "To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!";
+        return wrapWithlines(msg1 + "\n" + msg2);
     }
 
     public String showGoodbyeMsg() {
