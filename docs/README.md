@@ -353,8 +353,6 @@ Format: `bye`
 <br>
 <br>
 
-## Saving the Data
-No need to save. The program saves automatically.
 
 <br>
 
