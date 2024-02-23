@@ -49,7 +49,7 @@ application {
 
 shadowJar {
     archiveBaseName = "Eggy"
-    archiveVersion = "v0.2"
+    archiveVersion = "v1.0"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

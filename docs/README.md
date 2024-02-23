@@ -10,7 +10,7 @@ It utilizes a graphical user interface (GUI) and executes actions based on speci
 2. Download the latest release from [here](https://github.com/DhiraPT/ip/releases).
 3. Copy the jar file into an empty folder.
 4. Open a command window in that folder.
-5. Run the command `java -jar Eggy-v{version}.jar` (i.e., `java -jar Eggy-v0.3.jar`).
+5. Run the command `java -jar Eggy-v{version}.jar` (i.e., `java -jar Eggy-v1.0.jar`).
 
 ## Features
 
