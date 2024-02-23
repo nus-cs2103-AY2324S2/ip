@@ -59,7 +59,7 @@ public class MainController {
             Runnable exitTask = new Runnable() {
                 @Override
                 public void run() {
-                    Platform.exit();
+                    System.exit(0);
                 }
             };
             ScheduledFuture<?> exitFuture = scheduler.schedule(exitTask, EXIT_DELAY, TimeUnit.SECONDS);
