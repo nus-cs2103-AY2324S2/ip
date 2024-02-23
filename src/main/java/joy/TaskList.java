@@ -54,7 +54,7 @@ public class TaskList {
         } catch (NullPointerException e) {
             return "Error: Task is null.";
         }
-        return "task added successfully";
+        return "Task added successfully. \n You now have " + tasks.size() + " tasks in the list";
     }
 
     /**

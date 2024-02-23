@@ -41,6 +41,15 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Joy j) {
         joy = j;
+        String response = ("Welcome to the Task Management Center!"
+            + "\n I'm Nurse Joy, ready to help you organize your tasks efficiently, just like I care for Pokemon."
+            + "\n Todo task, use the format: todo [description]"
+            + "\n Deadline, use the format: deadline [description] /by [yyyy-mm-dd]"
+            + "\n Event, use the format: event [description] /from [time] /to [time]");
+        dialogContainer.getChildren().addAll(
+
+                DialogBox.getDukeDialog(response, joyImage)
+        );
     }
 
 
