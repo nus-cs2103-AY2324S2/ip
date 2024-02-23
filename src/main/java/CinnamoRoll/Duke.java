@@ -11,6 +11,11 @@ import java.util.Scanner;
 // create subclasses for Exception class and what are the public methods for exception classes:
 // https://chat.openai.com/c/7d9fd6bb-3163-49c7-8301-289a1ebaa6e1
 
+// Thirdly, javadoc comments were written (mostly adapted) by chatgpt generated code. Here are some relevant
+// link to chatgpt generated javadoc comments:
+// https://chat.openai.com/c/df8d5107-2285-4eba-b7a1-e933f17a4569
+// https://chat.openai.com/c/30a81394-ee96-43ba-ab98-f1a95355d6b0
+
 // Lastly, date-time formatting occuring from Task classes and parsers was inspired by two sources,
 // which are also explained and commented in a very detailed manner in parser class:
 // 1. https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8.

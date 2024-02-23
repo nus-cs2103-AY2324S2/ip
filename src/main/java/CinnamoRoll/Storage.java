@@ -8,6 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * The Storage class handles the loading of tasks from a file and creating an ArrayList of Task objects.
+ * It also provides the functionality to create and handle the file where tasks are stored.
+ * The expected format of the file includes representations for Todos, Deadlines, and Events
+ */
 class Storage {
     private final String path = "./task/Cinnamo.txt";
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -32,64 +38,70 @@ class Storage {
     // by https://stackoverflow.com/questions/7469018/cannot-make-file-java-io-ioexception-no-such-file-or-directory;
     ArrayList<Task> loadData() throws IOException {
         try {
-            ArrayList<Task> output = new ArrayList<>();
+            ArrayList<Task> userOutput = new ArrayList<>();
             Scanner sc = new Scanner(new FileReader(path));
-            String input;
+            String userInput;
 
             while (sc.hasNextLine()) {
-                input = sc.nextLine();
-                Task task;
-                String[] info = input.split("\\|", 3);
+                userInput = sc.nextLine();
+                String[] userInfo = trimList(userInput.split("\\|", 3));
                 boolean isMarked = false;
 
-                switch (info[1].trim()) {
+                switch (userInfo[1]) {
                 case "X":
                     isMarked = true;
                     break;
                 case "":
-                    isMarked = false;
                     break;
                 default:
                     System.out.println("Oops! No Markings Provided in Correct Format:(");
                 }
 
-                switch (info[0].trim().toUpperCase()) {
+                switch (userInfo[0].toUpperCase()) {
                 case "T":
-                    String todotask = info[2].trim();
-                    task = new Todos(todotask, isMarked);
-                    output.add(task);
+                    String todoTask = userInfo[2];
+                    userOutput.add(new Todos(todoTask, isMarked));
                     break;
                 case "D":
-                    String[] deadline = info[2].trim().split("/by");
-                    String deadlinetask = deadline[0].trim();
-                    String datetime = deadline[1].trim();
-                    task = new Deadlines(deadlinetask, LocalDateTime.parse(datetime,
-                            this.format), isMarked);
-                    output.add(task);
+                    String[] deadline = trimList(userInfo[2].split("/by"));
+                    userOutput.add(new Deadlines(deadline[0], LocalDateTime.parse(deadline[1],
+                            this.format), isMarked));
                     break;
                 case "E":
-                    String[] event = info[2].trim().split("/from | /to");
-                    String eventdetail = event[0].trim();
-                    String eventfrom = event[1].trim();
-                    String eventto = event[2].trim();
-                    task = new Events(eventdetail, LocalDateTime.parse(eventfrom, this.format),
-                            LocalDateTime.parse(eventto, this.format), isMarked);
-                    output.add(task);
+                    String[] event = trimList(userInfo[2].split("/from | /to"));
+                    userOutput.add(new Events(event[0], LocalDateTime.parse(event[1], this.format),
+                            LocalDateTime.parse(event[2], this.format), isMarked));
                     break;
                 default:
                     System.out.println("Loading data unsuccessful: invalid event type or formatting");
                 }
             }
-            return output;
+            return userOutput;
         } catch (FileNotFoundException ex) {
-            File f = new File(path);
-            if (!f.getParentFile().exists()) {
-                f.getParentFile().mkdirs();
-            }
-            if (!f.exists()) {
-                f.createNewFile();
-            }
+            this.createFile();
             return new ArrayList<Task>();
         }
+    }
+
+    /**
+     * Creates a datafile to store the tasks if user does not have one in local machine
+     * @throws IOException
+     */
+    public void createFile() throws IOException {
+        File f = new File(path);
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+    }
+
+    String[] trimList(String[] userInput) {
+        String[] trimOutput = userInput;
+        for (int i = 0; i < trimOutput.length; i++) {
+            trimOutput[i] = trimOutput[i].trim();
+        }
+        return trimOutput;
     }
 }

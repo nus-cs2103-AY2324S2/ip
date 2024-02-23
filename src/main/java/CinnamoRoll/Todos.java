@@ -1,10 +1,25 @@
 package CinnamoRoll;
+
+/**
+ * Creates a todo task with tasklist as an input
+ */
 class Todos extends Task {
 
+    /**
+     * Creates a new Todo task with the given description.
+     *
+     * @param str The description of the Todo task.
+     */
     Todos(String str) {
         super(str);
     }
 
+    /**
+     * Creates a new Todo task with the given description and marked status.
+     *
+     * @param str     The description of the Todo task.
+     * @param marked  A boolean indicating whether the task is marked as completed.
+     */
     Todos(String str, boolean marked) {
         super(str, marked);
     }
@@ -12,6 +27,7 @@ class Todos extends Task {
     String getStatusIcon() {
         return (this.getMarked() ? "[T][X]" : "[T][ ]");
     }
+
     /**
      * Returns a string that describes the number of tasks in the list,
      * description of the (deadline) task, task type and the marked status

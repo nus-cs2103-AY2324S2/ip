@@ -5,19 +5,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
+
+/**
+ * TaskList class represents a collection of tasks and provides methods
+ * for managing tasks, including adding, deleting, marking, and listing tasks.
+ * It also handles reading and writing tasks to a file, searching for tasks,
+ * and identifying duplicate tasks within the list.
+ */
 class TaskList {
     private final ArrayList<Task> tasks;
     private final String path = "./task/Cinnamo.txt";
     private final Parser parser = new Parser();
 
+    /**
+     * Creates a new empty TaskList.
+     */
     TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Creates a new TaskList with the given list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList.
+     */
     TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Retrieves the task at the specified index in the TaskList.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range (index < 0 || index >= size()).
+     */
     public Task getUser(int index) {
         return this.tasks.get(index);
     }
@@ -37,10 +59,10 @@ class TaskList {
     // https://chat.openai.com/c/c34f9461-e0dc-4946-b2f2-eeec0e39aded
     public void writeInto() {
         try {
-            FileWriter filewriter = new FileWriter(this.path);
-            String writeinto = this.storeTask();
-            filewriter.write(writeinto);
-            filewriter.close();
+            FileWriter fileWriter = new FileWriter(this.path);
+            String writeInto = this.storeTask();
+            fileWriter.write(writeInto);
+            fileWriter.close();
         } catch (IOException ex) {
             System.out.println("No input provided!");
         }
@@ -55,11 +77,11 @@ class TaskList {
      */
     public String executeTask(String[] instruction) throws CinnamoException {
         try {
-            int arraysize = this.tasks.size();
+            int arraySize = this.tasks.size();
             Task task = this.parser.parseTasks(instruction);
             this.tasks.add(task);
             this.writeInto();
-            assert this.tasks.size() == arraysize + 1 : "length of array must have increased by 1";
+            assert this.tasks.size() == arraySize + 1 : "length of array must have increased by 1";
             return task.addTask(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             if (instruction[0].equals("TODO")) {
@@ -80,17 +102,17 @@ class TaskList {
      * @return A sublist that contains every duplicate tasks recorded in the list
      */
     public String listDuplicates() {
-        Hashtable<String, Integer> storeduplicate = new Hashtable<>();
+        Hashtable<String, Integer> storeDuplicate = new Hashtable<>();
         boolean isDuplicate = false;
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            String taskname = this.tasks.get(i).getTaskName();
-            if (storeduplicate.containsKey(taskname)) {
-                int occurrence = storeduplicate.get(taskname) + 1;
-                storeduplicate.put(taskname, occurrence);
+            String taskName = this.tasks.get(i).getTaskName();
+            if (storeDuplicate.containsKey(taskName)) {
+                int occurrence = storeDuplicate.get(taskName) + 1;
+                storeDuplicate.put(taskName, occurrence);
                 isDuplicate = true;
             } else {
-                storeduplicate.put(taskname, 1);
+                storeDuplicate.put(taskName, 1);
             }
         }
 
@@ -98,15 +120,23 @@ class TaskList {
             return "No duplicate tasks are found :) Cinnamo is happy!";
         }
 
+        return printDuplicate(storeDuplicate);
+    }
+
+    /**
+     * Print duplicate tasks in the required list format
+     * @param storeDuplicate Hashtable containing pair of duplicate task name and occurrence.
+     */
+    public String printDuplicate(Hashtable<String, Integer> storeDuplicate) {
         String output = "Here are duplicate tasks in your list >.<:\n";
-        Set<String> tasklist = storeduplicate.keySet();
+        Set<String> taskList = storeDuplicate.keySet();
         int counter = 1;
 
-        for (String taskdetail : tasklist) {
-            int repeats = storeduplicate.get(taskdetail);
+        for (String taskDetail : taskList) {
+            int repeats = storeDuplicate.get(taskDetail);
             if (repeats > 1) {
                 output += String.format("%d. %s (occurrence: %d times)%n", counter,
-                        taskdetail, repeats);
+                        taskDetail, repeats);
             }
             counter += 1;
         }
@@ -120,21 +150,21 @@ class TaskList {
      * @return A sublist that contains every duplicate tasks recorded in the list
      */
     public String uniquifyTasks() {
-        ArrayList<String> uniquetasks = new ArrayList<>();
-        ArrayList<Integer> duplicateindex = new ArrayList<>();
+        ArrayList<String> uniqueTasks = new ArrayList<>();
+        ArrayList<Integer> duplicateIndex = new ArrayList<>();
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            String taskname = this.tasks.get(i).getTaskName();
-            if (uniquetasks.contains(taskname)) {
-                duplicateindex.add(i);
+            String taskName = this.tasks.get(i).getTaskName();
+            if (uniqueTasks.contains(taskName)) {
+                duplicateIndex.add(i);
             } else {
-                uniquetasks.add(taskname);
+                uniqueTasks.add(taskName);
             }
         }
 
-        for (int j = duplicateindex.size() - 1; j >= 0; j--) {
-            int toremove = duplicateindex.get(j);
-            this.tasks.remove(toremove);
+        for (int j = duplicateIndex.size() - 1; j >= 0; j--) {
+            int toRemove = duplicateIndex.get(j);
+            this.tasks.remove(toRemove);
         }
         this.writeInto();
 

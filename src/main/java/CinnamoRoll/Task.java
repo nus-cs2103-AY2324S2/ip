@@ -1,14 +1,29 @@
 package CinnamoRoll;
 
+/**
+ * Abstracts out the main features of tasks and
+ * specifies / sets functions that task subclasses can perform
+ */
 abstract class Task {
     protected final String taskname;
     protected boolean isMarked;
 
+    /**
+     * Creates a new Task with the given description.
+     *
+     * @param str The description of the task.
+     */
     Task(String str) {
         this.taskname = str;
         this.isMarked = false;
     }
 
+    /**
+     * Creates a new Task with the given description and marked status.
+     *
+     * @param str     The description of the task.
+     * @param marked  A boolean indicating whether the task is marked as completed.
+     */
     Task(String str, boolean marked) {
         this.taskname = str;
         this.isMarked = marked;
@@ -32,6 +47,9 @@ abstract class Task {
      */
     abstract String getStatusIcon();
 
+    /**
+     * Retrieve the marking status of the event in boolean attribute
+     */
     protected boolean getMarked() {
         return this.isMarked;
     }
@@ -62,6 +80,10 @@ abstract class Task {
         return this.taskname;
     }
 
+    /**
+     * Outputs a string output of a task that contains taskname, task type,
+     * and relevant time information.
+     */
     public String toString() {
         return this.getStatusIcon() + " " + this.taskname;
     }

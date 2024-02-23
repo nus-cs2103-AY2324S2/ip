@@ -1,5 +1,9 @@
 package CinnamoRoll;
 
+/**
+ * Deals with user input where it greets, helps exit, and pass the user
+ * command to the tasklist and parser class
+ */
 class Ui {
 
     private static final String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀⠀⠀⢀⣀⣀⣀⣀⣀⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"

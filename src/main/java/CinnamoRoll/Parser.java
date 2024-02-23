@@ -3,7 +3,10 @@ package CinnamoRoll;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+/**
+ * Parses the user input in the format the chatbot could understand and
+ * carry out the command
+ */
 class Parser {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
