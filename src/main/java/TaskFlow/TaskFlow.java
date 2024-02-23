@@ -1,7 +1,7 @@
 package TaskFlow;
 
 import TaskFlow.command.Command;
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
@@ -11,7 +11,7 @@ import TaskFlow.ui.Ui;
  */
 public class TaskFlow {
 
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/taskie.txt";
     private static final String ARCHIVED_FILE_PATH = "./data/archive.txt";
     private Storage storageForTask;
     private Storage storageForArchivedTask;
@@ -20,7 +20,7 @@ public class TaskFlow {
     private Ui ui;
 
     /**
-     * Constructs a Duke object with the specified file path for storage.
+     * Constructs a TaskFlow object with the specified file path for storage.
      */
     public TaskFlow() {
         ui = new Ui();
@@ -29,14 +29,14 @@ public class TaskFlow {
         try {
             tasks = new TaskList(storageForTask.load());
             archiveTasks = new TaskList(storageForArchivedTask.load());
-        } catch (DukeException e) {
+        } catch (TaskFlowException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the Duke program, processing user commands until the "bye" command is entered.
+     * Runs the TaskFlow program, processing user commands until the "bye" command is entered.
      * The user is prompted with a welcome message and can interact with the chatbot.
      * Recognized commands include list, mark, unmark, todo, deadline, event, and more.
      * Further carry out the following functions based on the command entered.
@@ -47,7 +47,7 @@ public class TaskFlow {
             Command c = Parser.parse(userInput);
             response += c.execute(tasks, archiveTasks, ui, storageForTask,
                     storageForArchivedTask);
-        } catch (DukeException e) {
+        } catch (TaskFlowException e) {
             response += ui.showError(e.getMessage());
         }
         return response;

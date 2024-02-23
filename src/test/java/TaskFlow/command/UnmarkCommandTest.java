@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
+import TaskFlow.exception.TaskFlowException;
 import org.junit.jupiter.api.Test;
 
-import TaskFlow.exception.DukeException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
@@ -22,10 +22,10 @@ public class UnmarkCommandTest {
      * To test that executing UnmarkCommand with a valid index unmarks the task as
      * completed successfully.
      *
-     * @throws DukeException If there is an unexpected Duke exception during the test.
+     * @throws TaskFlowException If there is an unexpected Duke exception during the test.
      */
     @Test
-    public void execute_validIndex_taskUnmarkedSuccessfully() throws DukeException {
+    public void execute_validIndex_taskUnmarkedSuccessfully() throws TaskFlowException {
         int validIndex = 1;
         ArrayList<Task> tasks = new ArrayList<>();
         Task taskToMark = new Task("todo blahvblah");
@@ -45,7 +45,7 @@ public class UnmarkCommandTest {
 
     /**
      * To test that executing UnmarkCommand with an invalid index throws
-     * the expected DukeException.
+     * the expected TaskFlowException.
      */
     @Test
     public void execute_invalidIndex_exceptionThrown() {
@@ -60,11 +60,11 @@ public class UnmarkCommandTest {
         Storage archived = new Storage("./data/archive.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(invalidIndex);
-        DukeException dukeException = assertThrows(DukeException.class, (
+        TaskFlowException taskFlowException = assertThrows(TaskFlowException.class, (
         ) -> unmarkCommand.execute(task, archiveTasks, ui, storage, archived));
 
         // Verify that the exception message is as expected
         assertEquals("Invalid index. Please provide a valid index within"
-                        + " the range 1 to 1.", dukeException.getMessage());
+                        + " the range 1 to 1.", taskFlowException.getMessage());
     }
 }

@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
 
@@ -35,9 +35,9 @@ public class Storage {
      * Loads tasks from the specified file.
      *
      * @return ArrayList of tasks loaded from the file.
-     * @throws DukeException If an error occurs during the loading process.
+     * @throws TaskFlowException If an error occurs during the loading process.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws TaskFlowException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                throw new DukeException("Error creating a new File: " + e.getMessage());
+                throw new TaskFlowException("Error creating a new File: " + e.getMessage());
             }
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -56,7 +56,7 @@ public class Storage {
                     tasks.add(task);
                 }
             } catch (IOException e) {
-                throw new DukeException("Error loading tasks: " + e.getMessage());
+                throw new TaskFlowException("Error loading tasks: " + e.getMessage());
             }
         }
         return tasks;
@@ -66,9 +66,9 @@ public class Storage {
      * Saves the tasks in the provided TaskList to the specified file.
      *
      * @param tasks The TaskList containing tasks to be saved.
-     * @throws DukeException If an error occurs during the saving process.
+     * @throws TaskFlowException If an error occurs during the saving process.
      */
-    public void saveTask(TaskList tasks) throws DukeException {
+    public void saveTask(TaskList tasks) throws TaskFlowException {
         File directory = new File(DIRECTORY_PATH);
 
         // Create a directory if it doesn't exist.
@@ -85,7 +85,7 @@ public class Storage {
             }
             System.out.println("Tasks saved successfully.");
         } catch (IOException e) {
-            throw new DukeException("Error saving tasks to file: " + e.getMessage());
+            throw new TaskFlowException("Error saving tasks to file: " + e.getMessage());
         }
     }
 }

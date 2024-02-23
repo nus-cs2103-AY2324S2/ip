@@ -1,6 +1,6 @@
 package TaskFlow.command;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.Deadline;
 import TaskFlow.task.TaskList;
@@ -19,9 +19,9 @@ public class DeadlineCommand extends Command {
      *
      * @param description    The description of the deadline task.
      * @param by             The date/time by which the task should be completed.
-     * @throws DukeException If there is an error while executing the command.
+     * @throws TaskFlowException If there is an error while executing the command.
      */
-    public DeadlineCommand(String description, String by) throws DukeException {
+    public DeadlineCommand(String description, String by) throws TaskFlowException {
         this.deadline = new Deadline(description, by);
     }
 
@@ -35,11 +35,11 @@ public class DeadlineCommand extends Command {
      * @param ui            The Ui to interact with the user.
      * @param storage       The Storage to save the tasks to a file.
      * @param archived      The storage to save the archived tasks to a file.
-     * @throws DukeException If there is an error while executing the command.
+     * @throws TaskFlowException If there is an error while executing the command.
      */
     @Override
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
-                          Storage storage, Storage archived) throws DukeException {
+                          Storage storage, Storage archived) throws TaskFlowException {
         tasks.add(deadline);
         storage.saveTask(tasks);
         return ui.showAddMsg(deadline, tasks.getTaskSize());

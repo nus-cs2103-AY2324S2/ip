@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 
 /**
  * Represents a list of tasks in the Duke chatbot application.
@@ -34,13 +34,13 @@ public class TaskList {
      * Adds a task to the task list and also handle duplicate tasks.
      *
      * @param task The task to be added.
-     * @throws DukeException throws an error when there is a same task
+     * @throws TaskFlowException throws an error when there is a same task
      *                       being added into the list.
      */
-    public void add(Task task) throws DukeException {
+    public void add(Task task) throws TaskFlowException {
         for (int i = 0; i < getTaskSize(); i++) {
             if (tasks.get(i).equals(task)) {
-                throw new DukeException("Task with same details already exists.\n"
+                throw new TaskFlowException("Task with same details already exists.\n"
                 + "Please try again.\n");
             } else {
                 tasks.add(task);

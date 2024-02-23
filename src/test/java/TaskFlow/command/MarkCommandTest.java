@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
+import TaskFlow.exception.TaskFlowException;
 import org.junit.jupiter.api.Test;
 
-import TaskFlow.exception.DukeException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.Task;
 import TaskFlow.task.TaskList;
@@ -22,10 +22,10 @@ public class MarkCommandTest {
      * To test that executing MarkCommand with a valid index marks the task as
      * completed successfully.
      *
-     * @throws DukeException If there is an unexpected Duke exception during the test.
+     * @throws TaskFlowException If there is an unexpected Duke exception during the test.
      */
     @Test
-    public void execute_validIndex_taskMarkedSuccessfully() throws DukeException {
+    public void execute_validIndex_taskMarkedSuccessfully() throws TaskFlowException {
         int validIndex = 1;
         ArrayList<Task> tasks = new ArrayList<>();
         Task taskToMark = new Task("todo blahvblah");
@@ -45,7 +45,7 @@ public class MarkCommandTest {
 
     /**
      * To test that executing MarkCommand with an invalid index throws
-     * the expected DukeException.
+     * the expected TaskFlowException.
      */
     @Test
     public void execute_invalidIndex_exceptionThrown() {
@@ -59,13 +59,13 @@ public class MarkCommandTest {
         Storage storage = new Storage("./data/taskie.txt");
         Storage archived = new Storage("./data/archive.txt");
 
-        // Create MarkCommand and execute, assert DukeException is thrown
+        // Create MarkCommand and execute, assert TaskFlowException is thrown
         MarkCommand markCommand = new MarkCommand(invalidIndex);
-        DukeException dukeException = assertThrows(DukeException.class, (
+        TaskFlowException taskFlowException = assertThrows(TaskFlowException.class, (
                 ) -> markCommand.execute(task, archiveTasks, ui, storage, archived));
 
         // Verify that the exception message is as expected
         assertEquals("Invalid index. Please provide a valid index within the range 1 to 1.",
-                dukeException.getMessage());
+                taskFlowException.getMessage());
     }
 }

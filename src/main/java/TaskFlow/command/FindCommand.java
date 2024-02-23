@@ -1,6 +1,6 @@
 package TaskFlow.command;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
@@ -30,15 +30,15 @@ public class FindCommand extends Command {
      * @param ui            The user interface for displaying messages.
      * @param storage       The storage for saving tasks to a file.
      * @param archived      The storage to save the archived tasks to a file.
-     * @throws DukeException If the keyword is not found in the list of tasks.
+     * @throws TaskFlowException If the keyword is not found in the list of tasks.
      */
     @Override
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
-                          Storage storage, Storage archived) throws DukeException {
+                          Storage storage, Storage archived) throws TaskFlowException {
         if (!tasks.findTasksByKeyword(keyword).isEmpty()) {
             return ui.showFindMsg(tasks.findTasksByKeyword(keyword));
         } else {
-            throw new DukeException("Keyword is not found.");
+            throw new TaskFlowException("Keyword is not found.");
         }
     }
 }

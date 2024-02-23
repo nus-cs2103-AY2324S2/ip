@@ -1,6 +1,6 @@
 package TaskFlow.command;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
@@ -32,11 +32,11 @@ public class DeleteCommand extends Command {
      * @param ui            The Ui to interact with the user.
      * @param storage       The Storage to save the tasks to a file.
      * @param archived      The storage to save the archived tasks to a file.
-     * @throws DukeException If there is an error while executing the command.
+     * @throws TaskFlowException If there is an error while executing the command.
      */
     @Override
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
-                          Storage storage, Storage archived) throws DukeException {
+                          Storage storage, Storage archived) throws TaskFlowException {
         if (this.index <= tasks.getTaskSize() && this.index > 0) {
             String s = ui.showDeleteMsg(tasks.getTasks().get(this.index - 1),
                     tasks.getTaskSize());
@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
             storage.saveTask(tasks);
             return s;
         } else {
-            throw new DukeException("Invalid index. \n"
+            throw new TaskFlowException("Invalid index. \n"
                     + "Please provide a valid index within the range 1 to "
                     + tasks.getTaskSize() + "." + "\n");
         }

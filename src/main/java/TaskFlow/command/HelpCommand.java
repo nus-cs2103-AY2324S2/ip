@@ -1,6 +1,6 @@
 package TaskFlow.command;
 
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 import TaskFlow.storage.Storage;
 import TaskFlow.task.TaskList;
 import TaskFlow.ui.Ui;
@@ -20,11 +20,11 @@ public class HelpCommand extends Command {
      * @param ui            The Ui to interact with the user.
      * @param storage       The Storage to save the tasks to a file.
      * @param archived      The storage to save the archived tasks to a file.
-     * @throws DukeException If there is an error while executing the command.
+     * @throws TaskFlowException If there is an error while executing the command.
      */
     @Override
     public String execute(TaskList tasks, TaskList archiveTasks, Ui ui,
-                          Storage storage, Storage archived) throws DukeException {
+                          Storage storage, Storage archived) throws TaskFlowException {
         return ui.showHelpMsg();
     }
 }

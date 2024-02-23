@@ -14,7 +14,7 @@ import TaskFlow.command.MarkCommand;
 import TaskFlow.command.ToDoCommand;
 import TaskFlow.command.UnarchiveCommand;
 import TaskFlow.command.UnmarkCommand;
-import TaskFlow.exception.DukeException;
+import TaskFlow.exception.TaskFlowException;
 
 /**
  * The Parser class is responsible for parsing user input and converting it
@@ -34,9 +34,9 @@ public class Parser {
      *
      * @param userInput The user-entered command.
      * @return A Command object representing the parsed command.
-     * @throws DukeException When the command is invalid.
+     * @throws TaskFlowException When the command is invalid.
      */
-    public static Command parse(String userInput) throws DukeException {
+    public static Command parse(String userInput) throws TaskFlowException {
         String[] inputs = userInput.split(" ", 2);
 
         try {
@@ -72,7 +72,7 @@ public class Parser {
                 return null;
             }
         } catch (IllegalArgumentException e) {
-            throw new DukeException("An error occurred: Invalid command.\n"
+            throw new TaskFlowException("An error occurred: Invalid command.\n"
                     + "Please enter 'help' for a list of valid commands.\n");
         }
     }
@@ -98,13 +98,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A ToDoCommand.
-     * @throws DukeException If the description of the todo is missing.
+     * @throws TaskFlowException If the description of the todo is missing.
      */
-    private static Command parseToDoCommand(String[] inputs) throws DukeException {
+    private static Command parseToDoCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Description cannot be left blank";
-            throw new DukeException("OOPS! The description of a todo cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The description of a todo cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         String description = inputs[1];
@@ -116,13 +116,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A DeleteCommand.
-     * @throws DukeException If the index of the task to delete is missing.
+     * @throws TaskFlowException If the index of the task to delete is missing.
      */
-    private static Command parseDeleteCommand(String[] inputs) throws DukeException {
+    private static Command parseDeleteCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Index of tasks to be deleted cannot be left blank";
-            throw new DukeException("Please indicate the index of task you want to delete.\n"
+            throw new TaskFlowException("Please indicate the index of task you want to delete.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
@@ -134,13 +134,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A MarkCommand.
-     * @throws DukeException If the index is not provided.
+     * @throws TaskFlowException If the index is not provided.
      */
-    private static Command parseMarkCommand(String[] inputs) throws DukeException {
+    private static Command parseMarkCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Index of task to be marked cannot be left blank";
-            throw new DukeException("Please indicate the index of task you want to mark as done.\n"
+            throw new TaskFlowException("Please indicate the index of task you want to mark as done.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
@@ -152,13 +152,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return An UnmarkCommand.
-     * @throws DukeException If the index is not provided.
+     * @throws TaskFlowException If the index is not provided.
      */
-    private static Command parseUnmarkCommand(String[] inputs) throws DukeException {
+    private static Command parseUnmarkCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Index of tasks to be unmarked cannot be left blank";
-            throw new DukeException("Please indicate the index of task you want to mark as not done.\n"
+            throw new TaskFlowException("Please indicate the index of task you want to mark as not done.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
@@ -170,17 +170,17 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A DeadlineCommand.
-     * @throws DukeException If the description or date/time is missing in the input.
+     * @throws TaskFlowException If the description or date/time is missing in the input.
      */
-    private static Command parseDeadlineCommand(String[] inputs) throws DukeException {
+    private static Command parseDeadlineCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Description cannot be left blank";
-            throw new DukeException("OOPS! The description of a deadline cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The description of a deadline cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/by")) {
             assert !inputs[1].contains("/by") : "This is invalid format.";
-            throw new DukeException("OOPS! The date/time for the deadline cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The date/time for the deadline cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         String[] descriptions = inputs[1].split("/by ");
@@ -192,18 +192,18 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return An EventCommand.
-     * @throws DukeException If the description or start/end time is missing in the input.
+     * @throws TaskFlowException If the description or start/end time is missing in the input.
      */
-    private static Command parseEventCommand(String[] inputs) throws DukeException {
+    private static Command parseEventCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Description cannot be left blank";
-            throw new DukeException("OOPS! The description of an event cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The description of an event cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/from") && !inputs[1].contains("/to")) {
             assert !inputs[1].contains("/from") && !inputs[1].contains("/to")
                     : "Invalid format.";
-            throw new DukeException("OOPS! The start time and end time cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The start time and end time cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         String[] descriptions = inputs[1].split("/from|/to");
@@ -215,13 +215,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user inputs.
      * @return A FindCommand for searching tasks by the specified keyword.
-     * @throws DukeException If the keyword is left blank.
+     * @throws TaskFlowException If the keyword is left blank.
      */
-    public static Command parseFindCommand(String[] inputs) throws DukeException {
+    public static Command parseFindCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Keyword cannot be left blank";
-            throw new DukeException("OOPS! The keyword to find cannot be left blank.\n"
+            throw new TaskFlowException("OOPS! The keyword to find cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         return new FindCommand(inputs[1]);
@@ -232,13 +232,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A ArchiveCommand.
-     * @throws DukeException If the index of the task to archive is missing.
+     * @throws TaskFlowException If the index of the task to archive is missing.
      */
-    public static Command parseArchiveCommand(String[] inputs) throws DukeException {
+    public static Command parseArchiveCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Index of tasks to be archived cannot be left blank";
-            throw new DukeException("Please indicate the index of task you want to archive.\n"
+            throw new TaskFlowException("Please indicate the index of task you want to archive.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
@@ -250,13 +250,13 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A UnarchiveCommand.
-     * @throws DukeException If the index of the task to unarchive is missing.
+     * @throws TaskFlowException If the index of the task to unarchive is missing.
      */
-    public static Command parseUnarchiveCommand(String[] inputs) throws DukeException {
+    public static Command parseUnarchiveCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             assert inputs.length == 1 || containsEmptyString(inputs)
                     : "Index of tasks to be archived cannot be left blank";
-            throw new DukeException("Please indicate the index of task you want to archive.\n"
+            throw new TaskFlowException("Please indicate the index of task you want to archive.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
@@ -268,15 +268,15 @@ public class Parser {
      *
      * @param inputs The string array containing the user input.
      * @return A ListArchiveCommand or a ListCommand.
-     * @throws DukeException If it is an invalid command.
+     * @throws TaskFlowException If it is an invalid command.
      */
-    public static Command parseListCommand(String[] inputs) throws DukeException {
+    public static Command parseListCommand(String[] inputs) throws TaskFlowException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
             return new ListCommand();
         } else if (inputs[1].equals("archive")) {
             return new ListArchiveCommand();
         } else {
-            throw new DukeException("Invalid command. Please try again.\n");
+            throw new TaskFlowException("Invalid command. Please try again.\n");
         }
     }
 }
