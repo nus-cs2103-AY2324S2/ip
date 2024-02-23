@@ -116,8 +116,17 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user input and returns a response based on the command given. The method supports
+     * various commands such as "bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", and "find".
+     * It handles each command by performing the corresponding actions, such as
+     * adding a task, marking a task as complete, listing tasks, or finding tasks based on keywords.
+     * For commands that modify the task list, changes are saved to the storage file.
+     *
+     * @param input The full user input command.
+     * @return A string response to be displayed to the user. This response could be a confirmation of the action taken,
+     *         a list of tasks, a message indicating an error, or any other feedback related to the command.
+     * @throws DukeException If the command is invalid, lacks necessary details, or if any other error occurs during the
+     *         processing of the command. The exception contains a message that is suitable for display to the user.
      */
     String getResponse(String input) {
         try {

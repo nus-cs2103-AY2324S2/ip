@@ -23,6 +23,8 @@ public class Ui {
 
     /**
      * Displays the welcome message to the user.
+     *
+     * @return Welcome message
      */
     public String showHello() {
         return break_line
@@ -34,7 +36,7 @@ public class Ui {
     /**
      * Displays the goodbye message to the user.
      *
-     * @return
+     * @return goodbye message
      */
     public String showBye() {
         return break_line
@@ -45,6 +47,7 @@ public class Ui {
     /**
      * Displays an error message to the user.
      * @param message The error message to be displayed.
+     * @return error message
      */
     public String showError(String message) {
         return break_line + message + break_line;
@@ -61,6 +64,7 @@ public class Ui {
     /**
      * Displays the list of tasks to the user.
      * @param tasks The TaskList containing the tasks to be displayed.
+     * @return String representation of the list of tasks
      */
     public String showList(TaskList tasks) {
         String str1 = break_line + " Here are the tasks in your list:\n";
@@ -76,6 +80,7 @@ public class Ui {
      * Displays a specific task to the user along with a custom message.
      * @param msg The message to be displayed above the task.
      * @param task The task to be displayed.
+     * @return String representation of task
      */
     public String showTask(String msg, Task task) {
         return break_line + msg + "\n"
@@ -90,7 +95,7 @@ public class Ui {
      * @param msg   The message to be displayed above the task.
      * @param task  The task to be displayed.
      * @param tasks The TaskList to count the total number of tasks from.
-     * @return
+     * @return task and total tasks' string representation
      */
     public String showTaskWithNum(String msg, Task task, TaskList tasks) {
         return break_line + msg + "\n" + task.toString()
@@ -102,6 +107,7 @@ public class Ui {
     /**
      * Displays list of tasks which includes the keyword for "finding tasks".
      * @param tasks
+     * @return String representation of tasks with the keyword
      */
     public String showMatchingList(TaskList tasks) {
         String str = "";
