@@ -118,6 +118,9 @@ public class Pookie extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getPookieDialog(pookieText, new ImageView(pookie))
         );
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 
