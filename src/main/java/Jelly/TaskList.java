@@ -163,6 +163,11 @@ public class TaskList {
     @Override
     public String toString() {
 
+        if(tasks.size() == 0) {
+
+            return "There isn't anything in the task list yet!";
+        }
+
         String string = "";
 
         for (Integer i = 1; i <= tasks.size(); ++i) {
