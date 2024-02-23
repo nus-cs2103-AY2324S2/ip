@@ -81,8 +81,8 @@ public class Storage {
 
     private static boolean createFile(File file) throws Exception {
         file.getParentFile().mkdirs();
-        file.createNewFile();
-        boolean fileIsCreated = file.createNewFile(); //May throw IOException
+        boolean fileIsCreated = file.createNewFile();
+        assert(fileIsCreated == true);
         if (fileIsCreated) {
             return true;
         } else {
