@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke friendlytool = new Duke();
+    private FriendlyTool friendlytool = new FriendlyTool();
 
     /**
      * Starts the GUI of FriendlyTool

@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke friendlytool;
+    private FriendlyTool friendlytool;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image ftImage = new Image(this.getClass().getResourceAsStream("/images/friendlytool.png"));
@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setFt(Duke ft) {
+    public void setFt(FriendlyTool ft) {
         friendlytool = ft;
     }
 

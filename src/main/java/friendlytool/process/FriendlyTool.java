@@ -6,7 +6,7 @@ import friendlytool.command.Parser;
 /**
  * Main class for this app.
  */
-public class Duke {
+public class FriendlyTool {
     private boolean isActive;
     private TaskList tasks;
 
@@ -15,7 +15,7 @@ public class Duke {
      *
      * @param isActive indicates whether program is active or not
      */
-    public Duke(Boolean isActive) {
+    public FriendlyTool(Boolean isActive) {
         this.isActive = isActive;
         this.tasks = new TaskList();
         try {
@@ -25,7 +25,7 @@ public class Duke {
         }
     }
 
-    public Duke() {
+    public FriendlyTool() {
         this(true);
     }
 
