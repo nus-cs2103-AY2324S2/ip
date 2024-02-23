@@ -7,10 +7,23 @@ import simpli.exceptions.CommandException;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
+/**
+ * Chatbot will list all the tasks that have been added or
+ * previously added.
+ */
 public class MarkCommand implements Command {
+    /** Handles UI messages that is to be displayed to user. */
     private final Ui ui;
+
+    /** Contains all the tasks added by the user. */
     private final TaskList taskList;
 
+    /**
+     * Constructs the MarkCommand with the specified fields.
+     *
+     * @param ui which handles display messages.
+     * @param taskList which contains added tasks.
+     */
     public MarkCommand(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;

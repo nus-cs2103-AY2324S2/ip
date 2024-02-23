@@ -16,8 +16,13 @@ import simpli.tasks.TaskList;
  * Handles the saving and loading of tasks to and from the filesystem.
  */
 public class Storage {
+    /** Break down command string into tokens. */
     private Parser parser;
+
+    /** Contains all the tasks added by the user. */
     private TaskList taskList;
+
+    /** Interprets the meaning of the tokens parsed from the parser. */
     private Interpreter intrpr;
 
     /**

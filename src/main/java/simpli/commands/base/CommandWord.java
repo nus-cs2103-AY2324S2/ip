@@ -2,7 +2,7 @@ package simpli.commands.base;
 
 public enum CommandWord {
     /**
-     * Contains actions executable.
+     * Contains commands executable.
      */
     GREET,
     LIST,

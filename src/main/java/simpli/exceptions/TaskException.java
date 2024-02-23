@@ -14,7 +14,7 @@ public class TaskException extends SimpliException {
     /**
      * Initializes the exception with a message.
      *
-     * @param errorMsg Error message String to be thrown.
+     * @param errorMsg error message String to be thrown.
      */
     public TaskException(String errorMsg) {
         super(errorMsg);

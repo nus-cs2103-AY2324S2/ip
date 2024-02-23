@@ -21,20 +21,20 @@ public final class Parser {
      * 4 - toDate (Event task)
      * */
     private static final int MAX_TOKENS = 5;
-    private HashSet<CommandWord> singleCommands;
+    private HashSet<CommandWord> noArgumentsCommand;
 
     public Parser() {
-        this.singleCommands = new HashSet<>();
-        singleCommands.add(CommandWord.LIST);
-        singleCommands.add(CommandWord.GREET);
-        singleCommands.add(CommandWord.BYE);
+        this.noArgumentsCommand = new HashSet<>();
+        noArgumentsCommand.add(CommandWord.LIST);
+        noArgumentsCommand.add(CommandWord.GREET);
+        noArgumentsCommand.add(CommandWord.BYE);
     }
 
     /**
      * Parses and breaks down the content String into tokens.
      *
-     * @param content A command String.
-     * @return An Array of tokens.
+     * @param content A command string.
+     * @return An array of tokens.
      * @throws CommandException if there are unknown tokens or invalid commands.
      */
     public String[] parseCommand(String content) throws CommandException {
@@ -54,7 +54,7 @@ public final class Parser {
             throw new CommandException("No such command!");
         }
 
-        parsedTokens[2] = !singleCommands.contains(actionType) ? taskInfo[1] : "";
+        parsedTokens[2] = !noArgumentsCommand.contains(actionType) ? taskInfo[1] : "";
         System.arraycopy(tokens, 1, parsedTokens, 3, tokens.length - 1);
 
         if (!isValidCommand(parsedTokens)) {

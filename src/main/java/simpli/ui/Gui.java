@@ -36,6 +36,9 @@ public class Gui extends Application {
         }
     }
 
+    /**
+     * Stops running the GUI application.
+     */
     @Override
     public void stop() {
         simpli.stop();

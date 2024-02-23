@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import simpli.commands.ByeCommand;
 import simpli.commands.GreetCommand;
 import simpli.commands.base.CommandResult;
 import simpli.commands.base.CommandWord;
@@ -29,6 +30,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Simpli simpli;
+    private Ui ui;
 
     private Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/User.jpg")));
@@ -41,12 +43,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
+        this.ui = new Ui();
     }
 
     public void setSimpli(Simpli simpli) {
         this.simpli = simpli;
-        Ui ui = new Ui();
         dialogContainer.getChildren().add(DialogBox.getSimpliDialog(
                 new GreetCommand(ui).execute(new String[] {}).toString(),
                 simpliImage)
@@ -66,7 +67,9 @@ public class MainWindow extends AnchorPane {
         assert !response.isEmpty() : "chatbot response cannot be an empty String";
         if (output.getStatus().equals(CommandWord.BYE)) {
             dialogContainer.getChildren().add(
-                    DialogBox.getSimpliDialog(simpli.bye(), simpliImage)
+                    DialogBox.getSimpliDialog(
+                            new ByeCommand(ui).execute(new String[] {}).toString(),
+                            simpliImage)
             );
             Platform.exit();
         }

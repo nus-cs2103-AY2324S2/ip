@@ -16,9 +16,16 @@ import simpli.tasks.TaskList;
  * Main chatbot.
  */
 public class Simpli {
+    /** Contains all the tasks added by the user. */
     private final TaskList taskList;
+
+    /** Break down command string into tokens. */
     private final Parser parser;
+
+    /** Interprets the meaning of the tokens parsed from the parser. */
     private final Interpreter intrpr;
+
+    /** Stores the tasks into a file */
     private final Storage storage;
 
     /**
@@ -57,28 +64,15 @@ public class Simpli {
         }
     }
 
-    /**
-     * Returns a goodbye message.
-     *
-     * @return goodbye message.
-     */
-    public String bye() {
-        return "Bye. Hope to simp for you again soon!";
-    }
-
     public TaskList getTaskList() {
         return taskList;
-    }
-
-    public Storage getStorage() {
-        return storage;
     }
 
     /**
      * Processes the user input string from start to end.
      *
-     * @param input User input String.
-     * @return resposne String.
+     * @param input user input string.
+     * @return resposne string.
      */
     public CommandResult processInput(String input) {
         try {
@@ -102,11 +96,6 @@ public class Simpli {
         }
     }
 
-    /**
-     * Returns the chatbot String representation.
-     *
-     * @return String representation of the chatbot.
-     */
     @Override
     public String toString() {
         return "SIMP-LI";

@@ -21,7 +21,7 @@ public class Interpreter {
     /**
      * Initializes the interpreter with the specified ui object and taskList.
      *
-     * @param taskList Manages tasks and their actions.
+     * @param taskList manages tasks and their actions.
      */
     public Interpreter(TaskList taskList) {
         assert taskList != null : "TaskList object not found";
@@ -31,15 +31,22 @@ public class Interpreter {
     /**
      * Interprets and executes the specified actions.
      *
-     * @param tokens Array of token.
-     * @return the String to be shown to the user.
-     * @throws CommandException When no such action exists.
-     * @throws TaskException When task have invalid parameters.
+     * @param tokens array of token.
+     * @return the string to be shown to the user.
+     * @throws CommandException when no such action exists.
+     * @throws TaskException when task have invalid parameters.
      */
     public CommandResult interpret(String[] tokens) throws CommandException, TaskException {
         return commandManager.execute(tokens);
     }
 
+    /**
+     * Interpret the tokens as LocalDateTime.
+     *
+     * @param tokens array of token.
+     * @return LocalDateTime object.
+     * @throws TaskException when the date and time format is invalid.
+     */
     public LocalDateTime[] interpretLocalDateTime(String[] tokens) throws TaskException {
         LocalDateTime[] dates = new LocalDateTime[tokens.length];
         Arrays.fill(dates, LocalDateTime.MIN);
@@ -51,6 +58,13 @@ public class Interpreter {
         return dates;
     }
 
+    /**
+     * Fills an array with dates using an array of tokens.
+     *
+     * @param tokens array of token.
+     * @param dates array of LocalDateTime objects.
+     * @param dateStartIndex starting index of the token to be interpreted as LocalDateTime.
+     */
     private void fillLocalDateTime(String[] tokens, LocalDateTime[] dates, int dateStartIndex) {
         for (int i = dateStartIndex; i < tokens.length; i++) {
             if (tokens[i].isEmpty()) {
@@ -60,6 +74,13 @@ public class Interpreter {
         }
     }
 
+    /**
+     * Checks whether the dates are not in the past and the
+     * to date must come after the from date.
+     *
+     * @param dates an array of LocalDateTime objects
+     * @return true if date satisfy the criteria, false if otherwise.
+     */
     public boolean isValidDateTime(LocalDateTime[] dates) {
         return Arrays.stream(dates)
                 .allMatch((localDateTime) -> localDateTime.isAfter(LocalDateTime.now())
