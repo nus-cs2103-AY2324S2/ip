@@ -43,7 +43,7 @@ by offering a wide range of features. Here's what Sophia can do for you:
 
 1. Ensure you have Java 11 or above installed in your computer. If not, [here's how to.](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
 
-2. Download the latest [Sophia.jar]() from here.
+2. Download the latest [Sophia.jar](https://github.com/gauravuj/ip/releases/tag/A-Release) from here.
 
 3. Copy the file into a new folder.
 
