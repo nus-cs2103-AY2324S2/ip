@@ -74,7 +74,7 @@ Marks a task as done.
 
 **Format**: `mark <task_number>`
 
-**Use the specific number as shown in the list**
+- **Use the specific number as shown in the list**
 
 ### 4. Unmark Task as Done
 
@@ -85,7 +85,7 @@ Unmarks a task as done.
 
 **Format**: `unmark <task_number>`
 
-**Use the specific number as shown in the list**
+- **Use the specific number as shown in the list**
 
 ### 5. Add Todo
 
@@ -122,6 +122,7 @@ Unmarks a task as done.
 Delete a task so that it will be removed from task list
 
 **Example**: `delete 1`
+- Deletes Task 1 
 
 **Format**: `delete [TASK NUMBER]`
 - **Use the specific number as shown in the list**
@@ -129,24 +130,24 @@ Delete a task so that it will be removed from task list
 ### 9. Archive task
 
 ---
-To unmark a task that has been previously marked.
+To archive a task that is in the list of tasks.
 
-**Example**: `unmark 1`
-- Unmarks task 1
+**Example**: `archive 1`
+- Archives task 1
 
-**Format**: `unmark [TASK NUMBER]`
+**Format**: `archive [TASK NUMBER]`
 - To view archived tasks, you can use `list all` as mentioned in (2)
 - **Use the specific number as shown in the list**
 
 ### 10. Find task
 
 ---
-Delete a task from a task list.
+Find a task from the task list based on a specific word or phrase
 
-**Example**: `delete 1`
-- Deletes task 1
+**Example**: `find cs3230`
+- Finds all tasks with cs3230 in its name
 
-**Format**: `delete [TASK NUMBER]`
+**Format**: `find [TARGET WORD/PHRASE]`
 
 ### 11. Exit the Program
 
