@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import duke.commands.ByeCommand;
+import duke.commands.ClearCommand;
 import duke.commands.Command;
 import duke.commands.DateCommand;
 import duke.commands.DeadlineCommand;
@@ -84,6 +85,9 @@ public class Duke {
             break;
         case "list":
             result = new ListCommand();
+            break;
+        case "clear":
+            result = new ClearCommand();
             break;
         case "mark":
             result = new MarkCommand(commandAndDescription);

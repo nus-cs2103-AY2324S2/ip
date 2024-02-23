@@ -4,6 +4,9 @@
  */
 package duke.tasks;
 
+import duke.exceptions.InvalidDeadlineException;
+
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,29 +15,27 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDateTime deadlineDate;
-    private String deadline;
     /**
      * Constructs a Deadline object with the given description and deadline string.
      *
      * @param description    The description of the task.
      * @param deadline The deadline string in the format "dd/MM/yyyy HHmm".
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws InvalidDeadlineException {
         super(description);
         deadline = deadline.trim();
-        if (isValidDateFormat(deadline)) {
-            String[] dateNumbers = deadline.split("[/ ]");
+        String[] dateNumbers = deadline.split("[/ ]");
+        try {
             this.deadlineDate = LocalDateTime.of(
                     Integer.parseInt(dateNumbers[2]),
                     Integer.parseInt(dateNumbers[1]),
                     Integer.parseInt(dateNumbers[0]),
                     Integer.parseInt(dateNumbers[3].substring(0, 2)),
                     Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.deadline = deadline;
+        } catch (DateTimeException e) {
+            throw new InvalidDeadlineException();
         }
     }
-
     /**
      * Constructs a Deadline object with the given status, description, and deadline string.
      *
@@ -46,65 +47,14 @@ public class Deadline extends Task {
         super(descr);
         super.setStatus(status);
         deadline = deadline.trim();
-        if (isValidDateFormat(deadline)) {
-            String[] dateNumbers = deadline.split("[/ ]");
-            this.deadlineDate = LocalDateTime.of(
-                    Integer.parseInt(dateNumbers[2]),
-                    Integer.parseInt(dateNumbers[1]),
-                    Integer.parseInt(dateNumbers[0]),
-                    Integer.parseInt(dateNumbers[3].substring(0, 2)),
-                    Integer.parseInt(dateNumbers[3].substring(2)));
-        } else {
-            this.deadline = deadline;
-        }
-    }
-
-    /**
-     * Checks if the given deadline string has a valid date format.
-     *
-     * @param dateString The dateString to be checked.
-     * @return True if the dateString has a valid format, otherwise false.
-     */
-    private static boolean isValidDateFormat(String dateString) {
-        boolean isShorterThanMinimum = dateString.length() <= 12;
-        boolean isLongerThanMaximum = dateString.length() >= 16;
-        if (isShorterThanMinimum || isLongerThanMaximum) {
-            return false;
-        }
-        String[] dateNumbers = dateString.split("[/ ]");
-        boolean hasIncorrectDateFormatNumbers = dateNumbers.length != 4;
-        if (hasIncorrectDateFormatNumbers) {
-            return false;
-        }
-        boolean isDateNumberAllIntegers = checkArrayContainIntegers(dateNumbers);
-        if (!isDateNumberAllIntegers) {
-            return false;
-        }
-        int time = Integer.parseInt(dateNumbers[3]);
-        if (!checkValidInteger24hourFormat(time)) {
-            return false;
-        }
-        return true;
-    }
-    private static boolean checkArrayContainIntegers(String[] inputs) {
-        try {
-            for (String input : inputs) {
-                Integer.parseInt(input);
-            }
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-    private static boolean checkValidInteger24hourFormat(int time) {
-        boolean isNegative = time < 0;
-        boolean isMoreThan2400 = time >= 2400;
-        if (isNegative || isMoreThan2400) {
-            return false;
-        }
-        int numberOfMinutes = 60;
-        boolean hasValidMinutes = (time % 100) < numberOfMinutes;
-        return hasValidMinutes;
+        String[] dateNumbers = deadline.split("[/ ]");
+        int year = Integer.parseInt(dateNumbers[2]);
+        int month = Integer.parseInt(dateNumbers[1]);
+        int day = Integer.parseInt(dateNumbers[0]);
+        int hour = Integer.parseInt(dateNumbers[3].substring(0, 2));
+        int min = Integer.parseInt(dateNumbers[3].substring(2));
+        this.deadlineDate = LocalDateTime.of(
+                year, month, day, hour, min);
     }
     /**
      * Writes the Deadline object into a string format for storage.
@@ -113,15 +63,11 @@ public class Deadline extends Task {
      */
     @Override
     public String writeObject() {
-        if (deadlineDate != null) {
-            return String.format("deadline %s | %s\n",
-                    super.writeObject(),
-                    this.deadlineDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
-        } else {
-            return String.format("deadline %s | %s\n", super.writeObject(), this.deadline);
-        }
+        assert this.deadlineDate != null;
+        return String.format("deadline %s | %s\n",
+                super.writeObject(),
+                this.deadlineDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
     }
-
     /**
      * Converts the Deadline object into a string representation.
      *
@@ -129,13 +75,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        if (deadlineDate != null) {
-            return String.format("[D]%s(by: %s)", super.toString(),
-                    this.deadlineDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")));
-        }
-        return String.format("[D]%s(by: %s)", super.toString(), this.deadline);
+        return String.format("[D]%s(by: %s)", super.toString(),
+                this.deadlineDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")));
     }
-
     /**
      * Checks if the Deadline object has the specified date.
      *
@@ -145,5 +87,39 @@ public class Deadline extends Task {
     @Override
     public boolean hasDate(LocalDateTime toFind) {
         return toFind.equals(this.deadlineDate);
+    }
+    public LocalDateTime getDeadlineDate() {
+        return this.deadlineDate;
+    }
+    @Override
+    public int compareTo(Task task) {
+        if (task instanceof ToDo) {
+            return -1;
+        }
+        if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            LocalDateTime compareDate = deadlineTask.getDeadlineDate();
+            if (this.deadlineDate.isBefore(compareDate)) {
+                return -1;
+            }
+            if (this.deadlineDate.isAfter(compareDate)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            LocalDateTime compareDate = eventTask.getEndDate();
+            if (this.deadlineDate.isBefore(compareDate)) {
+                return -1;
+            }
+            if (this.deadlineDate.isAfter(compareDate)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        return 0;
     }
 }

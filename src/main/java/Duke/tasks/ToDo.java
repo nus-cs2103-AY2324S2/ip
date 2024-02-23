@@ -58,4 +58,9 @@ public class ToDo extends Task {
     public boolean hasDate(LocalDateTime toFind) {
         return false;
     }
+
+    @Override
+    public int compareTo(Task task) {
+        return 1;
+    }
 }

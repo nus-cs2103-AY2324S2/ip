@@ -168,5 +168,13 @@ public class UI {
     public String nameMessage() {
         return String.format("Hello!!! Nice to meet you %s!!!\n", this.userName);
     }
+
+    /**
+     * to get message to clear list
+     * @return message to be displayed to user to inform user that list have been cleared
+     */
+    public String listClearedMessage() {
+        return String.format("LIST CLEARED! YOUR LIST IS NOW EMPTY!!!");
+    }
 }
 
