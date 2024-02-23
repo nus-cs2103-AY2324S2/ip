@@ -37,7 +37,7 @@ basic Graphical User Interface (GUI).
     * `todo sleep`: Adds a reminder for you to get some sleep.
     * `delete 7`: Deletes the 7th item in your task list.
     * `bye`: Exits the app after a short delay.
-6. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [User commands](#user-commands) below for details of each command.
 
 # User commands
 
