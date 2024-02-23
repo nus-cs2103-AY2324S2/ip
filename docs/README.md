@@ -1,6 +1,6 @@
 # Riri User Guide
 
-// Product screenshot goes here
+![Ui.png](https://Rishit02.github.io/ip/Ui.png)
 
 Welcome to Riri, your personal chatbot assistant! Riri helps you manage tasks efficiently through a simple chat interface.
 
