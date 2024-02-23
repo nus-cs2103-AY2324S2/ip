@@ -27,8 +27,6 @@ public class Deadline extends Task {
             this.byTime = LocalTime.parse(parseBy[1]);
         }
         this.byDate = LocalDate.parse(parseBy[0]);
-
-//            this.by = by;
     }
 
     @Override
