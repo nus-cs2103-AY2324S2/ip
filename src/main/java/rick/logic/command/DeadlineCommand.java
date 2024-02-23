@@ -46,6 +46,9 @@ public class DeadlineCommand implements Command {
         int keywordLength = BY_KEYWORD.length();
         String name = input.substring(0, byIndex);
         String deadline = input.substring(byIndex + keywordLength);
+        deadline = deadline.length() == 10
+                ? deadline + "T00:00:00"
+                : deadline;
         if (name.isBlank() || deadline.isBlank()) {
             throw new RickException("Seriously, Morty? "
                     + "How am I supposed to help you if you don't give me all the information? "

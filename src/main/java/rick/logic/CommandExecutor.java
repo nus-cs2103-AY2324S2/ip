@@ -54,19 +54,21 @@ public class CommandExecutor {
                 int dIndex = Integer.parseInt(command.respond()[1]);
                 Task task = this.taskList.delete(dIndex);
                 this.storage.update();
-                return "Fine, Morty, I've removed that pointless task for you. Here's your list now:\n"
+                return "Fine, Morty, I've removed that pointless task for you:\n"
                         + task
                         + "\nNow you have " + this.taskList.getSize() + " tasks in the list. "
                         + "Try not to waste my time with this stuff again, Morty.";
             case ("F"):
                 String substring = command.respond()[1];
-                return this.taskList.find(substring);
+                return "Fine, Morty, here's your list of tasks. Try not to mess it up:\n"
+                        + this.taskList.find(substring)
+                        + "Don't make me regret this, Morty.";
             case ("T"):
                 Task tTask = this.taskList.addToList(command.respond()[1]);
                 this.storage.update();
                 return "Fine, Morty, I'll add your stupid task to the list:\n"
                     + tTask
-                    + "\nThere, you happy now? You've got " + this.taskList.getSize()
+                    + "\nThere, you happy now? You've got " + (this.taskList.getSize() - 1)
                         + " other pointless tasks in your stupid list.";
             case ("DL"):
                 Task dTask = this.taskList.addToList(command.respond()[1], command.respond()[2]);

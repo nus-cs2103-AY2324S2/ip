@@ -49,7 +49,13 @@ public class EventCommand implements Command {
         int toLen = TO_KEYWORD.length();
         String name = input.substring(0, fromIndex);
         String from = input.substring(fromIndex + fromLen, toIndex);
+        from = from.length() == 10
+                ? from + "T00:00:00"
+                : from;
         String to = input.substring(toIndex + toLen);
+        to = to.length() == 10
+                ? to + "T00:00:00"
+                : to;
         if (name.isBlank() || from.isBlank() || to.isBlank()) {
             throw new RickException("Alright, Morty, you forgot to tell me the start and end times for the event. "
                     + "You gotta give me all the info like below, Morty, or I can't help you. Get it together.\n"
