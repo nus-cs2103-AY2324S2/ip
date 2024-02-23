@@ -21,7 +21,7 @@
                <children>
                   <ImageView fx:id="imgTop" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/DaDuke.png" />
+                        <Image url="@../images/podz.png" />
                      </image>
                   </ImageView>
                   <Label alignment="TOP_LEFT" text="Podz" textAlignment="CENTER" textFill="WHITE">
