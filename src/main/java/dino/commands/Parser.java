@@ -14,49 +14,45 @@ public class Parser {
      * object returned depends on the instruction parsed from the input.
      */
     public static Command processInput(String input) throws DinoException {
-        try {
-            String[] parsedInput = input.split(" ", 2);
-            Parser.Instruction ins = toInstruction(parsedInput[0]);
-            String details = parsedInput.length > 1 ? parsedInput[1] : "";
-
-            switch (ins) {
-                case LIST:
-                    return new ListCommand();
-                case MARK:
-                    return new MarkCommand(details);
-                case UNMARK:
-                    return new UnmarkCommand(details);
-                case TODO:
-                    return new TodoCommand(details);
-                case DEADLINE:
-                    return new DeadlineCommand(details);
-                case EVENT:
-                    return new EventCommand(details);
-                case DELETE:
-                    return new DeleteCommand(details);
-                case FIND:
-                    return new FindCommand(details);
-            }
-        } catch (IllegalArgumentException e) {
-            throw new DinoException("Please enter instruction in the correct format"
-                    + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
+        if (input == null || input.trim().isEmpty()) {
+            throw new DinoException("Please enter a valid command.");
         }
-        return null;
+
+        String[] parsedInput = input.split(" ", 2);
+        Instruction instruction = toInstruction(parsedInput[0]);
+        String details = parsedInput.length > 1 ? parsedInput[1] : "";
+
+        return createCommand(instruction, details);
     }
 
-    /**
-     * The function converts a string input into an Instruction enum value, throwing a DinoException if the input is
-     * not a valid instruction.
-     * 
-     * @param input A string representing the user input for an instruction.
-     * @return The method is returning an Instruction
-     */
     private static Instruction toInstruction(String input) throws DinoException {
         try {
             return Instruction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DinoException("Please enter instruction in the correct format"
-                    + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
+            throw new DinoException("Invalid command. Valid commands: list, mark, unmark, deadline, event, todo, delete, find");
+        }
+    }
+
+    private static Command createCommand(Instruction instruction, String details) throws DinoException {
+        switch (instruction) {
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                return new MarkCommand(details);
+            case UNMARK:
+                return new UnmarkCommand(details);
+            case TODO:
+                return new TodoCommand(details);
+            case DEADLINE:
+                return new DeadlineCommand(details);
+            case EVENT:
+                return new EventCommand(details);
+            case DELETE:
+                return new DeleteCommand(details);
+            case FIND:
+                return new FindCommand(details);
+            default:
+                throw new DinoException("Unsupported command.");
         }
     }
 

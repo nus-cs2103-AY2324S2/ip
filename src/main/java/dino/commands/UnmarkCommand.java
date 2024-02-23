@@ -26,18 +26,21 @@ public class UnmarkCommand extends Command {
      * @return List of Strings or messages.
      */
     public List<String> execute(TaskList tasks) throws DinoException {
-        if (details.length() < 1) {
-            throw new DinoException(
-                    "Please enter the tasks number that you want to mark as incomplete: ex. mark 2");
+        if (details.isEmpty()) {
+            throw new DinoException("Please enter the task number that you want to mark as incomplete. Example: 'unmark 2'");
         }
+        
         try {
             int i = Integer.parseInt(details) - 1;
             tasks.get(i).markAsUndone();
             messages.add("OK, I've marked this tasks as not done yet");
             messages.add(tasks.get(i).toString());
-        } catch (Exception e) {
-            throw new DinoException("Please enter the valid tasks number");
+        } catch (NumberFormatException e) {
+            throw new DinoException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DinoException("The task number you provided is out of range.");
         }
+
         return messages;
     }
 }

@@ -30,25 +30,23 @@ public class Storage {
      */
     public TaskList load() throws DinoException {
         if (Files.notExists(path)) {
-            System.out.println("No cache found");
+            System.out.println("No cache found.");
             return new TaskList();
-        } else {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(path.toString());
-                ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
-                TaskList tasks = (TaskList) objInputStream.readObject();
+        }
 
-                objInputStream.close();
-                fileInputStream.close();
-                System.out.println(String.format("Tasks downloaded from %s", path));
-                return tasks;
-            } catch (IOException | ClassNotFoundException e) {
-                try {
-                    Files.delete(path);
-                } catch (IOException ignored) {
-                }
-                throw new DinoException(String.format("Unable to download existing tasks"));
+        try (FileInputStream fileInputStream = new FileInputStream(path.toString());
+             ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream)) {
+
+            TaskList tasks = (TaskList) objInputStream.readObject();
+            System.out.println("Tasks loaded from: " + path);
+            return tasks;
+
+        } catch (IOException | ClassNotFoundException e) {
+            try {
+                Files.deleteIfExists(path);
+            } catch (IOException ignored) {
             }
+            throw new DinoException("Unable to load tasks from the file: " + path);
         }
     }
 
