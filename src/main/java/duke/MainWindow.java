@@ -27,8 +27,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private static String getDisplayBanner() {
-        String chatbotName = "Echo";
-        return chatbotName + ", the chatbot. Version 0.0.0.\n" +
+        return Constants.CHATBOT_NAME + ", the chatbot. Version 0.0.0.\n" +
             "Using Java " + System.getProperty("java.version") + ".";
     }
 
