@@ -51,7 +51,7 @@ public class Command {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals("X")) {
                 item.markNotDone();
-                String markStr = "Sure Master, I've marked this task as not done : \n";
+                String markStr = "Sure Master, I've unmarked this task as not done : \n";
                 String itemStr = item + "\n";
                 storage.reWriteFile(num);
                 this.storeString.append(markStr);
