@@ -60,6 +60,10 @@ public class Events extends Task {
         return "[E]";
     }
 
+    public LocalDateTime getStart() {
+        return this.actualStart;
+    }
+
     /**
      * Returns the deadline of the Events task.
      * Since Events tasks do not have traditional deadlines, it returns null.

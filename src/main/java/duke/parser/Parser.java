@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import duke.actions.AddTask;
 import duke.actions.DeleteTask;
@@ -56,7 +58,6 @@ public class Parser {
         ArrayList<Task> inventory = storage.load();
         try {
             assert inventory.size() < 0 : "Task List should not have a negative number of tasks";
-
             if (input.toLowerCase().equalsIgnoreCase("list")) {
                 return handleListCommand(input);
             } else if (input.toLowerCase().startsWith("mark")) {
@@ -73,7 +74,10 @@ public class Parser {
                 return handleDeleteCommand(input, inventory);
             } else if (input.startsWith("find")) {
                 return handleFindCommand(input);
-            } else {
+            } else if (input.startsWith("sort")) {
+                return handleSort(input);
+            } 
+            else {
                 return "OOPS!!! I'm sorry, but that's an invalid command :-(";
             }
         } catch (DukeException e) {
@@ -229,7 +233,7 @@ public class Parser {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 dateTime1 = LocalDateTime.parse(dateTimeString1, formatter);
                 dateTime2 = LocalDateTime.parse(dateTimeString2, formatter);
-            } catch (DateTimeParseException e) {
+            } catch (Exception e) {
                 throw new DukeException("OOPS!!! The date format is invalid. " + validFormat);
             }
             Events eventTask = new Events(parts[0], dateTime1, dateTime2);
@@ -276,6 +280,50 @@ public class Parser {
             FindTask finder = new FindTask(storage, task);
             finder.createMatches();
             return finder.toString();
+        }
+    }
+
+    private String handleSort(String input) throws DukeException {
+        ArrayList<Task> temp = new ArrayList<>(storage.load());
+        temp.sort(new TaskComparator());
+        String result = "Here is the SORTED Task List!: \n";
+        for (Task i : temp) {
+            result += i.toString() + "\n";
+        }
+
+        return result;
+    }
+
+}
+
+
+class TaskComparator implements Comparator<Task> {
+    @Override
+    public int compare(Task task1, Task task2) {
+        // Compare ToDo tasks, place them at the back
+        if (task1 instanceof ToDo && task2 instanceof ToDo) {
+            return 0;
+        } else if (task1 instanceof ToDo) {
+            return 1;
+        } else if (task2 instanceof ToDo) {
+            return -1;
+        }
+
+        // Compare Deadline and Events tasks based on their deadlines
+        LocalDateTime deadline1 = getTaskDeadline(task1);
+        LocalDateTime deadline2 = getTaskDeadline(task2);
+
+        return deadline1.compareTo(deadline2);
+    }
+
+    private LocalDateTime getTaskDeadline(Task task) {
+        if (task instanceof Deadlines) {
+            return ((Deadlines) task).getAbsoluteDeadline();
+        } else if (task instanceof Events) {
+            return ((Events) task).getStart();
+        } else {
+            // ToDo tasks have no deadline
+            return LocalDateTime.MAX;
         }
     }
 }
