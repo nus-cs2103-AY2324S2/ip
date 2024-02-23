@@ -2,7 +2,6 @@ package tars;
 
 /**
  * The task class contains the functions to add,remove,find and mark tasks
- * @author Tejas
  */
 public class Task {
     protected String description;

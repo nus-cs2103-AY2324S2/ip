@@ -23,6 +23,12 @@ public class TaskList {
 
         return ret;
     }
+
+    /**
+     * This method handles the adding of tasks
+     * @param comd The user command
+     * @return A string that confirms that tha task has been created
+     */
     public String addTask(String comd) {
         if (comd.startsWith("todo ")) {
             Todo t = new Todo(comd.substring(5));

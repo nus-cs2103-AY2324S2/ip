@@ -16,6 +16,10 @@ public class Storage {
     private static final String FILE_PATH = "data/tars.txt";
     File f = new File(FILE_PATH);
 
+    /**
+     * This method loads the file if it exists, else creates a new file
+     */
+
     public void load(TaskList tlist) {
         try {
             if (!f.exists()) {
@@ -40,9 +44,16 @@ public class Storage {
         }
     }
 
+    /**
+     * This method write the new task data to the file
+     * @param filePath location of file
+     * @param tasks List of tasks
+     * @throws IOException
+     */
+
 
     public void write(String filePath, List<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+        FileWriter fw = new FileWriter(filePath);
         for (Task t : tasks) {
             fw.write(t.toString() + System.lineSeparator());
 

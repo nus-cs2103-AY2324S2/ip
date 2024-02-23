@@ -8,7 +8,6 @@ package tars;
 public class Tars {
     private static final String FILE_PATH = "data/tars.txt";
     private Ui ui;
-    //List<Task> list;
     private TaskList tlist;
 
     private Storage storage = new Storage();

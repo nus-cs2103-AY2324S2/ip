@@ -50,6 +50,10 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * This method displays the welcome message to the user
+     * @param message Welcome message
+     */
     public void Welcome(String message) {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(message, tarsImage));
     }
