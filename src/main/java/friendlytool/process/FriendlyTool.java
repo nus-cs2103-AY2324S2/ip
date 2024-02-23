@@ -46,11 +46,11 @@ public class FriendlyTool {
             switch (command) {
             case BYE:
                 this.isActive = false;
-                response = UI.getByeMsg();
+                response = Ui.getByeMsg();
                 System.exit(0);
                 break;
             case LIST:
-                response = UI.getListMsg(tasks);
+                response = Ui.getListMsg(tasks);
                 break;
             case MARK:
                 response = tasks.mark(input);
@@ -101,7 +101,7 @@ public class FriendlyTool {
         try {
             return findNextAction(input);
         } catch (FtException e) {
-            return UI.getErrorMsg(e);
+            return Ui.getErrorMsg(e);
         }
     }
 }

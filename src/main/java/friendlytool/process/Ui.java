@@ -5,7 +5,7 @@ import friendlytool.task.Task;
 /**
  * UI for the program. Provides instructions to users.
  */
-public class UI {
+public class Ui {
 
     private static StringBuilder sb = new StringBuilder();
 
@@ -27,7 +27,7 @@ public class UI {
                 .append("    Hello! I'm FriendlyTool\n")
                 .append("    What can I do for you?\n")
                 .append("    ____________________________________________________________");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -38,7 +38,7 @@ public class UI {
         sb.append("    ____________________________________________________________\n")
                 .append("    Bye. Hope to see you again soon!\n")
                 .append("    ____________________________________________________________");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -54,7 +54,7 @@ public class UI {
                 .append(task)
                 .append("\n    Now you have " + size + " tasks in the list.\n")
                 .append("    ____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -68,7 +68,7 @@ public class UI {
                 .append("    Nice! I've marked this task as done:\n")
                 .append("      " + task.toString())
                 .append("\n    ____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
 
@@ -83,7 +83,7 @@ public class UI {
                 .append("    OK, I've marked this task as not done yet:\n")
                 .append("      " + task.toString())
                 .append("\n    ____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -99,7 +99,7 @@ public class UI {
                 .append("      " + task)
                 .append("\n    Now you have " + size + " tasks in the list.\n")
                 .append("    ____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -134,7 +134,7 @@ public class UI {
             sb.append("    ").append(i).append(".").append(task).append("\n");
         }
         sb.append("    ____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -162,7 +162,7 @@ public class UI {
      */
     public static String getFound() {
         sb.append("____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -176,7 +176,7 @@ public class UI {
         sb.append("____________________________________________________________\n")
                 .append(e.getMessage()).append("\n")
                 .append("____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 
     /**
@@ -188,6 +188,6 @@ public class UI {
         sb.append("____________________________________________________________\n")
                 .append("    OK, I've sorted your tasks!\n")
                 .append("____________________________________________________________\n");
-        return UI.getResponse();
+        return Ui.getResponse();
     }
 }

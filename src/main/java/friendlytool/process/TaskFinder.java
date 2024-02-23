@@ -19,14 +19,14 @@ public class TaskFinder {
         int counter = 0;
         String keyword = Parser.parseKeyword(input);
         assert keyword != null : "Keyword should not be null";
-        UI.prepareMatchingMsg();
+        Ui.prepareMatchingMsg();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 counter++;
-                UI.prepareFindTaskMsg(counter, task);
+                Ui.prepareFindTaskMsg(counter, task);
             }
         }
-        return UI.getFound();
+        return Ui.getFound();
     }
 }

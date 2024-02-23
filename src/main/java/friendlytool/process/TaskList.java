@@ -88,7 +88,7 @@ public class TaskList {
             throw new FtException("Error: Invalid Task Type");
         }
         myList.add(task);
-        return UI.getUpdateTaskMsg(task, myList.size());
+        return Ui.getUpdateTaskMsg(task, myList.size());
     }
 
 
@@ -109,7 +109,7 @@ public class TaskList {
 
         Task task = myList.get(i - 1);
         task.mark();
-        return UI.getMarkMsg(task);
+        return Ui.getMarkMsg(task);
     }
 
     /**
@@ -129,7 +129,7 @@ public class TaskList {
 
         Task task = myList.get(i - 1);
         task.unmark();
-        return UI.getUnmarkMsg(task);
+        return Ui.getUnmarkMsg(task);
     }
 
     /**
@@ -148,7 +148,7 @@ public class TaskList {
         }
 
         String task = myList.remove(i - 1).toString();
-        return UI.getDeleteMsg(task, myList.size());
+        return Ui.getDeleteMsg(task, myList.size());
     }
 
     /**
@@ -201,6 +201,6 @@ public class TaskList {
                 }
             }
         });
-        return UI.getSortTaskMsg();
+        return Ui.getSortTaskMsg();
     }
 }
