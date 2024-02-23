@@ -38,12 +38,14 @@ public class Parser {
      */
     public String parse(String input) {
         int taskEnd = input.indexOf(" ");
-        String commandType = input.substring(0, taskEnd);
+        String commandType = taskEnd == -1 ? input : input.substring(0, taskEnd);
         try {
             TaskType type = TaskType.valueOf(commandType);
             String details = input.substring(taskEnd + 1);
 
             switch (type) {
+            case bye:
+                return this.ui.printExitMessage();
             case todo:
                 this.taskList.add(new ToDo(details));
                 return this.ui.printOnAdd();
@@ -52,7 +54,7 @@ public class Parser {
                 try {
                     this.taskList.add(new Deadline(d[0], d[1]));
                 } catch (DateFormatException dFE) {
-                    return this.ui.printException(dFE);
+                    return Ui.printException(dFE);
                 }
                 return this.ui.printOnAdd();
             case event:
@@ -61,7 +63,7 @@ public class Parser {
                 try {
                     this.taskList.add(new Event(v1[0], v2[0], v2[1]));
                 } catch (ArrayIndexOutOfBoundsException | DateFormatException formatException) {
-                    return this.ui.printException(formatException);
+                    return Ui.printException(formatException);
                 }
                 return this.ui.printOnAdd();
             case delete:
@@ -93,7 +95,7 @@ public class Parser {
                     throw new InvalidIndexException();
                 }
             case find:
-                return this.ui.printOnFind(taskList.find(details));
+                return this.ui.printOnFind(this.taskList.find(details));
             case list:
                 return this.ui.printList(taskList);
             case write:
@@ -104,8 +106,6 @@ public class Parser {
             case remove:
                 this.notesList.remove(Integer.parseInt(details) - 1);
                 return this.ui.printOnDeleteNote(Integer.parseInt(details));
-            case bye:
-                return this.ui.printExitMessage();
             default:
                 throw new UnknownInputException();
             }

@@ -11,7 +11,7 @@ public class TaskList {
     private final ArrayList<Task> taskList;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.taskList = Storage.readTasks();
     }
 
     /**
@@ -21,6 +21,7 @@ public class TaskList {
      */
     public void add(Task t) {
         this.taskList.add(t);
+        Storage.store();
     }
 
     /**
@@ -31,6 +32,7 @@ public class TaskList {
     public void remove(int index) {
         assert index < this.taskList.size() && index >= 0;
         this.taskList.remove(index);
+        Storage.store();
     }
 
     /**
@@ -41,6 +43,7 @@ public class TaskList {
     public void mark(int index) {
         assert index < this.taskList.size() && index >= 0;
         this.taskList.get(index).setComplete();
+        Storage.store();
     }
 
 
@@ -52,6 +55,7 @@ public class TaskList {
     public void unmark(int index) {
         assert index < this.taskList.size() && index >= 0;
         this.taskList.get(index).setInComplete();
+        Storage.store();
     }
 
     /**

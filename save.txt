@@ -1,4 +1,2 @@
-1: [T] [ ] read book
-2: [D] [ ] return book  (by June 6th)
-3: [E] [ ] project meeting  (from Aug 6th 6pm to 8pm)
-4: [T] [x]  join sports club
+-----TASKS-----1: [T] [ ] die
+ -----NOTES-----

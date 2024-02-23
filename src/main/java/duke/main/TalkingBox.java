@@ -1,7 +1,7 @@
 package duke.main;
 import java.io.IOException;
 
-import duke.exception.FileNotFoundException;
+import duke.exception.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,14 +26,11 @@ public class TalkingBox extends Application {
         ui = new Ui(this.taskList, this.notesList);
         parser = new Parser(this.taskList, this.ui, this.notesList);
         try {
-            storage = new Storage(taskList, PATH);
+            storage = new Storage();
         } catch (FileNotFoundException f) {
-            this.ui.printException(f);
+            Ui.printException(f);
         }
     }
-
-
-
 
     @Override
     public void start(Stage stage) {
@@ -54,17 +51,19 @@ public class TalkingBox extends Application {
      *
      * @throws IOException
      */
-    public String getReply() throws IOException {
-        String command = this.ui.readLine();
-        boolean isExit = this.parser.isExit(command);
-        if (isExit) {
-            this.storage.store();
-            return this.ui.printExitMessage();
-        } else {
-            return this.parser.parse(command);
+    public void run() {
+        //boolean isExit = false;
+        boolean isError = false;
+        while (!isError) {
+            String command = this.ui.readLine();
+            //isExit = this.parser.isExit(command);
+            this.parser.parse(command);
+            Storage.store();
         }
+        //this.ui.printExitMessage();
     }
 
     public static void main(String[] args) throws IOException {
+        new TalkingBox().run();
     }
 }

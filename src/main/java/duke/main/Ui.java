@@ -72,6 +72,7 @@ public class Ui {
      */
     public String printList(TaskList list) {
         StringBuilder out = new StringBuilder();
+        out.append("Current list of tasks: \n");
         for (int i = 0; i < list.getSize(); i++) {
             out.append(i + 1).append(": ").append(list.get(i).toString()).append("\n");
         }
@@ -90,7 +91,7 @@ public class Ui {
      */
 
     public String printExitMessage() {
-        return "Goodbye! \n(type 'exit' to close application)";
+        return "Goodbye! (type 'exit' to close application)";
     }
 
     /**
@@ -113,14 +114,19 @@ public class Ui {
      * Prints error message when an exception is thrown elsewhere in the program
      * @param exception  exception thrown during program execution
      */
-    public String printException(Exception exception) {
+    public static String printException(Exception exception) {
         return exception.toString();
     }
     public String printOnAddNote(String note) {
         return "New note added! \n '" + note + "'";
     }
     public String printAllNotes() {
-        return "List of stored notes: \n" + this.notesList.getAll();
+        StringBuilder out = new StringBuilder();
+        out.append("List of stored notes: \n");
+        for (int i = 0; i < notesList.getSize(); i++) {
+            out.append(i + 1).append(": ").append(notesList.get(i)).append("\n");
+        }
+        return out.toString();
     }
     public String printOnDeleteNote(int i) {
         return "Removing note " + i + ". ";

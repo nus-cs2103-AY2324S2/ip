@@ -8,18 +8,20 @@ import java.util.ArrayList;
 public class NotesList {
     private final ArrayList<String> notesList;
     public NotesList() {
-        this.notesList = new ArrayList<>();
+        this.notesList = Storage.readNotes();
     }
     public void add(String note) {
         assert !note.isEmpty();
         this.notesList.add(note);
+        Storage.store();
     }
     public String get(int i) {
-        return this.notesList.get(i - 1);
+        return this.notesList.get(i);
     }
 
     public void remove(int i) {
         this.notesList.remove(i - 1);
+        Storage.store();
     }
 
     public String getAll() {
@@ -28,5 +30,8 @@ public class NotesList {
             out.append(i == 0 ? (i + 1) + ". " + this.notesList.get(i) : "/n" + (i + 1) + ". " + this.notesList.get(i));
         }
         return out.toString();
+    }
+    public int getSize() {
+        return this.notesList.size();
     }
 }
