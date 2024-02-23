@@ -57,13 +57,18 @@ public class Ui {
      * @param by tes.taskmanager.Deadline of the task.
      */
     public String addDeadline(String command, String by) {
-        this.taskList.storeDeadline(command, by);
-        return "Got it. I've added this task:\n"
-                + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\nNow you have "
-                + this.taskList.getSize()
-                + " in the list.\n"
-                + "Uhh, whatever! Not like your lazy ass gon do this by the deadline anyway (-_-)";
+        try {
+            this.taskList.storeDeadline(command, by);
+            return "Got it. I've added this task:\n"
+                    + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
+                    + "\nNow you have "
+                    + this.taskList.getSize()
+                    + " in the list.\n"
+                    + "Uhh, whatever! Not like your lazy ass gon do this by the deadline anyway (-_-)";
+        } catch (DateAndTimeFormatterException e) {
+            return e.getMessage();
+        }
+
     }
 
     /**
@@ -73,13 +78,18 @@ public class Ui {
      * @param to Ending time of the task.
      */
     public String addEvent(String command, String from, String to) {
-        this.taskList.storeEvent(command, from, to);
-        return "Got it. I've added this task:\n"
-                + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\nNow you have "
-                + this.taskList.getSize()
-                + " in the list.\n"
-                + "Funny eh! I thought you just sleep all the time";
+        try {
+            this.taskList.storeEvent(command, from, to);
+            return "Got it. I've added this task:\n"
+                    + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
+                    + "\nNow you have "
+                    + this.taskList.getSize()
+                    + " in the list.\n"
+                    + "Funny eh! I thought you just sleep all the time";
+        } catch (DateAndTimeFormatterException e) {
+            return e.getMessage();
+        }
+
     }
 
     /**

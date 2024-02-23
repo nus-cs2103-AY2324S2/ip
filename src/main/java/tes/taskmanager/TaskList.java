@@ -1,7 +1,10 @@
 package tes.taskmanager;
 
+import tes.command.DateAndTimeFormatterException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -41,11 +44,16 @@ public class TaskList {
      * @param task Description of task to be stored.
      * @param by tes.taskmanager.Deadline of the task.
      */
-    public void storeDeadline(String task, String by) {
-        LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_RECEIVE);
-        Deadline newDeadline = new Deadline(task, formattedBy);
-        this.tasks.add(newDeadline);
-        Storage.saveToFile(this.tasks);
+    public void storeDeadline(String task, String by) throws DateAndTimeFormatterException {
+        try {
+            LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_RECEIVE);
+            Deadline newDeadline = new Deadline(task, formattedBy);
+            this.tasks.add(newDeadline);
+            Storage.saveToFile(this.tasks);
+        } catch (DateTimeParseException e) {
+            throw new DateAndTimeFormatterException("Wrong format of Date or Time!!!! Here's a quick tip:\n"
+                    + "O p e n  Y o u r  B l u r r y  E y e s  W h e n  T y p i n g ! ! !");
+        }
     }
 
     /**
@@ -55,12 +63,17 @@ public class TaskList {
      * @param from Starting time of the task.
      * @param to Ending time of the task.
      */
-    public void storeEvent(String task, String from, String to) {
-        LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_RECEIVE);
-        LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_RECEIVE);
-        Event newEvent = new Event(task, formattedFrom, formattedTo);
-        this.tasks.add(newEvent);
-        Storage.saveToFile(this.tasks);
+    public void storeEvent(String task, String from, String to) throws DateAndTimeFormatterException {
+        try {
+            LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_RECEIVE);
+            LocalDateTime formattedTo = LocalDateTime.parse(to, FORMATTER_RECEIVE);
+            Event newEvent = new Event(task, formattedFrom, formattedTo);
+            this.tasks.add(newEvent);
+            Storage.saveToFile(this.tasks);
+        } catch (DateTimeParseException e) {
+            throw new DateAndTimeFormatterException("Wrong format of Date or Time!!!! Here's a quick tip:\n"
+                    + "O p e n  Y o u r  B l u r r y  E y e s  W h e n  T y p i n g ! ! !");
+        }
     }
 
     /**
