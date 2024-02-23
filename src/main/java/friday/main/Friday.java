@@ -29,9 +29,10 @@ import org.jetbrains.annotations.NotNull;
 public class Friday extends Application {
 
     /** The file path for storing task data. */
-    private static final String DATA_FILE_PATH = "./src/main/java/data/Friday.txt";
+//    private static final String DATA_FILE_PATH = "./src/main/java/data/Friday.txt";
 
 //    private static final String DATA_FILE_PATH = "./data/Friday.txt";
+    private static final String DATA_FILE_PATH = "./friday.txt";
 
     /** The user interface handler for displaying messages and interacting with users. */
     private final Ui ui;
