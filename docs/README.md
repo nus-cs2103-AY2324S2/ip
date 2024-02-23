@@ -21,7 +21,7 @@ Balom is a type of chatbot that helps you with managing tasks that you have to d
 1. [Add task `add`](#add-task)
 2. [Delete task `delete`](#delete-task)
 3. [View tasks `list`](#view-tasks)
-3. [Mark and Unmark task `mark` `unmark`](#marking-and-Unmarking-task)
+3. [Mark and Unmark task `mark` `unmark`](#marking-and-unmarking-task)
 4. [**Find** tasks `find`](#find-tasks)
 5. [**NEW:** Snooze task `snooze`](#snooze-task)
 
