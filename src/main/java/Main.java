@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import javafx.scene.control.Alert;
 import signal.Signal;
 
 import javafx.application.Application;
@@ -28,6 +29,16 @@ public class Main extends Application {
             stage.show();
 
             fxmlLoader.<GUI.MainWindow>getController().handleSignalIntro();
+
+            stage.setOnCloseRequest(event -> {
+                // Show confirmation dialog
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Exit");
+                alert.setHeaderText("Do you want to leave the chat?");
+                alert.setContentText("Please say 'bye' to Signal!");
+                alert.showAndWait();
+                event.consume();
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
