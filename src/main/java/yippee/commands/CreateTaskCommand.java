@@ -8,6 +8,9 @@ import yippee.tasks.Event;
 import yippee.tasks.Task;
 import yippee.tasks.ToDo;
 
+/**
+ * Represents commands that creates a new task.
+ */
 public class CreateTaskCommand extends Command {
     private String taskType;
     private String details;
@@ -17,6 +20,14 @@ public class CreateTaskCommand extends Command {
         this.details = details;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param tasks TaskList of active tasks
+     * @param ui Ui instance to print responses.
+     * @param storage Storage instance to store any data.
+     * @throws InvalidCommandException If command is of invalid format.
+     */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         Task newTask;
         if (taskType.equals("todo")) {

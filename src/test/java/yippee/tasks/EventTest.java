@@ -1,13 +1,14 @@
 package yippee.tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import yippee.exceptions.YippeeException;
 
 public class EventTest {
     @Test
-    public void createCorrectTest(){
+    public void createCorrectTest() {
         String taskName = "a task";
         try {
             Event testEvent = new Event(taskName, "2022-12-31", "2023-01-01");
@@ -19,7 +20,7 @@ public class EventTest {
     }
 
     @Test
-    public void createWrongTest(){
+    public void createWrongTest() {
         String taskName = "a task";
         try {
             Event testEvent = new Event(taskName, "2022-12-300", "2023-01-01");

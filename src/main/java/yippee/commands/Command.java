@@ -4,6 +4,9 @@ import yippee.TaskList;
 import yippee.Ui;
 import yippee.exceptions.InvalidCommandException;
 
+/**
+ * Represents commands parsed from user input.
+ */
 public abstract class Command {
     private boolean isExit;
     Command(boolean isExit) {
