@@ -183,10 +183,10 @@ Returns a view of all memos added.
 Format: `memo list`
 
 
-### Deleting a memo: `memo del`
+### Deleting a memo: `memo delete`
 Deletes an existing memo.
 
-Format: `memo del INDEX`
+Format: `memo delete INDEX`
 - Deletes the memo at the specified `INDEX`. The index refers to the index number<br> shown
 in the **full** memo list.
 - The memo list is one-indexed.
@@ -194,7 +194,7 @@ in the **full** memo list.
 - `INDEX` **must lie within the size of the memo list**
 
 Examples:
-`memo del 1`
+`memo delete 1`
 ### Removing all memos: `memo clear`
 Clears the memo list.
 
