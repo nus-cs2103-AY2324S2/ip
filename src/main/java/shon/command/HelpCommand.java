@@ -29,6 +29,9 @@ public class HelpCommand extends Command {
         outputs.add("note <text>: adds a note with the given text to your note list");
         outputs.add("delnote <idx>: deletes the note at the given index");
         outputs.add("bye: exits the app");
+        for (int i = 1; i < outputs.size(); i++) {
+            outputs.set(i, i + ". " + outputs.get(i));
+        }
         return String.join("\n", outputs);
     }
 }
