@@ -1,10 +1,6 @@
 # Tommy User Guide
+![Ui.png](Ui.png)
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
 Never miss a deadline again!
 Tommy is a desktop app that you can use to keep track of your tasks and deadlines. All commands in the app are 
 case-insensitive.
@@ -12,6 +8,7 @@ case-insensitive.
 ## Adding todos
 Add todo tasks your list of tasks. When the todo task is added to the list, it will be marked with a `[T]` symbol
 and as not done by default.
+
 Example: `todo buy apples`
 
 Output:
