@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "name": "Debug (Launch) - Current File",
+      "request": "launch"
+    },
+    {
+      "type": "node",
+      "name": "Debug (Launch) - Main",
+      "request": "launch",
+      "mainClass": "chatbot.Main",
+    }
+  ]
+}
