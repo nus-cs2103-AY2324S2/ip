@@ -9,63 +9,51 @@
 
 ## Setup
 
-
+...
 
 ## Features
 
 ### Adding todo to list
-Adds a todo to the list
-Format: todo DESCRIPTION
-Example: 'todo read book'
-
+Adds a todo to the list  
+Format: `todo DESCRIPTION`  
+Example: `todo read book`  
 
 ### Adding deadline to list
-Adds deadline to the list
+Adds a deadline to the list  
+Format: `deadline DESCRIPTION /by TIME(HHMM)`  
+Example: `deadline submit report /by 2359`  
 
 ### Adding event to list
-Addes event to the list
+Adds an event to the list  
+Format: `event DESCRIPTION /at STARTTIME-ENDTIME(HHMM)`  
+Example: `event team meeting /at 1200-1400`  
 
 ### Marking a task as completed
-Marks a task as completed
+Marks a task as completed  
+Format: `mark INDEX`  
+Example: `mark 2`  
 
 ### Unmarking a task 
-Unmarks a task
+Unmarks a task  
+Format: `unmark INDEX`  
+Example: `unmark 2`  
 
 ### Deleting a task
-Deletes a task with matching description
+Deletes a task with matching description  
+Format: `delete INDEX`  
+Example: `delete 2`  
 
 ### Listing all tasks
-Lists all tasks
+Lists all tasks  
+Format: `list`  
+Example: `list`  
 
 ### Finding tasks with matching description
-Find tasks with matching description
-
-### Edit description of a task
-Edits description of a task
-
+Finds tasks with matching description  
+Format: `find description`  
+Example: `find meeting`  
 
 
 
 
-## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
