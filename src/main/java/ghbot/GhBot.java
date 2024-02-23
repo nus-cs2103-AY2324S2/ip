@@ -41,7 +41,7 @@ public class GhBot {
             Executor executor = Parser.parse(inputDetails);
 
             if (executor instanceof ByeExecutor) {
-                this.storage.writeDataToFile(taskList.toList());
+                this.storage.writeDataToFile(this.taskList.toList());
                 return executor.execute();
             }
 
