@@ -65,7 +65,7 @@ public class Parser {
                         throw new CalException("Deadline Task is not in the format: " +
                             "deadline (description) /by (due date)!");
                     } catch(DateTimeParseException e) {
-                        throw new CalException("Date should be written in the format (2/12/2019 1800)");
+                        throw new CalException("Date should be written in the format (23/2/2019 1800)");
                     }
 
                     return new AddCommand(description, dueDate);
@@ -96,7 +96,7 @@ public class Parser {
                         throw new CalException("Event Task is not in the format: " + 
                             "event (description) /from (startDate) /to (endDate)!");
                     } catch(DateTimeParseException e) {
-                        throw new CalException("Date should be written in the format (2/12/2019 1800)");
+                        throw new CalException("Date should be written in the format (23/2/2019 1800)");
                     }
 
                     return new AddCommand(description, startDate, endDate);
