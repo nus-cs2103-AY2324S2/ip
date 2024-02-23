@@ -11,9 +11,6 @@ A list showing all the tasks added by the user.
 // Give examples of usage
 
 Example: `list`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -30,9 +27,6 @@ A task with a deadline will be added to the current task list.
 // Give examples of usage
 
 Example: `deadline (task description) /by (dd/MM/yyyy)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -49,9 +43,6 @@ A todo task will be added to the current task list.
 // Give examples of usage
 
 Example: `todo (task description)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -69,9 +60,6 @@ An event with its duration will be added to the current task list.
 // Give examples of usage
 
 Example: `event (task description) /from (event start) /to (event end)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -88,9 +76,6 @@ The task to be deleted will be removed from the task list.
 // Give examples of usage
 
 Example: `delete (task number in the list)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -107,9 +92,6 @@ Find the tasks in the list that matches the keyords.
 // Give examples of usage
 
 Example: `find (keyword e.g. sell)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -126,9 +108,6 @@ Marks the task completed.
 // Give examples of usage
 
 Example: `mark (task number)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -145,9 +124,6 @@ Marks the task as not completed.
 // Give examples of usage
 
 Example: `unmark (task number)`
-
-// A description of the expected outcome goes here
-
 ```
 expected output:
 ________________________________________
@@ -161,9 +137,6 @@ ________________________________________
 
 Opens a popup window with all the commands and how to use them.
 
-// Give examples of usage
-
 Example: `help`
 
-// An image of the popup window
 ![Help Page](https://github.com/agreatdayy/ip/blob/master/docs/HelpPage.png)
