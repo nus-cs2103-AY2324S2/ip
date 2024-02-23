@@ -8,16 +8,16 @@ Grizzly is a chatbot that is capable of storing, managing and saving Tasks and C
 
 Here is a list of all the features included with Grizzly
 
-- Adding Tasks
-    - Todo
-    - Deadline
-    - Event
-- Adding Contacts
-- Listing items
-- Marking/Unmarking Tasks
-- Deleting items
-- Finding items
-- Exiting
+- [Adding Tasks](#adding-tasks)
+    - [Todo](#todo)
+    - [Deadline](#deadline)
+    - [Event](#event)
+- [Adding Contacts](#adding-contacts)
+- [Listing items](#listing-items)
+- [Marking/Unmarking Tasks](#markingunmarking-tasks)
+- [Deleting items](#deleting-items)
+- [Finding items](#finding-items)
+- [Exiting](#deleting-items)
 
 ## Adding Tasks
 
