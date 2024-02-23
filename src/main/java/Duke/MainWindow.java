@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Tim tim;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/greg.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human.png"));
     private Image timImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
     @FXML
@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
 
     }
 
-    public void setDuke(Tim d) {
+    public void setTim(Tim d) {
         tim = d;
     }
 
@@ -51,7 +51,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws IOException, DukeException {
         String input = userInput.getText();
-
         String response = tim.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

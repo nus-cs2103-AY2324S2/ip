@@ -81,7 +81,7 @@ public class TaskHandler{
         } else if (input.startsWith("mark")) {
             String[] temp = input.split(" ");
             try {
-                checkInput(temp, storage, UI.errorMsg("mark"));
+                checkInput(temp, storage, GUI.errorMsg("mark"));
                 int index = Integer.parseInt(temp[1]);
                 boolean toMark = true;
                 Task task = storage.mark(index, toMark);
@@ -97,7 +97,7 @@ public class TaskHandler{
         } else if (input.startsWith("unmark")) {
             String[] temp = input.split(" ");
             try {
-                checkInput(temp, storage, UI.errorMsg("unmark"));
+                checkInput(temp, storage, GUI.errorMsg("unmark"));
                 int index = Integer.parseInt(temp[1]);
                 boolean toMark = false;
                 Task task = storage.mark(index, toMark);
@@ -113,7 +113,7 @@ public class TaskHandler{
         } else if (input.startsWith("delete")) {
             String[] temp = input.split(" ");
             try {
-                checkInput(temp, storage, UI.errorMsg("delete"));
+                checkInput(temp, storage, GUI.errorMsg("delete"));
                 int index = Integer.parseInt(temp[1]);
                 Task task = storage.delete(index);
                 UI.deleteMsg(task, storage);
@@ -128,7 +128,7 @@ public class TaskHandler{
         } else if (input.startsWith("todo")) {
             try {
                 String[] test = input.split(" ");
-                checkTaskInput(test, storage, UI.errorMsg("todo"));
+                checkTaskInput(test, storage, GUI.errorMsg("todo"));
                 String msg = input.substring(5);
                 ToDo task = new ToDo(msg);
                 if (!hasDuplicates(task, storage)) {
@@ -148,7 +148,7 @@ public class TaskHandler{
         } else if (input.startsWith("deadline")) {
             try {
                 String[] test = input.split(" ");
-                checkTaskInput(test, storage, UI.errorMsg("deadline"));
+                checkTaskInput(test, storage, GUI.errorMsg("deadline"));
                 String msg = input.substring(9);
                 Pattern p = Pattern.compile("(.+) /by (\\d+/\\d+/\\d+)(.*)");
                 Matcher m = p.matcher(msg);
@@ -301,6 +301,14 @@ public class TaskHandler{
 
     }
 
+    /**
+     * Find tasks that matches the keyword
+     *
+     * @param keyword
+     * @param storage
+     * @return Tasklist containg matching tasks
+     * @throws DukeException
+     */
     private static TaskList findMatchedTasks(String keyword, TaskList storage) throws DukeException {
         Pattern p = Pattern.compile(keyword);
         TaskList matchedTasks = new TaskList();
@@ -320,6 +328,13 @@ public class TaskHandler{
 
     }
 
+    /**
+     * Check if there is any task in the list that is a duplicate of the new task
+     *
+     * @param task
+     * @param storage
+     * @return boolean value of whether there is duplicates
+     */
     private static boolean hasDuplicates(Task task, TaskList storage) {
         for (Task t: storage) {
             if (task.isDuplicate(t)) {

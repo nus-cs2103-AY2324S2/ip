@@ -13,11 +13,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Tim duke;
+    private Tim tim;
 
     {
         try {
-            duke = new Tim();
+            tim = new Tim();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +30,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTim(tim);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
