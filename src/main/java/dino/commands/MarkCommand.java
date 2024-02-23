@@ -1,7 +1,7 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class MarkCommand extends Command {
      * @return List of Strings or messages.
      */
 
-    public List<String> execute(TaskList tasks) throws DukeException {
-        if (details.length() < 1) { throw new DukeException(
+    public List<String> execute(TaskList tasks) throws DinoException {
+        if (details.length() < 1) { throw new DinoException(
                 "Please enter the tasks number that you want to mark as incomplete: ex. mark 2");
         }
 
@@ -37,7 +37,7 @@ public class MarkCommand extends Command {
             messages.add("OK, I've marked this tasks as not done yet");
             messages.add(tasks.get(i).toString());
         } catch(Exception e) {
-            throw new DukeException("Please enter the valid tasks number");
+            throw new DinoException("Please enter the valid tasks number");
         }
 
         return messages;

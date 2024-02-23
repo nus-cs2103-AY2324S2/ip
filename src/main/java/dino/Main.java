@@ -1,4 +1,4 @@
-package duke;
+package dino;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Dino using FXML.
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final Dino dino = new Dino();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<duke.MainWindow>getController().setDuke(duke);
+            fxmlLoader.<dino.MainWindow>getController().setDino(dino);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

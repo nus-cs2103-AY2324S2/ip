@@ -1,6 +1,6 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
+import dino.DinoException.DinoException;
 
 /**
  * The Parser class processes user input and returns the corresponding command object based on the input.
@@ -13,7 +13,7 @@ public class Parser {
      * @return The method is returning a Command object based on the input provided. The specific type of Command
      * object returned depends on the instruction parsed from the input.
      */
-    public static Command processInput(String input) throws DukeException {
+    public static Command processInput(String input) throws DinoException {
         try {
             String[] parsedInput = input.split(" ", 2);
             Parser.Instruction ins = toInstruction(parsedInput[0]);
@@ -38,24 +38,24 @@ public class Parser {
                     return new FindCommand(details);
             }
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Please enter instruction in the correct format"
+            throw new DinoException("Please enter instruction in the correct format"
                     + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
         return null;
     }
 
     /**
-     * The function converts a string input into an Instruction enum value, throwing a DukeException if the input is
+     * The function converts a string input into an Instruction enum value, throwing a DinoException if the input is
      * not a valid instruction.
      * 
      * @param input A string representing the user input for an instruction.
      * @return The method is returning an Instruction
      */
-    private static Instruction toInstruction(String input) throws DukeException {
+    private static Instruction toInstruction(String input) throws DinoException {
         try {
             return Instruction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Please enter instruction in the correct format"
+            throw new DinoException("Please enter instruction in the correct format"
                     + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
     }

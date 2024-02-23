@@ -1,8 +1,8 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.TaskList;
+import dino.DinoException.DinoException;
+import dino.tasks.Deadline;
+import dino.tasks.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -31,10 +31,10 @@ public class DeadlineCommand extends Command {
      * @param tasks A TaskList object that represents a list of tasks.
      * @return List of Strings messages whihc will be printed to user later.
      */
-    public List<String> execute(TaskList tasks) throws DukeException {
+    public List<String> execute(TaskList tasks) throws DinoException {
         String[] parsedInput = details.split("/by ", 2);
         if (parsedInput.length != 2) {
-            throw new DukeException("Please enter tasks description and deadline"
+            throw new DinoException("Please enter tasks description and deadline"
                     + "\ncorrect format: deadline *tasks description* /by *deadline*");
         }
 
@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
             tasks.add(new Deadline(parsedInput[0], LocalDateTime.parse(parsedInput[1]
                     , dateTimeFormatter)));
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
+            throw new DinoException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
 

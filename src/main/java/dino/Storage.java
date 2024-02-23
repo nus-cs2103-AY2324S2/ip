@@ -1,7 +1,7 @@
-package duke;
+package dino;
 
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,7 +28,7 @@ public class Storage {
      * 
      * @return a TaskList with all the tasks form cache.
      */
-    public TaskList load() throws DukeException {
+    public TaskList load() throws DinoException {
         if (Files.notExists(path)) {
             System.out.println("No cache found");
             return new TaskList();
@@ -47,7 +47,7 @@ public class Storage {
                     Files.delete(path);
                 } catch (IOException ignored) {
                 }
-                throw new DukeException(String.format("Unable to download existing tasks"));
+                throw new DinoException(String.format("Unable to download existing tasks"));
             }
         }
     }

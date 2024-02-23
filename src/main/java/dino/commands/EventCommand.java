@@ -1,8 +1,8 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.Event;
-import duke.tasks.TaskList;
+import dino.DinoException.DinoException;
+import dino.tasks.Event;
+import dino.tasks.TaskList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,18 +28,18 @@ public class EventCommand extends Command {
      * @param tasks A TaskList object that represents a list of tasks.
      * @return List of Strings messages which will be printed to user later.
      */
-    public List<String> execute(TaskList tasks) throws DukeException {
+    public List<String> execute(TaskList tasks) throws DinoException {
         String[] parsedInput = details.split("/from ", 2);
 
         if (parsedInput.length != 2) {
-            throw new DukeException("Please enter event description and time in the correct format"
+            throw new DinoException("Please enter event description and time in the correct format"
                     + "\ncorrect format: event *event name* /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
         }
 
         String[] parsedDates= parsedInput[1].split(" /to ", 2);
 
         if (parsedDates.length != 2) {
-            throw new DukeException("Please enter event description and time in the correct format"
+            throw new DinoException("Please enter event description and time in the correct format"
                     + "\ncorrect format: event *event name* /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
         }
 
@@ -51,7 +51,7 @@ public class EventCommand extends Command {
             messages.add("added: " + tasks.get(tasks.size() - 1).toString());
             messages.add("Now you have " + tasks.size() + " tasks in the list.");
         } catch (Exception e) {
-            throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
+            throw new DinoException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
 

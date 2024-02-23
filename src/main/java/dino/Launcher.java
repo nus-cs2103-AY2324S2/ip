@@ -1,4 +1,4 @@
-package duke;
+package dino;
 
 import javafx.application.Application;
 
