@@ -99,17 +99,17 @@ public class RecurTask extends Task {
         switch (this.recurType) {
         case DAILY:
             label = "[RD]";
-            info = "(Due today!) ";
+            info = "(Due today!)";
             if (super.getStatus() == TaskStatus.COMPLETE) {
                 info = "(Complete! Resets tmr!)";
             }
             break;
         case WEEKLY:
             label = "[RW]";
-            info = String.format("(Due in %s days!) ", dayDiff);
+            info = String.format("(Due in %s days!)", dayDiff);
             if (super.getStatus() == TaskStatus.NOT_DONE) {
                 if (dayDiff == 0) {
-                    info = "(Due today!) ";
+                    info = "(Due today!)";
                 }
             } else {
                 info = String.format("(Complete! Resets in %s days)", dayDiff + 1);
@@ -120,10 +120,10 @@ public class RecurTask extends Task {
             break;
         case MONTHLY:
             label = "[RM]";
-            info = String.format("(Due in %s days!) ", dayDiff);
+            info = String.format("(Due in %s days!)", dayDiff);
             if (super.getStatus() == TaskStatus.NOT_DONE) {
                 if (dayDiff == 0) {
-                    info = "(Due today!) ";
+                    info = "(Due today!)";
                 }
             } else {
                 info = String.format("(Complete! Resets in %s days)", dayDiff + 1);

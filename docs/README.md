@@ -105,7 +105,7 @@ Format: `delete INDEX`
 
 Example: `delete 2` deletes the 2nd task in the task list.
 
-## Marking tasks: `mark` / `unmark`
+## Marking tasks: `mark / unmark`
 Marks or unmarks the specified task in the task list.
 
 * Marked tasks are represented with `[x]`
