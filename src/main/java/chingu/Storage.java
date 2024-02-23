@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath where the file is located and the file where the tasks will be saved
      */
     public Storage(String filePath) {
-        this.store = new File(filePath);
+        this.store = new File(String.valueOf(filePath));
     }
 
     /**
@@ -176,7 +176,7 @@ public class Storage {
              *  This was done to ensure that Jar file store the data correctly
              */
 
-            File dir = new File("data");
+            File dir = new File("store");
 
             if (!dir.exists()) {
                 dir.mkdirs();

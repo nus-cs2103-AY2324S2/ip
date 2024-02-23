@@ -148,6 +148,7 @@ referenced from CS2103T website, SE-EDU, Javatpoint, W3Schools website and my te
 - CS2103T website and SE-EDU: For most deliverable sample codes including Java FXML
 - JavaTpoint: Checking how exception classes are implemented
 - W3Schools: Writing and reading files that concerns saving and loading tasks from data
+- StackOverFlow: DateTimeFormatter Checks
 - Wang Lifu: regarding the part on saving file correctly (especially for Jar file)
 
 I have done my upmost best to add comments to parts of code (except for CS2103T website and SE-EDU)

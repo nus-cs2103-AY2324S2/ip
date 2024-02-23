@@ -129,6 +129,7 @@ public class Parser {
         if (priority.isEmpty()) {
             throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
         }
+        // Solution (DateTime Formatting checks) was inspired by https://stackoverflow.com/questions/20231539/java-check-the-date-format-of-current-string-is-according-to-required-format-or
         boolean validateDate = by.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}");
         if (!validateDate) {
             throw new DateException("Please make sure that your date is in form of YYYY/MM/DD.");
@@ -194,6 +195,7 @@ public class Parser {
      * @param to - end date of the event
      */
     public static void validateDates(String from, String to) {
+        //Solution (DateTime Formatting checks) was inspired by https://stackoverflow.com/questions/20231539/java-check-the-date-format-of-current-string-is-according-to-required-format-or
         boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
         assert !validateFromDate : "format of the event start date is WRONG!";
         boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
