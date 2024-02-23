@@ -9,36 +9,56 @@ basic Graphical User Interface (GUI).
 <!-- TOC -->
 * [Quick Start](#quick-start)
 * [User commands](#user-commands)
-  * [Adding a todo: `todo`](#adding-a-todo--todo)
-  * [Adding a deadline: `deadline`](#adding-a-deadline--deadline)
-  * [Adding a Plan: `plan`](#adding-a-plan--plan)
-  * [Adding an Event: `event`](#adding-an-event--event)
-  * [Marking a Task: `mark`](#marking-a-task--mark)
-  * [Unmarking a Task: `unmark`](#unmarking-a-task--unmark)
-  * [Deleting a Task: `delete`](#deleting-a-task--delete)
-  * [Finding a task by keyword: `find`](#finding-a-task-by-keyword--find)
-  * [Listing all your tasks: `list`](#listing-all-your-tasks--list)
-  * [Exiting the chatbot: `bye`](#exiting-the-chatbot--bye)
+    * [Adding a todo: `todo`](#adding-a-todo--todo)
+    * [Adding a deadline: `deadline`](#adding-a-deadline--deadline)
+    * [Adding a Plan: `plan`](#adding-a-plan--plan)
+    * [Adding an Event: `event`](#adding-an-event--event)
+    * [Marking a Task: `mark`](#marking-a-task--mark)
+    * [Unmarking a Task: `unmark`](#unmarking-a-task--unmark)
+    * [Deleting a Task: `delete`](#deleting-a-task--delete)
+    * [Finding a task by keyword: `find`](#finding-a-task-by-keyword--find)
+    * [Listing all your tasks: `list`](#listing-all-your-tasks--list)
+    * [Exiting the chatbot: `bye`](#exiting-the-chatbot--bye)
 * [Features](#features)
 <!-- TOC -->
 
 # Quick Start
 1. Ensure that you have Java `11` or above installed on your computer.
 2. Download the latest sleepy.jar from [here
-](https://github.com/kjw142857/ip/releases).
+   ](https://github.com/kjw142857/ip/releases).
 3. Copy the file to the folder you want to use as the _home folder_ for Sleepy.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the java -jar sleepy.jar command to run the application.
-A GUI similar to the image at the top of this page should appear within seconds.
+   A GUI similar to the image at the top of this page should appear within seconds.
 5. Type your command in the input box at the bottom of the screen. You can press Enter or
-click the `SEND HELP PLS` button to send your message.
-Some example commands you can try (not case-sensitive):
-   * `list`: Lists all your tasks.
-   * `todo sleep`: Adds a reminder for you to get some sleep.
-   * `delete 7`: Deletes the 7th item in your task list.
-   * `bye`: Exits the app after a short delay.
+   click the `SEND HELP PLS` button to send your message.
+   Some example commands you can try (not case-sensitive):
+    * `list`: Lists all your tasks.
+    * `todo sleep`: Adds a reminder for you to get some sleep.
+    * `delete 7`: Deletes the 7th item in your task list.
+    * `bye`: Exits the app after a short delay.
 6. Refer to the [Features](#features) below for details of each command.
 
 # User commands
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which
+  can be used as `todo sleep`.
+
+* Parameters **must** be in the specified order.<br>
+  e.g. if the command specifies `event DESCRIPTION /from START_TIME /to END_TIME`,
+  `event DESCRIPTION /to END_TIME /from START_TIME` is not recognised.
+
+* For adding of tasks with one or more types of `TIME` (i.e. Plans, Deadline and Events), if
+  any `TIME` is in `YYYY-MM-DD` format, it will automatically be converted for you
+  to `DD-MMM-YYYY` format.
+  For example, `event study /from 2023-01-26 /to next Wednesday` will be converted to
+  `[E][ ] study (from: 26 Jan 2023 to: next Wednesday)`
+</div>
+
 
 ## Adding a todo: `todo`
 
@@ -66,7 +86,7 @@ Expected output:
 added: [D][ ] submit homework (by: this friday)
 ```
 
-## Adding a Plan: `plan`
+## Adding a plan: `plan`
 
 Adds a plan to the list.
 
@@ -79,7 +99,7 @@ Expected output:
 added: [P][ ] submit homework (after: this friday)
 ```
 
-## Adding an Event: `event`
+## Adding an event: `event`
 
 Adds an event to the list.
 
@@ -92,7 +112,7 @@ Expected output:
 added: [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Marking a Task: `mark`
+## Marking a task: `mark`
 
 Marks a task in the list.
 
@@ -106,7 +126,7 @@ Nice! I've marked this task as done:
 [E][X] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Unmarking a Task: `unmark`
+## Unmarking a task: `unmark`
 
 Marks a task in the list.
 
@@ -120,7 +140,7 @@ OK, I've marked this task as not done yet:
 [E][ ] sleep 2 hours (from: 5am to: 7am)
 ```
 
-## Deleting a Task: `delete`
+## Deleting a task: `delete`
 
 Deletes a task in the list.
 
@@ -189,4 +209,4 @@ Bye. Gonna go back to sleep now *yawn*
 * A dynamic GUI which supports **window resizing and fullscreen view**
 * **Custom error messages** for invalid user commands
 * **Automatic saving** of your task list on your computer, so that when you reopen Sleepy
-your data will be instantly retrieved!
+  your data will be instantly retrieved!

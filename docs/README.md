@@ -40,6 +40,26 @@ Some example commands you can try (not case-sensitive):
 
 # User commands
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which
+  can be used as `todo sleep`.
+
+* Parameters **must** be in the specified order.<br>
+  e.g. if the command specifies `event DESCRIPTION /from START_TIME /to END_TIME`,
+  `event DESCRIPTION /to END_TIME /from START_TIME` is not recognised.
+
+* For adding of tasks with one or more types of `TIME` (i.e. Plans, Deadline and Events), if
+  any `TIME` is in `YYYY-MM-DD` format, it will automatically be converted for you
+  to `DD-MMM-YYYY` format.
+  For example, `event study /from 2023-01-26 /to next Wednesday` will be converted to
+  `[E][ ] study (from: 26 Jan 2023 to: next Wednesday)`
+</div>
+
+
 ## Adding a todo: `todo`
 
 Adds a todo to the list.
