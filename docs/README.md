@@ -1,7 +1,7 @@
 # FriendlyTool User Guide
 
 
-![](C:\Github\Ip\docs\Ui.png)
+![FriendlyTool's Ui](Ui.png)
 
 
 FriednlyTool can organise your important tasks and easily manage important deadlines.
