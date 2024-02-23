@@ -34,7 +34,7 @@ public class TaskList {
             output += "-----------------------------------\n";
             output += String.format("%s to task %d\n",
                     taskList.get(taskNo - 1).addTag(splitStr.subList(1, splitStr.size())),
-                    taskNo - 1);
+                    taskNo);
             output += "-----------------------------------";
         }
         return output;
