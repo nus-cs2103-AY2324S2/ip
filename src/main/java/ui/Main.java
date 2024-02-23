@@ -14,7 +14,7 @@ import jux.Jux;
  */
 public class Main extends Application {
 
-    private Jux jux = new Jux("data/Jux.txt");
+    private Jux jux = new Jux("./data/Jux.txt");
 
     @Override
     public void start(Stage stage) {
