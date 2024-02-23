@@ -1,5 +1,7 @@
 # ChatBro User Guide
-Tired of always forgetting to complete your tasks or deadlines? Or perhaps forgetting about and missing classes or events? ChatBro's got you, bro!
+Tired of always forgetting to complete your tasks or deadlines? Or perhaps forgetting about and missing classes or events?
+
+ChatBro's got you, bro!
 
 ChatBro is a simple to use task manager application that allows you to add tasks to a task list, mark (or unmark) these tasks as 'done', delete tasks or search for tasks. ChatBro remembers your task list across all sessions.
 
@@ -29,7 +31,8 @@ Each task type is represented differently in your task list, but all of their re
 `[Task type][Status] <task description>`, where "status" is `[ ]` for incomplete tasks or `[X]` for complete tasks.
 
 Deadline, Interval deadline and Event tasks will require a `<date>` specifier in your input.
-For all task types, the `<date>` specifier must follow the format:
+
+For all task types that require `<date>` specifier, `<date>` must follow the format:
 <p align="center"> **dd-MM-yyyy HHmm** </p>
 
     (dd: day, MM: month, yyyy: year, HH: hours, mm: minutes)
