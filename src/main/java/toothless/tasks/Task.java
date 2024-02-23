@@ -1,10 +1,7 @@
 package toothless.tasks;
 
-import toothless.ToothlessException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * This abstract class represents a task within the Toothless application.

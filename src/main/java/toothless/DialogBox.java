@@ -1,4 +1,4 @@
-// @@author Ragnapop-reused
+// @@author hjuntan-reused
 // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with modifications
 
 package toothless;

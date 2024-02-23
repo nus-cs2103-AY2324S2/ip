@@ -2,7 +2,7 @@ package toothless;
 
 import java.util.ArrayList;
 
-import toothless.tasks.*;
+import toothless.tasks.Task;
 
 /**
  * Represents the user interface of the chatbot.
