@@ -89,7 +89,7 @@ Example:
 - `mark 3` would mark task 3
 
 ## List tasks on a specific day: `tasks_on`
-Shows all the events and deadlines that fall on that day. **Events would be displayed
+Shows all the events and deadlines that fall on a specified day. **Events would be displayed
 as long as given date falls in between the start and end date, inclusive.**
 
 Format: `tasks_on <YYYY-MM-DD>`  
