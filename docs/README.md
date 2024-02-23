@@ -7,7 +7,7 @@ with a Graphical user Interface (GUI) and it will remember the tasks added
 # Quick Start
 
 1. Ensure you have Java 11 or above installed in your computer.
-2. Download the latest adam.jar from here.
+2. Download the latest jux.jar from [here](https://github.com/justincred/ip/releases/tag/A-Release).
 3. Copy the file to your target folder.
 4. Open a command terminal, enter the directory you put the jar file in, 
 and use the java -jar jux.jar command to run the application.
