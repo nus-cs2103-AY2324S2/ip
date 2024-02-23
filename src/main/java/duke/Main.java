@@ -1,3 +1,4 @@
+package duke;
 /*
  * The code in this package is obtained or modified from the CS2103T javaFX tutorial.
  * https://se-education.org/guides/tutorials/javaFxPart4.html
@@ -5,7 +6,6 @@
  * */
 import java.io.IOException;
 
-import duke.Duke;
 import duke.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final String CHATBOT_NAME = "Refinement";
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {
