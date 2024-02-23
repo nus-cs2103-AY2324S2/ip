@@ -48,7 +48,7 @@ public class MemoList {
      * @param idx Index of memo to delete
      */
     public void delMemo(int idx) {
-        memos.remove(idx);
+        memos.remove(idx - 1);
         lamb.updateLastDoneTask("Removed memo at index " + idx);
         Storage.deleteLine(idx);
     }
