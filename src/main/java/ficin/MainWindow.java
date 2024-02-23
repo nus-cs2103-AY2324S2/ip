@@ -1,8 +1,8 @@
-package duke;
+package ficin;
 
 import java.util.Objects;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Ficin ficin;
 
 
     // Images for user and Duke (bot) avatars
@@ -90,8 +90,8 @@ public class MainWindow extends AnchorPane {
      * Sets the Duke instance for this MainWindow controller.
      * @param ficin The Duke instance to be set.
      */
-    public void setDuke(Duke ficin) {
-        duke = ficin;
+    public void setDuke(Ficin ficin) {
+        this.ficin = ficin;
     }
 
     /**
@@ -105,7 +105,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = ficin.getResponse(input);
 
         // Display user and Duke dialogue boxes
         dialogContainer.getChildren().addAll(

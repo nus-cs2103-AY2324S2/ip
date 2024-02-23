@@ -1,14 +1,14 @@
-package duke;
+package ficin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 
 /**
  * The Duke class is the main class of the FICIN Chat bot.
  */
-public class Duke {
+public class Ficin {
     private static TaskList taskList; // Using duke.task.TaskList to manage tasks
     private static Ui ui;
 
@@ -30,7 +30,7 @@ public class Duke {
             new Ui().showHelp();
         }
         assert taskList != null : "taskList should not be null after initialization";
-        new Duke().run();
+        new Ficin().run();
     }
 
     /**

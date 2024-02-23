@@ -1,7 +1,7 @@
-package duke;
+package ficin;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import ficin.task.Task;
+import ficin.task.TaskList;
 
 /**
  * The MarkCommand class represents a command to mark a task as done in the task list.

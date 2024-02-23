@@ -1,6 +1,6 @@
-package duke;
+package ficin;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 
 /**
  * The Command class is an abstract class representing a generic command in the Duke application.

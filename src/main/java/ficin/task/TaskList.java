@@ -1,4 +1,4 @@
-package duke.task;
+package ficin.task;
 
 import java.util.ArrayList;
 import java.util.List;

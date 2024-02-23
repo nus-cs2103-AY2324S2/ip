@@ -1,4 +1,4 @@
-package duke;
+package ficin;
 
 import javafx.application.Application;
 

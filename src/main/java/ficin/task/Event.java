@@ -1,4 +1,4 @@
-package duke.task;
+package ficin.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package duke;
+package ficin;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,10 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import ficin.task.Deadline;
+import ficin.task.Event;
+import ficin.task.Task;
+import ficin.task.Todo;
 
 /**
  * The Storage class is responsible for managing the storage and retrieval of tasks in the Duke chat-bot application.

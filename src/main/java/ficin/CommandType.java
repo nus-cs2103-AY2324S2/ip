@@ -1,4 +1,4 @@
-package duke;
+package ficin;
 
 /**
  * Represents the possible types of commands that can be used.

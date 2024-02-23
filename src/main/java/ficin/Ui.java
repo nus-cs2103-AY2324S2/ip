@@ -1,9 +1,9 @@
-package duke;
+package ficin;
 
 import java.util.List;
 import java.util.Scanner;
 
-import duke.task.Task;
+import ficin.task.Task;
 
 /**
  * The Ui class is responsible for handling user interface interactions and displaying messages to the user.

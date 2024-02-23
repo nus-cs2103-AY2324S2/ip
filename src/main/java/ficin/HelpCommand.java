@@ -1,6 +1,6 @@
-package duke;
+package ficin;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 
 /**
  * The HelpCommand class represents a command to display help to the user.

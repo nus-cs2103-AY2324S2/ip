@@ -1,7 +1,7 @@
-package duke;
+package ficin;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import ficin.task.Task;
+import ficin.task.TaskList;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the task list.

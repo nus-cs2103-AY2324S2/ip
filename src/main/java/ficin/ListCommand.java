@@ -1,6 +1,6 @@
-package duke;
+package ficin;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 
 /**
  * Represents a command to list all tasks currently stored in the task list.

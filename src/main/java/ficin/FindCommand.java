@@ -1,10 +1,10 @@
-package duke;
+package ficin;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import ficin.task.Task;
+import ficin.task.TaskList;
 
 /**
  * Represents a command to search for tasks based on a provided keyword or query.

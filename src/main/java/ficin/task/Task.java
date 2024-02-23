@@ -1,4 +1,4 @@
-package duke.task;
+package ficin.task;
 
 /**
  * The Task class represents a general task with a description and a completion status.

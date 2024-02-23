@@ -1,6 +1,6 @@
-package duke;
+package ficin;
 
-import duke.task.TaskList;
+import ficin.task.TaskList;
 
 /**
  * Represents a command to exit the Duke application. This command handles any necessary

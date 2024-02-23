@@ -1,4 +1,4 @@
-package duke;
+package ficin;
 
 /**
  * Represents application-specific exceptions in the Duke application.

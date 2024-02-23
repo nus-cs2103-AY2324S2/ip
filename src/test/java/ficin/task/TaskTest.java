@@ -1,4 +1,4 @@
-package duke.task;
+package ficin.task;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

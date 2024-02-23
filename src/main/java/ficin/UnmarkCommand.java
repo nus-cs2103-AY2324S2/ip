@@ -1,7 +1,7 @@
-package duke;
+package ficin;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import ficin.task.Task;
+import ficin.task.TaskList;
 
 /**
  * The UnmarkCommand class represents a command to unmark a task in the task list.

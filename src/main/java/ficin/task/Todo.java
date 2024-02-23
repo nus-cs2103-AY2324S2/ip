@@ -1,4 +1,4 @@
-package duke.task;
+package ficin.task;
 
 /**
  * The Todo class represents a task with no specific deadline or time.
