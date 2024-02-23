@@ -226,7 +226,7 @@ class UiTest {
     }
 
     @Test
-    public void checkDateTimeForEventTask_startLaterThanEndDateTime_dateTimeParseExceptionThrown() {
+    public void checkDateTimeForEventTask_startLaterThanEndDateTime_dateTimeExceptionThrown() {
         Ui ui = new Ui("event assessment /from 2024-12-23 2359 /to 2024-12-12 2359");
         DateTimeException dateTimeException = assertThrows(DateTimeException.class, ()-> {
             ui.validateInput();
