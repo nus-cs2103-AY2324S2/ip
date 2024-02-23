@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * A simple task manager application.
- * Handles initial setup for components of the main application.
+ * Handles initial setup of main application.
  */
 
 public class Duke {
@@ -19,13 +18,13 @@ public class Duke {
     private CommandParser commandParser;
 
     /**
-     * Initializes a Duke instance, loads tasks and components before starting up the application.
+     * Starts a Duke instance, loads necessary components
      */
     public Duke() {
         userInterface = new Ui();
         databaseHandler = new DatabaseHandler(DATABASE_PATH);
         try {
-            taskList = new TaskList(databaseHandler.loadData());
+            taskList = new TaskList(databaseHandler.loadOps());
             commandParser = new CommandParser(new Scanner(System.in), this.taskList);
         } catch (DukeBotException e) {
             userInterface.displayLoadError();
@@ -34,33 +33,30 @@ public class Duke {
     }
 
     /**
-     * Given a user input string, invokes the command parser and returns the output in the UI.
+     * Given a user input, this calls the command parser and returns the output
      */
-    String getResponse(String input) {
-        // Create a StringBuilder to hold output
+    String userOps(String input) {
         StringBuilder outputBuilder = new StringBuilder();
 
-        // Create a PrintStream that writes to the StringBuilder
         PrintStream stream = new PrintStream(new OutputStream() {
             @Override
             public void write(int b) {
                 outputBuilder.append((char) b);
             }
-        });
+        }); // Writes to the StringBuilder
 
-        // Save the original System.out
-        PrintStream og = System.out;
+        PrintStream og = System.out; // Save the original output
 
-        // Set the System.out to the custom PrintStream
-        System.setOut(stream);
+        System.setOut(stream); // Set the output to the custom PrintStream
+
         // Process the user input
         try {
             this.commandParser.processCommand(input);
-            this.save();
+            this.saveOps();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            // Restore the original System.out
+            // Restore the original output
             System.setOut(og);
         }
         // Return the captured output
@@ -70,13 +66,13 @@ public class Duke {
     /**
      * Saves the current task list
      */
-    private void save() {
+    private void saveOps() {
         List<String> lines = new ArrayList<>();
         for (Task task : this.taskList.getTaskList()) {
             String stringTask = TaskList.taskToDbString(task);
             lines.add(stringTask);
         }
-        this.databaseHandler.writeToFile(lines);
+        this.databaseHandler.writeOps(lines);
     }
 
     /**
@@ -92,14 +88,13 @@ public class Duke {
                 + "____________________________________________________________";
         userInterface.greeting();
 
-        Scanner scanner = new Scanner(System.in); // Create a Scanner object
-        String input = scanner.nextLine(); // Get first input
+        Scanner scanner = new Scanner(System.in); // Scanner object to process input
+        String input = scanner.nextLine();
 
         while (this.commandParser.processCommand(input)) {
             input = scanner.nextLine();
         }
-        // Save the tasks from taskList to duke.DatabaseHandler
-        this.save();
+        this.saveOps(); // Save tasks in storage
     }
 
     public static void main(String[] args) {

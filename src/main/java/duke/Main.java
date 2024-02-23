@@ -17,7 +17,6 @@ public class Main extends Application {
     private final Duke duke = new Duke();
 
     /**
-     *
      * @param stage Primary stage for the JavaFX - FXML Duke application
      */
 
