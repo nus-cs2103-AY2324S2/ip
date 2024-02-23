@@ -108,6 +108,13 @@ public class Ui {
     }
 
     /**
+     * Prints when file is saved
+     */
+    public void saveUserFile() {
+        add("Saving your file...");
+    }
+
+    /**
      * Prints when a new directory is made 
      */
     public void makeNewDirectoryForUser() {

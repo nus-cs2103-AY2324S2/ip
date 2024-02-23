@@ -33,6 +33,7 @@ public class Storage {
     public void loadData(TaskList taskList) {
         try {
             File file = this.retrieveFile();
+            ui.fileFoundForUser();
             ArrayList<String> dataStrings = dataToText(file);
             taskList.loadList(dataStrings);
         } catch (LinusCeption e) {
@@ -80,6 +81,7 @@ public class Storage {
                 writer.write(text + "\n");
             }
             writer.close();
+            ui.saveUserFile();
         } catch (IOException e) {
             ui.add(e.getMessage());
         }
@@ -104,8 +106,6 @@ public class Storage {
         try {
             if (file.createNewFile()) {
                 ui.createNewFileForUser();
-            } else {
-                ui.fileFoundForUser();
             }
         } catch (IOException e) {
             ui.add(e.getMessage());
