@@ -151,14 +151,17 @@ Now you have 2 tasks in the list.
 
 ## Finding a task `find`
 
-Finds a task in the task list managed by Bond.
+Finds a task in the task list managed by Bond given one keyword.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD`
 
 Examples:
 * `find book`
-* `find fantasy book`
-* `find fantasy book fiction`
+* `find fantasy`
+* `find fiction`
+
+Critical Notes:
+* Only one keyword is allowed for the find method.
 
 Successfully finding a task will result in the following output:
 

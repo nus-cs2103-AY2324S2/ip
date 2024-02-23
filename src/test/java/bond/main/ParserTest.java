@@ -195,6 +195,96 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_missingKeywordFind_exceptionThrown() {
+        String testUserCommand = "find";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("Are you for REAL??? No info for a FIND", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_extraKeywordFind_exceptionThrown() {
+        String testUserCommand = "find read book";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("I see, you are SO EXTRA and saying FIND needs MORE!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_invalidKeywordFind_exceptionThrown() {
+        String testUserCommand = "find 123";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("Give me a PROPER KEYWORD to search for!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_missingIndexUpdate_exceptionThrown() {
+        String testUserCommand = "update";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("WHY did you not give me an INDEX to UPDATE a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_invalidIndexUpdate_exceptionThrown() {
+        String testUserCommand = "update abc";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("WHY did you not give me a PROPER INDEX to UPDATE a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_emptyDescriptionUpdate_exceptionThrown() {
+        String testUserCommand = "update 1";
+
+        try {
+            Parser.parse(testUserCommand);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("Are you for REAL??? No info for a UPDATE", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
     public void parse_todo_success() {
         String testUserCommand = "todo sleep";
 
@@ -292,6 +382,32 @@ public class ParserTest {
         try {
             Command c = Parser.parse(testUserCommand);
             assertEquals(c.getCommandType(), "delete");
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_find_success() {
+        String testUserCommand = "find read";
+
+        try {
+            Command c = Parser.parse(testUserCommand);
+            assertEquals(c.getCommandType(), "find");
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parse_update_success() {
+        String testUserCommand = "update 1 /n sleep";
+
+        try {
+            Command c = Parser.parse(testUserCommand);
+            assertEquals(c.getCommandType(), "update");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;

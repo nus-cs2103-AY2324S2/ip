@@ -524,6 +524,9 @@ public abstract class Parser {
         int index = Integer.parseInt(components[1]) - 1;
         String updateInfo = "";
 
+        // Although reaching here means components.length > 2, the following try-catch block is placed
+        // to prevent the possibility of the program from crashing during runtime.
+
         try {
             updateInfo = Arrays.stream(components).skip(2).reduce((s1, s2) -> s1 + " " + s2).get();
         } catch (NoSuchElementException e) {
