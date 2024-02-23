@@ -128,12 +128,13 @@ Marks a task as complete.
 >
 > * The <index> must be a valid index from the task list,
 > meaning that the task must exist.
+> * You can mark an already marked task again, but it does nothing.
 
 > **Example**
 >
 > `mark 1`
 >
-> * This marks the first task from your task list.
+> * This marks the first task from your task list as complete.
 
 ### Unmarking a task:  `unmark`
 
@@ -150,7 +151,8 @@ Marks a task as incomplete.
 >
 > `unmark 1`
 >
-> * This marks the first task from your task list.
+> * This marks the first task from your task list as incomplete.
+> * You can mark an already unmarked task again, but it does nothing.
 
 ### Deleting a task:  `delete`
 
