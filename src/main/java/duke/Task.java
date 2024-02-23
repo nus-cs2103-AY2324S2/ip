@@ -106,8 +106,8 @@ public class Task {
             if (elements.length < 5) {
                 throw new IllegalArgumentException("Invalid task format for ToDo in file");
             }
-            LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             Event event = new Event(elements[2], fromDate, toDate);
             event.isDone = done;
             return event;

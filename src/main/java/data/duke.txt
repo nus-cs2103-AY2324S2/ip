@@ -1,5 +1,6 @@
 T |  0 | read book
 T |  0 | read book
+T |  0 | do homework
 D |  0 | go | 2024-03-12
 D |  0 |  | 2024-05-23
-E |  0 | school  | 2025-12-25 | 2026-12-27
+E |  0 | school | 2025-12-25 | 2026-12-27
