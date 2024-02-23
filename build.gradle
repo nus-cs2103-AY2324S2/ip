@@ -29,7 +29,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("Duke.duke")
+    mainClass.set("Duke.UI.Launcher")
 }
 
 test {
@@ -47,11 +47,11 @@ test {
 }
 
 application {
-    mainClass.set('Duke.duke.Duke');
+    mainClass.set('Duke.UI.Launcher');
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Chat"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
