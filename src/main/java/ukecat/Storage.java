@@ -69,7 +69,6 @@ public class Storage {
             setTaskCount(getTaskCount() + 1);
             String message = String.format("  Task added: %s%n%s", t, generateReport());
             FileManager.updateTasks();
-            System.out.println(message);
             return message;
         } catch (Exception e) {
             return "Error adding task: " + e.getMessage();
@@ -198,7 +197,6 @@ public class Storage {
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(t);
         return t;
     }
 

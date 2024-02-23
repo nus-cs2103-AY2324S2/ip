@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Button  sendButton;
+    private Button sendButton;
     private UkeCat ukeCat;
     private final Image userImg = new Image("/images/User.png");
     private final Image botImg = new Image("/images/UkeCat.png");
@@ -46,11 +46,11 @@ public class MainWindow extends AnchorPane {
         assert userInput != null : "UserInput not initialized";
         assert sendButton != null : "Button not initialized";
 
-        dialogContainer.setStyle("-fx-background-color: black; -fx-border-color: #00ff29;" );
-        userInput.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; " +
-                "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
-        sendButton.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; " +
-                "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
+        dialogContainer.setStyle("-fx-background-color: black; -fx-border-color: #00ff29;");
+        userInput.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; "
+                + "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
+        sendButton.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-family: Consolas; "
+                + "-fx-font-size: 14; -fx-border-color: #00ff29; -fx-border-width: 2px");
         scrollPane.setStyle("-fx-background-color: #00ff29; -fx-border-color: green; -fx-border-width: 2px;");
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
