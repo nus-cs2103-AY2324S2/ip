@@ -9,7 +9,7 @@ This is a project based on the template for a greenfield Java project. Given bel
 * Mark some tasks as priority
 * Mark tasks done and un-done
 
-Find the full feature list [here]()!
+Find the full feature list [here](https://tahnya.github.io/ip/)!
 
 ## Accepted inputs:
 
