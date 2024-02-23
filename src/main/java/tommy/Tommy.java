@@ -8,10 +8,8 @@ import tommy.task.TaskList;
  * Represents the Chatbot.
  */
 public class Tommy {
-
     private Storage storage;
     private TaskList tasks;
-
     private Ui ui;
     private boolean isActive = true;
 
@@ -64,7 +62,7 @@ public class Tommy {
      *
      * @return Greetings to be displayed to the user.
      */
-    public String getGreetings() {
+    protected String getGreetings() {
         return this.ui.greet();
     }
 }

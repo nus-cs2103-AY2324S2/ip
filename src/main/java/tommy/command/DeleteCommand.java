@@ -32,6 +32,7 @@ public class DeleteCommand extends Command {
         try {
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);
             taskList.deleteTaskAtPosition(positionToDelete);
+            storage.save(taskList);
             return ui.displayDeletedTask(taskList, taskToDelete);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException(indexOutOfRangeWarning);

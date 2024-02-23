@@ -23,9 +23,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Tommy tommy;
-    private boolean isGreeted = false;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bobIcon.png"));
     private Image tommyImage = new Image(this.getClass().getResourceAsStream("/images/bearIcon.png"));
@@ -38,7 +36,7 @@ public class MainWindow extends AnchorPane {
     public void setTommy(Tommy t) {
         tommy = t;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(tommy.getGreetings(), tommyImage)
+                DialogBox.getTommyDialog(tommy.getGreetings(), tommyImage)
         );
     }
 
@@ -56,7 +54,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, tommyImage)
+                DialogBox.getTommyDialog(response, tommyImage)
         );
 
         userInput.clear();
