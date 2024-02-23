@@ -36,13 +36,16 @@
             </HBox>
           <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="480.0" prefWidth="400.0" stylesheets="@styles.css" vbarPolicy="ALWAYS" vvalue="1.0" VBox.vgrow="ALWAYS">
             <content>
-              <VBox fx:id="dialogContainer" prefHeight="480.0" prefWidth="388.0" style="-fx-background-color: #292F3F;" />
+              <VBox fx:id="dialogContainer" prefHeight="480.0" prefWidth="388.0" style="-fx-background-color: #292F3F;">
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding></VBox>
             </content>
                <effect>
                   <InnerShadow choke="0.11" height="66.27" radius="16.0675" width="0.0" />
                </effect>
           </ScrollPane>
-            <HBox prefHeight="82.0" prefWidth="404.0" style="-fx-alignment: center; -fx-background-color: #292F3F; -fx-spacing: 5;">
+            <HBox minHeight="67.0" prefHeight="82.0" prefWidth="404.0" style="-fx-alignment: center; -fx-background-color: #292F3F; -fx-spacing: 5;">
                <children>
                 <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="324.0" promptText="Write a command..." style="-fx-background-radius: 10; -fx-background-color: #1F232F; -fx-text-inner-color: white;" HBox.hgrow="ALWAYS">
                      <HBox.margin>
@@ -58,6 +61,9 @@
                      </HBox.margin>
                   </Button>
                </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </HBox>
          </children>
       </VBox>
