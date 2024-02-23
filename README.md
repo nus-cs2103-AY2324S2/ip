@@ -15,10 +15,16 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/felix/Felix.java` file, right-click it, and choose `Run Felix.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   ___________    .__  .__        
+   \_   _____/___ |  | |__|__  ___
+   |    __)/ __ \|  | |  \  \/  /
+   |     \\  ___/|  |_|  |>    <  
+   \___  / \___  >____/__/__/\_ \
+   \/      \/              \/
+
+   _______________________________________________________
+   _______________________________________________________
+   Hello! I'm Felix
+   What can I do for you?
+   _______________________________________________________
    ```
