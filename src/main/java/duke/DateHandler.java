@@ -20,13 +20,13 @@ public class DateHandler {
     // Formatter for parsing datetime strings in input format to datetime objects
     static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    // Pattern for matching database dates in the format of "dd Month yyyy HH:mm"
-    static final Pattern DATABASE_DATE_PATTERN = Pattern.compile(
+    // Pattern for matching stored dates in the format of "dd Month yyyy HH:mm"
+    static final Pattern STORAGE_DATE_PATTERN = Pattern.compile(
             "\\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) "
                     + "\\d{4} \\d{2}:\\d{2}");
 
-    // Formatter for parsing datetime strings in database format to datetime objects
-    static final DateTimeFormatter DATABASE_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+    // Formatter for parsing datetime strings in stored format to datetime objects
+    static final DateTimeFormatter OBJ_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
 
     /**
      * Checks an input string representing a date in "dd/MM/yyyy HHmm" format.
@@ -47,8 +47,8 @@ public class DateHandler {
      * @return true if the date string matches the expected format.
      */
 
-    public static boolean isValidDbInputDate(String dateinput) {
-        Matcher datematcher = DateHandler.DATABASE_DATE_PATTERN.matcher(dateinput);
+    public static boolean isValidStorageInputDate(String dateinput) {
+        Matcher datematcher = DateHandler.STORAGE_DATE_PATTERN.matcher(dateinput);
         return datematcher.matches();
     }
 
@@ -75,9 +75,9 @@ public class DateHandler {
      * @return a LocalDateTime object representing the parsed date.
      */
 
-    public static LocalDateTime databaseStringDateTime(String dateinput) {
+    public static LocalDateTime storageDateTime(String dateinput) {
         try {
-            return LocalDateTime.parse(dateinput, DateHandler.DATABASE_DATE_FORMATTER);
+            return LocalDateTime.parse(dateinput, DateHandler.OBJ_DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             System.out.println("Error: Unable to read the date" + e.getMessage());
         }
@@ -90,9 +90,9 @@ public class DateHandler {
      * @param datetime the LocalDateTime object to convert.
      * @return a string representation of the date in database format.
      */
-    public static String dateTimeToDatabaseString(LocalDateTime datetime) {
+    public static String objDateTime(LocalDateTime datetime) {
         try {
-            return datetime.format(DateHandler.DATABASE_DATE_FORMATTER);
+            return datetime.format(DateHandler.OBJ_DATE_FORMATTER);
         } catch (DateTimeException e) {
             System.out.println("Error: Failed to format date" + e.getMessage());
         }
