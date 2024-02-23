@@ -39,7 +39,7 @@ public class UI {
      * @param de
      * @return
      */
-    public String showError(DukeException de) {
+    public String showError(DatukException de) {
         return de.toString();
     }
 

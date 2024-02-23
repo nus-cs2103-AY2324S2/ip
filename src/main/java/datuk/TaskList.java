@@ -32,9 +32,9 @@ public class TaskList {
      * Adds task of type todo, deadline or event to the TaskList.
      *
      * @param cmd array of strings containing the task type and the parameters.
-     * @throws DukeException when deadline parameter is not a valid date.
+     * @throws DatukException when deadline parameter is not a valid date.
      */
-    public String addItem(String[] cmd) throws DukeException {
+    public String addItem(String[] cmd) throws DatukException {
         Task t;
 
         if (cmd[0].equals("todo")) {
@@ -55,15 +55,15 @@ public class TaskList {
      * Removes an item from the TaskList if it exists.
      *
      * @param str array of strings containing the delete command and the index to be deleted.
-     * @throws DukeException when index does is out of bounds.
+     * @throws DatukException when index does is out of bounds.
      */
-    public String deleteItem(String[] str) throws DukeException {
+    public String deleteItem(String[] str) throws DatukException {
         int index = Integer.parseInt(str[1]) - 1;
 
         try {
             list.get(index);
         } catch (IndexOutOfBoundsException  e) {
-            throw new DukeException("Index does not exist!");
+            throw new DatukException("Index does not exist!");
         }
 
         String out = ui.showDeleteMsg(list.get(index), list.size());
@@ -75,9 +75,9 @@ public class TaskList {
      * Marks/unmarks tasks as complete/incomplete
      *
      * @param cmd an array of strings containing mark/unmark command and the index to be marked.
-     * @throws DukeException when index is out of bounds.
+     * @throws DatukException when index is out of bounds.
      */
-    public String marked(String[] cmd) throws DukeException {
+    public String marked(String[] cmd) throws DatukException {
         int index = Integer.parseInt(cmd[1]);
 
         index--;
@@ -85,7 +85,7 @@ public class TaskList {
         try {
             list.get(index);
         } catch (IndexOutOfBoundsException  e) {
-            throw new DukeException("Index does not exist!");
+            throw new DatukException("Index does not exist!");
         }
 
         if (cmd[0].equals("mark")) {

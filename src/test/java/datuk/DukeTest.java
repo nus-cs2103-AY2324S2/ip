@@ -21,13 +21,13 @@ public class DukeTest {
 
         try {
             parser.parseMark("mark 2 3");
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             assertEquals("Incorrect number of params for mark/unmark", de.getMessage());
         }
 
         try {
             parser.parseMark("mark");
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             assertEquals("Incorrect number of params for mark/unmark", de.getMessage());
         }
 
@@ -35,7 +35,7 @@ public class DukeTest {
             String[] test = parser.parseMark("mark 2");
             assertEquals(test[0], "mark");
             assertEquals(test[1], "2");
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             ui.showError(de);
         }
     }
@@ -53,13 +53,13 @@ public class DukeTest {
 
         try {
             tasks.deleteItem(test1);
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             assertEquals("Index does not exist!", de.getMessage());
         }
 
         try {
             tasks.deleteItem(test2);
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             assertEquals(1, tasks.get().size());
         }
     }

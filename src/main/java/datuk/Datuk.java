@@ -171,9 +171,9 @@ public class Datuk extends Application {
             } else if (cmd.equals("find")) {
                 out = tasks.findItem(parser.parseFind(text));
             } else {
-                throw new DukeException("Your input is invalid!");
+                throw new DatukException("Your input is invalid!");
             }
-        } catch (DukeException de) {
+        } catch (DatukException de) {
             out = ui.showError(de);
         } catch (Exception e) {
             throw new RuntimeException(e);

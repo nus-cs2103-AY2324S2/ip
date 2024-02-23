@@ -36,21 +36,21 @@ public class Parser {
      *
      * @param cmd the full instruction.
      * @return an array of strings separated by function and index.
-     * @throws DukeException when given wrong number of parameters.
+     * @throws DatukException when given wrong number of parameters.
      */
-    public String[] parseDelete(String cmd) throws DukeException {
+    public String[] parseDelete(String cmd) throws DatukException {
         String[] str = cmd.split(" ");
 
         if (str.length < 2) {
-            throw new DukeException("Missing params for delete!");
+            throw new DatukException("Missing params for delete!");
         } else if (str.length > 2) {
-            throw new DukeException("Too many params for delete!");
+            throw new DatukException("Too many params for delete!");
         }
 
         try {
             Integer.parseInt(str[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid number given.");
+            throw new DatukException("Invalid number given.");
         }
 
         return str;
@@ -63,19 +63,19 @@ public class Parser {
      *
      * @param cmd the mark/unmark command.
      * @return an array of strings separated by function and index.
-     * @throws DukeException when given incorrect parameter type or incorrect number of parameters.
+     * @throws DatukException when given incorrect parameter type or incorrect number of parameters.
      */
-    public String[] parseMark(String cmd) throws DukeException {
+    public String[] parseMark(String cmd) throws DatukException {
         String[] str = cmd.split(" ");
 
         if (str.length != 2) {
-            throw new DukeException("Incorrect number of params for mark/unmark");
+            throw new DatukException("Incorrect number of params for mark/unmark");
         }
 
         try {
             Integer.parseInt(str[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid number given.");
+            throw new DatukException("Invalid number given.");
         }
 
         return str;
@@ -88,9 +88,9 @@ public class Parser {
      *
      * @param cmd add command.
      * @return an array of strings separated by function and parameters.
-     * @throws DukeException when given incorrect number of parameters.
+     * @throws DatukException when given incorrect number of parameters.
      */
-    public String[] parseAdd(String cmd) throws DukeException {
+    public String[] parseAdd(String cmd) throws DatukException {
         String[] str = cmd.split(" ", 2);
 
         if (str[0].equals("todo")) {
@@ -103,27 +103,27 @@ public class Parser {
 
     }
 
-    private String[] parseTodo(String[] str) throws DukeException {
+    private String[] parseTodo(String[] str) throws DatukException {
         String desc;
         if (str.length != 2) {
-            throw new DukeException("Missing params for todo!");
+            throw new DatukException("Missing params for todo!");
         }
         desc = str[1].replaceAll("\\s", "");
         return new String[] { str[0], desc };
     }
 
-    private String[] parseDeadline(String[] str) throws DukeException {
+    private String[] parseDeadline(String[] str) throws DatukException {
         String desc;
         LocalDate by;
 
         if (str.length != 2) {
-            throw new DukeException("Missing params for deadline!");
+            throw new DatukException("Missing params for deadline!");
         }
 
         String[] temp = str[1].split("/by");
 
         if (temp.length != 2) {
-            throw new DukeException("Missing deadline for deadline!");
+            throw new DatukException("Missing deadline for deadline!");
         }
 
         desc = temp[0].replaceAll("\\s", "");
@@ -131,17 +131,17 @@ public class Parser {
         return new String[] { str[0], desc, by.toString() };
     }
 
-    private String[] parseEvent(String[] str) throws DukeException {
+    private String[] parseEvent(String[] str) throws DatukException {
         String desc, from, to;
 
         if (str.length != 2) {
-            throw new DukeException("Missing params for event!");
+            throw new DatukException("Missing params for event!");
         }
 
         String[] temp = str[1].split("/from");
 
         if (temp.length != 2) {
-            throw new DukeException("Missing [from] and [to] for event!");
+            throw new DatukException("Missing [from] and [to] for event!");
         }
 
         desc = str[1].split("/from")[0].replaceAll("\\s", "");
@@ -149,7 +149,7 @@ public class Parser {
         String[] temp2 = str[1].split("/from")[1].split("/to");
 
         if (temp2.length != 2) {
-            throw new DukeException("Missing [to] for event!");
+            throw new DatukException("Missing [to] for event!");
         }
 
         from = temp2[0].replaceAll("\\s", "");
@@ -165,13 +165,13 @@ public class Parser {
      *
      * @param cmd find command.
      * @return str an array of strings separated by find and its keyword.
-     * @throws DukeException when given incorrect number of parameters.
+     * @throws DatukException when given incorrect number of parameters.
      */
-    public String[] parseFind(String cmd) throws DukeException {
+    public String[] parseFind(String cmd) throws DatukException {
         String[] str = cmd.split(" ", 2);
 
         if (str.length != 2) {
-            throw new DukeException("Missing params for find");
+            throw new DatukException("Missing params for find");
         }
 
         return str;
@@ -184,15 +184,15 @@ public class Parser {
      *
      * @param str A string that might be a date.
      * @return a Local date Object.
-     * @throws DukeException when the string format is not a valid date.
+     * @throws DatukException when the string format is not a valid date.
      */
-    public LocalDate validDate(String str) throws DukeException {
+    public LocalDate validDate(String str) throws DatukException {
         LocalDate ld;
 
         try {
             ld = LocalDate.parse(str);
         } catch (DateTimeParseException dt) {
-            throw new DukeException("Invalid date format. Use yyyy-MM-dd format.");
+            throw new DatukException("Invalid date format. Use yyyy-MM-dd format.");
         }
 
         return ld;
