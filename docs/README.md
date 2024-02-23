@@ -261,7 +261,7 @@ OK, I've marked this task as not done yet:
 
 ## 10) Snooze : `snooze`
 
-Edit the deadline of deadline tasks and event tasks.
+Edit the deadline of deadline tasks and end date of event tasks.
 
 ### Command:
 
