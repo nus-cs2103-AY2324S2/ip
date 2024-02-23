@@ -95,7 +95,7 @@ public class Luke extends Application {
     }
 
     /**
-     * Main method to run the program.
+     * Runs the program in the main method.
      *
      * @param args The arguments passed in.
      * @throws LukeException If an error occurs.

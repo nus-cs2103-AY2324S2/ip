@@ -64,29 +64,21 @@ public class Storage {
 
                 if (type.equals("T")) {
                     Task task = new Todo(description);
-                    if (markOrUnmark.equals("X")) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
+                    tasks.add(handleMarkOrUnmark(task, markOrUnmark));
+
                 } else if (type.equals("D")) {
                     String by = parts[3];
                     Task task = new Deadline(description, by);
-                    if (markOrUnmark.equals("X")) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
+                    tasks.add(handleMarkOrUnmark(task, markOrUnmark));
+
                 } else if (type.equals("E")) {
                     String from = parts[3];
                     String to = parts[4];
                     Task task = new Event(description, from, to);
-                    if (markOrUnmark.equals("X")) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
+                    tasks.add(handleMarkOrUnmark(task, markOrUnmark));
+
                 }
-
             }
-
         } catch (FileNotFoundException e) {
             throw new FileException("Sorry! File not found! :'(");
 
@@ -98,8 +90,14 @@ public class Storage {
                     + "yyyy-MM-dd\nYou can also enter the time in 24-hour format such as HH[:mm] after the date");
 
         }
-
         return tasks;
+    }
+
+    private Task handleMarkOrUnmark(Task task, String markOrUnmark) {
+        if (markOrUnmark.equals("X")) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     /**
