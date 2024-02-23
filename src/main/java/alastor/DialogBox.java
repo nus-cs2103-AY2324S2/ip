@@ -7,12 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -37,6 +39,13 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        Circle clip = new Circle();
+        int radius = Integer.min((int) displayPicture.getFitWidth(), (int) displayPicture.getFitHeight()) / 2;
+        clip.setRadius(radius);
+        clip.setCenterX(radius);
+        clip.setCenterY(radius);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -50,11 +59,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #82141b; -fx-background-radius: 10px; -fx-padding: 10px;");
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #ec2151; -fx-background-radius: 10px; -fx-padding: 10px;");
         db.flip();
         return db;
     }
