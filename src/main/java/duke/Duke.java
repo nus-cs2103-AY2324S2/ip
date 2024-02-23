@@ -70,22 +70,30 @@ public class Duke {
                             storage.saveToFile(tasks.getTasks());
                         } else if (command.equals("todo")) {
                             Task task = new ToDo(fullCommand[1]);
+                            int initialSize = tasks.getSize();
                             tasks.addTask(task);
+                            assert tasks.getSize() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
                             System.out.println(ui.showTaskWithNum(" Got it. I've added this task:\n  ", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else if (command.equals("deadline")) {
                             Task task = new Deadline(fullCommand[1]);
+                            int initialSize = tasks.getSize();
                             tasks.addTask(task);
+                            assert tasks.getSize() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
                             System.out.println(ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else if (command.equals("event")) {
                             Task task = new Event(fullCommand[1]);
+                            int initialSize = tasks.getSize();
                             tasks.addTask(task);
+                            assert tasks.getSize() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
                             System.out.println(ui.showTaskWithNum("Got it. I've added this task:\n", task, tasks));
                             storage.saveToFile(tasks.getTasks()); // Save after adding new task
                         } else {
+                            int initialSize = tasks.getSize();
                             int deleteIndex = Integer.parseInt(fullCommand[1]) - 1;
                             Task deletedTask = tasks.deleteTask(deleteIndex);
+                            assert tasks.getSize() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
                             String msg = " Noted. I've removed this task:\n";
                             System.out.println(ui.showTaskWithNum(msg, deletedTask, tasks));
 
