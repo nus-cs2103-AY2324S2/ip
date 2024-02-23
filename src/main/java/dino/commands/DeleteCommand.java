@@ -1,8 +1,8 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
-import duke.tasks.Task;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
+import dino.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +26,9 @@ public class DeleteCommand extends Command {
      * @param tasks A TaskList object that contains a list of tasks.
      * @return List of Strings messages which will be printed to user later.
      */
-    public List<String> execute(TaskList tasks) throws DukeException {
+    public List<String> execute(TaskList tasks) throws DinoException {
         if (details.length() < 1) {
-            throw new DukeException("Please enter the tasks number that you want to delete: ex. delete 2");
+            throw new DinoException("Please enter the tasks number that you want to delete: ex. delete 2");
         }
         try {
             int index = Integer.parseInt(details) - 1;
@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             tasks.remove(index);
             messages.add("Now you have " + tasks.size() + " tasks in the list.");
         } catch(Exception e) {
-            throw new DukeException("Please enter the valid tasks number");
+            throw new DinoException("Please enter the valid tasks number");
         }
         return messages;
     }

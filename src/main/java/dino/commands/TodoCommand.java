@@ -1,8 +1,8 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
-import duke.tasks.Todo;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
+import dino.tasks.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +26,9 @@ public class TodoCommand extends Command {
      * @param tasks A TaskList object that represents a list of tasks.
      * @return List of Strings messages which will be printed to user later.
      */
-    public List<String> execute(TaskList tasks) throws DukeException {
+    public List<String> execute(TaskList tasks) throws DinoException {
         if (details.isEmpty()) {
-            throw new DukeException("Please enter tasks description");
+            throw new DinoException("Please enter tasks description");
         }
         tasks.add(new Todo(details));
         messages.add("Got it. I've added this tasks:");

@@ -1,6 +1,6 @@
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
-import duke.commands.DeadlineCommand;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
+import dino.commands.DeadlineCommand;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -28,14 +28,14 @@ public class DeadlineCommandTest {
     public void execute_invalidFormat_exceptionThrown() {
         DeadlineCommand deadlineCommand = new DeadlineCommand("Finish homework by 07/02/2024 1800");
         TaskList tasks = new TaskList();
-        assertThrows(DukeException.class, () -> deadlineCommand.execute(tasks));
+        assertThrows(DinoException.class, () -> deadlineCommand.execute(tasks));
     }
 
     @Test
     public void execute_invalidDateTimeFormat_exceptionThrown() {
         DeadlineCommand deadlineCommand = new DeadlineCommand("Finish homework /by 07-02-2024 1800");
         TaskList tasks = new TaskList();
-        assertThrows(DukeException.class, () -> deadlineCommand.execute(tasks));
+        assertThrows(DinoException.class, () -> deadlineCommand.execute(tasks));
     }
 
 }

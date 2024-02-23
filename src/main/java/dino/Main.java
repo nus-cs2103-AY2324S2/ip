@@ -1,4 +1,4 @@
-package duke;
+package dino;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final Dino dino = new Dino();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<duke.MainWindow>getController().setDuke(duke);
+            fxmlLoader.<dino.MainWindow>getController().setDuke(dino);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

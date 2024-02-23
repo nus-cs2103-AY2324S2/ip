@@ -1,7 +1,7 @@
-package duke.commands;
+package dino.commands;
 
-import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
+import dino.DinoException.DinoException;
+import dino.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
-    public List<String> execute(TaskList tasks) throws DukeException {
+    public List<String> execute(TaskList tasks) throws DinoException {
         int order = 1;
         messages.add("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {

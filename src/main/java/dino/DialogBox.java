@@ -1,4 +1,4 @@
-package duke;
+package dino;
 
 import java.io.IOException;
 import java.util.Collections;
