@@ -21,7 +21,7 @@ Blu is a desktop application for managing tasks, optimized for use via a Command
 3. Copy the file to the directory you want to use as the *home folder* for your Blu application.
 4. Open a command terminal, `cd` into the directory where `blu.jar` is in, and use the `java -jar blu.jar` command to run the application.
 
-> Blu will prompt you to select a CSV file to store the task list, Blu will create `./data/data.csv` if no file is selected.
+> **NOTE** Blu will prompt you to select a CSV file to store the task list. If no file is selected, Blu will create `./data/data.csv`.
 
 5. After a storage file has been selected, A GUI similar to the below should appear in a few seconds.
 
@@ -109,7 +109,7 @@ Exits the program.
 Format: `bye`
 
 ## Task Storage Format
-Tasks are saved automatically as CSV file, specified by the user at the start of the program. By default, Blu will create `[JAR file location]/data/data.csv` if not file is chosen.
+Tasks are saved automatically as CSV file, specified by the user at the start of the program. By default, Blu will create `[JAR file location]/data/data.csv` if no file is chosen.
 ### CSV format
 ```
 Task_Type,Completed,Task_Title
