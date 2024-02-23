@@ -1,24 +1,155 @@
-# Duke project template
+# Wis User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![UI Image](https://0-yibai.github.io/ip/Ui.png)
 
-## Setting up in Intellij
+Wis is a Command-Line-based task manager. You can use it to manage tasks todo, deadlines and events.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Tasks added will be saved automatically even after closing the app. You
+will not lose data by restarting out app.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+To use Wis chatbot, download `Wis.jar` from our lastest github release,
+and type the following line in terminal at the directory containing
+`wis.jar` to start the app:
+```
+java -jar wis.jar
+```
+
+
+# Supported Commands
+
+## Adding todos
+
+You can add a todo-type task to your task list.
+
+Execute by keying in: `todo <task_description>`
+
+Example: `todo buy some fruits`
+
+```
+    Got it. I've added this task:
+
+       [T][ ] buy some fruits
+     Now you have 1 tasks in the list.
+```
+
+## Adding deadlines
+
+You can add a deadline-type task to your task list.
+
+Execute by keying in: `deadline <task_description> /by <date_and_time>`
+`<date_and_time>` needs to be in this standard format: `YYYY-MM-DD HH:MM`
+
+Example: `deadline CS2103T quiz /by 2024-02-27 23:59`
+
+```
+    Got it. I've added this task:
+
+       [D][ ] CS2103T quiz (by: FEB 27 2024, 23:59)
+     Now you have 2 tasks in the list.
+```
+
+## Adding events
+
+You can add an event-type task to your task list.
+
+Execute by keying in: `event <task_description> /from <date_and_time> /to <date_and_time>`
+`<date_and_time>` needs to be in this standard format: `YYYY-MM-DD HH:MM`
+
+Example: `event hackathon /from 2024-02-28 09:00 /to 2024-03-01 16:00`
+
+```
+    Got it. I've added this task:
+
+       [E][ ] hackathon (from: FEB 28 2024, 09:00 to: MAR 1 2024, 16:00)
+     Now you have 3 tasks in the list.
+```
+
+## Listing tasks
+
+You can list all tasks added.
+
+Each task is displayed in the following form:
+`<index>.[task_type][done?]<task_description> <optional_and_time>`
+
+Execute by keying in: `list`
+
+```
+    Here are the tasks in your list:
+     1.[T][ ] buy some fruits
+     2.[T][ ] buy some fruits
+     3.[D][ ] CS2103T quiz (by: FEB 27 2024, 23:59)
+```
+
+## Deleting tasks
+
+You can delete a task specified by an index in the list.
+
+Execute by keying in: `delete <task_index>`
+
+Example: `delete 2`
+
+```
+     Noted. I've removed this task:
+       [T][ ] buy some fruits
+     Now you have 2 tasks in the list.
+```
+
+## Marking tasks as done
+
+You can mark a task as done.
+
+Execute by keying in: `mark <task_index>`
+
+Example: `mark 2`
+
+```
+     Nice! I've marked this task as done:
+       [D][X] CS2103T quiz (by: FEB 27 2024, 23:59)
+
+```
+
+## Unmarking tasks
+
+You can unmark a task.
+
+Execute by keying in: `unmark <task_index>`
+
+Example: `unmark 2`
+
+```
+     OK, I've marked this task as not done yet:
+       [D][ ] CS2103T quiz (by: FEB 27 2024, 23:59)
+```
+
+## Search for tasks by keyword
+
+You can search for tasks matching some specified keyword
+or part of a keyword.
+
+Execute by keying in: `find <pattern>`
+
+Example: `find some`
+
+```
+     Here are the matching tasks in your list:
+       1. [T][ ] buy some fruits
+```
+
+## Undo the last action
+
+You can undo the last storage-changing action. Non-storage-changing
+actions are simply ignored. Our app will trace back to find the most
+recent storage-changing action.
+
+The following commands are considered storage-changing actions:
+`todo`, `deadline`, `event`, `mark`, `unmark`, `delete`.
+
+Note that `undo` itself is not considered a storage-changing action.
+
+Example: `undo`
+
+```
+     Undo unmark successful.
+```
+
+
