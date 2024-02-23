@@ -5,16 +5,31 @@ import java.time.LocalTime;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Manages the conversion of date and time inputs from the user.
+ */
 public class TimeManager {
     public TimeManager() {
     }
 
+    /**
+     * Converts the date into a string to be displayed to the user.
+     *
+     * @param date The LocalDate recorded in the Task object.
+     * @return The date in dd MMM yyyy format.
+     */
     public String formatDate(LocalDate date) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String formattedDate = date.format(outputFormatter);
         return formattedDate;
     }
 
+    /**
+     * Converts the date from a string input by the user to be parsed into a LocalDate.
+     *
+     * @param date The date string from the user.
+     * @return The LocalDate parsed.
+     */
     public LocalDate convertDate(String date) {
         char[] splitDate = date.toCharArray();
         StringBuilder converted = new StringBuilder();
@@ -37,12 +52,24 @@ public class TimeManager {
         return LocalDate.parse(converted);
     }
 
+    /**
+     * Converts the time into a string to be displayed to the user.
+     *
+     * @param time The LocalTime recorded in the Task object.
+     * @return The time in h:mm a format.
+     */
     public String formatTime(LocalTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
         String formattedTime = time.format(formatter);
         return formattedTime;
     }
 
+    /**
+     * Converts the time from a string input by the user to be parsed into a LocalTime.
+     *
+     * @param twentyFourHrTime The date string from the user.
+     * @return The LocalTime parsed.
+     */
     public LocalTime convertTime(String twentyFourHrTime) {
         char[] splitTime = twentyFourHrTime.toCharArray();
         StringBuilder converted = new StringBuilder();
