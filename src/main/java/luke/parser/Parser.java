@@ -37,138 +37,60 @@ public class Parser {
      * @param ui The user interface.
      * @param storage The storage of the tasks.
      */
-    @SuppressWarnings("checkstyle:WhitespaceAround")
     public String parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
             return ui.goodbye();
         } else if (this.input.equals("list")) {
             return ui.printList(list);
-        } else if (this.input.contains("find")) {
+        } else if (this.input.startsWith("find")) {
             try {
-                if (input.equals("find")) {
+                if (input.equals("find") || input.equals("find ")) {
                     throw new LukeException("Hold up!! There must be a keyword to find!\n"
                             + "Please enter a keyword after find.");
                 }
-
-                // 5 is the index after "find ", so starts from index 5
-                String keyword = input.substring(5);
-                TaskList foundList = list.find(keyword);
-                return ui.printTaskFound(foundList);
-
+                return findCommand(list, ui);
             } catch (LukeException e) {
                 return ui.getErrorMessage(e.getMessage());
             }
-
         } else if (this.input.contains("mark")) {
             try {
-                if (input.equals("mark") || input.equals("unmark")) {
+                if (input.equals("mark") || input.equals("unmark")
+                        || input.equals("mark ") || input.equals("unmark ")) {
                     throw new LukeException("Hold up!! There must be a task to " + input + "!\n"
                             + "Please enter an index after " + input + ".");
                 }
-
-                try {
-                    String returnString = "";
-                    String[] instruction = input.split(" ");
-                    String markOrUnmark = instruction[0];
-
-                    if (!markOrUnmark.equals("mark") && !markOrUnmark.equals("unmark")) {
-                        throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
-                    }
-
-                    int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
-
-                    if (index >= list.size()) {
-                        throw new LukeException("Hold up!! There is no such task in the list.\n"
-                                + "Please enter a valid index after " + input.split(" ")[0] + ".");
-                    }
-
-                    if (markOrUnmark.equals("mark")) {
-                        list.get(index).markAsDone();
-                        returnString = ui.printTaskMarked(list.get(index));
-
-                    } else if (markOrUnmark.equals("unmark")) {
-                        list.get(index).markAsUndone();
-                        returnString = ui.printTaskMarked(list.get(index));
-
-                    } else {
-                        throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
-                    }
-
-                    storage.writeTask(list);
-                    return returnString;
-
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    throw new LukeException("Hold up!! Please enter a valid index after "
-                            + input.split(" ")[0] + ".");
-                } catch (FileException e) {
-                    return ui.getErrorMessage(e.getMessage());
-                }
+                return markCommand(list, storage, ui);
 
             } catch (LukeException e) {
                 return ui.getErrorMessage(e.getMessage());
             }
-        } else if (input.contains("delete")) {
+        } else if (input.startsWith("delete")) {
             try {
-                if (input.equals("delete")) {
+                if (input.equals("delete") || input.equals("delete ")) {
                     throw new LukeException("Hold up!! There must be a task to delete!\n"
                             + "Please enter an index after " + input + ".");
                 }
-
-                try {
-                    String returnString = "";
-                    String[] instruction = input.split(" ");
-                    String delete = instruction[0];
-
-                    if (!delete.equals("delete")) {
-                        throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
-                    }
-
-                    int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
-
-                    if (index >= list.size()) {
-                        throw new LukeException("Hold up!! There is no such task in the list.\n"
-                                + "Please enter a valid index after delete.");
-                    }
-
-                    Task removedTask = list.get(index);
-                    list.remove(index);
-                    returnString = ui.printTaskDeleted(removedTask, list.size());
-                    storage.writeTask(list);
-                    return returnString;
-
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    throw new LukeException("Hold up!! Please enter a valid index after delete.");
-                } catch (FileException e) {
-                    return ui.getErrorMessage(e.getMessage());
-                }
+                return deleteCommand(list, storage, ui);
 
             } catch (LukeException e) {
                 return ui.getErrorMessage(e.getMessage());
             }
-
         } else {
             try {
-                if (input.equals("todo") || input.equals("deadline") || input.equals("event")) {
+                if (input.equals("todo") || input.equals("deadline") || input.equals("event")
+                        || input.equals("todo ") || input.equals("deadline ") || input.equals("event ")) {
                     throw new LukeException("Hold up!! The description of a " + input + " cannot be empty.\n"
                             + "Please enter a description after your " + input + ".");
                 }
-
                 String[] instruction = input.split(" ");
                 String type = instruction[0];
 
                 if (type.equals("todo")) {
-                    // 5 is the index after "todo ", so starts from index 5
-                    String description = input.substring(5);
-                    list.add(new Todo(description));
+                    list.add(todoCommand());
 
                 } else if (type.equals("deadline")) {
                     try {
-                        // 9 is the index after "deadline ", so starts from index 9
-                        // -1 to remove the space before "/by"
-                        String description = input.substring(9, input.indexOf("/by") - 1);
-                        // +4 to remove the "/by " and start from the index after "/by "
-                        String by = input.substring(input.indexOf("/by") + 4);
-                        list.add(new Deadline(description, by));
+                        list.add(deadlineCommand());
 
                     } catch (StringIndexOutOfBoundsException e) {
                         throw new TaskException("Hold up!! The description and /by of a deadline cannot be empty.\n"
@@ -177,15 +99,7 @@ public class Parser {
 
                 } else if (type.equals("event")) {
                     try {
-                        // 6 is the index after "event ", so starts from index 6
-                        // -1 to remove the space before "/from"
-                        String description = input.substring(6, input.indexOf("/from") - 1);
-                        // +6 to remove the "/from " and start from the index after "/from "
-                        // -1 to remove the space before "/to"
-                        String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
-                        // +4 to remove the "/to " and start from the index after "/to "
-                        String to = input.substring(input.indexOf("/to") + 4);
-                        list.add(new Event(description, from, to));
+                        list.add(eventCommand());
                     } catch (StringIndexOutOfBoundsException e) {
                         throw new TaskException("Hold up!! The description, /from and /to of an event "
                                 + "cannot be empty.\n"
@@ -207,6 +121,107 @@ public class Parser {
                         + "HH[:MM] after the date");
             }
         }
+    }
+
+    private String findCommand(TaskList list, Ui ui) {
+        // 5 is the index after "find ", so starts from index 5
+        String keyword = input.substring(5);
+        TaskList foundList = list.find(keyword);
+        return ui.printTaskFound(foundList);
+    }
+
+    private String markCommand(TaskList list, Storage storage, Ui ui) throws LukeException {
+        try {
+            String returnString = "";
+            String[] instruction = input.split(" ");
+            String markOrUnmark = instruction[0];
+
+            if (!markOrUnmark.equals("mark") && !markOrUnmark.equals("unmark")) {
+                throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
+            }
+
+            int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
+
+            if (index >= list.size()) {
+                throw new LukeException("Hold up!! There is no such task in the list.\n"
+                        + "Please enter a valid index after " + input.split(" ")[0] + ".");
+            }
+
+            if (markOrUnmark.equals("mark")) {
+                list.get(index).markAsDone();
+                returnString = ui.printTaskMarked(list.get(index));
+
+            } else {
+                list.get(index).markAsUndone();
+                returnString = ui.printTaskMarked(list.get(index));
+
+            }
+
+            storage.writeTask(list);
+            return returnString;
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new LukeException("Hold up!! Please enter a valid index after "
+                    + input.split(" ")[0] + ".");
+        } catch (FileException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+    }
+
+    private String deleteCommand(TaskList list, Storage storage, Ui ui) throws LukeException {
+        try {
+            String returnString = "";
+            String[] instruction = input.split(" ");
+            String delete = instruction[0];
+
+            if (!delete.equals("delete")) {
+                throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
+            }
+
+            int index = Integer.parseInt(instruction[1]) - 1; // array is 0-indexed
+
+            if (index >= list.size()) {
+                throw new LukeException("Hold up!! There is no such task in the list.\n"
+                        + "Please enter a valid index after delete.");
+            }
+
+            Task removedTask = list.get(index);
+            list.remove(index);
+            returnString = ui.printTaskDeleted(removedTask, list.size());
+            storage.writeTask(list);
+            return returnString;
+
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new LukeException("Hold up!! Please enter a valid index after delete.");
+        } catch (FileException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+    }
+
+    private Todo todoCommand() {
+        // 5 is the index after "todo ", so starts from index 5
+        String description = input.substring(5);
+        return new Todo(description);
+    }
+
+    private Deadline deadlineCommand() throws DateException {
+        // 9 is the index after "deadline ", so starts from index 9
+        // -1 to remove the space before "/by"
+        String description = input.substring(9, input.indexOf("/by") - 1);
+        // +4 to remove the "/by " and start from the index after "/by "
+        String by = input.substring(input.indexOf("/by") + 4);
+        return new Deadline(description, by);
+    }
+
+    private Event eventCommand() throws DateException {
+        // 6 is the index after "event ", so starts from index 6
+        // -1 to remove the space before "/from"
+        String description = input.substring(6, input.indexOf("/from") - 1);
+        // +6 to remove the "/from " and start from the index after "/from "
+        // -1 to remove the space before "/to"
+        String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+        // +4 to remove the "/to " and start from the index after "/to "
+        String to = input.substring(input.indexOf("/to") + 4);
+        return new Event(description, from, to);
     }
 
     public void setInput(String input) {

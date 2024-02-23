@@ -9,7 +9,6 @@ import luke.task.TaskList;
  * Represents the user interface of the application.
  */
 public class Ui {
-    private static final String LINE = "_________________________________________________________";
     private Scanner sc;
 
     /**
@@ -25,14 +24,14 @@ public class Ui {
      */
     public String welcome() {
 
-        return LINE + "\nHello! I'm Luke!\nWhat can I do for you?\n" + LINE;
+        return "\nHello! I'm Luke!\nWhat can I do for you?\n";
     }
 
     /**
      * Prints the goodbye message when the application exits.
      */
     public String goodbye() {
-        return LINE + "\nBye! Hope to see you again soon!\n" + LINE;
+        return "\nBye! Hope to see you again soon!\n";
 
     }
 
@@ -42,7 +41,7 @@ public class Ui {
      * @param message The error message to be printed.
      */
     public String getErrorMessage(String message) {
-        return LINE + "\n" + message + "\n" + LINE;
+        return "\n" + message + "\n";
 
     }
 
@@ -53,7 +52,7 @@ public class Ui {
      */
     public String printList(TaskList tasks) {
         StringBuilder listString = new StringBuilder();
-        listString = new StringBuilder(LINE + "\nHere are the tasks in your list:\n");
+        listString = new StringBuilder("\nHere are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
@@ -62,7 +61,6 @@ public class Ui {
 
             }
         }
-        listString.append(LINE);
         return listString.toString();
     }
 
@@ -79,7 +77,7 @@ public class Ui {
             status = "not done yet:";
         }
 
-        return LINE + "\nNice! I've marked this task as " + status + "\n" + task + "\n" + LINE;
+        return "\nNice! I've marked this task as " + status + "\n" + task + "\n";
 
     }
 
@@ -97,8 +95,8 @@ public class Ui {
             taskStringType = "task";
         }
 
-        return LINE + "\nGot it! I've added this task:\n" + task + "\nNow you have " + size + " "
-                + taskStringType + " in the list.\n" + LINE;
+        return "\nGot it! I've added this task:\n" + task + "\nNow you have " + size + " "
+                + taskStringType + " in the list.\n";
 
     }
 
@@ -116,8 +114,8 @@ public class Ui {
             taskStringType = "task";
         }
 
-        return LINE + "\nNoted! I've removed this task:\n" + task + "\nNow you have " + size + " "
-                + taskStringType + " in the list.\n" + LINE;
+        return "\nNoted! I've removed this task:\n" + task + "\nNow you have " + size + " "
+                + taskStringType + " in the list.\n";
 
     }
 
@@ -139,7 +137,7 @@ public class Ui {
      */
     public String printTaskFound(TaskList tasks) {
         StringBuilder foundString = new StringBuilder();
-        foundString = new StringBuilder(LINE + "\nHere are the matching tasks in your list:\n");
+        foundString = new StringBuilder("\nHere are the matching tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
@@ -147,7 +145,6 @@ public class Ui {
                 foundString.append(taskString).append("\n");
             }
         }
-        foundString.append(LINE);
         return foundString.toString();
 
     }
