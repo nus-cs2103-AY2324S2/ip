@@ -32,6 +32,10 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
         int i = 1;
+
+        if (tasks.isEmpty()) {
+            return "You currently have no tasks!\nPlease add some tasks before viewing them.";
+        }
         for (Task task : tasks) {
             sb.append(i).append(".").append(task.toString()).append("\n");
             i++;
