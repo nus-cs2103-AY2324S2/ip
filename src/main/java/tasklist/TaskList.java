@@ -8,7 +8,7 @@ import tasks.Task;
 
 /**
  * Manages the list of {@link Task tasks}. 
- * Contains methods to add, delete, mark and unmark tasks.
+ * Contains methods to add, delete, mark, unmark and find tasks.
  * Contains method to get task list and number of tasks in task list
  */
 public class TaskList {
