@@ -14,6 +14,9 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList) {
-        setResponse(Response.getListTasksResponse(taskList));
+        String response = taskList.getLength() == 0
+                ? Response.getEmptyListResponse()
+                : Response.getListTasksResponse(taskList);
+        setResponse(response);
     }
 }

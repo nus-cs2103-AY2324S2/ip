@@ -152,8 +152,8 @@ public class TaskList {
     public String toString() {
         StringBuilder displayString = new StringBuilder();
         int count = 1;
-        for (Task t: list) {
-            displayString.append(count).append(". ").append(t.toString()).append("\n");
+        for (Task task: list) {
+            displayString.append(count).append(". ").append(task.toString()).append("\n");
             count++;
         }
         return displayString.toString();

@@ -8,20 +8,27 @@ import tasks.Task;
  */
 public class Response {
     private static final String CHATBOT_NAME = "Chitty";
-    private static final String GREETING_MESSAGE = String.format("Hello! I'm %s\nWhat can I do for you?\n",
-            CHATBOT_NAME);
-    private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!\n";
-    private static final String ADD_TASK = "Got it. I've added this task:\n";
-    private static final String TASK_LENGTH = "Now you have %d tasks in the list.\n";
-    private static final String MARK_TASK = "Nice! I've marked this task as done:\n";
-    private static final String UNMARK_TASK = "OK, I've marked this task as not done yet:\n";
-    private static final String DELETE_TASK = "Noted. I've removed this task:\n";
-    private static final String LIST_TASKS = "Here are the tasks in your list:\n";
-    private static final String FOUND_TASKS = "Here are the matching tasks in your list:\n";
-    private static final String FOUND_NO_TASKS = "I am sorry. There are no tasks that match your query!\n";
-    private static final String INVALID_INPUT = "Invalid input, please double check your input values!\n";
-    private static final String INVALID_COMMAND = "Invalid command, type help to view available commands \n";
-    private static final String HELP = "Welcome to the Chitty Task Manager!\n\n"
+    private static final String GREETING_MESSAGE = String.format("Greetings! I am %s, your digital assistant. Speed 1 "
+            + "Tera-Hertz, Memory 1 Zeta-byte. State your query.\n", CHATBOT_NAME);
+    private static final String GOODBYE_MESSAGE = "No one can destroy me! Hope to see you again soon!\n";
+    private static final String ADD_TASK = "I am Chitty, the ultimate machine! I've added this task:\n";
+    private static final String TASK_LENGTH = "I am programmed to serve and protect. "
+           + "Now you have %d tasks in the list.\n";
+    private static final String MARK_TASK = "Happy Diwali Folks! I've marked this task as done:\n";
+    private static final String UNMARK_TASK = "I am a superhuman robot, I am not a human being. "
+            + "I've marked this task as not done yet:\n";
+    private static final String DELETE_TASK = "The black sheep! I've removed this task:\n";
+    private static final String LIST_TASKS = "I am Chitty, a one-of-a-kind creation! "
+            + "Here are the tasks in your list:\n";
+    private static final String FOUND_TASKS = "Command mode activated. Here are the matching tasks in your list:\n";
+    private static final String FOUND_NO_TASKS = "Task Incomplete. There are no tasks that match your query!\n";
+    private static final String EMPTY_LIST = "My memory is virtually infinite, and my capabilities are boundless."
+            + "Your task list is empty!\n";
+    private static final String INVALID_INPUT = "Task Incomplete. Invalid input, "
+            + "please double check your input values!\n";
+    private static final String INVALID_COMMAND = "Task Incomplete. Invalid command, "
+            + "type 'help' to view available commands \n";
+    private static final String HELP = "I am Chitty, a masterpiece of artificial intelligence!\n\n"
             + "Here are the available commands along with their descriptions and usage:\n\n"
             + "- `todo [description]`: Add a new to-do task.\n"
             + "   Example: `todo Borrow book`\n\n"
@@ -49,7 +56,7 @@ public class Response {
             + "- Replace [start time] and [end time] with the start and end times for the event task.\n"
             + "- Replace [task number] with the corresponding number of the task you want to modify or delete.\n"
             + "- Replace [query] with the keyword you want to search for in your tasks.\n\n"
-            + "Feel free to explore and manage your tasks efficiently!";
+            + "My circuits are designed to outperform any human brain.";
 
     /**
      * Returns a greeting message.
@@ -133,6 +140,13 @@ public class Response {
      */
     public static String getListTasksResponse(TaskList taskList) {
         return LIST_TASKS + taskList;
+    }
+
+    /**
+     * Returns a message stating task list is empty
+     */
+    public static String getEmptyListResponse() {
+        return EMPTY_LIST;
     }
 
     /**
