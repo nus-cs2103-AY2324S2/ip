@@ -53,14 +53,17 @@ public class AddCommand extends Command {
      * @param storageManager The storage manager to save the changes.
      * @return The added task.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) {
+    public String execute(TaskList tasks, StorageManager storageManager) {
         task.setStatus(status);
         tasks.add(task);
         storageManager.save(tasks);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
-        return task;
+        
+        StringBuilder output = new StringBuilder();
+        output.append("Got it. I've added this task:\n");
+        output.append(task).append("\n");
+        output.append(String.format("Now you have %d tasks in the list.\n", tasks.getSize()));
+        
+        return output.toString();
     }
 
     /**

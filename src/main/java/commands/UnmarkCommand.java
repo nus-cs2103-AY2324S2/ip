@@ -30,13 +30,17 @@ public class UnmarkCommand extends Command {
      * @return The task that has been unmarked.
      * @throws CalException if the task number is invalid or if an error occurs.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) throws CalException {
+    public String execute(TaskList tasks, StorageManager storageManager) throws CalException {
         Task t = tasks.unmark(taskNum);
         storageManager.save(tasks);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(t);
-        return t;
+        
+        StringBuilder output = new StringBuilder();
+        output.append("OK, I've marked this task as not done yet:\n");
+        output.append(t).append("\n");
+        
+        return output.toString();
     }
+    
 
     /**
      * Indicates whether the UnmarkCommand is an exit command.

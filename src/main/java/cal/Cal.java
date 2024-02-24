@@ -1,6 +1,8 @@
+package cal;
 import java.util.Scanner;
 
 import commands.Command;
+import exceptions.CalException;
 import parser.Parser;
 import storage.StorageManager;
 import tasklist.TaskList;
@@ -45,6 +47,11 @@ public class Cal {
             }
         }
         sc.close();
+    }
+
+    public String getResponse(String fullCommand) throws CalException {
+        Command c = Parser.parseCommand(fullCommand);
+        return c.execute(tasks, storageManager);
     }
 
     /**

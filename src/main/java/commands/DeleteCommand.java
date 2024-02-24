@@ -27,14 +27,18 @@ public class DeleteCommand extends Command {
      * @param storageManager The storage manager to save the changes.
      * @return The deleted task.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) {
+    public String execute(TaskList tasks, StorageManager storageManager) {
         Task t = tasks.delete(taskNum);
         storageManager.save(tasks);
-        System.out.println("Noted. I've removed this task");
-        System.out.println(t);
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
-        return t;
+        
+        StringBuilder output = new StringBuilder();
+        output.append("Noted. I've removed this task\n");
+        output.append(t).append("\n");
+        output.append(String.format("Now you have %d tasks in the list.\n", tasks.getSize()));
+        
+        return output.toString();
     }
+    
 
     /**
      * Indicates whether the DeleteCommand is an exit command.

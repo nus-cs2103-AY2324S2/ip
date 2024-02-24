@@ -15,18 +15,20 @@ public class ListCommand extends Command {
      * @param storageManager The storage manager (not used in this command).
      * @return Null, as there is no task to return.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) {
+    public String execute(TaskList tasks, StorageManager storageManager) {
+        StringBuilder output = new StringBuilder();
         if (tasks.getSize() == 0) {
-            System.out.println("You currently have no tasks.");
+            output.append("You currently have no tasks.\n");
         }
-        System.out.println("Here is your list of tasks:");
+        output.append("Here is your list of tasks:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             Task t = tasks.getTask(i);
-            String str = String.format("%d. %s", i + 1, t);
-            System.out.println(str);
+            String str = String.format("%d. %s\n", i + 1, t);
+            output.append(str);
         }
-        return null;
+        return output.toString();
     }
+    
 
     /**
      * Indicates whether the ListCommand is an exit command.
