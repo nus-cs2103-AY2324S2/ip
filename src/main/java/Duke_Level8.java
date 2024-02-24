@@ -1,73 +1,27 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke_Level8 {
-    private static final String FILE_PATH = "D:\\Samuel\\NUS\\2324Sem2\\CS2103T\\ip";
+    private static final String file_path = "./duke.txt";
     private List<Task> taskList;
     private Ui ui;
+    private Storage storage;
 
     public Duke_Level8() {
         this.taskList = new ArrayList<>();
         this.ui = new Ui();
+        this.storage = new Storage(file_path);
         loadTasksFromFile();
     }
 
-    private void loadTasksFromFile() {
-        try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split("\\|");
-                    String type = parts[0].trim();
-                    boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
-                    String description = parts[2].trim();
-                    switch (type) {
-                        case "T":
-                            taskList.add(new Todo(description));
-                            break;
-                        case "D":
-                            String by = parts[3].trim();
-                            LocalDate deadlineDate = LocalDate.parse(by);
-                            taskList.add(new Deadline(description, by));
-                            break;
-                        case "E":
-                            String from = parts[3].trim();
-                            String to = parts[4].trim();
-                            // Parse your event date/times if needed
-                            taskList.add(new Event(description, from, to));
-                            break;
-                        default:
-                            System.out.println("Unknown task type: " + type);
-                            break;
-                    }
-                }
-                scanner.close();
-            } else {
-                System.out.println("No existing data file found. Starting with an empty task list.");
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-        }
+    private void saveTasksToFile() {
+        storage.saveTasksToFile(taskList);
     }
 
-    private void saveTasksToFile() {
-        try {
-            FileWriter writer = new FileWriter(FILE_PATH);
-            for (Task task : taskList) {
-                writer.write(task.toFileString() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
+    private void loadTasksFromFile() {
+        taskList = storage.loadTasksFromFile();
     }
 
     public void run() {
@@ -77,7 +31,7 @@ public class Duke_Level8 {
         do {
             input = scanner.nextLine().trim();
             processInput(input);
-            saveTasksToFile(); // Call saveTasksToFile() after processing each input
+            saveTasksToFile(); 
         } while (!input.equals("bye"));
         ui.showGoodbye();
     }
@@ -239,4 +193,3 @@ public class Duke_Level8 {
         duke.run();
     }
 }
-
