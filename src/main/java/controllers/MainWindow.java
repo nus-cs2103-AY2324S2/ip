@@ -7,6 +7,7 @@ import commands.Command;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,8 @@ import utils.Response;
  */
 public class MainWindow extends AnchorPane {
     @FXML
+    private VBox container;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
@@ -25,6 +28,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
 
     private Chitty chitty;
 
@@ -59,9 +63,15 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         Command command = chitty.getCommand(input);
         dialogContainer.getChildren().addAll(
+                getSeparator(),
                 DialogBox.getUserDialog(input, userImage),
+                getSeparator(),
                 DialogBox.getChittyDialog(command.getResponse(), chittyImage)
         );
         userInput.clear();
+    }
+
+    private static Separator getSeparator() {
+        return new Separator();
     }
 }

@@ -45,6 +45,12 @@ public enum CommandType {
     FIND,
 
     /**
+     * Command to provide users with a quick reference guide on the available commands, their descriptions,
+     * and usage examples within the application.
+     */
+    HELP,
+    
+    /**
      * Command to exit the application.
      */
     BYE

@@ -26,3 +26,9 @@
 .image {
    -fx-border-radius: 5;
 }
+
+.separator .line {
+    -fx-background-color: gray;
+    -fx-pref-height: 1;
+    -fx-border-color: null ;
+}

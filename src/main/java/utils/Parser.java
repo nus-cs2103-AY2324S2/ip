@@ -6,6 +6,7 @@ import commands.CommandType;
 import commands.DeleteCommand;
 import commands.ExitCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.UnmarkCommand;
@@ -41,6 +42,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(input[1]));
         case FIND:
             return new FindCommand(input[1]);
+        case HELP:
+            return new HelpCommand();
         default:
             return new ExitCommand();
         }

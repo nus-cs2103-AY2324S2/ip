@@ -20,8 +20,36 @@ public class Response {
     private static final String FOUND_TASKS = "Here are the matching tasks in your list:\n";
     private static final String FOUND_NO_TASKS = "I am sorry. There are no tasks that match your query!\n";
     private static final String INVALID_INPUT = "Invalid input, please double check your input values!\n";
-    private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n"
-            + "todo, deadline, event, list, mark, unmark, delete, bye \n";
+    private static final String INVALID_COMMAND = "Invalid command, type help to view available commands \n";
+    private static final String HELP = "Welcome to the Chitty Task Manager!\n\n"
+            + "Here are the available commands along with their descriptions and usage:\n\n"
+            + "- `todo [description]`: Add a new to-do task.\n"
+            + "   Example: `todo Borrow book`\n\n"
+            + "- `deadline [description] /by [deadline]`: Add a new task with a deadline.\n"
+            + "   Example: `deadline Return book /by Sunday`\n\n"
+            + "- `event [description] /from [start time] /to [end time]`: Add a new event task.\n"
+            + "   Example: `event Project meeting /from Mon 2pm /to 4pm`\n\n"
+            + "- `mark [task number]`: Mark a task as completed.\n"
+            + "   Example: `mark 1`\n\n"
+            + "- `unmark [task number]`: Unmark a completed task.\n"
+            + "   Example: `unmark 1`\n\n"
+            + "- `delete [task number]`: Delete a task.\n"
+            + "   Example: `delete 1`\n\n"
+            + "- `list`: List all tasks.\n"
+            + "   Example: `list`\n\n"
+            + "- `find [query]`: Find a task by searching for a keyword.\n"
+            + "   Example: `find project`\n\n"
+            + "- `bye`: Exit the application.\n"
+            + "   Example: `bye`\n\n"
+            + "- `help`: Display this help message.\n"
+            + "   Example: `help`\n\n"
+            + "Please note:\n"
+            + "- Replace [description] with a brief description of the task.\n"
+            + "- Replace [deadline] with the deadline for the task (e.g., a date or time).\n"
+            + "- Replace [start time] and [end time] with the start and end times for the event task.\n"
+            + "- Replace [task number] with the corresponding number of the task you want to modify or delete.\n"
+            + "- Replace [query] with the keyword you want to search for in your tasks.\n\n"
+            + "Feel free to explore and manage your tasks efficiently!";
 
     /**
      * Returns a greeting message.
@@ -115,5 +143,14 @@ public class Response {
     public static String getFoundTasksResponse(TaskList filteredTaskList) {
         String foundString = filteredTaskList.getLength() > 0 ? FOUND_TASKS : FOUND_NO_TASKS;
         return foundString + filteredTaskList;
+    }
+
+    /**
+     * Retrieves the help message.
+     *
+     * @return The help message.
+     */
+    public static String getHelpMessage() {
+        return HELP;
     }
 }
