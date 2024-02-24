@@ -1,10 +1,13 @@
 package kwuntalk.command;
 
+import java.io.IOException;
+
 import kwuntalk.Storage;
 import kwuntalk.TaskList;
 import kwuntalk.Ui;
 import kwuntalk.exception.InvalidArgumentException;
 import kwuntalk.exception.NoTaskFoundException;
+import kwuntalk.exception.TasksFileException;
 import kwuntalk.task.Task;
 
 
@@ -34,14 +37,16 @@ public class MarkCommand extends Command {
      * @return The reply to the user's input.
      * @throws InvalidArgumentException If command has invalid or missing arguments
      * @throws NoTaskFoundException If the task to be marked can't be found.
+     * @throws TasksFileException If tasks file can't be written to for saving of data into storage.
      */
     @Override
     public String generateReply(TaskList taskList, Ui ui, Storage storage)
-            throws InvalidArgumentException, NoTaskFoundException {
+            throws InvalidArgumentException, NoTaskFoundException, TasksFileException {
         try {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             task.changeMark("MARK");
+            storage.saveTasksFile(taskList);
             return ui.showMarkTask(task);
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -49,6 +54,9 @@ public class MarkCommand extends Command {
 
         } catch (IndexOutOfBoundsException e) {
             throw new NoTaskFoundException(this.arguments);
+
+        } catch (IOException e) {
+            throw new TasksFileException();
         }
     }
 }
