@@ -17,13 +17,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Creates a Storage object to create a storage file to store Tasks
+ * or load storage file if it has already exists,
+ * and write new changes in task list to storage file.
+ */
 public class Storage {
     private final String filePath;
 
+
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param filePath Path of file which stores task list.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns ArrayList of Tasks stored in storage file of filePath.
+
+     * @return ArrayList of stored Tasks.
+     * @throws StorageFileLoadingException If file of filePath does not exist.
+     */
     public ArrayList<Task> load() throws StorageFileLoadingException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         //Solution below inspired by https://www.w3schools.com/java/java_files_read.asp
@@ -42,7 +59,7 @@ public class Storage {
     }
 
     //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
-    public void createFile() {
+    private void createFile() {
         try {
             File storageFile = new File(filePath);
             if (storageFile.createNewFile()) {
@@ -53,6 +70,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes Tasks in TaskList in storage file of filePath.
+
+     * @param tasks Current TaskList.
+     */
     //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
     public void writeFile(TaskList tasks) {
         createFile();
@@ -67,7 +89,7 @@ public class Storage {
         }
     }
 
-    Task creatTask(String existingString) {
+    private Task creatTask(String existingString) {
         char character = existingString.charAt(1);
         boolean isDone = existingString.charAt(4) == 'X';
         if (character == 'T') {

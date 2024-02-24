@@ -4,7 +4,20 @@ import damon.command.*;
 import damon.exceptions.NoDescriptionException;
 import damon.exceptions.WrongInputException;
 
+/**
+ * Creates a Parser object to analysis user's input
+ * and sends the input to corresponding Command object or throw corresponding Exception.
+ */
 public class Parser {
+
+    /**
+     * Returns corresponding command to user's input.
+     *
+     * @param inputString User's input.
+     * @return Corresponding command
+     * @throws NoDescriptionException If there is no description of task in user's input.
+     * @throws WrongInputException If user's input is not understandable.
+     */
     public static Command parse(String inputString) throws NoDescriptionException
             , WrongInputException {
         if (inputString.equals("bye")) {
