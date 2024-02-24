@@ -44,10 +44,9 @@ public class VirtueTaskList {
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         String message = "";
-        message += Virtue.indent(" Got it. I've added this task:\n");
-        message += Virtue.indent("   " + todo + "\n");
-        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
+        message += "Got it. I've added this task:\n";
+        message += "   " + todo + "\n";
+        message += "Now you have " + numTasks + " task" + sOrNone + " in the list.";
         return message;
     }
 
@@ -64,10 +63,9 @@ public class VirtueTaskList {
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         String message = "";
-        message += Virtue.indent(" Got it. I've added this task:\n");
-        message += Virtue.indent("   " + deadline + "\n");
-        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
+        message += "Got it. I've added this task:\n";
+        message += "   " + deadline + "\n";
+        message += "Now you have " + numTasks + " task" + sOrNone + " in the list.";
         return message;
     }
 
@@ -85,10 +83,9 @@ public class VirtueTaskList {
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         String message = "";
-        message += Virtue.indent(" Got it. I've added this task:\n");
-        message += Virtue.indent("   " + event + "\n");
-        message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
+        message += "Got it. I've added this task:\n";
+        message += "   " + event + "\n";
+        message += " Now you have " + numTasks + " task" + sOrNone + " in the list.";
         return message;
     }
 
@@ -102,9 +99,8 @@ public class VirtueTaskList {
         VirtueTask task = getTask(index);
         task.markAsDone();
         String message = "";
-        message += Virtue.indent(" Nice! I've marked this task as done:\n");
-        message += Virtue.indent("   " + task);
-        message = Virtue.sandwich(message);
+        message += "Nice! I've marked this task as done:\n";
+        message += "   " + task;
         return message;
     }
 
@@ -118,9 +114,8 @@ public class VirtueTaskList {
         VirtueTask task = getTask(index);
         task.markAsNotDone();
         String message = "";
-        message += Virtue.indent(" OK, I've marked this task as not done yet:\n");
-        message += Virtue.indent("   " + task);
-        message = Virtue.sandwich(message);
+        message += "OK, I've marked this task as not done yet:\n";
+        message += "   " + task;
         return message;
     }
 
@@ -132,17 +127,16 @@ public class VirtueTaskList {
     protected String printOut() {
         int numOfTasks = tasks.size();
         String message = "";
-        message += Virtue.indent(" Here are the tasks in your list:\n");
+        message += "Here are the tasks in your list:\n";
 
         for (int index = 1; index <= numOfTasks; index++) {
-            message += Virtue.indent(" " + index + "." + tasks.get(index - 1));
+            message += " " + index + "." + tasks.get(index - 1);
 
             if (index < numOfTasks) {
                 message += "\n";
             }
         }
 
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -156,10 +150,9 @@ public class VirtueTaskList {
         VirtueTask deletedTask = tasks.remove(index - 1);
         int numTasks = numTasks();
         String message = "";
-        message += Virtue.indent(" Noted. I've removed this task:\n");
-        message += Virtue.indent("   " + deletedTask + "\n");
-        message += Virtue.indent(" Now you have " + numTasks + " tasks in the list.");
-        message = Virtue.sandwich(message);
+        message += "Noted. I've removed this task:\n";
+        message += "   " + deletedTask + "\n";
+        message += "Now you have " + numTasks + " tasks in the list.";
         return message;
     }
 
@@ -172,27 +165,27 @@ public class VirtueTaskList {
     private String printTasksWithWord(String keyword) {
         int numOfTasks = tasks.size();
         String message = "";
-        message += Virtue.indent(" Here are the matching tasks in your list:\n");
+        message += "Here are the matching tasks in your list:\n";
 
         for (int index = 1; index <= numOfTasks; index++) {
             if (getTask(index).hasKeyword(keyword)) {
-                message += Virtue.indent(" " + index + "." + tasks.get(index - 1));
+                message += " " + index + "." + tasks.get(index - 1);
                 if (index < numOfTasks) {
                     message += "\n";
                 }
             }
         }
 
-        message = Virtue.sandwich(message);
         return message;
     }
 
     /**
-     * Executes the command on this task list.
+     * Executes the command on this task list and
+     * loads the result message into the command.
      *
      * @param command The command to be executed on this task list.
      */
-    public String executeCommand(Command command) {
+    public void applyCommand(Command command) {
         String message;
 
         switch (command.type) {
@@ -221,7 +214,7 @@ public class VirtueTaskList {
             message = printTasksWithWord(command.description);
         }
 
-        return message;
+        command.setResultMessage(message);
     }
 
     /**

@@ -9,9 +9,6 @@ public class Virtue {
     /** The task list to be used by the chatbot. */
     private VirtueTaskList tasks;
 
-    /** A horizontal line. */
-    private static final String HORIZONTAL_LINE = "_".repeat(60);
-
     /** True if chatbot is commanded to exit and false otherwise. */
     public boolean isExit;
 
@@ -22,32 +19,12 @@ public class Virtue {
     }
 
     /**
-     * Adds an indention to the string.
-     *
-     * @param str The string to be indented.
-     * @return The indented string.
-     */
-    protected static String indent(String str) {
-        return "    " + str;
-    }
-
-    /**
-     * Sandwiches a string between two horizontal lines.
-     *
-     * @param str The string to be sandwiched.
-     * @return The sandwiched string.
-     */
-    protected static String sandwich(String str) {
-        return HORIZONTAL_LINE + "\n" + str + "\n" + HORIZONTAL_LINE;
-    }
-
-    /**
      * Greets the user.
      *
      * @return The greeting message.
      */
     public String greet() {
-        return sandwich(indent("Hello! I'm Virtue \n    What can I do for you?"));
+        return "Hello! I'm Virtue\nWhat can I do for you?";
     }
 
     /**
@@ -56,7 +33,7 @@ public class Virtue {
      * @return The goodbye message.
      */
     private String bye() {
-        return sandwich(indent("Bye. Hope to see you again soon!"));
+        return "Bye. Hope to see you again soon!";
     }
 
     /** Runs the chatbot. */
@@ -76,7 +53,7 @@ public class Virtue {
         try {
             currentCommand = new Command(input);
         } catch (VirtueException e) {
-            return sandwich(indent(" " + e.getMessage()));
+            return e.getMessage();
         }
 
         if (currentCommand.isBye()) {
@@ -84,11 +61,11 @@ public class Virtue {
             return bye();
         } else {
             try {
-                String message = tasks.executeCommand(currentCommand);
+                String message = currentCommand.getResultMessage();
                 storage.saveToFile(tasks);
                 return message;
             } catch (IOException e) {
-                return sandwich(indent(" OOPS! An error occurred while taking the inputs: " + e));
+                return "OOPS! An error occurred while taking the inputs: ";
             }
         }
     }
