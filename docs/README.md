@@ -5,16 +5,16 @@
 ### Add todo tasks into your task list
 
 Command: 
-'''
-todo your_task_here
-'''
+"""
+todo YOUR_TASK_HERE
+"""
 
 ### List out all your tasks
 
 Command
-'''
+"""
 list
-'''
+"""
 
 ## Usage
 
