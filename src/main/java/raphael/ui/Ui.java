@@ -29,40 +29,10 @@ public class Ui {
 
     private String savedOutput = "stub";
     /**
-     * Prints the starting line that acts as the upper border of the output.
-     */
-    private static void printStartLine() {
-        System.out.print(Ui.START_LINE);
-    }
-
-    /**
      * Prints the ending line that acts as the lower border of the output.
      */
     private static void printEndLine() {
         System.out.println(Ui.END_LINE);
-    }
-
-    /**
-     * Prints the line indicating that the following output is an error message.
-     */
-    private static void printWarningLine() {
-        System.out.print(Ui.WARNING_LINE);
-    }
-
-    /**
-     * The divider line between outputs.
-     */
-    public void showLine() {
-        System.out.println(Ui.DIVIDER);
-    }
-
-    /**
-     * Prints the given input message.
-     *
-     * @param errorMessage the error message that has to be displayed.
-     */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
     }
 
     /**

@@ -9,7 +9,7 @@ import raphael.task.TaskList;
 import raphael.ui.Ui;
 
 /**
- * The main class of Raphael.
+ * Initializes Raphael
  */
 public class Raphael {
     public static final String LOGO = "\n"
