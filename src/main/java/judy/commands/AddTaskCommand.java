@@ -34,10 +34,10 @@ public class AddTaskCommand extends Command {
      * @param ui The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         taskList.add(this.task);
-        ui.showAddTask(this.task, this.taskList.getSize());
         storage.save(taskList.getTaskList());
+        return ui.showAddTask(this.task, this.taskList.getSize());
     }
 
     /**

@@ -34,10 +34,10 @@ public class MarkTaskCommand extends Command {
      * @param ui      The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         this.task.markAsDone();
         storage.save(this.taskList.getTaskList());
-        ui.showMarkTask(this.task);
+        return ui.showMarkTask(this.task);
     }
 
     /**

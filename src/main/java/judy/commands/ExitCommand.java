@@ -16,8 +16,8 @@ public class ExitCommand extends Command {
      * @param ui      The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
-        ui.showGoodbye();
+    public String execute(Storage storage, Ui ui) {
+        return ui.showGoodbye();
     }
 
     /**

@@ -16,7 +16,7 @@ public abstract class Command {
      * @param storage The storage component responsible for managing data storage.
      * @param ui      The user interface component for interacting with the user.
      */
-    public abstract void execute(Storage storage, Ui ui);
+    public abstract String execute(Storage storage, Ui ui);
 
     /**
      * Indicates whether the execution of this command signals an exit from the application.

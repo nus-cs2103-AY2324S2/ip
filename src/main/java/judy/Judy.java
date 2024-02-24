@@ -3,6 +3,7 @@ package judy;
 import judy.commands.Command;
 import judy.commands.GreetCommand;
 import judy.exceptions.DukeException;
+import judy.javafx.Launcher;
 import judy.parser.Parser;
 import judy.storage.Storage;
 import judy.task.TaskList;
@@ -18,15 +19,14 @@ public class Judy {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
+    private boolean isExit;
 
     /**
-     * A constructor to initialize Judy with a specific file path.
-     *
-     * @param filePath The path of the storage where tasks are stored.
+     * A constructor to initialize Judy with a specific file path
      */
-    public Judy(String filePath) {
+    public Judy() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(FILE_PATH);
 
         // Load tasks from storage if file exists, else create a new file
         if (storage.isFileExists()) {
@@ -67,11 +67,39 @@ public class Judy {
 
     /**
      * The entry point of the Judy application.
-     * Creates an instance of Judy and runs it.
      *
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Judy(FILE_PATH).run();
+        Launcher.main(args);
+    }
+
+    /**
+     * Handle user input by parsing input and executing specific command.
+     *
+     * @param input A string that represent user input.
+     * @return A string that to be response.
+     */
+    public String getResponse(String input) {
+        Command c;
+        String response = null;
+        try {
+            Parser parser = new Parser(input, taskList);
+            c = parser.parse();
+            response = c.execute(storage, ui);
+            isExit = c.isExit();
+        } catch (DukeException e) {
+            response = e.getMessage();
+        }
+        return response;
+    }
+
+    /**
+     * Check if this Judy Application is exit.
+     *
+     * @return boolean indicating whether the app is exit.
+     */
+    public boolean isExit() {
+        return this.isExit;
     }
 }

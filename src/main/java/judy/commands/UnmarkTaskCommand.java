@@ -34,10 +34,10 @@ public class UnmarkTaskCommand extends Command {
      * @param ui      The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         this.task.markAsUndone();
         storage.save(this.taskList.getTaskList());
-        ui.showUnmarkTask(this.task);
+        return ui.showUnmarkTask(this.task);
     }
 
     /**

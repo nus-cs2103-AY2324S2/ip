@@ -26,8 +26,8 @@ public class InvalidCommand extends Command {
      * @param ui      The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
-        ui.showError(errorMessage);
+    public String execute(Storage storage, Ui ui) {
+        return ui.showError(errorMessage);
     }
 
     /**
