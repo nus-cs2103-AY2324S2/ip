@@ -29,6 +29,7 @@ public class Storage {
     public Storage(ArrayList<Task> taskList) {
         this.taskList = taskList;
         createTaskList();
+        loadTaskList();
     }
 
     /**
@@ -36,12 +37,12 @@ public class Storage {
      */
     public void loadTaskList() {
         try {
-            // Clear existing tasks before loading
+            // Clear existing Tasklist before loading the new one
             this.taskList.clear();
 
             // Load tasks from file
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
-
+            assert taskListFromFile != null : "taskListFromFile should not be null";
             // For each task in the file, add it to the taskList
             for (String task : taskListFromFile) {
                 String[] taskParts = task.split(" \\| ", 3);
@@ -50,13 +51,13 @@ public class Storage {
                 taskDescription = taskParts[2];
 
                 switch (taskType) {
-                case "T":
+                case "TODO":
                     handleTodo();
                     break;
-                case "D":
+                case "DEADLINE":
                     handleDeadline();
                     break;
-                case "E":
+                case "EVENT":
                     handleEvent();
                     break;
                 default:

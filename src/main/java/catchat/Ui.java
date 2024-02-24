@@ -1,4 +1,5 @@
 package catchat;
+
 import java.util.Scanner;
 
 /**

@@ -2,6 +2,7 @@ package catchat;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -37,7 +38,6 @@ public class CatChat extends Application {
     public CatChat() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
-        storage.loadTaskList();
         this.tasks = new TaskList(storage, taskList);
         this.parser = new Parser(tasks);
     }
@@ -191,6 +191,8 @@ public class CatChat extends Application {
                 DialogBox.getUserDialog(input, userImg),
                 DialogBox.getDukeDialog(getResponse(input), dukeImg)
         );
+        storage.saveTaskListToFile();
+
         userInput.clear();
     }
 

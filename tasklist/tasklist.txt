@@ -1,3 +1,2 @@
-TODO | not done | newTD
-DEADLINE | done | thisdl (by: 22 Mar 2000)
-EVENT | not done | newevent (from: 22 Mar 2000, to: 22 Mar 2001)
+TODO | not done | another one
+TODO | not done | newnew
