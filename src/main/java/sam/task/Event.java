@@ -4,12 +4,21 @@ import sam.SamException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Constructs an Event task with the specified description and time frame.
+     *
+     * @param description the description of the Event task
+     * @param from the starting time of the Event task
+     * @param to the ending time of the Event task
+     * @throws SamException if there is an issue with the provided parameters
+     */
     public Event(String description, String from, String to) throws SamException {
         super(description);
 

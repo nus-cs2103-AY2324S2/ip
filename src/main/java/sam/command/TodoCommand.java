@@ -6,6 +6,9 @@ import sam.Ui;
 import sam.SamException;
 import sam.task.ToDo;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class TodoCommand extends Command {
     private final String description;
 

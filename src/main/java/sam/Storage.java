@@ -11,12 +11,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a Storage object for file IO.
+ */
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * Initializes the Storage object with the provided file path, which indicates the location
+     * where data will be stored or retrieved.
+     *
+     * @param FILE_PATH the file path used by the Storage object
+     */
     public Storage(String FILE_PATH) {
         this.FILE_PATH = FILE_PATH;
     }
+
+    /**
+     * Loads tasks from the specified file.
+     *
+     * Reads task from the file indicated by the FILE_PATH attribute and returns them as an ArrayList.
+     * If an IOException occurs during file reading, or if there's an issue with the file format or content,
+     * a SamException is thrown.
+     *
+     * @return an ArrayList containing the tasks loaded from the file
+     * @throws SamException if an error occurs during task loading
+     * @throws IOException if an I/O error occurs while reading from the file
+     */
     public ArrayList<Task> load() throws SamException, IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -32,6 +55,15 @@ public class Storage {
         reader.close();
         return taskList;
     }
+
+    /**
+     * Saves the given list of tasks to a file.
+     *
+     * Writes the provided TaskList to the file indicated by the FILE_PATH attribute.
+     * If an IOException occurs during file writing, an error message is displayed,
+     *
+     * @param tasks the TaskList to be saved to the file
+     */
     public void save(TaskList tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
@@ -46,6 +78,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a Task object from the provided line of text.
+     *
+     * Parses the given line of text to extract task details and constructs a Task object accordingly.
+     * If the line format is invalid or incomplete, a SamException is thrown.
+     *
+     * @param line the line of text containing task details
+     * @return the Task object created from the line of text
+     * @throws SamException if an error occurs while creating the Task object due to invalid or incomplete data
+     */
     private static Task createTaskFromLine(String line) throws SamException {
         String[] parts = line.split(" \\| ");
 

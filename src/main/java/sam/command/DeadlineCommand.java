@@ -6,6 +6,9 @@ import sam.Ui;
 import sam.SamException;
 import sam.task.Deadline;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

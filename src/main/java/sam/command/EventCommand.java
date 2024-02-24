@@ -6,6 +6,9 @@ import sam.Ui;
 import sam.SamException;
 import sam.task.Event;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
     private final String description;
     private final String from;
