@@ -52,62 +52,50 @@ public class Floofy extends Application {
      * @return The result of the command.
      */
     public String runCommand(String userInput) {
-        String result = "";
         try {
             String[] input = parser.parse(userInput);
             switch (input[0]) {
             case "mark":
                 int idx = Integer.parseInt(input[1]) - 1;
                 tasks.markTaskAsDone(idx);
-                result = ui.showMarkedTask(this.tasks.getTask(idx));
-                break;
+                return ui.showMarkedTask(this.tasks.getTask(idx));
             case "unmark":
                 int unmarkIdx = Integer.parseInt(input[1]) - 1;
                 tasks.markTaskAsUndone(unmarkIdx);
-                result = ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
-                break;
+                return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
             case "find":
                 TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
-                result = ui.showMatchingTasks(matchingTasks);
-                break;
+                return ui.showMatchingTasks(matchingTasks);
             case "todo":
                 String todoTask = input[1];
                 ToDo newTodo = new ToDo(todoTask);
                 tasks.addTask(newTodo);
-                result = ui.showAddedTask(newTodo, tasks.getSize());
-                break;
+                return ui.showAddedTask(newTodo, tasks.getSize());
             case "deadline":
                 String deadlineTask = input[1];
                 LocalDate deadlineBy = LocalDate.parse(input[2]);
                 Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
                 tasks.addTask(newDeadline);
-                result = ui.showAddedTask(newDeadline, tasks.getSize());
-                break;
+                return ui.showAddedTask(newDeadline, tasks.getSize());
             case "event":
                 String eventTask = input[1];
                 LocalDate eventDateFrom = LocalDate.parse(input[2]);
                 LocalDate eventDateTo = LocalDate.parse(input[3]);
                 Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
                 tasks.addTask(newEvent);
-                result = ui.showAddedTask(newEvent, tasks.getSize());
-                break;
+                return ui.showAddedTask(newEvent, tasks.getSize());
             case "delete":
                 int deleteIdx = Integer.parseInt(input[1]) - 1;
                 Task deletedTask = tasks.getTask(deleteIdx);
                 tasks.deleteTask(deleteIdx);
-                result = ui.showDeletedTask(deletedTask, tasks.getSize());
-                break;
+                return ui.showDeletedTask(deletedTask, tasks.getSize());
             case "list":
-                result = ui.showTaskList(tasks);
-                break;
+                return ui.showTaskList(tasks);
             case "bye":
-                result = ui.showGoodbyeMsg();
-                break;
+                return ui.showGoodbyeMsg();
             case "invalid":
-//                result = ui.showInvalidInput();
                 throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
-            return result;
         } catch (FloofyException e) {
             return e.getMessage();
         } finally {
