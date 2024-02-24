@@ -1,3 +1,5 @@
+package Luna;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -75,15 +77,6 @@ public class Ui {
         }
     }
 
-    // Reference from https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
-    public  boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
 
     public void showList(TaskList tl) {
         StringBuilder text = new StringBuilder();
@@ -93,7 +86,7 @@ public class Ui {
         } else {
             text.append("These are your outstanding tasks\n");
             for (int i = 0; i < tl.size(); i++) {
-                list_Entry ent = tl.get(i);
+                ListEntry ent = tl.get(i);
                 text.append((i+1)).append(".").append(ent.toString()).append("\n");
             }
         }

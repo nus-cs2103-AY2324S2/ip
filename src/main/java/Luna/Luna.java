@@ -1,3 +1,4 @@
+package Luna;
 
 public class Luna {
     private final Storage storage;

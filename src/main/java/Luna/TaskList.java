@@ -1,28 +1,30 @@
+package Luna;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<list_Entry> list;
+    ArrayList<ListEntry> list;
 
     public TaskList() {
         list = new ArrayList<>();
     }
 
-    public void add(list_Entry listEntry) {
+    public void add(ListEntry listEntry) {
         list.add(listEntry);
     }
 
     public void add(String taskName) {
-        list.add(new list_Entry_Todo(taskName, false));
+        list.add(new ListEntryTodo(taskName, false));
     }
 
 
     public void add(String taskName, LocalDate endDate) {
-        list.add(new list_Entry_Deadline(taskName, false, endDate));
+        list.add(new ListEntryDeadline(taskName, false, endDate));
     }
 
     public void add(String taskName, LocalDate startDate, LocalDate endDate) {
-        list.add(new list_Entry_Event(taskName, false,startDate, endDate));
+        list.add(new ListEntryEvent(taskName, false,startDate, endDate));
     }
 
     public void delete(int index) {
@@ -44,7 +46,7 @@ public class TaskList {
         return list.size();
     }
 
-    public list_Entry get(int index) {
+    public ListEntry get(int index) {
         return list.get(index);
     }
 

@@ -1,3 +1,5 @@
+package Luna;
+
 import java.time.LocalDate;
 
 public class EventCommand extends Command {
@@ -6,9 +8,6 @@ public class EventCommand extends Command {
     LocalDate startDate;
     LocalDate endDate;
 
-    private EventCommand() {
-        super(CommandType.EVENT);
-    }
 
 
     public EventCommand(String tn, LocalDate sd, LocalDate ed) {

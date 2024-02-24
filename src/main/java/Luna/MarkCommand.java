@@ -1,8 +1,10 @@
-public class DeleteCommand extends Command{
+package Luna;
+
+public class MarkCommand extends Command{
     int index;
 
-    public DeleteCommand(int index) {
-        super(Command.CommandType.DELETE);
+    public MarkCommand(int index) {
+        super(Command.CommandType.MARK);
         this.index = index;
     }
 
@@ -10,7 +12,7 @@ public class DeleteCommand extends Command{
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         if (tl.isValidIndex(index)) {
-            tl.delete(index);
+            tl.mark(index);
         } else {
             new InvalidCommand("index not in range of list").execute(tl, ui, storage);
         }

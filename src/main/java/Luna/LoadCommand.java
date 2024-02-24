@@ -1,7 +1,9 @@
+package Luna;
+
 public class LoadCommand extends Command {
 
     public LoadCommand() {
-        super(CommandType.SAVE);
+        super(CommandType.LOAD);
     }
 
     @Override

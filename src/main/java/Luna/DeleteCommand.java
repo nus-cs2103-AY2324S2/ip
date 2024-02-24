@@ -1,11 +1,10 @@
-public class UnmarkCommand extends Command{
-    int index;
-    private UnmarkCommand() {
-        super(CommandType.UNMARK);
-    }
+package Luna;
 
-    public UnmarkCommand(int index) {
-        super(Command.CommandType.UNMARK);
+public class DeleteCommand extends Command{
+    int index;
+
+    public DeleteCommand(int index) {
+        super(Command.CommandType.DELETE);
         this.index = index;
     }
 
@@ -13,7 +12,7 @@ public class UnmarkCommand extends Command{
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         if (tl.isValidIndex(index)) {
-            tl.unmark(index);
+            tl.delete(index);
         } else {
             new InvalidCommand("index not in range of list").execute(tl, ui, storage);
         }

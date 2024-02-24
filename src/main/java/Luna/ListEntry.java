@@ -1,6 +1,7 @@
+package Luna;
 import java.time.LocalDate;
 
-public class list_Entry {
+public class ListEntry {
     public static final String TYPE_TODO = "T";
     public static final String TYPE_DEADLINE = "D";
     public static final String TYPE_EVENT = "E";
@@ -23,22 +24,8 @@ public class list_Entry {
 
     protected LocalDate taskEnd;
 
-    public list_Entry() {
-    }
-//    public list_Entry(String task, boolean check, String type, String tStart, String tEnd) {
-//        this.task = task;
-//        this.check = check;
-//        this.type = type;
-//        this.task_start = tStart;
-//        this.task_end = tEnd;
-//    }
-//    public list_Entry(String task, boolean check, String type) {
-//        this.task = task;
-//        this.check = check;
-//        this.type = type;
-//    }
 
-    public list_Entry(String task, boolean check, String type, LocalDate tStart, LocalDate tEnd) {
+    public ListEntry(String task, boolean check, String type, LocalDate tStart, LocalDate tEnd) {
         this.task = task;
         this.check = check;
         this.type = type;
@@ -46,7 +33,7 @@ public class list_Entry {
         this.taskEnd = tEnd;
     }
 
-    public list_Entry(String task, boolean check, String type, LocalDate tEnd) {
+    public ListEntry(String task, boolean check, String type, LocalDate tEnd) {
         this.task = task;
         this.check = check;
         this.type = type;
@@ -54,7 +41,7 @@ public class list_Entry {
         this.taskEnd = tEnd;
     }
 
-    public list_Entry(String task, boolean check, String type) {
+    public ListEntry(String task, boolean check, String type) {
         this.task = task;
         this.check = check;
         this.type = type;

@@ -1,3 +1,5 @@
+package Luna;
+
 public class InvalidCommand extends Command {
 
     String errorMessage;

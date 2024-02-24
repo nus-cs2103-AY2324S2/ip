@@ -1,3 +1,5 @@
+package Luna;
+
 public class ExitCommand extends Command{
     public ExitCommand() {
         super(CommandType.EXIT);

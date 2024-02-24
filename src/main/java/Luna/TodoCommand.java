@@ -1,12 +1,10 @@
-import java.time.LocalDate;
+package Luna;
 
 public class TodoCommand extends Command {
 
     String taskName;
 
-    private TodoCommand() {
-        super(CommandType.TODO);
-    }
+
 
 
     public TodoCommand(String tn) {

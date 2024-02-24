@@ -1,6 +1,7 @@
+package Luna;
+
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Storage {
 
@@ -59,7 +60,7 @@ public class Storage {
         }
     }
 
-    public void appendEntry(list_Entry entry) {
+    public void appendEntry(ListEntry entry) {
         appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
     }
 
@@ -93,16 +94,16 @@ public class Storage {
                 String str = br.readLine();
                 String [] words = str.split(",", 5);
 
-                list_Entry temp;
-              switch (list_Entry.taskType.valueOf(words[0])) {
+                ListEntry temp;
+              switch (ListEntry.taskType.valueOf(words[0])) {
                   case T:
-                      temp = new list_Entry_Todo(words[2],(words[1].equals("true")));
+                      temp = new ListEntryTodo(words[2],(words[1].equals("true")));
                       break;
                   case D:
-                      temp = new list_Entry_Deadline(words[2],(words[1].equals("true")), LocalDate.parse(words[4]));
+                      temp = new ListEntryDeadline(words[2],(words[1].equals("true")), LocalDate.parse(words[4]));
                       break;
                   case E:
-                      temp = new list_Entry_Event(words[2],(words[1].equals("true")),LocalDate.parse(words[3]), LocalDate.parse(words[4]));
+                      temp = new ListEntryEvent(words[2],(words[1].equals("true")),LocalDate.parse(words[3]), LocalDate.parse(words[4]));
                       break;
                   default:
                       temp = null;

@@ -1,3 +1,5 @@
+package Luna;
+
 import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {
@@ -5,9 +7,7 @@ public class DeadlineCommand extends Command {
     String taskName;
     LocalDate endDate;
 
-    private DeadlineCommand() {
-        super(CommandType.DEADLINE);
-    }
+
 
 
     public DeadlineCommand(String tn, LocalDate ed) {

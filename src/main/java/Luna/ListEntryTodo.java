@@ -1,7 +1,8 @@
+package Luna;
 
-public class list_Entry_Todo extends list_Entry {
+public class ListEntryTodo extends ListEntry {
 
-    public list_Entry_Todo(String task, boolean check) {
+    public ListEntryTodo(String task, boolean check) {
         super(task, check, TYPE_TODO);
     }
 

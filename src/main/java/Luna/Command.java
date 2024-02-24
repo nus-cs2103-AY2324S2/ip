@@ -1,3 +1,5 @@
+package Luna;
+
 public class Command {
 
     public enum CommandType {
