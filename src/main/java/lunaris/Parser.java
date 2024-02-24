@@ -35,67 +35,56 @@ public class Parser {
      * @param ui The ui.
      * @throws DukeException if invalid command or format has been parsed.
      */
-    public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException{
+    public static String parseCommand(String input, TaskList taskList, Ui ui) throws DukeException {
         String[] parts = input.split(" ", 2);
         Command category = Command.getCategory(parts[0]);
         switch (category) {
-            case BYE -> {
-                isActive = false;
-                String output = ui.printGoodByeMessage();
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case LIST -> {
-                return ui.listTaskMessage(taskList);
-            }
-            case UNMARK -> {
-                String output = parseUnmark(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case MARK -> {
-                String output = parseMark(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case DELETE -> {
-                String output = parseDelete(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case TODO -> {
-                String output = parseToDo(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case DEADLINE -> {
-                String output = parseDeadline(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case EVENT -> {
-                String output = parseEvent(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case FIND -> {
-                String findDescription = ui.readCommandLine();
-                ArrayList<Task> matchedTasks = taskList.find(findDescription);
-                String output = taskList.listMatchedTasks(matchedTasks);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            case TAG -> {
-                String output = parseTag(parts[1], taskList, ui);
-                Storage.saveTaskToFile(taskList.getTasks());
-                return output;
-            }
-            default -> {
-                try {
-                    throw new DukeException("Sorry, I cannot understand what this is!");
-                } catch (DukeException e) {
-                    return "  " + e.getMessage();
-                }
+        case BYE:
+            isActive = false;
+            String output = ui.printGoodByeMessage();
+            Storage.saveTaskToFile(taskList.getTasks());
+            return output;
+        case LIST:
+            return ui.listTaskMessage(taskList);
+        case UNMARK:
+            String unmarkOutput = parseUnmark(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return unmarkOutput;
+        case MARK:
+            String markOutput = parseMark(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return markOutput;
+        case DELETE:
+            String deleteOutput = parseDelete(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return deleteOutput;
+        case TODO:
+            String toDoOutput = parseToDo(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return toDoOutput;
+        case DEADLINE:
+            String deadlineOutput = parseDeadline(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return deadlineOutput;
+        case EVENT:
+            String eventOutput = parseEvent(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return eventOutput;
+        case FIND:
+            String findDescription = ui.readCommandLine();
+            ArrayList<Task> matchedTasks = taskList.find(findDescription);
+            String findOutput = taskList.listMatchedTasks(matchedTasks);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return findOutput;
+        case TAG:
+            String tagOutput = parseTag(parts[1], taskList, ui);
+            Storage.saveTaskToFile(taskList.getTasks());
+            return tagOutput;
+        default:
+            try {
+                throw new DukeException("Sorry, I cannot understand what this is!");
+            } catch (DukeException e) {
+                return "  " + e.getMessage();
             }
         }
     }
@@ -300,26 +289,20 @@ public class Parser {
         String category = argument[0];
         String status = argument[1];
         String description = argument[2];
-        Task task;
 
         switch (category) {
-            case "T" -> {
-                task = new ToDo(status, description);
-            }
-            case "D" -> {
-                String by = argument[3];
-                task = new Deadline(status, description, by);
-            }
-            case "E" -> {
-                String[] duration = argument[3].split(" - ");
-                String start = duration[0];
-                String end = duration[1];
-                task = new Event(status, description, start, end);
-            }
-            default -> {
-                throw new IOException("Error, unable to load task from file.");
-            }
+        case "T":
+            return new ToDo(status, description);
+        case "D":
+            String by = argument[3];
+            return new Deadline(status, description, by);
+        case "E":
+            String[] duration = argument[3].split(" - ");
+            String start = duration[0];
+            String end = duration[1];
+            return new Event(status, description, start, end);
+        default:
+            throw new IOException("Error, unable to load task from file.");
         }
-        return task;
     }
 }
