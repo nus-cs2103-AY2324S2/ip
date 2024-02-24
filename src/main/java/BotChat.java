@@ -39,8 +39,8 @@ public class BotChat {
                 taskDescription = parser.extractDescription(s);
                 String[] deadlineStringParts = taskDescription.split("/by ");
                 if (deadlineStringParts.length < 2) {
-                    throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the form of " +
-                            "deadline description /by datetime.");
+                    throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the " +
+                            "form of deadline description /by datetime.");
                 } else {
                     Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
                     storage.addToDataStore(newDeadlineTask);
@@ -51,8 +51,8 @@ public class BotChat {
                 taskDescription = parser.extractDescription(s);
                 String[] eventStringParts = taskDescription.split("/from |/to ");
                 if (eventStringParts.length < 3) {
-                    throw new IncompleteCommandException("task.Event command incomplete. It should be in the form of " +
-                            "event description /from datetime /to datetime.");
+                    throw new IncompleteCommandException("task.Event command incomplete. It should be in the " +
+                            "form of event description /from datetime /to datetime.");
                 } else {
                     Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
                     storage.addToDataStore(newEventTask);
