@@ -23,6 +23,7 @@ public class MissingEventTimingException extends MitsukiException {
      *          either event start or end timing is not given.
      */
     public static void validate(String[] tokens) throws MissingEventTimingException {
+        assert tokens != null : "tokens should not be null";
         if (tokens.length != 3) {
             throw new MissingEventTimingException("No Event Timing Given");
         }

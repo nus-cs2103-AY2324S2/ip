@@ -22,6 +22,7 @@ public class WasNotDoneException extends MitsukiException {
      * @throws WasNotDoneException the exception that will be thrown if task was not done yet.
      */
     public static void validate(Task task) throws WasNotDoneException {
+        assert task != null : "task should not be null";
         if (!task.isDone) {
             throw new WasNotDoneException("Task Was Not Done");
         }

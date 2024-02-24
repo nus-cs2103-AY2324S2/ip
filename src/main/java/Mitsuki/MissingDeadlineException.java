@@ -22,6 +22,7 @@ public class MissingDeadlineException extends MitsukiException {
      * @throws MissingDeadlineException the exception that will be thrown if no deadline is given.
      */
     public static void validate(String[] tokens) throws MissingDeadlineException {
+        assert tokens != null : "tokens should not be null";
         if (tokens.length != 2) {
             throw new MissingDeadlineException("No Deadline Given");
         }

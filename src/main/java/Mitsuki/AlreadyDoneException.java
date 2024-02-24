@@ -21,6 +21,7 @@ public class AlreadyDoneException extends MitsukiException {
      * @throws AlreadyDoneException the exception that will be thrown if task was already done.
      */
     public static void validate(Task task) throws AlreadyDoneException {
+        assert task != null : "task should not be null";
         if (task.isDone) {
             throw new AlreadyDoneException("Task Already Marked As Done");
         }
