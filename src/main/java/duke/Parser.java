@@ -38,19 +38,6 @@ public class Parser {
         }
     }
 
-    //TODO: Remove redundant code
-    /*
-    private static final String patternBye = "^bye";
-    private static final String patternList = "^list";
-    private static final String patternMark = "^mark \\d+";
-    private static final String patternUnmark = "^unmark \\d+";
-    private static final String patternDelete = "^delete \\d+";
-    private static final String patternTodo = "^todo .+";
-    private static final String patternDeadline = "^deadline .+ \\/by .+";
-    private static final String patternEvent = "^event .+ \\/from .+ \\/to .+";
-    private static final String patternFind = "^find \\S+$";
-    */
-
     public Parser() {
         //do nothing
     }
