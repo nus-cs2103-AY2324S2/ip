@@ -91,7 +91,6 @@ To find tasks whose descriptions contain the given keyword.
 
 Format: `find <keyword>`
 - The keyword can be a partial word or a full word.
-- Returns empty list if no matching tasks are found.
 
 Example: `find report`
 ```
