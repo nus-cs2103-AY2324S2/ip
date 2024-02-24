@@ -51,7 +51,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "yarr"
     archiveClassifier = null
     archiveFileName = 'duke.jar'
     dependsOn("distZip", "distTar")
