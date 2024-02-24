@@ -39,6 +39,19 @@ public class TaskList {
         this.taskList.get(index).markBackNotDone();
     }
 
+    public TaskList findTasks(String keyword) {
+        TaskList searchedTaskList = new TaskList();
+
+        for (int i = 0; i < this.size(); i++) {
+            Task currentTask = this.get(i);
+            if (currentTask.isContainKeyword(keyword)) {
+                searchedTaskList.addTask(currentTask);
+            }
+        }
+
+        return searchedTaskList;
+    }
+
     public ArrayList<Task> getArrayList() {
         return this.taskList;
     }

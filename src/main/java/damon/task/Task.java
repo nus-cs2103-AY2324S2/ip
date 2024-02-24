@@ -26,6 +26,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isContainKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }

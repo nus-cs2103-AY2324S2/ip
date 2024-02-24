@@ -26,6 +26,9 @@ public class Parser {
                 || inputString.startsWith("event ")) {
             return new AddCommand(inputString);
         }
+        if (inputString.startsWith("find ")) {
+            return new FindCommand(inputString);
+        }
         if (inputString.equals("todo") || inputString.equals("deadline")
                 || inputString.equals("event")) {
             throw new NoDescriptionException();
