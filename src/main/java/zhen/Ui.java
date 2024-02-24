@@ -13,7 +13,7 @@ public class Ui {
      * Shows welcome to the users
      */
     public static String showWelcome() {
-        String welcomeMessage = "Hello! I'm ZHEN\nWhat can I do for you? ";
+        String welcomeMessage = "Hello! I'm Zhen\nWhat can I do for you? ";
         print_message(welcomeMessage);
         return welcomeMessage;
     }
