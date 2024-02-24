@@ -1,7 +1,6 @@
 package Mitsuki;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 /**
@@ -11,20 +10,31 @@ import java.util.Scanner;
  */
 public class TaskList {
     private static ArrayList<Task> list;
-    public ArrayList<Task> getList() {
-        return list;
-    }
+
+    /**
+     * Constructs an object of the TaskList class.
+     *
+     * @param list the list of tasks, given as an ArrayList<Task> object.
+     */
     public TaskList(ArrayList<Task> list) {
         TaskList.list = list;
     }
-    public void add(Task task) {
-        list.add(task);
-    }
 
+    /**
+     * Gives the size of the list in the TaskList object.
+     *
+     * @return an int representing the length of the list.
+     */
     public int size() {
         return list.size();
     }
 
+    /**
+     * Gives the task in the list at the stated index.
+     *
+     * @param index the index of the task to be returned.
+     * @return the Task object at the stated index on the list.
+     */
     public Task get(int index) {
         return list.get(index);
     }
@@ -56,6 +66,7 @@ public class TaskList {
                     + "E.g. Type 'deadline return book /by 20/12/2024' to add the task 'return book' "
                     + "\nwith a deadline of '20 Dec 2024' to your list.";
         }
+
         String description = fullString.substring(1, endOfDesc - 1);
         String deadline = fullString.substring(endOfDesc + 4);
         String[] parts = {description, deadline};
@@ -80,21 +91,21 @@ public class TaskList {
      *      to the user's list.
      * Throws an exception if empty task description is given.
      *
-     * @param description1 the String with the details of the todo to add.
+     * @param description the String with the details of the todo to add.
      */
-    public static String todo(String description1) {
+    public static String todo(String description) {
 
         try {
-            EmptyTaskException.validate(description1);
+            EmptyTaskException.validate(description);
         } catch(EmptyTaskException ex) {
             return "Please give a description for your todo item. Try again!";
 
         }
 
-        String trimmed1 = description1.trim();
-        Task task1 = new Todo(trimmed1);
-        list.add(task1);
-        return "OK, I have added the task '" + trimmed1 + "' to your list! :)\n"
+        String trimmed = description.trim();
+        Task task = new Todo(trimmed);
+        list.add(task);
+        return "OK, I have added the task '" + trimmed + "' to your list! :)\n"
                 + "Now you have " + list.size() + " task(s) in the list.";
     }
 
@@ -106,14 +117,14 @@ public class TaskList {
      *      to the user's list.
      * Throws an exception if no task description, or no event start or end timing is given.
      *
-     * @param fullString1 the String with the details of the event to add.
+     * @param fullString the String with the details of the event to add.
      */
-    public static String event(String fullString1) {
-        String[] tokens1 = fullString1.split("/");
+    public static String event(String fullString) {
+        String[] tokens = fullString.split("/");
 
         try {
-            EmptyTaskException.timedValidate(tokens1);
-            MissingEventTimingException.validate(tokens1);
+            EmptyTaskException.timedValidate(tokens);
+            MissingEventTimingException.validate(tokens);
         } catch(EmptyTaskException ex) {
             return "Please give a description for your event item. Try again!";
         } catch(MissingEventTimingException ex) {
@@ -122,14 +133,14 @@ public class TaskList {
                     + "with a time period 'From Monday 10am to 12pm' to your list.";
         }
 
-        String description2 = tokens1[0];
-        String trimmed2 = description2.trim();
-        String from = tokens1[1];
-        String to = tokens1[2];
+        String description = tokens[0];
+        String trimmed = description.trim();
+        String from = tokens[1];
+        String to = tokens[2];
         String toTrimmed = to.trim();
-        Task task2 = new Event(trimmed2, from, toTrimmed);
+        Task task2 = new Event(trimmed, from, toTrimmed);
         list.add(task2);
-        return "OK, I have added the task '" + trimmed2 + "' to your list! :)\n"
+        return "OK, I have added the task '" + trimmed + "' to your list! :)\n"
         + "Now you have " + list.size() + " task(s) in the list.";
     }
 
@@ -177,10 +188,10 @@ public class TaskList {
      * If task was already marked as not done, exception is thrown and user is informed that they
      * had not yet completed the task.
      *
-     * @param index1 the index of the task to unmark.
+     * @param index the index of the task to unmark.
      */
-    public static String unmark(int index1) {
-        Task aTask = list.get(index1 - 1);
+    public static String unmark(int index) {
+        Task aTask = list.get(index - 1);
 
         try {
             WasNotDoneException.validate(aTask);
@@ -197,10 +208,10 @@ public class TaskList {
      * E.g. 'delete 3' deletes the 3rd item on the list.
      * Informs user that the task is deleted, and also displays the deleted task.
      *
-     * @param index2 the index of the task to delete
+     * @param index the index of the task to delete
      */
-    public static String delete(int index2) {
-        Task goneTask = list.get(index2 - 1);
+    public static String delete(int index) {
+        Task goneTask = list.get(index - 1);
         list.remove(goneTask);
 
         return "Alright, I have removed the following task from your list:\n" + goneTask
