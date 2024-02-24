@@ -45,43 +45,6 @@ public class Parser {
             String command = parts[0].toLowerCase();
             List<String> arguments = parts.length > 1 ? List.of(parts[1].split("\\s+")) : List.of();
 
-            String taskDescription = extractTaskDescription(arguments);
-            LocalDateTime deadlineDateTime = null;
-            LocalDateTime startDateTime = null;
-            LocalDateTime endDateTime = null;
-
-            // Get Deadline
-            if (arguments.contains("/by")) {
-                int index = arguments.indexOf("/by");
-                if (index < arguments.size() - 1) {
-                    String deadline = String.join(" ", arguments.subList(index + 1, arguments.size()));
-                    deadlineDateTime = parseDateTime(deadline);
-                } else {
-                    throw new DukeException("Error: Missing deadline after /by. Correct format: /by <deadline>");
-                }
-            } else if (command.equals("deadline")) {
-                throw new DukeException("Error: No description provided for the deadline command.\n"
-                    + "Correct format: deadline <description> /by <deadline>\n");
-            }
-
-            // Get From / To values
-            if (arguments.contains("/from") && arguments.contains("/to")) {
-                int fromIndex = arguments.indexOf("/from");
-                int toIndex = arguments.indexOf("/to");
-                if (fromIndex < toIndex && toIndex < arguments.size() - 1) {
-                    String start = String.join(" ", arguments.subList(fromIndex + 1, toIndex));
-                    String end = String.join(" ", arguments.subList(toIndex + 1, arguments.size()));
-                    startDateTime = parseDateTime(start);
-                    endDateTime = parseDateTime(end);
-                } else {
-                    throw new DukeException("Error: Missing /from or /to after event command. "
-                        + "Correct format: event <description> /from <start> /to <end>");
-                }
-            } else if (arguments.contains("/from") || arguments.contains("/to")) {
-                throw new DukeException("Error: Both /from and /to are required for the event command. "
-                    + " Correct format: /from <start> /to <end>");
-            }
-
             switch (command) {
             case "find":
                 return new FindCommand(String.join(" ", arguments));
@@ -92,56 +55,105 @@ public class Parser {
             case "mark":
                 return new MarkCommand(arguments);
             case "bye":
-                return new ByeCommand();
             case "exit":
                 return new ByeCommand();
             case "unmark":
                 return new UnmarkCommand(arguments);
             case "delete":
-                return new DeleteCommand(arguments);
             case "remove":
                 return new DeleteCommand(arguments);
             case "todo":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Todo description cannot be empty.");
-                }
-                return new AddCommand(new ToDo(taskDescription));
+                return new AddCommand(new ToDo(extractTaskDescription(arguments)));
             case "deadline":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Deadline description cannot be empty.");
-                }
-                if (deadlineDateTime == null) {
-                    throw new DukeException("Error: Deadline date/time cannot be empty.");
-                }
-                return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
+                return parseDeadline(arguments);
             case "event":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Event description cannot be empty.");
-                }
-                if (startDateTime == null || endDateTime == null) {
-                    throw new DukeException("Error: Both start and end times are required for the event command. "
-                        + "Correct format: /from <start> /to <end>");
-                }
-                return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
+                return parseEvent(arguments);
             case "viewbydate":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Please specify a date for viewing tasks!");
-                }
-                try {
-                    LocalDate viewDate = LocalDate.parse(taskDescription);
-                    return new ViewByDateCommand(viewDate);
-                } catch (DateTimeParseException e) {
-                    throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
-                }
+                return parseViewByDate(arguments);
             default:
                 return new UnknownCommand();
             }
         } catch (DukeException e) {
-            // to-do: link this to ui
-
             System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
         }
+    }
+
+    private static Command parseDeadline(List<String> arguments) throws DukeException {
+        String taskDescription = extractTaskDescription(arguments, "/by");
+        LocalDateTime deadlineDateTime = parseDateTime(getDateTimeString(arguments, "/by"));
+
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("Error: Deadline description cannot be empty.");
+        }
+        if (deadlineDateTime == null) {
+            throw new DukeException("Error: Deadline date/time cannot be empty.");
+        }
+
+        return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
+    }
+
+    private static Command parseEvent(List<String> arguments) throws DukeException {
+        String taskDescription = extractTaskDescription(arguments, "/from", "/to");
+        LocalDateTime startDateTime = parseDateTime(getDateTimeString(arguments, "/from"));
+        LocalDateTime endDateTime = parseDateTime(getDateTimeString(arguments, "/to"));
+
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("Error: Event description cannot be empty.");
+        }
+        if (startDateTime == null || endDateTime == null) {
+            throw new DukeException("Error: Both start and end times are required for the event command. "
+                    + "Correct format: /from <start> /to <end>");
+        }
+
+        return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
+    }
+
+    private static Command parseViewByDate(List<String> arguments) throws DukeException {
+        String taskDescription = extractTaskDescription(arguments);
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("Please specify a date for viewing tasks!");
+        }
+        try {
+            LocalDate viewDate = LocalDate.parse(taskDescription);
+            return new ViewByDateCommand(viewDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+        try {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date/time format. Please use yyyy-MM-dd HH:mm format.");
+        }
+    }
+
+    private static String extractTaskDescription(List<String> arguments, String... keywords) {
+        int keywordIndex = findKeywordIndex(arguments, keywords);
+        if (keywordIndex != -1) {
+            return String.join(" ", arguments.subList(0, keywordIndex));
+        }
+        return String.join(" ", arguments);
+    }
+
+    private static String getDateTimeString(List<String> arguments, String keyword) throws DukeException {
+        int index = arguments.indexOf(keyword);
+        if (index < arguments.size() - 1) {
+            return String.join(" ", arguments.subList(index + 1, arguments.size()));
+        } else {
+            throw new DukeException(String.format("Error: Missing %s after command.", keyword));
+        }
+    }
+
+    private static int findKeywordIndex(List<String> arguments, String... keywords) {
+        for (String keyword : keywords) {
+            if (arguments.contains(keyword)) {
+                return arguments.indexOf(keyword);
+            }
+        }
+        return -1;
     }
 
     /**
@@ -157,30 +169,5 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
         }
-    }
-
-    private static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
-        try {
-            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date/time format. Please use yyyy-MM-dd HH:mm format.");
-        }
-    }
-
-    private static String extractTaskDescription(List<String> arguments) {
-        int keywordIndex = findKeywordIndex(arguments, "/by", "/from", "/to");
-        if (keywordIndex != -1) {
-            return String.join(" ", arguments.subList(0, keywordIndex));
-        }
-        return String.join(" ", arguments);
-    }
-
-    private static int findKeywordIndex(List<String> arguments, String... keywords) {
-        for (String keyword : keywords) {
-            if (arguments.contains(keyword)) {
-                return arguments.indexOf(keyword);
-            }
-        }
-        return -1;
     }
 }
