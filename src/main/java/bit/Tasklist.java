@@ -122,6 +122,7 @@ public class Tasklist {
     }
     /**
      * Deletes task found at i - 1. This means the very first task is deleted when i = 1.
+     *
      * @param i index number of task to be deleted.
      */
     public String delete(int i) {

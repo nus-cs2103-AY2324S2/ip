@@ -86,6 +86,13 @@ public class Storage {
         }
         list.addFromStorage(t);
     }
+
+    /**
+     * Loads a deadline into the list.
+     *
+     * @param list The tasklist used by the program.
+     * @param parts The parsed input.
+     */
     private void loadDeadline(Tasklist list, String[] parts) {
         Task d = new Deadline(parts[1], parts[2]);
         if (parts[3].equals("M")) {
