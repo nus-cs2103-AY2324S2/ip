@@ -14,6 +14,7 @@ public class DeadlineCommand extends Command {
         if (!taskInfo.contains("/by")) {
             throw new SamException("Invalid format for deadline, please provide a deadline using /by.");
         }
+
         String[] details = taskInfo.split(" /by ");
         if (details.length < 2) {
             throw new SamException("Invalid format for deadline, please provide a deadline using /by.");

@@ -18,6 +18,7 @@ public class Event extends Task {
         } else if (to.isBlank()) {
             throw new SamException("Please provide an ending time.");
         }
+
         this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
         this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
     }

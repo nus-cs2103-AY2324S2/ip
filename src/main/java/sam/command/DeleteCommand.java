@@ -12,6 +12,7 @@ public class DeleteCommand extends Command {
         if (taskInfo.isBlank()) {
             throw new SamException("Please provide the task number to delete.");
         }
+
         try {
             this.index = Integer.parseInt(taskInfo) - 1;
         } catch (NumberFormatException e) {

@@ -13,14 +13,13 @@ public class Ui {
         return scanner.nextLine();
     }
     public void greet() {
-        String logo =
-                "  ______\n" +
-                " |           /  \\ \n" +
-                " |______    /____\\     / \\    / \\\n" +
-                "        |  /      \\   /   \\  /   \\\n" +
-                "  ______| /        \\ /     \\/     \\\n";
-        String greetMessage = "Hello! I'm Sam\n" +
-                "How can I help you?";
+        String logo = "  ______\n"
+                + " |           /  \\ \n"
+                + " |______    /____\\     / \\    / \\\n"
+                + "        |  /      \\   /   \\  /   \\\n"
+                + "  ______| /        \\ /     \\/     \\\n";
+        String greetMessage = "Hello! I'm Sam\n"
+                + "How can I help you?";
         System.out.println(logo);
         System.out.println(greetMessage);
     }
