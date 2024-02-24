@@ -12,7 +12,18 @@ import commands.UnmarkCommand;
 import exceptions.CalException;
 import tasks.Task;
 
+/**
+ * responsible for parsing user input strings into executable commands.
+ * contains a static method 'parseCommand' which takes a user input string and returns the appropriate Command object.
+ */
 public class Parser {
+    /**
+     * Parses the user input string and returns the corresponding Command object.
+     *
+     * @param line The user input string to be parsed.
+     * @return The Command object corresponding to the user input.
+     * @throws CalException if there is an error in parsing the command or if the command is not recognized.
+     */
     public static Command parseCommand(String line) throws CalException {
             if (line.isEmpty()) {
                 throw new IllegalArgumentException();
