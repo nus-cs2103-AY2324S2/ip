@@ -18,6 +18,20 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 * [How does it look like?](#how-does-it-look-like)
 
 ## How to read?
+```
+[A][B] YOUR_TASK_HERE (Information: date ...)
+```
+
+* A: The type of tasks (T for todo task, D for deadline task and E for event task).
+* B: Representation of the task is done or not (X as done).
+* YOUR_TASK_HERE: The decription of your task.
+* Information: The representation of the date in the following.
+* date: Just... date (not the romantic one 🌹).
+
+> [!CAUTION]
+> Date format represented in list and date format in command is different.
+   Command: YYYY-MM-DD
+   List: DDMMMYYYY
 
 
 ## Features 
