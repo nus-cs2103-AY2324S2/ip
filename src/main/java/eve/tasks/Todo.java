@@ -20,12 +20,20 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString();
+        if(super.tag == null) { 
+            return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString();
+        } else {
+            return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString() + "#" + super.tag;
+        }
     }
 
     @Override
     public String toStore() {
-        return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "\n";
+        if(super.tag == null) {
+            return "T" + " | " + super.getStatusInteger() + " | " + super.toString();
+        } else {
+            return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "#" + super.tag + "\n";
+        }
     }
 
 }

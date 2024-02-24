@@ -35,14 +35,14 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + "[" + super.getStatusIcon() + "]"
                 + super.toString() + " (from: " + startString
-                + "to: " + endString + ")";
+                + "to: " + endString + ")" + super.tag;
     }
 
     @Override
     public String toStore() {
         return "E" + " | " + super.getStatusInteger() + " | "
                 + super.toString() + " | " + startString
-                + endString + "\n";
+                + endString + "\n" + super.tag;
     }
 
     public String getStartString() {

@@ -31,10 +31,19 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")";
+        if (super.tag == null){
+            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")";
+        } else  {
+            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")" + "#" + super.tag;
+        }
+
     }
     @Override
     public String toStore() {
-        return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by + "\n";
+        if(super.tag == null){
+            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by;
+        } else {
+            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by + "\n" + "#" + super.tag;
+        }
     }
 }
