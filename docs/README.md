@@ -15,8 +15,8 @@ while still having the benefits of a Graphical User Interface (GUI).
 - Mark task as done `mark`
 - Unmark task as not done `unmark`
 - See list of commands `help`
-- Deleting a task `delete`
-- Saving the tasks `bye`
+- Delete a task `delete`
+- Quit the program `bye`
 - Notes can be added when adding tasks
 - Commands are **case-sensitive**
 
