@@ -218,25 +218,25 @@ Hammy
 ```
 
 ## FAQ
-1. Where can I check your Github page?
-Q: You can click [here](https://github.com/jinhanfromNUS/ip)
+Q: Where can I check your Github page?
+A: You can click [here](https://github.com/jinhanfromNUS/ip)
 
-2. What is the date format? Why is my date format wrong?
-Q: Date format should be XXXX-XX-XX (e.g. 2023-01-01). This only applies for entering the date format.
+Q: What is the date format? Why is my date format wrong?
+A: Date format should be XXXX-XX-XX (e.g. 2023-01-01). This only applies for entering the date format.
 
-3. Why is my date not working?
-Q: The date format in your list and the date format while adding deadline/event tasks is different.
+Q: Why is my date not working?
+A: The date format in your list and the date format while adding deadline/event tasks is different.
    Adding tasks: YYYY-MM-DD
    Output List: DDMMMYYYY
 
-4. Why is my *delete* / *mark as done* / *mark as not done* not working?
-Q: Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
+Q: Why is my *delete* / *mark as done* / *mark as not done* not working?
+A: Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
 
-5. Why deadline and event tasks even work without a description?
-Q: That is not a bug! It is meant to be like that. Sometimes, you just need a date to remind you about your remaining tasks :).
+Q: Why deadline and event tasks even work without a description?
+A: That is not a bug! It is meant to be like that. Sometimes, you just need a date to remind you about your remaining tasks :).
 
-6. Do I need to create a separate database while using this application?
-Q: No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks.
+Q: Do I need to create a separate database while using this application?
+A: No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks.
    **tasklist.txt** will be in the same directory as your jar file.
 
 ## Future Updates
