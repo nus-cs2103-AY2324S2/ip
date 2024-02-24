@@ -37,7 +37,7 @@ public class TaskList {
     public Task[] find(String match) {
         Task[] output = new Task[100];
         int current = 0;
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             if (task == null) {
                 break;
             }

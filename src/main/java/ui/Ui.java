@@ -124,7 +124,7 @@ public class Ui {
     }
 
     public void printFindOutput(Task[] findOutput) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Here are the matches found:");
         StringBuilder toPrint = new StringBuilder();
         for (int i = 0; i < findOutput.length; i++) {
@@ -135,6 +135,6 @@ public class Ui {
             }
         }
         System.out.println(toPrint);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 }
