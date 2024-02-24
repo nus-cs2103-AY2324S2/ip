@@ -39,89 +39,90 @@ public class Tasklist {
 
     /**
      * Adds tasks to the list. Takes in String that it parses. Will throw various errors based on input.
-     * It accepts todds, deadlines and events.
+     * It accepts todos, deadlines and events.
      *
-     * @param input String commmand from user.
+     * @param input String command from user.
      * @throws DukeException
      */
     public String addTo(String input) throws DukeException {
         if (input.startsWith("todo")) {
-
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!parts[0].equals("todo")) {
-                    throw new DukeException("I have no idea what that means!");
-                }
-                if (parts[1].trim().isEmpty()) {
-                    throw new DukeException("Hmmm, that todo is empty!");
-                }
-                taskList.add(new Todo(parts[1]));
-                int i = taskList.size();
-                Task t = taskList.get(i - 1);
-                storage.cleanList();
-                storage.saveAll(this);
-                return ui.sayAdded(i, "todo", t);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Hmmm, that todo is empty!");
-            }
+            return addTodo(input);
         } else if (input.contains("event ")) {
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!parts[0].equals("event")) {
-                    throw new DukeException("What is that?");
-                }
-                String[] components = parts[1].split("/to");
-                String end = components[1];
-                String[] compo = components[0].split("/from");
-                String start = compo[1];
-                if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty() || end.trim().isEmpty()) {
-                    throw new DukeException("Missing something?");
-                }
-                taskList.add(new Event(compo[0], start, end));
-                int i = taskList.size();
-                Event e = (Event) taskList.get(i - 1);
-                storage.cleanList();
-                storage.saveAll(this);
-                return ui.sayAdded(i, "event", taskList.get(i - 1));
-
-
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Did you make a mistake?");
-
-            }
-
+            return addEvent(input);
         } else if (input.startsWith("deadline")) {
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!(parts[0].equals("deadline"))) {
-                    throw new DukeException("Is that a typo I see?");
-                }
-                if (parts[0].equals("deadline")) {
-                    String[] compo = parts[1].split("/by");
-                    if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
-                        throw new DukeException("Did you miss something?");
-                    }
-                    Deadline d = new Deadline(compo[0], compo[1]);
-                    if (!d.getValid()) {
-                        return ui.handleErrorMessage("NotaDate");
-                    }
-                    taskList.add(d);
-                    int i = taskList.size();
-                    storage.cleanList();
-                    storage.saveAll(this);
-                    return ui.sayAdded(i, "deadline", taskList.get(i - 1));
-                }
-            } catch (ArrayIndexOutOfBoundsException x) {
-                throw new DukeException("Did you miss something?");
-            }
-
+            return addDeadline(input);
         } else {
             return ui.handleErrorMessage("");
         }
-        return ui.handleErrorMessage("");
     }
-
+    private String addTodo(String input) throws DukeException {
+        try {
+            String[] parts = input.split(" ", 2);
+            if (!parts[0].equals("todo")) {
+                throw new DukeException("I have no idea what that means!");
+            }
+            if (parts[1].trim().isEmpty()) {
+                throw new DukeException("Hmmm, that todo is empty!");
+            }
+            taskList.add(new Todo(parts[1]));
+            int i = taskList.size();
+            Task t = taskList.get(i - 1);
+            storage.cleanList();
+            storage.saveAll(this);
+            return ui.sayAdded(i, "todo", t);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Hmmm, that todo is empty!");
+        }
+    }
+    private String addEvent(String input) throws DukeException {
+        try {
+            String[] parts = input.split(" ", 2);
+            if (!parts[0].equals("event")) {
+                throw new DukeException("What is that?");
+            }
+            String[] components = parts[1].split("/to");
+            String end = components[1];
+            String[] compo = components[0].split("/from");
+            String start = compo[1];
+            if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty() || end.trim().isEmpty()) {
+                throw new DukeException("Missing something?");
+            }
+            taskList.add(new Event(compo[0], start, end));
+            int i = taskList.size();
+            Event e = (Event) taskList.get(i - 1);
+            storage.cleanList();
+            storage.saveAll(this);
+            return ui.sayAdded(i, "event", taskList.get(i - 1));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Did you make a mistake?");
+        }
+    }
+    private String addDeadline(String input) throws DukeException {
+        try {
+            String[] parts = input.split(" ", 2);
+            if (!(parts[0].equals("deadline"))) {
+                throw new DukeException("Is that a typo I see?");
+            }
+            if (parts[0].equals("deadline")) {
+                String[] compo = parts[1].split("/by");
+                if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
+                    throw new DukeException("Did you miss something?");
+                }
+                Deadline d = new Deadline(compo[0], compo[1]);
+                if (!d.getValid()) {
+                    return ui.handleErrorMessage("NotaDate");
+                }
+                taskList.add(d);
+                int i = taskList.size();
+                storage.cleanList();
+                storage.saveAll(this);
+                return ui.sayAdded(i, "deadline", taskList.get(i - 1));
+            }
+        } catch (ArrayIndexOutOfBoundsException x) {
+            throw new DukeException("Did you miss something?");
+        }
+        throw new DukeException("");
+    }
     /**
      * Deletes task found at i - 1. This means the very first task is deleted when i = 1.
      * @param i index number of task to be deleted.
