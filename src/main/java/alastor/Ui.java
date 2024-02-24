@@ -73,10 +73,10 @@ public class Ui {
      */
     public String showMark(Task task, boolean isMark) {
         if (isMark) {
-            return "Well, isn't this delightful! I've marked this task as done.\n"
+            return "Well, isn't this delightful! I've marked this task as done:\n"
                     + "  " + task.toString() + "\n";
         } else {
-            return "Very well! I've noted this task as yet untouched.\n"
+            return "Very well! I've noted this task as yet untouched:\n"
                     + "  " + task.toString() + "\n";
         }
     }
@@ -121,9 +121,9 @@ public class Ui {
                 + "4. list - Lists all the tasks in the list.\n"
                 + "5. mark <index> - Marks the task at the specified index as done.\n"
                 + "6. unmark <index> - Marks the task at the specified index as undone.\n"
-                + "8. delete <index> - Deletes the task at the specified index.\n"
-                + "9. find <keyword> - Finds tasks that match the keyword.\n"
-                + "10. help - Shows the list of commands.\n"
-                + "11. bye - Exits the program.\n";
+                + "7. delete <index> - Deletes the task at the specified index.\n"
+                + "8. find <keyword> - Finds tasks that match the keyword.\n"
+                + "9. help - Shows the list of commands.\n"
+                + "10. bye - Exits the program.\n";
     }
 }
