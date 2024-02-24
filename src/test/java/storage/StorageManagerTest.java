@@ -33,10 +33,10 @@ public class StorageManagerTest {
         TaskList loadedTaskList = storageManager.load();
 
         // Check if loaded task list matches the original task list
-        assertEquals(taskListToSave.getTasks().size(), loadedTaskList.getTasks().size());
-        for (int i = 0; i < taskListToSave.getTasks().size(); i++) {
-            assertEquals(taskListToSave.getTasks().get(i).getDescription(),
-                         loadedTaskList.getTasks().get(i).getDescription());
+        assertEquals(taskListToSave.getSize(), loadedTaskList.getSize());
+        for (int i = 0; i < taskListToSave.getSize(); i++) {
+            assertEquals(taskListToSave.getTask(i).getDescription(),
+                         loadedTaskList.getTask(i).getDescription());
         }
     }
 
