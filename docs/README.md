@@ -1,10 +1,10 @@
 # YoudonBot User Guide
-***
+
 Introducing YoudonBot, a brand-new revolutionary task manager that can help you manage ToDos, Deadlines and Events!
 
 ![Screenshot of YoudonBot's GUI](Ui.png)
 ## Table of Contents
-***
+
 - [Todo](#Todo)
 - [Deadline](#Deadline)
 - [Event](#Event)
@@ -16,7 +16,7 @@ Introducing YoudonBot, a brand-new revolutionary task manager that can help you 
 - [Snooze](#Snooze)
 - [Bye](#Bye)
 ## Features
-***
+
 ### Todo
 Adds a To-Do task to your current Tasklist.
 Format: `todo <description>`
