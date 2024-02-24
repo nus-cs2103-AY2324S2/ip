@@ -1,11 +1,22 @@
 package bmo.util;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import bmo.command.*;
-import bmo.util.Parser;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import bmo.command.Command;
+import bmo.command.DefaultCommand;
+import bmo.command.DoneCommand;
+import bmo.command.DueCommand;
+import bmo.command.EventCommand;
+import bmo.command.ExitCommand;
+import bmo.command.GreetCommand;
+import bmo.command.ToDoCommand;
 
 class ParserTest {
 
@@ -33,7 +44,8 @@ class ParserTest {
 
         // Test parsing an "event" command with a description, start, and end dates
         Command eventCommand = Parser.parse("event event /from 01/01/2024 1000 /to 02/01/2024 1000");
-        assertInstanceOf(EventCommand.class, eventCommand, "Expected EventCommand for 'event event /from 01/01/2024 1000 /to 02/01/2024 1000'");
+        assertInstanceOf(EventCommand.class, eventCommand, "Expected EventCommand for 'event event /from "
+                + "01/01/2024 1000 /to 02/01/2024 1000'");
 
         // Test parsing an "invalid" command
         Command invalidCommand = Parser.parse("invalid");

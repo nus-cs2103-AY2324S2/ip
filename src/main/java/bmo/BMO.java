@@ -9,11 +9,21 @@ import bmo.util.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
 /* BMO is a personal assistant chatbot that helps to keep track of various tasks.
  * It is able to add, delete, mark as done, list and find tasks.
  * It is also able to save and load tasks from a file.
  */
-public class BMO {
+public class BMO extends Application {
 
     private final Storage storage;
     private TaskList tasks;
@@ -72,5 +82,14 @@ public class BMO {
      */
     public static void main(String[] args) {
         new BMO().run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
