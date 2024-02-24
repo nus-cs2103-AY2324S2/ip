@@ -79,6 +79,15 @@ public class TaskList {
      * @return A message confirming the task has been marked as done.
      * @throws AssertionError If the specified task number is invalid.
      */
+    /* 
+    public String markAsDone(int taskNo) {
+        assert taskNo > 0 && taskNo <= tasklist.size() : "Task must exist!";
+        Task task = this.tasklist.get(taskNo - 1);
+        String response = task.markAsDone();
+        this.tasklist.set(taskNo - 1, task);
+        return response;
+    }
+    */
     public String markAsDone(int taskNo) {
         assert taskNo > 0 && taskNo <= tasklist.size() : "Task must exist!";
         Task task = this.tasklist.get(taskNo - 1);

@@ -10,6 +10,7 @@ import emis.Storage;
 public class MarkCommand extends Command {
     /** The index of the task to mark as done. */
     private int taskNo;
+    private Integer[] tasksToMark;
 
     /**
      * Constructs a new MarkCommand object with the specified task index.
@@ -18,6 +19,10 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(int taskNo) {
         this.taskNo = taskNo;
+    }
+
+    public MarkCommand(Integer[] tasksToMark) {
+        this.tasksToMark = tasksToMark;
     }
 
     /**

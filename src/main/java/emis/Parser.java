@@ -1,11 +1,14 @@
 package emis;
 
+import java.util.Arrays;
+
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.ExitCommand;
 import command.FindCommand;
+import command.HelpCommand;
 import command.MarkCommand;
 import command.PrintCommand;
 import command.ToDoCommand;
@@ -33,7 +36,9 @@ public class Parser {
                 return new ExitCommand();
             } else if (fullCommand.equals("list")) {
                 return new PrintCommand();
-            } else {
+            } else if (fullCommand.equals("help")) {
+                return new HelpCommand();
+            }else {
                 throw new EmisException("Meow? Emis doesn't understand.");
             }
         } else {
