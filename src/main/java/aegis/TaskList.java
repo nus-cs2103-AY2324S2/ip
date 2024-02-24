@@ -50,6 +50,7 @@ public class TaskList {
      * @param newTask Task to be added.
      */
     public void addTask(Task newTask) {
+        assert newTask != null : "Task to be added should not be null";
         taskList.add(newTask);
     }
 
@@ -59,6 +60,7 @@ public class TaskList {
      * @param index Index of task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < taskList.size() : "Index should be within bounds";
         taskList.remove(index);
     }
 
@@ -68,6 +70,7 @@ public class TaskList {
      * @param index Index of task to be marked complete.
      */
     public void markTask(int index) {
+        assert index >= 0 && index < taskList.size() : "Index should be within bounds";
         Task selectedTask = taskList.get(index);
         selectedTask.setDone();
     }
@@ -78,6 +81,7 @@ public class TaskList {
      * @param index Index of task to be marked not completed.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < taskList.size() : "Index should be within bounds";
         Task selectedTask = taskList.get(index);
         selectedTask.setNotDone();
     }
@@ -128,6 +132,7 @@ public class TaskList {
     public Task reconstructTask(String saveString) {
         String[] taskArgs = saveString.split("\\|");
         String identifier = taskArgs[0];
+        assert identifier.length() == 1 : "Identifier for task should only be a single character";
         Task reconstructedTask = null;
 
         switch (identifier) {
@@ -147,6 +152,7 @@ public class TaskList {
 
         Boolean isDone = taskArgs[1].equals("1");
         if (isDone) {
+            assert reconstructedTask != null : "reconstructed task should not be null";
             reconstructedTask.setDone();
         }
 
