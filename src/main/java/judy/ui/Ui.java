@@ -30,8 +30,8 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println(Messages.GREET_MESSAGE);
+    public String showWelcome() {
+        return Messages.GREET_MESSAGE;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Ui {
      * @param task The task that was added.
      * @param size The updated size of the task list.
      */
-    public void showAddTask(Task task, int size) {
-        System.out.println(Messages.ADD_TASK_MESSAGE
+    public String showAddTask(Task task, int size) {
+        return (Messages.ADD_TASK_MESSAGE
                 + task.toString()
                 + Messages.printTaskSize(size));
     }
@@ -59,8 +59,8 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The updated size of the task list.
      */
-    public void showDeleteTask(Task task, int size) {
-        System.out.println(Messages.DELETE_TASK_MESSAGE + task.toString() + Messages.printTaskSize(size));
+    public String showDeleteTask(Task task, int size) {
+        return Messages.DELETE_TASK_MESSAGE + task.toString() + Messages.printTaskSize(size);
     }
 
     /**
@@ -68,9 +68,9 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarkTask(Task task) {
+    public String showMarkTask(Task task) {
         String s = Messages.MARK_TASK_MESSSAGE + task.toString();
-        System.out.println(s);
+        return s;
     }
 
     /**
@@ -78,8 +78,8 @@ public class Ui {
      *
      * @param task The task that was marked as undone.
      */
-    public void showUnmarkTask(Task task) {
-        System.out.println(Messages.UNMARK_TASK_MESSAGE + task.toString());
+    public String showUnmarkTask(Task task) {
+        return Messages.UNMARK_TASK_MESSAGE + task.toString();
     }
 
     /**
@@ -87,16 +87,17 @@ public class Ui {
      *
      * @param taskList The TaskList containing the tasks to be displayed.
      */
-    public void showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) {
         if (taskList.isEmpty()) {
-            System.out.println(Messages.EMPTY_TASKLIST_MESSAGE);
+            return Messages.EMPTY_TASKLIST_MESSAGE;
         } else {
-            System.out.println(Messages.LIST_TASKS_MESSAGE);
+            String s = Messages.LIST_TASKS_MESSAGE;
             for (int i = 0; i < taskList.getSize(); i++) {
                 int seq = i + 1;
                 Task t = taskList.get(i);
-                System.out.println("  " + seq + ". " + t.toString());
+                s += ("\n  " + seq + ". " + t.toString());
             }
+            return s;
         }
     }
 
@@ -106,24 +107,25 @@ public class Ui {
      *
      * @param taskList The TaskList containing the tasks with matching keyword.
      */
-    public void showFindTasks(TaskList taskList) {
+    public String showFindTasks(TaskList taskList) {
         if (taskList.isEmpty()) {
-            System.out.println(Messages.EMPTY_MATCHING_TASKS_MESSAGE);
+            return Messages.EMPTY_MATCHING_TASKS_MESSAGE;
         } else {
-            System.out.println(Messages.LIST_MATCHING_TASKS_MESSAGE);
+            String s = Messages.LIST_MATCHING_TASKS_MESSAGE;
             for (int i = 0; i < taskList.getSize(); i++) {
                 int seq = i + 1;
                 Task t = taskList.get(i);
-                System.out.println("  " + seq + ". " + t.toString());
+                s += ("\n  " + seq + ". " + t.toString());
             }
+            return s;
         }
     }
 
     /**
      * Displays a help message with instructions on using the application.
      */
-    public void showHelp() {
-        System.out.println(Messages.helpMessage());
+    public String showHelp() {
+        return Messages.helpMessage();
     }
 
     /**
@@ -131,15 +133,15 @@ public class Ui {
      *
      * @param errorMessage The error message to be displayed.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println(Messages.GOODBYE_MESSAGE);
+    public String showGoodbye() {
+        return Messages.GOODBYE_MESSAGE;
     }
 
 }

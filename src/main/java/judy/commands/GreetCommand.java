@@ -15,8 +15,8 @@ public class GreetCommand extends Command {
      * @param ui      The user interface component for displaying messages to the user.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
-        ui.showWelcome();
+    public String execute(Storage storage, Ui ui) {
+        return ui.showWelcome();
     }
 
     /**

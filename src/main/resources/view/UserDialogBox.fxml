@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root type="Pane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <style>
+        -fx-padding: 10 10 10 90;
+    </style>
+    <HBox maxHeight="2E308" maxWidth="2E308" prefWidth="500">
+        <style>
+            -fx-background-color: #AAD9BB;
+            -fx-background-radius: 30px;
+            -fx-spacing: 10px;
+            -fx-padding: 20px;
+        </style>
+        <padding>
+            <Insets bottom="15.0" left="5.0" right="4.0" top="15.0" />
+        </padding>
+        <Text fx:id="dialog" text="Label" textAlignment="RIGHT" >
+            <font>
+                <Font name="Comic Sans MS" size="16.0" />
+            </font>
+        </Text>
+        <ImageView fx:id="displayPicture" fitHeight="80" fitWidth="80" preserveRatio="true" />
+        <HBox.margin>
+            <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        </HBox.margin>
+    </HBox>
+</fx:root>

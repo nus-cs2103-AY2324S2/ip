@@ -33,10 +33,10 @@ public class DeleteTaskCommand extends Command {
      */
 
     @Override
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         this.taskList.remove(this.task);
         storage.save(this.taskList.getTaskList());
-        ui.showDeleteTask(this.task, this.taskList.getSize());
+        return ui.showDeleteTask(this.task, this.taskList.getSize());
     }
     /**
      * Indicates whether this command represents an exit command.

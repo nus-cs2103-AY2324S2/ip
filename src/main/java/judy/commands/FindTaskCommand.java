@@ -45,9 +45,9 @@ public class FindTaskCommand extends Command {
      * @param ui      The user interface for displaying messages.
      */
     @Override
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         TaskList matchingTasks = findMatchingTasks();
-        ui.showFindTasks(matchingTasks);
+        return ui.showFindTasks(matchingTasks);
     }
 
 
