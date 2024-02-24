@@ -1,7 +1,7 @@
 public class Todo extends Task {
-    private static String TASK_TYPE = "[T]";
-    // private static String COMPLETED_MESSAGE_END = " is complete!";
-    // private static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
+    private static String TASK_TYPE = "[T] ";
+    private static String COMPLETED_MESSAGE_END = " is complete!";
+    private static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
     private static String TODO = "todo";
 
     public Todo(String name) {
