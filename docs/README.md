@@ -1,6 +1,6 @@
 # Lia User Guide
 
-![Lia](Ui.png)
+![Screenshot of Lia's UI](Ui.png)
 
 Lia helps you keep track of everything that you need to do. It's,
 
