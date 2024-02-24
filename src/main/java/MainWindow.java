@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import parser.Parser;
+import ui.Ui;
 
 /**
  * Controller for MainWindow.
@@ -38,10 +40,22 @@ public class MainWindow extends AnchorPane {
      */
     public void setTaylor(Taylor t) {
         taylor = t;
+        dialogContainer.getChildren().addAll(DialogBox.getTaylorDialog(startBot(), tayImage));
     }
 
+
+    @FXML
+    private String startBot() {
+        String setUpResponse = "";
+        try {
+            setUpResponse = Parser.executeCommand("list", Taylor.tasksList);
+        } catch (Exception err) {
+            setUpResponse = Ui.printError(err).toString();
+        }
+        return setUpResponse;
+    }
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Taylor's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
