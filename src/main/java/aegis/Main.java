@@ -1,12 +1,12 @@
 package aegis;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * The code for this class was taken from the tutorial for implementing JavaFX @ https://se-education.org/guides/tutorials/javaFx.html

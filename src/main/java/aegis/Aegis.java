@@ -4,10 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
+
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.StringTokenizer;
 
 /**
  * Aegis class contains the main() method that initiates and runs the Aegis assistant program logic.

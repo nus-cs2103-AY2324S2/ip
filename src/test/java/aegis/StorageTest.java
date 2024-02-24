@@ -9,7 +9,6 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * StorageTest class contains methods for performing JUnit tests for WriteTaskListData() in TaskList class.

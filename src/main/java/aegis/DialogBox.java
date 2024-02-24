@@ -1,18 +1,21 @@
 package aegis;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.util.Collections;
 
 /**
  * The code for this class was taken from the tutorial for implementing JavaFX @ https://se-education.org/guides/tutorials/javaFx.html
