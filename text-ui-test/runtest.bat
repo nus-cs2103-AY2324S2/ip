@@ -19,7 +19,7 @@ REM run the program, feed commands from input.txt file and redirect the output t
 =======
 REM run the program, feed charlie.commands from input.txt file and redirect the output to the ACTUAL.TXT
 >>>>>>> add-gradle-support
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -classpath ..\bin charlie.ui.Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

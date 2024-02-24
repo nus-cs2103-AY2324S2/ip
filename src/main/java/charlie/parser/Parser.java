@@ -11,7 +11,7 @@ import charlie.exceptions.CharlieException;
 public class Parser {
 
     /**
-     * takes in the user full command, and returns the appropiate type of command based on user input
+     * takes in the user full command, and returns the appropriate type of command based on user input
      * @param fullCommand the user command in its full string form
      * @return the command to be executed
      * @throws CharlieException

@@ -1,2 +1,2 @@
-T | 1 | borrow book
-D | 1 | party all night | 2023-10-23
+T | 0 | borrow book
+D | 1 | return book | 2023-02-23

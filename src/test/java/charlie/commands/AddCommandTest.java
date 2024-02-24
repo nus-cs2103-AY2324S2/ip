@@ -1,7 +1,6 @@
 package charlie.commands;  //same package as the class being tested
 
 import charlie.models.*;
-import charlie.ui.Ui;
 import charlie.exceptions.CharlieException;
 import charlie.storage.Storage;
 import charlie.storage.TaskList;
@@ -20,7 +19,6 @@ public class AddCommandTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private Ui ui;
     private Storage storage;
 
     @BeforeEach
@@ -41,10 +39,8 @@ public class AddCommandTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(todoTask);
         TaskList tasklist = new TaskList(tasks);
-        ui = new Ui();
         storage = new Storage("./data/charlie.txt");
-        command.execute(tasklist, ui, storage);
-        String response = outContent.toString();
+        String response = command.execute(tasklist, storage);
 
         String expectedResponse = "Got it. I've added this task:\n" +
                 "  [T][ ] borrow book\n" +
@@ -64,10 +60,8 @@ public class AddCommandTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(deadlineTask);
         TaskList tasklist = new TaskList(tasks);
-        ui = new Ui();
         storage = new Storage("./data/charlie.txt");
-        command.execute(tasklist, ui, storage);
-        String response = outContent.toString();
+        String response = command.execute(tasklist, storage);
 
         String expectedResponse = "Got it. I've added this task:\n" +
                 "  [D][ ] return book (by: Oct 15 2019)\n" +

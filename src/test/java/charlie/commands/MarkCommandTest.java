@@ -2,7 +2,6 @@ package charlie.commands;
 
 import charlie.exceptions.CharlieException;
 import charlie.storage.*;
-import charlie.ui.Ui;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MarkCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private Ui ui;
     private Storage storage;
 
     @BeforeEach
@@ -34,9 +32,7 @@ public class MarkCommandTest {
         Command command = new MarkCommand(1);
         storage = new Storage("./data/charlie.txt");
         TaskList tasks = new TaskList(storage.loadTasks());
-        ui = new Ui();
-        command.execute(tasks, ui, storage);
-        String response = outContent.toString();
+        String response = command.execute(tasks, storage);
 
         String expectedResponse = "Marked task: 'borrow book";
 
