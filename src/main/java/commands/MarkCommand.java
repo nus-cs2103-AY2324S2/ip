@@ -1,8 +1,9 @@
 package commands;
 
 import tasks.Task;
+import utils.Response;
 import utils.TaskList;
-import utils.Ui;
+
 
 /**
  * The MarkCommand class represents a command to mark a task as completed.
@@ -22,12 +23,11 @@ public class MarkCommand extends Command {
     /**
      * Executes the mark command.
      *
-     * @param ui       The user interface object.
      * @param taskList The task list object.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public void execute(TaskList taskList) {
         Task updatedTask = taskList.markTask(i - 1); // Adjusting index to match 0-based indexing
-        ui.displayMarkedTask(updatedTask);
+        setResponse(Response.getMarkTaskResponse(updatedTask));
     }
 }

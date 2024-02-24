@@ -1,8 +1,8 @@
 package commands;
 
 import tasks.Task;
+import utils.Response;
 import utils.TaskList;
-import utils.Ui;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the task list.
@@ -22,12 +22,11 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command.
      *
-     * @param ui       The user interface object.
      * @param taskList The task list object.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public void execute(TaskList taskList) {
         Task deletedTask = taskList.deleteTask(i - 1); // Adjusting index to match 0-based indexing
-        ui.displayDeletedTask(deletedTask, taskList.getLength());
+        setResponse(Response.getDeleteTaskResponse(deletedTask, taskList.getLength()));
     }
 }

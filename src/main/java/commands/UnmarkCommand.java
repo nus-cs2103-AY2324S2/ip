@@ -1,8 +1,8 @@
 package commands;
 
 import tasks.Task;
+import utils.Response;
 import utils.TaskList;
-import utils.Ui;
 
 /**
  * The UnmarkCommand class represents a command to unmark a task as completed.
@@ -22,12 +22,11 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the unmark command.
      *
-     * @param ui       The user interface object.
      * @param taskList The task list object.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public void execute(TaskList taskList) {
         Task updatedTask = taskList.unmarkTask(i - 1); // Adjusting index to match 0-based indexing
-        ui.displayUnmarkedTask(updatedTask);
+        setResponse(Response.getUnmarkTaskResponse(updatedTask));
     }
 }
