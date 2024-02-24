@@ -1,0 +1,44 @@
+todo borrow book
+deadline return book /by 27/1/2024 17:15
+event project meeting /from 1/1/2001 00:00 /to 1/1/1998 23:00
+event project meeting /from 1/1/1998 23:00 /to 1/1/1998 23:00
+todo a
+event 1 /from 19/11/2011 16:50 /to 1/12/2100 18:33
+todo
+deadline return book by 1/1/2001 00:00
+deadline return book/by 1/1/2001 00:00
+deadline return book /by1/1/2001 00:00
+event project meeting /from1/1/2001 00:00 /to 1/1/2001 00:00
+event project meeting /from 1/1/2001 00:00/to 1/1/2001 00:00
+event project meeting/from1/1/2001 00:00/to1/1/2001 00:00
+event project meeting /to 1/1/2001 00:00 /from 1/1/2001 00:00
+listing
+list
+mark
+mark abc
+mark 0
+mark 1
+mark 3
+mark 4
+mark 50
+unmark
+unmark abc
+unmark 0
+unmark 2
+unmark 3
+unmark 21
+list
+delete
+delete def
+delete 0
+delete 5
+delete 5
+delete 1
+delete 2
+event project meeting /from 1/1/2001 /to 1/1/2001 23:00
+event project meeting /from 1/1/2001 00:00 /to 1/1
+deadline return book /by 31/13/2024 17:80
+list
+find
+find boo
+bye
