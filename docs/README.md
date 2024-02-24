@@ -11,7 +11,7 @@ Store, track and manage different types of tasks with an adorable interface <3
 You can create deadlines to remind yourself to finish a task by a date and time <br>
 
 
-If you wanted to remind yourself about your IP submmission deadline:
+If you want to remind yourself about your IP submission deadline:
 
 Example: `deadline Submit IP /by 25/2/2024 2359`
 
@@ -24,7 +24,7 @@ Feeling lazy?
 Simply delay tasks by a default time of 1 hour 😴
 
 
-If you wanted to delay your 'homework' deadline at index 2, you can simply type
+If you want to delay your 'homework' deadline at index 2, you can simply type
 
 Example: `snooze 2`
 
