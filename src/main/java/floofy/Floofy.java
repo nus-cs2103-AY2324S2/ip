@@ -27,7 +27,7 @@ public class Floofy extends Application {
     private Ui ui;
 
     /** The file path of the file to store the tasks. */
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/floofy.txt";
 
     /**
      * Constructs a Floofy object with no arguments.
