@@ -13,6 +13,8 @@ import parser.Parser;
 import tasks.Task;
 import ui.Ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class Taylor extends Application {
     public Taylor() {
         try {
             tasksList = Storage.inputFromFile();
-        } catch (Exception err) {
+        } catch (Exception err)  {
             tasksList = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 tasksList.add(new ArrayList<>());
