@@ -24,6 +24,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    public Storage() {
+        this.filePath = "balkanbot.txt";
+    }
+
     /**
      * Saves the current tasks in the task list into a text file.
      *
