@@ -4,7 +4,7 @@ import charlie.storage.Storage;
 import charlie.storage.TaskList;
 import charlie.ui.Ui;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * executes the List command, which prints out all the tasks in taskList
      * @param taskList - task list loaded at the start of the program.

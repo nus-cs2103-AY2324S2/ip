@@ -11,7 +11,7 @@ public class Ui {
     /**
      * introduces Charlie to the user
      */
-    public void showWelcome(){
+    public void showWelcome() {
         System.out.println("Hello, I'm Charlie.");
         System.out.println("What can I do for you?");
     }
@@ -19,14 +19,14 @@ public class Ui {
     /**
      * generates a line for separation of commands
      */
-    public void showLine(){
+    public void showLine() {
         System.out.println("___________________________________________");
     }
 
     /**
      * @param message shows an error message in the case of an error
      */
-    public void showError(String message){
+    public void showError(String message) {
         System.err.println(message);
     }
 
@@ -42,7 +42,7 @@ public class Ui {
      * prints whatever string output it receives
      * @param output string output
      */
-    public void printOutput(String output){
+    public void printOutput(String output) {
         System.out.println(output);
     }
 }

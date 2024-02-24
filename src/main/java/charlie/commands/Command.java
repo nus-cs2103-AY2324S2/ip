@@ -10,7 +10,8 @@ public abstract class Command {
     protected boolean isExit;
 
     /**
-     * Abstract execute method that aims to perform actions for a specific command. Needs to be overriden in sub-classes.
+     * Abstract execute method that aims to perform actions for a specific command.
+     * Needs to be overridden in sub-classes.
      * @param taskList - task list loaded at the start of the program.
      * @param ui - class responsible for user interface interactions
      * @param storage - class responsible for adding and loading tasks from and into the file

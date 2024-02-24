@@ -1,6 +1,12 @@
 package charlie.parser;
 
-import charlie.commands.*;
+import charlie.commands.AddCommand;
+import charlie.commands.Command;
+import charlie.commands.DeleteCommand;
+import charlie.commands.ExitCommand;
+import charlie.commands.FindCommand;
+import charlie.commands.ListCommand;
+import charlie.commands.MarkCommand;
 import charlie.exceptions.CharlieException;
 public class Parser {
 
@@ -15,7 +21,8 @@ public class Parser {
         if (fullCommand.startsWith("delete")) {
             String[] words = fullCommand.split(" ");
             return new DeleteCommand(Integer.valueOf(words[1]));
-        } else if (fullCommand.startsWith("todo") || fullCommand.startsWith("event") || fullCommand.startsWith("deadline")) {
+        } else if (fullCommand.startsWith("todo") || fullCommand.startsWith("event")
+                || fullCommand.startsWith("deadline")) {
             return new AddCommand(fullCommand);
         } else if (fullCommand.startsWith("list")) {
             return new ListCommand();
@@ -28,10 +35,8 @@ public class Parser {
             String[] words = fullCommand.split(" ");
             return new FindCommand(words[1]);
         }
-        else{
+        else {
             throw new CharlieException("Sorry, unknown command, try again!");
         }
     }
-
-
 }

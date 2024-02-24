@@ -1,16 +1,15 @@
 package charlie.commands;
 
 import java.util.ArrayList;
+
 import charlie.exceptions.CharlieException;
-import charlie.ui.Ui;
-
-import charlie.storage.Storage;
-import charlie.storage.TaskList;
-
 import charlie.models.Deadline;
 import charlie.models.Event;
 import charlie.models.Task;
 import charlie.models.Todo;
+import charlie.storage.Storage;
+import charlie.storage.TaskList;
+import charlie.ui.Ui;
 
 public class AddCommand extends Command {
 
@@ -71,7 +70,8 @@ public class AddCommand extends Command {
     private static void handleDeadline(ArrayList<Task> taskList, String input) throws CharlieException {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new CharlieException("Sorry, the description of a deadline cannot be empty and must include a /by time.");
+            throw new CharlieException("Sorry, the description of a deadline "
+                    + "cannot be empty and must include a /by time.");
         }
         Deadline deadline = new Deadline(parts[0], parts[1]);
         taskList.add(deadline);
@@ -88,7 +88,8 @@ public class AddCommand extends Command {
     private static void handleEvent(ArrayList<Task> taskList, String input) throws CharlieException {
         String[] parts = input.substring(6).split(" /from ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || !parts[1].contains(" /to ")) {
-            throw new CharlieException("Sorry, the description of an event cannot be empty and must include start /from and /to end times.");
+            throw new CharlieException("Sorry, the description of an event cannot be empty "
+                    + "and must include start /from and /to end times.");
         }
         String[] timeParts = parts[1].split(" /to ");
         Event event = new Event(parts[0], timeParts[0], timeParts[1]);

@@ -1,12 +1,12 @@
 package charlie.commands;
 
+import java.util.ArrayList;
+
 import charlie.exceptions.CharlieException;
 import charlie.models.Task;
 import charlie.storage.Storage;
 import charlie.storage.TaskList;
 import charlie.ui.Ui;
-
-import java.util.ArrayList;
 
 public class FindCommand extends Command {
 

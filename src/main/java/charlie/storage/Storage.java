@@ -1,21 +1,29 @@
 package charlie.storage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import charlie.exceptions.CharlieException;
 import charlie.models.Deadline;
 import charlie.models.Event;
 import charlie.models.Task;
 import charlie.models.Todo;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
 public class Storage {
 
     private String filePath;
 
-    public Storage(String filePath){
+    /**
+     * creates a storage file (storage space) within which the list of tasks / user input can be saved
+     * @param filePath path within the current directory by which the storage file should be saved
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -24,7 +32,7 @@ public class Storage {
      * @return tasks loaded from the filePath
      * @throws CharlieException
      */
-    public ArrayList<Task> loadTasks() throws CharlieException{
+    public ArrayList<Task> loadTasks() throws CharlieException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -69,7 +77,9 @@ public class Storage {
                 throw new IllegalArgumentException("Invalid task type in file.");
         }
 
-        if (parts[1].equals("1")) task.markAsDone();
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
         return task;
     }
 
@@ -100,9 +110,10 @@ public class Storage {
      * @return string of how the task should appear in file format
      */
     private String taskToFileFormat(Task task) {
-        String type = task instanceof Todo ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "";
+        String type = task instanceof Todo ? "T"
+                : task instanceof Deadline ? "D"
+                : task instanceof Event ? "E"
+                : "";
         int done = task.isDone() ? 1 : 0;
         String details = task.getDescription();
 
