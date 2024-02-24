@@ -32,14 +32,10 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
 
         // check if task list is empty
-        if (tasks.isEmpty()) {
-            throw new BenException("   There are no pending tasks now... Add some tasks here!");
-        }
+        assert !tasks.isEmpty() : "There are no pending tasks now... Add some tasks here!";
 
         // check if input is within bounds
-        if (tasks.isOutOfBounds(index)) {
-            throw new BenException("   Please input a valid number between 1 and " + tasks.size());
-        }
+        assert !tasks.isOutOfBounds(index) : "Please input a valid number between 1 and " + tasks.size();
 
         tasks.unmarkTask(index);
 
