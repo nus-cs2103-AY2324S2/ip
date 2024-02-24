@@ -1,29 +1,150 @@
-# User Guide
+# Chat User Guide
 
-## Features 
+chat is a desktop application for managing tasks, optimized for use via a Command Line Interface (CLI). 
 
-### Feature-ABC
+## Environment
 
-Description of the feature.
+1. ensure you have Java 11 installed on your computer
+2. download the latest version of chat.jar from [here](https://github.com/SeaHogs/ip/releases/download/A-Release/Chat.jar)
 
-### Feature-XYZ
+## All features
 
-Description of the feature.
+1. [Adding a task](#adding-a-task)
+2. [Listing all tasks](#listing-all-tasks)
+3. [Marking or unmarking a task as done](#marking-a-task-as-done)
+4. [Deleting a task](#deleting-a-task)
+5. [Finding tasks related to input](#finding-a-task)
+6. [local storage](#local-storage)
 
-## Usage
 
-### `Keyword` - Describe action
+## Adding a task
+### Type of task
+- Todo
+- Deadline
+- Event
 
-Describe the action and its outcome.
+### Prompt
+- Todo: todo {task description}
 
-Example of usage: 
+    _e.g. adding task todo `read book`_
+    ```
+    todo read book
+    ```
 
-`keyword (optional arguments)`
+- Deadline: deadline {task description} /by {date}
 
-Expected outcome:
+    _e.g. adding task deadline `return book` before `2021-09-17`_
+    ```
+    deadline return book /by 2021-09-17
+    ```
+  
+- Event: event {task description} /from {date} /to {date}
 
-Description of the outcome.
+    _e.g. adding task event `project meeting` from `2021-09-17` to `2021-09-18`_
+    ```
+    event project meeting /from 2021-09-17 /to 2021-09-18
+    ```
+  ### Expected output for all adding tasks
+    ```
+    Got it. I've added this task: {task name}
+    ```
+> Note: the following eg for each command will be using the output of the above prompt
 
-```
-expected output
-```
+## Listing all tasks
+### Prompt
+- list
+
+    _e.g. listing all tasks_
+    ```
+    list
+    ```
+  ### Expected output
+    ```
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [D][ ] return book (by: Sep 17 2021)
+    3. [E][ ] project meeting (from: Sep 17 2021 to: Sep 18 2021)
+    ```
+
+## Deleting a task
+### prompt
+- delete {task number}
+
+    _e.g. deleting task 3_
+    ```
+    delete 3
+    ```
+    ### Expected output
+    ```
+    Noted. I've removed this task: {task number}
+    ```
+    this can be verified by listing all tasks:
+    ```
+    list
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [D][ ] return book (by: Sep 17 2021)
+    ```
+
+## Marking a task as done
+### Prompt
+- mark {task name}
+
+    _e.g. marking task 1 as done_
+    ```
+    mark read book
+    ```
+    ### Expected output
+    ```
+    Nice! I've marked this task as done: {task name}
+    ```
+    this can be verified by listing or finding tasks:
+  ```
+  list
+  Here are the tasks in your list:
+  1. [T][X] read book
+  2. [D][ ] return book (by: Sep 17 2021)
+  3. [E][ ] project meeting (from: Sep 17 2021 to: Sep 18 2021)
+  ```
+
+- unmark {task name}
+
+  _e.g. unmarking read book_
+  ```
+  unmark read book
+  ```
+  ## Expected output
+  ```
+  unmarked 
+  I've unmarked this task as done: {task name}
+  ```
+  this can be verified by listing all tasks:
+  ```
+  list
+  Here are the tasks in your list:
+  1. [T][ ] read book
+  2. [D][ ] return book (by: Sep 17 2021)
+  3. [E][ ] project meeting (from: Sep 17 2021 to: Sep 18 2021)
+  ```
+
+## Finding a task
+### prompt
+- find {keyword}
+
+    e.g. finding tasks related to `book`
+    ```
+    find book
+    ```
+    ### Expected output
+    ```
+    Here are the matching tasks in your list:
+    1. [T][ ] read book
+    2. [D][ ] return book (by: Sep 17 2021)
+    ```
+
+## Local storage
+- chat stores all tasks in a local file, so that the tasks are not lost when the app is closed.
+- the file is located at `data/tasks.txt` relative to the location of the jar file
+- the file is created if it does not exist
+- the file is updated every time a task is added, deleted, or marked as done
+- the file is read every time the app is started, to load the tasks into the app
