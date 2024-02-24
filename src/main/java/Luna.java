@@ -171,7 +171,7 @@ public class Luna {
 
         public static String greetingString(String name){
             String msg = "";
-            msg += String.format("%30s", "（„• ֊ •„)♡\n");
+            msg += String.format("%30s", " （„• ֊ •„)♡\n");
             msg += "heyo! my name is ✦" + name + "✦\n";
             msg += "What would you like for me to do?\n";
             return msg;
