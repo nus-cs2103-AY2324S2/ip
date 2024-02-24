@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("signal.Signal")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
