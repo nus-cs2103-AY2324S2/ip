@@ -19,7 +19,7 @@ public class Ui {
         System.out.println(wrapWithlines(s));
     }
     public String showWelcomeMsg() {
-        String s1 = "Hello! I'm floofy.Floofy!";
+        String s1 = "Hello! I'm Floofy!";
         String s2 = "What can I do for you?";
         return wrapWithlines(s1 + "\n" + s2);
     }
