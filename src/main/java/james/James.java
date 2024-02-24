@@ -23,12 +23,12 @@ import javafx.stage.Stage;
 
 
 /**
- * Represents the main class of the Duke application.
+ * Represents the main class of the James application.
  */
 public class James extends Application {
     private static final String FILE_PATH = "./data/hardDisk.txt";
     private Image user = new Image(this.getClass().getResourceAsStream("/images/daUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/daDuke.png"));
+    private Image james = new Image(this.getClass().getResourceAsStream("/images/daDuke.png"));
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -107,7 +107,10 @@ public class James extends Application {
         configureLayout(mainLayout);
 
         stage.show();
-        ui.showWelcome();
+        System.out.println("Hello! I'm James\nWhat can I do for you?");
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(ui.showWelcome(), james)
+        );
     }
 
     private void configureLayout(AnchorPane mainLayout) {
@@ -142,24 +145,21 @@ public class James extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText.getText(), user), // Fix: Pass the text of the Label
-                DialogBox.getDukeDialog(dukeText.getText(), duke) // Fix: Pass the text of the Label
+                DialogBox.getUserDialog(userText.getText(), user),
+                DialogBox.getDukeDialog(dukeText.getText(), james)
         );
         userInput.clear();
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves the response from James based on the user input.
+     *
+     * @param input User input.
+     * @return Response from James.
      */
     public String getResponse(String input) {
         try {
@@ -170,6 +170,11 @@ public class James extends Application {
         }
     }
 
+    /**
+     * Main entry-point for the JavaFX application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         launch(args); // Launch the JavaFX application
     }

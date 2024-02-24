@@ -1,9 +1,9 @@
 package james.tasklist;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.time.LocalDateTime;
 
 import james.exception.DukeException;
 import james.tasks.Task;
@@ -82,6 +82,9 @@ public class TaskList {
         return this.size;
     }
 
+    /**
+     * Sorts the tasks in the task list.
+     */
     public void sortTasks() {
         Collections.sort(tasks, new Comparator<Task>() {
             @Override

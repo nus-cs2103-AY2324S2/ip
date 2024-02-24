@@ -5,13 +5,12 @@ import java.io.IOException;
 import james.exception.DukeException;
 import james.storage.Storage;
 import james.tasklist.TaskList;
-import james.tasks.Task;
 import james.ui.Ui;
 
 /**
  * Represents a command to sort the task list.
  */
-public class SortCommand extends Command{
+public class SortCommand extends Command {
     /**
      * Executes the command to sort the task list.
      *
@@ -30,7 +29,7 @@ public class SortCommand extends Command{
             e.printStackTrace();
             return errorMessage;
         }
-        return ui.showTaskList(tasks);    
+        return ui.showTaskList(tasks);
     }
 
     /**

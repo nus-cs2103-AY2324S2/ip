@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for James using FXML.
  */
 public class Main extends Application {
 
@@ -28,5 +28,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
