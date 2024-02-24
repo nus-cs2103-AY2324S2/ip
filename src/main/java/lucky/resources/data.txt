@@ -1,3 +1,5 @@
-todo~1~finish A-TextUiTesting~1
-deadline~1~ip week 1~11/11/2011 1111
-event~0~cs2103 tutorial~11/11/2011 1111~11/11/2012 1111~3~#easy
+todo~0~Upload UI.png later~1~#1~#2
+event~0~cs2103 tutorial~24/2/2024 0900~24/2/2024 1000~2~#eassy
+deadline~0~ip~23/2/2024 2359~3~#eassy
+todo~0~ma1522 tutorial
+todo~0~cs2103 tutorial
