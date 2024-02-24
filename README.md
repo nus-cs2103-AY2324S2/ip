@@ -1,4 +1,5 @@
-# Your Chatbot Name
+# Hammy
+Your favourite chatbot
 
 ## User Guide
 
