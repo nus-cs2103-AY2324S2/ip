@@ -17,17 +17,15 @@ public class Mitsuki {
      */
     protected static TaskList toDoList;
     protected final Ui ui;
-    private final Parser parser;
-    private final Storage storage;
 
     /**
      * A constructor for a Mitsuki object.
      */
     public Mitsuki() {
         ui = new Ui();
-        parser = new Parser();
+        Parser parser = new Parser();
 
-        storage = new Storage("list.txt");
+        Storage storage = new Storage("list.txt");
         try {
             toDoList = new TaskList(Storage.load());
             ui.loadList();
