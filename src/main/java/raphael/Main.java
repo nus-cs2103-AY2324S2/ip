@@ -22,7 +22,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setResizable(true);
+            ap.resize(stage.getHeight(), stage.getWidth());
             fxmlLoader.<MainWindow>getController().setRaphael(this.raphael);
+            stage.setTitle("Raphael");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
