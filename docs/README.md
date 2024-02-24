@@ -3,11 +3,11 @@
 Chatbot Kai is an application that manages your task via Command Line
 Interface(CLI) or via Graphical User Interface(GUI) application.
 
-- ###[Quick start](#quickstart)
-- ###[Features](#features)
-- ###[Description](#description)
-- ###[FAQ](#faq)
-- ###[Command summary](#summary)
+- [Quick start](#quickstart)
+- [Features](#features)
+- [Description](#description)
+- [FAQ](#faq)
+- [Command summary](#summary)
 
 ## <a id="quickstart">Quick start</a> 
 1. Make sure that Java 11 or above is installed on your device
@@ -17,11 +17,11 @@ Interface(CLI) or via Graphical User Interface(GUI) application.
 
 ## <a id="features">Features</a> 
 
-###[Viewing help](#help)
+[Viewing help](#help)
 
 View all the commands available
 
-###Add a task
+Add a task
 
 Add one specific tasks. The three types of tasks are
 1. [Todo](#todo): A task that needs to be done, without a specific deadline
@@ -29,33 +29,33 @@ Add one specific tasks. The three types of tasks are
    date as a deadline
 3. [Event](#event): A task that will happen, with a specific date and time 
 
-###[Mark a task as done](#mark)
+[Mark a task as done](#mark)
 
 Update the specific task in the task list as done
 
-###[Mark a task as not done](#unmark)
+[Mark a task as not done](#unmark)
 
 Update a specific task in the task list as not done
 
-###[Delete a task](#delete)
+[Delete a task](#delete)
 
 Delete the specific task in the task list
 
-###[Find a specific task](#find)
+[Find a specific task](#find)
 
 Find the specific task in the task list using a keyword
 
-###[List all tasks](#list)
+[List all tasks](#list)
 
 List down all the tasks in the task list in order
 
-###[Exit the program](#bye)
+[Exit the program](#bye)
 
 Exit the application completely
 
-##<a id="description">Description</a>
+<a id="description">Description</a>
 
-###<a id="help">`help`</a> - Typing this will display a string that shows the list of commands that can be used
+<a id="help">`help`</a> - Typing this will display a string that shows the list of commands that can be used
 
 Example of usage:
 
@@ -75,7 +75,7 @@ Description of expected outcome:
 "find [keyword]: finds tasks containing the specific keywords!"
 ```
 
-###<a id="todo">`todo`</a> - Adding a todo
+<a id="todo">`todo`</a> - Adding a todo
 
 Example of usage:
 
@@ -89,7 +89,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-###<a id="deadline">`deadline`</a> - Adding a deadline
+<a id="deadline">`deadline`</a> - Adding a deadline
 
 Example of usage:
 
@@ -103,7 +103,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-###<a id="event">`event`</a> - Adding an event
+<a id="event">`event`</a> - Adding an event
 
 Example of usage:
 
@@ -117,7 +117,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-###<a id="mark">`mark`</a> - Marking a task as done
+<a id="mark">`mark`</a> - Marking a task as done
 
 Example of usage:
 
@@ -130,7 +130,7 @@ Nice! I've marked this task as done:
 [T][0] report submission
 ```
 
-###<a id="unmark">`unmark`</a> - Marking a task as done
+<a id="unmark">`unmark`</a> - Marking a task as done
 
 Example of usage:
 
@@ -143,7 +143,7 @@ OK, I've marked this task as not done yet:
 [T][X] report submission
 ```
 
-###<a id="delete">`delete`</a> - Deleting a task from the task list
+<a id="delete">`delete`</a> - Deleting a task from the task list
 
 Example of usage:
 
@@ -157,7 +157,7 @@ Noted. I've removed this task:
 Now you have 3 tasks in the list
 ```
 
-###<a id="find">`find`</a> - Finding a task from the task list with a keyword
+<a id="find">`find`</a> - Finding a task from the task list with a keyword
 
 Example of usage:
 
@@ -170,7 +170,7 @@ Here are the matching tasks in your list:
 1. [T][X] report submission 
 ```
 
-###<a id="list">`list`</a> - Listing all tasks from the task list in order
+<a id="list">`list`</a> - Listing all tasks from the task list in order
 
 Example of usage:
 
@@ -185,7 +185,7 @@ Here are the tasks in your list:
 3. [E][X] career fair (at: Aug 6th 2-4pm)
 ```
 
-###<a id="bye">`bye`</a> - Exiting the application
+<a id="bye">`bye`</a> - Exiting the application
 
 Example of usage:
 
@@ -197,7 +197,7 @@ Description of expected outcome:
 Bye Bye. Hope to see you again soon!
 ```
 
-##<a id="faq">FAQ</a>
+<a id="faq">FAQ</a>
 
 Q: How do I transfer my data to another Computer?
 
@@ -205,7 +205,7 @@ A: Install the app in the other computer and overwrite the
 empty data file it creates with the file that contains the 
 data of your previous AddressBook home folder.
 
-##<a id="summary">Command Summary</a>
+<a id="summary">Command Summary</a>
 
 | Action | Format                         |        
 |--------|--------------------------------|
