@@ -8,6 +8,10 @@ import luke.task.Task;
 public class Ui {
     public static final String LINE = "________________________________________________________\n";
 
+    /**
+     * Returns the welcome message.
+     * @return The welcome message.
+     */
     public String displayWelcome() {
         return LINE
                 + "Hello! I'm Luke!\n"
@@ -15,6 +19,10 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the goodbye message.
+     * @return The goodbye message.
+     */
     public String displayGoodBye() {
         return LINE
                 + "Bye. Hope to see you again soon!\n"
@@ -38,6 +46,11 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the task list, concatenated with the ui message.
+     * @param taskList The task list to be displayed.
+     * @return The task list, concatenated with the ui message.
+     */
     public String displayTasks(List taskList) {
         assert taskList != null;
         return LINE
@@ -46,6 +59,11 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the marked task, concatenated with the ui message.
+     * @param task The marked task.
+     * @return The marked task, concatenated with the ui message.
+     */
     public String displayTaskMarked(Task task) {
         assert task != null;
         return LINE
@@ -54,6 +72,11 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the unmarked task, concatenated with the ui message.
+     * @param task The unmarked task.
+     * @return The unmarked task, concatenated with the ui message.
+     */
     public String displayTaskUnmarked(Task task) {
         assert task != null;
         return LINE
@@ -79,6 +102,11 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the matching tasks, concatenated with the ui message.
+     * @param results The list of matching tasks.
+     * @return The matching tasks, concatenated with the ui message.
+     */
     public String displayResults(List results) {
         assert results != null;
         return LINE
@@ -87,6 +115,10 @@ public class Ui {
                 + LINE;
     }
 
+    /**
+     * Returns the help message.
+     * @return The help message.
+     */
     public String displayHelp() {
         return LINE
                 + "How to use:\n"

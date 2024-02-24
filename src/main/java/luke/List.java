@@ -11,6 +11,10 @@ import luke.task.Task;
 public class List {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an instance of List.
+     * @param tasks The ArrayList containing the tasks.
+     */
     public List(ArrayList<Task> tasks) {
         assert tasks != null;
         this.tasks = tasks;

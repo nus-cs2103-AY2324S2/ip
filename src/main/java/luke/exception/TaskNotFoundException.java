@@ -8,6 +8,10 @@ import luke.List;
 public class TaskNotFoundException extends Throwable {
     private List taskList;
 
+    /**
+     * Constructs an instance of TaskNotFoundException
+     * @param taskList The task list in which the task is not found.
+     */
     public TaskNotFoundException(List taskList) {
         assert taskList != null;
         this.taskList = taskList;
