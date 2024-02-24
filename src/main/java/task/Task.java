@@ -91,4 +91,24 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     * Checks if this Task object is equal to another object.
+     *
+     * @param other The object to compare to.
+     * @return true if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        Task otherTask = (Task) other;
+        return this.description.equals(otherTask.description);
+    }
 }

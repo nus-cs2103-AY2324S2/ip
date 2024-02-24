@@ -65,10 +65,14 @@ public class TaskList {
      */
     public String addTask(Task task) {
         String response = "";
-        this.tasklist.add(task);
-        response += "Got it. I've added this task:";
-        response += "\n" + task.toString();
-        response += ("\nNow you have " + this.tasklist.size() + " tasks in the list.");
+        if (checkIfDuplicate(task)) {
+            response += task.toString() + " already exists and will not be added.";
+        } else {
+            this.tasklist.add(task);
+            response += "Got it. I've added this task:";
+            response += "\n" + task.toString();
+            response += ("\nNow you have " + this.tasklist.size() + " tasks in the list.");
+        }
         return response;
     }
     
@@ -118,5 +122,20 @@ public class TaskList {
             }
         }
         return response;
+    }
+
+    /**
+     * Checks if a task already exists in the task list.
+     * 
+     * @param task The task to check for duplicates.
+     * @return true if the task already exists, false otherwise.
+     */
+    public boolean checkIfDuplicate(Task task) {
+        for (Task existingTask : this.tasklist) {
+            if(existingTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
