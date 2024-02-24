@@ -23,7 +23,7 @@ public enum Command {
      */
     LIST("list") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             return tasks.printList();
         }
     },
@@ -32,9 +32,9 @@ public enum Command {
      */
     MARK("mark") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                int position = Integer.parseInt(commandLine);
+                int position = Integer.parseInt(commandLine[1]);
                 assert position >= tasks.getSize(): "Position out of list";
                 Task currentTask = tasks.getPosValue(position - 1);
                 currentTask.markAsDone();
@@ -56,9 +56,9 @@ public enum Command {
      */
     UNMARK("unmark") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                int position = Integer.parseInt(commandLine);
+                int position = Integer.parseInt(commandLine[1]);
                 assert position >= tasks.getSize(): "Position out of list";
                 Task currentTask = tasks.getPosValue(position - 1);
                 currentTask.unmarkAsDone();
@@ -80,9 +80,9 @@ public enum Command {
      */
     TODO("todo") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                Todo userTask = new Todo(commandLine, false);
+                Todo userTask = new Todo(commandLine[1], false);
                 tasks.addTask(userTask);
                 return userTask + "\nNow you have " + tasks.getSize() + " tasks in the list.";
             } catch (IndexOutOfBoundsException e) {
@@ -98,9 +98,9 @@ public enum Command {
      */
     DEADLINE("deadline") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                String[] differentParts = commandLine.split("/", 2);
+                String[] differentParts = commandLine[1].split("/", 2);
                 String[] deadLine = differentParts[1].split(" ", 2);
                 LocalDate deadDate = LocalDate.parse(deadLine[1]);
                 Deadline userTask = new Deadline(differentParts[0], false, deadLine[1]);
@@ -125,9 +125,9 @@ public enum Command {
      */
     EVENT("event") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                String[] differentParts = commandLine.split("/");
+                String[] differentParts = commandLine[1].split("/");
                 String[] startDate = differentParts[1].split(" ", 2);
                 String[] endDate = differentParts[2].split(" ", 2);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -158,9 +158,9 @@ public enum Command {
      */
     DELETE("delete") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                int position = Integer.parseInt(commandLine);
+                int position = Integer.parseInt(commandLine[1]);
                 assert position >= tasks.getSize(): "Position out of list";
                 Task chosenTask = tasks.getPosValue(position - 1);
                 tasks.removeTask(position - 1);
@@ -185,9 +185,9 @@ public enum Command {
      */
     FIND("find") {
         @Override
-        public String execute(TaskList tasks, String commandLine) {
+        public String execute(TaskList tasks, String[] commandLine) {
             try {
-                return tasks.findTask(commandLine);
+                return tasks.findTask(commandLine[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return "Sorry, you didn't add anything after the keyword find.\n"
                         + "I'm gonna need you to indicate what you want to search for "
@@ -200,7 +200,7 @@ public enum Command {
      */
     BYE("bye") {
         @Override
-        public String execute(TaskList tasks, String commandLine) throws IOException {
+        public String execute(TaskList tasks, String[] commandLine) throws IOException {
             Ui ui = new Ui();
             Storage storage = new Storage("data/victor.txt");
             storage.updateFile(tasks.returnList());
@@ -225,5 +225,5 @@ public enum Command {
      * @param tasks Get the list of tasks
      * @param commandLine Get the commandLine
      */
-    public abstract String execute(TaskList tasks, String commandLine) throws IOException;
+    public abstract String execute(TaskList tasks, String[] commandLine) throws IOException;
 }

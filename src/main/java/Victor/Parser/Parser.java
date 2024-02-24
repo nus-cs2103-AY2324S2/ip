@@ -2,6 +2,8 @@ package victor.parser;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import victor.command.Command;
 import victor.storage.Storage;
@@ -35,9 +37,6 @@ public class Parser {
      * @param currentTasks The currentTasks that is used to get the current task list.
      */
     public Parser(Ui ui, TaskList currentTasks) {
-        /**
-         * Ui class that is used to display certain information for this class.
-         */
         this.currentTasks = currentTasks;
     }
 
@@ -55,8 +54,6 @@ public class Parser {
      * @throws DateTimeParseException    Used for deadline, when the input for the by variable is unable
      *                                   to be converted from String to a LocalDate,
      *                                   indicating that it is in the wrong format.
-     *
-     *
      */
     public String parse(String commandLine) throws IOException {
         String[] inputList = commandLine.split(" ", 2);
@@ -69,31 +66,31 @@ public class Parser {
         }
         case "mark" -> {
             currentCommand = Command.MARK;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "unmark" -> {
             currentCommand = Command.UNMARK;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "todo" -> {
             currentCommand = Command.TODO;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "deadline" -> {
             currentCommand = Command.DEADLINE;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "event" -> {
             currentCommand = Command.EVENT;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "delete" -> {
             currentCommand = Command.DELETE;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "find" -> {
             currentCommand = Command.FIND;
-            returnString = currentCommand.execute(currentTasks, inputList[1]);
+            returnString = currentCommand.execute(currentTasks, inputList);
         }
         case "bye" -> {
             currentCommand = Command.BYE;
