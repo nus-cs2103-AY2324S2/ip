@@ -7,15 +7,6 @@ import luke.task.Task;
  */
 public class Ui {
     /**
-     * Returns the welcome message.
-     * @return The welcome message.
-     */
-    public String displayWelcome() {
-        return "Hello! I'm Luke!\n"
-                + "What can I do for you?\n";
-    }
-
-    /**
      * Returns the goodbye message.
      * @return The goodbye message.
      */
