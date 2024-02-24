@@ -31,6 +31,7 @@ public class Ui {
      * @param message the message to be appended
      */
     public void appendResponse(String message) {
+        assert message != null : "Response message cannot be null";
         this.response.append(message);
     }
 }

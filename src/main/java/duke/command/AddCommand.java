@@ -24,8 +24,10 @@ public class AddCommand extends Command {
      */
     public AddCommand(Task task) {
         super("add", List.of());
+        assert task != null : "Task to be added cannot be null";
         this.task = task;
     }
+
 
     /**
      * Executes the add task command.
