@@ -70,6 +70,11 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Crops the profile pictures to a circle.
+     *
+     * @param imageView The container of the images.
+     */
     public Circle clipToCircle(ImageView imageView) {
         Circle clip = new Circle();
         clip.setCenterX(imageView.getFitWidth() / 2);

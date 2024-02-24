@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import tes.Tes;
 import tes.Main;
+import tes.Tes;
 
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFx.html
 /**

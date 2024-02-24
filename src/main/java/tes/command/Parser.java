@@ -41,7 +41,7 @@ public class Parser {
             } else if (command.startsWith("delete")) {
                 return deleteTask(command);
             } else if (command.startsWith("deadline")) {
-               return addDeadlineTask(command);
+                return addDeadlineTask(command);
             } else if (command.startsWith("event")) {
                 return addEventTask(command);
             } else if (command.startsWith("todo")) {

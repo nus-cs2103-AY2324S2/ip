@@ -1,11 +1,13 @@
 package tes.taskmanager;
 
-import tes.command.DateAndTimeFormatterException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import tes.command.DateAndTimeFormatterException;
+
+
 
 /**
  * Represents a list to store tasks.
@@ -42,7 +44,7 @@ public class TaskList {
      * Stores the task with deadline into the task list.
      *
      * @param task Description of task to be stored.
-     * @param by tes.taskmanager.Deadline of the task.
+     * @param by Deadline of the task.
      */
     public void storeDeadline(String task, String by) throws DateAndTimeFormatterException {
         try {

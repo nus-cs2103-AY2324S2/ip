@@ -1,13 +1,13 @@
 package tes.taskmanager;
 
-import tes.command.DateAndTimeFormatterException;
-
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a stub class for TaskList to be used in isolated testing of methods in TaskList class.
+ */
 public class TaskListStub {
     /** Format of the date and time in the command received */
     private static final DateTimeFormatter FORMATTER_RECEIVE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -23,6 +23,14 @@ public class TaskListStub {
     public TaskListStub(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    /**
+     * Represents a version of storeDeadline method in TaskList class isolated from dependencies.
+     *
+     * @param task Description of task to be stored.
+     * @param by Deadline of the task.
+     * @return
+     */
     public String storeDeadline(String task, String by) {
         try {
             LocalDateTime formattedBy = LocalDateTime.parse(by, FORMATTER_RECEIVE);
@@ -35,6 +43,13 @@ public class TaskListStub {
         }
     }
 
+    /**
+     * Represents a version of storeEvent method in TaskList class isolated from dependencies.
+     *
+     * @param task Description of task to be stored.
+     * @param from Starting time of the task.
+     * @param to Ending time of the task.
+     */
     public String storeEvent(String task, String from, String to) {
         try {
             LocalDateTime formattedFrom = LocalDateTime.parse(from, FORMATTER_RECEIVE);

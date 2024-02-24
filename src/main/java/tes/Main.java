@@ -37,6 +37,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Opens the Help Window.
+     */
     public void showHelpWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));

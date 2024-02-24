@@ -1,12 +1,15 @@
 package tes.gui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Represents a controller class for HelpWindow.fxml.
+ */
 public class HelpWindow {
     @FXML
     private TableView<UserGuideItem> userGuideTable;
@@ -17,6 +20,9 @@ public class HelpWindow {
 
     private final ObservableList<UserGuideItem> guideItems = FXCollections.observableArrayList();
 
+    /**
+     * Initializes HelpWindow.fxml.
+     */
     @FXML
     public void initialize() {
         commandColumn.setCellValueFactory(new PropertyValueFactory<>("command"));

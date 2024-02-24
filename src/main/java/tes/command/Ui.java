@@ -114,8 +114,8 @@ public class Ui {
     public String mark(int index) {
         try {
             if (index > this.taskList.getSize()) {
-                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
-                        "you idiot!", this.taskList.getSize());
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, "
+                        + "you idiot!", this.taskList.getSize());
                 throw new TesException(errorMessage);
             } else if (index < 1) {
                 String errorMessage = "Only positive integer allowed! Idiot!!!";
@@ -138,8 +138,8 @@ public class Ui {
     public String unmark(int index) {
         try {
             if (index > this.taskList.getSize()) {
-                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
-                        "you idiot!", this.taskList.getSize());
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, "
+                        + "you idiot!", this.taskList.getSize());
                 throw new TesException(errorMessage);
             } else if (index < 1) {
                 String errorMessage = "Only positive integer allowed! Idiot!!!";
@@ -162,8 +162,8 @@ public class Ui {
     public String delete(int index) {
         try {
             if (index > this.taskList.getSize()) {
-                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, " +
-                        "you idiot!", this.taskList.getSize());
+                String errorMessage = String.format("Can't you count?! There are only %d questions in the list now, "
+                        + "you idiot!", this.taskList.getSize());
                 throw new TesException(errorMessage);
             } else if (index < 1) {
                 String errorMessage = "Only positive integer allowed! Idiot!!!";
