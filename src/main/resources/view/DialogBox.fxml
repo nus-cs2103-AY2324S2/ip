@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root id="dialogBox" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../stylesheets/styles.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="dialogBox" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" stylesheets="@../stylesheets/styles.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
             <Label id="chatBox" fx:id="dialog" stylesheets="@../stylesheets/styles.css" text="Label" wrapText="true" />
             <ImageView fx:id="displayPicture" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />

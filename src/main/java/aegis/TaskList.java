@@ -36,6 +36,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the number of tasks currently stored in the task list in a formatted string.
+     *
+     * @return String containing the number of tasks in task list.
+     */
+    public String getTaskCountString() {
+        return "Total task count: " + taskList.size() + ".\n";
+    }
+
+    /**
      * Adds a task to the task list.
      *
      * @param newTask Task to be added.
@@ -86,6 +95,20 @@ public class TaskList {
             System.out.println((i + 1) + currTask.toString());
         }
         System.out.println();
+    }
+
+    /**
+     * Returns all tasks in the task list as a string.
+     * Each task is on a separate line and contains all details of the task such as
+     * its task type, completion status, description and other fields specific to the task type.
+     */
+    public String getTaskList() {
+        String taskListString = "Here are your tasks:\n";
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            taskListString += (i+1) + ": " + currTask.toString() + "\n";
+        }
+        return taskListString;
     }
 
     /**
@@ -156,5 +179,32 @@ public class TaskList {
             System.out.println(identifiedTasks.get(i).toString());
         }
         System.out.println();
+    }
+
+    /**
+     * Returns a list of tasks with descriptions containing a particular keyword as a string.
+     *
+     * @param keyword Keyword to look for in task descriptions.
+     */
+    public String getTasksWithKeyword(String keyword) {
+        ArrayList<Task> identifiedTasks = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+
+            if (currTask.checkDescription(keyword)) {
+                identifiedTasks.add(currTask);
+            }
+        }
+
+        if (identifiedTasks.isEmpty()) {
+            return "There were no tasks matching your keyword.\n";
+        }
+
+        String result = "These tasks match the keyword you provided:\n";
+        for (int i = 0; i < identifiedTasks.size(); i++) {
+            result += identifiedTasks.get(i).toString() + "\n";
+        }
+        return result;
     }
 }

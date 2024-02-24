@@ -9,22 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-
 /**
  * Aegis class contains the main() method that initiates and runs the Aegis assistant program.
  * Also contains private functions called by main() to execute commands.
@@ -37,10 +21,12 @@ public class Aegis {
     /**
      * Constructor for creating an Aegis object.
      */
-    public Aegis() {}
+    public Aegis() {
+        initialSetup();
+    }
 
     /**
-     * Starts the execution of the Aegis assistant program.
+     * Starts the execution of the Aegis assistant as a CLI program.
      * Initializes required objects and contains the main while loop that repeatedly prompts
      * the user for input and executes commands based on the input.
      *
@@ -48,10 +34,6 @@ public class Aegis {
      */
     public static void main(String[] args) {
         initialSetup();
-
-        ui.printLogo();
-        ui.printGreeting();
-        ui.printDivider();
 
         while (true) {
             try {
@@ -70,15 +52,14 @@ public class Aegis {
         }
     }
 
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    public String getResponse(String input) {
-        return input;
+    public ArrayList<String> getResponse(String input) {
+        ArrayList<String> response = new ArrayList<>();
+        try {
+            response = executeCommand(input);
+        } catch (AegisException e) {
+            response.add(e.getMessage());
+        }
+        return response;
     }
 
     private static void initialSetup() {
@@ -102,41 +83,42 @@ public class Aegis {
 
     }
 
-    private static void executeCommand(String input) throws AegisException {
+    private static ArrayList<String> executeCommand(String input) throws AegisException {
         String identifier = parser.parseCommand(input);
         String arguments = parser.parseArguments(input);
 
+        ArrayList<String> commandResult = new ArrayList<>();
         switch (identifier) {
         case "bye":
-            exitProgram();
+            commandResult.add("bye");
+            commandResult.add("Goodbye. See you next time.");
             break;
         case "list":
-            printTasks();
+            commandResult.add(getTasks());
             break;
         case "mark":
-            markTask(arguments);
+            commandResult.add(markTask(arguments));
             break;
         case "unmark":
-            unmarkTask(arguments);
+            commandResult.add(unmarkTask(arguments));
             break;
         case "todo":
-            createToDoTask(arguments);
+            commandResult.add(createToDoTask(arguments));
             break;
         case "deadline":
-            createDeadlineTask(arguments);
+            commandResult.add(createDeadlineTask(arguments));
             break;
         case "event":
-            createEventTask(arguments);
+            commandResult.add(createEventTask(arguments));
             break;
         case "delete":
-            deleteTask(arguments);
+            commandResult.add(deleteTask(arguments));
             break;
         case "find":
-            printIdentifiedTasks(arguments);
+            commandResult.add(getIdentifiedTasks(arguments));
             break;
         default:
-            System.out.println("なに？！");
-            break;
+            throw new AegisException("Command not recognized. Please try again.");
         }
 
         try {
@@ -146,143 +128,105 @@ public class Aegis {
         } catch (IOException e) {
             ui.printIoException();
         }
+        return commandResult;
     }
 
-    private static void exitProgram() {
-        ui.printDivider();
-        ui.printFarewell();
-        ui.printDivider();
-        System.exit(0);
+    private static String getTasks() {
+        return taskList.getTaskList();
     }
 
-    private static void printTasks() {
-        ui.printDivider();
-        taskList.printTaskList();
-        taskList.printTaskCount();
-        ui.printDivider();
-    }
-
-    private static void markTask(String arguments) {
+    private static String markTask(String arguments) {
         try {
             int taskNum = parser.parseTaskIndex(arguments);
             taskList.markTask(taskNum);
-
-            ui.printDivider();
-            ui.printMarkTaskSuccess();
-            System.out.println(taskList.getTask(taskNum).toString() + "\n");
-            ui.printDivider();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printDivider();
-            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
-            ui.printDivider();
+            return ui.getMarkTaskSuccess() + taskList.getTask(taskNum).toString();
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return "Invalid task index provided.\nPlease provide a valid task index.\n";
         }
     }
 
-    private static void unmarkTask(String arguments) {
+    private static String unmarkTask(String arguments) {
         try {
             int taskNum = parser.parseTaskIndex(arguments);
             taskList.unmarkTask(taskNum);
-
-            ui.printDivider();
-            ui.printUnmarkTaskSuccess();
-            System.out.println(taskList.getTask(taskNum).toString() + "\n");
-            ui.printDivider();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printDivider();
-            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
-            ui.printDivider();
+            return ui.getUnmarkTaskSuccess() + taskList.getTask(taskNum).toString();
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return "Invalid task index provided.\nPlease provide a valid task index.\n";
         }
     }
 
-    private static void createToDoTask(String arguments) throws AegisException {
+    private static String createToDoTask(String arguments) throws AegisException {
         if (!arguments.isEmpty()) {
             ToDo newToDo = new ToDo(arguments);
             taskList.addTask(newToDo);
-
-            ui.printDivider();
-            ui.printCreateTaskSuccess();
-            System.out.println(newToDo.toString() + "\n");
-            taskList.printTaskCount();
-            ui.printDivider();
+            return ui.getCreateTaskSuccess() + newToDo.toString() + "\n\n"
+                    + taskList.getTaskCountString();
         } else {
-            throw new AegisException("todo command requires a description for the task."
-                    + "\n\nPlease leave a space after 'todo' and enter"
-                    + " the task description.");
+            throw new AegisException("Invalid command given for creating Todo task."
+                    + "\nPlease provide command in the following format:"
+                    + "\ntodo <Task Description>");
         }
     }
 
-    private static void createDeadlineTask(String arguments) {
+    private static String createDeadlineTask(String arguments) {
+        String result = "";
         try {
             String[] deadlineArgs = parser.parseDeadlineArguments(arguments);
 
             if (deadlineArgs.length == 2) {
                 Deadline newDeadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
                 taskList.addTask(newDeadline);
-
-                ui.printDivider();
-                ui.printCreateTaskSuccess();
-                System.out.println(newDeadline.toString() + "\n");
-                taskList.printTaskCount();
-                ui.printDivider();
+                result = ui.getCreateTaskSuccess() + newDeadline.toString() + "\n\n"
+                        + taskList.getTaskCountString();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            ui.printDivider();
-            System.out.println("Invalid command given for creating Deadline task."
-                    + "\nPlease ensure the command uses the following format:"
-                    + "\ndeadline <Task Description> /by <Date in YYYY-MM-DD>\n");
-            ui.printDivider();
+            result = "Invalid command given for creating Deadline task."
+                    + "\nPlease provide command in the following format:"
+                    + "\ndeadline <Task Description> /by <Date in YYYY-MM-DD>\n";
         }
+         return result;
     }
 
-    private static void createEventTask(String arguments) {
+    private static String createEventTask(String arguments) {
+        String result = "";
         try {
             String[] eventArgs = parser.parseEventArguments(arguments);
 
             if (!arguments.isEmpty()) {
                 Event newEvent = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
                 taskList.addTask(newEvent);
-
-                ui.printDivider();
-                ui.printCreateTaskSuccess();
-                System.out.println(newEvent.toString() + "\n");
-                taskList.printTaskCount();
-                ui.printDivider();
+                result = ui.getCreateTaskSuccess() + newEvent.toString() + "\n\n"
+                        + taskList.getTaskCountString();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            ui.printDivider();
-            System.out.println("Invalid command given for creating Event task."
-                    + "\nPlease ensure the command uses the following format:"
-                    + "\nevent <Task Description> /from <Date in YYYY-MM-DD> /to <Date in YYYY-MM-DD>\n");
-            ui.printDivider();
+            result = "Invalid command given for creating Event task."
+                    + "\nPlease provide command in the following format:"
+                    + "\nevent <Task Description> /from <Date in YYYY-MM-DD> /to <Date in YYYY-MM-DD>\n";
         }
+        return result;
     }
 
-    private static void deleteTask(String arguments) {
+    private static String deleteTask(String arguments) {
+        String result = "";
         try {
             int delIndex = parser.parseTaskIndex(arguments);
             Task toDelete = taskList.getTask(delIndex);
             taskList.deleteTask(delIndex);
-
-            ui.printDivider();
-            ui.printDeleteTaskSuccess();
-            System.out.println(toDelete.toString() + "\n");
-            taskList.printTaskCount();
-            ui.printDivider();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printDivider();
-            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
-            ui.printDivider();
+            result = ui.getDeleteTaskSuccess() + toDelete.toString() + "\n\n"
+                    + taskList.getTaskCountString();
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            result = "Invalid task index provided."
+                    + "\nPlease provide a valid task index.\n";
         }
+        return result;
     }
 
-    /**
-     * Prints all tasks that have been identified to have the keyword in their descriptions.
-     *
-     * @param keyword Keyword to look for in task descriptions.
-     */
-    private static void printIdentifiedTasks(String keyword) {
-        ui.printDivider();
-        taskList.printTasksWithKeyword(keyword);
-        ui.printDivider();
+    private static String getIdentifiedTasks(String keyword) {
+        if (keyword.isBlank()) {
+            return "Invalid command given for finding tasks."
+                    + "\nPlease provide command in the following format:"
+                    + "\nfind <keyword>\n";
+        }
+        return taskList.getTasksWithKeyword(keyword);
     }
 }

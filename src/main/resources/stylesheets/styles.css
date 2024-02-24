@@ -6,8 +6,7 @@ AnchorPane
 #chatWindow
 {
     -fx-background-color: "black";
-    -fx-border-color: "white";
-    -fx-border-width: 5px;
+    -fx-padding: 5px;
 }
 
 #userInput
