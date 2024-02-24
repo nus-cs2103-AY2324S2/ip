@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
  * @since 2024-02-05
  */
 public class Event extends Task {
+    static final int PREFIX_LENGTH = 4;
+    static final int POSTFIX_LENGTH = 2;
     private LocalDate start;
     private LocalDate end;
 
@@ -21,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String s, String start, String end) {
         super(s);
-        this.start = TimeFormatter.stringToTime(start.substring(4).trim());
-        this.end = TimeFormatter.stringToTime(end.substring((2)).trim());
+        this.start = TimeFormatter.stringToTime(start.substring(PREFIX_LENGTH).trim());
+        this.end = TimeFormatter.stringToTime(end.substring(POSTFIX_LENGTH).trim());
     }
 
     /**

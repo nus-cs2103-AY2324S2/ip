@@ -46,20 +46,25 @@ public class Storage {
     public void saveToFile(String textToAdd) throws FileNotFoundException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
-            String amendedText = textToAdd.replaceAll("\\[\\s\\]", "|0|")
-                    .replaceAll("\\[X\\]", "|1|")
-                    .replaceAll("\\[", "")
-                    .replaceAll("\\]", "")
-                    .replaceAll("\\(by:", "|")
-                    .replaceAll("\\)", "")
-                    .replaceAll("\\(from:", "|")
-                    .replaceAll("\\(to:", "|")
-                    .trim();
+            String amendedText = changeToSaveString(textToAdd);
             fw.write(System.lineSeparator() + amendedText);
             fw.close();
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
+    }
+
+    private static String changeToSaveString(String textToAdd) {
+        String amendedText = textToAdd.replaceAll("\\[\\s\\]", "|0|")
+                .replaceAll("\\[X\\]", "|1|")
+                .replaceAll("\\[", "")
+                .replaceAll("\\]", "")
+                .replaceAll("\\(by:", "|")
+                .replaceAll("\\)", "")
+                .replaceAll("\\(from:", "|")
+                .replaceAll("\\(to:", "|")
+                .trim();
+        return amendedText;
     }
 
     /**
@@ -75,15 +80,7 @@ public class Storage {
             f.createNewFile();
             FileWriter fw = new FileWriter(filePath, true);
             for (Task d : data) {
-                String amendedText = d.toString().replaceAll("\\[\\s\\]", "|0|")
-                        .replaceAll("\\[X\\]", "|1|")
-                        .replaceAll("\\[", "")
-                        .replaceAll("\\]", "")
-                        .replaceAll("\\(by:", "|")
-                        .replaceAll("\\)", "")
-                        .replaceAll("\\(from:", "|")
-                        .replaceAll("\\(to:", "|")
-                        .trim();
+                String amendedText = changeToSaveString(d.toString());
                 fw.write(System.lineSeparator() + amendedText);
             }
             fw.close();
@@ -97,11 +94,10 @@ public class Storage {
      * @param ls A place where data from txt file is loaded to.
      * @throws FileNotFoundException Throws exception if file to be loaded cannot be found.
      */
-    public void loadFile(ArrayList<Task> ls) throws FileNotFoundException {
-
+    public void loadFile(ArrayList<Task> ls) {
         try {
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] items = s.nextLine().split("\\|");
                 String type = items[0].trim();
@@ -109,15 +105,11 @@ public class Storage {
                     continue;
                 }
                 if (type.equals("T")) {
-                    boolean b = Integer.parseInt(items[1].trim()) == 1;
-                    ls.add(new Todo(items[2].trim(), b));
+                    handleTodo(ls, items);
                 } else if (type.equals("D")) {
-                    boolean b = Integer.parseInt(items[1].trim()) == 1;
-                    ls.add(new Deadline(items[2].trim(), b, items[3].trim()));
+                    handleDelete(ls, items);
                 } else if (type.equals("E")) {
-                    boolean b = Integer.parseInt(items[1].trim()) == 1;
-                    String[] times = items[3].split("to:");
-                    ls.add(new Event(items[2].trim(), b, times[0].trim(), times[1].trim(), true));
+                    handleEvent(ls, items);
                 } else { //continue if file is corrupted or at the first line
                     continue;
                 }
@@ -127,6 +119,22 @@ public class Storage {
         } catch (DateTimeParseException e) {
             OldUi.formatResponse("Invalid date time input or format, please try again");
         }
+    }
+
+    private static void handleEvent(ArrayList<Task> ls, String[] items) {
+        boolean b = Integer.parseInt(items[1].trim()) == 1;
+        String[] times = items[3].split("to:");
+        ls.add(new Event(items[2].trim(), b, times[0].trim(), times[1].trim(), true));
+    }
+
+    private static void handleDelete(ArrayList<Task> ls, String[] items) {
+        boolean b = Integer.parseInt(items[1].trim()) == 1;
+        ls.add(new Deadline(items[2].trim(), b, items[3].trim()));
+    }
+
+    private static void handleTodo(ArrayList<Task> ls, String[] items) {
+        boolean b = Integer.parseInt(items[1].trim()) == 1;
+        ls.add(new Todo(items[2].trim(), b));
     }
 
 }

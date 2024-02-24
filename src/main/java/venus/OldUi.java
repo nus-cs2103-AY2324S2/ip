@@ -60,7 +60,7 @@ public class OldUi {
     /**
      * Returns a message that says a project is removed.
      * @param task The task to that is removed.
-     * @param size The size of the task list after the removal.
+     * @param size The size of the task list before remove.
      */
     public static void formatDelete(Task task, int size) {
         OldUi.formatResponse("Noted. I've removed this task:\n"

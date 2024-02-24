@@ -21,7 +21,8 @@ public class Parser {
     public static TaskList.Types findType(String input) throws IllegalArgumentException {
         String[] listType = input.toUpperCase().split(" ");
         TaskList.Types type = TaskList.Types.valueOf(listType[0]);
-        if (listType.length == 1 && listType[0].equals("LIST")) {
+        boolean isAllType = listType.length == 1 && listType[0].equals("LIST");
+        if (isAllType) {
             type = TaskList.Types.ALL;
         }
         return type;
