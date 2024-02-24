@@ -19,7 +19,6 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 ## Features 
 
-
 ### Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
 
@@ -199,22 +198,24 @@ Call me maybe🤔? 😏
 Hammy
 ```
 
+## FAQ
+1. Where can I check your Github page?
+Q: You can click [here](https://github.com/jinhanfromNUS/ip)
 
-## Usage
+2. What is the date format? Why is my date format wrong?
+Q: Date format should be XXXX-XX-XX (e.g. 2023-01-01). This only applies for entering the date format.
 
-### `deadline` - add a deadline task
+3. Why is my date not working?
+Q: The date format in your list and the date format while adding deadline/event tasks is different.
+   Adding tasks: YYYY-MM-DD
+   Output List: DDMMMYYYY
 
-To add a deadline task
+4. Why is my *delete* / *mark as done* / *mark as not done* not working?
+Q: Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
 
-Example of usage: 
+5. Why deadline and event tasks even work without a description?
+Q: That is not a bug! It is meant to be like that. Sometimes, you just need a date to remind you about your remaining tasks :).
 
-`deadline [YOUR_TASK_HERE] /by DATE`
-
-Expected outcome:
-
-The output should ensure your task has been succesffuly added, otherwise it would state your input error.
-
-```
-Got it. I have added:
-[D][ ] YOUR_TASK_HERE (by: deadline_date)
-```
+7. Do I need to create a separate database while using this application?
+Q: No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks.
+   **tasklist.txt** will be in the same directory as your jar file.
