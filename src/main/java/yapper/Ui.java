@@ -57,7 +57,7 @@ public class Ui {
     }
 
     public static String helpMessage() {
-        return "Here are the list of commands and their formats:\n"
+        return "I gotchu bruv, here's the list of commands and their formats:\n"
                 + "help, list, todo, deadline, event, mark, unmark, \ndelete, find, bye\n" + INDENT
                 + "list - lists all tasks\n" + INDENT
                 + "todo - add a task to be done (todo <description>)\n" + INDENT
