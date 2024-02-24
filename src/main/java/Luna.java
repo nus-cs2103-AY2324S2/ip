@@ -1,6 +1,7 @@
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -133,7 +134,7 @@ public class Luna {
                             String[] keys_entry = keys[1].split(" /by ", 2);
                             if (Arrays.asList(keys_entry).size() == 2) {
                                 successFlag = true;
-                                ent = new list_Entry_Deadline(keys_entry[0], false, keys_entry[1]);
+                                ent = new list_Entry_Deadline(keys_entry[0], false, LocalDate.parse(keys_entry[1]));
                             }
                         } else if (keys[0].equalsIgnoreCase("event")) {
                             currentHint = commandHints.EVENT;
@@ -143,7 +144,7 @@ public class Luna {
                                 String[] keys_entry2 = keys_entry1[1].split(" /to ", 2);
                                 if (Arrays.asList(keys_entry2).size() == 2) {
                                     successFlag = true;
-                                    ent = new list_Entry_Event(keys_entry1[0], false, keys_entry2[0], keys_entry2[1]);
+                                    ent = new list_Entry_Event(keys_entry1[0], false, LocalDate.parse(keys_entry2[0]), LocalDate.parse(keys_entry2[1]));
                                 }
                             }
                         }
