@@ -156,6 +156,16 @@ public class Event extends Task {
     }
 
     /**
+     * Gets the date time of the event.
+     *
+     * @return Date time of the event.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.getFrom();
+    }
+
+    /**
      * Converts the event task to a string.
      *
      * @return String representation of the event task.

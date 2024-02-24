@@ -1,5 +1,7 @@
 package james.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task.
  */
@@ -56,6 +58,10 @@ public class Task {
      */
     public String toFileFormat() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    public LocalDateTime getDateTime() {
+        return null;
     }
 
     /**

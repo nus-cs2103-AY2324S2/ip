@@ -7,6 +7,7 @@ import james.commands.ExitCommand;
 import james.commands.FindCommand;
 import james.commands.ListCommand;
 import james.commands.MarkCommand;
+import james.commands.SortCommand;
 import james.commands.UnmarkCommand;
 import james.exception.DukeException;
 import james.tasks.Deadline;
@@ -101,6 +102,8 @@ public class Parser {
                 throw new DukeException("The keyword to find cannot be empty.");
             }
             return new FindCommand(parts[1].trim());
+        case "sort":
+            return new SortCommand();
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
