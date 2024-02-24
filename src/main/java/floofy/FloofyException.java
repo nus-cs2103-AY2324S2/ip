@@ -10,6 +10,6 @@ public class FloofyException extends Exception {
      * @param message The message to be displayed when the exception is thrown.
      */
     public FloofyException(String message) {
-        super("You have input an invalid command! " + message);
+        super("FLOOF! That doesn't seem right... " + message);
     }
 }

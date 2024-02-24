@@ -1,6 +1,7 @@
-E | 0 | cny trip | Feb 9 2024 - Feb 12 2023
-D | 1 | acc tutorial | Feb 9 2024
+E | 1 | cny trip | Feb 9 2024 - Feb 12 2023
+D | 0 | acc tutorial | Feb 9 2024
 T | 0 | pset 4
 D | 0 | cs2103 iP | Feb 26 2024
-E | 0 | ace elderly | Jan 1 2024 - May 1 2024
-
+T | 0 | a
+D | 0 | b | Feb 28 2024
+E | 1 | c | Feb 25 2024 - Mar 4 2024

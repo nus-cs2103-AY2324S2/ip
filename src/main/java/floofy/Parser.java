@@ -20,23 +20,27 @@ public class Parser {
      * @throws FloofyException If the user input is invalid.
      */
     public String[] parse(String userInput) throws FloofyException {
-        if (userInput.startsWith("mark")) {
+        if (userInput.isBlank()) {
+            throw new FloofyException("Remember, your wish is my command! Try keying in a command! :)");
+        }
+        String command = getFirstWord(userInput);
+        if (command.startsWith("mark")) {
             return parseMarkCommand(userInput);
-        } else if (userInput.startsWith("unmark")) {
+        } else if (command.startsWith("unmark")) {
             return parseUnmarkCommand(userInput);
-        } else if (userInput.startsWith("find")) {
+        } else if (command.startsWith("find")) {
             return parseFindCommand(userInput);
-        } else if (userInput.startsWith("todo")) {
+        } else if (command.startsWith("todo")) {
             return parseTodoCommand(userInput);
-        } else if (userInput.startsWith("deadline")) {
+        } else if (command.startsWith("deadline")) {
             return parseDeadlineCommand(userInput);
-        } else if (userInput.startsWith("event")) {
+        } else if (command.startsWith("event")) {
             return parseEventCommand(userInput);
-        } else if (userInput.startsWith("delete")) {
+        } else if (command.startsWith("delete")) {
             return parseDeleteCommand(userInput);
-        } else if (userInput.startsWith("list")) {
+        } else if (command.startsWith("list")) {
             return parseListCommand(userInput);
-        } else if (userInput.startsWith("bye")) {
+        } else if (command.startsWith("bye")) {
             return parseByeCommand(userInput);
         } else {
             throw new FloofyException("To add a task, please start with any of these commands: " +
@@ -53,11 +57,13 @@ public class Parser {
      */
     public String[] parseMarkCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[2];
-        if (userInput.length() < 6) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("To mark a task, type 'mark ' followed by the task number! e.g. 'mark 1':)");
         }
         parsedInput[0] = "mark";
-        parsedInput[1] = userInput.substring(5);
+        parsedInput[1] = userInput.substring(taskNumberIdx(userInput));
+        assert !isNotNumber(parsedInput[1]) : "Task number should be a number!";
         if (isNotNumber(parsedInput[1])) {
             throw new FloofyException("To mark a task, type 'mark ' followed by the task NUMBER! e.g. 'mark 1':)");
         }
@@ -73,12 +79,13 @@ public class Parser {
      */
     public String[] parseUnmarkCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[2];
-        if (userInput.length() < 8) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("To unmark a task, " +
                     "type 'unmark ' followed by the task number! e.g. 'unmark 1':)");
         }
         parsedInput[0] = "unmark";
-        parsedInput[1] = userInput.substring(7);
+        parsedInput[1] = userInput.substring(taskNumberIdx(userInput));
         if (isNotNumber(parsedInput[1])) {
             throw new FloofyException("To unmark a task, " +
                     "type 'unmark ' followed by the task NUMBER! e.g. 'unmark 1':)");
@@ -95,11 +102,12 @@ public class Parser {
      */
     public String[] parseFindCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[2];
-        if (userInput.length() < 6) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("To find a task, type 'find ' followed by the task to find! e.g. 'find book':)");
         }
         parsedInput[0] = "find";
-        parsedInput[1] = userInput.substring(5);
+        parsedInput[1] = userInput.substring(taskNumberIdx(userInput));
         return parsedInput;
     }
 
@@ -112,11 +120,12 @@ public class Parser {
      */
     public String[] parseTodoCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[2];
-        if (userInput.length() < 6) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("Remember to add an actual task. Try again!");
         }
         parsedInput[0] = "todo";
-        parsedInput[1] = userInput.substring(5);
+        parsedInput[1] = userInput.substring(descriptionIdx(userInput));
         return parsedInput;
     }
 
@@ -130,15 +139,16 @@ public class Parser {
      */
     public String[] parseDeadlineCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[3];
-        if (userInput.length() < 10) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("Remember to add an actual task. Try again!");
         }
         if (!(userInput.contains("/by"))) {
             throw new FloofyException("Remember to state the deadline after a '/by'!");
         }
         parsedInput[0] = "deadline";
-        parsedInput[1] = userInput.substring(9, userInput.indexOf("/by") - 1);
-        parsedInput[2] = userInput.substring(userInput.indexOf("/by") + 4);
+        parsedInput[1] = userInput.substring(descriptionIdx(userInput), byIdx(userInput) - 1);
+        parsedInput[2] = userInput.substring(byIdx(userInput) + 4);
         return parsedInput;
     }
 
@@ -153,7 +163,8 @@ public class Parser {
      */
     public String[] parseEventCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[4];
-        if (userInput.length() < 7) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("Remember to add an actual task. Try again!");
         }
         if (!(userInput.contains("/from"))) {
@@ -163,9 +174,9 @@ public class Parser {
             throw new FloofyException("Remember to state the end of your event after a '/to'!");
         }
         parsedInput[0] = "event";
-        parsedInput[1] = userInput.substring(6, userInput.indexOf("/from") - 1);
-        parsedInput[2] = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
-        parsedInput[3] = userInput.substring(userInput.indexOf("/to") + 4);
+        parsedInput[1] = userInput.substring(descriptionIdx(userInput), fromIdx(userInput) - 1);
+        parsedInput[2] = userInput.substring(fromIdx(userInput) + 6, toIdx(userInput) - 1);
+        parsedInput[3] = userInput.substring(toIdx(userInput) + 4);
         return parsedInput;
     }
 
@@ -178,12 +189,13 @@ public class Parser {
      */
     public String[] parseDeleteCommand(String userInput) throws FloofyException {
         String[] parsedInput = new String[2];
-        if (userInput.length() < 8) {
+        int minimumLength = getMinLengthOfCommand(userInput);
+        if (userInput.length() < minimumLength) {
             throw new FloofyException("To delete a task, " +
                     "type 'delete ' followed by the task number! e.g. 'delete 1':)");
         }
         parsedInput[0] = "delete";
-        parsedInput[1] = userInput.substring(7);
+        parsedInput[1] = userInput.substring(descriptionIdx(userInput));
         if (isNotNumber(parsedInput[1])) {
             throw new FloofyException("To delete a task, " +
                     "type 'delete ' followed by the task NUMBER! e.g. 'delete 1':)");
@@ -232,9 +244,51 @@ public class Parser {
     public boolean isNotNumber(String input) {
         try {
             Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
             return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
+    }
+
+    // A list of helper functions to abstract details of the different steps of parsing.
+
+    /**
+     * Gets the first word of the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The first word of the user input.
+     */
+    public String getFirstWord(String input) {
+        return input.split(" ")[0];
+    }
+
+    /**
+     * Gets the minimum length of the command.
+     *
+     * @param input The user input to be parsed.
+     * @return The minimum length of the overall user input.
+     */
+    public int getMinLengthOfCommand(String input) {
+        return getFirstWord(input).length() + 2;
+    }
+
+    public int descriptionIdx(String input) {
+        return getFirstWord(input).length() + 1;
+    }
+
+    public int taskNumberIdx(String input) {
+        return getFirstWord(input).length() + 1;
+    }
+
+    public int byIdx(String input) {
+        return input.indexOf("/by");
+    }
+
+    public int fromIdx(String input) {
+        return input.indexOf("/from");
+    }
+
+    public int toIdx(String input) {
+        return input.indexOf("/to");
     }
 }
