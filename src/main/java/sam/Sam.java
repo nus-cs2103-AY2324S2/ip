@@ -56,7 +56,4 @@ public class Sam {
             }
         }
     }
-    public static void main(String[] args) {
-        new Sam("././data/Sam.txt").run();
-    }
 }

@@ -34,26 +34,26 @@ public class Parser {
      */
     private static Command processCommand(CommandType commandType, String taskInfo) throws SamException {
         switch (commandType) {
-            case LIST:
-                return new ListCommand();
-            case FIND:
-                return new FindCommand(taskInfo);
-            case MARK:
-                return new MarkCommand(taskInfo);
-            case UNMARK:
-                return new UnmarkCommand(taskInfo);
-            case TODO:
-                return new TodoCommand(taskInfo);
-            case DEADLINE:
-                return new DeadlineCommand(taskInfo);
-            case EVENT:
-                return new EventCommand(taskInfo);
-            case DELETE:
-                return new DeleteCommand(taskInfo);
-            case BYE:
-                return new ByeCommand();
-            default:
-                return new UnknownCommand();
+        case LIST:
+            return new ListCommand();
+        case FIND:
+            return new FindCommand(taskInfo);
+        case MARK:
+            return new MarkCommand(taskInfo);
+        case UNMARK:
+            return new UnmarkCommand(taskInfo);
+        case TODO:
+            return new TodoCommand(taskInfo);
+        case DEADLINE:
+            return new DeadlineCommand(taskInfo);
+        case EVENT:
+            return new EventCommand(taskInfo);
+        case DELETE:
+            return new DeleteCommand(taskInfo);
+        case BYE:
+            return new ByeCommand();
+        default:
+            return new UnknownCommand();
         }
     }
 
