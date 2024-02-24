@@ -57,6 +57,7 @@ public class TaskList {
             throw new CalException("Invalid task number!");
         }
         Task t = tasks.get(taskNum - 1);
+        assert t != null : "Task should not be null";
         t.setStatus(true);
         return t;
     }
@@ -73,6 +74,7 @@ public class TaskList {
             throw new CalException("Invalid task number!");
         }
         Task t = tasks.get(taskNum - 1);
+        assert t != null : "Task should not be null";
         t.setStatus(false);
         return t;
     }
