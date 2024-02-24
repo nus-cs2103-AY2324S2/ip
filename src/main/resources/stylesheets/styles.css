@@ -1,3 +1,7 @@
+/*
+Stylesheet containing styles for the GUI chat window and dialog boxes.
+*/
+
 AnchorPane
 {
     -fx-background-color: "black";

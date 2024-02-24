@@ -2,7 +2,6 @@ package aegis;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Event class represents an event type of task. An event object contains
@@ -50,18 +49,42 @@ public class Event extends Task {
                 + "|" + this.generateEndSaveString();
     }
 
+    /**
+     * Returns the start date of the event task in a format for better readability.
+     * Format follows MMM dd yyyy e.g. Jan 02 2024.
+     *
+     * @return Start date of event task in format for better readability.
+     */
     private String generateStartDateString() {
         return this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
+    /**
+     * Returns the end date of the event task in a format for better readability.
+     * Format follows MMM dd yyyy e.g. Jan 02 2024.
+     *
+     * @return End date of event task in format for better readability.
+     */
     private String generateEndDateString() {
         return this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
+    /**
+     * Returns the start date of the event task in a format for saving to file.
+     * Format follows yyyy-MM-dd e.g. 2024-01-02.
+     *
+     * @return Start date of event task in format for saving to file.
+     */
     private String generateStartSaveString() {
         return this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Returns the end date of the event task in a format for saving to file.
+     * Format follows yyyy-MM-dd e.g. 2024-01-02.
+     *
+     * @return End date of event task in format for saving to file.
+     */
     private String generateEndSaveString() {
         return this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }

@@ -1,6 +1,7 @@
 package aegis;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -9,7 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+
 /**
+ * The code for this class was taken from the tutorial for implementing JavaFX @ https://se-education.org/guides/tutorials/javaFx.html
+ *
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
@@ -21,12 +25,13 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Aegis aegis;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image aegisImage = new Image(this.getClass().getResourceAsStream("/images/aegis.png"));
 
+    /**
+     * Initializes the chat window GUI and displays a chat box containing the Aegis assistant greeting.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,6 +40,11 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the Aegis object to be used in this instance of MainWindow.
+     *
+     * @param a Aegis object.
+     */
     public void setAegis(Aegis a) {
         aegis = a;
     }

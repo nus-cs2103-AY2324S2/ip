@@ -2,7 +2,6 @@ package aegis;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Deadline class represents a deadline type of task. A deadline object contains
