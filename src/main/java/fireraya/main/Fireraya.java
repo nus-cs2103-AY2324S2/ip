@@ -2,6 +2,7 @@ package fireraya.main;
 
 import fireraya.command.Command;
 import fireraya.exception.FirerayaException;
+import javafx.application.Platform;
 import fireraya.exception.InvalidNumOfArgsException;
 import fireraya.task.Deadline;
 import fireraya.task.Event;
@@ -48,6 +49,9 @@ public class Fireraya {
         try{
             Command c = Parser.parse(input);
             this.isExit = c.isExit();
+            if (this.isExit == true) {
+                Platform.exit();
+            }
             return c.execute(tasks, ui, storage);
             } catch (FirerayaException e) {
             return e.getMessage();
