@@ -23,7 +23,6 @@ public class ParserTest {
             ToDo todo = new ToDo("read book");
             assertEquals(todo, list.get(0));
         } catch (AlastorException e) {
-            assertEquals("I'm afraid the file I tried reading is corrupted, my dear.", e.getMessage());
             fail();
         }
 
@@ -35,7 +34,6 @@ public class ParserTest {
             todo.mark();
             assertEquals(todo, list.get(0));
         } catch (AlastorException e) {
-            assertEquals("I'm afraid the file I tried reading is corrupted, my dear.", e.getMessage());
             fail();
         }
 
@@ -47,7 +45,6 @@ public class ParserTest {
                     Parser.stringToDateTime("01-01-2021 18:00", Parser.ParseType.FILE));
             assertEquals(deadline, list.get(0));
         } catch (AlastorException e) {
-            assertEquals("I'm afraid the file I tried reading is corrupted, my dear.", e.getMessage());
             fail();
         }
 
@@ -60,7 +57,6 @@ public class ParserTest {
                     Parser.stringToDateTime("01-01-2021 20:00", Parser.ParseType.FILE));
             assertEquals(event, list.get(0));
         } catch (AlastorException e) {
-            assertEquals("I'm afraid the file I tried reading is corrupted, my dear.", e.getMessage());
             fail();
         }
     }
