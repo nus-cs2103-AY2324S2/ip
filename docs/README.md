@@ -69,9 +69,6 @@ EchoPilot data is saved in the hard disk automatically after any command that ch
 **Q: How do I transfer my data to another computer?**  
 A: Install the app on the other computer and overwrite the empty data file with the file that contains the data from your previous EchoPilot folder.
 
-## Known Issues
-
-- No known issues at the time of writing. Please report any issues to our GitHub repository.
 
 ## Command Summary
 
