@@ -9,11 +9,6 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    //    public Task(String description) {
-    //        this.description = description;
-    //        this.isDone = false;
-    //    }
-
     /**
      * Returns a string representation of the task's completion status.
      * @return A string "X" if the task is completed, otherwise a space.
