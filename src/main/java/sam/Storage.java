@@ -104,23 +104,23 @@ public class Storage {
         Task task;
 
         switch (taskType) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                String by = parts.length > 3 ? parts[3] : "";
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                String fromTo = parts.length > 3 ? parts[3] : "";
-                String[] fromToArray = fromTo.split(" to ");
-                String from = fromToArray.length > 0 ? fromToArray[0] : "";
-                String to = fromToArray.length > 1 ? fromToArray[1] : "";
-                task = new Event(description, from, to);
-                break;
-            default:
-                System.out.println("Skipped unknown task type in data file: " + taskType);
-                return null;
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            String by = parts.length > 3 ? parts[3] : "";
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            String fromTo = parts.length > 3 ? parts[3] : "";
+            String[] fromToArray = fromTo.split(" to ");
+            String from = fromToArray.length > 0 ? fromToArray[0] : "";
+            String to = fromToArray.length > 1 ? fromToArray[1] : "";
+            task = new Event(description, from, to);
+            break;
+        default:
+            System.out.println("Skipped unknown task type in data file: " + taskType);
+            return null;
         }
 
         if (isDone == 1) {

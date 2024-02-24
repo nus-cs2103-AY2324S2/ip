@@ -3,7 +3,6 @@ package sam.command;
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
-import sam.Ui;
 import sam.task.Event;
 
 /**
@@ -28,19 +27,42 @@ public class EventCommand extends Command {
         if (!taskInfo.contains("/from") || !taskInfo.contains("/to")) {
             throw new SamException("Invalid format for event, please provide event details by using /from and /to.");
         }
-
         String[] details = taskInfo.split(" /from | /to ");
-        if (details[0].isBlank() || details[1].isBlank() || details[2].isBlank()) {
-            throw new SamException("Please provide description, /from, and /to");
+        if (details.length < 3) {
+            throw new SamException("Please check whether you have provided a description and both start/end time.");
         }
-        this.description = details[0];
-        this.from = details[1];
-        this.to = details[2];
+
+        String description = details[0];
+        String from = "";
+        String to = "";
+        if (taskInfo.indexOf("/from") < taskInfo.indexOf("/to")) {
+            from = details[1];
+            to = details[2];
+        } else {
+            from = details[2];
+            to = details[1];
+        }
+
+        if (description.isBlank()) {
+            throw new SamException("Please provide a description");
+        }
+        if (from.isBlank()) {
+            throw new SamException("Missing /from");
+        }
+        if (to.isBlank()) {
+            throw new SamException("Missing /to");
+        }
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
-        tasks.addTask(new Event(this.description, this.from, this.to));
+    public String execute(TaskList tasks, Storage storage) throws SamException {
+        Event newTask = new Event(this.description, this.from, this.to);
+        tasks.addTask(newTask);
         storage.save(tasks);
+        return String.format("The task has been added to the list:\n%s\nNow you have %d tasks left.\n",
+                newTask, tasks.getNumOfTasks());
     }
 }
