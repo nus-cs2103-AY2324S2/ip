@@ -51,7 +51,10 @@ public class Task {
      * Formats the task as a string to be saved in Storage.
      * @return The formatted string
      */
-    public String fileString() { return (isDone ? "1 | " : "0 | ") + this.name + " | " + this.tag; }
+    public String fileString() {
+        return (isDone ? "1 | " : "0 | ") + this.name + " | " +
+            (this.tag == null ? "" : this.tag);
+    }
 
     @Override
     public String toString() {

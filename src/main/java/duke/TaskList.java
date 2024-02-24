@@ -55,9 +55,9 @@ public class TaskList {
             if (taskType.equals("T")) {
                 newTask = new Todo(name);
             } else if (taskType.equals("D")) {
-                newTask = new Deadline(name, parts[3]);
+                newTask = new Deadline(name, parts[4]);
             } else {
-                newTask = new Event(name, parts[3], parts[4]);
+                newTask = new Event(name, parts[4], parts[5]);
             }
             if (done.equals("1")) {
                 newTask.mark();
@@ -110,6 +110,7 @@ public class TaskList {
      */
     public void tag(int index, String tag) {
         list.get(index - 1).tag(tag);
+        save();
     }
 
     /**
