@@ -14,6 +14,7 @@ public class EventCommand extends Command {
         if (!taskInfo.contains("/from") || !taskInfo.contains("/to")) {
             throw new SamException("Invalid format for event, please provide event details by using /from and /to.");
         }
+
         String[] details = taskInfo.split(" /from | /to ");
         if (details[0].isBlank() || details[1].isBlank() || details[2].isBlank()) {
             throw new SamException("Please provide description, /from, and /to");

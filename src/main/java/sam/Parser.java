@@ -10,16 +10,19 @@ import sam.command.MarkCommand;
 import sam.command.UnmarkCommand;
 import sam.command.UnknownCommand;
 import sam.command.DeleteCommand;
+import sam.command.FindCommand;
 
 public class Parser {
     private enum CommandType {
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN
     }
 
     private static Command processCommand(CommandType commandType, String taskInfo) throws SamException {
         switch (commandType) {
             case LIST:
                 return new ListCommand();
+            case FIND:
+                return new FindCommand(taskInfo);
             case MARK:
                 return new MarkCommand(taskInfo);
             case UNMARK:

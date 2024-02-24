@@ -12,6 +12,7 @@ public class UnmarkCommand extends Command {
         if (index.isBlank()) {
             throw new SamException("Please provide a task number.");
         }
+
         try {
             this.index = Integer.parseInt(index) - 1;
         } catch (NumberFormatException e) {

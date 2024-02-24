@@ -65,6 +65,16 @@ public class TaskList {
         System.out.println("---------------------------");
     }
 
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchList = new ArrayList<>();
+        for (Task task : items) {
+            if (task.containsKeyword(keyword)) {
+                matchList.add(task);
+            }
+        }
+        return matchList;
+    }
+
     public ArrayList<String> getFileStrings() {
         ArrayList<String> ret = new ArrayList<>();
         for (Task item : items) {
