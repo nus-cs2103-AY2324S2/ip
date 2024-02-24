@@ -28,13 +28,8 @@ public class Commands {
      * it also saves the tasks into the .txt file locally
      * @param tasks is the list of tasks
      */
-    public static void commandBye(ArrayList<Task> tasks) {
-        System.out.println(" Bye. Hope to see you again soon !");
-        try {
-            Storage.writeToFile(tasks);
-        } catch (IOException e) {
-            System.out.println("hi");
-        }
+    public static String commandBye() {
+        return "Bye. Hope to see you again soon !";
     }
     /**
      * This method is used to listen to the commands input by the user
@@ -59,5 +54,6 @@ public class Commands {
 
 
         sc.close();
+     }
     }
 }

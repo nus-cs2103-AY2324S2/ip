@@ -15,14 +15,19 @@ public class TaskList {
      * This method is used to list out the tasks in the list
      * @param list is the list of tasks
      */
-    public static void commandList(ArrayList<Task> list) {
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            int j = i + 1;
-            Task temp = list.get(i);
-            System.out.println(j + "." + temp.toString());
+    public static String commandList(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            return "Your task list is empty !!";
         }
+
+        StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
+        for (int i = 0; i < list.size(); i++) {
+            response.append(i + 1).append(".").append(list.get(i)).append("\n");
+        }
+        return response.toString().trim();
     }
+        
+
 
     /**
      * This method is used to mark a task as done
