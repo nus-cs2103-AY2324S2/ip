@@ -228,7 +228,8 @@ Q: Why is my date not working?
 A: The date format in your list and the date format while adding deadline/event tasks is different.
    Adding tasks: YYYY-MM-DD
    Output List: DDMMMYYYY
-
+   You can check [here](#how-to-read)
+   
 Q: Why is my *delete* / *mark as done* / *mark as not done* not working?
 A: Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
 
