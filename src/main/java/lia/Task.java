@@ -8,15 +8,18 @@ public class Task {
     String description;
     boolean isDone;
 
+    boolean isImp;
+
     /**
      * Constructs a Task object with the given description and completion status.
      *
      * @param description The description of the task.
      * @param isDone      The completion status of the task (true if done, false otherwise).
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, boolean isImp) {
         this.description = description;
         this.isDone = isDone;
+        this.isImp = isImp;
     }
 
     /**
@@ -33,6 +36,13 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as important.
+     */
+    public void markAsImportant() {
+        this.isImp = true;
+    }
+    
     /**
      * Returns the task type icon based on the specific task type (Todo, Deadline, Event).
      *
@@ -59,12 +69,25 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the importance icon based on the completion status (X for done, space for not done).
+     *
+     * @return A string representing the importance icon.
+     */
+    public String getImpIcon() {
+        return (isImp ? "!" : " ");
+    }
+
     public String getDescription() {
         return description;
     }
 
     public boolean isDone() {
         return isDone;
+    }
+
+    public boolean isImp() {
+        return isImp;
     }
 
     /**
@@ -74,6 +97,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "]" + "[" + getImpIcon() + "] " + description;
     }
 }

@@ -31,6 +31,15 @@ public class Ui {
     }
 
     /**
+     * Displays a message indicating that a task has been marked as important.
+     *
+     * @param task The task that has been marked as done.
+     */
+    public String showMarkedAsImportant(Task task) {
+        return "I've marked this task as important:\n" + task.toString();
+    }
+
+    /**
      * Displays a message indicating that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
@@ -77,6 +86,8 @@ public class Ui {
                 + "- Marks task at specified position as done\n"
                 + "unmark <task number>\n"
                 + "- Marks task at specified position as not done\n"
+                + "imp <task number>\n"
+                + "- Marks task at specified position as important \n"
                 + "delete <task number>\n"
                 + " - Deletes task at specified position\n"
                 + "exit\n"

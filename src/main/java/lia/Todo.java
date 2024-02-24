@@ -11,8 +11,8 @@ public class Todo extends Task {
      * @param description The description of the todo task.
      * @param isDone      The completion status of the todo task.
      */
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, boolean isImp) {
+        super(description, isDone, isImp);
     }
 
     /**
@@ -22,6 +22,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "]" + "[" + getImpIcon() + "] " + getDescription();
     }
 }
