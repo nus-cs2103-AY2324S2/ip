@@ -22,8 +22,8 @@ import java.util.List;
 // Adapted from Teammate: Chen Run Jia
 // Source: https://github.com/RunjiaChen/ip/blob/master/src/main/java/Snom.java
 public class Taylor extends Application {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
-    private Image taytay = new Image(this.getClass().getResourceAsStream("/images/Taylor.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
+    private Image tayImage = new Image(this.getClass().getResourceAsStream("/images/Taylor.png"));
     public static List<List<Task>> tasksList;
     private Parser parser;
 
