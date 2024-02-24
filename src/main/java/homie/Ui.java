@@ -15,7 +15,7 @@ public class Ui {
      * @return String message for welcome.
      */
     public String showWelcomeMessage() {
-        return DIVIDER + "\nHello! I'm Homie" + "What can I do for you?\n" + DIVIDER;
+        return DIVIDER + "\nSup I'm Homie!!\n" + "What can I do for you?\n" + DIVIDER;
     }
 
     /**
@@ -140,14 +140,5 @@ public class Ui {
     public String showEmptyTodoDescriptionMessage() {
         return DIVIDER + "\nPlease la bro, Todo description cannot be empty...\nWhat you want to add liddat?\n"
                 + DIVIDER;
-    }
-
-    /**
-     * Prints message to CLI
-     *
-     * @param message String message to be printed.
-     */
-    public void printMessage(String message) {
-        System.out.println(message);
     }
 }

@@ -1,5 +1,7 @@
 package homie;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -18,36 +20,25 @@ public class Homie {
      */
     public Homie() {
         this.ui = new Ui();
-        this.storage = new Storage();
+        try {
+            this.storage = new Storage();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         this.tasks = new TaskList(storage.loadTasksFromFile());
         ui.showLoadingError();
     }
-    /**
-     * Runs the chatbot application.
-     */
-    public void run() throws HomieException {
-        Scanner scanner = new Scanner(System.in); // Create scanner
-        String command = scanner.nextLine();
 
-        Parser parser = new Parser(this.tasks, this.ui, this.storage);
-        while (!parser.isExit()) {
-            parser.parse(command);
-            command = scanner.nextLine();
-        }
-    }
-
-    public static void main(String[] args) throws HomieException {
-        new Homie().run();
-    }
     /**
      * Returns a String response based on user input to the GUI.
      */
     public String getResponse(String input) throws HomieException {
         Parser parser = new Parser(this.tasks, this.ui, this.storage);
-        String outputResponse = parser.parse(input);
-        if (parser.isExit()) {
+        try {
+            String outputResponse = parser.parse(input);
             return outputResponse;
+        } catch (HomieException | TodoException e) {
+            return e.getMessage();
         }
-        return outputResponse;
     }
 }

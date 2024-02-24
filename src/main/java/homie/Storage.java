@@ -25,7 +25,7 @@ public class Storage {
     /**
      * Constructor for Storage class
      */
-    public Storage() {
+    public Storage() throws IOException {
         File storageDirectory = new File(STORAGE_DIRECTORY_PATH.toString());
         if (!storageDirectory.exists()) {
             createStorageDirectory(STORAGE_DIRECTORY_PATH);
@@ -37,7 +37,13 @@ public class Storage {
         this.myStorageFile = storageFile;
     }
 
-    public void createStorageDirectory(Path directoryPath) {
+    /**
+     * Creates a directory at the data folder, nested in the project root.
+     *
+     * @param directoryPath The path of the directory.
+     * @throws IOException The exception thrown when there is an error creating directory.
+     */
+    public void createStorageDirectory(Path directoryPath) throws IOException {
         File f = new File(directoryPath.toString());
         try {
             if (!f.exists()) {
@@ -47,7 +53,7 @@ public class Storage {
                 System.out.println("create directory fail!");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
     /**
