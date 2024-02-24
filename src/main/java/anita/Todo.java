@@ -7,7 +7,6 @@ package anita;
 public class Todo extends Task {
 
     /**
-     * The constructor for the Todo class.
      * Creates a Todo task.
      *
      * @param description The raw user input.

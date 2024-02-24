@@ -4,14 +4,14 @@ package anita;
  * The main class.
  */
 public class Duke {
-    protected static boolean initialize = true;
+    protected static boolean isInitialized = true;
 
     private Database database;
     private Ui ui;
     private TaskList taskList;
 
     /**
-     * The constructor for the Duke class.
+     * Creates a Duke object.
      */
     public Duke() {
         database = new Database(this);
@@ -19,12 +19,12 @@ public class Duke {
         taskList = new TaskList(database);
         database.createFile();
         database.loadData(database.readFile());
-        initialize = false;
+        isInitialized = false;
     }
 
     /**
-     * Main driver code for executing commands.
-     * If user command is not valid, throws the respective exception.
+     * Executes commands passed in. If user command is not valid,
+     * throws the respective exception.
      *
      * @return String command.
      */

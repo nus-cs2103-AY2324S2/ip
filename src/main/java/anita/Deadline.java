@@ -11,7 +11,6 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * The constructor for the Deadline class.
      * Creates a Deadline task.
      *
      * @param description The raw user input.

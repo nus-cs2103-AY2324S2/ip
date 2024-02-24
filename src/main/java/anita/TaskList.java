@@ -12,7 +12,7 @@ public class TaskList {
     private Database database;
 
     /**
-     * The constructor for a TaskList object.
+     * Creates a TaskList object.
      *
      * @param database Takes in the database used for task operations.
      */
@@ -74,7 +74,7 @@ public class TaskList {
      */
     public String addTask(Task task) throws ArrayIndexOutOfBoundsException {
         taskList.add(task);
-        if (!Duke.initialize) {
+        if (!Duke.isInitialized) {
             return ui.addTask(task) + getNumberOfTasks();
         }
         return "";

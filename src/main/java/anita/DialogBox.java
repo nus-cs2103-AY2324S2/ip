@@ -41,7 +41,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Method to set the font to Courier New.
+     * Sets the font to Courier New.
      */
     public void initialize() {
         dialog.setFont(Font.font("Courier New", 14));

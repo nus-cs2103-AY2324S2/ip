@@ -20,7 +20,6 @@ public class Parser {
     }
 
     /**
-     * Used for specific commands where an index is expected.
      * Parses the String input into an int and returns it.
      *
      * @param description The raw user input.
@@ -32,7 +31,7 @@ public class Parser {
     }
 
     /**
-     * Used to obtain the index of the task to be removed inputted by the user.
+     * Returns the index of the task to be removed inputted by the user.
      * @param description The raw user input.
      * @return Int value of task to be removed.
      */
@@ -45,7 +44,7 @@ public class Parser {
     }
 
     /**
-     * Used to obtain the substring entered by the user when using find.
+     * Returns the substring entered by the user when using find.
      *
      * @param description The raw user input.
      * @return String of substring specified by user.
@@ -56,7 +55,7 @@ public class Parser {
     }
 
     /**
-     * Custom parser for the Todo task.
+     * Creates a parser for the Todo task.
      *
      * @param description The raw user input.
      * @return A String[] containing parts of the user input to be used for instantiation.
@@ -77,7 +76,7 @@ public class Parser {
         return res;
     }
     /**
-     * Custom parser for the Deadline task.
+     * Creates a parser for the Deadline task.
      *
      * @param description The raw user input.
      * @return A String[] containing parts of the user input to be used for instantiation.
@@ -101,7 +100,7 @@ public class Parser {
     }
 
     /**
-     * Custom parser for the Event task.
+     * Creates a parser for the Event task.
      *
      * @param description The raw user input.
      * @return A String[] containing parts of the user input to be used for instantiation.

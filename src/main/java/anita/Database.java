@@ -17,7 +17,7 @@ public class Database {
     private Duke duke;
 
     /**
-     * The constructor for the database class.
+     * Creates a Database object.
      *
      * @param duke The main class object.
      */
@@ -72,7 +72,7 @@ public class Database {
     }
 
     /**
-     * Takes the ArrayList of data read from the text file, and processes it.
+     * Processes the ArrayList of data read from the text file.
      * Creates a list of tasks from the data.
      *
      * @param data The data used to create tasks.
@@ -90,7 +90,7 @@ public class Database {
     }
 
     /**
-     * Used to delete the corresponding data line in the file after deleting a task.
+     * Deletes the corresponding data line in the file after deleting a task.
      *
      * @param index The index of the deleted task.
      */
@@ -104,7 +104,7 @@ public class Database {
     }
 
     /**
-     * Used to change the corresponding data line in the file after updating its status.
+     * Changes the corresponding data line in the file after updating its status.
      *
      * @param index The index of the changed task.
      * @param status The new status string.
