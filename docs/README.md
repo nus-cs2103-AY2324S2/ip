@@ -34,7 +34,7 @@ Lucky is a **desktop app developed for managing various tasks such as to-dos, de
 6. Refer to [Features](#features) below for details of each command
 
 ## Features
-> [!Notes about the command format:]
+> **Notes about the command format:**
 > - Words in UPPER_CASE are the parameters to be supplied by the user.<br>
     e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo play games`.
 > - Items with ... after them can be used multiple times.
@@ -69,8 +69,9 @@ Format: `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`<br>
 Examples:
 - `event Week 6 Zoom meeting /from 24/02/2024 1400 /to 24/02/2024 1500`
 - `event cs2103 tutorial /from 08/03/2024 0900 /to 08/03/2024 1000`
-> [!IMPORTANT]
-> <br>The `/from` date should always be the same or earlier than `/to` date.
+
+> ⚠ **IMPORTANT**<br>
+> The `/from` date should always be the same or earlier than `/to` date.
 
 ### Listing all tasks:: `list`
 Shows a list of all tasks in the task list.
