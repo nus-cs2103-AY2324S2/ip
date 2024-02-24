@@ -33,6 +33,13 @@ public class MainWindow extends AnchorPane {
 
     public void setEve(Eve d) {
         eve = d;
+        displayGreeting();
+    }
+
+    public void displayGreeting() {
+        String greeting = eve.sayHello();
+        DialogBox greetingDialog = DialogBox.getEveDialog(greeting, eveImage);
+        dialogContainer.getChildren().add(greetingDialog);
     }
 
     /**

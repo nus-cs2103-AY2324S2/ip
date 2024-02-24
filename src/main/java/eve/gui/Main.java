@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import eve.Eve;
-import eve.gui.MainWindow;
 /**
  * A GUI for eve using FXML.
  */

@@ -35,6 +35,7 @@ public class TaskList {
      * @param list is the list of tasks
      */
     public static String commandMark(String[] tempyArr, ArrayList<Task> list) {
+        assert list.size() > 0 : "Task list is empty";
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         temp.markAsDone();
@@ -53,6 +54,7 @@ public class TaskList {
      */
 
     public static String commandUnMark(String[] tempyArr, ArrayList<Task> list) {
+        assert list.size() > 0 : "Task list is empty";
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         temp.markAsNotDone();
@@ -69,6 +71,7 @@ public class TaskList {
      * @param list is the list of tasks
      */
     public static String commandDelete(String[] tempyArr, ArrayList<Task> list) {
+        assert list.size() > 0 : "Task list is empty";
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         list.remove(temp);

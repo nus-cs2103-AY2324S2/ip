@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import eve.TaskList;
 import eve.tasks.Deadline;
 import eve.tasks.Event;
 import eve.tasks.Task;
@@ -20,7 +19,7 @@ import eve.tasks.Todo;
  * it contains the methods to load the tasks from the file and to write the tasks into the file
  */
 public class Storage {
-    private static final String directoryPath = "./data";
+    // private static final String directoryPath = "./data";
     private static final String filePath = "./data/Eve.txt";
     private static File file;
 
