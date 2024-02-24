@@ -13,7 +13,7 @@ public class ListCommand extends Command {
      *
      * @param tasks          The task list to be displayed.
      * @param storageManager The storage manager (not used in this command).
-     * @return Null, as there is no task to return.
+     * @return String print output.
      */
     public String execute(TaskList tasks, StorageManager storageManager) {
         StringBuilder output = new StringBuilder();
@@ -28,7 +28,6 @@ public class ListCommand extends Command {
         }
         return output.toString();
     }
-    
 
     /**
      * Indicates whether the ListCommand is an exit command.

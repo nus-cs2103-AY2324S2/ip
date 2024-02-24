@@ -18,6 +18,18 @@ import tasks.Task;
  * contains a static method 'parseCommand' which takes a user input string and returns the appropriate Command object.
  */
 public class Parser {
+    public static void checkNullTaskNum(int inputLen) throws CalException {
+        if (inputLen < 2) {
+            throw new CalException("Task number not provided!");
+        }
+    }
+
+    public static void checkBlankField(String field, String fieldName) throws CalException {
+        if (field.isBlank()) {
+            throw new CalException("Oops! You are missing" + fieldName + ".");
+        }
+    }
+
     /**
      * Parses the user input string and returns the corresponding Command object.
      *
@@ -40,23 +52,14 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            if (tokens.length < 2) {
-                throw new CalException("Task number not provided!");
-            }
-
+            checkNullTaskNum(tokens.length);
             return new MarkCommand(Integer.parseInt(tokens[1]));
         case "unmark":
-            if (tokens.length < 2) {
-                throw new CalException("Task number not provided!");
-            }
-
+            checkNullTaskNum(tokens.length);
             return new UnmarkCommand(Integer.parseInt(tokens[1]));
         case "todo":
             description = line.substring(4).strip();
-            if (description.isBlank()) {
-                throw new CalException("Task description not provided");
-            }
-
+            checkBlankField(description, "description");
             return new AddCommand(description);
         case "deadline":
             int byIndex = line.indexOf("/by");
@@ -64,14 +67,9 @@ public class Parser {
 
             try {
                 description = line.substring(8, byIndex).strip();
-                if (description.isBlank()) {
-                    throw new CalException("Task description not provided");
-                }
-
+                checkBlankField(description, "description");
                 String by = line.substring(byIndex + 4).strip();
-                if (by.isBlank()) {
-                    throw new CalException("Task due date not provided");
-                }
+                checkBlankField(by, "due date");
                 dueDate = LocalDateTime.parse(by, Task.INPUT_DATE_FORMAT);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new CalException("Deadline Task is not in the format: "
@@ -89,20 +87,12 @@ public class Parser {
 
             try {
                 description = line.substring(5, fromIndex).strip();
-                if (description.isBlank()) {
-                    throw new CalException("Event description not provided");
-                }
-
+                checkBlankField(description, "description");
                 String startDateStr = line.substring(fromIndex + 5, toIndex).strip();
-                if (startDateStr.isBlank()) {
-                    throw new CalException("Event start date not provided");
-                }
+                checkBlankField(startDateStr, "start date");
                 startDate = LocalDateTime.parse(startDateStr, Task.INPUT_DATE_FORMAT);
-
                 String endDateStr = line.substring(toIndex + 3).strip();
-                if (endDateStr.isBlank()) {
-                    throw new CalException("Event end date not provided");
-                }
+                checkBlankField(endDateStr, "end date");
                 endDate = LocalDateTime.parse(endDateStr, Task.INPUT_DATE_FORMAT);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new CalException("Event Task is not in the format: "
@@ -113,16 +103,11 @@ public class Parser {
 
             return new AddCommand(description, startDate, endDate);
         case "delete":
-            if (tokens.length < 2) {
-                throw new CalException("Task number not provided!");
-            }
-
+            checkNullTaskNum(tokens.length);
             return new DeleteCommand(Integer.parseInt(tokens[1]));
         case "find":
             String keyword = line.substring(4).strip();
-            if (keyword.isBlank()) {
-                throw new CalException("Missing search keyword.");
-            }
+            checkBlankField(keyword, "search keyword");
             return new FindCommand(keyword);
         default:
             throw new CalException("Command not recognized.");

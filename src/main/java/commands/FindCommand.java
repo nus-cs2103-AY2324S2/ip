@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      *
      * @param tasks The task list to search through
      * @param storageManager The storage manager (not used in this command).
-     * @return Null, as there is no task to return.
+     * @return String print output.
      */
     public String execute(TaskList tasks, StorageManager storageManager) {
         StringBuilder output = new StringBuilder();
