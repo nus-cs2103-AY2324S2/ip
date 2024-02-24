@@ -1,4 +1,4 @@
-package duke;
+package hammy.gui;
 
 import javafx.application.Application;
 

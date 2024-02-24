@@ -1,9 +1,9 @@
-package duke.storage;//package duke;
+package hammy.storage;//package duke;
 
-import duke.task.DeadlineTask;
-import duke.task.EventTask;
-import duke.task.Task;
-import duke.task.TodoTask;
+import hammy.task.DeadlineTask;
+import hammy.task.EventTask;
+import hammy.task.Task;
+import hammy.task.TodoTask;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -40,6 +40,22 @@ public class Storage {
         return startDate.isBefore(endDate);
     }
 
+    private void createFileIfNotExists() {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getName());
+                } else {
+                    System.out.println("File creation failed.");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file.");
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * Loads tasks from the file.
      *
@@ -47,10 +63,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksFromFile() {
         File file = new File(filePath);
-        if (!file.exists()) {
-            System.out.println("File path is incorrect... Quitting...");
-            return null; // Handle the case where the file doesn't exist
-        }
+        createFileIfNotExists();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -186,6 +199,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs while saving the tasks
      */
     public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
+        createFileIfNotExists();
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
                 writer.println(task);

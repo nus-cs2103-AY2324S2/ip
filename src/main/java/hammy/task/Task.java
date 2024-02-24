@@ -1,4 +1,4 @@
-package duke.task;
+package hammy.task;
 
 /**
  * The Task class represents a task with a description and a boolean indicating whether it is done.

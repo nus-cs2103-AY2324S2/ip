@@ -1,8 +1,8 @@
-package duke;
-import duke.storage.Storage;
-import duke.task.*;
-import duke.response.*;
-import duke.parser.*;
+package hammy;
+import hammy.storage.Storage;
+import hammy.task.*;
+import hammy.response.*;
+import hammy.parser.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ public class EventTaskTest {
         // Create a sample task list and initialize necessary objects
         ui = new Ui("Hammy");
         taskList = new TaskList(new ArrayList<>(), ui);
-        parser = new Parser(ui, new Storage("./data/duke.txt"), taskList);
+        parser = new Parser(ui, new Storage("./data/tasklist.txt"), taskList);
     }
 
     @Test

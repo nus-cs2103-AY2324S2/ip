@@ -1,12 +1,9 @@
-package duke.parser;
+package hammy.parser;
 
-import duke.storage.Storage;
-import duke.task.*;
-import duke.response.Ui;
+import hammy.storage.Storage;
+import hammy.task.*;
+import hammy.response.Ui;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.Collections;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -66,10 +63,14 @@ public class Parser {
         String command = words[0].toLowerCase();
 
         switch (command) {
-        case "bye":
+        case "hi":
+        case "hello":
+            return this.response.sendWelcome();
+        case "save":
             this.storage.saveTasksToFile(taskList.getTasks());
-            return response.sendGoodbye();
+            return response.savedTasks();
         case "list":
+        case "/ls":
             ArrayList<Task> tasks = taskList.getTasks();
             if (words.length == 1) {
                 return response.showTaskList(tasks);
@@ -100,22 +101,17 @@ public class Parser {
             }
             int undoneTaskIndex = Integer.parseInt(words[1]);
             return this.taskList.markTaskAsUndone(undoneTaskIndex);
-//        case "delete mass":
-//            if (words.length <= 2) {
-//                return response.noIndexDeleteTask();
-//            }
-//            String[] indexesString = words[2].split(",");
-//            int[] taskIndices = new int[words.length - 1];
-//            for (int i = words.length; i > 0; i--) {
-//                taskIndices[i - 1] = Integer.parseInt(words[i]);
-//            }
         case "delete":
+        case "/del":
             if (words.length == 1) {
                 return response.noIndexDeleteTask();
             }
             int deleteTaskIndex = Integer.parseInt(words[1]);
             return this.taskList.deleteTask(deleteTaskIndex);
+        case "clear":
+            return this.taskList.clearTasks();
         case "todo":
+        case "/t":
             if (words.length == 1) {
                 return response.insufficientTodoDescription();
             }
@@ -123,6 +119,7 @@ public class Parser {
             Task newTodo = new TodoTask(todoDescription);
             return this.taskList.addTask(newTodo);
         case "deadline":
+        case "/d":
             if (words.length == 1 || !userInput.contains("/by")) {
                 return response.insufficientDeadline();
             }
@@ -135,6 +132,7 @@ public class Parser {
             Task newDeadline = new DeadlineTask(deadlineDescription, by);
             return this.taskList.addTask(newDeadline);
         case "event":
+        case "/e":
             if (words.length == 1 || (!userInput.contains("/from") && !userInput.contains("/to"))) {
                 return response.insufficientEventStartTimeEndTime();
             }
@@ -155,6 +153,7 @@ public class Parser {
             Task newEvent = new EventTask(eventDescription, from, to);
             return this.taskList.addTask(newEvent);
         case "search":
+        case "/s":
             if (words.length == 1) {
                 return response.noKeywordsForSearching();
             }
@@ -162,6 +161,8 @@ public class Parser {
             return this.taskList.searchTasks(keyword);
         case "help":
             return response.help();
+        case "hammy":
+            return response.getHammyMessage();
         default:
             return response.badUserInput();
 

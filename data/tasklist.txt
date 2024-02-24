@@ -1,10 +1,9 @@
+[T][X] 100 hours of effort
+[T][ ] Buy groceries
+[T][ ] Check GUI
+[D][ ] exam incoming (by: Mar 9 2024)
+[D][ ] Submit report (by: Dec 31 2022)
 [E][ ] test (from: Jan 1 2023 to: Jan 1 2024)
-[T][X] try
 [E][ ] tester1 (from: Jan 1 2022 to: Jan 1 2023)
 [E][X] tester2 (from: Jan 1 2022 to: Jan 1 2023)
-[T][ ] 100 hours of effort
-[T][ ] Buy groceries
-[D][X] Submit report (by: Dec 31 2022)
-[T][ ] Check GUI
 [E][ ] try merge (from: Jan 1 2023 to: Jan 1 2024)
-[D][ ] exam incoming (by: Mar 9 2024)

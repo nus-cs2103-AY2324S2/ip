@@ -1,13 +1,13 @@
-package duke;
+package hammy.gui;
 
-import duke.task.*;
-import duke.storage.Storage;
-import duke.response.Ui;
-import duke.parser.Parser;
+import hammy.task.*;
+import hammy.storage.Storage;
+import hammy.response.Ui;
+import hammy.parser.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -25,7 +25,7 @@ import javafx.scene.image.Image;
  * The Duke class serves as the main class for the chatbot.
  * It manages the initialization of components and runs the main loop for user interaction.
  */
-public class Duke extends Application {
+public class Hammy extends Application {
     /**
      * The storage handler for managing tasks.
      */
@@ -46,13 +46,36 @@ public class Duke extends Application {
      */
     private Parser parser;
 
+    /**
+     * The Scroll Pane for scrolling purpose while using the app
+     */
     private ScrollPane scrollPane;
+
+    /**
+     * A dialog container to contains the text from both user and corresponding responses
+     */
     private VBox dialogContainer;
+
+    /**
+     * A text field for user to input their commands
+     */
     private TextField userInput;
+
+    /**
+     * A button to send user's command
+     */
     private Button sendButton;
     private Scene scene;
+
+    /**
+     * The profile image of user
+     */
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    /**
+     * The profile image of the bot
+     */
+    private Image bot = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructs a Duke object with the specified file path and bot name.
@@ -60,7 +83,7 @@ public class Duke extends Application {
      * @param filePath the file path where tasks are stored.
      * @param botName  the name of the Duke bot.
      */
-    public Duke(String filePath, String botName) {
+    public Hammy(String filePath, String botName) {
         this.storage = new Storage(filePath);
         this.ui = new Ui(botName);
         ArrayList<Task> loadedTasks = storage.loadTasksFromFile();
@@ -68,74 +91,51 @@ public class Duke extends Application {
         this.parser = new Parser(this.ui, this.storage, this.taskList);
     }
 
-    public Duke() {
-        this.storage = new Storage("./data/duke.txt");
+    /**
+     * Constructs a Duke object with the specified file path and bot name.
+     */
+    public Hammy() {
+        this.storage = new Storage("./data/tasklist.txt");
         this.ui = new Ui("Hammy");
         ArrayList<Task> loadedTasks = storage.loadTasksFromFile();
         this.taskList = new TaskList(loadedTasks, this.ui);
         this.parser = new Parser(this.ui, this.storage, this.taskList);
     }
-
-
-//    public void run() throws IOException {
-//        ui.sendWelcome();
-//        while (true) {
-//            Scanner scanner = new Scanner(System.in);
-//            String userInput = scanner.nextLine();
-//            parser.execute(userInput);
-//            if (userInput.equals("bye")) {
-//                break;
-//            }
-//        }
-//    }
-
+    
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
         sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         scene = new Scene(mainLayout);
-
         stage.setScene(scene);
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Hammy");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-
         mainLayout.setPrefSize(400.0, 600.0);
-
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
         //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
@@ -179,7 +179,6 @@ public class Duke extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
@@ -192,23 +191,17 @@ public class Duke extends Application {
      */
     private void handleUserInput() throws IOException {
         String userText = userInput.getText();
-        if (userText.equalsIgnoreCase("bye")) {
-            Platform.exit();
-            return;
-        }
-
         String dukeText = getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getDukeDialog(dukeText, duke)
+                DialogBox.getDukeDialog(dukeText, bot)
         );
         userInput.clear();
     }
 
     protected String getResponse(String input) throws IOException {
         try {
-            String response = parser.execute(input);
-            return response;
+            return parser.execute(input);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

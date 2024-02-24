@@ -1,11 +1,8 @@
-package duke.task;
+package hammy.task;
 
-import duke.response.Ui;
+import hammy.response.Ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class TaskList {
     ArrayList<Task> tasks;
@@ -33,9 +30,6 @@ public class TaskList {
         return response.addNewTask(newTask, getTaskListSize());
     }
 
-    public void addTaskSilent(Task newTask){
-        tasks.add(newTask);
-    }
 
     public String deleteTask(int taskIndex) {
         if (!checkValidTaskIndex(taskIndex)) {
@@ -45,20 +39,10 @@ public class TaskList {
         return response.deleteTask(removedTask, getTaskListSize());
     }
 
-    public String deleteTasks(int[] taskIndices) {
-        StringBuilder removedTasks = new StringBuilder();
-        ArrayList<Integer> invalidIndexes = new ArrayList<Integer>();
-        for (int index : taskIndices) {
-            if (!checkValidTaskIndex(index)) {
-                invalidIndexes.add(index);
-            } else {
-                Task removedTask = this.tasks.remove(index - 1);
-                removedTasks = removedTasks.append("  ").append(removedTask).append("\n");
-            }
-        }
-        return response.deleteTasks(String.valueOf(removedTasks), invalidIndexes, getTaskListSize());
+    public String clearTasks() {
+        tasks.clear();
+        return response.clearedTasks();
     }
-
 
     public String markTaskAsDone(int taskIndex) {
         if (!checkValidTaskIndex(taskIndex)) {

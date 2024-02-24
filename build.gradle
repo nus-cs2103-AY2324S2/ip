@@ -55,8 +55,16 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-mainClassName = 'duke.Main'
+application {
+    mainClass.set("hammy.gui.launcher")
+    setApplicationName("hammy.jar")
+}
+
+mainClassName = 'hammy.gui.Launcher'
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveBaseName = "hammy"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+    archiveFileName = 'hammy.jar'
 }
