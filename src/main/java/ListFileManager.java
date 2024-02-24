@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ListFileManager {
@@ -59,7 +60,7 @@ public class ListFileManager {
     }
 
     public void appendEntry(list_Entry entry) {
-        appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.task_start + "," + entry.task_end + "\n");
+        appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
     }
 
     public void clearFile() {
@@ -80,7 +81,7 @@ public class ListFileManager {
 //        ArrayList<list_Entry> loadList = new ArrayList<>();
 
         try {
-            boolean hasNextEntry = true;
+//            boolean hasNextEntry = true;
             BufferedReader br = new BufferedReader(new FileReader(listFile));
             while (br.ready()) {
                 String str = br.readLine();
@@ -92,10 +93,10 @@ public class ListFileManager {
                       temp = new list_Entry_Todo(words[2],(words[1].equals("true")));
                       break;
                   case D:
-                      temp = new list_Entry_Deadline(words[2],(words[1].equals("true")),words[4]);
+                      temp = new list_Entry_Deadline(words[2],(words[1].equals("true")), LocalDate.parse(words[4]));
                       break;
                   case E:
-                      temp = new list_Entry_Event(words[2],(words[1].equals("true")),words[3], words[4]);
+                      temp = new list_Entry_Event(words[2],(words[1].equals("true")),LocalDate.parse(words[3]), LocalDate.parse(words[4]));
                       break;
                   default:
                       temp = null;
