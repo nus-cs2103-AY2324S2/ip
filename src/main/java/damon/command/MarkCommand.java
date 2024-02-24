@@ -23,8 +23,9 @@ public class MarkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int index = Integer.parseInt(this.command.split(" ")[1]) - 1;
+
         tasks.markTask(index);
-        ui.showMarkTask(tasks, index);
+        ui.showMarkCommand(tasks, index);
         storage.writeFile(tasks);
     }
 }

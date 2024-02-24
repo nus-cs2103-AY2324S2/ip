@@ -27,36 +27,44 @@ public class AddCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;
+
         if (this.command.startsWith("todo")) {
-            newTask = addToDoTask(this.command);
+            newTask = addToDo(this.command);
         } else if (this.command.startsWith("deadline")) {
-            newTask = addDeadlineTask(this.command);
+            newTask = addDeadline(this.command);
         } else {
-            newTask = addEventTask(this.command);
+            newTask = addEvent(this.command);
         }
+
         tasks.addTask(newTask);
-        ui.showAddTask(newTask, tasks);
+        ui.showAddCommand(newTask, tasks);
         storage.writeFile(tasks);
     }
 
-    private Task addToDoTask(String inputString) {
+    private Task addToDo(String inputString) {
         String description = inputString.substring(5);
+
         return new ToDo(description);
     }
 
-    private Task addDeadlineTask(String inputString) {
-        String[] splittedString = inputString.substring(9).split(" /by ");
+    private Task addDeadline(String inputString) {
+        String[] splittedString = inputString.substring(9)
+                .split(" /by ");
         String description = splittedString[0];
         String by = splittedString[1];
+
         return new Deadline(description, LocalDate.parse(by));
     }
 
-    private Task addEventTask(String inputString) {
-        String[] firstSplittedString = inputString.substring(6).split(" /from ");
+    private Task addEvent(String inputString) {
+        String[] firstSplittedString = inputString.substring(6)
+                .split(" /from ");
         String description = firstSplittedString[0];
+
         String[] secondSplittedString = firstSplittedString[1].split(" /to ");
         String startTime = secondSplittedString[0];
         String endTime = secondSplittedString[1];
+
         return new Event(description, startTime, endTime);
     }
 }

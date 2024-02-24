@@ -22,7 +22,8 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int index = Integer.parseInt(this.command.split(" ")[1]) - 1;
-        ui.showDeleteTask(index, tasks);
+
+        ui.showDeleteCommand(index, tasks);
         tasks.deleteTask(index);
         storage.writeFile(tasks);
     }

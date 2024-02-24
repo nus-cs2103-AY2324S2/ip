@@ -1,8 +1,8 @@
 package damon.tasklist;
 
-import java.util.ArrayList;
-
 import damon.task.Task;
+
+import java.util.ArrayList;
 
 /**
  * Stores Tasks by an ArrayList of Tasks.
@@ -32,7 +32,7 @@ public class TaskList {
      *
      * @return TaskList size.
      */
-    public int size() {
+    public int getSize() {
         return this.taskList.size();
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
      * @param index Index of the Task to be returned in TaskList
      * @return Required Task.
      */
-    public Task get(int index) {
+    public Task getTask(int index) {
         return this.taskList.get(index);
     }
 

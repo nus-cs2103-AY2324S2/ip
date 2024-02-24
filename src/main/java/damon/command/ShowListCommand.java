@@ -21,6 +21,6 @@ public class ShowListCommand extends Command {
      * @param storage Storage object of Damon object.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList(tasks);
+        ui.showShowTaskListCommand(tasks);
     }
 }

@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
      * @param storage Storage object of Damon object.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showExit();
+        ui.showExitCommand();
     }
 
     @Override
