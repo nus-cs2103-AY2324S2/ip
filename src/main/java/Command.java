@@ -7,6 +7,7 @@ public class Command {
         EVENT,
         UNMARK,
         MARK,
+        DELETE,
         EXIT,
         INVALID
     }

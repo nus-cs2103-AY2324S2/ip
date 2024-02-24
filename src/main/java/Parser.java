@@ -1,16 +1,11 @@
-import javax.swing.text.DateFormatter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
     final static String DATE_FORMAT = "dd-MM-yyyy";
-    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
 
 
@@ -74,6 +69,16 @@ public class Parser {
                 return new InvalidCommand("Index value must be numeric");
             }else {
                 return new UnmarkCommand(Integer.parseInt(strings[1])-1);
+            }
+        } else if (strings[0].equalsIgnoreCase("delete")) {
+            if (strings.length == 1) {
+                return new InvalidCommand("too little arguments for [delete]");
+            } else if (strings.length > 2) {
+                return new InvalidCommand("too many arguments for [delete]");
+            } else if (!isInteger(strings[1])) {
+                return new InvalidCommand("Index value must be numeric");
+            }else {
+                return new DeleteCommand(Integer.parseInt(strings[1])-1);
             }
         } else if (strings[0].equalsIgnoreCase("exit")) {
             return new ExitCommand();

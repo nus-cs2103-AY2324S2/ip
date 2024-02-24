@@ -21,23 +21,20 @@ public class TaskList {
         list.add(new list_Entry_Event(taskName, false,startDate, endDate));
     }
 
-    public void delete() {
-
+    public void delete(int index) {
+        list.remove(index);
     }
 
     public void mark(int index) {
         list.get(index).markEntry();
     }
     public void unmark(int index) {
-        System.out.println("TEST");
         list.get(index).unmarkEntry();
     }
 
     public boolean isValidIndex(int index) {
         return ((index < this.size()) && (index >= 0));
     }
-
-
 
     public int size() {
         return list.size();
