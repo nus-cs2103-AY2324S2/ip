@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class ChatBot {
     private static final String INDENT = "    ";
@@ -52,30 +53,46 @@ public class ChatBot {
             taskList.markTask(idx);
             this.storage.save(taskList);
             return PRAISE;
+
         } else if (input.contains(BYE)) {
             this.isFinished = true;
             return EXIT;
+
         } else if (input.contains(REMOVE)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.removeTask(idx - 1);
             this.storage.save(taskList);
             return TASK_REMOVED;
+
         } else {
             if (input.contains(TODO)) {
                 try {
+                    //todo takes in the name of the task
+
                     task = new Todo(input.substring(TODO.length() + 1));
                 } catch (StringIndexOutOfBoundsException e) {
                      throw new MissingInputException("Life is liddat");
                 }
             } else if (input.contains(DEADLINE)) {
                 try {
-                    task = new Deadline(input.substring(DEADLINE.length() + 1));
+                    // deadline takes in the name and the deadline
+                    // Need to split the input into name and deadline split by "by"
+
+                    String parts[] = input.split(" by "); // part 0 is todo [name], part 1 is [date]
+                    LocalDate date = LocalDate.parse(parts[1].trim());
+                    task = new Deadline(parts[0].substring(DEADLINE.length() + 1), date);
+
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new MissingInputException("Bruh");
                 }
             } else if (input.contains(EVENT)) {
                 try {
-                    task = new Event(input.substring(EVENT.length() + 1));
+                    // event takes in the name and the deadline
+
+                    String parts[] = input.split(" by "); // part 0 is todo [name], part 1 is [date]
+                    LocalDate date = LocalDate.parse(parts[1].trim());
+                    task = new Event(parts[0].substring(DEADLINE.length() + 1), date);
+                    
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new MissingInputException("Haiz");
                 }

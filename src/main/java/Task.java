@@ -3,8 +3,8 @@ public abstract class Task {
     public String name; 
     public boolean isDone;
     public char taskType;
-    static String COMPLETED_MESSAGE_END = " is complete!";
-    static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
+    // static String COMPLETED_MESSAGE_END = " is complete!";
+    // static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
 
     public Task(String name) {
         this.name = name;

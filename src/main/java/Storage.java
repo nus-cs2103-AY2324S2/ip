@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.io.FileWriter;
 
@@ -32,15 +33,22 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 // Split by first space
-                // System.out.println(sc.nextLine());
-                String parts[] = sc.nextLine().split(" ", 3);
-                
+
+                String parts[] = sc.nextLine().split(" ", 2);
                 if (parts[0].equals(TODO)) {
-                    task = new Todo(parts[2], parts[1]);
+                    parts = parts[1].split(" ", 2);
+                    task = new Todo(parts[1], parts[0]);
+
                 } else if (parts[0].equals(DEADLINE)) {
-                    task = new Deadline(parts[2], parts[1]);
+                    parts = parts[1].split(" ", 3);
+                    LocalDate date = LocalDate.parse(parts[1].trim());
+                    task = new Deadline(parts[2], parts[0], date);
+
                 } else {
-                    task = new Event(parts[2], parts[1]);
+                    parts = parts[1].split(" ", 3);
+                    LocalDate date = LocalDate.parse(parts[1].trim());
+                    task = new Event(parts[2], parts[0], date);
+
                 } 
                 taskList.addTask(task);
             
