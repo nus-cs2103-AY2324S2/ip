@@ -14,6 +14,6 @@ public class MarkedTask extends UI {
      * @return A message confirming the marking of the task as done.
      */
     public static String display(Task task) {
-        return String.format("Nice! I've marked this task as done:\n   %s", task.toString());
+        return String.format("Good job! I've marked the task as dones:\n   %s", task.toString());
     }
 }

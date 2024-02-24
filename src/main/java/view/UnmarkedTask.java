@@ -14,6 +14,6 @@ public class UnmarkedTask {
      * @return A message confirming the marking of the task as not done.
      */
     public static String display(Task task) {
-        return String.format("Nice! I've marked this task as not done yet:\n   %s", task.toString());
+        return String.format("Make sure to do it soon! I've unmarked the task:\n   %s", task.toString());
     }
 }

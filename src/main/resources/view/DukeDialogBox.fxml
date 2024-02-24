@@ -9,7 +9,7 @@
     <style>
         -fx-padding: 10px;
     </style>
-    <HBox prefWidth="500.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+    <HBox prefWidth="500.0" maxHeight="2E308" maxWidth="2E308">
         <style>
             -fx-background-color: #90BAAD;
             -fx-background-radius: 30px;

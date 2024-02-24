@@ -9,7 +9,7 @@
     <style>
         -fx-padding: 10 10 10 90;
     </style>
-    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500">
+    <HBox maxHeight="2E308" maxWidth="2E308" prefWidth="500">
         <style>
             -fx-background-color: #5f96aa;
             -fx-background-radius: 30px;
@@ -24,9 +24,9 @@
                 <Font name="Arial" size="16.0" />
             </font>
         </Text>
-        <ImageView fx:id="displayPicture" fitHeight="80" fitWidth="80" preserveRatio="true">
+        <ImageView fx:id="displayPicture" fitHeight="80" fitWidth="80" preserveRatio="true"/>
          <HBox.margin>
-            <Insets />
-         </HBox.margin></ImageView>
+             <Insets top="15.0" right="5.0" bottom="15.0" left="5.0"/>
+         </HBox.margin>
     </HBox>
 </fx:root>

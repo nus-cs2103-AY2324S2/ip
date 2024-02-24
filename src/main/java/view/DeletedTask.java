@@ -18,9 +18,7 @@ public class DeletedTask extends UI {
      * number of tasks in the list.
      */
     public static String display(TaskList tasks, Task task) {
-        String output = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
+        return String.format("I've removed this task:\n %s\nYou now have %d tasks left.",
                 task.toString(), tasks.size());
-
-        return output;
     }
 }

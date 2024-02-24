@@ -16,8 +16,6 @@ public class CreatedTask extends UI {
      * @return
      */
     public static String display(TaskList tasks, Task task) {
-        String output = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
-                task, tasks.size());
-        return output;
+        return  String.format("I've added the task :D:\n  %s\nYou now have %d tasks.", task, tasks.size());
     }
 }
