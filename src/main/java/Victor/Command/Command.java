@@ -83,8 +83,11 @@ public enum Command {
         public String execute(TaskList tasks, String[] commandLine) {
             try {
                 Todo userTask = new Todo(commandLine[1], false);
-                tasks.addTask(userTask);
-                return userTask + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                if (!tasks.detectDuplicates(userTask)) {
+                    tasks.addTask(userTask);
+                    return userTask + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                }
+                return "Todo duplicate detected. Not adding " + userTask.getDes() + " todo task";
             } catch (IndexOutOfBoundsException e) {
                 return "Sorry pal, but your description is empty.\n"
                         + "Please redo the command and remember to "
@@ -102,12 +105,16 @@ public enum Command {
             try {
                 String[] differentParts = commandLine[1].split("/", 2);
                 String[] deadLine = differentParts[1].split(" ", 2);
+                //This is not dead code. This is used to test if the by date
+                // can be parsed into a localDate
                 LocalDate deadDate = LocalDate.parse(deadLine[1]);
                 Deadline userTask = new Deadline(differentParts[0], false, deadLine[1]);
-                tasks.addTask(userTask);
-                System.out.println();
-                return userTask.toString() + "\n"
-                        + "Now you have " + tasks.getSize() + " tasks in the list.";
+                if (!tasks.detectDuplicates(userTask)) {
+                    tasks.addTask(userTask);
+                    return userTask.toString() + "\n"
+                            + "Now you have " + tasks.getSize() + " tasks in the list.";
+                }
+                return "Deadline duplicate detected. Not adding " + userTask.getDes() + " deadline task";
             } catch (IndexOutOfBoundsException e) {
                 return  "Oh, you forgot to indicate when is the deadline "
                         + "or maybe you forgot the description.\n"
@@ -133,12 +140,17 @@ public enum Command {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 String trimStartDate = startDate[1].trim();
                 String trimEndDate = endDate[1].trim();
+                //This is not dead code. This is used to test if the by date
+                // can be parsed into a localDate
                 LocalDateTime startDT = LocalDateTime.parse(trimStartDate, formatter);
                 LocalDateTime endDT = LocalDateTime.parse(trimEndDate, formatter);
                 Event userTask = new Event(differentParts[0], false, trimStartDate, trimEndDate);
-                tasks.addTask(userTask);
-                return userTask.toString()
-                        + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                if (!tasks.detectDuplicates(userTask)) {
+                    tasks.addTask(userTask);
+                    return userTask
+                            + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                }
+                return "Event duplicate detected. Not adding " + userTask.getDes() + " event task";
             } catch (IndexOutOfBoundsException e) {
                 return "You forgot to provide either a description, "
                         + "an start date or an end date for this event.\n"
