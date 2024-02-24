@@ -2,6 +2,7 @@ package venus;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * This is a TaskList class that is used to save tasks.
@@ -14,7 +15,7 @@ public class TaskList {
      * Enums that are used to identify Tasks
      */
     public enum Types { //Used for type of list encountered
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL, INVALID, FIND;
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL, INVALID, FIND, DUPLICATE;
     }
     private ArrayList<Task> tasks;
     public TaskList() {
@@ -202,6 +203,9 @@ public class TaskList {
             return output;
         }
         switch (type) {
+        case DUPLICATE:
+            output = handleFindDuplicate(word, data);
+            break;
         case ALL:
             output = Gui.allTasksMessage(this);
             break;
@@ -228,6 +232,25 @@ public class TaskList {
             break;
         default:
             output = Gui.formatResponse("Unknown command, please try again");
+        }
+        return output;
+    }
+
+    private String handleFindDuplicate(String word, ArrayList<Task> data) {
+        String output;
+        try {
+            String keyword = Parser.findFindKeyword(word);
+            HashSet<String> itemsTracked = new HashSet<>();
+            ArrayList<Task> duplicates = new ArrayList<>();
+            for (Task t: data) {
+                boolean isDuplicated = !itemsTracked.add(t.getItem());
+                if (isDuplicated) {
+                    duplicates.add(t);
+                }
+            }
+            output = Gui.duplicateMessage(duplicates);
+        } catch (StringIndexOutOfBoundsException e) {
+            output = Gui.formatResponse("Incorrect argument for finding duplicates, please check.");
         }
         return output;
     }

@@ -25,6 +25,10 @@ public class Parser {
         if (isAllType) {
             type = TaskList.Types.ALL;
         }
+        boolean isFindDuplicate = listType.length == 1 && listType[0].equals("DUPLICATE");
+        if (isFindDuplicate) {
+            type = TaskList.Types.DUPLICATE;
+        }
         return type;
     }
 

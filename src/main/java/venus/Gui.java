@@ -13,7 +13,7 @@ public class Gui {
                     "    Hello! I'm Venus.\n"
                     + "    What can I do for you?\n";
     private static final String END =
-                    "    Bye. Hope to see you again soon!\n";
+                    "    Bye. Please close the tab by yourself. Hope to see you again soon!\n";
 
     public static String formatResponse(String message) {
         return "     " + message + "\n";
@@ -94,7 +94,7 @@ public class Gui {
 
     /**
      * Returns all the tasks in a list.
-     * @param items the list itself
+     * @param items the list itself.
      * @return item string to be displayed by GUI.
      */
     public static String findMessage(ArrayList<String> items) {
@@ -104,6 +104,23 @@ public class Gui {
             output = output + ("     " + i + "." + s + "\n");
             i++;
         }
+        return output;
+    }
+
+    /**
+     * Returns all the tasks in a list that is duplicated
+     * @param duplicates the duplicate tasks in the list.
+     * @return item string to be displayed by GUI.
+     */
+    public static String duplicateMessage(ArrayList<Task> duplicates) {
+        int i = 1;
+        String output = "     Here are the duplicated tasks in your list:\n";
+        for (Task s : duplicates) {
+            output = output + ("     " + i + "." + s + "\n");
+            i++;
+        }
+        output = output + "     Please take note that these are the second occurrences and beyond\n";
+        output = output + "     You can delete specific list items using the delete command";
         return output;
     }
 }
