@@ -21,6 +21,8 @@ public class TaskSerializer {
      * @return A string representing the serialized tasks.
      */
     public static String serialize(Task t) {
+        assert t != null : "Task should not be null";
+        
         String[] taskFields = {"", "", "", "", ""};
         taskFields[1] = t.getStatus() ? "1" : "0";
         taskFields[2] = t.getDescription();

@@ -44,6 +44,7 @@ public class StorageManager {
      * @param tasks The task list to be saved.
      */
     public void save(TaskList tasks) {
+        assert taskSaveLocation != null : "Save path should not be empty";
         StringBuilder sb = new StringBuilder();
         String serializedTask;
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -65,6 +66,7 @@ public class StorageManager {
      */
 
     public TaskList load() {
+        assert taskSaveLocation != null : "Save path should not be empty";
         File dataFile = new File(this.taskSaveLocation);
         List<Task> tasks = new ArrayList<>();
 
