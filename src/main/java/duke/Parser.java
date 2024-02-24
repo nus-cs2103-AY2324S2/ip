@@ -108,6 +108,11 @@ public class Parser {
                 }
                 LocalDateTime from = parseDate(tempArray[0].trim());
                 LocalDateTime to = parseDate(tempArray[1].trim());
+                if (from.isAfter(to)) {
+                    throw new IllegalArgumentException("Blunder! "
+                            + "The start date of yer event be after the end date, ye scurvy dog!");
+                }
+                assert from.isBefore(to) : "Start date of event should be before end date";
                 Event event = new Event(description, from, to);
                 return new AddCommand(event);
             } else if (matchesPattern(input, patternFind)) {
