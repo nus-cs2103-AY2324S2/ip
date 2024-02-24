@@ -88,18 +88,18 @@ Got it. I have added:
 
 **Adding deadline tasks:**
 ```
-deadline [YOUR_DESCRIPTION_HERE] /by: XXXX-XX-XX
+deadline [YOUR_DESCRIPTION_HERE] /by: YYYY-MM-DD
 ```
 
 Shortcut:
 ```
-/d [YOUR_DESCRIPTION_HERE] /by: XXXX-XX-XX
+/d [YOUR_DESCRIPTION_HERE] /by: YYYY-MM-DD
 ```
 
 Expected outcome:
 ```
 Got it. I have added:
-[D][ ] YOUR_DESCRIPTION_HERE (by: XX XXX XXXX)
+[D][ ] YOUR_DESCRIPTION_HERE (by: DDMMMYYYY)
 ```
 
 > [!NOTE]
@@ -107,18 +107,18 @@ Got it. I have added:
 
 **Adding event tasks:**
 ```
-event [YOUR_DESCRIPTION_HERE] /from: XXXX-XX-XX /to: XXXX-XX-XX
+event [YOUR_DESCRIPTION_HERE] /from: YYYY-MM-DD /to: YYYY-MM-DD
 ```
 
 Shortcut:
 ```
-/e [YOUR_DESCRIPTION_HERE] /from: XXXX-XX-XX /to: XXXX-XX-XX
+/e [YOUR_DESCRIPTION_HERE] /from: YYYY-MM-DD /to: YYYY-MM-DD
 ```
 
 Expected outcome:
 ```
 Got it. I have added:
-[E][ ] YOUR_DESCRIPTION_HERE (from: XX XXX XXXX to: XX XXX XXXX)
+[E][ ] YOUR_DESCRIPTION_HERE (from: DDMMMYYYY to: DDMMMYYYY)
 ```
 
 > [!NOTE]
@@ -222,13 +222,10 @@ Hammy
 * You can click [here](https://github.com/jinhanfromNUS/ip)
 
 2. What is the date format? Why is my date format wrong?
-* Date format should be XXXX-XX-XX (e.g. 2023-01-01). This only applies for entering the date format.
+* Date format should be YYYY-MM-DD (e.g. 2023-01-01). This only applies for entering the date format.
 
 3. Why is my date not working?
-* The date format in your list and the date format while adding deadline/event tasks is different.
-   Adding tasks: YYYY-MM-DD
-   Output List: DDMMMYYYY
-   You can check [here](#how-to-read)
+* The date format in your list and the date format while adding deadline/event tasks is different. Adding tasks is YYYY-MM-DD, while output list is DDMMMYYYY. You can check [here](#how-to-read).
 
 4. Why is my *delete* / *mark as done* / *mark as not done* not working?
 * Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
