@@ -6,7 +6,7 @@ import storage.StorageManager;
 import tasklist.TaskList;
 import tasks.Task;
 
-public class FindCommand {
+public class FindCommand extends Command {
     protected String keyword;
 
     public FindCommand(String keyword) {
@@ -15,19 +15,16 @@ public class FindCommand {
 
     public Task execute(TaskList tasks, StorageManager storageManager) {
         List<Task> tasksContainingKeyword = tasks.find(this.keyword);
-        System.out.println("Here are the matching tasks in your list:");
         if (tasksContainingKeyword.size() == 0) {
             System.out.println("No matching tasks.");
         }
-        System.out.println("Here is your list of tasks:");
+        System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasksContainingKeyword.size(); i++) {
-            Task t = tasks.getTask(i);
+            Task t = tasksContainingKeyword.get(i);
             String str = String.format("%d. %s", i + 1, t);
             System.out.println(str);
         }
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
-        return task;
+        return null;
     }
 
     public boolean isExit() {

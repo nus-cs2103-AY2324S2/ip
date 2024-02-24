@@ -31,14 +31,22 @@ public class StorageManager {
         this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
     }
 
-    public void save(TaskList tasklist) {
-        String tasksSerialized = TaskSerializer.serialize(tasks);
+    public void save(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        String serializedTask;
+        for (int i = 0; i < tasks.getSize(); i ++) {
+            serializedTask = TaskSerializer.serialize(tasks.getTask(i));
+            sb.append(serializedTask); 
+            sb.append("\n"); 
+        }
+        
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
-            writer.write(tasksSerialized);
+            writer.write(sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public TaskList load() {
         File dataFile = new File(this.taskSaveLocation);
