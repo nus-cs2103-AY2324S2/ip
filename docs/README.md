@@ -2,28 +2,35 @@
 
 ## Features 
 
-### Feature-ABC
+### Add todo tasks into your task list
 
-Description of the feature.
+Command: 
+'''
+todo your_task_here
+'''
 
-### Feature-XYZ
+### List out all your tasks
 
-Description of the feature.
+Command
+'''
+list
+'''
 
 ## Usage
 
 ### `Keyword` - Describe action
 
-Describe the action and its outcome.
+To add a deadline task
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`deadline [YOUR_TASK_HERE] /by DATE`
 
 Expected outcome:
 
-Description of the outcome.
+The output should ensure your task has been succesffuly added, otherwise it would state your input error.
 
 ```
-expected output
+Got it. I have added:
+[D][ ] YOUR_TASK_HERE (by: deadline_date
 ```
