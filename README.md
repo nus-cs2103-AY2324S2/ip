@@ -26,7 +26,8 @@ All this for the low, low price of **FREE**!
 DukeYarr continues to grow more capable each day and is able to:
 - [X] Handle To-dos
 - [X] Handle Deadlines and Events 
-- [ ] Implement a GUI interface (coming soon)
+- [X] Be operated with a GUI interface
+- [ ] Accomodate flexible command formats
 
 ## Customisability
 For enthusiastic programmers, DukeYarr is highly customisable with easily extended packages and classes. Here's a snippet of the `Task` class for example:
