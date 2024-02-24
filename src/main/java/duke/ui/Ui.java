@@ -1,9 +1,5 @@
 package duke.ui;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import duke.task.Task;
@@ -140,7 +136,8 @@ public class Ui {
                 + "/to yyyy-MM-dd HH:mm'\n"
                 + " 'find'      : to search for a keyword in task descriptions, format = 'find keyword'\n"
                 + " 'mark'      : to mark a task at a certain index as complete, format = 'mark index'\n"
-                + " 'todo'      : to create a todo task with no particular time constraint, format = 'todo description'\n"
+                + " 'todo'      : to create a todo task with no particular time constraint, format "
+                + "= 'todo description'\n"
                 + " 'unmark'    : to unmark a task at a certain index as incomplete, format = 'unmark index'\n";
     }
 
