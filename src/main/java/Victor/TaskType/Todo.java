@@ -8,7 +8,7 @@ import java.util.Objects;
  * methods, and has overridden several methods in order to
  * add their own specific information to it.
  *
- * @author Dominic Fu Ming Jun 
+ * @author Dominic Fu Ming Jun
  */
 public class Todo extends Task {
 
