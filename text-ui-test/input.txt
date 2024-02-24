@@ -1,0 +1,29 @@
+somethingwrong
+todo hello
+list
+mark 1
+event party all day every /from 2023-01-01 /to 2024-03-09
+list
+event party all day every /from 2023-02-01 /to 2024-03-09
+list
+unmark 1
+deadline return book /by Sunday
+mark 2
+find
+find party
+triage 2 LOW
+list
+event party /FROM Monday 2pm /to 4pm
+mark -2
+delete 1
+triage -1 HIHJIEHJGOIEHGIO
+triage -1 HIGH
+triage 1 HIGH?
+mark 12098765456t7yuioi8765467890-98765789
+mark
+list
+delete 3
+unmark
+delete -3
+delete 3.123456
+bye

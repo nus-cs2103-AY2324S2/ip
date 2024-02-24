@@ -1,7 +1,135 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	 ____________________________________________________________
+	 Hello! I'm JeromeGPT
+	 What can I do for you?
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 I have no idea what you are trying to tell me??? 😅
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Got it. I've added this task:
+	 [T][ ] hello [Priority: MEDIUM]
+	 Now you have 1 task(s) available!
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][ ] hello [Priority: MEDIUM]
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Nice! I've marked this task as done:
+	 [T][X] hello [Priority: MEDIUM]
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Got it. I've added this task:
+	 [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 Now you have 2 task(s) available!
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][X] hello [Priority: MEDIUM]
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Got it. I've added this task:
+	 [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 Now you have 3 task(s) available!
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][X] hello [Priority: MEDIUM]
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Nice! I've marked this task as uncompleted:
+	 [T][ ] hello [Priority: MEDIUM]
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: The end time cannot be empty!
+	 deadline: Adds an deadline.
+	 Example: deadline boil hot water /by yyyy-MM-dd
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Nice! I've marked this task as done:
+	 [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: If you would like to list everything, please use the list command.
+	 Otherwise, please use the command: find 1234
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 2. [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Noted, the priority of this task has been modified:
+	  [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][ ] hello [Priority: MEDIUM]
+	 2. [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 event: Adds an event.
+	 Example: event go for CS2103 tutorial /from yyyy-MM-dd /to yyyy-MM-dd
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: Task does not exist
+	 Enter the command as such: mark 1
+	 This task is not created yet.
+	 There are 3 tasks available.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Noted, I have removed this task:
+	  [T][ ] hello [Priority: MEDIUM]
+	 Now you have 2 task(s) in the list.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please set a valid integer of 1 or larger.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please set a valid integer of 1 or larger.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 triage: Change priority level of a Task (LOW/MEDIUM/HIGH).
+	 Error: Please use a valid priority level: LOW, MEDIUM, HIGH.
+	 Example: triage 1 MEDIUM
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: Invalid Index
+	 Enter the command as such: mark 1
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Error: Invalid Index
+	 Enter the command as such: mark 1
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+ 	 This is an invalid index
+	 There are 2 tasks available.
 
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Enter the command as such: unmark 1
+	 Error: Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+ 	 This is an invalid index
+	 There are 2 tasks available.
+
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Exiting as requested ...
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Bye. Hope to see you again soon!
+	 ____________________________________________________________
