@@ -139,6 +139,15 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
+    public void showFindCommand(TaskList tasks) {
+        int n = tasks.size();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < n; i++) {
+            Task currentTask = tasks.get(i);
+            System.out.println((i + 1) + "." + currentTask.toString());
+        }
+    }
+
     /**
      * Prints echo.
      *

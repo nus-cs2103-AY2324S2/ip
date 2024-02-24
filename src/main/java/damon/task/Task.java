@@ -64,6 +64,10 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public boolean isContainKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     //...
 }
 
