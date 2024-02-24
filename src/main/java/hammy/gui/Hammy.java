@@ -95,7 +95,7 @@ public class Hammy extends Application {
      * Constructs a Duke object with the specified file path and bot name.
      */
     public Hammy() {
-        this.storage = new Storage("./data/tasklist.txt");
+        this.storage = new Storage("./tasklist.txt");
         this.ui = new Ui("Hammy");
         ArrayList<Task> loadedTasks = storage.loadTasksFromFile();
         this.taskList = new TaskList(loadedTasks, this.ui);
