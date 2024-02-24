@@ -1,10 +1,16 @@
 package processor;
 
+import java.io.IOException;
+
 import tasks.TaskList;
 import ui.Ui;
 
-import java.io.IOException;
 
+
+/**
+ * The MarkTaskProcessor class represents a processor that processes
+ * the user command to mark a task in the TaskList.
+ */
 public class MarkTaskProcessor extends Processor {
 
     /**

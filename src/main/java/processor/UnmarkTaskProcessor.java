@@ -1,10 +1,13 @@
 package processor;
 
+import java.io.IOException;
+
 import tasks.TaskList;
 import ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * The Processor class is responsible for returning the list of tasks in the TaskList.
+ */
 public class UnmarkTaskProcessor extends Processor {
 
     /**

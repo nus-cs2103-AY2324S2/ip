@@ -13,7 +13,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * The AddTaskProcessor class represents a processor that processes the user command to add a task to the TaskList.
+ */
 public class AddTaskProcessor extends Processor {
 
 
@@ -55,13 +57,8 @@ public class AddTaskProcessor extends Processor {
             System.out.println(chatbotUi.dividerWrapper("Description of todo can't be blank!"));
             return;
         }
-
-        
         String todoDescription = componentsSplitBySpace[1].trim();
-        
         String[] componentsSplitByTime = userInput.split("//");
-
-        
         String deadlineOrEventDescription = componentsSplitByTime[0].substring(
             componentsSplitByTime[0].indexOf(' ') + 1);
 
@@ -92,14 +89,12 @@ public class AddTaskProcessor extends Processor {
                         deadline.substring(3), DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
 
                 String formattedDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
-                
                 taskList.addDeadlineTask(deadlineOrEventDescription, formattedDeadline);
 
             } catch (DateTimeParseException e) {
                 System.out.println(chatbotUi.recommenderWrapper(
                         "Added the task, but recommend using"
                                 + " the date/time format `M/d/yyyy HHmm` for better experience."));
-                
                 taskList.addDeadlineTask(deadlineOrEventDescription, deadline);
             }
 

@@ -3,6 +3,10 @@ package processor;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * The FindTaskProcessor class represents a processor that processes
+ * the user command to find a task in the TaskList.
+ * **/
 public class FindTaskProcessor extends Processor {
 
     /**

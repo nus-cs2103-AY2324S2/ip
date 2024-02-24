@@ -17,8 +17,8 @@ public abstract class Processor {
 
     /**
      * Constructor for AbstractProcessor element
-     * @param taskList
-     * @param chatbotUi
+     * @param taskList the list of tasks
+     * @param chatbotUi the user interface
      */
     public Processor(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;

@@ -134,7 +134,7 @@ public class Ui {
      * @return a string containing the given text wrapped in a divider
      */
     public String dividerWrapper(String text) {
-        return divider() + text + "\n" + divider();
+        return "\n" + text + "\n";
     }
 
     /**

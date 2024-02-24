@@ -25,7 +25,7 @@ public class Duke {
         parser = new Parser(factory);
     }
     /**
-     * Executes the chatbot.
+     * Executes the chatbot continuously.
      * @throws IOException if an I/O error occurs while running the chatbot
      */
     public void run() throws IOException {
@@ -43,6 +43,12 @@ public class Duke {
         System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
     }
 
+    /**
+     * Executes a chatbot command by returning the string object instead.
+     * @param userInput the user input
+     * @return the response
+     * @throws IOException if an I/O error occurs while running the chatbot
+     */
     public String run(String userInput) throws IOException {
         if (userInput.equals("bye")) {
             //return chatbotUi.dividerWrapper(Ui.bye());

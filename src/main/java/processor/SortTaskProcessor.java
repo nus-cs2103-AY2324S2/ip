@@ -3,6 +3,9 @@ package processor;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * The SortTaskProcessor class represents a processor that processes the user command to sort the TaskList.
+ */
 public class SortTaskProcessor extends Processor {
 
     /**

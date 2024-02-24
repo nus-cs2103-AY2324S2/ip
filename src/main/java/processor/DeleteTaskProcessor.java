@@ -6,7 +6,10 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
-
+/**
+ * The DeleteTaskProcessor class represents a processor that processes
+ * the user command to delete a task from the TaskList.
+ */
 public class DeleteTaskProcessor extends Processor {
 
     /**
