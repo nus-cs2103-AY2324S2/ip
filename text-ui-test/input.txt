@@ -28,4 +28,6 @@ delete 10
 delete -1
 delete a
 delete 5
+find
+find book
 exit
