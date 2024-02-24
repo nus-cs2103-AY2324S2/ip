@@ -46,28 +46,44 @@ public class Parser {
             List<String> arguments = parts.length > 1 ? List.of(parts[1].split("\\s+")) : List.of();
 
             switch (command) {
+            case "f":
+            case "fi":
+            case "fin":
             case "find":
                 return new FindCommand(String.join(" ", arguments));
+            case "h":
             case "help":
                 return new HelpCommand();
+            case "l":
             case "list":
                 return new ListCommand();
+            case "m":
             case "mark":
                 return new MarkCommand(arguments);
+            case "b":
             case "bye":
             case "exit":
                 return new ByeCommand();
+            case "u":
+            case "un":
             case "unmark":
                 return new UnmarkCommand(arguments);
+            case "d":
+            case "del":
             case "delete":
             case "remove":
                 return new DeleteCommand(arguments);
+            case "t":
             case "todo":
                 return new AddCommand(new ToDo(extractTaskDescription(arguments)));
+            case "dl":
             case "deadline":
                 return parseDeadline(arguments);
+            case "e":
             case "event":
                 return parseEvent(arguments);
+            case "v":
+            case "view":
             case "viewbydate":
                 return parseViewByDate(arguments);
             default:
