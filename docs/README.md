@@ -54,7 +54,7 @@ ________________________________________________________
 
 ## Adding deadlines
 
-Adds a todo of the specified description, without a start or end date, to the task list.
+Adds a deadline of the specified description, with only an end date, to the task list.
 
 Format: `deadline [task description] /by [end date]`. [end date] must be in format `YYYY-MM-dd HH:mm`.
 
@@ -72,11 +72,11 @@ ________________________________________________________
 
 ## Adding events
 
-Adds a todo of the specified description, without a start or end date, to the task list.
+Adds an event of the specified description, with a start date and end date, to the task list.
 
 Format: `event [task description] /from [start date] /to [end date]`. [start date] and [end date] must be in format `YYYY-MM-dd HH:mm`.
 
-Example: `deadline study /from 2024-02-02 09:00 /to 2024-02-02 12:00` adds an event with description "study" from 2 Feb 2024 09:00 to 2 Feb 2024 12:00.
+Example: `event study /from 2024-02-02 09:00 /to 2024-02-02 12:00` adds an event with description "study" from 2 Feb 2024 09:00 to 2 Feb 2024 12:00.
 
 If successful, you should see this output message:
 
@@ -208,7 +208,7 @@ ________________________________________________________
 
 ## Searching help
 
-If 
+Displays a guide to help the user use the app.
 
 Format: `help`
 
