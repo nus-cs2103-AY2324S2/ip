@@ -88,6 +88,19 @@ public class TaskList {
     }
 
     /**
+     * Find a task from the task list by keyword.
+     *
+     * @param keyword The search keyword.
+     * @return The list of tasks containing the keyword.
+     */
+    public List<Task> find(String keyword) {
+        List<Task> tasksContainingKeyword = this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+        return tasksContainingKeyword;
+    }
+
+    /**
      * Gets the number of tasks in the task list.
      *
      * @return The number of tasks in the task list.
