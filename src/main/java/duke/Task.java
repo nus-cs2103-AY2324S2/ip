@@ -49,7 +49,7 @@ public abstract class Task {
      * Marks the task as done by setting the completion status to true.
      */
     public String getDescription() {
-        return this.description; // mark done task with X
+        return this.description;
     }
 
     public void markAsDone() {
