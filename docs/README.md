@@ -222,9 +222,11 @@ Q: Where can I check your Github page?
 
 A: You can click [here](https://github.com/jinhanfromNUS/ip)
 
+
 Q: What is the date format? Why is my date format wrong?
 
 A: Date format should be XXXX-XX-XX (e.g. 2023-01-01). This only applies for entering the date format.
+
 
 Q: Why is my date not working?
 
@@ -232,19 +234,23 @@ A: The date format in your list and the date format while adding deadline/event 
    Adding tasks: YYYY-MM-DD
    Output List: DDMMMYYYY
    You can check [here](#how-to-read)
-   
+
+
 Q: Why is my *delete* / *mark as done* / *mark as not done* not working?
 
 A: Please check the task index, it could likely to be invalid task index. You can enter `list` or `/ls` to check the index for each tasks.
+
 
 Q: Why deadline and event tasks even work without a description?
 
 A: That is not a bug! It is meant to be like that. Sometimes, you just need a date to remind you about your remaining tasks :).
 
+
 Q: Do I need to create a separate database while using this application?
 
 A: No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks.
    **tasklist.txt** will be in the same directory as your jar file.
+
 
 ## Future Updates
 I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
