@@ -213,7 +213,7 @@ public class TaskList {
         for (Task task : this.taskList) {
             if (task.toString().contains(keyword)) {
                 if (count == 0) {
-                    result.append("\t").append("Here are the matching tasks in your list:\n");
+                    result.append("Here are the matching tasks in your list:\n");
                 }
                 count++;
                 result.append("\t").append(count).append(". ").append(task).append("\n");
@@ -221,7 +221,7 @@ public class TaskList {
         }
 
         if (count == 0) {
-            result.append("\t").append("No matching tasks found :(");
+            result.append("No matching tasks found :(");
         }
 
         return result.toString();
