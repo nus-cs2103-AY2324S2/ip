@@ -1,13 +1,6 @@
 package raphael.parser;
 
-import raphael.command.AddCommand;
-import raphael.command.Command;
-import raphael.command.DeleteCommand;
-import raphael.command.EditCommand;
-import raphael.command.ExitCommand;
-import raphael.command.FindCommand;
-import raphael.command.ListCommand;
-import raphael.command.MarkCommand;
+import raphael.command.*;
 import raphael.exception.RaphaelException;
 import raphael.task.Deadline;
 import raphael.task.Event;
@@ -32,6 +25,8 @@ public class Parser {
         }
         final String[] inputArr = input.split(" ", 2);
         switch(inputArr[0]) {
+        case "hello":
+            return new HelloCommand();
         case "bye":
             return new ExitCommand();
         case "todo":
