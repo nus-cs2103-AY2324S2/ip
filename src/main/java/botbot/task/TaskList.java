@@ -66,11 +66,14 @@ public class TaskList {
         Task task = getTask(i - 1);
         task.unmark();
         assert !task.done;
+<<<<<<< HEAD
         return task.getRep();
     }
     public String togglePrio(int i) {
         Task task = getTask(i - 1);
         task.togglePrio();
+=======
+>>>>>>> 23fc76448ffdfc131a07f841abea7bfa5ed1059a
         return task.getRep();
     }
     public void addTaskInit(Task t) {
