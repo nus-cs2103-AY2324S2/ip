@@ -22,9 +22,8 @@ deadline and event management.**
 
 ## Quick start
 1. Ensure you have `Java 11` or above installed in your Computer.
-2. Clone this repository:
-   - `git clone https://github.com/AidenLYT/ip.git` 
-3. Create a file `taylor.txt` in the folder you have cloned in.
+2. Download `taylor.jar` file
+3. Create a file `taylor.txt` in the folder you have downloaded the jar file.
    - This is where your database will be stored.
 4. Refer to the [Features](#Features) below for details of each command.
 

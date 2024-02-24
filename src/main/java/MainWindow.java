@@ -43,8 +43,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getTaylorDialog(startBot(), tayImage));
     }
 
-
-    @FXML
+    /**
+     * Gets the response for when User launch the ChatBot
+     * @return
+     */
     private String startBot() {
         String setUpResponse = "";
         try {

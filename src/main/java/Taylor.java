@@ -13,8 +13,6 @@ import parser.Parser;
 import tasks.Task;
 import ui.Ui;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +22,8 @@ import java.util.List;
 // Adapted from Teammate: Chen Run Jia
 // Source: https://github.com/RunjiaChen/ip/blob/master/src/main/java/Snom.java
 public class Taylor extends Application {
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
-    private Image tayImage = new Image(this.getClass().getResourceAsStream("/images/Taylor.png"));
     public static List<List<Task>> tasksList;
-    private Parser parser;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
     /**
      * Creates an instance of Taylor.
      */
