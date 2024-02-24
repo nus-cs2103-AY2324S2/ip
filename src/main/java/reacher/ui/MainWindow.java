@@ -34,7 +34,12 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        String input = "Welcome!\n" +
+                "Commands are:\n" +
+                "add, edit, list, edit, bye";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage));
     }
 
     public void setReacher(Reacher r) {
@@ -57,6 +62,9 @@ public class MainWindow extends AnchorPane {
             Platform.exit();
         }
         userInput.clear();
+    }
+    private void showIntro() {
+
     }
 
 }
