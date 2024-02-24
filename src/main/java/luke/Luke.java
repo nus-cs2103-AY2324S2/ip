@@ -10,7 +10,7 @@ import luke.exception.SaveFileCorruptedException;
 public class Luke /* extends Application */ {
     private Ui ui = new Ui();
     private Parser parser = new Parser();
-    private String fileName = "./data/duke.txt";
+    private String fileName = "./data/luke.txt";
     private Storage storage = new Storage(fileName);
     private List taskList = new List(storage.loadTasks());
 
