@@ -20,21 +20,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Emis emis;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Emis.png"));
+    private Image emisImage = new Image(this.getClass().getResourceAsStream("/images/Emis.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-            DialogBox.showWelcome("Mrr! Emis is glad you're here.", dukeImage)
+            DialogBox.showWelcome("Mrr! Emis is glad you're here.", emisImage)
         );
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setEmis(Emis e) {
+        emis = e;
     }
 
     /**
@@ -44,10 +44,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = emis.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getEmisDialog(response, emisImage)
         );
         userInput.clear();
     }
