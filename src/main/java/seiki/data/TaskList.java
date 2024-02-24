@@ -35,6 +35,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskList.add(task);
+        assert taskList.contains(task) : "Task should be added into task list";
         taskCount++;
     }
 
@@ -44,6 +45,7 @@ public class TaskList {
      */
     public void deleteTask(Task task) {
         taskList.remove(task);
+        assert !taskList.contains(task) : "Task should be deleted from task list";
         taskCount--;
     }
 
