@@ -8,9 +8,10 @@ import java.util.ArrayList;
  * It encapsulates operations to manipulate tasks such as adding, deleting, and marking tasks as done or not done.
  */
 public class TaskList {
-    private static final String MSG_TASK_ADDED = "Got it. I've added this task: \n%s\nNow you have %d tasks in the list.";
-    private static final String MSG_TASK_REMOVED = "Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.";
-    private static final String MSG_TASK_MARKED = "  %s";
+    private static final String MSG_TASK_ADDED =
+            "Got it. I've added this task: \n%s\nNow you have %d tasks in the list.";
+    private static final String MSG_TASK_REMOVED =
+            "Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.";
     private static final String ERROR_UNKNOWN_TASK_NUMBER = "Unknown task number. Please try again";
     private static final String MSG_NO_TASKS_FOUND = "No recorded tasks found.";
     private static final String MSG_TASKS_MATCHING_SEARCH = "Here are the matching tasks in your list: \n";
@@ -49,7 +50,7 @@ public class TaskList {
 
         try {
             storage.saveTasks(tasks);
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.print(e);
         }
         return String.format(MSG_TASK_ADDED, newTask, tasks.size());
@@ -72,7 +73,7 @@ public class TaskList {
 
         try {
             storage.saveTasks(tasks);
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.print(e);
         }
 
@@ -103,7 +104,7 @@ public class TaskList {
 
         try {
             storage.saveTasks(tasks);
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.print(e);
         }
 

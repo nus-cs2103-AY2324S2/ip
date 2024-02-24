@@ -1,5 +1,8 @@
 package duke;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -7,12 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.event.ActionEvent;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String COMMAND_EXIT = "bye";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -66,10 +69,9 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
 
-        if ("bye".equals(input.trim().toLowerCase())) {
-            // Get the stage from the event source
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.close(); // Close the application
+        if (COMMAND_EXIT.equals(input.trim().toLowerCase())) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
         }
 
         String response = duke.getResponse(input);

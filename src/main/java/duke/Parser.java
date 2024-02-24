@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Handles parsing of user inputs and encoded task data.
  * This class provides static methods to decode task information from a string format and to interpret user commands
- * to interact with the task list and storage.
+ *      to interact with the task list and storage.
  */
 public class Parser {
     private static final String TASK_TYPE_TODO = "T";
@@ -21,8 +21,10 @@ public class Parser {
 
     private static final String ERROR_UNKNOWN_TASK_TYPE = "Unknown task type: ";
     private static final String ERROR_DESCRIPTION_TODO_EMPTY = "The description of a todo cannot be empty.";
-    private static final String ERROR_DESCRIPTION_DEADLINE_EMPTY = "The description of a deadline or its due time cannot be empty.";
-    private static final String ERROR_FORMAT_DATES = "Please use the format" + Task.DATE_TIME_FORMAT_INPUT + "for dates.";
+    private static final String ERROR_DESCRIPTION_DEADLINE_EMPTY =
+            "The description of a deadline or its due time cannot be empty.";
+    private static final String ERROR_FORMAT_DATES = "Please use the format"
+            + Task.DATE_TIME_FORMAT_INPUT + "for dates.";
     private static final String ERROR_DESCRIPTION_EVENT_EMPTY = "The description of an event cannot be empty.";
     private static final String ERROR_START_END_TIME_EVENT_EMPTY = "The start or end time of an event cannot be empty.";
     private static final String ERROR_INVALID_TASK_NUMBER = "Invalid task number.";
@@ -37,19 +39,18 @@ public class Parser {
      * @return A Task object corresponding to the encoded task data.
      * @throws IllegalArgumentException If the task type is unknown.
      */
-    public static Task decodeTask(String line){
-
+    public static Task decodeTask(String line) {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
-            case TASK_TYPE_TODO:
-                return new Todo(parts[2], Boolean.parseBoolean(parts[1]));
-            case TASK_TYPE_DEADLINE:
-                return new Deadline(parts[2], Boolean.parseBoolean(parts[1]), parts[3]);
-            case TASK_TYPE_EVENT:
-                String[] timeParts = parts[3].split("-");
-                return new Event(parts[2], Boolean.parseBoolean(parts[1]), timeParts[0], timeParts[1]);
-            default:
-                throw new IllegalArgumentException(ERROR_UNKNOWN_TASK_TYPE + parts[0]);
+        case TASK_TYPE_TODO:
+            return new Todo(parts[2], Boolean.parseBoolean(parts[1]));
+        case TASK_TYPE_DEADLINE:
+            return new Deadline(parts[2], Boolean.parseBoolean(parts[1]), parts[3]);
+        case TASK_TYPE_EVENT:
+            String[] timeParts = parts[3].split("-");
+            return new Event(parts[2], Boolean.parseBoolean(parts[1]), timeParts[0], timeParts[1]);
+        default:
+            throw new IllegalArgumentException(ERROR_UNKNOWN_TASK_TYPE + parts[0]);
         }
     }
     /**
@@ -85,7 +86,8 @@ public class Parser {
         }
     }
 
-    private static String handleTodoCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleTodoCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         String taskDetails = userInput.substring(COMMAND_TODO.length()).trim();
 
         if (taskDetails.isEmpty()) {
@@ -96,7 +98,8 @@ public class Parser {
         return taskList.addTask(todo, storage);
     }
 
-    private static String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         String taskDetails = userInput.substring(COMMAND_DEADLINE.length()).trim();
         String[] details = taskDetails.split(" /by ", 2);
 
@@ -112,7 +115,8 @@ public class Parser {
         }
     }
 
-    private static String handleEventCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleEventCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         String taskDetails = userInput.substring(COMMAND_EVENT.length()).trim();
         String[] details = taskDetails.split(" /from ", 2);
 
@@ -134,17 +138,20 @@ public class Parser {
         }
     }
 
-    private static String handleMarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleMarkCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, COMMAND_MARK);
         return taskList.markTask(taskNumber, true, storage);
     }
 
-    private static String handleUnmarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleUnmarkCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, COMMAND_UNMARK);
         return taskList.markTask(taskNumber, false, storage);
     }
 
-    private static String handleDeleteCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleDeleteCommand(String userInput, TaskList taskList, Storage storage)
+            throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, COMMAND_DELETE);
         return taskList.deleteTask(taskNumber, storage);
     }

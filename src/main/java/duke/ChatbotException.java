@@ -12,7 +12,8 @@ public class ChatbotException extends Exception {
      * The message provides a clear description of the exception, intended to be shown directly to the user or logged
      * for debugging purposes.
      *
-     * @param message The detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
+     * @param message The detail message. The detail message is saved for later retrieval
+     *               by the {@link #getMessage()} method.
      */
 
     public ChatbotException(String message) {

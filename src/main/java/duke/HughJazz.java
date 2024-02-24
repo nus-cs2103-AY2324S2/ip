@@ -5,21 +5,13 @@ import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import javafx.scene.control.Label;
 
 /**
  * The main class for the Duke application named HughJazz.
  * This class initializes the application and manages the main interaction loop, processing user inputs
  * and executing corresponding actions.
  */
-public class HughJazz{
-
-    /**
-     * Initializes a new HughJazz instance.
-     * This constructor initializes the main components of the Duke application.
-     */
-    public HughJazz() {}
-
+public class HughJazz {
     /**
      * UI component responsible for interactions with the user.
      */
@@ -36,10 +28,16 @@ public class HughJazz{
     private static TaskList taskList = new TaskList();
 
     /**
+     * Initializes a new HughJazz instance.
+     * This constructor initializes the main components of the Duke application.
+     */
+    public HughJazz() {}
+
+    /**
      * Initializes the application by loading tasks from the storage file.
      * If the storage file is not found, an error message is displayed to the user.
      * This method should be called at the start of the application to ensure that
-     * any existing tasks are loaded into the application.
+     *      any existing tasks are loaded into the application.
      */
     public void init() {
         try {
@@ -53,8 +51,8 @@ public class HughJazz{
     /**
      * Processes the user input and returns a response.
      * This method takes a user input string, processes it to perform the appropriate actions,
-     * and returns a response string that can be displayed to the user. It handles parsing of the input,
-     * execution of commands, and error handling.
+     *      and returns a response string that can be displayed to the user. It handles parsing of the input,
+     *      execution of commands, and error handling.
      *
      * @param input The user input string to be processed.
      * @return A response string resulting from processing the input.

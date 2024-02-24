@@ -4,7 +4,9 @@ package duke;
  * Abstract class representing a general task within the Duke application.
  * This class provides a common structure for tasks, including a description and a completion status.
  */
-abstract public class Task {
+public abstract class Task {
+    protected static final String DATE_TIME_FORMAT_INPUT = "dd/MM/yyyy HHmm";
+    protected static final String DATE_TIME_FORMAT_OUTPUT = "MMM dd yyyy, h:mma";
     /**
      * The description of the task.
      */
@@ -14,10 +16,6 @@ abstract public class Task {
      * The completion status of the task. True if the task is completed, false otherwise.
      */
     protected boolean isDone;
-
-    protected static final String DATE_TIME_FORMAT_INPUT = "dd/MM/yyyy HHmm";
-    protected static final String DATE_TIME_FORMAT_OUTPUT = "MMM dd yyyy, h:mma";
-
     /**
      * Constructs a new Task instance.
      *
@@ -40,7 +38,8 @@ abstract public class Task {
     /**
      * Returns the status icon of the task, indicating completion.
      *
-     * @return A string representing the status icon. "X" indicates the task is completed, and a space indicates it is not.
+     * @return A string representing the status icon.
+     *      "X" indicates the task is completed, and a space indicates it is not.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

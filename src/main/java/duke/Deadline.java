@@ -9,19 +9,21 @@ import java.time.format.DateTimeParseException;
  * A deadline task includes a description, a completion status, and a deadline by which the task should be completed.
  */
 public class Deadline extends Task {
-
+    /**
+     * The task type identifier for deadline tasks.
+     */
+    private static final String TASK_TYPE = "D";
     /**
      * The deadline by which the task needs to be completed.
      */
     protected LocalDateTime by;
 
-    private final String TASK_TYPE = "D";
-
     /**
      * Constructs a new Deadline instance.
      *
      * @param description The description of the deadline task, providing details about the task.
-     * @param isDone The initial completion status of the task. True if the task has already been completed, false otherwise.
+     * @param isDone The initial completion status of the task.
+     *     True if the task has already been completed, false otherwise.
      * @param by The deadline for the task in 'dd/MM/yyyy HHmm' format. It is parsed to a LocalDateTime object.
      * @throws DateTimeParseException If the provided 'by' string does not conform to the expected date and time format.
      */
@@ -37,15 +39,19 @@ public class Deadline extends Task {
 
     /**
      * Generates and returns a string representation of the deadline task formatted for file storage.
-     * The format includes the task type identifier ('D'), the completion status, the task description, and the deadline,
+     * The format includes the task type identifier ('D'),
+     * the completion status, the task description, and the deadline,
      * separated by vertical bars.
      *
-     * @return A string formatted for saving the deadline task to a file, encapsulating its type, completion status,
-     * description, and deadline.
+     * @return A string formatted for saving the deadline task to a file,
+     *     encapsulating its type, completion status, description, and deadline.
      */
     @Override
     public String toFileFormat() {
-        return TASK_TYPE + " | " +  this.isDone + " | " + this.description  + " | " + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_INPUT));
+        return TASK_TYPE
+                + " | " + this.isDone
+                + " | " + this.description + " | "
+                + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_INPUT));
     }
 
     /**
@@ -54,11 +60,13 @@ public class Deadline extends Task {
      * and the formatted deadline.
      *
      * @return A string representation of the deadline task, including its type, completion status, description,
-     * and deadline, suitable for display.
+     *     and deadline, suitable for display.
      */
     @Override
     public String toString() {
-        return "[" + TASK_TYPE + "]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT)) + ")";
+        return "[" + TASK_TYPE + "]"
+                + super.toString()
+                + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_OUTPUT)) + ")";
     }
 }
 
