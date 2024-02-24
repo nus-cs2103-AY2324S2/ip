@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Yapper Bot");
+            stage.setTitle("Yapper");
             fxmlLoader.<MainWindow>getController().setYapper(yapper);
             stage.show();
         } catch (IOException e) {
