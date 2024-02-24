@@ -1,19 +1,17 @@
 package storage;
 
-import tasklist.TaskList;
-import tasks.Task;
-import tasks.Todo;
+// STATIC imports
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
+// STANDARD_JAVA_PACKAGE imports
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+// SPECIAL_IMPORTS group
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import tasklist.TaskList;
+import tasks.Todo;
 
 public class StorageManagerTest {
 

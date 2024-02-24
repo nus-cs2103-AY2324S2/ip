@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
  * adds functionality to store and retrieve the start and end dates of the event.
  */
 public class Event extends Task {
-    
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
 
@@ -45,6 +44,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.startDate.format(Task.OUTPUT_DATE_FORMAT), this.endDate.format(Task.OUTPUT_DATE_FORMAT));
+                super.toString(), this.startDate.format(Task.OUTPUT_DATE_FORMAT),
+                this.endDate.format(Task.OUTPUT_DATE_FORMAT));
     }
 }

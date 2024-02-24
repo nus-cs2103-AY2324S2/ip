@@ -7,20 +7,20 @@ import java.time.format.DateTimeFormatter;
  * Each task must have a description and completion status.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    /**
+     * The date time formatter for formatting output dates.
+     */
+    public static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * The date time formatter for parsing input dates.
      */
     public static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    /**
-     * The date time formatter for formatting output dates.
-     */
-    public static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    protected String description;
+    protected boolean isDone;
 
-     /**
+    /**
      * Constructs a Task object.
      *
      * @param description The description of the task.
@@ -66,11 +66,11 @@ public abstract class Task {
         this.isDone = status;
     }
 
-    /**
-     * Sets the description of the task.
-     *
-     * @param description The new task description.
-     */
+    // /**
+    //  * Sets the description of the task.
+    //  *
+    //  * @param description The new task description.
+    //  */
     // public void setDescription(String description) {
     //     this.description = description;
     // }

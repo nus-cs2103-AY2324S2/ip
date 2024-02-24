@@ -28,17 +28,17 @@ public class Cal {
      * Cal will process each command until 'bye' is given.
      */
     public void run() {
-        Ui.showGreeting();
+        Ui.showWelcome();
         boolean isExit = false;
         Scanner sc = new Scanner(System.in);
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(sc);
                 ui.showLine();
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, storageManager);
                 isExit = c.isExit();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 ui.showErrorMsg(e);
             } finally {
                 ui.showLine();
@@ -53,6 +53,6 @@ public class Cal {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        new Cal().run(); 
+        new Cal().run();
     }
 }

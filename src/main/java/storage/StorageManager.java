@@ -1,7 +1,5 @@
 package storage;
 
-import tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +10,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import tasklist.TaskList;
+import tasks.Task;
 
 /**
  * manages the storage of tasks to and from a file.
@@ -42,17 +41,16 @@ public class StorageManager {
     /**
      * Saves the task list to the file system.
      *
-     * @param tasklist The task list to be saved.
+     * @param tasks The task list to be saved.
      */
     public void save(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         String serializedTask;
-        for (int i = 0; i < tasks.getSize(); i ++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             serializedTask = TaskSerializer.serialize(tasks.getTask(i));
-            sb.append(serializedTask); 
-            sb.append("\n"); 
+            sb.append(serializedTask);
+            sb.append("\n");
         }
-        
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
             writer.write(sb.toString());
         } catch (IOException e) {

@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
         this.taskNum = taskNum;
     }
 
-     /**
+    /**
      * Executes the DeleteCommand, deleting the task to the task list and save the changes.
      *
      * @param tasks          The task list where the task will be deleted.

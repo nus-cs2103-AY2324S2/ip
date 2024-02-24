@@ -13,7 +13,7 @@ public class UnmarkCommand extends Command {
     protected int taskNum;
 
     /**
-     * Constructs a UnmarkCommand to unmark a "completed" task. 
+     * Constructs a UnmarkCommand to unmark a "completed" task.
      * Task number is used to identify the task to be unmarked.
      *
      * @param taskNum The task number of the task to be unmarked.

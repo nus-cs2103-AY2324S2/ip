@@ -1,10 +1,9 @@
 package commands;
 
 import exceptions.CalException;
-import tasks.Task;
 import storage.StorageManager;
 import tasklist.TaskList;
-
+import tasks.Task;
 
 /**
  * represents a command to mark a task as done.
@@ -13,7 +12,7 @@ public class MarkCommand extends Command {
     protected int taskNum;
 
     /**
-     * Constructs a MarkCommand to mark a task as done. 
+     * Constructs a MarkCommand to mark a task as done.
      * Task number is used to identify the task to be marked.
      *
      * @param taskNum The task number of the task to be marked as done.
