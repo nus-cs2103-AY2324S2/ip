@@ -6,6 +6,7 @@ import commands.AddCommand;
 import commands.ByeCommand;
 import commands.Command;
 import commands.DeleteCommand;
+import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.UnmarkCommand;
@@ -117,6 +118,12 @@ public class Parser {
                     }
 
                     return new DeleteCommand(Integer.parseInt(tokens[1]));
+                case "find":
+                    String keyword = line.substring(4).strip();
+                    if (keyword.isBlank()) {
+                        throw new CalException("Missing search keyword.");
+                    }
+                    return new FindCommand(keyword);
                 default:
                     throw new CalException("Command not recognized.");
             }

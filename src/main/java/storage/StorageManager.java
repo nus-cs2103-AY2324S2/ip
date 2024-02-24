@@ -49,8 +49,8 @@ public class StorageManager {
         String serializedTask;
         for (int i = 0; i < tasks.getSize(); i ++) {
             serializedTask = TaskSerializer.serialize(tasks.getTask(i));
-            sb.append(serializedTask); // Append serialized task to string builder
-            sb.append("\n"); // Append newline character
+            sb.append(serializedTask); 
+            sb.append("\n"); 
         }
         
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
@@ -65,6 +65,7 @@ public class StorageManager {
      *
      * @return The loaded task list.
      */
+
     public TaskList load() {
         File dataFile = new File(this.taskSaveLocation);
         List<Task> tasks = new ArrayList<>();

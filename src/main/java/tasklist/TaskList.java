@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exceptions.CalException;
 import tasks.Task;
