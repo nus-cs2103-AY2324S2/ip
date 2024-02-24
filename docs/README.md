@@ -8,9 +8,9 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
   * Listing all tasks
   * Adding tasks
   * Deleting tasks
-  * Mark tasks as done
-  * Mark tasks as undone
-  * Different type of listing your tasks
+  * Marking tasks as done
+  * Marking tasks as undone
+  * Other listing tasks methods
   * Say Hi To Me <3
   * Surprised!
 * FAQ
@@ -45,17 +45,11 @@ Shortcut:
 
 ### Adding tasks
 There are three types of tasks
-1. todo
-  * A task with a description
-2. deadline
-  * A task with a Deadline date
-  * Description is optional
-3. event
-  * A task with a From date and a to Date
-  * Description is optional
+1. todo: A task with a description
+2. deadline: A task with a Deadline date
+3. event: A task with a From date and a to Date
 
 **Adding todo tasks:**
-Command:
 ```
 todo YOUR_DESCRIPTION_HERE
 ```
@@ -72,7 +66,6 @@ Got it. I have added:
 ```
 
 **Adding deadline tasks:**
-Command:
 ```
 deadline [YOUR_DESCRIPTION_HERE] /by: XXXX-XX-XX
 ```
@@ -92,7 +85,6 @@ Got it. I have added:
 > For deadline tasks, description is optional.
 
 **Adding event tasks:**
-Command:
 ```
 event [YOUR_DESCRIPTION_HERE] /from: XXXX-XX-XX /to: XXXX-XX-XX
 ```
@@ -111,13 +103,93 @@ Got it. I have added:
 > [!NOTE]
 > Just like deadline tasks, description is optional.
 
+### Deleting tasks
+You can delete certain tasks using `delete` command.
+```
+delete TASK_INDEX
+```
 
-  * Delete tasks
-  * Mark tasks as done
-  * Mark tasks as undone
-  * Different type of listing your tasks
-  * Say Hi To Me <3
-  * Surprised!
+Shotcut:
+```
+/del TASK_INDEX
+```
+
+> [IMPORTANT!]
+> Task index must be a valid index. If you wish to know the indexes of each tasks, you can use `list` command.
+
+### Marking tasks as done
+You can mark certain task as done using `done` command.
+```
+done TASK_INDEX
+```
+### Marking tasks as not done
+You can mark certain task as not done using `undone` command.
+```
+undone TASK_INDEX
+```
+
+### Other listing tasks methods
+There are various types of ways to list your tasks
+1. done: List out only completed tasks
+2. undone: List out tasks which are not completed
+3. top done: List out completed tasks at top, and incomplete tasks at bottom
+4. top undone: List out incomplete tasks at top, and completed tasks at bottom
+5. alphabetically: List out your tasks in alphabetical order
+
+**List out only completed tasks**
+```
+list done
+```
+
+**List out tasks which are not completed**
+```
+list undone
+```
+
+**List out completed tasks at top, and incomplete tasks at bottom**
+```
+list top done
+```
+
+**List out incomplete tasks at top, and completed tasks at bottom**
+```
+list top undone
+```
+
+**List out your tasks in alphabetical order**
+```
+list alphabetically
+```
+
+Shortcut:
+```
+list a
+```
+
+> [!NOTE]
+> all `list` in the command can be shotcutted to `/ls`.
+
+### Say Hi To Me <3
+Say **Hi** to Hammy!
+
+```
+Hi
+```
+
+Or:
+```
+Hello
+```
+
+### Surprised!
+Nothing much! Just some little easter eggs!
+Call me maybe🤔? 😏
+
+```
+Hammy
+```
+
+
 ## Usage
 
 ### `deadline` - add a deadline task
