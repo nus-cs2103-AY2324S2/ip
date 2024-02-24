@@ -1,5 +1,7 @@
 package victor.tasktype;
 
+import java.util.Objects;
+
 /**
  * The Todo class is a child class of the Task class.
  * It inherits the variables from the Task Class, along with their
@@ -45,5 +47,19 @@ public class Todo extends Task {
     @Override
     public String saveInput() {
         return "T | " + isDone + " | " + description;
+    }
+
+    public String getDes() {
+        return this.description.trim();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        } else {
+            Todo newTodo = (Todo) o;
+            return Objects.equals(this.description.trim(), newTodo.getDes());
+        }
     }
 }

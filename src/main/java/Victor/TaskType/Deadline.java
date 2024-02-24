@@ -2,6 +2,7 @@ package victor.tasktype;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * The Deadline class is a child class of the Task class.
@@ -70,5 +71,24 @@ public class Deadline extends Task {
         assert !tempBy.getClass().equals(LocalDate.class): "tempBy is not a LocalDate. When accessing it \" +\n" +
                 "                \"from the datanase, it will not format correctly.";
         return "D | " + isDone + " | " + description + " | " + tempBy;
+    }
+
+    public String getDes() {
+        return this.description.trim();
+    }
+
+    public LocalDate getBy() {
+        return this.tempBy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        } else {
+            Deadline newDeadline = (Deadline) o;
+            return Objects.equals(this.description.trim(), newDeadline.getDes())
+                    && Objects.equals(this.tempBy, newDeadline.getBy());
+        }
     }
 }

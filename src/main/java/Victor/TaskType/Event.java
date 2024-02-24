@@ -2,6 +2,7 @@ package victor.tasktype;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * The Event class is a child class of the Task class.
@@ -92,5 +93,29 @@ public class Event extends Task {
                 "from the datanase, it will not format correctly.";
         return "E | " + isDone + " | " + description + " | "
                 + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
+    }
+
+    public String getDes() {
+        return this.description.trim();
+    }
+
+    public LocalDateTime getFrom() {
+        return this.tempFrom;
+    }
+
+    public LocalDateTime getTo() {
+        return this.tempTo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        } else {
+            Event newEvent = (Event) o;
+            return Objects.equals(this.description.trim(), newEvent.getDes())
+                    && Objects.equals(this.tempFrom, newEvent.getFrom())
+                    && Objects.equals(this.tempTo, newEvent.getTo());
+        }
     }
 }
