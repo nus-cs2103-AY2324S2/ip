@@ -12,7 +12,7 @@ import bob.task.Task;
  * a command to delete a task with a task index.
  */
 public class DeleteCommand extends Command {
-    int taskIndex;
+    private final int taskIndex;
 
     /**
      * Returns a command to delete a task with a specified task index.
