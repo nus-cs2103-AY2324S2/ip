@@ -41,6 +41,8 @@ public class Parser {
                 return returnedString;
             } else if (command.startsWith("find")) {
                 String keyword = command.substring(5).trim();
+                assert !keyword.isEmpty() : "Keyword should not be empty.";
+
                 return ui.findTasks(taskList, keyword);
             } else if (command.startsWith("mark")) {
                 int indexOfTask = Integer.parseInt(command.substring(5));
