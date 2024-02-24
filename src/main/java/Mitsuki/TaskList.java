@@ -50,6 +50,7 @@ public class TaskList {
      * Throws an exception if empty task description or no deadline is given.
      *
      * @param fullString the string with the details of the deadline to add.
+     * @return a string representing the deadline item.
      */
     public static String deadline(String fullString) {
         String[] tokens = fullString.split("/");
@@ -92,6 +93,7 @@ public class TaskList {
      * Throws an exception if empty task description is given.
      *
      * @param description the String with the details of the todo to add.
+     * @return a String representing the todo item.
      */
     public static String todo(String description) {
 
@@ -118,6 +120,7 @@ public class TaskList {
      * Throws an exception if no task description, or no event start or end timing is given.
      *
      * @param fullString the String with the details of the event to add.
+     * @return a String representing the event.
      */
     public static String event(String fullString) {
         String[] tokens = fullString.split("/");
@@ -125,9 +128,9 @@ public class TaskList {
         try {
             EmptyTaskException.timedValidate(tokens);
             MissingEventTimingException.validate(tokens);
-        } catch(EmptyTaskException ex) {
+        } catch (EmptyTaskException ex) {
             return "Please give a description for your event item. Try again!";
-        } catch(MissingEventTimingException ex) {
+        } catch (MissingEventTimingException ex) {
             return "Please give a time period for your event item. Try again! XD\n"
             + "E.g. Type 'event meeting /From Monday 10am /to 12pm' to add the task 'meeting' \n"
                     + "with a time period 'From Monday 10am to 12pm' to your list.";
@@ -138,10 +141,43 @@ public class TaskList {
         String from = tokens[1];
         String to = tokens[2];
         String toTrimmed = to.trim();
-        Task task2 = new Event(trimmed, from, toTrimmed);
-        list.add(task2);
+        Task task = new Event(trimmed, from, toTrimmed);
+        list.add(task);
         return "OK, I have added the task '" + trimmed + "' to your list! :)\n"
         + "Now you have " + list.size() + " task(s) in the list.";
+    }
+
+    /**
+     * Adds a fixed duration task item to the user's list.
+     *      * Uses '/' to take in the duration of the task.
+     *      * E.g. 'fixed Party /5 hours' adds the task
+     *      *      [F][ ] Party (Needs 5 hours)
+     *      *      to the user's list.
+     *      * Throws an exception if no task description, or no duration is given.
+     *
+     * @param fullString the String with the details of the task to add.
+     * @return a String representing the task.
+     */
+    public static String fixedDurationTask(String fullString) {
+        String[] tokens = fullString.split("/");
+
+        try {
+            EmptyTaskException.timedValidate(tokens);
+            MissingDurationException.validate(tokens);
+        } catch (EmptyTaskException ex) {
+            return "Please give a description for your fixed duration task. Try again!";
+        } catch (MissingDurationException ex) {
+            return "Please give a duration for your fixed duration task. Try again! XD\n"
+                    + "E.g. type 'fixed read book /2 hours' to add the task 'read book' \n"
+                    + "with a fixed duration of '2 hours' to your list.";
+        }
+        String description = tokens[0];
+        String trimmed = description.trim();
+        String duration = tokens[1].trim();
+        Task task = new FixedDurationTask(trimmed, duration);
+        list.add(task);
+        return "OK, I have added the task '" + trimmed + "' to your list! :)\n"
+                + "Now you have " + list.size() + " task(s) in the list.";
     }
 
     /**
@@ -167,6 +203,7 @@ public class TaskList {
      * had already completed the task.
      *
      * @param index the scanner used to scan the index of the task to mark.
+     * @return a String representing the marked task.
      */
     public static String mark(int index) {
         Task theTask = list.get(index - 1);
@@ -189,6 +226,7 @@ public class TaskList {
      * had not yet completed the task.
      *
      * @param index the index of the task to unmark.
+     * @return a String representing the unmarked task.
      */
     public static String unmark(int index) {
         Task aTask = list.get(index - 1);
@@ -209,6 +247,7 @@ public class TaskList {
      * Informs user that the task is deleted, and also displays the deleted task.
      *
      * @param index the index of the task to delete
+     * @return a String representing the deleted item.
      */
     public static String delete(int index) {
         Task goneTask = list.get(index - 1);
@@ -222,6 +261,7 @@ public class TaskList {
      * Finds related items and their index on the user's current list.
      *
      * @param keyWord the keyWord to search for.
+     * @return a String representing the found item.
      */
     public static String find(String keyWord) {
         return ui.printFound(keyWord, list);
