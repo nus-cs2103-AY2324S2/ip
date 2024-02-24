@@ -58,12 +58,16 @@ public class Floofy extends Application {
             switch (input[0]) {
             case "mark":
                 int idx = Integer.parseInt(input[1]) - 1;
+                // To verify assumption that task number is greater than 0
+                assert idx > -1 : "Task number should be greater than 0!";
                 tasks.markTaskAsDone(idx);
                 result = ui.showMarkedTask(this.tasks.getTask(idx));
                 storage.saveTasks(tasks);
                 break;
             case "unmark":
                 int unmarkIdx = Integer.parseInt(input[1]) - 1;
+                // To verify assumption that task number is greater than 0
+                assert unmarkIdx > 0 : "Task number should be greater than 0!";
                 tasks.markTaskAsUndone(unmarkIdx);
                 result = ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
                 storage.saveTasks(tasks);
@@ -110,6 +114,8 @@ public class Floofy extends Application {
                 result = ui.showGoodbyeMsg();
                 break;
             case "invalid":
+                // Execution should not reach here
+                assert false : "Invalid command!";
                 result = ui.showInvalidInput();
                 throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
