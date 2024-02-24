@@ -17,7 +17,6 @@ Inputs have to be valid for the feature to execute.
 The first word in your input is called a `command`. If it does not match with one of these words (not case-sensitive): "todo", "deadline", "event", "list", "mark", "unmark", "find", "delete", "help", "bye", this error message would be displayed:
 
 ```
-________________________________________________________
 Sorry, please type a valid command. The valid commands are:
 bye
 list
@@ -29,7 +28,6 @@ event
 delete
 find
 help
-________________________________________________________
 ```
 
 In general, error messages will be thrown if the input is invalid or the save file is corrupted, telling the user about the cause of error and what to do to rectify it.
@@ -45,11 +43,9 @@ Example: `todo exercise` adds a todo with description "exercise".
 If successful, you should see this output message (the number of tasks in the task list may differ):
 
 ```
-________________________________________________________
 Got it. I've added this task:
 [T][ ] exercise
 Now you have 1 task in the list.
-________________________________________________________
 ```
 
 ## Adding deadlines
@@ -63,11 +59,9 @@ Example: `deadline homework /by 2024-02-02 23:59` adds a deadline with descripti
 If successful, you should see this output message:
 
 ```
-________________________________________________________
 Got it. I've added this task:
 [D][ ] homework (by: 02 Feb 2024 23:59)
 Now you have 2 tasks in the list.
-________________________________________________________
 ```
 
 ## Adding events
@@ -81,11 +75,9 @@ Example: `event study /from 2024-02-02 09:00 /to 2024-02-02 12:00` adds an event
 If successful, you should see this output message:
 
 ```
-________________________________________________________
 Got it. I've added this task:
 [E][ ] study (from: 02 Feb 2024 09:00 to: 02 Feb 2024 12:00)
 Now you have 3 tasks in the list.
-________________________________________________________
 ```
 
 ## Listing tasks
@@ -97,12 +89,10 @@ Format: `list`
 If successful, you should see this output message (the tasks in the task list may differ):
 
 ```
-________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] exercise
 2.[D][ ] homework (by: 02 Feb 2024 23:59)
 3.[E][ ] study (from: 02 Feb 2024 09:00 to: 02 Feb 2024 12:00)
-________________________________________________________
 ```
 
 ## Marking tasks
@@ -116,21 +106,17 @@ Example: `mark 2` would mark the 2nd task in the list.
 If successful, you should see this output message (the tasks in the task list may differ):
 
 ```
-________________________________________________________
 Nice! I've marked this task as done:
 [D][X] homework (by: 02 Feb 2024 23:59)
-________________________________________________________
 ```
 
 and the task should be marked when displaying it in the task list:
 
 ```
-________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] exercise
 2.[D][X] homework (by: 02 Feb 2024 23:59)
 3.[E][ ] study (from: 02 Feb 2024 09:00 to: 02 Feb 2024 12:00)
-________________________________________________________
 ```
 
 ## Unmarking tasks
@@ -144,21 +130,17 @@ Example: `unmark 2` would unmark the 2nd task in the list.
 If successful, you should see this output message (the tasks in the task list may differ):
 
 ```
-________________________________________________________
 OK, I've marked this task as not done yet:
 [D][ ] homework (by: 02 Feb 2024 23:59)
-________________________________________________________
 ```
 
 and the task should be unmarked when displaying it in the task list:
 
 ```
-________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] exercise
 2.[D][ ] homework (by: 02 Feb 2024 23:59)
 3.[E][ ] study (from: 02 Feb 2024 09:00 to: 02 Feb 2024 12:00)
-________________________________________________________
 ```
 
 ## Finding tasks
@@ -172,10 +154,8 @@ Example: `find work` would search for tasks that contain the keyword(s).
 If successful, you should see this output message (the tasks in the task list may differ):
 
 ```
-________________________________________________________
 Here are the matching tasks in your list:
 1.[D][ ] homework (by: 02 Feb 2024 23:59)
-________________________________________________________
 ```
 
 ## Deleting tasks
@@ -189,21 +169,17 @@ Example: `delete 2` would delete the 2nd task in the list.
 If successful, you should see this output message (the tasks in the task list may differ):
 
 ```
-________________________________________________________
 Noted. I've removed this task:
 [D][ ] homework (by: 02 Feb 2024 23:59)
 Now you have 2 tasks in the list.
-________________________________________________________
 ```
 
 and the task should be marked when displaying it in the task list:
 
 ```
-________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] exercise
 2.[E][ ] study (from: 02 Feb 2024 09:00 to: 02 Feb 2024 12:00)
-________________________________________________________
 ```
 
 ## Searching help
@@ -215,7 +191,6 @@ Format: `help`
 If successful, you should see this output message:
 
 ```
-________________________________________________________
 How to use:
 Luke is a simple task list manager. You (the person on the right) can interact with Luke (the person on the left) through commands to manage your tasks.
 ...
