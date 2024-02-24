@@ -5,8 +5,8 @@
 Zhen is a chatbot that allows you to manage your task easily.
 To use Zhen, you need to:
 1. Download the new release.
-2. Go to the directory where the jar file is in.
-3. Enter command line.
+2. Enter the terminal.
+3. Go to the folder where the jar file is in using `cd` command, such as `cd C:\cs2103`.
 4. Type **java -jar zhen.jar** to run the program.
 
 ## Adding todos: `todo`
