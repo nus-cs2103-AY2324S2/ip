@@ -21,7 +21,7 @@ public class Task {
     }
 
     /**
-     * A method to print the task's details as a string to the console.
+     * Returns the task's details as a string.
      *
      * @return a String displaying if the task is completed and its description
      */
@@ -30,21 +30,21 @@ public class Task {
     }
 
     /**
-     * A method to mark the task as completed.
+     * Marks the task as completed.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * A method to mark the task as incomplete.
+     * Marks the task as incomplete.
      */
     public void markAsNotDone() {
         isDone = false;
     }
 
     /**
-     * A method that returns a string containing the task's data to be saved to the hard disk.
+     * Returns a string containing the task's data to be saved to the hard disk.
      *
      * @return a String containing the task's data formatted to be saved onto the hard disk
      */

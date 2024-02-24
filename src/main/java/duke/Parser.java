@@ -21,6 +21,25 @@ import duke.task.Todo;
  * Parses user input and returns corresponding Command objects for execution.
  */
 public class Parser {
+    public enum Commands {
+        BYE ("^bye"),
+        LIST ("^list"),
+        MARK ("^mark \\d+"),
+        UNMARK ("^unmark \\d+"),
+        DELETE ("^delete \\d+"),
+        TODO ("^todo .+"),
+        DEADLINE ("^deadline .+ \\/by .+"),
+        EVENT ("^event .+ \\/from .+ \\/to .+"),
+        FIND ("^find \\S+$");
+
+        private final String pattern;
+        Commands(String pattern) {
+            this.pattern = pattern;
+        }
+    }
+
+    //TODO: Remove redundant code
+    /*
     private static final String patternBye = "^bye";
     private static final String patternList = "^list";
     private static final String patternMark = "^mark \\d+";
@@ -30,7 +49,7 @@ public class Parser {
     private static final String patternDeadline = "^deadline .+ \\/by .+";
     private static final String patternEvent = "^event .+ \\/from .+ \\/to .+";
     private static final String patternFind = "^find \\S+$";
-
+    */
 
     public Parser() {
         //do nothing
@@ -50,7 +69,7 @@ public class Parser {
     }
 
     /**
-     *  Method that handles user input and returns an appropriate Command object
+     *  Handles user input and returns an appropriate Command object
      *  to be executed in the main program.
      *
      * @param input a String taken from the user's command line input
@@ -59,66 +78,24 @@ public class Parser {
      */
     public static Command handleInput(String input) {
         try {
-            if (matchesPattern(input, patternBye)) {
+            if (matchesPattern(input, Commands.BYE.pattern)) {
                 return new ExitCommand();
-            } else if (matchesPattern(input, patternList)) {
+            } else if (matchesPattern(input, Commands.LIST.pattern)) {
                 return new ListCommand();
-            } else if (matchesPattern(input, patternMark)) {
-                String[] wordArray = input.split(" ", 0);
-                Integer index = Integer.parseInt(wordArray[1]);
-                return new ToggleMarkCommand(index, true);
-            } else if (matchesPattern(input, patternUnmark)) {
-                String[] wordArray = input.split(" ", 0);
-                Integer index = Integer.parseInt(wordArray[1]);
-                return new ToggleMarkCommand(index, false);
-            } else if (matchesPattern(input, patternDelete)) {
-                String[] wordArray = input.split(" ", 0);
-                Integer index = Integer.parseInt(wordArray[1]);
-                return new DeleteCommand(index);
-            } else if (matchesPattern(input, patternTodo)) {
-                String tempString = input.substring(5).trim();
-                Todo todo = new Todo(tempString);
-                return new AddCommand(todo);
-            } else if (matchesPattern(input, patternDeadline)) {
-                String tempString = input.substring(9).trim();
-                String[] tempArray = tempString.split("/by", 0);
-                if (tempArray.length == 1) {
-                    throw new IllegalArgumentException("Blunder! "
-                            + "Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
-                }
-                String description = tempArray[0].trim();
-                LocalDateTime by = parseDate(tempArray[1].trim());
-                Deadline deadline = new Deadline(description, by);
-                return new AddCommand(deadline);
-            } else if (matchesPattern(input, patternEvent)) {
-                String tempString = input.substring(6).trim();
-                String[] tempArray = tempString.split("/from", 0);
-                if (tempArray.length == 1) {
-                    throw new IllegalArgumentException("Blunder! "
-                            + "Declare yer event as such: 'event * /from * /to *', "
-                            + "ye scurvy dog!");
-                }
-                String description = tempArray[0].trim();
-                tempString = tempArray[1].trim();
-                tempArray = tempString.split("/to", 0);
-                if (tempArray.length == 1) {
-                    throw new IllegalArgumentException("Blunder! "
-                            + "Declare yer event as such: 'event * /from * /to *', "
-                            + "ye scurvy dog!");
-                }
-                LocalDateTime from = parseDate(tempArray[0].trim());
-                LocalDateTime to = parseDate(tempArray[1].trim());
-                if (from.isAfter(to)) {
-                    throw new IllegalArgumentException("Blunder! "
-                            + "The start date of yer event be after the end date, ye scurvy dog!");
-                }
-                assert from.isBefore(to) : "Start date of event should be before end date";
-                Event event = new Event(description, from, to);
-                return new AddCommand(event);
-            } else if (matchesPattern(input, patternFind)) {
-                String[] wordArray = input.split(" ", 0);
-                String keyword = wordArray[1];
-                return new FindCommand(keyword);
+            } else if (matchesPattern(input, Commands.MARK.pattern)) {
+                return handleIndexedCommand(input, Commands.MARK);
+            } else if (matchesPattern(input, Commands.UNMARK.pattern)) {
+                return handleIndexedCommand(input, Commands.UNMARK);
+            } else if (matchesPattern(input, Commands.DELETE.pattern)) {
+                return handleIndexedCommand(input, Commands.DELETE);
+            } else if (matchesPattern(input, Commands.TODO.pattern)) {
+                return handleTodoCommand(input);
+            } else if (matchesPattern(input, Commands.DEADLINE.pattern)) {
+                return handleDeadlineCommand(input);
+            } else if (matchesPattern(input, Commands.EVENT.pattern)) {
+                return handleEventCommand(input);
+            } else if (matchesPattern(input, Commands.FIND.pattern)) {
+                return handleFindCommand(input);
             } else {
                 throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
             }
@@ -131,6 +108,99 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper function to handle mark, unmark and delete commands that require an index to be specified.
+     * @param input a String taken from the user's command line input
+     * @param pattern a Commands enum value representing the type of command to be executed
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleIndexedCommand(String input, Commands pattern) {
+        String[] wordArray = input.split(" ", 0);
+        Integer index = Integer.parseInt(wordArray[1]);
+        switch (pattern) {
+        case MARK:
+            return new ToggleMarkCommand(index, true);
+        case UNMARK:
+            return new ToggleMarkCommand(index, false);
+        case DELETE:
+            return new DeleteCommand(index);
+        default:
+            throw new IllegalArgumentException("Blunder! "
+                    + "I be searchin' the seas but couldn't spy the task ye named, me heartie!");
+        }
+    }
+
+    /**
+     * Helper function to handle todo commands.
+     * @param input a String taken from the user's command line input
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleTodoCommand(String input) {
+        String tempString = input.substring(5).trim();
+        Todo todo = new Todo(tempString);
+        return new AddCommand(todo);
+    }
+
+    /**
+     * Helper function to handle deadline commands.
+     * @param input a String taken from the user's command line input
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleDeadlineCommand(String input) {
+        String tempString = input.substring(9).trim();
+        String[] tempArray = tempString.split("/by", 0);
+        if (tempArray.length == 1) {
+            throw new IllegalArgumentException("Blunder! "
+                    + "Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
+        }
+        String description = tempArray[0].trim();
+        LocalDateTime by = parseDate(tempArray[1].trim());
+        Deadline deadline = new Deadline(description, by);
+        return new AddCommand(deadline);
+    }
+
+    /**
+     * Helper function to handle event commands.
+     * @param input a String taken from the user's command line input
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleEventCommand(String input) {
+        String tempString = input.substring(6).trim();
+        String[] tempArray = tempString.split("/from", 0);
+        if (tempArray.length == 1) {
+            throw new IllegalArgumentException("Blunder! "
+                    + "Declare yer event as such: 'event * /from * /to *', "
+                    + "ye scurvy dog!");
+        }
+        String description = tempArray[0].trim();
+        tempString = tempArray[1].trim();
+        tempArray = tempString.split("/to", 0);
+        if (tempArray.length == 1) {
+            throw new IllegalArgumentException("Blunder! "
+                    + "Declare yer event as such: 'event * /from * /to *', "
+                    + "ye scurvy dog!");
+        }
+        LocalDateTime from = parseDate(tempArray[0].trim());
+        LocalDateTime to = parseDate(tempArray[1].trim());
+        if (from.isAfter(to)) {
+            throw new IllegalArgumentException("Blunder! "
+                    + "The start date of yer event be after the end date, ye scurvy dog!");
+        }
+        assert from.isBefore(to) : "Start date of event should be before end date";
+        Event event = new Event(description, from, to);
+        return new AddCommand(event);
+    }
+
+    /**
+     * Helper function to handle find commands.
+     * @param input a String taken from the user's command line input
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleFindCommand(String input) {
+        String[] wordArray = input.split(" ", 0);
+        String keyword = wordArray[1];
+        return new FindCommand(keyword);
+    }
     /**
      * Helper function to convert a String input into a LocalDateTime object.
      *

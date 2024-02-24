@@ -26,7 +26,7 @@ public class Ui {
     }
 
     /**
-     * Method to print section dividers to the console.
+     * Prints section dividers to the console.
      */
     public void printDivider() {
         for (int i = 0; i < dividerLength; i++) {
@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Method to print the logo and welcome message at program startup.
+     * Prints the logo and welcome message to console.
      */
 
     public String showWelcome() {
@@ -48,7 +48,7 @@ public class Ui {
     }
 
     /**
-     * Method that takes a string and prints it with section dividers above and below.
+     * Returns string representing a message and prints it with section dividers above and below to the console.
      *
      * @param message a String representing the message to be printed
      */
@@ -60,7 +60,8 @@ public class Ui {
     }
 
     /**
-     * Method that prints an ArrayList of Task objects and message as a numbered sequence of Strings.
+     * Returns string from an ArrayList of Task objects and message as a numbered sequence of Strings.
+     * Additionally prints the list to the console with section dividers above and below.
      *
      * @param message a String containing the message to be printed before the list
      * @param tasks an ArrayList of Task objects to be printed as a numbered list

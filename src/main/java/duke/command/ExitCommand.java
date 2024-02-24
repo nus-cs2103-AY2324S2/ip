@@ -19,7 +19,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Method that prints a message signalling the closing of the program.
+     * Returns a message signalling the closing of the program.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
@@ -35,7 +35,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Method that returns the boolean value if the main loop should be exited.
+     * Returns boolean signalling for program to exit.
      *
      * @return Returns true
      */

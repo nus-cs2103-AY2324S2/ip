@@ -26,7 +26,7 @@ public class ToggleMarkCommand extends Command {
     }
 
     /**
-     * Method that executes the mark/unmark action on the task depending on the isDone variable.
+     * Executes the mark/unmark action on the task depending on the isDone variable.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
