@@ -22,30 +22,28 @@ public class Eve{
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        this.parser = new Parser(this);
     }
 
-
-    public static void main(String[] args) {
+    public void sayHello() {
         Commands.commandHello();
-        Commands.commandListener();
-
     }
-
-
+ 
 
     //need to implement getResponse
     public String getResponse(String input) {
         try{
             String response = parser.parseAndExecute(input);
             //save tasks to file
-  
+            Storage.writeToFile(tasks);
             return response;
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }
     }
 
-    public TaskList getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return tasks;
     }
 }

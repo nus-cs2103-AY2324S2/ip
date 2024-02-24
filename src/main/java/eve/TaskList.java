@@ -34,12 +34,16 @@ public class TaskList {
      * @param tempyArr is the array of the input command
      * @param list is the list of tasks
      */
-    public static void commandMark(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandMark(String[] tempyArr, ArrayList<Task> list) {
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         temp.markAsDone();
-        System.out.println(" Nice! I've marked this task as done: ");
-        System.out.println(temp.toString());
+
+        StringBuilder response = new StringBuilder("Nice! I've marked this task as done:  \n");
+        
+        response.append(temp.toString()).append("\n");
+        
+        return response.toString().trim();
     }
 
     /**
@@ -48,25 +52,33 @@ public class TaskList {
      * @param list is the list of tasks
      */
 
-    public static void commandUnMark(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandUnMark(String[] tempyArr, ArrayList<Task> list) {
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         temp.markAsNotDone();
-        System.out.println(" Nice! I've marked this task as not done yet: ");
-        System.out.println(temp.toString());
+
+        StringBuilder response = new StringBuilder("Nice! I've marked this task as not done yet:  \n");
+        
+        response.append(temp.toString()).append("\n");
+
+        return response.toString().trim();
     }
     /**
      * This method is used to delete a task
      * @param tempyArr is the array of the input command
      * @param list is the list of tasks
      */
-    public static void commandDelete(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandDelete(String[] tempyArr, ArrayList<Task> list) {
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         list.remove(temp);
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(temp.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+        StringBuilder response = new StringBuilder("Noted. I've removed this task:   \n");
+        
+        response.append(temp.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
+
+        return response.toString().trim();
+
     }
 
     /**
@@ -76,17 +88,19 @@ public class TaskList {
      * @throws EveExceptions
      */
 
-    public static void commandTodo(String[] tempyArr, ArrayList<Task> list) throws EveExceptions {
+    public static String commandTodo(String[] tempyArr, ArrayList<Task> list) {
         if (tempyArr.length < 2) {
-            throw new EveExceptions("This todo can't be empty");
+            return "This todo can't be empty";
         }
         String description = tempyArr[1];
         Task t = new Todo(description);
         list.add(t);
 
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
+        
+        response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
+
+        return response.toString().trim();
     }
 
     /**
@@ -94,7 +108,7 @@ public class TaskList {
      * @param tempyArr is the array of the input command
      * @param list is the list of tasks
      */
-    public static void commandDeadline(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandDeadline(String[] tempyArr, ArrayList<Task> list) {
         String description = tempyArr[1];
         String[] arrTemp = description.split(" /by ");
         description = arrTemp[0];
@@ -102,9 +116,11 @@ public class TaskList {
         Task t = new Deadline(description, by);
         list.add(t);
 
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
+        
+        response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
+
+        return response.toString().trim();
     }
 
     /**
@@ -112,7 +128,7 @@ public class TaskList {
      * @param tempyArr is the array of the input command
      * @param list is the list of tasks
      */
-    public static void commandEvent(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandEvent(String[] tempyArr, ArrayList<Task> list) {
         String description = tempyArr[1];
         String[] arrTemp = description.split(" /from ");
         description = arrTemp[0];
@@ -121,21 +137,35 @@ public class TaskList {
         String endDate = dateArr[1];
         Task t = new Event(description, startDate, endDate);
         list.add(t);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+        StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
+        
+        response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
+
+        return response.toString().trim();
     }
 
-    public static void commandFind(String[] tempyArr, ArrayList<Task> list) {
-        int count = 1;
+    public static String commandFind(String[] tempyArr, ArrayList<Task> list) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
 
         String taskToFind = tempyArr[1];
-        System.out.println("Here are the matching tasks in your list:");
+        
         for (Task task : list) {
             if (task.getTask().contains(taskToFind)) {
-                System.out.println(count + "." + task);
-                count++;
+                matchingTasks.add(task);
             }
         }
+
+        StringBuilder response = new StringBuilder();
+        
+        if (matchingTasks.isEmpty()) {
+            response.append("No matching tasks found");
+        } else {
+            response.append("Here are the matching tasks in your list: \n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+            }
+        }
+        return response.toString().trim();
     }
 }

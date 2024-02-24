@@ -36,7 +36,7 @@ public class Storage {
         }
     }
     // The below functions are adapted from CS2103T website Week 3
-    public static void loadFileContents(ArrayList<Task> list) throws FileNotFoundException {
+    public void loadFileContents(ArrayList<Task> list) throws FileNotFoundException {
         try {
             File file = new File(filePath);
             if (file.exists()) {

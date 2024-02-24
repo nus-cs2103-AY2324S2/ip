@@ -1,10 +1,12 @@
 package eve.parser;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import eve.Eve;
 import eve.TaskList;
 import eve.exceptions.EveExceptions;
+import eve.tasks.Task;
 
 public class Parser {
 
@@ -14,49 +16,39 @@ public class Parser {
         this.eve = eve;
     }
 
-    public static String parse(String input) throws EveExceptions {
+    public String parseAndExecute(String input) throws EveExceptions {
         String[] tempyArr = input.split(" ", 2);
         String commandCheck = tempyArr[0].toUpperCase();
 
-        Tasklist list = eve.getTaskList();
+        ArrayList<Task> list = eve.getTaskList();
         try {
                 switch (commandCheck) {
                 case "BYE":
-                    Commands.commandBye(list);
-                    break;
+                    return Commands.commandBye();
                 case "LIST":
-                    TaskList.commandList(list);
-                    break;
+                    return TaskList.commandList(list);
                 case "MARK":
-                    TaskList.commandMark(tempyArr, list);
-                    break;
+                    return TaskList.commandMark(tempyArr, list);
+   
                 case "UNMARK":
-                    TaskList.commandUnMark(tempyArr, list);
-                    break;
+                    return TaskList.commandUnMark(tempyArr, list);
                 case "DELETE":
-                    TaskList.commandDelete(tempyArr, list);
-                    break;
+                    return TaskList.commandDelete(tempyArr, list);
                 case "TODO":
-                    TaskList.commandTodo(tempyArr, list);
-                    break;
+                    return TaskList.commandTodo(tempyArr, list);
                 case "DEADLINE":
-                    TaskList.commandDeadline(tempyArr, list);
-                    break;
+                    return TaskList.commandDeadline(tempyArr, list);
                 case "EVENT":
-                    TaskList.commandEvent(tempyArr, list);
-                    break;
-
-
+                    return TaskList.commandEvent(tempyArr, list);
                 case "FIND":
-                    TaskList.commandFind(tempyArr, list);
-                    break;
+                    return TaskList.commandFind(tempyArr, list);
 
                 default:
-                    throw new EveExceptions("OOPS!!! I'm sorry, but I don't know what that means, please try again");
+                    return "OOPS!!! I'm sorry, but I don't know what that means, please try again";
 
                 }
             } catch (EveExceptions e) {
-                System.out.println(e.getMessage());
+                return "Error occured: " + e.getMessage();
             }
 
     }
