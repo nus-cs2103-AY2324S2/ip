@@ -45,6 +45,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String[] fullCommand = Parser.parse(ui.readCommand());
+                assert fullCommand.length > 0 : "Parsed command should not be empty";
                 String command = fullCommand[0];
 
                 if (command.equals("bye")) {
@@ -64,6 +65,7 @@ public class Duke {
                             storage.saveToFile(tasks.getTasks());
                         } else if (command.equals("unmark")) {
                             int indexToUnmark = Integer.parseInt(fullCommand[1]) - 1;
+                            assert indexToUnmark >= 0 && indexToUnmark < tasks.getSize() : "Task index is out of bounds";
                             Task task = tasks.getTasks().get(indexToUnmark);
                             task.markIncomplete();
                             System.out.println(ui.showTask(" OK, I've marked this task as not done yet:", task));
