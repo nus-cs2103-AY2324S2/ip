@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exceptions.CalException;
 import tasks.Task;
@@ -41,8 +42,15 @@ public class TaskList {
         return t;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> find(String keyword) {
+        List<Task> tasksContainingKeyword = this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+        return tasksContainingKeyword;
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
     }
 
     public int getSize() {

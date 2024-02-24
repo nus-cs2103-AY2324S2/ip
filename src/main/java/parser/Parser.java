@@ -106,6 +106,11 @@ public class Parser {
                     }
 
                     return new DeleteCommand(Integer.parseInt(tokens[1]));
+                case "find":
+                    String keyword = line.substring(4).strip();
+                    if (keyword.isBlank()) {
+                        throw new CalException("Missing search keyword.");
+                    }
                 default:
                     throw new CalException("Command not recognized.");
             }

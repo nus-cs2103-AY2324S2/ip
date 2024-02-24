@@ -32,7 +32,6 @@ public class StorageManager {
     }
 
     public void save(TaskList tasklist) {
-        List<Task> tasks  = tasklist.getTasks();
         String tasksSerialized = TaskSerializer.serialize(tasks);
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
             writer.write(tasksSerialized);
