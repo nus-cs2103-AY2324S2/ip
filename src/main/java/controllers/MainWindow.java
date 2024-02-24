@@ -33,13 +33,14 @@ public class MainWindow extends AnchorPane {
     private final Image chittyImage =
             new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/chitty.png")));
 
-
     /**
      * Initializes the MainWindow controller.
      * Adds initial dialog box with Chitty's greeting response and binds scroll properties.
      */
     @FXML
     public void initialize() {
+        assert userImage != null;
+        assert chittyImage != null;
         // Display greeting message to user.
         dialogContainer.getChildren().add(DialogBox.getChittyDialog(Response.getGreetingResponse(), chittyImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
