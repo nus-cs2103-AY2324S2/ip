@@ -6,17 +6,13 @@ import luke.task.Task;
  * In charge of printing statements, to confirm to the user that the action is completed.
  */
 public class Ui {
-    public static final String LINE = "________________________________________________________\n";
-
     /**
      * Returns the welcome message.
      * @return The welcome message.
      */
     public String displayWelcome() {
-        return LINE
-                + "Hello! I'm Luke!\n"
-                + "What can I do for you?\n"
-                + LINE;
+        return "Hello! I'm Luke!\n"
+                + "What can I do for you?\n";
     }
 
     /**
@@ -24,9 +20,7 @@ public class Ui {
      * @return The goodbye message.
      */
     public String displayGoodBye() {
-        return LINE
-                + "Bye. Hope to see you again soon!\n"
-                + LINE;
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -39,11 +33,9 @@ public class Ui {
     public String displayTaskAdded(Task task, int taskListSize) {
         assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        return LINE
-                + "Got it. I've added this task:\n"
+        return "Got it. I've added this task:\n"
                 + task.toString()
-                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n"
-                + LINE;
+                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n";
     }
 
     /**
@@ -53,10 +45,8 @@ public class Ui {
      */
     public String displayTasks(List taskList) {
         assert taskList != null;
-        return LINE
-                + "Here are the tasks in your list:\n"
-                + taskList.toString() + "\n"
-                + LINE;
+        return "Here are the tasks in your list:\n"
+                + taskList.toString() + "\n";
     }
 
     /**
@@ -66,10 +56,8 @@ public class Ui {
      */
     public String displayTaskMarked(Task task) {
         assert task != null;
-        return LINE
-                + "Nice! I've marked this task as done:\n"
-                + task.toString() + "\n"
-                + LINE;
+        return "Nice! I've marked this task as done:\n"
+                + task.toString() + "\n";
     }
 
     /**
@@ -79,10 +67,8 @@ public class Ui {
      */
     public String displayTaskUnmarked(Task task) {
         assert task != null;
-        return LINE
-                + "OK, I've marked this task as not done yet:\n"
-                + task.toString() + "\n"
-                + LINE;
+        return "OK, I've marked this task as not done yet:\n"
+                + task.toString() + "\n";
     }
 
     /**
@@ -95,11 +81,9 @@ public class Ui {
     public String displayTaskDeleted(Task task, int taskListSize) {
         assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        return LINE
-                + "Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n"
                 + task.toString()
-                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n"
-                + LINE;
+                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n";
     }
 
     /**
@@ -109,10 +93,8 @@ public class Ui {
      */
     public String displayResults(List results) {
         assert results != null;
-        return LINE
-                + "Here are the matching tasks in your list:\n"
-                + results.toString() + "\n"
-                + LINE;
+        return "Here are the matching tasks in your list:\n"
+                + results.toString() + "\n";
     }
 
     /**
@@ -120,8 +102,7 @@ public class Ui {
      * @return The help message.
      */
     public String displayHelp() {
-        return LINE
-                + "How to use:\n"
+        return "How to use:\n"
                 + "Luke is a simple task list manager. You (the person on the right) can interact with Luke (the\n"
                 + "person on the left) through commands to manage your tasks.\n"
                 + "If this is your first time using this app, sample data has already been loaded for you. Feel free\n"
@@ -150,7 +131,6 @@ public class Ui {
                 + "deleting tasks may cause the indexes of other tasks to change - please double check the indexes\n"
                 + "of the tasks before editing them.\n"
                 + "find [keyword(s)] - finds all tasks whose description contains keyword(s) (as a substring).\n"
-                + "bye - exits the program\n"
-                + LINE;
+                + "bye - exits the program\n";
     }
 }

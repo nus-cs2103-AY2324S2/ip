@@ -29,9 +29,7 @@ public class ParserTest {
     public void testBye() throws IOException {
         List taskList = new List(new ArrayList<>());
         storage.clearData();
-        assertEquals(Ui.LINE
-                + "Bye. Hope to see you again soon!\n"
-                + Ui.LINE,
+        assertEquals("Bye. Hope to see you again soon!\n",
                 parser.parse("bye", taskList, ui, storage)
         );
     }
@@ -58,10 +56,8 @@ public class ParserTest {
         taskList.addTask(new Event("study", parser.toLocalDateTime("2024-02-02 08:00"),
                 parser.toLocalDateTime("2024-02-02 12:00")), storage, ui);
         storage.clearData();
-        assertEquals(Ui.LINE
-                + "Here are the tasks in your list:\n"
-                + taskList.toString() + "\n"
-                + Ui.LINE,
+        assertEquals("Here are the tasks in your list:\n"
+                + taskList.toString() + "\n",
                 parser.parse("list", taskList, ui, storage)
         );
     }
