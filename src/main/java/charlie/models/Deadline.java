@@ -13,6 +13,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String byString) {
         super(description);
+        // handle the case where it's not a date
         this.by = LocalDate.parse(byString); // Assumes input is in ISO_LOCAL_DATE format (yyyy-MM-dd)
         this.byString = byString;
     }
