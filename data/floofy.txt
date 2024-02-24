@@ -1,5 +1,7 @@
 T | 0 | 2103 level-8
-E | 0 | cny trip | Feb 9 2024 - Feb 12 2023
-D | 0 | acc tutorial | Feb 9 2024
+E | 1 | cny trip | Feb 9 2024 - Feb 12 2023
+D | 1 | acc tutorial | Feb 9 2024
 T | 1 | packages
-T | 1 | finish up wk3
+T | 0 | pset 4
+D | 0 | cs2103 iP | Feb 26 2024
+E | 0 | ace elderly | Jan 1 2024 - May 1 2024

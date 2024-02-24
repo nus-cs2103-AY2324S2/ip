@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("floofy.Floofy")
+    mainClass.set("floofy.Launcher")
 }
 
 shadowJar {

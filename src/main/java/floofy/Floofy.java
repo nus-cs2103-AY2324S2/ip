@@ -60,13 +60,11 @@ public class Floofy extends Application {
                 int idx = Integer.parseInt(input[1]) - 1;
                 tasks.markTaskAsDone(idx);
                 result = ui.showMarkedTask(this.tasks.getTask(idx));
-                storage.saveTasks(tasks);
                 break;
             case "unmark":
                 int unmarkIdx = Integer.parseInt(input[1]) - 1;
                 tasks.markTaskAsUndone(unmarkIdx);
                 result = ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
-                storage.saveTasks(tasks);
                 break;
             case "find":
                 TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
@@ -77,7 +75,6 @@ public class Floofy extends Application {
                 ToDo newTodo = new ToDo(todoTask);
                 tasks.addTask(newTodo);
                 result = ui.showAddedTask(newTodo, tasks.getSize());
-                storage.saveTasks(tasks);
                 break;
             case "deadline":
                 String deadlineTask = input[1];
@@ -85,7 +82,6 @@ public class Floofy extends Application {
                 Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
                 tasks.addTask(newDeadline);
                 result = ui.showAddedTask(newDeadline, tasks.getSize());
-                storage.saveTasks(tasks);
                 break;
             case "event":
                 String eventTask = input[1];
@@ -94,14 +90,12 @@ public class Floofy extends Application {
                 Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
                 tasks.addTask(newEvent);
                 result = ui.showAddedTask(newEvent, tasks.getSize());
-                storage.saveTasks(tasks);
                 break;
             case "delete":
                 int deleteIdx = Integer.parseInt(input[1]) - 1;
                 Task deletedTask = tasks.getTask(deleteIdx);
                 tasks.deleteTask(deleteIdx);
                 result = ui.showDeletedTask(deletedTask, tasks.getSize());
-                storage.saveTasks(tasks);
                 break;
             case "list":
                 result = ui.showTaskList(tasks);
@@ -110,14 +104,15 @@ public class Floofy extends Application {
                 result = ui.showGoodbyeMsg();
                 break;
             case "invalid":
-                result = ui.showInvalidInput();
+//                result = ui.showInvalidInput();
                 throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
             return result;
         } catch (FloofyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
+        } finally {
+            storage.saveTasks(tasks);
         }
-        return result;
     }
 
     /**
