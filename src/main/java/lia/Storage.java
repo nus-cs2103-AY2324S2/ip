@@ -48,20 +48,21 @@ public class Storage {
                     String[] parts = line.split(" \\| ");
                     String type = parts[0];
                     boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
+                    boolean isImp = parts[2].equals("1");
+                    String description = parts[3];
 
                     switch (type) {
                     case "T":
-                        tasks.add(new Todo(description, isDone));
+                        tasks.add(new Todo(description, isDone, isImp));
                         break;
                     case "D":
-                        String by = parts[3];
-                        tasks.add(new Deadline(description, by, isDone));
+                        String by = parts[4];
+                        tasks.add(new Deadline(description, by, isDone, isImp));
                         break;
                     case "E":
-                        String start = parts[3];
-                        String end = parts[4];
-                        tasks.add(new Event(description, start, end, isDone));
+                        String start = parts[4];
+                        String end = parts[5];
+                        tasks.add(new Event(description, start, end, isDone, isImp));
                         break;
                     default:
                         System.out.println("Unknown task type: " + type);
@@ -87,12 +88,13 @@ public class Storage {
                 for (Task task : tasks) {
                     String taskSave;
                     if (task instanceof Todo) {
-                        taskSave = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+                        taskSave = "T | " + (task.isDone() ? "1" : "0") + " | " + (task.isImp() ? "1" : "0") + " | "
+                                + task.getDescription();
                     } else if (task instanceof Deadline) {
-                        taskSave = "D | " + (task.isDone() ? "1" : "0") + " | "
+                        taskSave = "D | " + (task.isDone() ? "1" : "0") + " | " + (task.isImp() ? "1" : "0") + " | "
                                 + task.getDescription() + " | " + ((Deadline) task).getDate();
                     } else if (task instanceof Event) {
-                        taskSave = "E | " + (task.isDone() ? "1" : "0") + " | "
+                        taskSave = "E | " + (task.isDone() ? "1" : "0") + " | " + (task.isImp() ? "1" : "0") + " | "
                                 + task.getDescription() + " | " + ((Event) task).getStart()
                                 + " | " + ((Event) task).getEnd();
                     } else {

@@ -16,9 +16,10 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param dateString  The date string representing the deadline.
      * @param isDone      The completion status of the task.
+     * @param isImp        The importance of the task.
      */
-    public Deadline(String description, String dateString, boolean isDone) {
-        super(description, isDone);
+    public Deadline(String description, String dateString, boolean isDone, boolean isImp) {
+        super(description, isDone, isImp);
         this.date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
@@ -38,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "]" + "[" + getImpIcon() + "] " + getDescription()
                 + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

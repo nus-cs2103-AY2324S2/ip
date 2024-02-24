@@ -65,13 +65,23 @@ public class TaskList {
     }
 
     /**
+     * Marks a task as important based on its position in the list.
+     *
+     * @param pos The position of the task to mark as done.
+     */
+    public void markTaskAsImportant(int pos) {
+        assert pos >= 1 && pos <= tasks.size() : "Invalid position";
+        tasks.get(pos - 1).markAsImportant();
+    }
+
+    /**
      * Adds a new Todo task to the list with the given description.
      *
      * @param description The description of the Todo task.
      */
     public void addTodoTask(String description) {
         assert description != null : "Description should not be null";
-        tasks.add(new Todo(description, false));
+        tasks.add(new Todo(description, false, false));
     }
 
     /**
@@ -83,7 +93,7 @@ public class TaskList {
     public void addDeadlineTask(String description, String by) {
         assert description != null : "Description should not be null";
         assert by != null : "Deadline should not be null";
-        tasks.add(new Deadline(description, by, false));
+        tasks.add(new Deadline(description, by, false, false));
     }
 
     /**
@@ -97,7 +107,7 @@ public class TaskList {
         assert description != null : "Description should not be null";
         assert start != null : "Start time should not be null";
         assert end != null : "End time should not be null";
-        tasks.add(new Event(description, start, end, false));
+        tasks.add(new Event(description, start, end, false, false));
     }
 
     /**

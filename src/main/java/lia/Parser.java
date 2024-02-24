@@ -42,6 +42,8 @@ public class Parser {
                 return markTaskAsDone(input);
             } else if (input.startsWith("unmark")) {
                 return markTaskAsNotDone(input);
+            } else if (input.startsWith("imp")) {
+                return markTaskAsImportant(input);
             } else if (input.startsWith("todo")) {
                 return addTodoTask(input);
             } else if (input.startsWith("deadline")) {
@@ -91,6 +93,21 @@ public class Parser {
         tasks.validateTaskPosition(pos);
         tasks.markTaskAsNotDone(pos);
         return ui.showMarkedAsNotDone(tasks.getTask(pos - 1));
+    }
+
+    /**
+     * Marks the specified task as important based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
+    String markTaskAsImportant(String input) throws LiaException {
+        String[] tokens = input.split(" ");
+        int pos = Integer.parseInt(tokens[1]);
+
+        tasks.validateTaskPosition(pos);
+        tasks.markTaskAsImportant(pos);
+        return ui.showMarkedAsImportant(tasks.getTask(pos - 1));
     }
 
     /**

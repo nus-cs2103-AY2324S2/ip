@@ -15,9 +15,10 @@ public class Event extends Task {
      * @param start       The start time of the event.
      * @param end         The end time of the event.
      * @param isDone      The completion status of the task.
+     * @param isImp      The importance of the task.
      */
-    public Event(String description, String start, String end, boolean isDone) {
-        super(description, isDone);
+    public Event(String description, String start, String end, boolean isDone, boolean isImp) {
+        super(description, isDone, isImp);
         this.start = start;
         this.end = end;
     }
@@ -37,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "]" + "[" + getImpIcon() + "] " + getDescription()
                 + " (from: " + start + " to: " + end + ")";
     }
 }
