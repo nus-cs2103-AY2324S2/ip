@@ -1,6 +1,6 @@
 # Panda User Guide
 
-![Product Screenshot](/docs/Ui.png)
+![Product Screenshot](Ui.png)
 
 Panda is a chat-based task manager. You can add tasks, keep track of their status, and even tag them to a category. Try it out now for free!
 
