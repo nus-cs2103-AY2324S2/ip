@@ -1,8 +1,11 @@
 package zhen.command;
-import zhen.*;
+
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 
 /**
- * Represents command of listing all the task added by the user.
+ * Represents command of listing all the tasks added by the user.
  */
 public class ListCommand extends Command {
     /**

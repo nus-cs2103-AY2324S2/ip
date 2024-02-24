@@ -1,11 +1,12 @@
 package zhen.task;
-import zhen.Parser;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
+import zhen.Parser;
 
 public class DeadlineTest {
     @Test

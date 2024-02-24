@@ -9,7 +9,6 @@ public class Task implements Serializable {
 
     public Task(String message) {
         this.message = message;
-
     }
     public void mark() {
         isCompleted = true;

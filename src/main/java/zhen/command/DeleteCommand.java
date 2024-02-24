@@ -1,7 +1,9 @@
 package zhen.command;
-import zhen.*;
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 /**
- * Represent the command of deleting a task from the task list
+ * Represents the command of deleting a task from the task list
  */
 public class DeleteCommand extends Command {
     private int deleteIndex;

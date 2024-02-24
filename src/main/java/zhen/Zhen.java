@@ -1,6 +1,5 @@
 package zhen;
-import zhen.command.*;
-
+import zhen.command.Command;
 /**
  * The main class of the application. This class initialize the application,
  * receive commands from users, process commands, and provide user feedbacks
@@ -39,6 +38,12 @@ public class Zhen {
         }
     }
 
+    /**
+     * Gets program's response by processing user's input.
+     *
+     * @param userInput Parameter not in use.
+     * @return The program's response to user's input.
+     */
     public String getResponse(String userInput) {
         Command c = Parser.parse(userInput);
         String response = "";

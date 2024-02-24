@@ -1,8 +1,10 @@
 package zhen.command;
-import zhen.*;
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 
 /**
- * Represent command of showing user that this program don't understand s/he command.
+ * Represents command of showing user that this program don't understand s/he command.
  */
 public class DontknowCommand extends Command {
     /**

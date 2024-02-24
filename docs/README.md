@@ -1,4 +1,4 @@
-# Zhen-Chatbot User Guide
+# Zhen User Guide
 
 ![alt text](Ui.png)
 
@@ -7,7 +7,7 @@ To use Zhen, you need to:
 1. Download the new release.
 2. Go to the directory where the jar file is in.
 3. Enter command line.
-4. Type **java -jar Zhen.jar** to run the program.
+4. Type **java -jar zhen.jar** to run the program.
 
 ## Adding todos: `todo`
 
@@ -49,7 +49,7 @@ Now you have 2 tasks in the list.
 
 It is recommended you input the **due date** with format: `yyyy-mm-dd` such as `2019-10-15` (Be caution, February should be 02 not 2, and 3rd day should be 03 not 3).
 
-However, it is OK if you don't, in that case, the program will treat it as plain text not date, and will be displayed as what it is.
+However, it is OK if you don't, in that case, the program will treat it as plain text, not date, and will be displayed as what it is.
 
 Example: `deadline buy fish /by 2019/10/15`.
 
@@ -60,7 +60,7 @@ Got it. I've added this task:[D][]
 buy fish (by: 2019/10/15) 
 Now you have 2 tasks in the list.
 ```
-It is also recommended you contain one **due date** in your input.
+It is also recommended you contain **one due date** in your input.
 
 However, it is OK if you don't. The program has optimization for that flexibility:
 - You can choose not to contain **due date**. It will be treated as empty text.
@@ -109,7 +109,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-It is also recommended you contain one **start time** and one **end time** in your input.
+It is also recommended you contain **one start time** and **one end time** in your input.
 
 However, it is OK if you don't. The program has optimization for that flexibility:
 - You can choose to contain only **start time** or **end time** or **none** of them. If you don't include them, they will be treated as empty.
@@ -189,7 +189,7 @@ Here are the matching tasks in your list:
 
 Tag the task with specified index (you can find the index using `list` input).
 
-Format: `tag [task index] [tag]`. (Caution, tag shouldn't contain space, if it does, content after space will be discarded)
+Format: `tag [task index] [tag]`. (Caution, tag content shouldn't contain space, if it does, content after space will be discarded)
 
 Example: `tag 1 emergent`.
 

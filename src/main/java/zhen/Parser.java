@@ -3,9 +3,21 @@ package zhen;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import zhen.command.*;
-import zhen.task.*;
+import zhen.command.AddCommand;
+import zhen.command.Command;
+import zhen.command.DeleteCommand;
+import zhen.command.DontknowCommand;
+import zhen.command.ExitCommand;
+import zhen.command.FindCommand;
+import zhen.command.ListCommand;
+import zhen.command.MarkCommand;
+import zhen.command.ShowErrorCommand;
+import zhen.command.TagCommand;
+import zhen.command.UnmarkCommand;
 
+import zhen.task.Deadline;
+import zhen.task.Event;
+import zhen.task.Todos;
 /**
  * Parser class parses the input from user to commands.
  */
@@ -50,27 +62,40 @@ public class Parser {
             return new DontknowCommand();
         }
     }
+
+    /**
+     * Parses user's adding task request.
+     *
+     * @param userInput The input from users.
+     * @return Command that can add task to the task list when executed.
+     */
     private static Command parseAddCommand(String userInput) {
         if (userInput.length() >= 5 && userInput.substring(0, 5).equals("todo ")) {
             return new AddCommand(new Todos(userInput.substring(4)));
         } else if (userInput.length() >= 9 && userInput.substring(0, 9).equals("deadline ")) {
-            String[] strarr = processDeadlineMsg(userInput.substring(8));
+            String[] deadlineInfo = processDeadlineMsg(userInput.substring(8));
             try {
-                return new AddCommand(new Deadline(strarr[0], parseDate(strarr[1])));
+                return new AddCommand(new Deadline(deadlineInfo[0], parseDate(deadlineInfo[1])));
             } catch (Exception e) {
-                return new AddCommand(new Deadline(strarr[0], strarr[1]));
+                return new AddCommand(new Deadline(deadlineInfo[0], deadlineInfo[1]));
             }
         } else if (userInput.length() >= 6 && userInput.substring(0, 6).equals("event ")) {
-            String[] strarr = processEventMsg(userInput.substring(5));
+            String[] eventInfo = processEventMsg(userInput.substring(5));
             try {
-                return new AddCommand(new Event(strarr[0], parseDate(strarr[1]), parseDate(strarr[2])));
+                return new AddCommand(new Event(eventInfo[0], parseDate(eventInfo[1]), parseDate(eventInfo[2])));
             } catch (Exception e) {
-                return new AddCommand(new Event(strarr[0], strarr[1], strarr[2]));
+                return new AddCommand(new Event(eventInfo[0], eventInfo[1], eventInfo[2]));
             }
         }
         return null;
     }
 
+    /**
+     * Parses user's marking/unmarking task request.
+     *
+     * @param userInput The input from users.
+     * @return Command that can mark or unmark a task with particular index.
+     */
     private static Command parseMarkingCommands(String userInput) {
         if (userInput.length() >= 5 && userInput.substring(0, 5).equals("mark ")) {
             try {
@@ -90,6 +115,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses user's deleting task request.
+     *
+     * @param userInput The input from users.
+     * @return Command that can delete a task with particular index.
+     */
     private static Command parseDeleteCommand(String userInput) {
         if (userInput.length() >= 7 && userInput.substring(0, 7).equals("delete ")) {
             try {
@@ -102,6 +133,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses user's adding tag request.
+     *
+     * @param userInput The input from users.
+     * @return Command that can add tag to the task with particular index.
+     */
     private static Command parseTagCommand(String userInput) {
         if (userInput.length() >= 4 && userInput.substring(0, 4).equals("tag ")) {
             try {
@@ -116,6 +153,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses user's finding tasks request.
+     *
+     * @param userInput The input from users.
+     * @return Command that find tasks with particular keywords.
+     */
     private static Command parseFindCommand(String userInput) {
         if (userInput.length() >= 5 && userInput.substring(0, 5).equals("find ")) {
             try {
@@ -127,7 +170,12 @@ public class Parser {
         }
         return null;
     }
-
+    /**
+     * Parses user's single word input such as bye and list.
+     *
+     * @param userInput The input from users.
+     * @return Command that lists all tasks or exits the program.
+     */
     private static Command parseSingleWordCommands(String userInput) {
         switch (userInput) {
         case "bye":
@@ -139,7 +187,7 @@ public class Parser {
         }
     }
     /**
-     * Extracts important information in user's command and organizes them into a list of String.
+     * Extracts important information in user's adding event request and organizes them into a list of String.
      *
      * @param userInput User's input with only informative parts, i.e. without the command part.
      * @return A list of String with three elements, the first element is the information about the event,
@@ -172,9 +220,9 @@ public class Parser {
         return eventDetails;
     }
     /**
-     * Extracts important information in user's command and organizes them into a list of String.
+     * Extracts important information in user's adding deadline request and organizes them into a list of String.
      *
-     * @param userInput User's input with only informative parts, i.e. without the command part
+     * @param userInput User's input with only informative parts, i.e. without the command part.
      * @return A list of String of two elements, the first element is the information about the event,
      * the second element is the deadline of the event.
      */
@@ -191,7 +239,7 @@ public class Parser {
         return deadlineDetails;
     }
     /**
-     * Extracts important information in user's command and organizes them into a list of String.
+     * Extracts important information in user's adding tag request and organizes them into a list of String.
      *
      * @param userInput User's full input.
      * @return A list of String of two elements, the first element is the index of task to be tagged,

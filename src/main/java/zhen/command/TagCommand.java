@@ -1,5 +1,8 @@
 package zhen.command;
-import zhen.*;
+
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 
 public class TagCommand extends Command {
     private final int tagIndex;

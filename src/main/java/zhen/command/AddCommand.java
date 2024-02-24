@@ -1,6 +1,9 @@
 package zhen.command;
-import zhen.*;
-import zhen.task.*;
+
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
+import zhen.task.Task;
 
 /**
  * Represents the command of adding a task to the task list.

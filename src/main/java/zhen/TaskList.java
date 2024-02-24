@@ -1,7 +1,7 @@
 package zhen;
 import java.util.ArrayList;
 
-import zhen.task.*;
+import zhen.task.Task;
 
 /**
  * A system to store a list of task with additional functionality.

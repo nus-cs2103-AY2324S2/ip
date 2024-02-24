@@ -1,5 +1,7 @@
 package zhen.command;
-import zhen.*;
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 /**
  * Represents the command of exiting the application
  */
