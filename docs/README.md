@@ -4,7 +4,7 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 * Features
   * Viewing all available commands within application
-  * List all tasks
+  * Listing all tasks
   * Add tasks
   * Delete tasks
   * Mark tasks as done
@@ -20,19 +20,21 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 ## Features 
 
 ### Viewing all available commands within application
-To view all available commands within application, we can use `help` to list out all commands.
-Command: 
+To view all available commands within application, we can enter `help` to in the user input to list out all commands.
+Command:
 ```
-todo YOUR_TASK_HERE
+help
 ```
 
-### List out all your tasks
-
+### Listing all tasks
+You can list all your tasks using the `list` command.
 Command
 ```
 list
 ```
-
+> [!NOTE]
+> If there is no tasks in the list, Hammy will output `There is no tasks currently!` instead
+ 
 ## Usage
 
 ### `deadline` - add a deadline task
