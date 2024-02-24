@@ -23,6 +23,9 @@ public abstract class Command {
     * @param arguments The list of arguments associated with the command.
     */
     public Command(String command, List<String> arguments) {
+        assert command != null : "Command keyword cannot be null";
+        assert arguments != null : "Argument list cannot be null";
+        
         this.command = command;
         this.arguments = arguments;
     }
