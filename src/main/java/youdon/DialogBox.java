@@ -25,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     *
+     * @param text The text content of the dialog box.
+     * @param img The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,16 +55,36 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets a welcome dialog box with the specified image.
+     *
+     * @param img The image to display in the dialog box.
+     * @return A DialogBox object representing a welcome message.
+     */
     public static DialogBox getWelcomeDialog(Image img) {
         var db = new DialogBox("Hello! I'm Youdon!\nWhat can I do for you?\n", img);
         db.flip();
         return db;
     }
 
+    /**
+     * Gets a dialog box representing a message from the user.
+     *
+     * @param text The text content of the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return A DialogBox object representing a user message.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets a dialog box representing a message from YoudonBot.
+     *
+     * @param text The text content of the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return A DialogBox object representing a message from Youdon.
+     */
     public static DialogBox getYoudonDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -9,7 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller class for the main window of the YoudonBot application. Provides the layout and functionality
+ * for interacting with the bot.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,19 +27,28 @@ public class MainWindow extends AnchorPane {
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private final Image youdonBot = new Image(this.getClass().getResourceAsStream("/images/YoudonBot.jpg"));
 
+    /**
+     * Initializes the main window layout and binds the scroll pane to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getWelcomeDialog(youdonBot));
     }
 
+    /**
+     * Sets the Youdon instance for the main window.
+     *
+     * @param youdon The Youdon instance to be set.
+     */
     public void setYoudon(Youdon youdon) {
         this.youdon = youdon;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it and displaying the appropriate response from the bot.
+     * Appends dialog boxes representing user input and bot response to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
