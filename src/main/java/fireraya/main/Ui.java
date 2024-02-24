@@ -17,15 +17,15 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public String startMessage() {
+    public static String startMessage() {
         String a = print("--------------------------------\n" );
-        String b = print("Hello, my name is Fireraya!\n");
+        String b = print("Hello, my name is RONNIE!\n");
         String c = print("What can I do for you today sir?\n");
         String d = print("--------------------------------\n");
         String combined = a + b + c + d;
         return combined;
     }
-    public String print(String message) {
+    public static String print(String message) {
         return message;
     }
     public String displayLoadingError(String message) {
