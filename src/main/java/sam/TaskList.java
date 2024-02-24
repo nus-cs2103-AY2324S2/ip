@@ -108,7 +108,14 @@ public class TaskList {
         System.out.println("---------------------------");
     }
 
-<<<<<<< HEAD
+    /**
+     * Finds tasks containing the specified keyword.
+     *
+     * Searches through the list of tasks and adds tasks containing the specified keyword to a new list.
+     *
+     * @param keyword the keyword to search for in task descriptions
+     * @return an ArrayList containing tasks that match the keyword
+     */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         ArrayList<Task> matchList = new ArrayList<>();
         for (Task task : items) {
@@ -119,7 +126,7 @@ public class TaskList {
         return matchList;
     }
 
-=======
+
     /**
      * Retrieves the file strings from the Storage object.
      *
@@ -127,7 +134,6 @@ public class TaskList {
      *
      * @return an ArrayList containing the file strings
      */
->>>>>>> branch-A-JavaDoc
     public ArrayList<String> getFileStrings() {
         ArrayList<String> ret = new ArrayList<>();
         for (Task item : items) {
