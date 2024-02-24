@@ -1,21 +1,7 @@
-clear
-todo borrow book
-list
-deadline return book /by 02-02-2024
+todo  borrow book
+deadline return book /by 02-02-2024 0000
 event project meeting /from 03-02-2024 1400 /to 03-02-2024 1600
-todo wash dishes
-list
-mark 2
-mark 3
-list
-unmark 2
-list
-mark 2
-mark 2
-list
+todo  wash dishes
 event coldplay concert /from 03-02-2024 1900 /to 03-02-2024 2100
 deadline CS2109S assignment /by 05-02-2024 2359
-list
-mark 5
-list
-bye
+completed 1 2 4

@@ -1,7 +1,136 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    _____________________
+    Hello I am iris.Iris.
+    What can I do for you?
 
+    _____________________
+    _____________________
+    Cleared your cache!
+
+    _____________________
+    _____________________
+    I have added this task:
+    [T][ ]  borrow book
+    Now you have 1 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+
+    _____________________
+    _____________________
+    I have added this task:
+    [D][ ] return book (by: 02-02-2024 0000)
+    Now you have 2 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [E][ ] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    Now you have 3 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [T][ ]  wash dishes
+    Now you have 4 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][ ] return book (by: 02-02-2024 0000)
+    3. [E][ ] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: 02-02-2024 0000)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][X] return book (by: 02-02-2024 0000)
+    3. [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+
+    _____________________
+    _____________________
+    I've marked this task as uncompleted:
+    [D][ ] return book (by: 02-02-2024 0000)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][ ] return book (by: 02-02-2024 0000)
+    3. [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: 02-02-2024 0000)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: 02-02-2024 0000)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][X] return book (by: 02-02-2024 0000)
+    3. [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+
+    _____________________
+    _____________________
+    I have added this task:
+    [E][ ] coldplay concert (from: 03-02-2024 1900 to: 03-02-2024 2100)
+    Now you have 5 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [D][ ] CS2109S assignment (by: 05-02-2024 2359)
+    Now you have 6 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][X] return book (by: 02-02-2024 0000)
+    3. [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+    5. [E][ ] coldplay concert (from: 03-02-2024 1900 to: 03-02-2024 2100)
+    6. [D][ ] CS2109S assignment (by: 05-02-2024 2359)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [E][X] coldplay concert (from: 03-02-2024 1900 to: 03-02-2024 2100)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ]  borrow book
+    2. [D][X] return book (by: 02-02-2024 0000)
+    3. [E][X] project meeting (from: 03-02-2024 1400 to: 03-02-2024 1600)
+    4. [T][ ]  wash dishes
+    5. [E][X] coldplay concert (from: 03-02-2024 1900 to: 03-02-2024 2100)
+    6. [D][ ] CS2109S assignment (by: 05-02-2024 2359)
+
+    _____________________
+    _____________________
+    Bye! Hope to see you again.
+
+    _____________________
