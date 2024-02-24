@@ -22,16 +22,16 @@ public class TaskSerializerTest {
         Todo todo = new Todo("Sample Todo");
         todo.setStatus(true); // Completed
         
-        String serializedTodo = TaskSerializer.serialize(List.of(todo));
-        assertEquals("T, 1, Sample Todo, , \n", serializedTodo);
+        String serializedTodo = TaskSerializer.serialize(todo);
+        assertEquals("T, 1, Sample Todo, , ", serializedTodo);
     }
     
     @Test
     public void testSerializeDeadline() {
         Deadline deadline = new Deadline("Sample Deadline", LocalDateTime.parse("2/12/2019 1800", Task.INPUT_DATE_FORMAT));
         
-        String serializedDeadline = TaskSerializer.serialize(List.of(deadline));
-        assertEquals("D, 0, Sample Deadline, , 2019-12-02T18:00\n", serializedDeadline);
+        String serializedDeadline = TaskSerializer.serialize(deadline);
+        assertEquals("D, 0, Sample Deadline, , 2019-12-02T18:00", serializedDeadline);
     }
     
     @Test
@@ -40,8 +40,8 @@ public class TaskSerializerTest {
                                     LocalDateTime.parse("2/12/2019 1200", Task.INPUT_DATE_FORMAT), 
                                     LocalDateTime.parse("2/12/2019 1400", Task.INPUT_DATE_FORMAT));
         
-        String serializedEvent = TaskSerializer.serialize(List.of(event));
-        assertEquals("E, 0, Sample Event, 2019-12-02T12:00, 2019-12-02T14:00\n", serializedEvent);
+        String serializedEvent = TaskSerializer.serialize(event);
+        assertEquals("E, 0, Sample Event, 2019-12-02T12:00, 2019-12-02T14:00", serializedEvent);
     }
     
     @Test
