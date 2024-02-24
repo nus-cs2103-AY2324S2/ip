@@ -1,7 +1,7 @@
 # Snoopy Bot User Guide
 
 
-![Product screenshot goes here](./images/Ui.png)
+![Product screenshot goes here](Ui.png)
 
 Welcome to Snoopy Bot! Snoopy Bot is a desktop app for managing your everyday tasks, optimized for use via a Command Line Interface (CLI)! 
 
