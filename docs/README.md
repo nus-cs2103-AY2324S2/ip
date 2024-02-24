@@ -2,20 +2,20 @@
 
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
 
-* [How to read?](#How to read)
-* Features
-  * Viewing all available commands within application
-  * Listing all tasks
-  * Adding tasks
-  * Deleting tasks
-  * Marking tasks as done
-  * Marking tasks as undone
-  * Other listing tasks methods
-  * Say Hi To Me <3
-  * Surprised!
-* FAQ
-* Future Updates
-* How does it look like?
+* [How to read?](#how-to-read)
+* [Features](#features)
+  * [Viewing all available commands within application](#viewing-all-available-commands-within-application)
+  * [Listing all tasks](#listing-all-tasks)
+  * [Adding tasks](#adding-tasks)
+  * [Deleting tasks](#deleting-tasks)
+  * [Marking tasks as done](#marking-tasks-as-done)
+  * [Marking tasks as undone](#marking-tasks-as-undone)
+  * [Other listing tasks methods](#other-listing-tasks-methods)
+  * [Say Hi To Me <3](#say-hi-to-me-3)
+  * [Surprised!](#surprised)
+* [FAQ](#faq)
+* [Future Updates](#future-updates)
+* [How does it look like?](#how-does-it-look-like)
 
 ## How to read?
 
