@@ -1,8 +1,15 @@
 package sam;
 
-import sam.command.Command;
 import java.io.IOException;
 
+import sam.command.Command;
+
+/**
+ * The main class of the Sam application.
+ *
+ * This class serves as the entry point for Sam. It contains the main method
+ * where the application starts its execution.
+ */
 public class Sam {
     private Ui ui;
     private Storage storage;
@@ -15,11 +22,11 @@ public class Sam {
      * If loading tasks from the specified file path fails due to IOException or SamException,
      * displays a loading error message and initializes an empty task list.
      *
-     * @param FILE_PATH the file path from which to load tasks
+     * @param filePath the file path from which to load tasks
      */
-    public Sam(String FILE_PATH) {
+    public Sam(String filePath) {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException | SamException e) {

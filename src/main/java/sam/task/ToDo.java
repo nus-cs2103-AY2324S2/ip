@@ -2,6 +2,11 @@ package sam.task;
 
 import sam.SamException;
 
+/**
+ * Represents a todo task.
+ *
+ * Inherits from the Task class.
+ */
 public class ToDo extends Task {
     /**
      * Constructs a ToDo task with the specified description.

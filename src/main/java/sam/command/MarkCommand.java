@@ -1,9 +1,10 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
+
 
 /**
  * Represents a command to mark a task as done.

@@ -1,10 +1,15 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 
+/**
+ * Represents a command to be executed by the application.
+ *
+ * This is an abstract class and should be subclassed to define specific command behaviors.
+ */
 public abstract class Command {
     /**
      * Executes the command.

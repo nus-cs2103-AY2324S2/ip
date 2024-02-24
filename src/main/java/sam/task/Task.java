@@ -1,12 +1,14 @@
 package sam.task;
 
-import sam.Sam;
 import sam.SamException;
 
+/**
+ * Represents a task.
+ *
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
-
     /**
      * Constructs a Task with the specified description.
      *

@@ -1,9 +1,5 @@
 package sam;
 
-import sam.task.Task;
-import sam.task.ToDo;
-import sam.task.Deadline;
-import sam.task.Event;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,22 +7,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import sam.task.Deadline;
+import sam.task.Event;
+import sam.task.Task;
+import sam.task.ToDo;
+
 /**
  * Represents a Storage object for file IO.
  */
 public class Storage {
-    private final String FILE_PATH;
-
+    private final String filePath;
     /**
      * Constructs a Storage object with the specified file path.
      *
      * Initializes the Storage object with the provided file path, which indicates the location
      * where data will be stored or retrieved.
      *
-     * @param FILE_PATH the file path used by the Storage object
+     * @param filePath the file path used by the Storage object
      */
-    public Storage(String FILE_PATH) {
-        this.FILE_PATH = FILE_PATH;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws SamException, IOException {
         ArrayList<Task> taskList = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
 
         while ((line = reader.readLine()) != null) {
@@ -66,7 +66,7 @@ public class Storage {
      */
     public void save(TaskList tasks) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
             for (String item : tasks.getFileStrings()) {
                 writer.write(item + "\n");
@@ -88,6 +88,7 @@ public class Storage {
      * @return the Task object created from the line of text
      * @throws SamException if an error occurs while creating the Task object due to invalid or incomplete data
      */
+    @SuppressWarnings("checkstyle:Indentation")
     private static Task createTaskFromLine(String line) throws SamException {
         String[] parts = line.split(" \\| ");
 
