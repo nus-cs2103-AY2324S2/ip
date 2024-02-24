@@ -1,0 +1,34 @@
+.main-pane {
+    -fx-background-color: #FAFAFA;
+}
+
+.send-button {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.send-button:hover {
+    -fx-background-color: #1565C0;
+}
+
+.send-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+.message-bubble {
+    -fx-background-color: #E0E0E0;
+    -fx-spacing: 10px;
+}
+
+.image {
+   -fx-border-radius: 5;
+}
+
+.separator .line {
+    -fx-background-color: gray;
+    -fx-pref-height: 1;
+    -fx-border-color: null ;
+}

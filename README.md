@@ -1,24 +1,86 @@
-# Duke project template
+# Chitty User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Chitty, your personal task manager powered by artificial intelligence!
 
-## Setting up in Intellij
+## Introduction
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Chitty is an advanced task management application designed to help you organize your tasks efficiently. With its intuitive interface and powerful AI capabilities, Chitty makes it easy to keep track of your to-do lists, deadlines, and events.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Getting Started
+To get started with Chitty, follow these steps:
+
+1. **Download the JAR File**: You can download the Chitty JAR file from [here](https://github.com/gowthaman-01/ip/releases).
+
+2. **Run the Application**: After downloading the JAR file, open a terminal or command prompt on your computer and navigate to the directory where the JAR file is located.
+
+3. **Run the Command**: To run the Chitty application, use the following command:
+   `java -jar chitty.jar`
+   Replace `chitty.jar` with the name of the downloaded JAR file if it's different.
+
+4. **Explore Chitty**: Once the application is running, you can start using Chitty by entering commands in the provided interface. Use the `help` command to display available commands and their usage.
+
+
+
+## Using Chitty
+
+Chitty offers a wide range of features to help you manage your tasks effectively. Here's a detailed overview of the available commands and functionalities:
+
+### Adding Tasks
+
+- **`todo [description]`** - Add a new to-do task. <br>
+  Example: `todo Borrow book`
+
+
+- **`deadline [description] /by [deadline]`** - Add a new task with a deadline. <br>
+  Example: `deadline Return book /by Sunday`
+
+
+- **`event [description] /from [start time] /to [end time]`** - Add a new event task. <br>
+  Example: `event Project meeting /from Mon 2pm /to 4pm`
+
+### Managing Tasks
+
+- **`mark [task number]`** - Mark a task as completed. <br>
+  Example: `mark 1`
+
+
+- **`unmark [task number]`** - Unmark a completed task. <br>
+  Example: `unmark 1`
+
+
+- **`delete [task number]`** - Delete a task. <br>
+  Example: `delete  1`
+
+
+- **`list`** -List all tasks.
+
+
+- **`find [query]`** - Find a task by searching for a keyword. <br> Example: `find project`
+
+### Exiting the Application
+
+- **`bye`** - Exit the application.
+
+### Displaying Help
+
+- **`help`** - Display this help message.
+
+## Tips and Guidelines
+
+- **Task Descriptions**: When adding tasks, provide clear and concise descriptions to easily identify them later.
+
+- **Deadlines and Dates**: Use specific deadlines and dates when adding tasks with deadlines or events.
+
+- **Task Numbers**: Pay attention to task numbers when performing actions like marking, unmarking, or deleting tasks.
+
+## Troubleshooting
+
+Encountering issues or have questions? Here are some troubleshooting tips:
+
+- **Check the Documentation**: Consult the user guide or documentation for assistance.
+
+- **Contact Support**: If you're unable to resolve the issue, reach out to our support team for further assistance.
+
+## About Chitty
+
+Chitty is powered by advanced artificial intelligence algorithms designed to enhance productivity and streamline task management. Our mission is to provide users with a seamless and intuitive experience for organizing their tasks effectively.
