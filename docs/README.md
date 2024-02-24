@@ -6,7 +6,7 @@ Hello! This is RizBot, a todo-list manager that is based off the mannerisms of m
 
 
 **This a sample use case of the RizBot**\
-![Screenshot of the GUI of RizBot](UI.png)
+![Screenshot of the GUI of RizBot](Ui.png)
 
 ## **How to run the JAR file after downloading it**
 1. Open the command prompt/terminal on your computer and navigate to the directory containing the JAR file.\
