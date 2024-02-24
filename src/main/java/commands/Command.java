@@ -13,7 +13,7 @@ public abstract class Command {
      *
      * @param tasks          the taskList
      * @param storageManager to load and save tasks
-     * @return Task handled by the command
+     * @return String print output.
      * @throws CalException if there was an error when executing the command.
      */
     public abstract String execute(TaskList tasks, StorageManager storageManager) throws CalException;

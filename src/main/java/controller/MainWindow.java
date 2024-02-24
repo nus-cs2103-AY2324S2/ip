@@ -12,7 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 /**
- * The main view for the application.
+ * represents the main view for the application consisting of chat window,
+ * text field and send button.
  */
 public class MainWindow {
     @FXML

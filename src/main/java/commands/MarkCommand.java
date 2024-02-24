@@ -26,20 +26,17 @@ public class MarkCommand extends Command {
      *
      * @param tasks          The task list containing the task.
      * @param storageManager The storage manager to save the changes.
-     * @return The task that has been marked as done.
+     * @return String print output.
      * @throws CalException if the task number is invalid or if an error occurs.
      */
     public String execute(TaskList tasks, StorageManager storageManager) throws CalException {
         Task t = tasks.mark(taskNum);
         storageManager.save(tasks);
-        
         StringBuilder output = new StringBuilder();
         output.append("Nice! I've marked this task as done:\n");
         output.append(t).append("\n");
-        
         return output.toString();
     }
-    
 
     /**
      * Indicates whether the MarkCommand is an exit command.
