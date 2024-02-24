@@ -49,18 +49,18 @@ public class Storage {
             command = args.get(1);
 
             switch (command.toLowerCase()) {
-                case "todo":
-                    c = Todo.parseTodoFromFile(args);
-                    break;
-                case "deadline":
-                    c = Deadline.parseDeadlineFromReader(args);
-                    break;
-                case "event":
-                    c = Event.parseEventFromReader(args);
-                    break;
-                default:
-                    System.out.println("unrecognizable command detected");
-                    throw new BadAppleException("The sun shined brighter when your files weren't corrupted");
+            case "todo":
+                c = Todo.parseTodoFromFile(args);
+                break;
+            case "deadline":
+                c = Deadline.parseDeadlineFromReader(args);
+                break;
+            case "event":
+                c = Event.parseEventFromReader(args);
+                break;
+            default:
+                System.out.println("unrecognizable command detected");
+                throw new BadAppleException("The sun shined brighter when your files weren't corrupted");
             }
 
             c.execute();

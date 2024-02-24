@@ -102,6 +102,9 @@ public class TaskList {
     public static String removeTask(int i) {
         assert (!tasks.isEmpty());
         int before = tasks.size();
+        if (before <= i || i < 0) {
+            return "hey, you don't have such a task!";
+        }
         String reply = "Kel has nuked " + TaskList.tasks.remove(i).brief() + "\n"
                 + "You now have " + TaskList.tasks.size() + " tasks in your list";
         int after = tasks.size();
