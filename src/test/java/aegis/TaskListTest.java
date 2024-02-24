@@ -5,7 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * TaskListTest contains methods to test markTask() in TaskList class.
+ */
 public class TaskListTest {
+    /**
+     * Tests markTest() with valid input.
+     */
     @Test
     public void markTaskValidIndexTest() {
         TaskList taskList = new TaskList();
@@ -23,6 +29,9 @@ public class TaskListTest {
         assertEquals(taskList.getTask(2).getStatusInt(), 1);
     }
 
+    /**
+     * Tests markTest() with invalid input.
+     */
     @Test
     public void markTaskInvalidIndexTest() {
         TaskList taskList = new TaskList();
