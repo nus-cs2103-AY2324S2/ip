@@ -47,14 +47,7 @@ public class Ui {
         return result;
     }
 
-    /**
-     * Gets the next user input.
-     *
-     * @return The string input.
-     */
-    public String scan() {
-        return this.scanner.nextLine();
-    }
+
 
     /**
      * Prints the opening message of the Signal chatbot.
@@ -90,44 +83,7 @@ public class Ui {
         return reply;
     }
 
-    /**
-     * Checks with the user if the input is a typo of a command.
-     *
-     * @param input Input collected from the user.
-     * @param command Command to check.
-     * @return True if input is a typo of the command.
-     */
-    public boolean checkCommandTypo(String input, String command) {
-        if(!input.equals(command)) {
-            signalSays("Did you mean '"+ command + "'? (y/n)");
-            String isCommandCheck = scanner.nextLine();
-            if(isCommandCheck.equals("y")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
-    }
 
-    /**
-     * Check if the input is a permutation of the original.
-     *
-     * @param input Input collected from the user.
-     * @param original String to compare the input to.
-     * @return True if input is a permutation of original.
-     */
-    public boolean isPermutationMatch(String input, String original) {
-        // Check if user input is a permutation match
-        char[] userInputArray = input.toCharArray();
-        char[] originalArray = original.toCharArray();
-
-        // Sort the arrays to compare
-        java.util.Arrays.sort(userInputArray);
-        java.util.Arrays.sort(originalArray);
-
-        return java.util.Arrays.equals(userInputArray, originalArray);
-    }
 
 
     /**
