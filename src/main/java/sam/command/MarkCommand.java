@@ -11,7 +11,15 @@ import sam.Ui;
  */
 public class MarkCommand extends Command {
     private final int index;
-
+    /**
+     * Constructs a MarkCommand with the specified task index.
+     *
+     * Initializes a MarkCommand with the provided task index. If the index is blank,
+     * throws a SamException with a message indicating the need to provide a task index.
+     *
+     * @param index the index of the task to mark as done
+     * @throws SamException if the provided index is blank
+     */
     public MarkCommand(String index) throws SamException {
         if (index.isBlank()) {
             throw new SamException("Please provide a task number.");
