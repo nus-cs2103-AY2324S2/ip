@@ -2,7 +2,7 @@
 
 Unknown allows you to track your task to keep you on track.
 
-![Screenshot](Ui.PNG)
+![Ui.png](Ui.PNG)
 
 ## Quick Start
 
