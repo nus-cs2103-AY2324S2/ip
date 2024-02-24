@@ -35,7 +35,7 @@ public class Storage {
 
     public void loadTasks(TaskList list) throws FloofyException{
         try {
-            File file = new File("./data/duke.txt");
+            File file = new File("./data/floofy.txt");
             // create parent directory if it doesn't exist.
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
                 if (!file.getParentFile().mkdirs()) {
