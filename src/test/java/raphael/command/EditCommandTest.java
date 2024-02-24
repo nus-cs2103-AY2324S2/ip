@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import raphael.Raphael;
+
 import raphael.RaphaelTest;
 
 public class EditCommandTest {
@@ -15,7 +15,7 @@ public class EditCommandTest {
             tasks.addTask(new raphael.task.Task("stub", true));
             new EditCommand(0, true).execute(tasks,
                     new raphael.ui.Ui(),
-                    new raphael.storage.Storage(RaphaelTest.filePath));
+                    new raphael.storage.Storage(RaphaelTest.FILE_PATH));
         } catch (raphael.exception.RaphaelException e) {
             fail();
         }
@@ -25,7 +25,7 @@ public class EditCommandTest {
         try {
             new EditCommand(0, true).execute(
                     new raphael.task.TaskList(), new raphael.ui.Ui(),
-                    new raphael.storage.Storage(RaphaelTest.filePath));
+                    new raphael.storage.Storage(RaphaelTest.FILE_PATH));
             fail();
         } catch (raphael.exception.RaphaelException e) {
             assertEquals("Invalid task index!", e.getMessage());

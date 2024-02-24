@@ -1,10 +1,7 @@
 # Raphael User Guide
 
-// Update the title above to match the actual product name
-
 // Product screenshot goes here
 
-// Product intro goes here
 Rapahel is a **desktop bot for managing tasks, optimized for a use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Raphael can get your task management tasks done faster.
 
 ## Adding deadlines: `deadline`
@@ -58,7 +55,11 @@ expected output
 ```
 
 ## Marking tasks: `mark`
-
+Marks a task in the task list as done.
+Format: `mark INDEX`
+Examples:
+* `mark 1`
+* `mark 2`
 // Describe the action and its outcome.
 
 // Give examples of usage
@@ -72,12 +73,11 @@ expected output
 ```
 
 ## Unmarking tasks: `unmark`
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Unmarks a task in the task list as undone.
+Format: `unmark INDEX`
+Examples:
+* `unmark 1`
+* `unmark 2`
 
 // A description of the expected outcome goes here
 
@@ -86,12 +86,10 @@ expected output
 ```
 
 ## Showing all tasks: `list`
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Lists all the tasks in the task list.
+Format: `list`
+Examples:
+* `list`
 
 // A description of the expected outcome goes here
 
@@ -100,12 +98,11 @@ expected output
 ```
 
 ## Finding matching tasks: `find`
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Finds the matching tasks from the task list that contains the given substring.
+Format: `find KEYWORD`
+Examples:
+* `find Sleep`
+* `find read`
 
 // A description of the expected outcome goes here
 
@@ -114,24 +111,13 @@ expected output
 ```
 
 ## Bid farewell: `bye`
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Bids farewell to the user.
+Format: `bye`
+Examples:
+* `bye`
 
 // A description of the expected outcome goes here
 
 ```
 expected output
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details

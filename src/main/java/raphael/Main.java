@@ -13,11 +13,12 @@ import raphael.gui.MainWindow;
  */
 public class Main extends Application {
 
-    private final Raphael raphael = new Raphael(Raphael.mode.NORMAL);
+    private final Raphael raphael = new Raphael(Raphael.Mode.NORMAL);
 
     @Override
     public void start(Stage stage) {
         try {
+            stage.setResizable(false);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

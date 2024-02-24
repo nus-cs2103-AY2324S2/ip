@@ -6,6 +6,9 @@ import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
 
+/**
+ * Shows the logo of Raphael
+ */
 public class HelloCommand extends Command {
 
     /**

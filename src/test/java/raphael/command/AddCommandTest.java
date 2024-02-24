@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import raphael.Raphael;
+
 import raphael.RaphaelTest;
 import raphael.storage.Storage;
 import raphael.task.Task;
@@ -18,7 +18,7 @@ public class AddCommandTest {
             Task toAdd = new Task("stub", true);
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
-            Storage storage = new Storage(RaphaelTest.filePath);
+            Storage storage = new Storage(RaphaelTest.FILE_PATH);
             new AddCommand(toAdd).execute(tasks, ui, storage);
             String expectedOutput = String.format("Roger that! I have added the following task into your list:\n"
                     + "\t%s\n%s", toAdd, tasks.getSize());
@@ -33,7 +33,7 @@ public class AddCommandTest {
             Task toAdd = new Task("stub", true);
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
-            Storage storage = new Storage(RaphaelTest.filePath);
+            Storage storage = new Storage(RaphaelTest.FILE_PATH);
             new AddCommand(toAdd).execute(tasks, ui, storage);
             String expectedOutput = String.format("Roger that! I have added the following task into your list:\n"
                     + "\t%s\n%s", toAdd, tasks.getSize());

@@ -14,7 +14,7 @@ public class FindCommandTest {
     @Test
     public void findCommandTest_emptyList() {
         try {
-            new FindCommand("stub").execute(new TaskList(), new Ui(), new Storage(RaphaelTest.filePath));
+            new FindCommand("stub").execute(new TaskList(), new Ui(), new Storage(RaphaelTest.FILE_PATH));
         } catch (RaphaelException e) {
             fail();
         }
