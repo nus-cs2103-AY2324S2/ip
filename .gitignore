@@ -17,5 +17,7 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 #jar files
-duke.jar
-ip.jar
+*.jar
+
+# Ignore compiled Java class files
+*.class

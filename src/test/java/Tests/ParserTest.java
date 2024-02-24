@@ -2,13 +2,14 @@ package Tests;
 
 import org.junit.jupiter.api.Test;
 
+import command.ToDoCommand;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import emisExceptions.EmisException;
 import emis.Parser;
-import emisCommand.ToDoCommand;
+import exceptions.EmisException;
 
 /**
  * The ParserTest class contains JUnit tests for the Parser class.

@@ -1,8 +1,8 @@
-package emisCommand;
+package command;
 
 import emis.TaskList;
+import task.Deadline;
 import emis.Storage;
-import emisTask.Deadline;
 
 /**
  * The DeadlineCommand class represents a command to add a deadline task in the EMIS application.

@@ -1,8 +1,8 @@
-package emisCommand;
+package command;
 
 import emis.TaskList;
+import task.ToDo;
 import emis.Storage;
-import emisTask.ToDo;
 
 /**
  * The ToDoCommand class represents a command to add a to-do task in the EMIS application.

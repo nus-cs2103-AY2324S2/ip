@@ -1,4 +1,4 @@
-package emisExceptions;
+package exceptions;
 
 /**
  * The EmisException class represents an exception specific to the EMIS application.

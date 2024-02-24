@@ -1,8 +1,8 @@
-package emisCommand;
+package command;
 
 import emis.TaskList;
+import task.Event;
 import emis.Storage;
-import emisTask.Event;
 
 /**
  * The EventCommand class represents a command to add an event task in the EMIS application.

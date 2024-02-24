@@ -1,16 +1,16 @@
 package emis;
 
-import emisExceptions.EmisException;
-import emisCommand.Command;
-import emisCommand.ExitCommand;
-import emisCommand.PrintCommand;
-import emisCommand.ToDoCommand;
-import emisCommand.DeadlineCommand;
-import emisCommand.EventCommand;
-import emisCommand.MarkCommand;
-import emisCommand.UnmarkCommand;
-import emisCommand.DeleteCommand;
-import emisCommand.FindCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.MarkCommand;
+import command.PrintCommand;
+import command.ToDoCommand;
+import command.UnmarkCommand;
+import exceptions.EmisException;
 
 /**
  * The Parser class deals with making sense of user commands in the EMIS application.
@@ -29,8 +29,6 @@ public class Parser {
         Integer spaceIndex = fullCommand.indexOf(" ");
 
         if (spaceIndex == -1) {
-            // no spaces found
-            // commands are either "bye", "list", or invalid command
             if (fullCommand.equals("bye")) {
                 return new ExitCommand();
             } else if (fullCommand.equals("list")) {
@@ -39,9 +37,6 @@ public class Parser {
                 throw new EmisException("Meow? Emis doesn't understand.");
             }
         } else {
-            // spaces found
-            // possible commands are "todo", "deadline", "event", "mark", "unmark", "delete", "find"
-            // otherwise invalid
             String action = fullCommand.substring(0, spaceIndex);
             if (action.equals("todo")) {
                 String description = fullCommand.substring(spaceIndex + 1);
@@ -80,7 +75,6 @@ public class Parser {
                 return new FindCommand(taskToFind);
 
             } else {
-                // invalid command
                 throw new EmisException("Invalid command!");
             }
         }
