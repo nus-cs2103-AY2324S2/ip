@@ -1,6 +1,7 @@
 package GUI;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import balkanBot.BalkanBot;
 import javafx.application.Application;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private BalkanBot balkanBot = new BalkanBot();
+    private static boolean isExit = false;
 
     @Override
     public void start(Stage stage) {

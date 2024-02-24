@@ -1,6 +1,7 @@
 package GUI;
 
 import balkanBot.BalkanBot;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -23,12 +28,20 @@ public class MainWindow extends AnchorPane {
 
     private BalkanBot balkanBot;
 
+    private GUIUi guiUi;
+
+    private boolean isExit = false;
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User Jordan.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Duke Zizek.jpeg"));
 
     @FXML
     public void initialize() {
+        guiUi = new GUIUi();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(guiUi.printWelcome(), dukeImage)
+        );
     }
 
     public void setBalkanBot(BalkanBot b) {
@@ -43,10 +56,16 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = balkanBot.getResponse(input);
+        if (input.equals("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished( event -> javafx.application.Platform.exit() );
+            delay.play();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }
+
 }

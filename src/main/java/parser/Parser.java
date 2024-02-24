@@ -7,6 +7,8 @@
 
 package parser;
 
+import GUI.GUIUi;
+import storage.Storage;
 import task.TaskList;
 import task.Task;
 import task.ToDo;
@@ -20,23 +22,24 @@ import java.util.Arrays;
 
 public class Parser {
     protected static int current = 0;
+    protected static String output = "";
 
     /**
      * Parses the command inputted by the user.
      *
      * @param input Input of the user
      * @param taskList TaskList that contains all the current tasks
-     * @param ui UI that generates text responses for the user
+     * @param guiUi UI that generates text responses for the user
      * @return A boolean that indicates whether to terminate the program
      *         true: continue running program
      *         false: terminate the program and store the task list into the text file
      */
-    public static boolean parse(String input, TaskList taskList, Ui ui) {
+    public static String parse(String input, TaskList taskList, GUIUi guiUi, Storage storage) {
         Task[] tasks = taskList.getTaskList();
 
         if (input.equals("bye")) {
-            ui.printByeMessage();
-            return true;
+            storage.save(taskList);
+            output = guiUi.printByeMessage();
         } else if (input.equals("list")) {
             StringBuilder listOutput = new StringBuilder();
             for (int i = 0; i < tasks.length; i++) {
@@ -46,7 +49,7 @@ public class Parser {
                     listOutput.append(i + 1).append(". ").append(tasks[i].toString()).append("\n");
                 }
             }
-            ui.printTaskList(listOutput.toString());
+            output = guiUi.printTaskList(listOutput.toString());
         } else {
             String[] brokenCommand = input.split("\\s+");
             String advancedCommand = brokenCommand[0];
@@ -54,38 +57,38 @@ public class Parser {
             switch (advancedCommand) {
                 case "find": {
                     if (brokenCommand.length != 2) {
-                        ui.printFindEmptyError();
+                        output = guiUi.printFindEmptyError();
                     } else {
                         String match = brokenCommand[1];
                         Task[] findOutput = taskList.find(match);
-                        ui.printFindOutput(findOutput);
+                        output = guiUi.printFindOutput(findOutput);
                     }
                     break;
                 }
                 case "mark": {
                     if (brokenCommand.length < 2) {
-                        ui.printMarkEmptyNumberError();
+                        output = guiUi.printMarkEmptyNumberError();
                     } else {
                         try {
                             int index = Integer.parseInt(brokenCommand[1]) - 1;
                             tasks[index].mark();
-                            ui.printTaskMarked(tasks[index].toString());
+                            output = guiUi.printTaskMarked(tasks[index].toString());
                         } catch (NumberFormatException e) {
-                            ui.printMarkNANError();
+                            output = guiUi.printMarkNANError();
                         }
                     }
                     break;
                 }
                 case "unmark": {
                     if (brokenCommand.length < 2) {
-                        ui.printUnmarkEmptyNumberError();
+                        output = guiUi.printUnmarkEmptyNumberError();
                     } else {
                         try {
                             int index = Integer.parseInt(brokenCommand[1]) - 1;
                             tasks[index].unmark();
-                            ui.printTaskUnmarked(tasks[index].toString());
+                            output = guiUi.printTaskUnmarked(tasks[index].toString());
                         } catch (NumberFormatException e) {
-                            ui.printUnmarkNANError();
+                            output = guiUi.printUnmarkNANError();
                         }
                     }
                     break;
@@ -95,10 +98,10 @@ public class Parser {
                     try {
                         tasks[current] = new ToDo(taskDescription);
                         current++;
-                        ui.printComplexTask(tasks, current);
+                        output = guiUi.printComplexTask(tasks, current);
                         break;
                     } catch (InvalidInputException e) {
-                        System.out.println(e);
+                        output = e.toString();
                         break;
                     }
                 }
@@ -118,10 +121,10 @@ public class Parser {
                     try {
                         tasks[current] = new Deadline(taskDescription.toString(), deadline.toString());
                         current++;
-                        ui.printComplexTask(tasks, current);
+                        output = guiUi.printComplexTask(tasks, current);
                         break;
                     } catch (InvalidInputException | InvalidDateException e) {
-                        System.out.println(e);
+                        output = e.toString();
                         break;
                     }
                 }
@@ -149,16 +152,16 @@ public class Parser {
                     try {
                         tasks[current] = new Event(taskDescription.toString(), from.toString(), to.toString());
                         current++;
-                        ui.printComplexTask(tasks, current);
+                        output = guiUi.printComplexTask(tasks, current);
                         break;
                     } catch (InvalidInputException | InvalidDateException e) {
-                        System.out.println(e);
+                        output = e.toString();
                         break;
                     }
                 }
                 case "delete": {
                     if (brokenCommand.length < 2) {
-                        System.out.println("OOPS!!! The number for the delete command cannot be empty.");
+                        output = "OOPS!!! The number for the delete command cannot be empty.";
                     } else {
                         try {
                             Task deletedTask = null;
@@ -179,23 +182,23 @@ public class Parser {
                             }
                             current--;
                             assert deletedTask != null;
-                            ui.printDeletion(deletedTask, current);
+                            output = guiUi.printDeletion(deletedTask, current);
                         } catch (NumberFormatException e) {
-                            System.out.println("OOPS!!! The input after the delete command has to be an integer.");
+                            output = "OOPS!!! The input after the delete command has to be an integer.";
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("OOPS!!! The input for delete is out of bounds.");
+                            output = "OOPS!!! The input for delete is out of bounds.";
                         }
                     }
                     break;
                 }
                 default: {
-                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    output = "OOPS!!! I'm sorry, but I don't know what that means :-(";
                     break;
                 }
             }
         }
         taskList.updateTaskList(new TaskList(tasks));
-        return false;
+        return output;
     }
 
     /**
