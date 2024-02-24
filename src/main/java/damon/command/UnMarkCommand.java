@@ -11,8 +11,9 @@ public class UnMarkCommand extends Command {
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int index = Integer.parseInt(this.command.split(" ")[1]) - 1;
+
         tasks.unMarkTask(index);
-        ui.showUnMarkTask(tasks, index);
+        ui.showUnMarkCommand(tasks, index);
         storage.writeFile(tasks);
     }
 }

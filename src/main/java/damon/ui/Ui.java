@@ -1,5 +1,6 @@
 package damon.ui;
 
+
 import damon.task.Task;
 import damon.tasklist.TaskList;
 import damon.exceptions.StorageFileLoadingException;
@@ -31,46 +32,46 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public void showAddTask(Task newTask, TaskList tasks) {
+    public void showAddCommand(Task newTask, TaskList tasks) {
         System.out.println("Got it. I've added this task:\n"
                 + newTask + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.");
+                + "Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
-    public void showDeleteTask(int index, TaskList tasks) {
+    public void showDeleteCommand(int index, TaskList tasks) {
         System.out.println("Noted. I've removed this task:\n"
-                + tasks.get(index).toString() + "\n"
-                + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
+                + tasks.getTask(index).toString() + "\n"
+                + "Now you have " + (tasks.getSize() - 1) + " tasks in the list.");
     }
 
-    public void showExit() {
+    public void showExitCommand() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void showMarkTask(TaskList tasks, int index) {
+    public void showMarkCommand(TaskList tasks, int index) {
         System.out.println("Nice! I've marked this task as done:\n"
-                + tasks.get(index).toString());
+                + tasks.getTask(index).toString());
     }
 
-    public void showUnMarkTask(TaskList tasks, int index) {
+    public void showUnMarkCommand(TaskList tasks, int index) {
         System.out.println("OK, I've marked this task as not done yet:\n"
-                + tasks.get(index).toString());
+                + tasks.getTask(index).toString());
     }
 
-    public void showTaskList(TaskList tasks) {
-        int n = tasks.size();
+    public void showShowTaskListCommand(TaskList tasks) {
+        int n = tasks.getSize();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < n; i++) {
-            Task currentTask = tasks.get(i);
+            Task currentTask = tasks.getTask(i);
             System.out.println((i + 1) + "." + currentTask.toString());
         }
     }
 
-    public void showError(String inputString) {
+    public void showEchoCommand(String inputString) {
         System.out.println(inputString);
     }
 
-    public void showEcho(String inputString) {
+    public void showError(String inputString) {
         System.out.println(inputString);
     }
 

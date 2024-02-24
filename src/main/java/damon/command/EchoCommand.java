@@ -10,6 +10,6 @@ public class EchoCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showEcho(this.command);
+        ui.showEchoCommand(this.command);
     }
 }
