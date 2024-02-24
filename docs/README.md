@@ -1,9 +1,9 @@
 # Tim User Guide
 
-![UI.png](UI.png)
+![Ui.png](Ui.png)
 
 Tim is application that can be used to keep track of tasks, optimized for use via a Command Line Interface (CLI) 
-while still having the benefits of a Graphical User Interface (GUI)
+while still having the benefits of a Graphical User Interface (GUI).
 
 ## Features
 - Add Todo task `todo`
