@@ -1,6 +1,6 @@
 # Lia User Guide
 
-![Lia](/docs/Ui.png)
+![Lia](Ui.png)
 
 Lia helps you keep track of everything that you need to do. It's,
 
