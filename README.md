@@ -16,6 +16,7 @@ Welcome! This is the user guide for my GUI chatbot named Thames. This chatbot ca
 > - All parameters are mandatory. Commands with parameters that are in the wrong format (e.g. wrong order, empty parameters, additional parameters) will cause an error.
 > - Extraneous parameters for commands that do not take in parameters (such as list and exit) will be ignored.
 e.g. if the command specifies list 123, it will be interpreted as list.
+> - Date formats must be in yyyy-mm-dd e.g. `24th March 2024` should be formatted as `"2024-03-24"`.
 
 ### Adding todo task: `Todo`
 Adds a task with no time restriction to your list. 
