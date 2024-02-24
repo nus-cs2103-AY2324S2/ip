@@ -8,6 +8,8 @@ public class Command {
         UNMARK,
         MARK,
         DELETE,
+        SAVE,
+        LOAD,
         EXIT,
         INVALID
     }

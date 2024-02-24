@@ -8,6 +8,10 @@ public class TaskList {
         list = new ArrayList<>();
     }
 
+    public void add(list_Entry listEntry) {
+        list.add(listEntry);
+    }
+
     public void add(String taskName) {
         list.add(new list_Entry_Todo(taskName, false));
     }
@@ -46,6 +50,10 @@ public class TaskList {
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    public void clear() {
+        this.list.clear();
     }
 
 }

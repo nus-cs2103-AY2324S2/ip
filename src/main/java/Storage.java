@@ -63,6 +63,12 @@ public class Storage {
         appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
     }
 
+    public void appendList(TaskList tl) {
+        for (int i = 0; i < tl.size(); i++) {
+            this.appendEntry(tl.get(i));
+        }
+    }
+
     public void clearFile() {
         try {
             FileWriter myWriter = new FileWriter(listFile);
@@ -77,7 +83,7 @@ public class Storage {
 
 
 
-    public void loadList(ArrayList<list_Entry> loadList) {
+    public void loadList(TaskList loadList) {
 //        ArrayList<list_Entry> loadList = new ArrayList<>();
 
         try {

@@ -89,7 +89,7 @@ public class Luna {
                 }
             } else if (input_command.equalsIgnoreCase("load")) {
                 user_list.clear();
-                storage.loadList(user_list);
+                storage.loadList(tasks);
             } else
                 // IF EXIT
                 if (input_command.equalsIgnoreCase("bye") || input_command.equalsIgnoreCase("exit")) {

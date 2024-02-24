@@ -67,7 +67,7 @@ public class Parser {
                 return new InvalidCommand("too many arguments for [unmark]");
             } else if (!isInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
-            }else {
+            } else {
                 return new UnmarkCommand(Integer.parseInt(strings[1])-1);
             }
         } else if (strings[0].equalsIgnoreCase("delete")) {
@@ -77,8 +77,20 @@ public class Parser {
                 return new InvalidCommand("too many arguments for [delete]");
             } else if (!isInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
-            }else {
+            } else {
                 return new DeleteCommand(Integer.parseInt(strings[1])-1);
+            }
+        } else if (strings[0].equalsIgnoreCase("save")) {
+            if (strings.length != 1) {
+                return new InvalidCommand("too many arguments for [save]");
+            } else {
+                return new SaveCommand();
+            }
+        } else if (strings[0].equalsIgnoreCase("load")) {
+            if (strings.length != 1) {
+                return new InvalidCommand("too many arguments for [load]");
+            } else {
+                return new LoadCommand();
             }
         } else if (strings[0].equalsIgnoreCase("exit")) {
             return new ExitCommand();

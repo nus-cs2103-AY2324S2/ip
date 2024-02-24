@@ -1,11 +1,11 @@
 public class UnmarkCommand extends Command{
     int index;
     private UnmarkCommand() {
-        super(Command.CommandType.MARK);
+        super(CommandType.UNMARK);
     }
 
     public UnmarkCommand(int index) {
-        super(Command.CommandType.MARK);
+        super(Command.CommandType.UNMARK);
         this.index = index;
     }
 
