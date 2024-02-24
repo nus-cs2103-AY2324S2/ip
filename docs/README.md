@@ -110,10 +110,10 @@ Here are the commands you can use:
 4. list - Lists all the tasks in the list.
 5. mark <index> - Marks the task at the specified index as done.
 6. unmark <index> - Marks the task at the specified index as undone.
-8. delete <index> - Deletes the task at the specified index.
-9. find <keyword> - Finds tasks that match the keyword.
-10. help - Shows the list of commands.
-11. bye - Exits the program.
+7. delete <index> - Deletes the task at the specified index.
+8. find <keyword> - Finds tasks that match the keyword.
+9. help - Shows the list of commands.
+10. bye - Exits the program.
 ```
 
 ## Exiting the program: `bye`
