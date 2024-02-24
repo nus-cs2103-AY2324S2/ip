@@ -1,5 +1,6 @@
 package Gops;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Application;
@@ -14,8 +15,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-
 public class Gops extends Application {
     private Ui ui;
     private TaskList taskList;
@@ -127,12 +126,17 @@ public class Gops extends Application {
 
     private void userInput() {
         Label userText = new Label(input.getText());
-        Label dukeText = new Label(getResponse(input.getText()));
-        chatBox.getChildren().addAll(
-                ChatBox.getUserDialog(userText, new ImageView(user)),
-                ChatBox.getDukeDialog(dukeText, new ImageView(gops))
-        );
-        input.clear();
+        if (input.getText().equals("bye")) {
+            Platform.exit();
+        } else {
+            Label dukeText = new Label(getResponse(input.getText()));
+            chatBox.getChildren().addAll(
+                    ChatBox.getUserDialog(userText, new ImageView(user)),
+                    ChatBox.getDukeDialog(dukeText, new ImageView(gops))
+            );
+            input.clear();
+        }
+
     }
     private String getResponse(String input) {
         assert input != null : "getResponse cannot respond without an input";

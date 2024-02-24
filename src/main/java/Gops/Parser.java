@@ -112,8 +112,21 @@ public class Parser {
             return taskList.findInList(splitter[1]).listPrinter();
         } else if (userReply.equals("bye")) {
             return "Bye. Hope to see you again soon!";
-        } else {
-            return "Please choose from the available prompts\n[todo/deadline/event/mark/unmark/list/bye]";
+        } else if (userReply.equals("help")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Please use one of these commands\n");
+            sb.append("- todo [TASK]\n");
+            sb.append("- deadline [TASK] /by [YYYY-MM-DD]\n");
+            sb.append("- event [TASK] /from [TASK-START-DATE] /to [TASK-END-DATE]\n");
+            sb.append("- list\n");
+            sb.append("- mark [TASK-NUMBER]\n");
+            sb.append("- unmark [TASK-NUMBER]\n");
+            sb.append("- delete [TASK-NUMBER]\n");
+            sb.append("- clear");
+            return sb.toString();
+        }
+        else {
+            return "type 'help' to view options";
         }
     }
 }
