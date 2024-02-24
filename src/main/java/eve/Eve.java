@@ -3,7 +3,6 @@ package eve;
 import eve.parser.Commands;
 import eve.parser.Parser;
 import eve.fileStorage.Storage;
-import eve.TaskList;
 import eve.tasks.Task;
 import java.util.ArrayList;
 
@@ -12,7 +11,6 @@ public class Eve{
     private Storage storage;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private Parser parser;
-    private Ui ui;
 
     public Eve(){
         this.storage = new Storage();
@@ -26,8 +24,8 @@ public class Eve{
         this.parser = new Parser(this);
     }
 
-    public void sayHello() {
-        Commands.commandHello();
+    public String sayHello() {
+        return Commands.commandHello();
     }
  
 
@@ -44,6 +42,7 @@ public class Eve{
     }
 
     public ArrayList<Task> getTaskList() {
+        assert tasks != null : "Task list is empty";
         return tasks;
     }
 }

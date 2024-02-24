@@ -1,11 +1,4 @@
 package eve.parser;
-import java.io.IOException;
-import java.util.*;
-
-import eve.TaskList;
-import eve.exceptions.EveExceptions;
-import eve.fileStorage.Storage;
-import eve.tasks.Task;
 // Might want to change this name to the UI class
 
 /**
@@ -18,9 +11,13 @@ public class Commands {
     /**
      * This method is used to print out the welcome message
      */
-    public static void commandHello() {
-        System.out.println(" Hello! I'm Eve");
-        System.out.println(" What can I do for you?");
+    public static String commandHello() {
+
+        StringBuilder response = new StringBuilder("Hello. I'm Eve  \n");
+        
+        response.append(" What can I do for you?").append("\n");
+        
+        return response.toString().trim();
     }
 
     /**
@@ -36,24 +33,4 @@ public class Commands {
      * it also loads the locally saved tasks from the .txt file into the list (if any)
      */
 
-    public static void commandListener() {
-        Scanner sc = new Scanner(System.in);
-
-        String input = "";
-        ArrayList<Task> list = new ArrayList<>();
-        // Storage storeFile = new Storage();
-
-       
-        // refactor into cases
-        while (!input.equals("bye")) {
-            input = sc.nextLine();
-
-            String[] tempyArr = input.split(" ", 2);
-            String commandCheck = tempyArr[0];
-           
-
-
-        sc.close();
-     }
-    }
 }
