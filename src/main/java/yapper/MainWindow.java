@@ -29,6 +29,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greet = Ui.helloMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(greet, dukeImage)
+        );
     }
 
     public void setYapper(Yapper y) {

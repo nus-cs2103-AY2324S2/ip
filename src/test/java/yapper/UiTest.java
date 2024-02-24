@@ -47,9 +47,8 @@ public class UiTest {
     @Test
     public void byeTest() throws YapperException {
         Ui ui = new Ui(new TaskList());
-        ui.bye();
+        ui.byeMessage();
         String expected = "    Peace out, fam! Stay lit and keep those good vibes rollin'!\n";
         assertEquals(expected, outputStreamCaptor.toString());
-        assertTrue(ui.hasEnded());
     }
 }

@@ -37,15 +37,15 @@ public class Ui {
      */
     public static String helloMessage() {
         String logo =
-                "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
-                + "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
-                + "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n"
-                + "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n"
-                + "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n"
-                + "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n"
-                + "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
-        return LINE + "    What's poppin' fam, it's ya boi\n\n" + logo
-                + "    Hit me up with those deets and let's vibe together!\n" + LINE;
+                "   :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
+                + "  :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
+                + "  +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n"
+                + "  +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n"
+                + "  +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n"
+                + " #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n"
+                + "###          ###     ###    ###             ###             ##########       ###    ###\n\n";
+        return "    What's poppin' fam, it's ya boi\n\n" + logo
+                + "    Hit me up with those deets and let's vibe together!\n";
     }
 
     /**
@@ -62,8 +62,8 @@ public class Ui {
                 + "list - lists all tasks\n" + INDENT
                 + "todo - add a task to be done (todo <description>)\n" + INDENT
                 + "deadline - add a task that has a deadline (deadline <description> /by <yyyy-mm-dd>)\n" + INDENT
-                + "event - add an event with a start and end date\n"
-                + "(event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>)\n" + INDENT
+                + "event - add an event with a start and end date\n" + INDENT
+                + "        (event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>)\n" + INDENT
                 + "mark - mark your task/event as done (mark <index number>)\n" + INDENT
                 + "unmark - mark your task/event as not done (unmark <index number>)\n" + INDENT
                 + "delete - delete your task/event from your list (delete <index number>)\n" + INDENT
