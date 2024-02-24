@@ -1,6 +1,9 @@
 package james.tasklist;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.time.LocalDateTime;
 
 import james.exception.DukeException;
 import james.tasks.Task;
@@ -77,5 +80,24 @@ public class TaskList {
      */
     public int getSize() {
         return this.size;
+    }
+
+    public void sortTasks() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                LocalDateTime time1 = task1.getDateTime();
+                LocalDateTime time2 = task2.getDateTime();
+                if (time1 == null && time2 == null) {
+                    return 0;
+                } else if (time1 == null) {
+                    return 1;
+                } else if (time2 == null) {
+                    return -1;
+                } else {
+                    return time1.compareTo(time2);
+                }
+            }
+        });
     }
 }

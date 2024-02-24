@@ -138,6 +138,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Gets the date and time of the deadline.
+     *
+     * @return Date and time of the deadline.
+     */
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.by;
+    }
+
+    /**
      * Converts the deadline task to a string.
      *
      * @return Deadline task in string format.

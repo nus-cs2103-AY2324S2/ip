@@ -1,2 +1,5 @@
+D | 0 | return home | 23-01-2024 2350
 D | 0 | hehe | 09-02-2024 1200
 D | 0 | return book | 22-02-2024 2350
+T | 0 | hihihih
+T | 0 | drink water
