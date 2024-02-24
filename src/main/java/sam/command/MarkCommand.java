@@ -5,6 +5,9 @@ import sam.TaskList;
 import sam.Ui;
 import sam.SamException;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 

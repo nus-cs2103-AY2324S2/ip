@@ -5,6 +5,9 @@ import sam.TaskList;
 import sam.Ui;
 import sam.SamException;
 
+/**
+ * Represents a command that is not recognised.
+ */
 public class UnknownCommand extends Command {
     public UnknownCommand() {}
 

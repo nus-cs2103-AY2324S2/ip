@@ -5,6 +5,9 @@ import sam.TaskList;
 import sam.Ui;
 import sam.SamException;
 
+/**
+ * Represents a command to unmark a task as done.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
