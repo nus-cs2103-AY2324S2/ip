@@ -1,6 +1,6 @@
 # BotBot User Guide
 
-![Screenshot](Ui.png)
+![Screenshot](/docs/Ui.png)
 
 A Bot to manage events
 
