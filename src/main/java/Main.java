@@ -6,9 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/**
- * A GUI for Duke using FXML.
- */
 public class Main extends Application {
 
     private Riz riz = new Riz();

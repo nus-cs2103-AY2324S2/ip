@@ -11,22 +11,6 @@ public class Ui {
     }
 
     /**
-     * Prints the greeting message.
-     */
-    public static void printGreetings() {
-        System.out.println("Hello... I'm Riz...\n"
-                + "What can I help you with today?\n");
-    }
-
-    /**
-     * Prints the goodbye message.
-     */
-    public static void printGoodbye() {
-        System.out.println("Bye... Hope to see you again...\n");
-    }
-
-
-    /**
      * Prints the message that the TaskList is now empty.
      */
     public static String printAllCleared() {

@@ -8,6 +8,11 @@ Hello! This is RizBot, a todo-list manager that is based off the mannerisms of m
 **This a sample use case of the RizBot**\
 ![Screenshot of the GUI of RizBot](UI.png)
 
+## **How to run the JAR file after downloading it**
+1. Open the command prompt/terminal on your computer and navigate to the directory containing the JAR file.\
+    For example: ``cd NUS Y2S2/CS2103T/ip/build/libs``
+2. Run the jar file by typing ``java -jar RizBot.jar``
+
 ## **Adding Tasks Guide**
 **Be sure to input the time in 24h format for Deadline and Event tasks!**
 ### Adding Todo Tasks
