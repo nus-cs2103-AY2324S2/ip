@@ -43,8 +43,8 @@ test {
 }
 
 application {
-    mainClassName = "aegis.Aegis"
-    mainClass.set("aegis.Aegis")
+    mainClassName = "aegis.Launcher"
+    mainClass.set("aegis.Launcher")
 }
 
 shadowJar {
