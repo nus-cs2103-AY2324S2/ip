@@ -6,7 +6,7 @@ package sam;
  * Extends the Exception class to represent custom exceptions that can occur within Sam.
  * Each instance of SamException contains a message detailing the specific error.
  */
-public class SamException extends Exception{
+public class SamException extends Exception {
     /**
      * Constructs a new SamException with the specified detail message.
      *

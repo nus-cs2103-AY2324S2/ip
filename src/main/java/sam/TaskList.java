@@ -1,7 +1,8 @@
 package sam;
 
-import sam.task.Task;
 import java.util.ArrayList;
+
+import sam.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -47,7 +48,7 @@ public class TaskList {
      * @param index the index of the task to mark as done
      * @throws SamException if the index is out of bounds
      */
-    public void markTask(int index) throws SamException{
+    public void markTask(int index) throws SamException {
         if (index < 0 || index >= items.size()) {
             throw new SamException("Please check how many tasks are there in your list.");
         }

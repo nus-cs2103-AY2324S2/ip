@@ -1,12 +1,12 @@
 package sam.command;
 
+import java.util.ArrayList;
+
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
 import sam.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks with a given keyword.

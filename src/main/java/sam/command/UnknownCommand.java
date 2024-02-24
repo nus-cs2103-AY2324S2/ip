@@ -1,9 +1,9 @@
 package sam.command;
 
+import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 import sam.Ui;
-import sam.SamException;
 
 /**
  * Represents a command that is not recognised.
