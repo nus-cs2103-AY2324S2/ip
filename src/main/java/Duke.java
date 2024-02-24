@@ -15,7 +15,7 @@ public class Duke {
         // String greeting = indent + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
         // System.out.println(newLine + greeting);
 
-        ChatBot Chatty = new ChatBot();
+        Ui Chatty = new Ui();
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
         String message;

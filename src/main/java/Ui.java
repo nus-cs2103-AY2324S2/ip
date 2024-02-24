@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class ChatBot {
+public class Ui {
     private static final String INDENT = "    ";
     private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
     private static final String GREETING = INDENT + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
@@ -29,7 +29,7 @@ public class ChatBot {
     int idx;
     Task task;
 
-    public ChatBot() throws FileNotFoundException, IOException {
+    public Ui() throws FileNotFoundException, IOException {
         System.out.println(NEW_LINE + GREETING);
         taskList = storage.load();
     }
