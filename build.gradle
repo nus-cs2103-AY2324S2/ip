@@ -48,13 +48,14 @@ test {
 }
 
 application {
-    mainClass.set("./App/HASSTNT.java")
+    mainClass.set("App.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'HASSNT.jar'
 }
 
 run{
