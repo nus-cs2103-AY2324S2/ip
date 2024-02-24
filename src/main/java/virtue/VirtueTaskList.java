@@ -47,7 +47,6 @@ public class VirtueTaskList {
         message += Virtue.indent(" Got it. I've added this task:\n");
         message += Virtue.indent("   " + todo + "\n");
         message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -67,7 +66,6 @@ public class VirtueTaskList {
         message += Virtue.indent(" Got it. I've added this task:\n");
         message += Virtue.indent("   " + deadline + "\n");
         message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -88,7 +86,6 @@ public class VirtueTaskList {
         message += Virtue.indent(" Got it. I've added this task:\n");
         message += Virtue.indent("   " + event + "\n");
         message += Virtue.indent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -104,7 +101,6 @@ public class VirtueTaskList {
         String message = "";
         message += Virtue.indent(" Nice! I've marked this task as done:\n");
         message += Virtue.indent("   " + task);
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -120,7 +116,6 @@ public class VirtueTaskList {
         String message = "";
         message += Virtue.indent(" OK, I've marked this task as not done yet:\n");
         message += Virtue.indent("   " + task);
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -142,7 +137,6 @@ public class VirtueTaskList {
             }
         }
 
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -159,7 +153,6 @@ public class VirtueTaskList {
         message += Virtue.indent(" Noted. I've removed this task:\n");
         message += Virtue.indent("   " + deletedTask + "\n");
         message += Virtue.indent(" Now you have " + numTasks + " tasks in the list.");
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -183,7 +176,6 @@ public class VirtueTaskList {
             }
         }
 
-        message = Virtue.sandwich(message);
         return message;
     }
 
@@ -220,6 +212,8 @@ public class VirtueTaskList {
         default: // case FIND:
             message = printTasksWithWord(command.description);
         }
+
+        assert message != null : "message should not be null";
 
         return message;
     }

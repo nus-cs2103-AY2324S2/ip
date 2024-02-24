@@ -23,6 +23,8 @@ public class Storage {
             directory.mkdir();
         }
 
+        assert directory.exists() : "directory should be created if it does not exist";
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -30,6 +32,8 @@ public class Storage {
                 System.out.println("OOPS! An error occurred while creating the file: " + e.getMessage());
             }
         }
+
+        assert file.exists() : "file should be created if it does not exist";
 
         try {
             Scanner sc = new Scanner(file);
