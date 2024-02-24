@@ -23,6 +23,7 @@ public class MitsukiException extends Exception {
      * @throws MitsukiException The exception that will be thrown if command is invalid.
      */
     public static void validate(String command, ArrayList<String> commands) throws MitsukiException {
+        assert commands != null : "commands should not be null";
         if (!commands.contains(command)) {
             throw new MitsukiException("Invalid Command Given");
         }

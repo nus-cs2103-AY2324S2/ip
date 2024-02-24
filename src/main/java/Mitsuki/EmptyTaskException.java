@@ -22,6 +22,7 @@ public class EmptyTaskException extends MitsukiException {
      * @throws EmptyTaskException the exception that will be thrown if no task description is given.
      */
     public static void validate(String description) throws EmptyTaskException {
+        assert description != null : "description should not be null";
         if (description.isBlank()) {
             throw new EmptyTaskException("Empty Task Given");
         }
@@ -34,6 +35,7 @@ public class EmptyTaskException extends MitsukiException {
      * @throws EmptyTaskException the exception that will be thrown if no task description is given.
      */
     public static void timedValidate(String[] tokens) throws EmptyTaskException {
+        assert tokens != null : "tokens should not be null";
         if (tokens[0].isBlank()) {
             throw new EmptyTaskException("Empty Task Given");
         }
