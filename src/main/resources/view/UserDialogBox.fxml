@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.Region?>
+
+<!-- Solution below adapted from https://github.com/getsquared/ip/blob/master/src/main/resources/view/UserDialogBox.fxml -->
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #F9D3B1; -fx-text-fill: #050300; -fx-font-size: 14.0;
+         -fx-label-padding: 15; -fx-border-radius: 20; -fx-background-radius: 10;" text="Label"  wrapText="true"/>
+
+        <Region>
+            <padding>
+                <Insets left="5.0"/>
+            </padding>
+
+        </Region>
+        <ImageView fx:id="displayPicture" fitHeight="59.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+            <clip>
+                <Circle radius="29.0" centerX="29.0" centerY="29.0" />
+            </clip>
+        </ImageView>
+
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+    </padding>
+</fx:root>
+

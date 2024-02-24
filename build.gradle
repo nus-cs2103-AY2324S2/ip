@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //@@author woojiahao-reused
+    //Reused from https://github.com/woojiahao/ip/blob/master/build.gradle
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
+    //@author woojiahao
+}
+
+application {
+    mainClass.set("yue.Launcher")
+    mainClassName = 'yue.Launcher'
+}
+
+shadowJar {
+    archiveBaseName = "yue"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'yue.Launcher'
+        )
+    }
+}
+
+run{
+    standardInput = System.in
+}
+
+javafx {
+    version = '17.0.7'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+
