@@ -1,6 +1,6 @@
 # Luke User Guide
 
-// Product screenshot goes here
+![Ui](./Ui.png)
 
 Luke is a simple task list manager. You (the person on the right) can interact with Luke (the person on the left) through commands to manage your tasks. If this is your first time using this app, sample data has already been loaded for you. Feel free to experiment with them and delete them if not in use. Your tasks are automatically saved to the save file, which will be automatically loaded upon starting Luke.
 
