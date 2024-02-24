@@ -18,7 +18,7 @@ list
 
 ## Usage
 
-### `Keyword` - Describe action
+### `deadline` - add a deadline task
 
 To add a deadline task
 
