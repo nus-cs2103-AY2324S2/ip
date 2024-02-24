@@ -24,22 +24,22 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Hammy hammy;
-    private String hello = """
-             | | | |        | | |
-             | |_| |/ _ \\ | | | / _ \\
-             |  _  |  __/ | | | |(_) |
-             |_| |_|\\___ |_|_|\\___/
-            """;
+//    private String hello = """
+//             | | | |        | | |
+//             | |_| |/ _ \\ | | | / _ \\
+//             |  _  |  __/ | | | |(_) |
+//             |_| |_|\\___ |_|_|\\___/
+//            """;
 
-    private String cat = """
-                 /\\_____/\\
-               /   >    <   \\
-              ( ==  3  == )
-               )                (
-              (                  )
-             ( (  )          (  ) )
-            (_(_ )_______( _)_)
-            """;
+//    private String cat = """
+//                 /\\_____/\\
+//               /   >    <   \\
+//              ( ==  3  == )
+//               )                (
+//              (                  )
+//             ( (  )          (  ) )
+//            (_(_ )_______( _)_)
+//            """;
     private String intro = "Hiii!! I am Hammy, your favourite chat bot <3";
     private String tip = "Enter \"help\" to check the list of available commands!"+
                 "\nEnter \"save\" to save your tasks!" +
@@ -49,7 +49,8 @@ public class MainWindow extends AnchorPane {
      * The initial string for the users
      * Acts as an in-app user guide
      */
-    private String initialString = hello + "\n" + intro + "\n" + cat + "\n" + tip;
+//    private String initialString = hello + "\n" + intro + "\n" + cat + "\n" + tip;
+    private String initialString = intro + "\n" + tip;
 
     /**
      * The profile image of the user
