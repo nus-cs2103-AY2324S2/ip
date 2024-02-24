@@ -23,24 +23,23 @@ public class Parser {
         if (userInput.isBlank()) {
             throw new FloofyException("Remember, your wish is my command! Try keying in a command! :)");
         }
-        String command = getFirstWord(userInput);
-        if (command.startsWith("mark")) {
+        if (isMarkCommand(userInput)) {
             return parseMarkCommand(userInput);
-        } else if (command.startsWith("unmark")) {
+        } else if (isUnmarkCommand(userInput)) {
             return parseUnmarkCommand(userInput);
-        } else if (command.startsWith("find")) {
+        } else if (isFindCommand(userInput)) {
             return parseFindCommand(userInput);
-        } else if (command.startsWith("todo")) {
+        } else if (isTodoCommand(userInput)) {
             return parseTodoCommand(userInput);
-        } else if (command.startsWith("deadline")) {
+        } else if (isDeadlineCommand(userInput)) {
             return parseDeadlineCommand(userInput);
-        } else if (command.startsWith("event")) {
+        } else if (isEventCommand(userInput)) {
             return parseEventCommand(userInput);
-        } else if (command.startsWith("delete")) {
+        } else if (isDeleteCommand(userInput)) {
             return parseDeleteCommand(userInput);
-        } else if (command.startsWith("list")) {
+        } else if (isListCommand(userInput)) {
             return parseListCommand(userInput);
-        } else if (command.startsWith("bye")) {
+        } else if (isByeCommand(userInput)) {
             return parseByeCommand(userInput);
         } else {
             throw new FloofyException("To add a task, please start with any of these commands: " +
@@ -290,5 +289,53 @@ public class Parser {
 
     public int toIdx(String input) {
         return input.indexOf("/to");
+    }
+
+    // A list of helper functions to interpret the user input command.
+
+    public boolean isMarkCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("mark") || command.startsWith("mk") || command.startsWith("m");
+    }
+
+    public boolean isUnmarkCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("unmark") || command.startsWith("um") || command.startsWith("u");
+    }
+
+    public boolean isFindCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("find") || command.startsWith("f");
+    }
+
+    public boolean isTodoCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("todo") || command.startsWith("td") || command.startsWith("t");
+    }
+
+    public boolean isDeadlineCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("deadline") || command.startsWith("ddl") || command.startsWith("dln");
+    }
+
+    public boolean isEventCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("event") || command.startsWith("evt") ||
+                command.startsWith("ev") || command.startsWith("e");
+    }
+
+    public boolean isDeleteCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("delete") || command.startsWith("del") || command.startsWith("dlt");
+    }
+
+    public boolean isListCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("list") || command.startsWith("ls") || command.startsWith("l");
+    }
+
+    public boolean isByeCommand(String input) {
+        String command = getFirstWord(input).toLowerCase();
+        return command.startsWith("bye") || command.startsWith("b");
     }
 }

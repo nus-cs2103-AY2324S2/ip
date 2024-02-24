@@ -64,7 +64,7 @@ public class Floofy extends Application {
             case "unmark":
                 int unmarkIdx = Integer.parseInt(input[1]) - 1;
                 // To verify assumption that task number is greater than 0
-                assert unmarkIdx > 0 : "Task number should be greater than 0!";
+                assert unmarkIdx > -1 : "Task number should be greater than 0!";
                 tasks.markTaskAsUndone(unmarkIdx);
                 return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
             case "find":
