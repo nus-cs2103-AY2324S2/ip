@@ -15,7 +15,7 @@ Free your mind from distractions with this simple-to-use todolist.
 - Download the jar file [here](https://github.com/minreiseah/ip/releases)
 - Run it in your terminal of choice:
 ```bash
-java -jar ip.jar
+java -jar derek.jar
 ```
 - Be productive
 
@@ -23,9 +23,6 @@ java -jar ip.jar
 - [x] Search functionality
 - [x] GUI
 - [ ] Full Code Coverage
-
-**Changes**:
-- [ ] Make storage human-readable
 
 
 
