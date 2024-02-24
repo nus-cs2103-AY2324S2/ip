@@ -2,7 +2,7 @@
 
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
 
-* How to use?
+* How to read?
 * Features
   * Viewing all available commands within application
   * Listing all tasks
@@ -15,9 +15,10 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
   * Surprised!
 * FAQ
 * Future Updates
+* How does it look like?
 
-## How to use?
-![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
+## How to read?
+
 
 ## Features 
 
@@ -224,3 +225,6 @@ Q: No! It is totally fine if there is no database upon using this application. T
 
 ## Future Updates
 I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
+
+## How does it look like?
+![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
