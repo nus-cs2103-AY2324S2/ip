@@ -30,7 +30,7 @@ public class Parser {
      * @param fullCommand The full user input command
      */
 
-    public String parse(String fullCommand) {
+    public String parse(String fullCommand) throws HomieException, TodoException {
         String[] inputStringSplits = fullCommand.split(" ");
         String primaryCommand = inputStringSplits[0].toLowerCase();
         String outputResponse;
@@ -91,7 +91,6 @@ public class Parser {
         // Get response message
         outputResponse = this.ui.showGoodbyeMessage();
         this.isExit = true;
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -103,7 +102,6 @@ public class Parser {
     private String processListCommand() {
         // Get response message
         outputResponse = this.ui.showListMessage(this.taskList);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -124,7 +122,6 @@ public class Parser {
         // Get response message
         currTask = this.taskList.getTask(taskIndex);
         outputResponse = this.ui.showMarkMessage(currTask);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -145,7 +142,6 @@ public class Parser {
         // Get response message
         currTask = this.taskList.getTask(taskIndex);
         outputResponse = this.ui.showUnmarkMessage(currTask);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -166,7 +162,6 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showDeleteMessage(currTask, taskList);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -180,7 +175,6 @@ public class Parser {
         String keywordToFind = inputStringSplits[1];
         // Get response message
         outputResponse = this.ui.showFindMessage(this.taskList, keywordToFind);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -191,7 +185,7 @@ public class Parser {
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message to show that task has been added.
      */
-    private String processTodoCommand(String[] inputStringSplits) {
+    private String processTodoCommand(String[] inputStringSplits) throws TodoException {
         // Get Description for new to-do tasks
         StringBuilder todoDescription = new StringBuilder();
         for (int i = 1; i < inputStringSplits.length; i++) {
@@ -207,9 +201,8 @@ public class Parser {
             // Get response message
             outputResponse = this.ui.showToDoMessage(currTodo, this.taskList);
         } catch (TodoException e) {
-            System.err.println(e.getMessage());
+            throw e;
         }
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -234,7 +227,6 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showDeadlineMessage(currDeadline, this.taskList);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -262,7 +254,6 @@ public class Parser {
         this.storage.updateStorageFile(this.taskList);
         // Get response message
         outputResponse = this.ui.showEventMessage(currEvent, this.taskList);
-        this.ui.printMessage(outputResponse);
         return outputResponse;
     }
 
@@ -271,11 +262,9 @@ public class Parser {
      *
      * @return String message showing that the command is invalid.
      */
-    private String processInvalidCommand() {
+    private String processInvalidCommand() throws HomieException {
         // Get response message
-        outputResponse = this.ui.showWrongCommand();
-        this.ui.printMessage(outputResponse);
-        return outputResponse;
+        throw new HomieException(this.ui.showWrongCommand());
     }
 
 

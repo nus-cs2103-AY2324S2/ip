@@ -5,7 +5,7 @@ package homie;
  * Throws a To-do exception when description is empty
  */
 public class Todo extends Task {
-    private String line = "____________________________________________________________";
+    private String DIVIDER = "________________________________________";
 
     /**
      * Constructor for to-do object
@@ -15,7 +15,8 @@ public class Todo extends Task {
     public Todo(String description) throws TodoException {
         super(description);
         if (description.isEmpty()) {
-            throw new TodoException("\n" + line + "\nOpps!!! The description of a todo cannot be empty.\n" + line);
+            throw new TodoException("\n" + DIVIDER + "\nOpps!!! The description of a todo cannot be empty.\n"
+                    + DIVIDER);
         }
 
     }

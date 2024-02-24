@@ -25,9 +25,16 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gojo.png"));
     private Image homieImage = new Image(this.getClass().getResourceAsStream("/images/homie.png"));
 
+    /**
+     * Initializes the chatbot GUI and also instantly shows a welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Ui ui = new Ui();
+        String welcomeMessage = ui.showWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getHomieDialog(welcomeMessage, homieImage));
+
     }
 
     public void setHomie(Homie h) {
