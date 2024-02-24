@@ -1,1 +1,4 @@
-T,true,homework,2024-02-20
+T,false,Write report for meeting
+T,false,Complete project proposal
+T,false,Team meeting
+T,false,s

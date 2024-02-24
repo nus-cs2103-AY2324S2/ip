@@ -40,10 +40,11 @@ public class MarkCommand extends Command {
         Task target = taskList.get(index);
         if (command.equals("mark")) {
             target.markDone();
+            return String.format("Nice! I've %sed this task as done:%n\n", command) + "  " + target;
         } else {
             target.unmarkDone();
+            return String.format("OK, I've %sed this task as done:%n\n", command) + "  " + target;
         }
 
-        return String.format("Nice! I've %sed this task as done:%n\n", command) + "  " + target;
     }
 }

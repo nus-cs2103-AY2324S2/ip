@@ -35,7 +35,7 @@ public class FindCommand extends Command {
         TaskList searchResults = getSearchResults(taskList);
 
         if (searchResults.size() != 0) {
-            return searchResults.toString();
+            return "Here are the matching tasks in your list:\n" + searchResults;
         } else {
             return "Sorry, there are no matching entries.";
         }

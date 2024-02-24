@@ -2,12 +2,12 @@ package micromanager.commands;
 
 import java.time.LocalDate;
 
+import micromanager.Launcher;
 import micromanager.storage.Storage;
 import micromanager.storage.TaskList;
 import micromanager.tasks.Deadline;
 import micromanager.tasks.Event;
 import micromanager.tasks.Task;
-import micromanager.tasks.Todo;
 
 /**
  * AddCommand class represents a command to add a new task to the task list.
@@ -81,10 +81,15 @@ public class AddCommand extends Command {
                 + String.format("Now you have %d tasks in the list.%n", taskList.size());
     }
 
+    /**
+     * Creates the corresponding task based on the task type.
+     *
+     * @return The created task.
+     */
     public Task createTask() {
         Task task = null;
         if (taskType.equals("todo")) {
-            task = new Todo(taskDescription);
+            task = new Launcher.Todo(taskDescription);
         } else if (taskType.equals("deadline")) {
             task = new Deadline(taskDescription, deadline);
         } else {

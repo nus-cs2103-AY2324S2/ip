@@ -3,11 +3,11 @@ package micromanager.dataprocessing;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import micromanager.Launcher;
 import micromanager.exceptions.DukeException;
 import micromanager.tasks.Deadline;
 import micromanager.tasks.Event;
 import micromanager.tasks.Task;
-import micromanager.tasks.Todo;
 
 /**
  * Decoder class provides methods to decode task information from string representations.
@@ -27,7 +27,7 @@ public class Decoder {
         try {
             switch (attributes[0]) {
             case "T":
-                task = new Todo(attributes[2]);
+                task = new Launcher.Todo(attributes[2]);
                 break;
             case "D":
                 task = new Deadline(attributes[2], LocalDate.parse(attributes[3]));

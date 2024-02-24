@@ -69,11 +69,7 @@ public class TaskList {
      * @return The removed task.
      */
     public Task remove(int index) throws DukeException {
-        boolean isOutOfBounds = index < 0 || index > taskList.size() - 1;
-        if (isOutOfBounds) {
-            throw new DukeException("OOPS!!! Invalid index provided.");
-        }
-        Task target = this.taskList.get(index);
+        Task target = get(index);
         this.taskList.remove(index);
 
         return target;

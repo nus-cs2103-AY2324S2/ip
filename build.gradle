@@ -44,14 +44,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("micromanager.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "micromanager"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = "duke.jar"
+    archiveFileName = "micromanager.jar"
 }
 
 run {

@@ -1,6 +1,5 @@
 package micromanager.graphics;
 
-import micromanager.logic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import micromanager.logic.Logic;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */

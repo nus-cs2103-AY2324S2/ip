@@ -2,12 +2,12 @@ package micromanager.graphics;
 
 import java.io.IOException;
 
-import micromanager.logic.Logic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import micromanager.logic.Logic;
 
 /**
  * A GUI for Duke using FXML.

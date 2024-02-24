@@ -4,17 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import micromanager.Launcher;
+
 public class TodoTest {
 
     @Test
     public void testUnmarkedFileStringConversion() {
-        Todo testTodo = new Todo("task");
+        Launcher.Todo testTodo = new Launcher.Todo("task");
         assertEquals("[T][ ] task", testTodo.toString());
     }
 
     @Test
     public void testMarkedFileStringConversion() {
-        Todo testTodo = new Todo("task");
+        Launcher.Todo testTodo = new Launcher.Todo("task");
         testTodo.markDone();
         assertEquals("[T][X] task", testTodo.toString());
     }
