@@ -44,4 +44,24 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Checks if this ToDo object is equal to another object.
+     *
+     * @param other The object to compare to.
+     * @return true if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        ToDo otherTask = (ToDo) other;
+        return this.description.equals(otherTask.description);
+    }
 }

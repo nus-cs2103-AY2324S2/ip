@@ -58,4 +58,26 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.doByDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
+
+    /**
+     * Checks if this Deadline object is equal to another object.
+     *
+     * @param other The object to compare to.
+     * @return true if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        Deadline otherTask = (Deadline) other;
+        return this.description.equals(otherTask.description) 
+        && this.by.equals(otherTask.by)
+        && this.doByDateTime.equals(otherTask.doByDateTime);
+    }
 }

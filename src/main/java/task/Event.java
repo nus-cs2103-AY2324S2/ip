@@ -54,4 +54,26 @@ public class Event extends Task {
     public String toString() {
         return"[E]" + super.toString() + "(from: " + this.from + " to: " + this.to + ")";
     }
+
+    /**
+     * Checks if this Event object is equal to another object.
+     *
+     * @param other The object to compare to.
+     * @return true if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        Event otherTask = (Event) other;
+        return this.description.equals(otherTask.description) 
+        && this.from.equals(otherTask.from)
+        && this.to.equals(otherTask.to);
+    }
 }

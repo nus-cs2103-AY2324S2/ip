@@ -1,7 +1,5 @@
 package emis;
 
-import java.util.Arrays;
-
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
