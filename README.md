@@ -1,24 +1,127 @@
-# Duke project template
+# Thames Chatbot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome! This is the user guide for my GUI chatbot named Thames. This chatbot can assist you by adding and keeping track of tasks for your everyday life!
 
-## Setting up in Intellij
+## Setting Up Thames
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+1. To get started with Thames, ensure that you have Java 11 or above installed.
+2. Download Thames.jar from here.
+3. Copy the jar file into an empty folder.
+4. Open a command window in that folder.
+5. Run the command java -jar thames.jar.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+> [!NOTE]
+> - Words in UPPER_CASE are the parameters to be supplied by the user.
+> - All parameters are mandatory. Commands with parameters that are in the wrong format (e.g. wrong order, empty parameters, additional parameters) will cause an error.
+> - Extraneous parameters for commands that do not take in parameters (such as list and exit) will be ignored.
+e.g. if the command specifies list 123, it will be interpreted as list.
+
+### Adding todo task: `Todo`
+Adds a task with no time restriction to your list. 
+
+Format: `todo NAME`
+
+Examples: 
+- `todo read book`
+
+  
+### Adding deadline task: `Deadline`
+Adds a task that has a deadline to your list.
+
+Format: `deadline NAME /by BY_DATE`
+
+- Multiple BY_DATE are not allowed
+
+Examples:
+- `deadline finish homework /by 2024-03-01`
+
+  
+### Adding event task: `Event`
+Adds a task that has a event duration to your list.
+
+Format: `event NAME /from FROM_DATE /to /TO_DATE`
+
+- Multiple FROM_DATE and TO_DATE are not allowed
+
+Examples:
+- `event vacation /from 2024-05-01 /to 2024-05-10`
+
+
+### Show list of tasks: `List`
+Show list of all tasks.
+
+Format: `list`
+
+
+### Mark task as done: `Mark`
+Marks the specified task from the list as done.
+
+Format: `mark INDEX`
+
+- Marks the task at the specified `INDEX` as done.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+- The index must be a valid integer pointing to a task in the list.
+
+Examples:
+- `mark 2` marks the second task in the list as done.
+- `mark 5` in a list with 3 tasks will produce an error message.
+
+
+### Mark task as not done: `Unmark`
+Marks the specified task from the list as not done.
+
+Format: `unmark INDEX`
+
+- Marks the task at the specified `INDEX` as not done.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+- The index must be a valid integer pointing to a task in the list.
+
+Examples:
+- `unmark 2` marks the second task in the list as not done.
+- `unmark 5` in a list with 3 tasks will produce an error message.
+
+
+### Remove task from list: `Delete`
+Removes the specified task from the list.
+
+Format: `delete INDEX`
+
+- Deletes the task at the specified `INDEX`.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, …​
+- The index must be a valid integer pointing to a task in the list.
+
+Examples:
+- `delete 2` deletes the second task from the list.
+- `delete 5` in a list with 3 tasks will produce an error message.
+
+  
+### Search for task: `Find`
+Searches for tasks with a specified keyword.
+
+Format: `find KEYWORD`
+
+- The search is case-insensitive. e.g `Book` will match `book`
+- Only the task name is searched.
+- Partial words can be matched e.g. `work` will match `homework`
+- Supports the search of one keyword only
+
+  
+### Show list of events for a date: `Schedule`
+Shows the list of events for a specified date.
+
+Format: `schedule DATE`
+
+Examples:
+- `schedule 2024-01-01`
+
+
+### Exit the program: `Bye`
+Exits the program.
+
+Format: `bye`
+
+
