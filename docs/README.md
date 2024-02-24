@@ -32,5 +32,5 @@ The output should ensure your task has been succesffuly added, otherwise it woul
 
 ```
 Got it. I have added:
-[D][ ] YOUR_TASK_HERE (by: deadline_date
+[D][ ] YOUR_TASK_HERE (by: deadline_date)
 ```
