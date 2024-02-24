@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.InvalidInputFormatException;
 import utils.TaskList;
-import utils.Ui;
 
 /**
  * The Command class represents a command that can be executed by the program.
@@ -10,12 +9,18 @@ import utils.Ui;
  */
 public abstract class Command {
     private boolean isExit;
+    private String response;
 
     /**
      * Constructs a Command object with isExit set to false by default.
      */
     Command() {
         this.isExit = false;
+    }
+
+    Command(String response) {
+        this.isExit = false;
+        this.response = response;
     }
 
     /**
@@ -27,19 +32,23 @@ public abstract class Command {
         return isExit;
     }
 
-    /**
-     * Sets this command as an exit command.
-     */
     protected void setIsExit() {
         isExit = true;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public String getResponse() {
+        return response;
     }
 
     /**
      * Executes the command.
      *
-     * @param ui                            The user interface object.
      * @param taskList                      The task list object.
      * @throws InvalidInputFormatException  If the input format is invalid.
      */
-    public abstract void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException;
+    public abstract void execute(TaskList taskList) throws InvalidInputFormatException;
 }

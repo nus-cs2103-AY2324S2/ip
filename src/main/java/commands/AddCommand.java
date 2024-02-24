@@ -5,8 +5,8 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import utils.Response;
 import utils.TaskList;
-import utils.Ui;
 
 /**
  * The AddCommand class represents a command to add tasks to the task list.
@@ -29,25 +29,26 @@ public class AddCommand extends Command {
     /**
      * Executes the add command based on the command type.
      *
-     * @param ui                            The user interface object.
      * @param taskList                      The task list object.
      * @throws InvalidInputFormatException  If the input format is invalid.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException {
+    public void execute(TaskList taskList) throws InvalidInputFormatException {
+        Task newTask;
         switch (commandType) {
         case TODO:
-            addTodo(input[1], taskList, ui);
+            newTask = addTodo(input[1], taskList);
             break;
         case DEADLINE:
-            addDeadline(input[1].split("/", 2), taskList, ui);
+            newTask = addDeadline(input[1].split("/", 2), taskList);
             break;
         case EVENT:
-            addEvent(input[1].split("/", 2), taskList, ui);
+            newTask = addEvent(input[1].split("/", 2), taskList);
             break;
         default:
-            break;
+            return;
         }
+        setResponse(Response.getAddTaskResponse(newTask, taskList.getLength()));
     }
 
     /**
@@ -55,16 +56,17 @@ public class AddCommand extends Command {
      *
      * @param todoDetails                   The description of the todo task.
      * @param taskList                      The task list object.
-     * @param ui                            The user interface object.
      * @throws InvalidInputFormatException  If the input format is invalid.
      */
-    private void addTodo(String todoDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
+    private Task addTodo(String todoDetails, TaskList taskList) throws InvalidInputFormatException {
         if (todoDetails.trim().isEmpty()) {
             throw new InvalidInputFormatException("todo");
         }
+
         Task newTask = new Todo(todoDetails);
         taskList.addTask(newTask);
-        ui.displayAddedTask(newTask, taskList.getLength());
+
+        return newTask;
     }
 
     /**
@@ -72,18 +74,19 @@ public class AddCommand extends Command {
      *
      * @param deadlineDetails               The details of the deadline task.
      * @param taskList                      The task list object.
-     * @param ui                            The user interface object.
      * @throws InvalidInputFormatException  If the input format is invalid.
      */
-    private void addDeadline(String[] deadlineDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
+    private Task addDeadline(String[] deadlineDetails, TaskList taskList) throws InvalidInputFormatException {
         if (deadlineDetails.length < 2 || deadlineDetails[1].split(" ", 2).length < 2) {
             throw new InvalidInputFormatException("deadline");
         }
+
         String deadlineDescription = deadlineDetails[0];
         String deadline = deadlineDetails[1].split(" ", 2)[1];
         Task newTask = new Deadline(deadlineDescription, deadline);
         taskList.addTask(newTask);
-        ui.displayAddedTask(newTask, taskList.getLength());
+
+        return newTask;
     }
 
     /**
@@ -91,24 +94,27 @@ public class AddCommand extends Command {
      *
      * @param eventDetails                  The details of the event task.
      * @param taskList                      The task list object.
-     * @param ui                            The user interface object.
      * @throws InvalidInputFormatException  If the input format is invalid.
      */
-    private void addEvent(String[] eventDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
+    private Task addEvent(String[] eventDetails, TaskList taskList) throws InvalidInputFormatException {
         if (eventDetails.length < 2) {
             throw new InvalidInputFormatException("event");
         }
+
         String eventDescription = eventDetails[0];
         String[] fromToDetails = eventDetails[1].split("/", 2);
+
         if (fromToDetails.length < 2
                 || fromToDetails[0].split(" ", 2).length < 2
                 || fromToDetails[1].split(" ", 2).length < 2) {
             throw new InvalidInputFormatException("event");
         }
+
         String from = fromToDetails[0].split(" ", 2)[1];
         String to = fromToDetails[1].split(" ", 2)[1];
         Task newTask = new Event(eventDescription, from, to);
         taskList.addTask(newTask);
-        ui.displayAddedTask(newTask, taskList.getLength());
+
+        return newTask;
     }
 }

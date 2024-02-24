@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("Chitty")
+    mainClass.set("Launcher")
 }
 
 shadowJar {

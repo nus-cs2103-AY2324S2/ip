@@ -301,13 +301,6 @@
             <property name="allowLineBreaks" value="true"/>
         </module>
 
-        <!-- No trailing whitespace -->
-        <module name="Regexp">
-            <property name="format" value="[ \t]+$"/>
-            <property name="illegalPattern" value="true"/>
-            <property name="message" value="Trailing whitespace"/>
-        </module>
-
         <module name="OperatorWrap">
             <!-- Checks that the non-assignment type operator is at the next line in a line wrap.
                  This includes "?", ":", "==", "!=", "/", "+", "-", "*", "%", ">>", ">>>",
