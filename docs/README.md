@@ -45,8 +45,6 @@ Command:
 help
 ```
 
-
-
 ### Listing all tasks
 You can list all your tasks using the `list` command.
 
