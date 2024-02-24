@@ -1,5 +1,7 @@
 package alastor.task;
 
+import alastor.AlastorException;
+
 /**
  * Represents a task in the task list.
  */
@@ -21,14 +23,20 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void mark() {
+    public void mark() throws AlastorException {
+        if (this.isDone) {
+            throw new AlastorException("Task is already marked as done.");
+        }
         this.isDone = true;
     }
 
     /**
      * Unmarks the task as done.
      */
-    public void unmark() {
+    public void unmark() throws AlastorException {
+        if (!this.isDone) {
+            throw new AlastorException("Task is already marked as undone.");
+        }
         this.isDone = false;
     }
 
