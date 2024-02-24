@@ -37,5 +37,3 @@ It is written in Java. Here's the `main` method:
 
 # Acknowledgements
 me.xdrop:fuzzywuzzy for fuzzy string matching, licensed under the GPL-2.0 license
-
-org.openjfx.javafxplugin for better javafx dependencies, licensed under the BSD-3-Clause license
