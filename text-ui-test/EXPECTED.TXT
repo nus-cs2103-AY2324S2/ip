@@ -1,7 +1,60 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+          _______  _           _____   _______  _______  _______
+|\     /|(  ___  )( \         / ___ \ (  __   )(  __   )(  __   )
+| )   ( || (   ) || (        ( (   ) )| (  )  || (  )  || (  )  |
+| (___) || (___) || |        ( (___) || | /   || | /   || | /   |
+|  ___  ||  ___  || |         \____  || (/ /) || (/ /) || (/ /) |
+| (   ) || (   ) || |              ) ||   / | ||   / | ||   / | |
+| )   ( || )   ( || (____/\  /\____) )|  (__) ||  (__) ||  (__) |
+|/     \||/     \|(_______/  \______/ (_______)(_______)(_______)
 
+Hi! My name is HAL9000
+I'm sorry I didn't quite get "Hello"
+Sorry you don't have anything in the list!
+I'm sorry I didn't quite get "DEADLINE /by Monday"
+Something went wrong when processing your deadline command: 
+Check your input again: deadline /from Monday
+Something went wrong when processing your deadline command: 
+Check your input again: deadline /BY Monday
+I'm sorry I didn't quite get "TODO homework"
+I'm sorry I didn't quite get "EVENT concert /from 5pm /to 6pm"
+Something went wrong when processing your event command: 
+Check your input again: event concert /by 5pm /to 6pm
+Something went wrong when processing your event command: 
+Check your input again: event concert /from 5pm /by 6pm
+Something went wrong when processing your event command: 
+Check your input again: event concert /FROM 5pm /to 6pm
+Something went wrong when processing your event command: 
+Check your input again: event concert /from 5pm /TO 6pm
+Sorry you don't have anything in the list!
+Got it. I've added this task:
+[D][ ]  by:Monday
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[T][ ]  homework
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ]  concert from:5pm to:6pm
+Now you have 3 tasks in the list.
+1. [D][ ]  by:Monday
+2. [T][ ]  homework
+3. [E][ ]  concert from:5pm to:6pm
+I have marked this:
+[D][X]  by:Monday
+1. [D][X]  by:Monday
+2. [T][ ]  homework
+3. [E][ ]  concert from:5pm to:6pm
+I have marked this:
+[T][X]  homework
+1. [D][X]  by:Monday
+2. [T][X]  homework
+3. [E][ ]  concert from:5pm to:6pm
+I have unmarked this:
+[D][ ]  by:Monday
+1. [D][ ]  by:Monday
+2. [T][X]  homework
+3. [E][ ]  concert from:5pm to:6pm
+I have deleted this:
+[E][ ]  concert from:5pm to:6pm
+1. [D][ ]  by:Monday
+2. [T][X]  homework
+Bye! See ya soon

@@ -1,0 +1,25 @@
+Hello
+list
+DEADLINE /by Monday
+deadline /from Monday
+deadline /BY Monday
+TODO homework
+EVENT concert /from 5pm /to 6pm
+event concert /by 5pm /to 6pm
+event concert /from 5pm /by 6pm
+event concert /FROM 5pm /to 6pm
+event concert /from 5pm /TO 6pm
+list 
+deadline /by Monday
+todo homework
+event concert /from 5pm /to 6pm
+list
+mark 1
+list
+mark 2
+list
+unmark 1
+list
+delete 3
+list
+bye
