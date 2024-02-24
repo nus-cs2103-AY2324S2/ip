@@ -5,7 +5,7 @@ package aegis;
  */
 public class AegisException extends Exception {
     /**
-     * Constructor for creating a AegisException object.
+     * Constructor for creating an AegisException object.
      *
      * @param message String containing more detailed information about the exception.
      */

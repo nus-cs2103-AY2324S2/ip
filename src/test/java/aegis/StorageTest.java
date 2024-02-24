@@ -11,7 +11,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * StorageTest class contains methods for performing JUnit tests for WriteTaskListData() in TaskList class.
+ */
 public class StorageTest {
+    /**
+     * Tests WriteTaskListData() with valid input.
+     */
     @Test
     public void WriteTaskListDataValidTest() {
         String filePath = "./src/test/data/storagetest_valid.txt";

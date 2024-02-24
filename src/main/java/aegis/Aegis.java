@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 /**
- * Aegis class contains the main() method that initiates and runs the Aegis assistant program.
- * Also contains private functions called by main() to execute commands.
+ * Aegis class contains the main() method that initiates and runs the Aegis assistant program logic.
  */
 public class Aegis {
     private static Parser parser;
@@ -52,6 +51,12 @@ public class Aegis {
         }
     }
 
+    /**
+     * Returns an ArrayList containing Strings that contain the response of the Aegis assistant program to the user input.
+     *
+     * @param input User input to be processed by the program.
+     * @return ArrayList of Strings containing output of the program.
+     */
     public ArrayList<String> getResponse(String input) {
         ArrayList<String> response = new ArrayList<>();
         try {
@@ -71,8 +76,8 @@ public class Aegis {
 
         try {
             ArrayList<String> tasksFromFile = storage.readTaskListData();
-            for (int i = 0; i < tasksFromFile.size(); i++) {
-                Task reconstructedTask = taskList.reconstructTask(tasksFromFile.get(i));
+            for (String s : tasksFromFile) {
+                Task reconstructedTask = taskList.reconstructTask(s);
                 taskList.addTask(reconstructedTask);
             }
         } catch (FileNotFoundException e) {
