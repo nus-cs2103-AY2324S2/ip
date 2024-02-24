@@ -1,0 +1,12 @@
+todo borrow book
+deadline buy phone /by 2024-02-04
+event date night /from 2024-02-05 /to 2024-02-06
+list
+mark 1
+list
+meow
+todo
+list
+delete 2
+list
+bye

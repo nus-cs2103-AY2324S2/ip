@@ -13,5 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Semi-automated test files
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Data files
+data
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
