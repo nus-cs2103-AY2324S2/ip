@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("floofy.Floofy")
+    mainClass.set("floofy.Launcher")
 }
 
 shadowJar {
@@ -55,4 +55,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
