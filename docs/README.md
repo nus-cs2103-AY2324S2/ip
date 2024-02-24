@@ -1,30 +1,41 @@
-# Duke User Guide
+# HAASNT User Guide
 
-// Update the title above to match the actual product name
+![expected output](./Screen Shot 2567-02-24 at 11.15.12.png)
 
-// Product screenshot goes here
+**If you always forgot what you have to do, HASSNT is here to help you record such tasks.**
+HAASNT is a chatbot that allows you to keep your tasks recorded
+## Adding Tasks
+**There are 3 types of tasks currently available:** 
 
-// Product intro goes here
+    1. todo for tasks that has no specifc deadline
+        - to add todo task, type: todo <task description>
+    2. deadline for task that has specific deadline
+        - to add deadline task, type: 
+            deadline <task description> by <deadline> 
+            deadline format has two formats currently:
+                1. MM-dd hh:mm am/pm 
+                2. MM-dd format
+    3. event for tasks that span for a period
+        - to add event tasks type:
+            event <task> followed by <event span>
+            now event span has two formats:
+                1. hh:mm am/pm to hh:mm am/pm
+                2. MM/dd hh:mm am/pm to hh:mm am/pm
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+    **Notes**
+    1. MM represents months in xx format ie. 01
+    2. always include am or pm in your deadline date
 
 
-## Feature XYZ
+Example: event t 10:00 am to 12:00 am
 
-// Feature details
+expected output:
+![expected output](./Screen Shot 2567-02-24 at 11.04.24.png)
+
+## Todo Lists Commands
+
+1. **list:** to show the current tasks in the list
+2. **clearl:** to clear the list
+3. **remove (index):** remove particular task based on the index of that task (type list to see the index)
+4. **mark (index):** mark task at index as done
+5. **unmark (index):** unmark task at index as not done
