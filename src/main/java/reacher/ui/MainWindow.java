@@ -34,12 +34,11 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        String input = "Welcome!\n" +
+        String message = "Welcome!\n" +
                 "Commands are:\n" +
                 "add, edit, list, edit, bye";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage));
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(message, userImage));
     }
 
     public void setReacher(Reacher r) {
