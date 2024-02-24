@@ -30,7 +30,9 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 > [!CAUTION]
 > Date format represented in list and date format in command is different.
+> 
 > Command: YYYY-MM-DD
+> 
 > List: DDMMMYYYY
 
 
