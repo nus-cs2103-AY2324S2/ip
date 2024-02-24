@@ -1,17 +1,10 @@
 package youdon;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * The main class that starts the Youdon chatbot application.
  */
 public class Youdon {
 
-    private final Ui ui;
-    private final Storage storage;
-    private final TaskList tasks;
     private final Parser parser;
 
     /**
@@ -20,10 +13,10 @@ public class Youdon {
      */
     public Youdon() {
         // initialise ui, storage (filepath = "./data/save.txt") and tasklist
-        this.ui = new Ui();
-        this.storage = new Storage("./data/save.txt");
-        this.tasks = new TaskList(storage.loadData());
-        this.parser = new Parser(this.ui, this.tasks, this.storage);
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/save.txt");
+        TaskList tasks = new TaskList(storage.loadData());
+        this.parser = new Parser(ui, tasks, storage);
     }
 
     /**
