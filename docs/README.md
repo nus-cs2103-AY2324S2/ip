@@ -149,7 +149,7 @@ Input: `bye`
    
 Response: 
 ```
-bye
+Bye. Hope to see you again soon!
 ```
 
 ## Ask Jelly Anything!
