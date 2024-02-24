@@ -19,6 +19,7 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 ## Features 
 
+
 ### Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
 
@@ -26,6 +27,7 @@ Command:
 ```
 help
 ```
+
 
 ### Listing all tasks
 You can list all your tasks using the `list` command.
@@ -42,6 +44,7 @@ Shortcut:
 
 > [!NOTE]
 > If there is no tasks in the list, Hammy will output `There is no tasks currently!` instead
+
 
 ### Adding tasks
 There are three types of tasks
@@ -103,6 +106,7 @@ Got it. I have added:
 > [!NOTE]
 > Just like deadline tasks, description is optional.
 
+
 ### Deleting tasks
 You can delete certain tasks using `delete` command.
 ```
@@ -117,16 +121,20 @@ Shotcut:
 > [IMPORTANT!]
 > Task index must be a valid index. If you wish to know the indexes of each tasks, you can use `list` command.
 
+
 ### Marking tasks as done
 You can mark certain task as done using `done` command.
 ```
 done TASK_INDEX
 ```
+
+
 ### Marking tasks as not done
 You can mark certain task as not done using `undone` command.
 ```
 undone TASK_INDEX
 ```
+
 
 ### Other listing tasks methods
 There are various types of ways to list your tasks
@@ -169,6 +177,7 @@ list a
 > [!NOTE]
 > all `list` in the command can be shotcutted to `/ls`.
 
+
 ### Say Hi To Me <3
 Say **Hi** to Hammy!
 
@@ -180,6 +189,7 @@ Or:
 ```
 Hello
 ```
+
 
 ### Surprised!
 Nothing much! Just some little easter eggs!
