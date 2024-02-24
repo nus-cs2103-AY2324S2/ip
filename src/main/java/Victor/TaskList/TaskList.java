@@ -3,9 +3,6 @@ package victor.tasklist;
 import java.util.ArrayList;
 
 import victor.tasktype.Task;
-import victor.ui.Ui;
-
-
 
 /**
  * The TaskList class contains the methods to add new tasks to
@@ -18,11 +15,7 @@ public class TaskList {
     /**
      * The currentTaskList variable is used to hold the current data of the program
      */
-    private ArrayList<Task> currentTaskLists;
-    /**
-     * The ui variable is used to use any method from the Ui class
-     */
-    private Ui ui = new Ui();
+    private final ArrayList<Task> currentTaskLists;
 
     /**
      * The TaskList Constructor will take in the ArrayList of the
@@ -52,6 +45,10 @@ public class TaskList {
             listString.append(i + 1).append(".").append(currentTaskLists.get(i).toString()).append("\n");
         }
         return listString.toString();
+    }
+
+    public boolean detectDuplicates(Task newTask) {
+        return currentTaskLists.contains(newTask);
     }
 
     /**
