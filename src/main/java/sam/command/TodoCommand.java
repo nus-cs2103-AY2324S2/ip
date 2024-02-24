@@ -3,7 +3,6 @@ package sam.command;
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
-import sam.Ui;
 import sam.task.ToDo;
 
 /**
@@ -28,8 +27,11 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
-        tasks.addTask(new ToDo(description));
+    public String execute(TaskList tasks, Storage storage) throws SamException {
+        ToDo newTask = new ToDo(description);
+        tasks.addTask(newTask);
         storage.save(tasks);
+        return String.format("This task has been added to the list:\n%s\nNow you have %d tasks left.\n",
+                newTask, tasks.getNumOfTasks());
     }
 }

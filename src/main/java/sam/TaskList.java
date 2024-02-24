@@ -1,5 +1,6 @@
 package sam;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sam.task.Task;
@@ -19,25 +20,18 @@ public class TaskList {
     }
 
     /**
-     * Displays the list of tasks.
-     *
-     * Prints the details of each task in the task list to the console,
-     * typically showing information such as task type, description, and status.
-     * If the task list is empty, prints a message indicating that there are no tasks.
-     * Each task is numbered for easy identification.
+     * Returns the number of tasks in the list.
+     * @return Number of tasks in the list.
      */
-    public void displayList() {
-        System.out.println("____________________________________________________________");
-        if (items.isEmpty()) {
-            System.out.println("No tasks in the list.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < items.size(); i++) {
-                Task task = items.get(i);
-                System.out.println(((i + 1) + "." + task));
-            }
-        }
-        System.out.println("____________________________________________________________");
+    public int getNumOfTasks() {
+        return items.size();
+    }
+
+    /**
+     * Gets the list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return new ArrayList<>(items);
     }
 
     /**
@@ -48,13 +42,12 @@ public class TaskList {
      * @param index the index of the task to mark as done
      * @throws SamException if the index is out of bounds
      */
-    public void markTask(int index) throws SamException {
+    public Task markTask(int index) throws SamException {
         if (index < 0 || index >= items.size()) {
             throw new SamException("Please check how many tasks are there in your list.");
         }
         items.get(index).markAsDone();
-        System.out.println("Nice, I've marked this task as done for you:");
-        System.out.println((items.get(index)));
+        return items.get(index);
     }
 
     /**
@@ -65,13 +58,12 @@ public class TaskList {
      * @param index the index of the task to unmark as undone
      * @throws SamException if the index is out of bounds
      */
-    public void unmarkTask(int index) throws SamException {
+    public Task unmarkTask(int index) throws SamException {
         if (index < 0 || index >= items.size()) {
             throw new SamException("Please check how many tasks are there in your list.");
         }
         items.get(index).markAsUndone();
-        System.out.println("Nice, I've marked this task as undone for you:");
-        System.out.println((items.get(index)));
+        return items.get(index);
     }
 
     /**
@@ -83,9 +75,6 @@ public class TaskList {
      */
     public void addTask(Task newTask) {
         items.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask);
-        System.out.println("Now you have " + items.size() + " tasks in the list.");
     }
 
     /**
@@ -96,17 +85,14 @@ public class TaskList {
      * @param index the index of the task to delete from the list
      * @throws SamException if the index is out of bounds
      */
-    public void deleteTask(int index) throws SamException {
+    public String deleteTask(int index) throws SamException {
         if (index < 0 || index >= items.size()) {
             throw new SamException("Invalid task number. Please check how many tasks your have in the list.");
         }
 
         Task removedTask = items.remove(index);
-        System.out.println("---------------------------");
-        System.out.println("I've removed this task:");
-        System.out.println(" " + removedTask);
-        System.out.println("Now you have " + items.size() + " task(s) left in the list. ");
-        System.out.println("---------------------------");
+        String notice = String.format("This task has been deleted \n$s\n", removedTask);
+        return notice;
     }
 
     /**

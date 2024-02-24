@@ -11,10 +11,8 @@ import sam.command.Command;
  * where the application starts its execution.
  */
 public class Sam {
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
-
     /**
      * Constructs a new Sam object.
      *
@@ -25,35 +23,23 @@ public class Sam {
      * @param filePath the file path from which to load tasks
      */
     public Sam(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException | SamException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /**
-     * Runs the program.
-     *
-     * Greets the user, then enters a loop to continuously read commands from the user.
-     * Each command is parsed and executed. If a command execution results in an exit signal,
-     * the loop terminates. Displays error messages if any SamException occurs during command execution.
-     */
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (SamException e) {
-                ui.showError(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            if (command.isExit()) {
+                System.exit(0);
             }
+            return command.execute(tasks, storage);
+        } catch (SamException e) {
+            return e.getMessage();
         }
     }
 }

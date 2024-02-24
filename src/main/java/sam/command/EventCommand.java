@@ -3,7 +3,6 @@ package sam.command;
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
-import sam.Ui;
 import sam.task.Event;
 
 /**
@@ -59,8 +58,11 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
-        tasks.addTask(new Event(this.description, this.from, this.to));
+    public String execute(TaskList tasks, Storage storage) throws SamException {
+        Event newTask = new Event(this.description, this.from, this.to);
+        tasks.addTask(newTask);
         storage.save(tasks);
+        return String.format("The task has been added to the list:\n%s\nNow you have %d tasks left.\n",
+                newTask, tasks.getNumOfTasks());
     }
 }

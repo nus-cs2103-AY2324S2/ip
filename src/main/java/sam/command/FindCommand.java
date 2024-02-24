@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
-import sam.Ui;
 import sam.task.Task;
 
 /**
@@ -28,11 +27,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SamException {
+    public String execute(TaskList tasks, Storage storage) throws SamException {
         ArrayList<Task> list = tasks.findTasksByKeyword(this.keyword);
-        System.out.println("These are the tasks with the specified keyword");
+        StringBuilder notice = new StringBuilder("These are the tasks with the specified keyword");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(((i + 1) + "." + list.get(i)));
+            notice.append(String.format("%d. %s\n", i + 1, list.get(i)));
         }
+        return notice + "\n";
     }
 }
