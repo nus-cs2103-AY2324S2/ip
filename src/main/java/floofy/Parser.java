@@ -97,8 +97,7 @@ public class Parser {
             parsedInput[0] = "bye";
             return parsedInput;
         } else {
-            parsedInput[0] = "invalid";
-            return parsedInput;
+            throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
         }
     }
 }

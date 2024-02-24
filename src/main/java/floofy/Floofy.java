@@ -46,7 +46,7 @@ public class Floofy extends Application {
     }
 
     /**
-     * Runs Floofy for each command input.
+     * Runs the command based on the user input.
      *
      * @param userInput The user input command.
      * @return The result of the command.
@@ -93,7 +93,7 @@ public class Floofy extends Application {
                 return ui.showTaskList(tasks);
             case "bye":
                 return ui.showGoodbyeMsg();
-            case "invalid":
+            default:
                 throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
         } catch (FloofyException e) {
