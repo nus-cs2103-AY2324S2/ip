@@ -75,6 +75,22 @@ public class Storage {
                 }
 
                 taskList.add(nextTask);
+
+            } else if (fullString.contains("[F]")) {
+                int descriptionEnd = fullString.indexOf('(');
+                int durationEnd = fullString.indexOf(')');
+
+                String description = fullString.substring(7, descriptionEnd);
+                String duration = fullString.substring(descriptionEnd + 6, durationEnd);
+
+
+                Task nextTask = new FixedDurationTask(description, duration);
+
+                if (fullString.contains("[X]")) {
+                    nextTask.markAsDone();
+                }
+
+                taskList.add(nextTask);
             }
         }
 

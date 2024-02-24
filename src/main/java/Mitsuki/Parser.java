@@ -30,6 +30,7 @@ public class Parser {
         this.commands.add("todo");
         this.commands.add("deadline");
         this.commands.add("event");
+        this.commands.add("fixed");
         this.commands.add("mark");
         this.commands.add("unmark");
         this.commands.add("delete");
@@ -73,6 +74,9 @@ public class Parser {
         case "event":
             description = userInput.substring(userInput.indexOf(' '));
             return TaskList.event(description);
+        case "fixed":
+            description = userInput.substring(userInput.indexOf(' '));
+            return TaskList.fixedDurationTask(description);
 
         case "list":
             return TaskList.list();
