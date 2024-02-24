@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import parser.Parser;
+import ui.Ui;
 
 /**
  * Controller for MainWindow.
@@ -21,10 +26,9 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Taylor taylor;
-    private Container container;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Neuvillette.png"));
-    private Image tayImage = new Image(this.getClass().getResourceAsStream("/images/Wriothesley.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Taylor.png"));
+    private Image tayImage = new Image(this.getClass().getResourceAsStream("/images/TS.png"));
 
     @FXML
     public void initialize() {
@@ -36,20 +40,39 @@ public class MainWindow extends AnchorPane {
      */
     public void setTaylor(Taylor t) {
         taylor = t;
+        dialogContainer.getChildren().addAll(DialogBox.getTaylorDialog(startBot(), tayImage));
     }
 
+
+    @FXML
+    private String startBot() {
+        String setUpResponse = "";
+        try {
+            setUpResponse = Parser.executeCommand("list", Taylor.tasksList);
+        } catch (Exception err) {
+            setUpResponse = Ui.printError(err).toString();
+        }
+        return setUpResponse;
+    }
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Taylor's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = container.getResponse(input);
+        String userText = userInput.getText();
+        String tayText = this.taylor.runCommand(userText);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTaylorDialog(response, tayImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getTaylorDialog(tayText, tayImage)
         );
+
         userInput.clear();
+
+        if ("Bye".equalsIgnoreCase(userText.trim())) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> System.exit(0)));
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 }

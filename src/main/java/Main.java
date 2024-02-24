@@ -16,6 +16,10 @@ public class Main extends Application {
      */
     private Taylor taylor = new Taylor();
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) {
         try {
@@ -23,6 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Taylor");
             fxmlLoader.<MainWindow>getController().setTaylor(taylor);
             stage.show();
         } catch (IOException e) {
