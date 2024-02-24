@@ -40,6 +40,7 @@ public class Task {
      * @param keyword Keyword to check for in task description.
      */
     public boolean checkDescription(String keyword) {
+        assert keyword != null : "Keyword to search for should not be null";
         return description.contains(keyword);
     }
 }

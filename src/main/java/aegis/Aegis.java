@@ -85,6 +85,7 @@ public class Aegis {
 
     private static ArrayList<String> executeCommand(String input) throws AegisException {
         String identifier = parser.parseCommand(input);
+        assert identifier != null : "Command identifier should not be null";
         String arguments = parser.parseArguments(input);
 
         ArrayList<String> commandResult = new ArrayList<>();
