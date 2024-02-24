@@ -29,13 +29,17 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/MainWindow.fxml"));
+
             // Assert that the fxmlLoader has a valid location.
             assert fxmlLoader.getLocation() != null;
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             scene.getStylesheets().add("view/stylesheet.css");
             stage.setScene(scene);
+
             fxmlLoader.<MainWindow>getController().setChitty(chitty);
+
             stage.show();
         } catch (IOException error) {
             System.out.println("Error loading MainWindow.fxml: " + error.getMessage());
