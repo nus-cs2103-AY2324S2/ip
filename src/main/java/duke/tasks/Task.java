@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public abstract class Task {
     /* Task is a class, what does it do??? */
     public String name; 
