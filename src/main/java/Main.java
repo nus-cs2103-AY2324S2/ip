@@ -36,6 +36,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             scene.getStylesheets().add("view/stylesheet.css");
+            stage.setTitle("Chitty Task Manager");
             stage.setScene(scene);
 
             fxmlLoader.<MainWindow>getController().setChitty(chitty);
