@@ -2,7 +2,7 @@
 
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
 
-* How to read?
+* How to use?
 * Features
   * Viewing all available commands within application
   * Listing all tasks
@@ -14,8 +14,10 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
   * Say Hi To Me <3
   * Surprised!
 * FAQ
-* Future Updates?
+* Future Updates
 
+## How to use?
+![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
 
 ## Features 
 
@@ -173,7 +175,7 @@ Shortcut:
 list a
 ```
 
-> [!NOTE]
+> [!TIP]
 > all `list` in the command can be shotcutted to `/ls`.
 
 
@@ -216,6 +218,9 @@ Q: Please check the task index, it could likely to be invalid task index. You ca
 5. Why deadline and event tasks even work without a description?
 Q: That is not a bug! It is meant to be like that. Sometimes, you just need a date to remind you about your remaining tasks :).
 
-7. Do I need to create a separate database while using this application?
+6. Do I need to create a separate database while using this application?
 Q: No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks.
    **tasklist.txt** will be in the same directory as your jar file.
+
+## Future Updates
+I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
