@@ -4,36 +4,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="600.0" prefWidth="500.0"
-            fx:controller="MainWindow">
+<AnchorPane
+    xmlns="http://javafx.com/javafx/17.0.2-ea"
+    xmlns:fx="http://javafx.com/fxml/1"
+    prefHeight="600" prefWidth="600"
+    fx:controller="MainWindow">
 
     <!-- Root layout -->
     <children>
         <!-- Text input field -->
-        <TextField fx:id="userInput" prefWidth="424.0" prefHeight="41.0"
-                   AnchorPane.bottomAnchor="1.0" layoutY="558.0"
-                   onAction="#handleUserInput"/>
+        <TextField
+                fx:id="userInput" prefWidth="500" prefHeight="50.0"
+                AnchorPane.bottomAnchor="1.0" layoutY="550"
+                onAction="#handleUserInput"
+        />
 
         <!-- Send button -->
         <Button fx:id="sendButton" text="Send" mnemonicParsing="false"
-                prefWidth="76.0" prefHeight="41.0" layoutX="424.0" layoutY="558.0"
+                prefWidth="100" prefHeight="50" layoutX="500.0" layoutY="550"
                 onAction="#handleUserInput">
             <style>
                 -fx-background-color: #7f6f62;
+                -fx-text-fill: #000000;
+                -fx-font-weight: bold;
             </style>
             <font>
-                <Font name="Arial" size="16.0"/>
+                <Font name="Arial" size="20"/>
             </font>
         </Button>
 
         <!-- Scrollable area -->
-        <ScrollPane fx:id="scrollPane" prefWidth="500.0" prefHeight="557.0"
+        <ScrollPane fx:id="scrollPane" prefWidth="600.0" prefHeight="550.0"
                     hbarPolicy="NEVER" vvalue="1.0" hvalue="1.0">
             <!-- Conversation container -->
-            <VBox fx:id="dialogContainer" prefWidth="488.0" prefHeight="552.0"
-                  style="-fx-background-color: #f1e5d7;"/>
+            <VBox fx:id="dialogContainer" prefWidth="600" prefHeight="550"
+            >
+                <style>-fx-background-color: #f1e5d7;</style>
+            </VBox>
         </ScrollPane>
     </children>
 </AnchorPane>

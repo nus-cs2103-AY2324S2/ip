@@ -6,30 +6,23 @@
 <?import javafx.scene.text.*?>
 
 <fx:root type="Pane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <!-- Apply padding to the root pane -->
     <style>
         -fx-padding: 10px;
     </style>
-    <!-- Horizontal box container -->
-    <HBox prefWidth="484.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-        <!-- Apply background color and styling to the HBox -->
+    <HBox prefWidth="500.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <style>
             -fx-background-color: #90BAAD;
-            -fx-background-radius: 50px;
+            -fx-background-radius: 30px;
             -fx-spacing: 10px;
-            -fx-padding: 10px;
+            -fx-padding: 20px;
         </style>
-        <!-- Apply padding to the HBox -->
         <padding>
             <Insets top="15.0" right="5.0" bottom="15.0" left="5.0"/>
         </padding>
-        <!-- Display Picture -->
-        <ImageView fx:id="displayPicture" fitWidth="99.0" fitHeight="99.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <!-- Dialog text -->
+        <ImageView fx:id="displayPicture" fitWidth="100" fitHeight="100" preserveRatio="true"/>
         <Text fx:id="dialog" text="Label">
             <font>
-                <Font name="Arial" size="14.0"/>
+                <Font name="Arial" size="16.0"/>
             </font>
         </Text>
     </HBox>

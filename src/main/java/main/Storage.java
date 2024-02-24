@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Objects;
 
 import objects.TaskList;
 import view.EncaseLines;
@@ -52,26 +53,19 @@ public class Storage {
      */
     public static TaskList load() {
         if (!fileExists()) {
-            EncaseLines.display("Data not found, creating new file...");
             return new TaskList();
         }
 
         try (FileInputStream fileInput = new FileInputStream(FILE_PATH);
              ObjectInputStream objectInput = new ObjectInputStream(fileInput)) {
             TaskList tasks = (TaskList) objectInput.readObject();
-            EncaseLines.display("Existing data found, loading...");
 
-            // Perform null check here
-            if (tasks == null) {
-                EncaseLines.display("Error loading data: loaded task list is null");
-                return new TaskList(); // or handle it according to your logic
-            }
+            return Objects.requireNonNullElseGet(tasks, TaskList::new);
 
-            return tasks;
         } catch (IOException | ClassNotFoundException e) {
-            EncaseLines.display("Error loading data: " + e.getMessage());
+            System.out.println("Error loading data: " + e.getMessage());
         }
 
-        return new TaskList(); // Return a new TaskList in case of failure
+        return new TaskList();
     }
 }

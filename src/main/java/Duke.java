@@ -10,9 +10,8 @@ import objects.TaskList;
  * and manages the parsing and storage of tasks.
  */
 public class Duke {
-    public Duke() {
+    public Duke() {}
 
-    }
     /**
      * The main class serving as the entry point for the Duke application.
      * It initializes the necessary components, interacts with the user through the command-line interface,

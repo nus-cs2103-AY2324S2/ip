@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -40,9 +41,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        Circle clip = new Circle(50, 50, 40);
+        Rectangle clip = new Rectangle(200, 200);
         dialog.setText(text);
-        dialog.setWrappingWidth(330);
+        dialog.setWrappingWidth(300);
         displayPicture.setImage(img);
         displayPicture.setClip(clip);
     }
@@ -50,22 +51,12 @@ public class DialogBox extends HBox {
     /**
      * Creates and returns a new DialogBox representing a user's dialog.
      *
-     * @param text   the text content of the dialog box.
-     * @param image  the image to be displayed in the dialog box.
+     * @param text the text content of the dialog box.
+     * @param image the image to be displayed in the dialog box.
+     * @param isUser boolean to determine dialogue box with different styling
      * @return a DialogBox representing a user's dialog.
      */
-    public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image, true);
-    }
-
-    /**
-     * Creates and returns a new DialogBox representing Duke's dialog.
-     *
-     * @param text   the text content of the dialog box.
-     * @param image  the image to be displayed in the dialog box.
-     * @return a DialogBox representing Duke's dialog.
-     */
-    public static DialogBox getDukeDialog(String text, Image image) {
-        return new DialogBox(text, image, false);
+    public static DialogBox getDialog(String text, Image image, Boolean isUser) {
+        return new DialogBox(text, image, isUser);
     }
 }

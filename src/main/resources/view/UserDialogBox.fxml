@@ -6,31 +6,27 @@
 <?import javafx.scene.text.*?>
 
 <fx:root type="Pane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <!-- Apply padding to the root pane -->
     <style>
-        -fx-padding: 10px;
+        -fx-padding: 10 10 10 90;
     </style>
-    <!-- Horizontal box container -->
-    <HBox prefWidth="484.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-        <!-- Apply padding to the HBox -->
+    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500">
         <style>
             -fx-background-color: #5f96aa;
-            -fx-background-radius: 50px;
+            -fx-background-radius: 30px;
             -fx-spacing: 10px;
-            -fx-padding: 10px;
+            -fx-padding: 20px;
         </style>
         <padding>
-            <Insets top="15.0" right="5.0" bottom="15.0" left="5.0"/>
+            <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
         </padding>
-        <!-- Dialog text -->
         <Text fx:id="dialog" text="Label" textAlignment="RIGHT">
             <font>
-                <Font name="Arial" size="14.0"/>
+                <Font name="Arial" size="16.0" />
             </font>
         </Text>
-        <!-- Display Picture -->
-        <ImageView fx:id="displayPicture" fitWidth="99.0" fitHeight="99.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-
+        <ImageView fx:id="displayPicture" fitHeight="80" fitWidth="80" preserveRatio="true">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></ImageView>
     </HBox>
 </fx:root>

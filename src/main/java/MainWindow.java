@@ -18,35 +18,27 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private VBox dialogContainer;
-
     @FXML
     private TextField userInput;
-
     private Duke duke;
-
-    // Images for the user and Duke
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
-            .getResourceAsStream("/images/snorlaxFlipped.png")));
+            .getResourceAsStream("/images/trainer.png")));
     private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/snorlax.png")));
-
-    // Greeting message
-    private final String greetMessage = Greeting.display();
 
     /**
      * Initializes the main window.
      */
     @FXML
     public void initialize() {
-        // Bind scrollPane to dialogContainer height to auto-scroll
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greetMessage = Greeting.display();
 
-        // Display greeting message
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setFitToWidth(true);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greetMessage, dukeImage)
+                DialogBox.getDialog(greetMessage, dukeImage, false)
         );
     }
 
@@ -56,7 +48,7 @@ public class MainWindow extends AnchorPane {
      * @param d The Duke object to set.
      */
     public void setDuke(Duke d) {
-        duke = d;
+        this.duke = d;
     }
 
     /**
@@ -65,24 +57,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response;
+        String response = Objects.equals(input, "bye") ? exitApp() : duke.getResponse(input);
 
-        if (Objects.equals(input, "bye")) {
-            // Delay the exit for 1 second
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
-            response = "Closing application...";
-        } else {
-            response = duke.getResponse(input);
-        }
-
-        // Add user and Duke dialog boxes
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDialog(input, userImage, true),
+                DialogBox.getDialog(response, dukeImage, false)
         );
 
-        userInput.clear(); // Clear input field
+        userInput.clear();
+    }
+
+    private String exitApp() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+
+        return "Closing application...";
     }
 }
