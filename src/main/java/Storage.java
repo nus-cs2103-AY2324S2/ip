@@ -2,12 +2,12 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ListFileManager {
+public class Storage {
 
     File directory;
     File listFile;
 
-    public ListFileManager (String filename) {
+    public Storage(String filename) {
         createFile(filename);
     }
 

@@ -26,7 +26,7 @@ public class Luna {
         ArrayList<list_Entry> user_list = new ArrayList<>();
 
         // Testing ListFileManager
-        ListFileManager lfm = new ListFileManager("taskList");
+        Storage storage = new Storage("taskList");
 //        lfm.appendToFile("TEST");
 
 
@@ -61,13 +61,13 @@ public class Luna {
             }
 
             if (input_command.equalsIgnoreCase("save")) {
-                lfm.clearFile();
+                storage.clearFile();
                 for (list_Entry listEntry : user_list) {
-                    lfm.appendEntry(listEntry);
+                    storage.appendEntry(listEntry);
                 }
             } else if (input_command.equalsIgnoreCase("load")) {
                 user_list.clear();
-                lfm.loadList(user_list);
+                storage.loadList(user_list);
             } else
             // IF EXIT
             if (input_command.equalsIgnoreCase("bye") || input_command.equalsIgnoreCase("exit")) {
