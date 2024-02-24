@@ -170,4 +170,4 @@ Given an invalid command, TalkingBot will respond with the following message:
 ERROR! Unknown command detected.
 ```
 
-However, whenever one has entered an invalid format for a command 
+However, whenever one has entered an invalid format for a command, other custom error messages will be displayed instead.
