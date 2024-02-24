@@ -1,7 +1,42 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+johnny.Johnny here. What do you want bro?
 
+Go get this done bro:
+[T][ ] borrow book
+You still have 1 johnny.commands.tasks in your list bro.
+
+Go get this done bro:
+[D][ ] return book (by: Sunday)
+You still have 2 johnny.commands.tasks in your list bro.
+
+Go get this done bro:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You still have 3 johnny.commands.tasks in your list bro.
+
+Get all these done bro:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Finally done bro.
+[T][X] borrow book
+
+Get all these done bro:
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Why are you not done yet bro?
+[T][ ] borrow book
+
+Get all these done bro:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+johnny.commands.tasks.johnny.commands.tasks removed. Why so lazy bro?
+[D][ ] return book (by: Sunday)
+You still have 2 johnny.commands.tasks in your list bro.
+
+Your command does not make sense bro.
+
+Bye bro. I'm going back to sleep.
