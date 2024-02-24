@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
      * Shows the welcome message from Duke.
      */
     public void showWelcomeMessage() {
-        String welcomeMessage = "Hello! I'm Duke\nWhat can I do for you?";
+        String welcomeMessage = "Hello! I'm EchoPilot\nWhat can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 
