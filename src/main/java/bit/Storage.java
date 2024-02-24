@@ -73,6 +73,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a task into the list
+     *
+     * @param list The tasklist used by the program.
+     * @param parts The parsed input.
+     */
     private void loadTask(Tasklist list, String[] parts) {
         Task t = new Todo(parts[1]);
         if (parts[2].equals("M")) {

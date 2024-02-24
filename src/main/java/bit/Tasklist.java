@@ -100,9 +100,6 @@ public class Tasklist {
     private String addDeadline(String input) throws DukeException {
         try {
             String[] parts = input.split(" ", 2);
-            if (!(parts[0].equals("deadline"))) {
-                throw new DukeException("Is that a typo I see?");
-            }
             if (parts[0].equals("deadline")) {
                 String[] compo = parts[1].split("/by");
                 if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
@@ -121,7 +118,7 @@ public class Tasklist {
         } catch (ArrayIndexOutOfBoundsException x) {
             throw new DukeException("Did you miss something?");
         }
-        throw new DukeException("");
+        throw new DukeException("Is that a typo I see?");
     }
     /**
      * Deletes task found at i - 1. This means the very first task is deleted when i = 1.

@@ -4,78 +4,60 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TasklistTest {
-/* Test method addTo() */
     @Test
     public void testAddTo() {
         Tasklist tasklist = new Tasklist();
         String s = "";
-        try {
-            tasklist.addTo("todon");
-        } catch (DukeException e) {
-            s = e.getMessage();
-        }
+        s = attemptExpectingException(tasklist, "todon");
         assertEquals(s, "I have no idea what that means!");
         assertEquals(0, tasklist.getSize());
 
-        try {
-            tasklist.addTo("todo");
-        } catch (DukeException e) {
-            s = e.getMessage();
-        }
-        assertEquals(s, "Hmmm, that todo is empty!");
+        s = attemptExpectingException(tasklist, "todo");
+        assertEquals("Hmmm, that todo is empty!", s);
         assertEquals(0, tasklist.getSize());
 
-        try {
-            tasklist.addTo("todo iP");
-        } catch (DukeException e) {
+        s = attemptExpectingNoException(tasklist, "todo iP");
+        assertEquals("[T][ ] iP", s);
 
+        s = attemptExpectingNoException(tasklist, " 1 todo");
+        assertEquals("[T][ ] iP", s);
+
+
+        s = attemptExpectingNoException(tasklist, "deadline x /by 2020-03-03");
+        assertEquals("[D][ ] x  (by: 03 March 2020)", s);
+
+        s = attemptExpectingException(tasklist, "deadline /by 2020-03-04");
+        assertEquals("Did you miss something?", s);
+
+        s = attemptExpectingException(tasklist, "deadline x 2020-03-05");
+        assertEquals("Did you miss something?", s);
+
+        s = attemptExpectingNoException(tasklist, "deadline y /by Tuesday");
+        assertEquals("[D][ ] x  (by: 03 March 2020)", s);
+
+        s = attemptExpectingNoException(tasklist, "event z /from 1 /to 2");
+        assertEquals("[E][ ] z  (from:  1  to:  2)", s);
+
+        s = attemptExpectingException(tasklist, "event /from 3 /to 4");
+        assertEquals("Missing something?", s);
+    }
+    private String attemptExpectingException(Tasklist tasklist, String input) {
+        try {
+            tasklist.addTo(input);
+            return "No exception was thrown";
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-        assertEquals(1, tasklist.getSize());
-        assertEquals("[T][ ] iP", tasklist.getTask(0).toString());
+    }
 
+    private String attemptExpectingNoException(Tasklist tasklist, String input) {
         try {
-            tasklist.addTo(" 1 todo");
+            tasklist.addTo(input);
+            int size = tasklist.getSize();
+            int index = size - 1;
+            return tasklist.getTask(index).toString();
         } catch (DukeException e) {
-            assertEquals("I have no idea what that means!", e.getMessage());
-        }
-        assertEquals(tasklist.getSize(), 1);
-
-        try {
-            tasklist.addTo("deadline x /by 2020-03-03");
-        } catch (DukeException e) {
-
-        }
-        assertEquals("[D][ ] x  (by: 03 March 2020)", tasklist.getTask(1).toString());
-
-        try {
-            tasklist.addTo("deadline /by 2020-03-04");
-        } catch (DukeException e) {
-            assertEquals("Did you miss something?", e.getMessage());
-        }
-
-        try {
-            tasklist.addTo("deadline x 2020-03-05");
-        } catch (DukeException e) {
-            assertEquals("Did you miss something?", e.getMessage());
-        }
-
-        try {
-            tasklist.addTo("deadline y /by Tuesday");
-        } catch (DukeException e) {
-            assertEquals("", e.getMessage());
-        }
-
-        try {
-            tasklist.addTo("event z /from 1 /to 2");
-        } catch (DukeException e) {
-
-        }
-        assertEquals("[E][ ] z  (from:  1  to:  2)", tasklist.getTask(2).toString());
-
-        try {
-            tasklist.addTo("event /from 3 /to 4");
-        } catch (DukeException e) {
-            assertEquals("Missing something?", e.getMessage());
+            return "An Exception was thrown";
         }
     }
 }
