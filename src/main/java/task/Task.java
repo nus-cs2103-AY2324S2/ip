@@ -1,4 +1,4 @@
-package emisTask;
+package task;
 
 /**
  * The Task class represents a generic task in the EMIS application.

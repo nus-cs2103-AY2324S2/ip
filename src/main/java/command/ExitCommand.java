@@ -1,4 +1,4 @@
-package emisCommand;
+package command;
 
 import emis.TaskList;
 import emis.Storage;

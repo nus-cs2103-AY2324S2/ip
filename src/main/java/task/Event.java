@@ -1,4 +1,4 @@
-package emisTask;
+package task;
 
 /**
  * The Event class represents an event task in the EMIS application.

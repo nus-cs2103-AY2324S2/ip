@@ -1,10 +1,9 @@
 package emis;
 
-import emisCommand.Command;
-import emisExceptions.EmisException;
+import command.Command;
+import exceptions.EmisException;
 
 /**
- * The main class of the EMIS application.
  * Duke handles the initialization of application components and the main application logic.
  */
 public class Duke {

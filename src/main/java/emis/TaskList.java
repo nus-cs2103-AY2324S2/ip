@@ -1,7 +1,8 @@
 package emis;
 
-import emisTask.Task;
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * The TaskList class contains a list of tasks and provides operations to manipulate the task list in the EMIS application.
