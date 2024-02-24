@@ -29,18 +29,19 @@ public class FindCommand extends Command {
      * @param storageManager The storage manager (not used in this command).
      * @return Null, as there is no task to return.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) {
+    public String execute(TaskList tasks, StorageManager storageManager) {
+        StringBuilder output = new StringBuilder();
         List<Task> tasksContainingKeyword = tasks.find(this.keyword);
         if (tasksContainingKeyword.size() == 0) {
-            System.out.println("No matching tasks.");
+            output.append("No matching tasks.\n");
         }
-        System.out.println("Here are the matching tasks in your list:");
+        output.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksContainingKeyword.size(); i++) {
             Task t = tasksContainingKeyword.get(i);
-            String str = String.format("%d. %s", i + 1, t);
-            System.out.println(str);
+            String str = String.format("%d. %s\n", i + 1, t);
+            output.append(str);
         }
-        return null;
+        return output.toString();
     }
 
     /**

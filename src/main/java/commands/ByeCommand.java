@@ -15,9 +15,8 @@ public class ByeCommand extends Command {
      * @param storageManager The storage manager (not used in this command).
      * @return Null, as there is no task to return.
      */
-    public Task execute(TaskList tasks, StorageManager storageManager) {
-        System.out.println("Bye. Hope to see you again soon!");
-        return null;
+    public String execute(TaskList tasks, StorageManager storageManager) {
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**

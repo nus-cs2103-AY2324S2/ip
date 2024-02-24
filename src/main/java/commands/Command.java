@@ -3,7 +3,6 @@ package commands;
 import exceptions.CalException;
 import storage.StorageManager;
 import tasklist.TaskList;
-import tasks.Task;
 
 /**
  * Represents a command entered by a user.
@@ -17,6 +16,6 @@ public abstract class Command {
      * @return Task handled by the command
      * @throws CalException if there was an error when executing the command.
      */
-    public abstract Task execute(TaskList tasks, StorageManager storageManager) throws CalException;
+    public abstract String execute(TaskList tasks, StorageManager storageManager) throws CalException;
     public abstract boolean isExit();
 }
