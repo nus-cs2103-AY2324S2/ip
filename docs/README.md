@@ -4,7 +4,7 @@
 
 Luke is a simple task list manager. You (the person on the right) can interact with Luke (the person on the left) through commands to manage your tasks. If this is your first time using this app, sample data has already been loaded for you. Feel free to experiment with them and delete them if not in use. Your tasks are automatically saved to the save file, which will be automatically loaded upon starting Luke.
 
-Warning: do not edit the save file directly, or the save file may be corrupted! In this case, you might possibly lose all your saved tasks!
+Warning: do not edit the save file directly, or the save file may be corrupted! In this case, double clicking would not start the jar file, and trying to run it in terminal will throw an exception (you should see `Save file could not be read. If you have edited the save file, please undo the edits so that it could be read. Otherwise, it could be due to corruption.`). Worst of all, you might possibly lose all your saved tasks!
 
 Below is the list of features/commands that are available:
 
