@@ -13,7 +13,7 @@ If you're new here, you can start with [Getting Started](#getting-started).
 
 If you have used Demon before, you can jump straight to Demon's [Features and Commands](#features-and-commands).
 
-<img src="Ui.PNG" width=70% display='block' margin-left="auto" margin-right="auto"/>
+<img src="Ui.PNG" width="70%" display='block' margin-left="auto" margin-right="auto"/>
 
 **Figure 1**: Example of Demon's GUI.
 
