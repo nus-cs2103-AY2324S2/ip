@@ -1,20 +1,20 @@
+package duke.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
-    private static String TASK_TYPE = "[D] ";
-    private static String DEADLINE = "deadline";
+public class Event extends Task {
+    private static String TASK_TYPE = "[E] ";
+    private static String EVENT = "event";
     private LocalDate date;
     static String COMPLETED_MESSAGE_END = " is complete!";
     static String INCOMPLETE_MESSAGE_END = " by ";
-    
-    // Deadline class needs to be able to parse dates
-    public Deadline(String name, LocalDate date) {
+
+    public Event(String name, LocalDate date) {
         super(name);
         this.date = date;
     }
 
-    public Deadline(String name, String isDone, LocalDate date) {
+    public Event(String name, String isDone, LocalDate date) {
         super(name, isDone);
         this.date = date;
     }    
@@ -36,6 +36,6 @@ public class Deadline extends Task {
             isDoneString = "false";
         }
 
-        return DEADLINE + " " + isDoneString + " " + this.date + " " + this.name;
+        return EVENT + " " + isDoneString + " " + this.name;
     }
 }

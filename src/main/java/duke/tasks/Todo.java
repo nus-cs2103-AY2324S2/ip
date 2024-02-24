@@ -1,3 +1,4 @@
+package duke.tasks;
 public class Todo extends Task {
     private static String TASK_TYPE = "[T] ";
     private static String COMPLETED_MESSAGE_END = " is complete!";

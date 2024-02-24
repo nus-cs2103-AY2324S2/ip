@@ -1,6 +1,14 @@
+package duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+
+import duke.tasks.Task;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
+import duke.exceptions.UnrecognizedException;
+import duke.exceptions.MissingInputException;
 
 public class Ui {
     private static final String INDENT = "    ";
