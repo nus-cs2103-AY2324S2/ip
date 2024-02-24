@@ -23,8 +23,8 @@ public class Parser {
     private static final String ERROR_DESCRIPTION_TODO_EMPTY = "The description of a todo cannot be empty.";
     private static final String ERROR_DESCRIPTION_DEADLINE_EMPTY =
             "The description of a deadline or its due time cannot be empty.";
-    private static final String ERROR_FORMAT_DATES = "Please use the format"
-            + Task.DATE_TIME_FORMAT_INPUT + "for dates.";
+    private static final String ERROR_FORMAT_DATES = "Please use the format "
+            + Task.DATE_TIME_FORMAT_INPUT + " for dates and times.";
     private static final String ERROR_DESCRIPTION_EVENT_EMPTY = "The description of an event cannot be empty.";
     private static final String ERROR_START_END_TIME_EVENT_EMPTY = "The start or end time of an event cannot be empty.";
     private static final String ERROR_INVALID_TASK_NUMBER = "Invalid task number.";
