@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A TaskList class that encapsulates the information and actions of a task list.
@@ -62,22 +63,13 @@ public class TaskList {
     }
 
     public List<Task> getTasksByDate(LocalDate date) {
-        List<Task> tasksByDate = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) task;
-                if (deadlineTask.getBy().toLocalDate().equals(date)) {
-                    tasksByDate.add(task);
-                }
-            } else if (task instanceof Event) {
-                Event eventTask = (Event) task;
-                if (eventTask.getFrom().toLocalDate().equals(date) || eventTask.getTo().toLocalDate().equals(date)) {
-                    tasksByDate.add(task);
-                }
-            }
-        }
-        return tasksByDate;
+        return tasks.stream()
+                .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date))
+                .filter(task -> task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
+                        || ((Event) task).getTo().toLocalDate().equals(date)))
+                .collect(Collectors.toList());
     }
+
 
 
     /**
@@ -86,15 +78,13 @@ public class TaskList {
      * @return A TaskList containing tasks whose descriptions contain the specified keyword.
      */
     public TaskList findTasksByKeyword(String keyword) {
-        TaskList matchingTasks = new TaskList();
-        String lowerCaseKeyword = keyword.toLowerCase(); // Convert keyword to lowercase for case insensitivity
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(lowerCaseKeyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
-        return matchingTasks;
+        String lowerCaseKeyword = keyword.toLowerCase();
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(lowerCaseKeyword))
+                .collect(Collectors.toList());
+        return new TaskList(new ArrayList<>(matchingTasks));
     }
+
 
 
     public boolean isEmpty() {
