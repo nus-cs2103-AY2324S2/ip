@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BotChat {
-    private static boolean terminate = false;
+    private static boolean isTerminate = false;
     private static final String FILEPATH = "./././data/botchat.txt";
     private static Storage storage;
     private static TaskList taskArrayList;
@@ -75,7 +75,7 @@ public class BotChat {
         Matcher unmarkMatcher = unmarkPattern.matcher(s);
         String command = parser.extractCommand(s);
         if (command.equals("bye")) {
-            terminate = true;
+            isTerminate = true;
             return Ui.byeMessage();
         } else if (command.equals("list")) {
             StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
@@ -192,7 +192,7 @@ public class BotChat {
 
         Scanner userInput = new Scanner(System.in);
 
-        while (!terminate) {
+        while (!isTerminate) {
             String command = userInput.nextLine();
             System.out.println(response(command));
         }

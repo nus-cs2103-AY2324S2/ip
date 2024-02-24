@@ -1,24 +1,24 @@
 package task;
 
 public class Task {
-    private boolean done;
+    private boolean isDone;
     private String taskString;
 
     public Task(String s) {
         this.taskString = s;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean getDoneStatus() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getTaskString() {
