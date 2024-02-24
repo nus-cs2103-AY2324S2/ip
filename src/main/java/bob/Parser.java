@@ -41,10 +41,10 @@ public class Parser {
     private static final String PATTERN_DATE = "d/M/yyyy";
     private static final String PATTERN_DATE_TIME = PATTERN_DATE + " HHmm";
 
-    private static final DateTimeFormatter FORMATTER_DATE
-            = DateTimeFormatter.ofPattern(PATTERN_DATE);
-    private static final DateTimeFormatter FORMATTER_DATE_TIME
-            = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
+    private static final DateTimeFormatter FORMATTER_DATE =
+            DateTimeFormatter.ofPattern(PATTERN_DATE);
+    private static final DateTimeFormatter FORMATTER_DATE_TIME =
+            DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
     /**
      * Extracts the description and parameters from a given command.

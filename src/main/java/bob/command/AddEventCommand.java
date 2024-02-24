@@ -2,12 +2,12 @@ package bob.command;
 
 import java.time.LocalDateTime;
 
-import bob.exception.InvalidEventException;
 import bob.Storage;
-import bob.exception.SavingException;
-import bob.task.Task;
 import bob.TaskList;
 import bob.Ui;
+import bob.exception.InvalidEventException;
+import bob.exception.SavingException;
+import bob.task.Task;
 
 /**
  * Represents an action to add an event. An <code>AddEventCommand</code> object corresponds to

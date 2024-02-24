@@ -1,10 +1,10 @@
 package bob.command;
 
+import java.time.LocalDate;
+
 import bob.Storage;
 import bob.TaskList;
 import bob.Ui;
-
-import java.time.LocalDate;
 
 /**
  * Represents an action to list the tasks on a specified day.
@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * that is occurring on a specified date.
  */
 public class ListOnDateCommand extends ListCommand {
-    LocalDate date;
+    private final LocalDate date;
 
     /**
      * Returns a command to list the tasks on a specified day.
