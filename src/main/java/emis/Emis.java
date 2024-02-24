@@ -6,7 +6,7 @@ import exceptions.EmisException;
 /**
  * Duke handles the initialization of application components and the main application logic.
  */
-public class Duke {
+public class Emis {
 
     /** The storage component for managing data. */
     private Storage storage;
@@ -21,7 +21,7 @@ public class Duke {
      * Constructs a Duke object with default file path.
      * Initializes storage and tasklist components.
      */
-    public Duke() {
+    public Emis() {
         storage = new Storage(FILE_PATH);
         try {
             tasklist = new TaskList(storage.loadFromStorageFile());

@@ -1,3 +1,5 @@
 T | 1 | read book
-D | 0 | feed cat  | 2024-02-02 1900
-E | 0 | wit  |  aug 2  |  aug 3
+D | 0 | feed cat | 2024-02-02 1900
+E | 0 | wit | aug 2 | aug 3
+T | 0 | read
+T | 0 | hi
