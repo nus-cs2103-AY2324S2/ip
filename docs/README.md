@@ -21,6 +21,7 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 ### Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
+
 Command:
 ```
 help
@@ -28,6 +29,7 @@ help
 
 ### Listing all tasks
 You can list all your tasks using the `list` command.
+
 Command
 ```
 list
