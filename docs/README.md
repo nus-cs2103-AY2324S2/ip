@@ -53,8 +53,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-> [!NOTE]
-> Date format must be 'yyyy-MM-dd'.
+> **Note:** Date format must be 'yyyy-MM-dd.'
 
 #### Event Task
 
@@ -73,8 +72,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ``` 
 
-> [!NOTE]
-> Date format must be 'yyyy-MM-dd.'
+> **Note:** Date format must be 'yyyy-MM-dd.'
 
 ### Listing Tasks
 
