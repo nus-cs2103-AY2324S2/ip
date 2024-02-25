@@ -1,7 +1,7 @@
 # Floofy User Guide
 
 ### _!! ATTENTION !! everyone needs a *FLOOFY* in their life XD_
-![Floofy 101](./Ui.png)
+<img src="./Ui.png" alt="Floofy 101" width="400"/>
 
 Floofy is YOUR personal chatbot assistant that helps you manage your tasks and deadlines.
 
@@ -149,9 +149,11 @@ e.g. `bye`
 Bye. Hope to see you again soon!
 ```
 
-### !! Important Messages From Floofy !!
+### !! Important Message From Floofy !!
 > Your tasks are saved automatically, so you don't have to worry about losing them.
 
-> __Acknowledgement:__ The development of Floofy was accelerated with the use of GitHub Co-Pilot. 
+### !! Acknowledgement !!
+> The development of Floofy was accelerated with the **use of GitHub Co-Pilot**.
+
 > With that, you may look forward to EVEN BETTER versions of Floofy in the near future 
 > as we continue developing at __*LIGHTNING SPEED*__.
