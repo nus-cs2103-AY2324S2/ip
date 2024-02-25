@@ -240,7 +240,7 @@ public class Aegis {
     private static String tagTask(String arguments) {
         try {
             int taskNum = parser.parseTaskIndex(arguments);
-            String tag = parser.parseArguments(arguments);
+            String tag = parser.parseTagArguments(arguments);
 
             if (tag.isBlank() || !tag.contains("#")) {
                 return "Invalid tag provided. Please specify a tag in the following format:\n"

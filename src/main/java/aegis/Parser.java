@@ -146,4 +146,23 @@ public class Parser {
 
         return eventInfo;
     }
+
+    /**
+     * Returns a string containing the tag information.
+     *
+     * @param input String containing command arguments.
+     * @return String containing tag information.
+     */
+    public String parseTagArguments(String input) {
+        StringTokenizer st = new StringTokenizer(input);
+        st.nextToken();
+        st.nextToken();
+
+        String arguments = "";
+        while(st.hasMoreTokens()) {
+            arguments += st.nextToken() + " ";
+        }
+
+        return arguments.trim();
+    }
 }
