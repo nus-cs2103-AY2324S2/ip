@@ -10,7 +10,9 @@ Command Line Interface (CLI).
 
 If you want to use Victor, simply follow the following instructions:
 1. Make sure you have java 11 installed on your computer
-2. Download the latest version of victor.jar from here
+2. Download the latest version of `victor.jar` from [here]([victor.jar](..%2Fbuild%2Flibs%2Fvictor.jar))
+3. place the `victor.jar` file in the folder or dictionary you plan to use in your local machine
+4. Run `java -jar victor.jar` command on your terminal, and Victor should be up and running.
 
 ## Note
 Do not close the window when you are done with Victor. It will not save any new data.
