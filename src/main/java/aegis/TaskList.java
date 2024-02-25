@@ -225,4 +225,14 @@ public class TaskList {
         Task selectedTask = taskList.get(index);
         selectedTask.addTag(tag);
     }
+
+    /**
+     * Returns a boolean representing whether the provided index is within the task list bounds.
+     *
+     * @param index Index of the task.
+     * @return Boolean representing whether index is within bounds.
+     */
+    public boolean isWithinTaskListBounds(int index) {
+        return index > 0 && index <= taskList.size();
+    }
 }
