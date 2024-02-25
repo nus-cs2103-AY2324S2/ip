@@ -46,6 +46,7 @@ public class Parser {
         String collected = Stream.iterate(this.cursor, i -> i < this.strs.length, i -> i + 1)
                 .map(i -> this.strs[i])
                 .collect(Collectors.joining(" "));
+        this.cursor = this.strs.length;
         assert(!this.hasNext());
         return collected;
     }
