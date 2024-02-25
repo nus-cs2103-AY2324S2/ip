@@ -3,17 +3,17 @@
 ![Raphael in action](Ui.png)
 
 Raphael is a **desktop bot for managing tasks, optimized for a use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Raphael can get your task management tasks done faster.
-- [Adding deadlines: `deadline`](#deadline)
-- [Adding events: `event`](#event)
-- [Adding todos: `todo`](#todo)
-- [Deleting tasks: `delete`](#delete)
-- [Marking tasks: `mark`](#mark)
-- [Unmarking tasks: `unmark`](#unmark)
-- [Showing all tasks: `list`](#list)
-- [Finding matching tasks: `find`](#find)
-- [Bid farewell: `bye`](#bye)
+- [Adding deadlines: `deadline`](#adding-deadlines-deadline)
+- [Adding events: `event`](#adding-events-event)
+- [Adding todos: `todo`](#adding-todos-todo)
+- [Deleting tasks: `delete`](#deleting-tasks-delete)
+- [Marking tasks: `mark`](#marking-tasks-mark)
+- [Unmarking tasks: `unmark`](#unmarking-tasks-unmark)
+- [Showing all tasks: `list`](#showing-all-tasks-list)
+- [Finding matching tasks: `find`](#finding-matching-tasks-find)
+- [Biding farewell: `bye`](#biding-farewell-bye)
 
-## Adding deadlines: `deadline` {#deadline}
+## Adding deadlines: `deadline`
 Adds a deadline to the task list.
 Format: `deadline DESCRIPTION by DEADLINE`
 Examples:
@@ -26,7 +26,7 @@ Examples:
 expected output
 ```
 
-## Adding events: `event` {#event}
+## Adding events: `event`
 Adds an event to the task list.
 Format: `event DESCRIPTION from START_TIME to END_TIME`
 Examples:
@@ -38,7 +38,7 @@ Examples:
 expected output
 ```
 
-## Adding todos: `todo` {#todo}
+## Adding todos: `todo`
 Adds a todo into the task list.
 Format: `todo DESCRIPTION`
 Examples:
@@ -50,7 +50,7 @@ Examples:
 expected output
 ```
 
-## Deleting tasks: `delete` {#delete}
+## Deleting tasks: `delete`
 Deletes a task (indicated by index) from the task list.
 Format: `delete INDEX`
 Examples:
@@ -63,7 +63,7 @@ Examples:
 expected output
 ```
 
-## Marking tasks: `mark` {#mark}
+## Marking tasks: `mark`
 Marks a task in the task list as done.
 Format: `mark INDEX`
 Examples:
@@ -76,7 +76,7 @@ Examples:
 expected output
 ```
 
-## Unmarking tasks: `unmark` {#unmark}
+## Unmarking tasks: `unmark`
 Unmarks a task in the task list as undone.
 Format: `unmark INDEX`
 Examples:
@@ -89,7 +89,7 @@ Examples:
 expected output
 ```
 
-## Showing all tasks: `list` {#list}
+## Showing all tasks: `list`
 Lists all the tasks in the task list.
 Format: `list`
 Examples:
@@ -101,7 +101,7 @@ Examples:
 expected output
 ```
 
-## Finding matching tasks: `find` {#find}
+## Finding matching tasks: `find`
 Finds the matching tasks from the task list that contains the given substring.
 Format: `find KEYWORD`
 Examples:
@@ -114,7 +114,7 @@ Examples:
 expected output
 ```
 
-## Bid farewell: `bye` {#bye}
+## Biding farewell: `bye`
 Bids farewell to the user.
 Format: `bye`
 Examples:
