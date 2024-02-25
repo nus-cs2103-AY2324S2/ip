@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * Aegis class contains the main() method that initiates and runs the Aegis assistant program logic.
@@ -242,6 +243,10 @@ public class Aegis {
             int taskNum = parser.parseTaskIndex(arguments);
             String tag = parser.parseTagArguments(arguments);
 
+            if (!taskList.isWithinTaskListBounds(taskNum)) {
+                return "Invalid task index provided.\nPlease provide a valid task index.\n";
+            }
+
             if (tag.isBlank() || !tag.contains("#")) {
                 return "Invalid tag provided. Please specify a tag in the following format:\n"
                         + "#<tag>";
@@ -249,8 +254,10 @@ public class Aegis {
 
             taskList.tagTask(taskNum, tag);
             return ui.getTagTaskSuccess(tag) + taskList.getTask(taskNum).toString();
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            return "Invalid task index provided.\nPlease provide a valid task index.\n";
+        } catch (NoSuchElementException e) {
+            return "Invalid command given for tagging task."
+                    + "\nPlease provide command in the following format:"
+                    + "\ntag <Task Index> #<Tag>";
         }
     }
 }

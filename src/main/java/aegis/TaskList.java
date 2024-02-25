@@ -233,6 +233,6 @@ public class TaskList {
      * @return Boolean representing whether index is within bounds.
      */
     public boolean isWithinTaskListBounds(int index) {
-        return index > 0 && index <= taskList.size();
+        return index >= 0 && index <= taskList.size();
     }
 }

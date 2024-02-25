@@ -156,7 +156,6 @@ public class Parser {
     public String parseTagArguments(String input) {
         StringTokenizer st = new StringTokenizer(input);
         st.nextToken();
-        st.nextToken();
 
         String arguments = "";
         while(st.hasMoreTokens()) {
