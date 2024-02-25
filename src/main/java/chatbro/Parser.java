@@ -88,7 +88,7 @@ public class Parser {
             default:
                 throw new WrongFileFormatException(wrongFileMessage);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) { // Problems with splitString: missing information
             throw new WrongFileFormatException(wrongFileMessage);
         }
     }
