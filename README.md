@@ -4,8 +4,7 @@ Luna is your trusty friend to make sure you are always on track and do not miss 
 Luna is
 * User-friendly
 * Cute
-* ~~a Virus~~
-* Safe
+* ~~a Virus~~ Safe
 
 *How to get started:*
 1. Download from here
