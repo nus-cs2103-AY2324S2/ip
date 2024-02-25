@@ -1,9 +1,8 @@
 package GUI;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import balkanBot.BalkanBot;
+import balkan.BalkanBot;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

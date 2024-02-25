@@ -1,4 +1,4 @@
-package balkanBot;
+package balkan;
 
 public class BalkanBotException extends Exception {
 

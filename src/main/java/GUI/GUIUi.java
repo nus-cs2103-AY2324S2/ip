@@ -125,5 +125,25 @@ public class GUIUi {
         }
         return "Here are the matches found:\n" + toPrint;
     }
+
+    /**
+     * Prints the contents of the help function.
+     *
+     * @return String form of help function
+     */
+    public String printHelp() {
+        return "Here is the list of commands:\n" +
+                "1. bye: Shuts down the program and saves the tasks in the task list\n" +
+                "2. find [key word]: Allows user to find tasks that match the provided one-word string\n" +
+                "3. mark [positive integer]: Marks task at specified index\n" +
+                "4. unmark [positive integer]: Unmarks task at specified index\n" +
+                "5. todo [description]: Creates a new ToDo task with specified description\n" +
+                "6. deadline [description] /by [date]: Creates a new Deadline task with specified description and\n" +
+                "due date\n" +
+                "7. eventdeadline [description] /from [date] /to [date]: Creates a new Deadline task with specified\n" +
+                "description and start and end date\n" +
+                "8. delete [positive integer]: Deletes task at specified index\n" +
+                "9. help: Displays a list of all commands\n";
+    }
 }
 
