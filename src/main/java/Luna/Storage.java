@@ -80,7 +80,7 @@ public class Storage {
      * @param entry to be converted to text to the file
      */
     public void appendEntry(ListEntry entry) {
-        appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
+        appendToFile(entry.type + "," + entry.isDone + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
     }
 
     /**

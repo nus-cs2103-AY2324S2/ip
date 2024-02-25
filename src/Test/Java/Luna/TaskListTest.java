@@ -2,7 +2,7 @@ package Luna;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
     @Test
@@ -28,24 +28,23 @@ public class TaskListTest {
         tl.add(new ListEntryTodo("Item 1", false));
         tl.add(new ListEntryTodo("Item 2", false));
         assertEquals(tl.size(), 2);
-        assertEquals(tl.get(0).check, false);
-        assertEquals(tl.get(1).check, false);
+        assertFalse(tl.get(0).isDone);
+        assertFalse(tl.get(1).isDone);
 
         tl.get(1).markEntry();
 
-        assertEquals(tl.get(0).check, false);
-        assertEquals(tl.get(1).check, true);
 
+        assertFalse(tl.get(0).isDone);
+        assertTrue(tl.get(1).isDone);
         tl.get(0).unmarkEntry();
 
-        assertEquals(tl.get(0).check, false);
-        assertEquals(tl.get(1).check, true);
+        assertFalse(tl.get(0).isDone);
+        assertTrue(tl.get(1).isDone);
 
         tl.get(1).unmarkEntry();
 
-        assertEquals(tl.get(0).check, false);
-        assertEquals(tl.get(1).check, false);
-
+        assertFalse(tl.get(0).isDone);
+        assertFalse(tl.get(1).isDone);
 
 
     }
