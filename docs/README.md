@@ -9,6 +9,11 @@ Datuk is a chatbot that helps you manage your tasks.
 2. Download the latest [Datuk.jar](https://github.com/breezetall/ip/releases/tag/A-Release).
 3. Double click to run and enjoy!
 
+## Feature list
+Lists all current tasks in the tasklist. <br>
+
+Example: `list`
+
 ## Feature todo
 Adds a todo event to your task list. <br>
 Format: 
