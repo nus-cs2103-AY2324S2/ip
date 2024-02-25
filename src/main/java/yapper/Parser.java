@@ -129,6 +129,14 @@ public class Parser {
         case EVENT:
             throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
                     + "e.g. event <task> /from <start date/time> /to <start date/time>\n"));
+        case HELP:
+            // Fallthrough
+        case LIST:
+            // Fallthrough
+        case BYE:
+            break; // HELP, LIST, BYE expects no arguments
+        default:
+            throw (new YapperException("Unhandled command type in parseHasNoArgumentException\n"));
         }
     }
 

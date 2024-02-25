@@ -15,7 +15,10 @@ public class Yapper {
     private final Parser parser;
     private final FileManager fm;
 
-
+    /**
+     * Constructor for Yapper class.
+     * Load tasks when initialized.
+     */
     public Yapper() {
         mainTasks = new TaskList();
         ui = new Ui(mainTasks);

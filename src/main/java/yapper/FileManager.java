@@ -14,6 +14,13 @@ import exception.YapperException;
  */
 public class FileManager {
     private final Parser parser;
+
+    /**
+     * Constructor for FileManager class.
+     * This instance and a {@link Parser} instance references each other when initialized.
+     *
+     * @param p Parser instance that this instance of FileManager refers to.
+     */
     public FileManager(Parser p) {
         parser = p;
         parser.setFileManager(this);

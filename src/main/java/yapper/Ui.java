@@ -56,6 +56,11 @@ public class Ui {
         return "Peace out, fam! Stay lit and keep those good vibes rollin'!\n";
     }
 
+    /**
+     * Full list of commands for when user needs help.
+     *
+     * @return String of the full list of commands and their format.
+     */
     public static String helpMessage() {
         return "I gotchu bruv, here's the list of commands and their formats:\n"
                 + "help, list, todo, deadline, event, mark, unmark, \ndelete, find, bye\n" + INDENT
