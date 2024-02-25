@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import simpli.configs.Config;
 import simpli.exceptions.CommandException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
@@ -48,9 +49,9 @@ public class Storage {
      * @throws IOException When file is corrupted.
      */
     public void saveTasksToFile(String path) throws IOException {
-        File f = new File("./data/simpli.csv");
+        File file = new File(Config.DATA_PATH);
 
-        if (!f.isFile() && f.getParentFile().mkdir() && !f.createNewFile()) {
+        if (!file.isFile() && file.getParentFile().mkdir() && !file.createNewFile()) {
             throw new IOException();
         }
 

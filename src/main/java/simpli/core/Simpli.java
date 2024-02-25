@@ -53,17 +53,6 @@ public class Simpli {
         }
     }
 
-    /**
-     * Stops the chatbot and perform saving of tasks before quitting.
-     */
-    public void stop() {
-        try {
-            storage.saveTasksToFile(Config.DATA_PATH);
-        } catch (IOException e) {
-            System.out.println("Error in opening file.");
-        }
-    }
-
     public TaskList getTaskList() {
         return taskList;
     }
@@ -77,7 +66,9 @@ public class Simpli {
     public CommandResult processInput(String input) {
         try {
             String[] tokens = parser.parseCommand(input);
-            return intrpr.interpret(tokens);
+            CommandResult processedInput = intrpr.interpret(tokens);
+            storage.saveTasksToFile(Config.DATA_PATH);
+            return processedInput;
         } catch (TaskException e) {
             return new CommandResult(
                     CommandWord.INVALID,
@@ -92,6 +83,11 @@ public class Simpli {
             return new CommandResult(
                     CommandWord.INVALID,
                     "No such action to simp for :("
+            );
+        } catch (IOException e ) {
+            return new CommandResult(
+                    CommandWord.INVALID,
+                    "I am unable to save the tasks into your filesystem :("
             );
         }
     }

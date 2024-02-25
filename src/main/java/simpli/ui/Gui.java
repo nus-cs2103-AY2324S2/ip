@@ -39,12 +39,4 @@ public class Gui extends Application {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Stops running the GUI application.
-     */
-    @Override
-    public void stop() {
-        simpli.stop();
-    }
 }
