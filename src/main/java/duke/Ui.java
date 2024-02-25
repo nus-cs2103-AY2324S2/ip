@@ -34,7 +34,7 @@ public class Ui {
      * @return The welcome message string.
      */
     public String showWelcome() {
-        return "Hi! I'm BernardBot\nWhat can I do for you?";
+        return "Dive into IVE 안녕하세요 I'm DiveInBot\nWhat can I do for you?";
     }
 
     /**

@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private boolean isWelcomeSent = false;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/img_5562.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/img_7470.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/a.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/b.jpg"));
 
     @FXML
     public void initialize() {
@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
      */
     private void sendWelcome() {
         if (!isWelcomeSent) {
-            String welcomeMsg = "Hi! I'm BernardBot\nWhat can I do for you?";
+            String welcomeMsg = "Dive into IVE! Hello, I'm DiveBot\nWhat can I do for you?";
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(welcomeMsg, dukeImage)
             );
