@@ -31,7 +31,7 @@ public class ExitCommand extends Command {
      * @param storage The storage path to store persistent data.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        serializeArrayList(tasks.getList(), storage.getFilePath());
+        super.serializeArrayList(tasks.getList(), storage.getFilePath());
         return ("Bye. Hope to see you again soon!");
 
     }
@@ -45,17 +45,4 @@ public class ExitCommand extends Command {
         return true;
     }
 
-    /**
-     * Serializes the provided ArrayList of tasks to the specified file path using object serialization.
-     *
-     * @param list     The ArrayList of tasks to be serialized.
-     * @param filePath The file path where the serialized data will be stored.
-     */
-    private static void serializeArrayList(ArrayList<Task> list, String filePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            oos.writeObject(list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

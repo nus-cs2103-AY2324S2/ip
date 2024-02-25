@@ -3,8 +3,6 @@ package roland;
 import command.Command;
 import javafx.Launcher;
 
-import java.util.Locale;
-
 
 /**
  * The Duke class is the main class for the Roland task management application.

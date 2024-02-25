@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
     protected String description;
+    protected String notes;
     protected boolean isDone;
 
     /**
@@ -72,5 +73,14 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    /**
+     * Add notes to a task
+     *
+     * @param notes the note that user wants to add to their tasks
+     */
+    public void addNotes(String notes) {
+        this.notes = notes;
     }
 }

@@ -1,10 +1,5 @@
 package command;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import roland.Storage;
 import roland.TaskList;
 import roland.Ui;
@@ -42,22 +37,9 @@ public class AddCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(this.task);
-        serializeArrayList(tasks.getList(), storage.getFilePath());
+        super.serializeArrayList(tasks.getList(), storage.getFilePath());
         return ("I have added " + task.toString()
                 + " to your list of tasks. You have " + tasks.size() + " task(s) in list");
     }
 
-    /**
-     * Serializes the provided ArrayList of tasks to the specified file path using object serialization.
-     *
-     * @param list     The ArrayList of tasks to be serialized.
-     * @param filePath The file path where the serialized data will be stored.
-     */
-    private static void serializeArrayList(ArrayList<Task> list, String filePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            oos.writeObject(list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

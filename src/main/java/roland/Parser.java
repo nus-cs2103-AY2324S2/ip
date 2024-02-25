@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import command.AddCommand;
+import command.AddNotesCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
@@ -43,9 +44,15 @@ public class Parser {
         } else if (fullCommand.startsWith("mark")) {
             int index = Integer.parseInt(fullCommand.replaceAll("[\\D]", ""));
             return new MarkCommand(index, true);
+
         } else if (fullCommand.startsWith("unmark")) {
             int index = Integer.parseInt(fullCommand.replaceAll("[\\D]", ""));
             return new MarkCommand(index, false);
+        } else if (fullCommand.startsWith("note")) {
+            int index = Integer.parseInt(fullCommand.replaceAll("[\\D]", ""));
+            String[] split = fullCommand.split(" /");
+            String notes = split[1];
+            return new AddNotesCommand(index, notes);
         } else if (fullCommand.startsWith("delete")) {
 
             int index = Integer.parseInt(fullCommand.replaceAll("[\\D]", ""));
