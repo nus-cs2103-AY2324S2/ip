@@ -35,22 +35,31 @@ public class Parser {
     private static Command processCommand(CommandType commandType, String taskInfo) throws SamException {
         switch (commandType) {
         case LIST:
+            assert taskInfo.isBlank() : "This command does not require extra information.";
             return new ListCommand();
         case FIND:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new FindCommand(taskInfo);
         case MARK:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new MarkCommand(taskInfo);
         case UNMARK:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new UnmarkCommand(taskInfo);
         case TODO:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new TodoCommand(taskInfo);
         case DEADLINE:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new DeadlineCommand(taskInfo);
         case EVENT:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new EventCommand(taskInfo);
         case DELETE:
+            assert taskInfo.isBlank() : "This command requires extra information.";
             return new DeleteCommand(taskInfo);
         case BYE:
+            assert taskInfo.isBlank() : "This command does not require extra information.";
             return new ByeCommand();
         default:
             return new UnknownCommand();
