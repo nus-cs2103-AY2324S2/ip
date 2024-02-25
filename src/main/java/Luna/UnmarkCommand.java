@@ -1,5 +1,8 @@
 package Luna;
 
+/**
+ * Represents a unmark command. Unmarks a task in the tasklist
+ */
 public class UnmarkCommand extends Command{
     int index;
 
@@ -8,6 +11,15 @@ public class UnmarkCommand extends Command{
         this.index = index;
     }
 
+    /**
+     * Unmarks a task as done in the tasklist, settting its check to false.
+     * Prompts an InvalidCommand if the referenced index is invalid
+     * Then shows the list
+     *
+     * @param tl the tasklist
+     * @param ui the program ui
+     * @param storage listfile storage
+     */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);

@@ -4,11 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Parser for human text to program commands.
+ * Handles dissemination of commands depending on the user input, including human errors.
+ */
 public class Parser {
 
     final static String DATE_FORMAT = "dd-MM-yyyy";
     private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
+    /**
+     * Identifies the string to contain command specific keywords and prompts the respective command.
+     * Prompts an Invalid Command if the additional arguments do not fit the command criteria
+     *
+     * @param str the command string
+     * @return the command to be executed
+     */
     public static Command parse(String str) {
         String[] strings = str.trim().split(" ");
         if (strings[0].equalsIgnoreCase("list")) {
@@ -100,6 +111,12 @@ public class Parser {
     }
 
 
+    /**
+     * Returns true if the given string is in a date format
+     *
+     * @param dateStr the string to check validity
+     * @return boolean whether string is a valid date
+     */
     public static boolean isDateValid(String dateStr)
     {
         try {
@@ -110,6 +127,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Returns true if the given string is an integer value
+     *
+     * @param str the string to check validity
+     * @return boolean whether string is an integer
+     *
+     */
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);

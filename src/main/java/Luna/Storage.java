@@ -3,6 +3,10 @@ package Luna;
 import java.io.*;
 import java.time.LocalDate;
 
+/**
+ * Represents the Storage for saving and loading task.
+ * Read and Writes the task information into a file to maintain information when the task of the program is deleted.
+ */
 public class Storage {
 
     File directory;
@@ -12,6 +16,11 @@ public class Storage {
         createFile(filename);
     }
 
+    /**
+     * Creates the file if there is no file already existing.
+     *
+     * @param filename the name of the file to be created.
+     */
     public void createFile(String filename) {
         try {
             //https://www.java67.com/2014/02/how-to-create-file-and-directory-in-java.html#:~:text=File%20provides%20methods%20like%20createNewFile,the%20directory%20is%20created%20successfully.
@@ -47,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a line to the file.
+     *
+     * @param str to add to the end of the file
+     */
     public void appendToFile(String str) {
         //https://www.w3schools.com/java/java_files_create.asp
         try {
@@ -60,16 +74,29 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends an entry as a line to the file.
+     *
+     * @param entry to be converted to text to the file
+     */
     public void appendEntry(ListEntry entry) {
         appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.taskStart + "," + entry.taskEnd + "\n");
     }
 
+    /**
+     * Appends all the entries from a tasklist to the file.
+     *
+     * @param tl the tl to save to the file.
+     */
     public void appendList(TaskList tl) {
         for (int i = 0; i < tl.size(); i++) {
             this.appendEntry(tl.get(i));
         }
     }
 
+    /**
+     * Clears all data from a file.
+     */
     public void clearFile() {
         try {
             FileWriter myWriter = new FileWriter(listFile);
@@ -81,8 +108,11 @@ public class Storage {
         }
     }
 
-
-
+    /**
+     * Loads all the entries in the file to the tasklist
+     *
+     * @param loadList to load all the entries into .
+     */
     public void loadList(TaskList loadList) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(listFile));
@@ -112,7 +142,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }
-
     }
 
 }

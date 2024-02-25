@@ -47,15 +47,20 @@ public class ListEntry {
     }
 
 
-
-
+    /**
+     * Marks the check of the entry as true
+     */
     public void markEntry () {
         this.check = true;
     }
 
+    /**
+     * Unmark the check of the entry as false
+     */
     public void unmarkEntry() {
         this.check = false;
     }
+
     @Override
     public String toString() {
         return ("[" + this.type + "]" + (this.check ? "[X] " : "[ ] ") + this.task);

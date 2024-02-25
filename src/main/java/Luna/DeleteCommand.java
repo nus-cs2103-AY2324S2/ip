@@ -1,5 +1,8 @@
 package Luna;
 
+/**
+ * Represents a delete command which deletes a task from the tasklist
+ */
 public class DeleteCommand extends Command{
     int index;
 
@@ -8,6 +11,14 @@ public class DeleteCommand extends Command{
         this.index = index;
     }
 
+    /**
+     * Deletes an entry from the task list if index given is valid.
+     * Prompts a InvalidCommand if invalid index
+     *
+     * @param tl the tasklist
+     * @param ui the program ui
+     * @param storage listfile storage
+     */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
