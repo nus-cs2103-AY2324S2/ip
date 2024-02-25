@@ -43,7 +43,7 @@ public class Simpli {
      */
     public void start() {
         try {
-            storage.loadTasksFromFile(Config.DATAPATH);
+            storage.loadTasksFromFile(Config.DATA_PATH);
         } catch (TaskException e) {
             System.out.println("Error in task.");
         } catch (CommandException e) {
@@ -58,7 +58,7 @@ public class Simpli {
      */
     public void stop() {
         try {
-            storage.saveTasksToFile(Config.DATAPATH);
+            storage.saveTasksToFile(Config.DATA_PATH);
         } catch (IOException e) {
             System.out.println("Error in opening file.");
         }

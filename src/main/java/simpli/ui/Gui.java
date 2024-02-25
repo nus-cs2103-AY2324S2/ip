@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import simpli.configs.Config;
 import simpli.core.Simpli;
 
 /**
@@ -28,7 +29,10 @@ public class Gui extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
             stage.setScene(scene);
+            stage.setTitle(Config.CHATBOT_NAME);
+
             fxmlLoader.<MainWindow>getController().setSimpli(simpli);
             stage.show();
         } catch (IOException e) {

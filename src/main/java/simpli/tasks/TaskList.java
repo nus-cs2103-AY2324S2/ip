@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * To manage and manipulate tasks and task actions.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Initializes a task list without any tasks.

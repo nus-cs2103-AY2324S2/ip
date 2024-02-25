@@ -1,5 +1,6 @@
 package simpli.ui;
 
+import simpli.configs.Config;
 import simpli.tasks.Task;
 import simpli.tasks.TaskList;
 
@@ -13,7 +14,7 @@ public class Ui {
      * @return greeting message.
      */
     public String getGreetingMessage() {
-        return "Hello! I'm SIMP-LI\nHow can I simp-lify your life?";
+        return "Hello! I'm " + Config.CHATBOT_NAME + "\nHow can I simp-lify your life?";
     }
 
     /**

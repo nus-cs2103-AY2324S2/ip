@@ -17,13 +17,13 @@ import simpli.tasks.TaskList;
  */
 public class Storage {
     /** Break down command string into tokens. */
-    private Parser parser;
+    private final Parser parser;
 
     /** Contains all the tasks added by the user. */
-    private TaskList taskList;
+    private final TaskList taskList;
 
     /** Interprets the meaning of the tokens parsed from the parser. */
-    private Interpreter intrpr;
+    private final Interpreter intrpr;
 
     /**
      * Initializes the storage with the specified parser, interpreter and task list.
