@@ -84,4 +84,22 @@ public class Deadline extends Task {
     public static Deadline extractDetails(String s) {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));
     }
+    @Override
+    public String update(String s) throws DateTimeParseException {
+        boolean hasByParam = s.contains("/by ");
+        if (!hasByParam) {
+            String prev_desc = description;
+            description = !s.isBlank() ? s + " " : description;
+            return "Alright, I have changed your task from " + prev_desc + " to " + description;
+        }
+
+        String[] args = s.split("/by ");
+
+        String prev_desc = description;
+        description = !args[0].isBlank() ?  args[0] + " " : description;
+
+        this.by = LocalDate.parse(args[1]);
+        return "Alright, I have changed your task from " + prev_desc + " to " + description + "\n"
+                + "and the due time to " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ;
+    }
 }

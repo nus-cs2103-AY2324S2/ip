@@ -113,7 +113,34 @@ public class TaskList {
     }
 
     public static String removeTask(String index) {
-        int actualIndex = Integer.parseInt(index) - 1;
+        int actualIndex;
+        try {
+            actualIndex = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException n) {
+            return index + " isn't a number, lets try this again!";
+        }
         return removeTask(actualIndex);
+    }
+
+    public static String updateTask(String args) {
+        String[] tokens = args.split(" ");
+        if (tokens.length < 2) {
+            return "please type in something to change!";
+        }
+        int actualIndex;
+        try {
+            actualIndex = Integer.parseInt(tokens[0]) - 1;
+        } catch (NumberFormatException n) {
+            return "let's try again with an index of what task to update right after the command!";
+        }
+
+        if (actualIndex >= tasks.size() || actualIndex < 0) {
+            return "I can't change a task at that index!";
+        }
+
+        Task task = tasks.get(actualIndex);
+
+        // the relevant query is after the number and a whitespace
+        return task.update(args.substring(2));
     }
 }

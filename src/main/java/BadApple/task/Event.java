@@ -87,4 +87,30 @@ public class Event extends Task {
     public static Event extractDetails(String s) {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));
     }
+
+    public String update(String s) {
+        String[] desc; // stores description and the rest.
+        String[] range; // stores either from and to or Nothing.
+        boolean hasFromParam = s.contains("/from ");
+        boolean hasToParam = s.contains("/to ");
+        if (hasFromParam && hasToParam) {
+            desc = s.split("/from ");
+            range = desc[1].split("/to ");
+            // check if the user left an empty description.
+            description = !desc[0].isBlank() ? desc[0] + " " : description;
+            from = range[0];
+            to = range[1];
+        } else if (hasFromParam) {
+            desc = s.split("/from ");
+            description = !desc[0].isBlank() ? desc[0] + " " : description;
+            from = desc.length == 2 ? desc[1] + " " : desc[0] + " ";
+        } else if (hasToParam) {
+            desc = s.split("/to ");
+            description = !desc[0].isBlank() ? desc[0] + " " : description;
+            to = desc.length == 2 ? desc[1] + " " : desc[0] + " ";
+        } else if (!s.isBlank()){
+            description = s + " ";
+        }
+        return "I've updated your task to " + this;
+    }
 }
