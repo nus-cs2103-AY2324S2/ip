@@ -2,6 +2,7 @@ package dino;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 import dino.tasks.TaskList;
@@ -12,16 +13,17 @@ import dino.tasks.Deadline;
 
 public class Reminders {
 
-    public static void getReminder(TaskList tasks) {
+    public static void getReminders(TaskList tasks, List<String> messages) {
         TaskList[] lists = filterOutTodo(tasks);
         TaskList todayDeadlines = getTodayDeadlines(lists[0]);
         TaskList todayEvents = getTodayEvents(lists[1]);
 
-        System.out.println("Reminders for Today");
+        messages.add("\nReminders for Today");
 
-        displayTodayDeadline(todayDeadlines);
+        getDeadlineMessage(todayDeadlines, messages);
 
-        displayTodayEvents(todayEvents);
+        getEventMessage(todayEvents, messages);
+
     }
 
     private static TaskList getTodayDeadlines(TaskList deadlineList) {
@@ -67,28 +69,28 @@ public class Reminders {
         return result;
     }
 
-    private static void displayTodayDeadline(TaskList tasks) {
+    private static void getDeadlineMessage(TaskList tasks, List<String> messages) {
         int number = 0;
-        System.out.println("Tasks due Today:");
         if (tasks.isEmpty()) {
-            System.out.println("No tasks due today.");
+            messages.add("\nNo tasks due today.");
         } else {
+            messages.add("\nTasks due Today:");
             for (int i = 0; i < tasks.size(); i++) {
                 number++;
-                System.out.println(number + tasks.get(i).toString());
+                messages.add(number + ". " + tasks.get(i).toString());
             }
         }
     }
 
-    private static void displayTodayEvents(TaskList tasks) {
+    private static void getEventMessage(TaskList tasks, List<String> messages) {
         int number = 0;
-        System.out.println("Events that are happening today:");
         if (tasks.isEmpty()) {
-            System.out.println("No events is happening today.");
+            messages.add("\nNo events is happening today.");
         } else {
+            messages.add("\nEvents that are happening today:");
             for (int i = 0; i < tasks.size(); i++) {
                 number++;
-                System.out.println(number + tasks.get(i).toString());
+                messages.add(number + ". " + tasks.get(i).toString());
             }
         }
     }

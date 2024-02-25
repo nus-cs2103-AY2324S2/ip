@@ -1,5 +1,6 @@
 package dino;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +32,6 @@ public class Dino {
     }
 
     public void start() {
-        greet();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -45,11 +45,12 @@ public class Dino {
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
     }
-    private static void greet() {
-        String greet = "Hello! I'm Dino\n"
-                + "What can I do for you?\n"
-                + HORIZONTAL_LINE;
-        System.out.println(greet);
+    public String getGreeting() {
+        List<String> greeting = new ArrayList<>();
+        greeting.add("Hello! I'm Dino");
+        Reminders.getReminders(tasks, greeting);
+        greeting.add("\nHow can I help you?");
+        return String.join("\n", greeting);
     }
 
     /**

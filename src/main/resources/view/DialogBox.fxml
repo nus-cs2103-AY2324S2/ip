@@ -11,7 +11,8 @@
         <Label fx:id="dialog" graphicTextGap="5.0" text="Label" wrapText="true">
          <font>
             <Font name="Baloo Da 2 SemiBold" size="14.0" />
-         </font></Label>
+         </font>
+        </Label>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
