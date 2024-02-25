@@ -1,18 +1,34 @@
-# Duke User Guide
+# BernardBot User Guide
 
-// Update the title above to match the actual product name
+## Setup Instructions
+1. Download the BernardBot.jar file onto your desktop.
+2. Open your command-line interface and `cd` to the folder where the jar file is located.
+3. Run `java -jar BernardBot.jar` and wait for the chatbot to open.
 
-// Product screenshot goes here
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### Adding a Todo: `todo`
 
-// Describe the action and its outcome.
+Adds a todo to the list.
 
-// Give examples of usage
+Format: 
+> _todo [DESCRIPTION]_
 
-Example: `keyword (optional arguments)`
+Examples:
+- `todo read book`
+
+### Adding a Deadline: `deadline`
+
+Adds a task with a deadline to the list.
+
+Format: `deadline [DESCRIPTION] /by [DUE_DATE]`
+
+Examples:
+- `deadline return book /by Monday`
+- `deadline assignment /by 23/9/2023`
+- `deadline homework /by 23/9/2023 2359`
+
 
 // A description of the expected outcome goes here
 
