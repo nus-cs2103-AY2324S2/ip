@@ -8,8 +8,6 @@ public class EventCommand extends Command {
     LocalDate startDate;
     LocalDate endDate;
 
-
-
     public EventCommand(String tn, LocalDate sd, LocalDate ed) {
         super(CommandType.EVENT);
         this.taskName = tn;

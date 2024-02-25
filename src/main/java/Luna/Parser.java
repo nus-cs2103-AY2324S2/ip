@@ -9,8 +9,6 @@ public class Parser {
     final static String DATE_FORMAT = "dd-MM-yyyy";
     private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
-
-
     public static Command parse(String str) {
         String[] strings = str.trim().split(" ");
         if (strings[0].equalsIgnoreCase("list")) {

@@ -7,9 +7,6 @@ public class DeadlineCommand extends Command {
     String taskName;
     LocalDate endDate;
 
-
-
-
     public DeadlineCommand(String tn, LocalDate ed) {
         super(CommandType.DEADLINE);
         taskName = tn;

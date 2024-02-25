@@ -4,9 +4,6 @@ public class TodoCommand extends Command {
 
     String taskName;
 
-
-
-
     public TodoCommand(String tn) {
         super(CommandType.TODO);
         taskName = tn;

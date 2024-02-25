@@ -13,12 +13,9 @@ public class ListEntry {
 
     }
 
-
     protected String task;
     protected boolean check;
     protected String type;
-//    protected String task_start;
-//    protected String task_end;
 
     protected LocalDate taskStart;
 

@@ -79,6 +79,11 @@ public class Ui {
 
 
     public void showList(TaskList tl) {
+        String toPrint = listStringBuilder(tl);
+        this.shifted_print(toPrint.toString());
+    }
+
+    public String listStringBuilder(TaskList tl) {
         StringBuilder text = new StringBuilder();
 
         if (tl.isEmpty()) {
@@ -90,7 +95,7 @@ public class Ui {
                 text.append((i+1)).append(".").append(ent.toString()).append("\n");
             }
         }
-        this.shifted_print(text.toString());
+        return text.toString();
     }
 
 
