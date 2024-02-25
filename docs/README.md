@@ -1,7 +1,5 @@
 # Homie User Guide
 
-// Product screenshot goes here
-
 Homie is a desktop app for managing your daily tasks such as todo, events and deadlines, optimized for use via a
 Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,
 Homie can can help you keep track of your tasks faster than traditional GUI apps. Homie is also your homie, so don't be
@@ -10,37 +8,46 @@ afraid to treat him as your homie and get him now!
 ## Adding deadlines
 
 Adds a deadline to the list of tasks.
-Format: `deadline {NAME_OF_DEADLINE} /by {DD-MM-YYYY HHmm}` or `dead {NAME_OF_DEADLINE} /by {DD-MM-YYYY HHmm}`
+
+Format: `deadline {NAME_OF_DEADLINE} /by {DD-MM-YYYY HHmm}` or 
+`dead {NAME_OF_DEADLINE} /by {DD-MM-YYYY HHmm}`
 
 Example: `deadline CS2103 Quiz 3 /by 24 02 2024 2359` or `dead CS2103 Quiz 3 /by 24 02 2024 2359`
 
 Expected outcome:
 ```
-_______________________________________ \nGot it. I've added this task\n [D][] CS2103 Quiz 3 (by: 02-24-2024 23:59)
-\nNow you have 1 tasks in the list.\n_______________________________________
+_______________________________________
+Got it. I've added this task:
+  [D][] CS2103 Quiz 3 (by: 02-24-2024 23:59)
+Now you have 1 tasks in the list.
+_______________________________________
 ```
 
 ## Adding todo
 
 Adds a todo to the list of tasks.
+
 Format: `todo {NAME_OF_TODO}` or `t {NAME_OF_TODO}`
 
 Example: `todo read book` or `t read book`
 
 Expected outcome:
 ```
-_______________________________________ \nGot it. I've added this task\n [T][] read book
-\nNow you have 1 tasks in the list.\n_______________________________________
+_______________________________________
+Got it. I've added this task:
+  [T][] read book
+Now you have 1 tasks in the list.
+_______________________________________
 ```
 
-// Feature details
 Empty description will raise an exception.
-Error message: `todo desription cannot be empty!`
+Error message: `Opps! the description of a todo cannot be empty!`
 
 
 ## Adding event
 
 Adds an event to the list of tasks.
+
 Format: `event {NAME_OF_EVENT} /from {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}` or `e {NAME_OF_EVENT} /from
 {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}`
 
@@ -49,7 +56,9 @@ Example: `event CS2103 Briefing /from 24 02 2024 1600 /to 24 02 2024 1800` or `e
 
 Expected outcome:
 ```
-_______________________________________ \nGot it. I've added this task\n [E][] CS2103 Briefing (from: 02-24-2024 16:00 
+_______________________________________
+Got it. I've added this task:
+  [E][] CS2103 Briefing (from: 02-24-2024 16:00 
 to: 02-24-2024 18:00)\nNow you have 1 tasks in the list.\n_______________________________________
 ```
 
