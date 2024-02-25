@@ -1,6 +1,6 @@
 package duke.task;
 
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     final String task;
     TodoState todoState;
 
@@ -24,4 +24,11 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    public abstract int getOrder();
+
+    @Override
+    public int compareTo(Task o) {
+        return this.getOrder() - o.getOrder();
+    }
 }

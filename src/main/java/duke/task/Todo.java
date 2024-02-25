@@ -18,4 +18,9 @@ public class Todo extends Task {
     public String toFileString() {
         return "T | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task;
     }
+
+    @Override
+    public int getOrder() {
+        return 2;
+    }
 }
