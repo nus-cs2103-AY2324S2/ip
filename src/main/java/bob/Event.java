@@ -2,14 +2,14 @@ package bob;
 
 import java.util.Objects;
 
-/*
+/**
  * This class represents an event that can be recorded in the tasklist.
  */
 class Event extends Task {
     protected String from;
     protected String to;
 
-    /*
+    /**
      * A constructor to create a new event task.
      */
     public Event(String description, String from, String to) {
@@ -18,7 +18,7 @@ class Event extends Task {
         this.to = to;
     }
 
-    /*
+    /**
      * A method to get from.
      *
      * @return The start date of the event.
@@ -27,7 +27,7 @@ class Event extends Task {
         return this.from;
     }
 
-    /*
+    /**
      * A method to get to.
      *
      * @return The end date of the event.
@@ -36,7 +36,7 @@ class Event extends Task {
         return this.to;
     }
 
-    /*
+    /**
      * A method that returns the status of the task.
      *
      * @return A label [E] and a check-box followed by the description of the task.
@@ -46,7 +46,7 @@ class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
-    /*
+    /**
      * A method to check if two objects are equal.
      *
      * @param o The object to compare to.

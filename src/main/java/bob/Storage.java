@@ -4,7 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/*
+/**
  * A class for saving and loading files from storage.
  */
 public class Storage {
@@ -17,7 +17,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /*
+    /**
      * A method to load tasks from the specified file path.
      *
      * @return A TaskList parsed from the save file.
@@ -86,7 +86,7 @@ public class Storage {
         return taskList;
     }
 
-    /*
+    /**
      * A method to save the current tasks.
      *
      * @param taskList An ArrayList of the current tasks.

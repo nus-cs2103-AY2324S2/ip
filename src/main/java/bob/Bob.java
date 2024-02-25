@@ -29,7 +29,7 @@ public class Bob extends Application{
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    /*
+    /**
      * A constructor for the chatbot Bob.
      */
     public Bob(String filePath) {
@@ -39,7 +39,7 @@ public class Bob extends Application{
         this.parser = new Parser(ui);
     }
 
-    /*
+    /**
      * A no argument constructor for launcher.
      */
     public Bob() {
@@ -49,7 +49,7 @@ public class Bob extends Application{
         this.parser = new Parser(ui);
     }
 
-    /*
+    /**
      * A method that signals the chatbot to start its processes.
      */
     public void run() {

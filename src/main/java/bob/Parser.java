@@ -4,21 +4,25 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/*
+/**
  * This class makes sense of the user's commands.
  */
 public class Parser {
     private Ui ui;
 
-    /*
+    /**
      * A constructor that assigns a UI to the parser.
      */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
-    /*
+    /**
      * A method to parse the user command 'exit'.
+     *
+     * @param storage The file we want to save our task list to.
+     * @param taskList The list of tasks we want to save.
+     * @return A message indicating that the user has exited.
      */
     public String parseExit(Storage storage, TaskList taskList) {
         storage.saveFile(taskList);
@@ -26,8 +30,11 @@ public class Parser {
         return ui.showExitMessage();
     }
 
-    /*
+    /**
      * A method to parse the user command 'list'.
+     *
+     * @param taskList The list of tasks that we want to output.
+     * @return A string representing the output.
      */
     public String parseList(TaskList taskList) {
         int size = taskList.size();
@@ -41,8 +48,11 @@ public class Parser {
         return text;
     }
 
-    /*
+    /**
      * A method to parse the user command 'clear'.
+     *
+     * @param taskList The list of tasks that we want to clear.
+     * @return A string representing the output.
      */
     public String parseClear(TaskList taskList) {
         taskList.clearTasks();
@@ -50,8 +60,12 @@ public class Parser {
         return ui.showClearMessage();
     }
 
-    /*
+    /**
      * A method to parse the user command 'mark'.
+     *
+     * @param input A string representing the input.
+     * @param taskList The list of tasks that we want to mark a task.
+     * @return A string representing the output.
      */
     public String parseMark(String input, TaskList taskList) {
         try {
@@ -67,8 +81,12 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * A method to parse the user command 'unmark'.
+     *
+     * @param input A string representing the input.
+     * @param taskList The list of tasks that we want to unmark a task.
+     * @return A string representing the output.
      */
     public String parseUnmark(String input, TaskList taskList) {
         try {
@@ -84,8 +102,12 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * A method to parse the new deadline task.
+     *
+     * @param input A string representing the input.
+     * @param taskList The list of tasks that we want to add a task to.
+     * @return A string representing the output.
      */
     public String parseDeadline(String input, TaskList taskList) {
         try {
@@ -105,8 +127,12 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * A method to parse the new todo task.
+     *
+     * @param input A string representing the input.
+     * @param taskList The list of tasks that we want to add a task to.
+     * @return A string representing the output.
      */
     public String parseTodo(String input, TaskList taskList) {
         String taskDescription = input.substring(5);
@@ -116,8 +142,10 @@ public class Parser {
         return ui.showTodoMessage(newTask, taskList.size());
     }
 
-    /*
+    /**
      * A method to parse the new event task.
+     *
+     * @return A string representing the output.
      */
     public String parseEvent(String input, TaskList taskList) {
         int fromIndex = input.indexOf("/from ");
@@ -132,8 +160,12 @@ public class Parser {
         return ui.showEventMessage(newTask, taskList.size());
     }
 
-    /*
+    /**
      * A method to parse the user command 'delete'.
+     *
+     * @param input A string representing the input.
+     * @param taskList The list of tasks that we want to delete from.
+     * @return A string representing the output.
      */
     public String parseDelete(String input, TaskList taskList) {
         int index = Integer.parseInt(input.substring(7)) - 1;
@@ -143,8 +175,12 @@ public class Parser {
         return ui.showDeleteMessage(task, taskList.size());
     }
 
-    /*
+    /**
      * A method to parse the user command 'find'.
+     *
+     * @param input A string represnting the input.
+     * @param taskList The list of tasks that we want to find from.
+     * @return A string representing the output.
      */
     public String parseFind(String input, TaskList taskList) {
         String keyword = input.substring(5).trim();
