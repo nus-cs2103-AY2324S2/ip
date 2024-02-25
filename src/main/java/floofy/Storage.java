@@ -13,13 +13,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Represents the storage class to handle the loading and saving of tasks.
+ */
 public class Storage {
+
+    /** The file path of the file to store the tasks. */
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the file path of the file to store the tasks.
+     *
+     * @param filePath The file path of the file to store the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The task list to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
@@ -33,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @param list The task list to be loaded.
+     * @throws FloofyException If an error occurs while loading tasks from file.
+     */
     public void loadTasks(TaskList list) throws FloofyException{
         try {
             File file = new File("./data/floofy.txt");
@@ -49,7 +70,9 @@ public class Storage {
                 System.err.println("Failed to create the file.");
                 return;
             }
+
             Scanner scanner = new Scanner(file);
+
             // these are for existing tasks !!
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -66,6 +89,13 @@ public class Storage {
             System.err.println("An error occurred while loading tasks from file.");
         }
     }
+
+    /**
+     * Parses the task from the file.
+     *
+     * @param line The line to be parsed.
+     * @return The task parsed from the line.
+     */
     public Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         Task task = null;
@@ -90,6 +120,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Converts the date from the file to a LocalDate object.
+     *
+     * @param date The date to be converted.
+     * @return The LocalDate object converted from the date.
+     */
     public static LocalDate convertDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
         return LocalDate.parse(date, formatter);
