@@ -22,7 +22,7 @@
         <ImageView fx:id="displayPicture" fitWidth="100" fitHeight="100" preserveRatio="true"/>
         <Text fx:id="dialog" text="Label">
             <font>
-                <Font name="Arial" size="16.0"/>
+                <Font name="Comic Sans MS" size="16.0"/>
             </font>
         </Text>
     </HBox>
