@@ -85,7 +85,7 @@ public class VirtueTaskList {
         String message = "";
         message += "Got it. I've added this task:\n";
         message += "   " + event + "\n";
-        message += " Now you have " + numTasks + " task" + sOrNone + " in the list.";
+        message += "Now you have " + numTasks + " task" + sOrNone + " in the list.";
         return message;
     }
 
@@ -213,6 +213,8 @@ public class VirtueTaskList {
         default: // case FIND:
             message = printTasksWithWord(command.description);
         }
+
+        assert message != null : "message should not be null";
 
         command.setResultMessage(message);
     }

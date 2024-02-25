@@ -19,12 +19,25 @@ public class Virtue {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Adds an indention to the string.
+     *
+     * @param str The string to be indented.
+     * @return The indented string.
+     */
+    protected static String indent(String str) {
+        return "    " + str;
+    }
+
+    /**
+>>>>>>> master
      * Greets the user.
      *
      * @return The greeting message.
      */
     public String greet() {
-        return "Hello! I'm Virtue\nWhat can I do for you?";
+        return "Hello! I'm Virtue.\nWhat can I do for you?";
     }
 
     /**
@@ -59,14 +72,18 @@ public class Virtue {
         if (currentCommand.isBye()) {
             isExit = true;
             return bye();
-        } else {
-            try {
-                String message = currentCommand.getResultMessage();
-                storage.saveToFile(tasks);
-                return message;
-            } catch (IOException e) {
-                return "OOPS! An error occurred while taking the inputs: ";
-            }
+        }
+
+        try {
+            tasks.applyCommand(currentCommand);
+            String message = currentCommand.getResultMessage();
+
+            assert message != null : "message should not be null";
+
+            storage.saveToFile(tasks);
+            return message;
+        } catch (IOException e) {
+            return "OOPS! An error occurred while taking the inputs: ";
         }
     }
 }
