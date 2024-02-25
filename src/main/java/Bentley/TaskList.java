@@ -143,12 +143,31 @@ public class TaskList {
             throw new IllegalArgumentException("looks like the description is missing");
         }
 
+        if (isDuplicateDescription(description)) {
+            throw new IllegalArgumentException("Task with the same description already exists");
+        }
+
         Task newTask = new Task(description);
 
         tasks.add(newTask);
         String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + tasks.size()
                 + " tasks in the list.";
         return result;
+    }
+
+    /**
+     * Checks if a task with the given description already exists.
+     *
+     * @param description The description to check for duplicates.
+     * @return true if a task with the same description exists, false otherwise.
+     */
+    private boolean isDuplicateDescription(String description) {
+        for (Task task : tasks) {
+            if (task.getDescription().trim().equalsIgnoreCase(description.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -166,7 +185,6 @@ public class TaskList {
         String[] parts = userInput.split("/by");
         String description = parts[0].trim();
         String date = parts[1].trim();
-        System.out.println("Description: " + description);
 
         if (description.isEmpty() || date.isEmpty()) {
             throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
@@ -305,7 +323,6 @@ public class TaskList {
      * @return A string containing the matching tasks or a message if no tasks match the keyword.
      */
     public String findTasks(String userInput) {
-        System.out.println("Searching for tasks with keyword: " + userInput);
 
         String[] parts = userInput.split(" ", 2); // Split into two parts, limit to 2 parts
         String keyword = parts.length > 1 ? parts[1] : "";
@@ -320,7 +337,6 @@ public class TaskList {
                     result.append("Here are the matching tasks in your list:\n");
                 }
                 result.append((i + 1)).append(". ").append(currentTask).append("\n");
-                System.out.println("Current Task: " + currentTask);
                 count++;
             }
         }
