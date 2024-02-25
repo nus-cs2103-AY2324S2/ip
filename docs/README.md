@@ -1,30 +1,24 @@
-# Duke User Guide
+# Bentley
 
-// Update the title above to match the actual product name
+> "Your mind is for having ideas, not holding them." – David Allen (source)
 
-// Product screenshot goes here
+DukePro frees your mind of having to remember things you need to do. It's,
 
-// Product intro goes here
+- text-based
+- easy to learn
+- FAST SUPER FAST to use
 
-## Adding deadlines
+All you need to do is,
 
-// Describe the action and its outcome.
+1. [Download it from here.](https://nus-cs2103-ay2324s2.github.io/website/schedule/week4/project.html)
+2. Double-click it.
+3. Add your tasks.
+4. Let it manage your tasks for you 😉
 
-// Give examples of usage
+And it is FREE!
 
-Example: `keyword (optional arguments)`
+## Features:
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+- [x] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
