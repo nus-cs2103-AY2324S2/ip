@@ -1,12 +1,12 @@
 # Roland User Guide
 
-// <img width="512" alt="Ui" src="https://github.com/wolffe88/ip/assets/38790326/5fb8c759-8734-47be-855b-772540e7f843">
+<img width="512" alt="Ui" src="https://github.com/wolffe88/ip/assets/38790326/5fb8c759-8734-47be-855b-772540e7f843">
 
 ## Roland is a task manager chatbot that can assist its users in increasing their productivity.
 
 ## Installing Roland
 
-1. Download Iggly [here](https://github.com/wolffe88/ip/releases/download/v0.2/Iggly.jar).
+1. Download Roland [here]().
 2. Navigate to your Downloads folder using the terminal.
 3. Type `java -jar Roland.jar` in your terminal.
 4. Press enter.
