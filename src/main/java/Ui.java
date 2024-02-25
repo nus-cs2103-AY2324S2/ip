@@ -13,13 +13,10 @@ public class Ui {
     }
 
     public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from SamuelBot!");
         System.out.println("What can I do for you?");
+        System.out.println("For adding deadline tasks, your format should be 'deadline return book /by yyyy-MM-dd'.");
+        System.out.println("For adding event tasks, your format should be 'event project meeting /from yyyy-MM-dd HH:mm'.");
     }
 
     public void showTaskAddedConfirmation(Task task, int totalTasks) {

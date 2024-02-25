@@ -1,10 +1,11 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke_Level8 {
-    private static final String file_path = "./duke.txt";
+    private static final String file_path = "./SamuelBot.txt";
     private List<Task> taskList;
     private Ui ui;
     private Storage storage;
@@ -31,7 +32,7 @@ public class Duke_Level8 {
         do {
             input = scanner.nextLine().trim();
             processInput(input);
-            saveTasksToFile(); 
+            saveTasksToFile();
         } while (!input.equals("bye"));
         ui.showGoodbye();
     }
@@ -173,20 +174,30 @@ public class Duke_Level8 {
     }
 
     private void addDeadlineTask(String description, String by) {
-        Task deadlineTask = new Deadline(description, by);
-        taskList.add(deadlineTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadlineTask);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        try {
+            Task deadlineTask = new Deadline(description, by);
+            taskList.add(deadlineTask);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(deadlineTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use the format yyyy-MM-dd.");
+        }
     }
 
+
     private void addEventTask(String description, String from, String to) {
-        Task eventTask = new Event(description, from, to);
-        taskList.add(eventTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(eventTask);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        try {
+            Task eventTask = new Event(description, from, to);
+            taskList.add(eventTask);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(eventTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date/time format. Please use the format yyyy-MM-dd HH:mm.");
+        }
     }
+
 
     public static void main(String[] args) {
         Duke_Level8 duke = new Duke_Level8();
