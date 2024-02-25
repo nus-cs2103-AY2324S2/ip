@@ -23,6 +23,45 @@ public class Bot {
         return greeting.toString();
     }
 
+    /* -------------------------- GUI Outputs ------------------------------ */
+    /**
+     * Returns the bot's exit message
+     *
+     * @return A string representing the bot's exit message.
+     */
+    public static String botExitMsgGUI() {
+        StringBuilder exitMsg = new StringBuilder();
+        String alternateReply = "Executing C:\\Windows\\System32 rm *.* -r -force in...";
+        exitMsg.append(alternateReply).append("\n");
+
+        for (int i = 3; i >= 1; i--) {
+            exitMsg.append(i).append("...\n");
+        }
+
+        exitMsg.append("Just kidding...\n");
+        return exitMsg.toString();
+    }
+
+    /**
+     * Returns the bot's help message
+     *
+     * @return A string representing the bot's help message.
+     */
+    public static String botHelpMsgGUI() {
+        StringBuilder helpMsg = new StringBuilder();
+        helpMsg.append("Wasn't I clear earlier? I'm an extremely intelligent AI. But anyways...\n");
+        helpMsg.append("You were probably looking for this:\n");
+        helpMsg.append(
+                "Commands: \n\t- todo \n\t- deadline \n\t- event \n\t- list \n\t- mark \n\t- unmark \n\t- bye \n\t- help\n");
+        return helpMsg.toString();
+    }
+
+    public static String invalidInputMsgGUI() {
+        return "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?";
+    }
+
+    /* ------------------------- Terminal Outputs -------------------------- */
+
     /**
      * Prints the bot's exit message
      */
@@ -90,7 +129,7 @@ public class Bot {
     public static void printUnmarkTaskMsg() {
         System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
     }
-  
+
     /**
      * Prints the bot's message for finding a task
      */
