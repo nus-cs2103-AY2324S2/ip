@@ -19,9 +19,6 @@ public class Linus {
 
     /**
      * Runs the Linus application.
-     * Displays a welcome message and continuously waits for user input.
-     * Processes user commands and performs corresponding actions.
-     * Exits the application when the "bye" command is entered.
      */
     public String getResponse(String command) {
         Parser parser = new Parser(taskList, ui, storage);

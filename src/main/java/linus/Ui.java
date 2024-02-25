@@ -33,6 +33,8 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
         } else {
+            assert matchingTasks.size() >= 1 : "There needs to be a task to find!";
+
             returnedStringOfTasks = "Here are the matching tasks in your list:\n";
 
             for (int i = 0; i < matchingTasks.size(); i++) {

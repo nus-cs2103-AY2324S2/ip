@@ -8,6 +8,8 @@ repositories {
     mavenCentral()
 }
 
+mainClassName = 'linus.Launcher'
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -43,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("linus.Linus")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
@@ -52,4 +54,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
