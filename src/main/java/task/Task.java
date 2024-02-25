@@ -1,3 +1,4 @@
+package task;
 /**
  * The Task class is an abstraction for representing tasks in real life,
  * where a task could either be done or not done.
@@ -29,6 +30,10 @@ public abstract class Task {
     }
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String toFileFormat() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
     public String toString() {

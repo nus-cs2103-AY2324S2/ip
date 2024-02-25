@@ -1,3 +1,4 @@
+package task;
 enum Command{
     TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, DELETE, INVALID;
 

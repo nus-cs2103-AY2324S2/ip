@@ -1,3 +1,4 @@
+package main;
 /**
  * The IreneAI program implements a simple chat application that
  * provides simple feedbacks to the user's inputs
@@ -13,13 +14,13 @@ import java.io.IOException;
 
 public class IreneAI {
 	private static final String FILE_PATH = "./data/duke.txt";
-	private static FileManager fileManager;
+	private static Storage storage;
     private static List<Task> tasks;
     private static final String LINE = "____________________________________________________________";
     public static void main(String[] args) throws DukeException {
-		fileManager = new FileManager(FILE_PATH);
+		storage = new Storage(FILE_PATH);
 		try {
-			tasks = fileManager.loadTasks();
+			tasks = Storage.loadTasks();
 		} catch (IOException e) {
 			System.out.println("Error loading tasks from file.");
 			tasks = new ArrayList<>();
@@ -43,7 +44,7 @@ public class IreneAI {
             try {
                 switch (command) {
                     case BYE:
-                        fileManager.saveTasks(tasks);
+                        Storage.saveTasks(tasks);
                         System.out.println(" Bye. Hope to see you again soon!");
                         dividingLine(LINE);
                         return;
