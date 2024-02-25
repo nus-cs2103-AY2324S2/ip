@@ -43,21 +43,21 @@ public class TaskListTest {
     public void addDeadlineTest() {
         TaskList taskList = new TaskList();
 
-        taskList.addDeadline(new String[] {"deadline", "0", "test", "12/2/2022 1200", ""},
-                new LocalDateTime[] {LocalDateTime.parse("2022-02-12T12:00:00")});
+        taskList.addDeadline(new String[] {"deadline", "0", "test", "12/2/2025 1200", ""},
+                new LocalDateTime[] {LocalDateTime.parse("2025-02-12T12:00:00")});
 
-        assertEquals("[D][ ] test (by: 12/2/2022 1200)", taskList.tasks().get(0).toString());
+        assertEquals("[D][ ] test (by: 12/2/2025 1200)", taskList.tasks().get(0).toString());
     }
 
     @Test
     public void addEventTest() {
         TaskList taskList = new TaskList();
 
-        taskList.addEvent(new String[] {"event", "0", "test", "12/2/2022 1200", "24/3/2022 1200"},
-                new LocalDateTime[] {LocalDateTime.parse("2022-02-12T12:00:00"),
-                        LocalDateTime.parse("2022-03-24T12:00:00")});
+        taskList.addEvent(new String[] {"event", "0", "test", "12/2/2025 1200", "24/3/2025 1200"},
+                new LocalDateTime[] {LocalDateTime.parse("2025-02-12T12:00:00"),
+                        LocalDateTime.parse("2025-03-24T12:00:00")});
 
-        assertEquals("[E][ ] test (from: 12/2/2022 1200 to: 24/3/2022 1200)",
+        assertEquals("[E][ ] test (from: 12/2/2025 1200 to: 24/3/2025 1200)",
                 taskList.tasks().get(0).toString());
     }
 }

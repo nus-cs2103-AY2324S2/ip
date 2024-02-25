@@ -21,7 +21,7 @@ public final class Parser {
      * 4 - toDate (Event task)
      * */
     private static final int MAX_TOKENS = 5;
-    private HashSet<CommandWord> noArgumentsCommand;
+    private final HashSet<CommandWord> noArgumentsCommand;
 
     public Parser() {
         this.noArgumentsCommand = new HashSet<>();
