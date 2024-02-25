@@ -1,6 +1,6 @@
 # Roland User Guide
 
-<img width="512" alt="Ui" src="https://github.com/wolffe88/ip/assets/38790326/5fb8c759-8734-47be-855b-772540e7f843">
+<img width="512" alt="image" src="https://github.com/wolffe88/ip/assets/38790326/b40a9208-d063-4e7a-816a-ccdc6f4b790d">
 
 ## Roland is a task manager chatbot that can assist its users in increasing their productivity.
 
@@ -14,6 +14,9 @@
 
 
 ## Commands
+- Help Command - 'help'
+Description: Displays a list of commands
+
 - Exit Command - `bye`
 Description: Exits the application.
 
@@ -58,5 +61,6 @@ Description: Adds an event task with start and end times.
 | Delete   | `delete <index>` <br/> e.g. `delete 1`                                                                                                 |
 | Find     | `find <keyword>` <br/> e.g. `find assignment`                                                                                          |
 | Bye      | `bye`                                                                                                                                  |
+| Help     | `help`                                                                                                                                  |
 
 
