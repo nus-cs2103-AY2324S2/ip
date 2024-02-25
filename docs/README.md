@@ -1,8 +1,7 @@
-# Duke User Guide
+# Roland User Guide
 
-// Update the title above to match the actual product name
+// <img width="512" alt="Ui" src="https://github.com/wolffe88/ip/assets/38790326/5fb8c759-8734-47be-855b-772540e7f843">
 
-// Product screenshot goes here
 
 // Product intro goes here
 
