@@ -36,7 +36,7 @@ public class XiaoBai {
      */
     public XiaoBai() {
         this.ui = new Ui();
-        this.storage = new Storage("./xiaobai.txt");
+        this.storage = new Storage();
         try {
             this.taskList = new TaskList(storage.load());
         } catch (XiaoBaiException e) {

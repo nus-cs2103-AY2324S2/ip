@@ -41,8 +41,9 @@ test {
     }
 }
 
-mainClassName = 'seedu.xiaobai.Main'
-
+application {
+    mainClass.set("xiaobai.Launcher")
+}
 shadowJar {
     archiveFileName = 'xiaobai.jar'
 }

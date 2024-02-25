@@ -8,6 +8,10 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 import task.TaskList;
 import task.Task;
 import task.Deadline;
@@ -20,15 +24,19 @@ import exception.XiaoBaiException;
  * Handles the reading from and writing to a file.
  */
 public class Storage {
-    private String filePath;
+    private static final Path FILEPATH = Paths.get("data", "xiaobai.txt");
 
     /**
      * Constructs a Storage class that writes and loads input into XiaoBai.
      * 
-     * @param filePath Name of the txt file used to store tasks.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+        // Create the directory if it doesn't exist
+        try {
+            Files.createDirectories(FILEPATH.getParent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -37,7 +45,7 @@ public class Storage {
      * @param list The TaskList containing tasks to be written to the file.
      */
     public void writeArrayListToFile(TaskList list) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH.toFile()))) {
             for (Task element : list.getList()) {
                 writer.write(element.toString());
                 writer.newLine();
@@ -55,7 +63,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws XiaoBaiException {
         ArrayList<Task> taskList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH.toFile()))) {
             while (reader.ready()) {
                 String task = reader.readLine();
                 char taskType = task.charAt(1);
