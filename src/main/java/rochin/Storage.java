@@ -1,6 +1,8 @@
 package rochin;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -50,6 +52,15 @@ public class Storage {
      * @throws RochinException If an error occurs while saving tasks to the file.
      */
     public void save(List<String> lines) throws RochinException {
+        try {
+            File file = new File(this.filePath);
+            if (!file.exists()) {
+                Files.createDirectories(Paths.get(this.filePath).getParent());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (String line : lines) {
                 writer.println(line);

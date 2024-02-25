@@ -9,20 +9,20 @@ import java.util.Scanner;
  */
 public class RochinBot {
 
-    private static final String FILE_PATH = "./data/rochin.txt";
+    private static final String filePath = "./data/rochin.txt";
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
 
     public RochinBot() {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
         tasks = new TaskList();
     }
 
-    public RochinBot(String FILE_PATH, Ui ui) {
+    public RochinBot(String filePath, Ui ui) {
         this.ui = ui;
-        this.storage = new Storage(FILE_PATH);
+        this.storage = new Storage(filePath);
         this.tasks = new TaskList();
     }
 
