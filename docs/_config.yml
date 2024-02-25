@@ -1,0 +1,9 @@
+title: "SIMP-LI"
+theme: minima
+
+markdown: kramdown
+
+github_icon: "images/github-icon.png"
+
+plugins:
+  - jemoji
