@@ -9,7 +9,7 @@ of their tasks. He is designed for users who prefer to use a
 Command Line Interface (CLI). 
 
 If you want to use Victor, simply follow the following instructions:
-1. Make sure you have java 17 installed on your computer
+1. Make sure you have java 11 installed on your computer
 2. Download the latest version of `victor.jar` from [here](https://github.com/DominicFuMJ/ip/releases/tag/A-Release)
 3. place the `victor.jar` file in the folder or dictionary you plan to use in your local machine
 4. Run `java -jar victor.jar` command on your terminal, and Victor should be up and running.
