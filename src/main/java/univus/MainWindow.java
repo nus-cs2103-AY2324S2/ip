@@ -26,15 +26,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/pikachu.png"));
     private Image univusImage = new Image(this.getClass().getResourceAsStream("/images/agumon.png"));
 
+    /**
+     * Initializes the scrollPane by binding its vertical value property to the height property of the dialogContainer.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-
+    /**
+     * Generates a greeting message from the Univus instance and displays it in the UI.
+     * The generated greeting is added to the dialog container using a UnivusDialog component.
+     */
     public void greet() {
         String greetingMessage = univus.greet();
         dialogContainer.getChildren().add(DialogBox.getUnivusDialog(greetingMessage, univusImage));
     }
+    /**
+     * Sets the Univus instance for this class.
+     *
+     * @param u The Univus instance to be set.
+     */
     public void setUnivus(Univus u) {
         univus = u;
     }

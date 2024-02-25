@@ -69,38 +69,35 @@ public class Univus {
         storage.saveToFile(taskList);
     }
 
+
     /**
-     * The main method to start the Univus application.
+     * Starts the Univus.
      *
-     * @param args Command-line arguments (not used in this application).
-     * @throws UnivusException If an error occurs during the execution of the application.
+     * @param args Command-line arguments (not used in this case).
+     * @throws UnivusException exceptions encountered during the execution of the Univus application.
      */
     public static void main(String[] args) throws UnivusException {
         new Univus("./data/Univus.txt").run();
     }
-
-
-
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Retrieves the greeting message from the user interface.
+     *
+     * @return The greeting message.
      */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
     public String greet() {
         return ui.greet();
     }
-
+    /**
+     * Retrieves the farewell message from the user interface.
+     *
+     * @return The farewell message.
+     */
     public String bye() {
         return ui.bye();
     }
+    /**
+     * Saves the current state of the task list to the storage.
+     */
     public void save() {
         storage.saveToFile(taskList);
     }

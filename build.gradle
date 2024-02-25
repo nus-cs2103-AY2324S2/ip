@@ -47,11 +47,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("univus.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "univus"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

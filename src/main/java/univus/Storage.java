@@ -45,7 +45,58 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Extracts the description from a message.
+     *
+     * @param message The input message containing the description.
+     * @return The extracted description.
+     */
+    public String getDescription(String message) {
+        int startIndex = message.lastIndexOf("]");
+        int endIndex = message.lastIndexOf("(");
+        String description = message.substring(startIndex + 2, endIndex);
+        return description;
+    }
+    /**
+     * Loads a Todo task into the provided TaskList based on the given message.
+     *
+     * @param store   The TaskList to which the Todo task will be added.
+     * @param message The message containing the description of the Todo task.
+     */
+    public void loadTodo(TaskList store, String message) {
+        int index = message.lastIndexOf("]");
+        String description = "todo" + message.substring(index + 1);
+        ToDo todo = new ToDo(description);
+        store.add(todo);
+    }
+    /**
+     * Loads a Deadline task into the provided TaskList based on the given message.
+     *
+     * @param store   The TaskList to which the Deadline task will be added.
+     * @param message The message containing the description and due date of the Deadline task.
+     */
+    public void loadDeadline(TaskList store, String message) {
+        int timeIndex = message.lastIndexOf(":");
+        String dueDate = "by " + message.substring(timeIndex + 1, message.length() - 1);
+        String description = getDescription(message);
+        Deadline deadline = new Deadline(description, dueDate);
+        store.add(deadline);
+    }
+    /**
+     * Loads an Event task into the provided TaskList based on the given message.
+     *
+     * @param store   The TaskList to which the Event task will be added.
+     * @param message The message containing the description, start time, and end time of the Event task.
+     */
+    public void loadEvent(TaskList store, String message) {
+        int startIdx = message.indexOf(":");
+        int endIdx = message.lastIndexOf(":");
+        String description = getDescription(message);
+        String start = "from" + message.substring(startIdx + 1, endIdx - 2);
+        String end = "to" + message.substring(endIdx + 1, message.length() - 1);
+        Event event = new Event(description, start, end);
+        store.add(event);
+    }
     /**
      * Loads task data from the file specified in the constructor and returns a TaskList.
      *
@@ -57,28 +108,11 @@ public class Storage {
             String message;
             while ((message = reader.readLine()) != null) {
                 if (message.startsWith("[T]")) {
-                    int index = message.lastIndexOf("]");
-                    String description = "todo" + message.substring(index + 1);
-                    ToDo todo = new ToDo(description);
-                    store.add(todo);
+                    loadTodo(store, message);
                 } else if (message.startsWith("[D]")) {
-                    int startIndex = message.lastIndexOf("]");
-                    int endIndex = message.lastIndexOf("(");
-                    int timeIndex = message.lastIndexOf(":");
-                    String dueDate = "by " + message.substring(timeIndex + 1, message.length() - 1);
-                    String description = message.substring(startIndex + 2, endIndex);
-                    Deadline deadline = new Deadline(description, dueDate);
-                    store.add(deadline);
+                    loadDeadline(store, message);
                 } else if (message.startsWith("[E]")) {
-                    int startIndex = message.lastIndexOf("]");
-                    int endIndex = message.lastIndexOf("(");
-                    int startIdx = message.indexOf(":");
-                    int endIdx = message.lastIndexOf(":");
-                    String description = message.substring(startIndex + 2, endIndex);
-                    String start = "from" + message.substring(startIdx + 1, endIdx - 2);
-                    String end = "to" + message.substring(endIdx + 1, message.length() - 1);
-                    Event event = new Event(description, start, end);
-                    store.add(event);
+                    loadEvent(store, message);
                 }
             }
         } catch (FileNotFoundException e) {
