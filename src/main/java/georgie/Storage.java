@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import java.util.Locale;
 import java.util.ArrayList;
 
 /**
@@ -86,20 +87,39 @@ public class Storage {
                 return new ToDo(description);
             case "D":
                 String dueBy = parts.length > 3 ? parts[3].trim() : "";
-                LocalDate dueByDate = parseDate(dueBy);
-                return new Deadline(description, dueByDate);
+                LocalDate dueByDate = parseDateDeadline(dueBy);
+                if (dueByDate != null) {
+                    return new Deadline(description, dueByDate);
+                } else {
+                    System.out.println("Error parsing dueByDate.");
+                    return null;
+                }
             case "E":
                 String start = parts.length > 3 ? parts[3].trim() : "";
                 String end = parts.length > 4 ? parts[4].trim() : "";
-                LocalDate startDate = parseDate(start);
-                LocalDate endDate = parseDate(end);
-                return new Event(description, startDate, endDate);
+                LocalDate startDate = parseDateEvent(start);
+                LocalDate endDate = parseDateEvent(end);
+                if (startDate != null && endDate != null) {
+                    return new Event(description, startDate, endDate);
+                } else {
+                    System.out.println("Error parsing startDate and/or endDate.");
+                    return null;
+                }
             default:
                 return null;
         }
     }
 
-    private static LocalDate parseDate(String dateString) {
+    private static LocalDate parseDateDeadline(String dateString) {
+        try {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static LocalDate parseDateEvent(String dateString) {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
