@@ -12,6 +12,9 @@ public class MarkCommand extends Command {
     private boolean isExit = false;
     private int number;
 
+    private static int markCompleteCount = 0;
+    private static int markInCompleteCount = 0;
+
     /**
      * Constructor to commands of type MarkCommand.
      * @param isUnmark Boolean to indicate if the task is to mark as incomplete.
@@ -34,8 +37,18 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         if (isUnmarkCommand) {
             tasks.unmarkTask(number);
+            markInCompleteCount++;
         } else {
             tasks.markTask(number);
+            markCompleteCount++;
         }
+    }
+
+    public static int getMarkCompleteCount() {
+        return markCompleteCount;
+    }
+
+    public static int getMarkInCompleteCount() {
+        return markInCompleteCount;
     }
 }

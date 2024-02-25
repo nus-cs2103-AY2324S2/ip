@@ -2,8 +2,14 @@ package yippee;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import yippee.commands.CreateTaskCommand;
+import yippee.commands.DeleteCommand;
+import yippee.commands.MarkCommand;
 import yippee.exceptions.YippeeException;
+import yippee.tasks.Deadline;
+import yippee.tasks.Event;
 import yippee.tasks.Task;
+import yippee.tasks.ToDo;
 
 /**
  * Represents the Ui that replies the user after a command.
@@ -113,5 +119,18 @@ public class Ui {
             count++;
         }
         assert count >= 1;
+    }
+
+    public void printStats() {
+        System.out.println("      Here are some statistics of your current session so far!");
+        System.out.format("            Total created tasks: %d\n", CreateTaskCommand.getTotalCreated());
+        System.out.format("            Total created todo tasks: %d\n", ToDo.getTodoCount());
+        System.out.format("            Total created deadline tasks: %d\n", Deadline.getDeadlineCount());
+        System.out.format("            Total created event tasks: %d\n", Event.getEventCount());
+        showLine();
+        System.out.println("      You also performed these actions:");
+        System.out.format("            Marked complete %d times\n", MarkCommand.getMarkCompleteCount());
+        System.out.format("            Marked incomplete %d times\n", MarkCommand.getMarkInCompleteCount());
+        System.out.format("            Deleted tasks %d times\n", DeleteCommand.getDeleteCount());
     }
 }

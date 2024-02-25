@@ -9,6 +9,7 @@ import yippee.commands.ExitCommand;
 import yippee.commands.FindCommand;
 import yippee.commands.ListCommand;
 import yippee.commands.MarkCommand;
+import yippee.commands.StatsCommand;
 import yippee.exceptions.InvalidCommandException;
 
 /**
@@ -43,6 +44,8 @@ public class Parser {
             return new ExitCommand();
         } else if (commandName.equals("list")) {
             return new ListCommand();
+        } else if (commandName.equals("stats")) {
+            return new StatsCommand();
         } else if (NUMBER_COMMANDS.contains(commandName)) {
             return parseEditNumber(split, commandName);
         } else if (commandName.equals("find")) {

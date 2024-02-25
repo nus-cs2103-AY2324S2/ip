@@ -11,6 +11,7 @@ import yippee.exceptions.InvalidCommandException;
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
+    private static int eventCount = 0;
 
     /**
      * Constructor for Event type Tasks.
@@ -28,6 +29,7 @@ public class Event extends Task {
             throw new InvalidCommandException(
                     "Invalid input format for date :( Please use the format yyyy-mm-dd instead!");
         }
+        eventCount++;
     }
 
     @Override
@@ -40,5 +42,9 @@ public class Event extends Task {
     @Override
     public String dataString() {
         return String.format("%s|%s|%s|%s\n", "E", super.dataString(), this.from, this.to);
+    }
+
+    public static int getEventCount() {
+        return eventCount;
     }
 }

@@ -10,6 +10,7 @@ import yippee.exceptions.InvalidCommandException;
  */
 public class Deadline extends Task {
     private LocalDate deadline;
+    private static int deadlineCount = 0;
 
     /**
      * Constructor for tasks of type Deadline.
@@ -25,6 +26,7 @@ public class Deadline extends Task {
             throw new InvalidCommandException(
                     "Invalid input format for date :( Please use the format yyyy-mm-dd instead!");
         }
+        deadlineCount++;
     }
 
     @Override
@@ -35,5 +37,9 @@ public class Deadline extends Task {
     @Override
     public String dataString() {
         return String.format("%s|%s|%s\n", "D", super.dataString(), deadline);
+    }
+
+    public static int getDeadlineCount() {
+        return deadlineCount;
     }
 }

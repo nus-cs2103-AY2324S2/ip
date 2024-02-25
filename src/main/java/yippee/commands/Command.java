@@ -9,7 +9,7 @@ import yippee.exceptions.InvalidCommandException;
  */
 public abstract class Command {
     private boolean isExit;
-    Command(boolean isExit) {
+    public Command(boolean isExit) {
         this.isExit = isExit;
     }
 
