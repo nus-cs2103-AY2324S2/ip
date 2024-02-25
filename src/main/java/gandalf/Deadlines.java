@@ -28,26 +28,14 @@ public class Deadlines extends Task {
         }
     }
 
-    public String getDeadlineDate() {
-        return this.deadlineDate;
-    }
-
-    public LocalDateTime getFormattedDate() {
-        return this.getFormattedDate();
-    }
-
-    public DateTimeFormatter getFormatter() {
-        return this.formatter;
-    }
     @Override
     public String toString() {
-        if(status) {
-            return "[D][X] " + nameOfTask + " " + "(" +
-                    formattedDate.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy h:mma")) + ")";
-        }
-        else {
-            return "[D][ ] " + nameOfTask + " " + "(" +
-                    formattedDate.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy h:mma")) + ")";
+        if (getStatus()) {
+            return "[D][X] " + getNameOfTask() + " " + "("
+                    + formattedDate.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy h:mma")) + ")";
+        } else {
+            return "[D][ ] " + getNameOfTask() + " " + "("
+                    + formattedDate.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy h:mma")) + ")";
         }
     }
 }

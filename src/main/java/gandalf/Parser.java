@@ -4,7 +4,11 @@ package gandalf;
  * Class to interpret user's input
  */
 public class Parser {
-    String userInput;
+    private String taskType;
+    private String taskName;
+    private String startDate;
+    private String endDate;
+    private final String userInput;
 
     public Parser(String userInput) {
         this.userInput = userInput;
@@ -13,26 +17,40 @@ public class Parser {
     /**
      * Interprets the instance-level userInput field by checking for double-spacing and structure it to the
      * different information types
-     *
-     * @return An array of stringbuilders containing the various information required
      */
-    public StringBuilder[] interpret() {
-        StringBuilder taskType = new StringBuilder();
-        StringBuilder taskName = new StringBuilder();
-        StringBuilder date1 = new StringBuilder();
-        StringBuilder date2 = new StringBuilder();
-        StringBuilder[] parsedInput = {taskType, taskName, date1, date2};
-        int curr_info = 0;
-        for(int i = 0; i < userInput.length(); i++) {
-            char curr_char = userInput.charAt(i);
-            if(curr_char == ' ') {
-                if(userInput.charAt(i - 1) == ' ') {
-                    curr_info++;
+    public void interpret() {
+        StringBuilder builderTaskType = new StringBuilder();
+        StringBuilder builderTaskName = new StringBuilder();
+        StringBuilder builderStartDate = new StringBuilder();
+        StringBuilder builderEndDate = new StringBuilder();
+        StringBuilder[] parsedInput = {builderTaskType, builderTaskName, builderStartDate, builderEndDate};
+        int currInfo = 0;
+        for (int i = 0; i < userInput.length(); i++) {
+            char currChar = userInput.charAt(i);
+            if (currChar == ' ') {
+                if (userInput.charAt(i - 1) == ' ') {
+                    currInfo++;
                     continue;
                 }
             }
-            parsedInput[curr_info].append(curr_char);
+            parsedInput[currInfo].append(currChar);
         }
-        return parsedInput;
+        this.taskType = builderTaskType.toString().trim().toLowerCase();
+        this.taskName = builderTaskName.toString().trim();
+        this.startDate = builderStartDate.toString().trim();
+        this.endDate = builderEndDate.toString().trim();
+    }
+
+    public String getTaskType() {
+        return this.taskType;
+    }
+    public String getTaskName() {
+        return this.taskName;
+    }
+    public String getStartDate() {
+        return this.startDate;
+    }
+    public String getEndDate() {
+        return this.endDate;
     }
 }

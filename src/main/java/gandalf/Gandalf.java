@@ -1,6 +1,5 @@
 package gandalf;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -15,8 +14,8 @@ public class Gandalf {
 
     }
     /**
-     * Takes in two paths as it uses two files for its store/load feature. One file is for loading any existing lists,
-     * and another file is meant to be readable in a .txt file
+     * A constructor for the chatbot. It takes in two paths as it uses two files for its store/load feature.
+     * One file is for loading any existing lists, and another file is meant to be readable in a .txt file
      * @param filePathMeta
      * @param filePathRead
      */
@@ -27,27 +26,10 @@ public class Gandalf {
         try {
             tasks = new TaskList(storage.load());
         } catch (GandalfException e) {
-            //file does not exist, create new list
-            tasks = new TaskList();
+            ui.showError(e.getMessage());
         }
     }
-    public void find(String keyword) {
-        ArrayList<Task> filteredList = new ArrayList<>();
-        int numOfFiltered = 0;
-        for(int i = 0; i < tasks.getList().size(); i++) {
-            Task action = tasks.getList().get(i);
-            String nameOfTask = action.getNameOfTask();
-            if(nameOfTask.contains(keyword)) {
-                filteredList.add(numOfFiltered, action);
-                numOfFiltered++;
-            }
-            assert(i != tasks.getList().size());
-        }
-        for(int i = 0; i < filteredList.size(); i++) {
-            Task action = filteredList.get(i);
-            System.out.println((i + 1) + ". " + action);
-        }
-    }
+
     /**
      * Function to run the chatbot, uses a while-loop to constantly allow the chatbot to receive new inputs
      * Also processes inputs to do various things depending on the command
@@ -55,57 +37,55 @@ public class Gandalf {
     public void run() {
         ui.welcome();
         Scanner scanner = new Scanner(System.in);
-        while(true) {
+        boolean isExit = false;
+        while (!isExit) {
             String input = scanner.nextLine();
-            if(input.length() == 0) { //ignore accidental new lines from user
+            if (input.length() == 0) { //ignore accidental new lines from user
                 continue;
             }
+            ui.showLine();
+            Command c;
             Parser parser = new Parser(input);
-            StringBuilder[] parsedInput = parser.interpret(); //parsedInput = {taskType, taskName, date1, date2}
-            if(parsedInput[0].toString().trim().equals("bye")) {
-                scanner.close();
-                ui.bye();
-                break;
-            }
-            else if(parsedInput[0].toString().trim().equals("list")) {
-                for(int i = 0; i < tasks.getList().size(); i++){
-                    Task action = tasks.getList().get(i);
-                    System.out.println((i + 1) + ". " + action);
+            parser.interpret();
+            String command = parser.getTaskType();
+            try {
+                switch (command) {
+                case "bye":
+                    c = new ByeCommand(command, tasks, storage, ui, scanner);
+                    break;
+                case "list":
+                    c = new ListCommand(command, tasks, storage, ui);
+                    break;
+                case "delete":
+                    c = new DeleteCommand(command, tasks, storage, ui, parser.getTaskName());
+                    break;
+                case "mark":
+                    int taskNumberMark = Integer.parseInt(parser.getTaskName());
+                    c = new MarkCommand(command, tasks, storage, ui, taskNumberMark);
+                    break;
+                case "unmark":
+                    int taskNumberUnMark = Integer.parseInt(parser.getTaskName());
+                    c = new UnmarkCommand(command, tasks, storage, ui, taskNumberUnMark);
+                    break;
+                case "find":
+                    String keyword = parser.getTaskName();
+                    c = new FindCommand(command, tasks, storage, ui, keyword);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    c = new AddCommand(command, tasks, storage, ui, parser.getTaskName(), parser.getStartDate(),
+                                        parser.getEndDate());
+                    break;
+                default:
+                    ui.showError("I do not recognize this command, I must check with the head of my order.");
+                    ui.showError("If you believe you are right, then check formatting in the user guide.");
+                    continue; // Continue to the next iteration of the loop
                 }
-                System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
-            }
-            else if(parsedInput[0].toString().trim().equals("delete")){
-                try {
-                    tasks.delete(parsedInput[1].toString().trim());
-                } catch(GandalfException e) {
-                    //Prompt handled in target class
-                }
-                storage.store(tasks.getList());
-            }
-            else if(parsedInput[0].toString().trim().equals("mark")) {
-                int taskNumber = Integer.parseInt(parsedInput[1].toString());
-                ui.marked();
-                tasks.mark(taskNumber);
-                storage.store(tasks.getList());
-            }
-            else if(parsedInput[0].toString().trim().equals("unmark")) {
-                int taskNumber = Integer.parseInt(parsedInput[1].toString());
-                ui.unmarked();
-                tasks.unmark(taskNumber);
-                storage.store(tasks.getList());
-            } else if(parsedInput[0].toString().trim().equals("find")) {
-                String keyword = parsedInput[1].toString().trim();
-                find(keyword);
-            }
-            else {
-                try {
-                    tasks.add(parsedInput[0].toString().trim(), parsedInput[1].toString().trim(), parsedInput[2].toString().trim(), parsedInput[3].toString().trim());
-                    storage.store(tasks.getList());
-                    System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
-                }
-                catch(GandalfException e){
-                    System.out.println(e.getMessage());
-                }
+                c.execute();
+                isExit = c.setExit();
+            } catch (GandalfException e) {
+                ui.showError(e.getMessage());
             }
         }
     }

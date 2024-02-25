@@ -7,12 +7,9 @@ import java.io.Serializable;
  * Implements the Serializable interface to support serialization.
  */
 public class Task implements Serializable {
-    String nameOfTask;
-    boolean status;
+    private String nameOfTask;
+    private boolean status;
 
-    public Task() {
-
-    }
     public Task(String nameOfTask) {
         this.nameOfTask = nameOfTask;
         this.status = false;
@@ -26,12 +23,6 @@ public class Task implements Serializable {
         this.status = status;
     }
 
-    /**
-     * Retrieves the status of the task.
-     *
-     * @return The status of the task (true for completed, false for not completed).
-     */
-
     public boolean getStatus() {
         return this.status;
     }
@@ -41,10 +32,9 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        if(status) {
+        if (status) {
             return "[X] " + nameOfTask;
-        }
-        else {
+        } else {
             return "[ ] " + nameOfTask;
         }
     }
