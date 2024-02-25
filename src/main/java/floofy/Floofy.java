@@ -14,6 +14,7 @@ import javafx.stage.Stage;
  * Represents the main class of the Floofy chat-bot application.
  */
 public class Floofy extends Application {
+
     /** The storage object to handle the loading and saving of tasks. */
     private Storage storage;
 
@@ -56,49 +57,26 @@ public class Floofy extends Application {
             String[] input = parser.parse(userInput);
             switch (input[0]) {
             case "mark":
-                int idx = Integer.parseInt(input[1]) - 1;
-                // To verify assumption that task number is greater than 0
-                assert idx > -1 : "Task number should be greater than 0!";
-                tasks.markTaskAsDone(idx);
-                return ui.showMarkedTask(this.tasks.getTask(idx));
+                return handleMarkCommand(input);
             case "unmark":
-                int unmarkIdx = Integer.parseInt(input[1]) - 1;
-                // To verify assumption that task number is greater than 0
-                assert unmarkIdx > -1 : "Task number should be greater than 0!";
-                tasks.markTaskAsUndone(unmarkIdx);
-                return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
+                return handleUnmarkCommand(input);
             case "find":
-                TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
-                return ui.showMatchingTasks(matchingTasks);
+                return handleFindCommand(input);
             case "todo":
-                String todoTask = input[1];
-                ToDo newTodo = new ToDo(todoTask);
-                tasks.addTask(newTodo);
-                return ui.showAddedTask(newTodo, tasks.getSize());
+                return handleTodoCommand(input);
             case "deadline":
-                String deadlineTask = input[1];
-                LocalDate deadlineBy = LocalDate.parse(input[2]);
-                Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
-                tasks.addTask(newDeadline);
-                return ui.showAddedTask(newDeadline, tasks.getSize());
+                return handleDeadlineCommand(input);
             case "event":
-                String eventTask = input[1];
-                LocalDate eventDateFrom = LocalDate.parse(input[2]);
-                LocalDate eventDateTo = LocalDate.parse(input[3]);
-                Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
-                tasks.addTask(newEvent);
-                return ui.showAddedTask(newEvent, tasks.getSize());
+                return handleEventCommand(input);
             case "delete":
-                int deleteIdx = Integer.parseInt(input[1]) - 1;
-                Task deletedTask = tasks.getTask(deleteIdx);
-                tasks.deleteTask(deleteIdx);
-                return ui.showDeletedTask(deletedTask, tasks.getSize());
+                return handleDeleteCommand(input);
             case "list":
-                return ui.showTaskList(tasks);
+                return handleListCommand();
             case "bye":
-                return ui.showGoodbyeMsg();
+                return handleByeCommand();
             default:
-                throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
+                throw new FloofyException("To add a task, " +
+                        "please start with any of these commands: 'todo', 'deadline' or 'event'!");
             }
         } catch (FloofyException e) {
             return e.getMessage();
@@ -106,6 +84,70 @@ public class Floofy extends Application {
             storage.saveTasks(tasks);
         }
     }
+
+    public String handleMarkCommand(String[] input) {
+        int idx = parseIdx(input[1]);
+        // To verify assumption that task number is greater than 0
+        assert idx > -1 : "Task number should be greater than 0!";
+        tasks.markTaskAsDone(idx);
+        return ui.showMarkedTask(this.tasks.getTask(idx));
+    }
+
+    public String handleUnmarkCommand(String[] input) {
+        int unmarkIdx = parseIdx(input[1]);
+        // To verify assumption that task number is greater than 0
+        assert unmarkIdx > -1 : "Task number should be greater than 0!";
+        tasks.markTaskAsUndone(unmarkIdx);
+        return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
+    }
+
+    public String handleFindCommand(String[] input) {
+        TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
+        return ui.showMatchingTasks(matchingTasks);
+    }
+
+    public String handleTodoCommand(String[] input) {
+        ToDo newTodo = new ToDo(input[1]);
+        tasks.addTask(newTodo);
+        return ui.showAddedTask(newTodo, tasks.getSize());
+    }
+
+    public String handleDeadlineCommand(String[] input) {
+        Deadline newDeadline = new Deadline(input[1], parseDate(input[2]));
+        tasks.addTask(newDeadline);
+        return ui.showAddedTask(newDeadline, tasks.getSize());
+    }
+
+    public String handleEventCommand(String[] input) {
+        Event newEvent = new Event(input[1], parseDate(input[2]), parseDate(input[3]));
+        tasks.addTask(newEvent);
+        return ui.showAddedTask(newEvent, tasks.getSize());
+    }
+
+    public String handleDeleteCommand(String[] input) {
+        int deleteIdx = parseIdx(input[1]);
+        Task deletedTask = tasks.getTask(deleteIdx);
+        tasks.deleteTask(deleteIdx);
+        return ui.showDeletedTask(deletedTask, tasks.getSize());
+    }
+
+    public String handleListCommand() {
+        return ui.showTaskList(tasks);
+    }
+
+    public String handleByeCommand() {
+        return ui.showGoodbyeMsg();
+    }
+
+
+    public int parseIdx(String idx) {
+        return Integer.parseInt(idx) - 1;
+    }
+
+    public LocalDate parseDate(String date) {
+        return LocalDate.parse(date);
+    }
+
 
     /**
      * Gets the welcome message from Ui for special case of starting the application.
