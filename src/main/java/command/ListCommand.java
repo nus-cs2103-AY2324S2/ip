@@ -5,7 +5,6 @@ import roland.TaskList;
 import roland.Ui;
 import task.Task;
 
-
 /**
  * The ListCommand class represents a command to display the list of tasks in the TaskList.
  * It extends the Command class and implements the execute method to perform the task listing operation.
