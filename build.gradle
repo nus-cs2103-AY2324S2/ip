@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("datuk.Launcher")
 }
 
 checkstyle {

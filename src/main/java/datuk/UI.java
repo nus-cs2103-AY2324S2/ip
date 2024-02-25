@@ -150,7 +150,7 @@ public class UI {
         if (desc.equals("none")) {
             sb.append("There are no tasks due soon");
         } else {
-            sb.append("REMINDER: Task " + desc + " expiring on " + date[0]);
+            sb.append("REMINDER: Task " + desc + " expiring " + date[0]);
         }
 
         return sb.toString();
