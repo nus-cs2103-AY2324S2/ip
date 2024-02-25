@@ -7,8 +7,8 @@ import task.Task;
 
 
 /**
- * The ListCommand class represents a command to display the list of tasks in the TaskList.
- * It extends the Command class and implements the execute method to perform the task listing operation.
+ * The FindCommand class represents a command to search for a keyword in tasks to be displayed
+ * It extends the Command class and implements the execute method to perform the task finding operation.
  * Upon execution, it outputs the list of tasks to the user interface, along with their respective indices.
  *
  * @author wolffe88
@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the command by displaying the list of tasks in the TaskList along with their indices.
+     * Executes the command by displaying the list of tasks in the TaskList that matches the keywords along with their indices.
      *
      * @param tasks   The TaskList that stores the tasks.
      * @param ui      The user interface that outputs to the terminal.
