@@ -37,7 +37,7 @@ public class Storage {
         } catch (IOException | ClassNotFoundException e) {
             throw new TaylorException("No past data");
         } catch (ClassCastException e) {
-            throw new TaylorException("Content are corrupted!");
+            throw new TaylorException("Content are corrupted! Delete taylor.txt and restart again");
         }
     }
 
