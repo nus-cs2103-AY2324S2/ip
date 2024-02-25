@@ -43,7 +43,6 @@ public class Duke {
         } catch (IllegalArgumentException e) {
             tasks = new TaskList();
         }
-
     }
 
     /**
@@ -67,5 +66,9 @@ public class Duke {
      */
     protected boolean isExit() {
         return isExit;
+    }
+
+    protected String showWelcome() {
+        return ui.showWelcome();
     }
 }
