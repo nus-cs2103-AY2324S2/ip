@@ -31,7 +31,6 @@ public class Ui {
      *
      *
      * @return String read from System input
-     * @throws Exception if input cannot be read
      */
     public String readInput() {
         try {
@@ -42,7 +41,7 @@ public class Ui {
     }
 
     /**
-     * Returns a constructed string with for the ui's greeting message
+     * Returns a constructed string with for the IU greeting message
      *
      * @return Greeting message
      */
@@ -73,7 +72,7 @@ public class Ui {
     }
 
     /**
-     * Prints the signoffString in the shiftPrint format
+     * Prints the sign-off String in the shiftPrint format
      */
     public void exitMessage() {
         shiftedPrint(signoffString());
@@ -82,7 +81,7 @@ public class Ui {
     /**
      * Returns a constructed String for the user to see when the program exits
      *
-     * @return Signoff string.
+     * @return Sign-off string.
      */
 
     private  String signoffString(){
@@ -97,7 +96,6 @@ public class Ui {
      * Prints out the given text to be in the ui format
      *
      * @param text the string that is to be printed in the ui format
-     * @throws Exception if input cannot be read
      */
     public  void shiftedPrint(String text) {
         try {
@@ -117,22 +115,22 @@ public class Ui {
     }
 
     /**
-     * Prints the given Tasklist in the ui format.
+     * Prints the given Task list in the ui format.
      *
-     * @param tl The tasklist to be shown
+     * @param tl The task list to be shown
      */
     public void showList(TaskList tl) {
-        String toPrint = listStringBuilder(tl);
+        String toPrint = listBuilder(tl);
         this.shiftedPrint(toPrint);
     }
 
     /**
-     * Returns a string converted from the given tasklist
+     * Returns a string converted from the given task list.
      *
-     * @param tl The tasklist to be converted
-     * @return Tasklist in String.
+     * @param tl The task list to be converted.
+     * @return Task list in String.
      */
-    public String listStringBuilder(TaskList tl) {
+    public String listBuilder(TaskList tl) {
         StringBuilder text = new StringBuilder();
 
         if (tl.isEmpty()) {
@@ -141,9 +139,11 @@ public class Ui {
             text.append("These are your outstanding tasks\n");
             for (int i = 0; i < tl.size(); i++) {
                 ListEntry ent = tl.get(i);
-                text.append((i+1)).append(".").append(ent.toString()).append("\n");
+                text.append((i + 1)).append(".").append(ent.toString()).append("\n");
             }
         }
+
+
         return text.toString();
     }
 
