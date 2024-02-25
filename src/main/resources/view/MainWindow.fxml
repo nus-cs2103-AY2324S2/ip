@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!-- Solution below adapted from https://stackoverflow.com/questions/74336673/how-to-make-vbox-inside-of-scrollpane-responsive-chat-application#comment131237734_74336673-->
+
 <VBox spacing="5" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GUi.MainWindow">
    <children>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="700.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
