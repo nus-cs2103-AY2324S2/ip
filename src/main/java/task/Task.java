@@ -1,4 +1,4 @@
-package tasks;
+package task;
 
 /**
  * The Task class represents a task in the TaskList.
