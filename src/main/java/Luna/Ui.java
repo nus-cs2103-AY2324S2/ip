@@ -45,7 +45,7 @@ public class Ui {
      *
      * @return Greeting message
      */
-    private  String greetingString(){
+    private  String greetingString() {
         String msg = "";
         msg += String.format("%30s", " （„• ֊ •„)♡\n");
         msg += "heyo! my name is ✦" + this.name + "✦\n";
@@ -83,7 +83,7 @@ public class Ui {
      * @return Sign-off string.
      */
 
-    private  String signoffString(){
+    private  String signoffString() {
         String msg = "";
         msg += "okay then, bye\n";
         msg += sadCatImg();

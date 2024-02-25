@@ -14,32 +14,32 @@ public class ListEntry {
     }
 
     protected String task;
-    protected boolean check;
+    protected boolean isDone;
     protected String type;
 
     protected LocalDate taskStart;
 
     protected LocalDate taskEnd;
 
-    public ListEntry(String task, boolean check, String type, LocalDate tStart, LocalDate tEnd) {
+    public ListEntry(String task, boolean isDone, String type, LocalDate tStart, LocalDate tEnd) {
         this.task = task;
-        this.check = check;
+        this.isDone = isDone;
         this.type = type;
         this.taskStart = tStart;
         this.taskEnd = tEnd;
     }
 
-    public ListEntry(String task, boolean check, String type, LocalDate tEnd) {
+    public ListEntry(String task, boolean isDone, String type, LocalDate tEnd) {
         this.task = task;
-        this.check = check;
+        this.isDone = isDone;
         this.type = type;
         this.taskStart = null;
         this.taskEnd = tEnd;
     }
 
-    public ListEntry(String task, boolean check, String type) {
+    public ListEntry(String task, boolean isDone, String type) {
         this.task = task;
-        this.check = check;
+        this.isDone = isDone;
         this.type = type;
         this.taskStart = null;
         this.taskEnd = null;
@@ -50,14 +50,14 @@ public class ListEntry {
      * Marks the check of the entry as true
      */
     public void markEntry () {
-        this.check = true;
+        this.isDone = true;
     }
 
     /**
      * Unmark the check of the entry as false
      */
     public void unmarkEntry() {
-        this.check = false;
+        this.isDone = false;
     }
 
     /**
@@ -73,7 +73,7 @@ public class ListEntry {
 
     @Override
     public String toString() {
-        return ("[" + this.type + "]" + (this.check ? "[X] " : "[ ] ") + this.task);
+        return ("[" + this.type + "]" + (this.isDone ? "[X] " : "[ ] ") + this.task);
     }
 }
 
