@@ -36,6 +36,8 @@ public class Axolotl {
         storage = new Storage();
     }
 
+
+
     /**
      * Executes commands and displays output message
      * @param command

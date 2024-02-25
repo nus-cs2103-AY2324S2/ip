@@ -1,8 +1,9 @@
 package axolotl.controller;
 
 import axolotl.Axolotl;
-
+import axolotl.ui.Ui;
 import axolotl.command.bye.ByeCommand;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,7 +33,7 @@ public class MainWindow extends AnchorPane {
     private Axolotl axolotl;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaAxolotl.png"));
+    private Image axolotlImage = new Image(this.getClass().getResourceAsStream("/images/DaAxolotl.png"));
 
     @FXML
     public void initialize() {
@@ -41,6 +42,10 @@ public class MainWindow extends AnchorPane {
 
     public void setAxolotl(Axolotl a) {
         axolotl = a;
+        dialogContainer.getChildren().add(DialogBox.getAxolotlDialog(
+                Ui.showWelcome(),
+                axolotlImage)
+        );
     }
 
     /**
@@ -53,7 +58,7 @@ public class MainWindow extends AnchorPane {
         String response = axolotl.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getAxolotlDialog(response, axolotlImage)
         );
         userInput.clear();
         if (Objects.equals(input, ByeCommand.COMMAND)) {

@@ -30,23 +30,17 @@ public class Ui {
         return input;
     }
 
-    public void showWelcome() {
-        System.out.println("================================ \n" +
+    public static String showWelcome() {
+        return "================================ \n" +
                 "Hello I'm Axolotl! \n" +
                 "What can I do for you? \n" +
-                "================================ \n");
+                "================================ \n";
     }
 
     public static void showLoadingError() {
         System.out.println("-------------------------------- \n" +
                 "Oops, error in uploading saved tasks. Please check if the format is correct. \n" +
                 "-------------------------------- \n");
-    }
-
-    public static void showExit() {
-        System.out.println("================================ \n" +
-                "Bye. Hope to see you again soon! \n" +
-                "================================ \n");
     }
 
 }
