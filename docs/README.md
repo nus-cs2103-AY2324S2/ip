@@ -2,6 +2,8 @@
 
 <img src="Ui.png" alt="HanxiaoUi" style="zoom:50%;" />
 
+[project repo](https://github.com/wallacexuhanxiao/ip)
+
 ## Setup 
 1. Ensure you have **Java 11** installed in your Computer.
 2. Move to the *folder* where you put the `jar` file.
