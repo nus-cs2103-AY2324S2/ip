@@ -35,6 +35,8 @@ public class Parser {
      * @throws InvalidCommandException If user input format is invalid.
      */
     public Command parseCommand(String command) throws InvalidCommandException {
+        assert command != null : "Command passed into parseCommand should not be null";
+
         String[] split = command.split("\\s+", 2);
         String commandName = split[0].toLowerCase().trim();
         if (commandName.equals("bye")) {
