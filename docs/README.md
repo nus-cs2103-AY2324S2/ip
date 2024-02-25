@@ -5,7 +5,7 @@ output:
 ---
 # XiaoBai User Guide
 
-![Product screenshot](../Ui.png)
+![](Ui.png)
 
 XiaoBai is a loyal dog that simplifies your day by organizing your tasks into a streamlined task list. Whether it's deadlines, events, or simple to-dos, XiaoBai efficiently captures and categorizes your tasks. With its intuitive interface, adding, managing, and tracking tasks is a breeze. Stay on top of your commitments and boost productivity with XiaoBai by your side.
 
