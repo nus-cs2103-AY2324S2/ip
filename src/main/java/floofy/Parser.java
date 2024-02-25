@@ -295,47 +295,47 @@ public class Parser {
 
     public boolean isMarkCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("mark") || command.startsWith("mk") || command.startsWith("m");
+        return command.equals("mark") || command.equals("mk") || command.equals("m");
     }
 
     public boolean isUnmarkCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("unmark") || command.startsWith("um") || command.startsWith("u");
+        return command.equals("unmark") || command.equals("um") || command.equals("u");
     }
 
     public boolean isFindCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("find") || command.startsWith("f");
+        return command.equals("find") || command.equals("f");
     }
 
     public boolean isTodoCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("todo") || command.startsWith("td") || command.startsWith("t");
+        return command.equals("todo") || command.equals("td") || command.equals("t");
     }
 
     public boolean isDeadlineCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("deadline") || command.startsWith("ddl") || command.startsWith("dln");
+        return command.equals("deadline") || command.equals("ddl") || command.equals("dln");
     }
 
     public boolean isEventCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("event") || command.startsWith("evt") ||
-                command.startsWith("ev") || command.startsWith("e");
+        return command.equals("event") || command.equals("evt") ||
+                command.equals("ev") || command.equals("e");
     }
 
     public boolean isDeleteCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("delete") || command.startsWith("del") || command.startsWith("dlt");
+        return command.equals("delete") || command.equals("del") || command.equals("dlt");
     }
 
     public boolean isListCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("list") || command.startsWith("ls") || command.startsWith("l");
+        return command.equals("list") || command.equals("ls") || command.equals("l");
     }
 
     public boolean isByeCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
-        return command.startsWith("bye") || command.startsWith("b");
+        return command.equals("bye") || command.equals("b");
     }
 }
