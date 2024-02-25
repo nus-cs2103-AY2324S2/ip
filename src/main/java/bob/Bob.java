@@ -201,23 +201,31 @@ public class Bob extends Application{
             return parser.parseList(taskList);
         } else if (input.equals("clear")) {
             return parser.parseClear(taskList);
-        } else if (input.trim().matches("mark|unmark|deadline|todo|event|delete")) {
+        } else if (input.trim().matches("mark|unmark|deadline|todo|event|delete|find")) {
             return ui.showIncompleteEntryMessage();
         } else if (input.startsWith("mark ")) {
+            assert input.length() > 5 : "user input is incomplete.";
             return parser.parseMark(input, taskList);
         } else if (input.startsWith("unmark ")) {
+            assert input.length() > 7 : "user input is incomplete.";
             return parser.parseUnmark(input, taskList);
         } else if (input.startsWith("deadline ")) {
+            assert input.length() > 9 : "user input is incomplete.";
             return parser.parseDeadline(input, taskList);
         } else if (input.startsWith("todo ")) {
+            assert input.length() > 5 : "user input is incomplete.";
             return parser.parseTodo(input, taskList);
         } else if (input.startsWith("event ")) {
+            assert input.length() > 6 : "user input is incomplete.";
             return parser.parseEvent(input, taskList);
         } else if (input.startsWith("delete ")) {
+            assert input.length() > 7 : "user input is incomplete.";
             return parser.parseDelete(input, taskList);
         } else if (input.startsWith("find ")) {
+            assert input.length() > 5 : "user input is incomplete.";
             return parser.parseFind(input, taskList);
         } else {
+            assert false : "unknown command.";
             return ui.showUnknownCommandMessage();
         }
     }
