@@ -21,7 +21,6 @@ public class ListEntry {
 
     protected LocalDate taskEnd;
 
-
     public ListEntry(String task, boolean check, String type, LocalDate tStart, LocalDate tEnd) {
         this.task = task;
         this.check = check;
@@ -59,6 +58,17 @@ public class ListEntry {
      */
     public void unmarkEntry() {
         this.check = false;
+    }
+
+    /**
+     * Returns true if the task name contains the given keyword.
+     * Ignores capitalisation.
+     *
+     * @param keyword string to compare
+     * @return boolean whether contains the keyword
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.task.toLowerCase().contains(keyword.toLowerCase());
     }
 
     @Override

@@ -15,6 +15,7 @@ public class Command {
         DELETE,
         SAVE,
         LOAD,
+        FIND,
         EXIT,
         INVALID
     }
