@@ -51,4 +51,12 @@ public class Task {
 
         return false;
     }
+
+    public String update(String s) {
+
+        String prev_desc = description;
+        description = s;
+
+        return "Alright, I have changed your task from " + prev_desc + " to " + description;
+    }
 }

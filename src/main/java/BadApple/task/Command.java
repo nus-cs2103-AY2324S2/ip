@@ -50,6 +50,13 @@ public class Command {
             case "bye":
                 reply = "Can't wait to see you again in headspace!";
                 break;
+            case "update":
+                try {
+                    reply = TaskList.updateTask(args[1].trim());
+                } catch (DateTimeParseException d) {
+                    reply = "Your date is crappy.";
+                }
+                break;
             default:
                 try {
                     reply = TaskList.addTask(command, query);
