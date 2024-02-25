@@ -85,6 +85,12 @@ public class Floofy extends Application {
         }
     }
 
+    /**
+     * Handles the mark command to mark a task as done.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the result of this command in the form of a String.
+     */
     public String handleMarkCommand(String[] input) {
         int idx = parseIdx(input[1]);
         // To verify assumption that task number is greater than 0
@@ -93,6 +99,12 @@ public class Floofy extends Application {
         return ui.showMarkedTask(this.tasks.getTask(idx));
     }
 
+    /**
+     * Handles the unmark command to mark a task as undone.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the result of this command in the form of a String.
+     */
     public String handleUnmarkCommand(String[] input) {
         int unmarkIdx = parseIdx(input[1]);
         // To verify assumption that task number is greater than 0
@@ -101,29 +113,59 @@ public class Floofy extends Application {
         return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
     }
 
+    /**
+     * Handles the find command to find tasks that match the keyword.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the matching tasks found, in the form of a String.
+     */
     public String handleFindCommand(String[] input) {
         TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
         return ui.showMatchingTasks(matchingTasks);
     }
 
+    /**
+     * Handles the todo command to add a todo task.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the added ToDo task, in the form of a String.
+     */
     public String handleTodoCommand(String[] input) {
         ToDo newTodo = new ToDo(input[1]);
         tasks.addTask(newTodo);
         return ui.showAddedTask(newTodo, tasks.getSize());
     }
 
+    /**
+     * Handles the deadline command to add a deadline task.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the added Deadline task, in the form of a String.
+     */
     public String handleDeadlineCommand(String[] input) {
         Deadline newDeadline = new Deadline(input[1], parseDate(input[2]));
         tasks.addTask(newDeadline);
         return ui.showAddedTask(newDeadline, tasks.getSize());
     }
 
+    /**
+     * Handles the event command to add an event task.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the added Event task, in the form of a String.
+     */
     public String handleEventCommand(String[] input) {
         Event newEvent = new Event(input[1], parseDate(input[2]), parseDate(input[3]));
         tasks.addTask(newEvent);
         return ui.showAddedTask(newEvent, tasks.getSize());
     }
 
+    /**
+     * Handles the delete command to delete a task.
+     *
+     * @param input The user input command pre-processed by the parser.
+     * @return The ui to display the deleted task, in the form of a String.
+     */
     public String handleDeleteCommand(String[] input) {
         int deleteIdx = parseIdx(input[1]);
         Task deletedTask = tasks.getTask(deleteIdx);
@@ -131,19 +173,41 @@ public class Floofy extends Application {
         return ui.showDeletedTask(deletedTask, tasks.getSize());
     }
 
+    /**
+     * Handles the list command to list all tasks.
+     *
+     * @return The ui to display the list of tasks, in the form of a String.
+     */
     public String handleListCommand() {
         return ui.showTaskList(tasks);
     }
 
+    /**
+     * Handles the bye command to exit the application.
+     *
+     * @return The ui to display the goodbye message, in the form of a String.
+     */
     public String handleByeCommand() {
         return ui.showGoodbyeMsg();
     }
 
 
+    /**
+     * Parses the index of the task from the user input.
+     *
+     * @param idx The index of the task in the list, in the form of a String.
+     * @return The index of the task in the list, in the form of an int.
+     */
     public int parseIdx(String idx) {
         return Integer.parseInt(idx) - 1;
     }
 
+    /**
+     * Parses the date from the user input.
+     *
+     * @param date The date in the form of a String.
+     * @return The date in the form of a LocalDate.
+     */
     public LocalDate parseDate(String date) {
         return LocalDate.parse(date);
     }
