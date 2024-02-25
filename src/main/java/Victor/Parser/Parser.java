@@ -58,45 +58,44 @@ public class Parser {
         String returnString = "";
         Command currentCommand;
         switch (inputList[0]) {
-        case "list" -> {
+        case "list" :
             currentCommand = Command.LIST;
             returnString = currentCommand.execute(currentTasks, null);
-        }
-        case "mark" -> {
+            break;
+        case "mark" :
             currentCommand = Command.MARK;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "unmark" -> {
+            break;
+        case "unmark" :
             currentCommand = Command.UNMARK;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "todo" -> {
+            break;
+        case "todo" :
             currentCommand = Command.TODO;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "deadline" -> {
+            break;
+        case "deadline" :
             currentCommand = Command.DEADLINE;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "event" -> {
+            break;
+        case "event" :
             currentCommand = Command.EVENT;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "delete" -> {
+            break;
+        case "delete" :
             currentCommand = Command.DELETE;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "find" -> {
+            break;
+        case "find" :
             currentCommand = Command.FIND;
             returnString = currentCommand.execute(currentTasks, inputList);
-        }
-        case "bye" -> {
+            break;
+        case "bye" :
             currentCommand = Command.BYE;
             returnString = currentCommand.execute(currentTasks, null);
-        }
-        default -> {
+            break;
+        default :
             returnString = "Command not recognized. Please try again.";
-        }
         }
         return returnString;
     }

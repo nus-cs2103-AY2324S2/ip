@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import victor.tasktype.Deadline;
@@ -59,22 +60,21 @@ public class Storage {
                 String[] inputs = nextLine.split("\\|");
                 String fileDataType = inputs[0].trim();
                 switch (fileDataType) {
-                case "T" -> {
+                case "T" :
                     Task newTodo = new Todo(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()));
                     currentLists.add(newTodo);
-                }
-                case "D" -> {
+                    break;
+                case "D" :
                     Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()),
                             inputs[3].trim());
                     currentLists.add(newDeadline);
-                }
-                case "E" -> {
+                    break;
+                case "E" :
                     Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()),
                             inputs[3].trim(), inputs[4].trim());
                     currentLists.add(newEvent);
-                }
-                default -> {
-                }
+                    break;
+                default :
                 }
             }
         } catch (FileNotFoundException e) {
