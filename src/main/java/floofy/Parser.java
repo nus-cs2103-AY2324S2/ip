@@ -271,69 +271,126 @@ public class Parser {
         return getFirstWord(input).length() + 2;
     }
 
+    /**
+     * Gets the index of the task description from the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The index of the task description in the user input.
+     */
     public int descriptionIdx(String input) {
         return getFirstWord(input).length() + 1;
     }
 
+    /**
+     * Gets the index of the task number from the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The index of the task number in the user input.
+     */
     public int taskNumberIdx(String input) {
         return getFirstWord(input).length() + 1;
     }
 
+    /**
+     * Gets the index of the "/by" from the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The index of the "/by" in the user input.
+     */
     public int byIdx(String input) {
         return input.indexOf("/by");
     }
 
+    /**
+     * Gets the index of the "/from" from the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The index of the "/from" in the user input.
+     */
     public int fromIdx(String input) {
         return input.indexOf("/from");
     }
 
+    /**
+     * Gets the index of the "/to" from the user input.
+     *
+     * @param input The user input to be parsed.
+     * @return The index of the "/to" in the user input.
+     */
     public int toIdx(String input) {
         return input.indexOf("/to");
     }
 
     // A list of helper functions to interpret the user input command.
 
+    /**
+     * Checks if the user input is a "mark" command.
+     */
     public boolean isMarkCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("mark") || command.equals("mk") || command.equals("m");
     }
 
+    /**
+     * Checks if the user input is an "unmark" command.
+     */
     public boolean isUnmarkCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("unmark") || command.equals("um") || command.equals("u");
     }
 
+    /**
+     * Checks if the user input is a "find" command.
+     */
     public boolean isFindCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("find") || command.equals("f");
     }
 
+    /**
+     * Checks if the user input is a "todo" command.
+     */
     public boolean isTodoCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("todo") || command.equals("td") || command.equals("t");
     }
 
+    /**
+     * Checks if the user input is a "deadline" command.
+     */
     public boolean isDeadlineCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("deadline") || command.equals("ddl") || command.equals("dln");
     }
 
+    /**
+     * Checks if the user input is an "event" command.
+     */
     public boolean isEventCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("event") || command.equals("evt") ||
                 command.equals("ev") || command.equals("e");
     }
 
+    /**
+     * Checks if the user input is a "delete" command.
+     */
     public boolean isDeleteCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("delete") || command.equals("del") || command.equals("dlt");
     }
 
+    /**
+     * Checks if the user input is a "list" command.
+     */
     public boolean isListCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("list") || command.equals("ls") || command.equals("l");
     }
 
+    /**
+     * Checks if the user input is a "bye" command.
+     */
     public boolean isByeCommand(String input) {
         String command = getFirstWord(input).toLowerCase();
         return command.equals("bye") || command.equals("b");
