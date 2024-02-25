@@ -25,7 +25,7 @@ public class Parser {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
-     * Parsing the line from System.in to a Command.
+     * Parse the line from System.in to a Command.
      *
      * @param line            The line needed to be parsed.
      * @return                A specific command from command class.
