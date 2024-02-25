@@ -78,6 +78,7 @@ public class CoDriver{
             Command c = Parser.parse(input);
             if (c.isExit()) {
                 this.isExit = true;
+                storage.save(this.tasks.toFileSaveString());
             }
             return c.execute(tasks, ui, storage);
         } catch (CoDriverException e) {

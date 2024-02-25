@@ -101,6 +101,16 @@ Here are the matching tasks in your list:
 ```
 On a successful operation, all tasks that contain the keyword will be displayed. <br>
 
+## Exiting the program `bye`
+Exit the program. You must use this command to save the tasks to the hard disk.
+
+Example: `bye`<br>
+Expected output:
+```
+Bye. Hope to see you again soon!
+```
+On a successful operation, the program will exit. <br>
+
 ## Detect Duplicates
 CoDriver will detect and prevent the addition of duplicate tasks. It will not allow you to add a duplicate task
 that is already in the list.
