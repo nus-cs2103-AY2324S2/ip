@@ -15,7 +15,7 @@ public class InvalidSyntaxException extends Throwable {
     public InvalidSyntaxException(String command) {
         assert command.equals("bye") || command.equals("list") || command.equals("mark") || command.equals("unmark")
                 || command.equals("todo") || command.equals("deadline") || command.equals("event")
-                || command.equals("delete") || command.equals("find");
+                || command.equals("delete") || command.equals("find") || command.equals("help");
         this.command = command;
         switch (command) {
         case "bye":
@@ -45,13 +45,16 @@ public class InvalidSyntaxException extends Throwable {
         case "find":
             syntax = "find [keyword(s)]";
             break;
+        case "help":
+            syntax = "help (just 'help', really)";
+            break;
         default: // unreachable
         }
     }
 
     @Override
     public String toString() {
-        return "\nSorry, the format for the command is invalid. The syntax for "
+        return "Sorry, the format for the command is invalid. The syntax for "
                 + command + " is: \n" + syntax;
     }
 }

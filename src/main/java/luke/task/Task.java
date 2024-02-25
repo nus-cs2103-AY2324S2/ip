@@ -5,7 +5,7 @@ import luke.Ui;
 /**
  * A class that extracts the common attributes of all Tasks, such as ToDo, Deadline and Event.
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 

@@ -6,7 +6,7 @@ package luke.exception;
 public class UnknownCommandException extends Throwable {
     @Override
     public String toString() {
-        return "\nSorry, please type a valid command. The valid commands are:\n"
+        return "Sorry, please type a valid command. The valid commands are:\n"
                 + "bye\n"
                 + "list\n"
                 + "mark\n"
@@ -15,6 +15,7 @@ public class UnknownCommandException extends Throwable {
                 + "deadline\n"
                 + "event\n"
                 + "delete\n"
-                + "find\n";
+                + "find\n"
+                + "help";
     }
 }
