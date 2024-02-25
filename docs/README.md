@@ -6,7 +6,7 @@
 
 ## Installing Roland
 
-1. Download Roland [here]().
+1. Download Roland [here](https://github.com/wolffe88/ip/releases/tag/A-Release).
 2. Navigate to your Downloads folder using the terminal.
 3. Type `java -jar Roland.jar` in your terminal.
 4. Press enter.
