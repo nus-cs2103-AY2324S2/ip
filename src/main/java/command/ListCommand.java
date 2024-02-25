@@ -13,6 +13,7 @@ public class ListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("Here are the tasks in your list:");
+        
         for (int i = 1; i <= taskList.size(); i++) {
             Task t = taskList.get(i);
             System.out.println(i + ". " + t.toString());

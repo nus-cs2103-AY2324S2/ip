@@ -14,8 +14,10 @@ public class Event extends Task {
 
     public Event(String taskName, String startTime, String endTime) throws DukeException {
         super(taskName);
+
         try {
             this.startTime = LocalDateTime.parse(startTime, receivingFormatter);
+
         } catch (DateTimeParseException e) {
             throw new DukeException("Start time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy-HHmm\n"
@@ -25,6 +27,7 @@ public class Event extends Task {
 
         try {
             this.endTime = LocalDateTime.parse(endTime, receivingFormatter);
+
         } catch (DateTimeParseException e) {
             throw new DukeException("End time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy HHmm\n"
@@ -35,10 +38,12 @@ public class Event extends Task {
 
     public Event(boolean isDone, String taskName, String time) throws DukeException {
         super(isDone, taskName);
+
         try {
             String[] startToEndTime = time.split(" - ");
             startTime = LocalDateTime.parse(startToEndTime[0], printingFormatter);
             endTime = LocalDateTime.parse(startToEndTime[1], printingFormatter);
+            
         } catch (DateTimeParseException e) {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"

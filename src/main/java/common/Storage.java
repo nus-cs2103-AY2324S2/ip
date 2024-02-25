@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import task.Event;
+import task.Deadline;
 import task.Task;
 import task.TaskList;
-import task.Deadline;
-import task.Event;
 import task.ToDo;
 
 public class Storage {
@@ -21,7 +22,7 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public void checkForFilePath() {
+    private void checkForFilePath() {
         int currentAttempt = 0;
         File file;
 
@@ -63,32 +64,35 @@ public class Storage {
     public LinkedList<Task> loadData() {
         checkForFilePath();
         LinkedList<Task> tasks = new LinkedList<>();
+
         try {
             Scanner fileScanner = new Scanner(new File(filepath));
             boolean hasError = false;
 
             while (fileScanner.hasNext()) {
                 String[] taskFields = fileScanner.nextLine().split(" \\| ");
-                String type = taskFields[0];
+                String taskType = taskFields[0];
                 boolean isDone = Integer.parseInt(taskFields[1]) == 1 ? true : false;
 
-                if (type.equals("T")) {
+                if (taskType.equals("T")) {
                     ToDo td = new ToDo(isDone, taskFields[2]);
                     tasks.add(td);
 
-                } else if (type.equals("D")) {
+                } else if (taskType.equals("D")) {
                     try {
                         Deadline d = new Deadline(isDone, taskFields[2], taskFields[3]);
                         tasks.add(d);
+
                     } catch (DukeException e) {
                         System.out.println(e.getMessage() + "\n");
                         hasError = true;
                     }
 
-                } else if (type.equals("E")) {
+                } else if (taskType.equals("E")) {
                     try {
                         Event e = new Event(isDone, taskFields[2], taskFields[3]);
                         tasks.add(e);
+
                     } catch (DukeException e) {
                         System.out.println(e.getMessage() + "\n");
                         hasError = true;
@@ -99,6 +103,7 @@ public class Storage {
 
             if (hasError) {
                 Ui.showLine();
+
             } else {
                 String s = "tasks.txt loaded without error.";
                 System.out.println(s);
@@ -114,13 +119,16 @@ public class Storage {
     public void saveDataAndExit(TaskList tasks) {
         try {
             System.out.println("Saving data ...");
+
             File file = new File(filepath);
             FileWriter fw = new FileWriter(file, false);
+
             LinkedList<Task> taskList = tasks.getList();
             for (Task t : taskList) {
                 fw.write(t.toData());
                 fw.write(System.lineSeparator());
             }
+            
             fw.close();
             System.out.println("Data saved successfully. :)");
 

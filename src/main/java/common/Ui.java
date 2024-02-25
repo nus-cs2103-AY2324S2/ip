@@ -10,8 +10,8 @@ public class Ui {
     }
 
     public void showWelcome() {
-        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" +
-                "What can I do for you?";
+        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" 
+                + "What can I do for you?";
         System.out.println(welcomeMessage);
         showLine();
     }
