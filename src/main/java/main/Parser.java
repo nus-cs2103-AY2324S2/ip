@@ -20,6 +20,14 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Processes the output after the input is processed
+     * Writes to file if list is changed
+     * Outputs the response of the command
+     *
+     * @param pair pair of a boolean if list is changed and response
+     * @return response of the specific command
+     */
     public String output(Pair<Boolean,String> pair) {
         if(pair.getKey()) {
             try {
@@ -31,7 +39,13 @@ public class Parser {
         return pair.getValue();
     }
 
-    public String processInput(String str){
+    /**
+     * Processes the string into commands and response
+     *
+     * @param str input string to be processed
+     * @return output of response
+     */
+    public String processInput(String str) {
         try {
             String[] splitStr = str.split("\\s+", 2);
             assert splitStr != null : "Input string is null";
@@ -60,12 +74,18 @@ public class Parser {
             default:
                 return "huh? what did you say?";
             }
-        }catch (ArrayIndexOutOfBoundsException E1){
+        } catch (ArrayIndexOutOfBoundsException E1) {
             return "No input found after action";
         }
     }
 
-    public Pair<Boolean, String> addTodo(String[] splitStr){
+    /**
+     * Adds to do task according to the split string
+     *
+     * @param splitStr String of input split into command and name
+     * @return Pair of boolean (if list is changed) and response
+     */
+    public Pair<Boolean, String> addTodo(String[] splitStr) {
         assert splitStr[1] != null :"No input after action";
         if (splitStr.length == 2) {
             Task todo1 = new Todo(splitStr[1],false);
@@ -77,7 +97,13 @@ public class Parser {
         }
     }
 
-    public Pair<Boolean, String> addDeadline(String[] splitStr){
+    /**
+     * Adds deadline task according to the split string
+     *
+     * @param splitStr String of input split into command,name and deadline
+     * @return Pair of boolean (if list is changed) and response
+     */
+    public Pair<Boolean, String> addDeadline(String[] splitStr) {
         if (splitStr.length != 2) {
             return new Pair<>(false,Ui.error());
         }
@@ -94,7 +120,13 @@ public class Parser {
         return new Pair<>(true,Ui.success(deadline1));
     }
 
-    public Pair<Boolean, String> addEvent(String[] splitStr){
+    /**
+     * Adds event task according to the split string
+     *
+     * @param splitStr String of input split into command, name, startDate and endDate
+     * @return Pair of boolean (if list is changed) and response
+     */
+    public Pair<Boolean, String> addEvent(String[] splitStr) {
         if (splitStr.length != 2) {
             return new Pair<>(false,Ui.error());
         }
@@ -111,7 +143,13 @@ public class Parser {
         return new Pair<>(true,Ui.success(event1));
     }
 
-    public String find(String[] splitStr){
+    /**
+     * Finds task according to the input of split string
+     *
+     * @param splitStr String of input split into command, name
+     * @return String of list if name is found, error if name is not found
+     */
+    public String find(String[] splitStr) {
         if (splitStr.length == 2) {
             assert splitStr[1] != null : "no input after find";
             return taskList.printList(taskList.findList(splitStr[1]));

@@ -48,10 +48,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox that reflects the user command
+     *
+     * @param text the text input of user
+     * @param img image of user
+     * @return A DialogBox instance with the specific user dialog box fxml
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, "/view/UserDialogBox.fxml");
     }
 
+    /**
+     * Creates a DialogBox that reflects the response command by Poe
+     *
+     * @param text the text output response according the input
+     * @param img image of Poe
+     * @return A DialogBox instance with Poe dialog box fxml
+     */
     public static DialogBox getPoeDialog(String text, Image img) {
         var db = new DialogBox(text, img, "/view/PoeDialogBox.fxml");
         db.flip();

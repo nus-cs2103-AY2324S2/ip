@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Given a string, parses the tasks and adds it into a list
+     * Parses the tasks and adds it into a list, given a string that is read from file
      * @param str String read from file
      */
 
@@ -38,6 +38,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Sorts input and add into list according to different types of task for cases "E/D/T"
+     *
+     * @param str input string
+     */
     public void addListCase(String[] str) {
         switch (str[0]) {
             case "E" :
@@ -65,8 +70,8 @@ public class TaskList {
         return str;
     }
 
-    public String printList(ArrayList<Task> taskArrayList){
-        if (taskArrayList.isEmpty()){
+    public String printList(ArrayList<Task> taskArrayList) {
+        if (taskArrayList.isEmpty()) {
             return "Can't find what you're looking for :(";
         }
         String str = "Here's what you're looking for :)\n";
@@ -78,7 +83,7 @@ public class TaskList {
         return str;
     }
 
-    public ArrayList<Task> findList(String str){
+    public ArrayList<Task> findList(String str) {
         ArrayList<Task> temp = new ArrayList<>();
 
         for (Task task : list) {
@@ -151,13 +156,19 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         this.list.add(task);
         assert !list.isEmpty() : "Task list is empty after adding a task";
     }
 
-    public static String printReminder(ArrayList<Task> reminders){
-        if (reminders.isEmpty()){
+    /**
+     * Prints the reminder statements if there is any reminders
+     *
+     * @param reminders list of reminders
+     * @return String that prints reminders
+     */
+    public String printReminder(ArrayList<Task> reminders) {
+        if (reminders.isEmpty()) {
             return  "No upcoming tasks";
         }
         String str = "REMINDER! Upcoming tasks: \n";
@@ -168,29 +179,47 @@ public class TaskList {
         return str;
 
     }
-    public String remindTask(){
-        LocalDate dateNow = LocalDate.now();
+
+    /**
+     * Gets reminders from task list if there is any and prints them
+     *
+     * @return String of list of reminders to be displayed
+     */
+    public String remindTask() {
         ArrayList<Task> reminders = new ArrayList<>();
-        for (Task task : list){
-            if(compareDate(task,dateNow)){
+        for (Task task : list) {
+            if(compareDate(task)) {
                 reminders.add(task);
             }
         }
         return printReminder(reminders);
     }
 
-    public LocalDate reminderDate(Task task){
-        if(task instanceof Deadline){
+    /**
+     * Gets the date of task according to the types of task (deadline/event)
+     *
+     * @param task A task where the date of task is to be fetched
+     * @return Task date according to the type of task
+     */
+    public LocalDate getTaskDate(Task task) {
+        if(task instanceof Deadline) {
             return ((Deadline) task).getDeadline();
-        }else if(task instanceof Event){
+        } else if(task instanceof Event) {
             return ((Event) task).getStartDate();
         }
         return null;
     }
 
-    public boolean compareDate(Task task, LocalDate dateNow){
-        LocalDate d = reminderDate(task);
-        if(d == null){
+    /**
+     * Compares the task date to current date if task date if near to current date (<= 2 days)
+     *
+     * @param task task where date is to be read
+     * @return a boolean if task date is near to current date
+     */
+    public boolean compareDate(Task task) {
+        LocalDate dateNow = LocalDate.now();
+        LocalDate d = getTaskDate(task);
+        if(d == null) {
             return false;
         } else return DAYS.between(dateNow, d) <= 2;
     }

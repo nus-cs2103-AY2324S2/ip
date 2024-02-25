@@ -31,7 +31,7 @@ public class Ui {
         return "input event with this format (eg: event party /from 2024-05-19 /to 2024-05-20";
     }
 
-    public static String help(){
+    public static String help() {
         return "Add ToDo : todo name\n Add Deadline : deadline name /by date\n " +
                 "Add Event : event name /from date /to date\n Mark a task : mark index\n " +
                 "Unmark a task : unmark index\n Delete a task : delete index\n " +

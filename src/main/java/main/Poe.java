@@ -7,6 +7,11 @@ public class Poe {
     public static void main(String[] args) {
     }
 
+    /**
+     * Prints welcome screen and reminder if there exist any reminders
+     *
+     * @return String of greeting message and reminders if any
+     */
     public String welcome() {
         try {
             String data = Storage.loadFromFile("./data.txt");
@@ -16,6 +21,13 @@ public class Poe {
             return Ui.greetings();
         }
     }
+
+    /**
+     * Process input and returns a response according to the command
+     *
+     * @param input input of user commands
+     * @return response according to command
+     */
     public String getResponse(String input) {
         String response;
         try {

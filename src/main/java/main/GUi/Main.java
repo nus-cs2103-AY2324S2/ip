@@ -17,12 +17,10 @@ public class Main extends Application {
     private Poe poe = new Poe();
 
 
-    public Main(){
-
+    public Main() {
     }
 
     public static void main(String[] args) {
-
     }
 
     @Override

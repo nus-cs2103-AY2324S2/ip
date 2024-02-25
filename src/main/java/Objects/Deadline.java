@@ -20,11 +20,11 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toStringFile(){
+    public String toStringFile() {
         return "D|" + super.toStringFile() + "|" + this.deadline;
     }
 
-    public LocalDate getDeadline(){
+    public LocalDate getDeadline() {
         return this.deadline;
     }
 }
