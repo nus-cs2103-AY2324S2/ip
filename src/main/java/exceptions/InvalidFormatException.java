@@ -41,9 +41,9 @@ public class InvalidFormatException extends InvalidInputException {
         case UPDATE:
             throw new InvalidFormatException("   To edit a task, enter\n"
                     + "   update <task number in list> /[task] <task> [details]\n"
-                    + "   e.g. - update 1 /deadline/ finish assignment /by/ 2024-02-03 23:00\n"
-                    + "        - update 1 /todo/ finish assignment\n"
-                    + "        - update 3 /event/ finish assignment /from/ 3pm /to/ 11pm\n");
+                    + "   e.g. - update 1 /deadline/ sleep /by/ 2024-02-03 23:00\n"
+                    + "        - update 1 /todo/ sleep\n"
+                    + "        - update 3 /event/ sleep /from/ 3pm /to/ 11pm\n");
         }
     }
 }

@@ -18,6 +18,7 @@ public class Main extends Application {
     private Lelu lelu = new Lelu();
     private static final int exitDelay = 3000;
 
+
     public static void exitApplication() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -29,13 +30,13 @@ public class Main extends Application {
     }
 
 
-
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Lelu");
             stage.setScene(scene);
             fxmlLoader.<ui.MainWindow>getController().setLelu(lelu);
             stage.show();

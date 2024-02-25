@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import lelu.Lelu;
 import lelu.Main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainWindow extends AnchorPane {
 
     public static boolean canExit = false;
@@ -35,6 +38,7 @@ public class MainWindow extends AnchorPane {
         greet();
     }
 
+
     public void setLelu(Lelu l) {
         lelu = l;
     }
@@ -50,7 +54,6 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -66,7 +69,8 @@ public class MainWindow extends AnchorPane {
         if (canExit) {
             Main.exitApplication();
         }
-
     }
+
+
 
 }

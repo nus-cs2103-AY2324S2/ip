@@ -21,7 +21,12 @@ public class Ui {
                 + "- mark <task number in list>\n"
                 + "- unmark <task number in list>\n\n"
                 + "[to delete a task]\n"
-                + "- delete <task number in list>\n"
+                + "- delete <task number in list>\n\n"
+                + "[to update a task]\n"
+                + "- update <task number in list> /[task] <task> [details]\n"
+                + "   e.g. - update 1 /deadline/ sleep /by/ 2024-02-03 23:00\n"
+                + "        - update 1 /todo/ sleep\n"
+                + "        - update 3 /event/ sleep /from/ 3pm /to/ 11pm\n"
                 + "-------------------------------------\n";
     }
 
@@ -37,7 +42,7 @@ public class Ui {
 
     public String dateFormatInstructions() {
         return String.format("    Your date should be in this format:\n    "
-                + Deadline.DATE_FORMAT + " e.g. 2024-02-03 15:25\n\n");
+                + "<" + Deadline.DATE_FORMAT + ">" + " e.g. 2024-02-03 15:25\n\n");
     }
 
 

@@ -1,2 +1,3 @@
-T | 1 | sleep     
-T | 0 | wake up  
+T | 1 | clean up my room 
+D | 0 | finish ip | 2024-02-27 23:59
+E | 0 | /attend wedding | 5pm | 10pm

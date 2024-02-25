@@ -50,12 +50,23 @@ public class DialogBox extends HBox {
     }
 
 
+    /**
+     * Creates a DialogBox which displays the user input.
+     * @param text User input
+     * @param img User character image
+     * @return DialogBox containing image and input
+     */
     public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        return db;
+        return new DialogBox(text, img);
 
     }
 
+    /**
+     * Creates a DialogBox which displays the response to the user input.
+     * @param text User input
+     * @param img Chatbot character image
+     * @return DialogBox containing image and input
+     */
     public static DialogBox getLeluDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

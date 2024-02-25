@@ -8,17 +8,17 @@ import ui.Ui;
 
 public class UpdateCommand extends Command {
     private static final String COMMAND = "update ";
+    private int index;
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         checkEmptyDescription(message, COMMAND, LeluException.ErrorType.UPDATE);
-        int index = 0;
-        Task t = parse(message, index);
-        return tasks.updateTask(index, t);
+        Task t = parse(message);
+        return tasks.updateTask(this.index, t);
     }
-    private Task parse(String message, int index) throws InvalidFormatException {
+    private Task parse(String message) throws InvalidFormatException {
         String[] details = message.split("/");
         String number = details[0].split(" ")[1];
-        index = getTaskListNumber(number, LeluException.ErrorType.UPDATE);
+        this.index = getTaskListNumber(number, LeluException.ErrorType.UPDATE);
         switch (details.length) {
         case 3:
             if (details[1].equals("todo")) {
@@ -27,7 +27,7 @@ public class UpdateCommand extends Command {
             break;
         case 5:
             if (details[1].equals("deadline")) {
-                return new Deadline(details[2], details[4]);
+                return new Deadline(details[2].trim(), details[4].trim());
             }
         case 7:
             if (details[1].equals("event")) {

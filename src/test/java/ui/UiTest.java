@@ -9,7 +9,8 @@ public class UiTest {
     public void testGreet() {
         Ui ui = new Ui();
 
-        assertEquals("    Hi! I am your favourite friend, Lelu :)\n    What can I do for you?\n", ui.greet());
+        assertEquals("    Hi! I am your favourite friend, Lelu :)\n    What can I do for you?\n\n"
+                + "    For more information, enter:\n    help\n", ui.greet());
     }
 
     @Test
