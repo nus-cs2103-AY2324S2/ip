@@ -2,155 +2,91 @@ package ben.ui;
 
 import ben.tasks.Task;
 import ben.tasks.TaskList;
-import java.util.Scanner;
+import ben.tasks.Todo;
 
-/**
- * Represents the user interface for the Ben task management application.
- */
+import java.util.List;
+
 public class Ui {
-    private final Scanner in;
+    public static final String ERROR_MESSAGE = "ERROR: ";
+    public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String LIST_MESSAGE = "Here are the tasks in your list:";
+    public static final String MARKED_TASK_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String UNMARKED_TASK_MESSAGE = "OK, I've marked this task as not done yet:";
+    public static final String ADDED_TASK_MESSAGE = "Got it. I've added this task:";
+    public static final String TASK_SIZE_PRE_MESSAGE = "Now you have ";
+    public static final String TASK_SIZE_POST_MESSAGE = " tasks in the list.";
+    public static final String DELETED_TASK_MESSAGE = "Noted. I've removed this task:";
+    public static final String TASKS_FOUND_MESSAGE = "Here are the matching tasks in your list:";
+    public static final String NO_TASKS_FOUND_MESSAGE = "Sorry, there are no matching tasks... Try another keyword!";
 
-    /**
-     * Constructs a Ui object with a Scanner for user input.
-     */
-    public Ui() {
-        this.in = new Scanner(System.in);
+    public String show(String... messages) {
+        StringBuilder output = new StringBuilder();
+        for (String message : messages) {
+            output.append(message)
+                    .append("\n");
+        }
+        return output.toString();
     }
 
-    /**
-     * Displays a message to the user.
-     *
-     * @param message The message to be displayed.
-     */
-    public static String show(String message) {
-        return "      " + message + "\n";
-    }
-
-    /**
-     * Displays the welcome message to the user.
-     */
-    public String showWelcome() {
-        return show("______________________________________________") +
-                show("Hello! I'm Ben") +
-                show("What can I do for you?") +
-                show("______________________________________________");
-    }
-
-    /**
-     * Displays a line separator.
-     */
-    public String showLine() {
-        return show("______________________________________________");
-    }
-
-    /**
-     * Reads a command entered by the user.
-     *
-     * @return The user-entered command.
-     */
-    public String readCommand() {
-        return in.nextLine();
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
     public String showError(String message) {
-        return show(message);
+        return show(ERROR_MESSAGE,
+                    message);
     }
 
-    /**
-     * Displays the exit message to the user.
-     */
-    public String showExitMessage() {
-        return show("Bye. Hope to see you again soon!");
+    public String showExit() {
+        return show(EXIT_MESSAGE);
     }
 
-    /**
-     * Displays the message for listing tasks to the user.
-     */
-    public String showListMessage() {
-        return show("Here are the tasks in your list:");
+    public String showList(TaskList tasks) {
+        return show(LIST_MESSAGE,
+                    showTaskList(tasks));
     }
 
-    /**
-     * Displays a task to the user.
-     *
-     * @param task The task to be displayed.
-     */
     public String showTask(Task task) {
         return show(task.toString());
     }
 
-    /**
-     * Displays a specific task from the TaskList to the user.
-     *
-     * @param tasks The TaskList containing tasks.
-     * @param index The index of the task to be displayed.
-     */
     public String showTask(TaskList tasks, int index) {
         return show(tasks.toString(index));
     }
 
-    /**
-     * Displays the entire TaskList to the user.
-     *
-     * @param tasks The TaskList containing tasks.
-     */
     public String showTaskList(TaskList tasks) {
         return tasks.showTaskList();
     }
 
-    /**
-     * Displays a message for a marked task to the user.
-     */
-    public String showMarkedTaskMessage() {
-        return show("Nice! I've marked this task as done:");
+    public String showMarkedTask(TaskList tasks, int index) {
+        return show(MARKED_TASK_MESSAGE,
+                    showTask(tasks, index));
     }
 
-    /**
-     * Displays a message for an unmarked task to the user.
-     */
-    public String showUnmarkedTaskMessage() {
-        return show("OK, I've marked this task as not done yet:");
+    public String showUnmarkedTask(TaskList tasks, int index) {
+        return show(UNMARKED_TASK_MESSAGE,
+                    showTask(tasks, index));
     }
 
-    /**
-     * Displays a message for an added task to the user.
-     */
-    public String showAddedTaskMessage() {
-        return show("Got it. I've added this task:");
+    public String showTasksSize(TaskList tasks) {
+        return show(TASK_SIZE_PRE_MESSAGE +
+                    tasks.size() +
+                    TASK_SIZE_POST_MESSAGE);
     }
 
-    /**
-     * Displays the current number of tasks in the TaskList to the user.
-     *
-     * @param tasks The TaskList containing tasks.
-     */
-    public String showCurrNoOfTasks(TaskList tasks) {
-        return show("Now you have " + tasks.size() + " tasks in the list.");
+    public String showAddedTask(TaskList tasks, Task task) {
+        return show(ADDED_TASK_MESSAGE,
+                    showTask(task),
+                    showTasksSize(tasks));
     }
 
-    /**
-     * Displays a message for a deleted task to the user.
-     */
-    public String showDeletedTaskMessage() {
-        return show("Noted. I've removed this task:");
+    public String showDeletedTask(Task task) {
+        return show(DELETED_TASK_MESSAGE,
+                    showTask(task));
     }
 
-    /**
-     * Displays a message indicating that matching tasks have been found.
-     */
-    public String showTasksFoundMessage() {
-        return show("Here are the matching tasks in your list:");
+    public String showTasksFound(TaskList tasks) {
+        return show(TASKS_FOUND_MESSAGE,
+                    tasks.showTaskList());
     }
 
-    /**
-     * Displays a message indicating that no matching tasks have been found.
-     */
-    public String showNoTasksFoundMessage() {
-        return show("Sorry, there are no matching tasks... Try another keyword!");
+    public String showNoTasksFound() {
+        return show(NO_TASKS_FOUND_MESSAGE);
     }
 }
