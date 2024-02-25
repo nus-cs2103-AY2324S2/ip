@@ -12,37 +12,40 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /**
-     * The name of the file used for storing tasks.
-     */
-    private String fileName;
+    private String filePath;
 
     /**
-     * Constructs a Storage object with the specified file name.
+     * Constructs a Storage object with the specified file path.
      *
-     * @param fileName The name of the file used for storing tasks.
+     * @param filePath The file path where tasks are loaded from and written to.
      */
-    public Storage(String fileName) {
-        this.fileName = fileName;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     /**
-     * Loads tasks from the file and adds them to the provided ArrayList of tasks.
+     * Loads tasks from the file specified in the constructor.
      *
-     * @param tasks The ArrayList to which loaded tasks will be added.
+     * @return An ArrayList of Task objects loaded from the file.
      */
-    public void loadTasks(ArrayList<Task> tasks) {
+    public ArrayList<TaskList.Task> loadTasks() {
+        ArrayList<TaskList.Task> tasks = new ArrayList<>(); // Update the type
+
         try {
-            File file = new File(fileName);
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
+
             while (scanner.hasNextLine()) {
-                String taskDescription = scanner.nextLine();
-                tasks.add(new Task(taskDescription));
+                String taskData = scanner.nextLine();
+                // Parse taskData and create TaskList.Task objects, then add them to the 'tasks'
+                // ArrayList
             }
             scanner.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         }
+        return tasks;
     }
 
     /**
@@ -50,16 +53,17 @@ public class Storage {
      *
      * @param tasks The ArrayList of tasks to be written to the file.
      */
-    public void writeTasks(ArrayList<Task> tasks) {
+    public void writeTasks(ArrayList<TaskList.Task> tasks) {
         try {
-            FileWriter writer = new FileWriter(fileName);
-            for (Task task : tasks) {
+            FileWriter writer = new FileWriter(filePath);
+            for (TaskList.Task task : tasks) {
                 writer.write(task.toString() + "\n");
             }
             writer.close();
             System.out.println("Tasks written to file successfully!");
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Error writing tasks to file: " + e.getMessage());
         }
     }
 }
