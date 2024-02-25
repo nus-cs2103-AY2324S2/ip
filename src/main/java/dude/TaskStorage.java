@@ -1,7 +1,7 @@
-package Dude;
+package dude;
 
 import java.io.*;
-import java.time.format.DateTimeFormatter;
+import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * and the parsing of these strings back into Task objects.
  */
 class TaskStorage {
-    public static final String FILE_NAME = "tasks.txt";
+    public static final String FILE_NAME = "taskss.txt";
 
     /**
      * Saves a list of tasks to a file, converting each task to a string format.
@@ -22,14 +22,17 @@ class TaskStorage {
      * @throws IOException If an I/O error occurs writing to the file.
      */
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME));
-        for (Task task : tasks) {
-            String taskString = task.toFileString();
-            if (!taskString.isEmpty()) {
-                bufferedWriter.write(taskString);
-                bufferedWriter.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (Task task : tasks) {
+                String taskString = task.toFileString();
+                if (!taskString.isEmpty()) {
+                    bufferedWriter.write(taskString);
+                    bufferedWriter.newLine();
+                }
             }
-        }
+        } // BufferedWriter is automatically closed here
+
+        System.out.println("Tasks saved");
 
     }
 
@@ -67,11 +70,10 @@ class TaskStorage {
         String[] parts = line.split("\\|");
         boolean isDone = "1".equals(parts[1]);
         String description = parts[2];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             switch (parts[0]) {
                 case "T":
-                    ToDo todo = new ToDo(description);
+                    ToDo todo = new ToDo(description, Duration.parse(parts[3]));
                     if (isDone)
                         todo.markAsDone();
                     return todo;

@@ -1,4 +1,4 @@
-package Dude;
+package dude;
 enum Actions {
     DELETE,
     ADD,

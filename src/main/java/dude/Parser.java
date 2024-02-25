@@ -1,4 +1,4 @@
-package Dude;
+package dude;
 
 /**
  * A utility class to parse input strings into Command objects.

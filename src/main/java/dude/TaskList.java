@@ -1,8 +1,8 @@
-package Dude;
+package dude;
 
 import java.util.ArrayList;
 
-class TaskList {
+public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> startingTasks) {
