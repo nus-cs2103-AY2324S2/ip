@@ -58,7 +58,7 @@ public class Ui {
      *
      * @return a cat string
      */
-    private  String sad_cat_img() {
+    private  String sadCatImg() {
         return
                 "⠀               />    フ\n" +
                         "               | 　_  _|\n" +
@@ -87,7 +87,7 @@ public class Ui {
     private  String signoffString(){
         String msg = "";
         msg += "okay then, bye\n";
-        msg += sad_cat_img();
+        msg += sadCatImg();
 
         return msg;
     }
