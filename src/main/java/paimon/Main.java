@@ -12,12 +12,13 @@ import paimon.controller.ChatController;
 
 
 /**
- * Main Class
+ * The Main class serves as the entry point for the application.
+ * It initializes different javafx components and loads them
+ * by setting them inside our primaryStage.
+ * @author jovantanyk
  **/
 public class Main extends Application {
-    //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
-    //This is the BorderPane of RootLayout
     private BorderPane rootLayout;
     private final DialogHandler dialogHandler;
     public Main() {
@@ -26,16 +27,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        //1) Declare a primary stage (Everything will be on this stage)
         this.primaryStage = primaryStage;
-
-        //Optional: Set a title for primary stage
         this.primaryStage.setTitle("Paimon");
-
-        //2) Initialize RootLayout
         initRootLayout();
-
-        //3) Display the EmployeeOperations View
         showChatView();
     }
 
