@@ -53,7 +53,7 @@ public class AddTaskProcessor extends Processor {
         }
 
         if (componentsSplitBySpace.length == 1) {
-            System.out.println(chatbotUi.dividerWrapper("Description of todo can't be blank!"));
+            System.out.println(chatbotUi.dividerWrapper("Description of task can't be blank!"));
             return;
         }
         String todoDescription = componentsSplitBySpace[1].trim();
@@ -149,7 +149,7 @@ public class AddTaskProcessor extends Processor {
         }
 
         try {
-            storage.writeToFile();
+            storage.writeToFile(taskList);
         } catch (IOException e) {
             System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
 

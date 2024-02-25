@@ -23,9 +23,8 @@ public abstract class Processor {
     public Processor(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
-        this.storage = new Storage("tasks.txt", taskList);
+        this.storage = new Storage("tasks.txt");
     }
-
     /**
      * Process the user input command
      * @param userInput the user input command
