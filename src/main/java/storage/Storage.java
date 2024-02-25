@@ -100,6 +100,11 @@ public class Storage {
             System.out.println("Error reading list from file.");
         } catch (NullPointerException e) {
             return new TaskList();
+        } catch (StringIndexOutOfBoundsException e) {
+            // make task.txt blank again if there is a parsing error
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write("");
+            writer.close();
         }
         return taskList;
     }

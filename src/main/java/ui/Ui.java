@@ -47,7 +47,7 @@ public class Ui {
      * @return a string containing the greeting string.
      */
     public String greeting() {
-        return QUOTE_STRING + "\n" + GREETING;
+        return GREETING;
     }
     /**
      * Returns a string containing the divider string.
