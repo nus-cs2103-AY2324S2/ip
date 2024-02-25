@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * Returns the string representation of the <code>Deadline</code>.
      *
      * @return [D] to indicate <code>Deadline</code>, completion status marked by X if done, task description,
-     * and the due datetime.
+     *     and the due datetime.
      */
     @Override
     public String toString() {
