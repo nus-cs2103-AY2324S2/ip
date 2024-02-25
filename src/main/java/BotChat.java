@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 import exception.InvalidTaskNumberException;
@@ -7,11 +10,10 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * This class is the chatbot.
+ *
+ */
 public class BotChat {
     private static boolean isTerminate = false;
     private static final String FILEPATH = "./././data/botchat.txt";
@@ -28,38 +30,38 @@ public class BotChat {
     public static void addTask(String s) throws Exception {
         String taskDescription;
         switch (parser.extractCommand(s)) {
-            case "todo":
-                taskDescription = parser.extractDescription(s);
-                Task newDescriptionTask = new ToDo(taskDescription);
-                storage.addToDataStore(newDescriptionTask);
-                taskArrayList.addTask(newDescriptionTask);
-                break;
-            case "deadline":
-                taskDescription = parser.extractDescription(s);
-                String[] deadlineStringParts = taskDescription.split("/by ");
-                if (deadlineStringParts.length < 2) {
-                    throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the " +
-                            "form of deadline description /by datetime.");
-                } else {
-                    Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
-                    storage.addToDataStore(newDeadlineTask);
-                    taskArrayList.addTask(newDeadlineTask);
-                }
-                break;
-            case "event":
-                taskDescription = parser.extractDescription(s);
-                String[] eventStringParts = taskDescription.split("/from |/to ");
-                if (eventStringParts.length < 3) {
-                    throw new IncompleteCommandException("task.Event command incomplete. It should be in the " +
-                            "form of event description /from datetime /to datetime.");
-                } else {
-                    Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
-                    storage.addToDataStore(newEventTask);
-                    taskArrayList.addTask(newEventTask);
-                }
-                break;
-            default:
-                throw new InvalidCommandException(s);
+        case "todo":
+            taskDescription = parser.extractDescription(s);
+            Task newDescriptionTask = new ToDo(taskDescription);
+            storage.addToDataStore(newDescriptionTask);
+            taskArrayList.addTask(newDescriptionTask);
+            break;
+        case "deadline":
+            taskDescription = parser.extractDescription(s);
+            String[] deadlineStringParts = taskDescription.split("/by ");
+            if (deadlineStringParts.length < 2) {
+                throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the "
+                        + "form of deadline description /by datetime.");
+            } else {
+                Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
+                storage.addToDataStore(newDeadlineTask);
+                taskArrayList.addTask(newDeadlineTask);
+            }
+            break;
+        case "event":
+            taskDescription = parser.extractDescription(s);
+            String[] eventStringParts = taskDescription.split("/from |/to ");
+            if (eventStringParts.length < 3) {
+                throw new IncompleteCommandException("task.Event command incomplete. It should be in the "
+                        + "form of event description /from datetime /to datetime.");
+            } else {
+                Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
+                storage.addToDataStore(newEventTask);
+                taskArrayList.addTask(newEventTask);
+            }
+            break;
+        default:
+            throw new InvalidCommandException(s);
         }
     }
 
@@ -89,7 +91,7 @@ public class BotChat {
                 ArrayList<Task> tasksWithKeyword = taskArrayList.getTasksWithKeyword(parser.extractDescription(s));
                 StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list: \n");
                 for (int i = 0; i < tasksWithKeyword.size(); i++) {
-                    findStringBuilder.append(i+1);
+                    findStringBuilder.append(i + 1);
                     findStringBuilder.append(". ");
                     findStringBuilder.append(tasksWithKeyword.get(i).toString());
                     findStringBuilder.append("\n ");
