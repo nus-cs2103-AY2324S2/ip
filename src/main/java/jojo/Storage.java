@@ -99,6 +99,7 @@ public class Storage {
             while ((s = br.readLine()) != null) {
                 String[] splitStr = s.split(" \\| ");
                 assert splitStr.length <= 4 : "Invalid task format";
+                Task task = loadTaskType(splitStr);
                 if (splitStr[1].equals("1")) {
                     task.setDone();
                 }
