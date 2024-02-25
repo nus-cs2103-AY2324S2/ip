@@ -1,15 +1,26 @@
 # Duke User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+<img width="388" alt="Ui" src="https://github.com/IamZhenHong/ip/assets/109903639/7aa1d8a6-176f-4b60-9ca4-1ae717d7ac45">
 
-// Product intro goes here
+
+## Introducing Duke: Your Personal Task Manager
+
+Duke is a robust task management tool designed to streamline your daily productivity. With its intuitive interface and powerful features, Duke helps you stay organized and on top of your tasks with ease.
+
+Whether you're a student, a professional, or anyone with a busy schedule, Duke is here to simplify your life. Let's take a closer look at what Duke has to offer:
+
+### Effortless Task Management
+
+### Flexible Task Tracking
+
+### Comprehensive Task Overview
 
 
 ## Setup
-
-...
+1. Ensure that you have Java 11 installed on your device.
+2. Download the jar file.
+3. Double click jar file to launch application.
 
 ## Features
 
