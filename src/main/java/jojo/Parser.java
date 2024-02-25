@@ -76,7 +76,7 @@ public class Parser {
      * @return String desc
      */
     public static String parseToDoOrFind(String cmd) {
-        return cmd.substring(4).stripTrailing();
+        return cmd.substring(4).strip();
     }
 
     /**
