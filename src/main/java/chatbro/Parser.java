@@ -50,13 +50,14 @@ public class Parser {
      * @return chatbro.Task object.
      */
     public static Task parseTask(String taskString) throws WrongFileFormatException {
+        String wrongFileMessage = "savedTasks.txt is in the wrong format.\n"
+                + "Please delete the file and restart the program.";
         try {
             assert taskString != null;
             String[] splitString = taskString.split(";;");
             for (String s : splitString) {
                 if (s.isEmpty()) { // if any information is missing
-                    throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                            + "Please delete the file and restart the program.");
+                    throw new WrongFileFormatException(wrongFileMessage);
                 }
             }
             String type = splitString[0];
@@ -68,8 +69,7 @@ public class Parser {
             } else if (status.equals(" ")) {
                 isDone = false;
             } else {
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                        + "Please delete the file and restart the program.");
+                throw new WrongFileFormatException(wrongFileMessage);
             }
             switch (type) {
             case "T":
@@ -86,12 +86,10 @@ public class Parser {
                 String endInterval = splitString[4];
                 return new IntervalDeadline(description, startInterval, endInterval, isDone);
             default:
-                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                        + "Please delete the file and restart the program.");
+                throw new WrongFileFormatException(wrongFileMessage);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\n"
-                    + "Please delete the file and restart the program.");
+            throw new WrongFileFormatException(wrongFileMessage);
         }
     }
 }
