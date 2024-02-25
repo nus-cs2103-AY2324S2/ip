@@ -223,7 +223,7 @@ public enum Command {
         @Override
         public String execute(TaskList tasks, String[] commandLine) throws IOException {
             Ui ui = new Ui();
-            Storage storage = new Storage("data/victor.txt");
+            Storage storage = new Storage("victor.txt");
             storage.updateFile(tasks.returnList());
             Platform.exit();
             System.exit(0);

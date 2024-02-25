@@ -31,6 +31,7 @@ public class Storage {
      */
     private final String filePath;
 
+
     /**
      * The Storage Constructor will take in the filePath of the
      * data file to retrieve the data from. It would update the
@@ -79,7 +80,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             try {
-                boolean isCreated = dataFile.createNewFile();
+                File newDataFile = new File(filePath);
+                boolean isCreated = newDataFile.createNewFile();
                 System.out.println("Error: Data File not found. Creating new Data File");
             } catch (IOException e2) {
                 System.out.println("Error: Cannot create hard drive file.");
@@ -100,19 +102,21 @@ public class Storage {
      */
     public void updateFile(ArrayList<Task> updatedArrays) throws IOException {
         int i = 0;
-        try {
-            FileWriter writeToFile = new FileWriter(this.filePath);
-            while (i < updatedArrays.size() - 1) {
-                Task nextTask = updatedArrays.get(i);
-                writeToFile.write(nextTask.saveInput()
-                        + System.lineSeparator());
-                i++;
+        if (!updatedArrays.isEmpty()) {
+            try {
+                FileWriter writeToFile = new FileWriter(filePath);
+                while (i < updatedArrays.size() - 1) {
+                    Task nextTask = updatedArrays.get(i);
+                    writeToFile.write(nextTask.saveInput()
+                            + System.lineSeparator());
+                    i++;
+                }
+                Task finalTask = updatedArrays.get(updatedArrays.size() - 1);
+                writeToFile.write(finalTask.saveInput());
+                writeToFile.close();
+            } catch (IOException e) {
+                System.out.println("Update File Error. Unable to save new data");
             }
-            Task finalTask = updatedArrays.get(updatedArrays.size() - 1);
-            writeToFile.write(finalTask.saveInput());
-            writeToFile.close();
-        } catch (IOException e) {
-            System.out.println("Update File Error. Unable to save new data");
         }
     }
 }

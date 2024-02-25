@@ -40,7 +40,7 @@ public class Victor {
      */
     public Victor() {
         ui = new Ui();
-        storage = new Storage("data/victor.txt");
+        storage = new Storage("victor.txt");
         ui.showIntro();
         tasks = new TaskList(storage.load());
         parser = new Parser(ui, tasks);
