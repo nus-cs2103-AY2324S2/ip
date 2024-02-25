@@ -140,3 +140,8 @@ Here is the sorted list of 2 tasks:
 1.[T][ ] borrow book
 2.[E][ ] project meeting (from: Oct 18 2019 1900 to: Oct 18 2019 2100)
 ```
+
+## Exiting XiaoBai
+
+To exit XiaoBai, simply type `bye` and press Enter. 
+This will close the application and save any changes made to your task list.
