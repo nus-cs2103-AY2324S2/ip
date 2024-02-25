@@ -15,6 +15,8 @@ public class TodoCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert ui != null;
+        assert tasks != null;
         Task curr = new Todo(todo);
         tasks.add(curr);
         ui.showTask(curr, tasks.size());

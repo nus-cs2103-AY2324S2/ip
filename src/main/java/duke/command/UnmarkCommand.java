@@ -13,6 +13,9 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert ui != null;
+        assert tasks != null;
+
         tasks.unmarkAsDone(taskNumber);
         ui.showUnmarked(tasks.getTask(taskNumber));
     }

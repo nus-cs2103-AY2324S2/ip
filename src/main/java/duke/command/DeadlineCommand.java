@@ -15,12 +15,16 @@ public class DeadlineCommand extends Command {
     private final LocalDate by;
 
     public DeadlineCommand(String task, LocalDate by) {
+
         this.task = task;
         this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert tasks != null;
+        assert ui != null;
+
         Task curr = new Deadline(task, by);
         tasks.add(curr);
         ui.showTask(curr, tasks.size());

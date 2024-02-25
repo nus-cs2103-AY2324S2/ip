@@ -13,6 +13,8 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert ui != null;
+        assert tasks != null;
         tasks.markAsDone(taskNumber);
         ui.showMarked(tasks.getTask(taskNumber));
     }
