@@ -30,6 +30,18 @@ public class Deadline extends Task {
         this.date = LocalDateTime.parse(by, INPUT_FORMATTER);
     }
 
+    /**
+     * Sets the due datetime of the deadline.
+     * @param date The due date of the deadline.
+     * @throws SamException If the due date is not specified.
+     */
+    public void setBy(String date) throws SamException {
+        if (date.isBlank()) {
+            throw new SamException("No due date specified!");
+        }
+        this.date = LocalDateTime.parse(date, INPUT_FORMATTER);
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), date.format(OUTPUT_FORMATTER));
