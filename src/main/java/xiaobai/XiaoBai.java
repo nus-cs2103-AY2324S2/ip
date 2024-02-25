@@ -197,7 +197,10 @@ public class XiaoBai {
      * @param input The input string containing the delete command and task index.
      * @return A message confirming the task has been deleted.
      */
-    public String processDeleteCommand(String input) {
+    public String processDeleteCommand(String input) throws XiaoBaiException {
+        if (taskList.isEmpty()) {
+            throw new XiaoBaiException("Task List is empty");
+        }
         String[] parts = input.split(" ");
         assert parts[1] != null : "Delete details cannot be empty";
         int deleteIndex = Integer.parseInt(parts[1]) - 1;

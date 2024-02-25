@@ -22,6 +22,11 @@ import exception.XiaoBaiException;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage class that writes and loads input into XiaoBai.
+     * 
+     * @param filePath Name of the txt file used to store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -64,7 +69,7 @@ public class Storage {
                 String entireTask = task.substring(7);
                 switch (taskType) {
                     case 'T':
-                        taskList.add(new Todo(entireTask, isDone));
+                        taskList.add(processLoadingTodo(entireTask, isDone));
                         break;
                     case 'D':
                         Deadline newDeadline = processLoadingDeadline(entireTask, isDone);
@@ -118,5 +123,18 @@ public class Storage {
         String toText = entireTask.substring(toIndex + 4, toLastIndex);
         String fromText = entireTask.substring(fromIndex + 7, toIndex - 1);
         return new Event(taskDetail, fromText, toText, isDone);
+    }
+
+    /**
+     * Processes a string representing a Todo task loaded from storage.
+     * Extracts the task details, then constructs a Todo object.
+     *
+     * @param entireTask The entire string representing the todo task.
+     * @param isDone     The completion status of the task.
+     * @return An Todo object representing the loaded todo task.
+     * @throws XiaoBaiException If there is an error parsing the task details.
+     */
+    public Todo processLoadingTodo(String entireTask, boolean isDone) throws XiaoBaiException {
+        return new Todo(entireTask, isDone);
     }
 }

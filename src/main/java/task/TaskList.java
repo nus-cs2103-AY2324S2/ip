@@ -81,4 +81,13 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return listOfTasks;
     }
+
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return listOfTasks.isEmpty();
+    }
 }

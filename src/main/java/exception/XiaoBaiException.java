@@ -1,7 +1,7 @@
 package exception;
 
 /**
- * Represents an exception specific to the Duke application.
+ * Represents an exception specific to the XiaoBai application.
  * This exception can be thrown when there is an error or unexpected condition
  * in the XiaoBai application.
  */

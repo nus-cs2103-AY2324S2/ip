@@ -52,7 +52,7 @@ public class Ui {
      */
     public String showDeleteMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Noted. I've removed this task:\n");
+        outputString.append("Woooof. I've removed this task:\n");
         outputString.append(task.toString() + "\n");
         int len = taskList.getSize();
         outputString.append(String.format("Now you have %d tasks in the list.", len));
@@ -68,7 +68,7 @@ public class Ui {
      */
     public String showAddTaskMessage(Task task, TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Got it. I've added this task:\n");
+        outputString.append("WOOOoof. I've added this task:\n");
         outputString.append(task.toString() + "\n");
         int len = taskList.getSize();
         outputString.append(String.format("Now you have %d tasks in the list.", len));
@@ -84,7 +84,8 @@ public class Ui {
     public String showSortMessage(TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        finalString.append("Here is the sorted list:\n");
+        int len = taskList.getSize();
+        finalString.append(String.format("Here is the sorted list of %d tasks:\n", len));
         int counter = 1;
         for (Task c : taskList.getList()) {
             finalString.append(String.format("%d. %s\n", counter, c.toString()));
@@ -141,13 +142,18 @@ public class Ui {
     public String showPrintListMessage(TaskList taskList) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        int counter = 1;
-        for (Task c : taskList.getList()) {
-            finalString.append(String.format("%d. %s\n", counter, c.toString()));
-            counter++;
+        if (taskList.isEmpty()) {
+            outputString.append("There are no tasks in your list");
+        } else {
+            int counter = 1;
+            for (Task c : taskList.getList()) {
+                finalString.append(String.format("%d. %s\n", counter, c.toString()));
+                counter++;
+            }
+            int len = taskList.getSize();
+            outputString.append(String.format("Here are the %s tasks in your list:\n", len));
+            outputString.append(finalString.toString());
         }
-        outputString.append(String.format("Here are the %s tasks in your list:\n", counter - 1));
-        outputString.append(finalString.toString());
         return outputString.toString();
     }
 
@@ -161,7 +167,7 @@ public class Ui {
     public String showFoundTask(TaskList taskList, String findString) {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
-        finalString.append("Here are the matching tasks in your list:\n");
+        finalString.append("WOOF! I've found these matching tasks in your list:\n");
         int counter = 1;
         for (Task c : taskList.getList()) {
             if (c.getName().contains(findString)) {
