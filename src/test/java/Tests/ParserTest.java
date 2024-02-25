@@ -37,7 +37,7 @@ public class ParserTest {
             Parser.parse("screaming crying");
             fail("Expected EmisException to be thrown"); // the test should not reach this line
         } catch (EmisException e) {
-            assertEquals("Invalid command!", e.getMessage());
+            assertEquals("Meow? Emis doesn't understand.\n Please send 'help' if needed.", e.getMessage());
         }
     }
 }
