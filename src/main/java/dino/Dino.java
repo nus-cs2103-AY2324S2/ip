@@ -2,7 +2,6 @@ package dino;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import dino.commands.Command;
 import dino.commands.Parser;
@@ -16,10 +15,9 @@ import dino.tasks.TaskList;
 public class Dino {
 
     private static final String TASKS_CACHE_PATH = ".dino-cache";
-    private static final String HORIZONTAL_LINE = "---------------------------------\n";
-
     private Storage storage;
     private TaskList tasks;
+    public boolean shouldTerminate = false;
 
     public Dino() {
         this.storage = new Storage(TASKS_CACHE_PATH);
@@ -31,20 +29,6 @@ public class Dino {
         }
     }
 
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
-        while (!input.equalsIgnoreCase("bye")) {
-            System.out.println(HORIZONTAL_LINE);
-            String response = getResponse(input);
-            System.out.println(response);
-            System.out.println(HORIZONTAL_LINE);
-            input = scanner.nextLine();
-        }
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
-    }
     public String getGreeting() {
         List<String> greeting = new ArrayList<>();
         greeting.add("Hello! I'm Dino");
@@ -64,13 +48,12 @@ public class Dino {
             Command command = Parser.processInput(input);
             List<String> messages = command.execute(this.tasks);
             storage.save(this.tasks);
+            if (input.startsWith("bye")) {
+                shouldTerminate = true;
+            }
             return String.join("\n", messages);
         } catch (Exception e) {
             return "Oops! Something went wrong: " + e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        new Dino().start();
     }
 }

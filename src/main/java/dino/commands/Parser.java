@@ -51,6 +51,8 @@ public class Parser {
                 return new DeleteCommand(details);
             case FIND:
                 return new FindCommand(details);
+            case BYE:
+                return new ByeCommand();
             default:
                 throw new DinoException("Unsupported command.");
         }
@@ -58,6 +60,6 @@ public class Parser {
 
 
     enum Instruction {
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND, BYE
     }
 }
