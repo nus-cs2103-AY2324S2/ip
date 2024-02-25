@@ -4,6 +4,7 @@ package floofy;
  * Represents an exception that is thrown when the user inputs an invalid command when using Floofy chatbot.
  */
 public class FloofyException extends Exception {
+
     /**
      * Constructs a new object of the FloofyException class.
      *
