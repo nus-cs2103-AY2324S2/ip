@@ -1,12 +1,8 @@
 package duke.task;
 
 public abstract class Task {
-    TodoState todoState;
     final String task;
-
-    public String getTask() {
-        return task;
-    }
+    TodoState todoState;
 
     public Task(String task) {
         this.todoState = TodoState.UNDONE;
@@ -16,6 +12,10 @@ public abstract class Task {
     public Task(String task, TodoState todoState) {
         this.todoState = todoState;
         this.task = task;
+    }
+
+    public String getTask() {
+        return task;
     }
 
     @Override

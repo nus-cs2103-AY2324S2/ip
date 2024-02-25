@@ -4,7 +4,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.TextUi;
-import duke.utils.DukeException;
 
 public class DeleteCommand extends Command {
 

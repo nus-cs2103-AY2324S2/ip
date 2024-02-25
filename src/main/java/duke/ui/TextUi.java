@@ -1,10 +1,9 @@
 package duke.ui;
 
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.util.List;
 import java.util.Scanner;
+
+import duke.task.Task;
 
 public class TextUi {
     private static final String LINE = "____________________________________________________________";

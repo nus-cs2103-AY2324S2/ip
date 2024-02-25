@@ -1,13 +1,12 @@
 package duke.command;
 
+import java.time.LocalDate;
+
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.TextUi;
-import duke.utils.DukeException;
-
-import java.time.LocalDate;
 
 public class EventCommand extends Command {
     private final String task;

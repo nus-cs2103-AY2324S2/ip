@@ -3,7 +3,6 @@ package duke.command;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.TextUi;
-import duke.utils.DukeException;
 
 public class UnmarkCommand extends Command {
     private final int taskNumber;

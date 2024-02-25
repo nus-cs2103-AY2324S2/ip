@@ -5,7 +5,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.TextUi;
-import duke.utils.DukeException;
 
 public class TodoCommand extends Command {
     private final String todo;

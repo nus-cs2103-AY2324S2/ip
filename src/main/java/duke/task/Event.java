@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.utils.Util;
-
 import java.time.LocalDate;
+
+import duke.utils.Util;
 
 public class Event extends Task {
     final LocalDate start;

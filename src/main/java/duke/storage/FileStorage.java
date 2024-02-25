@@ -1,9 +1,5 @@
 package duke.storage;
 
-import duke.task.*;
-import duke.utils.DukeException;
-import duke.utils.Util;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +9,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.TodoState;
+import duke.utils.DukeException;
+import duke.utils.Util;
 
 /**
  * A file based storage implementation.
@@ -57,7 +62,7 @@ public class FileStorage implements Storage {
      * @return The list of tasks loaded from the file.
      * @throws IOException   In the event of an error reading the file.
      * @throws DukeException If the file is corrupted. This is a recoverable error where the file is overwritten on the
-     * next save.
+     *                       next save.
      */
     @Override
     public List<Task> load() throws IOException, DukeException {
@@ -68,18 +73,18 @@ public class FileStorage implements Storage {
                 String[] split = fileScanner.nextLine().split(" \\| ");
                 TodoState state = split[1].equals("1") ? TodoState.DONE : TodoState.UNDONE;
                 switch (split[0]) {
-                    case "T": {
-                        tasks.add(new Todo(split[2], state));
-                        break;
-                    }
-                    case "D": {
-                        tasks.add(new Deadline(split[2], Util.parseDate(split[3]), state));
-                        break;
-                    }
-                    case "E": {
-                        tasks.add(new Event(split[2], Util.parseDate(split[3]), Util.parseDate(split[4]), state));
-                        break;
-                    }
+                case "T": {
+                    tasks.add(new Todo(split[2], state));
+                    break;
+                }
+                case "D": {
+                    tasks.add(new Deadline(split[2], Util.parseDate(split[3]), state));
+                    break;
+                }
+                case "E": {
+                    tasks.add(new Event(split[2], Util.parseDate(split[3]), Util.parseDate(split[4]), state));
+                    break;
+                }
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
