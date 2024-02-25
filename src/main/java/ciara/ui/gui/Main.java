@@ -26,6 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(anchorPane);
 
             stage.setScene(scene);
+            stage.setTitle("Ciara");
 
             fxmlLoader.<MainWindow>getController().setGui(gui);
             stage.show();
