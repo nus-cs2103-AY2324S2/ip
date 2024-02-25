@@ -48,11 +48,10 @@ test {
 }
 
 application {
-    mainClass.set("kervyn.Kervyn")
+    mainClass.set("kervyn.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "kervyn"
     archiveFileName = "kervyn.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
