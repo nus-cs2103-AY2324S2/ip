@@ -14,34 +14,34 @@
 
 
 ## Commands
-Exit Command - `bye`
+- Exit Command - `bye`
 Description: Exits the application.
 
-List Command - `list`
+- List Command - `list`
 Description: Lists all tasks.
 
-Find Command - `find [KEYWORD]`
+- Find Command - `find [KEYWORD]`
 Description: Finds tasks containing the specified keyword.
 
-Mark Command - `mark [INDEX]`
+- Mark Command - `mark [INDEX]`
 Description: Marks a task as done based on the index given in list.
 
-Unmark Command - `unmark [INDEX]`
+- Unmark Command - `unmark [INDEX]`
 Description: Unmarks a task as done based on the index given in list.
 
-Add Notes Command - `note [INDEX] /[NOTES]`
+- Add Notes Command - `note [INDEX] /[NOTES]`
 Description: Adds notes to a task.
 
-Delete Command - `delete [INDEX]`
+- Delete Command - `delete [INDEX]`
 Description: Deletes a task.
 
-Add To-Do Command - `todo [DESCRIPTION]`
+- Add To-Do Command - `todo [DESCRIPTION]`
 Description: Adds a to-do task.
 
-Add Deadline Command - `deadline [DESCRIPTION] /by [YYYY-mm-dd]`
+- Add Deadline Command - `deadline [DESCRIPTION] /by [YYYY-mm-dd]`
 Description: Adds a task with a deadline.
 
-Add Event Command - `event [DESCRIPTION] /from [START] /to [END]`
+- Add Event Command - `event [DESCRIPTION] /from [START] /to [END]`
 Description: Adds an event task with start and end times.
 
 ## Command summary
