@@ -1,5 +1,6 @@
 package bmo;
 
+import javafx.fxml.FXML;
 import bmo.command.Command;
 import bmo.ui.Ui;
 import bmo.util.Parser;
@@ -72,5 +73,13 @@ public class BMO {
      */
     public static void main(String[] args) {
         new BMO().run();
+    }
+
+    @FXML
+    public String getResponse(String input) throws IOException {
+        Command c = Parser.parse(input.trim());
+        c.execute(tasks, ui, storage);
+        storage.saveData(tasks);
+        return response;
     }
 }
