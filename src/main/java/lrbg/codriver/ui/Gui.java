@@ -19,6 +19,7 @@ public class Gui extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("CoDriver");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCoDriver(this.coDriver);
             stage.show();
