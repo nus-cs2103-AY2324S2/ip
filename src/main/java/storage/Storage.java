@@ -20,10 +20,6 @@ public class Storage {
         ToDo, Deadline, Event
     }
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
-
     public Storage() {
         this.filePath = "balkanbot.txt";
     }
@@ -62,14 +58,6 @@ public class Storage {
     public static void markCheck(Task task, boolean completed) {
         if (completed) {
             task.mark();
-        }
-    }
-
-    public String cleanWhiteSpace(String word) {
-        if (!word.isEmpty() && word.charAt(word.length() - 1) == ' ') {
-            return word.substring(0, word.length() - 1);
-        } else {
-            return word;
         }
     }
 
