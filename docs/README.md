@@ -14,7 +14,7 @@
 
 
 ## Commands
-- Help Command - 'help'
+- Help Command - `help`
 Description: Displays a list of commands
 
 - Exit Command - `bye`
