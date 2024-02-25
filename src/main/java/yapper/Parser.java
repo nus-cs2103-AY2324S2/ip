@@ -268,71 +268,86 @@ public class Parser {
      */
     public void parseDataToTask(String data) throws YapperException {
         String[] taskData = data.split("" + " / ");
-        boolean isDone; // used for creating new Task
-        boolean hasWrongNumberOfArgs;
         switch (taskData[0]) {
         case "T":
-            hasWrongNumberOfArgs = taskData.length != 3;
-            if (hasWrongNumberOfArgs) {
-                throw new YapperException("Error in the save files 1");
-            }
-
-            if (taskData[1].equals("0")) {
-                isDone = false;
-            } else if (taskData[1].equals("1")) {
-                isDone = true;
-            } else {
-                throw new YapperException("Error in the save files 2");
-            }
-
-            mainTasks.addTaskNoMessage(new Todo(isDone, taskData[2]));
+            parseDataToTodo(taskData);
             break;
         case "D":
-            hasWrongNumberOfArgs = taskData.length != 4;
-            if (hasWrongNumberOfArgs) {
-                throw new YapperException("Error in the save files 3");
-            }
-
-            if (taskData[1].equals("0")) {
-                isDone = false;
-            } else if (taskData[1].equals("1")) {
-                isDone = true;
-            } else {
-                throw new YapperException("Error in the save files 4");
-            }
-
-            try {
-                LocalDate by = LocalDate.parse(taskData[3]);
-                mainTasks.addTaskNoMessage(new Deadline(isDone, taskData[2], by));
-            } catch (DateTimeParseException e) {
-                throw new YapperException("Error in the save files 5");
-            }
-
+            parseDataToDeadline(taskData);
             break;
         case "E":
-            hasWrongNumberOfArgs = taskData.length != 5;
-            if (hasWrongNumberOfArgs) {
-                throw new YapperException("Error in the save files 6");
-            }
-
-            if (taskData[1].equals("0")) {
-                isDone = false;
-            } else if (taskData[1].equals("1")) {
-                isDone = true;
-            } else {
-                throw new YapperException("Error in the save files 7");
-            }
-
-            try {
-                LocalDate from = LocalDate.parse(taskData[3]);
-                LocalDate to = LocalDate.parse(taskData[3]);
-                mainTasks.addTaskNoMessage(new Event(isDone, taskData[2], from, to));
-            } catch (DateTimeParseException e) {
-                throw new YapperException("Error in the save files 8");
-            }
+            parseDataToEvent(taskData);
             break;
         default:
             throw new YapperException("Error in the save files 9");
+        }
+    }
+
+    private void parseDataToTodo(String[] taskData) throws YapperException {
+        boolean hasWrongNumberOfArgs;
+        boolean isDone;
+        hasWrongNumberOfArgs = taskData.length != 3;
+        if (hasWrongNumberOfArgs) {
+            throw new YapperException("Error in the save files 1");
+        }
+
+        if (taskData[1].equals("0")) {
+            isDone = false;
+        } else if (taskData[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new YapperException("Error in the save files 2");
+        }
+
+        mainTasks.addTaskNoMessage(new Todo(isDone, taskData[2]));
+    }
+
+    private void parseDataToDeadline(String[] taskData) throws YapperException {
+        boolean hasWrongNumberOfArgs;
+        boolean isDone;
+        hasWrongNumberOfArgs = taskData.length != 4;
+        if (hasWrongNumberOfArgs) {
+            throw new YapperException("Error in the save files 3");
+        }
+
+        if (taskData[1].equals("0")) {
+            isDone = false;
+        } else if (taskData[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new YapperException("Error in the save files 4");
+        }
+
+        try {
+            LocalDate by = LocalDate.parse(taskData[3]);
+            mainTasks.addTaskNoMessage(new Deadline(isDone, taskData[2], by));
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Error in the save files 5");
+        }
+    }
+
+    private void parseDataToEvent(String[] taskData) throws YapperException {
+        boolean isDone;
+        boolean hasWrongNumberOfArgs;
+        hasWrongNumberOfArgs = taskData.length != 5;
+        if (hasWrongNumberOfArgs) {
+            throw new YapperException("Error in the save files 6");
+        }
+
+        if (taskData[1].equals("0")) {
+            isDone = false;
+        } else if (taskData[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new YapperException("Error in the save files 7");
+        }
+
+        try {
+            LocalDate from = LocalDate.parse(taskData[3]);
+            LocalDate to = LocalDate.parse(taskData[3]);
+            mainTasks.addTaskNoMessage(new Event(isDone, taskData[2], from, to));
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Error in the save files 8");
         }
     }
 
