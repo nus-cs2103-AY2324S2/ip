@@ -33,7 +33,7 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Storage storage, Ui ui);
 
     /**
-     * Method returns false by default to keep the chatbot loop running.
+     * Returns false by default to keep the chatbot loop running.
      * Overridden methods should return true to end the program.
      *
      * @return Returns false

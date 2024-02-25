@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Method that lists the task from the current task list.
+     * Lists the task from the current task list.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files

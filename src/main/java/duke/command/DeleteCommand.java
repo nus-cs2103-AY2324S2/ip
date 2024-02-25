@@ -22,8 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Method that deletes the task from the current task list
-     * within the program and on the hard disk.
+     * Deletes the task from the current task list within the program and on the hard disk.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files

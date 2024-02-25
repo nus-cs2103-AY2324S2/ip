@@ -40,7 +40,7 @@ public class Storage {
     }
 
     /**
-     * Method to read existing data from file and populate task list.
+     * Reads existing data from file and populates task list.
      * Creates missing directory and file as required using relative filepath.
      *
      * @return an ArrayList object containing the read tasks from the filepath
@@ -58,72 +58,13 @@ public class Storage {
                     String taskDescription = data[2].trim();
                     switch (taskType) {
                     case "T":
-                        //Check correct number of fields
-                        if (data.length != 3) {
-                            throw new ParseException("Todo does not have 3 data fields.",
-                                    lineNum);
-                        }
-
-                        Todo todo = new Todo(taskDescription);
-
-                        //Check completion status is a string "1" or "0"
-                        if (taskComplete.equals("0")) {
-                            todo.markAsNotDone();
-                        } else if (taskComplete.equals("1")) {
-                            todo.markAsDone();
-                        } else {
-                            throw new ParseException("Task completion data is corrupted.",
-                                    lineNum);
-                        }
-
-                        tasks.add(todo);
+                        tasks.add(readTodoFromFile(data, taskComplete, taskDescription, lineNum));
                         break;
                     case "D":
-                        //Check correct number of fields
-                        if (data.length != 4) {
-                            throw new ParseException("Deadline does not have 4 data fields.",
-                                    lineNum);
-                        }
-
-                        LocalDateTime deadlineBy = Parser.parseDate(data[3].trim());
-
-                        Deadline deadline = new Deadline(taskDescription, deadlineBy);
-
-                        //Check completion status is a string "1" or "0"
-                        if (taskComplete.equals("0")) {
-                            deadline.markAsNotDone();
-                        } else if (taskComplete.equals("1")) {
-                            deadline.markAsDone();
-                        } else {
-                            throw new ParseException("Task completion data is corrupted.",
-                                    lineNum);
-                        }
-
-                        tasks.add(deadline);
+                        tasks.add(readDeadlineFromFile(data, taskComplete, taskDescription, lineNum));
                         break;
                     case "E":
-                        //Check correct number of fields
-                        if (data.length != 5) {
-                            throw new ParseException("Event does not have 5 data fields.",
-                                    lineNum);
-                        }
-
-                        LocalDateTime eventFrom = Parser.parseDate(data[3].trim());
-                        LocalDateTime eventTo = Parser.parseDate(data[4].trim());
-
-                        Event event = new Event(taskDescription, eventFrom, eventTo);
-
-                        //Check completion status is a string "1" or "0"
-                        if (taskComplete.equals("0")) {
-                            event.markAsNotDone();
-                        } else if (taskComplete.equals("1")) {
-                            event.markAsDone();
-                        } else {
-                            throw new ParseException("Task completion data is corrupted.",
-                                    lineNum);
-                        }
-
-                        tasks.add(event);
+                        tasks.add(readEventFromFile(data, taskComplete, taskDescription, lineNum));
                         break;
                     default:
                         throw new ParseException("Task type data is corrupted.",
@@ -143,30 +84,140 @@ public class Storage {
                 removeCorruptedData(corruptedLines);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filePath);
-            File file = new File(filePath);
-            Path directoryPath = Paths.get(file.getParent());
-            if (!Files.exists(directoryPath)) {
-                try {
-                    Files.createDirectories(directoryPath);
-                    System.out.println("Created missing directory: " + directoryPath);
-                } catch (IOException err) {
-                    System.out.println("Error creating directory: " + directoryPath);
-                    err.printStackTrace();
-                }
-
-            }
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                    System.out.println("Created missing file: " + file);
-                } catch (IOException err) {
-                    System.out.println("Error creating file: " + file);
-                    err.printStackTrace();
-                }
-            }
+            handleMissingDirAndFile();
         }
         return tasks;
+    }
+
+    /**
+     * Helper function for loadData() to read and parse todo data from the .txt data file.
+     *
+     * @param data an array of Strings containing the data fields of the todo
+     * @param taskComplete a String containing the completion status of the todo
+     * @param taskDescription a String containing the description of the todo
+     * @param lineNum an int representing the line number of the todo data in the file
+     * @return a Todo object containing the parsed todo data
+     * @throws ParseException if the todo data is corrupted or incomplete
+     */
+    private Todo readTodoFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+        //Check correct number of fields
+        if (data.length != 3) {
+            throw new ParseException("Todo does not have 3 data fields.",
+                    lineNum);
+        }
+
+        Todo todo = new Todo(taskDescription);
+
+        //Check completion status is a string "1" or "0"
+        if (taskComplete.equals("0")) {
+            todo.markAsNotDone();
+        } else if (taskComplete.equals("1")) {
+            todo.markAsDone();
+        } else {
+            throw new ParseException("Task completion data is corrupted.",
+                    lineNum);
+        }
+
+        return todo;
+    }
+
+    /**
+     * Helper function for loadData() to read and parse deadline data from the .txt data file.
+     *
+     * @param data an array of Strings containing the data fields of the deadline
+     * @param taskComplete a String containing the completion status of the deadline
+     * @param taskDescription a String containing the description of the deadline
+     * @param lineNum an int representing the line number of the deadline data in the file
+     * @return a Deadline object containing the parsed deadline data
+     * @throws ParseException if the deadline data is corrupted or incomplete
+     */
+    private Deadline readDeadlineFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+        //Check correct number of fields
+        if (data.length != 4) {
+            throw new ParseException("Deadline does not have 4 data fields.",
+                    lineNum);
+        }
+
+        LocalDateTime deadlineBy = Parser.parseDate(data[3].trim());
+
+        Deadline deadline = new Deadline(taskDescription, deadlineBy);
+
+        //Check completion status is a string "1" or "0"
+        if (taskComplete.equals("0")) {
+            deadline.markAsNotDone();
+        } else if (taskComplete.equals("1")) {
+            deadline.markAsDone();
+        } else {
+            throw new ParseException("Task completion data is corrupted.",
+                    lineNum);
+        }
+
+        return deadline;
+    }
+
+    /**
+     * Helper function for loadData() to read and parse event data from the .txt data file.
+     *
+     * @param data an array of Strings containing the data fields of the event
+     * @param taskComplete a String containing the completion status of the event
+     * @param taskDescription a String containing the description of the event
+     * @param lineNum an int representing the line number of the event data in the file
+     * @return an Event object containing the parsed event data
+     * @throws ParseException if the event data is corrupted or incomplete
+     */
+    private Event readEventFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+        //Check correct number of fields
+        if (data.length != 5) {
+            throw new ParseException("Event does not have 5 data fields.",
+                    lineNum);
+        }
+
+        LocalDateTime eventFrom = Parser.parseDate(data[3].trim());
+        LocalDateTime eventTo = Parser.parseDate(data[4].trim());
+
+        Event event = new Event(taskDescription, eventFrom, eventTo);
+
+        //Check completion status is a string "1" or "0"
+        if (taskComplete.equals("0")) {
+            event.markAsNotDone();
+        } else if (taskComplete.equals("1")) {
+            event.markAsDone();
+        } else {
+            throw new ParseException("Task completion data is corrupted.",
+                    lineNum);
+        }
+
+        return event;
+    }
+
+    /**
+     * Helper function for loadData() to handle missing directory and file.
+     */
+    private void handleMissingDirAndFile() {
+        System.out.println("File not found: " + filePath);
+        File file = new File(filePath);
+        Path directoryPath = Paths.get(file.getParent());
+        //Create missing directory
+        if (!Files.exists(directoryPath)) {
+            try {
+                Files.createDirectories(directoryPath);
+                System.out.println("Created missing directory: " + directoryPath);
+            } catch (IOException err) {
+                System.out.println("Error creating directory: " + directoryPath);
+                err.printStackTrace();
+            }
+
+        }
+        //Create missing file
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                System.out.println("Created missing file: " + file);
+            } catch (IOException err) {
+                System.out.println("Error creating file: " + file);
+                err.printStackTrace();
+            }
+        }
     }
 
     /**

@@ -47,7 +47,9 @@ public class Duke {
     }
 
     /**
-     * Method to generate a response to user input.
+     * Returns a response to user input.
+     * @param input a String representing the user's input
+     * @return a String representing the response to the user's input
      */
     protected String getResponse(String input) {
         try {
@@ -60,7 +62,7 @@ public class Duke {
     }
 
     /**
-     * Method to check if the program should exit.
+     * Returns boolean signalling if the program should exit.
      * @return boolean representing whether the program should exit
      */
     protected boolean isExit() {
