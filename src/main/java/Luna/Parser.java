@@ -112,10 +112,10 @@ public class Parser {
 
 
     /**
-     * Returns true if the given string is in a date format
+     * Returns true if the given string is in a date format.
      *
-     * @param dateStr the string to check validity
-     * @return boolean whether string is a valid date
+     * @param dateStr the string to check validity.
+     * @return boolean whether string is a valid date.
      */
     public static boolean isDateValid(String dateStr)
     {
@@ -128,10 +128,10 @@ public class Parser {
     }
 
     /**
-     * Returns true if the given string is an integer value
+     * Returns true if the given string is an integer value.
      *
-     * @param str the string to check validity
-     * @return boolean whether string is an integer
+     * @param str the string to check validity.
+     * @return boolean whether string is an integer.
      *
      */
     public static boolean isInteger(String str) {
