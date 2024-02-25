@@ -23,33 +23,33 @@ public class Parser {
                 boolean isExit = false;
 
                 switch(command) {
-                        case"bye":
-                                isExit = true;
-                                break;
-                        case "list" :
-                                ArrayList<Task> tasks = tasklist.getTasks();
-                                ui.printList(tasks);
-                                break;
-                        case "mark":
-                                handleMarkCommand(tasklist, ui, parts);
-                                break;
-                        case "unmark" :
-                                handleUnmarkCommand(tasklist, ui, parts);
-                                break;
-                        case "delete" :
-                                handleDeleteCommand(tasklist, ui, parts);
-                                break;
-                        case "todo" :
-                                handleTodoCommand(tasklist, ui, parts);
-                                break;
-                        case "deadline" :
-                                handleDeadlineCommand(tasklist, ui, parts);
-                                break;
-                        case "event" :
-                                handleEventCommand(tasklist, ui, parts);
-                                break;
-                        default:
-                                ui.printInputError();
+                case"bye":
+                        isExit = true;
+                        break;
+                case "list" :
+                        ArrayList<Task> tasks = tasklist.getTasks();
+                        ui.printList(tasks);
+                        break;
+                case "mark":
+                        handleMarkCommand(tasklist, ui, parts);
+                        break;
+                case "unmark" :
+                        handleUnmarkCommand(tasklist, ui, parts);
+                        break;
+                case "delete" :
+                        handleDeleteCommand(tasklist, ui, parts);
+                        break;
+                case "todo" :
+                        handleTodoCommand(tasklist, ui, parts);
+                        break;
+                case "deadline" :
+                        handleDeadlineCommand(tasklist, ui, parts);
+                        break;
+                case "event" :
+                        handleEventCommand(tasklist, ui, parts);
+                        break;
+                default:
+                        ui.printInputError();
 
 
                 }
@@ -82,7 +82,7 @@ public class Parser {
                        String task = parts[1];
                        if (task.isEmpty()) {
                                throw new DukeException("Don't forget the description!");
-                       }else{
+                       } else {
                                Task todo = new Todo(task, false);
                                taskList.addTask(todo);
                                ui.printAddMessage(todo, taskList.getArraySize());
@@ -108,7 +108,7 @@ public class Parser {
                                 taskList.addTask(deadline);
                                 ui.printAddMessage(deadline, taskList.getArraySize());
                         }
-                }catch (DukeException e) {
+                } catch (DukeException e) {
                         ui.printError(e.getMessage());
                 }
         }
@@ -158,10 +158,10 @@ public class Parser {
         }
 
         public static LocalDateTime parseToLocalDate(String time) throws DukeException {
-                try{
+                try {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                         return LocalDateTime.parse(time, formatter);
-                } catch (Exception e){
+                } catch (Exception e)  {
                         throw new DukeException("Please make sure your date and time are formatted as 'd/M/yyyy HHmm'.");
                 }
         }

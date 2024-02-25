@@ -27,7 +27,7 @@ public class Duke {
         boolean isExit = false;
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Message");
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String message = input.nextLine();
                 Parser parser =  new Parser(message);
