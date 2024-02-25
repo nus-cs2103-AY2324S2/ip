@@ -58,15 +58,4 @@ public class Ui {
 
         System.out.println(message);
     }
-
-    /**
-     * @param taskList TaskList to search from
-     * @param keyword keyword of task to search
-     */
-    public void printSearchResults(TaskList taskList, String keyword) {
-
-        TaskList result = taskList.find(keyword);
-
-        System.out.println(result);
-    }
 }

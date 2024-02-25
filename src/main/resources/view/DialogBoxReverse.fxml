@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <HBox alignment="BOTTOM_LEFT" style="-fx-background-color: #E9FAE8; -fx-background-radius: 20; -fx-border-width: 0.02; -fx-border-color: black; -fx-border-radius: 20;">
+    <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox alignment="BOTTOM_LEFT" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-width: 0.02; -fx-border-color: black; -fx-border-radius: 20;">
          <HBox.margin>
             <Insets left="10.0" right="10.0" />
          </HBox.margin>
@@ -21,7 +22,7 @@
                   <Insets bottom="15.0" left="20.0" right="10.0" top="15.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="time" alignment="BASELINE_RIGHT" contentDisplay="BOTTOM" text="Label" textAlignment="JUSTIFY" textFill="#61945b" wrapText="true">
+            <Label fx:id="time" text="Label" textFill="#6f6f6f">
                <HBox.margin>
                   <Insets bottom="7.0" right="10.0" />
                </HBox.margin>
@@ -31,7 +32,6 @@
             </Label>
          </children>
       </HBox>
-    <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
   </children>
   <padding>
     <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

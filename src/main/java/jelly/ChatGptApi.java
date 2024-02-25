@@ -1,8 +1,9 @@
 package jelly;
 
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -26,18 +27,9 @@ public class ChatGptApi {
         String apiKey = "";
         String role = "";
 
-        Scanner scanner;
-        File file;
-        File keyFile;
         try {
-            file = new File("./src/main/resources/trivia/personality.txt");
-            file.createNewFile(); //if file exists, does nothing
-            keyFile = new File("./src/main/resources/trivia/keyencrypted.txt");
-            keyFile.createNewFile();
-            scanner = new Scanner(file);
-            role = loadFromScanner(scanner);
-            scanner = new Scanner(keyFile);
-            apiKeyEnc = loadFromScanner(scanner);
+            role = loadFromFile("/trivia/personality.txt");
+            apiKeyEnc = loadFromFile("/trivia/keyencrypted.txt");
         } catch (IOException e) {
             System.out.println("An error occurred while loading personality!");
         }
@@ -47,12 +39,19 @@ public class ChatGptApi {
         return promptResponse(apiKey, url, model, prompt, role);
     }
 
-    private static String loadFromScanner(Scanner scanner) {
+    private static String loadFromFile(String path) throws IOException {
 
         String result = "";
+
+        InputStream stream = ChatGptApi.class.getResourceAsStream(path);
+
+        Scanner scanner = new Scanner(stream);
         while (scanner.hasNextLine()) {
-            result = result + scanner.nextLine();
+            String line = scanner.nextLine();
+            result = result + line;
         }
+        scanner.close();
+
         return result;
     }
 

@@ -118,7 +118,7 @@ public class Parser {
      */
     public String findResponse(String argument, String[] lines) {
 
-        return "hardworking Here are the tasks that match your keyword!\n" + taskList.find(lines[1]);
+        return taskList.find(lines[1]);
     }
 
     /**

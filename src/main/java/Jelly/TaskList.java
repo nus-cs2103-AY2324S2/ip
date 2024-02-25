@@ -122,7 +122,7 @@ public class TaskList {
         }
         Task task = tasks.get(index - 1);
         task.mark();
-        assert(task.isDone());
+        assert (task.isDone());
         return "Nice, I've marked this task as done:\n" + task;
     }
 
@@ -137,7 +137,7 @@ public class TaskList {
         }
         Task task = tasks.get(index - 1);
         task.unmark();
-        assert(!task.isDone());
+        assert (!task.isDone());
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 
@@ -145,7 +145,7 @@ public class TaskList {
      * @param keyword keyword to be searched in the TaskList
      * @return An array of Task entries whose name contains keyword.
      */
-    public TaskList find(String keyword) {
+    public String find(String keyword) {
 
         TaskList result = new TaskList();
 
@@ -157,13 +157,17 @@ public class TaskList {
             }
         }
 
-        return result;
+        if (result.size() != 0) {
+            return "hardworking Here are the tasks that match your keyword!\n" + result;
+        } else {
+            return "sad Nothing in the task list contains the word '" + keyword + "'.";
+        }
     }
 
     @Override
     public String toString() {
 
-        if(tasks.size() == 0) {
+        if (tasks.size() == 0) {
 
             return "There isn't anything in the task list yet!";
         }

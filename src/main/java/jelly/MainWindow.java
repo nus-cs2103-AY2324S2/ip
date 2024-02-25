@@ -1,7 +1,9 @@
 package jelly;
 
 
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -116,6 +118,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * @param duration duration before exit in seconds
+     */
+    public void delayedExit(double duration) {
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(duration));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -143,6 +155,7 @@ public class MainWindow extends AnchorPane {
         if (response.equals("bye")) {
             jelly.saveStorage();
             response = jelly.getFarewell();
+            delayedExit(1.75);
         }
         addContainers(input, response, mood);
         userInput.clear();
