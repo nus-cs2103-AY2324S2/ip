@@ -31,8 +31,9 @@ import duke.tasks.Todo;
 
 @ExtendWith(MockitoExtension.class)
 class ParserTest {
-    private Parser p = new Parser();
     private Duke d = new Duke("/data/", "duke.txt");
+    private Parser p = new Parser(d);
+
     @Test
     void byeShouldReturnNull() {
         String input = "bye";
@@ -42,7 +43,7 @@ class ParserTest {
     @Test
     void listShouldCallPrintList() {
         TaskList tl = mock(TaskList.class);
-        Duke.tasks = tl;
+        d.setTaskList(tl);
         String input = "list";
         p.parse(input);
         verify(tl).printList();
@@ -54,8 +55,8 @@ class ParserTest {
         String input = "save";
         Storage store = mock(Storage.class);
 
-        Duke.storage = store;
-        Duke.tasks = tl;
+        d.setStorage(store);
+        d.setTaskList(tl);
         boolean thrown = false;
         try {
             p.parse(input);
@@ -76,7 +77,7 @@ class ParserTest {
         TaskList tl2 = new TaskList(lstAfter);
 
         String input = "mark 2";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);
@@ -91,7 +92,7 @@ class ParserTest {
         TaskList tl2 = new TaskList(lstAfter);
 
         String input = "unmark 2";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);
@@ -105,7 +106,7 @@ class ParserTest {
         TaskList tl2 = new TaskList(lstAfter);
 
         String input = "delete 2";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);
@@ -119,7 +120,7 @@ class ParserTest {
         TaskList tl2 = new TaskList(lstAfter);
 
         String input = "todo task2";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);
@@ -134,7 +135,7 @@ class ParserTest {
         TaskList tl2 = new TaskList(lstAfter);
 
         String input = "deadline task2 /by 2024-01-31";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);
@@ -148,7 +149,7 @@ class ParserTest {
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
         String input = "event task2 /from 2024-01-31 /to 2024-02-01";
-        Duke.tasks = tl1;
+        d.setTaskList(tl1);
 
         p.parse(input);
         assertEquals(tl2, tl1);

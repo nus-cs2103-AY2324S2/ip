@@ -43,6 +43,7 @@ public class Storage {
      * @return The saved TaskList if it exists or an empty one if there is none.
      */
     public String load() {
+        Duke duke = new Duke();
         String s;
         assert pathFile != null : "Your file directory is missing!";
         try {
@@ -51,9 +52,9 @@ public class Storage {
                     .map(this::stringToTask)
                     .collect(Collectors.toList());
 
-            Duke.tasks = new TaskList(list); // TaskList stored in static Duke because there is only one TaskList
+            duke.setTaskList(new TaskList(list)); // TaskList stored in static Duke because there is only one TaskList
             s = "Your current list:\n";
-            s += Duke.tasks.printList();
+            s += duke.getTaskList().printList();
 
         } catch (IOException e) {
             s = "You do not have a saved list.\n";

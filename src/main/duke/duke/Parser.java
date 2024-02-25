@@ -21,6 +21,12 @@ import duke.ui.Skibidi;
  * @author Lim Zi Jia
  */
 public class Parser {
+    private Duke duke = new Duke();
+    private Storage storage;
+    private TaskList taskList;
+
+    public Parser() {}
+
     enum Command {
         BYE, LIST, SAVE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND, UNKNOWN
     }
@@ -61,6 +67,8 @@ public class Parser {
     public String parse(String input) {
         String[] inputParsed = input.split(" ");
         Command command = parseUserMsg(inputParsed[0]);
+        taskList = duke.getTaskList();
+        storage = duke.getStorage();
 
         String reply;
         assert command != null : "You are missing the command";
@@ -72,22 +80,22 @@ public class Parser {
                 reply = Skibidi.BYE;
                 break;
             case LIST:
-                reply = Duke.tasks.printList();
+                reply = taskList.printList();
                 break;
             case SAVE:
-                reply = Duke.storage.save(Duke.tasks);
+                reply = storage.save(taskList);
                 break;
             case MARK:
-                reply = Duke.tasks.mark(inputParsed); // mark(task number)
+                reply = taskList.mark(inputParsed); // mark(task number)
                 break;
             case UNMARK:
-                reply = Duke.tasks.unmark(inputParsed); // unmark(task number)
+                reply = taskList.unmark(inputParsed); // unmark(task number)
                 break;
             case DELETE:
-                reply = Duke.tasks.delete(inputParsed); // delete(task number)
+                reply = taskList.delete(inputParsed); // delete(task number)
                 break;
             case FIND:
-                reply = Duke.tasks.find(inputParsed[1]); // find(task name)
+                reply = taskList.find(inputParsed[1]); // find(task name)
                 break;
             case UNKNOWN:
                 reply = "Unknown command\n";
@@ -129,24 +137,24 @@ public class Parser {
 
         switch (command) {
         case TODO:
-            Duke.tasks.add(new Todo(inputs[1])); // Todo(name)
+            taskList.add(new Todo(inputs[1])); // Todo(name)
             break;
         case DEADLINE:
-            Duke.tasks.add(new Deadline(inputs[1], inputs[3])); // Deadline(name, by)
+            taskList.add(new Deadline(inputs[1], inputs[3])); // Deadline(name, by)
             break;
         case EVENT:
             Event e = new Event(inputs[1], inputs[3], inputs[5]); // Event(name, from, to)
             if (!e.isCorrectOrder()) {
                 throw new DukeWrongDateOrderException();
             }
-            Duke.tasks.add(e);
+            taskList.add(e);
             break;
         default:
             return "Some catastrophic error has occurred when adding tasks!";
         }
 
-        s = "Got it added this task:\n  " + Duke.tasks.get(Duke.tasks.size() - 1);
-        s += String.format("Now you have %d tasks in the list.", Duke.tasks.size());
+        s = "Got it added this task:\n  " + taskList.get(taskList.size() - 1);
+        s += String.format("Now you have %d tasks in the list.", taskList.size());
 
         return s;
     }

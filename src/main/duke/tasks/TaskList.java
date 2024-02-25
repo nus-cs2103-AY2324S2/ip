@@ -3,6 +3,7 @@ package duke.tasks;
 import duke.duke.Duke;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class TaskList {
     /** List of tasks. */
     private List<Task> list;
+
+    private Duke duke = new Duke();
 
     public TaskList() {
         list = new ArrayList<>();
@@ -69,14 +72,16 @@ public class TaskList {
     public String mark(String[] input) {
         StringBuilder s = new StringBuilder();
         String forPrintingError = "";
+        TaskList tl = duke.getTaskList();
         try {
             // Start at 1 beacuse indexes start at 1. Index 0 is "mark"
             for (int i = 1; i < input.length; i++) {
                 forPrintingError = input[i];
                 int idx = Integer.parseInt(input[i]);
-                Task t = Duke.tasks.get(idx - 1);
+                Task t = tl.get(idx - 1);
                 t.markAsDone();
-                Duke.tasks.set(idx - 1, t);
+                tl.set(idx - 1, t);
+                duke.setTaskList(tl);
                 s.append("Nice! I've marked this task as done:\n  ").append(t).append('\n');
             }
         } catch (NumberFormatException e) {
@@ -96,14 +101,16 @@ public class TaskList {
     public String unmark(String[] input) {
         StringBuilder s = new StringBuilder();
         String forPrintingError = "";
+        TaskList tl = duke.getTaskList();
         try {
             // Start at 1 beacuse indexes start at 1. Index 0 is "unmark"
             for (int i = 1; i < input.length; i++) {
                 forPrintingError = input[i];
                 int idx = Integer.parseInt(input[i]);
-                Task t = Duke.tasks.get(idx - 1);
+                Task t = tl.get(idx - 1);
                 t.markAsNotDone();
-                Duke.tasks.set(idx - 1, t);
+                tl.set(idx - 1, t);
+                duke.setTaskList(tl);
                 s.append("OK, I've marked this task as not done yet:\n  ").append(t).append('\n');
             }
         } catch (NumberFormatException e) {
@@ -123,14 +130,19 @@ public class TaskList {
     public String delete(String[] input) {
         StringBuilder s = new StringBuilder();
         String forPrintingError = "";
+        TaskList tl = duke.getTaskList();
+        // Sort in reverse order so that deleted indexes doesn't cause unexpected errors
+        int[] numbers = Arrays.stream(input, 1, input.length).mapToInt(Integer::parseInt).toArray();
+        Arrays.sort(numbers);
+
         try {
             // Start at 1 beacuse indexes start at 1. Index 0 is "delete"
-            for (int i = 1; i < input.length; i++) {
-                forPrintingError = input[i];
-                int idx = Integer.parseInt(input[i]);
-                Task t = Duke.tasks.remove(idx - 1);
+            for (int i = 0; i < numbers.length; i++) {
+                int idx = numbers[numbers.length - i - 1];
+                Task t = tl.remove(idx - 1);
+                duke.setTaskList(tl);
                 s.append("Noted. I've removed this task:\n  ").append(t);
-                s.append(String.format("Now you have %d tasks in the list.\n\n", Duke.tasks.size()));
+                s.append(String.format("Now you have %d tasks in the list.\n\n", tl.size()));
             }
         } catch (NumberFormatException e) {
             s = new StringBuilder(forPrintingError + " is not a valid number! Or perhaps add a ' '\n");
@@ -159,8 +171,10 @@ public class TaskList {
      */
     public String find(String input) {
         StringBuilder s = new StringBuilder("Here are the matching tasks in your list:\n");
+        TaskList tl = duke.getTaskList();
+
         int number = 1;
-        for (Task t : Duke.tasks.getList()) {
+        for (Task t : tl.getList()) {
             if (t.has(input)) {
                 s.append(String.format("%d. %s", number, t));
                 number++;

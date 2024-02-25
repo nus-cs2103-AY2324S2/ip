@@ -26,6 +26,8 @@ class TaskListTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
+    private Duke duke = new Duke();
+
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
@@ -66,7 +68,7 @@ class TaskListTest {
         Event event = new Event("task3", "2024-01-01", "2024-01-02");
         List<Task> lst = new ArrayList<>(Arrays.asList(todo, deadline, event));
         TaskList tl = new TaskList(lst);
-        Duke.tasks = tl;
+        duke.setTaskList(tl);
 
         String output = tl.find("task");
         assertEquals("Here are the matching tasks in your list:\n"

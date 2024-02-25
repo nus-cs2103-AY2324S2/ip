@@ -3,6 +3,8 @@ package duke.duke;
 import duke.tasks.TaskList;
 import duke.ui.Skibidi;
 
+import java.io.IOException;
+
 /**
  * Class that runs the chatbot.
  *
@@ -10,16 +12,18 @@ import duke.ui.Skibidi;
  */
 public class Duke {
     /** The storage object that is used in Duke. */
-    public static Storage storage;
+    private static Storage storage;
 
     /** A list that contains all your tasks. */
-    public static TaskList tasks = new TaskList();
+    private static TaskList tasks = new TaskList();
 
     /** The class that prints to screen and chat. */
     private Skibidi skibidi = new Skibidi();
 
     /** The parser that understands the input and generates the reply. */
-    private Parser parser = new Parser();
+    private Parser parser;
+
+    public Duke() {}
 
     /**
      * Creates a Duke object that is capable of running a chatbot.
@@ -29,6 +33,7 @@ public class Duke {
      */
     public Duke(String filePath, String fileName) {
         storage = new Storage(filePath, fileName);
+        parser = new Parser();
     }
 
     /**
@@ -39,5 +44,21 @@ public class Duke {
     public String getResponse(String input) {
         String response = parser.parse(input);
         return skibidi.formatOutput(response);
+    }
+
+    public Storage getStorage() {
+        return Duke.storage;
+    }
+
+    public TaskList getTaskList() {
+        return Duke.tasks;
+    }
+
+    public void setStorage(Storage storage) {
+        Duke.storage = storage;
+    }
+
+    public void setTaskList(TaskList tl) {
+        Duke.tasks = tl;
     }
 }

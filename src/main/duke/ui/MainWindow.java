@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Duke duke = new Duke();
 
     private final Image SKIBIDI_TOILET =
             new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/SkibidiToilet.png")));
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String load = Duke.storage.load();
+        String load = duke.getStorage().load();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(Skibidi.GREETING, SKIBIDI_TOILET),
                 DialogBox.getDukeDialog(load, SKIBIDI_TOILET)
