@@ -6,6 +6,7 @@ import java.util.List;
 import dino.commands.Command;
 import dino.commands.Parser;
 import dino.tasks.TaskList;
+import javafx.scene.image.Image;
 
 /**
  * The Dino class is a Java program that acts as a task manager, allowing users to input commands to manage and
@@ -15,18 +16,13 @@ import dino.tasks.TaskList;
 public class Dino {
 
     private static final String TASKS_CACHE_PATH = ".dino-cache";
-    private Storage storage;
-    private TaskList tasks;
+    public Storage storage;
+    public TaskList tasks;
     public boolean shouldTerminate = false;
 
     public Dino() {
         this.storage = new Storage(TASKS_CACHE_PATH);
         this.tasks = new TaskList();
-        try {
-            tasks = storage.load();
-        } catch (Exception e) {
-            System.out.println("Issues occurred while loading tasks: " + e.getMessage());
-        }
     }
 
     public String getGreeting() {

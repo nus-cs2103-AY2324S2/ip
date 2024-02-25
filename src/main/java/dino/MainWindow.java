@@ -34,6 +34,12 @@ public class MainWindow extends AnchorPane {
 
     public void setDino(Dino d) {
         dino = d;
+        try {
+            dino.tasks = dino.storage.load();
+            dialogContainer.getChildren().add(DialogBox.getDinoDialog(dino.getGreeting(), dinoImage));
+        } catch (Exception e) {
+            dialogContainer.getChildren().add(DialogBox.getDinoDialog("Issues occurred while loading tasks: " + e.getMessage(), dinoImage));
+        }
     }
 
     /**
