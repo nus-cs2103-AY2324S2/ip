@@ -1,19 +1,17 @@
 package tasklist;
 
-import java.util.Scanner;
-
 import tasklist.commands.Command;
 
 /** Main class of the chatbot application. Initializes the application */
-public class Duke {
+public class Michelle {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
     /** constructor implementation */
-    public Duke() {
+    public Michelle() {
         ui = new Ui();
-        storage = new Storage("./data/duke.ser");
+        storage = new Storage("./data/michelle.ser");
         taskList = storage.loadTasks();
         // Assert that ui, storage, and taskList are not null
         assert ui != null : "Ui should not be null";
@@ -21,6 +19,7 @@ public class Duke {
         assert taskList != null : "Task list should not be null";
     }
 
+    /** Process user input from the gui */
     public String processResponse(String input) {
         Command outputCommand = Parser.parseCommand(input);
         String output = outputCommand.execute(taskList, ui, storage);

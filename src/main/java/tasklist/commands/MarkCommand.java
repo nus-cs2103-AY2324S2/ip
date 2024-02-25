@@ -36,7 +36,7 @@ public class MarkCommand implements Command {
                 taskList.unmarkTask(indexNo);
                 return ui.showUnmarkMessage(taskList.getTask(indexNo - 1));
             } catch (IndexOutOfBoundsException e) {
-                return(e.getMessage());
+                return (e.getMessage());
             }
         }
     }

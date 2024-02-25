@@ -28,7 +28,7 @@ public class Parser {
         BYE,
         HELPG,
         ADD,
-        UNKNOWN, 
+        UNKNOWN,
         FIND,
         VIEWSCHEDULE
     }
@@ -78,7 +78,7 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     return new InvalidCommand("Error: Input is not a valid numeric value.");
                 }
-                
+
             case ADD:
                 return new AddCommand(inputList[1], 0);
 

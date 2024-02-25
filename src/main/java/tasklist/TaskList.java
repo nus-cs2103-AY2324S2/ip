@@ -34,7 +34,7 @@ public class TaskList implements Serializable {
             } else if (listItem instanceof Event) {
                 events.add((Event) listItem);
             }
-        } 
+        }
         this.deadlines = deadlines;
         this.events = events;
     }

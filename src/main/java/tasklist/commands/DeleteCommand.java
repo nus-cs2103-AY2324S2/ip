@@ -19,7 +19,7 @@ public class DeleteCommand implements Command {
             Task deletedTask = taskList.deleteTask(indexNo);
             return ui.showDeletedTaskMessage(deletedTask, taskList.size());
         } catch (IndexOutOfBoundsException e) {
-            return(e.getMessage());
+            return (e.getMessage());
         }
     }
 }

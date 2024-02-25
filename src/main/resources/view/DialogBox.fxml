@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" prefWidth="444.0" spacing="15.0" style="-fx-background-color: #FADADD; -fx-border-radius: 20px; -fx-background-radius: 20px;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
@@ -14,7 +15,11 @@
          </HBox.margin>
       </Button>
     <Label fx:id="dialog" maxHeight="1.7976931348623157E308" minHeight="-Infinity" text="Label" wrapText="true" />
-    <ImageView fx:id="displayPicture" fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="displayPicture" fitHeight="79.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+     <clip>
+            <Circle centerX="40" centerY="40" radius="40" />
+        </clip>
+    </ImageView>
   </children>
   <padding>
     <Insets bottom="15.0" left="5.0" right="10.0" top="15.0" />

@@ -9,11 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-<<<<<<< HEAD:src/main/java/tasklist/gui/DialogBox.java
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-=======
->>>>>>> branch-A-CodeQuality:src/main/java/tasklist/DialogBox.java
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,8 +28,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    @FXML 
-    private Button actionButton; 
+    @FXML
+    private Button actionButton;
 
     private DialogBox(String text, Image img, boolean isUser, TaskList taskList) {
         try {
@@ -51,24 +48,25 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        
-         if (taskList!=null) {
+
+        if (taskList != null) {
             actionButton.setVisible(true);
             actionButton.setOnAction(event -> {
                 try {
-                    FXMLLoader fxmlLoader_sched = new FXMLLoader(MainWindow.class.getResource("/view/ScheduleWindow.fxml"));
-                    Parent root = fxmlLoader_sched.load();
-        
+                    FXMLLoader fxmlLoaderSched = new FXMLLoader(MainWindow.class
+                        .getResource("/view/ScheduleWindow.fxml"));
+                    Parent root = fxmlLoaderSched.load();
+
                     Stage popupStage = new Stage();
                     Scene scene = new Scene(root);
                     popupStage.setScene(scene);
-        
-                    ScheduleWindow controller = fxmlLoader_sched.getController();
-                    controller.setStage(popupStage, taskList); 
-        
-                    popupStage.show(); 
+
+                    ScheduleWindow controller = fxmlLoaderSched.getController();
+                    controller.setStage(popupStage, taskList);
+
+                    popupStage.show();
                 } catch (IOException e) {
-                    e.printStackTrace(); 
+                    e.printStackTrace();
                 }
             });
         }
@@ -88,7 +86,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img, true, null);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img, TaskList tasklist) {
+    public static DialogBox getMichelleDialog(String text, Image img, TaskList tasklist) {
         var db = new DialogBox(text, img, false, tasklist);
         db.flip();
         return db;

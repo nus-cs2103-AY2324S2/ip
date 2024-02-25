@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import tasklist.Duke;
+import tasklist.Michelle;
 import tasklist.TaskList;
 import tasklist.Ui;
 /**
@@ -26,25 +26,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Michelle michelle;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bear.jpg"));
+    private Image michelleImage = new Image(this.getClass().getResourceAsStream("/images/bear.jpg"));
 
+    /** Initializes the chatbot */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-        DialogBox.getDukeDialog(Ui.showWelcomeMessage(), dukeImage, null)
+            DialogBox.getMichelleDialog(Ui.showWelcomeMessage(), michelleImage, null)
         );
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setMichelle(Michelle d) {
+        michelle = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Michelle's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -55,13 +56,13 @@ public class MainWindow extends AnchorPane {
         System.out.println(input);
 
         if (input.equalsIgnoreCase("viewschedule")) {
-            thelist = duke.getList();
+            thelist = michelle.getList();
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, thelist)
+                DialogBox.getMichelleDialog(response, michelleImage, thelist)
         );
-        if (!duke.isRunning()) {
+        if (!michelle.isRunning()) {
             userInput.setEditable(false);
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event ->
@@ -74,7 +75,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private String getResponse(String input) {
-        String response = this.duke.processResponse(input);
+        String response = this.michelle.processResponse(input);
         return response;
     }
 }

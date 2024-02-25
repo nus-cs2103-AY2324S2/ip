@@ -26,7 +26,7 @@ public class Ui {
 
     /** show Welcome Message */
     public static String showWelcomeMessage() {
-        return("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)");
+        return ("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)");
     }
 
     /**
@@ -37,8 +37,8 @@ public class Ui {
      */
     public String showAddTaskMessage(Task addedTask, int size) {
         if (addedTask != null) {
-            return("Roger that! I've added in this task:\n " + addedTask)
-            + ("\nNow you have " + size + " tasks in the list.");
+            return ("Roger that! I've added in this task:\n " + addedTask)
+                + ("\nNow you have " + size + " tasks in the list.");
         }
         return null;
     }

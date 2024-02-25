@@ -35,66 +35,66 @@ public class AddCommand implements Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         switch (number) {
-            case 0:
-                if (input.trim() != "") {
-                    this.addedTask = new Task(input);
-                } else {
-                    return "Error, please enter a task.";
-                }
-                break;
-                
-            case 1:
-                if (input.trim() != "") {
-                    ToDo newToDo = new ToDo(input);
-                    this.addedTask = newToDo;
-                } else {
-                    return "Error, please enter a task.";
-                }
-                break;
-
-            case 2:
-                try {
-                    String[] theParts = input.split("/", 2);
-                    if (!theParts[1].trim().startsWith("by")) {
-                        return "Error: Deadline format is incorrect. Please include '/by' to specify the deadline. Example: 'Task Title /by Deadline'";
-                    } 
-
-                    Deadline newDeadline = new Deadline(theParts[0].trim(), theParts[1].trim());
-                    this.addedTask = newDeadline;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    return("Error creating Deadline: Please enter a deadline.");
-                } catch (DateTimeException | EmptyDateException e) {
-                    return("Error creating Deadline: " + e.getMessage());
-                }
-                break;
-
-            case 3: 
-                try {
-                    String[] theParts = input.split("/", 3);
-                    if (!theParts[1].trim().startsWith("from")) { 
-                        return "Error: Event format is incorrect. Please include '/from' to specify the Event." +
-                        "\nExample: 'Task Title /from Start Date /to End Date' (in dd-mm-yyyy hhmm format)";
-                    }
-
-                    if (!theParts[2].trim().startsWith("to")) { 
-                        return "Error: Event format is incorrect. Please include '/to' to specify the Event." +
-                        "\nExample: 'Task Title /from Start Date /to End Date' (in dd-mm-yyyy hhmm format)";
-                    }
-
-                    Event newEvent = new Event(theParts[0].trim(), theParts[1].trim(), theParts[2].trim());
-                    this.addedTask = newEvent;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    return("Error creating Event: Please format the input properly.");
-                } catch (EmptyDateException | IllegalArgumentException | DateTimeException e) {
-                    return("Error creating Event: " + e.getMessage());
-                }
-
-                break;
-
-    
-            default:
-                return("error creating Task. Please contact the adminstrator.");
+        case 0:
+            if (input.trim() != "") {
+                this.addedTask = new Task(input);
+            } else {
+                return "Error, please enter a task.";
             }
+            break;
+
+        case 1:
+            if (input.trim() != "") {
+                ToDo newToDo = new ToDo(input);
+                this.addedTask = newToDo;
+            } else {
+                return "Error, please enter a task.";
+            }
+            break;
+
+        case 2:
+            try {
+                String[] theParts = input.split("/", 2);
+                if (!theParts[1].trim().startsWith("by")) {
+                    return "Error: Deadline format is incorrect. Please include '/by' to specify the deadline."
+                        + "Example: 'Task Title /by Deadline'";
+                }
+
+                Deadline newDeadline = new Deadline(theParts[0].trim(), theParts[1].trim());
+                this.addedTask = newDeadline;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return ("Error creating Deadline: Please enter a deadline.");
+            } catch (DateTimeException | EmptyDateException e) {
+                return ("Error creating Deadline: " + e.getMessage());
+            }
+            break;
+
+        case 3:
+            try {
+                String[] theParts = input.split("/", 3);
+                if (!theParts[1].trim().startsWith("from")) {
+                    return "Error: Event format is incorrect. Please include '/from' to specify the Event."
+                        + "\nExample: 'Task Title /from Start Date /to End Date' (in dd-mm-yyyy hhmm format)";
+                }
+
+                if (!theParts[2].trim().startsWith("to")) {
+                    return "Error: Event format is incorrect. Please include '/to' to specify the Event."
+                        + "\nExample: 'Task Title /from Start Date /to End Date' (in dd-mm-yyyy hhmm format)";
+                }
+
+                Event newEvent = new Event(theParts[0].trim(), theParts[1].trim(), theParts[2].trim());
+                this.addedTask = newEvent;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return ("Error creating Event: Please format the input properly.");
+            } catch (EmptyDateException | IllegalArgumentException | DateTimeException e) {
+                return ("Error creating Event: " + e.getMessage());
+            }
+
+            break;
+
+        default:
+            return ("error creating Task. Please contact the adminstrator.");
+        }
 
 
         if (addedTask != null) {
