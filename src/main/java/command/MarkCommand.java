@@ -18,7 +18,7 @@ import task.Task;
 public class MarkCommand extends Command {
 
     private final int index;
-    private final boolean isMarkDone;
+    private final boolean markDone;
 
     /**
      * Constructs a MarkCommand with the specified index and markDone flag.
@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(int index, boolean markDone) {
         this.index = index;
-        this.isMarkDone = markDone;
+        this.markDone = markDone;
     }
 
     /**
@@ -39,14 +39,14 @@ public class MarkCommand extends Command {
      * @param ui      The user interface that outputs to the terminal.
      * @param storage The storage path to store persistent data.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.index - 1);
-        if (isMarkDone) {
+        if (markDone) {
             task.markDone();
-            return (task.toString());
+            System.out.println(ui.getBot() + task.toString());
         } else {
             task.markUndone();
-            return (task.toString());
+            System.out.println(ui.getBot() + task.toString());
         }
     }
 }
