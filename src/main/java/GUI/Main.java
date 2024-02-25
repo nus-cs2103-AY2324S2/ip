@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private BalkanBot balkanBot = new BalkanBot();
-    private static boolean isExit = false;
 
     @Override
     public void start(Stage stage) {
@@ -24,6 +23,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Balkan Bot");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBalkanBot(balkanBot);
             stage.show();

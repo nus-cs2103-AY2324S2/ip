@@ -22,7 +22,6 @@ public class BalkanBot {
 
     /**
      * Initialises Balkan Bot
-     *
      */
 
     public BalkanBot() {

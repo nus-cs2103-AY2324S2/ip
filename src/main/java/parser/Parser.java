@@ -27,12 +27,12 @@ public class Parser {
     /**
      * Parses the command inputted by the user.
      *
-     * @param input Input of the user
+     * @param input    Input of the user
      * @param taskList TaskList that contains all the current tasks
-     * @param guiUi UI that generates text responses for the user
+     * @param guiUi    UI that generates text responses for the user
      * @return A boolean that indicates whether to terminate the program
-     *         true: continue running program
-     *         false: terminate the program and store the task list into the text file
+     * true: continue running program
+     * false: terminate the program and store the task list into the text file
      */
     public static String parse(String input, TaskList taskList, GUIUi guiUi, Storage storage) {
         Task[] tasks = taskList.getTaskList();
@@ -42,7 +42,7 @@ public class Parser {
             output = guiUi.printByeMessage();
         } else if (input.equals("list")) {
             StringBuilder listOutput = new StringBuilder();
-            assert tasks.length <= 100: "Task List Exceeded Limit of 100";
+            assert tasks.length <= 100 : "Task List Exceeded Limit of 100";
             for (int i = 0; i < tasks.length; i++) {
                 if (tasks[i] == null) {
                     break;
@@ -53,7 +53,7 @@ public class Parser {
             output = guiUi.printTaskList(listOutput.toString());
         } else {
             String[] brokenCommand = input.split("\\s+");
-            assert brokenCommand.length > 0: "Command not processed correctly, input lost after processing";
+            assert brokenCommand.length > 0 : "Command not processed correctly, input lost after processing";
             String advancedCommand = brokenCommand[0];
             String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
             switch (advancedCommand) {
@@ -110,12 +110,12 @@ public class Parser {
                 case "deadline": {
                     StringBuilder taskDescription = new StringBuilder();
                     StringBuilder deadline = new StringBuilder();
-                    boolean foundDeadline = false;
+                    boolean isDeadline = false;
                     for (String currentString : details) {
-                        if (foundDeadline) {
+                        if (isDeadline) {
                             deadline.append(currentString).append(" ");
                         } else if (currentString.equals("/by")) {
-                            foundDeadline = true;
+                            isDeadline = true;
                         } else {
                             taskDescription.append(currentString).append(" ");
                         }
@@ -134,19 +134,19 @@ public class Parser {
                     StringBuilder taskDescription = new StringBuilder();
                     StringBuilder from = new StringBuilder();
                     StringBuilder to = new StringBuilder();
-                    boolean foundFrom = false;
-                    boolean foundTo = false;
+                    boolean isFrom = false;
+                    boolean isTo = false;
                     for (String currentString : details) {
-                        if (foundTo) {
+                        if (isTo) {
                             to.append(currentString).append(" ");
-                        } else if (foundFrom) {
+                        } else if (isFrom) {
                             if (currentString.equals("/to")) {
-                                foundTo = true;
+                                isTo = true;
                             } else {
                                 from.append(currentString).append(" ");
                             }
                         } else if (currentString.equals("/from")) {
-                            foundFrom = true;
+                            isFrom = true;
                         } else {
                             taskDescription.append(currentString).append(" ");
                         }
@@ -168,6 +168,9 @@ public class Parser {
                         try {
                             Task deletedTask = null;
                             int index = Integer.parseInt(brokenCommand[1]) - 1;
+                            if (index < 0) {
+                                throw new NumberFormatException();
+                            }
                             for (int i = 0; i < tasks.length; i++) {
                                 Task currentTask = tasks[i];
                                 if (currentTask == null) {
@@ -186,7 +189,7 @@ public class Parser {
                             assert deletedTask != null;
                             output = guiUi.printDeletion(deletedTask, current);
                         } catch (NumberFormatException e) {
-                            output = "OOPS!!! The input after the delete command has to be an integer.";
+                            output = "OOPS!!! The input after the delete command has to be a positive integer.";
                         } catch (ArrayIndexOutOfBoundsException e) {
                             output = "OOPS!!! The input for delete is out of bounds.";
                         }
@@ -209,7 +212,7 @@ public class Parser {
      * @param current current index of the task list
      */
     public static void updateCurrent(int current) {
-        assert current >= 0: "Index provided for updateCurrent() method is less than 0";
+        assert current >= 0 : "Index provided for updateCurrent() method is less than 0";
         Parser.current = current;
     }
 

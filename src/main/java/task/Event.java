@@ -19,14 +19,11 @@ public class Event extends Task {
         super(description);
         if (description.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The description of a event cannot be empty.");
-        }
-        else if(from.isEmpty()) {
+        } else if (from.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The start time of a event cannot be empty.");
-        }
-        else if (to.isEmpty()){
+        } else if (to.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The end time of a event cannot be empty.");
-        }
-        else {
+        } else {
             this.from = cleanWhiteSpace(from);
             this.to = cleanWhiteSpace(to);
             this.start = parseDate(this.from);
@@ -48,7 +45,7 @@ public class Event extends Task {
         try {
             int year = Integer.parseInt(brokenStart[2]);
             int month = Integer.parseInt(brokenStart[1]);
-            int day = Integer.parseInt(brokenStart[0]);;
+            int day = Integer.parseInt(brokenStart[0]);
             int hour = Integer.parseInt(brokenStart[3].substring(0, 2));
             int minute = Integer.parseInt(brokenStart[3].substring(2));
 

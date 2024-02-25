@@ -9,7 +9,7 @@ public class TaskList {
     public Task[] tasks;
 
     public TaskList(Task[] tasks) {
-        assert tasks.length <= 100: "Task List Exceeded Limit of 100";
+        assert tasks.length <= 100 : "Task List Exceeded Limit of 100";
         this.tasks = tasks;
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
             if (task == null) {
                 break;
             }
-            if (task.checkMatch(match)){
+            if (task.checkMatch(match)) {
                 output[current] = task;
                 current++;
             }

@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
         String response = balkanBot.getResponse(input);
         if (input.equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
-            delay.setOnFinished( event -> javafx.application.Platform.exit() );
+            delay.setOnFinished(event -> javafx.application.Platform.exit());
             delay.play();
         }
         dialogContainer.getChildren().addAll(

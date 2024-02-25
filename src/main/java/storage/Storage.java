@@ -52,7 +52,7 @@ public class Storage {
      * Used in the Load method.
      * Marks a task if it has been completed already.
      *
-     * @param task task being checked
+     * @param task      task being checked
      * @param completed boolean indicating whether task has been completed
      */
     public static void markCheck(Task task, boolean completed) {

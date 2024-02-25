@@ -16,11 +16,9 @@ public class Deadline extends Task {
         super(description);
         if (description.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The description of a deadline cannot be empty.");
-        }
-        else if(by.isEmpty()) {
+        } else if (by.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The deadline of a deadline cannot be empty.");
-        }
-        else {
+        } else {
             this.by = cleanWhiteSpace(by);
             parseDate(this.by);
         }
@@ -38,7 +36,7 @@ public class Deadline extends Task {
         try {
             int year = Integer.parseInt(brokenDate[2]);
             int month = Integer.parseInt(brokenDate[1]);
-            int day = Integer.parseInt(brokenDate[0]);;
+            int day = Integer.parseInt(brokenDate[0]);
             int hour = Integer.parseInt(brokenDate[3].substring(0, 2));
             int minute = Integer.parseInt(brokenDate[3].substring(2));
             deadline = LocalDateTime.of(year, month, day, hour, minute);
@@ -50,6 +48,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " +
-                deadline.getYear()+ ")";
+                deadline.getYear() + ")";
     }
 }
