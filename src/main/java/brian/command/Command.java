@@ -3,7 +3,7 @@ package brian.command;
 import brian.storage.Storage;
 import brian.task.TaskList;
 import brian.ui.TextUi;
-import brian.utils.DukeException;
+import brian.utils.BrianException;
 
 /**
  * The specification for the command classes.
@@ -18,9 +18,9 @@ public abstract class Command {
      * @param tasks   The list of tasks
      * @param ui      The user interface to write results to
      * @param storage The storage to save the tasks to
-     * @throws DukeException
+     * @throws BrianException
      */
-    public abstract void execute(TaskList tasks, TextUi ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, TextUi ui, Storage storage) throws BrianException;
 
     /**
      * Returns whether the command is an exit command. Only true for the ByeCommand.

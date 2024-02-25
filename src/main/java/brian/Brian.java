@@ -8,7 +8,7 @@ import brian.storage.FileStorage;
 import brian.storage.Storage;
 import brian.task.TaskList;
 import brian.ui.TextUi;
-import brian.utils.DukeException;
+import brian.utils.BrianException;
 
 class Config {
     private final String filePath;
@@ -40,7 +40,7 @@ public class Brian {
         storage = new FileStorage(config.getFilePath());
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (BrianException e) {
             ui.showFileLoadingError();
             tasks = new TaskList();
         }
@@ -51,7 +51,7 @@ public class Brian {
     }
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "Brian heard: " + input;
     }
 
     void run() {
@@ -64,7 +64,7 @@ public class Brian {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (BrianException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

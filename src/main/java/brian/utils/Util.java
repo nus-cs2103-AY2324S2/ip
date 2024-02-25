@@ -7,11 +7,11 @@ import java.time.format.DateTimeParseException;
 public class Util {
     static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static LocalDate parseDate(String date) throws DukeException {
+    public static LocalDate parseDate(String date) throws BrianException {
         try {
             return LocalDate.parse(date, dateFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format. Please use dd/MM/yyyy");
+            throw new BrianException("Invalid date format. Please use dd/MM/yyyy");
         }
     }
 

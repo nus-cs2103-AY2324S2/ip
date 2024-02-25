@@ -16,7 +16,7 @@ import brian.task.Task;
 import brian.task.TaskList;
 import brian.task.Todo;
 import brian.task.TodoState;
-import brian.utils.DukeException;
+import brian.utils.BrianException;
 import brian.utils.Util;
 
 /**
@@ -37,10 +37,10 @@ public class FileStorage implements Storage {
      * Saves the tasklist to the file.
      *
      * @param taskList The tasklist to save to the file.
-     * @throws DukeException Throws an exception if there is an error saving the file.
+     * @throws BrianException Throws an exception if there is an error saving the file.
      */
     @Override
-    public void save(TaskList taskList) throws DukeException {
+    public void save(TaskList taskList) throws BrianException {
         file.delete();
         try {
             Writer fileWriter = new FileWriter(file);
@@ -50,7 +50,7 @@ public class FileStorage implements Storage {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("Error saving file: " + e.getMessage());
+            throw new BrianException("Error saving file: " + e.getMessage());
         }
     }
 
@@ -61,11 +61,11 @@ public class FileStorage implements Storage {
      *
      * @return The list of tasks loaded from the file.
      * @throws IOException   In the event of an error reading the file.
-     * @throws DukeException If the file is corrupted. This is a recoverable error where the file is overwritten on the
+     * @throws BrianException If the file is corrupted. This is a recoverable error where the file is overwritten on the
      *                       next save.
      */
     @Override
-    public List<Task> load() throws IOException, DukeException {
+    public List<Task> load() throws IOException, BrianException {
         Scanner fileScanner = new Scanner(this.file);
         List<Task> tasks = new ArrayList<>();
         try {
@@ -88,7 +88,7 @@ public class FileStorage implements Storage {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("File is corrupted");
+            throw new BrianException("File is corrupted");
         } finally {
             fileScanner.close();
         }
