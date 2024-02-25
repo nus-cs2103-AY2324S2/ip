@@ -35,6 +35,7 @@ public class CommandParser {
      * @param input The full command input from the user.
      */
     public CommandParser(String input) {
+        assert input != null && !input.isBlank() : "Input for CommandParser cannot be null or empty";
         this.input = input;
         int firstSpaceIndex = input.indexOf(" ");
         if (firstSpaceIndex != -1) {
@@ -42,6 +43,7 @@ public class CommandParser {
         } else {
             this.type = input;
         }
+        assert !this.type.isBlank() : "Command type cannot be empty";
     }
 
     /**

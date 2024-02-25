@@ -30,6 +30,7 @@ public class FileHandler {
      */
     private static Task convertDataToTask(String data) throws IOException {
         String[] fields = data.split("\\|");
+        assert fields.length >= 3 : "Task data does not contain expected number of fields";
         for (int i = 0; i < fields.length; i++) {
             fields[i] = fields[i].trim();
         }
@@ -37,9 +38,11 @@ public class FileHandler {
         // Might need to catch DateTimeParseException here
         switch (fields[0]) {
         case "T":
+            assert fields.length == 3 : "TodoTask data format is incorrect";
             returnTask = new TodoTask(fields[2]);
             break;
         case "D":
+            assert fields.length == 4 : "DeadlineTask data format is incorrect";
             try {
                 returnTask = new DeadlineTask(fields[2], DateParser.parseDate(fields[3]));
             } catch (ChatException e) {
@@ -47,6 +50,7 @@ public class FileHandler {
             }
             break;
         case "E":
+            assert fields.length == 5 : "EventTask data format is incorrect";
             try {
                 returnTask = new EventTask(fields[2], DateParser.parseDate(fields[3]), DateParser.parseDate(fields[4]));
             } catch (ChatException e) {
@@ -56,7 +60,7 @@ public class FileHandler {
         default:
             throw new IOException("Invalid task type: " + fields[0]);
         }
-
+        assert returnTask != null : "Return task should not be empty";
         returnTask.setTaskState(fields[1].equals("1"));
         return returnTask;
     }
@@ -107,6 +111,7 @@ public class FileHandler {
      * @param list The {@link TaskList} to be saved to the file.
      */
     public static void saveTaskList(TaskList list) {
+        assert list != null : "TaskList to save cannot be null";
         try {
             FileWriter w = new FileWriter(FILE_PATH);
             for (int i = 0; i < list.getSize(); i++) {
