@@ -49,13 +49,13 @@ test {
 }
 
 application {
-    mainClass.set("thecount.TheCount")
+    mainClass.set("thecount.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "thecount"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'thecount.jar'
 }
 
 run{
