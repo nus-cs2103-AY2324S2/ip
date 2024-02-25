@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where a search query is empty.
  * Extends the DukeExceptions class.
  */
-public class EmptyStringException extends DukeExceptions {
+public class EmptyStringException extends ChatterExceptions {
 
     /**
      * The message to be displayed when EmptyStringException is thrown.

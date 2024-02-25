@@ -4,12 +4,12 @@ package exceptions;
  * The base exception class for Duke, representing various exceptions that can occur within the application.
  * Extends the Exception class.
  */
-public class DukeExceptions extends Exception {
+public class ChatterExceptions extends Exception {
 
     /**
      * Default constructor for the DukeExceptions class.
      */
-    public DukeExceptions() {
+    public ChatterExceptions() {
         super();
     }
 

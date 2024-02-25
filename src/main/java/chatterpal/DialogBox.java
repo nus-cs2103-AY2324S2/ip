@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 import java.io.IOException;
 import java.util.Collections;

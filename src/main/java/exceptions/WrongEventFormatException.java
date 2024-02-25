@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where an input event format is incorrect.
  * Extends the DukeExceptions class.
  */
-public class WrongEventFormatException extends DukeExceptions {
+public class WrongEventFormatException extends ChatterExceptions {
 
     /**
      * The message to be displayed when this exception is thrown.

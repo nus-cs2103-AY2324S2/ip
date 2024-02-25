@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 /**
  * The UI class handles user interface interactions.

@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where an input deadline format is incorrect.
  * Extends the DukeExceptions class.
  */
-public class WrongDeadlineFormatException extends DukeExceptions {
+public class WrongDeadlineFormatException extends ChatterExceptions {
 
     /**
      * The message to be displayed when this exception is thrown.

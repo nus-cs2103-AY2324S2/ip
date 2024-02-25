@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where a task is empty.
  * Extends the DukeExceptions class.
  */
-public class EmptyTaskException extends DukeExceptions {
+public class EmptyTaskException extends ChatterExceptions {
     private String msg = "Name of task cannot be empty!";
     public EmptyTaskException() {
         super();

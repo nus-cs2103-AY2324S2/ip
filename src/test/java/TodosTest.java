@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.ToDo;
+import chatterpal.ToDo;
 public class TodosTest {
     @Test
     public void checkToStringTest(){

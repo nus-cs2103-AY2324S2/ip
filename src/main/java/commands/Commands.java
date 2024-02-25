@@ -7,11 +7,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Storage;
-import duke.Task;
-import duke.ToDo;
+import chatterpal.Deadline;
+import chatterpal.Event;
+import chatterpal.Storage;
+import chatterpal.Task;
+import chatterpal.ToDo;
 import exceptions.*;
 
 /**
@@ -161,7 +161,7 @@ public class Commands {
      * @param input The input command string.
      * @param storage The storage object to interact with tasks.
      * @return The newly created Events task.
-     * @throws DukeExceptions If any Duke-specific exception occurs.
+     * @throws ChatterExceptions If any Duke-specific exception occurs.
      * @throws WrongEventFormatException If the input format is incorrect.
      */
     public static Event eventsCommand(String input, Storage storage)

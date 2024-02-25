@@ -2,8 +2,8 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.ToDo;
-import duke.Storage;
+import chatterpal.ToDo;
+import chatterpal.Storage;
 
 public class StorageTest {
     @Test

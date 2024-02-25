@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;

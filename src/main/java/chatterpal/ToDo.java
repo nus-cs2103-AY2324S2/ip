@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 /**
  * Represents a ToDo task, with a description and is a subclass of

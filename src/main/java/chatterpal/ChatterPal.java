@@ -1,7 +1,7 @@
-package duke;
+package chatterpal;
 
 import commands.Commands;
-import exceptions.DukeExceptions;
+import exceptions.ChatterExceptions;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * The NewDuke class represents the core functionality of the Duke application.
  * It handles user interactions, commands parsing, and task management.
  */
-public class NewDuke {
+public class ChatterPal {
     private Storage storage;
     private Ui ui;
     private Save saver;
@@ -23,7 +23,7 @@ public class NewDuke {
      *
      * @param filePath The file path for data storage.
      */
-    public NewDuke(String filePath) {
+    public ChatterPal(String filePath) {
         ScrollPane scrollPane = new ScrollPane();
         VBox dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -43,7 +43,7 @@ public class NewDuke {
     /**
      * Constructs a NewDuke instance with a default file path for data storage at data/duke.txt.
      */
-    public NewDuke() {
+    public ChatterPal() {
         this("data/duke.txt");
     }
 
@@ -91,7 +91,7 @@ public class NewDuke {
             default:
                 return "WHAT DO YOU MEANNN????";
             }
-        } catch (DukeExceptions e) {
+        } catch (ChatterExceptions e) {
             return (e.output());
         } finally {
             saver.saveData(storage);

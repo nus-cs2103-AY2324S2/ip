@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 /**
  * Represents a task with a description and a status indicating whether it is done.

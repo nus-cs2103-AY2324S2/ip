@@ -1,10 +1,9 @@
-package duke;
+package chatterpal;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import exceptions.DukeExceptions;
+import exceptions.ChatterExceptions;
 
 
 /**
@@ -91,11 +90,11 @@ public class Storage {
                 }
             }
             if (output.length() == 0) {
-                throw new DukeExceptions();
+                throw new ChatterExceptions();
             }
             return output.toString();
 
-        } catch (DukeExceptions d) {
+        } catch (ChatterExceptions d) {
             return "Nothing was found";
         }
     }

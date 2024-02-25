@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private NewDuke duke;
+    private ChatterPal duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.onStart(), dukeImage));
     }
 
-    public void setDuke(NewDuke d) {
+    public void setDuke(ChatterPal d) {
         duke = d;
     }
 

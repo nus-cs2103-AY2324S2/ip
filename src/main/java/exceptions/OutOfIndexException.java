@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where we delete/ mark an index is out of range.
  * Extends the DukeExceptions class.
  */
-public class OutOfIndexException extends DukeExceptions {
+public class OutOfIndexException extends ChatterExceptions {
 
     /**
      * The message to be displayed when O exception is thrown.

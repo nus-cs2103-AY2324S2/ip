@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 import java.util.Scanner;
 

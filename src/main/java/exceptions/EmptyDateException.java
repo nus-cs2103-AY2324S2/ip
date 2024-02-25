@@ -1,6 +1,6 @@
 package exceptions;
 
-public class EmptyDateException extends DukeExceptions {
+public class EmptyDateException extends ChatterExceptions {
     private String msg = "Your command should only have a date field!";
     public EmptyDateException() {
         super();

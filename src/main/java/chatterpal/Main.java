@@ -1,4 +1,4 @@
-package duke;
+package chatterpal;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private NewDuke duke = new NewDuke();
+    private ChatterPal duke = new ChatterPal();
 
     @Override
     public void start(Stage stage) {

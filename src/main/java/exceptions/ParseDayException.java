@@ -1,6 +1,6 @@
 package exceptions;
 
-public class ParseDayException extends DukeExceptions {
+public class ParseDayException extends ChatterExceptions {
     private String msg = "Please ensure that your date follows this format [D/M/YYYY] \n"
             + "Eg:  2/12/2019";
 

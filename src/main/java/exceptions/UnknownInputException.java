@@ -4,7 +4,7 @@ package exceptions;
  * Custom exception class representing the scenario where an unknown input is provided.
  * Extends the DukeExceptions class.
  */
-public class UnknownInputException extends DukeExceptions {
+public class UnknownInputException extends ChatterExceptions {
 
     private String msg = "WHAT DO YOU MEANNNNN";
 
