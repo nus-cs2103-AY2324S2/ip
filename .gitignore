@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# User specific data
+/data/
+
+# Gradle conig
+/config/
+
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT
+src/test/

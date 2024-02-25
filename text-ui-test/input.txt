@@ -1,0 +1,9 @@
+todo read book
+deadline complete project /by 2024-02-24
+event team meeting /from sunday 5pm /to 6pm
+list
+mark 1
+unmark 1
+delete 2
+list
+exit

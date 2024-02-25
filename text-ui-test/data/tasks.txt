@@ -1,0 +1,14 @@
+T | 0 | read book
+E | 0 | team meeting | sunday 5pm | 6pm
+T | 0 | read book
+D | 0 | complete project | 2024-02-24
+E | 0 | team meeting | sunday 5pm | 6pm
+T | 0 | read book
+D | 0 | complete project | 2024-02-24
+E | 0 | team meeting | sunday 5pm | 6pm
+T | 0 | read book
+D | 0 | complete project | 2024-02-24
+E | 0 | team meeting | sunday 5pm | 6pm
+T | 0 | read book
+D | 0 | complete project | 2024-02-24
+E | 0 | team meeting | sunday 5pm | 6pm
