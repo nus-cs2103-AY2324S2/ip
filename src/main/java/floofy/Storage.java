@@ -89,7 +89,7 @@ public class Storage {
     }
 
     /**
-     * Parses the task from the file.
+     * Parses the task from the file. Handles task type and task status.
      *
      * @param line The line to be parsed.
      * @return The task parsed from the line.
@@ -100,22 +100,65 @@ public class Storage {
 
         switch (parts[0]) {
         case "T":
-            task = new ToDo(parts[2]);
+            task = createToDoFromStoredData(parts);
             break;
         case "D":
-            LocalDate deadlineBy = convertDate(parts[3]);
-            task = new Deadline(parts[2], deadlineBy);
+            task = createDeadlineFromStoredData(parts);
             break;
         case "E":
-            String[] time = parts[3].split("\\s*-\\s*");
-            LocalDate eventFrom = convertDate(time[0]);
-            LocalDate eventTo = convertDate(time[1]);
-            task = new Event(parts[2], eventFrom, eventTo);
+            task = createEventFromStoredData(parts);
+            break;
         }
-        if (task != null && parts[1].equals("1")) {
+
+        handleTaskStatus(parts, task);
+
+        return task;
+    }
+
+    /**
+     * Creates a ToDo task from the stored data.
+     *
+     * @param parts The array representing the different parts of the stored data in String format.
+     * @return A ToDo task object representing the ToDo task stored as a String.
+     */
+    public ToDo createToDoFromStoredData(String[] parts) {
+        return new ToDo(parts[2]);
+    }
+
+    /**
+     * Creates a Deadline task from the stored data.
+     *
+     * @param parts The array representing the different parts of the stored data in String format.
+     * @return A Deadline task object representing the Deadline task stored as a String.
+     */
+    public Deadline createDeadlineFromStoredData(String[] parts) {
+        LocalDate deadlineBy = convertDate(parts[3]);
+        return new Deadline(parts[2], deadlineBy);
+    }
+
+    /**
+     * Creates an Event task from the stored data.
+     *
+     * @param parts The array representing the different parts of the stored data in String format.
+     * @return An Event task object representing the Event task stored as a String.
+     */
+    public Event createEventFromStoredData(String[] parts) {
+        String[] time = splitDate(parts[3]);
+        LocalDate eventFrom = convertDate(time[0]);
+        LocalDate eventTo = convertDate(time[1]);
+        return new Event(parts[2], eventFrom, eventTo);
+    }
+
+    /**
+     * Handles the task status from the stored data.
+     *
+     * @param parts The array representing the different parts of the stored data in String format.
+     * @param task The task to be marked as done if the status is 1.
+     */
+    public void handleTaskStatus(String[] parts, Task task) {
+        if (parts[1].equals("1")) {
             task.markTask();
         }
-        return task;
     }
 
     /**
@@ -127,5 +170,15 @@ public class Storage {
     public static LocalDate convertDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
         return LocalDate.parse(date, formatter);
+    }
+
+    /**
+     * Splits the date into its different parts.
+     *
+     * @param date The date to be split.
+     * @return The array of the different parts of the date.
+     */
+    public String[] splitDate(String date) {
+        return date.split("\\s*-\\s*");
     }
 }
