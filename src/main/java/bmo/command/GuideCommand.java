@@ -19,7 +19,7 @@ public class GuideCommand extends Command {
      */
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printTutorial();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.printTutorial();
     }
 }

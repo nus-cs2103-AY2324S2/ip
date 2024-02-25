@@ -78,7 +78,7 @@ public class BMO {
     @FXML
     public String getResponse(String input) throws IOException {
         Command c = Parser.parse(input.trim());
-        c.execute(tasks, ui, storage);
+        String response = c.execute(tasks, ui, storage);
         storage.saveData(tasks);
         return response;
     }

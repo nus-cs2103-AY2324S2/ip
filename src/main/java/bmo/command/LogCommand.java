@@ -17,7 +17,7 @@ public class LogCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printLog(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.printLog(tasks);
     }
 }

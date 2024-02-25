@@ -34,9 +34,9 @@ public class DueCommand extends Command {
      * @param ui      The user interface.
      * @param storage The storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new Deadlines(this.desc, this.by);
         tasks.add(newTask);
-        ui.printAddTask(newTask, tasks.size());
+        return ui.printAddTask(newTask, tasks.size());
     }
 }

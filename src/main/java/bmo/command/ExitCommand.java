@@ -18,9 +18,9 @@ public class ExitCommand extends Command {
      */
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.salute();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.saveData(tasks);
+        return ui.salute();
     }
 
     public boolean isExit() {

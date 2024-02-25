@@ -23,7 +23,7 @@ public class GreetCommand extends Command {
      * @param ui      The user interface.
      * @param storage The storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.greet();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.greet();
     }
 }

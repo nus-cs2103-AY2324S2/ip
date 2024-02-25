@@ -28,21 +28,19 @@ public class DeleteCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index.isBlank() || !this.index.matches("\\d+")) {
-            ui.printErrInvalidIndex();
-            return;
+            return ui.printErrInvalidIndex();
         }
 
         int idx = Integer.parseInt((index));
 
         if (idx > tasks.size() || idx <= 0) {
-            ui.printErrInvalidIndex();
-            return;
+            return ui.printErrInvalidIndex();
         }
 
         String taskDesc = tasks.get(idx - 1).toString();
         tasks.remove(idx - 1);
-        ui.printDeleteTask(taskDesc, idx);
+        return ui.printDeleteTask(taskDesc, idx);
     }
 }

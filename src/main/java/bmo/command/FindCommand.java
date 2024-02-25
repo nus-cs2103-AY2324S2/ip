@@ -28,17 +28,27 @@ public class FindCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
+        StringBuilder tasksFound = new StringBuilder();
         int idx_counter = 1;
+        output.append("----------------------------------------------------------------------------------");
         for (Task currTask : tasks) {
             if (currTask.toString().contains(keyword)) {
-                output.append(idx_counter).append(". ").append(currTask.getStatusIcon()).append(" ").append(currTask).append("\n");
+                tasksFound.append(idx_counter).append(". ").append(currTask.getStatusIcon()).append(" ").append(currTask).append("\n");
             }
             idx_counter++;
         }
-        ui.showLine();
-        System.out.println(output.toString());
-        ui.showLine();
+
+        if (tasksFound.length() == 0) {
+            output.append("BMO could not find any tasks with the keyword: ").append(keyword).append("\n");
+        } else {
+            output.append("BMO has found the following tasks with the keyword: ").append(keyword).append("\n");
+            output.append(tasksFound);
+        }
+
+        output.append("----------------------------------------------------------------------------------");
+
+        return output.toString();
     }
 }

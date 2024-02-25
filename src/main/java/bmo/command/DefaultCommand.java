@@ -27,20 +27,19 @@ public class DefaultCommand extends Command {
      * @param ui      The user interface.
      * @param storage The storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.type == 0) {
-            ui.printErrInvalidCommand();
-            return;
+            return ui.printErrInvalidCommand();
         }
 
         if (this.type == 1) {
-            ui.printErrInvalidTask();
-            return;
+            return ui.printErrInvalidTask();
         }
 
         if (this.type == 2) {
-            ui.printErrInvalidDate();
-            return;
+            return ui.printErrInvalidDate();
         }
+
+        return "Error: invalid default command type.";
     }
 }
