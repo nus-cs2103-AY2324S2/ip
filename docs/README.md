@@ -1,4 +1,4 @@
-# BernardBot User Guide
+# DiveBot User Guide
 
 ## Chatbot UI
 
