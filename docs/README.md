@@ -2,6 +2,8 @@
 
 Poe is a desktop app for managing tasks such as todos, deadlines and events, optimized for use via a Command Line Interface (CLI)
 
+<img width="1552" alt="image" src="https://github.com/leepoeaik/ip/assets/99176866/b5d3511d-2408-4849-ae39-cc1ed03db4d7">
+
 Sections:
 
 [Features](https://leepoeaik.github.io/ip/#features)
@@ -136,4 +138,5 @@ Upon booting, any saved tasks which are upcoming (<= 2 days from current date) w
 
 Example : Today's date is 23 February 2024, there is a deadline task `NAME` : homework 1 `DEADLINE` : 24 February 2024
 
-<img width="650" alt="image" src="https://github.com/leepoeaik/ip/assets/99176866/dc043f03-d2e3-47db-9ec4-64804e5afeee">
+<img width="650" alt="image" src="https://github.com/leepoeaik/ip/assets/99176866/cff6a0df-2bec-43bf-a120-ce9ac26ffe7d">
+
