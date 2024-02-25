@@ -13,21 +13,25 @@ public class Ui {
         System.out.println("----------------------------------------------------------------------------------");
     }
 
-    public void greet() {
-        showLine();
-        System.out.println("BMO chop! ヾ(⌐■_■)ノ♪");
-        System.out.println("do you want to play video games?");
-        showLine();
+    public String greet() {
+        String greetPrint = "----------------------------------------------------------------------------------"
+                + "\nBMO chop! ヾ(⌐■_■)ノ♪\n"
+                + "do you want to play video games?\n"
+                + "----------------------------------------------------------------------------------";
+        return greetPrint;
     }
 
-    public void salute() {
-        showLine();
-        System.out.println("beep boop BMO shutting down...");
-        showLine();
+    public String salute() {
+        String byePrint = "----------------------------------------------------------------------------------"
+                + "\nBMO chop! ヾ(⌐■_■)ノ♪\n"
+                + "bye! see you next time\n"
+                + "----------------------------------------------------------------------------------";
+        return byePrint;
     }
 
-    public void printTutorial() {
-        final String TUTORIAL_PRINT = "command BMO with these keywords!\n"
+    public String printTutorial() {
+        final String TUTORIAL_PRINT = "----------------------------------------------------------------------------------"
+                + "command BMO with these keywords!\n"
                 + "0. hi [greet BMO]\n"
                 + "1. bye [shut BMO down]\n"
                 + "2. log [view task log]\n"
@@ -38,103 +42,116 @@ public class Ui {
                 + "7. redo <task number> [uncheck task]\n"
                 + "8. delete <task number> [delete task]\n"
                 + "9. find <keyword> [search for task]\n"
-                + "10. commands [view commands]";
-        showLine();
-        System.out.println(TUTORIAL_PRINT);
-        showLine();
+                + "10. commands [view commands]\n"
+                + "----------------------------------------------------------------------------------";
+        return TUTORIAL_PRINT;
     }
 
-    public void printLog(TaskList taskLog) {
+    public String printLog(TaskList taskLog) {
         StringBuilder logPrint = new StringBuilder();
         if (taskLog.isEmpty()) {
-            System.out.println("wow! your log is actually empty");
-            System.out.println("let's play mario kart right now!! ᕦ(ò_óˇ)ᕤ");
-            showLine();
-            return;
+            String emptyLogPrint = "----------------------------------------------------------------------------------"
+                    + "wow! your log is actually empty\n"
+                    + "let's play mario kart right now!! ᕦ(ò_óˇ)ᕤ\n"
+                    + "----------------------------------------------------------------------------------";
+            return emptyLogPrint;
         }
+
+        logPrint.append("----------------------------------------------------------------------------------\n");
         for (int i = 0; i < taskLog.size(); i++) {
             Task currTask = taskLog.get(i);
             logPrint.append(i + 1).append(". ").append(currTask.getStatusIcon())
                     .append(" ").append(currTask.toString())
                     .append("\n");
         }
-        showLine();
-        System.out.println(logPrint.toString());
-        showLine();
+        logPrint.append("----------------------------------------------------------------------------------");
+
+        return logPrint.toString();
     }
 
-    public void printEmptyStorage() {
-        showLine();
-        System.out.println("BMO cache has no saved tasks");
-        System.out.println("your log is currently empty ᕦ(ò_óˇ)ᕤ");
-        showLine();
+    public String printEmptyStorage() {
+        String emptyStoragePrint = "----------------------------------------------------------------------------------"
+                + "BMO cache has no saved tasks\n"
+                + "your log is currently empty ᕦ(ò_óˇ)ᕤ\n"
+                + "----------------------------------------------------------------------------------";
+        return emptyStoragePrint;
     }
 
-    public void printAddTask(Task task, int size) {
-        showLine();
-        System.out.println("BMO has added the task (づ￣ ³￣)づ");
-        System.out.println("added: " + task);
-        System.out.println("you now have " + size + " tasks in the list");
-        showLine();
+    public String printAddTask(Task task, int size) {
+        String taskAddPrint = "----------------------------------------------------------------------------------"
+                + "BMO has added the task (づ￣ ³￣)づ\n"
+                + "added: " + task + "\n"
+                + "you now have " + size + " tasks in the list\n"
+                + "----------------------------------------------------------------------------------";
+        return taskAddPrint;
     }
 
-    public void printDoneTask(TaskList tasks, int index) {
-        showLine();
-        System.out.println("BMO has marked the task as done (•̀ᴗ•́)و ̑̑");
-        System.out.println("completed: " + tasks.get(index - 1));
-        showLine();
+    public String printDoneTask(TaskList tasks, int index) {
+        String taskDonePrint = "----------------------------------------------------------------------------------"
+                + "BMO has marked the task as done (•̀ᴗ•́)و ̑̑\n"
+                + "completed: " + tasks.get(index - 1) + "\n"
+                + "----------------------------------------------------------------------------------";
+        return taskDonePrint;
     }
 
-    public void printRedoTask(TaskList tasks, int index) {
-        showLine();
-        System.out.println("BMO has marked the task as incomplete (⊙_☉)");
-        System.out.println("incomplete: " + tasks.get(index - 1));
-        showLine();
+    public String printRedoTask(TaskList tasks, int index) {
+        String taskRedoPrint = "----------------------------------------------------------------------------------"
+                + "BMO has marked the task as incomplete (⊙_☉)\n"
+                + "incomplete: " + tasks.get(index - 1) + "\n"
+                + "----------------------------------------------------------------------------------";
+        return taskRedoPrint;
     }
 
-    public void printDeleteTask(String desc, int index) {
-        showLine();
-        System.out.println("BMO has deleted the task (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
-        System.out.println("deleted: " + desc);
-        showLine();
+    public String printDeleteTask(String desc, int index) {
+        String taskDeletePrint = "----------------------------------------------------------------------------------"
+                + "BMO has deleted the task (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧\n"
+                + "deleted: " + desc + "\n"
+                + "you now have " + index + " tasks in the list\n"
+                + "----------------------------------------------------------------------------------";
+        return taskDeletePrint;
     }
 
-    public void printErrInvalidIndex() {
-        showLine();
-        System.out.println("you have provided BMO with an invalid task number!");
-        System.out.println("please provide a valid one silly _(ツ)_/¯");
-        showLine();
+    public String printErrInvalidIndex() {
+        String invalidIndexPrint = "----------------------------------------------------------------------------------"
+                + "you have provided BMO with an invalid task number!\n"
+                + "please provide a valid one silly _(ツ)_/¯\n"
+                + "----------------------------------------------------------------------------------";
+        return invalidIndexPrint;
     }
 
-    public void printErrInvalidCommand() {
-        showLine();
-        System.out.println("BMO don't understand (╯°□°）╯︵ ┻━┻");
-        System.out.println("type 'commands' to see the list of what BMO knows to do");
-        showLine();
+    public String printErrInvalidCommand() {
+        String invalidCommandPrint = "----------------------------------------------------------------------------------"
+                + "BMO does not understand your command (╯°□°）╯︵ ┻━┻\n"
+                + "type 'commands' to see the list of what BMO knows to do\n"
+                + "----------------------------------------------------------------------------------";
+        return invalidCommandPrint;
     }
 
-    public void printErrInvalidTask() {
-        showLine();
-        System.out.println("BMO does not quite understand your task command ಠ_ಠ");
-        System.out.println("here are examples of a valid task command:");
-        System.out.println("todo play mario kart");
-        System.out.println("due play mario kart /by 14/02/2024 1800");
-        System.out.println("event play mario kart /from 14/02/2024 1800 /to 14/02/2024 2000");
-        showLine();
+    public String printErrInvalidTask() {
+        String invalidTaskPrint = "----------------------------------------------------------------------------------"
+                + "BMO does not understand your task command ಠ_ಠ\n"
+                + "here are examples of a valid task command:\n"
+                + "todo play mario kart\n"
+                + "due play mario kart /by 14/02/2024 1800\n"
+                + "event play mario kart /from 14/02/2024 1800 /to 14/02/2024 2000\n"
+                + "----------------------------------------------------------------------------------";
+        return invalidTaskPrint;
     }
 
-    public void printErrUselessCommand() {
-        showLine();
-        System.out.println("That command is useless silly ಠ╭╮ಠ");
-        System.out.println("BMO has already done that for you");
-        showLine();
+    public String printErrUselessCommand() {
+        String uselessCommandPrint = "----------------------------------------------------------------------------------"
+                + "That command is useless silly ಠ╭╮ಠ\n"
+                + "BMO has already done that for you\n"
+                + "----------------------------------------------------------------------------------";
+        return uselessCommandPrint;
     }
 
-    public void printErrInvalidDate() {
-        showLine();
-        System.out.println("BMO does not understand your date format (⊙_☉)");
-        System.out.println("please provide a valid date format: dd/MM/yyyy HHmm");
-        showLine();
+    public String printErrInvalidDate() {
+        String invalidDatePrint = "----------------------------------------------------------------------------------"
+                + "BMO does not understand your date format (⊙_☉)\n"
+                + "please provide a valid date format: dd/MM/yyyy HHmm\n"
+                + "----------------------------------------------------------------------------------";
+        return invalidDatePrint;
     }
 
 }
