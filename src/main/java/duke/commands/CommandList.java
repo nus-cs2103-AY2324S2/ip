@@ -34,6 +34,10 @@ public class CommandList {
             return new DeleteCommand();
         case "find":
             return new FindCommand();
+        case "prioritise":
+            return new PrioritiseCommand();
+        case "deprioritise":
+            return new DeprioritiseCommand();
         default:
             throw new DukeCommandNotFoundException();
         }

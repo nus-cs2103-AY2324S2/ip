@@ -13,6 +13,7 @@ public abstract class Task {
 
     protected final String name;
     protected boolean isDone;
+    protected Priority priority;
 
     public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static final DateTimeFormatter OUTPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm a, M-dd-yyyy");
@@ -26,6 +27,7 @@ public abstract class Task {
         assert !name.contains("\n") : "name cannot contain newline characters";
         this.name = name;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /** Marks this task as done. */
@@ -38,9 +40,32 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     /** Returns true if the name of this task contains the given string. */
     public final boolean nameContains(String str) {
         return this.name.contains(str);
+    }
+
+    /**
+     * Helper method to get the done status of this task.
+     * @return "X" if isDone, " " otherwise.
+     */
+    private String getDoneStatus() {
+        return this.isDone ? "X" : " ";
+    }
+
+    private String getPriorityStatus() {
+        switch (this.priority) {
+        case HIGH:
+            return " \u2605";
+        case LOW:
+            return "";
+        default:
+            throw new IllegalStateException("Unexpected priority: " + this.priority);
+        }
     }
 
     /**
@@ -48,7 +73,7 @@ public abstract class Task {
      * @return a string containing details of this task.
      */
     public String describe() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        return String.format("[%s]%s %s", this.getDoneStatus(), this.getPriorityStatus(), this.name);
     }
 
     /**
@@ -57,7 +82,20 @@ public abstract class Task {
      * @return a String that shows the name and done status of the task.
      */
     public String toStorageString() {
-        return String.format("%s,%s", this.name, this.isDone ? "T" : "F");
+        String doneStr = this.isDone ? "T" : "F";
+        String priorityStr;
+
+        switch (this.priority) {
+        case HIGH:
+            priorityStr = "H";
+            break;
+        case LOW:
+            priorityStr = "L";
+            break;
+        default:
+            throw new IllegalStateException("Unexpected priority: " + this.priority);
+        }
+        return String.format("%s,%s,%s", this.name, doneStr, priorityStr);
     }
 
     public static Task fromStorageString(String str) throws DukeException {
@@ -66,6 +104,7 @@ public abstract class Task {
         String typeStr;
         String nameStr;
         String doneStr;
+        String priorityStr;
         Task t;
 
         sc.useDelimiter(",");
@@ -73,6 +112,7 @@ public abstract class Task {
             typeStr = sc.next();
             nameStr = sc.next();
             doneStr = sc.next();
+            priorityStr = sc.next();
 
             switch (typeStr) {
             case "T":
@@ -94,6 +134,17 @@ public abstract class Task {
                 break;
             case "F":
                 t.isDone = false;
+                break;
+            default:
+                throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
+            }
+
+            switch (priorityStr) {
+            case "H":
+                t.priority = Priority.HIGH;
+                break;
+            case "L":
+                t.priority = Priority.LOW;
                 break;
             default:
                 throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
