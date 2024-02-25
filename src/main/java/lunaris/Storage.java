@@ -17,7 +17,7 @@ public class Storage {
      * @param file The file to be stored.
      */
     public Storage(String file) {
-        this.FILE_PATH = file;
+        FILE_PATH = file;
     }
 
     /**

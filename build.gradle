@@ -43,13 +43,14 @@ test {
 }
 
 application {
-    mainClass.set("lunaris.Launcher");
+    mainClass.set("lunaris.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "lunaris"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = "lunaris.Launcher"
 }
 
 run{
