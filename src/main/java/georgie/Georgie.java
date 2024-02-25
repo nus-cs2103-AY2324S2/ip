@@ -15,28 +15,15 @@ public class Georgie extends Application {
 
     boolean canExit = false;
     private TaskList taskList = new TaskList();
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/georgie.txt";
 
     /**
-     * Starts the application.
-     *
-     * @param args Command-line arguments.
+     * Represents the constructor of Georgie class. Constructs a new instance of the Georgie class. Initializes a Storage object with the specified file path
+     * and loads tasks from the file into the associated task list.
      */
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-
+    public Georgie () {
         Storage storage = new Storage(FILE_PATH);
         storage.loadTasksFromFile(taskList.getTasks());
-
-        while (true) {
-            try {
-                String userInput = Ui.getUserInput();
-                CommandHandler.handleCommand(userInput, taskList);
-                storage.saveTasksToFile(taskList.getTasks());
-            } catch (GeorgieException e) {
-                Ui.showError(e.getMessage());
-            }
-        }
     }
 
     /**
@@ -52,7 +39,7 @@ public class Georgie extends Application {
             String commandType = parsedCommand[0].toLowerCase();
 
             if (commandType.equals("bye")) {
-                CommandHandler.handleCommand(input, taskList);
+                saveTasksToFile();
                 canExit = true;
                 return "Bye. Hope to see you again soon!";
             }
@@ -87,5 +74,10 @@ public class Georgie extends Application {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void saveTasksToFile() {
+        Storage storage = new Storage(FILE_PATH);
+        storage.saveTasksToFile(taskList.getTasks());
     }
 }

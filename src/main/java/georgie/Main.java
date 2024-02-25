@@ -20,6 +20,12 @@ public class Main extends Application {
     private Georgie georgie = new Georgie();
 
     /**
+     * Represents the constructor for Main class.
+     */
+    public Main() {
+    }
+
+    /**
      * Exits the application after a delay of 3 seconds.
      */
     public static void exitApp() {
@@ -53,4 +59,3 @@ public class Main extends Application {
         }
     }
 }
-

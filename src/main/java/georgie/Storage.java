@@ -1,10 +1,12 @@
 package georgie;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * Handles the storage of tasks to and from a file.
  */
 public class Storage {
-    private final String filePath;
+    private static String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -32,13 +34,10 @@ public class Storage {
      *
      * @param tasks The list of tasks to be saved.
      */
-    public void saveTasksToFile(ArrayList<Task> tasks) {
-        try {
-            createDirectory(filePath); // Create directory if it doesn't exist
-            try (FileWriter writer = new FileWriter(filePath)) {
-                for (Task task : tasks) {
-                    writer.write(task.toFileString() + "\n");
-                }
+    public static void saveTasksToFile(ArrayList<Task> tasks) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
@@ -51,28 +50,24 @@ public class Storage {
      * @param tasks The task list to which tasks will be added.
      */
     public void loadTasksFromFile(ArrayList<Task> tasks) {
-        createDirectory(filePath);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = createTaskFromLine(line);
-                if (task != null) {
-                    tasks.add(task);
+        try {
+            Path filePath = Paths.get(this.filePath);
+            if (!Files.exists(filePath)) {
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+            } else {
+                try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(filePath)))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        Task task = createTaskFromLine(line);
+                        if (task != null) {
+                            tasks.add(task);
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
-        }
-    }
-
-    private void createDirectory(String filePath) {
-        File directory = new File(filePath).getParentFile();
-        if (!directory.exists()) {
-            boolean created = directory.mkdirs();
-            if (!created) {
-                System.out.println("Error creating directory: " + directory.getAbsolutePath());
-            }
         }
     }
 
