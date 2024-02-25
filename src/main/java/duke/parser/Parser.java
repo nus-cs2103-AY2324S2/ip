@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 import duke.actions.AddTask;
@@ -76,12 +75,41 @@ public class Parser {
                 return handleFindCommand(input);
             } else if (input.startsWith("sort")) {
                 return handleSort(input);
-            } 
-            else {
+            } else if (input.toLowerCase().startsWith("help")) {
+                return helpCommand(input);
+            } else {
                 return "OOPS!!! I'm sorry, but that's an invalid command :-(";
             }
         } catch (DukeException e) {
             return e.getMessage();
+        }
+    }
+
+    /**
+     * Generates a help message containing instructions and formats for using the Duke application.
+     * @param input The user input to check if it is "help".
+     * @return A string containing the help message with commands and formats.
+     * @throws DukeException If the input is not "help".
+     */
+    private String helpCommand(String input) throws DukeException {
+        if (!input.trim().equals("help")) {
+            throw new DukeException("Please input only help");
+        } else {
+            String helpMessage = """
+            Please input all time in 24hrs format and date in YYYY-MM-DD.
+            Here are the list of commands and formats:
+            1) todo <EVENT>
+            2) deadline <EVENT> /by <DATE> <TIME>
+            3) event EVENT /from <DATE> <TIME> /to <DATE> <TIME>
+            4) mark <INDEX>
+            5) unmark <INDEX>
+            6) delete <INDEX>
+            7) list
+            8) sort
+            9) find <KEYWORD>
+                """;
+            System.out.println(helpMessage);
+            return helpMessage;
         }
     }
 

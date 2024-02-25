@@ -41,7 +41,7 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/me.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.jpeg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.png"));
     /**
      * Initializes images for the user and Duke, and sets up other necessary components.
      * This constructor is used to prepare any preliminary data or resources required by the application.

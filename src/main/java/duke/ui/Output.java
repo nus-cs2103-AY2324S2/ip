@@ -36,7 +36,7 @@ public class Output {
      * @return A string with a decorative layer around the provided input.
      */
     public static String layer(String s) {
-        String line = "_______________________________________________________";
+        String line = "_____________________________________________________";
         return line + "\n" + s + "\n" + line;
     }
 
