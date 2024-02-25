@@ -29,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.generateByDateString() + ")" + " " + this.getTags();
+        return "[D]" + super.toString() + " (by: " + this.generateByDateString() + ")";
     }
 
     /**
@@ -41,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toTaskSaveString() {
-        return "D|" + this.getStatusInt() + "|" + this.description + "|" + this.generateBySaveString();
+        return "D|" + this.getStatusInt() + "|" + this.description + "|" + this.generateBySaveString() + "|" + this.getTags();
     }
 
     /**

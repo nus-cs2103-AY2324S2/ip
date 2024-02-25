@@ -38,7 +38,7 @@ public class Task {
      * @return Task as a string formatted for saving to file.
      */
     public String toTaskSaveString() {
-        return this.getStatusInt() + "|" + this.description;
+        return this.getStatusInt() + "|" + this.description + "|" + this.getTags();
     }
 
     /**

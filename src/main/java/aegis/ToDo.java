@@ -34,6 +34,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toTaskSaveString() {
-        return "T|" + this.getStatusInt() + "|" + this.description;
+        return "T|" + this.getStatusInt() + "|" + this.description + "|" + this.getTags();
     }
 }

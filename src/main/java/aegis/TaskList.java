@@ -134,26 +134,44 @@ public class TaskList {
         String identifier = taskArgs[0];
         assert identifier.length() == 1 : "Identifier for task should only be a single character";
         Task reconstructedTask = null;
+        String tags = "";
 
         switch (identifier) {
         case "T":
             reconstructedTask = new ToDo(taskArgs[2]);
+            if (taskArgs.length == 4) {
+                tags = taskArgs[3];
+            }
             break;
         case "D":
             reconstructedTask = new Deadline(taskArgs[2], taskArgs[3]);
+            if (taskArgs.length == 5) {
+                tags = taskArgs[4];
+            }
             break;
         case "E":
             reconstructedTask = new Event(taskArgs[2], taskArgs[3], taskArgs[4]);
+            if (taskArgs.length == 6) {
+                tags = taskArgs[5];
+            }
             break;
         default:
             System.out.println("Unable to reconstruct task.");
             break;
         }
 
-        Boolean isDone = taskArgs[1].equals("1");
+        boolean isDone = taskArgs[1].equals("1");
         if (isDone) {
             assert reconstructedTask != null : "reconstructed task should not be null";
             reconstructedTask.setDone();
+        }
+
+        if (!tags.isEmpty()) {
+            tags = tags.substring(1);
+            String[] tagSplit = tags.split("#");
+            for (String tag : tagSplit) {
+                reconstructedTask.addTag("#" + tag);
+            }
         }
 
         return reconstructedTask;

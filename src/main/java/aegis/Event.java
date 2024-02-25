@@ -33,7 +33,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +this.generateStartDateString() + " to: "
-                + this.generateEndDateString() + ")" + " " + this.getTags();
+                + this.generateEndDateString() + ")";
     }
 
     /**
@@ -46,7 +46,7 @@ public class Event extends Task {
     @Override
     public String toTaskSaveString() {
         return "E|" + this.getStatusInt() + "|" + this.description + "|" + this.generateStartSaveString()
-                + "|" + this.generateEndSaveString();
+                + "|" + this.generateEndSaveString() + "|" + this.getTags();
     }
 
     /**
