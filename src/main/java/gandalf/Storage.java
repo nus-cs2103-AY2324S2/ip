@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * in readable format
  */
 public class Storage {
-    String filePathMeta;
-    String filePathRead;
+    private String filePathMeta;
+    private String filePathRead;
 
     public Storage(String filePathMeta, String filePathRead) {
         this.filePathMeta = filePathMeta;
@@ -20,11 +20,10 @@ public class Storage {
     }
 
     public ArrayList<Task> load() throws GandalfException {
-        ArrayList<Task> data = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
+        ArrayList<Task> data = new ArrayList<>(100);
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
             data = (ArrayList<Task>) ois.readObject();
-        }
-        catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             try {
                 // Create directory if it doesn't exist
                 Path dirPath = Paths.get(this.filePathMeta).getParent();
@@ -39,8 +38,7 @@ public class Storage {
             } catch (IOException ex) {
                 throw new GandalfException("Error creating file: " + ex.getMessage());
             }
-        }
-        catch(IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new GandalfException("Error with IO or class");
         }
         return data;
@@ -59,7 +57,8 @@ public class Storage {
             }
 
             // Write object to file
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePathMeta, false))) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(
+                                                new FileOutputStream(this.filePathMeta, false))) {
                 oos.writeObject(arrayList);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,8 +88,7 @@ public class Storage {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
