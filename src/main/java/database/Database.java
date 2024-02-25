@@ -42,12 +42,10 @@ public class Database {
     /**
      * Executes a SQL statement.
      *
-     * @param sql
-     *            the SQL statement to execute
+     * @param sql the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
      *         query.
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected ResultSet execute(String sql) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -58,14 +56,11 @@ public class Database {
     /**
      * Executes a SQL statement.
      *
-     * @param sql
-     *            the SQL statement to execute
-     * @param values
-     *            the values to be set in the statement
+     * @param sql the SQL statement to execute
+     * @param values the values to be set in the statement
      * @return a ResultSet object that contains the data produced by the given
      *         query.
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected ResultSet execute(String sql, String... values) throws SQLException {
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -79,12 +74,10 @@ public class Database {
     /**
      * Executes a SQL insert statement.
      *
-     * @param sql
-     *            the SQL statement to execute
+     * @param sql the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
      *         query.
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected ResultSet insert(String sql) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -95,14 +88,11 @@ public class Database {
     /**
      * Executes a SQL insert statement.
      *
-     * @param sql
-     *            the SQL statement to execute
-     * @param values
-     *            the values to be set in the statement
+     * @param sql the SQL statement to execute
+     * @param values the values to be set in the statement
      * @return a ResultSet object that contains the data produced by the given
      *         query.
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected ResultSet insert(String sql, String... values) throws SQLException {
         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -116,8 +106,7 @@ public class Database {
     /**
      * Executes a SQL select statement.
      *
-     * @param sql
-     *            the SQL statement to execute
+     * @param sql the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
      *         query.
      * @throws SQLException
@@ -132,14 +121,11 @@ public class Database {
     /**
      * Executes a SQL select statement.
      *
-     * @param sql
-     *            the SQL statement to execute
-     * @param values
-     *            the values to be set in the statement
+     * @param sql the SQL statement to execute
+     * @param values the values to be set in the statement
      * @return a ResultSet object that contains the data produced by the given
      *         query.
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected ResultSet select(String sql, String... values) throws SQLException {
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -154,8 +140,7 @@ public class Database {
      * Migrates the database with the necessary tables, if they don't exist.
      * This method should be called after connecting to the database.
      *
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public void autoMigrate() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS tasks ("

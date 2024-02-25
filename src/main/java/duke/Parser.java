@@ -12,10 +12,8 @@ public class Parser {
     /**
      * Constructs a parser to parse the inputs from the user.
      *
-     * @param input
-     *            the input from the user
-     * @throws BadInputException
-     *             if the input is empty
+     * @param input the input from the user
+     * @throws BadInputException if the input is empty
      */
     public Parser(String input) throws BadInputException {
         String[] inputParts = input.split(" ", 2);
@@ -34,8 +32,7 @@ public class Parser {
      * Parses the command from the inputs.
      *
      * @return command word.
-     * @throws BadInputException
-     *             if the command is not specified
+     * @throws BadInputException if the command is not specified
      */
     public String parseCommand() {
         return this.command;
@@ -54,9 +51,8 @@ public class Parser {
      * Parses the task number from the inputs.
      *
      * @return task number
-     * @throws BadInputException
-     *             if the task number is not specified, not an
-     *             integer, or out of range
+     * @throws BadInputException if the task number is not specified, not an
+     *      integer, or out of range
      */
     public int parseTaskID() throws BadInputException {
         if (this.arguments == null || arguments.isEmpty()) {
@@ -82,9 +78,8 @@ public class Parser {
      * Parses the date from provided string.
      *
      * @return date
-     * @throws BadInputException
-     *             if the date is not specified or not in the
-     *             correct format
+     * @throws BadInputException if the date is not specified or not in the
+     *      correct format
      */
     public static java.time.LocalDate parseDate(String dateString) throws BadInputException {
         try {

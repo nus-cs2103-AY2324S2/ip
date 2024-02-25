@@ -18,11 +18,9 @@ public class TaskOrm extends Database {
     /**
      * Creates a new todo.
      *
-     * @param description
-     *            the description of the todo
+     * @param description the description of the todo
      * @return the newly created todo
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public Task createTodo(String description) throws SQLException {
         assert description != null : "description should not be null";
@@ -38,13 +36,10 @@ public class TaskOrm extends Database {
     /**
      * Creates a new deadline.
      *
-     * @param description
-     *            the description of the deadline
-     * @param deadline
-     *            the deadline of the deadline
+     * @param description the description of the deadline
+     * @param deadline the deadline of the deadline
      * @return the newly created deadline
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public Task createDeadline(String description, LocalDate deadline) throws SQLException {
         assert description != null : "description should not be null";
@@ -61,15 +56,11 @@ public class TaskOrm extends Database {
     /**
      * Creates a new event.
      *
-     * @param description
-     *            the description of the event
-     * @param startDate
-     *            the start date of the event
-     * @param endDate
-     *            the end date of the event
+     * @param description the description of the event
+     * @param startDate the start date of the event
+     * @param endDate the end date of the event
      * @return the newly created event
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public Task createEvent(String description, LocalDate startDate, LocalDate endDate)
             throws SQLException {
@@ -88,10 +79,8 @@ public class TaskOrm extends Database {
     /**
      * Marks the task as done.
      *
-     * @param taskID
-     *            the index of the task to be marked as done
-     * @throws SQLException
-     *             if a database error occurs
+     * @param taskID the index of the task to be marked as done
+     * @throws SQLException if a database error occurs
      */
     public void mark(int taskID) throws SQLException {
         this.ensureExists(taskID);
@@ -102,10 +91,8 @@ public class TaskOrm extends Database {
     /**
      * Unmarks the task as done.
      *
-     * @param taskID
-     *            the index of the task to be unmarked as done
-     * @throws SQLException
-     *             if a database error occurs
+     * @param taskID the index of the task to be unmarked as done
+     * @throws SQLException if a database error occurs
      */
     public void unmark(int taskID) throws SQLException {
         this.ensureExists(taskID);
@@ -116,11 +103,9 @@ public class TaskOrm extends Database {
     /**
      * Deletes the task.
      *
-     * @param taskID
-     *            the index of the task to be deleted
+     * @param taskID the index of the task to be deleted
      * @return the deleted task
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public Task delete(int taskID) throws SQLException {
         this.ensureExists(taskID);
@@ -136,11 +121,9 @@ public class TaskOrm extends Database {
     /**
      * Gets the task.
      *
-     * @param taskID
-     *            the index of the task to be retrieved
+     * @param taskID the index of the task to be retrieved
      * @return the task
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public Task get(int taskID) throws SQLException {
         assert taskID > 0 : "taskID should be greater than 0";
@@ -159,8 +142,7 @@ public class TaskOrm extends Database {
      * Gets the number of tasks.
      *
      * @return the number of tasks
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public int count() throws SQLException {
         String sql = "SELECT COUNT(*) FROM tasks";
@@ -172,8 +154,7 @@ public class TaskOrm extends Database {
      * Gets a list of all tasks in the database.
      *
      * @return a list of all tasks in the database
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public ArrayList<Task> list() throws SQLException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -190,11 +171,9 @@ public class TaskOrm extends Database {
     /**
      * Gets a list of all tasks in the database that match the keyword.
      *
-     * @param keyword
-     *            the keyword to match
+     * @param keyword the keyword to match
      * @return a list of all tasks in the database that match the keyword
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public ArrayList<Task> list(String keyword) throws SQLException {
         assert keyword != null : "keyword should not be null";
@@ -212,11 +191,9 @@ public class TaskOrm extends Database {
 
     /**
      * Checks if the task is done.
-     * @param taskID
-     *            the index of the task to be checked
+     * @param taskID the index of the task to be checked
      * @return true if the task is done, false otherwise
-     * @throws SQLException
-     *             if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     public boolean isTaskDone(int taskID) throws SQLException {
         assert taskID > 0 : "taskID should be greater than 0";
