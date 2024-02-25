@@ -28,10 +28,10 @@ public class ListTasksProcessor extends Processor {
         assert taskList != null : "Task list should not be null";
 
         if (taskList.size() == 0) {
-            System.out.println(chatbotUi.dividerWrapper("Your list is empty"));
+            System.out.println(chatbotUi.dividerWrapper("Your list is empty like my closet."));
         } else {
             System.out.println(chatbotUi.dividerWrapper(
-                    "Here are the tasks in your list: \n" + storage.generateTasks()));
+                    "Here are the tasksies in your list: \n" + storage.generateTasks()));
         }
     }
 

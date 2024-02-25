@@ -25,7 +25,10 @@ public class SortTaskProcessor extends Processor {
     public void processCommand(String userInput) {
         String[] parts = userInput.split(" ");
         if (parts.length != 2) {
-            System.out.println(chatbotUi.dividerWrapper("Please enter a valid sort command!"));
+            System.out.println(chatbotUi.dividerWrapper(
+                    "Ya better sort it properly ya like you sorted me up that time\n"
+                            + " Please enter one of 'alphabetical',"
+                            + " 'start_date', 'end_date', 'task_type', 'mark'."));
             return;
         }
         String sortTypeStr = parts[1];
@@ -49,7 +52,7 @@ public class SortTaskProcessor extends Processor {
         default:
             System.out.println("Invalid sort type."
                     + " Please enter one of 'alphabetical',"
-                    + " 'start_date', 'end_date', 'task_type'.");
+                    + " 'start_date', 'end_date', 'task_type', 'mark.");
             return;
         }
         taskList.sortTaskList(sortType);

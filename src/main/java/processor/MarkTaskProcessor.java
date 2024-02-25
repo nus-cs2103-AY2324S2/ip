@@ -39,9 +39,10 @@ public class MarkTaskProcessor extends Processor {
                     chatbotUi.mark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             storage.writeToFile(taskList);
         } catch (NumberFormatException e) {
-            System.out.println(chatbotUi.dividerWrapper("You must use a number to mark."));
+            System.out.println(chatbotUi.dividerWrapper(
+                    "You must use a number to mark like you marked all over me yesterday."));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List."));
+            System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List dear."));
         } catch (IOException e) {
             System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
         }

@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import ui.Ui;
 
 /**
@@ -30,8 +29,12 @@ public class MainWindow extends AnchorPane {
 
     private Stage stage;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/1520228936541.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/1520228936541.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream(
+            "/images/gay-robot-duke-nukem-forever-0.jpeg"));
 
+    /**
+     * Initialize the chatbot starting with the greeting.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

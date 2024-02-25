@@ -29,7 +29,7 @@ public class FindTaskProcessor extends Processor {
         String keyword = array[1];
         if (taskList.findTask(keyword).equals("")) {
             System.out.println(chatbotUi.dividerWrapper(
-                    "No matching tasks in your list."));
+                    "Oh dearie, it looks like there's no match in our fabulous task list! Keep searching, darling!"));
             return;
         }
         System.out.println(chatbotUi.dividerWrapper(

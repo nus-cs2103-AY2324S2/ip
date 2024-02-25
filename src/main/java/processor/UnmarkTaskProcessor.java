@@ -34,9 +34,9 @@ public class UnmarkTaskProcessor extends Processor {
                     chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             storage.writeToFile(taskList);
         } catch (NumberFormatException e) {
-            System.out.println(chatbotUi.dividerWrapper("You must use a number to unmark."));
+            System.out.println(chatbotUi.dividerWrapper("You've got to use a number to unmark a task, honey!"));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List."));
+            System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List ya."));
         } catch (IOException e) {
             System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
         }

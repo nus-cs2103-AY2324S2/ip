@@ -40,17 +40,19 @@ public class DeleteTaskProcessor extends Processor {
             taskList.deleteAtIndex(number - 1);
 
             assert previousSize == taskList.size() + 1 : "Task list size should have decreased";
-            System.out.println(chatbotUi.dividerWrapper("Noted. I've removed this task:\n"
+            System.out.println(chatbotUi.dividerWrapper("Noted. I've destroyed this task like you've dethtroyed my...:\n"
                     + temp + "\nNow you have " + taskList.size() + " tasks in the list"));
             storage.writeToFile(taskList);
         } catch (NumberFormatException e) {
             System.out.println(chatbotUi.dividerWrapper("You must use a number to delete successfully."));
         } catch (IndexOutOfBoundsException e) {
             if (taskList.size() == 0) {
-                System.out.println(chatbotUi.dividerWrapper("Can not delete, task list is empty!"));
+                System.out.println(chatbotUi.dividerWrapper(
+                        "Oh dear, darling! It seems our task list is as empty as my closet!"
+                                + " Can't delete non-existent tasks, sweetie!"));
             } else {
                 System.out.println(chatbotUi.dividerWrapper(
-                        "You must select a number within the scope of the task list"));
+                        "Keep the numba within the scope of the task list, sweetie!"));
             }
         } catch (IOException e) {
             System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));

@@ -35,7 +35,7 @@ public class AddTaskProcessor extends Processor {
      */
     public void processCommand(String userInput) throws IOException {
         String[] componentsSplitBySpace = userInput.split(" ", 2);
-        assert componentsSplitBySpace.length > 0 : "User input should have at least one word";
+        assert componentsSplitBySpace.length > 0 : "User input should have at least one word ya silly goose!";
         int previousSize = taskList.size();
 
         if (componentsSplitBySpace[0].isEmpty()) {
@@ -48,12 +48,14 @@ public class AddTaskProcessor extends Processor {
         List<String> validCommands = Arrays.asList("todo", "deadline", "event");
 
         if (!validCommands.stream().anyMatch(command::equals)) {
-            System.out.println(chatbotUi.dividerWrapper("Invalid command. Please enter a valid command."));
+            System.out.println(chatbotUi.dividerWrapper(
+                    "Ack! That command doesn't compute. Please input a valid directive, darling."));
             return;
         }
 
         if (componentsSplitBySpace.length == 1) {
-            System.out.println(chatbotUi.dividerWrapper("Description of task can't be blank!"));
+            System.out.println(chatbotUi.dividerWrapper(
+                    "Oopsie daisy! The task description cannot be left blank, thweetie!"));
             return;
         }
         String todoDescription = componentsSplitBySpace[1].trim();
