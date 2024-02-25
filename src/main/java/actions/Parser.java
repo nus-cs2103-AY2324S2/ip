@@ -9,6 +9,7 @@ import task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
         private final String input;
@@ -47,6 +48,9 @@ public class Parser {
                                 break;
                         case "event" :
                                 handleEventCommand(tasklist, ui, parts);
+                                break;
+                        case "find" :
+                                handleFindCommand(tasklist, ui, parts);
                                 break;
                         default:
                                 ui.printInputError();
@@ -164,6 +168,16 @@ public class Parser {
                 } catch (Exception e){
                         throw new DukeException("Please make sure your date and time are formatted as 'd/M/yyyy HHmm'.");
                 }
+        }
+
+        public void handleFindCommand(TaskList taskList, Ui ui, String[] parts) {
+                if(parts.length < 2 ) {
+                        ui.printError("Oops what keyword are you searching for?");
+                } else {
+                        List<Task> findTasks = taskList.find(parts[1]);
+                        ui.printFindList(findTasks);
+                }
+
         }
 
 }

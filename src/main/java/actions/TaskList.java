@@ -3,6 +3,8 @@ package actions;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
@@ -36,6 +38,12 @@ public class TaskList {
 
     public void unmarkTask(Task task) {
         task.unmark();
+    }
+
+    public List<Task> find(String input) {
+        return this.tasks.stream()
+                .filter(task-> task.toString().toLowerCase().contains(input.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 
