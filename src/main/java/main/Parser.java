@@ -59,7 +59,6 @@ public class Parser {
                 return find(splitStr);
             default:
                 return "huh? what did you say?";
-
             }
         }catch (ArrayIndexOutOfBoundsException E1){
             return "No input found after action";

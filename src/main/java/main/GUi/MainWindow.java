@@ -33,7 +33,7 @@ public class MainWindow extends VBox {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         setPoe(new Poe());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(poe.welcome(),dukeImage)
+                DialogBox.getPoeDialog(poe.welcome(),dukeImage)
         );
     }
 
@@ -51,7 +51,7 @@ public class MainWindow extends VBox {
         String response = poe.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getPoeDialog(response, dukeImage)
         );
         userInput.clear();
     }

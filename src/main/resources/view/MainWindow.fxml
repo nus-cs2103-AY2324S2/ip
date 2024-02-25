@@ -6,9 +6,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox spacing="5" style="-fx-background-color: #211951;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GUi.MainWindow">
+<VBox spacing="5" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GUi.MainWindow">
    <children>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="700.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
          <content>
@@ -21,7 +21,10 @@
       </ScrollPane>
       <HBox spacing="5">
          <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="47.0" promptText="enter message..." style="-fx-background-color: #F3F3FF;" HBox.hgrow="ALWAYS" />
-         <Button fx:id="sendButton" minHeight="47.0" minWidth="52.0" mnemonicParsing="false" onAction="#handleUserInput" style="-fx-background-color: #15F5BA;" text="Send" />
+         <Button fx:id="sendButton" minHeight="47.0" minWidth="52.0" mnemonicParsing="false" onAction="#handleUserInput" style="-fx-background-color: #B87A1B;" text="Send">
+            <font>
+               <Font name="Verdana Bold" size="22.0" />
+            </font></Button>
       </HBox>
    </children>
    <padding>

@@ -4,20 +4,10 @@ import java.io.IOException;
 
 public class Poe {
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(Ui.greetings());
-        try {
-            String data = Storage.loadFromFile("./data.txt");
-            TaskList taskList = new TaskList(data);
-            System.out.println(taskList.printList());
-            Parser parser = new Parser(taskList);
-        } catch (Exception e) {
-            TaskList taskList = new TaskList();
-            Parser parser = new Parser(taskList);
-        }
+    public static void main(String[] args) {
     }
 
-    public String welcome(){
+    public String welcome() {
         try {
             String data = Storage.loadFromFile("./data.txt");
             TaskList taskList = new TaskList(data);
@@ -26,7 +16,7 @@ public class Poe {
             return Ui.greetings();
         }
     }
-    public String getResponse(String input){
+    public String getResponse(String input) {
         String response;
         try {
             String data = Storage.loadFromFile("./data.txt");

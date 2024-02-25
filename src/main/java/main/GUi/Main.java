@@ -29,10 +29,10 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-//            AnchorPane ap = fxmlLoader.load();
             VBox vb = fxmlLoader.load();
             Scene scene = new Scene(vb);
             stage.setScene(scene);
+            stage.setTitle("Poe");
             fxmlLoader.<MainWindow>getController().setPoe(poe);
             stage.show();
         } catch (IOException e) {
