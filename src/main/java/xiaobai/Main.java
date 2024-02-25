@@ -32,6 +32,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setXiaoBai(xiaoBai);
+            stage.setResizable(true);
             stage.show();
             stage.setTitle("XiaoBai");
         } catch (IOException e) {
