@@ -47,11 +47,12 @@ public class EventCommand extends Command {
             throw new SamException("Please provide a description");
         }
         if (from.isBlank()) {
-            throw new SamException("Missing /from");
+            throw new SamException("Missing starting time when creating event, please use /from to specify.");
         }
         if (to.isBlank()) {
-            throw new SamException("Missing /to");
+            throw new SamException("Missing end time when creating event, please use /to to specify.");
         }
+
         this.description = description;
         this.from = from;
         this.to = to;

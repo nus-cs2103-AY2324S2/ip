@@ -16,6 +16,7 @@ public class UnknownCommand extends Command {
                 + "if you want to add task, please use todo, deadline or event\n"
                 + "if you want to mark or unmark task, please use mark or unmark\n"
                 + "if you want delete a task, please use delete\n"
-                + "if you want to view the existing task list, please enter list.");
+                + "if you want to view the existing task list, please enter list\n"
+                + "if you want to find a task, please enter task.");
     }
 }

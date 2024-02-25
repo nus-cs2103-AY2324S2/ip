@@ -1,6 +1,5 @@
 package sam;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sam.task.Task;
