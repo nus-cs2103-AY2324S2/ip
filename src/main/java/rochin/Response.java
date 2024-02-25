@@ -102,9 +102,9 @@ public class Response extends Ui {
      * @param tasks The updated list of tasks.
      */
     @Override
-    public void showTaskDeletedMessage(List<Task> tasks) {
-        this.string.append("Noted. I've removed this task:\n");
-        this.string.append(tasks.get(tasks.size() - 1));
+    public void showTaskDeletedMessage(List<Task> tasks, int index) {
+        this.string.append("Noted. I've removed this task.\n");
+        // this.string.append(tasks.get(index - 1));
         this.string.append("\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -114,8 +114,9 @@ public class Response extends Ui {
      * @param tasks The updated list of tasks.
      */
     @Override
-    public void showTaskMarkedAsDoneMessage(List<Task> tasks) {
+    public void showTaskMarkedAsDoneMessage(List<Task> tasks, String input) {
         this.string.append("Nice! I've marked this task as done:\n");
+        this.string.append(tasks.get(CommandProcessor.getTaskIndex(input) - 1));
     }
 
     /**
@@ -124,8 +125,9 @@ public class Response extends Ui {
      * @param tasks The updated list of tasks.
      */
     @Override
-    public void showTaskUnmarkedAsDoneMessage(List<Task> tasks) {
+    public void showTaskUnmarkedAsDoneMessage(List<Task> tasks, String input) {
         this.string.append("OK, I've marked this task as not done yet:\n");
+        this.string.append(tasks.get(CommandProcessor.getTaskIndex(input) - 1));
     }
 
     @Override

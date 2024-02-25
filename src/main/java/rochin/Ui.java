@@ -102,10 +102,10 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskDeletedMessage(List<Task> tasks) {
+    public void showTaskDeletedMessage(List<Task> tasks, int index) {
         System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Noted. I've removed this task.");
+        // System.out.println(tasks.get(index - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
@@ -115,10 +115,10 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskMarkedAsDoneMessage(List<Task> tasks) {
+    public void showTaskMarkedAsDoneMessage(List<Task> tasks, String input) {
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println(tasks.get(CommandProcessor.getTaskIndex(input) - 1));
         System.out.println("____________________________________________________________");
     }
 
@@ -127,10 +127,10 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskUnmarkedAsDoneMessage(List<Task> tasks) {
+    public void showTaskUnmarkedAsDoneMessage(List<Task> tasks, String input) {
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println(tasks.get(CommandProcessor.getTaskIndex(input) - 1));
         System.out.println("____________________________________________________________");
     }
 
