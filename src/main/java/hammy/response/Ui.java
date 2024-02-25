@@ -32,6 +32,20 @@ public class Ui {
             "I don't know what time it is, but you probably need some rest now."
     };
 
+    private static final String[] tips = {
+            "Enter \"help\" to check all available commands.",
+            "The date format while adding tasks is YYYY-MM-DD (e.g. 2023-01-01).",
+            "Description for deadline and event tasks is optional.",
+            "\"List\" command can be abbreviated as \"/ls\"",
+            "\"Bye\" or \"Exit\" commands do not automatically save your tasks.",
+            "List only incomplete tasks by entering \"list undone\".",
+            "List only completed tasks by entering \"list done\".",
+            "List all tasks alphabetically using abbreviated command \"list a\".",
+            "Enter \"Save\" command to save your tasks.",
+            "\"List top done\" command is same as \"List done top\".",
+            "\"List top undone\" command is same as \"List undone top\"."
+    };
+
     /**
      * Constructs a Ui object with the specified bot name.
      *
@@ -61,6 +75,12 @@ public class Ui {
         Random random = new Random();
         int index = random.nextInt(hammyMessages.length);
         return hammyMessages[index];
+    }
+
+    public String getRandomTip() {
+        Random random = new Random();
+        int index = random.nextInt(tips.length);
+        return tips[index];
     }
 
     public String savedTasks() {
@@ -352,6 +372,9 @@ public class Ui {
                 "\n" +
                 "\n" + "save" +
                 "\n" + "--> save the tasks locally (IMPORTANT!)" +
+                "\n" +
+                "\n" + "tip" +
+                "\n" + "--> Get a random tip." +
                 "\n" +
                 "\n" + "hi" +
                 "\n" + "--> I will say Hiii to you." +

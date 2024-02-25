@@ -69,6 +69,8 @@ public class Parser {
         case "save":
             this.storage.saveTasksToFile(taskList.getTasks());
             return response.savedTasks();
+        case "tip":
+            return response.getRandomTip();
         case "list":
         case "/ls":
             ArrayList<Task> tasks = taskList.getTasks();
