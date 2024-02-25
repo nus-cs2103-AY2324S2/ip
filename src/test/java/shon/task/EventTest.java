@@ -45,7 +45,7 @@ public class EventTest {
     }
 
     @Test
-    public void constructor_invalidDateTime_exceptionThrown() {
+    public void constructor_invalidDateTimeFormat_exceptionThrown() {
         try {
             assertEquals(new Event("", "06/02/2024 0000", "06/02/2024 0100", false),
                     new Event("Project Meeting", "06/02/2024 0000", "b", false));
@@ -64,6 +64,15 @@ public class EventTest {
             assertEquals("Text '06/13/2024/0000' could not be parsed at index 10", e.getMessage());
         } catch (ParameterException e) {
             fail("Test is written wrongly. From datetime should be before to datetime");
+        }
+    }
+
+    @Test
+    public void constructor_fromAfterTo_exceptionThrown() {
+        try {
+            new Event("", "06/12/2024 0000", "06/12/2024 0000", false);
+        } catch (ParameterException e) {
+            assertEquals("From datetime of Event cannot be later or same as the To datetime.", e.getMessage());
         }
     }
 }
