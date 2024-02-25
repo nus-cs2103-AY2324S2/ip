@@ -1,6 +1,5 @@
 package paimon.util;
 
-import java.util.Scanner;
 
 import paimon.ChatException;
 import paimon.task.TaskList;

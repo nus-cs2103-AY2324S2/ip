@@ -1,7 +1,6 @@
 package paimon;
 
 import paimon.command.Command;
-import paimon.task.Task;
 import paimon.task.TaskList;
 import paimon.util.CommandParser;
 import paimon.util.FileHandler;

@@ -18,7 +18,6 @@ import paimon.command.TodoCommand;
 import paimon.command.UnmarkCommand;
 
 
-
 /**
  * Parses user input into specific commands for the application to execute.
  * This class takes the user input, determines the type of command it represents,
@@ -72,80 +71,67 @@ public class CommandParser {
         case "help":
             return new HelpCommand();
         case "todo":
-            String todoRegex = "^(\\w+)(\\s)(.+)";
-            Pattern todoPattern = Pattern.compile(todoRegex);
-            Matcher todoMatcher = todoPattern.matcher(input);
-            if (todoMatcher.find()) {
-                String description = todoMatcher.group(3);
-                return new TodoCommand(description);
-            } else {
-                throw new ChatException("Input does not match expected format: todo <task>");
-            }
+            return parseTodoCommand();
         case "deadline":
-            String deadlineRegex = "^(\\w+) (.+?)\\/by (.+)$";
-            Pattern deadlinePattern = Pattern.compile(deadlineRegex);
-            Matcher deadlineMatcher = deadlinePattern.matcher(input);
-            if (deadlineMatcher.find()) {
-                String description = deadlineMatcher.group(2);
-                String toTime = deadlineMatcher.group(3);
-                return new DeadlineCommand(description, toTime);
-            } else {
-                throw new ChatException("Input does not match expected format: deadline <task> /by <time>");
-            }
+            return parseDeadlineCommand();
         case "event":
-            String eventRegex = "^(\\w+) (.+?) \\/from (.+?) \\/to (.+)$";
-            Pattern eventPattern = Pattern.compile(eventRegex);
-            Matcher eventMatcher = eventPattern.matcher(input);
-            if (eventMatcher.find()) {
-                String description = eventMatcher.group(2);
-                String fromTime = eventMatcher.group(3);
-                String toTime = eventMatcher.group(4);
-                return new EventCommand(description, fromTime, toTime);
-            } else {
-                throw new ChatException("Input does not match expected format: event <task> /from <time> /to <time>");
-            }
+            return parseEventCommand();
         case "mark":
-            String markRegex = "^(\\w+) (\\d+)";
-            Pattern markPattern = Pattern.compile(markRegex);
-            Matcher markMatcher = markPattern.matcher(input);
-            if (markMatcher.find()) {
-                String number = markMatcher.group(2);
-                return new MarkCommand(number);
-            } else {
-                throw new ChatException("Input does not match expected format: mark <number>");
-            }
+            return parseMarkCommand();
         case "unmark":
-            String unmarkRegex = "^(\\w+) (\\d+)";
-            Pattern unmarkPattern = Pattern.compile(unmarkRegex);
-            Matcher unmarkMatcher = unmarkPattern.matcher(input);
-            if (unmarkMatcher.find()) {
-                String number = unmarkMatcher.group(2);
-                return new UnmarkCommand(number);
-            } else {
-                throw new ChatException("Input does not match expected format: unmark <number>");
-            }
+            return parseUnmarkCommand();
         case "delete":
-            String deleteRegex = "^(\\w+) (\\d+)";
-            Pattern deletePattern = Pattern.compile(deleteRegex);
-            Matcher deleteMatcher = deletePattern.matcher(input);
-            if (deleteMatcher.find()) {
-                String number = deleteMatcher.group(2);
-                return new DeleteCommand(number);
-            } else {
-                throw new ChatException("Input does not match expected format: delete <number>");
-            }
+            return parseDeleteCommand();
         case "find":
-            String findRegex = "^(\\w+)(\\s)(.+)";
-            Pattern findPattern = Pattern.compile(findRegex);
-            Matcher findMatcher = findPattern.matcher(input);
-            if (findMatcher.find()) {
-                String keyword = findMatcher.group(3);
-                return new FindCommand(keyword);
-            } else {
-                throw new ChatException("Input does not match expected format: find <keyword>");
-            }
+            return parseFindCommand();
         default:
             throw new ChatException("Command not found, type help for a list of commands");
         }
     }
+
+    private Command parseTodoCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+)(\\s)(.+)", input, "todo <task>");
+        return new TodoCommand(matcher.group(3));
+    }
+
+    private Command parseDeadlineCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (.+?)\\/by (.+)$", input, "deadline <task> /by <time>");
+        return new DeadlineCommand(matcher.group(2), matcher.group(3));
+    }
+
+    private Command parseEventCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (.+?) \\/from (.+?) \\/to (.+)$",
+                input, "event <task> /from <time> /to <time>");
+        return new EventCommand(matcher.group(2), matcher.group(3), matcher.group(4));
+    }
+
+    private Command parseMarkCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (\\d+)", input, "mark <number>");
+        return new MarkCommand(matcher.group(2));
+    }
+
+    private Command parseUnmarkCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (\\d+)", input, "unmark <number>");
+        return new UnmarkCommand(matcher.group(2));
+    }
+
+    private Command parseDeleteCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (\\d+)", input, "delete <number>");
+        return new DeleteCommand(matcher.group(2));
+    }
+
+    private Command parseFindCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+)(\\s)(.+)", input, "find <keyword>");
+        return new FindCommand(matcher.group(3));
+    }
+
+    private Matcher matchCommand(String regex, String input, String exceptionString) throws ChatException {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (!matcher.find()) {
+            throw new ChatException("Input does not match expected format: " + exceptionString);
+        }
+        return matcher;
+    }
+
 }
