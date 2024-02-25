@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,17 +33,21 @@ public class Storage {
      *
      * @return A taskList stored in data file.
      */
-    public ArrayList<Task> loadData()
-            throws FileNotFoundException, WrongTaskDataException {
+    public ArrayList<Task> loadData() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>(100);
-
-        // Scans stored data.
-        File data = new File(this.filePath);
-        Scanner s = new Scanner(data);
-        while (s.hasNext()) {
-            tasks.add(getTasksFromData(s.nextLine()));
+        try {
+            // Scans stored data.
+            File data = new File(this.filePath);
+            Scanner s = new Scanner(data);
+            while (s.hasNext()) {
+                tasks.add(getTasksFromData(s.nextLine()));
+            }
+            s.close();
+        } catch (WrongTaskDataException | FileNotFoundException e) {
+            Path path = Paths.get(filePath);
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
         }
-        s.close();
         return tasks;
     }
 

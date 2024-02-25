@@ -1,6 +1,5 @@
 package missa;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import missa.command.Command;
@@ -8,7 +7,6 @@ import missa.exception.IncorrectTaskTypeException;
 import missa.exception.NoContentException;
 import missa.exception.NoSuchTaskException;
 import missa.exception.NoTimingException;
-import missa.exception.WrongTaskDataException;
 
 /**
  * A chatbot class named as MissA.
@@ -29,7 +27,7 @@ public class MissA {
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadData());
-        } catch (WrongTaskDataException | FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println(ui.showError(e));
             tasks = new TaskList();
         }
