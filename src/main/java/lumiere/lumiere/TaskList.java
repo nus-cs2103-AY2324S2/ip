@@ -33,6 +33,15 @@ public class TaskList {
     }
 
     /**
+     * An instance method that returns the number of tasks on the list.
+     * 
+     * @return Length of task list.
+     */
+    public int listLength() {
+        return list.size();
+    }
+
+    /**
      * An instance method that executes a command input by user.
      * 
      * @param command The string that user input into the program.

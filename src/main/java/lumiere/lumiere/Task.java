@@ -102,7 +102,7 @@ public class Task {
      *         all its properties set as per the description given.
      */
     public static Task parseTask(String taskDescription) {
-        String[] info = taskDescription.split(" | ");
+        String[] info = taskDescription.split(" \\| ");
 
         if (taskDescription.startsWith("T")) {
             return createTodo(info);
@@ -116,50 +116,50 @@ public class Task {
     private static Todo createTodo(String[] info) {
         boolean isMarked;
         boolean isFun;
-        if (info[2].equals("true"))
+        if (info[1].equals("true"))
             isMarked = true;
         else
             isMarked = false;
 
-        if (info[6].equals("true"))
+        if (info[3].equals("true"))
             isFun = true;
         else
             isFun = false;
 
-        Todo task = new Todo(info[4], isMarked, isFun);
+        Todo task = new Todo(info[2], isMarked, isFun);
         return task;
     }
 
     private static Deadline createDeadline(String[] info) {
         boolean isMarked;
         boolean isFun;
-        if (info[2].equals("true"))
+        if (info[1].equals("true"))
             isMarked = true;
         else
             isMarked = false;
 
-        if (info[8].equals("true"))
+        if (info[4].equals("true"))
             isFun = true;
         else
             isFun = false;
 
-        Deadline task = new Deadline(info[4], isMarked, isFun, LocalDate.parse(info[6]), info[6]);
+        Deadline task = new Deadline(info[2], isMarked, isFun, LocalDate.parse(info[3]), info[3]);
         return task;
     }
 
     private static Event createEvent(String[] info) {
         boolean isMarked;
         boolean isFun;
-        if (info[2].equals("true"))
+        if (info[1].equals("true"))
             isMarked = true;
         else
             isMarked = false;
 
-        if (info[10].equals("true"))
+        if (info[5].equals("true"))
             isFun = true;
         else
             isFun = false;
-        Event task = new Event(info[4], isMarked, isFun, info[6], info[8]);
+        Event task = new Event(info[2], isMarked, isFun, info[3], info[4]);
         return task;
     }
 }

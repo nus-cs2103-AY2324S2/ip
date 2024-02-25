@@ -20,8 +20,12 @@ public class Lumiere {
         try {
             String response = "";
             if (input.startsWith("list")) {
-                response += "Here are the tasks in your list:\n";
-                response += tasks.printList();
+                if (tasks.listLength() > 0) {
+                    response += "Here are the tasks in your list:\n";
+                    response += tasks.printList();
+                } else {
+                    response += "You have no todos!";
+                }
             } else if (input.startsWith("bye")) {
                 response += Ui.exit();
             } else {

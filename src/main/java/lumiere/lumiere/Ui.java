@@ -20,8 +20,12 @@ public class Ui {
         while (scanner.hasNextLine()) {
             String nextTask = scanner.nextLine();
             if (nextTask.startsWith("list")) {
-                System.out.println("Here are the tasks in your list:");
-                tasks.printList();
+                if (tasks.listLength() > 0) {
+                    System.out.println("Here are the tasks in your list:");
+                    tasks.printList();
+                } else {
+                    System.out.println("You have no todos!");
+                }
             } else if (nextTask.startsWith("bye")) {
                 exit();
                 break;
