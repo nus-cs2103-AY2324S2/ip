@@ -67,7 +67,7 @@ public class TaskList {
         if (result.size() == 0) {
             return "There are no matching tasks.";
         } else {
-            return "Here are the matching tasks in your list:" + "\n" + ui.showList(result);
+            return ui.showList(result);
         }
     }
 
