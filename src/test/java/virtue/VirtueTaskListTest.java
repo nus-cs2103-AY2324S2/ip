@@ -13,10 +13,10 @@ public class VirtueTaskListTest {
 
         try {
             command = new Command("event Possible /from 2024-08-23T12:00:00 /to 2024-08-24T08:24:00");
-            taskList.executeCommand(command);
+            taskList.applyCommand(command);
             assertEquals(taskList.numTasks(), 1);
             command = new Command("delete 1");
-            taskList.executeCommand(command);
+            taskList.applyCommand(command);
             assertEquals(taskList.numTasks(), 0);
         } catch (VirtueException e) {
             fail();

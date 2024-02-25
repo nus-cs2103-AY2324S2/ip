@@ -19,6 +19,8 @@ public class Virtue {
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Adds an indention to the string.
      *
      * @param str The string to be indented.
@@ -29,6 +31,7 @@ public class Virtue {
     }
 
     /**
+>>>>>>> master
      * Greets the user.
      *
      * @return The greeting message.
@@ -69,17 +72,18 @@ public class Virtue {
         if (currentCommand.isBye()) {
             isExit = true;
             return bye();
-        } else {
-            try {
-                String message = tasks.executeCommand(currentCommand);
+        }
 
-                assert message != null : "message should not be null";
+        try {
+            tasks.applyCommand(currentCommand);
+            String message = currentCommand.getResultMessage();
 
-                storage.saveToFile(tasks);
-                return message;
-            } catch (IOException e) {
-                return indent(" OOPS! An error occurred while taking the inputs: " + e);
-            }
+            assert message != null : "message should not be null";
+
+            storage.saveToFile(tasks);
+            return message;
+        } catch (IOException e) {
+            return "OOPS! An error occurred while taking the inputs: ";
         }
     }
 }
