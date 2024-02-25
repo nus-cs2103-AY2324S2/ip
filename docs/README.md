@@ -1,30 +1,79 @@
-# Duke User Guide
+# Datuk User Guide 👴
 
-// Update the title above to match the actual product name
+![](/docs/Ui.png)
 
-// Product screenshot goes here
+Datuk is a chatbot that helps you manage your tasks.
 
-// Product intro goes here
+## Quick start
+1. Ensure you have java 11 installed on your device.
+2. Download the latest [Datuk.jar](https://github.com/breezetall/ip/releases/tag/A-Release).
+3. Double click to run and enjoy!
 
-## Adding deadlines
+## Feature todo
+Adds a todo event to your task list. <br>
+Format: 
+> todo [description]
 
-// Describe the action and its outcome.
+Example:
+> todo homework
+<br>
 
-// Give examples of usage
+## Feature deadline
+Adds a deadline event to your task list. <br>
+Format:
+> deadline [description] /by [yyyy-MM-dd]
 
-Example: `keyword (optional arguments)`
+Example:
+> deadline assignment 1 /by 2024-10-10
+<br>
 
-// A description of the expected outcome goes here
+## Feature event
+Adds an event deadline to your task list. <br>
+Format:
+> event [description] /from [start] /to [end]
 
-```
-expected output
-```
+Example:
+> event quiz 1 /from 25 feb /to 1 mar
+<br>
 
-## Feature ABC
+## Feature mark
+Marks the specified tasks in the list as completed. <br>
+Format:
+> mark [index]
 
-// Feature details
+Example:
+> mark 5
+<br>
 
+## Feature unmark
+Marks the specified task in the list as incomplete. <br>
+Format:
+> unmark [index]
 
-## Feature XYZ
+Example:
+> unmark 2
+<br>
 
-// Feature details
+## Feature delete
+Removes the specified task from the task list. <br>
+Format:
+> delete [index]
+
+Example:
+> delete 3
+<br>
+
+## Feature find
+Searches the task list for the specified keyword in each task decription and return matching tasks. <br>
+Format:
+> find [keyword]
+
+Example:
+> find homework
+<br>
+
+## Feature bye
+Exits the program. <br>
+<br>
+Example:
+> bye
