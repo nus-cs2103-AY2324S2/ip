@@ -1,17 +1,16 @@
 package processor;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
+
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * The AddTaskProcessor class represents a processor that processes the user command to add a task to the TaskList.
@@ -39,7 +38,7 @@ public class AddTaskProcessor extends Processor {
         assert componentsSplitBySpace.length > 0 : "User input should have at least one word";
         int previousSize = taskList.size();
 
-        if (componentsSplitBySpace.length == 0) {
+        if (componentsSplitBySpace[0].isEmpty()) {
             System.out.println(chatbotUi.dividerWrapper("Can not type a blank input!"));
             return;
         }
@@ -49,7 +48,7 @@ public class AddTaskProcessor extends Processor {
         List<String> validCommands = Arrays.asList("todo", "deadline", "event");
 
         if (!validCommands.stream().anyMatch(command::equals)) {
-            System.out.println(chatbotUi.dividerWrapper("I do not know what type of task that is!"));
+            System.out.println(chatbotUi.dividerWrapper("Invalid command. Please enter a valid command."));
             return;
         }
 

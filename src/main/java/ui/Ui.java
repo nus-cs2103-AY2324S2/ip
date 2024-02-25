@@ -1,15 +1,16 @@
 package ui;
 
-import parser.Parser;
-
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.IOException;
+import parser.Parser;
 
-import java.nio.charset.StandardCharsets;
-
+/**
+ * The Ui class responsible for the UI of the application.
+ */
 public class Ui {
 
     private static final String NAME = "Tartar";

@@ -1,23 +1,27 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 
+/**
+ * Class for testing main Duke file.
+ */
 public class DukeTest {
     @Test
-    public void test_dummy() {
-        assertEquals(2, 2);
-    }
+    public void testRun() throws IOException {
+        Duke duke = new Duke();
 
-//     @Test
-//     public void test_run_throws_exception() {
-//         Duke duke = new Duke();
-//         try {
-//             duke.run();
-//         } catch (Exception e) {
-//             assertEquals("java.io.IOException", e.toString());
-//         }
-//     }
+        // Simulate user input
+        String userInput = "hi\n";
+        String actualOutput = duke.run(userInput);
+
+        // Verify the output
+        String expectedOutput = "I do not know what type of task that is!";
+        assertEquals(expectedOutput, actualOutput.trim());
+    }
 }

@@ -9,7 +9,6 @@ import ui.Ui;
  * The Processor class is responsible for returning the list of tasks in the TaskList.
  */
 public class ListTasksProcessor extends Processor {
-    
     /**
      * Constructor for Processor element
      * @param taskList
@@ -30,8 +29,7 @@ public class ListTasksProcessor extends Processor {
 
         if (taskList.size() == 0) {
             System.out.println(chatbotUi.dividerWrapper("Your list is empty"));
-        }
-        else {
+        } else {
             System.out.println(chatbotUi.dividerWrapper(
                     "Here are the tasks in your list: \n" + storage.generateTasks()));
         }

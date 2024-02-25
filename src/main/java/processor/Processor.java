@@ -23,7 +23,7 @@ public abstract class Processor {
     public Processor(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
-        this.storage = new Storage("src/data/tasks.txt", taskList);
+        this.storage = new Storage("tasks.txt", taskList);
     }
 
     /**

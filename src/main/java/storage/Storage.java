@@ -13,7 +13,7 @@ import tasks.TaskList;
  * The Storage class is responsible for reading and writing tasks to the file.
  */
 public class Storage {
-    private final String filePath;
+    private String filePath;
     private TaskList taskList;
 
     /**
