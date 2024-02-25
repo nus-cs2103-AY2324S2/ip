@@ -1,11 +1,6 @@
 # Emis User Guide
-
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of a chat between Emis and a user.](Ui.png)
 
-// Product intro goes here
 Emis is a **desktop app for managing tasks** while still having the benefits of a Graphical User Interface (GUI).
 
 ## Viewing help : 'help'
@@ -75,7 +70,7 @@ Examples:
 - find feed
 
 Expected Outcomes:
-(FindTasksExample.png)
+![Screenshot of example of finding tasks.](FindTasksExample.png)
 
 
 ## Printing current tasks: 'list'
