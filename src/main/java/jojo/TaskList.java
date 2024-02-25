@@ -53,7 +53,7 @@ public class TaskList {
 
     /**
      * Adds a task to the array list.
-     * @param t Task
+     * @param Task t
      */
     public void addTask(Task t) {
         listArr.add(t);
