@@ -8,7 +8,6 @@ package GUI;
 import task.Task;
 
 public class GUIUi {
-    private final String LINE = "------------------------------------------";
 
     public GUIUi() {
     }
