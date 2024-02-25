@@ -86,7 +86,8 @@ public class TaskList {
      * @param to The to datetime of the <code>Event</code> task as a String.
      * @return An array of String showing the results of the command.
      */
-    public String[] addEvent(String description, String from, String to) throws DateTimeParseException {
+    public String[] addEvent(String description, String from, String to)
+            throws DateTimeParseException, ParameterException {
         Task task = new Event(description, from, to, false);
         return add(task);
     }
@@ -99,7 +100,7 @@ public class TaskList {
      * @param to The to datetime of the <code>Event</code> task as a String.
      * @param isDone The completion status of the <code>Event</code> task as a boolean.
      */
-    public void addEvent(String description, String from, String to, boolean isDone) {
+    public void addEvent(String description, String from, String to, boolean isDone) throws ParameterException {
         Task task = new Event(description, from, to, isDone);
         add(task);
     }

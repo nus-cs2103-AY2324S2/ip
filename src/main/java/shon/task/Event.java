@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import shon.exception.ParameterException;
+
 /**
  * Represents an event task in the <code>TaskList</code>.
  */
@@ -26,10 +28,14 @@ public class Event extends Task {
      * @param isDone The completion status of the task.
      * @throws DateTimeParseException If the given by datetime does not adhere to the format of ioFormatter.
      */
-    public Event(String description, String from, String to, boolean isDone) throws DateTimeParseException {
+    public Event(String description, String from, String to, boolean isDone)
+            throws DateTimeParseException, ParameterException {
         super(description, isDone);
         this.from = LocalDateTime.parse(from, ioFormatter);
-        this.to = LocalDateTime.parse(to, ioFormatter);;
+        this.to = LocalDateTime.parse(to, ioFormatter);
+        if (this.from.compareTo(this.to) >= 0) {
+            throw new ParameterException("From datetime of Event cannot be later or same as the To datetime.");
+        }
     }
 
     /**

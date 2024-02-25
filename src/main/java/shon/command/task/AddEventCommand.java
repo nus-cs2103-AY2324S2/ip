@@ -2,6 +2,7 @@ package shon.command.task;
 
 import java.time.format.DateTimeParseException;
 
+import shon.exception.ParameterException;
 import shon.task.TaskList;
 
 /**
@@ -31,7 +32,7 @@ public class AddEventCommand extends AddTaskCommand {
      * @throws DateTimeParseException If the given from or to datetime does not adhere to the expected parse format.
      */
     @Override
-    public String execute() throws DateTimeParseException {
+    public String execute() throws DateTimeParseException, ParameterException {
         return String.join("\n", this.tasks.addEvent(this.description, this.from, this.to));
     }
 }
