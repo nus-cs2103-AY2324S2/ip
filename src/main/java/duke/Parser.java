@@ -41,7 +41,7 @@ public class Parser {
     public enum DateSpecifiers {
         BY ("/by", "/at", "/b", "/a"),
         FROM ("/from", "/start", "/f", "/s"),
-        TO ("/to ", "/end ", "/t ", "/e ");
+        TO ("/to", "/end ", "/t ", "/e");
 
         private final String[] patterns;
         DateSpecifiers(String... patterns) {
