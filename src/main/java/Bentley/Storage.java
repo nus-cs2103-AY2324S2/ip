@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Storage {
 
     private String filePath;
+    private boolean fileIsOpen;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -21,6 +22,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.fileIsOpen = true;
     }
 
     /**
@@ -28,8 +30,17 @@ public class Storage {
      *
      * @return An ArrayList of Task objects loaded from the file.
      */
+
+    /**
+     * Checks if the file is open.
+     *
+     * @return true if the file is open, false otherwise.
+     */
+    public boolean checkFileIsOpen() {
+        return fileIsOpen;
+    }
     public ArrayList<TaskList.Task> loadTasks() {
-        ArrayList<TaskList.Task> tasks = new ArrayList<>(); // Update the type
+        ArrayList<TaskList.Task> tasks = new ArrayList<>();
 
         try {
             File file = new File(filePath);
@@ -37,16 +48,20 @@ public class Storage {
 
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
-                // Parse taskData and create TaskList.Task objects, then add them to the 'tasks'
-                // ArrayList
+
+                // Assuming TaskList.Task has a constructor
+                TaskList.Task task = new TaskList.Task(taskData);
+                tasks.add(task);
             }
             scanner.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
+            fileIsOpen = false;
         }
         return tasks;
     }
+
 
     /**
      * Writes tasks from the provided ArrayList to the file.

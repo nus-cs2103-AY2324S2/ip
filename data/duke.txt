@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-|0| T ||0| book 1
-|0| T ||1| boook
-|0| T ||0| book 4
-=======
-E [ ] project meeting | From Oct 15 2019 18:00 to Oct 15 2019 19:00
->>>>>>> branch-Level-10
+T [ ]     homework
+T [ ]    hw
+T [ ]   123
+T [ ] HW

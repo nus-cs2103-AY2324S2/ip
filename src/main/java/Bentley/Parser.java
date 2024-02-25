@@ -22,16 +22,16 @@ public class Parser {
                 storage.writeTasks(taskList.getTasks());
                 System.exit(0);
             case "list":
-                taskList.listTasks();
-                break;
-            case "done":
-                String doneResult = taskList.markAsDone(input);
+                String listResult = taskList.listTasks();
+                return listResult;
+            case "mark":
+                String markResult = taskList.markAsDone(input);
                 storage.writeTasks(taskList.getTasks());
-                return doneResult;
-            case "undone":
-                taskList.markAsUndone(input);
+                return markResult;
+            case "unmark":
+                String unmarkResult = taskList.markAsUndone(input);
                 storage.writeTasks(taskList.getTasks());
-                break;
+                return unmarkResult;
             case "delete":
                 String deleteResult = taskList.deleteTask(input);
                 storage.writeTasks(taskList.getTasks());
@@ -55,7 +55,5 @@ public class Parser {
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't understand that command.");
         }
-
-        return "Command executed successfully!";
     }
 }
