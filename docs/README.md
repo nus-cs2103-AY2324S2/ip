@@ -1,30 +1,51 @@
-# Duke User Guide
+# Brian User Guide
 
-// Update the title above to match the actual product name
+![Brian Ui](./Ui.png)
 
-// Product screenshot goes here
+Brian is your friend who will keep track of your tasks for you.
 
-// Product intro goes here
+# Features
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+## Adding Todos
+Add a todo.
 
 ```
-expected output
+todo {todo}
 ```
 
-## Feature ABC
+Brian will send a response stating how many tasks there are left in the list
 
-// Feature details
+## Adding Deadlines
+```
+deadline {deadline} /by {due_date} 
+```
+`due_date` should be in the format `dd/MM/yyyy`
+## Adding Events
+```
+deadline {event} /from {start_date} /to {end_date}
+```
+`start_date` and `end_date` should be in the format `dd/MM/yyyy`
 
+## Listing Tasks
 
-## Feature XYZ
+```
+list 
+```
 
-// Feature details
+## Deleting Tasks
+```
+delete {index}
+```
+The index can be obtained from the list command
+
+## Mark/Unmark Tasks as Done/Undone
+```
+mark {index}
+unmark {index}
+```
+
+## Find Tasks
+Find a task whose body matches the search query.
+```
+find {search_query}
+```
