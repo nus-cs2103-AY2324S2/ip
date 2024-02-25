@@ -2,6 +2,7 @@ package raphael.ui;
 
 import java.util.Scanner;
 
+import raphael.Raphael;
 import raphael.task.Task;
 import raphael.task.TaskList;
 
@@ -27,7 +28,7 @@ public class Ui {
             + "----------------"
             + "----------------";
 
-    private String savedOutput = "stub";
+    private String savedOutput = Raphael.LOGO;
     /**
      * Prints the ending line that acts as the lower border of the output.
      */
