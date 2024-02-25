@@ -1,5 +1,7 @@
 package floofy;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -21,6 +24,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Floofy floofy;
+
+    private Parser parser = new Parser();
 
     private Image flooferImage = new Image(this.getClass().getResourceAsStream("/images/Floofer.png"));
     private Image floofBossImage = new Image(this.getClass().getResourceAsStream("/images/FloofBoss.png"));
@@ -48,5 +53,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFloofyDialog(response, floofBossImage)
         );
         userInput.clear();
+
+        if (parser.isByeCommand(input)) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> System.exit(0)));
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 }
