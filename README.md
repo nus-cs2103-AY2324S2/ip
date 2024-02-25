@@ -1,4 +1,4 @@
-# # ChatterPal - A new way to manage tasks!
+# ChatterPal - A new way to manage tasks!
 
 ChatterPal is a novel application for adding, viewing and deleting tasks using the Command Line Interface (CLI)
 
