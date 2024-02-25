@@ -1,0 +1,4 @@
+[D][ ] return book (by:Dec 05 2019)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[T][ ] read book
+[T][ ] run
