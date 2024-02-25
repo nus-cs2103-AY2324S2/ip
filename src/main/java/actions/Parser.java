@@ -53,7 +53,7 @@ public class Parser {
 
 
                 }
-                return false;
+                return isExit;
         }
 
         public void handleMarkCommand(TaskList taskList, Ui ui, String[] parts) {
@@ -61,7 +61,6 @@ public class Parser {
                 Task current = taskList.getTask(num -1);
                 taskList.markTask(current);
                 ui.printMarkMessage(current);
-//                save
         }
 
         public void handleUnmarkCommand(TaskList taskList, Ui ui, String[] parts) {
@@ -69,7 +68,6 @@ public class Parser {
                 Task current = taskList.getTask(num -1);
                 taskList.unmarkTask(current);
                 ui.printUnmarkMessge(current);
-//                save
         }
 
         public void handleDeleteCommand(TaskList taskList, Ui ui, String[] parts) {
@@ -77,7 +75,6 @@ public class Parser {
                 Task current = taskList.getTask(num -1);
                 taskList.deleteTask(num-1);
                 ui.printDeleteMessage(current, taskList.getArraySize());
-//                save
         }
 
         public void handleTodoCommand(TaskList taskList, Ui ui, String[] parts) {
@@ -89,7 +86,6 @@ public class Parser {
                                Task todo = new Todo(task, false);
                                taskList.addTask(todo);
                                ui.printAddMessage(todo, taskList.getArraySize());
-//                               save
                        }
 
                } catch (DukeException e) {
