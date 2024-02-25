@@ -80,10 +80,10 @@ public class Storage {
                         prevTaskList.add(new Todo(isDone, description));
                         break;
                     case "D":
-                        prevTaskList.add(new Deadline(IS_DONE_DEFAULT, description, parts[3]));
+                        prevTaskList.add(new Deadline(isDone, description, parts[3]));
                         break;
                     case "E":
-                        prevTaskList.add(new Event(IS_DONE_DEFAULT, description, parts[3], parts[4]));
+                        prevTaskList.add(new Event(isDone, description, parts[3], parts[4]));
                         break;
                     default:
                         System.out.println("Unknown task type");
