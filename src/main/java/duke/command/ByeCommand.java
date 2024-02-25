@@ -9,6 +9,8 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) throws DukeException {
+        assert ui != null;
+        assert storage != null;
         storage.save(tasks);
         ui.showBye();
     }

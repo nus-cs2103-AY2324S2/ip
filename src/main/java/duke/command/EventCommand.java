@@ -22,6 +22,9 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert tasks != null;
+        assert ui != null;
+
         Task curr = new Event(task, from, to);
         tasks.add(curr);
         ui.showTask(curr, tasks.size());

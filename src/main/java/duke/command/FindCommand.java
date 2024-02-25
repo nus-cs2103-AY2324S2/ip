@@ -18,6 +18,9 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
+        assert tasks != null;
+        assert ui != null;
+
         if (param == "") {
             ui.foundTasks(tasks.getTasks());
             return;
