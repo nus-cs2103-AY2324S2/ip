@@ -52,6 +52,13 @@ public class TaskList {
     }
 
     /**
+     * Removes all the task from the TaskList.
+     */
+    public void clear() {
+        this.tasks.clear();
+    }
+
+    /**
      * Retrieves the task at the specified index from the TaskList.
      *
      * @param index The index of the task to be retrieved.

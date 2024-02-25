@@ -1,14 +1,8 @@
 package command;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import roland.Storage;
 import roland.TaskList;
 import roland.Ui;
-import task.Task;
 
 
 /**
@@ -32,7 +26,7 @@ public class ExitCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.serializeArrayList(tasks.getList(), storage.getFilePath());
-        return ("Bye. Hope to see you again soon!");
+        return ("Sayonara!");
 
     }
 

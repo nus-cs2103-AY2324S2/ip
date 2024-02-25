@@ -21,6 +21,7 @@ public class Task implements Serializable {
      */
     public Task(String description) {
         this.description = description;
+        this.notes = "none";
         this.isDone = false;
     }
 
@@ -72,7 +73,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "] " + this.getDescription() + " Note: " + this.notes;
     }
 
     /**

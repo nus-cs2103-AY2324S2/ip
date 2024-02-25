@@ -23,6 +23,9 @@ public class ListCommand extends Command {
      * @param storage The storage path to store persistent data.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (tasks.size() == 0) {
+            return "Your task list is empty. Add one now!";
+        }
         String result = ("Here are your tasks: \n");
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task task = tasks.get(i - 1);

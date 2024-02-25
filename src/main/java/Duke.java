@@ -20,7 +20,7 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage("./src/main/java/data/roland.txt");
+        storage = new Storage("roland.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (RolandException e) {
