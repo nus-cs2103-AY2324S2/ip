@@ -1,0 +1,14 @@
+a
+l
+todo borrow book
+l
+deadline return book /by Sunday
+l
+event project meeting /from Mon 2pm /to 4pm
+l
+r 2
+l
+r 0
+d testing date /by 2024-02-12
+l
+bye
