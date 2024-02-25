@@ -9,18 +9,33 @@ import util.TextUi;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * ChillChief is a task management application.
+ * Users can add, mark, unmark, delete, find, various tasks such as todos, deadlines and events.
+ */
 public class ChillChief {
 
     private Storage storage;
     private TaskList taskList;
     private TextUi ui;
 
-    public ChillChief(String filePath) throws ChillChiefException, IOException {
+    /**
+     * Constructs an instance of the ChillChief application.
+     * Initializes the TextUi, Storage and TaskList components.
+     * Displays an error is initialization of components fails.
+     *
+     * @param filePath The file path where tasks are saved and loaded from.
+     * @throws IOException If an error occurs in initialization of components.
+     */
+    public ChillChief(String filePath) throws IOException {
         ui = new TextUi();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the ChillChief application.
+     */
     public void run() {
         System.out.println(this.ui.showIntroMessage());
         boolean isExit = false;
@@ -40,7 +55,7 @@ public class ChillChief {
         }
     }
 
-    public static void main(String[] args) throws ChillChiefException, IOException {
+    public static void main(String[] args) throws IOException {
         new ChillChief("./data/chillchief.txt").run();
     }
 }
