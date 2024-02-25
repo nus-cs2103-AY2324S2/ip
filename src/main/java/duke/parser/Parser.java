@@ -56,7 +56,7 @@ public class Parser {
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
         try {
-            assert inventory.size() < 0 : "Task List should not have a negative number of tasks";
+            assert inventory.size() >= 0 : "Task List should not have a negative number of tasks";
             if (input.toLowerCase().equalsIgnoreCase("list")) {
                 return handleListCommand(input);
             } else if (input.toLowerCase().startsWith("mark")) {
@@ -108,7 +108,6 @@ public class Parser {
             8) sort
             9) find <KEYWORD>
                 """;
-            System.out.println(helpMessage);
             return helpMessage;
         }
     }
