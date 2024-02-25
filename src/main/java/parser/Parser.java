@@ -168,6 +168,9 @@ public class Parser {
                         try {
                             Task deletedTask = null;
                             int index = Integer.parseInt(brokenCommand[1]) - 1;
+                            if (index < 0) {
+                                throw new NumberFormatException();
+                            }
                             for (int i = 0; i < tasks.length; i++) {
                                 Task currentTask = tasks[i];
                                 if (currentTask == null) {
@@ -186,7 +189,7 @@ public class Parser {
                             assert deletedTask != null;
                             output = guiUi.printDeletion(deletedTask, current);
                         } catch (NumberFormatException e) {
-                            output = "OOPS!!! The input after the delete command has to be an integer.";
+                            output = "OOPS!!! The input after the delete command has to be a positive integer.";
                         } catch (ArrayIndexOutOfBoundsException e) {
                             output = "OOPS!!! The input for delete is out of bounds.";
                         }
