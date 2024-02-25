@@ -68,7 +68,6 @@ public class Duke {
                 System.exit(1);
             }
         } else {
-            // Assuming that the parse method updates the chatbotUi with the response
             return chatbotUi.getResponse(userInput, parser);
         }
         return null;

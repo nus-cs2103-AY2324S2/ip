@@ -77,7 +77,7 @@ public class AddTaskProcessorTest {
 
         addTaskProcessor.processCommand(userInput);
 
-        assertEquals("Description of todo can't be blank!", outputStream.toString().trim());
+        assertEquals("Description of task can't be blank!", outputStream.toString().trim());
     }
 
     @Test

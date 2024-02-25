@@ -44,7 +44,7 @@ public class Storage {
     }
 
     /**
-     * Generates a String representation of the tasks in the TaskList.
+     * Generates a String representation of the tasks in the TaskList for list processor.
      * @return a String representation of the tasks in the TaskList
      * @throws IOException if an I/O error occurs while generating the String representation
      */

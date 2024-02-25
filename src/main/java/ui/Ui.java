@@ -27,7 +27,7 @@ public class Ui {
 
     private static final String UNMARKED = "OK, I've marked this task as not done yet:";
 
-    private static final String RECOMMENDER = "RECCOMENDATION";
+    private static final String RECOMMENDER = "Recommendation:";
 
     private static final String QUOTE_STRING =
             ">  You must do the things you think you cannot do.\n>  - Eleanor Roosevelt";
@@ -145,7 +145,7 @@ public class Ui {
      * @return a string containing the given text wrapped in a recommender
      */
     public String recommenderWrapper(String text) {
-        return RECOMMENDER + "\n" + text + "\n" + RECOMMENDER;
+        return RECOMMENDER + "\n" + text + "\n";
     }
 
     /**
