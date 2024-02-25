@@ -44,12 +44,17 @@ public class Parser {
         String response = "";
 
         boolean isInvalidCommand = cmd == null;
+        boolean hasNoArguments = cmdArg.length != 2;
+
         if (isInvalidCommand) {
             throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
                     + "help, list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
 
-        boolean hasNoArguments = cmdArg.length != 2;
+        if (hasNoArguments) {
+            parseHasNoArgumentException(cmd);
+        }
+
         // Commands create a Command class in the future
         switch (cmd) {
         case HELP:
@@ -69,11 +74,6 @@ public class Parser {
             response = mainTasks.listTasks();
             break;
         case FIND:
-            // empty find
-            if (hasNoArguments) {
-                throw (new YapperException("What is lil bro looking for?"));
-            }
-
             // can be expanded to change current TaskList to look at found Task List
             response = mainTasks.find(cmdArg[1]);
             break;
@@ -82,36 +82,8 @@ public class Parser {
         case UNMARK:
             // Fallthrough
         case DELETE:
-            if (hasNoArguments) {
-                throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
-                        + "e.g. mark/unmark/delete 1"));
-            }
-
             try {
-                int i = Integer.parseInt(cmdArg[1]);
-
-                boolean isIndexTooLarge = i > mainTasks.listSize();
-                boolean isIndexTooSmall = i < 1;
-
-                // incorrect index
-                if (isIndexTooLarge) {
-                    throw (new YapperException("You ain't got that many tasks bruh!\n"));
-                }
-                // incorrect index
-                if (isIndexTooSmall) {
-                    throw (new YapperException("Start from task 1 lil bro!\n"));
-                }
-
-                // Execute MARK/UNMARK/DELETE
-                if (cmdArg[0].equals("mark")) {
-                    response = mainTasks.markTask(i);
-                } else if (cmdArg[0].equals("unmark")) {
-                    response = mainTasks.unmarkTask(i);
-                } else if (cmdArg[0].equals("delete")) {
-                    response = mainTasks.deleteTask(i);
-                } else {
-                    throw new YapperException("Unexpected command fallen through the switch case\n");
-                }
+                response = parseMarkUnmarkDelete(cmdArg);
             } catch (java.lang.NumberFormatException e) { // non number typed
                 throw (new YapperException("Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
                         + "e.g. unmark 2"));
@@ -120,29 +92,81 @@ public class Parser {
             }
             break;
         case TODO:
-            if (hasNoArguments) {
-                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
-                        + "e.g. todo <task>"));
-            }
             response = parseTask(cmdArg[1], Task.ID.TODO);
             break;
         case DEADLINE:
-            if (hasNoArguments) { // no arguments
-                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
-                        + "e.g. deadline <task> /by <date/time>\n"));
-            }
             response = parseTask(cmdArg[1], Task.ID.DEADLINE);
             break;
         case EVENT:
-            if (hasNoArguments) { // no arguments
-                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
-                        + "e.g. event <task> /from <start date/time> /to <start date/time>\n"));
-            }
             response = parseTask(cmdArg[1], Task.ID.EVENT);
             break;
         default: // Shouldn't reach here, invalid commands should be null
             throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
                     + "help, list, todo, deadline, event, mark, unmark, delete, find, bye\n"));
+        }
+        return response;
+    }
+
+    private void parseHasNoArgumentException(Yapper.Command cmd) throws YapperException {
+        switch (cmd) {
+        case FIND:
+            throw (new YapperException("What is lil bro looking for?"));
+        case MARK:
+            throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
+                    + "e.g. mark 1"));
+        case UNMARK:
+            throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
+                    + "e.g. unmark 1"));
+        case DELETE:
+            throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
+                    + "e.g. delete 1"));
+        case TODO:
+            throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                    + "e.g. todo <task>"));
+        case DEADLINE:
+            throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                    + "e.g. deadline <task> /by <date/time>\n"));
+        case EVENT:
+            throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                    + "e.g. event <task> /from <start date/time> /to <start date/time>\n"));
+        }
+    }
+
+    /**
+     * Parses command and arguments to call mark, unmark and delete commands.
+     *
+     * @param cmdArg Array where 0-th element is the command and subsequent elements are the arguments.
+     * @return Response after successful execution of command.
+     * @throws YapperException Occurs when there is a incorrect index.
+     */
+    private String parseMarkUnmarkDelete(String[] cmdArg) throws YapperException, java.lang.NumberFormatException {
+        String response;
+        int i = Integer.parseInt(cmdArg[1]);
+
+        boolean isIndexTooLarge = i > mainTasks.listSize();
+        boolean isIndexTooSmall = i < 1;
+
+        if (isIndexTooLarge) {
+            throw (new YapperException("You ain't got that many tasks bruh!\n"));
+        }
+
+        if (isIndexTooSmall) {
+            throw (new YapperException("Start from task 1 lil bro!\n"));
+        }
+
+        // Execute MARK/UNMARK/DELETE
+        switch (cmdArg[0]) {
+        case "mark":
+            response = mainTasks.markTask(i);
+            break;
+        case "unmark":
+            response = mainTasks.unmarkTask(i);
+            break;
+        case "delete":
+            response = mainTasks.deleteTask(i);
+            break;
+        default:
+            throw new YapperException("Unexpected command fallen through the switch case\n");
         }
         return response;
     }
@@ -158,62 +182,80 @@ public class Parser {
         String response;
         switch (id) {
         case TODO:
-            Todo todo = new Todo(arg);
-            response = mainTasks.addTask(todo);
+            response = parseTodo(arg);
             break;
         case DEADLINE: {
-            String[] descDate = arg.split(" /by ", 2); // [description, by]
-            boolean isIncorrectByFormat = descDate.length != 2;
-            if (isIncorrectByFormat) {
-                throw (new YapperException("When you wanna do this task by lil bro?\n"
-                        + "type deadline <task> /by <yyyy-mm-dd>\n"
-                        + "e.g. deadline hit the griddy by 2024-12-31"));
-            }
-
-            try {
-                LocalDate deadlineBy = LocalDate.parse(descDate[1]);
-                Deadline deadline = new Deadline(descDate[0], deadlineBy);
-                response = mainTasks.addTask(deadline);
-            } catch (DateTimeParseException e) { // incorrect formatting for date
-                throw (new YapperException("When you wanna do this task by lil bro?\n"
-                        + "type deadline <task> /by <yyyy-mm-dd>\n"
-                        + "e.g. deadline hit the griddy by 2024-12-31"));
-            }
+            response = parseDeadline(arg);
             break;
         }
         case EVENT: {
-            String[] descDate = arg.split(" /from ", 2); // [description, fromTo]
-
-            boolean isIncorrectFromFormat = descDate.length != 2;
-            if (isIncorrectFromFormat) {
-                throw (new YapperException("When does this event start lil bro?\n"
-                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
-            }
-
-            String[] fromTo = descDate[1].split(" /to ", 2); // [from , to]
-
-            boolean isIncorrectToFormat = fromTo.length != 2;
-            if (isIncorrectToFormat) {
-                throw (new YapperException("When does this event end lil bro?\n"
-                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
-            }
-
-            try {
-                LocalDate eventFrom = LocalDate.parse(fromTo[0]);
-                LocalDate eventTo = LocalDate.parse(fromTo[1]);
-                Event event = new Event(descDate[0], eventFrom, eventTo);
-                response = mainTasks.addTask(event);
-            } catch (DateTimeParseException e) {
-                throw (new YapperException("When does this event start/end lil bro?\n"
-                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
-            }
+            response = parseEvent(arg);
             break;
         }
         default: // Invalid Task ID
             throw (new YapperException("Invalid Task ID, user shouldn't reach here"));
+        }
+        return response;
+    }
+
+    private String parseTodo(String arg) {
+        String response;
+        Todo todo = new Todo(arg);
+        response = mainTasks.addTask(todo);
+        return response;
+    }
+
+    private String parseDeadline(String arg) throws YapperException {
+        String response;
+        String[] descDate = arg.split(" /by ", 2); // [description, by]
+        boolean isIncorrectByFormat = descDate.length != 2;
+        if (isIncorrectByFormat) {
+            throw (new YapperException("When you wanna do this task by lil bro?\n"
+                    + "type deadline <task> /by <yyyy-mm-dd>\n"
+                    + "e.g. deadline hit the griddy by 2024-12-31"));
+        }
+
+        try {
+            LocalDate deadlineBy = LocalDate.parse(descDate[1]);
+            Deadline deadline = new Deadline(descDate[0], deadlineBy);
+            response = mainTasks.addTask(deadline);
+        } catch (DateTimeParseException e) { // incorrect formatting for date
+            throw (new YapperException("When you wanna do this task by lil bro?\n"
+                    + "type deadline <task> /by <yyyy-mm-dd>\n"
+                    + "e.g. deadline hit the griddy by 2024-12-31"));
+        }
+        return response;
+    }
+
+    private String parseEvent(String arg) throws YapperException {
+        String response;
+        String[] descDate = arg.split(" /from ", 2); // [description, fromTo]
+
+        boolean isIncorrectFromFormat = descDate.length != 2;
+        if (isIncorrectFromFormat) {
+            throw (new YapperException("When does this event start lil bro?\n"
+                    + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                    + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+        }
+
+        String[] fromTo = descDate[1].split(" /to ", 2); // [from , to]
+
+        boolean isIncorrectToFormat = fromTo.length != 2;
+        if (isIncorrectToFormat) {
+            throw (new YapperException("When does this event end lil bro?\n"
+                    + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                    + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+        }
+
+        try {
+            LocalDate eventFrom = LocalDate.parse(fromTo[0]);
+            LocalDate eventTo = LocalDate.parse(fromTo[1]);
+            Event event = new Event(descDate[0], eventFrom, eventTo);
+            response = mainTasks.addTask(event);
+        } catch (DateTimeParseException e) {
+            throw (new YapperException("When does this event start/end lil bro?\n"
+                    + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                    + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
         }
         return response;
     }
