@@ -37,6 +37,7 @@ public class GUIUi {
     }
 
     // Mark
+
     /**
      * Prints error message for when user neglected to provide any argument for the mark command.
      */
@@ -60,6 +61,7 @@ public class GUIUi {
     }
 
     // Unmark
+
     /**
      * Prints error message for when user neglected to provide any argument for the unmark command.
      */
@@ -83,6 +85,7 @@ public class GUIUi {
     }
 
     // Tasks
+
     /**
      * Prints confirmation that a task has been added to the task list.
      */

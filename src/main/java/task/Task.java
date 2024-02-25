@@ -47,7 +47,7 @@ public class Task {
      */
     public String cleanWhiteSpace(String word) {
         if (!word.isEmpty()) {
-            while(word.charAt(word.length() - 1) == ' ') {
+            while (word.charAt(word.length() - 1) == ' ') {
                 word = word.substring(0, word.length() - 1);
             }
         }

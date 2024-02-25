@@ -27,12 +27,12 @@ public class Parser {
     /**
      * Parses the command inputted by the user.
      *
-     * @param input Input of the user
+     * @param input    Input of the user
      * @param taskList TaskList that contains all the current tasks
-     * @param guiUi UI that generates text responses for the user
+     * @param guiUi    UI that generates text responses for the user
      * @return A boolean that indicates whether to terminate the program
-     *         true: continue running program
-     *         false: terminate the program and store the task list into the text file
+     * true: continue running program
+     * false: terminate the program and store the task list into the text file
      */
     public static String parse(String input, TaskList taskList, GUIUi guiUi, Storage storage) {
         Task[] tasks = taskList.getTaskList();
@@ -42,7 +42,7 @@ public class Parser {
             output = guiUi.printByeMessage();
         } else if (input.equals("list")) {
             StringBuilder listOutput = new StringBuilder();
-            assert tasks.length <= 100: "Task List Exceeded Limit of 100";
+            assert tasks.length <= 100 : "Task List Exceeded Limit of 100";
             for (int i = 0; i < tasks.length; i++) {
                 if (tasks[i] == null) {
                     break;
@@ -53,7 +53,7 @@ public class Parser {
             output = guiUi.printTaskList(listOutput.toString());
         } else {
             String[] brokenCommand = input.split("\\s+");
-            assert brokenCommand.length > 0: "Command not processed correctly, input lost after processing";
+            assert brokenCommand.length > 0 : "Command not processed correctly, input lost after processing";
             String advancedCommand = brokenCommand[0];
             String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
             switch (advancedCommand) {
@@ -209,7 +209,7 @@ public class Parser {
      * @param current current index of the task list
      */
     public static void updateCurrent(int current) {
-        assert current >= 0: "Index provided for updateCurrent() method is less than 0";
+        assert current >= 0 : "Index provided for updateCurrent() method is less than 0";
         Parser.current = current;
     }
 
