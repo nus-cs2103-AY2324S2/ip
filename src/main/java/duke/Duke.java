@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import duke.Command.Command;
 import duke.Task.Task;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,8 +20,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-
+import javafx.util.Duration;
 
 
 /**
@@ -147,6 +147,9 @@ public class Duke extends Application{
     String getResponse(String input) {
         if (input.equalsIgnoreCase("bye")) {
             Storage.saveTasksToFile(taskList.getTasks());
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> System.exit(0));
+            delay.play();
             return "Goodbye!";
         }
         try {

@@ -39,7 +39,14 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
-    
+
+    static String getWelcomeMessage(){
+        return "📝 Welcome to Charmbot Task Manager! 📝\n\n"
+                + "Hello! I'm Charmbot, your personal task manager. I'm here to help you stay organized and on top of your tasks. Whether you need to add a new task, mark one as complete, or simply review your schedule, I've got you covered!\n\n"
+                + "Feel free to explore my features and start managing your tasks like a pro. If you ever need assistance, just let me know. Let's make managing tasks a breeze! 💼";
+    }
+
+
     /**
      * Retrieves the user command from the scanner.
      *
