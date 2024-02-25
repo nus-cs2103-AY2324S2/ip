@@ -37,6 +37,7 @@ public class DeadlineCommand extends AddCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline newTask = new Deadline(this.taskName, this.end);
+        assert newTask != null;
         tasks.addTask(newTask);
         int num = tasks.getNumOfTasks();
         return ui.showTaskAdded(newTask, num);
