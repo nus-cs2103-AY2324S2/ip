@@ -94,12 +94,6 @@ public class Ui {
         return (errorMessage);
     }
 
-    /** Show help message explaining the commands in the program. */
-    public String showHelpMessage() {
-        return ("Click on the link here to the user guide:" 
-            + "https://xuelinglow.github.io/ip/");
-    }
-
     /** Show end message when program is exited. */
     public String showEndMessage() {
         return ("Bye. Hope to see you again soon! \\(^-^)/ ");

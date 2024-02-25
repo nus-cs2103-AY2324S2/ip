@@ -2,6 +2,10 @@ package tasklist.gui;
 import java.io.IOException;
 import java.util.Collections;
 
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +36,8 @@ public class DialogBox extends HBox {
     @FXML
     private Button actionButton;
 
+    String link = "";
+
     private DialogBox(String text, Image img, boolean isUser, TaskList taskList) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -44,6 +51,22 @@ public class DialogBox extends HBox {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (text == "helpg") {
+            System.out.println("Help");
+            Hyperlink hyperlink = new Hyperlink("Click here to visit the User Guide");
+            hyperlink.setOnAction(event -> {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://xuelinglow.github.io/ip/"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            });
+            dialog.setGraphic(hyperlink);
+            text = "";
         }
 
         dialog.setText(text);

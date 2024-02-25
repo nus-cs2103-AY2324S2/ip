@@ -8,6 +8,6 @@ import tasklist.Ui;
 public class HelpCommand implements Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.showHelpMessage();
+        return "helpg";
     }
 }
