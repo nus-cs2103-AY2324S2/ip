@@ -89,7 +89,8 @@ public class CommandProcessor {
             // Splitting the description and deadline by "/by"
             String[] parts = descriptionWithDate.split("/by");
             if (parts.length != 2) {
-                throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task. ");
+                throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task. "
+                                + "Example: deadline homework /by 2024-02-05 2359");
             }
             String description = parts[0].trim();
             String deadline = parts[1].trim();
@@ -115,12 +116,14 @@ public class CommandProcessor {
             // Splitting the description, starting datetime, and ending datetime by "/from" and "/to"
             String[] parts = descriptionWithDate.split("/from");
             if (parts.length != 2) {
-                throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
+                throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task."
+                        + "Example: event project meeting /from 2024-02-05 1200 /to 2024-02-05 1230");
             }
             String description = parts[0].trim();
             String[] dateTimeParts = parts[1].split("/to");
             if (dateTimeParts.length != 2) {
-                throw new RochinException("OOPS!!! Please provide both starting and ending date/time for the event.");
+                throw new RochinException("OOPS!!! Please provide both starting and ending date/time for the event."
+                        + "Example: event project meeting /from 2024-02-05 1200 /to 2024-02-05 1230");
             }
             String fromDateTime = dateTimeParts[0].trim();
             String toDateTime = dateTimeParts[1].trim();

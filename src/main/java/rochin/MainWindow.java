@@ -1,6 +1,5 @@
 package rochin;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,8 +7,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -26,25 +33,28 @@ public class MainWindow extends AnchorPane {
 
     private RochinBot rochin;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Donald.jpg"));
-    private Image rochinImage = new Image(this.getClass().getResourceAsStream("/images/Daisy.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/heart.png"));
+    private Image rochinImage = new Image(this.getClass().getResourceAsStream("/images/ga.png"));
+    private Image background = new Image("/images/Background.jpg");
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        BackgroundSize size = new BackgroundSize(100, 100, true, true, false, true);
+        BackgroundImage image = new BackgroundImage(
+                background,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                size);
+        dialogContainer.setBackground(new Background(image));
+        dialogContainer.getChildren().add(DialogBox.getRochinDialog(RochinBot.showWelcomeMsg(), rochinImage));
+
     }
 
-    /**
-    private void showWelcomeMessage() {
-        String welcomeMsg = "Hello! I'm Rochin.\n" + " What can I do for you?";
-        dialogContainer.getChildren().add(DialogBox.getRochinDialog(welcomeMsg, rochinImage));
-    }
-     */
 
     public void setRochin(RochinBot r) {
         rochin = r;
-        dialogContainer.getChildren().add(
-                DialogBox.getRochinDialog(r.getWelcomeMsg(), rochinImage));
     }
 
     /**
@@ -60,10 +70,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getRochinDialog(response, rochinImage)
         );
         userInput.clear();
+
         if (input.equals("bye")) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
-            pause.setOnFinished(event -> Platform.exit());
-            pause.play();
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(() -> Platform.exit(), 1, TimeUnit.SECONDS);
+            scheduler.schedule(() -> System.exit(0), 1, TimeUnit.SECONDS);
         }
     }
 }

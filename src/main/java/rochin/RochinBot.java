@@ -102,13 +102,12 @@ public class RochinBot {
         } catch (RochinException e) {
             ui.showError(e.getMessage());
         }
-        return ui.getTextOutput();
+        return ui.ReplyMessage();
     }
 
-    String getWelcomeMsg() {
+    static String showWelcomeMsg() {
         return "Hello! I'm Rochin.\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+                + "What can I do for you?\n";
     }
 
 }

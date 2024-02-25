@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("rochin.RochinOOP")
+    mainClass.set("rochin.Launcher")
 }
 
 shadowJar {

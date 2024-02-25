@@ -3,10 +3,10 @@ package rochin;
 import java.util.List;
 
 public class Response extends Ui {
-    private final StringBuilder buffer;
+    private final StringBuilder string;
 
     public Response () {
-        this.buffer = new StringBuilder();
+        this.string = new StringBuilder();
     }
 
     /**
@@ -14,10 +14,8 @@ public class Response extends Ui {
      */
     @Override
     public void showWelcomeMessage() {
-        this.buffer.append("Hello! I'm Rochin.\n");
-        this.buffer.append("What can I do for you?\n");
-        this.buffer.append("____________________________________________________________\n");
-
+        this.string.append("Hello! I'm Rochin.\n");
+        this.string.append("What can I do for you?\n");
     }
 
     /**
@@ -25,7 +23,7 @@ public class Response extends Ui {
      */
     @Override
     public void showGoodbyeMessage() {
-        this.buffer.append("Bye. Hope to see you again soon!\n");
+        this.string.append("Bye. Hope to see you again soon!\n");
     }
 
 
@@ -34,7 +32,7 @@ public class Response extends Ui {
      */
     @Override
     public void showLoadingError() {
-        this.buffer.append("Failed to load tasks. Creating a new task list.\n");
+        this.string.append("Failed to load tasks. Creating a new task list.\n");
     }
 
     /**
@@ -42,7 +40,7 @@ public class Response extends Ui {
      */
     @Override
     public void showSavingError() {
-        this.buffer.append("Failed to save tasks.\n");
+        this.string.append("Failed to save tasks.\n");
     }
 
     /**
@@ -52,7 +50,7 @@ public class Response extends Ui {
      */
     @Override
     public void showError(String errorMessage) {
-        this.buffer.append(errorMessage);
+        this.string.append(errorMessage);
     }
 
     /**
@@ -60,7 +58,7 @@ public class Response extends Ui {
      */
     @Override
     public void showUnknownCommandError() {
-        this.buffer.append("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+        this.string.append("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
     }
 
     /**
@@ -79,10 +77,10 @@ public class Response extends Ui {
      */
     @Override
     public void showTaskList(List<Task> tasks) {
-        this.buffer.append("Here are the tasks in your list:\n");
+        this.string.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
-            this.buffer.append((i + 1) + "." + tasks.get(i)).append("\n");
+            this.string.append((i + 1) + "." + tasks.get(i)).append("\n");
         }
     }
 
@@ -93,9 +91,9 @@ public class Response extends Ui {
      */
     @Override
     public void showTaskAddedMessage(List<Task> tasks) {
-        this.buffer.append("Got it. I've added this task:\n");
-        this.buffer.append(tasks.get(tasks.size() - 1));
-        this.buffer.append("\nNow you have " + tasks.size() + " tasks in the list.");
+        this.string.append("Got it. I've added this task:\n");
+        this.string.append(tasks.get(tasks.size() - 1));
+        this.string.append("\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -105,9 +103,9 @@ public class Response extends Ui {
      */
     @Override
     public void showTaskDeletedMessage(List<Task> tasks) {
-        this.buffer.append("Noted. I've removed this task:\n");
-        this.buffer.append(tasks.get(tasks.size() - 1));
-        this.buffer.append("\nNow you have " + tasks.size() + " tasks in the list.");
+        this.string.append("Noted. I've removed this task:\n");
+        this.string.append(tasks.get(tasks.size() - 1));
+        this.string.append("\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -117,7 +115,7 @@ public class Response extends Ui {
      */
     @Override
     public void showTaskMarkedAsDoneMessage(List<Task> tasks) {
-        this.buffer.append("Nice! I've marked this task as done:\n");
+        this.string.append("Nice! I've marked this task as done:\n");
     }
 
     /**
@@ -127,13 +125,13 @@ public class Response extends Ui {
      */
     @Override
     public void showTaskUnmarkedAsDoneMessage(List<Task> tasks) {
-        this.buffer.append("OK, I've marked this task as not done yet:\n");
+        this.string.append("OK, I've marked this task as not done yet:\n");
     }
 
     @Override
-    public String getTextOutput() {
-        String output = this.buffer.toString();
-        this.buffer.delete(0, this.buffer.length());
+    public String ReplyMessage() {
+        String output = this.string.toString();
+        this.string.delete(0, this.string.length());
         return output;
     }
 }

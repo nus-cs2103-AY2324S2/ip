@@ -134,7 +134,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public String getTextOutput() {
+    public String ReplyMessage() {
         return "";
     }
 }

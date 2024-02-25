@@ -40,6 +40,7 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
     public void initialize() {
         Circle clip = new Circle(
                 displayPicture.getFitWidth() / 2,
@@ -48,6 +49,7 @@ public class DialogBox extends HBox {
         );
         displayPicture.setClip(clip);
     }
+     */
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
