@@ -17,6 +17,7 @@ Format:
 
 Examples:
 - `todo read book`
+- `todo get gf`
 
 ### Adding a Deadline: `deadline`
 
