@@ -12,7 +12,7 @@ ChatterPal allows you to add 3 types of tasks:
 
 ## Quick Start
 1. Ensure that Java 11 installed in your computer, and not any other version.
-2. Download the jar file from here.
+2. Download the jar file from [here](https://github.com/tanjiajiajun/ip/releases/tag/A-Release).
 3. Open a terminal window, `cd` to the directory where the jar file is located.
 4. Type `java -jar chatterpal.jar` in the terminal.
 5. Start logging your tasks by using the commands provided below.
