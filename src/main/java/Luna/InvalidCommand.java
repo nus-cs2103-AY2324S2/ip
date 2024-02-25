@@ -1,7 +1,6 @@
 package Luna;
 
 public class InvalidCommand extends Command {
-
     String errorMessage;
 
     public InvalidCommand() {
@@ -16,7 +15,7 @@ public class InvalidCommand extends Command {
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
-        ui.shifted_print(this.errorMessage);
+        ui.shiftedPrint(this.errorMessage);
     }
 
 }

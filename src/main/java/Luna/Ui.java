@@ -4,22 +4,35 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
+/**
+ * Handles the interaction between the user and the program. A UI handles the input and output of the program.
+ */
 public class Ui {
     public  final String HORIZONTAL_LINE = "____________________________________________________________\n";
     public String name;
 
     BufferedReader br;
 
-
     public Ui (String n) {
         this.name = n;
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Calls the UI to call the shifted_print function on a greeting message;
+     */
     public void greet() {
-        this.shifted_print(this.greetingString());
+        this.shiftedPrint(this.greetingString());
     }
 
+    /**
+     * Returns a String read by the buffered reader which takes its input form the system input.
+     * Checks for Exception during reading, if so return "".
+     *
+     *
+     * @return String read from System input
+     * @throws Exception if input cannot be read
+     */
     public String readInput() {
         try {
             return br.readLine();
@@ -27,7 +40,13 @@ public class Ui {
             return "";
         }
     }
-    public  String greetingString(){
+
+    /**
+     * Returns a constructed string with for the ui's greeting message
+     *
+     * @return Greeting message
+     */
+    private  String greetingString(){
         String msg = "";
         msg += String.format("%30s", " （„• ֊ •„)♡\n");
         msg += "heyo! my name is ✦" + this.name + "✦\n";
@@ -35,7 +54,12 @@ public class Ui {
         return msg;
     }
 
-    public  String sad_cat_img() {
+    /**
+     * Returns a string which prints out a cat-like shape;
+     *
+     * @return a cat string
+     */
+    private  String sad_cat_img() {
         return
                 "⠀               />    フ\n" +
                         "               | 　_  _|\n" +
@@ -48,11 +72,20 @@ public class Ui {
                         "    ＼二二)⠀⠀\n";
     }
 
+    /**
+     * Prints the signoffString in the shiftPrint format
+     */
     public void exitMessage() {
-        shifted_print(signoffString());
+        shiftedPrint(signoffString());
     }
 
-    public  String signoffString(){
+    /**
+     * Returns a constructed String for the user to see when the program exits
+     *
+     * @return Signoff string.
+     */
+
+    private  String signoffString(){
         String msg = "";
         msg += "okay then, bye\n";
         msg += sad_cat_img();
@@ -60,7 +93,13 @@ public class Ui {
         return msg;
     }
 
-    public  void shifted_print(String text) {
+    /**
+     * Prints out the given text to be in the ui format
+     *
+     * @param text the string that is to be printed in the ui format
+     * @throws Exception if input cannot be read
+     */
+    public  void shiftedPrint(String text) {
         try {
             BufferedReader br = new BufferedReader(new StringReader(text));
             String readText = br.readLine();
@@ -77,8 +116,23 @@ public class Ui {
         }
     }
 
-
+    /**
+     * Prints the given Tasklist in the ui format.
+     *
+     * @param tl The tasklist to be shown
+     */
     public void showList(TaskList tl) {
+        String toPrint = listStringBuilder(tl);
+        this.shiftedPrint(toPrint);
+    }
+
+    /**
+     * Returns a string converted from the given tasklist
+     *
+     * @param tl The tasklist to be converted
+     * @return Tasklist in String.
+     */
+    public String listStringBuilder(TaskList tl) {
         StringBuilder text = new StringBuilder();
 
         if (tl.isEmpty()) {
@@ -90,7 +144,7 @@ public class Ui {
                 text.append((i+1)).append(".").append(ent.toString()).append("\n");
             }
         }
-        this.shifted_print(text.toString());
+        return text.toString();
     }
 
 

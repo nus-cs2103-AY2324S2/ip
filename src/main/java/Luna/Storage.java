@@ -78,17 +78,13 @@ public class Storage {
             System.out.println("Successfully cleared the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
-//            e.printStackTrace();
         }
     }
 
 
 
     public void loadList(TaskList loadList) {
-//        ArrayList<list_Entry> loadList = new ArrayList<>();
-
         try {
-//            boolean hasNextEntry = true;
             BufferedReader br = new BufferedReader(new FileReader(listFile));
             while (br.ready()) {
                 String str = br.readLine();
