@@ -7,6 +7,7 @@ import java.util.Locale;
  * Represents an event task.
  */
 public class Event extends Task {
+
     /** The start date of the event */
     protected LocalDate from;
     /** The end date of the event */

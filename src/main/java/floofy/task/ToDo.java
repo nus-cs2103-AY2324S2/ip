@@ -4,6 +4,12 @@ package floofy.task;
  * Represents a ToDo task.
  */
 public class ToDo extends Task {
+
+    /**
+     * Constructs a new object of the ToDo class.
+     *
+     * @param description The description of the ToDo task.
+     */
     public ToDo(String description) {
         super(description);
     }

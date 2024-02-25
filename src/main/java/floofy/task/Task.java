@@ -4,8 +4,10 @@ package floofy.task;
  * Represents a task.
  */
 public class Task {
+
     /** The description of the task */
     protected String description;
+
     /** The status of the task */
     protected boolean isDone;
 
@@ -21,8 +23,6 @@ public class Task {
 
     /**
      * Returns the type of the task.
-     *
-     * @return The type of the task.
      */
     public String getType() {
         return "";
@@ -53,6 +53,8 @@ public class Task {
 
     /**
      * Returns true if the description of the task contains the keyword
+     *
+     * @param keyword The keyword to search for in the description.
      */
     public boolean hasMatchingDescription(String keyword) {
         return this.description.contains(keyword);
