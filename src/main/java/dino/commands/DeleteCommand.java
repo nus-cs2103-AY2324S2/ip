@@ -39,9 +39,8 @@ public class DeleteCommand extends Command {
 
             messages.add("Noted. I've removed this task:");
             messages.add(tasks.get(index).toString());
-            messages.add("Now you have " + tasks.size() + " tasks in the list.");
-            
             tasks.remove(index);
+            messages.add("Now you have " + tasks.size() + " tasks in the list.");
         } catch (NumberFormatException e) {
             throw new DinoException("Please enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
