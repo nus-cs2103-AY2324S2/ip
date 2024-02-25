@@ -27,118 +27,23 @@ public class Parser {
             // Check if the user wants to exit.
             // When comparing strings for equality, you should use the equals() method, not the == operator.
             if (command.equals("bye")) { // exit chat
-                ArrayList<Task> currUpdatedTaskList = taskList.getAllTasks();
-                storage.saveTasksToFile(currUpdatedTaskList); // Save tasks to file before exiting
-                return "Bye. It's been a pleasure chatting with you!";
+                returnedString = parseByeCommand();
             } else if (command.equals("list")) { // list tasks
-                returnedString = "Here are the tasks in your list:\n";
-
-                for (int i = 0; i < taskList.getSize(); i++) {
-                    String iterString = i + ". " + taskList.getTask(i) + "\n";
-                    returnedString = returnedString + iterString;
-                }
-
-                return returnedString;
+                returnedString = parseListCommand();
             } else if (command.startsWith("find")) {
-                String keyword = command.substring(5).trim();
-                assert !keyword.isEmpty() : "Keyword should not be empty.";
-
-                return ui.findTasks(taskList, keyword);
+                returnedString = parseFindCommand(command);
             } else if (command.startsWith("mark")) {
-                int indexOfTask = Integer.parseInt(command.substring(5));
-                Task currTask = taskList.getTask(indexOfTask);
-                currTask.markAsDone();
-                return "Nice! I've marked this task as done: \n" + currTask.toString();
+                returnedString = parseMarkCommand(command);
             } else if (command.startsWith("unmark")) {
-                int indexOfTask = Integer.parseInt(command.substring(7));
-                Task currTask = taskList.getTask(indexOfTask);
-                currTask.markAsNotDone();
-                return "OK, I've marked this task as not done yet:\n" + currTask.toString();
+                returnedString = parseUnmarkCommand(command);
             } else if (command.startsWith("todo")) {
-                // Check if the input string is long enough
-                if (command.length() <= 5) {
-                    throw new LinusException("Please specify the description of the todo task, " +
-                            "starting from one whitespace away from the keyword 'todo'" +
-                            " (e.g. todo borrow book)");
-                }
-
-                String description = command.substring(5);
-
-                if (description.isEmpty()) {
-                    throw new LinusException("Please specify the description of the todo task, " +
-                            "starting from one whitespace away from the keyword 'todo'" +
-                            " (e.g. todo borrow book)");
-                }
-
-                Task todo = new Todo(description, false);
-                taskList.addTask(todo);
-                return "Got it. I've added this task: \n" + todo + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+                returnedString = parseTodoCommand(command);
             } else if (command.startsWith("deadline")) {
-                String[] substrings = command.split(" /by ");
-
-                if (substrings[0].length() <= 9) {
-                    throw new LinusException("Please specify the description of the deadline task " +
-                            "(e.g. deadline return book /by 2019-10-15)");
-                }
-
-                String description = substrings[0].substring(9);
-
-                if (description.isEmpty()) {
-                    throw new LinusException("Please specify the description of the deadline task " +
-                            "(e.g. deadline return book /by 2019-10-15)");
-                }
-
-                if (!command.contains(" /by ") || substrings[1].isEmpty()) {
-                    throw new LinusException("Please state the deadline period " +
-                            "(e.g. deadline return book /by 2019-10-15)");
-                }
-
-                try {
-                    LocalDate by = LocalDate.parse(substrings[1]);
-                    Task deadline = new Deadline(description, by, false);
-                    taskList.addTask(deadline);
-                    return "Got it. I've added this task: \n" + deadline + "\nNow you have " + taskList.getSize() + " tasks in the list.";
-                } catch (DateTimeParseException e) {
-                    throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
-                }
+                returnedString = parseDeadlineCommand(command);
             } else if (command.startsWith("event")) {
-                if (!command.contains(" /from ") || !command.contains(" /to ")) {
-                    throw new LinusException("Please state the event period by using " +
-                            " /from and /to with correct spacing (eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
-                }
-
-                String[] substrings = command.split(" /from ");
-                String description = substrings[0].substring(6);
-                String[] substrings2 = substrings[1].split(" /to ");
-
-                if (substrings2.length < 2 || description.isEmpty()) {
-                    throw new LinusException("Please specify the description of the deadline task " +
-                            "(eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
-                }
-
-                try {
-                    LocalDate from = LocalDate.parse(substrings2[0]);
-                    LocalDate to = LocalDate.parse(substrings2[1]);
-                    Task event = new Event(description, from, to, false);
-                    taskList.addTask(event);
-                    return "Got it. I've added this task: \n" + event + "\nNow you have " + taskList.getSize() + " tasks in the list.";
-                } catch (DateTimeParseException e) {
-                    throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
-                }
+                returnedString = parseEventCommand(command);
             } else if (command.startsWith("delete")) {
-                if (command.length() <= 7) {
-                    throw new LinusException("Please state the index of the task you want to delete with correct spacing" +
-                            " (e.g. delete 3)");
-                }
-
-                int indexOfTask = Integer.parseInt(command.substring(7).trim());
-
-                if (indexOfTask < 0 || indexOfTask >= taskList.getSize()) {
-                    throw new LinusException("The task index is out of range.");
-                }
-
-                taskList.removeTask(indexOfTask);
-                return "Now you have " + taskList.getSize() + " tasks in the list.";
+                returnedString = parseDeleteCommand(command);
             } else {
                 throw new LinusException("Please give commands that start with any of the following:" +
                         " [todo, deadline, event, mark, unmark, list, bye, delete]");
@@ -146,6 +51,153 @@ public class Parser {
         } catch (LinusException e) {
             return e.getMessage();
         }
+
+        return returnedString;
+    }
+
+    private String parseDeleteCommand(String command) throws LinusException {
+        String returnedString;
+        if (command.length() <= 7) {
+            throw new LinusException("Please state the index of the task you want to delete with correct spacing" +
+                    " (e.g. delete 3)");
+        }
+
+        int indexOfTask = Integer.parseInt(command.substring(7).trim());
+
+        if (indexOfTask < 0 || indexOfTask >= taskList.getSize()) {
+            throw new LinusException("The task index is out of range.");
+        }
+
+        taskList.removeTask(indexOfTask);
+        returnedString = "Now you have " + taskList.getSize() + " tasks in the list.";
+        return returnedString;
+    }
+
+    private String parseEventCommand(String command) throws LinusException {
+        String returnedString;
+        if (!command.contains(" /from ") || !command.contains(" /to ")) {
+            throw new LinusException("Please state the event period by using " +
+                        " /from and /to with correct spacing (eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
+        }
+
+        String[] substrings = command.split(" /from ");
+        String description = substrings[0].substring(6);
+        String[] substrings2 = substrings[1].split(" /to ");
+
+        if (substrings2.length < 2 || description.isEmpty()) {
+            throw new LinusException("Please specify the description of the deadline task " +
+                    "(eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
+        }
+
+        try {
+            LocalDate from = LocalDate.parse(substrings2[0]);
+            LocalDate to = LocalDate.parse(substrings2[1]);
+            Task event = new Event(description, from, to, false);
+            taskList.addTask(event);
+            returnedString = "Got it. I've added this task: \n" + event + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        } catch (DateTimeParseException e) {
+            throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+        }
+        return returnedString;
+    }
+
+    private String parseDeadlineCommand(String command) throws LinusException {
+        String returnedString;
+        String[] substrings = command.split(" /by ");
+
+        if (substrings[0].length() <= 9) {
+            throw new LinusException("Please specify the description of the deadline task " +
+                    "(e.g. deadline return book /by 2019-10-15)");
+        }
+
+        String description = substrings[0].substring(9);
+
+        if (description.isEmpty()) {
+            throw new LinusException("Please specify the description of the deadline task " +
+                    "(e.g. deadline return book /by 2019-10-15)");
+        }
+
+        if (!command.contains(" /by ") || substrings[1].isEmpty()) {
+            throw new LinusException("Please state the deadline period " +
+                    "(e.g. deadline return book /by 2019-10-15)");
+        }
+
+        try {
+            LocalDate by = LocalDate.parse(substrings[1]);
+            Task deadline = new Deadline(description, by, false);
+            taskList.addTask(deadline);
+            returnedString = "Got it. I've added this task: \n" + deadline + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        } catch (DateTimeParseException e) {
+            throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+        }
+        return returnedString;
+    }
+
+    private String parseTodoCommand(String command) throws LinusException {
+        String returnedString;
+        // Check if the input string is long enough
+        if (command.length() <= 5) {
+            throw new LinusException("Please specify the description of the todo task, " +
+                    "starting from one whitespace away from the keyword 'todo'" +
+                    " (e.g. todo borrow book)");
+        }
+
+        String description = command.substring(5);
+
+        if (description.isEmpty()) {
+            throw new LinusException("Please specify the description of the todo task, " +
+                    "starting from one whitespace away from the keyword 'todo'" +
+                    " (e.g. todo borrow book)");
+        }
+
+        Task todo = new Todo(description, false);
+        taskList.addTask(todo);
+        returnedString = "Got it. I've added this task: \n" + todo + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        return returnedString;
+    }
+
+    private String parseUnmarkCommand(String command) {
+        String returnedString;
+        int indexOfTask = Integer.parseInt(command.substring(7));
+        Task currTask = taskList.getTask(indexOfTask);
+        currTask.markAsNotDone();
+        returnedString = "OK, I've marked this task as not done yet:\n" + currTask.toString();
+        return returnedString;
+    }
+
+    private String parseMarkCommand(String command) {
+        String returnedString;
+        int indexOfTask = Integer.parseInt(command.substring(5));
+        Task currTask = taskList.getTask(indexOfTask);
+        currTask.markAsDone();
+        returnedString = "Nice! I've marked this task as done: \n" + currTask.toString();
+        return returnedString;
+    }
+
+    private String parseFindCommand(String command) {
+        String returnedString;
+        String keyword = command.substring(5).trim();
+        returnedString = ui.findTasks(taskList, keyword);
+        return returnedString;
+    }
+
+    private String parseListCommand() {
+        String returnedString;
+        returnedString = "Here are the tasks in your list:\n";
+
+        for (int i = 0; i < taskList.getSize(); i++) {
+            String iterString = i + ". " + taskList.getTask(i) + "\n";
+            returnedString = returnedString + iterString;
+        }
+        return returnedString;
+    }
+
+    private String parseByeCommand() {
+        String returnedString;
+        ArrayList<Task> currUpdatedTaskList = taskList.getAllTasks();
+        storage.saveTasksToFile(currUpdatedTaskList); // Save tasks to file before exiting
+        returnedString = "Bye. It's been a pleasure chatting with you!";
+        return returnedString;
     }
 
     /**

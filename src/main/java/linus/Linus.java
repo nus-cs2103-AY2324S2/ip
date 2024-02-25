@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Linus {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
-    private TaskList taskList = new TaskList();
+    private TaskList taskList;
 
     /**
      * Constructs Linus object for Linus Application
