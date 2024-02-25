@@ -29,7 +29,7 @@ public class Parser {
         try {
             return Instruction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DinoException("Invalid command. Valid commands: list, mark, unmark, deadline, event, todo, delete, find");
+            throw new DinoException("Invalid command.\nValid commands: list, mark, unmark, deadline, event, todo, delete, find\n");
         }
     }
 

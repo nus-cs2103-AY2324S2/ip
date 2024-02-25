@@ -53,7 +53,7 @@ public class Dino {
             }
             return String.join("\n", messages);
         } catch (Exception e) {
-            return "Oops! Something went wrong: " + e.getMessage();
+            return "Oops! Something went wrong\n" + e.getMessage();
         }
     }
 }
