@@ -1,0 +1,7 @@
+D | 1 | finish tP /by 2024-04-10 2359 | 2024-04-10 2359
+E | 1 | attend interview | 2023-02-22 1200 to 2023-02-22 1300
+E | 0 | career fair | 2024-02-28 1300 to 2024-02-28 1700
+T | 0 | eat dinner
+T | 0 | finish quiz
+D | 0 | finish iP | 2024-02-26 2359
+E | 0 | workshop | 2024-03-01 1300 to 2024-03-01 1700
