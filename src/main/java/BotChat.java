@@ -7,6 +7,7 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,8 +18,6 @@ public class BotChat {
     private static Storage storage;
     private static TaskList taskArrayList;
     private static Parser parser;
-    private static Pattern markPattern = Pattern.compile("mark \\d+");
-    private static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
 
     /**
      * Adds a new task based on the user input command.
@@ -71,22 +70,36 @@ public class BotChat {
      * @return The response message.
      */
     public static String response(String s) {
-        Matcher markMatcher = markPattern.matcher(s);
-        Matcher unmarkMatcher = unmarkPattern.matcher(s);
         String command = parser.extractCommand(s);
-        if (command.equals("bye")) {
+
+        switch (command) {
+        case "bye":
             terminate = true;
             return Ui.byeMessage();
-        } else if (command.equals("list")) {
-            StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
+        case "list":
+            StringBuilder listStringBuilder = new StringBuilder("Here are the tasks in your list: \n");
             for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
-                stringBuilder.append(i);
-                stringBuilder.append(". ");
-                stringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
-                stringBuilder.append("\n ");
+                listStringBuilder.append(i);
+                listStringBuilder.append(". ");
+                listStringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
+                listStringBuilder.append("\n ");
             }
-            return stringBuilder.toString();
-        } else if (markMatcher.matches()) {
+            return listStringBuilder.toString();
+        case "find":
+            try {
+                ArrayList<Task> tasksWithKeyword = taskArrayList.getTasksWithKeyword(parser.extractDescription(s));
+                StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list: \n");
+                for (int i = 0; i < tasksWithKeyword.size(); i++) {
+                    findStringBuilder.append(i+1);
+                    findStringBuilder.append(". ");
+                    findStringBuilder.append(tasksWithKeyword.get(i).toString());
+                    findStringBuilder.append("\n ");
+                }
+                return findStringBuilder.toString();
+            } catch (IncompleteCommandException e) {
+                return e.toString();
+            }
+        case "mark":
             try {
                 int taskNum = convertTaskNumStringToInt(s);
                 storage.editDataStoreTaskAsDone(taskNum);
@@ -94,7 +107,7 @@ public class BotChat {
             } catch (InvalidTaskNumberException e) {
                 return e.toString();
             }
-        } else if (unmarkMatcher.matches()) {
+        case "unmark":
             try {
                 int taskNum = convertTaskNumStringToInt(s);
                 storage.editDataStoreTaskAsUndone(taskNum);
@@ -102,14 +115,14 @@ public class BotChat {
             } catch (InvalidTaskNumberException e) {
                 return e.toString();
             }
-        } else if (command.equals("delete")) {
+        case "delete":
             String requestedDeletion = s.substring(7);
             try {
                 return deleteTask(requestedDeletion);
             } catch (InvalidTaskNumberException e) {
                 return e.toString();
             }
-        } else {
+        default:
             try {
                 addTask(s);
                 return Ui.addTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
@@ -182,7 +195,6 @@ public class BotChat {
             throw new InvalidTaskNumberException(requestedDeletion);
         }
     }
-
 
     public static void main(String[] args) {
         parser = new Parser();

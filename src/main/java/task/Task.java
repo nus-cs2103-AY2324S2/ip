@@ -40,4 +40,8 @@ public class Task {
             return "0";
         }
     }
+
+    public boolean containsKeyword(String keyword) {
+        return this.taskString.contains(keyword);
+    }
 }

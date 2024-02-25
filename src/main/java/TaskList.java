@@ -63,4 +63,20 @@ public class TaskList {
         return this.lastIdx;
     }
 
+    /**
+     * Retrieves tasks containing a specified keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList containing tasks that contain the specified keyword.
+     */
+    public ArrayList<Task> getTasksWithKeyword(String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task: this.taskArrayList) {
+            if (task.containsKeyword(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        return tasksWithKeyword;
+    }
+
 }
