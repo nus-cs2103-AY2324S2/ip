@@ -30,7 +30,7 @@ public class UnmarkCommand implements Command {
     @Override
     public CommandResult execute(String[] tokens) throws CommandException {
         int taskNum = Integer.parseInt(tokens[2]);
-        taskList.mark(taskNum);
+        taskList.unmark(taskNum);
         return new CommandResult(
                 CommandWord.MARK,
                 ui.getUnmarkedTaskMessage(taskList.getTask(taskNum))

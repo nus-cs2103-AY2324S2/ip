@@ -2,6 +2,7 @@ package simpli.ui;
 
 import java.util.Objects;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,10 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import simpli.commands.ByeCommand;
+import javafx.util.Duration;
 import simpli.commands.GreetCommand;
 import simpli.commands.base.CommandResult;
 import simpli.commands.base.CommandWord;
+import simpli.configs.Config;
 import simpli.core.Simpli;
 
 /**
@@ -67,12 +69,9 @@ public class MainWindow extends AnchorPane {
 
         assert !response.isEmpty() : "chatbot response cannot be an empty String";
         if (output.getStatus().equals(CommandWord.BYE)) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getSimpliDialog(
-                            new ByeCommand(ui).execute(new String[] {}).toString(),
-                            simpliImage)
-            );
-            Platform.exit();
+            PauseTransition delay = new PauseTransition(Duration.seconds(Config.SECONDS_TO_CLOSE_AFTER_BYE));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
         }
 
         dialogContainer.getChildren().addAll(

@@ -8,4 +8,6 @@ public final class Config {
     public static final String DATA_PATH = "./data/simpli.csv";
 
     public static final String CHATBOT_NAME = "SIMP-LI";
+
+    public static final int SECONDS_TO_CLOSE_AFTER_BYE = 3;
 }
