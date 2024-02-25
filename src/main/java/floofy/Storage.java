@@ -54,26 +54,22 @@ public class Storage {
      * @param list The task list to be loaded.
      * @throws FloofyException If an error occurs while loading tasks from file.
      */
-    public void loadTasks(TaskList list) throws FloofyException{
+    public void loadTasks(TaskList list) throws FloofyException {
         try {
             File file = new File("./data/floofy.txt");
             // create parent directory if it doesn't exist.
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
                 if (!file.getParentFile().mkdirs()) {
-                    System.err.println("Failed to create parent directories.");
-                    return;
+                    throw new FloofyException("Directory could not be created :(");
                 }
             }
 
             // create file if it doesn't exist.
             if (!file.exists() && !file.createNewFile()) {
-                System.err.println("Failed to create the file.");
-                return;
+                throw new FloofyException("File could not be created :(");
             }
 
             Scanner scanner = new Scanner(file);
-
-            // these are for existing tasks !!
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.trim().isEmpty()) {
@@ -85,8 +81,10 @@ public class Storage {
                 }
             }
             scanner.close();
+        } catch (FloofyException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
-            System.err.println("An error occurred while loading tasks from file.");
+            System.out.println("An error occurred while loading tasks from file.");
         }
     }
 
