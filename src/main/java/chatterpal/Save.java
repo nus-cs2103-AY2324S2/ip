@@ -1,9 +1,6 @@
 package chatterpal;
 
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -89,6 +86,22 @@ public class Save {
      * @param s The storage where the loaded tasks will be stored.
      */
     public void loadData(Storage s) {
+        try {
+            File file = new File(filePath);
+
+            // Ensure the parent directory exists; create it if it doesn't
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+
+            // Create the file if it does not exist
+            if (file.createNewFile()) {
+                System.out.println("File not found. Creating new file: " + file.getPath());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         try (FileInputStream fis = new FileInputStream(filePath)) {
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -97,7 +110,8 @@ public class Save {
                 processTasksData(data, s);
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println(e.getMessage());
+
         }
     }
 

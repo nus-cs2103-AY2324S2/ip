@@ -29,7 +29,7 @@ public class Commands {
      */
     public static String markCommand(String input, Storage storage) throws OutOfIndexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
-        if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
+        if (Integer.parseInt(inputParts.get(1)) > storage.size() || Integer.parseInt(inputParts.get(1)) <= 0) {
             throw new OutOfIndexException();
         }
         Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
@@ -47,7 +47,7 @@ public class Commands {
      */
     public static String unmarkCommand(String input, Storage storage) throws OutOfIndexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
-        if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
+        if (Integer.parseInt(inputParts.get(1)) > storage.size() || Integer.parseInt(inputParts.get(1)) <= 0) {
             throw new OutOfIndexException();
         }
         Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
@@ -65,7 +65,7 @@ public class Commands {
      */
     public static String deleteCommand(String input, Storage storage) throws OutOfIndexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
-        if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
+        if (Integer.parseInt(inputParts.get(1)) > storage.size() || Integer.parseInt(inputParts.get(1)) <= 0) {
             throw new OutOfIndexException();
         }
         Task t = storage.pop(Integer.parseInt(inputParts.get(1)) - 1);

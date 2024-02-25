@@ -69,9 +69,9 @@ Example: `mark 2`
 ## Unmark Tasks: `unmark`
 Unmarks the task given the specified index in the list.
 
-Format: `Unmark INDEX`
+Format: `unmark INDEX`
 
-Example: `Unmark 2`
+Example: `unmark 2`
 
 // A description of the expected outcome goes here
 
@@ -79,9 +79,9 @@ Example: `Unmark 2`
 ## Delete Tasks: `delete`
 Deletes the task given the specified index of the task in the list.
 
-Format: `Delete INDEX`
+Format: `delete INDEX`
 
-Example: `Delete 2`
+Example: `delete 2`
 
 // A description of the expected outcome goes here
 
@@ -89,7 +89,7 @@ Example: `Delete 2`
 ## Find Tasks: `find`
 Find tasks given specific keywords in the task's description.
 
-Format: `Find KEYWORDS`
+Format: `find KEYWORDS`
 
 Example: `find CS2103`
 
