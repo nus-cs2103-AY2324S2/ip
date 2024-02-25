@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Ui {
 
-    private static final String NAME = "Tartar";
+    private static final String NAME = "IreneAI";
 
     private static final String GREETING = String.format("Hello! I'm %s\n", NAME);
 
