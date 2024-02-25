@@ -62,6 +62,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public boolean containsKeyword(String keyword) {
         return description.contains(keyword);
     }

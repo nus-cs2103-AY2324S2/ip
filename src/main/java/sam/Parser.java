@@ -11,13 +11,14 @@ import sam.command.MarkCommand;
 import sam.command.TodoCommand;
 import sam.command.UnknownCommand;
 import sam.command.UnmarkCommand;
+import sam.command.UpdateCommand;
 
 /**
  * Represents a Parser object for processing commands.
  */
 public class Parser {
     private enum CommandType {
-        LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, UPDATE, DELETE, BYE, UNKNOWN
     }
 
     /**
@@ -46,6 +47,9 @@ public class Parser {
         case UNMARK:
             assert taskInfo.isBlank() : "This command requires extra information.";
             return new UnmarkCommand(taskInfo);
+        case UPDATE:
+            assert taskInfo.isBlank() : "This command requires extra information.";
+            return new UpdateCommand(taskInfo);
         case TODO:
             assert taskInfo.isBlank() : "This command requires extra information.";
             return new TodoCommand(taskInfo);

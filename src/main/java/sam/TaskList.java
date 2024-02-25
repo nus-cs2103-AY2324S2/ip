@@ -2,7 +2,10 @@ package sam;
 
 import java.util.ArrayList;
 
+import sam.task.Deadline;
+import sam.task.Event;
 import sam.task.Task;
+import sam.task.ToDo;
 
 /**
  * Represents a list of tasks.
@@ -92,6 +95,47 @@ public class TaskList {
         Task removedTask = items.remove(index);
         String notice = String.format("This task has been deleted \n$s\n", removedTask);
         return notice;
+    }
+
+    /**
+     * Updates a task in the list.
+     * @param index The index of the task to be updated.
+     * @param description The new description of the task.
+     * @param to The new 'to' date of the task.
+     * @param from The new 'from' date of the task.
+     * @param by The new 'by' date of the task.
+     * @return The updated task.
+     */
+    public Task updateTask(int index, String description, String to, String from, String by) throws SamException {
+        Task task = this.items.get(index);
+        if (description != null) {
+            task.setDescription(description);
+        }
+        if (task instanceof ToDo) {
+            if (to != null || from != null || by != null) {
+                throw new SamException("Todo tasks do not require a date/time input.");
+            }
+        } else if (task instanceof Deadline) {
+            if (to != null || from != null) {
+                throw new SamException("Deadline only requires one date");
+            }
+            if (by != null) {
+                Deadline newDeadline = (Deadline) task;
+                newDeadline.setBy(by);
+            }
+        } else if (task instanceof Event) {
+            if (by != null) {
+                throw new SamException("Event tasks do not have a 'by' date.");
+            }
+            Event newEvent = (Event) task;
+            if (to != null) {
+                newEvent.setTo(to);
+            }
+            if (from != null) {
+                newEvent.setFrom(from);
+            }
+        }
+        return task;
     }
 
     /**

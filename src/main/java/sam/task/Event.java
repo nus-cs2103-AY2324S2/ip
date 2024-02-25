@@ -35,6 +35,28 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
     }
 
+    /**
+     * Sets the start datetime of the event.
+     * @param from The start time of the event.
+     * @throws SamException If the start time is not specified.
+     */
+    public void setFrom(String from) throws SamException {
+        if (from.isBlank()) {
+            throw new SamException("Please provide a starting time.\n");
+        }
+        this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+    }
+
+    /**
+     * Sets the end datetime of the event.
+     */
+    public void setTo(String to) throws SamException {
+        if (to.isBlank()) {
+            throw new SamException("Please provide an ending time.\n");
+        }
+        this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s", super.toString(), from.format(OUTPUT_FORMATTER),
