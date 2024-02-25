@@ -11,10 +11,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private Duke duke;
+    private Brian brian;
 
     public Main() throws IOException {
-        this.duke = new Duke();
+        this.brian = new Brian();
     }
 
     @Override
@@ -22,11 +22,12 @@ public class Main extends Application {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            primaryStage.setTitle("Brian");
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             primaryStage.setScene(scene);
 
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setController(brian);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

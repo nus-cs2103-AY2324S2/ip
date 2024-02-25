@@ -10,15 +10,15 @@ import brian.task.TaskList;
 import brian.ui.TextUi;
 import brian.utils.DukeException;
 
-class DukeConfig {
+class Config {
     private final String filePath;
 
-    public DukeConfig(String filePath) {
+    public Config(String filePath) {
         this.filePath = filePath;
     }
 
-    public static DukeConfig Default() {
-        return new DukeConfig("./data/duke.txt");
+    public static Config Default() {
+        return new Config("./data/duke.txt");
     }
 
     public String getFilePath() {
@@ -26,16 +26,16 @@ class DukeConfig {
     }
 }
 
-public class Duke {
+public class Brian {
     private final TextUi ui;
     private final Storage storage;
     private TaskList tasks;
 
-    Duke() throws IOException {
-        this(DukeConfig.Default());
+    Brian() throws IOException {
+        this(Config.Default());
     }
 
-    Duke(DukeConfig config) throws IOException {
+    Brian(Config config) throws IOException {
         ui = new TextUi();
         storage = new FileStorage(config.getFilePath());
         try {
@@ -47,7 +47,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws IOException {
-        new Duke().run();
+        new Brian().run();
     }
 
     public String getResponse(String input) {
