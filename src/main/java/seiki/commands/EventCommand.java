@@ -48,10 +48,13 @@ public class EventCommand extends Command {
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else {
             String taskName = String.join(" ", args.subList(0, args.indexOf("/from")));
+            assert !taskName.isEmpty() : "Task name should not be empty";
             String startDateTimeStr = String.join(" ",
                     args.subList(args.indexOf("/from") + 1, args.indexOf("/to")));
+            assert !startDateTimeStr.isEmpty() : "Start date and time should not be empty";
             String endDateTimeStr = String.join(" ",
                     args.subList(args.indexOf("/to") + 1, args.size()));
+            assert !endDateTimeStr.isEmpty() : "End date and time should not be empty";
             try {
                 LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, DATE_TIME_FORMATTER);
                 LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeStr, DATE_TIME_FORMATTER);

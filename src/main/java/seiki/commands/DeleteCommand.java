@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
                 if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
                     throw new SeikiException("Please enter a valid task number.");
                 } else {
+                    assert taskNumber >= 0 || taskNumber < taskList.getTaskCount() : "Task number should be within range of task list";
                     Task task = taskList.getTaskByNumber(taskNumber);
                     taskList.deleteTask(task);
                     storage.save(taskList);

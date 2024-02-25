@@ -50,6 +50,7 @@ public class Ui {
             out.append(m).append("\n");
         }
         String temp = out.toString();
+        assert !temp.isEmpty() : "Output should not be empty";
         out = new StringBuilder();
         return temp;
     }
@@ -86,6 +87,7 @@ public class Ui {
      * @param taskList
      */
     public String showList(TaskList taskList) {
+        assert taskList.getTaskCount() > 0 : "Task list should contain tasks";
         return showToUser(MESSAGE_LIST_SUCCESS,
                 taskList.toString());
     }

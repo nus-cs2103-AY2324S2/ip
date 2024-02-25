@@ -34,8 +34,10 @@ public class DeadlineCommand extends Command {
                     + "Please use the following format: deadline [task title] /by [datetime]");
         } else {
             String taskName = String.join(" ", args.subList(0, args.indexOf("/by")));
+            assert !taskName.isEmpty() : "Task name should not be empty";
             String dateTimeStr = String.join(" ",
                     args.subList(args.indexOf("/by") + 1, args.size()));
+            assert !dateTimeStr.isEmpty() : "Date and time should not be empty";
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
                 DeadlineTask task = new DeadlineTask(taskName, dateTime);

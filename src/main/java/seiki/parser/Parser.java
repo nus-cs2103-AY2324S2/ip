@@ -29,6 +29,7 @@ public class Parser {
     public static Command parse(String input) throws SeikiException {
         try {
             ArrayList<String> args = new ArrayList<>(Arrays.asList(input.split(" ")));
+            assert !args.isEmpty() : "Argument should not be empty";
             String cmd = args.remove(0);
 
             switch (cmd) {

@@ -22,6 +22,7 @@ public class ToDoCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         String taskTitle = String.join(" ", args);
+        assert !taskTitle.isEmpty() : "Task title should not be empty";
         ToDoTask task = new ToDoTask(taskTitle);
         taskList.addTask(task);
         storage.save(taskList);

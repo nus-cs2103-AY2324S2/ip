@@ -24,12 +24,15 @@ public class FindCommand extends Command {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to search from.");
         } else {
+            assert taskList.getTaskCount() > 0 : "Task list should contain tasks";
             String keyword = args.get(0).trim();
+            assert !keyword.isEmpty() : "Keyword should not be empty";
             TaskList resultList = taskList.searchByKeyword(keyword);
 
             if (resultList.getTaskCount() == 0) {
                 throw new SeikiException("There are no task that matches the keyword: " + keyword);
             } else {
+                assert resultList.getTaskCount() > 0 : "Result list should contain tasks";
                 return ui.showFindTask(keyword, resultList);
             }
         }
