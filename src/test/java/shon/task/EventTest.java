@@ -47,7 +47,7 @@ public class EventTest {
     @Test
     public void constructor_invalidDateTime_exceptionThrown() {
         try {
-            assertEquals(new Event("", "06/02/2024 0000", "06/02/2024 0000", false),
+            assertEquals(new Event("", "06/02/2024 0000", "06/02/2024 0100", false),
                     new Event("Project Meeting", "06/02/2024 0000", "b", false));
             fail();
         } catch (DateTimeParseException e) {
