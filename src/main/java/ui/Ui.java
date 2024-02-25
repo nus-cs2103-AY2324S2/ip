@@ -21,7 +21,7 @@ public class Ui {
 
     private static final String QUESTION = "What can I do for you?";
 
-    private static final String BYE = " Bye. Hope to see you again soon!";
+    private static final String BYE = " Bye dardar. Hope to see you again soon!";
 
     private static final String MARKED = "Nice! I've marked this task as done:";
 
