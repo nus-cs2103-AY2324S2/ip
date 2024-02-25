@@ -50,7 +50,8 @@ public class Shon {
     private String executeCommand(Command command) throws ParameterException, DateTimeParseException {
         try {
             String output = command.execute();
-            this.storage.updateData(this.tasks, this.notes);
+            this.storage.updateTasks(this.tasks);
+            this.storage.updateNotes(this.notes);
             return output;
         } catch (DateTimeParseException e) {
             String parsedString = e.getParsedString();
