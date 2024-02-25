@@ -21,7 +21,7 @@ Here we explore all the features of **Homie!**
 {TODO_DESCRIPTION}`, `{TODO_DESCRIPTION}` is a parameter which can be used as `todo read book`.
 - Commands are **case-insensitive** but parameters are **case-sensitive**. e.g. both `todo read book` and `TODO read 
 book` will add a new todo task named 'read book' while `todo read BOOK` will add a new todo task named 'read BOOK'.
-- After adding or deleting a new task, Homie will remind you of the number of tasks remaining in your task list.
+- After adding or deleting a task, **Homie** will remind you of the number of tasks remaining in your task list.
 
 ### Adding todo
 
@@ -53,14 +53,15 @@ _______________________________________
 Adds a new deadline task to the list of tasks.
 
 **Formats:**
-- `deadline {DEADLINE_DESCRIPTION} /by {DD-MM-YYYY HHmm}`
-- `dead {DEADLINE_DESCRIPTION} /by {DD-MM-YYYY HHmm}`
+- `deadline {DEADLINE_DESCRIPTION} /by {DD MM YYYY HHmm}`
+- `dead {DEADLINE_DESCRIPTION} /by {DD MM YYYY HHmm}`
 
 **Notes:**
 - `{DEADLINE_DESCRIPTION}` cannot be empty. Empty `{DEADLINE_DESCRIPTION}` will raise an exception and **no tasks**
 will be created. 
-- `{DD-MM-YYYY HHmm}` must be in the correct format as specified. Incorrect formats will raise an exception and 
-**no tasks** will be created.
+- `{DD MM YYYY HHmm}` must be in the correct format as specified with **no missing values**. 
+- **Incorrect formats** or **any missing values** will cause an exception and **no tasks** will be created.
+- Format of the output date time will be in `{MM-DD-YYYY HH:mm}` e.g. `02-24-2024 23:59`
 
 **Examples:**
 - `deadline CS2103 Quiz 3 /by 24 02 2024 2359`
@@ -80,14 +81,15 @@ _______________________________________
 Adds a new event task to the list of tasks.
 
 **Formats:** 
-- `event {EVENT_DESCRIPTION} /from {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}`
-- `e {EVENT_DESCRIPTION} /from {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}`
+- `event {EVENT_DESCRIPTION} /from {DD MM YYYY HHmm} /to {DD MM YYYY HHmm}`
+- `e {EVENT_DESCRIPTION} /from {DD MM YYYY HHmm} /to {DD MM YYYY HHmm}`
 
 **Notes:**
 - `{EVENT_DESCRIPTION}` cannot be empty. Empty `{EVENT_DESCRIPTION}` will raise an exception and no tasks will be
 created.
-- `{DD-MM-YYYY HHmm}` must be in the correct format as specified. Incorrect formats will raise an exception and no 
-tasks will be created.
+- `{DD MM YYYY HHmm}` must be in the correct format as specified with **no missing values**.
+- **Incorrect formats** or **any missing values** will cause an exception and **no tasks** will be created.
+- Format of the output date time will be in `{MM-DD-YYYY HH:mm}` e.g. `02-24-2024 23:59`
 
 **Examples:**
 - `event CS2103 Briefing /from 24 02 2024 1600 /to 24 02 2024 1800`
