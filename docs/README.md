@@ -231,3 +231,10 @@ This note has been deleted:
 
 Shon chatbot data are saved in the hard disk automatically after any command
 that changes the data. There is no need to save manually.
+
+## Editing the data file
+Shon chatbot data are saved automatically as text files `[JAR file locaiton]/data/tasks.txt` and
+`[JAR file location/data/notes.txt]`. Advanced users are welcome to update data directly
+by editing the text files.
+
+> **Caution**: If your changes to the data files make its format invalid, affected data will be deleted.
