@@ -14,33 +14,32 @@ public class ListEntry {
     }
 
     protected String task;
-    protected boolean isDone;
+    protected boolean check;
     protected String type;
 
     protected LocalDate taskStart;
 
     protected LocalDate taskEnd;
 
-
-    public ListEntry(String task, boolean isDone, String type, LocalDate tStart, LocalDate tEnd) {
+    public ListEntry(String task, boolean check, String type, LocalDate tStart, LocalDate tEnd) {
         this.task = task;
-        this.isDone = isDone;
+        this.check = check;
         this.type = type;
         this.taskStart = tStart;
         this.taskEnd = tEnd;
     }
 
-    public ListEntry(String task, boolean isDone, String type, LocalDate tEnd) {
+    public ListEntry(String task, boolean check, String type, LocalDate tEnd) {
         this.task = task;
-        this.isDone = isDone;
+        this.check = check;
         this.type = type;
         this.taskStart = null;
         this.taskEnd = tEnd;
     }
 
-    public ListEntry(String task, boolean isDone, String type) {
+    public ListEntry(String task, boolean check, String type) {
         this.task = task;
-        this.isDone = isDone;
+        this.check = check;
         this.type = type;
         this.taskStart = null;
         this.taskEnd = null;
@@ -51,19 +50,30 @@ public class ListEntry {
      * Marks the check of the entry as true
      */
     public void markEntry () {
-        this.isDone = true;
+        this.check = true;
     }
 
     /**
      * Unmark the check of the entry as false
      */
     public void unmarkEntry() {
-        this.isDone = false;
+        this.check = false;
+    }
+
+    /**
+     * Returns true if the task name contains the given keyword.
+     * Ignores capitalisation.
+     *
+     * @param keyword string to compare
+     * @return boolean whether contains the keyword
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.task.toLowerCase().contains(keyword.toLowerCase());
     }
 
     @Override
     public String toString() {
-        return ("[" + this.type + "]" + (this.isDone ? "[X] " : "[ ] ") + this.task);
+        return ("[" + this.type + "]" + (this.check ? "[X] " : "[ ] ") + this.task);
     }
 }
 

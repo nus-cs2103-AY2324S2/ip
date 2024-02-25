@@ -17,8 +17,8 @@ public class Parser {
      * Identifies the string to contain command specific keywords and prompts the respective command.
      * Prompts an Invalid Command if the additional arguments do not fit the command criteria
      *
-     * @param str the command string
-     * @return the command to be executed
+     * @param str the command string.
+     * @return the command to be executed.
      */
     public static Command parse(String str) {
         String[] strings = str.trim().split(" ");
@@ -102,6 +102,14 @@ public class Parser {
                 return new InvalidCommand("too many arguments for [load]");
             } else {
                 return new LoadCommand();
+            }
+        } else if (strings[0].equalsIgnoreCase("find")) {
+            if (strings.length < 2) {
+                return new InvalidCommand("too little arguments for [find]");
+            } else if (strings.length > 2) {
+                return new InvalidCommand("too many arguments for [find]");
+            } else {
+                return new FindCommand(strings[1]);
             }
         } else if (strings[0].equalsIgnoreCase("exit")) {
             return new ExitCommand();

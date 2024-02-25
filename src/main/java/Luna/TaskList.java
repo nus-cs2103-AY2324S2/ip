@@ -1,10 +1,9 @@
 package Luna;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents a list to track tasks. A tasklist contains listEntry to represent the tasks.
+ * Represents a list to track tasks. A task list contains listEntry to represent the tasks.
  */
 public class TaskList {
     ArrayList<ListEntry> list;
@@ -14,9 +13,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a given listEntry to the tasklist
+     * Adds a given listEntry to the task list
      *
-     * @param listEntry to be added to the tasklist
+     * @param listEntry to be added to the task list
      */
     public void add(ListEntry listEntry) {
         list.add(listEntry);
@@ -24,7 +23,7 @@ public class TaskList {
 
 
     /**
-     * Deletes a entry from the tasklist based on a given index
+     * Deletes an entry from the task list based on a given index
      *
      * @param index of the task in the list
      */
@@ -51,20 +50,20 @@ public class TaskList {
     }
 
     /**
-     * Returns true if the given index is valid for the tasklist.
+     * Returns true if the given index is valid for the task list.
      * Else return false
      *
      * @param index of the task in the list
-     * @return boolean whether the index is valid for the tasklist
+     * @return boolean whether the index is valid for the task list
      */
     public boolean isValidIndex(int index) {
         return ((index < this.size()) && (index >= 0));
     }
 
     /**
-     * Returns the size of the tasklist
+     * Returns the size of the task list
      *
-     * @return tasklist size
+     * @return task list size
      */
     public int size() {
         return list.size();
@@ -91,7 +90,7 @@ public class TaskList {
     }
 
     /**
-     * Removes all the entries in the tasklist
+     * Removes all the entries in the task list
      */
     public void clear() {
         this.list.clear();

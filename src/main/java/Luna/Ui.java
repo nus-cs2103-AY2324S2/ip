@@ -49,7 +49,7 @@ public class Ui {
         String msg = "";
         msg += String.format("%30s", " （„• ֊ •„)♡\n");
         msg += "heyo! my name is ✦" + this.name + "✦\n";
-        msg += "What would you like for me to do?\n";
+        msg += "What would you like for me to do???\n";
         return msg;
     }
 
