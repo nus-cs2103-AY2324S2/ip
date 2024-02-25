@@ -177,4 +177,8 @@ public class Ui {
     public String getDeleteTaskSuccess() {
         return "Acknowledged. The following task has been removed:\n";
     }
+
+    public String getTagTaskSuccess(String tag) {
+        return "Confirmed. The following task has been tagged with " + tag + ":\n";
+    }
 }

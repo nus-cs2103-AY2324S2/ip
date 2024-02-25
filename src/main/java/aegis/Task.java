@@ -1,5 +1,7 @@
 package aegis;
 
+import java.util.HashSet;
+
 /**
  * Task class represents a basic type of Task with no particular specialized fields.
  * Used as a superclass that more specialized task types can inherit from.
@@ -7,6 +9,7 @@ package aegis;
 public class Task {
     protected String description;
     protected Boolean isDone;
+    protected HashSet<String> tags;
 
     /**
      * Constructor for creating a Task object.
@@ -16,6 +19,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new HashSet<String>();
     }
 
     /**
@@ -79,5 +83,14 @@ public class Task {
     public boolean checkDescription(String keyword) {
         assert keyword != null : "Keyword to search for should not be null";
         return description.contains(keyword);
+    }
+
+    /**
+     * Adds a new tag to the tags of the Task.
+     *
+     * @param tag Tag to be added.
+     */
+    public void addTag(String tag) {
+        tags.add(tag);
     }
 }

@@ -56,7 +56,8 @@ public class Parser {
      * @return Index of a task.
      */
     public int parseTaskIndex(String input) {
-        return Integer.parseInt(input) - 1;
+        StringTokenizer st = new StringTokenizer(input);
+        return Integer.parseInt(st.nextToken()) - 1;
     }
 
     /**

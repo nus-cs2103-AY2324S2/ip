@@ -213,4 +213,16 @@ public class TaskList {
         }
         return result;
     }
+
+    /**
+     * Adds a tag to the specified task.
+     *
+     * @param index Index of the task to add the tag to.
+     * @param tag Tag to add to the task.
+     */
+    public void tagTask(int index, String tag) {
+        assert index >= 0 && index < taskList.size() : "Index should be within bounds";
+        Task selectedTask = taskList.get(index);
+        selectedTask.addTag(tag);
+    }
 }

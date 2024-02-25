@@ -121,6 +121,9 @@ public class Aegis {
         case "find":
             commandResult.add(getIdentifiedTasks(arguments));
             break;
+        case "tag":
+            commandResult.add(tagTask(arguments));
+            break;
         default:
             throw new AegisException("Command not recognized. Please try again.");
         }
@@ -232,5 +235,22 @@ public class Aegis {
                     + "\nfind <keyword>\n";
         }
         return taskList.getTasksWithKeyword(keyword);
+    }
+
+    private static String tagTask(String arguments) {
+        try {
+            int taskNum = parser.parseTaskIndex(arguments);
+            String tag = parser.parseArguments(arguments);
+
+            if (tag.isBlank() || !tag.contains("#")) {
+                return "Invalid tag provided. Please specify a tag in the following format:\n"
+                        + "#<tag>";
+            }
+
+            taskList.tagTask(taskNum, tag);
+            return ui.getTagTaskSuccess(tag) + taskList.getTask(taskNum).toString();
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return "Invalid task index provided.\nPlease provide a valid task index.\n";
+        }
     }
 }
