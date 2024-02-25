@@ -33,8 +33,8 @@ public class Ui {
      * Prints any error encountered during execution.
      * @param e YippeeException encountered.
      */
-    public void printError(YippeeException e) {
-        System.out.printf("        %s\n", e.getMessage());
+    public String printError(YippeeException e) {
+        return String.format("    %s\n", e.getMessage());
     }
 
     /**
@@ -60,10 +60,12 @@ public class Ui {
      * @param task Task user requested to add.
      * @param size Size of the resulting list of tasks after adding.
      */
-    public void addTaskRespond(Task task, int size) {
-        System.out.println("      Got it! I added:");
-        System.out.printf("        %s\n", task.toString());
-        System.out.printf("      You now have %d tasks in your list :D\n", size);
+    public String addTaskRespond(Task task, int size) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Got it! I added:\n");
+        stringBuilder.append(String.format("    %s\n", task.toString()));
+        stringBuilder.append(String.format("You now have %d tasks in your list :D\n", size));
+        return stringBuilder.toString();
     }
 
     /**
@@ -71,66 +73,83 @@ public class Ui {
      * @param task Task user requested to delete.
      * @param size Size of the resulting list of tasks after deleting.
      */
-    public void deleteTaskRespond(Task task, int size) {
-        System.out.println("      Successfully removed task!");
-        System.out.printf("        %s\n", task.toString());
-        System.out.printf("      You have %d tasks left in the list :D\n", size);
+    public String deleteTaskRespond(Task task, int size) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Successfully removed task!\n");
+        stringBuilder.append(String.format("    %s\n", task.toString()));
+        stringBuilder.append(String.format("You have %d tasks left in the list :D\n", size));
+        return stringBuilder.toString();
     }
 
     /**
      * Prints text for confirmation after user successfully marks task as complete.
      * @param task Task user requested to mark as complete.
      */
-    public void markTaskRespond(Task task) {
-        System.out.println("      Yippee! I have marked this task as done ;D");
-        System.out.printf("        %s\n", task.toString());
+    public String markTaskRespond(Task task) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Yippee! I have marked this task as done ;D\n");
+        stringBuilder.append(String.format("        %s\n", task.toString()));
+        return stringBuilder.toString();
     }
 
     /**
      * Prints text for confirmation after user successfully marks task as incomplete.
      * @param task Task user requested to mark as incomplete.
      */
-    public void unmarkTaskRespond(Task task) {
-        System.out.println("      Awww...I have marked this task as not done yet :(");
-        System.out.printf("        %s\n", task.toString());
+    public String unmarkTaskRespond(Task task) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Awww...I have marked this task as not done yet :(\n");
+        stringBuilder.append(String.format("        %s\n", task.toString()));
+        return stringBuilder.toString();
     }
 
     /**
      * Prints text for exiting the chatbot.
      */
-    public void endCommands() {
-        this.sc.close();
-        System.out.println("      Bye! Hope to see you again soon wooo!");
-        showLine();
+    public String endCommands() {
+        return "Bye! Hope to see you again soon wooo!";
     }
 
     /**
      * Prints content of list provided.
      * @param taskList List of Tasks to print.
      */
-    public void printList(TaskList taskList) {
+    public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getList();
         int count = 1;
+        String output = "";
         if (tasks.size() == 0) {
-            System.out.println("      Nothing added to list yet!");
+            return "Nothing added to list yet!";
         }
         for (Task task : tasks) {
-            System.out.printf("      %d. %s\n", count, task.toString());
+            String entry = String.format("      %d. %s\n", count, task.toString());
             count++;
+            output += entry;
         }
         assert count >= 1;
+        return output;
     }
 
-    public void printStats() {
-        System.out.println("      Here are some statistics of your current session so far!");
-        System.out.format("            Total created tasks: %d\n", CreateTaskCommand.getTotalCreated());
-        System.out.format("            Total created todo tasks: %d\n", ToDo.getTodoCount());
-        System.out.format("            Total created deadline tasks: %d\n", Deadline.getDeadlineCount());
-        System.out.format("            Total created event tasks: %d\n", Event.getEventCount());
-        showLine();
-        System.out.println("      You also performed these actions:");
-        System.out.format("            Marked complete %d times\n", MarkCommand.getMarkCompleteCount());
-        System.out.format("            Marked incomplete %d times\n", MarkCommand.getMarkInCompleteCount());
-        System.out.format("            Deleted tasks %d times\n", DeleteCommand.getDeleteCount());
+    public String printStats() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Here are some statistics of your current session so far!\n");
+        stringBuilder.append(
+                String.format("      Total created tasks: %d\n", CreateTaskCommand.getTotalCreated()));
+        stringBuilder.append(
+                String.format("      Total created todo tasks: %d\n", ToDo.getTodoCount()));
+        stringBuilder.append(
+                String.format("      Total created deadline tasks: %d\n", Deadline.getDeadlineCount()));
+        stringBuilder.append(
+                String.format("      Total created event tasks: %d\n\n", Event.getEventCount()));
+        stringBuilder.append("You also performed these actions:\n");
+        stringBuilder.append(
+                String.format("      Marked complete %d times\n", MarkCommand.getMarkCompleteCount()));
+        stringBuilder.append(
+                String.format("      Marked incomplete %d times\n", MarkCommand.getMarkInCompleteCount()));
+        stringBuilder.append(
+                String.format("      Deleted tasks %d times\n", DeleteCommand.getDeleteCount()));
+
+        return stringBuilder.toString();
     }
 }

@@ -23,9 +23,9 @@ public class DeleteCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        tasks.deleteTask(this.deleteNumber);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         deleteCount++;
+        return tasks.deleteTask(this.deleteNumber);
     }
 
     public static int getDeleteCount() {

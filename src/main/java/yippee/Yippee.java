@@ -21,7 +21,7 @@ import yippee.exceptions.YippeeException;
  * It is able to add, delete, and mark tasks as complete/incomplete
  */
 public class Yippee extends Application {
-    private String storePath;
+    private static final String FILE_PATH = "./data/storage.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -32,22 +32,14 @@ public class Yippee extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
-    private Image duke = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image user = new Image(getClass().getResourceAsStream("/images/Duck.jpg"));
+    private Image yippee = new Image(getClass().getResourceAsStream("/images/Yippee.jpg"));
     /**
      * Instantiates the Yippee bot instance.
      * @param filePath Path where data is stored.
      */
     public Yippee(String filePath) {
-        this.storePath = filePath;
-        this.storage = new Storage(filePath);
-        this.ui = new Ui();
-        try {
-            this.taskList = storage.load();
-        } catch (YippeeException e) {
-            ui.printError(e);
-            this.taskList = new TaskList();
-        }
+
     }
 
     public Yippee() {
@@ -92,6 +84,14 @@ public class Yippee extends Application {
     
     @Override
     public void start(Stage stage) {
+        this.storage = new Storage(FILE_PATH);
+        this.ui = new Ui();
+        try {
+            this.taskList = storage.load();
+        } catch (YippeeException e) {
+            ui.printError(e);
+            this.taskList = new TaskList();
+        }
         AnchorPane mainLayout = setUpComponents(stage);
         setDimensions(stage, mainLayout);
         setUserInputDim();
@@ -101,8 +101,6 @@ public class Yippee extends Application {
         setAnchor();
 
         setInputHandler();
-
-
     }
 
     private AnchorPane setUpComponents(Stage stage) {
@@ -177,7 +175,7 @@ public class Yippee extends Application {
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getDukeDialog(dukeText, new ImageView(yippee))
         );
         userInput.clear();
     }
@@ -187,7 +185,12 @@ public class Yippee extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+            try {
+                Command command = new Parser().parseCommand(input);
+                return command.execute(taskList, ui, storage);
+            } catch (YippeeException e) {
+                return ui.printError(e);
+            }
     }
 
     public static void main(String[] args) {

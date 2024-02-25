@@ -50,7 +50,7 @@ public class Storage {
     }
 
     private File checkDir(String filePath) throws YippeeFileException {
-        File directory = new File(filePath);
+        File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
         }
