@@ -96,20 +96,8 @@ public class Ui {
 
     /** Show help message explaining the commands in the program. */
     public String showHelpMessage() {
-        return ("Type in text to add in a task to your list\n"
-            + "Other commands:\n"
-            + "add [task] - adds a task to the task list\n"
-            + "mark [input number] - mark a task as done\n"
-            + "unmark [input number] - unmark a task as undone\n"
-            + "todo [task] - add a TODO task to your list\n"
-            + "deadline [task] /by [deadline] - add a DEADLINE to your list\n"
-            + "event [task] /from [date] /to [date] - add an EVENT to your list\n"
-            + "delete [input number] - delete a task from task list\n"
-            + "list - list out the current tasks you have\n"
-            + "find {input} - find tasks based on search input\n"
-            + "viewschedule - view the current tasks you currently have in a calendar format\n"
-            + "bye - exit the program\n"
-            + "(NOTE: deadline should be in dd-mm-yyyy hhmm format)");
+        return ("Click on the link here to the user guide:" 
+            + "https://xuelinglow.github.io/ip/");
     }
 
     /** Show end message when program is exited. */
