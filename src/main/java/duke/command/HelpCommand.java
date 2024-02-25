@@ -1,9 +1,9 @@
 package duke.command;
 
+import duke.Parser;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.Parser;
 
 
 /**
@@ -11,7 +11,7 @@ import duke.Parser;
  * This class extends the Command class and overrides the execute method to perform
  * the help operation.
  */
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
     /**
      * The command to get help for.
      */
@@ -109,8 +109,9 @@ public class HelpCommand extends Command{
                         + "10. bye\n"
                         + "Type 'help <command>' to find out more about a specific command.");
             } else {
-                return ui.printMessage("I'm sorry, I don't know what that means. Type 'help' to see a list of commands.\n"
-                + "Type 'help <command>' to find out more about a specific command.");
+                return ui.printMessage("I'm sorry, I don't know what that means."
+                        + "Type 'help' to see a list of commands.\n"
+                        + "Type 'help <command>' to find out more about a specific command.");
             }
         }
     }

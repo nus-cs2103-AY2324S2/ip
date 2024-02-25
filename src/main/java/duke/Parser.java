@@ -26,16 +26,16 @@ public class Parser {
      * Enumerates the different types of instructions that can be parsed.
      */
     public enum Instructions {
-        BYE ("^bye", "^exit", "^quit"),
-        LIST ("^list", "^l", "^ls"),
-        MARK ("^mark \\d+", "^m \\d+", "^done \\d+"),
-        UNMARK ("^unmark \\d+", "^u \\d+", "^um \\d+", "^undone \\d+"),
-        DELETE ("^delete \\d+", "^del \\d+", "^rm \\d+"),
-        TODO ("^todo .+", "^td .+"),
-        DEADLINE ("^deadline .+", "^dl .+"),
-        EVENT ("^event .+", "^ev .+"),
-        FIND ("^find \\S+$", "^f \\S+$", "^search \\S+$"),
-        HELP ("^help", "^h", "^help \\S+$", "^h \\S+$");
+        BYE("^bye", "^exit", "^quit"),
+        LIST("^list", "^l", "^ls"),
+        MARK("^mark \\d+", "^m \\d+", "^done \\d+"),
+        UNMARK("^unmark \\d+", "^u \\d+", "^um \\d+", "^undone \\d+"),
+        DELETE("^delete \\d+", "^del \\d+", "^rm \\d+"),
+        TODO("^todo .+", "^td .+"),
+        DEADLINE("^deadline .+", "^dl .+"),
+        EVENT("^event .+", "^ev .+"),
+        FIND("^find \\S+$", "^f \\S+$", "^search \\S+$"),
+        HELP("^help", "^h", "^help \\S+$", "^h \\S+$");
 
         /** Array of regex patterns for each instruction. */
         private final String[] patterns;
@@ -63,9 +63,9 @@ public class Parser {
      * Enumerates the different types of date specifiers that can be parsed.
      */
     public enum DateSpecifiers {
-        BY ("/by", "/at", "/b", "/a"),
-        FROM ("/from", "/start", "/f", "/s"),
-        TO ("/to", "/end ", "/t ", "/e");
+        BY("/by", "/at", "/b", "/a"),
+        FROM("/from", "/start", "/f", "/s"),
+        TO("/to", "/end ", "/t ", "/e");
 
         /** Array of regex patterns for each specifier. */
         private final String[] patterns;
@@ -84,9 +84,9 @@ public class Parser {
      * Enumerates the different types of date formats that can be parsed.
      */
     public enum DateFormats {
-        FORMAT1 ("dd/MM/yyyy HHmm"),
-        FORMAT2 ("dd-MM-yyyy HHmm"),
-        FORMAT3 ("ddMMyyyy HHmm");
+        FORMAT1("dd/MM/yyyy HHmm"),
+        FORMAT2("dd-MM-yyyy HHmm"),
+        FORMAT3("ddMMyyyy HHmm");
 
         /** String representing the date format. */
         private final String format;
@@ -260,7 +260,7 @@ public class Parser {
             tempString = eventData[1];
             eventData = specifierSplitter(tempString, DateSpecifiers.TO);
             LocalDateTime from = parseDate(eventData[0].trim());
-            LocalDateTime to= parseDate(eventData[1].trim());
+            LocalDateTime to = parseDate(eventData[1].trim());
             Event event = new Event(description, from, to);
             return new AddCommand(event);
         } catch (IllegalArgumentException | DateTimeParseException e) {

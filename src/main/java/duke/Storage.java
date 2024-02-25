@@ -99,7 +99,8 @@ public class Storage {
      * @return a Todo object containing the parsed todo data
      * @throws ParseException if the todo data is corrupted or incomplete
      */
-    private Todo readTodoFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+    private Todo readTodoFromFile(String[] data, String taskComplete, String taskDescription, int lineNum)
+            throws ParseException {
         //Check correct number of fields
         if (data.length != 3) {
             throw new ParseException("Todo does not have 3 data fields.",
@@ -131,7 +132,8 @@ public class Storage {
      * @return a Deadline object containing the parsed deadline data
      * @throws ParseException if the deadline data is corrupted or incomplete
      */
-    private Deadline readDeadlineFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+    private Deadline readDeadlineFromFile(String[] data, String taskComplete, String taskDescription, int lineNum)
+            throws ParseException {
         //Check correct number of fields
         if (data.length != 4) {
             throw new ParseException("Deadline does not have 4 data fields.",
@@ -165,7 +167,8 @@ public class Storage {
      * @return an Event object containing the parsed event data
      * @throws ParseException if the event data is corrupted or incomplete
      */
-    private Event readEventFromFile(String[] data, String taskComplete, String taskDescription, int lineNum) throws ParseException {
+    private Event readEventFromFile(String[] data, String taskComplete, String taskDescription, int lineNum)
+            throws ParseException {
         //Check correct number of fields
         if (data.length != 5) {
             throw new ParseException("Event does not have 5 data fields.",
